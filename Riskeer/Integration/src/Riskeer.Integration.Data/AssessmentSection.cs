@@ -71,7 +71,6 @@ namespace Riskeer.Integration.Data
         private PipingStructureFailureMechanism pipingStructure;
         private StabilityPointStructuresFailureMechanism stabilityPointStructures;
         private DuneErosionFailureMechanism duneErosion;
-        private TechnicalInnovationFailureMechanism technicalInnovation;
         private RoundedDouble failureProbabilityMarginFactor;
 
         /// <summary>
@@ -127,7 +126,6 @@ namespace Riskeer.Integration.Data
             stabilityPointStructures = new StabilityPointStructuresFailureMechanism();
             pipingStructure = new PipingStructureFailureMechanism();
             duneErosion = new DuneErosionFailureMechanism();
-            technicalInnovation = new TechnicalInnovationFailureMechanism();
             OtherFailureMechanism = new OtherFailureMechanism();
 
             failureProbabilityMarginFactor = new RoundedDouble(2);
@@ -407,24 +405,6 @@ namespace Riskeer.Integration.Data
         }
 
         /// <summary>
-        /// Gets or sets the "Technische innovaties - Technische innovaties" failure mechanism.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the contribution of <paramref name="value"/>
-        /// is not equal to the contribution of the current failure mechanism.</exception>
-        public TechnicalInnovationFailureMechanism TechnicalInnovation
-        {
-            get
-            {
-                return technicalInnovation;
-            }
-            set
-            {
-                ValidateContribution(technicalInnovation, value);
-                technicalInnovation = value;
-            }
-        }
-
-        /// <summary>
         /// Gets the "Overige" category failure mechanism.
         /// </summary>
         public OtherFailureMechanism OtherFailureMechanism { get; }
@@ -519,7 +499,6 @@ namespace Riskeer.Integration.Data
             yield return PipingStructure;
             yield return StabilityPointStructures;
             yield return DuneErosion;
-            yield return TechnicalInnovation;
         }
 
         public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()

@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 219;
+        private const int expectedNumberOfRemovedInstances = 215;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(71, observables.Length);
+            Assert.AreEqual(69, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -375,12 +375,6 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.Contains(observables, pipingStructureFailureMechanism);
             CollectionAssert.Contains(observables, pipingStructureFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, pipingStructureFailureMechanism.SectionResults);
-
-            TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
-            CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.SectionResultsOld);
-            CollectionAssert.Contains(observables, technicalInnovationFailureMechanism);
-            CollectionAssert.Contains(observables, technicalInnovationFailureMechanism.SectionResultsOld);
 
             CollectionAssert.AreEqual(referenceLine.Points, assessmentSection.ReferenceLine.Points);
 

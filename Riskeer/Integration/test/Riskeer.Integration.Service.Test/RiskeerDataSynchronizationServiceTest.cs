@@ -1035,10 +1035,6 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.Sections);
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResults);
-
-            TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
-            CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(technicalInnovationFailureMechanism.SectionResultsOld);
         }
 
         [Test]
@@ -1663,7 +1659,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(71, changedObjects.Length);
+            Assert.AreEqual(69, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
@@ -1763,10 +1759,6 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism);
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism.SectionResults);
-
-            TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
-            CollectionAssert.Contains(changedObjects, technicalInnovationFailureMechanism);
-            CollectionAssert.Contains(changedObjects, technicalInnovationFailureMechanism.SectionResultsOld);
         }
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(AssessmentSection assessmentSection)
@@ -1787,7 +1779,6 @@ namespace Riskeer.Integration.Service.Test
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.PipingStructure));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StabilityPointStructures));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.DuneErosion));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLineOld(assessmentSection.TechnicalInnovation));
             return expectedRemovedObjects;
         }
 
@@ -1983,26 +1974,17 @@ namespace Riskeer.Integration.Service.Test
             }
         }
 
-        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLineOld<T>(T failureMechanism)
-            where T : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResultOld>
+        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
+            where T : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>
         {
             foreach (FailureMechanismSection section in failureMechanism.Sections)
             {
                 yield return section;
             }
 
-            foreach (FailureMechanismSectionResultOld sectionResult in failureMechanism.SectionResultsOld)
+            foreach (FailureMechanismSectionResultOld sectionResultOld in failureMechanism.SectionResultsOld)
             {
-                yield return sectionResult;
-            }
-        }
-
-        private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
-            where T : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>
-        {
-            foreach (object failureMechanismObject in GetExpectedRemovedObjectsWhenClearingReferenceLineOld(failureMechanism))
-            {
-                yield return failureMechanismObject;
+                yield return sectionResultOld;
             }
 
             foreach (FailureMechanismSectionResult sectionResult in failureMechanism.SectionResults)

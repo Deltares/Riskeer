@@ -100,7 +100,6 @@ namespace Riskeer.Integration.Data.Test
             Assert.NotNull(assessmentSection.PipingStructure);
             Assert.NotNull(assessmentSection.StabilityPointStructures);
             Assert.NotNull(assessmentSection.DuneErosion);
-            Assert.NotNull(assessmentSection.TechnicalInnovation);
 
             AssertExpectedContributions(composition, assessmentSection);
 
@@ -235,7 +234,7 @@ namespace Riskeer.Integration.Data.Test
             IFailureMechanism[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
 
             // Assert
-            Assert.AreEqual(16, failureMechanisms.Length);
+            Assert.AreEqual(15, failureMechanisms.Length);
             CollectionAssert.AreEqual(new IFailureMechanism[]
             {
                 assessmentSection.Piping,
@@ -252,8 +251,7 @@ namespace Riskeer.Integration.Data.Test
                 assessmentSection.ClosingStructures,
                 assessmentSection.PipingStructure,
                 assessmentSection.StabilityPointStructures,
-                assessmentSection.DuneErosion,
-                assessmentSection.TechnicalInnovation
+                assessmentSection.DuneErosion
             }, failureMechanisms);
         }
 
@@ -706,9 +704,6 @@ namespace Riskeer.Integration.Data.Test
             yield return new FailureMechanismTestData((section, failureMechanism) => section.DuneErosion = (DuneErosionFailureMechanism) failureMechanism,
                                                       new DuneErosionFailureMechanism(),
                                                       section => section.DuneErosion);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.TechnicalInnovation = (TechnicalInnovationFailureMechanism) failureMechanism,
-                                                      new TechnicalInnovationFailureMechanism(),
-                                                      section => section.TechnicalInnovation);
         }
 
         private class FailureMechanismTestData
