@@ -68,10 +68,9 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int closingStructures = 15;
         private const int pipingStructures = 16;
         private const int stabilityPointStructuresColumnIndex = 17;
-        private const int strengthStabilityLengthwiseColumnIndex = 18;
-        private const int duneErosionColumnIndex = 19;
-        private const int technicalInnovationColumnIndex = 20;
-        private const int expectedColumnCount = 21;
+        private const int duneErosionColumnIndex = 18;
+        private const int technicalInnovationColumnIndex = 19;
+        private const int expectedColumnCount = 20;
         private const string assemblyResultOutdatedWarning = "Toetsoordeel is verouderd. Druk op de \"Toetsoordeel verversen\" knop om opnieuw te berekenen.";
         private const string assemblyResultManualWarning = "Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.";
 
@@ -181,7 +180,6 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssertColumn(dataGridViewColumns[closingStructures], "BSKW");
                 AssertColumn(dataGridViewColumns[pipingStructures], "PKW");
                 AssertColumn(dataGridViewColumns[stabilityPointStructuresColumnIndex], "STKWp");
-                AssertColumn(dataGridViewColumns[strengthStabilityLengthwiseColumnIndex], "STKWl");
                 AssertColumn(dataGridViewColumns[duneErosionColumnIndex], "DA");
                 AssertColumn(dataGridViewColumns[technicalInnovationColumnIndex], "INN");
             }

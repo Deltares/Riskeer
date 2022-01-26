@@ -50,9 +50,8 @@ namespace Riskeer.Integration.Forms.Views
         private const int closingStructuresIndex = 15;
         private const int pipingStructureIndex = 16;
         private const int stabilityPointStructuresIndex = 17;
-        private const int strengthStabilityLengthwiseConstructionIndex = 18;
-        private const int duneErosionIndex = 19;
-        private const int technicalInnovationIndex = 20;
+        private const int duneErosionIndex = 18;
+        private const int technicalInnovationIndex = 19;
 
         private readonly CombinedFailureMechanismSectionAssemblyResult combinedFailureMechanismSectionAssemblyResult;
 
@@ -279,17 +278,6 @@ namespace Riskeer.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets the assembly result for strength stability lengthwise construction.
-        /// </summary>
-        public string StrengthStabilityLengthwiseConstruction
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.StrengthStabilityLengthwiseConstruction);
-            }
-        }
-
-        /// <summary>
         /// Gets the assembly result for dune erosion.
         /// </summary>
         public string DuneErosion
@@ -330,7 +318,6 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions.Add(closingStructuresIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(pipingStructureIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(stabilityPointStructuresIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
-            ColumnStateDefinitions.Add(strengthStabilityLengthwiseConstructionIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(duneErosionIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(technicalInnovationIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
         }
@@ -352,7 +339,6 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions[closingStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
             ColumnStateDefinitions[pipingStructureIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
             ColumnStateDefinitions[stabilityPointStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
-            ColumnStateDefinitions[strengthStabilityLengthwiseConstructionIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StrengthStabilityLengthwiseConstruction);
             ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
             ColumnStateDefinitions[technicalInnovationIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.TechnicalInnovation);
         }

@@ -948,14 +948,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             StabilityPointStructuresFailureMechanism stabilityPointStructures = assessmentSection.StabilityPointStructures;
             AssertAssemblyCells(stabilityPointStructures, assemblyOutput, rows[13].Cells);
 
-            StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstruction = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            AssertAssemblyCells(strengthStabilityLengthwiseConstruction, assemblyCategoryGroup, rows[14].Cells);
-
             DuneErosionFailureMechanism duneErosion = assessmentSection.DuneErosion;
-            AssertAssemblyCells(duneErosion, assemblyCategoryGroup, rows[15].Cells);
+            AssertAssemblyCells(duneErosion, assemblyCategoryGroup, rows[14].Cells);
 
             TechnicalInnovationFailureMechanism technicalInnovation = assessmentSection.TechnicalInnovation;
-            AssertAssemblyCells(technicalInnovation, assemblyCategoryGroup, rows[16].Cells);
+            AssertAssemblyCells(technicalInnovation, assemblyCategoryGroup, rows[15].Cells);
         }
 
         private static void AssertAssemblyCells(IFailureMechanism failureMechanism, DataGridViewCellCollection cells)

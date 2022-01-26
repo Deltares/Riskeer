@@ -175,7 +175,6 @@ namespace Riskeer.Integration.Forms.Views
                 CreateClosingStructuresFailureMechanismAssemblyResultRow(),
                 CreatePipingStructureFailureMechanismAssemblyResultRow(),
                 CreateStabilityPointsStructuresFailureMechanismAssemblyResultRow(),
-                CreateStrengthStabilityLengthWiseConstructionFailureMechanismAssemblyResultRow(),
                 CreateDuneErosionFailureMechanismAssemblyResultRow(),
                 CreateTechnicalInnovationFailureMechanismAssemblyResultRow()
             };
@@ -416,13 +415,6 @@ namespace Riskeer.Integration.Forms.Views
             PipingStructureFailureMechanism pipingStructure = AssessmentSection.PipingStructure;
             return new FailureMechanismAssemblyCategoryGroupResultRow(pipingStructure,
                                                                       () => PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(pipingStructure, true));
-        }
-
-        private FailureMechanismAssemblyCategoryGroupResultRow CreateStrengthStabilityLengthWiseConstructionFailureMechanismAssemblyResultRow()
-        {
-            StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstruction = AssessmentSection.StrengthStabilityLengthwiseConstruction;
-            return new FailureMechanismAssemblyCategoryGroupResultRow(strengthStabilityLengthwiseConstruction,
-                                                                      () => StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.AssembleFailureMechanism(strengthStabilityLengthwiseConstruction, true));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateTechnicalInnovationFailureMechanismAssemblyResultRow()

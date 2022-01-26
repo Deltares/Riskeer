@@ -167,13 +167,6 @@ namespace Riskeer.Integration.Data.Assembly
                                                   assessmentSection, StabilityPointStructuresAssemblyFunc, useManual));
             }
 
-            StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            if (failureMechanisms.Contains(strengthStabilityLengthwiseConstructionFailureMechanism))
-            {
-                inputs.Add(CreateCombinedSections(strengthStabilityLengthwiseConstructionFailureMechanism.SectionResultsOld,
-                                                  StrengthStabilityLengthwiseConstructionAssemblyFunc, useManual));
-            }
-
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             if (failureMechanisms.Contains(duneErosionFailureMechanism))
             {
@@ -356,14 +349,6 @@ namespace Riskeer.Integration.Data.Assembly
             {
                 return (sectionResult, assessmentSection, useManual) => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
                     sectionResult, assessmentSection.StabilityPointStructures, assessmentSection, useManual);
-            }
-        }
-
-        private static Func<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld, bool, FailureMechanismSectionAssemblyCategoryGroup> StrengthStabilityLengthwiseConstructionAssemblyFunc
-        {
-            get
-            {
-                return StrengthStabilityLengthwiseConstructionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
             }
         }
 

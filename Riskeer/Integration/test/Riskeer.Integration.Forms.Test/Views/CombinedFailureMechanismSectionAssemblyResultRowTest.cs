@@ -52,9 +52,8 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int closingStructuresIndex = 15;
         private const int pipingStructureIndex = 16;
         private const int stabilityPointStructuresIndex = 17;
-        private const int strengthStabilityLengthwiseIndex = 18;
-        private const int duneErosionIndex = 19;
-        private const int technicalInnovationIndex = 20;
+        private const int duneErosionIndex = 18;
+        private const int technicalInnovationIndex = 19;
 
         [Test]
         public void Constructor_CombinedFailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
@@ -96,7 +95,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, closingStructuresIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, pipingStructureIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, stabilityPointStructuresIndex);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, strengthStabilityLengthwiseIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, duneErosionIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, technicalInnovationIndex);
 
@@ -120,7 +118,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.ClosingStructures), row.ClosingStructures);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.PipingStructure), row.PipingStructure);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.StabilityPointStructures), row.StabilityPointStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.StrengthStabilityLengthwiseConstruction), row.StrengthStabilityLengthwiseConstruction);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.DuneErosion), row.DuneErosion);
             Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(result.TechnicalInnovation), row.TechnicalInnovation);
         }
@@ -155,7 +152,6 @@ namespace Riskeer.Integration.Forms.Test.Views
                     ClosingStructures = categoryGroup,
                     PipingStructure = categoryGroup,
                     StabilityPointStructures = categoryGroup,
-                    StrengthStabilityLengthwiseConstruction = categoryGroup,
                     DuneErosion = categoryGroup,
                     TechnicalInnovation = categoryGroup
                 });
@@ -181,7 +177,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[closingStructuresIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[pipingStructureIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityPointStructuresIndex], expectedBackgroundColor);
-            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[strengthStabilityLengthwiseIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[technicalInnovationIndex], expectedBackgroundColor);
         }
@@ -210,7 +205,6 @@ namespace Riskeer.Integration.Forms.Test.Views
                     ClosingStructures = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     PipingStructure = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     StabilityPointStructures = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
-                    StrengthStabilityLengthwiseConstruction = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     DuneErosion = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>(),
                     TechnicalInnovation = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()
                 });
