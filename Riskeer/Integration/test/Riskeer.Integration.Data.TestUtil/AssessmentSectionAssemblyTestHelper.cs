@@ -293,17 +293,6 @@ namespace Riskeer.Integration.Data.TestUtil
 
             yield return new AssessmentSectionConfiguration(assessmentSection =>
             {
-                StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
-                failureMechanism.InAssembly = true;
-                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
-                sectionResult.UseManualAssembly = true;
-                sectionResult.ManualAssemblyCategoryGroup = manualSectionAssemblyCategoryGroup;
-            }, assessmentSection => assessmentSection.StrengthStabilityLengthwiseConstruction);
-
-            yield return new AssessmentSectionConfiguration(assessmentSection =>
-            {
                 TechnicalInnovationFailureMechanism failureMechanism = assessmentSection.TechnicalInnovation;
                 failureMechanism.InAssembly = true;
                 FailureMechanismTestHelper.AddSections(failureMechanism, 1);
