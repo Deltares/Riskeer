@@ -40,7 +40,6 @@ using Riskeer.Storage.Core.Create.Piping;
 using Riskeer.Storage.Core.Create.PipingStructure;
 using Riskeer.Storage.Core.Create.StabilityPointStructures;
 using Riskeer.Storage.Core.Create.StabilityStoneCover;
-using Riskeer.Storage.Core.Create.StrengthStabilityLengthwise;
 using Riskeer.Storage.Core.Create.TechnicalInnovation;
 using Riskeer.Storage.Core.Create.WaterPressureAsphaltCover;
 using Riskeer.Storage.Core.Create.WaveImpactAsphaltCover;
@@ -90,7 +89,6 @@ namespace Riskeer.Storage.Core.Create
             entity.FailureMechanismEntities.Add(section.Piping.Create(registry));
             entity.FailureMechanismEntities.Add(section.GrassCoverErosionInwards.Create(registry));
             entity.FailureMechanismEntities.Add(section.HeightStructures.Create(registry));
-            entity.FailureMechanismEntities.Add(section.StrengthStabilityLengthwiseConstruction.Create(registry));
             entity.FailureMechanismEntities.Add(section.TechnicalInnovation.Create(registry));
             entity.FailureMechanismEntities.Add(section.WaterPressureAsphaltCover.Create(registry));
             entity.FailureMechanismEntities.Add(section.ClosingStructures.Create(registry));

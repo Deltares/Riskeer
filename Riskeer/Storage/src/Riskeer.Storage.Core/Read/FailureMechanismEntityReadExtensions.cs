@@ -312,43 +312,6 @@ namespace Riskeer.Storage.Core.Read
 
         #endregion
 
-        #region Strength Stability Lengthwise Construction
-
-        /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/>.
-        /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="StrengthStabilityLengthwiseConstructionFailureMechanism"/> for.</param>
-        /// <param name="failureMechanism">The target of the read operation.</param>
-        /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism(this FailureMechanismEntity entity,
-                                                                                           StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism,
-                                                                                           ReadConversionCollector collector)
-        {
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadStrengthStabilityLengthwiseConstructionMechanismSectionResults(failureMechanism, collector);
-            entity.ReadStrengthStabilityLengthwiseConstructionGeneralInput(failureMechanism.GeneralInput);
-        }
-
-        private static void ReadStrengthStabilityLengthwiseConstructionMechanismSectionResults(this FailureMechanismEntity entity,
-                                                                                               StrengthStabilityLengthwiseConstructionFailureMechanism failureMechanism,
-                                                                                               ReadConversionCollector collector)
-        {
-            foreach (StrengthStabilityLengthwiseConstructionSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StrengthStabilityLengthwiseConstructionSectionResultEntities))
-            {
-                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld result = failureMechanism.SectionResultsOld.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
-
-                sectionResultEntity.Read(result);
-            }
-        }
-
-        private static void ReadStrengthStabilityLengthwiseConstructionGeneralInput(this FailureMechanismEntity entity, GeneralInput generalInput)
-        {
-            entity.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Single().Read(generalInput);
-        }
-
-        #endregion
-
         #region Technical Innovation
 
         /// <summary>

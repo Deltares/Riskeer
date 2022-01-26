@@ -102,11 +102,6 @@ namespace Riskeer.Storage.Core.DbContext
         GrassRevetmentSlidingInwards = 16,
 
         /// <summary>
-        /// Sterkte en stabiliteit langsconstructies - STKWl
-        /// </summary>
-        StrengthAndStabilityParallelConstruction = 17,
-
-        /// <summary>
         /// Technische innovaties - INN
         /// </summary>
         TechnicalInnovations = 18

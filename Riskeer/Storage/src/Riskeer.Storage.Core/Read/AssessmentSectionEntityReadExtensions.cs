@@ -77,7 +77,6 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadPipingFailureMechanism(assessmentSection, collector);
             entity.ReadGrassCoverErosionInwardsFailureMechanism(assessmentSection, collector);
             entity.ReadHeightStructuresFailureMechanism(assessmentSection, collector);
-            entity.ReadStrengthStabilityLengthwiseConstructionFailureMechanism(assessmentSection, collector);
             entity.ReadTechnicalInnovationFailureMechanism(assessmentSection, collector);
             entity.ReadWaterPressureAsphaltCoverFailureMechanism(assessmentSection, collector);
             entity.ReadClosingStructuresFailureMechanism(assessmentSection, collector);
@@ -180,12 +179,6 @@ namespace Riskeer.Storage.Core.Read
         {
             FailureMechanismEntity heightStructuresFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.StructureHeight);
             heightStructuresFailureMechanismEntity?.ReadAsHeightStructuresFailureMechanism(assessmentSection.HeightStructures, collector);
-        }
-
-        private static void ReadStrengthStabilityLengthwiseConstructionFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
-        {
-            FailureMechanismEntity strengthStabilityLengthwiseConstructionFailureMechanismEntity = GetFailureMechanismEntityOfType(entity, FailureMechanismType.StrengthAndStabilityParallelConstruction);
-            strengthStabilityLengthwiseConstructionFailureMechanismEntity?.ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism(assessmentSection.StrengthStabilityLengthwiseConstruction, collector);
         }
 
         private static void ReadTechnicalInnovationFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)

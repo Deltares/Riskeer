@@ -935,17 +935,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 }
             };
 
-            FailureMechanismEntity strengthAndStabilityParallelConstruction = CreateFailureMechanismEntity(
-                strengthAndStabilityParallelConstructionInAssembly,
-                FailureMechanismType.StrengthAndStabilityParallelConstruction);
-            strengthAndStabilityParallelConstruction.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities = new List<StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity>
-            {
-                new StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity
-                {
-                    N = 2.0
-                }
-            };
-
             FailureMechanismEntity waterOverpressureAsphaltRevetment = CreateFailureMechanismEntity(
                 waterOverpressureAsphaltRevetmentInAssembly,
                 FailureMechanismType.WaterOverpressureAsphaltRevetment);
@@ -991,7 +980,6 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             entity.FailureMechanismEntities.Add(microstability);
-            entity.FailureMechanismEntities.Add(strengthAndStabilityParallelConstruction);
             entity.FailureMechanismEntities.Add(waterOverpressureAsphaltRevetment);
             entity.FailureMechanismEntities.Add(grassRevetmentSlidingOutwards);
             entity.FailureMechanismEntities.Add(grassRevetmentSlidingInwards);
@@ -1011,14 +999,6 @@ namespace Riskeer.Storage.Core.Test.Read
                                         microstability.CalculationsInputComments,
                                         section.Microstability,
                                         microstability.MicrostabilityFailureMechanismMetaEntities.Single().N);
-
-            AssertFailureMechanismEqual(strengthAndStabilityParallelConstructionInAssembly,
-                                        strengthAndStabilityParallelConstruction.InAssemblyInputComments,
-                                        strengthAndStabilityParallelConstruction.InAssemblyOutputComments,
-                                        strengthAndStabilityParallelConstruction.NotInAssemblyComments,
-                                        strengthAndStabilityParallelConstruction.CalculationsInputComments,
-                                        section.StrengthStabilityLengthwiseConstruction,
-                                        strengthAndStabilityParallelConstruction.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Single().N);
 
             AssertFailureMechanismEqual(waterOverpressureAsphaltRevetmentInAssembly,
                                         waterOverpressureAsphaltRevetment.InAssemblyInputComments,

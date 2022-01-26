@@ -213,11 +213,6 @@ namespace Riskeer.Storage.Core.TestUtil
             SetSections(grassCoverSlipOffOutwardsFailureMechanism);
             SetSectionResults(grassCoverSlipOffOutwardsFailureMechanism.SectionResultsOld);
 
-            StrengthStabilityLengthwiseConstructionFailureMechanism strengthStabilityLengthwiseConstructionFailureMechanism = assessmentSection.StrengthStabilityLengthwiseConstruction;
-            SetGeneralInput(strengthStabilityLengthwiseConstructionFailureMechanism, random.Next());
-            SetSections(strengthStabilityLengthwiseConstructionFailureMechanism);
-            SetSectionResults(strengthStabilityLengthwiseConstructionFailureMechanism.SectionResultsOld);
-
             SetSectionResults(assessmentSection.DuneErosion.SectionResultsOld);
 
             TechnicalInnovationFailureMechanism technicalInnovationFailureMechanism = assessmentSection.TechnicalInnovation;
@@ -264,18 +259,6 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                                        "WindDirection",
                                                                                        "WindSpeed",
                                                                                        "Comment");
-        }
-
-        private static void SetSectionResults(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld> sectionResults)
-        {
-            var random = new Random(39);
-            foreach (StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld sectionResult in sectionResults)
-            {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
-            }
         }
 
         private static void SetSectionResults(IEnumerable<TechnicalInnovationFailureMechanismSectionResultOld> sectionResults)

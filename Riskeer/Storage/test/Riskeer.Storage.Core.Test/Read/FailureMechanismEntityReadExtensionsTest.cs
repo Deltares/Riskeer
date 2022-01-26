@@ -193,51 +193,6 @@ namespace Riskeer.Storage.Core.Test.Read
 
         #endregion
 
-        #region StrengthAndStabilityParallelConstruction
-
-        [Test]
-        public void ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism_WithPropertiesSet_SetsStrengthAndStabilityParallelConstructionFailureMechanismProperties()
-        {
-            // Setup
-            var random = new Random(31);
-            bool inAssembly = random.NextBoolean();
-            var entity = new FailureMechanismEntity
-            {
-                InAssembly = Convert.ToByte(inAssembly),
-                InAssemblyInputComments = "Some input text",
-                InAssemblyOutputComments = "Some output text",
-                NotInAssemblyComments = "Really not in assembly",
-                CalculationsInputComments = "Some calculation text",
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities = new[]
-                {
-                    new StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity
-                    {
-                        N = random.NextRoundedDouble(1.0, 20.0)
-                    }
-                }
-            };
-            var collector = new ReadConversionCollector();
-            var failureMechanism = new StrengthStabilityLengthwiseConstructionFailureMechanism();
-
-            // Call
-            entity.ReadAsStrengthStabilityLengthwiseConstructionFailureMechanism(failureMechanism, collector);
-
-            // Assert
-            Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
-            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
-
-            StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity metaEntity = entity.StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
-        }
-
-        #endregion
-
         #region TechnicalInnovation
 
         [Test]

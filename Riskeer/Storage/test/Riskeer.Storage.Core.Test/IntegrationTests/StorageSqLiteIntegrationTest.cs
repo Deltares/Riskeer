@@ -268,9 +268,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.HeightStructures.SectionResults,
                 actualAssessmentSection.HeightStructures.SectionResults);
             AssertFailureMechanismSectionResults(
-                expectedAssessmentSection.StrengthStabilityLengthwiseConstruction.SectionResultsOld,
-                actualAssessmentSection.StrengthStabilityLengthwiseConstruction.SectionResultsOld);
-            AssertFailureMechanismSectionResults(
                 expectedAssessmentSection.TechnicalInnovation.SectionResultsOld,
                 actualAssessmentSection.TechnicalInnovation.SectionResultsOld);
             AssertFailureMechanismSectionResults(
@@ -313,21 +310,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertCollectionAndItems(expectedAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
                                      actualAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
                                      AssertSpecificFailurePath);
-        }
-
-        private static void AssertFailureMechanismSectionResults(
-            IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld> expectedSectionResults,
-            IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
-                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
-                                     });
         }
 
         private static void AssertFailureMechanismSectionResults(
