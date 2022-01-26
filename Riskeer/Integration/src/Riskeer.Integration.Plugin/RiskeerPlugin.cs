@@ -840,12 +840,6 @@ namespace Riskeer.Integration.Plugin
                 StandAloneFailurePathEnabledContextMenuStrip,
                 StandAloneFailurePathDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailurePathContext>(
-                StrengthStabilityLengthwiseConstructionFailurePathEnabledChildNodeObjects,
-                StandAloneFailurePathDisabledChildNodeObjects,
-                StandAloneFailurePathEnabledContextMenuStrip,
-                StandAloneFailurePathDisabledContextMenuStrip);
-
             yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<TechnicalInnovationFailurePathContext>(
                 TechnicalInnovationFailurePathEnabledChildNodeObjects,
                 StandAloneFailurePathDisabledChildNodeObjects,
@@ -1021,7 +1015,6 @@ namespace Riskeer.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResultOld>();
-            yield return CreateFailureMechanismSectionResultOldTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
 
             yield return new TreeNodeInfo<Comment>
@@ -1986,7 +1979,6 @@ namespace Riskeer.Integration.Plugin
                 new ClosingStructuresFailurePathContext(assessmentSection.ClosingStructures, assessmentSection),
                 new PipingStructureFailurePathContext(assessmentSection.PipingStructure, assessmentSection),
                 new StabilityPointStructuresFailurePathContext(assessmentSection.StabilityPointStructures, assessmentSection),
-                new StrengthStabilityLengthwiseConstructionFailurePathContext(assessmentSection.StrengthStabilityLengthwiseConstruction, assessmentSection),
                 new DuneErosionFailurePathContext(assessmentSection.DuneErosion, assessmentSection),
                 new TechnicalInnovationFailurePathContext(assessmentSection.TechnicalInnovation, assessmentSection)
             };
@@ -2376,43 +2368,6 @@ namespace Riskeer.Integration.Plugin
                 new PipingStructureFailureMechanismSectionResultContext(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
-            };
-        }
-
-        #endregion
-
-        #region StrengthStabilityLengthwiseConstructionFailurePathContext TreeNodeInfo
-
-        private static object[] StrengthStabilityLengthwiseConstructionFailurePathEnabledChildNodeObjects(
-            StrengthStabilityLengthwiseConstructionFailurePathContext nodeData)
-        {
-            return new object[]
-            {
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetStrengthStabilityLengthwiseConstructionFailurePathInputs(nodeData.WrappedData, nodeData.Parent),
-                                       TreeFolderCategory.Input),
-                new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetStrengthStabilityLengthwiseConstructionFailurePathOutputs(nodeData.WrappedData),
-                                       TreeFolderCategory.Output)
-            };
-        }
-
-        private static IEnumerable<object> GetStrengthStabilityLengthwiseConstructionFailurePathInputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData, IAssessmentSection assessmentSection)
-        {
-            return new object[]
-            {
-                new StrengthStabilityLengthwiseConstructionFailureMechanismSectionsContext(nodeData, assessmentSection),
-                nodeData.InAssemblyInputComments
-            };
-        }
-
-        private static IEnumerable<object> GetStrengthStabilityLengthwiseConstructionFailurePathOutputs(StrengthStabilityLengthwiseConstructionFailureMechanism nodeData)
-        {
-            return new object[]
-            {
-                new FailureMechanismSectionResultContext<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultOld>(
-                    nodeData.SectionResultsOld, nodeData),
-                nodeData.InAssemblyOutputComments
             };
         }
 
