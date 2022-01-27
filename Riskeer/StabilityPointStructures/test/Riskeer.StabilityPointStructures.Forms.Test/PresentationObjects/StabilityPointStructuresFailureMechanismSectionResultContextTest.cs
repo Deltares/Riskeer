@@ -30,7 +30,7 @@ using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StabilityPointStructuresProbabilityFailureMechanismSectionResultContextTest
+    public class StabilityPointStructuresFailureMechanismSectionResultContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -43,11 +43,11 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var context = new StabilityPointStructuresProbabilityFailureMechanismSectionResultContext(
+            var context = new StabilityPointStructuresFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilityFailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>>(context);
+            Assert.IsInstanceOf<FailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>>(context);
             mocks.VerifyAll();
         }
     }

@@ -32,10 +32,10 @@ namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
     /// This class is a presentation object for a collection of <see cref="AdoptableFailureMechanismSectionResult"/>
     /// for the <see cref="StabilityPointStructuresFailureMechanism"/>.
     /// </summary>
-    public class StabilityPointStructuresProbabilityFailureMechanismSectionResultContext : ProbabilityFailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>
+    public class StabilityPointStructuresFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityPointStructuresProbabilityFailureMechanismSectionResultContext"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResultContext"/>.
         /// </summary>
         /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/>
         /// of <see cref="AdoptableFailureMechanismSectionResult"/> to wrap.</param>
@@ -43,8 +43,8 @@ namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
         /// the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityPointStructuresProbabilityFailureMechanismSectionResultContext(IObservableEnumerable<AdoptableFailureMechanismSectionResult> wrappedSectionResults,
-                                                                                       StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public StabilityPointStructuresFailureMechanismSectionResultContext(IObservableEnumerable<AdoptableFailureMechanismSectionResult> wrappedSectionResults,
+                                                                            StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(wrappedSectionResults, failureMechanism, assessmentSection) {}
     }
 }

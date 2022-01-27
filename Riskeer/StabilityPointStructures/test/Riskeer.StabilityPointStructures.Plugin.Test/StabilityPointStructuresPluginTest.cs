@@ -107,7 +107,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                 Assert.AreEqual(9, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresCalculationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresProbabilityFailureMechanismSectionResultContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresFailureMechanismSectionResultContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructure)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresScenariosContext)));
@@ -152,7 +152,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(StabilityPointStructuresProbabilityFailureMechanismSectionResultContext),
+                    typeof(StabilityPointStructuresFailureMechanismSectionResultContext),
                     typeof(IObservableEnumerable<AdoptableFailureMechanismSectionResult>),
                     typeof(StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>));
 

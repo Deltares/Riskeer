@@ -33,7 +33,7 @@ using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StabilityPointStructuresProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class StabilityPointStructuresFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private StabilityPointStructuresPlugin plugin;
         private TreeNodeInfo info;
@@ -42,7 +42,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new StabilityPointStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresProbabilityFailureMechanismSectionResultContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresFailureMechanismSectionResultContext));
         }
 
         [TearDown]

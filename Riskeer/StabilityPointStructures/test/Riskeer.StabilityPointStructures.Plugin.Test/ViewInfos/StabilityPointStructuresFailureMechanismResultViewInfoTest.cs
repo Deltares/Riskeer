@@ -57,7 +57,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(StabilityPointStructuresProbabilityFailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(StabilityPointStructuresFailureMechanismSectionResultContext), info.DataType);
             Assert.AreEqual(typeof(IObservableEnumerable<AdoptableFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -71,7 +71,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var context = new StabilityPointStructuresProbabilityFailureMechanismSectionResultContext(
+            var context = new StabilityPointStructuresFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
@@ -275,7 +275,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new StabilityPointStructuresProbabilityFailureMechanismSectionResultContext(
+            var context = new StabilityPointStructuresFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection);
