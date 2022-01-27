@@ -33,7 +33,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class MacroStabilityInwardsProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class MacroStabilityInwardsFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MacroStabilityInwardsPlugin plugin;
         private TreeNodeInfo info;
@@ -42,7 +42,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsProbabilityFailureMechanismSectionResultContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsFailureMechanismSectionResultContext));
         }
 
         [TearDown]

@@ -59,7 +59,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MacroStabilityInwardsProbabilityFailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismSectionResultContext), info.DataType);
             Assert.AreEqual(typeof(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -71,7 +71,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsProbabilityFailureMechanismSectionResultContext(
+            var context = new MacroStabilityInwardsFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
@@ -267,7 +267,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new MacroStabilityInwardsProbabilityFailureMechanismSectionResultContext(
+            var context = new MacroStabilityInwardsFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call

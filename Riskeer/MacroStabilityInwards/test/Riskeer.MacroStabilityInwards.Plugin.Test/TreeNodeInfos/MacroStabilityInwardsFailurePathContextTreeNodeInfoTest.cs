@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
@@ -145,7 +144,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, failureMechanismScenariosContext.FailureMechanism);
             Assert.AreSame(failureMechanism.CalculationsGroup, failureMechanismScenariosContext.WrappedData);
 
-            var failureMechanismResultsContext = (ProbabilityFailureMechanismSectionResultContext<AdoptableWithProfileProbabilityFailureMechanismSectionResult>) outputsFolder.Contents.ElementAt(1);
+            var failureMechanismResultsContext = (MacroStabilityInwardsFailureMechanismSectionResultContext) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);

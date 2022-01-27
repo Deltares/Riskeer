@@ -257,7 +257,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                MacroStabilityInwardsProbabilityFailureMechanismSectionResultContext,
+                MacroStabilityInwardsFailureMechanismSectionResultContext,
                 IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                 MacroStabilityInwardsFailureMechanismResultView>(() => Gui)
             {
@@ -339,7 +339,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<MacroStabilityInwardsProbabilityFailureMechanismSectionResultContext>
+            yield return new TreeNodeInfo<MacroStabilityInwardsFailureMechanismSectionResultContext>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -697,7 +697,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             return new object[]
             {
                 new MacroStabilityInwardsScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new MacroStabilityInwardsProbabilityFailureMechanismSectionResultContext(
+                new MacroStabilityInwardsFailureMechanismSectionResultContext(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };

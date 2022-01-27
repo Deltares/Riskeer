@@ -143,7 +143,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsCalculationScenarioContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsInputContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsProbabilityFailureMechanismSectionResultContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsFailureMechanismSectionResultContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsOutputContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MacroStabilityInwardsScenariosContext)));
             }
@@ -184,7 +184,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(MacroStabilityInwardsProbabilityFailureMechanismSectionResultContext),
+                    typeof(MacroStabilityInwardsFailureMechanismSectionResultContext),
                     typeof(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult>),
                     typeof(MacroStabilityInwardsFailureMechanismResultView));
 
