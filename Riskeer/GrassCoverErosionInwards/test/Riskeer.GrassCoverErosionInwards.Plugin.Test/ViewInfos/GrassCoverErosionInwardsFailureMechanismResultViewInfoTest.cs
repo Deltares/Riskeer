@@ -57,7 +57,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsProbabilityFailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismSectionResultContext), info.DataType);
             Assert.AreEqual(typeof(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -81,7 +81,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var sectionResults = new ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult>();
 
-            var context = new GrassCoverErosionInwardsProbabilityFailureMechanismSectionResultContext(
+            var context = new GrassCoverErosionInwardsFailureMechanismSectionResultContext(
                 sectionResults, new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             // Call
@@ -253,7 +253,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionInwardsProbabilityFailureMechanismSectionResultContext(
+            var context = new GrassCoverErosionInwardsFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection);

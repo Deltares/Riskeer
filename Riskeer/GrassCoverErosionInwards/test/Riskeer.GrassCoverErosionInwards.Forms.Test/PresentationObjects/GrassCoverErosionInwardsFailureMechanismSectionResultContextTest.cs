@@ -30,7 +30,7 @@ using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsProbabilityFailureMechanismSectionResultContextTest
+    public class GrassCoverErosionInwardsFailureMechanismSectionResultContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -43,11 +43,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var context = new GrassCoverErosionInwardsProbabilityFailureMechanismSectionResultContext(
+            var context = new GrassCoverErosionInwardsFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilityFailureMechanismSectionResultContext<AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(context);
+            Assert.IsInstanceOf<FailureMechanismSectionResultContext<AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(context);
             mocks.VerifyAll();
         }
     }
