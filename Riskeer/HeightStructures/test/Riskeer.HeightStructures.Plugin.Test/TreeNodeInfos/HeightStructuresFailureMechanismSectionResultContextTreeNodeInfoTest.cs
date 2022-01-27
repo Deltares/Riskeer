@@ -33,7 +33,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class HeightStructuresProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class HeightStructuresFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private HeightStructuresPlugin plugin;
         private TreeNodeInfo info;
@@ -42,7 +42,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new HeightStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresProbabilityFailureMechanismSectionResultContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresFailureMechanismSectionResultContext));
         }
 
         [TearDown]

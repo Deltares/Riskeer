@@ -30,7 +30,7 @@ using Riskeer.HeightStructures.Forms.PresentationObjects;
 namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class HeightStructuresProbabilityFailureMechanismSectionResultContextTest
+    public class HeightStructuresFailureMechanismSectionResultContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -43,11 +43,11 @@ namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var context = new HeightStructuresProbabilityFailureMechanismSectionResultContext(
+            var context = new HeightStructuresFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilityFailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>>(context);
+            Assert.IsInstanceOf<FailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>>(context);
             mocks.VerifyAll();
         }
     }

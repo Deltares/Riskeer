@@ -57,7 +57,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HeightStructuresProbabilityFailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(HeightStructuresFailureMechanismSectionResultContext), info.DataType);
             Assert.AreEqual(typeof(IObservableEnumerable<AdoptableFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -81,7 +81,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var context = new HeightStructuresProbabilityFailureMechanismSectionResultContext(
+            var context = new HeightStructuresFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
@@ -260,7 +260,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new HeightStructuresProbabilityFailureMechanismSectionResultContext(
+            var context = new HeightStructuresFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call

@@ -186,7 +186,7 @@ namespace Riskeer.HeightStructures.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                HeightStructuresProbabilityFailureMechanismSectionResultContext,
+                HeightStructuresFailureMechanismSectionResultContext,
                 IObservableEnumerable<AdoptableFailureMechanismSectionResult>,
                 StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>>(() => Gui)
             {
@@ -277,7 +277,7 @@ namespace Riskeer.HeightStructures.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<HeightStructuresProbabilityFailureMechanismSectionResultContext>
+            yield return new TreeNodeInfo<HeightStructuresFailureMechanismSectionResultContext>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -477,7 +477,7 @@ namespace Riskeer.HeightStructures.Plugin
             return new object[]
             {
                 new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new HeightStructuresProbabilityFailureMechanismSectionResultContext(
+                new HeightStructuresFailureMechanismSectionResultContext(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };
