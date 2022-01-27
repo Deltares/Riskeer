@@ -195,16 +195,6 @@
         <asm:status>VOLLDG</asm:status>
       </asm:toetsoordeel>
     </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.15" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>INN</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEEN</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
-        <asm:assemblagemethode>WBI-1A-1</asm:assemblagemethode>
-        <asm:categorieTraject>II-traject</asm:categorieTraject>
-        <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
     <asm:Toets ToetsID="T.0" ToetsspoorIDRef="Ts.0" WaterkeringsectieIDRef="Tv.0">
       <asm:eindtoetsoordeel>
         <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
@@ -866,41 +856,7 @@
         <asm:categorieVak>I-vak</asm:categorieVak>
       </asm:toetsoordeelVak>
     </asm:Toets>
-    <asm:Toets ToetsID="T.29" ToetsspoorIDRef="Ts.15" WaterkeringsectieIDRef="Tv.29">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-1</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.30" ToetsspoorIDRef="Ts.15" WaterkeringsectieIDRef="Tv.30">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-1</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:GecombineerdToetsoordeel GecombineerdToetsoordeelID="Gto.0" VeiligheidsoordeelIDRef="Vo.0" WaterkeringsectieIDRef="Tv.31">
+    <asm:GecombineerdToetsoordeel GecombineerdToetsoordeelID="Gto.0" VeiligheidsoordeelIDRef="Vo.0" WaterkeringsectieIDRef="Tv.29">
       <asm:toetsoordeelGecombineerd>
         <asm:assemblagemethode>WBI-3C-1</asm:assemblagemethode>
         <asm:toets>GECBNTRDV</asm:toets>
@@ -996,12 +952,6 @@
         <asm:categorieVak>NVT</asm:categorieVak>
         <asm:status>VOLLDG</asm:status>
       </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>INN</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
     </asm:GecombineerdToetsoordeel>
     <asm:Vakindeling VakindelingID="Vi.0" />
     <asm:Vakindeling VakindelingID="Vi.1" />
@@ -1019,7 +969,6 @@
     <asm:Vakindeling VakindelingID="Vi.13" />
     <asm:Vakindeling VakindelingID="Vi.14" />
     <asm:Vakindeling VakindelingID="Vi.15" />
-    <asm:Vakindeling VakindelingID="Vi.16" />
     <asm:ToetsVak gml:id="Tv.0" VakindelingIDRef="Vi.0">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
@@ -1340,28 +1289,6 @@
       <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
     </asm:ToetsVak>
     <asm:ToetsVak gml:id="Tv.29" VakindelingIDRef="Vi.15">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
-      <asm:geometrieLijn2D>
-        <gml:LineString srsName="EPSG:28992">
-          <gml:posList>-1 -1 7 7</gml:posList>
-        </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.30" VakindelingIDRef="Vi.15">
-      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
-      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
-      <asm:geometrieLijn2D>
-        <gml:LineString srsName="EPSG:28992">
-          <gml:posList>7 7 15 15</gml:posList>
-        </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.31" VakindelingIDRef="Vi.16">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">1</asm:afstandEinde>
       <asm:geometrieLijn2D>
