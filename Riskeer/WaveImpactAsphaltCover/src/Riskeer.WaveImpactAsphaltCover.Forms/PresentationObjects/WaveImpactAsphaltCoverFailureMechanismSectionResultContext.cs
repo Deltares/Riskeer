@@ -32,7 +32,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
     /// This class is a presentation object for a collection of <see cref="NonAdoptableFailureMechanismSectionResult"/>
     /// for the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanismSectionResultContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class WaveImpactAsphaltCoverFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultContext"/>.

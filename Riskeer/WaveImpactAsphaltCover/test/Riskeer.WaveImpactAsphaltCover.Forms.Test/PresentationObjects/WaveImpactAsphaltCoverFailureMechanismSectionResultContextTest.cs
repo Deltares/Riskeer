@@ -47,7 +47,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilityFailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(context);
+            Assert.IsInstanceOf<FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(context);
             mocks.VerifyAll();
         }
     }
