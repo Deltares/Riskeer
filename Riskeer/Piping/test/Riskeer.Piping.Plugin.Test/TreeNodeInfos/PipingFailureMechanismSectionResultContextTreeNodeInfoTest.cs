@@ -33,7 +33,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class PipingProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class PipingFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private PipingPlugin plugin;
         private TreeNodeInfo info;
@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingProbabilityFailureMechanismSectionResultContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingFailureMechanismSectionResultContext));
         }
 
         [TearDown]

@@ -60,7 +60,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingProbabilityFailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(PipingFailureMechanismSectionResultContext), info.DataType);
             Assert.AreEqual(typeof(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -72,7 +72,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new PipingProbabilityFailureMechanismSectionResultContext(
+            var context = new PipingFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
@@ -265,7 +265,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
             mocks.ReplayAll();
 
-            var context = new PipingProbabilityFailureMechanismSectionResultContext(
+            var context = new PipingFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call

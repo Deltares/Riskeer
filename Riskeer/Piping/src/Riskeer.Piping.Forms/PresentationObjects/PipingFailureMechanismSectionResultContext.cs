@@ -32,10 +32,10 @@ namespace Riskeer.Piping.Forms.PresentationObjects
     /// This class is a presentation object for a collection of <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
     /// for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
-    public class PipingProbabilityFailureMechanismSectionResultContext : ProbabilityFailureMechanismSectionResultContext<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class PipingFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingProbabilityFailureMechanismSectionResultContext"/>.
+        /// Creates a new instance of <see cref="PipingFailureMechanismSectionResultContext"/>.
         /// </summary>
         /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/>
         /// of <see cref="AdoptableFailureMechanismSectionResult"/> to wrap.</param>
@@ -43,8 +43,8 @@ namespace Riskeer.Piping.Forms.PresentationObjects
         /// the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingProbabilityFailureMechanismSectionResultContext(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> wrappedSectionResults,
-                                                                     PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public PipingFailureMechanismSectionResultContext(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> wrappedSectionResults,
+                                                          PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(wrappedSectionResults, failureMechanism, assessmentSection) {}
     }
 }

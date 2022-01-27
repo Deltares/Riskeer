@@ -257,7 +257,7 @@ namespace Riskeer.Piping.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                PipingProbabilityFailureMechanismSectionResultContext,
+                PipingFailureMechanismSectionResultContext,
                 IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                 PipingFailureMechanismResultView>(() => Gui)
             {
@@ -394,7 +394,7 @@ namespace Riskeer.Piping.Plugin
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<PipingProbabilityFailureMechanismSectionResultContext>
+            yield return new TreeNodeInfo<PipingFailureMechanismSectionResultContext>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -882,7 +882,7 @@ namespace Riskeer.Piping.Plugin
             return new object[]
             {
                 new PipingScenariosContext(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection),
-                new PipingProbabilityFailureMechanismSectionResultContext(
+                new PipingFailureMechanismSectionResultContext(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };
