@@ -284,7 +284,28 @@ SELECT
     0
 FROM [SOURCEPROJECT].FailureMechanismEntity
 WHERE FailureMechanismType = 16;
-INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
+INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity (
+    [GrassCoverSlipOffOutwardsSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [ManualInitialFailureMechanismResultProfileProbability],
+    [FurtherAnalysisNeeded],
+    [RefinedSectionProbability],
+    [RefinedProfileProbability]
+)
+SELECT
+    [GrassCoverSlipOffOutwardsSectionResultEntityId],
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    NULL,
+    0,
+    NULL,
+    NULL
+FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
 INSERT INTO GrassCoverSlipOffOutwardsFailureMechanismMetaEntity (
     [FailureMechanismEntityId],
     [N],

@@ -108,6 +108,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertStabilityStoneCoverSectionResults(reader, sourceFilePath);
                     AssertMicrostabilitySectionResults(reader, sourceFilePath);
                     AssertWaterPressureAsphaltCoverSectionResults(reader, sourceFilePath);
+                    AssertGrassCoverSlipOffOutwardsSectionResults(reader, sourceFilePath);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -662,6 +663,11 @@ namespace Riskeer.Migration.Integration.Test
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "WaterPressureAsphaltCoverSectionResultEntity", sourceFilePath);
         }
 
+        private static void AssertGrassCoverSlipOffOutwardsSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "GrassCoverSlipOffOutwardsSectionResultEntity", sourceFilePath);
+        }
+        
         #endregion
 
         #region HydraulicBoundaryLocations
