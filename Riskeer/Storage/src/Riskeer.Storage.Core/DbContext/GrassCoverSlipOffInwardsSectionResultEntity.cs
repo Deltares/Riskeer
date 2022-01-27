@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2019. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -30,15 +30,17 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class GrassCoverSlipOffInwardsSectionResultEntity
+    public partial class GrassCoverSlipOffInwardsSectionResultEntity
     {
         public long GrassCoverSlipOffInwardsSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
-        public byte SimpleAssessmentResult { get; set; }
-        public byte DetailedAssessmentResult { get; set; }
-        public byte TailorMadeAssessmentResult { get; set; }
-        public byte UseManualAssembly { get; set; }
-        public byte ManualAssemblyCategoryGroup { get; set; }
+        public byte IsRelevant { get; set; }
+        public byte InitialFailureMechanismResultType { get; set; }
+        public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
+        public double? ManualInitialFailureMechanismResultProfileProbability { get; set; }
+        public byte FurtherAnalysisNeeded { get; set; }
+        public double? RefinedSectionProbability { get; set; }
+        public double? RefinedProfileProbability { get; set; }
 
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
