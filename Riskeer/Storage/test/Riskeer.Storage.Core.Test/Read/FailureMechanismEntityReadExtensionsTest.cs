@@ -100,6 +100,50 @@ namespace Riskeer.Storage.Core.Test.Read
             GrassCoverSlipOffInwardsFailureMechanismMetaEntity metaEntity = entity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single();
             Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
+        
+        [Test]
+        public void ReadAsGrassCoverSlipOffInwardsFailureMechanism_WithSectionsSet_ReturnsNewGrassCoverSlipOffInwardsFailureMechanismWithFailureMechanismSectionsAdded()
+        {
+            // Setup
+            const string filePath = "failureMechanismSections/File/Path";
+
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            var grassCoverSlipOffInwardsSectionResultEntity = new GrassCoverSlipOffInwardsSectionResultEntity
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            };
+            SetSectionResult(grassCoverSlipOffInwardsSectionResultEntity);
+
+            failureMechanismSectionEntity.GrassCoverSlipOffInwardsSectionResultEntities.Add(grassCoverSlipOffInwardsSectionResultEntity);
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismSectionCollectionSourcePath = filePath,
+                FailureMechanismSectionEntities =
+                {
+                    failureMechanismSectionEntity
+                },
+                GrassCoverSlipOffInwardsFailureMechanismMetaEntities =
+                {
+                    new GrassCoverSlipOffInwardsFailureMechanismMetaEntity
+                    {
+                        N = 1
+                    }
+                },
+                CalculationGroupEntity = new CalculationGroupEntity()
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsGrassCoverSlipOffInwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
+                            failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffInwardsSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+        }
 
         #endregion
 
