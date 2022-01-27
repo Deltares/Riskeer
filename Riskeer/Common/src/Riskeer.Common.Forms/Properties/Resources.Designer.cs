@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -1763,23 +1763,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismResultView_FurtherAnalysisNeeded_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_FurtherAnalysisNeeded_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NVT - Niet Van Toepassing
-        ///WVT - Wel Van Toepassing
-        ///FV - Faalkans Verwaarloosbaar
-        ///VB - Verder Beoordelen
-        ///
-        ///V - Voldoet
-        ///VN - Voldoet Niet
-        ///NGO - Nog Geen Oordeel
-        ///Faalkans - Faalkans gespecificeerd of uitgerekend.
-        /// </summary>
-        public static string FailureMechanismResultView_InfoToolTip {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_InfoToolTip", resourceCulture);
             }
         }
         
