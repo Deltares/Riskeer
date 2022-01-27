@@ -32,7 +32,7 @@ namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
     /// This class is a presentation object for a collection of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
     /// for the <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanismSectionResultContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class StabilityStoneCoverFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismSectionResultContext"/>.
