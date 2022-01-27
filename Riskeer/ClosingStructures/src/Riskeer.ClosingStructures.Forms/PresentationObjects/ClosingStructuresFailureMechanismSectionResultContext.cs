@@ -32,10 +32,10 @@ namespace Riskeer.ClosingStructures.Forms.PresentationObjects
     /// This class is a presentation object for a collection of <see cref="AdoptableFailureMechanismSectionResult"/>
     /// for the <see cref="ClosingStructuresFailureMechanism"/>.
     /// </summary>
-    public class ClosingStructuresProbabilityFailureMechanismSectionResultContext : ProbabilityFailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>
+    public class ClosingStructuresFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructuresProbabilityFailureMechanismSectionResultContext"/>.
+        /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismSectionResultContext"/>.
         /// </summary>
         /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/>
         /// of <see cref="AdoptableFailureMechanismSectionResult"/> to wrap.</param>
@@ -43,8 +43,8 @@ namespace Riskeer.ClosingStructures.Forms.PresentationObjects
         /// the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClosingStructuresProbabilityFailureMechanismSectionResultContext(IObservableEnumerable<AdoptableFailureMechanismSectionResult> wrappedSectionResults,
-                                                                                ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public ClosingStructuresFailureMechanismSectionResultContext(IObservableEnumerable<AdoptableFailureMechanismSectionResult> wrappedSectionResults,
+                                                                     ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(wrappedSectionResults, failureMechanism, assessmentSection) {}
     }
 }

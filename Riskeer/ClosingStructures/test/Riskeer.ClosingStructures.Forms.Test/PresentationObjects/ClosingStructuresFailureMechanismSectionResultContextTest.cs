@@ -30,7 +30,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class ClosingStructuresProbabilityFailureMechanismSectionResultContextTest
+    public class ClosingStructuresFailureMechanismSectionResultContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -43,11 +43,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var context = new ClosingStructuresProbabilityFailureMechanismSectionResultContext(
+            var context = new ClosingStructuresFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ProbabilityFailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>>(context);
+            Assert.IsInstanceOf<FailureMechanismSectionResultContext<AdoptableFailureMechanismSectionResult>>(context);
             mocks.VerifyAll();
         }
     }

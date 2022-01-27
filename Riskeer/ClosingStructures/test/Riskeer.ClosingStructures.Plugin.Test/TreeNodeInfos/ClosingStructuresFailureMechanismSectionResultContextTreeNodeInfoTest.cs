@@ -33,7 +33,7 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ClosingStructuresProbabilityFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class ClosingStructuresFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private ClosingStructuresPlugin plugin;
         private TreeNodeInfo info;
@@ -42,7 +42,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void Setup()
         {
             plugin = new ClosingStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresProbabilityFailureMechanismSectionResultContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresFailureMechanismSectionResultContext));
         }
 
         [TearDown]

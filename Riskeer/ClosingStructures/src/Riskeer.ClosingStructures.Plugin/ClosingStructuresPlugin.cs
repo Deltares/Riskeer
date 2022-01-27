@@ -110,7 +110,7 @@ namespace Riskeer.ClosingStructures.Plugin
             };
 
             yield return new RiskeerViewInfo<
-                ClosingStructuresProbabilityFailureMechanismSectionResultContext,
+                ClosingStructuresFailureMechanismSectionResultContext,
                 IObservableEnumerable<AdoptableFailureMechanismSectionResult>,
                 StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>>(() => Gui)
             {
@@ -163,7 +163,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 CalculationContextOnNodeRemoved,
                 CalculationType.Probabilistic);
 
-            yield return new TreeNodeInfo<ClosingStructuresProbabilityFailureMechanismSectionResultContext>
+            yield return new TreeNodeInfo<ClosingStructuresFailureMechanismSectionResultContext>
             {
                 Text = context => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = context => RiskeerCommonFormsResources.FailureMechanismSectionResultIcon,
@@ -477,7 +477,7 @@ namespace Riskeer.ClosingStructures.Plugin
             return new object[]
             {
                 new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
-                new ClosingStructuresProbabilityFailureMechanismSectionResultContext(
+                new ClosingStructuresFailureMechanismSectionResultContext(
                     failureMechanism.SectionResults, failureMechanism, assessmentSection),
                 failureMechanism.InAssemblyOutputComments
             };

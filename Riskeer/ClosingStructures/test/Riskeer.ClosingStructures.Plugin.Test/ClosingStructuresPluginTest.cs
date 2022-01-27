@@ -107,7 +107,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test
                 Assert.AreEqual(9, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresCalculationsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresProbabilityFailureMechanismSectionResultContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresFailureMechanismSectionResultContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructure)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresCalculationGroupContext)));
@@ -152,7 +152,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(ClosingStructuresProbabilityFailureMechanismSectionResultContext),
+                    typeof(ClosingStructuresFailureMechanismSectionResultContext),
                     typeof(IObservableEnumerable<AdoptableFailureMechanismSectionResult>),
                     typeof(StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>));
 

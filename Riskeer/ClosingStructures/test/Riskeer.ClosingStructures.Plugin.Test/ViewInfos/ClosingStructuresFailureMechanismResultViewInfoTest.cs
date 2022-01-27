@@ -59,7 +59,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresProbabilityFailureMechanismSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismSectionResultContext), info.DataType);
             Assert.AreEqual(typeof(IObservableEnumerable<AdoptableFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -82,7 +82,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var context = new ClosingStructuresProbabilityFailureMechanismSectionResultContext(
+            var context = new ClosingStructuresFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
@@ -266,7 +266,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
 
-            var context = new ClosingStructuresProbabilityFailureMechanismSectionResultContext(
+            var context = new ClosingStructuresFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection);

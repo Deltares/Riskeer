@@ -144,7 +144,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
             Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
 
-            var failureMechanismResultsContext = (ClosingStructuresProbabilityFailureMechanismSectionResultContext) outputsFolder.Contents.ElementAt(1);
+            var failureMechanismResultsContext = (ClosingStructuresFailureMechanismSectionResultContext) outputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
