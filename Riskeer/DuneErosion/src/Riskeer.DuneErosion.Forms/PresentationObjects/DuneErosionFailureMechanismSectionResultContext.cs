@@ -32,7 +32,7 @@ namespace Riskeer.DuneErosion.Forms.PresentationObjects
     /// This class is a presentation object for a collection of <see cref="NonAdoptableFailureMechanismSectionResult"/>
     /// for the <see cref="DuneErosionFailureMechanism"/>.
     /// </summary>
-    public class DuneErosionFailureMechanismSectionResultContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
+    public class DuneErosionFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismSectionResultContext"/>.
