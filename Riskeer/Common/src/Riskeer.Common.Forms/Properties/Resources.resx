@@ -254,52 +254,6 @@
             Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
         </value>
     </data>
-    <data name="FailureMechanismResultView_SimpleAssessmentResult_DisplayName" xml:space="preserve">
-    <value>Eenvoudige toets</value>
-  </data>
-    <data name="FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName" xml:space="preserve">
-    <value>Toets op maat</value>
-  </data>
-    <data name="FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName" xml:space="preserve">
-    <value>Toets op maat
-faalkans</value>
-  </data>
-    <data name="FailureMechanismResultView_DetailedAssessmentResult_DisplayName" xml:space="preserve">
-    <value>Gedetailleerde toets per vak</value>
-  </data>
-    <data name="FailureMechanismResultView_DetailedAssessmentProbability_DisplayName" xml:space="preserve">
-    <value>Gedetailleerde toets per vak
-faalkans</value>
-  </data>
-    <data name="FailureMechanismResultView_SimpleAssemblyCategoryGroup_DisplayName" xml:space="preserve">
-    <value>Toetsoordeel
-eenvoudige toets</value>
-  </data>
-    <data name="FailureMechanismResultView_DetailedAssemblyCategoryGroup_DisplayName" xml:space="preserve">
-    <value>Toetsoordeel
-gedetailleerde toets per vak</value>
-  </data>
-    <data name="FailureMechanismResultView_TailorMadeAssemblyCategoryGroup_DisplayName" xml:space="preserve">
-    <value>Toetsoordeel
-toets op maat</value>
-  </data>
-    <data name="FailureMechanismResultView_CombinedAssemblyCategoryGroup_DisplayName" xml:space="preserve">
-    <value>Toetsoordeel
-gecombineerd</value>
-  </data>
-    <data name="FailureMechanismResultView_CombinedAssemblyProbability_DisplayName" xml:space="preserve">
-    <value>Toetsoordeel
-gecombineerde
-faalkansschatting</value>
-  </data>
-    <data name="FailureMechanismResultView_UseManualAssembly_DisplayName" xml:space="preserve">
-    <value>Overschrijf
-toetsoordeel</value>
-  </data>
-    <data name="FailureMechanismResultView_ManualAssembly_DisplayName" xml:space="preserve">
-    <value>Toetsoordeel
-handmatig</value>
-  </data>
     <data name="Section_DisplayName" xml:space="preserve">
     <value>Vak</value>
   </data>
@@ -1379,34 +1333,6 @@ Betrouwbaarheidsindex = {1}</value>
   </data>
     <data name="FailurePath_Contribution_DisplayName" xml:space="preserve">
     <value>Faalkansbijdrage [%]</value>
-  </data>
-    <data name="FailureMechanismResultView_DetailedAssessmentResultForFactorizedSignalingNorm_DisplayName"
-          xml:space="preserve">
-    <value>Gedetailleerde toets
-per vak
-categoriegrens Iv</value>
-  </data>
-    <data name="FailureMechanismResultView_DetailedAssessmentResultForSignalingNorm_DisplayName" xml:space="preserve">
-    <value>Gedetailleerde toets
-per vak
-categoriegrens IIv</value>
-  </data>
-    <data name="FailureMechanismResultView_DetailedAssessmentResultForMechanismSpecificLowerLimitNorm_DisplayName"
-          xml:space="preserve">
-    <value>Gedetailleerde toets
-per vak
-categoriegrens IIIv</value>
-  </data>
-    <data name="FailureMechanismResultView_DetailedAssessmentResultForLowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>Gedetailleerde toets
-per vak
-categoriegrens IVv</value>
-  </data>
-    <data name="FailureMechanismResultView_DetailedAssessmentResultForFactorizedLowerLimitNorm_DisplayName"
-          xml:space="preserve">
-    <value>Gedetailleerde toets
-per vak
-categoriegrens Vv</value>
   </data>
     <data name="Norms_DisplayName" xml:space="preserve">
     <value>Normen</value>

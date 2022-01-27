@@ -1641,114 +1641,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel
-        ///gecombineerd.
-        /// </summary>
-        public static string FailureMechanismResultView_CombinedAssemblyCategoryGroup_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_CombinedAssemblyCategoryGroup_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel
-        ///gecombineerde
-        ///faalkansschatting.
-        /// </summary>
-        public static string FailureMechanismResultView_CombinedAssemblyProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_CombinedAssemblyProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel
-        ///gedetailleerde toets per vak.
-        /// </summary>
-        public static string FailureMechanismResultView_DetailedAssemblyCategoryGroup_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssemblyCategoryGroup_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets per vak
-        ///faalkans.
-        /// </summary>
-        public static string FailureMechanismResultView_DetailedAssessmentProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets per vak.
-        /// </summary>
-        public static string FailureMechanismResultView_DetailedAssessmentResult_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentResult_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets
-        ///per vak
-        ///categoriegrens Vv.
-        /// </summary>
-        public static string FailureMechanismResultView_DetailedAssessmentResultForFactorizedLowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentResultForFactorizedLowerLimitNorm_Di" +
-                        "splayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets
-        ///per vak
-        ///categoriegrens Iv.
-        /// </summary>
-        public static string FailureMechanismResultView_DetailedAssessmentResultForFactorizedSignalingNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentResultForFactorizedSignalingNorm_Dis" +
-                        "playName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets
-        ///per vak
-        ///categoriegrens IVv.
-        /// </summary>
-        public static string FailureMechanismResultView_DetailedAssessmentResultForLowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentResultForLowerLimitNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets
-        ///per vak
-        ///categoriegrens IIIv.
-        /// </summary>
-        public static string FailureMechanismResultView_DetailedAssessmentResultForMechanismSpecificLowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentResultForMechanismSpecificLowerLimit" +
-                        "Norm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gedetailleerde toets
-        ///per vak
-        ///categoriegrens IIv.
-        /// </summary>
-        public static string FailureMechanismResultView_DetailedAssessmentResultForSignalingNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_DetailedAssessmentResultForSignalingNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gecombineerde faalkans [1/jaar].
         /// </summary>
         public static string FailureMechanismResultView_FailureMechanismAssemblyLabel {
@@ -1809,16 +1701,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel
-        ///handmatig.
-        /// </summary>
-        public static string FailureMechanismResultView_ManualAssembly_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_ManualAssembly_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De waarde voor de faalkans ontbreekt..
         /// </summary>
         public static string FailureMechanismResultView_ManualFailurePathAssemblyProbablity_must_be_a_number {
@@ -1855,64 +1737,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismResultView_RefinedSectionProbability_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_RefinedSectionProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel
-        ///eenvoudige toets.
-        /// </summary>
-        public static string FailureMechanismResultView_SimpleAssemblyCategoryGroup_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_SimpleAssemblyCategoryGroup_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Eenvoudige toets.
-        /// </summary>
-        public static string FailureMechanismResultView_SimpleAssessmentResult_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_SimpleAssessmentResult_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel
-        ///toets op maat.
-        /// </summary>
-        public static string FailureMechanismResultView_TailorMadeAssemblyCategoryGroup_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssemblyCategoryGroup_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toets op maat
-        ///faalkans.
-        /// </summary>
-        public static string FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssessmentProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toets op maat.
-        /// </summary>
-        public static string FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_TailorMadeAssessmentResult_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overschrijf
-        ///toetsoordeel.
-        /// </summary>
-        public static string FailureMechanismResultView_UseManualAssembly_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_UseManualAssembly_DisplayName", resourceCulture);
             }
         }
         
