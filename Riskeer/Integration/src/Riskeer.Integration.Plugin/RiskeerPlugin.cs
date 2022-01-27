@@ -1085,7 +1085,7 @@ namespace Riskeer.Integration.Plugin
 
         private ViewInfo<TContext, IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>, NonAdoptableFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
             Func<TFailureMechanism, double> getNFunc)
-            where TContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
+            where TContext : FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
             where TFailureMechanism : class, IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
         {
             return new RiskeerViewInfo<
@@ -1104,7 +1104,7 @@ namespace Riskeer.Integration.Plugin
 
         private ViewInfo<TContext, IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
             Func<TFailureMechanism, double> getNFunc, Func<TFailureMechanism, bool> getUseLengthEffectFunc)
-            where TContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+            where TContext : FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
             where TFailureMechanism : class, IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
             return new RiskeerViewInfo<
@@ -1122,7 +1122,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         private TreeNodeInfo<TContext> CreateFailureMechanismSectionResultTreeNodeInfo<TContext, TSectionResult>()
-            where TContext : ProbabilityFailureMechanismSectionResultContext<TSectionResult>
+            where TContext : FailureMechanismSectionResultContext<TSectionResult>
             where TSectionResult : NonAdoptableFailureMechanismSectionResult
         {
             return new TreeNodeInfo<TContext>

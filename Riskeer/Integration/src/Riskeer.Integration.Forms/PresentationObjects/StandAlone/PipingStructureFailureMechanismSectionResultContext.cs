@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects.StandAlone
     /// This class is a presentation object for a collection of <see cref="NonAdoptableFailureMechanismSectionResult"/>
     /// for the <see cref="PipingStructureFailureMechanism"/>.
     /// </summary>
-    public class PipingStructureFailureMechanismSectionResultContext : ProbabilityFailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
+    public class PipingStructureFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingStructureFailureMechanismSectionResultContext"/>.
