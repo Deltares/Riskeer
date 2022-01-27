@@ -21,8 +21,9 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create.GrassCoverSlipOffOutwards
@@ -43,18 +44,18 @@ namespace Riskeer.Storage.Core.Create.GrassCoverSlipOffOutwards
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.GrassRevetmentSlidingOutwards, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
-            AddEntitiesForSectionResults(mechanism.SectionResultsOld, registry);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> sectionResults,
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld failureMechanismSectionResult in sectionResults)
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                GrassCoverSlipOffOutwardsSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
+                var sectionResultEntity = failureMechanismSectionResult.Create<GrassCoverSlipOffOutwardsSectionResultEntity>();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.GrassCoverSlipOffOutwardsSectionResultEntities.Add(sectionResultEntity);
             }

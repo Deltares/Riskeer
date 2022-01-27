@@ -58,95 +58,6 @@ namespace Riskeer.Storage.Core.Test.Read
     [TestFixture]
     public class FailureMechanismEntityReadExtensionsTest
     {
-        #region WaterPressureAsphaltCover
-
-        [Test]
-        public void ReadAsWaterPressureAsphaltCoverFailureMechanism_WithPropertiesSet_SetsWaterPressureAsphaltCoverFailureMechanismProperties()
-        {
-            // Setup
-            var random = new Random(31);
-            bool inAssembly = random.NextBoolean();
-            var entity = new FailureMechanismEntity
-            {
-                InAssembly = Convert.ToByte(inAssembly),
-                InAssemblyInputComments = "Some input text",
-                InAssemblyOutputComments = "Some output text",
-                NotInAssemblyComments = "Really not in assembly",
-                CalculationsInputComments = "Some calculation text",
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                WaterPressureAsphaltCoverFailureMechanismMetaEntities = new[]
-                {
-                    new WaterPressureAsphaltCoverFailureMechanismMetaEntity
-                    {
-                        N = random.NextRoundedDouble(1.0, 20.0)
-                    }
-                }
-            };
-            var collector = new ReadConversionCollector();
-            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-
-            // Call
-            entity.ReadAsWaterPressureAsphaltCoverFailureMechanism(failureMechanism, collector);
-
-            // Assert
-            Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
-            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
-
-            WaterPressureAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
-        }
-        
-        [Test]
-        public void ReadAsWaterPressureAsphaltCoverFailureMechanism_WithSectionsSet_ReturnsNewWaterPressureAsphaltCoverFailureMechanismWithFailureMechanismSectionsAdded()
-        {
-            // Setup
-            const string filePath = "failureMechanismSections/File/Path";
-
-            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
-            var waterPressureAsphaltCoverSectionResultEntity = new WaterPressureAsphaltCoverSectionResultEntity
-            {
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
-            SetSectionResult(waterPressureAsphaltCoverSectionResultEntity);
-
-            failureMechanismSectionEntity.WaterPressureAsphaltCoverSectionResultEntities.Add(waterPressureAsphaltCoverSectionResultEntity);
-            var entity = new FailureMechanismEntity
-            {
-                FailureMechanismSectionCollectionSourcePath = filePath,
-                FailureMechanismSectionEntities =
-                {
-                    failureMechanismSectionEntity
-                },
-                WaterPressureAsphaltCoverFailureMechanismMetaEntities =
-                {
-                    new WaterPressureAsphaltCoverFailureMechanismMetaEntity
-                    {
-                        N = 1
-                    }
-                },
-                CalculationGroupEntity = new CalculationGroupEntity()
-            };
-            var collector = new ReadConversionCollector();
-            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-
-            // Call
-            entity.ReadAsWaterPressureAsphaltCoverFailureMechanism(failureMechanism, collector);
-
-            // Assert
-            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
-            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
-                            failureMechanism.FailureMechanismSectionSourcePath);
-
-            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaterPressureAsphaltCoverSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
-        }
-
-        #endregion
-
         #region GrassCoverSlipOffInwards
 
         [Test]
@@ -187,51 +98,6 @@ namespace Riskeer.Storage.Core.Test.Read
             CollectionAssert.IsEmpty(failureMechanism.Sections);
 
             GrassCoverSlipOffInwardsFailureMechanismMetaEntity metaEntity = entity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single();
-            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
-        }
-
-        #endregion
-
-        #region GrassCoverSlipOffOutwards
-
-        [Test]
-        public void ReadAsGrassCoverSlipOffOutwardsFailureMechanism_WithPropertiesSet_SetsGrassCoverSlipOffOutwardsFailureMechanismProperties()
-        {
-            // Setup
-            var random = new Random(31);
-            bool inAssembly = random.NextBoolean();
-            var entity = new FailureMechanismEntity
-            {
-                InAssembly = Convert.ToByte(inAssembly),
-                InAssemblyInputComments = "Some input text",
-                InAssemblyOutputComments = "Some output text",
-                NotInAssemblyComments = "Really not in assembly",
-                CalculationsInputComments = "Some calculation text",
-                CalculationGroupEntity = new CalculationGroupEntity(),
-                GrassCoverSlipOffOutwardsFailureMechanismMetaEntities = new[]
-                {
-                    new GrassCoverSlipOffOutwardsFailureMechanismMetaEntity
-                    {
-                        N = random.NextRoundedDouble(1.0, 20.0)
-                    }
-                }
-            };
-            var collector = new ReadConversionCollector();
-            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-
-            // Call
-            entity.ReadAsGrassCoverSlipOffOutwardsFailureMechanism(failureMechanism, collector);
-
-            // Assert
-            Assert.IsNotNull(failureMechanism);
-            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
-            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
-
-            GrassCoverSlipOffOutwardsFailureMechanismMetaEntity metaEntity = entity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single();
             Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 
@@ -372,6 +238,184 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultProfileProbability);
             Assert.AreEqual(sectionResultEntity.RefinedProfileProbability.ToNullAsNaN(), sectionResult.RefinedProfileProbability);
         }
+
+        #region WaterPressureAsphaltCover
+
+        [Test]
+        public void ReadAsWaterPressureAsphaltCoverFailureMechanism_WithPropertiesSet_SetsWaterPressureAsphaltCoverFailureMechanismProperties()
+        {
+            // Setup
+            var random = new Random(31);
+            bool inAssembly = random.NextBoolean();
+            var entity = new FailureMechanismEntity
+            {
+                InAssembly = Convert.ToByte(inAssembly),
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
+                NotInAssemblyComments = "Really not in assembly",
+                CalculationsInputComments = "Some calculation text",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                WaterPressureAsphaltCoverFailureMechanismMetaEntities = new[]
+                {
+                    new WaterPressureAsphaltCoverFailureMechanismMetaEntity
+                    {
+                        N = random.NextRoundedDouble(1.0, 20.0)
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+
+            // Call
+            entity.ReadAsWaterPressureAsphaltCoverFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            WaterPressureAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+        }
+
+        [Test]
+        public void ReadAsWaterPressureAsphaltCoverFailureMechanism_WithSectionsSet_ReturnsNewWaterPressureAsphaltCoverFailureMechanismWithFailureMechanismSectionsAdded()
+        {
+            // Setup
+            const string filePath = "failureMechanismSections/File/Path";
+
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            var waterPressureAsphaltCoverSectionResultEntity = new WaterPressureAsphaltCoverSectionResultEntity
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            };
+            SetSectionResult(waterPressureAsphaltCoverSectionResultEntity);
+
+            failureMechanismSectionEntity.WaterPressureAsphaltCoverSectionResultEntities.Add(waterPressureAsphaltCoverSectionResultEntity);
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismSectionCollectionSourcePath = filePath,
+                FailureMechanismSectionEntities =
+                {
+                    failureMechanismSectionEntity
+                },
+                WaterPressureAsphaltCoverFailureMechanismMetaEntities =
+                {
+                    new WaterPressureAsphaltCoverFailureMechanismMetaEntity
+                    {
+                        N = 1
+                    }
+                },
+                CalculationGroupEntity = new CalculationGroupEntity()
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
+
+            // Call
+            entity.ReadAsWaterPressureAsphaltCoverFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
+                            failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaterPressureAsphaltCoverSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+        }
+
+        #endregion
+
+        #region GrassCoverSlipOffOutwards
+
+        [Test]
+        public void ReadAsGrassCoverSlipOffOutwardsFailureMechanism_WithPropertiesSet_SetsGrassCoverSlipOffOutwardsFailureMechanismProperties()
+        {
+            // Setup
+            var random = new Random(31);
+            bool inAssembly = random.NextBoolean();
+            var entity = new FailureMechanismEntity
+            {
+                InAssembly = Convert.ToByte(inAssembly),
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
+                NotInAssemblyComments = "Really not in assembly",
+                CalculationsInputComments = "Some calculation text",
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                GrassCoverSlipOffOutwardsFailureMechanismMetaEntities = new[]
+                {
+                    new GrassCoverSlipOffOutwardsFailureMechanismMetaEntity
+                    {
+                        N = random.NextRoundedDouble(1.0, 20.0)
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsGrassCoverSlipOffOutwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNotNull(failureMechanism);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+            GrassCoverSlipOffOutwardsFailureMechanismMetaEntity metaEntity = entity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single();
+            Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
+        }
+
+        [Test]
+        public void ReadAsGrassCoverSlipOffOutwardsFailureMechanism_WithSectionsSet_ReturnsNewGrassCoverSlipOffOutwardsFailureMechanismWithFailureMechanismSectionsAdded()
+        {
+            // Setup
+            const string filePath = "failureMechanismSections/File/Path";
+
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            var grassCoverSlipOffOutwardsSectionResultEntity = new GrassCoverSlipOffOutwardsSectionResultEntity
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            };
+            SetSectionResult(grassCoverSlipOffOutwardsSectionResultEntity);
+
+            failureMechanismSectionEntity.GrassCoverSlipOffOutwardsSectionResultEntities.Add(grassCoverSlipOffOutwardsSectionResultEntity);
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismSectionCollectionSourcePath = filePath,
+                FailureMechanismSectionEntities =
+                {
+                    failureMechanismSectionEntity
+                },
+                GrassCoverSlipOffOutwardsFailureMechanismMetaEntities =
+                {
+                    new GrassCoverSlipOffOutwardsFailureMechanismMetaEntity
+                    {
+                        N = 1
+                    }
+                },
+                CalculationGroupEntity = new CalculationGroupEntity()
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsGrassCoverSlipOffOutwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
+            Assert.AreEqual(entity.FailureMechanismSectionCollectionSourcePath,
+                            failureMechanism.FailureMechanismSectionSourcePath);
+
+            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffOutwardsSectionResultEntities).Single(), failureMechanism.SectionResults.Single());
+        }
+
+        #endregion
 
         #region Microstability
 
@@ -1364,7 +1408,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
             SetSectionResult(macroStabilityInwardsSectionResultEntity);
             failureMechanismSectionEntity.MacroStabilityInwardsSectionResultEntities.Add(macroStabilityInwardsSectionResultEntity);
-            
+
             var entity = new FailureMechanismEntity
             {
                 FailureMechanismSectionCollectionSourcePath = filePath,
