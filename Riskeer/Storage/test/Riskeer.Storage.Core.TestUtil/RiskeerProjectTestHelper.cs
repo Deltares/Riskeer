@@ -206,7 +206,7 @@ namespace Riskeer.Storage.Core.TestUtil
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
             SetGeneralInput(grassCoverSlipOffInwardsFailureMechanism, random.Next());
             SetSections(grassCoverSlipOffInwardsFailureMechanism);
-            SetSectionResults(grassCoverSlipOffInwardsFailureMechanism.SectionResultsOld);
+            SetSectionResults(grassCoverSlipOffInwardsFailureMechanism.SectionResults);
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
             SetGeneralInput(grassCoverSlipOffOutwardsFailureMechanism, random.Next());

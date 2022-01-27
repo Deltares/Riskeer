@@ -283,8 +283,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.GrassCoverErosionOutwards.SectionResults,
                 actualAssessmentSection.GrassCoverErosionOutwards.SectionResults);
             AssertFailureMechanismSectionResults(
-                expectedAssessmentSection.GrassCoverSlipOffInwards.SectionResultsOld,
-                actualAssessmentSection.GrassCoverSlipOffInwards.SectionResultsOld);
+                expectedAssessmentSection.GrassCoverSlipOffInwards.SectionResults,
+                actualAssessmentSection.GrassCoverSlipOffInwards.SectionResults);
             AssertFailureMechanismSectionResults(
                 expectedAssessmentSection.GrassCoverSlipOffOutwards.SectionResults,
                 actualAssessmentSection.GrassCoverSlipOffOutwards.SectionResults);
@@ -319,6 +319,20 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                      {
                                          Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
                                          Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
+                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
+                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
+                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
+                                     });
+        }
+        private static void AssertFailureMechanismSectionResults(
+            IEnumerable<TechnicalInnovationFailureMechanismSectionResultOld> expectedSectionResults,
+            IEnumerable<TechnicalInnovationFailureMechanismSectionResultOld> actualSectionResults)
+        {
+            AssertCollectionAndItems(expectedSectionResults,
+                                     actualSectionResults,
+                                     (expectedItem, actualItem) =>
+                                     {
+                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
                                          Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
                                          Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
                                          Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
