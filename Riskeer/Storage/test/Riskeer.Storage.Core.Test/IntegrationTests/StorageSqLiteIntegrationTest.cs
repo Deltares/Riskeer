@@ -289,8 +289,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.GrassCoverSlipOffInwards.SectionResultsOld,
                 actualAssessmentSection.GrassCoverSlipOffInwards.SectionResultsOld);
             AssertFailureMechanismSectionResults(
-                expectedAssessmentSection.GrassCoverSlipOffOutwards.SectionResultsOld,
-                actualAssessmentSection.GrassCoverSlipOffOutwards.SectionResultsOld);
+                expectedAssessmentSection.GrassCoverSlipOffOutwards.SectionResults,
+                actualAssessmentSection.GrassCoverSlipOffOutwards.SectionResults);
             AssertFailureMechanismSectionResults(
                 expectedAssessmentSection.Microstability.SectionResults,
                 actualAssessmentSection.Microstability.SectionResults);
@@ -344,22 +344,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         }
 
         private static void AssertFailureMechanismSectionResults(
-            IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> expectedSectionResults,
-            IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> actualSectionResults)
-        {
-            AssertCollectionAndItems(expectedSectionResults,
-                                     actualSectionResults,
-                                     (expectedItem, actualItem) =>
-                                     {
-                                         Assert.AreEqual(expectedItem.SimpleAssessmentResult, actualItem.SimpleAssessmentResult);
-                                         Assert.AreEqual(expectedItem.DetailedAssessmentResult, actualItem.DetailedAssessmentResult);
-                                         Assert.AreEqual(expectedItem.TailorMadeAssessmentResult, actualItem.TailorMadeAssessmentResult);
-                                         Assert.AreEqual(expectedItem.UseManualAssembly, actualItem.UseManualAssembly);
-                                         Assert.AreEqual(expectedItem.ManualAssemblyCategoryGroup, actualItem.ManualAssemblyCategoryGroup);
-                                     });
-        }
-
-        private static void AssertFailureMechanismSectionResults(
             IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> expectedSectionResults,
             IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> actualSectionResults)
         {
@@ -392,7 +376,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                          Assert.AreEqual(expectedItem.RefinedSectionProbability, actualItem.RefinedSectionProbability);
                                      });
         }
-        
+
         private static void AssertFailureMechanismSectionResults(
             IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> expectedSectionResults,
             IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> actualSectionResults)
@@ -755,6 +739,16 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expected.Input.N, actual.Input.N);
 
             AssertFailurePathAssemblyResult(expected.AssemblyResult, actual.AssemblyResult);
+        }
+
+        #endregion
+
+        #region PipingStructure FailureMechanism
+
+        private static void AssertPipingStructureFailureMechanism(PipingStructureFailureMechanism expectedFailureMechanism,
+                                                                  PipingStructureFailureMechanism actualFailureMechanism)
+        {
+            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
         }
 
         #endregion
@@ -1881,16 +1875,6 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             }
         }
 
-        #endregion
-
-        #region PipingStructure FailureMechanism
-
-        private static void AssertPipingStructureFailureMechanism(PipingStructureFailureMechanism expectedFailureMechanism,
-                                                                  PipingStructureFailureMechanism actualFailureMechanism)
-        {
-            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
-        }
-        
         #endregion
 
         #region Hydraulic Boundary Database

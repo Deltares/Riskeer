@@ -211,7 +211,7 @@ namespace Riskeer.Storage.Core.TestUtil
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
             SetGeneralInput(grassCoverSlipOffOutwardsFailureMechanism, random.Next());
             SetSections(grassCoverSlipOffOutwardsFailureMechanism);
-            SetSectionResults(grassCoverSlipOffOutwardsFailureMechanism.SectionResultsOld);
+            SetSectionResults(grassCoverSlipOffOutwardsFailureMechanism.SectionResults);
 
             SetSectionResults(assessmentSection.DuneErosion.SectionResultsOld);
 
@@ -277,19 +277,6 @@ namespace Riskeer.Storage.Core.TestUtil
         {
             var random = new Random(39);
             foreach (GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult in sectionResults)
-            {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
-                sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> sectionResults)
-        {
-            var random = new Random(39);
-            foreach (GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld sectionResult in sectionResults)
             {
                 sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>();
                 sectionResult.DetailedAssessmentResult = random.NextEnumValue<DetailedAssessmentResultType>();
@@ -526,7 +513,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 sectionResult.RefinedSectionProbability = random.NextDouble();
             }
         }
-        
+
         private static void SetSectionResults(IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
@@ -556,7 +543,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 sectionResult.RefinedSectionProbability = random.NextDouble();
             }
         }
-        
+
         private static void SetSectionResults(IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
@@ -808,6 +795,580 @@ namespace Riskeer.Storage.Core.TestUtil
 
         #endregion
 
+        #region HeightStructures FailureMechanism
+
+        private static void ConfigureHeightStructuresFailureMechanism(HeightStructuresFailureMechanism failureMechanism,
+                                                                      IAssessmentSection assessmentSection)
+        {
+            failureMechanism.GeneralInput.N = (RoundedDouble) 5.0;
+
+            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+
+            var heightStructure = new TestHeightStructure();
+            failureMechanism.HeightStructures.AddRange(new[]
+            {
+                heightStructure,
+                new TestHeightStructure("IdB", "Structure B")
+            }, @"/temp/structures");
+
+            ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "Height structures A",
+                Children =
+                {
+                    new StructuresCalculationScenario<HeightStructuresInput>
+                    {
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocations[0],
+                            ModelFactorSuperCriticalFlow =
+                            {
+                                Mean = (RoundedDouble) 1.1
+                            },
+                            StormDuration =
+                            {
+                                Mean = (RoundedDouble) 1.7
+                            },
+                            Structure = heightStructure,
+                            ShouldIllustrationPointsBeCalculated = false
+                        },
+                        Output = new StructuresOutput(0.11, null)
+                    },
+                    new StructuresCalculationScenario<HeightStructuresInput>
+                    {
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocations[0],
+                            ModelFactorSuperCriticalFlow =
+                            {
+                                Mean = (RoundedDouble) 1.1
+                            },
+                            StormDuration =
+                            {
+                                Mean = (RoundedDouble) 1.7
+                            },
+                            Structure = heightStructure,
+                            ShouldIllustrationPointsBeCalculated = true
+                        },
+                        Output = GetStructuresOutputWithIllustrationPoints()
+                    }
+                }
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "Height structures B"
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>());
+        }
+
+        #endregion
+
+        #region GrassCoverErosionInwards FailureMechanism
+
+        private static void ConfigureGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                              IAssessmentSection assessmentSection)
+        {
+            failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
+            var dikeProfile1 = new DikeProfile(new Point2D(1, 2),
+                                               new[]
+                                               {
+                                                   new RoughnessPoint(new Point2D(1, 2), 1),
+                                                   new RoughnessPoint(new Point2D(3, 4), 0.5)
+                                               },
+                                               new[]
+                                               {
+                                                   new Point2D(5, 6),
+                                                   new Point2D(7, 8)
+                                               },
+                                               new BreakWater(BreakWaterType.Caisson, 15),
+                                               new DikeProfile.ConstructionProperties
+                                               {
+                                                   Id = "id",
+                                                   DikeHeight = 1.1,
+                                                   Name = "2.2",
+                                                   Orientation = 3.3,
+                                                   X0 = 4.4
+                                               });
+            var dikeProfile2 = new DikeProfile(new Point2D(9, 10),
+                                               new[]
+                                               {
+                                                   new RoughnessPoint(new Point2D(11, 12), 1),
+                                                   new RoughnessPoint(new Point2D(13, 14), 0.5)
+                                               },
+                                               Array.Empty<Point2D>(),
+                                               null,
+                                               new DikeProfile.ConstructionProperties
+                                               {
+                                                   Id = "id2",
+                                                   DikeHeight = 5.5,
+                                                   Name = "6.6",
+                                                   Orientation = 7.7,
+                                                   X0 = 8.8
+                                               });
+            failureMechanism.DikeProfiles.AddRange(new[]
+            {
+                dikeProfile1,
+                dikeProfile2
+            }, "some/path/to/dikeprofiles");
+
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GEKB A",
+                Children =
+                {
+                    new GrassCoverErosionInwardsCalculationScenario
+                    {
+                        Name = "Calculation 1",
+                        Comments =
+                        {
+                            Body = "Comments for Calculation 1"
+                        },
+                        InputParameters =
+                        {
+                            DikeProfile = dikeProfile1,
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (dikeProfile1.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            DikeHeight = (RoundedDouble) (dikeProfile1.DikeHeight + 0.2),
+                            Orientation = dikeProfile1.Orientation,
+                            CriticalFlowRate =
+                            {
+                                Mean = (RoundedDouble) 1.1,
+                                StandardDeviation = (RoundedDouble) 2.2
+                            },
+                            ShouldDikeHeightBeCalculated = true,
+                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            ShouldOvertoppingRateBeCalculated = true,
+                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            UseForeshore = true,
+                            UseBreakWater = true
+                        },
+                        Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, null),
+                                                                    new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, null),
+                                                                    new OvertoppingRateOutput(0.57, 0.07, 4, 0.08, 5, CalculationConvergence.CalculatedConverged, null))
+                    },
+                    new GrassCoverErosionInwardsCalculationScenario
+                    {
+                        Name = "Calculation 2",
+                        Comments =
+                        {
+                            Body = "Comments for Calculation 2"
+                        },
+                        InputParameters =
+                        {
+                            DikeProfile = dikeProfile1,
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (dikeProfile1.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            DikeHeight = (RoundedDouble) (dikeProfile1.DikeHeight + 0.2),
+                            Orientation = dikeProfile1.Orientation,
+                            CriticalFlowRate =
+                            {
+                                Mean = (RoundedDouble) 1.1,
+                                StandardDeviation = (RoundedDouble) 2.2
+                            },
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
+                            ShouldDikeHeightBeCalculated = true,
+                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            ShouldDikeHeightIllustrationPointsBeCalculated = true,
+                            ShouldOvertoppingRateBeCalculated = true,
+                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            ShouldOvertoppingRateIllustrationPointsBeCalculated = true
+                        },
+                        Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
+                                                                    new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
+                                                                    new OvertoppingRateOutput(0.57, 0.07, 4, 0.08, 5, CalculationConvergence.CalculatedConverged, GetConfiguredGeneralResultFaultTreeIllustrationPoint()))
+                    }
+                }
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GEKB B"
+            });
+            failureMechanism.CalculationsGroup.Children.Add(
+                new GrassCoverErosionInwardsCalculationScenario
+                {
+                    Name = "Calculation 2",
+                    Comments =
+                    {
+                        Body = "Comments about Calculation 2"
+                    },
+                    InputParameters =
+                    {
+                        DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                        OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm
+                    }
+                });
+        }
+
+        #endregion
+
+        #region GrassCoverErosionOutwards FailureMechanism
+
+        private static void ConfigureGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                               IAssessmentSection assessmentSection)
+        {
+            failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
+            ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GCEO A",
+                Children =
+                {
+                    new GrassCoverErosionOutwardsWaveConditionsCalculation
+                    {
+                        Name = "Calculation 1",
+                        Comments =
+                        {
+                            Body = "Comments for Calculation 1"
+                        },
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            Orientation = foreshoreProfile.Orientation,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
+                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
+                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
+                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
+                            StepSize = WaveConditionsInputStepSize.Two,
+                            CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.None
+                        }
+                    },
+                    new GrassCoverErosionOutwardsWaveConditionsCalculation
+                    {
+                        Name = "Calculation 2",
+                        Comments =
+                        {
+                            Body = "Comments for Calculation 2"
+                        },
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            CalculationsTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First(),
+                            Orientation = foreshoreProfile.Orientation,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
+                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
+                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
+                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
+                            StepSize = WaveConditionsInputStepSize.Two,
+                            CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
+                        }
+                    }
+                }
+            });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GCEO B"
+            });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(
+                new GrassCoverErosionOutwardsWaveConditionsCalculation
+                {
+                    Name = "Calculation 3",
+                    Comments =
+                    {
+                        Body = "Comments for Calculation 3"
+                    },
+                    InputParameters =
+                    {
+                        ForeshoreProfile = null,
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                        BreakWater =
+                        {
+                            Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.1),
+                            Type = BreakWaterType.Dam
+                        },
+                        Orientation = foreshoreProfile.Orientation,
+                        UseForeshore = false,
+                        UseBreakWater = false,
+                        UpperBoundaryRevetment = (RoundedDouble) 12.3,
+                        LowerBoundaryRevetment = (RoundedDouble) (-3.5),
+                        UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
+                        LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
+                        StepSize = WaveConditionsInputStepSize.One,
+                        CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact,
+                        WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
+                    },
+                    Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
+                        new[]
+                        {
+                            new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated),
+                            new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)
+                        },
+                        new[]
+                        {
+                            new WaveConditionsOutput(10, 20, 30, 40, 50, 0.4, 0.5, 0.6, 0.7, CalculationConvergence.NotCalculated),
+                            new WaveConditionsOutput(0, 10, 20, 30, 40, 0.7, 0.6, 0.5, 0.4, CalculationConvergence.NotCalculated)
+                        },
+                        new[]
+                        {
+                            new WaveConditionsOutput(10, 20, 30, 40, 50, 0.4, 0.5, 0.6, 0.7, CalculationConvergence.NotCalculated),
+                            new WaveConditionsOutput(0, 10, 20, 30, 40, 0.7, 0.6, 0.5, 0.4, CalculationConvergence.NotCalculated)
+                        })
+                });
+        }
+
+        #endregion
+
+        #region StabilityStoneCover FailureMechanism
+
+        private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism,
+                                                                         IAssessmentSection assessmentSection)
+        {
+            failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
+
+            ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "SSC A",
+                Children =
+                {
+                    new StabilityStoneCoverWaveConditionsCalculation
+                    {
+                        Name = "Calculation 1",
+                        Comments =
+                        {
+                            Body = "Comments for Calculation 1"
+                        },
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            Orientation = foreshoreProfile.Orientation,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
+                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
+                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
+                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
+                            StepSize = WaveConditionsInputStepSize.Two,
+                            CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Columns,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.None
+                        }
+                    },
+                    new StabilityStoneCoverWaveConditionsCalculation
+                    {
+                        Name = "Calculation 2",
+                        Comments =
+                        {
+                            Body = "Comments for Calculation 2"
+                        },
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            CalculationsTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First(),
+                            Orientation = foreshoreProfile.Orientation,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
+                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
+                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
+                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
+                            StepSize = WaveConditionsInputStepSize.Two,
+                            CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Columns,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
+                        }
+                    }
+                }
+            });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "SSC B"
+            });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(
+                new StabilityStoneCoverWaveConditionsCalculation
+                {
+                    Name = "Calculation 3",
+                    Comments =
+                    {
+                        Body = "Comments for Calculation 3"
+                    },
+                    InputParameters =
+                    {
+                        ForeshoreProfile = null,
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                        BreakWater =
+                        {
+                            Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.1),
+                            Type = BreakWaterType.Dam
+                        },
+                        Orientation = foreshoreProfile.Orientation,
+                        UseForeshore = false,
+                        UseBreakWater = false,
+                        UpperBoundaryRevetment = (RoundedDouble) 12.3,
+                        LowerBoundaryRevetment = (RoundedDouble) (-3.5),
+                        UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
+                        LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
+                        StepSize = WaveConditionsInputStepSize.One,
+                        WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
+                    },
+                    Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
+                    {
+                        new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated),
+                        new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)
+                    }, new[]
+                    {
+                        new WaveConditionsOutput(10, 9, 8, 7, 6, 0.5, 0.4, 0.3, 0.2, CalculationConvergence.NotCalculated),
+                        new WaveConditionsOutput(9, 8, 7, 6, 5, 0.4, 0.3, 0.2, 0.1, CalculationConvergence.NotCalculated)
+                    })
+                });
+        }
+
+        #endregion
+
+        #region WaveImpactAsphaltCover FailureMechanism
+
+        private static void ConfigureWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+                                                                            IAssessmentSection assessmentSection)
+        {
+            failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL = (RoundedDouble) 1337.0;
+
+            ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "WIAC A",
+                Children =
+                {
+                    new WaveImpactAsphaltCoverWaveConditionsCalculation
+                    {
+                        Name = "Calculation 1",
+                        Comments =
+                        {
+                            Body = "Comments for Calculation 1"
+                        },
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            Orientation = foreshoreProfile.Orientation,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
+                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
+                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
+                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
+                            StepSize = WaveConditionsInputStepSize.Two,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.None
+                        }
+                    },
+                    new WaveImpactAsphaltCoverWaveConditionsCalculation
+                    {
+                        Name = "Calculation 2",
+                        Comments =
+                        {
+                            Body = "Comments for Calculation 2"
+                        },
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            CalculationsTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last(),
+                            Orientation = foreshoreProfile.Orientation,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
+                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
+                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
+                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
+                            StepSize = WaveConditionsInputStepSize.Two,
+                            WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
+                        }
+                    }
+                }
+            });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "WIAC B"
+            });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(
+                new WaveImpactAsphaltCoverWaveConditionsCalculation
+                {
+                    Name = "Calculation 3",
+                    Comments =
+                    {
+                        Body = "Comments for Calculation 3"
+                    },
+                    InputParameters =
+                    {
+                        ForeshoreProfile = null,
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                        BreakWater =
+                        {
+                            Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.1),
+                            Type = BreakWaterType.Dam
+                        },
+                        Orientation = foreshoreProfile.Orientation,
+                        UseForeshore = false,
+                        UseBreakWater = false,
+                        UpperBoundaryRevetment = (RoundedDouble) 12.3,
+                        LowerBoundaryRevetment = (RoundedDouble) (-3.5),
+                        UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
+                        LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
+                        StepSize = WaveConditionsInputStepSize.One,
+                        WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                    },
+                    Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
+                    {
+                        new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated),
+                        new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)
+                    })
+                });
+        }
+
+        #endregion
+
         #region DuneErosion FailureMechanism
 
         private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism)
@@ -886,77 +1447,6 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                    });
         }
 
-        #endregion
-
-        #region HeightStructures FailureMechanism
-
-        private static void ConfigureHeightStructuresFailureMechanism(HeightStructuresFailureMechanism failureMechanism,
-                                                                      IAssessmentSection assessmentSection)
-        {
-            failureMechanism.GeneralInput.N = (RoundedDouble) 5.0;
-
-            List<HydraulicBoundaryLocation> hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
-
-            var heightStructure = new TestHeightStructure();
-            failureMechanism.HeightStructures.AddRange(new[]
-            {
-                heightStructure,
-                new TestHeightStructure("IdB", "Structure B")
-            }, @"/temp/structures");
-
-            ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
-            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
-            {
-                Name = "Height structures A",
-                Children =
-                {
-                    new StructuresCalculationScenario<HeightStructuresInput>
-                    {
-                        InputParameters =
-                        {
-                            ForeshoreProfile = foreshoreProfile,
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocations[0],
-                            ModelFactorSuperCriticalFlow =
-                            {
-                                Mean = (RoundedDouble) 1.1
-                            },
-                            StormDuration =
-                            {
-                                Mean = (RoundedDouble) 1.7
-                            },
-                            Structure = heightStructure,
-                            ShouldIllustrationPointsBeCalculated = false
-                        },
-                        Output = new StructuresOutput(0.11, null)
-                    },
-                    new StructuresCalculationScenario<HeightStructuresInput>
-                    {
-                        InputParameters =
-                        {
-                            ForeshoreProfile = foreshoreProfile,
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocations[0],
-                            ModelFactorSuperCriticalFlow =
-                            {
-                                Mean = (RoundedDouble) 1.1
-                            },
-                            StormDuration =
-                            {
-                                Mean = (RoundedDouble) 1.7
-                            },
-                            Structure = heightStructure,
-                            ShouldIllustrationPointsBeCalculated = true
-                        },
-                        Output = GetStructuresOutputWithIllustrationPoints()
-                    }
-                }
-            });
-            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
-            {
-                Name = "Height structures B"
-            });
-            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculationScenario<HeightStructuresInput>());
-        }
-        
         #endregion
 
         #region Piping FailureMechanism
@@ -1746,509 +2236,6 @@ namespace Riskeer.Storage.Core.TestUtil
             surfaceLine.SetSurfaceLevelInsideAt(geometryPoints[1]);
 
             return surfaceLine;
-        }
-
-        #endregion
-
-        #region GrassCoverErosionInwards FailureMechanism
-
-        private static void ConfigureGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                                              IAssessmentSection assessmentSection)
-        {
-            failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
-            var dikeProfile1 = new DikeProfile(new Point2D(1, 2),
-                                               new[]
-                                               {
-                                                   new RoughnessPoint(new Point2D(1, 2), 1),
-                                                   new RoughnessPoint(new Point2D(3, 4), 0.5)
-                                               },
-                                               new[]
-                                               {
-                                                   new Point2D(5, 6),
-                                                   new Point2D(7, 8)
-                                               },
-                                               new BreakWater(BreakWaterType.Caisson, 15),
-                                               new DikeProfile.ConstructionProperties
-                                               {
-                                                   Id = "id",
-                                                   DikeHeight = 1.1,
-                                                   Name = "2.2",
-                                                   Orientation = 3.3,
-                                                   X0 = 4.4
-                                               });
-            var dikeProfile2 = new DikeProfile(new Point2D(9, 10),
-                                               new[]
-                                               {
-                                                   new RoughnessPoint(new Point2D(11, 12), 1),
-                                                   new RoughnessPoint(new Point2D(13, 14), 0.5)
-                                               },
-                                               Array.Empty<Point2D>(),
-                                               null,
-                                               new DikeProfile.ConstructionProperties
-                                               {
-                                                   Id = "id2",
-                                                   DikeHeight = 5.5,
-                                                   Name = "6.6",
-                                                   Orientation = 7.7,
-                                                   X0 = 8.8
-                                               });
-            failureMechanism.DikeProfiles.AddRange(new[]
-            {
-                dikeProfile1,
-                dikeProfile2
-            }, "some/path/to/dikeprofiles");
-
-            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
-            {
-                Name = "GEKB A",
-                Children =
-                {
-                    new GrassCoverErosionInwardsCalculationScenario
-                    {
-                        Name = "Calculation 1",
-                        Comments =
-                        {
-                            Body = "Comments for Calculation 1"
-                        },
-                        InputParameters =
-                        {
-                            DikeProfile = dikeProfile1,
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
-                            BreakWater =
-                            {
-                                Height = (RoundedDouble) (dikeProfile1.BreakWater.Height + 0.3),
-                                Type = BreakWaterType.Wall
-                            },
-                            DikeHeight = (RoundedDouble) (dikeProfile1.DikeHeight + 0.2),
-                            Orientation = dikeProfile1.Orientation,
-                            CriticalFlowRate =
-                            {
-                                Mean = (RoundedDouble) 1.1,
-                                StandardDeviation = (RoundedDouble) 2.2
-                            },
-                            ShouldDikeHeightBeCalculated = true,
-                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
-                            ShouldOvertoppingRateBeCalculated = true,
-                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
-                            UseForeshore = true,
-                            UseBreakWater = true
-                        },
-                        Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, null),
-                                                                    new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, null),
-                                                                    new OvertoppingRateOutput(0.57, 0.07, 4, 0.08, 5, CalculationConvergence.CalculatedConverged, null))
-                    },
-                    new GrassCoverErosionInwardsCalculationScenario
-                    {
-                        Name = "Calculation 2",
-                        Comments =
-                        {
-                            Body = "Comments for Calculation 2"
-                        },
-                        InputParameters =
-                        {
-                            DikeProfile = dikeProfile1,
-                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
-                            BreakWater =
-                            {
-                                Height = (RoundedDouble) (dikeProfile1.BreakWater.Height + 0.3),
-                                Type = BreakWaterType.Wall
-                            },
-                            DikeHeight = (RoundedDouble) (dikeProfile1.DikeHeight + 0.2),
-                            Orientation = dikeProfile1.Orientation,
-                            CriticalFlowRate =
-                            {
-                                Mean = (RoundedDouble) 1.1,
-                                StandardDeviation = (RoundedDouble) 2.2
-                            },
-                            UseForeshore = true,
-                            UseBreakWater = true,
-                            ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
-                            ShouldDikeHeightBeCalculated = true,
-                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
-                            ShouldDikeHeightIllustrationPointsBeCalculated = true,
-                            ShouldOvertoppingRateBeCalculated = true,
-                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
-                            ShouldOvertoppingRateIllustrationPointsBeCalculated = true
-                        },
-                        Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
-                                                                    new DikeHeightOutput(0.56, 0.05, 2, 0.06, 3, CalculationConvergence.CalculatedConverged, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
-                                                                    new OvertoppingRateOutput(0.57, 0.07, 4, 0.08, 5, CalculationConvergence.CalculatedConverged, GetConfiguredGeneralResultFaultTreeIllustrationPoint()))
-                    }
-                }
-            });
-            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
-            {
-                Name = "GEKB B"
-            });
-            failureMechanism.CalculationsGroup.Children.Add(
-                new GrassCoverErosionInwardsCalculationScenario
-                {
-                    Name = "Calculation 2",
-                    Comments =
-                    {
-                        Body = "Comments about Calculation 2"
-                    },
-                    InputParameters =
-                    {
-                        DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
-                        OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm
-                    }
-                });
-        }
-
-        #endregion
-
-        #region GrassCoverErosionOutwards FailureMechanism
-
-        private static void ConfigureGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                               IAssessmentSection assessmentSection)
-        {
-            failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
-            ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
-            {
-                Name = "GCEO A",
-                Children =
-                {
-                    new GrassCoverErosionOutwardsWaveConditionsCalculation
-                    {
-                        Name = "Calculation 1",
-                        Comments =
-                        {
-                            Body = "Comments for Calculation 1"
-                        },
-                        InputParameters =
-                        {
-                            ForeshoreProfile = foreshoreProfile,
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                            BreakWater =
-                            {
-                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
-                                Type = BreakWaterType.Wall
-                            },
-                            Orientation = foreshoreProfile.Orientation,
-                            UseForeshore = true,
-                            UseBreakWater = true,
-                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
-                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
-                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
-                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
-                            StepSize = WaveConditionsInputStepSize.Two,
-                            CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact,
-                            WaterLevelType = WaveConditionsInputWaterLevelType.None
-                        }
-                    },
-                    new GrassCoverErosionOutwardsWaveConditionsCalculation
-                    {
-                        Name = "Calculation 2",
-                        Comments =
-                        {
-                            Body = "Comments for Calculation 2"
-                        },
-                        InputParameters =
-                        {
-                            ForeshoreProfile = foreshoreProfile,
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                            BreakWater =
-                            {
-                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
-                                Type = BreakWaterType.Wall
-                            },
-                            CalculationsTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First(),
-                            Orientation = foreshoreProfile.Orientation,
-                            UseForeshore = true,
-                            UseBreakWater = true,
-                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
-                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
-                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
-                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
-                            StepSize = WaveConditionsInputStepSize.Two,
-                            CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveImpact,
-                            WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
-                        }
-                    }
-                }
-            });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
-            {
-                Name = "GCEO B"
-            });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(
-                new GrassCoverErosionOutwardsWaveConditionsCalculation
-                {
-                    Name = "Calculation 3",
-                    Comments =
-                    {
-                        Body = "Comments for Calculation 3"
-                    },
-                    InputParameters =
-                    {
-                        ForeshoreProfile = null,
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                        BreakWater =
-                        {
-                            Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.1),
-                            Type = BreakWaterType.Dam
-                        },
-                        Orientation = foreshoreProfile.Orientation,
-                        UseForeshore = false,
-                        UseBreakWater = false,
-                        UpperBoundaryRevetment = (RoundedDouble) 12.3,
-                        LowerBoundaryRevetment = (RoundedDouble) (-3.5),
-                        UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
-                        LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
-                        StepSize = WaveConditionsInputStepSize.One,
-                        CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact,
-                        WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
-                    },
-                    Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
-                        new[]
-                        {
-                            new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated),
-                            new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)
-                        },
-                        new[]
-                        {
-                            new WaveConditionsOutput(10, 20, 30, 40, 50, 0.4, 0.5, 0.6, 0.7, CalculationConvergence.NotCalculated),
-                            new WaveConditionsOutput(0, 10, 20, 30, 40, 0.7, 0.6, 0.5, 0.4, CalculationConvergence.NotCalculated)
-                        },
-                        new[]
-                        {
-                            new WaveConditionsOutput(10, 20, 30, 40, 50, 0.4, 0.5, 0.6, 0.7, CalculationConvergence.NotCalculated),
-                            new WaveConditionsOutput(0, 10, 20, 30, 40, 0.7, 0.6, 0.5, 0.4, CalculationConvergence.NotCalculated)
-                        })
-                });
-        }
-
-        #endregion
-
-        #region StabilityStoneCover FailureMechanism
-
-        private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism,
-                                                                         IAssessmentSection assessmentSection)
-        {
-            failureMechanism.GeneralInput.N = (RoundedDouble) 15.0;
-
-            ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
-            {
-                Name = "SSC A",
-                Children =
-                {
-                    new StabilityStoneCoverWaveConditionsCalculation
-                    {
-                        Name = "Calculation 1",
-                        Comments =
-                        {
-                            Body = "Comments for Calculation 1"
-                        },
-                        InputParameters =
-                        {
-                            ForeshoreProfile = foreshoreProfile,
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                            BreakWater =
-                            {
-                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
-                                Type = BreakWaterType.Wall
-                            },
-                            Orientation = foreshoreProfile.Orientation,
-                            UseForeshore = true,
-                            UseBreakWater = true,
-                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
-                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
-                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
-                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
-                            StepSize = WaveConditionsInputStepSize.Two,
-                            CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Columns,
-                            WaterLevelType = WaveConditionsInputWaterLevelType.None
-                        }
-                    },
-                    new StabilityStoneCoverWaveConditionsCalculation
-                    {
-                        Name = "Calculation 2",
-                        Comments =
-                        {
-                            Body = "Comments for Calculation 2"
-                        },
-                        InputParameters =
-                        {
-                            ForeshoreProfile = foreshoreProfile,
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                            BreakWater =
-                            {
-                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
-                                Type = BreakWaterType.Wall
-                            },
-                            CalculationsTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First(),
-                            Orientation = foreshoreProfile.Orientation,
-                            UseForeshore = true,
-                            UseBreakWater = true,
-                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
-                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
-                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
-                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
-                            StepSize = WaveConditionsInputStepSize.Two,
-                            CalculationType = StabilityStoneCoverWaveConditionsCalculationType.Columns,
-                            WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
-                        }
-                    }
-                }
-            });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
-            {
-                Name = "SSC B"
-            });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(
-                new StabilityStoneCoverWaveConditionsCalculation
-                {
-                    Name = "Calculation 3",
-                    Comments =
-                    {
-                        Body = "Comments for Calculation 3"
-                    },
-                    InputParameters =
-                    {
-                        ForeshoreProfile = null,
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                        BreakWater =
-                        {
-                            Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.1),
-                            Type = BreakWaterType.Dam
-                        },
-                        Orientation = foreshoreProfile.Orientation,
-                        UseForeshore = false,
-                        UseBreakWater = false,
-                        UpperBoundaryRevetment = (RoundedDouble) 12.3,
-                        LowerBoundaryRevetment = (RoundedDouble) (-3.5),
-                        UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
-                        LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
-                        StepSize = WaveConditionsInputStepSize.One,
-                        WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
-                    },
-                    Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
-                    {
-                        new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated),
-                        new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)
-                    }, new[]
-                    {
-                        new WaveConditionsOutput(10, 9, 8, 7, 6, 0.5, 0.4, 0.3, 0.2, CalculationConvergence.NotCalculated),
-                        new WaveConditionsOutput(9, 8, 7, 6, 5, 0.4, 0.3, 0.2, 0.1, CalculationConvergence.NotCalculated)
-                    })
-                });
-        }
-
-        #endregion
-
-        #region WaveImpactAsphaltCover FailureMechanism
-
-        private static void ConfigureWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
-                                                                            IAssessmentSection assessmentSection)
-        {
-            failureMechanism.GeneralWaveImpactAsphaltCoverInput.DeltaL = (RoundedDouble) 1337.0;
-
-            ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
-            HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
-            {
-                Name = "WIAC A",
-                Children =
-                {
-                    new WaveImpactAsphaltCoverWaveConditionsCalculation
-                    {
-                        Name = "Calculation 1",
-                        Comments =
-                        {
-                            Body = "Comments for Calculation 1"
-                        },
-                        InputParameters =
-                        {
-                            ForeshoreProfile = foreshoreProfile,
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                            BreakWater =
-                            {
-                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
-                                Type = BreakWaterType.Wall
-                            },
-                            Orientation = foreshoreProfile.Orientation,
-                            UseForeshore = true,
-                            UseBreakWater = true,
-                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
-                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
-                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
-                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
-                            StepSize = WaveConditionsInputStepSize.Two,
-                            WaterLevelType = WaveConditionsInputWaterLevelType.None
-                        }
-                    },
-                    new WaveImpactAsphaltCoverWaveConditionsCalculation
-                    {
-                        Name = "Calculation 2",
-                        Comments =
-                        {
-                            Body = "Comments for Calculation 2"
-                        },
-                        InputParameters =
-                        {
-                            ForeshoreProfile = foreshoreProfile,
-                            HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                            BreakWater =
-                            {
-                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
-                                Type = BreakWaterType.Wall
-                            },
-                            CalculationsTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last(),
-                            Orientation = foreshoreProfile.Orientation,
-                            UseForeshore = true,
-                            UseBreakWater = true,
-                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
-                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
-                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
-                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
-                            StepSize = WaveConditionsInputStepSize.Two,
-                            WaterLevelType = WaveConditionsInputWaterLevelType.UserDefinedTargetProbability
-                        }
-                    }
-                }
-            });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
-            {
-                Name = "WIAC B"
-            });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(
-                new WaveImpactAsphaltCoverWaveConditionsCalculation
-                {
-                    Name = "Calculation 3",
-                    Comments =
-                    {
-                        Body = "Comments for Calculation 3"
-                    },
-                    InputParameters =
-                    {
-                        ForeshoreProfile = null,
-                        HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                        BreakWater =
-                        {
-                            Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.1),
-                            Type = BreakWaterType.Dam
-                        },
-                        Orientation = foreshoreProfile.Orientation,
-                        UseForeshore = false,
-                        UseBreakWater = false,
-                        UpperBoundaryRevetment = (RoundedDouble) 12.3,
-                        LowerBoundaryRevetment = (RoundedDouble) (-3.5),
-                        UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
-                        LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
-                        StepSize = WaveConditionsInputStepSize.One,
-                        WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
-                    },
-                    Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
-                    {
-                        new WaveConditionsOutput(1, 2, 3, 4, 5, 0.6, 0.7, 0.8, 0.9, CalculationConvergence.NotCalculated),
-                        new WaveConditionsOutput(0, 1, 2, 3, 4, 0.5, 0.6, 0.7, 0.8, CalculationConvergence.NotCalculated)
-                    })
-                });
         }
 
         #endregion
