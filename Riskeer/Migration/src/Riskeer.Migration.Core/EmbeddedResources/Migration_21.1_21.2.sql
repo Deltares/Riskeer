@@ -109,7 +109,14 @@ SELECT
     [FailureMechanismEntityId],
     [AssessmentSectionEntityId],
     [CalculationGroupEntityId],
-    [FailureMechanismType],
+    CASE
+        WHEN [FailureMechanismType] = 14
+            THEN 13
+        WHEN [FailureMechanismType] = 15
+            THEN 14
+        WHEN [FailureMechanismType] = 16
+            THEN 15
+    END
     [IsRelevant],
     [FailureMechanismSectionCollectionSourcePath],
     [InputComments],
@@ -118,7 +125,10 @@ SELECT
     NULL,
     1,
     NULL
-FROM [SOURCEPROJECT].FailureMechanismEntity;
+FROM [SOURCEPROJECT].FailureMechanismEntity
+WHERE FailureMechanismType NOT 13 OR
+      FailureMechanismType NOT 17 OR
+      FailureMechanismType NOT 18;
 
 INSERT INTO FailureMechanismFailureMechanismSectionEntity (
     [FailureMechanismEntityId],
