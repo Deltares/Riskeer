@@ -74,7 +74,6 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,
-                failureMechanism.SectionResultsOld,
                 failureMechanism.SectionResults,
                 failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
             }, affectedObjects);
@@ -114,7 +113,6 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,
-                failureMechanism.SectionResultsOld,
                 failureMechanism.SectionResults,
                 failureMechanism.ScenarioConfigurationsPerFailureMechanismSection
             }, affectedObjects);
