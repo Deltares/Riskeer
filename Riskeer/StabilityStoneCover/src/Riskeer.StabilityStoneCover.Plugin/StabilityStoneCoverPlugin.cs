@@ -45,6 +45,7 @@ using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin;
+using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.Revetment.Data;
@@ -57,7 +58,6 @@ using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
 using Riskeer.StabilityStoneCover.Forms.Views;
 using Riskeer.StabilityStoneCover.IO.Configurations;
 using Riskeer.StabilityStoneCover.IO.Exporters;
-using Riskeer.StabilityStoneCover.Plugin.FileImporters;
 using Riskeer.StabilityStoneCover.Service;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -256,11 +256,8 @@ namespace Riskeer.StabilityStoneCover.Plugin
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                StabilityStoneCoverFailureMechanismSectionsContext,
-                StabilityStoneCoverFailureMechanism,
-                StabilityStoneCoverFailureMechanismSectionResultOld,
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                new StabilityStoneCoverFailureMechanismSectionResultUpdateStrategy());
+                StabilityStoneCoverFailureMechanismSectionsContext, StabilityStoneCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
         }
 
         private static FileFilterGenerator GetWaveConditionsFileFilterGenerator()
