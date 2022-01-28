@@ -668,30 +668,9 @@ SELECT
 FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
 INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
 INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
-INSERT INTO StrengthStabilityLengthwiseConstructionSectionResultEntity SELECT * FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
-INSERT INTO StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity (
-    [FailureMechanismEntityId],
-    [N])
-SELECT
-    [FailureMechanismEntityId],
-    1
-FROM [SOURCEPROJECT].FailureMechanismEntity
-WHERE FailureMechanismType = 17;
 INSERT INTO SubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].SubMechanismIllustrationPointEntity;
 INSERT INTO SubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].SubMechanismIllustrationPointStochastEntity;
 INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
-INSERT INTO TechnicalInnovationSectionResultEntity SELECT * FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
-INSERT INTO TechnicalInnovationFailureMechanismMetaEntity (
-    [FailureMechanismEntityId],
-    [N],
-    [ApplyLengthEffectInSection]
-)
-SELECT
-    [FailureMechanismEntityId],
-    1,
-    0
-FROM [SOURCEPROJECT].FailureMechanismEntity
-WHERE FailureMechanismType = 18;
 INSERT INTO TopLevelFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelFaultTreeIllustrationPointEntity;
 INSERT INTO TopLevelSubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelSubMechanismIllustrationPointEntity;
 INSERT INTO VersionEntity (
