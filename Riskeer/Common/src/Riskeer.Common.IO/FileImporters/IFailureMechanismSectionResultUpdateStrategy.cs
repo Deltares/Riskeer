@@ -25,12 +25,12 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.IO.FileImporters
 {
     /// <summary>
-    /// Interface describing the method of updating instances of <see cref="FailureMechanismSectionResultOld"/> derivatives
+    /// Interface describing the method of updating instances of <see cref="FailureMechanismSectionResult"/> derivatives
     /// with data from another instance.
     /// </summary>
     /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResultOld"/> that will be updated.</typeparam>
     public interface IFailureMechanismSectionResultUpdateStrategy<in T>
-        where T : FailureMechanismSectionResultOld
+        where T : FailureMechanismSectionResult
     {
         /// <summary>
         /// Updates the <paramref name="target"/> object with the registered result
@@ -39,16 +39,16 @@ namespace Riskeer.Common.IO.FileImporters
         /// <param name="origin">The object to get the data from that will be put on <paramref name="target"/>.</param>
         /// <param name="target">The object to update with data from <paramref name="origin"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        void UpdateSectionResultOld(T origin, T target);
+        void UpdateSectionResult(T origin, T target);
     }
 
     /// <summary>
-    /// Interface describing the method of updating instances of <see cref="FailureMechanismSectionResult"/> derivatives
+    /// Interface describing the method of updating instances of <see cref="FailureMechanismSectionResultOld"/> derivatives
     /// with data from another instance.
     /// </summary>
     /// <typeparam name="TOld">The type of <see cref="FailureMechanismSectionResultOld"/> that will be updated.</typeparam>
     /// <typeparam name="TNew">The type of <see cref="FailureMechanismSectionResult"/> that will be updated.</typeparam>
-    public interface IFailureMechanismSectionResultUpdateStrategy<in TOld, in TNew> : IFailureMechanismSectionResultUpdateStrategy<TOld>
+    public interface IFailureMechanismSectionResultUpdateStrategy<in TOld, in TNew> : IFailureMechanismSectionResultUpdateStrategy<TNew>
         where TOld : FailureMechanismSectionResultOld
         where TNew : FailureMechanismSectionResult
     {
@@ -59,6 +59,6 @@ namespace Riskeer.Common.IO.FileImporters
         /// <param name="origin">The object to get the data from that will be put on <paramref name="target"/>.</param>
         /// <param name="target">The object to update with data from <paramref name="origin"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        void UpdateSectionResult(TNew origin, TNew target);
+        void UpdateSectionResultOld(TOld origin, TOld target);
     }
 }

@@ -44,11 +44,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResultOld>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            void Call() => new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResultOld>(null, sectionResultUpdateStrategy);
+            void Call() => new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(null, sectionResultUpdateStrategy);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -61,11 +61,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResultOld>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResultOld, TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            void Call() => new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResultOld>(failureMechanism, null);
+            void Call() => new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -77,12 +77,12 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResultOld>>();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResultOld>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResultOld, TestFailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            var importer = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResultOld>(failureMechanism, sectionResultUpdateStrategy);
+            var importer = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 
             // Assert
             Assert.IsInstanceOf<IFailureMechanismSectionUpdateStrategy>(importer);
@@ -94,12 +94,12 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResultOld>>();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResultOld>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResultOld, TestFailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            void Call() => new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResultOld>(failureMechanism, sectionResultUpdateStrategy).UpdateSectionsWithImportedData(null, "");
+            void Call() => new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy).UpdateSectionsWithImportedData(null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -112,11 +112,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResultOld>>();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResultOld>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResultOld, TestFailureMechanismSectionResult>>();
+            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResultOld>(failureMechanism, sectionResultUpdateStrategy);
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<TestFailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 
             // Call
             void Call() => failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(Enumerable.Empty<FailureMechanismSection>(), null);
@@ -150,11 +150,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
                 failureMechanismSection2
             }, sourcePath);
 
-            IObservableEnumerable<FailureMechanismSectionResultOld> failureMechanismSectionResults = failureMechanism.SectionResultsOld;
-            FailureMechanismSectionResultOld oldSectionResult = failureMechanismSectionResults.First();
+            IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults = failureMechanism.SectionResults;
+            FailureMechanismSectionResult oldSectionResult = failureMechanismSectionResults.First();
 
             var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategyOld();
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld>(failureMechanism, sectionResultUpdateStrategy);
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 
             FailureMechanismSection[] sections =
             {
@@ -179,12 +179,12 @@ namespace Riskeer.Common.IO.Test.FileImporters
             IEnumerable<FailureMechanismSection> failureMechanismSections = failureMechanism.Sections;
             Assert.AreEqual(2, failureMechanismSections.Count());
             CollectionAssert.AreEqual(sections, failureMechanismSections);
-            Assert.AreSame(oldSectionResult, sectionResultUpdateStrategy.OriginOld);
-            Assert.AreSame(failureMechanismSectionResults.First(), sectionResultUpdateStrategy.TargetOld);
+            Assert.AreSame(oldSectionResult, sectionResultUpdateStrategy.Origin);
+            Assert.AreSame(failureMechanismSectionResults.First(), sectionResultUpdateStrategy.Target);
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,
-                failureMechanism.SectionResultsOld
+                failureMechanism.SectionResults
             }, affectedObjects);
         }
 
@@ -207,7 +207,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             });
 
             var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategyOld();
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld>(failureMechanism, sectionResultUpdateStrategy);
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 
             FailureMechanismSection[] sections =
             {
@@ -239,7 +239,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             }, oldSourcePath);
 
             var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategyOld();
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld>(
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(
                 failureMechanism, sectionResultUpdateStrategy);
 
             // Precondition
@@ -269,7 +269,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var failureMechanism = new TestFailureMechanism();
 
             var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategyOld();
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld>(
+            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(
                 failureMechanism, sectionResultUpdateStrategy);
 
             // Call
@@ -279,17 +279,17 @@ namespace Riskeer.Common.IO.Test.FileImporters
             CollectionAssert.IsEmpty(affectedObjects);
         }
 
-        private class TestUpdateFailureMechanismSectionResultUpdateStrategyOld : IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld>
+        private class TestUpdateFailureMechanismSectionResultUpdateStrategyOld : IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>
         {
             public bool UpdatedOld { get; private set; }
-            public FailureMechanismSectionResultOld OriginOld { get; private set; }
-            public FailureMechanismSectionResultOld TargetOld { get; private set; }
+            public FailureMechanismSectionResult Origin { get; private set; }
+            public FailureMechanismSectionResult Target { get; private set; }
 
-            public void UpdateSectionResultOld(FailureMechanismSectionResultOld origin, FailureMechanismSectionResultOld target)
+            public void UpdateSectionResult(FailureMechanismSectionResult origin, FailureMechanismSectionResult target)
             {
                 UpdatedOld = true;
-                OriginOld = origin;
-                TargetOld = target;
+                Origin = origin;
+                Target = target;
             }
         }
 
@@ -311,7 +311,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                 failureMechanism, sectionResultUpdateStrategy);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld>>(importer);
+            Assert.IsInstanceOf<FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>>(importer);
             mocks.VerifyAll();
         }
 
@@ -338,8 +338,8 @@ namespace Riskeer.Common.IO.Test.FileImporters
                 failureMechanismSection2
             }, sourcePath);
 
-            IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults = failureMechanism.SectionResults;
-            FailureMechanismSectionResult oldSectionResult = failureMechanismSectionResults.First();
+            IObservableEnumerable<FailureMechanismSectionResultOld> failureMechanismSectionResults = failureMechanism.SectionResultsOld;
+            FailureMechanismSectionResultOld oldSectionResult = failureMechanismSectionResults.First();
 
             var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
             var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld, FailureMechanismSectionResult>(
@@ -368,25 +368,25 @@ namespace Riskeer.Common.IO.Test.FileImporters
             IEnumerable<FailureMechanismSection> failureMechanismSections = failureMechanism.Sections;
             Assert.AreEqual(2, failureMechanismSections.Count());
             CollectionAssert.AreEqual(sections, failureMechanismSections);
-            Assert.AreSame(oldSectionResult, sectionResultUpdateStrategy.Origin);
-            Assert.AreSame(failureMechanismSectionResults.First(), sectionResultUpdateStrategy.Target);
+            Assert.AreSame(oldSectionResult, sectionResultUpdateStrategy.OriginOld);
+            Assert.AreSame(failureMechanismSectionResults.First(), sectionResultUpdateStrategy.TargetOld);
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,
-                failureMechanism.SectionResultsOld,
-                failureMechanism.SectionResults
+                failureMechanism.SectionResults,
+                failureMechanism.SectionResultsOld
             }, affectedObjects);
         }
 
         private class TestUpdateFailureMechanismSectionResultUpdateStrategy : TestUpdateFailureMechanismSectionResultUpdateStrategyOld, IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld, FailureMechanismSectionResult>
         {
-            public FailureMechanismSectionResult Origin { get; private set; }
-            public FailureMechanismSectionResult Target { get; private set; }
+            public FailureMechanismSectionResultOld OriginOld { get; private set; }
+            public FailureMechanismSectionResultOld TargetOld { get; private set; }
 
-            public void UpdateSectionResult(FailureMechanismSectionResult origin, FailureMechanismSectionResult target)
+            public void UpdateSectionResultOld(FailureMechanismSectionResultOld origin, FailureMechanismSectionResultOld target)
             {
-                Origin = origin;
-                Target = target;
+                OriginOld = origin;
+                TargetOld = target;
             }
         }
 

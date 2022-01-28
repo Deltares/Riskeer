@@ -34,9 +34,9 @@ namespace Riskeer.Common.IO.FileImporters
     /// </summary>
     /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResultOld"/> that will be updated.</typeparam>
     public class FailureMechanismSectionUpdateStrategy<T> : IFailureMechanismSectionUpdateStrategy
-        where T : FailureMechanismSectionResultOld
+        where T : FailureMechanismSectionResult
     {
-        private readonly IHasSectionResults<T> failureMechanism;
+        private readonly IHasSectionResults<FailureMechanismSectionResultOld, T> failureMechanism;
         private readonly IFailureMechanismSectionResultUpdateStrategy<T> sectionResultUpdateStrategy;
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Riskeer.Common.IO.FileImporters
         /// <param name="sectionResultUpdateStrategy">The <see cref="IFailureMechanismSectionResultUpdateStrategy{T}"/> to use when updating
         /// the section results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionUpdateStrategy(IHasSectionResults<T> failureMechanism,
+        public FailureMechanismSectionUpdateStrategy(IHasSectionResults<FailureMechanismSectionResultOld, T> failureMechanism,
                                                      IFailureMechanismSectionResultUpdateStrategy<T> sectionResultUpdateStrategy)
         {
             if (failureMechanism == null)
@@ -76,7 +76,7 @@ namespace Riskeer.Common.IO.FileImporters
                 throw new ArgumentNullException(nameof(sourcePath));
             }
 
-            T[] oldSectionResults = failureMechanism.SectionResultsOld.ToArray();
+            T[] oldSectionResults = failureMechanism.SectionResults.ToArray();
 
             try
             {
@@ -87,21 +87,21 @@ namespace Riskeer.Common.IO.FileImporters
                 throw new UpdateDataException(e.Message, e);
             }
 
-            foreach (T sectionResult in failureMechanism.SectionResultsOld)
+            foreach (T sectionResult in failureMechanism.SectionResults)
             {
                 T equalSection = oldSectionResults.FirstOrDefault(item => item.Section.StartPoint.Equals(sectionResult.Section.StartPoint)
                                                                           && item.Section.EndPoint.Equals(sectionResult.Section.EndPoint));
 
                 if (equalSection != null)
                 {
-                    sectionResultUpdateStrategy.UpdateSectionResultOld(equalSection, sectionResult);
+                    sectionResultUpdateStrategy.UpdateSectionResult(equalSection, sectionResult);
                 }
             }
 
             return new IObservable[]
             {
                 failureMechanism,
-                failureMechanism.SectionResultsOld
+                failureMechanism.SectionResults
             };
         }
 
@@ -111,14 +111,14 @@ namespace Riskeer.Common.IO.FileImporters
             yield break;
         }
     }
-    
+
     /// <summary>
     /// An <see cref="IFailureMechanismSectionUpdateStrategy"/> that can be used to update failure mechanism sections with
     /// imported failure mechanism sections.
     /// </summary>
     /// <typeparam name="TOld">The type of <see cref="FailureMechanismSectionResultOld"/> that will be updated.</typeparam>
     /// <typeparam name="TNew">The type of <see cref="FailureMechanismSectionResult"/> that will be updated.</typeparam>
-    public class FailureMechanismSectionUpdateStrategy<TOld, TNew> : FailureMechanismSectionUpdateStrategy<TOld>
+    public class FailureMechanismSectionUpdateStrategy<TOld, TNew> : FailureMechanismSectionUpdateStrategy<TNew>
         where TOld : FailureMechanismSectionResultOld
         where TNew : FailureMechanismSectionResult
     {
@@ -133,7 +133,7 @@ namespace Riskeer.Common.IO.FileImporters
         /// the section results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public FailureMechanismSectionUpdateStrategy(IHasSectionResults<TOld, TNew> failureMechanism,
-                                                     IFailureMechanismSectionResultUpdateStrategy<TOld, TNew> sectionResultUpdateStrategy) 
+                                                     IFailureMechanismSectionResultUpdateStrategy<TOld, TNew> sectionResultUpdateStrategy)
             : base(failureMechanism, sectionResultUpdateStrategy)
         {
             this.failureMechanism = failureMechanism;
@@ -142,21 +142,21 @@ namespace Riskeer.Common.IO.FileImporters
 
         public override IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
         {
-            TNew[] oldSectionResults = failureMechanism.SectionResults.ToArray();
+            TOld[] oldSectionResults = failureMechanism.SectionResultsOld.ToArray();
             List<IObservable> affectedObjects = base.UpdateSectionsWithImportedData(importedFailureMechanismSections, sourcePath).ToList();
-            
-            foreach (TNew sectionResult in failureMechanism.SectionResults)
+
+            foreach (TOld sectionResult in failureMechanism.SectionResultsOld)
             {
-                TNew equalSection = oldSectionResults.FirstOrDefault(item => item.Section.StartPoint.Equals(sectionResult.Section.StartPoint)
+                TOld equalSection = oldSectionResults.FirstOrDefault(item => item.Section.StartPoint.Equals(sectionResult.Section.StartPoint)
                                                                              && item.Section.EndPoint.Equals(sectionResult.Section.EndPoint));
 
                 if (equalSection != null)
                 {
-                    sectionResultUpdateStrategy.UpdateSectionResult(equalSection, sectionResult);
+                    sectionResultUpdateStrategy.UpdateSectionResultOld(equalSection, sectionResult);
                 }
             }
-            
-            affectedObjects.Add(failureMechanism.SectionResults);
+
+            affectedObjects.Add(failureMechanism.SectionResultsOld);
             return affectedObjects;
         }
     }

@@ -33,7 +33,7 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
     /// <typeparam name="TSectionResult">The type of the failure mechanism section result the update strategy uses.</typeparam>
     public abstract class FailureMechanismSectionResultUpdateStrategyTestFixture<TUpdateStrategy, TSectionResult>
         where TUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<TSectionResult>, new()
-        where TSectionResult : FailureMechanismSectionResultOld
+        where TSectionResult : FailureMechanismSectionResult
     {
         [Test]
         public virtual void Constructor_ExpectedValues()
@@ -52,7 +52,7 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
             var strategy = new TUpdateStrategy();
 
             // Call
-            void Call() => strategy.UpdateSectionResultOld(null, CreateEmptySectionResultOld());
+            void Call() => strategy.UpdateSectionResult(null, CreateEmptySectionResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -66,83 +66,6 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
             var strategy = new TUpdateStrategy();
 
             // Call
-            void Call() => strategy.UpdateSectionResultOld(CreateEmptySectionResultOld(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("target", exception.ParamName);
-        }
-
-        [Test]
-        public void UpdateSectionResultOld_WithData_UpdatesTargetSectionResult()
-        {
-            // Setup
-            var strategy = new TUpdateStrategy();
-            TSectionResult originResult = CreateConfiguredSectionResultOld();
-            TSectionResult targetResult = CreateEmptySectionResultOld();
-
-            // Call
-            strategy.UpdateSectionResultOld(originResult, targetResult);
-
-            // Assert
-            AssertSectionResult(originResult, targetResult);
-            Assert.AreNotSame(originResult.Section, targetResult.Section);
-        }
-
-        /// <summary>
-        /// Creates an empty instance of <typeparamref name="TSectionResult"/>.
-        /// </summary>
-        /// <returns>An empty <typeparamref name="TSectionResult"/>.</returns>
-        protected abstract TSectionResult CreateEmptySectionResultOld();
-
-        /// <summary>
-        /// Creates a configured instance of <typeparamref name="TSectionResult"/>.
-        /// </summary>
-        /// <returns>An empty <typeparamref name="TSectionResult"/>.</returns>
-        protected abstract TSectionResult CreateConfiguredSectionResultOld();
-
-        /// <summary>
-        /// Asserts whether <paramref name="originResult"/> and
-        /// <paramref name="targetResult"/> are equal.
-        /// </summary>
-        /// <exception cref="AssertionException">Thrown when <paramref name="originResult"/>
-        /// and <paramref name="targetResult"/> are not equal.</exception>
-        protected abstract void AssertSectionResult(TSectionResult originResult, TSectionResult targetResult);
-    }
-
-    /// <summary>
-    /// Test fixture class for testing the behavior of an <see cref="IFailureMechanismSectionResultUpdateStrategy{TSectionResultOld, TSectionResult}"/>.
-    /// </summary>
-    /// <typeparam name="TUpdateStrategy">The type of the update strategy to test.</typeparam>
-    /// <typeparam name="TSectionResultOld">The type of the old failure mechanism section result the update strategy uses.</typeparam>
-    /// <typeparam name="TSectionResult">The type of the failure mechanism section result the update strategy uses.</typeparam>
-    public abstract class FailureMechanismSectionResultUpdateStrategyTestFixture<TUpdateStrategy, TSectionResultOld, TSectionResult>
-        : FailureMechanismSectionResultUpdateStrategyTestFixture<TUpdateStrategy, TSectionResultOld>
-        where TUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<TSectionResultOld, TSectionResult>, new()
-        where TSectionResultOld : FailureMechanismSectionResultOld
-        where TSectionResult : FailureMechanismSectionResult
-    {
-        [Test]
-        public void UpdateSectionResult_OriginNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new TUpdateStrategy();
-
-            // Call
-            void Call() => strategy.UpdateSectionResult(null, CreateEmptySectionResult());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("origin", exception.ParamName);
-        }
-
-        [Test]
-        public void UpdateSectionResult_TargetNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var strategy = new TUpdateStrategy();
-
-            // Call
             void Call() => strategy.UpdateSectionResult(CreateEmptySectionResult(), null);
 
             // Assert
@@ -151,7 +74,7 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
         }
 
         [Test]
-        public void UpdateSectionResult_WithData_UpdatesTargetSectionResult()
+        public void UpdateSectionResultOld_WithData_UpdatesTargetSectionResult()
         {
             // Setup
             var strategy = new TUpdateStrategy();
@@ -164,16 +87,6 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
             // Assert
             AssertSectionResult(originResult, targetResult);
             Assert.AreNotSame(originResult.Section, targetResult.Section);
-        }
-
-        [Test]
-        public override void Constructor_ExpectedValues()
-        {
-            // Call
-            var strategy = new TUpdateStrategy();
-
-            // Assert
-            Assert.IsInstanceOf<IFailureMechanismSectionResultUpdateStrategy<TSectionResultOld, TSectionResult>>(strategy);
         }
 
         /// <summary>
@@ -195,5 +108,92 @@ namespace Riskeer.Common.Plugin.TestUtil.FileImporters
         /// <exception cref="AssertionException">Thrown when <paramref name="originResult"/>
         /// and <paramref name="targetResult"/> are not equal.</exception>
         protected abstract void AssertSectionResult(TSectionResult originResult, TSectionResult targetResult);
+    }
+
+    /// <summary>
+    /// Test fixture class for testing the behavior of an <see cref="IFailureMechanismSectionResultUpdateStrategy{TSectionResultOld, TSectionResult}"/>.
+    /// </summary>
+    /// <typeparam name="TUpdateStrategy">The type of the update strategy to test.</typeparam>
+    /// <typeparam name="TSectionResultOld">The type of the old failure mechanism section result the update strategy uses.</typeparam>
+    /// <typeparam name="TSectionResult">The type of the failure mechanism section result the update strategy uses.</typeparam>
+    public abstract class FailureMechanismSectionResultUpdateStrategyTestFixture<TUpdateStrategy, TSectionResultOld, TSectionResult>
+        : FailureMechanismSectionResultUpdateStrategyTestFixture<TUpdateStrategy, TSectionResult>
+        where TUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<TSectionResultOld, TSectionResult>, new()
+        where TSectionResultOld : FailureMechanismSectionResultOld
+        where TSectionResult : FailureMechanismSectionResult
+    {
+        [Test]
+        public void UpdateSectionResult_OriginNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var strategy = new TUpdateStrategy();
+
+            // Call
+            void Call() => strategy.UpdateSectionResultOld(null, CreateEmptySectionResultOld());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("origin", exception.ParamName);
+        }
+
+        [Test]
+        public void UpdateSectionResult_TargetNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var strategy = new TUpdateStrategy();
+
+            // Call
+            void Call() => strategy.UpdateSectionResultOld(CreateEmptySectionResultOld(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("target", exception.ParamName);
+        }
+
+        [Test]
+        public void UpdateSectionResult_WithData_UpdatesTargetSectionResult()
+        {
+            // Setup
+            var strategy = new TUpdateStrategy();
+            TSectionResultOld originResult = CreateConfiguredSectionResultOld();
+            TSectionResultOld targetResult = CreateEmptySectionResultOld();
+
+            // Call
+            strategy.UpdateSectionResultOld(originResult, targetResult);
+
+            // Assert
+            AssertSectionResult(originResult, targetResult);
+            Assert.AreNotSame(originResult.Section, targetResult.Section);
+        }
+
+        [Test]
+        public override void Constructor_ExpectedValues()
+        {
+            // Call
+            var strategy = new TUpdateStrategy();
+
+            // Assert
+            Assert.IsInstanceOf<IFailureMechanismSectionResultUpdateStrategy<TSectionResultOld, TSectionResult>>(strategy);
+        }
+
+        /// <summary>
+        /// Creates an empty instance of <typeparamref name="TSectionResult"/>.
+        /// </summary>
+        /// <returns>An empty <typeparamref name="TSectionResult"/>.</returns>
+        protected abstract TSectionResultOld CreateEmptySectionResultOld();
+
+        /// <summary>
+        /// Creates a configured instance of <typeparamref name="TSectionResult"/>.
+        /// </summary>
+        /// <returns>An empty <typeparamref name="TSectionResult"/>.</returns>
+        protected abstract TSectionResultOld CreateConfiguredSectionResultOld();
+
+        /// <summary>
+        /// Asserts whether <paramref name="originResult"/> and
+        /// <paramref name="targetResult"/> are equal.
+        /// </summary>
+        /// <exception cref="AssertionException">Thrown when <paramref name="originResult"/>
+        /// and <paramref name="targetResult"/> are not equal.</exception>
+        protected abstract void AssertSectionResult(TSectionResultOld originResult, TSectionResultOld targetResult);
     }
 }
