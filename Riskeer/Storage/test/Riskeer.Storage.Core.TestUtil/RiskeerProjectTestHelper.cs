@@ -28,7 +28,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
@@ -41,7 +40,6 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.Structures;
-using Riskeer.Common.Primitives;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -211,8 +209,6 @@ namespace Riskeer.Storage.Core.TestUtil
             SetGeneralInput(grassCoverSlipOffOutwardsFailureMechanism, random.Next());
             SetSections(grassCoverSlipOffOutwardsFailureMechanism);
             SetSectionResults(grassCoverSlipOffOutwardsFailureMechanism.SectionResults);
-
-            SetSectionResults(assessmentSection.DuneErosion.SectionResultsOld);
 
             var i = 0;
             assessmentSection.GetFailureMechanisms().ForEachElementDo(fm =>
@@ -1354,24 +1350,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
             SetDuneLocations(failureMechanism);
         }
-
-        private static void SetSectionResults(IEnumerable<DuneErosionFailureMechanismSectionResultOld> sectionResults)
-        {
-            var random = new Random(42);
-            foreach (DuneErosionFailureMechanismSectionResultOld sectionResult in sectionResults)
-            {
-                sectionResult.SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentValidityOnlyResultType>();
-                sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForSignalingNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForMechanismSpecificLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.DetailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
-                sectionResult.TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentCategoryGroupResultType>();
-                sectionResult.UseManualAssembly = random.NextBoolean();
-                sectionResult.ManualAssemblyCategoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            }
-        }
-
+        
         private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism)
         {
             var locationOne = new DuneLocation(12, "DuneLocation", new Point2D(790, 456),
