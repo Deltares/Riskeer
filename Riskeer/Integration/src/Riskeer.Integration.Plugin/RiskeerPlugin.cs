@@ -65,6 +65,7 @@ using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.HydraRing;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Common.Plugin;
+using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;

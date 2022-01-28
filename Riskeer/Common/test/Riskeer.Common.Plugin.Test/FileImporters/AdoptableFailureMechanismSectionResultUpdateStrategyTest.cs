@@ -24,10 +24,10 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Common.Plugin.TestUtil.FileImporters;
-using Riskeer.Integration.Plugin.FileImporters;
 
-namespace Riskeer.Integration.Plugin.Test.FileImporters
+namespace Riskeer.Common.Plugin.Test.FileImporters
 {
     [TestFixture]
     public class AdoptableFailureMechanismSectionResultUpdateStrategyTest : FailureMechanismSectionResultUpdateStrategyTestFixture<

@@ -23,7 +23,7 @@ using System;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
 
-namespace Riskeer.Integration.Plugin.FileImporters
+namespace Riskeer.Common.Plugin.FileImporters
 {
     /// <summary>
     /// An update strategy that can be used to update a <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
