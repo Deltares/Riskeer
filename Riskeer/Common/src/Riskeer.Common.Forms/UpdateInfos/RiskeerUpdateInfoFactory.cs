@@ -79,52 +79,5 @@ namespace Riskeer.Common.Forms.UpdateInfos
                     new UpdateMessageProvider())
             };
         }
-
-        /// <summary>
-        /// Creates a <see cref="UpdateInfo"/> object for a <see cref="TSectionContext"/>.
-        /// </summary>
-        /// <typeparam name="TSectionContext">The type of the failure mechanism sections context
-        /// to create the <see cref="UpdateInfo"/> for.</typeparam>
-        /// <typeparam name="TFailureMechanism">The type of the failure mechanism to create
-        /// the <see cref="UpdateInfo"/> for.</typeparam>
-        /// /// <typeparam name="TSectionResultOld">The type of the old failure mechanism section result
-        /// to create the <see cref="UpdateInfo"/> for.</typeparam>
-        /// <typeparam name="TSectionResult">The type of the failure mechanism section result
-        /// to create the <see cref="UpdateInfo"/> for.</typeparam>
-        /// <param name="sectionResultUpdateStrategy">The <see cref="IFailureMechanismSectionResultUpdateStrategy{T}"/>
-        /// to use for the created <see cref="UpdateInfo"/>.</param>
-        /// <returns>An <see cref="UpdateInfo"/> object.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResultUpdateStrategy"/>
-        /// is <c>null</c>.</exception>
-        public static UpdateInfo<TSectionContext> CreateFailureMechanismSectionsUpdateInfo<TSectionContext, TFailureMechanism, TSectionResultOld, TSectionResult>(
-            IFailureMechanismSectionResultUpdateStrategy<TSectionResultOld, TSectionResult> sectionResultUpdateStrategy)
-            where TSectionContext : FailureMechanismSectionsContext
-            where TFailureMechanism : IHasSectionResults<TSectionResultOld, TSectionResult>
-            where TSectionResultOld : FailureMechanismSectionResultOld
-            where TSectionResult : FailureMechanismSectionResult
-        {
-            if (sectionResultUpdateStrategy == null)
-            {
-                throw new ArgumentNullException(nameof(sectionResultUpdateStrategy));
-            }
-
-            return new UpdateInfo<TSectionContext>
-            {
-                Name = Resources.FailureMechanismSections_DisplayName,
-                Category = Resources.Riskeer_Category,
-                Image = Resources.SectionsIcon,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
-                IsEnabled = context => context.WrappedData.FailureMechanismSectionSourcePath != null,
-                CurrentPath = context => context.WrappedData.FailureMechanismSectionSourcePath,
-                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(
-                    context.WrappedData,
-                    context.AssessmentSection.ReferenceLine,
-                    filePath,
-                    new FailureMechanismSectionUpdateStrategy<TSectionResultOld, TSectionResult>(
-                        (TFailureMechanism) context.WrappedData, sectionResultUpdateStrategy),
-                    new UpdateMessageProvider())
-            };
-        }
     }
 }
