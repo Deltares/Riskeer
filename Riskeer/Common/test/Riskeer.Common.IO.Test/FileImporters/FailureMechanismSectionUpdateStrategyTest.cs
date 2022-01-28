@@ -37,8 +37,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
     [TestFixture]
     public class FailureMechanismSectionUpdateStrategyTest
     {
-        #region single type
-
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -153,7 +151,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults = failureMechanism.SectionResults;
             FailureMechanismSectionResult oldSectionResult = failureMechanismSectionResults.First();
 
-            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategyOld();
+            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
             var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 
             FailureMechanismSection[] sections =
@@ -206,7 +204,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                 new Point2D(15.0, 15.0)
             });
 
-            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategyOld();
+            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
             var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(failureMechanism, sectionResultUpdateStrategy);
 
             FailureMechanismSection[] sections =
@@ -238,7 +236,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             }, oldSourcePath);
 
-            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategyOld();
+            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
             var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(
                 failureMechanism, sectionResultUpdateStrategy);
 
@@ -268,7 +266,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Setup
             var failureMechanism = new TestFailureMechanism();
 
-            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategyOld();
+            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
             var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>(
                 failureMechanism, sectionResultUpdateStrategy);
 
@@ -279,7 +277,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             CollectionAssert.IsEmpty(affectedObjects);
         }
 
-        private class TestUpdateFailureMechanismSectionResultUpdateStrategyOld : IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>
+        private class TestUpdateFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>
         {
             public bool UpdatedOld { get; private set; }
             public FailureMechanismSectionResult Origin { get; private set; }
@@ -292,104 +290,5 @@ namespace Riskeer.Common.IO.Test.FileImporters
                 Target = target;
             }
         }
-
-        #endregion
-
-        #region two types
-
-        [Test]
-        public void ConstructorWithOldAndNew_ExpectedValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>>();
-            var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld, FailureMechanismSectionResult>>();
-            mocks.ReplayAll();
-
-            // Call
-            var importer = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld, FailureMechanismSectionResult>(
-                failureMechanism, sectionResultUpdateStrategy);
-
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResult>>(importer);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void UpdateSectionsWithImportedDataWithOldAndNew_WithValidData_SetsSectionsToFailureMechanismAndCopiesPropertiesOfEqualSectionsAndReturnsAffectedObjects()
-        {
-            // Setup
-            string sourcePath = TestHelper.GetScratchPadPath();
-
-            var failureMechanism = new TestFailureMechanism();
-            FailureMechanismSection failureMechanismSection1 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(5.0, 5.0)
-            });
-            FailureMechanismSection failureMechanismSection2 = FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-            {
-                new Point2D(5.0, 5.0),
-                new Point2D(10.0, 10.0)
-            });
-            failureMechanism.SetSections(new[]
-            {
-                failureMechanismSection1,
-                failureMechanismSection2
-            }, sourcePath);
-
-            IObservableEnumerable<FailureMechanismSectionResultOld> failureMechanismSectionResults = failureMechanism.SectionResultsOld;
-            FailureMechanismSectionResultOld oldSectionResult = failureMechanismSectionResults.First();
-
-            var sectionResultUpdateStrategy = new TestUpdateFailureMechanismSectionResultUpdateStrategy();
-            var failureMechanismSectionUpdateStrategy = new FailureMechanismSectionUpdateStrategy<FailureMechanismSectionResultOld, FailureMechanismSectionResult>(
-                failureMechanism, sectionResultUpdateStrategy);
-
-            FailureMechanismSection[] sections =
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(5.0, 5.0)
-                }),
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
-                {
-                    new Point2D(5.0, 5.0),
-                    new Point2D(15.0, 15.0)
-                })
-            };
-
-            // Call
-            IEnumerable<IObservable> affectedObjects = failureMechanismSectionUpdateStrategy.UpdateSectionsWithImportedData(sections, sourcePath);
-
-            // Assert
-            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
-
-            IEnumerable<FailureMechanismSection> failureMechanismSections = failureMechanism.Sections;
-            Assert.AreEqual(2, failureMechanismSections.Count());
-            CollectionAssert.AreEqual(sections, failureMechanismSections);
-            Assert.AreSame(oldSectionResult, sectionResultUpdateStrategy.OriginOld);
-            Assert.AreSame(failureMechanismSectionResults.First(), sectionResultUpdateStrategy.TargetOld);
-            CollectionAssert.AreEqual(new IObservable[]
-            {
-                failureMechanism,
-                failureMechanism.SectionResults,
-                failureMechanism.SectionResultsOld
-            }, affectedObjects);
-        }
-
-        private class TestUpdateFailureMechanismSectionResultUpdateStrategy : TestUpdateFailureMechanismSectionResultUpdateStrategyOld, IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResultOld, FailureMechanismSectionResult>
-        {
-            public FailureMechanismSectionResultOld OriginOld { get; private set; }
-            public FailureMechanismSectionResultOld TargetOld { get; private set; }
-
-            public void UpdateSectionResultOld(FailureMechanismSectionResultOld origin, FailureMechanismSectionResultOld target)
-            {
-                OriginOld = origin;
-                TargetOld = target;
-            }
-        }
-
-        #endregion
     }
 }

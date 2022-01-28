@@ -49,7 +49,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new PipingFailureMechanism(), new AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionUpdateStrategy<PipingFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(updateStrategy);
+            Assert.IsInstanceOf<FailureMechanismSectionUpdateStrategy<AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(updateStrategy);
         }
 
         [Test]

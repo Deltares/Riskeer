@@ -32,7 +32,7 @@ namespace Riskeer.Common.IO.FileImporters
     /// An <see cref="IFailureMechanismSectionUpdateStrategy"/> that can be used to update failure mechanism sections with
     /// imported failure mechanism sections.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResultOld"/> that will be updated.</typeparam>
+    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResult"/> that will be updated.</typeparam>
     public class FailureMechanismSectionUpdateStrategy<T> : IFailureMechanismSectionUpdateStrategy
         where T : FailureMechanismSectionResult
     {
@@ -109,55 +109,6 @@ namespace Riskeer.Common.IO.FileImporters
         {
             // Do nothing
             yield break;
-        }
-    }
-
-    /// <summary>
-    /// An <see cref="IFailureMechanismSectionUpdateStrategy"/> that can be used to update failure mechanism sections with
-    /// imported failure mechanism sections.
-    /// </summary>
-    /// <typeparam name="TOld">The type of <see cref="FailureMechanismSectionResultOld"/> that will be updated.</typeparam>
-    /// <typeparam name="TNew">The type of <see cref="FailureMechanismSectionResult"/> that will be updated.</typeparam>
-    public class FailureMechanismSectionUpdateStrategy<TOld, TNew> : FailureMechanismSectionUpdateStrategy<TNew>
-        where TOld : FailureMechanismSectionResultOld
-        where TNew : FailureMechanismSectionResult
-    {
-        private readonly IHasSectionResults<TOld, TNew> failureMechanism;
-        private readonly IFailureMechanismSectionResultUpdateStrategy<TOld, TNew> sectionResultUpdateStrategy;
-
-        /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionUpdateStrategy{TOld, TNew}"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to update the sections for.</param>
-        /// <param name="sectionResultUpdateStrategy">The <see cref="IFailureMechanismSectionResultUpdateStrategy{T}"/> to use when updating
-        /// the section results.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionUpdateStrategy(IHasSectionResults<TOld, TNew> failureMechanism,
-                                                     IFailureMechanismSectionResultUpdateStrategy<TOld, TNew> sectionResultUpdateStrategy)
-            : base(failureMechanism, sectionResultUpdateStrategy)
-        {
-            this.failureMechanism = failureMechanism;
-            this.sectionResultUpdateStrategy = sectionResultUpdateStrategy;
-        }
-
-        public override IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections, string sourcePath)
-        {
-            TOld[] oldSectionResults = failureMechanism.SectionResultsOld.ToArray();
-            List<IObservable> affectedObjects = base.UpdateSectionsWithImportedData(importedFailureMechanismSections, sourcePath).ToList();
-
-            foreach (TOld sectionResult in failureMechanism.SectionResultsOld)
-            {
-                TOld equalSection = oldSectionResults.FirstOrDefault(item => item.Section.StartPoint.Equals(sectionResult.Section.StartPoint)
-                                                                             && item.Section.EndPoint.Equals(sectionResult.Section.EndPoint));
-
-                if (equalSection != null)
-                {
-                    sectionResultUpdateStrategy.UpdateSectionResultOld(equalSection, sectionResult);
-                }
-            }
-
-            affectedObjects.Add(failureMechanism.SectionResultsOld);
-            return affectedObjects;
         }
     }
 }
