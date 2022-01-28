@@ -56,6 +56,7 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Structures;
 using Riskeer.Common.Plugin;
+using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
@@ -266,11 +267,8 @@ namespace Riskeer.ClosingStructures.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                ClosingStructuresFailureMechanismSectionsContext,
-                ClosingStructuresFailureMechanism,
-                ClosingStructuresFailureMechanismSectionResultOld,
-                AdoptableFailureMechanismSectionResult>(
-                new ClosingStructuresFailureMechanismSectionResultUpdateStrategy());
+                ClosingStructuresFailureMechanismSectionsContext, ClosingStructuresFailureMechanism, AdoptableFailureMechanismSectionResult>(
+                new AdoptableFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<ExportInfo> GetExportInfos()
