@@ -43,6 +43,7 @@ using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin;
+using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Common.Service;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.GuiServices;
@@ -50,7 +51,6 @@ using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Forms.Views;
 using Riskeer.DuneErosion.IO;
-using Riskeer.DuneErosion.Plugin.FileImporters;
 using Riskeer.DuneErosion.Plugin.Handlers;
 using Riskeer.DuneErosion.Plugin.Properties;
 using Riskeer.DuneErosion.Service;
@@ -244,8 +244,8 @@ namespace Riskeer.DuneErosion.Plugin
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                DuneErosionFailureMechanismSectionsContext, DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>(
-                new DuneErosionFailureMechanismSectionResultUpdateStrategy());
+                DuneErosionFailureMechanismSectionsContext, DuneErosionFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                new NonAdoptableFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override void Activate()
