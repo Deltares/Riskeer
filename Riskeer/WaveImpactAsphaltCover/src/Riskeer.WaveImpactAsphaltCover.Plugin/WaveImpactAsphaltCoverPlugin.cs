@@ -45,6 +45,7 @@ using Riskeer.Common.Forms.TreeNodeInfos;
 using Riskeer.Common.Forms.UpdateInfos;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin;
+using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.Revetment.Data;
@@ -57,7 +58,6 @@ using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Forms.Views;
 using Riskeer.WaveImpactAsphaltCover.IO.Configurations;
 using Riskeer.WaveImpactAsphaltCover.IO.Exporters;
-using Riskeer.WaveImpactAsphaltCover.Plugin.FileImporters;
 using Riskeer.WaveImpactAsphaltCover.Service;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -260,11 +260,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         public override IEnumerable<UpdateInfo> GetUpdateInfos()
         {
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                WaveImpactAsphaltCoverFailureMechanismSectionsContext,
-                WaveImpactAsphaltCoverFailureMechanism,
-                WaveImpactAsphaltCoverFailureMechanismSectionResultOld,
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                new WaveImpactAsphaltCoverFailureMechanismSectionResultUpdateStrategy());
+                WaveImpactAsphaltCoverFailureMechanismSectionsContext, WaveImpactAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
         }
 
         private static FileFilterGenerator GetWaveConditionsFileFilterGenerator()
