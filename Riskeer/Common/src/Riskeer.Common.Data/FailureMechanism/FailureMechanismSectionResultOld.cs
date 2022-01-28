@@ -27,7 +27,7 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// <summary>
     /// Base class for classes that hold information of the result of the <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public abstract class FailureMechanismSectionResultOld : Observable, IFailureMechanismSectionResult
+    public abstract class FailureMechanismSectionResultOld : Observable
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionResultOld"/>.

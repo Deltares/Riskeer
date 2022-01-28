@@ -30,9 +30,9 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for a collection of <see cref="IFailureMechanismSectionResult"/>.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="IFailureMechanismSectionResult"/>.</typeparam>
+    /// <typeparam name="T">The type of <see cref="FailureMechanismSectionResult"/>.</typeparam>
     public class FailureMechanismSectionResultContext<T> : WrappedObjectContextBase<IObservableEnumerable<T>>
-        where T : IFailureMechanismSectionResult
+        where T : FailureMechanismSectionResult
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionResultContext{T}"/>.

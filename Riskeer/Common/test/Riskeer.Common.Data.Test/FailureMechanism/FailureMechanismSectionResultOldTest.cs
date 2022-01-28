@@ -40,7 +40,6 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var result = new TestFailureMechanismSectionResultOld(section);
 
             // Assert
-            Assert.IsInstanceOf<IFailureMechanismSectionResult>(result);
             Assert.IsInstanceOf<Observable>(result);
             Assert.AreSame(section, result.Section);
         }

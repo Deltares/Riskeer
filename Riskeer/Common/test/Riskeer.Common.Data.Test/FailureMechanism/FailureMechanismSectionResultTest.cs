@@ -53,7 +53,6 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
 
             // Assert
             Assert.IsInstanceOf<Observable>(sectionResult);
-            Assert.IsInstanceOf<IFailureMechanismSectionResult>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsTrue(sectionResult.IsRelevant);
             Assert.IsNaN(sectionResult.ManualInitialFailureMechanismResultSectionProbability);
