@@ -48,6 +48,7 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.Structures;
 using Riskeer.Common.Plugin;
+using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
@@ -278,11 +279,8 @@ namespace Riskeer.StabilityPointStructures.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                StabilityPointStructuresFailureMechanismSectionsContext,
-                StabilityPointStructuresFailureMechanism,
-                StabilityPointStructuresFailureMechanismSectionResultOld,
-                AdoptableFailureMechanismSectionResult>(
-                new StabilityPointStructuresFailureMechanismSectionResultUpdateStrategy());
+                StabilityPointStructuresFailureMechanismSectionsContext,StabilityPointStructuresFailureMechanism,AdoptableFailureMechanismSectionResult>(
+                new AdoptableFailureMechanismSectionResultUpdateStrategy());
         }
 
         #region ViewInfos
