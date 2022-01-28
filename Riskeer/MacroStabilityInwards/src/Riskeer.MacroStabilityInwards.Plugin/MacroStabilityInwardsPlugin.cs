@@ -47,6 +47,7 @@ using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.IO.SurfaceLines;
 using Riskeer.Common.Plugin;
+using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
@@ -236,8 +237,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                MacroStabilityInwardsFailureMechanismSectionsContext, MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                new MacroStabilityInwardsFailureMechanismSectionResultUpdateStrategy());
+                MacroStabilityInwardsFailureMechanismSectionsContext, MacroStabilityInwardsFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                new AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
