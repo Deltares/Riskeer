@@ -94,8 +94,6 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<MacroStabilityInwardsSoilProfileOneDEntity> MacroStabilityInwardsSoilProfileOneDEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsSoilProfileTwoDEntity> MacroStabilityInwardsSoilProfileTwoDEntities { get; set; }
         public virtual DbSet<MacroStabilityInwardsStochasticSoilProfileEntity> MacroStabilityInwardsStochasticSoilProfileEntities { get; set; }
-        public virtual DbSet<MacroStabilityOutwardsFailureMechanismMetaEntity> MacroStabilityOutwardsFailureMechanismMetaEntities { get; set; }
-        public virtual DbSet<MacroStabilityOutwardsSectionResultEntity> MacroStabilityOutwardsSectionResultEntities { get; set; }
         public virtual DbSet<MicrostabilityFailureMechanismMetaEntity> MicrostabilityFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<MicrostabilitySectionResultEntity> MicrostabilitySectionResultEntities { get; set; }
         public virtual DbSet<PipingCharacteristicPointEntity> PipingCharacteristicPointEntities { get; set; }
@@ -124,13 +122,9 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<StabilityStoneCoverWaveConditionsOutputEntity> StabilityStoneCoverWaveConditionsOutputEntities { get; set; }
         public virtual DbSet<StochastEntity> StochastEntities { get; set; }
         public virtual DbSet<StochasticSoilModelEntity> StochasticSoilModelEntities { get; set; }
-        public virtual DbSet<StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntity> StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities { get; set; }
-        public virtual DbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity> StrengthStabilityLengthwiseConstructionSectionResultEntities { get; set; }
         public virtual DbSet<SubMechanismIllustrationPointEntity> SubMechanismIllustrationPointEntities { get; set; }
         public virtual DbSet<SubMechanismIllustrationPointStochastEntity> SubMechanismIllustrationPointStochastEntities { get; set; }
         public virtual DbSet<SurfaceLineEntity> SurfaceLineEntities { get; set; }
-        public virtual DbSet<TechnicalInnovationFailureMechanismMetaEntity> TechnicalInnovationFailureMechanismMetaEntities { get; set; }
-        public virtual DbSet<TechnicalInnovationSectionResultEntity> TechnicalInnovationSectionResultEntities { get; set; }
         public virtual DbSet<TopLevelFaultTreeIllustrationPointEntity> TopLevelFaultTreeIllustrationPointEntities { get; set; }
         public virtual DbSet<TopLevelSubMechanismIllustrationPointEntity> TopLevelSubMechanismIllustrationPointEntities { get; set; }
         public virtual DbSet<VersionEntity> VersionEntities { get; set; }
@@ -140,7 +134,7 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual DbSet<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsCalculationEntity> WaveImpactAsphaltCoverWaveConditionsCalculationEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsOutputEntity> WaveImpactAsphaltCoverWaveConditionsOutputEntities { get; set; }
-
+    
         /// <summary>
         /// This method is called in a 'code first' approach when the model for a derived <see cref="DbContext"/> has been initialized,
         /// but before the model has been locked down and used to initialize the <see cref="DbContext"/>.

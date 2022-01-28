@@ -34,15 +34,15 @@ namespace Riskeer.Storage.Core.DbContext
     {
         public long GrassCoverErosionInwardsSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
-        public byte InitialFailureMechanismResultType { get; set; }
-
-        public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
         public byte IsRelevant { get; set; }
+        public byte InitialFailureMechanismResultType { get; set; }
         public double? ManualInitialFailureMechanismResultProfileProbability { get; set; }
         public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
         public byte FurtherAnalysisNeeded { get; set; }
         public byte ProbabilityRefinementType { get; set; }
         public double? RefinedProfileProbability { get; set; }
         public double? RefinedSectionProbability { get; set; }
+    
+        public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }

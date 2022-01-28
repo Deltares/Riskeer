@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.DbContext
         {
             GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
         }
-
+    
         public long DikeProfileEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public string Id { get; set; }
@@ -55,9 +55,8 @@ namespace Riskeer.Storage.Core.DbContext
         public double? Y { get; set; }
         public double? X0 { get; set; }
         public int Order { get; set; }
-
+    
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsCalculationEntity> GrassCoverErosionInwardsCalculationEntities { get; set; }
     }

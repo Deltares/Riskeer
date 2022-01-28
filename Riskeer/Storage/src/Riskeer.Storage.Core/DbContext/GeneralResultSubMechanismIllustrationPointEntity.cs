@@ -44,23 +44,19 @@ namespace Riskeer.Storage.Core.DbContext
             TopLevelSubMechanismIllustrationPointEntities = new HashSet<TopLevelSubMechanismIllustrationPointEntity>();
             StochastEntities = new HashSet<StochastEntity>();
         }
-
+    
         public long GeneralResultSubMechanismIllustrationPointEntityId { get; set; }
         public string GoverningWindDirectionName { get; set; }
         public double GoverningWindDirectionAngle { get; set; }
-
+    
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationOutputEntity> HydraulicLocationOutputEntities { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProbabilisticPipingCalculationOutputEntity> ProbabilisticPipingCalculationOutputEntities { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProbabilisticPipingCalculationOutputEntity> ProbabilisticPipingCalculationOutputEntities1 { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TopLevelSubMechanismIllustrationPointEntity> TopLevelSubMechanismIllustrationPointEntities { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StochastEntity> StochastEntities { get; set; }
     }

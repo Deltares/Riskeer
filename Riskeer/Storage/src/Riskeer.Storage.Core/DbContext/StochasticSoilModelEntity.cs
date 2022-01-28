@@ -41,18 +41,16 @@ namespace Riskeer.Storage.Core.DbContext
             MacroStabilityInwardsStochasticSoilProfileEntities = new HashSet<MacroStabilityInwardsStochasticSoilProfileEntity>();
             PipingStochasticSoilProfileEntities = new HashSet<PipingStochasticSoilProfileEntity>();
         }
-
+    
         public long StochasticSoilModelEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public string Name { get; set; }
         public string StochasticSoilModelSegmentPointXml { get; set; }
         public int Order { get; set; }
-
+    
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MacroStabilityInwardsStochasticSoilProfileEntity> MacroStabilityInwardsStochasticSoilProfileEntities { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingStochasticSoilProfileEntity> PipingStochasticSoilProfileEntities { get; set; }
     }

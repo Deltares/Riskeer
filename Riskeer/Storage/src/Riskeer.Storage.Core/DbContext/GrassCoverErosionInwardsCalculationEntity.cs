@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.DbContext
         {
             GrassCoverErosionInwardsOutputEntities = new HashSet<GrassCoverErosionInwardsOutputEntity>();
         }
-
+    
         public long GrassCoverErosionInwardsCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public long? HydraulicLocationEntityId { get; set; }
@@ -65,11 +65,10 @@ namespace Riskeer.Storage.Core.DbContext
         public byte ShouldOvertoppingRateIllustrationPointsBeCalculated { get; set; }
         public byte RelevantForScenario { get; set; }
         public double ScenarioContribution { get; set; }
-
+    
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual DikeProfileEntity DikeProfileEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsOutputEntity> GrassCoverErosionInwardsOutputEntities { get; set; }
     }

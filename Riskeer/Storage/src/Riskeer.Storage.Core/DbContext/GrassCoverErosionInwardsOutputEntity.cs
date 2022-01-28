@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.DbContext
             GrassCoverErosionInwardsDikeHeightOutputEntities = new HashSet<GrassCoverErosionInwardsDikeHeightOutputEntity>();
             GrassCoverErosionInwardsOvertoppingRateOutputEntities = new HashSet<GrassCoverErosionInwardsOvertoppingRateOutputEntity>();
         }
-
+    
         public long GrassCoverErosionInwardsOutputEntityId { get; set; }
         public long GrassCoverErosionInwardsCalculationEntityId { get; set; }
         public long? GeneralResultFaultTreeIllustrationPointEntityId { get; set; }
@@ -49,13 +49,11 @@ namespace Riskeer.Storage.Core.DbContext
         public byte IsOvertoppingDominant { get; set; }
         public double? WaveHeight { get; set; }
         public double? Reliability { get; set; }
-
+    
         public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
         public virtual GrassCoverErosionInwardsCalculationEntity GrassCoverErosionInwardsCalculationEntity { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsDikeHeightOutputEntity> GrassCoverErosionInwardsDikeHeightOutputEntities { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionInwardsOvertoppingRateOutputEntity> GrassCoverErosionInwardsOvertoppingRateOutputEntities { get; set; }
     }

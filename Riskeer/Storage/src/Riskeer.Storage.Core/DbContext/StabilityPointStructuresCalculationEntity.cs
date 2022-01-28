@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.DbContext
         {
             StabilityPointStructuresOutputEntities = new HashSet<StabilityPointStructuresOutputEntity>();
         }
-
+    
         public long StabilityPointStructuresCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public long? ForeshoreProfileEntityId { get; set; }
@@ -107,12 +107,11 @@ namespace Riskeer.Storage.Core.DbContext
         public byte ShouldIllustrationPointsBeCalculated { get; set; }
         public byte RelevantForScenario { get; set; }
         public double ScenarioContribution { get; set; }
-
+    
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
         public virtual StabilityPointStructureEntity StabilityPointStructureEntity { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityPointStructuresOutputEntity> StabilityPointStructuresOutputEntities { get; set; }
     }

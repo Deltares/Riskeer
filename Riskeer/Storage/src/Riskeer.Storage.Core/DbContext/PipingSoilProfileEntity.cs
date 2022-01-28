@@ -41,15 +41,14 @@ namespace Riskeer.Storage.Core.DbContext
             PipingSoilLayerEntities = new HashSet<PipingSoilLayerEntity>();
             PipingStochasticSoilProfileEntities = new HashSet<PipingStochasticSoilProfileEntity>();
         }
-
+    
         public long PipingSoilProfileEntityId { get; set; }
         public double? Bottom { get; set; }
         public string Name { get; set; }
         public byte SourceType { get; set; }
-
+    
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingSoilLayerEntity> PipingSoilLayerEntities { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingStochasticSoilProfileEntity> PipingStochasticSoilProfileEntities { get; set; }
     }

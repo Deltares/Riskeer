@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.DbContext
         public byte FurtherAnalysisNeeded { get; set; }
         public double? RefinedSectionProbability { get; set; }
         public double? RefinedProfileProbability { get; set; }
-
+    
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }

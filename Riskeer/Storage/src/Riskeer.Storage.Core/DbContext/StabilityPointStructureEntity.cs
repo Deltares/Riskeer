@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.DbContext
         {
             StabilityPointStructuresCalculationEntities = new HashSet<StabilityPointStructuresCalculationEntity>();
         }
-
+    
         public long StabilityPointStructureEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public int Order { get; set; }
@@ -92,9 +92,8 @@ namespace Riskeer.Storage.Core.DbContext
         public double? AreaFlowAperturesMean { get; set; }
         public double? AreaFlowAperturesStandardDeviation { get; set; }
         public byte InflowModelType { get; set; }
-
+    
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityPointStructuresCalculationEntity> StabilityPointStructuresCalculationEntities { get; set; }
     }

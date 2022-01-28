@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.DbContext
         {
             SemiProbabilisticPipingCalculationOutputEntities = new HashSet<SemiProbabilisticPipingCalculationOutputEntity>();
         }
-
+    
         public long SemiProbabilisticPipingCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public long? SurfaceLineEntityId { get; set; }
@@ -59,12 +59,11 @@ namespace Riskeer.Storage.Core.DbContext
         public double ScenarioContribution { get; set; }
         public double? AssessmentLevel { get; set; }
         public byte UseAssessmentLevelManualInput { get; set; }
-
+    
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
         public virtual PipingStochasticSoilProfileEntity PipingStochasticSoilProfileEntity { get; set; }
         public virtual SurfaceLineEntity SurfaceLineEntity { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SemiProbabilisticPipingCalculationOutputEntity> SemiProbabilisticPipingCalculationOutputEntities { get; set; }
     }

@@ -36,7 +36,7 @@ namespace Riskeer.Storage.Core.DbContext
         public long ClosingStructuresCalculationEntityId { get; set; }
         public long? GeneralResultFaultTreeIllustrationPointEntityId { get; set; }
         public double? Reliability { get; set; }
-
+    
         public virtual ClosingStructuresCalculationEntity ClosingStructuresCalculationEntity { get; set; }
         public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
     }

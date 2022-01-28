@@ -103,8 +103,6 @@ namespace Riskeer.Storage.Core.DbContext
             MacroStabilityInwardsPreconsolidationStressEntities.Load();
             MacroStabilityInwardsCalculationEntities.Load();
             MacroStabilityInwardsCalculationOutputEntities.Load();
-            MacroStabilityOutwardsSectionResultEntities.Load();
-            MacroStabilityOutwardsFailureMechanismMetaEntities.Load();
             MicrostabilitySectionResultEntities.Load();
             MicrostabilityFailureMechanismMetaEntities.Load();
             ProjectEntities.Load();
@@ -131,11 +129,7 @@ namespace Riskeer.Storage.Core.DbContext
             StabilityStoneCoverWaveConditionsCalculationEntities.Load();
             StabilityStoneCoverWaveConditionsOutputEntities.Load();
             StochasticSoilModelEntities.Load();
-            StrengthStabilityLengthwiseConstructionSectionResultEntities.Load();
-            StrengthStabilityLengthwiseConstructionFailureMechanismMetaEntities.Load();
             SurfaceLineEntities.Load();
-            TechnicalInnovationSectionResultEntities.Load();
-            TechnicalInnovationFailureMechanismMetaEntities.Load();
             WaterPressureAsphaltCoverSectionResultEntities.Load();
             WaterPressureAsphaltCoverFailureMechanismMetaEntities.Load();
             WaveImpactAsphaltCoverFailureMechanismMetaEntities.Load();

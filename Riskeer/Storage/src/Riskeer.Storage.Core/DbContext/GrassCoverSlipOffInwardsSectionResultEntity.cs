@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2019. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.DbContext
         public byte FurtherAnalysisNeeded { get; set; }
         public double? RefinedSectionProbability { get; set; }
         public double? RefinedProfileProbability { get; set; }
-
+    
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }

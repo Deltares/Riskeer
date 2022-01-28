@@ -40,17 +40,16 @@ namespace Riskeer.Storage.Core.DbContext
         {
             MacroStabilityInwardsCalculationEntities = new HashSet<MacroStabilityInwardsCalculationEntity>();
         }
-
+    
         public long MacroStabilityInwardsStochasticSoilProfileEntityId { get; set; }
         public long StochasticSoilModelEntityId { get; set; }
         public long? MacroStabilityInwardsSoilProfileOneDEntityId { get; set; }
         public long? MacroStabilityInwardsSoilProfileTwoDEntityId { get; set; }
         public double Probability { get; set; }
         public int Order { get; set; }
-
+    
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MacroStabilityInwardsCalculationEntity> MacroStabilityInwardsCalculationEntities { get; set; }
-
         public virtual MacroStabilityInwardsSoilProfileOneDEntity MacroStabilityInwardsSoilProfileOneDEntity { get; set; }
         public virtual MacroStabilityInwardsSoilProfileTwoDEntity MacroStabilityInwardsSoilProfileTwoDEntity { get; set; }
         public virtual StochasticSoilModelEntity StochasticSoilModelEntity { get; set; }

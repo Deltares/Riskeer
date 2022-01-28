@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.DbContext
         {
             StabilityStoneCoverWaveConditionsOutputEntities = new HashSet<StabilityStoneCoverWaveConditionsOutputEntity>();
         }
-
+    
         public long StabilityStoneCoverWaveConditionsCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public long? ForeshoreProfileEntityId { get; set; }
@@ -61,12 +61,11 @@ namespace Riskeer.Storage.Core.DbContext
         public byte StepSize { get; set; }
         public byte CalculationType { get; set; }
         public byte WaterLevelType { get; set; }
-
+    
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
         public virtual HydraulicLocationCalculationForTargetProbabilityCollectionEntity HydraulicLocationCalculationForTargetProbabilityCollectionEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
-
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityStoneCoverWaveConditionsOutputEntity> StabilityStoneCoverWaveConditionsOutputEntities { get; set; }
     }
