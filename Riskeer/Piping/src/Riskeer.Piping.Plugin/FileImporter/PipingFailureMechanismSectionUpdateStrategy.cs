@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
+using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Service;
 
@@ -34,7 +35,7 @@ namespace Riskeer.Piping.Plugin.FileImporter
     /// An <see cref="IFailureMechanismSectionUpdateStrategy"/> that can be used to update
     /// piping failure mechanism sections with imported failure mechanism sections.
     /// </summary>
-    public class PipingFailureMechanismSectionUpdateStrategy : FailureMechanismSectionUpdateStrategy<PipingFailureMechanismSectionResultOld,
+    public class PipingFailureMechanismSectionUpdateStrategy : FailureMechanismSectionUpdateStrategy<
         AdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private readonly PipingFailureMechanism failureMechanism;
@@ -43,12 +44,12 @@ namespace Riskeer.Piping.Plugin.FileImporter
         /// Creates a new instance of <see cref="PipingFailureMechanismSectionUpdateStrategy"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to update the sections for.</param>
-        /// <param name="sectionResultUpdateStrategy">The <see cref="PipingFailureMechanismSectionResultUpdateStrategy"/>
+        /// <param name="sectionResultUpdateStrategy">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy"/>
         /// to use when updating the section results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public PipingFailureMechanismSectionUpdateStrategy(
             PipingFailureMechanism failureMechanism,
-            PipingFailureMechanismSectionResultUpdateStrategy sectionResultUpdateStrategy)
+            AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy sectionResultUpdateStrategy)
             : base(failureMechanism, sectionResultUpdateStrategy)
         {
             this.failureMechanism = failureMechanism;

@@ -29,6 +29,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
+using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SemiProbabilistic;
@@ -45,7 +46,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
         {
             // Call
             var updateStrategy = new PipingFailureMechanismSectionUpdateStrategy(
-                new PipingFailureMechanism(), new PipingFailureMechanismSectionResultUpdateStrategy());
+                new PipingFailureMechanism(), new AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionUpdateStrategy<PipingFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(updateStrategy);
@@ -57,7 +58,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             // Setup
             var failureMechanism = new PipingFailureMechanism();
             var failureMechanismSectionUpdateStrategy = new PipingFailureMechanismSectionUpdateStrategy(
-                failureMechanism, new PipingFailureMechanismSectionResultUpdateStrategy());
+                failureMechanism, new AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
             string sourcePath = TestHelper.GetScratchPadPath();
             FailureMechanismSection[] sections =
             {
@@ -85,7 +86,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
             // Given
             var failureMechanism = new PipingFailureMechanism();
             var failureMechanismSectionUpdateStrategy = new PipingFailureMechanismSectionUpdateStrategy(
-                failureMechanism, new PipingFailureMechanismSectionResultUpdateStrategy());
+                failureMechanism, new AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
 
             FailureMechanismSection[] sections =
             {
@@ -145,7 +146,7 @@ namespace Riskeer.Piping.Plugin.Test.FileImporter
                 new ProbabilisticPipingCalculationScenario()
             });
 
-            var replaceStrategy = new PipingFailureMechanismSectionUpdateStrategy(failureMechanism, new PipingFailureMechanismSectionResultUpdateStrategy());
+            var replaceStrategy = new PipingFailureMechanismSectionUpdateStrategy(failureMechanism, new AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
 
             // Call
             IEnumerable<IObservable> affectedObjects = replaceStrategy.DoPostUpdateActions();

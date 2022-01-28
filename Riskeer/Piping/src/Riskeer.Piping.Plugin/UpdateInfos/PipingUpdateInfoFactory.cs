@@ -25,6 +25,7 @@ using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
+using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.ChangeHandlers;
 using Riskeer.Piping.Forms.PresentationObjects;
@@ -69,7 +70,7 @@ namespace Riskeer.Piping.Plugin.UpdateInfos
                     context.AssessmentSection.ReferenceLine,
                     filePath,
                     new PipingFailureMechanismSectionUpdateStrategy((PipingFailureMechanism) context.WrappedData,
-                                                                    new PipingFailureMechanismSectionResultUpdateStrategy()),
+                                                                    new AdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy()),
                     new UpdateMessageProvider()),
                 VerifyUpdates = context =>
                 {
