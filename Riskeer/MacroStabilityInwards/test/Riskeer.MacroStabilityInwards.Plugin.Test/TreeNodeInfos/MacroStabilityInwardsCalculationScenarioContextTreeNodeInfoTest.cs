@@ -361,61 +361,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromSectionResult()
-        {
-            // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            TestMacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = TestMacroStabilityInwardsFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
-            MacroStabilityInwardsSurfaceLine[] surfaceLines = macroStabilityInwardsFailureMechanism.SurfaceLines.ToArray();
-
-            var elementToBeRemoved = new MacroStabilityInwardsCalculationScenario
-            {
-                InputParameters =
-                {
-                    SurfaceLine = surfaceLines[0]
-                }
-            };
-
-            var group = new CalculationGroup();
-            group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new MacroStabilityInwardsCalculationScenario());
-            group.Attach(observer);
-            macroStabilityInwardsFailureMechanism.CalculationsGroup.Children.Add(group);
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculationContext = new MacroStabilityInwardsCalculationScenarioContext(elementToBeRemoved,
-                                                                                         group,
-                                                                                         Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                                         Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                                                                                         macroStabilityInwardsFailureMechanism,
-                                                                                         assessmentSection);
-            var groupContext = new MacroStabilityInwardsCalculationGroupContext(group,
-                                                                                null,
-                                                                                Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
-                                                                                Enumerable.Empty<MacroStabilityInwardsStochasticSoilModel>(),
-                                                                                macroStabilityInwardsFailureMechanism,
-                                                                                assessmentSection);
-
-            // Precondition
-            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
-            Assert.AreEqual(2, group.Children.Count);
-            MacroStabilityInwardsFailureMechanismSectionResultOld[] sectionResults = macroStabilityInwardsFailureMechanism.SectionResultsOld.ToArray();
-            CollectionAssert.Contains(sectionResults[0].GetCalculationScenarios(macroStabilityInwardsFailureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>()), elementToBeRemoved);
-
-            // Call
-            info.OnNodeRemoved(calculationContext, groupContext);
-
-            // Assert
-            Assert.AreEqual(1, group.Children.Count);
-            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
-            CollectionAssert.DoesNotContain(sectionResults[0].GetCalculationScenarios(macroStabilityInwardsFailureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>()), elementToBeRemoved);
-        }
-
-        [Test]
         public void GivenInvalidCalculation_WhenCalculatingFromContextMenu_ThenCalculationNotifiesObserversAndLogMessageAdded()
         {
             // Given
