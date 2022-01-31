@@ -759,61 +759,6 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.SemiProbabilistic
         }
 
         [Test]
-        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromSectionResult()
-        {
-            // Setup
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-
-            TestPipingFailureMechanism pipingFailureMechanism = TestPipingFailureMechanism.GetFailureMechanismWithSurfaceLinesAndStochasticSoilModels();
-            PipingSurfaceLine[] surfaceLines = pipingFailureMechanism.SurfaceLines.ToArray();
-
-            var elementToBeRemoved = new SemiProbabilisticPipingCalculationScenario
-            {
-                InputParameters =
-                {
-                    SurfaceLine = surfaceLines[0]
-                }
-            };
-
-            var group = new CalculationGroup();
-            group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new SemiProbabilisticPipingCalculationScenario());
-            group.Attach(observer);
-            pipingFailureMechanism.CalculationsGroup.Children.Add(group);
-
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var calculationContext = new SemiProbabilisticPipingCalculationScenarioContext(elementToBeRemoved,
-                                                                                           group,
-                                                                                           Enumerable.Empty<PipingSurfaceLine>(),
-                                                                                           Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                                           pipingFailureMechanism,
-                                                                                           assessmentSection);
-            var groupContext = new PipingCalculationGroupContext(group,
-                                                                 null,
-                                                                 Enumerable.Empty<PipingSurfaceLine>(),
-                                                                 Enumerable.Empty<PipingStochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSection);
-
-            // Precondition
-            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
-            Assert.AreEqual(2, group.Children.Count);
-            PipingFailureMechanismSectionResultOld[] sectionResults = pipingFailureMechanism.SectionResultsOld.ToArray();
-            CollectionAssert.Contains(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()), elementToBeRemoved);
-
-            // Call
-            info.OnNodeRemoved(calculationContext, groupContext);
-
-            // Assert
-            Assert.AreEqual(1, group.Children.Count);
-            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
-            CollectionAssert.DoesNotContain(sectionResults[0].GetCalculationScenarios(pipingFailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()), elementToBeRemoved);
-        }
-
-        [Test]
         public void GivenInvalidCalculation_WhenCalculatingFromContextMenu_ThenCalculationNotifiesObserversAndLogMessageAdded()
         {
             // Given
