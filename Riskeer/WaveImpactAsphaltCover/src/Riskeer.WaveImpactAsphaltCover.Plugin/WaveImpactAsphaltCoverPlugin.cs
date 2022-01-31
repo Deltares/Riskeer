@@ -274,10 +274,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private static bool CloseFailurePathViewForData(WaveImpactAsphaltCoverFailurePathView view, object dataToCloseFor)
         {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as WaveImpactAsphaltCoverFailureMechanism;
 
-            return assessmentSection != null
+            return dataToCloseFor is IAssessmentSection assessmentSection
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }
@@ -299,7 +298,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         #endregion
