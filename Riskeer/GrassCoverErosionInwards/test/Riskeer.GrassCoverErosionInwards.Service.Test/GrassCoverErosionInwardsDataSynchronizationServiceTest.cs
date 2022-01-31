@@ -220,7 +220,6 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
             GrassCoverErosionInwardsFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
             object[] expectedRemovedObjectInstances = failureMechanism.Sections.OfType<object>()
-                                                                      .Concat(failureMechanism.SectionResultsOld)
                                                                       .Concat(failureMechanism.SectionResults)
                                                                       .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
                                                                       .Concat(failureMechanism.DikeProfiles)
@@ -231,15 +230,13 @@ namespace Riskeer.GrassCoverErosionInwards.Service.Test
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.DikeProfiles);
 
             IObservable[] array = result.ChangedObjects.ToArray();
-            Assert.AreEqual(5, array.Length);
+            Assert.AreEqual(4, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
-            CollectionAssert.Contains(array, failureMechanism.SectionResultsOld);
             CollectionAssert.Contains(array, failureMechanism.SectionResults);
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.DikeProfiles);
