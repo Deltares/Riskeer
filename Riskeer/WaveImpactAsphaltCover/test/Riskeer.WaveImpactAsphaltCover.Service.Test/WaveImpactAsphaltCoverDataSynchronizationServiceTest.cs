@@ -127,7 +127,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
             object[] expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
-                                                              .Concat(failureMechanism.SectionResultsOld)
                                                               .Concat(failureMechanism.SectionResults)
                                                               .Concat(failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
                                                               .Concat(failureMechanism.ForeshoreProfiles)
@@ -140,15 +139,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
 
             IObservable[] array = results.ChangedObjects.ToArray();
-            Assert.AreEqual(5, array.Length);
+            Assert.AreEqual(4, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
-            CollectionAssert.Contains(array, failureMechanism.SectionResultsOld);
             CollectionAssert.Contains(array, failureMechanism.SectionResults);
             CollectionAssert.Contains(array, failureMechanism.WaveConditionsCalculationGroup);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
