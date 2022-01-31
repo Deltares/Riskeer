@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 215;
+        private const int expectedNumberOfRemovedInstances = 185;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -206,15 +206,13 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(69, observables.Length);
+            Assert.AreEqual(54, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(pipingFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(pipingFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
             CollectionAssert.Contains(observables, pipingFailureMechanism);
-            CollectionAssert.Contains(observables, pipingFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, pipingFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, pipingFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
             CollectionAssert.IsEmpty(pipingFailureMechanism.CalculationsGroup.Children);
@@ -226,10 +224,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, grassCoverErosionInwardsFailureMechanism);
-            CollectionAssert.Contains(observables, grassCoverErosionInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, grassCoverErosionInwardsFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, grassCoverErosionInwardsFailureMechanism.CalculationsGroup);
@@ -238,10 +234,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism);
-            CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup);
@@ -250,10 +244,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism);
-            CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup);
@@ -262,10 +254,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism);
-            CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup);
@@ -274,10 +264,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
             CollectionAssert.IsEmpty(closingStructuresFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(closingStructuresFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(closingStructuresFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, closingStructuresFailureMechanism);
-            CollectionAssert.Contains(observables, closingStructuresFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, closingStructuresFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(closingStructuresFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, closingStructuresFailureMechanism.CalculationsGroup);
@@ -288,10 +276,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(heightStructuresFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, heightStructuresFailureMechanism);
-            CollectionAssert.Contains(observables, heightStructuresFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, heightStructuresFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(heightStructuresFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, heightStructuresFailureMechanism.CalculationsGroup);
@@ -302,10 +288,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism);
-            CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(stabilityPointStructuresFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, stabilityPointStructuresFailureMechanism.CalculationsGroup);
@@ -316,18 +300,14 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             DuneErosionFailureMechanism duneErosionFailureMechanism = assessmentSection.DuneErosion;
             CollectionAssert.IsEmpty(duneErosionFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(duneErosionFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, duneErosionFailureMechanism);
-            CollectionAssert.Contains(observables, duneErosionFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, duneErosionFailureMechanism.SectionResults);
 
             MacroStabilityInwardsFailureMechanism macroStabilityInwardsFailureMechanism = assessmentSection.MacroStabilityInwards;
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism);
-            CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.SectionResults);
             CollectionAssert.IsEmpty(macroStabilityInwardsFailureMechanism.CalculationsGroup.Children);
             CollectionAssert.Contains(observables, macroStabilityInwardsFailureMechanism.CalculationsGroup);
@@ -338,42 +318,32 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             MicrostabilityFailureMechanism microstabilityFailureMechanism = assessmentSection.Microstability;
             CollectionAssert.IsEmpty(microstabilityFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(microstabilityFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(microstabilityFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, microstabilityFailureMechanism);
-            CollectionAssert.Contains(observables, microstabilityFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, microstabilityFailureMechanism.SectionResults);
 
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCoverFailureMechanism = assessmentSection.WaterPressureAsphaltCover;
             CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(waterPressureAsphaltCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, waterPressureAsphaltCoverFailureMechanism);
-            CollectionAssert.Contains(observables, waterPressureAsphaltCoverFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, waterPressureAsphaltCoverFailureMechanism.SectionResults);
 
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwardsFailureMechanism = assessmentSection.GrassCoverSlipOffOutwards;
             CollectionAssert.IsEmpty(grassCoverSlipOffOutwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(grassCoverSlipOffOutwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(grassCoverSlipOffOutwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, grassCoverSlipOffOutwardsFailureMechanism);
-            CollectionAssert.Contains(observables, grassCoverSlipOffOutwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, grassCoverSlipOffOutwardsFailureMechanism.SectionResults);
 
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwardsFailureMechanism = assessmentSection.GrassCoverSlipOffInwards;
             CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(grassCoverSlipOffInwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, grassCoverSlipOffInwardsFailureMechanism);
-            CollectionAssert.Contains(observables, grassCoverSlipOffInwardsFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, grassCoverSlipOffInwardsFailureMechanism.SectionResults);
 
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.Sections);
-            CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, pipingStructureFailureMechanism);
-            CollectionAssert.Contains(observables, pipingStructureFailureMechanism.SectionResultsOld);
             CollectionAssert.Contains(observables, pipingStructureFailureMechanism.SectionResults);
 
             CollectionAssert.AreEqual(referenceLine.Points, assessmentSection.ReferenceLine.Points);
