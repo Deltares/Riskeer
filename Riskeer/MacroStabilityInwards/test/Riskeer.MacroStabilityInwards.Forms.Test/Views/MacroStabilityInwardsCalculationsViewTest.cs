@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -643,17 +645,14 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Then
             MacroStabilityInwardsCalculationScenario[] calculationScenarios = failureMechanism.Calculations.OfType<MacroStabilityInwardsCalculationScenario>().ToArray();
-            MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult1 = failureMechanism.SectionResultsOld.First();
-            MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult2 = failureMechanism.SectionResultsOld.ElementAt(1);
+            AdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            AdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
-            Assert.AreEqual(2, failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios).Count());
-
-            foreach (MacroStabilityInwardsCalculationScenario calculationScenario in failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios))
-            {
-                Assert.IsInstanceOf<ICalculationScenario>(calculationScenario);
-            }
-
-            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(calculationScenarios));
+            Func<MacroStabilityInwardsCalculationScenario,IEnumerable<Segment2D>,bool> intersectionFunc = 
+                (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
+            
+            Assert.AreEqual(2, failureMechanismSectionResult1.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc).Count());
+            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc));
             mocks.VerifyAll();
         }
 

@@ -648,11 +648,14 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             // Then
             StructuresCalculationScenario<StabilityPointStructuresInput>[] calculationScenarios = failureMechanism.Calculations.OfType<StructuresCalculationScenario<StabilityPointStructuresInput>>().ToArray();
-            StabilityPointStructuresFailureMechanismSectionResultOld failureMechanismSectionResult1 = failureMechanism.SectionResultsOld.First();
-            StabilityPointStructuresFailureMechanismSectionResultOld failureMechanismSectionResult2 = failureMechanism.SectionResultsOld.ElementAt(1);
+            AdoptableFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            AdoptableFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
-            Assert.AreEqual(1, failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios).Count());
-            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(calculationScenarios));
+            Func<StructuresCalculationScenario<StabilityPointStructuresInput>,IEnumerable<Segment2D>,bool> intersectionFunc = 
+                (scenario, lineSegments) => scenario.IsStructureIntersectionWithReferenceLineInSection(lineSegments);
+            
+            Assert.AreEqual(1, failureMechanismSectionResult1.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc).Count());
+            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc));
             mocks.VerifyAll();
         }
 

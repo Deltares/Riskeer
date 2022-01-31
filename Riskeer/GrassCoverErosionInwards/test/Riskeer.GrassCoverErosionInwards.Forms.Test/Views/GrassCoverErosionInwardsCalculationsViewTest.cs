@@ -670,11 +670,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             // Then
             GrassCoverErosionInwardsCalculationScenario[] calculationScenarios = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculationScenario>().ToArray();
-            GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult1 = failureMechanism.SectionResultsOld.First();
-            GrassCoverErosionInwardsFailureMechanismSectionResultOld failureMechanismSectionResult2 = failureMechanism.SectionResultsOld.ElementAt(1);
+            AdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
+            AdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
-            Assert.AreEqual(1, failureMechanismSectionResult1.GetCalculationScenarios(calculationScenarios).Count());
-            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetCalculationScenarios(calculationScenarios));
+            Func<GrassCoverErosionInwardsCalculationScenario,IEnumerable<Segment2D>,bool> intersectionFunc = 
+                (scenario, lineSegments) => scenario.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments);
+            
+            Assert.AreEqual(1, failureMechanismSectionResult1.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc).Count());
+            CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc));
             mocks.VerifyAll();
         }
 
