@@ -213,7 +213,6 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             StabilityPointStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
             object[] expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
-                                                              .Concat(failureMechanism.SectionResultsOld)
                                                               .Concat(failureMechanism.SectionResults)
                                                               .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
                                                               .Concat(failureMechanism.ForeshoreProfiles)
@@ -227,14 +226,13 @@ namespace Riskeer.StabilityPointStructures.Service.Test
             // Note: To make sure the clear is performed regardless of what is done with
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.StabilityPointStructures);
 
             IObservable[] array = results.ChangedObjects.ToArray();
-            Assert.AreEqual(6, array.Length);
+            Assert.AreEqual(5, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
             CollectionAssert.Contains(array, failureMechanism.SectionResults);
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
