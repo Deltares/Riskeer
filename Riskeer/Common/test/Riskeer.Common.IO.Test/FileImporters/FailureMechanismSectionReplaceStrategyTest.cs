@@ -146,7 +146,6 @@ namespace Riskeer.Common.IO.Test.FileImporters
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,
-                failureMechanism.SectionResultsOld,
                 failureMechanism.SectionResults
             }, affectedObjects);
         }

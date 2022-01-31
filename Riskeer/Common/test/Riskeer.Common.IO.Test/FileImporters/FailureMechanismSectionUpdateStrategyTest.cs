@@ -220,7 +220,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var exception = Assert.Throws<UpdateDataException>(Call);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
             Assert.AreEqual(exception.InnerException.Message, exception.Message);
-            Assert.IsFalse(sectionResultUpdateStrategy.UpdatedOld);
+            Assert.IsFalse(sectionResultUpdateStrategy.Update);
         }
 
         [Test]
@@ -252,11 +252,11 @@ namespace Riskeer.Common.IO.Test.FileImporters
             // Assert
             Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
             Assert.IsEmpty(failureMechanismSections);
-            Assert.IsFalse(sectionResultUpdateStrategy.UpdatedOld);
+            Assert.IsFalse(sectionResultUpdateStrategy.Update);
             CollectionAssert.AreEqual(new IObservable[]
             {
                 failureMechanism,
-                failureMechanism.SectionResultsOld
+                failureMechanism.SectionResults
             }, affectedObjects);
         }
 
@@ -279,13 +279,13 @@ namespace Riskeer.Common.IO.Test.FileImporters
 
         private class TestUpdateFailureMechanismSectionResultUpdateStrategy : IFailureMechanismSectionResultUpdateStrategy<FailureMechanismSectionResult>
         {
-            public bool UpdatedOld { get; private set; }
+            public bool Update { get; private set; }
             public FailureMechanismSectionResult Origin { get; private set; }
             public FailureMechanismSectionResult Target { get; private set; }
 
             public void UpdateSectionResult(FailureMechanismSectionResult origin, FailureMechanismSectionResult target)
             {
-                UpdatedOld = true;
+                Update = true;
                 Origin = origin;
                 Target = target;
             }
