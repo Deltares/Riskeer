@@ -462,7 +462,6 @@ namespace Riskeer.ClosingStructures.Service.Test
             ClosingStructuresFailureMechanism failureMechanism = CreateFullyConfiguredFailureMechanism();
 
             object[] expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
-                                                              .Concat(failureMechanism.SectionResultsOld)
                                                               .Concat(failureMechanism.SectionResults)
                                                               .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
                                                               .Concat(failureMechanism.ForeshoreProfiles)
@@ -474,16 +473,14 @@ namespace Riskeer.ClosingStructures.Service.Test
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.ClosingStructures);
 
             IObservable[] array = results.ChangedObjects.ToArray();
-            Assert.AreEqual(6, array.Length);
+            Assert.AreEqual(5, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
-            CollectionAssert.Contains(array, failureMechanism.SectionResultsOld);
             CollectionAssert.Contains(array, failureMechanism.SectionResults);
             CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
