@@ -350,7 +350,7 @@ namespace Riskeer.DuneErosion.Plugin
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResultsOld, failureMechanism.SectionResultsOld);
+            return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
         }
 
         private static bool CloseDuneLocationCalculationsViewForData(DuneLocationCalculationsView view, object dataToCloseFor)
