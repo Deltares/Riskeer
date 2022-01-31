@@ -116,7 +116,8 @@ SELECT
             THEN 14
         WHEN [FailureMechanismType] = 16
             THEN 15
-    END
+        ELSE [FailureMechanismType]
+    END,
     [IsRelevant],
     [FailureMechanismSectionCollectionSourcePath],
     [InputComments],
@@ -126,9 +127,9 @@ SELECT
     1,
     NULL
 FROM [SOURCEPROJECT].FailureMechanismEntity
-WHERE FailureMechanismType NOT 13 OR
-      FailureMechanismType NOT 17 OR
-      FailureMechanismType NOT 18;
+WHERE [FailureMechanismType] != 13 AND
+      [FailureMechanismType] != 17 AND
+      [FailureMechanismType] != 18;
 
 INSERT INTO FailureMechanismFailureMechanismSectionEntity (
     [FailureMechanismEntityId],
@@ -442,18 +443,6 @@ INSERT INTO MacroStabilityInwardsSoilProfileOneDEntity SELECT * FROM [SOURCEPROJ
 INSERT INTO MacroStabilityInwardsSoilProfileTwoDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileTwoDEntity;
 INSERT INTO MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity;
 INSERT INTO MacroStabilityInwardsStochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsStochasticSoilProfileEntity;
-INSERT INTO MacroStabilityOutwardsFailureMechanismMetaEntity (
-    [MacroStabilityOutwardsFailureMechanismMetaEntityId],
-    [FailureMechanismEntityId],
-    [A],
-    [ApplyLengthEffectInSection])
-SELECT
-    [MacroStabilityOutwardsFailureMechanismMetaEntityId],
-    [FailureMechanismEntityId],
-    [A],
-    0                                                            
-FROM [SOURCEPROJECT].MacroStabilityOutwardsFailureMechanismMetaEntity;
-INSERT INTO MacroStabilityOutwardsSectionResultEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity;
 INSERT INTO MicrostabilityFailureMechanismMetaEntity (
     [FailureMechanismEntityId],
     [N],

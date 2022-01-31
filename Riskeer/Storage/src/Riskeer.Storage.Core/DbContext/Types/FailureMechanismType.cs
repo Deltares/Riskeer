@@ -89,16 +89,16 @@ namespace Riskeer.Storage.Core.DbContext
         /// <summary>
         /// Microstabiliteit - STMI
         /// </summary>
-        Microstability = 14,
+        Microstability = 13,
 
         /// <summary>
         /// Wateroverdruk bij asfaltbekleding - AWO
         /// </summary>
-        WaterOverpressureAsphaltRevetment = 15,
+        WaterOverpressureAsphaltRevetment = 14,
 
         /// <summary>
         /// Grasbekleding afschuiven binnentalud - GABI
         /// </summary>
-        GrassRevetmentSlidingInwards = 16
+        GrassRevetmentSlidingInwards = 15
     }
 }
