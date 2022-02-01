@@ -298,59 +298,24 @@ namespace Riskeer.Migration.Integration.Test
                 ") " +
                 "FROM FailureMechanismEntity NEW " +
                 "JOIN SOURCEPROJECT.FailureMechanismEntity OLD USING(FailureMechanismEntityId) " +
-                "WHERE NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
-                "AND NEW.[CalculationGroupEntityId] IS OLD.[CalculationGroupEntityId] " +
-                "AND NEW.[InAssembly] = OLD.[IsRelevant] " +
-                "AND NEW.[FailureMechanismSectionCollectionSourcePath] IS OLD.[FailureMechanismSectionCollectionSourcePath] " +
-                "AND NEW.[InAssemblyInputComments] IS OLD.[InputComments] " +
-                "AND NEW.[InAssemblyOutputComments] IS OLD.[OutputComments] " +
-                "AND NEW.[NotInAssemblyComments] IS OLD.[NotRelevantComments] " +
-                "AND NEW.[CalculationsInputComments] IS NULL " +
-                "AND NEW.[FailurePathAssemblyProbabilityResultType] = 1 " +
-                "AND NEW.[ManualFailurePathAssemblyProbability] IS NULL; " +
-                "DETACH SOURCEPROJECT;";
-
-            for (var i = 1; i < 13; i++)
-            {
-                string validateFailureMechanism2 =
-                    $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                    "SELECT COUNT() = " +
-                    "(" +
-                    "SELECT COUNT() " +
-                    "FROM SOURCEPROJECT.FailureMechanismEntity " +
-                    "WHERE [FailureMechanismType] = {0} " +
-                    ") " +
-                    "FROM FailureMechanismEntity NEW " +
-                    "JOIN SOURCEPROJECT.FailureMechanismEntity OLD USING(FailureMechanismEntityId) " +
-                    "WHERE NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
-                    "AND NEW.[CalculationGroupEntityId] IS OLD.[CalculationGroupEntityId] " +
-                    "AND NEW.[FailureMechanismType] = {0} " +
-                    "AND NEW.[InAssembly] = OLD.[IsRelevant] " +
-                    "AND NEW.[FailureMechanismSectionCollectionSourcePath] IS OLD.[FailureMechanismSectionCollectionSourcePath] " +
-                    "AND NEW.[InAssemblyInputComments] IS OLD.[InputComments] " +
-                    "AND NEW.[InAssemblyOutputComments] IS OLD.[OutputComments] " +
-                    "AND NEW.[NotInAssemblyComments] IS OLD.[NotRelevantComments] " +
-                    "AND NEW.[CalculationsInputComments] IS NULL " +
-                    "AND NEW.[FailurePathAssemblyProbabilityResultType] = 1 " +
-                    "AND NEW.[ManualFailurePathAssemblyProbability] IS NULL; " +
-                    "DETACH SOURCEPROJECT;";
-                
-                reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanism2, i.ToString()));
-            }
-            
-            string validateRenumberedFailureMechanism =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = " +
-                "(" +
-                "SELECT COUNT() " +
+                "JOIN ( " +
+                "SELECT " +
+                "[FailureMechanismEntityId], " +
+                "CASE " +
+                "WHEN [FailureMechanismType] = 14 " +
+                "THEN 13 " +
+                "WHEN [FailureMechanismType] = 15 " +
+                "THEN 14 " +
+                "WHEN [FailureMechanismType] = 16 " +
+                "THEN 15 " +
+                "ELSE [FailureMechanismType] " +
+                "END AS RenumberedEnumType " +
                 "FROM SOURCEPROJECT.FailureMechanismEntity " +
-                "WHERE [FailureMechanismType] = {0} " +
-                ") " +
-                "FROM FailureMechanismEntity NEW " +
-                "JOIN SOURCEPROJECT.FailureMechanismEntity OLD USING(FailureMechanismEntityId) " +
+                "WHERE FailureMechanismType != 13 AND FailureMechanismType != 17 AND FailureMechanismType != 18" +
+                ") USING(FailureMechanismEntityId) " +
                 "WHERE NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
                 "AND NEW.[CalculationGroupEntityId] IS OLD.[CalculationGroupEntityId] " +
-                "AND NEW.[FailureMechanismType] = {1} " +
+                "AND NEW.[FailureMechanismType] = RenumberedEnumType " +
                 "AND NEW.[InAssembly] = OLD.[IsRelevant] " +
                 "AND NEW.[FailureMechanismSectionCollectionSourcePath] IS OLD.[FailureMechanismSectionCollectionSourcePath] " +
                 "AND NEW.[InAssemblyInputComments] IS OLD.[InputComments] " +
@@ -362,9 +327,6 @@ namespace Riskeer.Migration.Integration.Test
                 "DETACH SOURCEPROJECT;";
             
             reader.AssertReturnedDataIsValid(validateFailureMechanism);
-            reader.AssertReturnedDataIsValid(string.Format(validateRenumberedFailureMechanism, "14", "13"));
-            reader.AssertReturnedDataIsValid(string.Format(validateRenumberedFailureMechanism, "15", "14"));
-            reader.AssertReturnedDataIsValid(string.Format(validateRenumberedFailureMechanism, "16", "15"));
         }
 
         private static void AssertFailureMechanismSection(MigratedDatabaseReader reader, string sourceFilePath)
