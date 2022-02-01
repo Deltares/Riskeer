@@ -918,11 +918,9 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             bool microstabilityInAssembly = random.NextBoolean();
-            bool strengthAndStabilityParallelConstructionInAssembly = random.NextBoolean();
             bool waterOverpressureAsphaltRevetmentInAssembly = random.NextBoolean();
             bool grassRevetmentSlidingOutwardsInAssembly = random.NextBoolean();
             bool grassRevetmentSlidingInwardsInAssembly = random.NextBoolean();
-            bool technicalInnovationsInAssembly = random.NextBoolean();
 
             FailureMechanismEntity microstability = CreateFailureMechanismEntity(
                 microstabilityInAssembly,
