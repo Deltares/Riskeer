@@ -24,14 +24,14 @@ using System.Collections.Generic;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.FailurePathSections;
+using Assembly.Kernel.Model.FailureMechanismSections;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
     /// <summary>
     /// Failure path assembly kernel stub for testing purposes.
     /// </summary>
-    public class FailurePathAssemblyKernelStub : IFailurePathResultAssembler
+    public class FailurePathAssemblyKernelStub : IFailureMechanismResultAssembler
     {
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not. 
@@ -46,7 +46,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// <summary>
         /// Gets the collection of <see cref="FailurePathSectionAssemblyResult"/>.
         /// </summary>
-        public IEnumerable<FailurePathSectionAssemblyResult> FailurePathSectionAssemblyResults { get; private set; }
+        public IEnumerable<FailureMechanismSectionAssemblyResult> FailurePathSectionAssemblyResults { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether an assembly is partial.
@@ -56,7 +56,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// <summary>
         /// Sets the resulting probability.
         /// </summary>
-        public Probability ProbabilityResult { private get; set; }
+        public FailureMechanismAssemblyResult ProbabilityResult { private get; set; }
 
         /// <summary>
         /// Sets an indicator whether an <see cref="Exception"/> must be thrown while performing a calculation.
@@ -68,9 +68,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// </summary>
         public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
-        public Probability AssembleFailurePathWbi1B1(double lengthEffectFactor,
-                                                     IEnumerable<FailurePathSectionAssemblyResult> failurePathSectionAssemblyResults,
-                                                     bool partialAssembly)
+        public FailureMechanismAssemblyResult AssembleFailureMechanismWbi1B1(double lengthEffectFactor,
+                                                                             IEnumerable<FailureMechanismSectionAssemblyResult> failurePathSectionAssemblyResults,
+                                                                             bool partialAssembly)
         {
             ThrowException();
 
