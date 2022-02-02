@@ -25,7 +25,6 @@ using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
-using Assembly.Kernel.Model.FailurePathSections;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -36,6 +35,8 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
+using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {
@@ -97,7 +98,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             var random = new Random(21);
             double failurePathN = random.NextDouble();
-            FailureMechanismSectionAssemblyResult[] sectionAssemblyResults =
+            RiskeerFailureMechanismSectionAssemblyResult[] sectionAssemblyResults =
             {
                 CreateSectionAssemblyResult(random.Next()),
                 CreateSectionAssemblyResult(random.Next())
@@ -137,7 +138,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailurePathAssemblyCalculator(factory);
 
                 // Call
-                double assemblyResult = calculator.Assemble(random.NextDouble(), Enumerable.Empty<FailureMechanismSectionAssemblyResult>());
+                double assemblyResult = calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
 
                 // Assert
                 Assert.IsTrue(kernel.Calculated);
@@ -151,8 +152,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Setup
             var random = new Random(21);
             double probability = random.NextDouble();
-            var invalidInput = new FailureMechanismSectionAssemblyResult(probability, probability, random.NextDouble(),
-                                                                         (FailureMechanismSectionAssemblyGroup) 99);
+            var invalidInput = new RiskeerFailureMechanismSectionAssemblyResult(probability, probability, random.NextDouble(),
+                                                                                (FailureMechanismSectionAssemblyGroup) 99);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -191,7 +192,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailurePathAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.Assemble(random.NextDouble(), Enumerable.Empty<FailureMechanismSectionAssemblyResult>());
+                void Call() => calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
 
                 // Assert
                 Assert.IsFalse(kernel.Calculated);
@@ -217,7 +218,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailurePathAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.Assemble(random.NextDouble(), Enumerable.Empty<FailureMechanismSectionAssemblyResult>());
+                void Call() => calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>());
 
                 // Assert
                 Assert.IsFalse(kernel.Calculated);
@@ -229,16 +230,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             }
         }
 
-        private static FailureMechanismSectionAssemblyResult CreateSectionAssemblyResult(int seed)
+        private static RiskeerFailureMechanismSectionAssemblyResult CreateSectionAssemblyResult(int seed)
         {
             var random = new Random(seed);
             double probability = random.NextDouble();
-            return new FailureMechanismSectionAssemblyResult(probability, probability + 0.001, random.NextDouble(),
-                                                             random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            return new RiskeerFailureMechanismSectionAssemblyResult(probability, probability + 0.001, random.NextDouble(),
+                                                                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
         }
 
-        private static void AssertFailurePathSectionAssemblyResults(IEnumerable<FailureMechanismSectionAssemblyResult> expected,
-                                                                    IEnumerable<FailurePathSectionAssemblyResult> actual)
+        private static void AssertFailurePathSectionAssemblyResults(IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> expected,
+                                                                    IEnumerable<AssemblyFailureMechanismSectionAssemblyResult> actual)
         {
             int nrOfExpectedResults = expected.Count();
             Assert.AreEqual(nrOfExpectedResults, actual.Count());
@@ -249,8 +250,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             }
         }
 
-        private static void AssertFailurePathSectionAssemblyResult(FailureMechanismSectionAssemblyResult expected,
-                                                                   FailurePathSectionAssemblyResult actual)
+        private static void AssertFailurePathSectionAssemblyResult(RiskeerFailureMechanismSectionAssemblyResult expected,
+                                                                   AssemblyFailureMechanismSectionAssemblyResult actual)
         {
             ProbabilityAssert.AreEqual(expected.ProfileProbability, actual.ProbabilityProfile);
             ProbabilityAssert.AreEqual(expected.SectionProbability, actual.ProbabilitySection);
@@ -262,15 +263,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             switch (assemblyGroup)
             {
                 case FailureMechanismSectionAssemblyGroup.ND:
-                    return EInterpretationCategory.ND;
+                    return EInterpretationCategory.NotDominant;
                 case FailureMechanismSectionAssemblyGroup.III:
                     return EInterpretationCategory.III;
                 case FailureMechanismSectionAssemblyGroup.II:
                     return EInterpretationCategory.II;
                 case FailureMechanismSectionAssemblyGroup.I:
                     return EInterpretationCategory.I;
-                case FailureMechanismSectionAssemblyGroup.ZeroPlus:
-                    return EInterpretationCategory.ZeroPlus;
                 case FailureMechanismSectionAssemblyGroup.Zero:
                     return EInterpretationCategory.Zero;
                 case FailureMechanismSectionAssemblyGroup.IMin:
@@ -280,7 +279,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 case FailureMechanismSectionAssemblyGroup.IIIMin:
                     return EInterpretationCategory.IIIMin;
                 case FailureMechanismSectionAssemblyGroup.D:
-                    return EInterpretationCategory.D;
+                    return EInterpretationCategory.Dominant;
                 case FailureMechanismSectionAssemblyGroup.Gr:
                     return EInterpretationCategory.Gr;
                 default:

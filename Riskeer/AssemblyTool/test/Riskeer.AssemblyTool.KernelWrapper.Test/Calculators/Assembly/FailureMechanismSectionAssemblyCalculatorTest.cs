@@ -24,7 +24,6 @@ using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.Categories;
-using Assembly.Kernel.Model.FailurePathSections;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -36,6 +35,8 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
+using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {
@@ -103,7 +104,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
             var random = new Random(21);
             var input = new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
-                                                                 isRelevant, hasProbabilitySpecified, 
+                                                                 isRelevant, hasProbabilitySpecified,
                                                                  random.NextDouble(), random.NextDouble(),
                                                                  random.NextBoolean(),
                                                                  random.NextDouble(), random.NextDouble());
@@ -115,7 +116,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 categoryLimitsKernel.CategoryLimits = categoryLimits;
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                failureMechanismSectionAssemblyKernel.FailurePathSectionAssemblyResult = new FailurePathSectionAssemblyResult(
+                failureMechanismSectionAssemblyKernel.FailurePathSectionAssemblyResult = new AssemblyFailureMechanismSectionAssemblyResult(
                     new Probability(random.NextDouble(0.0, 0.01)), new Probability(random.NextDouble(0.01, 0.02)), random.NextEnumValue<EInterpretationCategory>());
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
@@ -151,15 +152,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 categoryLimitsKernel.CategoryLimits = CreateCategoryLimits();
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                var kernelResult = new FailurePathSectionAssemblyResult(new Probability(random.NextDouble()),
-                                                                        new Probability(random.NextDouble()),
-                                                                        random.NextEnumValue<EInterpretationCategory>());
+                var kernelResult = new AssemblyFailureMechanismSectionAssemblyResult(new Probability(random.NextDouble()),
+                                                                                     new Probability(random.NextDouble()),
+                                                                                     random.NextEnumValue<EInterpretationCategory>());
                 failureMechanismSectionAssemblyKernel.FailurePathSectionAssemblyResult = kernelResult;
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = calculator.AssembleFailureMechanismSection(input);
+                RiskeerFailureMechanismSectionAssemblyResult result = calculator.AssembleFailureMechanismSection(input);
 
                 // Assert
                 Assert.IsTrue(categoryLimitsKernel.Calculated);
@@ -186,9 +187,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 categoryLimitsKernel.CategoryLimits = CreateCategoryLimits();
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                var kernelResult = new FailurePathSectionAssemblyResult(new Probability(random.NextDouble()),
-                                                                        new Probability(random.NextDouble()),
-                                                                        (EInterpretationCategory) 99);
+                var kernelResult = new AssemblyFailureMechanismSectionAssemblyResult(new Probability(random.NextDouble()),
+                                                                                     new Probability(random.NextDouble()),
+                                                                                     (EInterpretationCategory) 99);
                 failureMechanismSectionAssemblyKernel.FailurePathSectionAssemblyResult = kernelResult;
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
