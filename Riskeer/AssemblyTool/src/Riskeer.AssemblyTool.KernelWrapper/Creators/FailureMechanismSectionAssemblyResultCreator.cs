@@ -22,38 +22,39 @@
 using System;
 using System.ComponentModel;
 using Assembly.Kernel.Model.Categories;
-using Assembly.Kernel.Model.FailurePathSections;
 using Riskeer.AssemblyTool.Data;
+using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="FailureMechanismSectionAssemblyResult"/> instances and
+    /// Creates <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> instances and
     /// <see cref="FailureMechanismSectionAssemblyGroup"/> values.
     /// </summary>
     internal static class FailureMechanismSectionAssemblyResultCreator
     {
         /// <summary>
-        /// Converts a <see cref="FailurePathSectionAssemblyResult"/> into a <see cref="FailureMechanismSectionAssemblyResult"/>.
+        /// Converts am <see cref="AssemblyFailureMechanismSectionAssemblyResult"/> into a <see cref="RiskeerFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
-        /// <param name="result">The <see cref="FailurePathSectionAssemblyResult"/> to convert.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.</returns>
+        /// <param name="result">The <see cref="AssemblyFailureMechanismSectionAssemblyResult"/> to convert.</param>
+        /// <returns>A <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="EInterpretationCategory"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="EInterpretationCategory"/>
         /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(FailurePathSectionAssemblyResult result)
+        public static RiskeerFailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(AssemblyFailureMechanismSectionAssemblyResult result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new FailureMechanismSectionAssemblyResult(result.ProbabilityProfile.Value,
-                                                             result.ProbabilitySection.Value,
-                                                             result.NSection,
-                                                             CreateFailureMechanismSectionAssemblyGroup(result.InterpretationCategory));
+            return new RiskeerFailureMechanismSectionAssemblyResult(result.ProbabilityProfile.Value,
+                                                                    result.ProbabilitySection.Value,
+                                                                    result.NSection,
+                                                                    CreateFailureMechanismSectionAssemblyGroup(result.InterpretationCategory));
         }
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 
             switch (category)
             {
-                case EInterpretationCategory.ND:
+                case EInterpretationCategory.NotDominant:
                     return FailureMechanismSectionAssemblyGroup.ND;
                 case EInterpretationCategory.III:
                     return FailureMechanismSectionAssemblyGroup.III;
@@ -84,8 +85,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return FailureMechanismSectionAssemblyGroup.II;
                 case EInterpretationCategory.I:
                     return FailureMechanismSectionAssemblyGroup.I;
-                case EInterpretationCategory.ZeroPlus:
-                    return FailureMechanismSectionAssemblyGroup.ZeroPlus;
                 case EInterpretationCategory.Zero:
                     return FailureMechanismSectionAssemblyGroup.Zero;
                 case EInterpretationCategory.IMin:
@@ -94,7 +93,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return FailureMechanismSectionAssemblyGroup.IIMin;
                 case EInterpretationCategory.IIIMin:
                     return FailureMechanismSectionAssemblyGroup.IIIMin;
-                case EInterpretationCategory.D:
+                case EInterpretationCategory.Dominant:
                     return FailureMechanismSectionAssemblyGroup.D;
                 case EInterpretationCategory.Gr:
                     return FailureMechanismSectionAssemblyGroup.Gr;

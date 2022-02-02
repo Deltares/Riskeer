@@ -25,10 +25,11 @@ using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.Categories;
-using Assembly.Kernel.Model.FailurePathSections;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
+using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
@@ -54,7 +55,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input)
+        public RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input)
         {
             if (input == null)
             {
@@ -69,13 +70,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 
                 IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
 
-                FailurePathSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(GetInitialMechanismProbabilitySpecification(input),
-                                                                                                 CreateProbability(input.InitialProfileProbability),
-                                                                                                 CreateProbability(input.InitialSectionProbability),
-                                                                                                 input.FurtherAnalysisNeeded,
-                                                                                                 CreateProbability(input.RefinedProfileProbability),
-                                                                                                 CreateProbability(input.RefinedSectionProbability),
-                                                                                                 categories);
+                AssemblyFailureMechanismSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(GetInitialMechanismProbabilitySpecification(input),
+                                                                                                              CreateProbability(input.InitialProfileProbability),
+                                                                                                              CreateProbability(input.InitialSectionProbability),
+                                                                                                              input.FurtherAnalysisNeeded,
+                                                                                                              CreateProbability(input.RefinedProfileProbability),
+                                                                                                              CreateProbability(input.RefinedSectionProbability),
+                                                                                                              categories);
 
                 return FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(output);
             }
@@ -96,8 +97,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 return ESectionInitialMechanismProbabilitySpecification.NotRelevant;
             }
 
-            return input.HasProbabilitySpecified 
-                       ? ESectionInitialMechanismProbabilitySpecification.RelevantWithProbabilitySpecification 
+            return input.HasProbabilitySpecified
+                       ? ESectionInitialMechanismProbabilitySpecification.RelevantWithProbabilitySpecification
                        : ESectionInitialMechanismProbabilitySpecification.RelevantNoProbabilitySpecification;
         }
 
