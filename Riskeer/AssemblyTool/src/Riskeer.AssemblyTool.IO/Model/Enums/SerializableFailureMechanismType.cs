@@ -38,84 +38,84 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// Represents the failure mechanism piping.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTPH)]
-        STPH = 3,
+        STPH = 2,
 
         /// <summary>
         /// Represents the failure mechanism microstability.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTMI)]
-        STMI = 4,
+        STMI = 3,
 
         /// <summary>
         /// Represents the failure mechanism wave impact asphalt cover.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeAGK)]
-        AGK = 5,
+        AGK = 4,
 
         /// <summary>
         /// Represents the failure mechanism water pressure asphalt cover.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeAWO)]
-        AWO = 6,
+        AWO = 5,
 
         /// <summary>
         /// Represents the failure mechanism grass cover erosion outwards.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGEBU)]
-        GEBU = 7,
+        GEBU = 6,
 
         /// <summary>
         /// Represents the failure mechanism grass cover slipoff outwards.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGABU)]
-        GABU = 8,
+        GABU = 7,
 
         /// <summary>
         /// Represents the failure mechanism grass cover erosion inwards.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGEKB)]
-        GEKB = 9,
+        GEKB = 8,
 
         /// <summary>
         /// Represents the failure mechanism grass cover slipoff inwards.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGABI)]
-        GABI = 10,
+        GABI = 9,
 
         /// <summary>
         /// Represents the failure mechanism stability stone cover.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeZST)]
-        ZST = 11,
+        ZST = 10,
 
         /// <summary>
         /// Represents the failure mechanism dune erosion.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeDA)]
-        DA = 12,
+        DA = 11,
 
         /// <summary>
         /// Represents the failure mechanism height structures.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeHTKW)]
-        HTKW = 13,
+        HTKW = 12,
 
         /// <summary>
         /// Represents the failure mechanism closing structures.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeBSKW)]
-        BSKW = 14,
+        BSKW = 13,
 
         /// <summary>
         /// Represents the failure mechanism piping structures.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypePKW)]
-        PKW = 15,
+        PKW = 14,
 
         /// <summary>
         /// Represents the failure mechanism stability point structures.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTKWp)]
-        STKWp = 16
+        STKWp = 15
     }
 }

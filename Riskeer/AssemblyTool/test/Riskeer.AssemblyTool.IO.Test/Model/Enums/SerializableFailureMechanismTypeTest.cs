@@ -29,114 +29,104 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
     [TestFixture]
     public class SerializableFailureMechanismTypeTest : EnumWithXmlEnumNameTestFixture<SerializableFailureMechanismType>
     {
-        protected override IDictionary<SerializableFailureMechanismType, int> ExpectedValueForEnumValues
-        {
-            get
+        protected override IDictionary<SerializableFailureMechanismType, int> ExpectedValueForEnumValues =>
+            new Dictionary<SerializableFailureMechanismType, int>
             {
-                return new Dictionary<SerializableFailureMechanismType, int>
                 {
-                    {
-                        SerializableFailureMechanismType.STBI, 1
-                    },
-                    {
-                        SerializableFailureMechanismType.STPH, 3
-                    },
-                    {
-                        SerializableFailureMechanismType.STMI, 4
-                    },
-                    {
-                        SerializableFailureMechanismType.AGK, 5
-                    },
-                    {
-                        SerializableFailureMechanismType.AWO, 6
-                    },
-                    {
-                        SerializableFailureMechanismType.GEBU, 7
-                    },
-                    {
-                        SerializableFailureMechanismType.GABU, 8
-                    },
-                    {
-                        SerializableFailureMechanismType.GEKB, 9
-                    },
-                    {
-                        SerializableFailureMechanismType.GABI, 10
-                    },
-                    {
-                        SerializableFailureMechanismType.ZST, 11
-                    },
-                    {
-                        SerializableFailureMechanismType.DA, 12
-                    },
-                    {
-                        SerializableFailureMechanismType.HTKW, 13
-                    },
-                    {
-                        SerializableFailureMechanismType.BSKW, 14
-                    },
-                    {
-                        SerializableFailureMechanismType.PKW, 15
-                    },
-                    {
-                        SerializableFailureMechanismType.STKWp, 16
-                    }
-                };
-            }
-        }
+                    SerializableFailureMechanismType.STBI, 1
+                },
+                {
+                    SerializableFailureMechanismType.STPH, 2
+                },
+                {
+                    SerializableFailureMechanismType.STMI, 3
+                },
+                {
+                    SerializableFailureMechanismType.AGK, 4
+                },
+                {
+                    SerializableFailureMechanismType.AWO, 5
+                },
+                {
+                    SerializableFailureMechanismType.GEBU, 6
+                },
+                {
+                    SerializableFailureMechanismType.GABU, 7
+                },
+                {
+                    SerializableFailureMechanismType.GEKB, 8
+                },
+                {
+                    SerializableFailureMechanismType.GABI, 9
+                },
+                {
+                    SerializableFailureMechanismType.ZST, 10
+                },
+                {
+                    SerializableFailureMechanismType.DA, 11
+                },
+                {
+                    SerializableFailureMechanismType.HTKW, 12
+                },
+                {
+                    SerializableFailureMechanismType.BSKW, 13
+                },
+                {
+                    SerializableFailureMechanismType.PKW, 14
+                },
+                {
+                    SerializableFailureMechanismType.STKWp, 15
+                }
+            };
 
-        protected override IDictionary<SerializableFailureMechanismType, string> ExpectedDisplayNameForEnumValues
-        {
-            get
+        protected override IDictionary<SerializableFailureMechanismType, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<SerializableFailureMechanismType, string>
             {
-                return new Dictionary<SerializableFailureMechanismType, string>
                 {
-                    {
-                        SerializableFailureMechanismType.STBI, "STBI"
-                    },
-                    {
-                        SerializableFailureMechanismType.STPH, "STPH"
-                    },
-                    {
-                        SerializableFailureMechanismType.STMI, "STMI"
-                    },
-                    {
-                        SerializableFailureMechanismType.AGK, "AGK"
-                    },
-                    {
-                        SerializableFailureMechanismType.AWO, "AWO"
-                    },
-                    {
-                        SerializableFailureMechanismType.GEBU, "GEBU"
-                    },
-                    {
-                        SerializableFailureMechanismType.GABU, "GABU"
-                    },
-                    {
-                        SerializableFailureMechanismType.GEKB, "GEKB"
-                    },
-                    {
-                        SerializableFailureMechanismType.GABI, "GABI"
-                    },
-                    {
-                        SerializableFailureMechanismType.ZST, "ZST"
-                    },
-                    {
-                        SerializableFailureMechanismType.DA, "DA"
-                    },
-                    {
-                        SerializableFailureMechanismType.HTKW, "HTKW"
-                    },
-                    {
-                        SerializableFailureMechanismType.BSKW, "BSKW"
-                    },
-                    {
-                        SerializableFailureMechanismType.PKW, "PKW"
-                    },
-                    {
-                        SerializableFailureMechanismType.STKWp, "STKWp"
-                    }
-                };
-            }
-        }
+                    SerializableFailureMechanismType.STBI, "STBI"
+                },
+                {
+                    SerializableFailureMechanismType.STPH, "STPH"
+                },
+                {
+                    SerializableFailureMechanismType.STMI, "STMI"
+                },
+                {
+                    SerializableFailureMechanismType.AGK, "AGK"
+                },
+                {
+                    SerializableFailureMechanismType.AWO, "AWO"
+                },
+                {
+                    SerializableFailureMechanismType.GEBU, "GEBU"
+                },
+                {
+                    SerializableFailureMechanismType.GABU, "GABU"
+                },
+                {
+                    SerializableFailureMechanismType.GEKB, "GEKB"
+                },
+                {
+                    SerializableFailureMechanismType.GABI, "GABI"
+                },
+                {
+                    SerializableFailureMechanismType.ZST, "ZST"
+                },
+                {
+                    SerializableFailureMechanismType.DA, "DA"
+                },
+                {
+                    SerializableFailureMechanismType.HTKW, "HTKW"
+                },
+                {
+                    SerializableFailureMechanismType.BSKW, "BSKW"
+                },
+                {
+                    SerializableFailureMechanismType.PKW, "PKW"
+                },
+                {
+                    SerializableFailureMechanismType.STKWp, "STKWp"
+                }
+            };
     }
 }
