@@ -111,9 +111,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 case EAssemblyErrors.DoesNotComplyAfterComply:
                     return Resources.AssemblyErrorMessageCreator_DoesNotComplyAfterComply;
                 case EAssemblyErrors.FmSectionLengthInvalid:
-                    return Resources.AssemblyErrorMessageCreator_FailurePathSectionLengthInvalid;
+                    return Resources.AssemblyErrorMessageCreator_FailureMechanismSectionLengthInvalid;
                 case EAssemblyErrors.FmSectionSectionStartEndInvalid:
-                    return Resources.AssemblyErrorMessageCreator_FailurePathSectionSectionStartEndInvalid;
+                    return Resources.AssemblyErrorMessageCreator_FailureMechanismSectionSectionStartEndInvalid;
                 case EAssemblyErrors.FailureProbabilityOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_FailureProbabilityOutOfRange;
                 case EAssemblyErrors.InputNotTheSameType:
@@ -121,9 +121,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 case EAssemblyErrors.FailureMechanismAssemblerInputInvalid:
                     return Resources.AssemblyErrorMessageCreator_NoSectionsImported;
                 case EAssemblyErrors.CommonFailureMechanismSectionsInvalid:
-                    return Resources.AssemblyErrorMessageCreator_CommonFailurePathSectionsInvalid;
+                    return Resources.AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid;
                 case EAssemblyErrors.CommonFailureMechanismSectionsNotConsecutive:
-                    return Resources.AssemblyErrorMessageCreator_CommonFailurePathSectionsNotConsecutive;
+                    return Resources.AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive;
                 case EAssemblyErrors.RequestedPointOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_RequestedPointOutOfRange;
                 case EAssemblyErrors.SectionsWithoutCategory:

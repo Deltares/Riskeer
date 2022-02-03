@@ -111,18 +111,18 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ieder toetsspoor in de assemblage moet een vakindeling geïmporteerd hebben..
         /// </summary>
-        internal static string AssemblyErrorMessageCreator_CommonFailurePathSectionsInvalid {
+        internal static string AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_CommonFailurePathSectionsInvalid", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m]..
         /// </summary>
-        internal static string AssemblyErrorMessageCreator_CommonFailurePathSectionsNotConsecutive {
+        internal static string AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_CommonFailurePathSectionsNotConsecutive", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive", resourceCulture);
             }
         }
         
@@ -156,18 +156,18 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Gezamenlijke lengte van alle deelvakken moet gelijk zijn aan de trajectlengte..
         /// </summary>
-        internal static string AssemblyErrorMessageCreator_FailurePathSectionLengthInvalid {
+        internal static string AssemblyErrorMessageCreator_FailureMechanismSectionLengthInvalid {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_FailurePathSectionLengthInvalid", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_FailureMechanismSectionLengthInvalid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De lengte van een berekende deelvak kon niet goed worden bepaald..
         /// </summary>
-        internal static string AssemblyErrorMessageCreator_FailurePathSectionSectionStartEndInvalid {
+        internal static string AssemblyErrorMessageCreator_FailureMechanismSectionSectionStartEndInvalid {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_FailurePathSectionSectionStartEndInvalid", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_FailureMechanismSectionSectionStartEndInvalid", resourceCulture);
             }
         }
         

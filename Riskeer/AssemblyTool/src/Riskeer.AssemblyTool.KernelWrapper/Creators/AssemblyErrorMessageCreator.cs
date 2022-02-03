@@ -92,17 +92,17 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 case EAssemblyErrors.ValueMayNotBeNaN:
                     return Resources.AssemblyErrorMessageCreator_ValueMayNotBeNull;
                 case EAssemblyErrors.FailureMechanismSectionLengthInvalid:
-                    return Resources.AssemblyErrorMessageCreator_FailurePathSectionLengthInvalid;
+                    return Resources.AssemblyErrorMessageCreator_FailureMechanismSectionLengthInvalid;
                 case EAssemblyErrors.FailureMechanismSectionSectionStartEndInvalid:
-                    return Resources.AssemblyErrorMessageCreator_FailurePathSectionSectionStartEndInvalid;
+                    return Resources.AssemblyErrorMessageCreator_FailureMechanismSectionSectionStartEndInvalid;
                 case EAssemblyErrors.FailureProbabilityOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_FailureProbabilityOutOfRange;
                 case EAssemblyErrors.InputNotTheSameType:
                     return Resources.AssemblyErrorMessageCreator_InputNotTheSameType;
                 case EAssemblyErrors.CommonFailureMechanismSectionsInvalid:
-                    return Resources.AssemblyErrorMessageCreator_CommonFailurePathSectionsInvalid;
+                    return Resources.AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid;
                 case EAssemblyErrors.CommonFailureMechanismSectionsNotConsecutive:
-                    return Resources.AssemblyErrorMessageCreator_CommonFailurePathSectionsNotConsecutive;
+                    return Resources.AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive;
                 case EAssemblyErrors.RequestedPointOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_RequestedPointOutOfRange;
                 case EAssemblyErrors.SectionsWithoutCategory:

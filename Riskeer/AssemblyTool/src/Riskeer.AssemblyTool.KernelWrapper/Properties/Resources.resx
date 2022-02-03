@@ -162,10 +162,10 @@
   <data name="AssemblyErrorMessageCreator_DoesNotComplyAfterComply" xml:space="preserve">
     <value>Een lagere categorie moet als voldoende worden aangemerkt indien het vak aan een hogere categorie voldoet.</value>
   </data>
-  <data name="AssemblyErrorMessageCreator_FailurePathSectionLengthInvalid" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_FailureMechanismSectionLengthInvalid" xml:space="preserve">
     <value>Gezamenlijke lengte van alle deelvakken moet gelijk zijn aan de trajectlengte.</value>
   </data>
-  <data name="AssemblyErrorMessageCreator_FailurePathSectionSectionStartEndInvalid" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_FailureMechanismSectionSectionStartEndInvalid" xml:space="preserve">
     <value>De lengte van een berekende deelvak kon niet goed worden bepaald.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_FailureProbabilityOutOfRange" xml:space="preserve">
@@ -177,7 +177,7 @@
   <data name="AssemblyErrorMessageCreator_NoSectionsImported" xml:space="preserve">
     <value>Er moet een vakindeling zijn geïmporteerd.</value>
   </data>
-  <data name="AssemblyErrorMessageCreator_CommonFailurePathSectionsNotConsecutive" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive" xml:space="preserve">
     <value>Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m].</value>
   </data>
   <data name="AssemblyErrorMessageCreator_RequestedPointOutOfRange" xml:space="preserve">
@@ -186,7 +186,7 @@
   <data name="AssemblyErrorMessageCreator_GenericErrorMessage" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden tijdens het assembleren.</value>
   </data>
-  <data name="AssemblyErrorMessageCreator_CommonFailurePathSectionsInvalid" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid" xml:space="preserve">
     <value>Ieder toetsspoor in de assemblage moet een vakindeling geïmporteerd hebben.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_SectionsWithoutCategory" xml:space="preserve">
