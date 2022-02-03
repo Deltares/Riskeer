@@ -41,16 +41,18 @@ namespace Riskeer.Common.Plugin.Test.FileImporters
         protected override AdoptableWithProfileProbabilityFailureMechanismSectionResult CreateConfiguredSectionResult()
         {
             var random = new Random(39);
+            double initialProfileProbability = random.NextDouble();
+            double refinedProfileProbability = random.NextDouble();
             return new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 IsRelevant = random.NextBoolean(),
                 InitialFailureMechanismResultType = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(),
-                ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
-                ManualInitialFailureMechanismResultProfileProbability = random.NextDouble(),
                 FurtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
+                ManualInitialFailureMechanismResultProfileProbability = initialProfileProbability,
+                ManualInitialFailureMechanismResultSectionProbability = initialProfileProbability + 0.1,
                 ProbabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>(),
-                RefinedSectionProbability = random.NextDouble(),
-                RefinedProfileProbability = random.NextDouble()
+                RefinedProfileProbability = refinedProfileProbability,
+                RefinedSectionProbability = refinedProfileProbability + 0.1
             };
         }
 

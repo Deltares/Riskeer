@@ -67,6 +67,86 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
+        [TestCase(0.2)]
+        [TestCase(0.1 + 1e-5)]
+        public void GivenValidSectionResult_WhenSettingInitialProfileProbabilityGreaterThanSectionProbability_ThenArgumentOutOfRangeExceptionThrown(double invalidProbability)
+        {
+            // Given
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
+            {
+                ManualInitialFailureMechanismResultSectionProbability = 0.1
+            };
+
+            // When
+            void Call() => result.ManualInitialFailureMechanismResultProfileProbability = invalidProbability;
+
+            // Then
+            const string message = "De faalkans van het initiële mechanisme per doorsnede moet kleiner of gelijk zijn aan de faalkans van het initiële mechanisme per vak.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void ManualInitialFailureMechanismResultSectionProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => result.ManualInitialFailureMechanismResultSectionProbability = newValue;
+
+            // Assert
+            const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1e-6)]
+        [TestCase(0.5)]
+        [TestCase(1 - 1e-6)]
+        [TestCase(1)]
+        [TestCase(double.NaN)]
+        public void ManualInitialFailureMechanismResultSectionProbability_ValidValue_NewValueSet(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+
+            // Call
+            result.ManualInitialFailureMechanismResultSectionProbability = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.ManualInitialFailureMechanismResultSectionProbability);
+        }
+
+        [Test]
+        [TestCase(0.2)]
+        [TestCase(0.3 - 1e-5)]
+        public void GivenValidSectionResult_WhenSettingInitialSectionProbabilitySmallerThanProfileProbability_ThenArgumentOutOfRangeExceptionThrown(double invalidProbability)
+        {
+            // Given
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
+            {
+                ManualInitialFailureMechanismResultProfileProbability = 0.3
+            };
+
+            // When
+            void Call() => result.ManualInitialFailureMechanismResultSectionProbability = invalidProbability;
+
+            // Then
+            const string message = "De faalkans van het initiële mechanisme per doorsnede moet kleiner of gelijk zijn aan de faalkans van het initiële mechanisme per vak.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
+        }
+
+        [Test]
         [TestCase(0)]
         [TestCase(1e-6)]
         [TestCase(0.5)]
@@ -103,6 +183,86 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
 
             // Assert
             const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
+        }
+
+        [Test]
+        [TestCase(0.2)]
+        [TestCase(0.1 + 1e-5)]
+        public void GivenValidSectionResult_WhenSettingRefinedProfileProbabilityGreaterThanSectionProbability_ThenArgumentOutOfRangeExceptionThrown(double invalidProbability)
+        {
+            // Given
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
+            {
+                RefinedSectionProbability = 0.1
+            };
+
+            // When
+            void Call() => result.RefinedProfileProbability = invalidProbability;
+
+            // Then
+            const string message = "De aangescherpte faalkans per doorsnede moet kleiner of gelijk zijn aan de aangescherpte faalkans per vak.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        [TestCase(-20)]
+        [TestCase(-1e-6)]
+        [TestCase(1 + 1e-6)]
+        [TestCase(12)]
+        public void RefinedSectionProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+
+            // Call
+            void Call() => result.RefinedSectionProbability = newValue;
+
+            // Assert
+            const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1e-6)]
+        [TestCase(0.5)]
+        [TestCase(1 - 1e-6)]
+        [TestCase(1)]
+        [TestCase(double.NaN)]
+        public void RefinedSectionProbability_ValidValue_NewValueSet(double newValue)
+        {
+            // Setup
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+
+            // Call
+            result.RefinedSectionProbability = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, result.RefinedSectionProbability);
+        }
+
+        [Test]
+        [TestCase(0.2)]
+        [TestCase(0.3 - 1e-5)]
+        public void GivenValidSectionResult_WhenSettingRefinedSectionProbabilitySmallerThanProfileProbability_ThenArgumentOutOfRangeExceptionThrown(double invalidProbability)
+        {
+            // Given
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var result = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
+            {
+                RefinedProfileProbability = 0.3
+            };
+
+            // When
+            void Call() => result.RefinedSectionProbability = invalidProbability;
+
+            // Then
+            const string message = "De aangescherpte faalkans per doorsnede moet kleiner of gelijk zijn aan de aangescherpte faalkans per vak.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
         }
 

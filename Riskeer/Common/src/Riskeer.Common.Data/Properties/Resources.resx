@@ -414,4 +414,12 @@
     <data name="FailurePathAssemblyProbabilityResultTypeManual_DisplayName" xml:space="preserve">
     <value>Handmatig invullen</value>
   </data>
+    <data name="WithProfileProbabilityFailureMechanismSectionResult_ManualInitialFailureMechanismResultSectionProbability_must_be_greater_than_ManualInitialFailureMechanismResultProfileProbability"
+          xml:space="preserve">
+    <value>De faalkans van het initiële mechanisme per doorsnede moet kleiner of gelijk zijn aan de faalkans van het initiële mechanisme per vak.</value>
+  </data>
+    <data name="WithProfileProbabilityFailureMechanismSectionResult_RefinedSectionProbability_must_be_greater_than_RefinedProfileProbability"
+          xml:space="preserve">
+    <value>De aangescherpte faalkans per doorsnede moet kleiner of gelijk zijn aan de aangescherpte faalkans per vak.</value>
+  </data>
 </root>

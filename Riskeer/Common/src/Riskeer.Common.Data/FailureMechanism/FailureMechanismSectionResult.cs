@@ -61,15 +61,13 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <summary>
         /// Gets or sets the value of the manual initial failure mechanism result per failure mechanism section as a probability.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in a valid range.</exception>
         public double ManualInitialFailureMechanismResultSectionProbability
         {
             get => manualInitialFailureMechanismResultSectionProbability;
             set
             {
-                ProbabilityHelper.ValidateProbability(value, null,
-                                                      Resources.FailureProbability_Value_needs_to_be_in_Range_0_,
-                                                      true);
+                ValidateInitialSectionProbability(value);
                 manualInitialFailureMechanismResultSectionProbability = value;
             }
         }
@@ -87,15 +85,13 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <summary>
         /// Gets or sets the value of the refined probability per failure mechanism section.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in a valid range.</exception>
         public double RefinedSectionProbability
         {
             get => refinedSectionProbability;
             set
             {
-                ProbabilityHelper.ValidateProbability(value, null,
-                                                      Resources.FailureProbability_Value_needs_to_be_in_Range_0_,
-                                                      true);
+                ValidateRefinedSectionProbability(value);
                 refinedSectionProbability = value;
             }
         }
@@ -104,5 +100,37 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// Gets the encapsulated <see cref="FailureMechanismSection"/>.
         /// </summary>
         public FailureMechanismSection Section { get; }
+
+        /// <summary>
+        /// Validates the initial section probability.
+        /// </summary>
+        /// <param name="value">The probability to validate.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in a valid range.</exception>
+        protected virtual void ValidateInitialSectionProbability(double value)
+        {
+            ValidateFailureProbability(value);
+        }
+
+        /// <summary>
+        /// Validates the refined section probability.
+        /// </summary>
+        /// <param name="value">The probability to validate.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in a valid range.</exception>
+        protected virtual void ValidateRefinedSectionProbability(double value)
+        {
+            ValidateFailureProbability(value);
+        }
+
+        /// <summary>
+        /// Validates the failure probability.
+        /// </summary>
+        /// <param name="value">The probability to validate.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        protected static void ValidateFailureProbability(double value)
+        {
+            ProbabilityHelper.ValidateProbability(value, null,
+                                                  Resources.FailureProbability_Value_needs_to_be_in_Range_0_,
+                                                  true);
+        }
     }
 }
