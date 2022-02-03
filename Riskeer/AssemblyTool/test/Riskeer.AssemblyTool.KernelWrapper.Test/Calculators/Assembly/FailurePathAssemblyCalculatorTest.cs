@@ -108,7 +108,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailurePathAssemblyKernelStub kernel = factory.LastCreatedFailurePathAssemblyKernel;
-                kernel.ProbabilityResult = new Probability(random.NextDouble());
+                kernel.ProbabilityResult = new FailureMechanismAssemblyResult(new Probability(random.NextDouble()), EFailureMechanismAssemblyMethod.Correlated);
 
                 var calculator = new FailurePathAssemblyCalculator(factory);
 
@@ -132,7 +132,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 FailurePathAssemblyKernelStub kernel = factory.LastCreatedFailurePathAssemblyKernel;
-                var output = new Probability(random.NextDouble());
+                var output = new FailureMechanismAssemblyResult(new Probability(random.NextDouble()), EFailureMechanismAssemblyMethod.Correlated);
                 kernel.ProbabilityResult = output;
 
                 var calculator = new FailurePathAssemblyCalculator(factory);
@@ -142,7 +142,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 Assert.IsTrue(kernel.Calculated);
-                ProbabilityAssert.AreEqual(assemblyResult, output);
+                ProbabilityAssert.AreEqual(assemblyResult, output.Probability);
             }
         }
 
