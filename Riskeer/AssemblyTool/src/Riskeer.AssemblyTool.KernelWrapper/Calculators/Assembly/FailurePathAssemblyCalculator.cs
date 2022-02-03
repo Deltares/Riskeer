@@ -25,10 +25,10 @@ using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.FailurePathSections;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
+using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
@@ -54,7 +54,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public double Assemble(double failurePathN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
+        public double Assemble(double failurePathN, IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> sectionAssemblyResults)
         {
             if (sectionAssemblyResults == null)
             {
@@ -63,15 +63,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 
             try
             {
-                IFailurePathResultAssembler kernel = factory.CreateFailurePathAssemblyKernel();
+                IFailureMechanismResultAssembler kernel = factory.CreateFailurePathAssemblyKernel();
 
-                FailurePathSectionAssemblyResult[] kernelInput =
+                AssemblyFailureMechanismSectionAssemblyResult[] kernelInput =
                     sectionAssemblyResults.Select(FailurePathAssemblyCalculatorInputCreator.CreateFailurePathSectionAssemblyResult)
                                           .ToArray();
 
-                Probability result = kernel.AssembleFailurePathWbi1B1(failurePathN, kernelInput, false);
+                FailureMechanismAssemblyResult result = kernel.AssembleFailureMechanismWbi1B1(failurePathN, kernelInput, false);
 
-                return result.Value;
+                return result.Probability.Value;
             }
             catch (AssemblyException e)
             {
