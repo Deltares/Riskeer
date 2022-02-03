@@ -31,9 +31,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
     public class FailureMechanismSectionAssemblyCalculatorStub : IFailureMechanismSectionAssemblyCalculator
     {
         /// <summary>
-        /// Gets the <see cref="FailureMechanismSectionAssemblyInput"/> that is used in the calculation.
+        /// Gets the <see cref="FailureMechanismSectionWithProfileProbabilityAssemblyInput"/> that is used in the calculation.
         /// </summary>
-        public FailureMechanismSectionAssemblyInput FailureMechanismSectionAssemblyInput { get; private set; }
+        public FailureMechanismSectionWithProfileProbabilityAssemblyInput FailureMechanismSectionAssemblyInput { get; private set; }
 
         /// <summary>
         /// Sets an indicator whether an exception must be thrown while performing the calculation.
@@ -45,7 +45,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public FailureMechanismSectionAssemblyResult FailureMechanismSectionAssemblyResultOutput { get; set; }
 
-        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input)
+        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
         {
             if (ThrowExceptionOnCalculate)
             {

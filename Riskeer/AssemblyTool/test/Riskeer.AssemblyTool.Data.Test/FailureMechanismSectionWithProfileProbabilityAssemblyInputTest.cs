@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Riskeer.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class FailureMechanismSectionAssemblyInputTest
+    public class FailureMechanismSectionWithProfileProbabilityAssemblyInputTest
     {
         [Test]
         public void Constructor_WithArguments_ExpectedValues()
@@ -37,24 +37,30 @@ namespace Riskeer.AssemblyTool.Data.Test
             double signalingNorm = random.NextDouble();
             bool isRelevant = random.NextBoolean();
             bool hasProbabilitySpecified = random.NextBoolean();
+            double profileProbability = random.NextDouble();
             double sectionProbability = random.NextDouble();
             bool furtherAnalysisNeeded = random.NextBoolean();
+            double refinedProfileProbability = random.NextDouble();
             double refinedSectionProbability = random.NextDouble();
 
             // Call
-            var input = new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
-                                                                 isRelevant, hasProbabilitySpecified,
-                                                                 sectionProbability, furtherAnalysisNeeded,
-                                                                 refinedSectionProbability);
+            var input = new FailureMechanismSectionWithProfileProbabilityAssemblyInput(lowerLimitNorm, signalingNorm,
+                                                                                       isRelevant, hasProbabilitySpecified,
+                                                                                       profileProbability, sectionProbability,
+                                                                                       furtherAnalysisNeeded,
+                                                                                       refinedProfileProbability, refinedSectionProbability);
 
             // Assert
+            Assert.IsInstanceOf<FailureMechanismSectionAssemblyInput>(input);
             Assert.AreEqual(signalingNorm, input.SignalingNorm);
             Assert.AreEqual(lowerLimitNorm, input.LowerLimitNorm);
             
             Assert.AreEqual(isRelevant, input.IsRelevant);
             Assert.AreEqual(hasProbabilitySpecified, input.HasProbabilitySpecified);
+            Assert.AreEqual(profileProbability, input.InitialProfileProbability);
             Assert.AreEqual(sectionProbability, input.InitialSectionProbability);
             Assert.AreEqual(furtherAnalysisNeeded, input.FurtherAnalysisNeeded);
+            Assert.AreEqual(refinedProfileProbability, input.RefinedProfileProbability);
             Assert.AreEqual(refinedSectionProbability, input.RefinedSectionProbability);
         }
     }

@@ -103,11 +103,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             const double lowerLimitNorm = 0.001;
 
             var random = new Random(21);
-            var input = new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
-                                                                 isRelevant, hasProbabilitySpecified,
-                                                                 random.NextDouble(), random.NextDouble(),
-                                                                 random.NextBoolean(),
-                                                                 random.NextDouble(), random.NextDouble());
+            var input = new FailureMechanismSectionWithProfileProbabilityAssemblyInput(lowerLimitNorm, signalingNorm,
+                                                                                       isRelevant, hasProbabilitySpecified,
+                                                                                       random.NextDouble(), random.NextDouble(),
+                                                                                       random.NextBoolean(),
+                                                                                       random.NextDouble(), random.NextDouble());
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
@@ -144,7 +144,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(21);
-            FailureMechanismSectionAssemblyInput input = CreateFailureMechanismSectionAssemblyInput();
+            FailureMechanismSectionWithProfileProbabilityAssemblyInput input = CreateFailureMechanismSectionAssemblyInput();
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
@@ -178,7 +178,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(21);
-            FailureMechanismSectionAssemblyInput input = CreateFailureMechanismSectionAssemblyInput();
+            FailureMechanismSectionWithProfileProbabilityAssemblyInput input = CreateFailureMechanismSectionAssemblyInput();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -210,7 +210,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleFailureMechanismSection_KernelThrowsException_ThrowsFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
-            FailureMechanismSectionAssemblyInput input = CreateFailureMechanismSectionAssemblyInput();
+            FailureMechanismSectionWithProfileProbabilityAssemblyInput input = CreateFailureMechanismSectionAssemblyInput();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -238,7 +238,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         public void AssembleFailureMechanismSection_KernelThrowsAssemblyException_ThrowsFailureMechanismSectionAssemblyCalculatorException()
         {
             // Setup
-            FailureMechanismSectionAssemblyInput input = CreateFailureMechanismSectionAssemblyInput();
+            FailureMechanismSectionWithProfileProbabilityAssemblyInput input = CreateFailureMechanismSectionAssemblyInput();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -263,16 +263,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             }
         }
 
-        private static FailureMechanismSectionAssemblyInput CreateFailureMechanismSectionAssemblyInput()
+        private static FailureMechanismSectionWithProfileProbabilityAssemblyInput CreateFailureMechanismSectionAssemblyInput()
         {
             const double lowerLimitNorm = 0.001;
             const double signalingNorm = 0.0001;
 
             var random = new Random(21);
-            return new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
-                                                            random.NextBoolean(), random.NextBoolean(),
-                                                            random.NextDouble(), random.NextDouble(),
-                                                            random.NextBoolean(), random.NextDouble(), random.NextDouble());
+            return new FailureMechanismSectionWithProfileProbabilityAssemblyInput(lowerLimitNorm, signalingNorm,
+                                                                                  random.NextBoolean(), random.NextBoolean(),
+                                                                                  random.NextDouble(), random.NextDouble(),
+                                                                                  random.NextBoolean(), random.NextDouble(), random.NextDouble());
         }
 
         private static CategoriesList<InterpretationCategory> CreateCategoryLimits()

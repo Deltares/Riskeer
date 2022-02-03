@@ -1,4 +1,25 @@
-﻿namespace Riskeer.AssemblyTool.Data
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+//
+// This file is part of Riskeer.
+//
+// Riskeer is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
     /// Class that contains the data that is necessary to determine the failure mechanism section assembly. 
@@ -12,26 +33,21 @@
         /// <param name="signalingNorm">The signaling norm.</param>
         /// <param name="isRelevant">The indicator whether the section is relevant.</param>
         /// <param name="hasProbabilitySpecified">Indicator whether the section has a probability specified.</param>
-        /// <param name="initialProfileProbability">The initial probability for the profile.</param>
         /// <param name="initialSectionProbability">The initial probability for the section.</param>
         /// <param name="furtherAnalysisNeeded">The indicator whether the section needs further analysis.</param>
-        /// <param name="refinedProfileProbability">The refined probability for the profile.</param>
         /// <param name="refinedSectionProbability">The refined probability for the section.</param>
         public FailureMechanismSectionAssemblyInput(double lowerLimitNorm, double signalingNorm,
                                                     bool isRelevant, bool hasProbabilitySpecified,
-                                                    double initialProfileProbability, double initialSectionProbability,
-                                                    bool furtherAnalysisNeeded,
-                                                    double refinedProfileProbability, double refinedSectionProbability)
+                                                    double initialSectionProbability, bool furtherAnalysisNeeded,
+                                                    double refinedSectionProbability)
         {
             LowerLimitNorm = lowerLimitNorm;
             SignalingNorm = signalingNorm;
 
             IsRelevant = isRelevant;
             HasProbabilitySpecified = hasProbabilitySpecified;
-            InitialProfileProbability = initialProfileProbability;
             InitialSectionProbability = initialSectionProbability;
             FurtherAnalysisNeeded = furtherAnalysisNeeded;
-            RefinedProfileProbability = refinedProfileProbability;
             RefinedSectionProbability = refinedSectionProbability;
         }
 
@@ -56,11 +72,6 @@
         public bool HasProbabilitySpecified { get; }
 
         /// <summary>
-        /// Gets the probability for the profile.
-        /// </summary>
-        public double InitialProfileProbability { get; }
-
-        /// <summary>
         /// Gets the probability for the section.
         /// </summary>
         public double InitialSectionProbability { get; }
@@ -69,11 +80,6 @@
         /// Gets the indicator whether the section needs refinement.
         /// </summary>
         public bool FurtherAnalysisNeeded { get; }
-
-        /// <summary>
-        /// Gets the refined probability for the profile.
-        /// </summary>
-        public double RefinedProfileProbability { get; }
 
         /// <summary>
         /// Gets the refined probability for the section.
