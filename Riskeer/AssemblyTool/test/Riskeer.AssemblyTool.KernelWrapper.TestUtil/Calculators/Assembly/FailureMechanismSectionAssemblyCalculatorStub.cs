@@ -33,7 +33,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets the <see cref="FailureMechanismSectionWithProfileProbabilityAssemblyInput"/> that is used in the calculation.
         /// </summary>
-        public FailureMechanismSectionWithProfileProbabilityAssemblyInput FailureMechanismSectionAssemblyInput { get; private set; }
+        public FailureMechanismSectionWithProfileProbabilityAssemblyInput FailureMechanismSectionWithProfileProbabilityAssemblyInput { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="FailureMechanismSectionAssemblyInput"/> that is used in the calculation.
+        /// </summary>
+        public FailureMechanismSectionAssemblyInput FailureMechanismSectionAssemblyInput { get; private set; }
 
         /// <summary>
         /// Sets an indicator whether an exception must be thrown while performing the calculation.
@@ -45,7 +50,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public FailureMechanismSectionAssemblyResult FailureMechanismSectionAssemblyResultOutput { get; set; }
 
-        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
+        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -53,6 +58,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             }
 
             FailureMechanismSectionAssemblyInput = input;
+
+            return FailureMechanismSectionAssemblyResultOutput ??
+                   (FailureMechanismSectionAssemblyResultOutput =
+                        new FailureMechanismSectionAssemblyResult(0.01, 0.1, 10, FailureMechanismSectionAssemblyGroup.I));
+        }
+
+        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            FailureMechanismSectionWithProfileProbabilityAssemblyInput = input;
 
             return FailureMechanismSectionAssemblyResultOutput ??
                    (FailureMechanismSectionAssemblyResultOutput =

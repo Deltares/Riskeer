@@ -55,6 +55,39 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
+        public RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input)
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            try
+            {
+                ICategoryLimitsCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();
+                CategoriesList<InterpretationCategory> categories = assemblyCategoriesKernel.CalculateInterpretationCategoryLimitsWbi03(
+                    new AssessmentSection(CreateProbability(input.SignalingNorm), CreateProbability(input.LowerLimitNorm)));
+
+                IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+
+                AssemblyFailureMechanismSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(GetInitialMechanismProbabilitySpecification(input),
+                                                                                                              CreateProbability(input.InitialSectionProbability),
+                                                                                                              input.FurtherAnalysisNeeded,
+                                                                                                              CreateProbability(input.RefinedSectionProbability),
+                                                                                                              categories);
+
+                return FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(output);
+            }
+            catch (AssemblyException e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+            }
+            catch (Exception e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+            }
+        }
+
         public RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
         {
             if (input == null)
