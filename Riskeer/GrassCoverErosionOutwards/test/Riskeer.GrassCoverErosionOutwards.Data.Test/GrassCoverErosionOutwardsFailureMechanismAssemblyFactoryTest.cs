@@ -572,7 +572,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             FailureMechanismAssemblyCategoryGroup category = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
             // Assert
-            Assert.AreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory(), category);
+            Assert.AreEqual(FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory(), category);
         }
 
         [Test]

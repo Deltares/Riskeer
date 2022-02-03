@@ -223,7 +223,7 @@ namespace Riskeer.StabilityStoneCover.Data
 
             if (!failureMechanism.InAssembly)
             {
-                return FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory();
+                return FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory();
             }
 
             try

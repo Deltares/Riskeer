@@ -224,7 +224,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
 
             if (!failureMechanism.InAssembly)
             {
-                return FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory();
+                return FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory();
             }
 
             try

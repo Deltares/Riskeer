@@ -302,7 +302,7 @@ namespace Riskeer.Piping.Data
 
             if (!failureMechanism.InAssembly)
             {
-                return FailureMechanismAssemblyResultFactory.CreateNotApplicableAssembly();
+                return FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableAssembly();
             }
 
             try

@@ -578,7 +578,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             FailureMechanismAssemblyCategoryGroup category = MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
             // Assert
-            Assert.AreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory(), category);
+            Assert.AreEqual(FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory(), category);
         }
 
         [Test]

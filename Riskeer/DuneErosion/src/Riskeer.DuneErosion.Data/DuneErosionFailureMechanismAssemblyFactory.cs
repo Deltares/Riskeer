@@ -222,7 +222,7 @@ namespace Riskeer.DuneErosion.Data
 
             if (!failureMechanism.InAssembly)
             {
-                return FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory();
+                return FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory();
             }
 
             try

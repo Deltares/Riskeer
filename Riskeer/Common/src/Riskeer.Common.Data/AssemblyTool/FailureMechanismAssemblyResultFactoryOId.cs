@@ -26,7 +26,7 @@ namespace Riskeer.Common.Data.AssemblyTool
     /// <summary>
     /// Factory for creating results of a failure mechanism assembly.
     /// </summary>
-    public static class FailureMechanismAssemblyResultFactory
+    public static class FailureMechanismAssemblyResultFactoryOld
     {
         /// <summary>
         /// Creates an instance of <see cref="FailureMechanismAssembly"/> which

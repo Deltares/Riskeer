@@ -569,7 +569,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             FailureMechanismAssemblyCategoryGroup category = StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
             // Assert
-            Assert.AreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory(), category);
+            Assert.AreEqual(FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory(), category);
         }
 
         [Test]

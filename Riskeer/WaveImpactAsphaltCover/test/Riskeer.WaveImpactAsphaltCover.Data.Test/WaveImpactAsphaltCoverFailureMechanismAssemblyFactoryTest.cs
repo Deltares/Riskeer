@@ -572,7 +572,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             FailureMechanismAssemblyCategoryGroup category = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
             // Assert
-            Assert.AreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory(), category);
+            Assert.AreEqual(FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory(), category);
         }
 
         [Test]

@@ -26,13 +26,13 @@ using Riskeer.Common.Data.AssemblyTool;
 namespace Riskeer.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
-    public class FailureMechanismAssemblyResultFactoryTest
+    public class FailureMechanismAssemblyResultFactoryOldTest
     {
         [Test]
         public void CreateNotApplicableAssembly_Always_ReturnsExpectedFailureMechanismAssembly()
         {
             // Call
-            FailureMechanismAssembly assembly = FailureMechanismAssemblyResultFactory.CreateNotApplicableAssembly();
+            FailureMechanismAssembly assembly = FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableAssembly();
 
             // Assert
             Assert.IsNaN(assembly.Probability);
@@ -43,7 +43,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void CreateNotApplicableCategory_Always_ReturnsExpectedFailureMechanismAssembly()
         {
             // Call
-            FailureMechanismAssemblyCategoryGroup category = FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory();
+            FailureMechanismAssemblyCategoryGroup category = FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory();
 
             // Assert
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, category);

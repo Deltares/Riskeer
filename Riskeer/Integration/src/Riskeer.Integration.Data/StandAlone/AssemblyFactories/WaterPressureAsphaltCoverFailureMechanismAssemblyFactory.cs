@@ -196,7 +196,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
 
             if (!failureMechanism.InAssembly)
             {
-                return FailureMechanismAssemblyResultFactory.CreateNotApplicableCategory();
+                return FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory();
             }
 
             try

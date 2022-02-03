@@ -299,7 +299,7 @@ namespace Riskeer.ClosingStructures.Data
 
             if (!failureMechanism.InAssembly)
             {
-                return FailureMechanismAssemblyResultFactory.CreateNotApplicableAssembly();
+                return FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableAssembly();
             }
 
             try

@@ -1015,7 +1015,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 new Random(39).NextBoolean());
 
             // Assert
-            AssemblyToolTestHelper.AssertAreEqual(FailureMechanismAssemblyResultFactory.CreateNotApplicableAssembly(), assembly);
+            AssemblyToolTestHelper.AssertAreEqual(FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableAssembly(), assembly);
             mocks.VerifyAll();
         }
 
