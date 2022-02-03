@@ -37,7 +37,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="sectionAssemblyResults">A collection of <see cref="FailureMechanismSectionAssemblyResult"/>.</param>
         /// <returns>A probability representing the assembly result of the failure mechanism.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
-        /// <exception cref="FailurePathAssemblyCalculatorException">Thrown when an error occurs while assembling.</exception>
+        /// <exception cref="FailureMechanismAssemblyCalculatorException">Thrown when an error occurs while assembling.</exception>
         double Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults);
     }
 }
