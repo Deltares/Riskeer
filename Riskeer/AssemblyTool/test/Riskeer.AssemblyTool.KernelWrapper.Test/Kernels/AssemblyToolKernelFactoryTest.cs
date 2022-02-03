@@ -105,10 +105,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
             IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
 
             // Call
-            IFailurePathResultAssembler kernel = factory.CreateFailurePathAssemblyKernel();
+            IFailureMechanismResultAssembler kernel = factory.CreateFailurePathAssemblyKernel();
 
             // Assert
-            Assert.IsInstanceOf<FailurePathResultAssembler>(kernel);
+            Assert.IsInstanceOf<FailureMechanismResultAssembler>(kernel);
         }
     }
 }

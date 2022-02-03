@@ -24,7 +24,7 @@ using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
-using Assembly.Kernel.Model.FailurePathSections;
+using Assembly.Kernel.Model.FailureMechanismSections;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
@@ -86,15 +86,35 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// <summary>
         /// Sets the assembly result of a failure path section.
         /// </summary>
-        public FailurePathSectionAssemblyResult FailurePathSectionAssemblyResult { private get; set; }
+        public FailureMechanismSectionAssemblyResult FailurePathSectionAssemblyResult { private get; set; }
 
-        public FailurePathSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification isRelevant,
-                                                                                Probability probabilityInitialMechanismProfile,
-                                                                                Probability probabilityInitialMechanismSection,
-                                                                                bool needsRefinement,
-                                                                                Probability refinedProbabilityProfile,
-                                                                                Probability refinedProbabilitySection,
-                                                                                CategoriesList<InterpretationCategory> categories)
+        public FailureMechanismSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification isRelevant,
+                                                                                     Probability probabilityInitialMechanismSection,
+                                                                                     bool needsRefinement,
+                                                                                     Probability refinedProbabilitySection,
+                                                                                     CategoriesList<InterpretationCategory> categories)
+        {
+            ThrowException();
+            Calculated = true;
+
+            InitialMechanismProbabilitySpecification = isRelevant;
+            ProbabilityInitialMechanismSection = probabilityInitialMechanismSection;
+
+            NeedsRefinement = needsRefinement;
+            RefinedProbabilitySection = refinedProbabilitySection;
+
+            Categories = categories;
+
+            return FailurePathSectionAssemblyResult;
+        }
+
+        public FailureMechanismSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification isRelevant,
+                                                                                     Probability probabilityInitialMechanismProfile,
+                                                                                     Probability probabilityInitialMechanismSection,
+                                                                                     bool needsRefinement,
+                                                                                     Probability refinedProbabilityProfile,
+                                                                                     Probability refinedProbabilitySection,
+                                                                                     CategoriesList<InterpretationCategory> categories)
         {
             ThrowException();
             Calculated = true;

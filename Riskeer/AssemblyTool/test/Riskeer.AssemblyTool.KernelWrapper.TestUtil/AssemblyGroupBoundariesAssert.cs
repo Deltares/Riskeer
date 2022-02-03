@@ -62,7 +62,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         {
             switch (category)
             {
-                case EInterpretationCategory.ND:
+                case EInterpretationCategory.NotDominant:
                     return FailureMechanismSectionAssemblyGroup.ND;
                 case EInterpretationCategory.III:
                     return FailureMechanismSectionAssemblyGroup.III;
@@ -70,8 +70,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
                     return FailureMechanismSectionAssemblyGroup.II;
                 case EInterpretationCategory.I:
                     return FailureMechanismSectionAssemblyGroup.I;
-                case EInterpretationCategory.ZeroPlus:
-                    return FailureMechanismSectionAssemblyGroup.ZeroPlus;
                 case EInterpretationCategory.Zero:
                     return FailureMechanismSectionAssemblyGroup.Zero;
                 case EInterpretationCategory.IMin:
@@ -80,7 +78,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
                     return FailureMechanismSectionAssemblyGroup.IIMin;
                 case EInterpretationCategory.IIIMin:
                     return FailureMechanismSectionAssemblyGroup.IIIMin;
-                case EInterpretationCategory.D:
+                case EInterpretationCategory.Dominant:
                     return FailureMechanismSectionAssemblyGroup.D;
                 case EInterpretationCategory.Gr:
                     return FailureMechanismSectionAssemblyGroup.Gr;

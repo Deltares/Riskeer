@@ -22,12 +22,13 @@
 using System;
 using System.ComponentModel;
 using Assembly.Kernel.Model.Categories;
-using Assembly.Kernel.Model.FailurePathSections;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
+using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
@@ -47,16 +48,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(FailureMechanismSectionAssemblyGroup.ND, EInterpretationCategory.ND)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.ND, EInterpretationCategory.NotDominant)]
         [TestCase(FailureMechanismSectionAssemblyGroup.III, EInterpretationCategory.III)]
         [TestCase(FailureMechanismSectionAssemblyGroup.II, EInterpretationCategory.II)]
         [TestCase(FailureMechanismSectionAssemblyGroup.I, EInterpretationCategory.I)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.ZeroPlus, EInterpretationCategory.ZeroPlus)]
         [TestCase(FailureMechanismSectionAssemblyGroup.Zero, EInterpretationCategory.Zero)]
         [TestCase(FailureMechanismSectionAssemblyGroup.IMin, EInterpretationCategory.IMin)]
         [TestCase(FailureMechanismSectionAssemblyGroup.IIMin, EInterpretationCategory.IIMin)]
         [TestCase(FailureMechanismSectionAssemblyGroup.IIIMin, EInterpretationCategory.IIIMin)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.D, EInterpretationCategory.D)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.D, EInterpretationCategory.Dominant)]
         [TestCase(FailureMechanismSectionAssemblyGroup.Gr, EInterpretationCategory.Gr)]
         public void CreateFailurePathSectionAssemblyResult_WithValidResult_ReturnsExpectedFailurePathSectionAssemblyResult(
             FailureMechanismSectionAssemblyGroup assemblyGroup, EInterpretationCategory expectedCategory)
@@ -66,11 +66,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             double profileProbability = random.NextDouble();
             double sectionProbability = profileProbability + 0.001;
 
-            var result = new FailureMechanismSectionAssemblyResult(profileProbability, sectionProbability,
-                                                                   random.NextDouble(),
-                                                                   assemblyGroup);
+            var result = new RiskeerFailureMechanismSectionAssemblyResult(profileProbability, sectionProbability,
+                                                                          random.NextDouble(),
+                                                                          assemblyGroup);
             // Call
-            FailurePathSectionAssemblyResult createdResult = FailurePathAssemblyCalculatorInputCreator.CreateFailurePathSectionAssemblyResult(result);
+            AssemblyFailureMechanismSectionAssemblyResult createdResult = FailurePathAssemblyCalculatorInputCreator.CreateFailurePathSectionAssemblyResult(result);
 
             // Assert
             ProbabilityAssert.AreEqual(profileProbability, createdResult.ProbabilityProfile);
@@ -84,9 +84,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(21);
             double probability = random.NextDouble();
-            var result = new FailureMechanismSectionAssemblyResult(probability, probability,
-                                                                   random.NextDouble(),
-                                                                   (FailureMechanismSectionAssemblyGroup) 99);
+            var result = new RiskeerFailureMechanismSectionAssemblyResult(probability, probability,
+                                                                          random.NextDouble(),
+                                                                          (FailureMechanismSectionAssemblyGroup) 99);
 
             // Call
             void Call() => FailurePathAssemblyCalculatorInputCreator.CreateFailurePathSectionAssemblyResult(result);
