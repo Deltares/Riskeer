@@ -44,12 +44,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public ESectionInitialMechanismProbabilitySpecification InitialMechanismProbabilitySpecification { get; private set; }
 
         /// <summary>
-        /// Gets the initial probability of the profile for the failure path section.
+        /// Gets the initial probability of the profile for the failure mechanism section.
         /// </summary>
         public Probability ProbabilityInitialMechanismProfile { get; private set; }
 
         /// <summary>
-        /// Gets the initial probability of the section for the failure path section.
+        /// Gets the initial probability of the section for the failure mechanism section.
         /// </summary>
         public Probability ProbabilityInitialMechanismSection { get; private set; }
 
@@ -59,12 +59,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool NeedsRefinement { get; private set; }
 
         /// <summary>
-        /// Gets the initial probability of the profile for the failure path section.
+        /// Gets the initial probability of the profile for the failure mechanism section.
         /// </summary>
         public Probability RefinedProbabilityProfile { get; private set; }
 
         /// <summary>
-        /// Gets the initial probability of the section for the failure path section.
+        /// Gets the initial probability of the section for the failure mechanism section.
         /// </summary>
         public Probability RefinedProbabilitySection { get; private set; }
 
@@ -84,9 +84,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
         /// <summary>
-        /// Sets the assembly result of a failure path section.
+        /// Sets the assembly result of a failure mechanism section.
         /// </summary>
-        public FailureMechanismSectionAssemblyResult FailurePathSectionAssemblyResult { private get; set; }
+        public FailureMechanismSectionAssemblyResult FailureMechanismSectionAssemblyResult { private get; set; }
 
         public FailureMechanismSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification isRelevant,
                                                                                      Probability probabilityInitialMechanismSection,
@@ -105,7 +105,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
             Categories = categories;
 
-            return FailurePathSectionAssemblyResult;
+            return FailureMechanismSectionAssemblyResult;
         }
 
         public FailureMechanismSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification isRelevant,
@@ -129,7 +129,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
             Categories = categories;
 
-            return FailurePathSectionAssemblyResult;
+            return FailureMechanismSectionAssemblyResult;
         }
 
         private void ThrowException()

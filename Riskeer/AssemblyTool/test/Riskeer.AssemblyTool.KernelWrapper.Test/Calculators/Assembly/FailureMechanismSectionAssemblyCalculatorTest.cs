@@ -116,7 +116,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 categoryLimitsKernel.CategoryLimits = categoryLimits;
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                failureMechanismSectionAssemblyKernel.FailurePathSectionAssemblyResult = new AssemblyFailureMechanismSectionAssemblyResult(
+                failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = new AssemblyFailureMechanismSectionAssemblyResult(
                     new Probability(random.NextDouble(0.0, 0.01)), new Probability(random.NextDouble(0.01, 0.02)), random.NextEnumValue<EInterpretationCategory>());
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
@@ -155,7 +155,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var kernelResult = new AssemblyFailureMechanismSectionAssemblyResult(new Probability(random.NextDouble()),
                                                                                      new Probability(random.NextDouble()),
                                                                                      random.NextEnumValue<EInterpretationCategory>());
-                failureMechanismSectionAssemblyKernel.FailurePathSectionAssemblyResult = kernelResult;
+                failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = kernelResult;
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -190,7 +190,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var kernelResult = new AssemblyFailureMechanismSectionAssemblyResult(new Probability(random.NextDouble()),
                                                                                      new Probability(random.NextDouble()),
                                                                                      (EInterpretationCategory) 99);
-                failureMechanismSectionAssemblyKernel.FailurePathSectionAssemblyResult = kernelResult;
+                failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = kernelResult;
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
