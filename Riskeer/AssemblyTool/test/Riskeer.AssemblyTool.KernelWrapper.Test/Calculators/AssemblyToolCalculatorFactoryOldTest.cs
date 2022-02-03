@@ -117,7 +117,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
                     factory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismAssemblyCalculator>(calculator);
+                Assert.IsInstanceOf<FailureMechanismAssemblyCalculatorOld>(calculator);
             }
         }
 

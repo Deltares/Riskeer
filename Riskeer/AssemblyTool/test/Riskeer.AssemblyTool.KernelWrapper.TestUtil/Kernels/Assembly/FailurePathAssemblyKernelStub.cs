@@ -29,9 +29,9 @@ using Assembly.Kernel.Model.FailureMechanismSections;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
     /// <summary>
-    /// Failure path assembly kernel stub for testing purposes.
+    /// Failure mechanism assembly kernel stub for testing purposes.
     /// </summary>
-    public class FailurePathAssemblyKernelStub : IFailureMechanismResultAssembler
+    public class FailureMechanismAssemblyKernelStub : IFailureMechanismResultAssembler
     {
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not. 
@@ -44,9 +44,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public double LenghtEffectFactor { get; private set; }
 
         /// <summary>
-        /// Gets the collection of <see cref="FailurePathSectionAssemblyResult"/>.
+        /// Gets the collection of <see cref="FailureMechanismSectionAssemblyResult"/>.
         /// </summary>
-        public IEnumerable<FailureMechanismSectionAssemblyResult> FailurePathSectionAssemblyResults { get; private set; }
+        public IEnumerable<FailureMechanismSectionAssemblyResult> FailureMechanismSectionAssemblyResults { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether an assembly is partial.
@@ -69,14 +69,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
         public FailureMechanismAssemblyResult AssembleFailureMechanismWbi1B1(double lengthEffectFactor,
-                                                                             IEnumerable<FailureMechanismSectionAssemblyResult> failurePathSectionAssemblyResults,
+                                                                             IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults,
                                                                              bool partialAssembly)
         {
             ThrowException();
 
             Calculated = true;
             LenghtEffectFactor = lengthEffectFactor;
-            FailurePathSectionAssemblyResults = failurePathSectionAssemblyResults;
+            FailureMechanismSectionAssemblyResults = failureMechanismSectionAssemblyResults;
             PartialAssembly = partialAssembly;
 
             return ProbabilityResult;

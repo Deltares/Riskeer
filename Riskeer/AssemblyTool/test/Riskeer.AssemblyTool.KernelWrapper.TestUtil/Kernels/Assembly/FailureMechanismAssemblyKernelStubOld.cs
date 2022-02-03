@@ -32,7 +32,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
     /// <summary>
     /// Failure mechanism assembly kernel stub for testing purposes.
     /// </summary>
-    public class FailureMechanismAssemblyKernelStub : IFailureMechanismResultAssembler
+    public class FailureMechanismAssemblyKernelStubOld : IFailureMechanismResultAssembler
     {
         /// <summary>
         /// Gets the collection of <see cref="FmSectionAssemblyDirectResult"/> used as input parameter for assembly methods.

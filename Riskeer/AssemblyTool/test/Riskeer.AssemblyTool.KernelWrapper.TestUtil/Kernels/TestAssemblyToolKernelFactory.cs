@@ -38,7 +38,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
         {
             LastCreatedAssemblyCategoryLimitsKernel = new AssemblyCategoryLimitsKernelStub();
             LastCreatedFailureMechanismSectionAssemblyKernel = new FailureMechanismSectionAssemblyKernelStub();
-            LastCreatedFailurePathAssemblyKernel = new FailurePathAssemblyKernelStub();
+            LastCreatedFailureMechanismAssemblyKernel = new FailureMechanismAssemblyKernelStub();
         }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
         public FailureMechanismSectionAssemblyKernelStub LastCreatedFailureMechanismSectionAssemblyKernel { get; }
 
         /// <summary>
-        /// Gets the last created failure path assembly kernel.
+        /// Gets the last created failure mechanism assembly kernel.
         /// </summary>
-        public FailurePathAssemblyKernelStub LastCreatedFailurePathAssemblyKernel { get; }
+        public FailureMechanismAssemblyKernelStub LastCreatedFailureMechanismAssemblyKernel { get; }
 
         public ICategoryLimitsCalculator CreateAssemblyCategoriesKernel()
         {
@@ -68,7 +68,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
 
         public IFailureMechanismResultAssembler CreateFailureMechanismAssemblyKernel()
         {
-            return LastCreatedFailurePathAssemblyKernel;
+            return LastCreatedFailureMechanismAssemblyKernel;
         }
     }
 }

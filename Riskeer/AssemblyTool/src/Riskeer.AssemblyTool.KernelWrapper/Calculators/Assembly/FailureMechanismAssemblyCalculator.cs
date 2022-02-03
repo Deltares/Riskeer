@@ -22,29 +22,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assembly.Kernel.Old.Exceptions;
-using Assembly.Kernel.Old.Interfaces;
-using Assembly.Kernel.Old.Model;
-using Assembly.Kernel.Old.Model.CategoryLimits;
-using Riskeer.AssemblyTool.Data;
+using Assembly.Kernel.Exceptions;
+using Assembly.Kernel.Interfaces;
+using Assembly.Kernel.Model;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
+using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
     /// <summary>
-    /// Class representing a failure mechanism assembly calculator.
+    /// Class representing a failure path assembly calculator.
     /// </summary>
-    public class FailureMechanismAssemblyCalculator : IFailureMechanismAssemblyCalculator
+    public class FailureMechanismAssemblyCalculator : IFailurePathAssemblyCalculator
     {
-        private readonly IAssemblyToolKernelFactoryOld factory;
+        private readonly IAssemblyToolKernelFactory factory;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyCalculator"/>.
         /// </summary>
         /// <param name="factory">The factory responsible for creating the assembly kernel.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
+        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="factory"/> is <c>null</c>.</exception>
+        public FailureMechanismAssemblyCalculator(IAssemblyToolKernelFactory factory)
         {
             if (factory == null)
             {
@@ -54,53 +54,32 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public FailureMechanismAssemblyCategoryGroup Assemble(IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> sectionCategories)
+        public double Assemble(double failurePathN, IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> sectionAssemblyResults)
         {
+            if (sectionAssemblyResults == null)
+            {
+                throw new ArgumentNullException(nameof(sectionAssemblyResults));
+            }
+
             try
             {
                 IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
-                EFailureMechanismCategory output = kernel.AssembleFailureMechanismWbi1A1(
-                    sectionCategories.Select(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult).ToArray(),
-                    false);
 
-                return FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(output);
+                AssemblyFailureMechanismSectionAssemblyResult[] kernelInput =
+                    sectionAssemblyResults.Select(FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult)
+                                          .ToArray();
+
+                FailureMechanismAssemblyResult result = kernel.AssembleFailureMechanismWbi1B1(failurePathN, kernelInput, false);
+
+                return result.Probability.Value;
             }
             catch (AssemblyException e)
             {
-                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreatorOld.CreateErrorMessage(e.Errors), e);
+                throw new FailurePathAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
-                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
-            }
-        }
-
-        public FailureMechanismAssembly Assemble(IEnumerable<FailureMechanismSectionAssemblyOld> sectionAssemblies,
-                                                 AssemblyCategoriesInput assemblyCategoriesInput)
-        {
-            try
-            {
-                ICategoryLimitsCalculator categoriesKernel = factory.CreateAssemblyCategoriesKernel();
-                CategoriesList<FailureMechanismCategory> categories = categoriesKernel.CalculateFailureMechanismCategoryLimitsWbi11(
-                    new AssessmentSection(1, assemblyCategoriesInput.SignalingNorm, assemblyCategoriesInput.LowerLimitNorm),
-                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution));
-
-                IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
-                FailureMechanismAssemblyResult output = kernel.AssembleFailureMechanismWbi1B1(
-                    new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
-                    sectionAssemblies.Select(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult).ToArray(),
-                    categories,
-                    false);
-
-                return FailureMechanismAssemblyCreator.Create(output);
-            }
-            catch (AssemblyException e)
-            {
-                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreatorOld.CreateErrorMessage(e.Errors), e);
-            }
-            catch (Exception e)
-            {
-                throw new FailureMechanismAssemblyCalculatorException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
+                throw new FailurePathAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
             }
         }
     }

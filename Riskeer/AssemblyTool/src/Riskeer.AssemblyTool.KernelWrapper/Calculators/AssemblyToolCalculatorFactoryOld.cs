@@ -61,7 +61,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
 
         public IFailureMechanismAssemblyCalculator CreateFailureMechanismAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
         {
-            return new FailureMechanismAssemblyCalculator(factory);
+            return new FailureMechanismAssemblyCalculatorOld(factory);
         }
 
         public IAssessmentSectionAssemblyCalculator CreateAssessmentSectionAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
