@@ -171,10 +171,10 @@ namespace Riskeer.Common.Forms.Views
                 nameof(AdoptableFailureMechanismSectionResultRow.AssemblyGroup));
         }
 
-        private static WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<StructuresCalculationScenario<TStructuresInput>> CreateErrorProvider(
+        private static FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<StructuresCalculationScenario<TStructuresInput>> CreateErrorProvider(
             FailureMechanismSectionResult sectionResult, IEnumerable<StructuresCalculationScenario<TStructuresInput>> calculationScenarios)
         {
-            return new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<StructuresCalculationScenario<TStructuresInput>>(
+            return new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<StructuresCalculationScenario<TStructuresInput>>(
                 sectionResult, calculationScenarios,
                 (scenario, lineSegments) => scenario.IsStructureIntersectionWithReferenceLineInSection(lineSegments));
         }

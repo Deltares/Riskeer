@@ -51,7 +51,7 @@ namespace Riskeer.Common.Forms.Views
         private readonly int assemblyGroupIndex;
 
         private readonly IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
-        private readonly IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider;
+        private readonly IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider;
         private readonly ILengthEffectProvider lengthEffectProvider;
         private readonly IAssessmentSection assessmentSection;
 
@@ -70,7 +70,7 @@ namespace Riskeer.Common.Forms.Views
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
                                                                                IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
-                                                                               IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider,
+                                                                               IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider,
                                                                                ILengthEffectProvider lengthEffectProvider,
                                                                                IAssessmentSection assessmentSection,
                                                                                ConstructionProperties constructionProperties)

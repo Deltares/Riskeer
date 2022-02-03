@@ -215,10 +215,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 sectionResult, calculationScenarios);
         }
 
-        private static WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<GrassCoverErosionInwardsCalculationScenario> CreateErrorProvider(
+        private static FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<GrassCoverErosionInwardsCalculationScenario> CreateErrorProvider(
             FailureMechanismSectionResult sectionResult, IEnumerable<GrassCoverErosionInwardsCalculationScenario> calculationScenarios)
         {
-            return new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<GrassCoverErosionInwardsCalculationScenario>(
+            return new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<GrassCoverErosionInwardsCalculationScenario>(
                 sectionResult, calculationScenarios,
                 (scenario, lineSegments) => scenario.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
         }

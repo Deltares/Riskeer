@@ -31,13 +31,13 @@ using Riskeer.Common.Forms.Providers;
 namespace Riskeer.Common.Forms.Test.Providers
 {
     [TestFixture]
-    public class WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProviderTest
+    public class FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProviderTest
     {
         [Test]
         public void Constructor_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
+            void Call() => new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<ICalculationScenario>(
                 null, Enumerable.Empty<ICalculationScenario>(), (scenario, segments) => false);
 
             // Assert
@@ -53,7 +53,7 @@ namespace Riskeer.Common.Forms.Test.Providers
             var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
+            void Call() => new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<ICalculationScenario>(
                 sectionResult, null, (scenario, segments) => false);
 
             // Assert
@@ -69,7 +69,7 @@ namespace Riskeer.Common.Forms.Test.Providers
             var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
+            void Call() => new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<ICalculationScenario>(
                 sectionResult, Enumerable.Empty<ICalculationScenario>(), null);
 
             // Assert
@@ -85,11 +85,12 @@ namespace Riskeer.Common.Forms.Test.Providers
             var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
-            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
+            var errorProvider = new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<ICalculationScenario>(
                 sectionResult, Enumerable.Empty<ICalculationScenario>(), (scenario, segments) => false);
 
             // Assert
-            Assert.IsInstanceOf<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>(errorProvider);
+            Assert.IsInstanceOf<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>(errorProvider);
+            Assert.IsInstanceOf<FailureMechanismSectionResultRowErrorProvider>(errorProvider);
         }
 
         [Test]
@@ -99,7 +100,7 @@ namespace Riskeer.Common.Forms.Test.Providers
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new TestFailureMechanismSectionResult(section);
 
-            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
+            var errorProvider = new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<ICalculationScenario>(
                 sectionResult, Enumerable.Empty<ICalculationScenario>(), (scenario, segments) => false);
 
             // Call
@@ -123,7 +124,7 @@ namespace Riskeer.Common.Forms.Test.Providers
                 new TestCalculationScenario()
             };
 
-            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
+            var errorProvider = new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<ICalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, segments) => false);
 
             // Call
@@ -154,7 +155,7 @@ namespace Riskeer.Common.Forms.Test.Providers
                 }
             };
 
-            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
+            var errorProvider = new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<ICalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, segments) => true);
 
             // Call
@@ -176,7 +177,7 @@ namespace Riskeer.Common.Forms.Test.Providers
                 new TestCalculationScenario()
             };
 
-            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
+            var errorProvider = new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<ICalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, segments) => true);
 
             // Call
@@ -201,7 +202,7 @@ namespace Riskeer.Common.Forms.Test.Providers
                 }
             };
 
-            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
+            var errorProvider = new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<ICalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, segments) => true);
 
             // Call
@@ -233,7 +234,7 @@ namespace Riskeer.Common.Forms.Test.Providers
                 }
             };
 
-            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
+            var errorProvider = new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<ICalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, segments) => true);
 
             // Call

@@ -27,7 +27,7 @@ namespace Riskeer.Common.Forms.Providers
     /// Interface for providing error messages about the failure mechanism section result rows
     /// that contain calculated probabilities.
     /// </summary>
-    public interface IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider
+    public interface IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider : IFailureMechanismSectionResultRowErrorProvider
     {
         /// <summary>
         /// Gets the calculated probability validation error.

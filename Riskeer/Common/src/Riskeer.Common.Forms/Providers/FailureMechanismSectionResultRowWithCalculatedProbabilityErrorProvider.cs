@@ -34,7 +34,8 @@ namespace Riskeer.Common.Forms.Providers
     /// This class provides error messages about the failure mechanism result rows that contains calculated probabilities.
     /// </summary>
     /// <typeparam name="T">The type of calculation scenario.</typeparam>
-    public class WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<T> : IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider
+    public class FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<T> : FailureMechanismSectionResultRowErrorProvider,
+                                                                                             IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider
         where T : ICalculationScenario
     {
         private readonly FailureMechanismSectionResult sectionResult;
@@ -42,14 +43,14 @@ namespace Riskeer.Common.Forms.Providers
         private readonly Func<T, IEnumerable<Segment2D>, bool> intersectionFunc;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider{T}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider{T}"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="FailureMechanismSectionResult"/> to validate for.</param>
         /// <param name="calculationScenarios">The calculation scenarios to validate.</param>
         /// <param name="intersectionFunc">The function to determine whether a scenario is belonging
         /// to the given <paramref name="sectionResult"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider(FailureMechanismSectionResult sectionResult,
+        public FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider(FailureMechanismSectionResult sectionResult,
                                                                                       IEnumerable<ICalculationScenario> calculationScenarios,
                                                                                       Func<T, IEnumerable<Segment2D>, bool> intersectionFunc)
         {

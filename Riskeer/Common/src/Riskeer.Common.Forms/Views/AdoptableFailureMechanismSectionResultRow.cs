@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.Views
         private readonly int assemblyGroupIndex;
 
         private readonly Func<double> calculateInitialFailureMechanismResultProbabilityFunc;
-        private readonly IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider;
+        private readonly IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Riskeer.Common.Forms.Views
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public AdoptableFailureMechanismSectionResultRow(AdoptableFailureMechanismSectionResult sectionResult,
                                                          Func<double> calculateInitialFailureMechanismResultProbabilityFunc,
-                                                         IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider,
+                                                         IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider,
                                                          IAssessmentSection assessmentSection,
                                                          ConstructionProperties constructionProperties)
             : base(sectionResult)
