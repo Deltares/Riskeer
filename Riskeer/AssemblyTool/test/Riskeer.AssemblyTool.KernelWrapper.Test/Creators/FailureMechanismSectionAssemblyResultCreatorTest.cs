@@ -24,11 +24,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
-using Assembly.Kernel.Model.FailurePathSections;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
+using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
@@ -55,9 +56,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             double profileProbability = random.NextDouble();
             double sectionProbability = random.NextDouble();
 
-            var result = new FailurePathSectionAssemblyResult(new Probability(profileProbability),
-                                                              new Probability(sectionProbability),
-                                                              (EInterpretationCategory) 99);
+            var result = new AssemblyFailureMechanismSectionAssemblyResult(new Probability(profileProbability),
+                                                                           new Probability(sectionProbability),
+                                                                           (EInterpretationCategory) 99);
 
             // Call
             void Call() => FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(result);
@@ -78,12 +79,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             double profileProbability = random.NextDouble();
             double sectionProbability = random.NextDouble();
 
-            var result = new FailurePathSectionAssemblyResult(new Probability(profileProbability),
-                                                              new Probability(sectionProbability),
-                                                              category);
+            var result = new AssemblyFailureMechanismSectionAssemblyResult(new Probability(profileProbability),
+                                                                           new Probability(sectionProbability),
+                                                                           category);
 
             // Call
-            FailureMechanismSectionAssemblyResult createdAssemblyResult = FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(result);
+            RiskeerFailureMechanismSectionAssemblyResult createdAssemblyResult = FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(result);
 
             // Assert
             Assert.AreEqual(profileProbability, createdAssemblyResult.ProfileProbability);
@@ -118,16 +119,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 
         private static IEnumerable<TestCaseData> GetValidCategoryConversions()
         {
-            yield return new TestCaseData(EInterpretationCategory.ND, FailureMechanismSectionAssemblyGroup.ND);
+            yield return new TestCaseData(EInterpretationCategory.NotDominant, FailureMechanismSectionAssemblyGroup.ND);
             yield return new TestCaseData(EInterpretationCategory.III, FailureMechanismSectionAssemblyGroup.III);
             yield return new TestCaseData(EInterpretationCategory.II, FailureMechanismSectionAssemblyGroup.II);
             yield return new TestCaseData(EInterpretationCategory.I, FailureMechanismSectionAssemblyGroup.I);
-            yield return new TestCaseData(EInterpretationCategory.ZeroPlus, FailureMechanismSectionAssemblyGroup.ZeroPlus);
             yield return new TestCaseData(EInterpretationCategory.Zero, FailureMechanismSectionAssemblyGroup.Zero);
             yield return new TestCaseData(EInterpretationCategory.IMin, FailureMechanismSectionAssemblyGroup.IMin);
             yield return new TestCaseData(EInterpretationCategory.IIMin, FailureMechanismSectionAssemblyGroup.IIMin);
             yield return new TestCaseData(EInterpretationCategory.IIIMin, FailureMechanismSectionAssemblyGroup.IIIMin);
-            yield return new TestCaseData(EInterpretationCategory.D, FailureMechanismSectionAssemblyGroup.D);
+            yield return new TestCaseData(EInterpretationCategory.Dominant, FailureMechanismSectionAssemblyGroup.D);
             yield return new TestCaseData(EInterpretationCategory.Gr, FailureMechanismSectionAssemblyGroup.Gr);
         }
     }
