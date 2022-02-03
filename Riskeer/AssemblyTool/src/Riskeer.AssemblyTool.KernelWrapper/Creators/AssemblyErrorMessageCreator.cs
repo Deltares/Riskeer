@@ -91,17 +91,17 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 case EAssemblyErrors.ValueMayNotBeNull:
                 case EAssemblyErrors.ValueMayNotBeNaN:
                     return Resources.AssemblyErrorMessageCreator_ValueMayNotBeNull;
-                case EAssemblyErrors.FailurePathSectionLengthInvalid:
+                case EAssemblyErrors.FailureMechanismSectionLengthInvalid:
                     return Resources.AssemblyErrorMessageCreator_FailurePathSectionLengthInvalid;
-                case EAssemblyErrors.FailurePathSectionSectionStartEndInvalid:
+                case EAssemblyErrors.FailureMechanismSectionSectionStartEndInvalid:
                     return Resources.AssemblyErrorMessageCreator_FailurePathSectionSectionStartEndInvalid;
                 case EAssemblyErrors.FailureProbabilityOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_FailureProbabilityOutOfRange;
                 case EAssemblyErrors.InputNotTheSameType:
                     return Resources.AssemblyErrorMessageCreator_InputNotTheSameType;
-                case EAssemblyErrors.CommonFailurePathSectionsInvalid:
+                case EAssemblyErrors.CommonFailureMechanismSectionsInvalid:
                     return Resources.AssemblyErrorMessageCreator_CommonFailurePathSectionsInvalid;
-                case EAssemblyErrors.CommonFailurePathSectionsNotConsecutive:
+                case EAssemblyErrors.CommonFailureMechanismSectionsNotConsecutive:
                     return Resources.AssemblyErrorMessageCreator_CommonFailurePathSectionsNotConsecutive;
                 case EAssemblyErrors.RequestedPointOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_RequestedPointOutOfRange;
