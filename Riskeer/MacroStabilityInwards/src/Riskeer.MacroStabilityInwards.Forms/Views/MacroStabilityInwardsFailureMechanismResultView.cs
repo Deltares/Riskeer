@@ -197,10 +197,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 sectionResult, calculationScenarios, FailureMechanism);
         }
 
-        private static InitialFailureMechanismResultErrorProvider<MacroStabilityInwardsCalculationScenario> CreateErrorProvider(
+        private static WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<MacroStabilityInwardsCalculationScenario> CreateErrorProvider(
             FailureMechanismSectionResult sectionResult, IEnumerable<MacroStabilityInwardsCalculationScenario> calculationScenarios)
         {
-            return new InitialFailureMechanismResultErrorProvider<MacroStabilityInwardsCalculationScenario>(
+            return new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<MacroStabilityInwardsCalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
         }
 

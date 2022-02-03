@@ -31,10 +31,10 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.Providers
 {
     /// <summary>
-    /// This class provides error messages about the initial failure mechanism result.
+    /// This class provides error messages about the failure mechanism result rows that contains calculated probabilities.
     /// </summary>
     /// <typeparam name="T">The type of calculation scenario.</typeparam>
-    public class InitialFailureMechanismResultErrorProvider<T> : IInitialFailureMechanismResultErrorProvider
+    public class WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<T> : IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider
         where T : ICalculationScenario
     {
         private readonly FailureMechanismSectionResult sectionResult;
@@ -42,16 +42,16 @@ namespace Riskeer.Common.Forms.Providers
         private readonly Func<T, IEnumerable<Segment2D>, bool> intersectionFunc;
 
         /// <summary>
-        /// Creates a new instance of <see cref="InitialFailureMechanismResultErrorProvider{T}"/>.
+        /// Creates a new instance of <see cref="WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider{T}"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="FailureMechanismSectionResult"/> to validate for.</param>
         /// <param name="calculationScenarios">The calculation scenarios to validate.</param>
         /// <param name="intersectionFunc">The function to determine whether a scenario is belonging
         /// to the given <paramref name="sectionResult"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public InitialFailureMechanismResultErrorProvider(FailureMechanismSectionResult sectionResult,
-                                                          IEnumerable<ICalculationScenario> calculationScenarios,
-                                                          Func<T, IEnumerable<Segment2D>, bool> intersectionFunc)
+        public WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider(FailureMechanismSectionResult sectionResult,
+                                                                                      IEnumerable<ICalculationScenario> calculationScenarios,
+                                                                                      Func<T, IEnumerable<Segment2D>, bool> intersectionFunc)
         {
             if (sectionResult == null)
             {
@@ -76,7 +76,7 @@ namespace Riskeer.Common.Forms.Providers
         /// <inheritdoc />
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="getProbabilityFunc"/>
         /// is <c>null</c>.</exception>
-        public string GetProbabilityValidationError(Func<double> getProbabilityFunc)
+        public string GetCalculatedProbabilityValidationError(Func<double> getProbabilityFunc)
         {
             if (getProbabilityFunc == null)
             {

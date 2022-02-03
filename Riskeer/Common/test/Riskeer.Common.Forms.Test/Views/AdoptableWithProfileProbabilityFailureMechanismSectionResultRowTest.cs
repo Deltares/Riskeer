@@ -68,7 +68,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
@@ -103,7 +103,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("initialFailureMechanismResultErrorProvider", exception.ParamName);
+            Assert.AreEqual("adoptableFailureMechanismSectionResultRowErrorProvider", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -113,7 +113,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -135,7 +135,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
@@ -157,7 +157,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
@@ -185,7 +185,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(profileProbability);
             calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(sectionProbability);
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
@@ -258,7 +258,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(profileProbability);
             calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(sectionProbability);
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
@@ -292,7 +292,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
@@ -328,8 +328,8 @@ namespace Riskeer.Common.Forms.Test.Views
             const string errorText = "error";
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.StrictMock<IInitialFailureMechanismResultErrorProvider>();
-            errorProvider.Expect(ep => ep.GetProbabilityValidationError(null))
+            var errorProvider = mocks.StrictMock<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
+            errorProvider.Expect(ep => ep.GetCalculatedProbabilityValidationError(null))
                          .IgnoreArguments()
                          .Return(errorText)
                          .Repeat.Twice();
@@ -363,8 +363,8 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.StrictMock<IInitialFailureMechanismResultErrorProvider>();
-            errorProvider.Stub(ep => ep.GetProbabilityValidationError(null))
+            var errorProvider = mocks.StrictMock<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
+            errorProvider.Stub(ep => ep.GetCalculatedProbabilityValidationError(null))
                          .IgnoreArguments()
                          .Return("error message");
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
@@ -513,7 +513,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
@@ -543,7 +543,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
@@ -580,7 +580,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(initialProfileProbability);
             calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(initialSectionProbability);
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             lengthEffectProvider.Stub(lep => lep.UseLengthEffect).Return(false);
             mocks.ReplayAll();
@@ -627,7 +627,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
             calculateStrategy.Stub(c => c.CalculateProfileProbability()).Return(initialProfileProbability);
             calculateStrategy.Stub(c => c.CalculateSectionProbability()).Return(initialSectionProbability);
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             lengthEffectProvider.Stub(lep => lep.UseLengthEffect).Return(true);
             lengthEffectProvider.Stub(lep => lep.SectionN).Return(n);
@@ -674,7 +674,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
@@ -714,7 +714,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
@@ -756,7 +756,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
@@ -799,7 +799,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Given
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
@@ -847,7 +847,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
@@ -881,7 +881,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
@@ -931,8 +931,8 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
-            errorProvider.Stub(ep => ep.GetProbabilityValidationError(null))
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
+            errorProvider.Stub(ep => ep.GetCalculatedProbabilityValidationError(null))
                          .IgnoreArguments()
                          .Return(string.Empty);
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
@@ -969,7 +969,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
@@ -1010,7 +1010,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
@@ -1046,7 +1046,7 @@ namespace Riskeer.Common.Forms.Test.Views
             // Setup
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            var errorProvider = mocks.Stub<IInitialFailureMechanismResultErrorProvider>();
+            var errorProvider = mocks.Stub<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>();
             var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 

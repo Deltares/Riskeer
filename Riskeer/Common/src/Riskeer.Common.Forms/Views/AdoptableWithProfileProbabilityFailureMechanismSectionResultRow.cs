@@ -51,7 +51,7 @@ namespace Riskeer.Common.Forms.Views
         private readonly int assemblyGroupIndex;
 
         private readonly IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
-        private readonly IInitialFailureMechanismResultErrorProvider initialFailureMechanismResultErrorProvider;
+        private readonly IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider;
         private readonly ILengthEffectProvider lengthEffectProvider;
         private readonly IAssessmentSection assessmentSection;
 
@@ -61,8 +61,8 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="sectionResult">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
         /// <param name="calculateProbabilityStrategy">The strategy used to calculate probabilities.</param>
-        /// <param name="initialFailureMechanismResultErrorProvider">The error provider to use for
-        /// the initial failure mechanism result.</param>
+        /// <param name="failureMechanismSectionResultRowErrorProvider">The error provider to use for
+        /// the failure mechanism section result.</param>
         /// <param name="lengthEffectProvider">The provider to get the length effect properties.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
@@ -70,7 +70,7 @@ namespace Riskeer.Common.Forms.Views
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
                                                                                IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
-                                                                               IInitialFailureMechanismResultErrorProvider initialFailureMechanismResultErrorProvider,
+                                                                               IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider,
                                                                                ILengthEffectProvider lengthEffectProvider,
                                                                                IAssessmentSection assessmentSection,
                                                                                ConstructionProperties constructionProperties)
@@ -81,9 +81,9 @@ namespace Riskeer.Common.Forms.Views
                 throw new ArgumentNullException(nameof(calculateProbabilityStrategy));
             }
 
-            if (initialFailureMechanismResultErrorProvider == null)
+            if (failureMechanismSectionResultRowErrorProvider == null)
             {
-                throw new ArgumentNullException(nameof(initialFailureMechanismResultErrorProvider));
+                throw new ArgumentNullException(nameof(failureMechanismSectionResultRowErrorProvider));
             }
 
             if (lengthEffectProvider == null)
@@ -102,7 +102,7 @@ namespace Riskeer.Common.Forms.Views
             }
 
             this.calculateProbabilityStrategy = calculateProbabilityStrategy;
-            this.initialFailureMechanismResultErrorProvider = initialFailureMechanismResultErrorProvider;
+            this.failureMechanismSectionResultRowErrorProvider = failureMechanismSectionResultRowErrorProvider;
             this.lengthEffectProvider = lengthEffectProvider;
             this.assessmentSection = assessmentSection;
 
@@ -277,9 +277,9 @@ namespace Riskeer.Common.Forms.Views
         {
             if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt)
             {
-                ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex].ErrorText = initialFailureMechanismResultErrorProvider.GetProbabilityValidationError(
+                ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetCalculatedProbabilityValidationError(
                     calculateProbabilityStrategy.CalculateProfileProbability);
-                ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = initialFailureMechanismResultErrorProvider.GetProbabilityValidationError(
+                ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetCalculatedProbabilityValidationError(
                     calculateProbabilityStrategy.CalculateSectionProbability);
             }
             else

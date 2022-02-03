@@ -199,14 +199,14 @@ namespace Riskeer.Piping.Forms.Views
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.AssemblyGroup));
         }
 
-        private IInitialFailureMechanismResultErrorProvider CreateErrorProvider(
+        private IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider CreateErrorProvider(
             FailureMechanismSectionResult sectionResult, PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection)
         {
             IEnumerable<IPipingCalculationScenario<PipingInput>> calculationScenarios = ScenarioConfigurationTypeIsSemiProbabilistic(scenarioConfigurationForSection)
                                                                                             ? (IEnumerable<IPipingCalculationScenario<PipingInput>>) FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
                                                                                             : FailureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>();
 
-            return new InitialFailureMechanismResultErrorProvider<IPipingCalculationScenario<PipingInput>>(
+            return new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<IPipingCalculationScenario<PipingInput>>(
                 sectionResult, calculationScenarios,
                 (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
         }

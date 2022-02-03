@@ -31,13 +31,13 @@ using Riskeer.Common.Forms.Providers;
 namespace Riskeer.Common.Forms.Test.Providers
 {
     [TestFixture]
-    public class InitialFailureMechanismResultErrorProviderTest
+    public class WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProviderTest
     {
         [Test]
         public void Constructor_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
+            void Call() => new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
                 null, Enumerable.Empty<ICalculationScenario>(), (scenario, segments) => false);
 
             // Assert
@@ -53,7 +53,7 @@ namespace Riskeer.Common.Forms.Test.Providers
             var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
+            void Call() => new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
                 sectionResult, null, (scenario, segments) => false);
 
             // Assert
@@ -69,7 +69,7 @@ namespace Riskeer.Common.Forms.Test.Providers
             var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
+            void Call() => new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
                 sectionResult, Enumerable.Empty<ICalculationScenario>(), null);
 
             // Assert
@@ -85,25 +85,25 @@ namespace Riskeer.Common.Forms.Test.Providers
             var sectionResult = new TestFailureMechanismSectionResult(section);
 
             // Call
-            var errorProvider = new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
+            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
                 sectionResult, Enumerable.Empty<ICalculationScenario>(), (scenario, segments) => false);
 
             // Assert
-            Assert.IsInstanceOf<IInitialFailureMechanismResultErrorProvider>(errorProvider);
+            Assert.IsInstanceOf<IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider>(errorProvider);
         }
 
         [Test]
-        public void GetProbabilityValidationError_GetProbabilityFuncNull_ThrowsArgumentNullException()
+        public void GetCalculatedProbabilityValidationError_GetProbabilityFuncNull_ThrowsArgumentNullException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new TestFailureMechanismSectionResult(section);
 
-            var errorProvider = new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
+            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
                 sectionResult, Enumerable.Empty<ICalculationScenario>(), (scenario, segments) => false);
 
             // Call
-            void Call() => errorProvider.GetProbabilityValidationError(null);
+            void Call() => errorProvider.GetCalculatedProbabilityValidationError(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -111,7 +111,7 @@ namespace Riskeer.Common.Forms.Test.Providers
         }
 
         [Test]
-        public void GetProbabilityValidationError_NoRelevantScenarios_ReturnsErrorMessage()
+        public void GetCalculatedProbabilityValidationError_NoRelevantScenarios_ReturnsErrorMessage()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -123,11 +123,11 @@ namespace Riskeer.Common.Forms.Test.Providers
                 new TestCalculationScenario()
             };
 
-            var errorProvider = new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
+            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, segments) => false);
 
             // Call
-            string errorMessage = errorProvider.GetProbabilityValidationError(() => double.NaN);
+            string errorMessage = errorProvider.GetCalculatedProbabilityValidationError(() => double.NaN);
 
             // Assert
             Assert.AreEqual("Er moet minimaal één maatgevende berekening voor dit vak worden gedefinieerd.", errorMessage);
@@ -136,7 +136,7 @@ namespace Riskeer.Common.Forms.Test.Providers
         [Test]
         [TestCase(0.043)]
         [TestCase(0.689)]
-        public void GetProbabilityValidationError_TotalContributionNotOne_ReturnsErrorMessage(double contribution)
+        public void GetCalculatedProbabilityValidationError_TotalContributionNotOne_ReturnsErrorMessage(double contribution)
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -154,18 +154,18 @@ namespace Riskeer.Common.Forms.Test.Providers
                 }
             };
 
-            var errorProvider = new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
+            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, segments) => true);
 
             // Call
-            string errorMessage = errorProvider.GetProbabilityValidationError(() => double.NaN);
+            string errorMessage = errorProvider.GetCalculatedProbabilityValidationError(() => double.NaN);
 
             // Assert
             Assert.AreEqual("De bijdragen van de maatgevende scenario's voor dit vak moeten opgeteld gelijk zijn aan 100%.", errorMessage);
         }
 
         [Test]
-        public void GetProbabilityValidationError_CalculationScenarioWithoutOutput_ReturnsErrorMessage()
+        public void GetCalculatedProbabilityValidationError_CalculationScenarioWithoutOutput_ReturnsErrorMessage()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -176,18 +176,18 @@ namespace Riskeer.Common.Forms.Test.Providers
                 new TestCalculationScenario()
             };
 
-            var errorProvider = new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
+            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, segments) => true);
 
             // Call
-            string errorMessage = errorProvider.GetProbabilityValidationError(() => double.NaN);
+            string errorMessage = errorProvider.GetCalculatedProbabilityValidationError(() => double.NaN);
 
             // Assert
             Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten uitgevoerd zijn.", errorMessage);
         }
 
         [Test]
-        public void GetProbabilityValidationError_CalculationScenarioWithInvalidOutput_ReturnsErrorMessage()
+        public void GetCalculatedProbabilityValidationError_CalculationScenarioWithInvalidOutput_ReturnsErrorMessage()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -201,18 +201,18 @@ namespace Riskeer.Common.Forms.Test.Providers
                 }
             };
 
-            var errorProvider = new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
+            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, segments) => true);
 
             // Call
-            string errorMessage = errorProvider.GetProbabilityValidationError(() => double.NaN);
+            string errorMessage = errorProvider.GetCalculatedProbabilityValidationError(() => double.NaN);
 
             // Assert
             Assert.AreEqual("Alle maatgevende berekeningen voor dit vak moeten een geldige uitkomst hebben.", errorMessage);
         }
 
         [Test]
-        public void GetProbabilityValidationError_ValidCalculationScenarios_ReturnsEmptyMessage()
+        public void GetCalculatedProbabilityValidationError_ValidCalculationScenarios_ReturnsEmptyMessage()
         {
             // Setup
             var random = new Random(39);
@@ -233,11 +233,11 @@ namespace Riskeer.Common.Forms.Test.Providers
                 }
             };
 
-            var errorProvider = new InitialFailureMechanismResultErrorProvider<ICalculationScenario>(
+            var errorProvider = new WithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider<ICalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, segments) => true);
 
             // Call
-            string errorMessage = errorProvider.GetProbabilityValidationError(() => random.NextDouble());
+            string errorMessage = errorProvider.GetCalculatedProbabilityValidationError(() => random.NextDouble());
 
             // Assert
             Assert.AreEqual(string.Empty, errorMessage);

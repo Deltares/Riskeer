@@ -24,16 +24,17 @@ using System;
 namespace Riskeer.Common.Forms.Providers
 {
     /// <summary>
-    /// Interface for providing error messages about the initial failure mechanism result.
+    /// Interface for providing error messages about the failure mechanism section result rows
+    /// that contain calculated probabilities.
     /// </summary>
-    public interface IInitialFailureMechanismResultErrorProvider
+    public interface IWithCalculatedProbabilityFailureMechanismSectionResultRowErrorProvider
     {
         /// <summary>
-        /// Gets the probability validation error.
+        /// Gets the calculated probability validation error.
         /// </summary>
         /// <param name="getProbabilityFunc">The function to get the probability to validate.</param>
         /// <returns>An error message when the validation fails;
         /// or <see cref="string.Empty"/> when there are no errors.</returns>
-        string GetProbabilityValidationError(Func<double> getProbabilityFunc);
+        string GetCalculatedProbabilityValidationError(Func<double> getProbabilityFunc);
     }
 }
