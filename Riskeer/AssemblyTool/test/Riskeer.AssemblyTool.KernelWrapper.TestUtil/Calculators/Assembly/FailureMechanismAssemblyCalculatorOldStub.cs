@@ -29,7 +29,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
     /// <summary>
     /// Failure mechanism assembly calculator stub for testing purposes.
     /// </summary>
-    public class FailureMechanismAssemblyCalculatorStub : IFailureMechanismAssemblyCalculator
+    public class FailureMechanismAssemblyCalculatorOldStub : IFailureMechanismAssemblyCalculatorOld
     {
         /// <summary>
         /// Gets the collection of <see cref="FailureMechanismSectionAssemblyOld"/>.

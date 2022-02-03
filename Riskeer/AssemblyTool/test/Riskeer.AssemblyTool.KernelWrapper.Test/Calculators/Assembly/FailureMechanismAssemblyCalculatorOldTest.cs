@@ -55,7 +55,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var calculator = new FailureMechanismAssemblyCalculatorOld(kernelFactory);
 
             // Assert
-            Assert.IsInstanceOf<IFailureMechanismAssemblyCalculator>(calculator);
+            Assert.IsInstanceOf<IFailureMechanismAssemblyCalculatorOld>(calculator);
             mocks.VerifyAll();
         }
 

@@ -90,7 +90,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorOldStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
                 ExportableAssessmentSection exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
@@ -162,7 +162,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
         private static void AssertExportableFailureMechanismsWithProbability(
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> exportableFailureMechanisms,
-            FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator,
+            FailureMechanismAssemblyCalculatorOldStub failureMechanismAssemblyCalculator,
             AssessmentSection assessmentSection)
         {
             Assert.AreEqual(6, exportableFailureMechanisms.Count());
@@ -228,7 +228,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
         private static void AssertExportableFailureMechanismsWithoutProbability(
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> exportableFailureMechanisms,
-            FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator,
+            FailureMechanismAssemblyCalculatorOldStub failureMechanismAssemblyCalculator,
             AssessmentSection assessmentSection)
         {
             Assert.AreEqual(9, exportableFailureMechanisms.Count());

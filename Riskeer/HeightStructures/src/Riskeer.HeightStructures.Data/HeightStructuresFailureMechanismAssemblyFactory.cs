@@ -310,7 +310,7 @@ namespace Riskeer.HeightStructures.Data
                                                                                                     .Select(sr => GetSectionAssembly(sr, failureMechanism, assessmentSection, useManual))
                                                                                                     .ToArray();
 
-                IFailureMechanismAssemblyCalculator calculator =
+                IFailureMechanismAssemblyCalculatorOld calculator =
                     calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 return calculator.Assemble(sectionAssemblies, assemblyCategoriesInput);

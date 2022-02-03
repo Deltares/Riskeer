@@ -35,7 +35,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
     /// <summary>
     /// Class representing a failure mechanism assembly calculator.
     /// </summary>
-    public class FailureMechanismAssemblyCalculatorOld : IFailureMechanismAssemblyCalculator
+    public class FailureMechanismAssemblyCalculatorOld : IFailureMechanismAssemblyCalculatorOld
     {
         private readonly IAssemblyToolKernelFactoryOld factory;
 

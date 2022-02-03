@@ -205,7 +205,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
                     failureMechanism.SectionResultsOld.Select(result => GetSectionAssemblyCategoryGroup(result, useManual)).ToArray();
 
                 IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
-                IFailureMechanismAssemblyCalculator calculator =
+                IFailureMechanismAssemblyCalculatorOld calculator =
                     calculatorFactory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 return calculator.Assemble(sectionAssemblies);
