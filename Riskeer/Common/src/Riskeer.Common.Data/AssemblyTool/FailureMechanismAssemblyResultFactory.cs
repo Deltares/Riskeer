@@ -30,21 +30,21 @@ using Riskeer.Common.Data.Exceptions;
 namespace Riskeer.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// Factory for creating assembly results of a failure path.
+    /// Factory for creating assembly results of a failure mechanism.
     /// </summary>
-    public static class FailurePathAssemblyResultFactory
+    public static class FailureMechanismAssemblyResultFactory
     {
         /// <summary>
-        /// Assembles the failure path based on its input arguments.
+        /// Assembles the failure mechanism based on its input arguments.
         /// </summary>
-        /// <param name="failurePathN">The length effect factor 'N' of the failure path.</param>
+        /// <param name="failureMechanismN">The length effect factor 'N' of the failure mechanism.</param>
         /// <param name="failureMechanismSectionAssemblyResults">A collection of <see cref="FailureMechanismSectionAssemblyResult"/>.</param>
-        /// <returns>A failure probability of the failure path.</returns>
+        /// <returns>A failure probability of the failure mechanism.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionAssemblyResults"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>
-        public static double AssembleFailurePath(double failurePathN,
-                                                 IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults)
+        public static double AssembleFailureMechanism(double failureMechanismN,
+                                                      IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults)
         {
             if (failureMechanismSectionAssemblyResults == null)
             {
@@ -56,7 +56,7 @@ namespace Riskeer.Common.Data.AssemblyTool
                 IFailureMechanismAssemblyCalculator calculator =
                     AssemblyToolCalculatorFactory.Instance.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
-                return calculator.Assemble(failurePathN, failureMechanismSectionAssemblyResults);
+                return calculator.Assemble(failureMechanismN, failureMechanismSectionAssemblyResults);
             }
             catch (FailureMechanismAssemblyCalculatorException e)
             {

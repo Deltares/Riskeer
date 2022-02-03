@@ -34,13 +34,13 @@ using Riskeer.Common.Data.Exceptions;
 namespace Riskeer.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
-    public class FailurePathAssemblyResultFactoryTest
+    public class FailureMechanismAssemblyResultFactoryTest
     {
         [Test]
-        public void AssembleFailurePath_FailureMechanismSectionAssemblyResultsNull_ThrowsArgumentNullException()
+        public void AssembleFailureMechanism_FailureMechanismSectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailurePathAssemblyResultFactory.AssembleFailurePath(0, null);
+            void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(0, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -48,7 +48,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailurePath_WithInput_SetsInputOnCalculator()
+        public void AssembleFailureMechanism_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var random = new Random(21);
@@ -58,7 +58,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                FailurePathAssemblyResultFactory.AssembleFailurePath(n, sectionResults);
+                FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(n, sectionResults);
 
                 // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -70,13 +70,13 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailurePath_CalculatorRan_ReturnsOutput()
+        public void AssembleFailureMechanism_CalculatorRan_ReturnsOutput()
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                double assemblyResult = FailurePathAssemblyResultFactory.AssembleFailurePath(
+                double assemblyResult = FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
                     0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>());
 
                 // Assert
@@ -88,7 +88,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailurePath_CalculatorThrowsException_ThrowsAssemblyException()
+        public void AssembleFailureMechanism_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -98,7 +98,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => FailurePathAssemblyResultFactory.AssembleFailurePath(
+                void Call() => FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
                     0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>());
 
                 // Assert
