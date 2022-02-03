@@ -147,7 +147,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void Assemble_WithInvalidInput_ThrowsFailurePathAssemblyCalculatorException()
+        public void Assemble_WithInvalidInput_ThrowsFailureMechanismAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(21);
@@ -171,14 +171,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 Assert.IsFalse(kernel.Calculated);
 
-                var exception = Assert.Throws<FailurePathAssemblyCalculatorException>(Call);
+                var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
         [Test]
-        public void Assemble_KernelThrowsException_ThrowsFailurePathAssemblyCalculatorException()
+        public void Assemble_KernelThrowsException_ThrowsFailureMechanismAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(21);
@@ -197,14 +197,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 Assert.IsFalse(kernel.Calculated);
 
-                var exception = Assert.Throws<FailurePathAssemblyCalculatorException>(Call);
+                var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
         [Test]
-        public void Assemble_KernelThrowsAssemblyException_ThrowsFailurePathAssemblyCalculatorException()
+        public void Assemble_KernelThrowsAssemblyException_ThrowsFailureMechanismAssemblyCalculatorException()
         {
             // Setup
             var random = new Random(21);
@@ -223,7 +223,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 Assert.IsFalse(kernel.Calculated);
 
-                var exception = Assert.Throws<FailurePathAssemblyCalculatorException>(Call);
+                var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);
                 var innerException = exception.InnerException as AssemblyException;
                 Assert.IsNotNull(innerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(innerException.Errors), exception.Message);

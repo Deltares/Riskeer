@@ -104,7 +104,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<FailurePathAssemblyCalculatorException>(innerException);
+                Assert.IsInstanceOf<FailureMechanismAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
         }

@@ -42,7 +42,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <returns>A failure probability of the failure path.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionAssemblyResults"/>
         /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the failure path could not be successfully assembled.</exception>
+        /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>
         public static double AssembleFailurePath(double failurePathN,
                                                  IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults)
         {
@@ -58,7 +58,7 @@ namespace Riskeer.Common.Data.AssemblyTool
 
                 return calculator.Assemble(failurePathN, failureMechanismSectionAssemblyResults);
             }
-            catch (FailurePathAssemblyCalculatorException e)
+            catch (FailureMechanismAssemblyCalculatorException e)
             {
                 throw new AssemblyException(e.Message, e);
             }

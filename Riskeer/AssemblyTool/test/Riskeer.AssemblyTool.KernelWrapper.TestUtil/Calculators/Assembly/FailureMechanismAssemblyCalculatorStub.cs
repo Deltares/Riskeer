@@ -55,7 +55,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         {
             if (ThrowExceptionOnCalculate)
             {
-                throw new FailurePathAssemblyCalculatorException("Message", new Exception());
+                throw new FailureMechanismAssemblyCalculatorException("Message", new Exception());
             }
 
             FailureMechanismN = failureMechanismN;
