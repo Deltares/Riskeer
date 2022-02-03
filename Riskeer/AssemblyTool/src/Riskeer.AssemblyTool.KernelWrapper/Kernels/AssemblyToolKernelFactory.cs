@@ -52,7 +52,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
             return new AssessmentResultsTranslator();
         }
 
-        public IFailureMechanismResultAssembler CreateFailurePathAssemblyKernel()
+        public IFailureMechanismResultAssembler CreateFailureMechanismAssemblyKernel()
         {
             return new FailureMechanismResultAssembler();
         }

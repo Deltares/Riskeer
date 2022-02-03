@@ -41,9 +41,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
         IAssessmentResultsTranslator CreateFailureMechanismSectionAssemblyKernel();
 
         /// <summary>
-        /// Creates a failure path assembly kernel.
+        /// Creates a failure mechanism assembly kernel.
         /// </summary>
         /// <returns>A new <see cref="IAssessmentResultsTranslator"/>.</returns>
-        IFailureMechanismResultAssembler CreateFailurePathAssemblyKernel();
+        IFailureMechanismResultAssembler CreateFailureMechanismAssemblyKernel();
     }
 }

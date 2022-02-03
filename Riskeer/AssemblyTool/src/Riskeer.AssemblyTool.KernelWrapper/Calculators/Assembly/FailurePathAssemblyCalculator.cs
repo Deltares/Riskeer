@@ -63,7 +63,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 
             try
             {
-                IFailureMechanismResultAssembler kernel = factory.CreateFailurePathAssemblyKernel();
+                IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
 
                 AssemblyFailureMechanismSectionAssemblyResult[] kernelInput =
                     sectionAssemblyResults.Select(FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult)

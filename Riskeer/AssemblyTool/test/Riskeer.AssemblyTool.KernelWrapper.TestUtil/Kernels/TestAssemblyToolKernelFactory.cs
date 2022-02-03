@@ -66,7 +66,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
             return LastCreatedFailureMechanismSectionAssemblyKernel;
         }
 
-        public IFailureMechanismResultAssembler CreateFailurePathAssemblyKernel()
+        public IFailureMechanismResultAssembler CreateFailureMechanismAssemblyKernel()
         {
             return LastCreatedFailurePathAssemblyKernel;
         }

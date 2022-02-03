@@ -99,13 +99,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         }
 
         [Test]
-        public void CreateFailurePathAssemblyKernel_Always_ReturnsKernelFailureMechanismResultAssembler()
+        public void CreateFailureMechanismAssemblyKernel_Always_ReturnsKernelFailureMechanismResultAssembler()
         {
             // Setup
             IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
 
             // Call
-            IFailureMechanismResultAssembler kernel = factory.CreateFailurePathAssemblyKernel();
+            IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismResultAssembler>(kernel);
