@@ -264,15 +264,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 var row = new NonAdoptableFailureMechanismSectionResultRow(result, assessmentSection, ConstructionProperties);
 
                 // Assert
-                FailureMechanismSectionWithProfileProbabilityAssemblyInput input = calculator.FailureMechanismSectionWithProfileProbabilityAssemblyInput;
+                FailureMechanismSectionAssemblyInput input = calculator.FailureMechanismSectionAssemblyInput;
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, input.SignalingNorm);
                 Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, input.LowerLimitNorm);
                 Assert.AreEqual(row.IsRelevant, input.IsRelevant);
                 Assert.IsTrue(input.HasProbabilitySpecified);
-                Assert.AreEqual(row.InitialFailureMechanismResultSectionProbability, input.InitialProfileProbability);
                 Assert.AreEqual(row.InitialFailureMechanismResultSectionProbability, input.InitialSectionProbability);
                 Assert.AreEqual(row.FurtherAnalysisNeeded, input.FurtherAnalysisNeeded);
-                Assert.AreEqual(row.RefinedSectionProbability, input.RefinedProfileProbability);
                 Assert.AreEqual(row.RefinedSectionProbability, input.RefinedSectionProbability);
             }
         }

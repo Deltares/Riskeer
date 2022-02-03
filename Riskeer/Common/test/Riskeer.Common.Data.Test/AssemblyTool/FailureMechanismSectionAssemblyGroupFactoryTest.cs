@@ -102,17 +102,15 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                     sectionProbability, furtherAnalysisNeeded, refinedSectionProbability);
 
                 // Assert
-                FailureMechanismSectionWithProfileProbabilityAssemblyInput calculatorInput = calculator.FailureMechanismSectionWithProfileProbabilityAssemblyInput;
+                FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
                 Assert.AreEqual(failureMechanismContribution.SignalingNorm, calculatorInput.SignalingNorm);
                 Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, calculatorInput.LowerLimitNorm);
 
                 Assert.AreEqual(isRelevant, calculatorInput.IsRelevant);
                 Assert.AreEqual(expectedHasProbabilitySpecified, calculatorInput.HasProbabilitySpecified);
-                Assert.AreEqual(sectionProbability, calculatorInput.InitialProfileProbability);
                 Assert.AreEqual(sectionProbability, calculatorInput.InitialSectionProbability);
                 Assert.AreEqual(furtherAnalysisNeeded, calculatorInput.FurtherAnalysisNeeded);
-                Assert.AreEqual(refinedSectionProbability, calculatorInput.RefinedProfileProbability);
                 Assert.AreEqual(refinedSectionProbability, calculatorInput.RefinedSectionProbability);
             }
         }
@@ -230,17 +228,15 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                     sectionProbability, furtherAnalysisNeeded, refinedSectionProbability);
 
                 // Assert
-                FailureMechanismSectionWithProfileProbabilityAssemblyInput calculatorInput = calculator.FailureMechanismSectionWithProfileProbabilityAssemblyInput;
+                FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
                 Assert.AreEqual(failureMechanismContribution.SignalingNorm, calculatorInput.SignalingNorm);
                 Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, calculatorInput.LowerLimitNorm);
 
                 Assert.AreEqual(isRelevant, calculatorInput.IsRelevant);
                 Assert.AreEqual(expectedHasProbabilitySpecified, calculatorInput.HasProbabilitySpecified);
-                Assert.AreEqual(sectionProbability, calculatorInput.InitialProfileProbability);
                 Assert.AreEqual(sectionProbability, calculatorInput.InitialSectionProbability);
                 Assert.AreEqual(furtherAnalysisNeeded, calculatorInput.FurtherAnalysisNeeded);
-                Assert.AreEqual(refinedSectionProbability, calculatorInput.RefinedProfileProbability);
                 Assert.AreEqual(refinedSectionProbability, calculatorInput.RefinedSectionProbability);
             }
         }
