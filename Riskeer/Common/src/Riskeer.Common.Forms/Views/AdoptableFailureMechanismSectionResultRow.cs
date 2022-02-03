@@ -191,18 +191,36 @@ namespace Riskeer.Common.Forms.Views
             UpdateAssemblyData();
             UpdateColumnStateDefinitions();
             UpdateInitialFailureMechanismResultErrors();
+            UpdateRefinedFailureMechanismResultErrors();
         }
 
         private void UpdateInitialFailureMechanismResultErrors()
         {
-            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt)
+            ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = string.Empty;
+
+            if (SectionResult.IsRelevant)
             {
-                ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetCalculatedProbabilityValidationError(
-                    calculateInitialFailureMechanismResultProbabilityFunc);
+                if (SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt)
+                {
+                    ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetCalculatedProbabilityValidationError(
+                        calculateInitialFailureMechanismResultProbabilityFunc);
+                }
+
+                if (SectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Manual)
+                {
+                    ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
+                        InitialFailureMechanismResultSectionProbability);
+                }
             }
-            else
+        }
+
+        private void UpdateRefinedFailureMechanismResultErrors()
+        {
+            ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = string.Empty;
+
+            if (SectionResult.IsRelevant && SectionResult.FurtherAnalysisNeeded)
             {
-                ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = string.Empty;
+                ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(RefinedSectionProbability);
             }
         }
 
