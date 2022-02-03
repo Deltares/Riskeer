@@ -26,18 +26,18 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
     /// <summary>
-    /// Interface representing a failure path assembly calculator.
+    /// Interface representing a failure mechanism assembly calculator.
     /// </summary>
-    public interface IFailurePathAssemblyCalculator
+    public interface IFailureMechanismAssemblyCalculator
     {
         /// <summary>
-        /// Assembles a failure path based on the input.
+        /// Assembles a failure mechanism based on the input.
         /// </summary>
-        /// <param name="failurePathN">The length effect factor 'N' for an entire failure path.</param>
+        /// <param name="failureMechanismN">The length effect factor 'N' for an entire failure mechanism.</param>
         /// <param name="sectionAssemblyResults">A collection of <see cref="FailureMechanismSectionAssemblyResult"/>.</param>
-        /// <returns>A probability representing the assembly result of the failure path.</returns>
+        /// <returns>A probability representing the assembly result of the failure mechanism.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
         /// <exception cref="FailurePathAssemblyCalculatorException">Thrown when an error occurs while assembling.</exception>
-        double Assemble(double failurePathN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults);
+        double Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults);
     }
 }

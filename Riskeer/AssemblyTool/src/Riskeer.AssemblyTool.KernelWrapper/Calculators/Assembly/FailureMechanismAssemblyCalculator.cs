@@ -33,9 +33,9 @@ using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.F
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
     /// <summary>
-    /// Class representing a failure path assembly calculator.
+    /// Class representing a failure mechanism assembly calculator.
     /// </summary>
-    public class FailureMechanismAssemblyCalculator : IFailurePathAssemblyCalculator
+    public class FailureMechanismAssemblyCalculator : IFailureMechanismAssemblyCalculator
     {
         private readonly IAssemblyToolKernelFactory factory;
 
@@ -54,7 +54,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public double Assemble(double failurePathN, IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> sectionAssemblyResults)
+        public double Assemble(double failureMechanismN, IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> sectionAssemblyResults)
         {
             if (sectionAssemblyResults == null)
             {
@@ -69,7 +69,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                     sectionAssemblyResults.Select(FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult)
                                           .ToArray();
 
-                FailureMechanismAssemblyResult result = kernel.AssembleFailureMechanismWbi1B1(failurePathN, kernelInput, false);
+                FailureMechanismAssemblyResult result = kernel.AssembleFailureMechanismWbi1B1(failureMechanismN, kernelInput, false);
 
                 return result.Probability.Value;
             }

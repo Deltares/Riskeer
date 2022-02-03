@@ -27,14 +27,14 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 {
     /// <summary>
-    /// Failure path assembly calculator stub for testing purposes.
+    /// Failure mechanism assembly calculator stub for testing purposes.
     /// </summary>
-    public class FailurePathAssemblyCalculatorStub : IFailurePathAssemblyCalculator
+    public class FailureMechanismAssemblyCalculatorStub : IFailureMechanismAssemblyCalculator
     {
         /// <summary>
-        /// Gets the length effect 'N' of the failure path that is used in the calculation.
+        /// Gets the length effect 'N' of the failure mechanism that is used in the calculation.
         /// </summary>
-        public double FailurePathN { get; private set; }
+        public double FailureMechanismN { get; private set; }
 
         /// <summary>
         /// Gets the collection of <see cref="FailureMechanismSectionAssemblyResult"/> that is used in the calculation.
@@ -51,14 +51,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public double AssemblyResult { get; set; }
 
-        public double Assemble(double failurePathN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
+        public double Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new FailurePathAssemblyCalculatorException("Message", new Exception());
             }
 
-            FailurePathN = failurePathN;
+            FailureMechanismN = failureMechanismN;
             SectionAssemblyResultsInput = sectionAssemblyResults;
 
             return AssemblyResult;

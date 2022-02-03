@@ -200,7 +200,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
             {
                 var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = calculator.SectionAssemblyResultsInput
                                                                                                       .ToArray();
 
@@ -232,7 +232,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (ShowFailureMechanismResultsView(sectionResults))
             {
                 var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = calculator.SectionAssemblyResultsInput
                                                                                                       .ToArray();
 
@@ -271,7 +271,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (ShowFailureMechanismResultsView(sectionResults))
             {
                 var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = calculator.SectionAssemblyResultsInput
                                                                                                       .ToArray();
 
@@ -621,11 +621,11 @@ namespace Riskeer.Common.Forms.Test.Views
                 }
 
                 var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 CollectionAssert.AreEqual(rowAssemblyResults, calculator.SectionAssemblyResultsInput);
                 Assert.IsTrue(view.GetNCalled);
-                Assert.AreEqual(view.N, calculator.FailurePathN);
+                Assert.AreEqual(view.N, calculator.FailureMechanismN);
             }
         }
 
@@ -656,7 +656,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.AssemblyResult = assemblyResult;
 
                 // When
@@ -688,7 +688,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // When
@@ -724,7 +724,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
@@ -764,7 +764,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))
@@ -856,7 +856,7 @@ namespace Riskeer.Common.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.AssemblyResult = calculatorOutput;
 
                 using (ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults))

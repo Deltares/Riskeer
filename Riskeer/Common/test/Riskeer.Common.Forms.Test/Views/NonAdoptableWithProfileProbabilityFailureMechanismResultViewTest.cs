@@ -271,9 +271,9 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 // Assert
                 var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                Assert.AreEqual(1.0, calculator.FailurePathN);
+                Assert.AreEqual(1.0, calculator.FailureMechanismN);
             }
         }
 

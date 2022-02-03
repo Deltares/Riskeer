@@ -66,7 +66,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var calculator = new FailureMechanismAssemblyCalculator(kernelFactory);
 
             // Assert
-            Assert.IsInstanceOf<IFailurePathAssemblyCalculator>(calculator);
+            Assert.IsInstanceOf<IFailureMechanismAssemblyCalculator>(calculator);
             mocks.VerifyAll();
         }
 
@@ -97,7 +97,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(21);
-            double failurePathN = random.NextDouble();
+            double failureMechanismN = random.NextDouble();
             RiskeerFailureMechanismSectionAssemblyResult[] sectionAssemblyResults =
             {
                 CreateSectionAssemblyResult(random.Next()),
@@ -113,12 +113,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                calculator.Assemble(failurePathN, sectionAssemblyResults);
+                calculator.Assemble(failureMechanismN, sectionAssemblyResults);
 
                 // Assert
-                Assert.AreEqual(failurePathN, kernel.LenghtEffectFactor);
+                Assert.AreEqual(failureMechanismN, kernel.LenghtEffectFactor);
                 Assert.IsFalse(kernel.PartialAssembly);
-                AssertFailurePathSectionAssemblyResults(sectionAssemblyResults, kernel.FailureMechanismSectionAssemblyResults);
+                AssertFailureMechanismSectionAssemblyResults(sectionAssemblyResults, kernel.FailureMechanismSectionAssemblyResults);
             }
         }
 
@@ -238,20 +238,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                                                                     random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
         }
 
-        private static void AssertFailurePathSectionAssemblyResults(IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> expected,
-                                                                    IEnumerable<AssemblyFailureMechanismSectionAssemblyResult> actual)
+        private static void AssertFailureMechanismSectionAssemblyResults(IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> expected,
+                                                                         IEnumerable<AssemblyFailureMechanismSectionAssemblyResult> actual)
         {
             int nrOfExpectedResults = expected.Count();
             Assert.AreEqual(nrOfExpectedResults, actual.Count());
 
             for (int i = 0; i < nrOfExpectedResults; i++)
             {
-                AssertFailurePathSectionAssemblyResult(expected.ElementAt(i), actual.ElementAt(i));
+                AssertFailureMechanismSectionAssemblyResult(expected.ElementAt(i), actual.ElementAt(i));
             }
         }
 
-        private static void AssertFailurePathSectionAssemblyResult(RiskeerFailureMechanismSectionAssemblyResult expected,
-                                                                   AssemblyFailureMechanismSectionAssemblyResult actual)
+        private static void AssertFailureMechanismSectionAssemblyResult(RiskeerFailureMechanismSectionAssemblyResult expected,
+                                                                        AssemblyFailureMechanismSectionAssemblyResult actual)
         {
             ProbabilityAssert.AreEqual(expected.ProfileProbability, actual.ProbabilityProfile);
             ProbabilityAssert.AreEqual(expected.SectionProbability, actual.ProbabilitySection);

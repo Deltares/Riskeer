@@ -234,9 +234,9 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 // Assert
                 var testFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                Assert.AreEqual(1.2345, calculator.FailurePathN);
+                Assert.AreEqual(1.2345, calculator.FailureMechanismN);
             }
         }
 
@@ -267,9 +267,9 @@ namespace Riskeer.Common.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = testFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(1, 1, 1, FailureMechanismSectionAssemblyGroup.III);
 
-                FailurePathAssemblyCalculatorStub failurePathAssemblyCalculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
-                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
-                                                                                                                         .ToArray();
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                              .ToArray();
 
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
@@ -284,8 +284,8 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Then
                 Assert.IsTrue(rowsChanged);
 
-                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
-                                                                                                                         .ToArray();
+                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                              .ToArray();
                 CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
             }
         }
@@ -317,9 +317,9 @@ namespace Riskeer.Common.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = testFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(1, 1, 1, FailureMechanismSectionAssemblyGroup.III);
 
-                FailurePathAssemblyCalculatorStub failurePathAssemblyCalculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
-                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
-                                                                                                                         .ToArray();
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                              .ToArray();
 
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
@@ -334,8 +334,8 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Then
                 Assert.IsTrue(rowsChanged);
 
-                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
-                                                                                                                         .ToArray();
+                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                              .ToArray();
                 CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
             }
         }
@@ -369,9 +369,9 @@ namespace Riskeer.Common.Forms.Test.Views
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = testFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(1, 1, 1, FailureMechanismSectionAssemblyGroup.III);
 
-                FailurePathAssemblyCalculatorStub failurePathAssemblyCalculator = testFactory.LastCreatedFailurePathAssemblyCalculator;
-                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
-                                                                                                                         .ToArray();
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = testFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                IEnumerable<FailureMechanismSectionAssemblyResult> initialCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                              .ToArray();
 
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
@@ -386,8 +386,8 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Then
                 Assert.IsTrue(rowsChanged);
 
-                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failurePathAssemblyCalculator.SectionAssemblyResultsInput
-                                                                                                                         .ToArray();
+                IEnumerable<FailureMechanismSectionAssemblyResult> updatedCalculatorInput = failureMechanismAssemblyCalculator.SectionAssemblyResultsInput
+                                                                                                                              .ToArray();
                 CollectionAssert.AreNotEqual(initialCalculatorInput, updatedCalculatorInput);
             }
         }

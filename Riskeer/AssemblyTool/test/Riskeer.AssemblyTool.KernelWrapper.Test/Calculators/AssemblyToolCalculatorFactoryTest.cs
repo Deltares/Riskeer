@@ -109,7 +109,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateFailurePathAssemblyCalculator_WithKernelFactory_ReturnsFailureMechanismAssemblyCalculator()
+        public void CreateFailureMechanismAssemblyCalculator_WithKernelFactory_ReturnsFailureMechanismAssemblyCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
@@ -117,7 +117,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             using (new AssemblyToolKernelFactoryConfig())
             {
                 // Call
-                IFailurePathAssemblyCalculator calculator =
+                IFailureMechanismAssemblyCalculator calculator =
                     factory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
                 // Assert

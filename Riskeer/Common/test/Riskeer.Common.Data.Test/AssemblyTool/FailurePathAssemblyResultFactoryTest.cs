@@ -62,9 +62,9 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                Assert.AreEqual(n, calculator.FailurePathN);
+                Assert.AreEqual(n, calculator.FailureMechanismN);
                 Assert.AreSame(sectionResults, calculator.SectionAssemblyResultsInput);
             }
         }
@@ -81,7 +81,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 Assert.AreEqual(calculator.AssemblyResult, assemblyResult);
             }
@@ -94,7 +94,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailurePathAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailurePathAssemblyCalculator;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
