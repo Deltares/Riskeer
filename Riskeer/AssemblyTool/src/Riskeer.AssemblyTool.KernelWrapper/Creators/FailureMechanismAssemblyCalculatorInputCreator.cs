@@ -30,9 +30,9 @@ using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.F
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates input instances that can be used in the failure path assembly calculator.
+    /// Creates input instances that can be used in the failure mechanism assembly calculator.
     /// </summary>
-    internal static class FailurePathAssemblyCalculatorInputCreator
+    internal static class FailureMechanismAssemblyCalculatorInputCreator
     {
         /// <summary>
         /// Creates an <see cref="AssemblyFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.
@@ -45,7 +45,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public static AssemblyFailureMechanismSectionAssemblyResult CreateFailurePathSectionAssemblyResult(RiskeerFailureMechanismSectionAssemblyResult result)
+        public static AssemblyFailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(RiskeerFailureMechanismSectionAssemblyResult result)
         {
             if (result == null)
             {

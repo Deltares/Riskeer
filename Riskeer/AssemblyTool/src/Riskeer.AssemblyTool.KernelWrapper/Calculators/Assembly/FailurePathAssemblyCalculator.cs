@@ -66,7 +66,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 IFailureMechanismResultAssembler kernel = factory.CreateFailurePathAssemblyKernel();
 
                 AssemblyFailureMechanismSectionAssemblyResult[] kernelInput =
-                    sectionAssemblyResults.Select(FailurePathAssemblyCalculatorInputCreator.CreateFailurePathSectionAssemblyResult)
+                    sectionAssemblyResults.Select(FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult)
                                           .ToArray();
 
                 FailureMechanismAssemblyResult result = kernel.AssembleFailureMechanismWbi1B1(failurePathN, kernelInput, false);

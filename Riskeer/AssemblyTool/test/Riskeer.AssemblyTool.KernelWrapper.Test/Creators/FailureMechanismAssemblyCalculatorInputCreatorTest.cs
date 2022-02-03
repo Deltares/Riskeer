@@ -33,13 +33,13 @@ using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.F
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class FailurePathAssemblyCalculatorInputCreatorTest
+    public class FailureMechanismAssemblyCalculatorInputCreatorTest
     {
         [Test]
-        public void CreateFailurePathSectionAssemblyResult_ResultNull_ThrowsArgumentNullException()
+        public void CreateFailureMechanismSectionAssemblyResult_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailurePathAssemblyCalculatorInputCreator.CreateFailurePathSectionAssemblyResult(null);
+            void Call() => FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(null);
 
             // Assert
             Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
@@ -58,7 +58,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyGroup.IIIMin, EInterpretationCategory.IIIMin)]
         [TestCase(FailureMechanismSectionAssemblyGroup.Dominant, EInterpretationCategory.Dominant)]
         [TestCase(FailureMechanismSectionAssemblyGroup.Gr, EInterpretationCategory.Gr)]
-        public void CreateFailurePathSectionAssemblyResult_WithValidResult_ReturnsExpectedFailurePathSectionAssemblyResult(
+        public void CreateFailureMechanismSectionAssemblyResult_WithValidResult_ReturnsExpectedFailureMechanismSectionAssemblyResult(
             FailureMechanismSectionAssemblyGroup assemblyGroup, EInterpretationCategory expectedCategory)
         {
             // Setup
@@ -70,7 +70,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                                                                           random.NextDouble(),
                                                                           assemblyGroup);
             // Call
-            AssemblyFailureMechanismSectionAssemblyResult createdResult = FailurePathAssemblyCalculatorInputCreator.CreateFailurePathSectionAssemblyResult(result);
+            AssemblyFailureMechanismSectionAssemblyResult createdResult = FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(result);
 
             // Assert
             ProbabilityAssert.AreEqual(profileProbability, createdResult.ProbabilityProfile);
@@ -79,7 +79,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateFailurePathSectionAssemblyResult_InvalidAssemblyGroup_ThrowsInvalidEnumArgumentException()
+        public void CreateFailureMechanismSectionAssemblyResult_InvalidAssemblyGroup_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             var random = new Random(21);
@@ -89,7 +89,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                                                                           (FailureMechanismSectionAssemblyGroup) 99);
 
             // Call
-            void Call() => FailurePathAssemblyCalculatorInputCreator.CreateFailurePathSectionAssemblyResult(result);
+            void Call() => FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(result);
 
             // Assert
             var expectedMessage = $"The value of argument 'assemblyGroup' (99) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyGroup)}'.";
