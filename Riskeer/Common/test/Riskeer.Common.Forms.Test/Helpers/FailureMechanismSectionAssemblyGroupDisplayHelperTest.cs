@@ -42,16 +42,15 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [TestCase(FailureMechanismSectionAssemblyGroup.ND, "ND")]
+        [TestCase(FailureMechanismSectionAssemblyGroup.NotDominant, "ND")]
         [TestCase(FailureMechanismSectionAssemblyGroup.III, "+III")]
         [TestCase(FailureMechanismSectionAssemblyGroup.II, "+II")]
         [TestCase(FailureMechanismSectionAssemblyGroup.I, "+I")]
-        [TestCase(FailureMechanismSectionAssemblyGroup.ZeroPlus, "+0")]
         [TestCase(FailureMechanismSectionAssemblyGroup.Zero, "0")]
         [TestCase(FailureMechanismSectionAssemblyGroup.IMin, "-I")]
         [TestCase(FailureMechanismSectionAssemblyGroup.IIMin, "-II")]
         [TestCase(FailureMechanismSectionAssemblyGroup.IIIMin, "-III")]
-        [TestCase(FailureMechanismSectionAssemblyGroup.D, "D")]
+        [TestCase(FailureMechanismSectionAssemblyGroup.Dominant, "D")]
         [TestCase(FailureMechanismSectionAssemblyGroup.Gr, "")]
         public void GetAssemblyGroupDisplayName_ValidValue_ReturnsDisplayName(FailureMechanismSectionAssemblyGroup categoryGroup,
                                                                               string expectedDisplayName)

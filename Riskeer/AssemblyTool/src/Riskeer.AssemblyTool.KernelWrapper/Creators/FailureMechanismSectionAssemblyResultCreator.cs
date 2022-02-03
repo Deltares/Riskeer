@@ -78,7 +78,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             switch (category)
             {
                 case EInterpretationCategory.NotDominant:
-                    return FailureMechanismSectionAssemblyGroup.ND;
+                    return FailureMechanismSectionAssemblyGroup.NotDominant;
                 case EInterpretationCategory.III:
                     return FailureMechanismSectionAssemblyGroup.III;
                 case EInterpretationCategory.II:
@@ -94,7 +94,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 case EInterpretationCategory.IIIMin:
                     return FailureMechanismSectionAssemblyGroup.IIIMin;
                 case EInterpretationCategory.Dominant:
-                    return FailureMechanismSectionAssemblyGroup.D;
+                    return FailureMechanismSectionAssemblyGroup.Dominant;
                 case EInterpretationCategory.Gr:
                     return FailureMechanismSectionAssemblyGroup.Gr;
                 default:

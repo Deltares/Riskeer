@@ -27,9 +27,9 @@ namespace Riskeer.AssemblyTool.Data
     public enum FailureMechanismSectionAssemblyGroup
     {
         /// <summary>
-        /// Represents the interpretation category ND (Not Dominant) for a failure mechanism section.
+        /// Represents the interpretation category Not Dominant for a failure mechanism section.
         /// </summary>
-        ND = 1,
+        NotDominant = 1,
 
         /// <summary>
         /// Represents the interpretation category III for a failure mechanism section.
@@ -47,38 +47,33 @@ namespace Riskeer.AssemblyTool.Data
         I = 4,
 
         /// <summary>
-        /// Represents the interpretation category 0+ for a failure mechanism section.
-        /// </summary>
-        ZeroPlus = 5,
-
-        /// <summary>
         /// Represents the interpretation category 0 for a failure mechanism section.
         /// </summary>
-        Zero = 6,
+        Zero = 5,
 
         /// <summary>
         /// Represents the interpretation category I- for a failure mechanism section.
         /// </summary>
-        IMin = 7,
+        IMin = 6,
 
         /// <summary>
         /// Represents the interpretation category II- for a failure mechanism section.
         /// </summary>
-        IIMin = 8,
+        IIMin = 7,
 
         /// <summary>
         /// Represents the interpretation category III- for a failure mechanism section.
         /// </summary>
-        IIIMin = 9,
+        IIIMin = 8,
 
         /// <summary>
-        /// Represents the interpretation category D (Dominant) for a failure mechanism section.
+        /// Represents the interpretation category Dominant for a failure mechanism section.
         /// </summary>
-        D = 10,
+        Dominant = 9,
 
         /// <summary>
         /// Represents the interpretation category GR for a failure mechanism section.
         /// </summary>
-        Gr = 11
+        Gr = 10
     }
 }

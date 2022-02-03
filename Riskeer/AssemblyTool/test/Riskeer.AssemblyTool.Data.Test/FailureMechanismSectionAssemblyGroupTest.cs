@@ -32,7 +32,7 @@ namespace Riskeer.AssemblyTool.Data.Test
             new Dictionary<FailureMechanismSectionAssemblyGroup, int>
             {
                 {
-                    FailureMechanismSectionAssemblyGroup.ND, 1
+                    FailureMechanismSectionAssemblyGroup.NotDominant, 1
                 },
                 {
                     FailureMechanismSectionAssemblyGroup.III, 2
@@ -44,25 +44,22 @@ namespace Riskeer.AssemblyTool.Data.Test
                     FailureMechanismSectionAssemblyGroup.I, 4
                 },
                 {
-                    FailureMechanismSectionAssemblyGroup.ZeroPlus, 5
+                    FailureMechanismSectionAssemblyGroup.Zero, 5
                 },
                 {
-                    FailureMechanismSectionAssemblyGroup.Zero, 6
+                    FailureMechanismSectionAssemblyGroup.IMin, 6
                 },
                 {
-                    FailureMechanismSectionAssemblyGroup.IMin, 7
+                    FailureMechanismSectionAssemblyGroup.IIMin, 7
                 },
                 {
-                    FailureMechanismSectionAssemblyGroup.IIMin, 8
+                    FailureMechanismSectionAssemblyGroup.IIIMin, 8
                 },
                 {
-                    FailureMechanismSectionAssemblyGroup.IIIMin, 9
+                    FailureMechanismSectionAssemblyGroup.Dominant, 9
                 },
                 {
-                    FailureMechanismSectionAssemblyGroup.D, 10
-                },
-                {
-                    FailureMechanismSectionAssemblyGroup.Gr, 11
+                    FailureMechanismSectionAssemblyGroup.Gr, 10
                 }
             };
     }

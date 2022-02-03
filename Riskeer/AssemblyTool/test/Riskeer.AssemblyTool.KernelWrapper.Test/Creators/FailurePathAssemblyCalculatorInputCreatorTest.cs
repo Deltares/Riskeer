@@ -48,7 +48,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(FailureMechanismSectionAssemblyGroup.ND, EInterpretationCategory.NotDominant)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.NotDominant, EInterpretationCategory.NotDominant)]
         [TestCase(FailureMechanismSectionAssemblyGroup.III, EInterpretationCategory.III)]
         [TestCase(FailureMechanismSectionAssemblyGroup.II, EInterpretationCategory.II)]
         [TestCase(FailureMechanismSectionAssemblyGroup.I, EInterpretationCategory.I)]
@@ -56,7 +56,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyGroup.IMin, EInterpretationCategory.IMin)]
         [TestCase(FailureMechanismSectionAssemblyGroup.IIMin, EInterpretationCategory.IIMin)]
         [TestCase(FailureMechanismSectionAssemblyGroup.IIIMin, EInterpretationCategory.IIIMin)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.D, EInterpretationCategory.Dominant)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.Dominant, EInterpretationCategory.Dominant)]
         [TestCase(FailureMechanismSectionAssemblyGroup.Gr, EInterpretationCategory.Gr)]
         public void CreateFailurePathSectionAssemblyResult_WithValidResult_ReturnsExpectedFailurePathSectionAssemblyResult(
             FailureMechanismSectionAssemblyGroup assemblyGroup, EInterpretationCategory expectedCategory)

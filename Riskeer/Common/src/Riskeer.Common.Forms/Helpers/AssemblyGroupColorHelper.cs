@@ -51,7 +51,7 @@ namespace Riskeer.Common.Forms.Helpers
 
             switch (assemblyGroup)
             {
-                case FailureMechanismSectionAssemblyGroup.ND:
+                case FailureMechanismSectionAssemblyGroup.NotDominant:
                     return Color.FromArgb(192, 192, 192);
                 case FailureMechanismSectionAssemblyGroup.III:
                     return Color.FromArgb(34, 139, 34);
@@ -59,8 +59,6 @@ namespace Riskeer.Common.Forms.Helpers
                     return Color.FromArgb(146, 208, 80);
                 case FailureMechanismSectionAssemblyGroup.I:
                     return Color.FromArgb(198, 224, 180);
-                case FailureMechanismSectionAssemblyGroup.ZeroPlus:
-                    return Color.FromArgb(255, 255, 0);
                 case FailureMechanismSectionAssemblyGroup.Zero:
                     return Color.FromArgb(255, 165, 0);
                 case FailureMechanismSectionAssemblyGroup.IMin:
@@ -69,7 +67,7 @@ namespace Riskeer.Common.Forms.Helpers
                     return Color.FromArgb(178, 34, 34);
                 case FailureMechanismSectionAssemblyGroup.IIIMin:
                     return Color.FromArgb(128, 0, 0);
-                case FailureMechanismSectionAssemblyGroup.D:
+                case FailureMechanismSectionAssemblyGroup.Dominant:
                     return Color.FromArgb(255, 90, 172);
                 case FailureMechanismSectionAssemblyGroup.Gr:
                     return Color.FromArgb(255, 255, 255);

@@ -119,7 +119,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 
         private static IEnumerable<TestCaseData> GetValidCategoryConversions()
         {
-            yield return new TestCaseData(EInterpretationCategory.NotDominant, FailureMechanismSectionAssemblyGroup.ND);
+            yield return new TestCaseData(EInterpretationCategory.NotDominant, FailureMechanismSectionAssemblyGroup.NotDominant);
             yield return new TestCaseData(EInterpretationCategory.III, FailureMechanismSectionAssemblyGroup.III);
             yield return new TestCaseData(EInterpretationCategory.II, FailureMechanismSectionAssemblyGroup.II);
             yield return new TestCaseData(EInterpretationCategory.I, FailureMechanismSectionAssemblyGroup.I);
@@ -127,7 +127,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             yield return new TestCaseData(EInterpretationCategory.IMin, FailureMechanismSectionAssemblyGroup.IMin);
             yield return new TestCaseData(EInterpretationCategory.IIMin, FailureMechanismSectionAssemblyGroup.IIMin);
             yield return new TestCaseData(EInterpretationCategory.IIIMin, FailureMechanismSectionAssemblyGroup.IIIMin);
-            yield return new TestCaseData(EInterpretationCategory.Dominant, FailureMechanismSectionAssemblyGroup.D);
+            yield return new TestCaseData(EInterpretationCategory.Dominant, FailureMechanismSectionAssemblyGroup.Dominant);
             yield return new TestCaseData(EInterpretationCategory.Gr, FailureMechanismSectionAssemblyGroup.Gr);
         }
     }
