@@ -54,7 +54,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             try
             {
                 IFailurePathAssemblyCalculator calculator =
-                    AssemblyToolCalculatorFactory.Instance.CreateFailurePathAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+                    AssemblyToolCalculatorFactory.Instance.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
                 return calculator.Assemble(failurePathN, failureMechanismSectionAssemblyResults);
             }

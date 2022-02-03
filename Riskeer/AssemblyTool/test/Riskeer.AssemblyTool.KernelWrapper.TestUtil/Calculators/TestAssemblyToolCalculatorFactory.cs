@@ -68,7 +68,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
             return LastCreatedFailureMechanismSectionAssemblyCalculator;
         }
 
-        public IFailurePathAssemblyCalculator CreateFailurePathAssemblyCalculator(IAssemblyToolKernelFactory factory)
+        public IFailurePathAssemblyCalculator CreateFailureMechanismAssemblyCalculator(IAssemblyToolKernelFactory factory)
         {
             return LastCreatedFailurePathAssemblyCalculator;
         }

@@ -48,11 +48,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
         IFailureMechanismSectionAssemblyCalculator CreateFailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactory factory);
 
         /// <summary>
-        /// Creates a failure path assembly calculator.
+        /// Creates a failure mechanism assembly calculator.
         /// </summary>
         /// <param name="factory">The factory responsible for creating the assembly kernel.</param>
-        /// <returns>The failure path assembly calculator.</returns>
+        /// <returns>The failure mechanism assembly calculator.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
-        IFailurePathAssemblyCalculator CreateFailurePathAssemblyCalculator(IAssemblyToolKernelFactory factory);
+        IFailurePathAssemblyCalculator CreateFailureMechanismAssemblyCalculator(IAssemblyToolKernelFactory factory);
     }
 }
