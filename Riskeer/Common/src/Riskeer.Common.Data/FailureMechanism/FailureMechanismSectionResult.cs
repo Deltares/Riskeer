@@ -49,6 +49,7 @@ namespace Riskeer.Common.Data.FailureMechanism
             Section = section;
             IsRelevant = true;
             ManualInitialFailureMechanismResultSectionProbability = double.NaN;
+            FurtherAnalysisType = FailureMechanismSectionResultFurtherAnalysisType.NotNecessary;
             RefinedSectionProbability = double.NaN;
         }
 
@@ -77,6 +78,11 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// Gets or sets whether further analysis is needed.
         /// </summary>
         public bool FurtherAnalysisNeeded { get; set; }
+
+        /// <summary>
+        /// Gets or sets the further analysis type.
+        /// </summary>
+        public FailureMechanismSectionResultFurtherAnalysisType FurtherAnalysisType { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the refined probability per failure mechanism section.
