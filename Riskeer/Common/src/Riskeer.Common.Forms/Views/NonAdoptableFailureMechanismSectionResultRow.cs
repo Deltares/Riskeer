@@ -27,6 +27,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Providers;
 using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Common.Forms.Views
@@ -43,6 +44,7 @@ namespace Riskeer.Common.Forms.Views
         private readonly int sectionProbabilityIndex;
         private readonly int assemblyGroupIndex;
 
+        private readonly IFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -50,15 +52,23 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         /// <param name="sectionResult">The <see cref="NonAdoptableFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
+        /// <param name="failureMechanismSectionResultRowErrorProvider">The error provider to use for
+        /// the failure mechanism section result.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="NonAdoptableFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public NonAdoptableFailureMechanismSectionResultRow(NonAdoptableFailureMechanismSectionResult sectionResult,
+                                                            IFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider,
                                                             IAssessmentSection assessmentSection,
                                                             ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
+            if (failureMechanismSectionResultRowErrorProvider == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResultRowErrorProvider));
+            }
+
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
@@ -69,6 +79,7 @@ namespace Riskeer.Common.Forms.Views
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
 
+            this.failureMechanismSectionResultRowErrorProvider = failureMechanismSectionResultRowErrorProvider;
             this.assessmentSection = assessmentSection;
 
             initialFailureMechanismResultTypeIndex = constructionProperties.InitialFailureMechanismResultTypeIndex;
@@ -167,12 +178,35 @@ namespace Riskeer.Common.Forms.Views
         {
             UpdateAssemblyData();
             UpdateColumnStateDefinitions();
+            UpdateInitialFailureMechanismResultErrors();
+            UpdateRefinedFailureMechanismResultErrors();
         }
 
         private void UpdateAssemblyData()
         {
             ResetAssemblyResultErrorTexts();
             TryGetAssemblyResult();
+        }
+
+        private void UpdateInitialFailureMechanismResultErrors()
+        {
+            ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = string.Empty;
+
+            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResultType == NonAdoptableInitialFailureMechanismResultType.Manual)
+            {
+                ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
+                    InitialFailureMechanismResultSectionProbability);
+            }
+        }
+
+        private void UpdateRefinedFailureMechanismResultErrors()
+        {
+            ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = string.Empty;
+
+            if (SectionResult.IsRelevant && SectionResult.FurtherAnalysisNeeded)
+            {
+                ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(RefinedSectionProbability);
+            }
         }
 
         private void ResetAssemblyResultErrorTexts()

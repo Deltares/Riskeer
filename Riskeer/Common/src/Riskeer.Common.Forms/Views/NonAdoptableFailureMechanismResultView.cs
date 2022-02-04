@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Builders;
+using Riskeer.Common.Forms.Providers;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -76,9 +77,8 @@ namespace Riskeer.Common.Forms.Views
         protected override NonAdoptableFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(NonAdoptableFailureMechanismSectionResult sectionResult)
         {
             return new NonAdoptableFailureMechanismSectionResultRow(
-                sectionResult,
-                assessmentSection,
-                new NonAdoptableFailureMechanismSectionResultRow.ConstructionProperties
+                sectionResult, new FailureMechanismSectionResultRowErrorProvider(),
+                assessmentSection, new NonAdoptableFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
