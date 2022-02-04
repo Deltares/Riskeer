@@ -1621,9 +1621,8 @@ faalkans per doorsnede
 faalkans per vak
 [1/jaar]</value>
   </data>
-    <data name="FailureMechanismResultView_AssemblySectionN_DisplayName" xml:space="preserve">
-    <value>Rekenwaarde Nvak
-[-]</value>
+    <data name="FailureMechanismResultView_AssemblySectionN_Rounded_DisplayName" xml:space="preserve">
+    <value>Nvak* [-]</value>
   </data>
     <data name="FailureMechanismResultView_AssemblyGroup_DisplayName" xml:space="preserve">
     <value>Duidingsklasse</value>

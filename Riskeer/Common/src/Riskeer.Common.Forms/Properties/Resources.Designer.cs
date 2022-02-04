@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -1620,12 +1620,11 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rekenwaarde Nvak
-        ///[-].
+        ///   Looks up a localized string similar to Nvak* [-].
         /// </summary>
-        public static string FailureMechanismResultView_AssemblySectionN_DisplayName {
+        public static string FailureMechanismResultView_AssemblySectionN_Rounded_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_AssemblySectionN_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_AssemblySectionN_Rounded_DisplayName", resourceCulture);
             }
         }
         
