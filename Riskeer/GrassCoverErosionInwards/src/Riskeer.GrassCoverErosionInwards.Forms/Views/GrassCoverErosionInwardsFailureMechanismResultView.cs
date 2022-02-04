@@ -117,7 +117,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultProfileProbabilityIndex = initialFailureMechanismResultProfileProbabilityIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
-                    FurtherAnalysisNeededIndex = furtherAnalysisTypeIndex,
+                    FurtherAnalysisTypeIndex = furtherAnalysisTypeIndex,
                     ProbabilityRefinementTypeIndex = probabilityRefinementTypeIndex,
                     RefinedProfileProbabilityIndex = refinedProfileProbabilityIndex,
                     RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex,

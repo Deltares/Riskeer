@@ -42,7 +42,7 @@ namespace Riskeer.Common.Forms.Views
         private readonly int initialFailureMechanismResultTypeIndex;
         private readonly int initialFailureMechanismResultProfileProbabilityIndex;
         private readonly int initialFailureMechanismResultSectionProbabilityIndex;
-        private readonly int furtherAnalysisNeededIndex;
+        private readonly int furtherAnalysisTypeIndex;
         private readonly int probabilityRefinementTypeIndex;
         private readonly int refinedProfileProbabilityIndex;
         private readonly int refinedSectionProbabilityIndex;
@@ -110,7 +110,7 @@ namespace Riskeer.Common.Forms.Views
             initialFailureMechanismResultTypeIndex = constructionProperties.InitialFailureMechanismResultTypeIndex;
             initialFailureMechanismResultProfileProbabilityIndex = constructionProperties.InitialFailureMechanismResultProfileProbabilityIndex;
             initialFailureMechanismResultSectionProbabilityIndex = constructionProperties.InitialFailureMechanismResultSectionProbabilityIndex;
-            furtherAnalysisNeededIndex = constructionProperties.FurtherAnalysisNeededIndex;
+            furtherAnalysisTypeIndex = constructionProperties.FurtherAnalysisTypeIndex;
             probabilityRefinementTypeIndex = constructionProperties.ProbabilityRefinementTypeIndex;
             refinedProfileProbabilityIndex = constructionProperties.RefinedProfileProbabilityIndex;
             refinedSectionProbabilityIndex = constructionProperties.RefinedSectionProbabilityIndex;
@@ -180,19 +180,6 @@ namespace Riskeer.Common.Forms.Views
             set
             {
                 SectionResult.ManualInitialFailureMechanismResultSectionProbability = value;
-                UpdateInternalData();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets whether further analysis is needed.
-        /// </summary>
-        public bool FurtherAnalysisNeeded
-        {
-            get => SectionResult.FurtherAnalysisNeeded;
-            set
-            {
-                SectionResult.FurtherAnalysisNeeded = value;
                 UpdateInternalData();
             }
         }
@@ -318,7 +305,7 @@ namespace Riskeer.Common.Forms.Views
             ColumnStateDefinitions[refinedProfileProbabilityIndex].ErrorText = string.Empty;
             ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = string.Empty;
 
-            if (SectionResult.IsRelevant && SectionResult.FurtherAnalysisNeeded)
+            if (SectionResult.IsRelevant && SectionResult.FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.Executed)
             {
                 switch (SectionResult.ProbabilityRefinementType)
                 {
@@ -362,7 +349,7 @@ namespace Riskeer.Common.Forms.Views
                 {
                     AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
                         assessmentSection, IsRelevant, InitialFailureMechanismResultType, InitialFailureMechanismResultProfileProbability,
-                        InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded,
+                        InitialFailureMechanismResultSectionProbability, FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.Executed,
                         SectionResult.RefinedProfileProbability, SectionResult.RefinedSectionProbability,
                         ProbabilityRefinementType, lengthEffectProvider.SectionN);
                 }
@@ -370,7 +357,7 @@ namespace Riskeer.Common.Forms.Views
                 {
                     AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
                         assessmentSection, IsRelevant, InitialFailureMechanismResultType,
-                        InitialFailureMechanismResultSectionProbability, FurtherAnalysisNeeded,
+                        InitialFailureMechanismResultSectionProbability, FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.Executed,
                         SectionResult.RefinedSectionProbability);
                 }
             }
@@ -389,7 +376,7 @@ namespace Riskeer.Common.Forms.Views
             ColumnStateDefinitions.Add(initialFailureMechanismResultTypeIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(initialFailureMechanismResultProfileProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(initialFailureMechanismResultSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
-            ColumnStateDefinitions.Add(furtherAnalysisNeededIndex, new DataGridViewColumnStateDefinition());
+            ColumnStateDefinitions.Add(furtherAnalysisTypeIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(probabilityRefinementTypeIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(refinedProfileProbabilityIndex, new DataGridViewColumnStateDefinition());
             ColumnStateDefinitions.Add(refinedSectionProbabilityIndex, new DataGridViewColumnStateDefinition());
@@ -415,10 +402,10 @@ namespace Riskeer.Common.Forms.Views
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex], initialFailureMechanismResultAdopt);
             }
 
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[furtherAnalysisNeededIndex], !IsRelevant);
-            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[probabilityRefinementTypeIndex], !IsRelevant || !FurtherAnalysisNeeded);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[furtherAnalysisTypeIndex], !IsRelevant);
+            ColumnStateHelper.SetColumnState(ColumnStateDefinitions[probabilityRefinementTypeIndex], !IsRelevant || FurtherAnalysisType != FailureMechanismSectionResultFurtherAnalysisType.Executed);
 
-            if (!IsRelevant || !FurtherAnalysisNeeded)
+            if (!IsRelevant || FurtherAnalysisType != FailureMechanismSectionResultFurtherAnalysisType.Executed)
             {
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[refinedProfileProbabilityIndex]);
                 ColumnStateHelper.DisableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex]);
@@ -453,9 +440,9 @@ namespace Riskeer.Common.Forms.Views
             public int InitialFailureMechanismResultSectionProbabilityIndex { internal get; set; }
 
             /// <summary>
-            /// Sets the further analysis needed index.
+            /// Sets the further analysis type index.
             /// </summary>
-            public int FurtherAnalysisNeededIndex { internal get; set; }
+            public int FurtherAnalysisTypeIndex { internal get; set; }
 
             /// <summary>
             /// Sets the probability refinement type index.
