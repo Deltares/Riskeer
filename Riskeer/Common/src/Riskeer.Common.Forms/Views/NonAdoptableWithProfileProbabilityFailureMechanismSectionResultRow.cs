@@ -50,6 +50,7 @@ namespace Riskeer.Common.Forms.Views
         private readonly int assemblyGroupIndex;
 
         private readonly ILengthEffectProvider lengthEffectProvider;
+        private readonly IFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -57,12 +58,15 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         /// <param name="sectionResult">The <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
+        /// <param name="failureMechanismSectionResultRowErrorProvider">The error provider to use for
+        /// the failure mechanism section result row.</param>
         /// <param name="lengthEffectProvider">The provider to get the length effect properties.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+                                                                                  IFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider,
                                                                                   ILengthEffectProvider lengthEffectProvider,
                                                                                   IAssessmentSection assessmentSection,
                                                                                   ConstructionProperties constructionProperties)
@@ -71,6 +75,11 @@ namespace Riskeer.Common.Forms.Views
             if (lengthEffectProvider == null)
             {
                 throw new ArgumentNullException(nameof(lengthEffectProvider));
+            }
+
+            if (failureMechanismSectionResultRowErrorProvider == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResultRowErrorProvider));
             }
 
             if (assessmentSection == null)
@@ -84,6 +93,7 @@ namespace Riskeer.Common.Forms.Views
             }
 
             this.lengthEffectProvider = lengthEffectProvider;
+            this.failureMechanismSectionResultRowErrorProvider = failureMechanismSectionResultRowErrorProvider;
             this.assessmentSection = assessmentSection;
 
             initialFailureMechanismResultTypeIndex = constructionProperties.InitialFailureMechanismResultTypeIndex;
@@ -228,6 +238,36 @@ namespace Riskeer.Common.Forms.Views
         {
             UpdateAssemblyData();
             UpdateColumnStateDefinitions();
+            UpdateInitialFailureMechanismResultErrors();
+            UpdateRefinedFailureMechanismResultErrors();
+        }
+
+        private void UpdateInitialFailureMechanismResultErrors()
+        {
+            ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = string.Empty;
+
+            if (SectionResult.IsRelevant && SectionResult.InitialFailureMechanismResultType == NonAdoptableInitialFailureMechanismResultType.Manual)
+            {
+                ColumnStateDefinitions[initialFailureMechanismResultProfileProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
+                    InitialFailureMechanismResultProfileProbability);
+                ColumnStateDefinitions[initialFailureMechanismResultSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
+                    InitialFailureMechanismResultSectionProbability);
+            }
+        }
+
+        private void UpdateRefinedFailureMechanismResultErrors()
+        {
+            ColumnStateDefinitions[refinedProfileProbabilityIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = string.Empty;
+
+            if (SectionResult.IsRelevant && SectionResult.FurtherAnalysisNeeded)
+            {
+                ColumnStateDefinitions[refinedProfileProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
+                    RefinedProfileProbability);
+                ColumnStateDefinitions[refinedSectionProbabilityIndex].ErrorText = failureMechanismSectionResultRowErrorProvider.GetManualProbabilityValidationError(
+                    RefinedSectionProbability);
+            }
         }
 
         private void UpdateAssemblyData()

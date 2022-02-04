@@ -97,9 +97,9 @@ namespace Riskeer.Common.Forms.Views
         {
             return new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(
                 sectionResult,
+                CreateErrorProvider(),
                 CreateLengthEffectProvider(),
-                assessmentSection,
-                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
+                assessmentSection, new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultProfileProbabilityIndex = initialFailureMechanismResultProfileProbabilityIndex,
@@ -170,6 +170,11 @@ namespace Riskeer.Common.Forms.Views
                 nameof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.AssemblyGroup));
         }
 
+        private IFailureMechanismSectionResultRowErrorProvider CreateErrorProvider()
+        {
+            return new FailureMechanismSectionResultRowErrorProvider();
+        }
+        
         private ILengthEffectProvider CreateLengthEffectProvider()
         {
             return new LengthEffectProvider(() => getUseLengthEffectFunc(FailureMechanism), () => 1.0);
