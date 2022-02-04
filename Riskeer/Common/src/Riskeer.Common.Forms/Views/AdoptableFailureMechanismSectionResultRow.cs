@@ -161,6 +161,19 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
+        /// Gets or sets the further analysis type.
+        /// </summary>
+        public FailureMechanismSectionResultFurtherAnalysisType FurtherAnalysisType
+        {
+            get => SectionResult.FurtherAnalysisType;
+            set
+            {
+                SectionResult.FurtherAnalysisType = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the value of the refined probability per failure mechanism section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>\

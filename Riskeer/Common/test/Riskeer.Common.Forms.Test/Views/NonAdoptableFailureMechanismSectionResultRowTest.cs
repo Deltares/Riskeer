@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -105,7 +105,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -125,7 +125,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -140,6 +140,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(result.InitialFailureMechanismResultType, row.InitialFailureMechanismResultType);
                 Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
                 Assert.AreEqual(result.FurtherAnalysisNeeded, row.FurtherAnalysisNeeded);
+                Assert.AreEqual(result.FurtherAnalysisType, row.FurtherAnalysisType);
                 Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
 
                 TestHelper.AssertTypeConverter<NonAdoptableFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
@@ -301,7 +302,6 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-
         #region Registration
 
         [Test]
@@ -349,6 +349,16 @@ namespace Riskeer.Common.Forms.Test.Views
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
                 row => row.FurtherAnalysisNeeded = newValue,
                 result => result.FurtherAnalysisNeeded,
+                newValue);
+        }
+
+        [Test]
+        public void FurtherAnalysisType_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            const FailureMechanismSectionResultFurtherAnalysisType newValue = FailureMechanismSectionResultFurtherAnalysisType.Necessary;
+            Property_SetNewValue_NotifyObserversAndPropertyChanged(
+                row => row.FurtherAnalysisType = newValue,
+                result => result.FurtherAnalysisType,
                 newValue);
         }
 
@@ -407,7 +417,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -437,7 +447,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
-            
+
             var assessmentSection = new AssessmentSectionStub();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -472,7 +482,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
-            
+
             var random = new Random(39);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -508,7 +518,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
-            
+
             var random = new Random(39);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
@@ -550,7 +560,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -587,7 +597,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -627,7 +637,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -658,7 +668,7 @@ namespace Riskeer.Common.Forms.Test.Views
                          .IgnoreArguments()
                          .Return(string.Empty);
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
@@ -701,7 +711,7 @@ namespace Riskeer.Common.Forms.Test.Views
                          .IgnoreArguments()
                          .Return(string.Empty);
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
@@ -735,7 +745,7 @@ namespace Riskeer.Common.Forms.Test.Views
                          .IgnoreArguments()
                          .Return(string.Empty);
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section)
             {
@@ -766,7 +776,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
-            
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 

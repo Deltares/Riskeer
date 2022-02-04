@@ -198,6 +198,19 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
+        /// Gets or sets the further analysis type.
+        /// </summary>
+        public FailureMechanismSectionResultFurtherAnalysisType FurtherAnalysisType
+        {
+            get => SectionResult.FurtherAnalysisType;
+            set
+            {
+                SectionResult.FurtherAnalysisType = value;
+                UpdateInternalData();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the probability refinement type.
         /// </summary>
         public ProbabilityRefinementType ProbabilityRefinementType

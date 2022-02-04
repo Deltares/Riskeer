@@ -161,6 +161,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(result.InitialFailureMechanismResultType, row.InitialFailureMechanismResultType);
                 Assert.AreEqual(initialFailureMechanismResultProbability, row.InitialFailureMechanismResultSectionProbability);
                 Assert.AreEqual(result.FurtherAnalysisNeeded, row.FurtherAnalysisNeeded);
+                Assert.AreEqual(result.FurtherAnalysisType, row.FurtherAnalysisType);
                 Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
 
                 TestHelper.AssertTypeConverter<AdoptableFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
@@ -433,6 +434,16 @@ namespace Riskeer.Common.Forms.Test.Views
             Property_SetNewValue_NotifyObserversAndPropertyChanged(
                 row => row.FurtherAnalysisNeeded = newValue,
                 result => result.FurtherAnalysisNeeded,
+                newValue);
+        }
+        
+        [Test]
+        public void FurtherAnalysisType_SetNewValue_NotifyObserversAndPropertyChanged()
+        {
+            const FailureMechanismSectionResultFurtherAnalysisType newValue = FailureMechanismSectionResultFurtherAnalysisType.Necessary;
+            Property_SetNewValue_NotifyObserversAndPropertyChanged(
+                row => row.FurtherAnalysisType = newValue,
+                result => result.FurtherAnalysisType,
                 newValue);
         }
 
