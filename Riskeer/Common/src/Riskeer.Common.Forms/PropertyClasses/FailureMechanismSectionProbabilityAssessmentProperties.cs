@@ -63,7 +63,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [PropertyOrder(7)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanism_AssemblySectionN_Rounded_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSectionProbabilityAssessment_N_Rounded_Description))]
         public RoundedDouble N
         {

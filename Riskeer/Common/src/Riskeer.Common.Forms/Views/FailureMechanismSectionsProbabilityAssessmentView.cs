@@ -60,7 +60,7 @@ namespace Riskeer.Common.Forms.Views
             this.probabilityAssessmentInput = probabilityAssessmentInput;
 
             failureMechanismSectionsDataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismSectionProbabilityAssessmentRow.N),
-                                                                         Resources.FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName,
+                                                                         Resources.FailureMechanism_AssemblySectionN_Rounded_DisplayName,
                                                                          true);
 
             failureMechanismObserver = new Observer(HandleProbabilityAssessmentInputChange)

@@ -341,7 +341,7 @@ namespace Riskeer.Common.Forms.Builders
 
             dataGridViewControl.AddTextBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_AssemblySectionN_Rounded_DisplayName);
+                Resources.FailureMechanism_AssemblySectionN_Rounded_DisplayName);
         }
 
         /// <summary>

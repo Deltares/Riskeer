@@ -1301,7 +1301,7 @@ Betrouwbaarheidsindex = {1}</value>
     <data name="FailureMechanismSection_StartPoint_DisplayName" xml:space="preserve">
     <value>Beginpunt</value>
   </data>
-    <data name="FailureMechanismSectionProbabilityAssessment_N_Rounded_DisplayName" xml:space="preserve">
+    <data name="FailureMechanism_AssemblySectionN_Rounded_DisplayName" xml:space="preserve">
     <value>Nvak* [-]</value>
   </data>
     <data name="FailureMechanism_ProbabilityAssessmentInput_A_Description" xml:space="preserve">
@@ -1620,9 +1620,6 @@ faalkans per doorsnede
     <value>Rekenwaarde
 faalkans per vak
 [1/jaar]</value>
-  </data>
-    <data name="FailureMechanismResultView_AssemblySectionN_Rounded_DisplayName" xml:space="preserve">
-    <value>Nvak* [-]</value>
   </data>
     <data name="FailureMechanismResultView_AssemblyGroup_DisplayName" xml:space="preserve">
     <value>Duidingsklasse</value>
