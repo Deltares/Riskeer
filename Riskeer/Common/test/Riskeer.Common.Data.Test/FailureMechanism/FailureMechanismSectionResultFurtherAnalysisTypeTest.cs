@@ -27,7 +27,7 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
-    public class FailureMechanismSectionResultFurtherAnalysisTypeTest : EnumValuesTestFixture<FailureMechanismSectionResultFurtherAnalysisType, int>
+    public class FailureMechanismSectionResultFurtherAnalysisTypeTest : EnumWithResourcesDisplayNameTestFixture<FailureMechanismSectionResultFurtherAnalysisType>
     {
         protected override IDictionary<FailureMechanismSectionResultFurtherAnalysisType, int> ExpectedValueForEnumValues =>
             new Dictionary<FailureMechanismSectionResultFurtherAnalysisType, int>
@@ -40,6 +40,20 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                 },
                 {
                     FailureMechanismSectionResultFurtherAnalysisType.Executed, 3
+                }
+            };
+
+        protected override IDictionary<FailureMechanismSectionResultFurtherAnalysisType, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<FailureMechanismSectionResultFurtherAnalysisType, string>
+            {
+                {
+                    FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, "Niet nodig"
+                },
+                {
+                    FailureMechanismSectionResultFurtherAnalysisType.Necessary, "Nodig"
+                },
+                {
+                    FailureMechanismSectionResultFurtherAnalysisType.Executed, "Uitgevoerd"
                 }
             };
     }

@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util.Attributes;
+using Riskeer.Common.Data.Properties;
+
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
@@ -29,16 +32,19 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <summary>
         /// Further analysis is not needed.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionResultFurtherAnalysisType_NotNecessary_DisplayName))]
         NotNecessary = 1,
         
         /// <summary>
         /// Further analysis is needed.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionResultFurtherAnalysisType_Necessary_DisplayName))]
         Necessary = 2,
         
         /// <summary>
         /// Further analysis is executed.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionResultFurtherAnalysisType_Executed_DisplayName))]
         Executed = 3
     }
 }
