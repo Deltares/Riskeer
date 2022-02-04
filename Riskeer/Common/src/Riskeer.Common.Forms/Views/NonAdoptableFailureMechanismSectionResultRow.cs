@@ -53,7 +53,7 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="sectionResult">The <see cref="NonAdoptableFailureMechanismSectionResult"/> that is 
         /// the source of this row.</param>
         /// <param name="failureMechanismSectionResultRowErrorProvider">The error provider to use for
-        /// the failure mechanism section result.</param>
+        /// the failure mechanism section result row.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="NonAdoptableFailureMechanismSectionResultRow"/>.</param>

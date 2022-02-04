@@ -62,7 +62,7 @@ namespace Riskeer.Common.Forms.Views
         /// the source of this row.</param>
         /// <param name="calculateProbabilityStrategy">The strategy used to calculate probabilities.</param>
         /// <param name="failureMechanismSectionResultRowErrorProvider">The error provider to use for
-        /// the failure mechanism section result.</param>
+        /// the failure mechanism section result row.</param>
         /// <param name="lengthEffectProvider">The provider to get the length effect properties.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of

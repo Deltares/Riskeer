@@ -56,7 +56,7 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="calculateInitialFailureMechanismResultProbabilityFunc">The <see cref="Func{TResult}"/>
         /// to calculate the initial mechanism result probability.</param>
         /// <param name="failureMechanismSectionResultRowErrorProvider">The error provider to use for
-        /// the failure mechanism section result.</param>
+        /// the failure mechanism section result row.</param>
         /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="AdoptableFailureMechanismSectionResultRow"/>.</param>

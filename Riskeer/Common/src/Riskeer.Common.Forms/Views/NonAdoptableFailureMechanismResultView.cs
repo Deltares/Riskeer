@@ -77,7 +77,8 @@ namespace Riskeer.Common.Forms.Views
         protected override NonAdoptableFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(NonAdoptableFailureMechanismSectionResult sectionResult)
         {
             return new NonAdoptableFailureMechanismSectionResultRow(
-                sectionResult, new FailureMechanismSectionResultRowErrorProvider(),
+                sectionResult,
+                CreateErrorProvider(),
                 assessmentSection, new NonAdoptableFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
@@ -127,6 +128,11 @@ namespace Riskeer.Common.Forms.Views
             FailureMechanismSectionResultViewColumnBuilder.AddAssemblyGroupColumn(
                 DataGridViewControl,
                 nameof(NonAdoptableFailureMechanismSectionResultRow.AssemblyGroup));
+        }
+
+        private static IFailureMechanismSectionResultRowErrorProvider CreateErrorProvider()
+        {
+            return new FailureMechanismSectionResultRowErrorProvider();
         }
     }
 }
