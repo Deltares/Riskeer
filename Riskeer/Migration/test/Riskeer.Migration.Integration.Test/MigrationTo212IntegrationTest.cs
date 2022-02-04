@@ -309,13 +309,13 @@ namespace Riskeer.Migration.Integration.Test
                 "WHEN [FailureMechanismType] = 16 " +
                 "THEN 15 " +
                 "ELSE [FailureMechanismType] " +
-                "END AS RenumberedEnumType " +
+                "END AS RenumberedFailureMechanismType " +
                 "FROM SOURCEPROJECT.FailureMechanismEntity " +
                 "WHERE FailureMechanismType != 13 AND FailureMechanismType != 17 AND FailureMechanismType != 18" +
                 ") USING(FailureMechanismEntityId) " +
                 "WHERE NEW.[AssessmentSectionEntityId] = OLD.[AssessmentSectionEntityId] " +
                 "AND NEW.[CalculationGroupEntityId] IS OLD.[CalculationGroupEntityId] " +
-                "AND NEW.[FailureMechanismType] = RenumberedEnumType " +
+                "AND NEW.[FailureMechanismType] = RenumberedFailureMechanismType " +
                 "AND NEW.[InAssembly] = OLD.[IsRelevant] " +
                 "AND NEW.[FailureMechanismSectionCollectionSourcePath] IS OLD.[FailureMechanismSectionCollectionSourcePath] " +
                 "AND NEW.[InAssemblyInputComments] IS OLD.[InputComments] " +
@@ -603,16 +603,16 @@ namespace Riskeer.Migration.Integration.Test
                 "WHERE FailureMechanismType = {0}" +
                 ") " +
                 "FROM {1} NEW " +
-                "JOIN SOURCEPROJECT.FailureMechanismEntity OLD USING(FailureMechanismEntityId) " +
-                "WHERE OLD.[FailureMechanismType] = {2} " +
+                "JOIN FailureMechanismEntity FME USING(FailureMechanismEntityId) " +
+                "WHERE FME.[FailureMechanismType] = {2} " +
                 "AND NEW.[N] = 1 " +
                 "AND NEW.[ApplyLengthEffectInSection] = 0;" +
                 "DETACH SOURCEPROJECT;";
 
-            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "15", "GrassCoverSlipOffInwardsFailureMechanismMetaEntity", "16"));
+            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "16", "GrassCoverSlipOffInwardsFailureMechanismMetaEntity", "15"));
             reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "5", "GrassCoverSlipOffOutwardsFailureMechanismMetaEntity", "5"));
-            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "13", "MicrostabilityFailureMechanismMetaEntity", "14"));
-            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "14", "WaterPressureAsphaltCoverFailureMechanismMetaEntity", "15"));
+            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "14", "MicrostabilityFailureMechanismMetaEntity", "13"));
+            reader.AssertReturnedDataIsValid(string.Format(validateFailureMechanismMetaEntity, "15", "WaterPressureAsphaltCoverFailureMechanismMetaEntity", "14"));
         }
 
         private static void AssertPipingStructureFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
