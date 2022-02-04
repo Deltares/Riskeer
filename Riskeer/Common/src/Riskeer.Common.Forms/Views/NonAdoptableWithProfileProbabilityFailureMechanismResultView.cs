@@ -104,7 +104,7 @@ namespace Riskeer.Common.Forms.Views
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultProfileProbabilityIndex = initialFailureMechanismResultProfileProbabilityIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
-                    FurtherAnalysisNeededIndex = furtherAnalysisTypeIndex,
+                    FurtherAnalysisTypeIndex = furtherAnalysisTypeIndex,
                     RefinedProfileProbabilityIndex = refinedProfileProbabilityIndex,
                     RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex,
                     ProfileProbabilityIndex = profileProbabilityIndex,
