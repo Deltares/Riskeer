@@ -21,6 +21,7 @@
 
 using System;
 using System.ComponentModel;
+using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
@@ -226,8 +227,8 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Gets the section N.
         /// </summary>
-        [TypeConverter(typeof(NoValueDoubleConverter))]
-        public double SectionN => AssemblyResult.N;
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble SectionN => new RoundedDouble(2, AssemblyResult.N);
 
         /// <summary>
         /// Gets the assembly group.

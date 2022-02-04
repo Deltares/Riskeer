@@ -223,7 +223,7 @@ namespace Riskeer.Common.Forms.Test.Views
                     nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ProfileProbability));
                 TestHelper.AssertTypeConverter<AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
                     nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionProbability));
-                TestHelper.AssertTypeConverter<AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, NoValueDoubleConverter>(
+                TestHelper.AssertTypeConverter<AdoptableWithProfileProbabilityFailureMechanismSectionResultRow, NoValueRoundedDoubleConverter>(
                     nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.SectionN));
 
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
@@ -916,7 +916,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 Assert.AreEqual(rowAssemblyResult.ProfileProbability, row.ProfileProbability);
                 Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
-                Assert.AreEqual(rowAssemblyResult.N, row.SectionN);
+                Assert.AreEqual(rowAssemblyResult.N, row.SectionN, row.SectionN.GetAccuracy());
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.AssemblyGroup),
                                 row.AssemblyGroup);
             }
