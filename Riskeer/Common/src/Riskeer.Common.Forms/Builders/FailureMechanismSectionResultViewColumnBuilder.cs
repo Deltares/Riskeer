@@ -173,13 +173,13 @@ namespace Riskeer.Common.Forms.Builders
         #region Further Analysis
 
         /// <summary>
-        /// Adds a column to the <paramref name="dataGridViewControl"/> showing whether further analysis
-        /// is needed for the section result. 
+        /// Adds a column to the <paramref name="dataGridViewControl"/> showing a
+        /// <see cref="FailureMechanismSectionResultFurtherAnalysisType"/>. 
         /// </summary>
         /// <param name="dataGridViewControl">The <see cref="DataGridViewControl"/> to add the column to.</param>
         /// <param name="dataPropertyName">The data property name of the column.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static void AddFurtherAnalysisNeededColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
+        public static void AddFurtherAnalysisTypeColumn(DataGridViewControl dataGridViewControl, string dataPropertyName)
         {
             if (dataGridViewControl == null)
             {
@@ -191,9 +191,14 @@ namespace Riskeer.Common.Forms.Builders
                 throw new ArgumentNullException(nameof(dataPropertyName));
             }
 
-            dataGridViewControl.AddCheckBoxColumn(
+            IEnumerable<EnumDisplayWrapper<FailureMechanismSectionResultFurtherAnalysisType>> dataSource = CreateEnumDisplayWrappers<FailureMechanismSectionResultFurtherAnalysisType>();
+
+            dataGridViewControl.AddComboBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_FurtherAnalysisNeeded_DisplayName);
+                Resources.FailureMechanismResultView_FurtherAnalysis_DisplayName,
+                dataSource,
+                nameof(EnumDisplayWrapper<FailureMechanismSectionResultFurtherAnalysisType>.Value),
+                nameof(EnumDisplayWrapper<FailureMechanismSectionResultFurtherAnalysisType>.DisplayName));
         }
 
         /// <summary>

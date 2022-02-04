@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Forms.Views
         private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultProfileProbabilityIndex = 3;
         private const int initialFailureMechanismResultSectionProbabilityIndex = 4;
-        private const int furtherAnalysisNeededIndex = 5;
+        private const int furtherAnalysisTypeIndex = 5;
         private const int probabilityRefinementTypeIndex = 6;
         private const int refinedProfileProbabilityIndex = 7;
         private const int refinedSectionProbabilityIndex = 8;
@@ -133,7 +133,7 @@ namespace Riskeer.Piping.Forms.Views
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultProfileProbabilityIndex = initialFailureMechanismResultProfileProbabilityIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
-                    FurtherAnalysisNeededIndex = furtherAnalysisNeededIndex,
+                    FurtherAnalysisNeededIndex = furtherAnalysisTypeIndex,
                     ProbabilityRefinementTypeIndex = probabilityRefinementTypeIndex,
                     RefinedProfileProbabilityIndex = refinedProfileProbabilityIndex,
                     RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex,
@@ -166,9 +166,9 @@ namespace Riskeer.Piping.Forms.Views
                 DataGridViewControl,
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisNeededColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisTypeColumn(
                 DataGridViewControl,
-                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.FurtherAnalysisNeeded));
+                nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.FurtherAnalysisType));
 
             FailureMechanismSectionResultViewColumnBuilder.AddProbabilityRefinementTypeColumn(
                 DataGridViewControl,

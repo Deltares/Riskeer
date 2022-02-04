@@ -1595,8 +1595,8 @@ mechanisme per doorsnede
 mechanisme per vak
 [1/jaar]</value>
   </data>
-    <data name="FailureMechanismResultView_FurtherAnalysisNeeded_DisplayName" xml:space="preserve">
-    <value>Is vervolganalyse nodig</value>
+    <data name="FailureMechanismResultView_FurtherAnalysis_DisplayName" xml:space="preserve">
+    <value>Vervolganalyse</value>
   </data>
     <data name="FailureMechanismResultView_ProbabilityRefinementType_DisplayName" xml:space="preserve">
     <value>Aanscherpen faalkans</value>

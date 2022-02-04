@@ -44,7 +44,7 @@ namespace Riskeer.Common.Forms.Views
     {
         private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultSectionProbabilityIndex = 3;
-        private const int furtherAnalysisNeededIndex = 4;
+        private const int furtherAnalysisTypeIndex = 4;
         private const int refinedSectionProbabilityIndex = 5;
         private const int sectionProbabilityIndex = 6;
         private const int assemblyGroupIndex = 7;
@@ -116,7 +116,7 @@ namespace Riskeer.Common.Forms.Views
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
-                    FurtherAnalysisNeededIndex = furtherAnalysisNeededIndex,
+                    FurtherAnalysisNeededIndex = furtherAnalysisTypeIndex,
                     RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex,
                     SectionProbabilityIndex = sectionProbabilityIndex,
                     AssemblyGroupIndex = assemblyGroupIndex
@@ -154,9 +154,9 @@ namespace Riskeer.Common.Forms.Views
                 DataGridViewControl,
                 nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
 
-            FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisNeededColumn(
+            FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisTypeColumn(
                 DataGridViewControl,
-                nameof(AdoptableFailureMechanismSectionResultRow.FurtherAnalysisNeeded));
+                nameof(AdoptableFailureMechanismSectionResultRow.FurtherAnalysisType));
 
             FailureMechanismSectionResultViewColumnBuilder.AddRefinedSectionProbabilityColumn(
                 DataGridViewControl,

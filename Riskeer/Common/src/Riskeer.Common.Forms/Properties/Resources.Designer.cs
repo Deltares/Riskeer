@@ -1649,11 +1649,11 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Is vervolganalyse nodig.
+        ///   Looks up a localized string similar to Vervolganalyse.
         /// </summary>
-        public static string FailureMechanismResultView_FurtherAnalysisNeeded_DisplayName {
+        public static string FailureMechanismResultView_FurtherAnalysis_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismResultView_FurtherAnalysisNeeded_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismResultView_FurtherAnalysis_DisplayName", resourceCulture);
             }
         }
         

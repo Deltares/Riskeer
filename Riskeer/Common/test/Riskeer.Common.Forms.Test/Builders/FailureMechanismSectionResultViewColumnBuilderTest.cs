@@ -323,10 +323,10 @@ namespace Riskeer.Common.Forms.Test.Builders
         #region Further Analysis
 
         [Test]
-        public void AddFurtherAnalysisNeededColumn_DataGridViewControlNull_ThrowsArgumentNullException()
+        public void AddFurtherAnalysisTypeColumn_DataGridViewControlNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisNeededColumn(null, "property");
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisTypeColumn(null, "property");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -334,10 +334,10 @@ namespace Riskeer.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddFurtherAnalysisNeededColumn_DataPropertyNameNull_ThrowsArgumentNullException()
+        public void AddFurtherAnalysisTypeColumn_DataPropertyNameNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisNeededColumn(new DataGridViewControl(), null);
+            void Call() => FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisTypeColumn(new DataGridViewControl(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -345,7 +345,7 @@ namespace Riskeer.Common.Forms.Test.Builders
         }
 
         [Test]
-        public void AddFurtherAnalysisNeededColumn_WithParameters_AddsColumnToDataGridViewControl()
+        public void AddFurtherAnalysisTypeColumn_WithParameters_AddsColumnToDataGridViewControl()
         {
             // Setup
             using (var form = new Form())
@@ -359,15 +359,19 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual(0, dataGridView.ColumnCount);
 
                 // Call
-                FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisNeededColumn(control, dataPropertyName);
+                FailureMechanismSectionResultViewColumnBuilder.AddFurtherAnalysisTypeColumn(control, dataPropertyName);
 
                 // Assert
                 Assert.AreEqual(1, dataGridView.ColumnCount);
 
-                var columnData = (DataGridViewCheckBoxColumn) dataGridView.Columns[0];
+                var columnData = (DataGridViewComboBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Is vervolganalyse nodig", columnData.HeaderText);
-                Assert.IsFalse(columnData.ReadOnly);
+                Assert.AreEqual("Vervolganalyse", columnData.HeaderText);
+                Assert.AreEqual("Value", columnData.ValueMember);
+                Assert.AreEqual("DisplayName", columnData.DisplayMember);
+
+                IEnumerable<EnumDisplayWrapper<FailureMechanismSectionResultFurtherAnalysisType>> expectedDataSource = CreateExpectedEnumDisplayWrappers<FailureMechanismSectionResultFurtherAnalysisType>();
+                AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<FailureMechanismSectionResultFurtherAnalysisType>[]) columnData.DataSource);
             }
         }
 

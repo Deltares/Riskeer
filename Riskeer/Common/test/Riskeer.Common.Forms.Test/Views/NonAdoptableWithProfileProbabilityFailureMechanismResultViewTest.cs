@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.Test.Views
         private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultProfileProbabilityIndex = 3;
         private const int initialFailureMechanismResultSectionProbabilityIndex = 4;
-        private const int furtherAnalysisNeededIndex = 5;
+        private const int furtherAnalysisTypeIndex = 5;
         private const int refinedProfileProbabilityIndex = 6;
         private const int refinedSectionProbabilityIndex = 7;
         private const int profileProbabilityIndex = 8;
@@ -171,7 +171,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[initialFailureMechanismResultTypeIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex]);
-                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[furtherAnalysisNeededIndex]);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[furtherAnalysisTypeIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[refinedProfileProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[refinedSectionProbabilityIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[profileProbabilityIndex]);
@@ -184,7 +184,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual("Resultaat initieel mechanisme", dataGridView.Columns[initialFailureMechanismResultTypeIndex].HeaderText);
                 Assert.AreEqual("Faalkans initieel\r\nmechanisme per doorsnede\r\n[1/jaar]", dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].HeaderText);
                 Assert.AreEqual("Faalkans initieel\r\nmechanisme per vak\r\n[1/jaar]", dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex].HeaderText);
-                Assert.AreEqual("Is vervolganalyse nodig", dataGridView.Columns[furtherAnalysisNeededIndex].HeaderText);
+                Assert.AreEqual("Vervolganalyse", dataGridView.Columns[furtherAnalysisTypeIndex].HeaderText);
                 Assert.AreEqual("Aangescherpte\r\nfaalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[refinedProfileProbabilityIndex].HeaderText);
                 Assert.AreEqual("Aangescherpte\r\nfaalkans per vak\r\n[1/jaar]", dataGridView.Columns[refinedSectionProbabilityIndex].HeaderText);
                 Assert.AreEqual("Rekenwaarde\r\nfaalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[profileProbabilityIndex].HeaderText);
@@ -197,7 +197,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultTypeIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultProfileProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[initialFailureMechanismResultSectionProbabilityIndex].ReadOnly);
-                Assert.IsFalse(dataGridView.Columns[furtherAnalysisNeededIndex].ReadOnly);
+                Assert.IsFalse(dataGridView.Columns[furtherAnalysisTypeIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[refinedProfileProbabilityIndex].ReadOnly);
                 Assert.IsFalse(dataGridView.Columns[refinedSectionProbabilityIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[profileProbabilityIndex].ReadOnly);
@@ -241,7 +241,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(NonAdoptableInitialFailureMechanismResultType.Manual, cells[initialFailureMechanismResultTypeIndex].Value);
                 Assert.AreEqual("-", cells[initialFailureMechanismResultProfileProbabilityIndex].FormattedValue);
                 Assert.AreEqual("-", cells[initialFailureMechanismResultSectionProbabilityIndex].FormattedValue);
-                Assert.AreEqual(false, cells[furtherAnalysisNeededIndex].FormattedValue);
+                Assert.AreEqual(FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, cells[furtherAnalysisTypeIndex].Value);
                 Assert.AreEqual("-", cells[refinedProfileProbabilityIndex].FormattedValue);
                 Assert.AreEqual("-", cells[refinedSectionProbabilityIndex].FormattedValue);
                 Assert.AreEqual("1/100", cells[profileProbabilityIndex].FormattedValue);
