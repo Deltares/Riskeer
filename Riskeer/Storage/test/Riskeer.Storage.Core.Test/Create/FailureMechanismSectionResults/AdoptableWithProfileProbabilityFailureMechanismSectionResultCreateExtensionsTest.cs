@@ -51,11 +51,11 @@ namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
             bool isRelevant = random.NextBoolean();
             var initialFailureMechanismResultType = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
             double manualProfileProbability = random.NextDouble();
-            double manualSectionProbability = random.NextDouble();
+            double manualSectionProbability = manualProfileProbability + 1e-3;
             bool furtherAnalysisNeeded = random.NextBoolean();
             var probabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>();
             double refinedProfileProbability = random.NextDouble();
-            double refinedSectionProbability = random.NextDouble();
+            double refinedSectionProbability = refinedProfileProbability + 1e-3;
 
             var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {

@@ -488,11 +488,11 @@ namespace Riskeer.Storage.Core.TestUtil
                 sectionResult.IsRelevant = random.NextBoolean();
                 sectionResult.InitialFailureMechanismResultType = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
                 sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
-                sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+                sectionResult.ManualInitialFailureMechanismResultSectionProbability = sectionResult.ManualInitialFailureMechanismResultProfileProbability + 1e-3;
                 sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
                 sectionResult.ProbabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>();
                 sectionResult.RefinedProfileProbability = random.NextDouble();
-                sectionResult.RefinedSectionProbability = random.NextDouble();
+                sectionResult.RefinedSectionProbability = sectionResult.RefinedProfileProbability + 1e-3;
             }
         }
 
@@ -518,10 +518,10 @@ namespace Riskeer.Storage.Core.TestUtil
                 sectionResult.IsRelevant = random.NextBoolean();
                 sectionResult.InitialFailureMechanismResultType = random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>();
                 sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
-                sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+                sectionResult.ManualInitialFailureMechanismResultSectionProbability = sectionResult.ManualInitialFailureMechanismResultProfileProbability + 1e-3;
                 sectionResult.FurtherAnalysisNeeded = random.NextBoolean();
                 sectionResult.RefinedProfileProbability = random.NextDouble();
-                sectionResult.RefinedSectionProbability = random.NextDouble();
+                sectionResult.RefinedSectionProbability = sectionResult.RefinedProfileProbability + 1e-3;
             }
         }
 

@@ -187,9 +187,9 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(21);
 
             SetSectionResult((IAdoptableFailureMechanismSectionResultEntity) sectionResult);
-            sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
+            sectionResult.ManualInitialFailureMechanismResultProfileProbability = sectionResult.ManualInitialFailureMechanismResultSectionProbability - 1e-3;
             sectionResult.ProbabilityRefinementType = Convert.ToByte(random.NextEnumValue<ProbabilityRefinementType>());
-            sectionResult.RefinedProfileProbability = random.NextDouble();
+            sectionResult.RefinedProfileProbability = sectionResult.RefinedSectionProbability - 1e-3;
         }
 
         private static void AssertSectionResults(IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity, AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
@@ -226,8 +226,8 @@ namespace Riskeer.Storage.Core.Test.Read
             var random = new Random(21);
 
             SetSectionResult((INonAdoptableFailureMechanismSectionResultEntity) sectionResult);
-            sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
-            sectionResult.RefinedProfileProbability = random.NextDouble();
+            sectionResult.ManualInitialFailureMechanismResultProfileProbability = sectionResult.ManualInitialFailureMechanismResultSectionProbability - 1e-3;
+            sectionResult.RefinedProfileProbability = sectionResult.RefinedSectionProbability - 1e-3;
         }
 
         private static void AssertSectionResults(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
