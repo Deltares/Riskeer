@@ -116,7 +116,7 @@ namespace Riskeer.Common.Forms.Views
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,
-                    FurtherAnalysisNeededIndex = furtherAnalysisTypeIndex,
+                    FurtherAnalysisTypeIndex = furtherAnalysisTypeIndex,
                     RefinedSectionProbabilityIndex = refinedSectionProbabilityIndex,
                     SectionProbabilityIndex = sectionProbabilityIndex,
                     AssemblyGroupIndex = assemblyGroupIndex

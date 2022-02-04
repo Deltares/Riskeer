@@ -51,7 +51,7 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 InitialFailureMechanismResultTypeIndex = 2,
                 InitialFailureMechanismResultSectionProbabilityIndex = 3,
-                FurtherAnalysisNeededIndex = 4,
+                FurtherAnalysisTypeIndex = 4,
                 RefinedSectionProbabilityIndex = 5,
                 SectionProbabilityIndex = 6,
                 AssemblyGroupIndex = 7
@@ -160,7 +160,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(result.IsRelevant, row.IsRelevant);
                 Assert.AreEqual(result.InitialFailureMechanismResultType, row.InitialFailureMechanismResultType);
                 Assert.AreEqual(initialFailureMechanismResultProbability, row.InitialFailureMechanismResultSectionProbability);
-                Assert.AreEqual(result.FurtherAnalysisNeeded, row.FurtherAnalysisNeeded);
                 Assert.AreEqual(result.FurtherAnalysisType, row.FurtherAnalysisType);
                 Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
 
@@ -176,7 +175,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultTypeIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex);
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.FurtherAnalysisNeededIndex);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.FurtherAnalysisTypeIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.RefinedSectionProbabilityIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SectionProbabilityIndex);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.AssemblyGroupIndex);
@@ -319,7 +318,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenRowWithFurtherAnalysisNeededTrue_WhenErrorProviderReturnsError_ThenShowsError()
+        public void GivenRowWithFurtherAnalysisTypeExecuted_WhenErrorProviderReturnsError_ThenShowsError()
         {
             // Given
             var random = new Random(21);
@@ -338,7 +337,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section)
             {
-                FurtherAnalysisNeeded = true,
+                FurtherAnalysisType = FailureMechanismSectionResultFurtherAnalysisType.Executed,
                 RefinedSectionProbability = sectionProbability
             };
 
@@ -357,7 +356,9 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenRowWithFurtherAnalysisNeededFalse_WhenErrorProviderReturnsError_ThenShowsNoError()
+        [TestCase(FailureMechanismSectionResultFurtherAnalysisType.NotNecessary)]
+        [TestCase(FailureMechanismSectionResultFurtherAnalysisType.Necessary)]
+        public void GivenRowWithFurtherAnalysisTypeNotExecuted_WhenErrorProviderReturnsError_ThenShowsNoError(FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType)
         {
             // Given
             var mocks = new MockRepository();
@@ -371,7 +372,10 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new AdoptableFailureMechanismSectionResult(section);
+            var result = new AdoptableFailureMechanismSectionResult(section)
+            {
+                FurtherAnalysisType = furtherAnalysisType
+            };
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -427,16 +431,6 @@ namespace Riskeer.Common.Forms.Test.Views
             ProbabilityProperty_SetInvalidValue_ThrowsArgumentOutOfRangeException(row => row.InitialFailureMechanismResultSectionProbability = value);
         }
 
-        [Test]
-        public void FurtherAnalysisNeeded_SetNewValue_NotifyObserversAndPropertyChanged()
-        {
-            const bool newValue = true;
-            Property_SetNewValue_NotifyObserversAndPropertyChanged(
-                row => row.FurtherAnalysisNeeded = newValue,
-                result => result.FurtherAnalysisNeeded,
-                newValue);
-        }
-        
         [Test]
         public void FurtherAnalysisType_SetNewValue_NotifyObserversAndPropertyChanged()
         {
@@ -557,7 +551,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(row.IsRelevant, input.IsRelevant);
                 Assert.IsTrue(input.HasProbabilitySpecified);
                 Assert.AreEqual(initialSectionProbability, input.InitialSectionProbability);
-                Assert.AreEqual(row.FurtherAnalysisNeeded, input.FurtherAnalysisNeeded);
+                Assert.AreEqual(row.FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.Executed, input.FurtherAnalysisNeeded);
                 Assert.AreEqual(row.RefinedSectionProbability, input.RefinedSectionProbability);
             }
 
@@ -768,7 +762,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableFailureMechanismSectionResult(section)
             {
                 IsRelevant = isRelevant,
-                FurtherAnalysisNeeded = true,
+                FurtherAnalysisType = FailureMechanismSectionResultFurtherAnalysisType.Executed,
                 InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual
             };
 
@@ -786,7 +780,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex], isRelevant);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                    columnStateDefinitions[ConstructionProperties.FurtherAnalysisNeededIndex], isRelevant);
+                    columnStateDefinitions[ConstructionProperties.FurtherAnalysisTypeIndex], isRelevant);
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
                     columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], isRelevant);
             }
@@ -834,9 +828,11 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Constructor_WithFurtherAnalysisNeeded_ExpectedColumnStates(bool furtherAnalysisNeeded)
+        [TestCase(FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, false)]
+        [TestCase(FailureMechanismSectionResultFurtherAnalysisType.Necessary, false)]
+        [TestCase(FailureMechanismSectionResultFurtherAnalysisType.Executed, true)]
+        public void Constructor_WithFurtherAnalysisType_ExpectedColumnStates(FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType,
+                                                                             bool expectedEnabled)
         {
             // Setup
             var mocks = new MockRepository();
@@ -852,7 +848,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section)
             {
-                FurtherAnalysisNeeded = furtherAnalysisNeeded
+                FurtherAnalysisType = furtherAnalysisType
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -865,7 +861,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                    columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], furtherAnalysisNeeded);
+                    columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], expectedEnabled);
             }
 
             mocks.VerifyAll();
