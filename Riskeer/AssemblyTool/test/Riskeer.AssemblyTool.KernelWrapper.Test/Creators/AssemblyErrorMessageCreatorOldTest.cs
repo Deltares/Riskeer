@@ -82,7 +82,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EAssemblyErrors.CommonFailureMechanismSectionsNotConsecutive, "Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m].")]
         [TestCase(EAssemblyErrors.RequestedPointOutOfRange, "De gespecificeerde resultaten voor een of meerdere toetssporen dekken niet de volledige lengte van het traject.")]
         [TestCase(EAssemblyErrors.SectionsWithoutCategory, "Er zijn een of meerdere vakindelingen gevonden die geen categorie hebben.")]
-        [TestCase(EAssemblyErrors.InvalidCategoryLimits, "De categoriegrenzen zijn niet aaneengesloten en spannen niet de volldige faalskansruimte.")]
+        [TestCase(EAssemblyErrors.InvalidCategoryLimits, "De categoriegrenzen zijn niet aaneengesloten en spannen niet de volledige faalskansruimte.")]
         public void CreateErrorMessage_SingleAssemblyError_ReturnsExpectedErrorMessage(EAssemblyErrors assemblyError, string expectedErrorMessage)
         {
             // Call

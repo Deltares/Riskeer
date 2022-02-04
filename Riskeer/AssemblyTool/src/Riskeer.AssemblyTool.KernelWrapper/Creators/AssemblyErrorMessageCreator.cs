@@ -115,6 +115,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return Resources.AssemblyErrorMessageCreator_ProfileProbabilityGreaterThanSectionProbability;
                 case EAssemblyErrors.ErrorConstructingErrorMessage:
                     return Resources.AssemblyErrorMessageCreator_ErrorConstructingErrorMessage;
+                case EAssemblyErrors.DominantSectionCannotBeAssembled:
+                    return Resources.AssemblyErrorMessageCreator_Cannot_assemble_with_dominant_category;
+                case EAssemblyErrors.EncounteredOneOrMoreSectionsWithoutResult:
+                    return Resources.AssemblyErrorMessageCreator_All_sections_must_have_a_result;
                 default:
                     throw new NotSupportedException();
             }

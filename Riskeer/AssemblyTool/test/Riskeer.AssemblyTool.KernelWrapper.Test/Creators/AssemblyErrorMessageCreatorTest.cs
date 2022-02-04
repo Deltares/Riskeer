@@ -71,11 +71,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EAssemblyErrors.CommonFailureMechanismSectionsNotConsecutive, "Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m].")]
         [TestCase(EAssemblyErrors.RequestedPointOutOfRange, "De gespecificeerde resultaten voor een of meerdere toetssporen dekken niet de volledige lengte van het traject.")]
         [TestCase(EAssemblyErrors.SectionsWithoutCategory, "Er zijn een of meerdere vakindelingen gevonden die geen categorie hebben.")]
-        [TestCase(EAssemblyErrors.InvalidCategoryLimits, "De categoriegrenzen zijn niet aaneengesloten en spannen niet de volldige faalskansruimte.")]
+        [TestCase(EAssemblyErrors.InvalidCategoryLimits, "De categoriegrenzen zijn niet aaneengesloten en spannen niet de volledige faalskansruimte.")]
         [TestCase(EAssemblyErrors.EmptyResultsList, "Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden.")]
         [TestCase(EAssemblyErrors.ProfileProbabilityGreaterThanSectionProbability, "De faalkans per vak moet groter of gelijk zijn aan de faalkans per doorsnede.")]
         [TestCase(EAssemblyErrors.ValueMayNotBeNaN, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
         [TestCase(EAssemblyErrors.ErrorConstructingErrorMessage, "Er is een onverwachte fout opgetreden.")]
+        [TestCase(EAssemblyErrors.DominantSectionCannotBeAssembled, "Er zijn een of meerdere vakken met duidingsklasse 'Dominant'. Dit kan niet verder geassembleerd worden.")]
+        [TestCase(EAssemblyErrors.EncounteredOneOrMoreSectionsWithoutResult, "Alle vakken moeten een resultaat hebben.")]
         public void CreateErrorMessage_SingleAssemblyError_ReturnsExpectedErrorMessage(EAssemblyErrors assemblyError, string expectedErrorMessage)
         {
             // Call

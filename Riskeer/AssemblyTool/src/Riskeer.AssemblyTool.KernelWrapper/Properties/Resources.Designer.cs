@@ -82,6 +82,24 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alle vakken moeten een resultaat hebben..
+        /// </summary>
+        internal static string AssemblyErrorMessageCreator_All_sections_must_have_a_result {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_All_sections_must_have_a_result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn een of meerdere vakken met duidingsklasse &apos;Dominant&apos;. Dit kan niet verder geassembleerd worden..
+        /// </summary>
+        internal static string AssemblyErrorMessageCreator_Cannot_assemble_with_dominant_category {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_Cannot_assemble_with_dominant_category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categoriebovengrens moet in het bereik [0,1] liggen..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_CategoryLowerLimitOutOfRange {
@@ -199,7 +217,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De categoriegrenzen zijn niet aaneengesloten en spannen niet de volldige faalskansruimte..
+        ///   Looks up a localized string similar to De categoriegrenzen zijn niet aaneengesloten en spannen niet de volledige faalskansruimte..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_GetErrorMessage_InvalidCategoryLimits {
             get {
