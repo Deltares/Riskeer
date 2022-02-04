@@ -209,7 +209,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
                 Assert.AreEqual("-", cells[refinedSectionProbabilityIndex].FormattedValue);
                 Assert.AreEqual("1/100", cells[profileProbabilityIndex].FormattedValue);
                 Assert.AreEqual("1/10", cells[sectionProbabilityIndex].FormattedValue);
-                Assert.AreEqual("10", cells[sectionNIndex].FormattedValue);
+                Assert.AreEqual("10,00", cells[sectionNIndex].FormattedValue);
                 Assert.AreEqual("+I", cells[assemblyGroupIndex].FormattedValue);
             }
         }
