@@ -46,7 +46,7 @@ namespace Riskeer.Common.Plugin.Test.FileImporters
                 IsRelevant = random.NextBoolean(),
                 InitialFailureMechanismResultType = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(),
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
-                FurtherAnalysisNeeded = random.NextBoolean(),
+                FurtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
                 RefinedSectionProbability = random.NextDouble()
             };
         }
@@ -56,7 +56,7 @@ namespace Riskeer.Common.Plugin.Test.FileImporters
             Assert.AreEqual(originResult.IsRelevant, targetResult.IsRelevant);
             Assert.AreEqual(originResult.InitialFailureMechanismResultType, targetResult.InitialFailureMechanismResultType);
             Assert.AreEqual(originResult.ManualInitialFailureMechanismResultSectionProbability, targetResult.ManualInitialFailureMechanismResultSectionProbability);
-            Assert.AreEqual(originResult.FurtherAnalysisNeeded, targetResult.FurtherAnalysisNeeded);
+            Assert.AreEqual(originResult.FurtherAnalysisType, targetResult.FurtherAnalysisType);
             Assert.AreEqual(originResult.RefinedSectionProbability, targetResult.RefinedSectionProbability);
         }
     }

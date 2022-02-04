@@ -48,7 +48,7 @@ namespace Riskeer.Common.Plugin.FileImporters
             target.InitialFailureMechanismResultType = origin.InitialFailureMechanismResultType;
             target.ManualInitialFailureMechanismResultSectionProbability = origin.ManualInitialFailureMechanismResultSectionProbability;
             target.ManualInitialFailureMechanismResultProfileProbability = origin.ManualInitialFailureMechanismResultProfileProbability;
-            target.FurtherAnalysisNeeded = origin.FurtherAnalysisNeeded;
+            target.FurtherAnalysisType = origin.FurtherAnalysisType;
             target.RefinedSectionProbability = origin.RefinedSectionProbability;
             target.RefinedProfileProbability = origin.RefinedProfileProbability;
         }

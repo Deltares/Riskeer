@@ -47,7 +47,7 @@ namespace Riskeer.Common.Plugin.Test.FileImporters
                 InitialFailureMechanismResultType = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>(),
                 ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
                 ManualInitialFailureMechanismResultProfileProbability = random.NextDouble(),
-                FurtherAnalysisNeeded = random.NextBoolean(),
+                FurtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
                 ProbabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>(),
                 RefinedSectionProbability = random.NextDouble(),
                 RefinedProfileProbability = random.NextDouble()
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Plugin.Test.FileImporters
             Assert.AreEqual(originResult.InitialFailureMechanismResultType, targetResult.InitialFailureMechanismResultType);
             Assert.AreEqual(originResult.ManualInitialFailureMechanismResultSectionProbability, targetResult.ManualInitialFailureMechanismResultSectionProbability);
             Assert.AreEqual(originResult.ManualInitialFailureMechanismResultProfileProbability, targetResult.ManualInitialFailureMechanismResultProfileProbability);
-            Assert.AreEqual(originResult.FurtherAnalysisNeeded, targetResult.FurtherAnalysisNeeded);
+            Assert.AreEqual(originResult.FurtherAnalysisType, targetResult.FurtherAnalysisType);
             Assert.AreEqual(originResult.ProbabilityRefinementType, targetResult.ProbabilityRefinementType);
             Assert.AreEqual(originResult.RefinedSectionProbability, targetResult.RefinedSectionProbability);
             Assert.AreEqual(originResult.RefinedProfileProbability, targetResult.RefinedProfileProbability);
