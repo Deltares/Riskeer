@@ -115,7 +115,7 @@ namespace Core.Gui.Commands
             try
             {
                 IProject newProject = projectFactory.CreateNewProject();
-                
+
                 if (newProject == null)
                 {
                     log.Info(Resources.StorageCommandHandler_NewProject_Creating_new_project_canceled);
@@ -311,17 +311,10 @@ namespace Core.Gui.Commands
                 case OptionalStepResult.Cancel:
                     return false;
                 case OptionalStepResult.PerformOptionalStep:
-                    ReleaseDatabaseFileHandle();
                     return SaveProject();
             }
 
             return true;
-        }
-
-        private static void ReleaseDatabaseFileHandle()
-        {
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
         }
 
         /// <summary>

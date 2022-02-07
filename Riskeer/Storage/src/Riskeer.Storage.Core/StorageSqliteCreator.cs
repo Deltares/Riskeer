@@ -80,7 +80,7 @@ namespace Riskeer.Storage.Core
             }
             finally
             {
-                SQLiteConnection.ClearAllPools();
+                SQLiteConnectionHelper.ForcefullyDisposeSQLiteConnection();
             }
         }
     }
