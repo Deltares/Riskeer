@@ -49,7 +49,7 @@ INSERT INTO ClosingStructuresSectionResultEntity (
     [IsRelevant],
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [RefinedSectionProbability]
 )
 SELECT
@@ -58,7 +58,7 @@ SELECT
     1,
     1,
     NULL,
-    0,
+    1,
     NULL
 FROM [SOURCEPROJECT].ClosingStructuresSectionResultEntity;
 INSERT INTO DikeProfileEntity SELECT * FROM [SOURCEPROJECT].DikeProfileEntity;
@@ -78,7 +78,7 @@ INSERT INTO DuneErosionSectionResultEntity (
     [IsRelevant],
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [RefinedSectionProbability]
 )
 SELECT
@@ -87,7 +87,7 @@ SELECT
     1,
     1,
     NULL,
-    0,
+    1,
     NULL
 FROM [SOURCEPROJECT].DuneErosionSectionResultEntity;
 INSERT INTO DuneLocationEntity SELECT * FROM [SOURCEPROJECT].DuneLocationEntity;
@@ -181,7 +181,7 @@ INSERT INTO GrassCoverErosionInwardsSectionResultEntity (
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [ProbabilityRefinementType],
     [RefinedSectionProbability],
     [RefinedProfileProbability]
@@ -193,7 +193,7 @@ SELECT
     1,
     NULL,
     NULL,
-    0,
+    1,
     2,
     NULL,
     NULL
@@ -219,7 +219,7 @@ INSERT INTO GrassCoverErosionOutwardsSectionResultEntity (
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [RefinedSectionProbability],
     [RefinedProfileProbability]
 )
@@ -230,7 +230,7 @@ SELECT
     1,
     NULL,
     NULL,
-    0,
+    1,
     NULL,
     NULL
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
@@ -290,7 +290,7 @@ INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity (
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [RefinedSectionProbability],
     [RefinedProfileProbability]
 )
@@ -301,7 +301,7 @@ SELECT
     1,
     NULL,
     NULL,
-    0,
+    1,
     NULL,
     NULL
 FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
@@ -323,7 +323,7 @@ INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity (
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [RefinedSectionProbability],
     [RefinedProfileProbability]
 )
@@ -334,7 +334,7 @@ SELECT
     1,
     NULL,
     NULL,
-    0,
+    1,
     NULL,
     NULL
 FROM [SOURCEPROJECT].GrassCoverSlipOffOutwardsSectionResultEntity;
@@ -359,7 +359,7 @@ INSERT INTO HeightStructuresSectionResultEntity (
     [IsRelevant],
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [RefinedSectionProbability]
 )
 SELECT
@@ -368,7 +368,7 @@ SELECT
     1,
     1,
     NULL,
-    0,
+    1,
     NULL
 FROM [SOURCEPROJECT].HeightStructuresSectionResultEntity;
 INSERT INTO HydraulicBoundaryDatabaseEntity SELECT * FROM [SOURCEPROJECT].HydraulicBoundaryDatabaseEntity;
@@ -420,7 +420,7 @@ INSERT INTO MacroStabilityInwardsSectionResultEntity (
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [ProbabilityRefinementType],
     [RefinedSectionProbability],
     [RefinedProfileProbability]
@@ -432,7 +432,7 @@ SELECT
     1,
     NULL,
     NULL,
-    0,
+    1,
     2,
     NULL,
     NULL
@@ -460,7 +460,7 @@ INSERT INTO MicrostabilitySectionResultEntity (
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [RefinedSectionProbability],
     [RefinedProfileProbability]
 )
@@ -471,7 +471,7 @@ SELECT
     1,
     NULL,
     NULL,
-    0,
+    1,
     NULL,
     NULL
 FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
@@ -512,7 +512,7 @@ INSERT INTO PipingSectionResultEntity (
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [ProbabilityRefinementType],
     [RefinedSectionProbability],
     [RefinedProfileProbability]
@@ -524,7 +524,7 @@ SELECT
     1,
     NULL,
     NULL,
-    0,
+    1,
     2,
     NULL,
     NULL
@@ -539,7 +539,7 @@ INSERT INTO PipingStructureSectionResultEntity (
     [IsRelevant],
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [RefinedSectionProbability]
 )
 SELECT
@@ -548,7 +548,7 @@ SELECT
     1,
     1,
     NULL,
-    0,
+    1,
     NULL
 FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
 INSERT INTO ProbabilisticPipingCalculationEntity SELECT * FROM [SOURCEPROJECT].ProbabilisticPipingCalculationEntity;
@@ -566,7 +566,7 @@ INSERT INTO StabilityPointStructuresSectionResultEntity (
     [IsRelevant],
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [RefinedSectionProbability]
 )
 SELECT
@@ -575,7 +575,7 @@ SELECT
     1,
     1,
     NULL,
-    0,
+    1,
     NULL
 FROM [SOURCEPROJECT].StabilityPointStructuresSectionResultEntity;
 INSERT INTO StabilityStoneCoverFailureMechanismMetaEntity (
@@ -599,7 +599,7 @@ INSERT INTO StabilityStoneCoverSectionResultEntity (
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [RefinedSectionProbability],
     [RefinedProfileProbability]
 )
@@ -610,7 +610,7 @@ SELECT
     1,
     NULL,
     NULL,
-    0,
+    1,
     NULL,
     NULL
 FROM [SOURCEPROJECT].StabilityStoneCoverSectionResultEntity;
@@ -690,7 +690,7 @@ INSERT INTO WaterPressureAsphaltCoverSectionResultEntity (
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [RefinedSectionProbability],
     [RefinedProfileProbability]
 )
@@ -701,7 +701,7 @@ SELECT
     1,
     NULL,
     NULL,
-    0,
+    1,
     NULL,
     NULL
 FROM [SOURCEPROJECT].WaterPressureAsphaltCoverSectionResultEntity;
@@ -735,7 +735,7 @@ INSERT INTO WaveImpactAsphaltCoverSectionResultEntity (
     [InitialFailureMechanismResultType],
     [ManualInitialFailureMechanismResultSectionProbability],
     [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisNeeded],
+    [FurtherAnalysisType],
     [RefinedSectionProbability],
     [RefinedProfileProbability]
 )
@@ -746,7 +746,7 @@ SELECT
     1,
     NULL,
     NULL,
-    0,
+    1,
     NULL,
     NULL
 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverSectionResultEntity;

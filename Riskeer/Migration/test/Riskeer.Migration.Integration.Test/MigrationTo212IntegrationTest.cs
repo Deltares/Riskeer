@@ -1098,7 +1098,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[IsRelevant] = 1 " +
                 "AND NEW.[InitialFailureMechanismResultType] = 1 " +
                 "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
-                "AND NEW.[FurtherAnalysisNeeded] = 0 " +
+                "AND NEW.[FurtherAnalysisType] = 1 " +
                 "AND NEW.[RefinedSectionProbability] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
 
@@ -1123,7 +1123,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[InitialFailureMechanismResultType] = 1 " +
                 "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
                 "AND NEW.[ManualInitialFailureMechanismResultProfileProbability] IS NULL " +
-                "AND NEW.[FurtherAnalysisNeeded] = 0 " +
+                "AND NEW.[FurtherAnalysisType] = 1 " +
                 "AND NEW.[ProbabilityRefinementType] = 2 " +
                 "AND NEW.[RefinedSectionProbability] IS NULL " +
                 "AND NEW.[RefinedProfileProbability] IS NULL; " +
@@ -1149,7 +1149,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[IsRelevant] = 1 " +
                 "AND NEW.[InitialFailureMechanismResultType] = 1 " +
                 "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
-                "AND NEW.[FurtherAnalysisNeeded] = 0 " +
+                "AND NEW.[FurtherAnalysisType] = 1 " +
                 "AND NEW.[RefinedSectionProbability] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
 
@@ -1174,7 +1174,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[InitialFailureMechanismResultType] = 1 " +
                 "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
                 "AND NEW.[ManualInitialFailureMechanismResultProfileProbability] IS NULL " +
-                "AND NEW.[FurtherAnalysisNeeded] = 0 " +
+                "AND NEW.[FurtherAnalysisType] = 1 " +
                 "AND NEW.[RefinedSectionProbability] IS NULL " +
                 "AND NEW.[RefinedProfileProbability] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
