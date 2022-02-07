@@ -350,7 +350,7 @@ namespace Riskeer.Common.Forms.Views
                 {
                     AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
                         assessmentSection, IsRelevant, InitialFailureMechanismResultType, InitialFailureMechanismResultProfileProbability,
-                        InitialFailureMechanismResultSectionProbability, FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.Executed,
+                        InitialFailureMechanismResultSectionProbability, FurtherAnalysisType,
                         SectionResult.RefinedProfileProbability, SectionResult.RefinedSectionProbability,
                         ProbabilityRefinementType, lengthEffectProvider.SectionN);
                 }
@@ -358,7 +358,7 @@ namespace Riskeer.Common.Forms.Views
                 {
                     AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
                         assessmentSection, IsRelevant, InitialFailureMechanismResultType,
-                        InitialFailureMechanismResultSectionProbability, FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.Executed,
+                        InitialFailureMechanismResultSectionProbability, FurtherAnalysisType,
                         SectionResult.RefinedSectionProbability);
                 }
             }
