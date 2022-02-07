@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.DbContext
             MacroStabilityInwardsSoilLayerTwoDEntity1 = new HashSet<MacroStabilityInwardsSoilLayerTwoDEntity>();
             MacroStabilityInwardsSoilProfileTwoDEntities = new HashSet<MacroStabilityInwardsSoilProfileTwoDEntity>();
         }
-    
+
         public long MacroStabilityInwardsSoilLayerTwoDEntityId { get; set; }
         public long? ParentMacroStabilityInwardsSoilLayerTwoDEntityId { get; set; }
         public byte IsAquifer { get; set; }
@@ -67,10 +67,12 @@ namespace Riskeer.Storage.Core.DbContext
         public double? PopCoefficientOfVariation { get; set; }
         public string OuterRingXml { get; set; }
         public int Order { get; set; }
-    
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MacroStabilityInwardsSoilLayerTwoDEntity> MacroStabilityInwardsSoilLayerTwoDEntity1 { get; set; }
+
         public virtual MacroStabilityInwardsSoilLayerTwoDEntity MacroStabilityInwardsSoilLayerTwoDEntity2 { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MacroStabilityInwardsSoilProfileTwoDEntity> MacroStabilityInwardsSoilProfileTwoDEntities { get; set; }
     }

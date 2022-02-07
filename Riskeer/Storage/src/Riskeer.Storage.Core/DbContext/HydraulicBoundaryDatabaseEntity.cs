@@ -47,7 +47,7 @@ namespace Riskeer.Storage.Core.DbContext
         public string HydraulicLocationConfigurationSettingsWindDirection { get; set; }
         public string HydraulicLocationConfigurationSettingsWindSpeed { get; set; }
         public string HydraulicLocationConfigurationSettingsComment { get; set; }
-    
+
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
     }
 }

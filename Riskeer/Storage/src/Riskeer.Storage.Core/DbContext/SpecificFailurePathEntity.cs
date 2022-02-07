@@ -40,22 +40,23 @@ namespace Riskeer.Storage.Core.DbContext
         {
             FailureMechanismSectionEntities = new HashSet<FailureMechanismSectionEntity>();
         }
-    
+
         public long SpecificFailurePathEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
         public string Name { get; set; }
         public int Order { get; set; }
+        public double N { get; set; }
+        public byte ApplyLengthEffectInSection { get; set; }
+
+        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         public byte InAssembly { get; set; }
         public string FailureMechanismSectionCollectionSourcePath { get; set; }
         public string InAssemblyInputComments { get; set; }
         public string InAssemblyOutputComments { get; set; }
         public string NotInAssemblyComments { get; set; }
-        public double N { get; set; }
         public byte FailurePathAssemblyProbabilityResultType { get; set; }
         public double? ManualFailurePathAssemblyProbability { get; set; }
-        public byte ApplyLengthEffectInSection { get; set; }
-    
-        public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
     }

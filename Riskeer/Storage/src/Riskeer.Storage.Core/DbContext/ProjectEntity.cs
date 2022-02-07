@@ -40,10 +40,10 @@ namespace Riskeer.Storage.Core.DbContext
         {
             AssessmentSectionEntities = new HashSet<AssessmentSectionEntity>();
         }
-    
+
         public long ProjectEntityId { get; set; }
         public string Description { get; set; }
-    
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
     }

@@ -40,13 +40,14 @@ namespace Riskeer.Storage.Core.DbContext
         {
             DuneLocationCalculationEntities = new HashSet<DuneLocationCalculationEntity>();
         }
-    
+
         public long DuneLocationCalculationCollectionEntityId { get; set; }
         public long DuneErosionFailureMechanismMetaEntityId { get; set; }
         public int Order { get; set; }
         public double TargetProbability { get; set; }
-    
+
         public virtual DuneErosionFailureMechanismMetaEntity DuneErosionFailureMechanismMetaEntity { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DuneLocationCalculationEntity> DuneLocationCalculationEntities { get; set; }
     }

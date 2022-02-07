@@ -42,13 +42,15 @@ namespace Riskeer.Storage.Core.DbContext
             AssessmentSectionEntities1 = new HashSet<AssessmentSectionEntity>();
             HydraulicLocationCalculationEntities = new HashSet<HydraulicLocationCalculationEntity>();
         }
-    
+
         public long HydraulicLocationCalculationCollectionEntityId { get; set; }
-    
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AssessmentSectionEntity> AssessmentSectionEntities1 { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationCalculationEntity> HydraulicLocationCalculationEntities { get; set; }
     }

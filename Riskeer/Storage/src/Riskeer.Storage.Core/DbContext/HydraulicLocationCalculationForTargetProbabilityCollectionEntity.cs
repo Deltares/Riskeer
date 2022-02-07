@@ -43,20 +43,24 @@ namespace Riskeer.Storage.Core.DbContext
             WaveImpactAsphaltCoverWaveConditionsCalculationEntities = new HashSet<WaveImpactAsphaltCoverWaveConditionsCalculationEntity>();
             HydraulicLocationCalculationEntities = new HashSet<HydraulicLocationCalculationEntity>();
         }
-    
+
         public long HydraulicLocationCalculationForTargetProbabilityCollectionEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
         public int Order { get; set; }
         public byte HydraulicBoundaryLocationCalculationType { get; set; }
         public double TargetProbability { get; set; }
-    
+
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionOutwardsWaveConditionsCalculationEntity> GrassCoverErosionOutwardsWaveConditionsCalculationEntities { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityStoneCoverWaveConditionsCalculationEntity> StabilityStoneCoverWaveConditionsCalculationEntities { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WaveImpactAsphaltCoverWaveConditionsCalculationEntity> WaveImpactAsphaltCoverWaveConditionsCalculationEntities { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HydraulicLocationCalculationEntity> HydraulicLocationCalculationEntities { get; set; }
     }

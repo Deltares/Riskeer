@@ -30,7 +30,7 @@ namespace Riskeer.Storage.Core.DbContext
         /// Corresponds with a water level calculation.
         /// </summary>
         WaterLevel = 1,
-        
+
         /// <summary>
         /// Corresponds with a wave height calculation.
         /// </summary>

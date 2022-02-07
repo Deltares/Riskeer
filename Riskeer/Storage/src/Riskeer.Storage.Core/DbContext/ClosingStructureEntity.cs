@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.DbContext
         {
             ClosingStructuresCalculationEntities = new HashSet<ClosingStructuresCalculationEntity>();
         }
-    
+
         public long ClosingStructureEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public int Order { get; set; }
@@ -72,8 +72,9 @@ namespace Riskeer.Storage.Core.DbContext
         public int IdenticalApertures { get; set; }
         public double? FailureProbabilityReparation { get; set; }
         public byte InflowModelType { get; set; }
-    
+
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClosingStructuresCalculationEntity> ClosingStructuresCalculationEntities { get; set; }
     }

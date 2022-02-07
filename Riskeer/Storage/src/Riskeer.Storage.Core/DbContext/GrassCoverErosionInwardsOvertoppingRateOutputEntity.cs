@@ -41,7 +41,7 @@ namespace Riskeer.Storage.Core.DbContext
         public double? CalculatedProbability { get; set; }
         public double? CalculatedReliability { get; set; }
         public byte CalculationConvergence { get; set; }
-    
+
         public virtual GeneralResultFaultTreeIllustrationPointEntity GeneralResultFaultTreeIllustrationPointEntity { get; set; }
         public virtual GrassCoverErosionInwardsOutputEntity GrassCoverErosionInwardsOutputEntity { get; set; }
     }

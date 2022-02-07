@@ -40,7 +40,7 @@ namespace Riskeer.Storage.Core.DbContext
         {
             HeightStructuresCalculationEntities = new HashSet<HeightStructuresCalculationEntity>();
         }
-    
+
         public long HeightStructureEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public int Order { get; set; }
@@ -62,8 +62,9 @@ namespace Riskeer.Storage.Core.DbContext
         public double? StorageStructureAreaCoefficientOfVariation { get; set; }
         public double? AllowedLevelIncreaseStorageMean { get; set; }
         public double? AllowedLevelIncreaseStorageStandardDeviation { get; set; }
-    
+
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresCalculationEntity> HeightStructuresCalculationEntities { get; set; }
     }

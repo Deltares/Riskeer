@@ -41,13 +41,14 @@ namespace Riskeer.Storage.Core.DbContext
             MacroStabilityInwardsSoilLayerOneDEntities = new HashSet<MacroStabilityInwardsSoilLayerOneDEntity>();
             MacroStabilityInwardsStochasticSoilProfileEntities = new HashSet<MacroStabilityInwardsStochasticSoilProfileEntity>();
         }
-    
+
         public long MacroStabilityInwardsSoilProfileOneDEntityId { get; set; }
         public string Name { get; set; }
         public double? Bottom { get; set; }
-    
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MacroStabilityInwardsSoilLayerOneDEntity> MacroStabilityInwardsSoilLayerOneDEntities { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MacroStabilityInwardsStochasticSoilProfileEntity> MacroStabilityInwardsStochasticSoilProfileEntities { get; set; }
     }

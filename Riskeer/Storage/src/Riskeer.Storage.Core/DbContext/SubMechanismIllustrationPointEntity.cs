@@ -43,18 +43,21 @@ namespace Riskeer.Storage.Core.DbContext
             TopLevelSubMechanismIllustrationPointEntities = new HashSet<TopLevelSubMechanismIllustrationPointEntity>();
             FaultTreeIllustrationPointEntities = new HashSet<FaultTreeIllustrationPointEntity>();
         }
-    
+
         public long SubMechanismIllustrationPointEntityId { get; set; }
         public string Name { get; set; }
         public double Beta { get; set; }
         public int Order { get; set; }
-    
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IllustrationPointResultEntity> IllustrationPointResultEntities { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubMechanismIllustrationPointStochastEntity> SubMechanismIllustrationPointStochastEntities { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TopLevelSubMechanismIllustrationPointEntity> TopLevelSubMechanismIllustrationPointEntities { get; set; }
+
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FaultTreeIllustrationPointEntity> FaultTreeIllustrationPointEntities { get; set; }
     }

@@ -57,7 +57,7 @@ namespace Riskeer.Storage.Core.DbContext
         /// Gets or sets the collection of <see cref="FailureMechanismSectionEntity"/>.
         /// </summary>
         ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
-        
+
         /// <summary>
         /// Gets or sets the failure path assembly probability result type.
         /// </summary>
