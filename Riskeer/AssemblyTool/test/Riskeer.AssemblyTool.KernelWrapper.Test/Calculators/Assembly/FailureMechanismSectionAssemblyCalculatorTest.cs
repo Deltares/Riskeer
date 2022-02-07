@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentSection;
@@ -91,6 +92,34 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
+        public void AssembleFailureMechanismSection_InvalidInput_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(21);
+            var input = new FailureMechanismSectionAssemblyInput(
+                0.01, 0.001, random.NextBoolean(), random.NextBoolean(), random.NextDouble(),
+                (FailureMechanismSectionResultFurtherAnalysisType) 99, random.NextDouble());
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                void Call() => calculator.AssembleFailureMechanismSection(input);
+
+                // Assert
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(Call);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
+
+                Assert.IsFalse(failureMechanismSectionAssemblyKernel.Calculated);
+            }
+        }
+
+        [Test]
         [TestCase(false, true, ESectionInitialMechanismProbabilitySpecification.NotRelevant)]
         [TestCase(false, false, ESectionInitialMechanismProbabilitySpecification.NotRelevant)]
         [TestCase(true, true, ESectionInitialMechanismProbabilitySpecification.RelevantWithProbabilitySpecification)]
@@ -133,7 +162,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreSame(categoryLimits, failureMechanismSectionAssemblyKernel.Categories);
                 Assert.AreEqual(expectedInitialMechanismProbabilitySpecification, failureMechanismSectionAssemblyKernel.InitialMechanismProbabilitySpecification);
                 Assert.AreEqual(input.InitialSectionProbability, failureMechanismSectionAssemblyKernel.ProbabilityInitialMechanismSection);
-                Assert.AreEqual(input.FurtherAnalysisNeeded, failureMechanismSectionAssemblyKernel.NeedsRefinement);
+                Assert.AreEqual(FailureMechanismAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(input.FurtherAnalysisType),
+                                failureMechanismSectionAssemblyKernel.RefinementStatus);
                 Assert.AreEqual(input.RefinedSectionProbability, failureMechanismSectionAssemblyKernel.RefinedProbabilitySection);
             }
         }
@@ -199,7 +229,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(Call);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
 
                 Assert.IsTrue(failureMechanismSectionAssemblyKernel.Calculated);
             }
@@ -227,7 +257,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(Call);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
 
                 Assert.IsFalse(failureMechanismSectionAssemblyKernel.Calculated);
             }
@@ -282,6 +312,34 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
+        public void AssembleFailureMechanismSectionWithProfileProbability_InvalidInput_ThrowsFailureMechanismSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(21);
+            var input = new FailureMechanismSectionWithProfileProbabilityAssemblyInput(
+                0.01, 0.001, random.NextBoolean(), random.NextBoolean(), random.NextDouble(), random.NextDouble(),
+                (FailureMechanismSectionResultFurtherAnalysisType) 99, random.NextDouble(), random.NextDouble());
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
+
+                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
+
+                // Call
+                void Call() => calculator.AssembleFailureMechanismSection(input);
+
+                // Assert
+                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(Call);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
+
+                Assert.IsFalse(failureMechanismSectionAssemblyKernel.Calculated);
+            }
+        }
+
+        [Test]
         [TestCase(false, true, ESectionInitialMechanismProbabilitySpecification.NotRelevant)]
         [TestCase(false, false, ESectionInitialMechanismProbabilitySpecification.NotRelevant)]
         [TestCase(true, true, ESectionInitialMechanismProbabilitySpecification.RelevantWithProbabilitySpecification)]
@@ -325,7 +383,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(expectedInitialMechanismProbabilitySpecification, failureMechanismSectionAssemblyKernel.InitialMechanismProbabilitySpecification);
                 Assert.AreEqual(input.InitialProfileProbability, failureMechanismSectionAssemblyKernel.ProbabilityInitialMechanismProfile);
                 Assert.AreEqual(input.InitialSectionProbability, failureMechanismSectionAssemblyKernel.ProbabilityInitialMechanismSection);
-                Assert.AreEqual(input.FurtherAnalysisNeeded, failureMechanismSectionAssemblyKernel.NeedsRefinement);
+                Assert.AreEqual(FailureMechanismAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(input.FurtherAnalysisType),
+                                failureMechanismSectionAssemblyKernel.RefinementStatus);
                 Assert.AreEqual(input.RefinedProfileProbability, failureMechanismSectionAssemblyKernel.RefinedProbabilityProfile);
                 Assert.AreEqual(input.RefinedSectionProbability, failureMechanismSectionAssemblyKernel.RefinedProbabilitySection);
             }
@@ -392,7 +451,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(Call);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
 
                 Assert.IsTrue(failureMechanismSectionAssemblyKernel.Calculated);
             }
@@ -420,7 +479,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(Call);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
 
                 Assert.IsFalse(failureMechanismSectionAssemblyKernel.Calculated);
             }

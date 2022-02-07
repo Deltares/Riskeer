@@ -35,7 +35,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     internal static class FailureMechanismSectionAssemblyResultCreator
     {
         /// <summary>
-        /// Converts am <see cref="AssemblyFailureMechanismSectionAssemblyResult"/> into a <see cref="RiskeerFailureMechanismSectionAssemblyResult"/>.
+        /// Converts an <see cref="AssemblyFailureMechanismSectionAssemblyResult"/> into a <see cref="RiskeerFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="result">The <see cref="AssemblyFailureMechanismSectionAssemblyResult"/> to convert.</param>
         /// <returns>A <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.</returns>

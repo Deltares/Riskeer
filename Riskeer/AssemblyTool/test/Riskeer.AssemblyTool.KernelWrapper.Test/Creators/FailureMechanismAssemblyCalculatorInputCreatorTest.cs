@@ -21,12 +21,14 @@
 
 using System;
 using System.ComponentModel;
+using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
+using Riskeer.Common.Primitives;
 using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
@@ -45,6 +47,25 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
                                     .With.Property(nameof(ArgumentNullException.ParamName))
                                     .EqualTo("result"));
+        }
+
+        [Test]
+        public void CreateFailureMechanismSectionAssemblyResult_InvalidAssemblyGroup_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var random = new Random(21);
+            double probability = random.NextDouble();
+            const FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup = (FailureMechanismSectionAssemblyGroup) 99;
+
+            var result = new RiskeerFailureMechanismSectionAssemblyResult(
+                probability, probability, random.NextDouble(), failureMechanismSectionAssemblyGroup);
+
+            // Call
+            void Call() => FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(result);
+
+            // Assert
+            var expectedMessage = $"The value of argument 'assemblyGroup' ({failureMechanismSectionAssemblyGroup}) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyGroup)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -79,21 +100,31 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyResult_InvalidAssemblyGroup_ThrowsInvalidEnumArgumentException()
+        public void ConvertFailureMechanismSectionResultFurtherAnalysisType_InvalidFailureMechanismSectionResultFurtherAnalysisType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var random = new Random(21);
-            double probability = random.NextDouble();
-            var result = new RiskeerFailureMechanismSectionAssemblyResult(probability, probability,
-                                                                          random.NextDouble(),
-                                                                          (FailureMechanismSectionAssemblyGroup) 99);
+            const FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType = (FailureMechanismSectionResultFurtherAnalysisType) 99;
 
             // Call
-            void Call() => FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(result);
+            void Call() => FailureMechanismAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(furtherAnalysisType);
 
             // Assert
-            var expectedMessage = $"The value of argument 'assemblyGroup' (99) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyGroup)}'.";
+            var expectedMessage = $"The value of argument 'furtherAnalysisType' ({furtherAnalysisType}) is invalid for Enum type '{nameof(FailureMechanismSectionResultFurtherAnalysisType)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+        }
+
+        [Test]
+        [TestCase(FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, ERefinementStatus.NotNecessary)]
+        [TestCase(FailureMechanismSectionResultFurtherAnalysisType.Necessary, ERefinementStatus.Necessary)]
+        [TestCase(FailureMechanismSectionResultFurtherAnalysisType.Executed, ERefinementStatus.Performed)]
+        public void ConvertFailureMechanismSectionResultFurtherAnalysisType_ValidFailureMechanismSectionResultFurtherAnalysisType_ReturnsExpectedRefinementStatus(
+            FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType, ERefinementStatus expectedRefinementStatus)
+        {
+            // Call
+            ERefinementStatus refinementStatus = FailureMechanismAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(furtherAnalysisType);
+
+            // Assert
+            Assert.AreEqual(expectedRefinementStatus, refinementStatus);
         }
     }
 }

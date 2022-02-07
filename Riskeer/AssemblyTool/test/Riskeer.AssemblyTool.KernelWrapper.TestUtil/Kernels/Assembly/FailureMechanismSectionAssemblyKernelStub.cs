@@ -54,9 +54,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public Probability ProbabilityInitialMechanismSection { get; private set; }
 
         /// <summary>
-        /// Gets an indicator whether the section needs refinement or not.
+        /// Gets the refinement status for the failure mechanism section.
         /// </summary>
-        public bool NeedsRefinement { get; private set; }
+        public ERefinementStatus RefinementStatus { get; private set; }
 
         /// <summary>
         /// Gets the initial probability of the profile for the failure mechanism section.
@@ -88,19 +88,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// </summary>
         public FailureMechanismSectionAssemblyResult FailureMechanismSectionAssemblyResult { private get; set; }
 
-        public FailureMechanismSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification isRelevant,
+        public FailureMechanismSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification relevance,
                                                                                      Probability probabilityInitialMechanismSection,
-                                                                                     bool needsRefinement,
+                                                                                     ERefinementStatus refinementStatus,
                                                                                      Probability refinedProbabilitySection,
                                                                                      CategoriesList<InterpretationCategory> categories)
         {
             ThrowException();
             Calculated = true;
 
-            InitialMechanismProbabilitySpecification = isRelevant;
+            InitialMechanismProbabilitySpecification = relevance;
             ProbabilityInitialMechanismSection = probabilityInitialMechanismSection;
 
-            NeedsRefinement = needsRefinement;
+            RefinementStatus = refinementStatus;
             RefinedProbabilitySection = refinedProbabilitySection;
 
             Categories = categories;
@@ -108,10 +108,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return FailureMechanismSectionAssemblyResult;
         }
 
-        public FailureMechanismSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification isRelevant,
+        public FailureMechanismSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification relevance,
                                                                                      Probability probabilityInitialMechanismProfile,
                                                                                      Probability probabilityInitialMechanismSection,
-                                                                                     bool needsRefinement,
+                                                                                     ERefinementStatus refinementStatus,
                                                                                      Probability refinedProbabilityProfile,
                                                                                      Probability refinedProbabilitySection,
                                                                                      CategoriesList<InterpretationCategory> categories)
@@ -119,11 +119,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             ThrowException();
             Calculated = true;
 
-            InitialMechanismProbabilitySpecification = isRelevant;
+            InitialMechanismProbabilitySpecification = relevance;
             ProbabilityInitialMechanismProfile = probabilityInitialMechanismProfile;
             ProbabilityInitialMechanismSection = probabilityInitialMechanismSection;
 
-            NeedsRefinement = needsRefinement;
+            RefinementStatus = refinementStatus;
             RefinedProbabilityProfile = refinedProbabilityProfile;
             RefinedProbabilitySection = refinedProbabilitySection;
 
