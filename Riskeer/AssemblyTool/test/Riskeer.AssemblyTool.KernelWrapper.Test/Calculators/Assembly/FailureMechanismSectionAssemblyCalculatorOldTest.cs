@@ -156,7 +156,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleSimpleAssessment(assessmentResult);
 
                 // Assert
-                EAssessmentResultTypeE1 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE1(assessmentResult);
+                EAssessmentResultTypeE1 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeE1(assessmentResult);
                 Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeE1Input);
             }
         }
@@ -294,7 +294,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleSimpleAssessment(assessmentResult);
 
                 // Assert
-                EAssessmentResultTypeE2 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE2(assessmentResult);
+                EAssessmentResultTypeE2 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeE2(assessmentResult);
                 Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeE2Input);
             }
         }
@@ -436,7 +436,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleDetailedAssessment(detailedAssessmentResult);
 
                 // Assert
-                EAssessmentResultTypeG1 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG1(detailedAssessmentResult);
+                EAssessmentResultTypeG1 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeG1(detailedAssessmentResult);
                 Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeG1Input);
             }
         }
@@ -595,7 +595,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                     assemblyCategoriesInput);
 
                 // Assert
-                EAssessmentResultTypeG2 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessment);
+                EAssessmentResultTypeG2 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeG2(detailedAssessment);
                 Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeG2Input);
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
 
@@ -806,7 +806,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 AssertAssemblyCategoriesInput(normativeNorm, n, failureMechanismContribution, categoriesKernel, kernel);
 
-                EAssessmentResultTypeG2 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessment);
+                EAssessmentResultTypeG2 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeG2(detailedAssessment);
                 Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeG2Input);
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
             }
@@ -1020,7 +1020,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
                 Assert.AreEqual(n, kernel.LengthEffectFactorInput);
-                EAssessmentResultTypeG2 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessment);
+                EAssessmentResultTypeG2 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeG2(detailedAssessment);
                 Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeG2Input);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
                                               categoriesKernel,
@@ -1417,7 +1417,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult);
 
                 // Assert
-                EAssessmentResultTypeT1 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT1(tailorMadeAssessmentResult);
+                EAssessmentResultTypeT1 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT1(tailorMadeAssessmentResult);
                 Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeT1Input);
             }
         }
@@ -1578,7 +1578,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 AssertAssemblyCategoriesInput(normativeNorm, n, failureMechanismContribution, categoriesKernel, kernel);
 
-                EAssessmentResultTypeT4 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4(tailorMadeAssessmentResult);
+                EAssessmentResultTypeT4 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT4(tailorMadeAssessmentResult);
                 Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeT4Input);
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
             }
@@ -1780,7 +1780,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult, probability, assemblyCategoriesInput);
 
                 // Assert
-                EAssessmentResultTypeT3 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult);
+                EAssessmentResultTypeT3 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult);
                 Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeT3Input);
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
                 AssertAssemblyCategoriesInput(assemblyCategoriesInput,
@@ -1979,7 +1979,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleTailorMadeAssessment(tailorMadeAssessmentResult, probability, n, assemblyCategoriesInput);
 
                 // Assert
-                EAssessmentResultTypeT3 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult);
+                EAssessmentResultTypeT3 expectedResultType = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult);
                 Assert.AreEqual(expectedResultType, kernel.AssessmentResultTypeT3Input);
                 Assert.AreEqual(probability, kernel.FailureProbabilityInput);
                 Assert.AreEqual(n, kernel.LengthEffectFactorInput);
@@ -2175,7 +2175,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> expectedInput =
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3WithCategoryGroupResult(categoryGroupResult);
+                    FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT3WithCategoryGroupResult(categoryGroupResult);
 
                 Assert.AreEqual(expectedInput.Item1, kernel.AssessmentResultTypeT3Input);
                 Assert.AreEqual(expectedInput.Item2, kernel.SectionCategoryInput);

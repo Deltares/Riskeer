@@ -34,7 +34,7 @@ using Riskeer.Common.Primitives;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class FailureMechanismSectionAssemblyCalculatorInputCreatorTest
+    public class FailureMechanismSectionAssemblyCalculatorInputCreatorOldTest
     {
         #region Simple Assessment
 
@@ -42,7 +42,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentResultTypeE1_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE1((SimpleAssessmentResultType) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeE1((SimpleAssessmentResultType) 99);
 
             // Assert
             string expectedMessage = $"The value of argument 'input' (99) is invalid for Enum type '{nameof(SimpleAssessmentResultType)}'.";
@@ -58,7 +58,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                                                                                          EAssessmentResultTypeE1 expectedResult)
         {
             // Call
-            EAssessmentResultTypeE1 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE1(originalResult);
+            EAssessmentResultTypeE1 result = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeE1(originalResult);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
@@ -68,7 +68,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentResultTypeE2_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE2((SimpleAssessmentValidityOnlyResultType) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeE2((SimpleAssessmentValidityOnlyResultType) 99);
 
             // Assert
             string expectedMessage = $"The value of argument 'input' (99) is invalid for Enum type '{nameof(SimpleAssessmentValidityOnlyResultType)}'.";
@@ -84,7 +84,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             EAssessmentResultTypeE2 expectedResult)
         {
             // Call
-            EAssessmentResultTypeE2 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE2(originalResult);
+            EAssessmentResultTypeE2 result = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeE2(originalResult);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
@@ -104,7 +104,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             DetailedAssessmentResultType detailedAssessmentResultForFactorizedLowerLimitNorm)
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateCategoryCompliancyResults(
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateCategoryCompliancyResults(
                 detailedAssessmentResultForFactorizedSignalingNorm,
                 detailedAssessmentResultForSignalingNorm,
                 detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
@@ -128,7 +128,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             var detailedAssessmentResultForFactorizedLowerLimitNorm = random.NextEnumValue<DetailedAssessmentResultType>();
 
             // Call
-            FmSectionCategoryCompliancyResults result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateCategoryCompliancyResults(
+            FmSectionCategoryCompliancyResults result = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateCategoryCompliancyResults(
                 detailedAssessmentResultForFactorizedSignalingNorm,
                 detailedAssessmentResultForSignalingNorm,
                 detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
@@ -148,7 +148,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentResultTypeG1_InvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG1((DetailedAssessmentResultType) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeG1((DetailedAssessmentResultType) 99);
 
             // Assert
             string expectedMessage = $"The value of argument 'detailedAssessmentResult' (99) is invalid for Enum type '{nameof(DetailedAssessmentResultType)}'.";
@@ -164,7 +164,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                                                                                           EAssessmentResultTypeG1 expectedResult)
         {
             // Call
-            EAssessmentResultTypeG1 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG1(originalResult);
+            EAssessmentResultTypeG1 result = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeG1(originalResult);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
@@ -174,7 +174,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentResultTypeG2_InvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeG2(
                 (DetailedAssessmentProbabilityOnlyResultType) 99);
 
             // Assert
@@ -191,7 +191,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             EAssessmentResultTypeG2 expectedResult)
         {
             // Call
-            EAssessmentResultTypeG2 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(originalResult);
+            EAssessmentResultTypeG2 result = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeG2(originalResult);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
@@ -260,7 +260,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateFailureMechanismSectionAssemblyDirectResult_AssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(null);
+            TestDelegate call = () => FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -286,7 +286,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             var assembly = new FailureMechanismSectionAssemblyOld(random.NextDouble(), originalGroup);
 
             // Call
-            FmSectionAssemblyDirectResultWithProbability input = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
+            FmSectionAssemblyDirectResultWithProbability input = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(
                 assembly);
 
             // Assert
@@ -298,7 +298,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateFailureMechanismSectionAssemblyDirectResult_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(
                 new FailureMechanismSectionAssemblyOld(0, (FailureMechanismSectionAssemblyCategoryGroup) 99));
 
             // Assert
@@ -321,7 +321,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             EFmSectionCategory expectedGroup)
         {
             // Call
-            FmSectionAssemblyDirectResult actualResult = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
+            FmSectionAssemblyDirectResult actualResult = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(
                 originalGroup);
 
             // Assert
@@ -332,7 +332,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateFailureMechanismSectionAssemblyDirectResult_WithInvalidGroup_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(
                 (FailureMechanismSectionAssemblyCategoryGroup) 99);
 
             // Assert
@@ -360,7 +360,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         {
             // Call
             Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> actualGroup =
-                FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3WithCategoryGroupResult(originalGroup);
+                FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT3WithCategoryGroupResult(originalGroup);
 
             // Assert
             Assert.AreEqual(expectedResult, actualGroup.Item1);
@@ -371,7 +371,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentResultTypeT3WithCategoryGroupResult_InvalidGroup_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3WithCategoryGroupResult(
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT3WithCategoryGroupResult(
                 (TailorMadeAssessmentCategoryGroupResultType) 99);
 
             // Assert
@@ -383,7 +383,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentResultTypeT1_InvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT1((TailorMadeAssessmentResultType) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT1((TailorMadeAssessmentResultType) 99);
 
             // Assert
             string expectedMessage = $"The value of argument 'tailorMadeAssessmentResult' (99) is invalid for Enum type '{nameof(TailorMadeAssessmentResultType)}'.";
@@ -401,7 +401,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             EAssessmentResultTypeT1 expectedResult)
         {
             // Call
-            EAssessmentResultTypeT1 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT1(originalResult);
+            EAssessmentResultTypeT1 result = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT1(originalResult);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
@@ -411,7 +411,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentResultTypeT3_InvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3((TailorMadeAssessmentProbabilityCalculationResultType) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT3((TailorMadeAssessmentProbabilityCalculationResultType) 99);
 
             // Assert
             string expectedMessage = $"The value of argument 'tailorMadeAssessmentResult' (99) is invalid for Enum type '{nameof(TailorMadeAssessmentProbabilityCalculationResultType)}'.";
@@ -428,7 +428,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             EAssessmentResultTypeT3 expectedResult)
         {
             // Call
-            EAssessmentResultTypeT3 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(originalResult);
+            EAssessmentResultTypeT3 result = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT3(originalResult);
 
             // Assert
             Assert.AreEqual(expectedResult, result);
@@ -438,7 +438,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentResultTypeT4_InvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4((TailorMadeAssessmentProbabilityAndDetailedCalculationResultType) 99);
+            TestDelegate test = () => FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT4((TailorMadeAssessmentProbabilityAndDetailedCalculationResultType) 99);
 
             // Assert
             string expectedMessage = $"The value of argument 'tailorMadeAssessmentResult' (99) is invalid for Enum type '{nameof(TailorMadeAssessmentProbabilityAndDetailedCalculationResultType)}'.";
@@ -457,7 +457,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             EAssessmentResultTypeT4 expectedResult)
         {
             // Call
-            EAssessmentResultTypeT4 result = FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4(originalResult);
+            EAssessmentResultTypeT4 result = FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT4(originalResult);
 
             // Assert
             Assert.AreEqual(expectedResult, result);

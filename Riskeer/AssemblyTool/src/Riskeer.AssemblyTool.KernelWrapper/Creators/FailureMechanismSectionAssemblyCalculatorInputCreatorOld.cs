@@ -34,7 +34,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     /// <summary>
     /// Creates input instances that can be used in <see cref="IAssessmentResultsTranslator"/>.
     /// </summary>
-    internal static class FailureMechanismSectionAssemblyCalculatorInputCreator
+    internal static class FailureMechanismSectionAssemblyCalculatorInputCreatorOld
     {
         /// <summary>
         /// Creates <see cref="EAssessmentResultTypeE1"/> based on the given <paramref name="input"/>.

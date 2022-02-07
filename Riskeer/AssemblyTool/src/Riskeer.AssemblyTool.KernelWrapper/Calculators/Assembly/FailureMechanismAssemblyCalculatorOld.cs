@@ -60,7 +60,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
                 EFailureMechanismCategory output = kernel.AssembleFailureMechanismWbi1A1(
-                    sectionCategories.Select(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult).ToArray(),
+                    sectionCategories.Select(FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult).ToArray(),
                     false);
 
                 return FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(output);
@@ -88,7 +88,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
                 FailureMechanismAssemblyResult output = kernel.AssembleFailureMechanismWbi1B1(
                     new FailureMechanism(assemblyCategoriesInput.N, assemblyCategoriesInput.FailureMechanismContribution),
-                    sectionAssemblies.Select(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult).ToArray(),
+                    sectionAssemblies.Select(FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult).ToArray(),
                     categories,
                     false);
 

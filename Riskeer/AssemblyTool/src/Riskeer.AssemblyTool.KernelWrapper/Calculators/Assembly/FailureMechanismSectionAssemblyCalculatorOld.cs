@@ -64,7 +64,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 FmSectionAssemblyDirectResultWithProbability output = kernel.TranslateAssessmentResultWbi0E1(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE1(input));
+                    FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeE1(input));
 
                 return FailureMechanismSectionAssemblyCreatorOld.Create(output);
             }
@@ -84,7 +84,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 FmSectionAssemblyDirectResultWithProbability output = kernel.TranslateAssessmentResultWbi0E3(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeE2(input));
+                    FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeE2(input));
 
                 return FailureMechanismSectionAssemblyCreatorOld.Create(output);
             }
@@ -108,7 +108,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0G1(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG1(detailedAssessmentResult));
+                    FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeG1(detailedAssessmentResult));
 
                 return FailureMechanismSectionAssemblyCreatorOld.CreateFailureMechanismSectionAssemblyCategoryGroup(output.Result);
             }
@@ -179,7 +179,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0G6(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateCategoryCompliancyResults(
+                    FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateCategoryCompliancyResults(
                         detailedAssessmentResultForFactorizedSignalingNorm,
                         detailedAssessmentResultForSignalingNorm,
                         detailedAssessmentResultForMechanismSpecificLowerLimitNorm,
@@ -251,7 +251,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             return double.IsNaN(probability) && detailedAssessmentResult == DetailedAssessmentProbabilityOnlyResultType.Probability
                        ? EAssessmentResultTypeG2.Gr
-                       : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeG2(detailedAssessmentResult);
+                       : FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeG2(detailedAssessmentResult);
         }
 
         #endregion
@@ -264,7 +264,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0T1(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT1(tailorMadeAssessmentResult));
+                    FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT1(tailorMadeAssessmentResult));
 
                 return FailureMechanismSectionAssemblyCreatorOld.CreateFailureMechanismSectionAssemblyCategoryGroup(output.Result);
             }
@@ -295,7 +295,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0T7(
                     double.IsNaN(probability) && tailorMadeAssessmentResult == TailorMadeAssessmentProbabilityAndDetailedCalculationResultType.Probability
                         ? EAssessmentResultTypeT4.Gr
-                        : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT4(tailorMadeAssessmentResult),
+                        : FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT4(tailorMadeAssessmentResult),
                     probability,
                     categories);
 
@@ -321,7 +321,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 FmSectionAssemblyDirectResultWithProbability output = kernel.TranslateAssessmentResultWbi0T3(
                     double.IsNaN(probability) && tailorMadeAssessmentResult == TailorMadeAssessmentProbabilityCalculationResultType.Probability
                         ? EAssessmentResultTypeT3.Gr
-                        : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
+                        : FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
                     probability,
                     GetWbi01Categories(assemblyCategoriesInput));
 
@@ -349,7 +349,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                     failureMechanismSectionN,
                     double.IsNaN(probability) && tailorMadeAssessmentResult == TailorMadeAssessmentProbabilityCalculationResultType.Probability
                         ? EAssessmentResultTypeT3.Gr
-                        : FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
+                        : FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT3(tailorMadeAssessmentResult),
                     probability,
                     GetWbi01Categories(assemblyCategoriesInput));
 
@@ -372,7 +372,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 Tuple<EAssessmentResultTypeT3, EFmSectionCategory?> input =
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateAssessmentResultTypeT3WithCategoryGroupResult(
+                    FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateAssessmentResultTypeT3WithCategoryGroupResult(
                         tailorMadeAssessmentResult);
 
                 FmSectionAssemblyDirectResult output = kernel.TranslateAssessmentResultWbi0T4(input.Item1, input.Item2);
@@ -407,7 +407,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 FmSectionAssemblyDirectResultWithProbability output = kernel.TranslateAssessmentResultWbi0A1(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
+                    FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
                     null,
                     null);
 
@@ -431,9 +431,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismSectionAssemblyCalculatorKernel kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
                 FmSectionAssemblyDirectResultWithProbability output = kernel.TranslateAssessmentResultWbi0A1(
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly),
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly));
+                    FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
+                    FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly),
+                    FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly));
 
                 return FailureMechanismSectionAssemblyCreatorOld.Create(output);
             }
@@ -451,7 +451,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
-                return AssembleCombined(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
+                return AssembleCombined(FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
                                         null,
                                         null);
             }
@@ -470,9 +470,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
-                return AssembleCombined(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
+                return AssembleCombined(FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
                                         null,
-                                        FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly));
+                                        FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly));
             }
             catch (AssemblyException e)
             {
@@ -490,9 +490,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         {
             try
             {
-                return AssembleCombined(FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
-                                        FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly),
-                                        FailureMechanismSectionAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly));
+                return AssembleCombined(FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(simpleAssembly),
+                                        FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(detailedAssembly),
+                                        FailureMechanismSectionAssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionAssemblyDirectResult(tailorMadeAssembly));
             }
             catch (AssemblyException e)
             {
