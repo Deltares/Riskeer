@@ -24,7 +24,6 @@ using System.ComponentModel;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.Common.Primitives;
 using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
@@ -56,37 +55,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             return new AssemblyFailureMechanismSectionAssemblyResult(new Probability(result.ProfileProbability),
                                                                      new Probability(result.SectionProbability),
                                                                      ConvertFailureMechanismSectionAssemblyGroup(result.AssemblyGroup));
-        }
-
-        /// <summary>
-        /// Converts a <see cref="FailureMechanismSectionResultFurtherAnalysisType"/> into an
-        /// <see cref="ERefinementStatus"/>.
-        /// </summary>
-        /// <param name="furtherAnalysisType">The <see cref="FailureMechanismSectionResultFurtherAnalysisType"/> to convert.</param>
-        /// <returns>The converted <see cref="ERefinementStatus"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="furtherAnalysisType"/> is invalid.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="furtherAnalysisType"/>
-        /// is valid but not supported.</exception>
-        public static ERefinementStatus ConvertFailureMechanismSectionResultFurtherAnalysisType(FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType)
-        {
-            if (!Enum.IsDefined(typeof(FailureMechanismSectionResultFurtherAnalysisType), furtherAnalysisType))
-            {
-                throw new InvalidEnumArgumentException(nameof(furtherAnalysisType),
-                                                       (int) furtherAnalysisType,
-                                                       typeof(FailureMechanismSectionResultFurtherAnalysisType));
-            }
-
-            switch (furtherAnalysisType)
-            {
-                case FailureMechanismSectionResultFurtherAnalysisType.NotNecessary:
-                    return ERefinementStatus.NotNecessary;
-                case FailureMechanismSectionResultFurtherAnalysisType.Necessary:
-                    return ERefinementStatus.Necessary;
-                case FailureMechanismSectionResultFurtherAnalysisType.Executed:
-                    return ERefinementStatus.Performed;
-                default:
-                    throw new NotSupportedException();
-            }
         }
 
         /// <summary>

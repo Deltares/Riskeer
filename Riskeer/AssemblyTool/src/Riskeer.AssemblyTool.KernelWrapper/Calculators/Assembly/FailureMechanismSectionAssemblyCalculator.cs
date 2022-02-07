@@ -73,7 +73,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 AssemblyFailureMechanismSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(
                     GetInitialMechanismProbabilitySpecification(input),
                     CreateProbability(input.InitialSectionProbability),
-                    FailureMechanismAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(
                         input.FurtherAnalysisType),
                     CreateProbability(input.RefinedSectionProbability),
                     categories);
@@ -109,7 +109,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                     GetInitialMechanismProbabilitySpecification(input),
                     CreateProbability(input.InitialProfileProbability),
                     CreateProbability(input.InitialSectionProbability),
-                    FailureMechanismAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(input.FurtherAnalysisType),
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(input.FurtherAnalysisType),
                     CreateProbability(input.RefinedProfileProbability),
                     CreateProbability(input.RefinedSectionProbability),
                     categories);

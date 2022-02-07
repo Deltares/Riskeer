@@ -21,14 +21,12 @@
 
 using System;
 using System.ComponentModel;
-using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
-using Riskeer.Common.Primitives;
 using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
@@ -97,34 +95,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             ProbabilityAssert.AreEqual(profileProbability, createdResult.ProbabilityProfile);
             ProbabilityAssert.AreEqual(sectionProbability, createdResult.ProbabilitySection);
             Assert.AreEqual(expectedCategory, createdResult.InterpretationCategory);
-        }
-
-        [Test]
-        public void ConvertFailureMechanismSectionResultFurtherAnalysisType_InvalidFailureMechanismSectionResultFurtherAnalysisType_ThrowsInvalidEnumArgumentException()
-        {
-            // Setup
-            const FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType = (FailureMechanismSectionResultFurtherAnalysisType) 99;
-
-            // Call
-            void Call() => FailureMechanismAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(furtherAnalysisType);
-
-            // Assert
-            var expectedMessage = $"The value of argument 'furtherAnalysisType' ({furtherAnalysisType}) is invalid for Enum type '{nameof(FailureMechanismSectionResultFurtherAnalysisType)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
-        }
-
-        [Test]
-        [TestCase(FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, ERefinementStatus.NotNecessary)]
-        [TestCase(FailureMechanismSectionResultFurtherAnalysisType.Necessary, ERefinementStatus.Necessary)]
-        [TestCase(FailureMechanismSectionResultFurtherAnalysisType.Executed, ERefinementStatus.Performed)]
-        public void ConvertFailureMechanismSectionResultFurtherAnalysisType_ValidFailureMechanismSectionResultFurtherAnalysisType_ReturnsExpectedRefinementStatus(
-            FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType, ERefinementStatus expectedRefinementStatus)
-        {
-            // Call
-            ERefinementStatus refinementStatus = FailureMechanismAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(furtherAnalysisType);
-
-            // Assert
-            Assert.AreEqual(expectedRefinementStatus, refinementStatus);
         }
     }
 }
