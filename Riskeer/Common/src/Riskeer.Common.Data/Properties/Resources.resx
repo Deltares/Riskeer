@@ -422,13 +422,4 @@
           xml:space="preserve">
     <value>De aangescherpte faalkans per doorsnede moet kleiner of gelijk zijn aan de aangescherpte faalkans per vak.</value>
   </data>
-  <data name="FailureMechanismSectionResultFurtherAnalysisType_NotNecessary_DisplayName" xml:space="preserve">
-    <value>Niet nodig</value>
-  </data>
-  <data name="FailureMechanismSectionResultFurtherAnalysisType_Necessary_DisplayName" xml:space="preserve">
-    <value>Nodig</value>
-  </data>
-  <data name="FailureMechanismSectionResultFurtherAnalysisType_Executed_DisplayName" xml:space="preserve">
-    <value>Uitgevoerd</value>
-  </data>
 </root>

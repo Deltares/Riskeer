@@ -29,6 +29,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Providers;
 using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.Common.Primitives;
 
 namespace Riskeer.Common.Forms.Views
 {

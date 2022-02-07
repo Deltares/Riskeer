@@ -41,6 +41,7 @@ using Riskeer.Common.Forms.Providers;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Common.Forms.Views;
+using Riskeer.Common.Primitives;
 
 namespace Riskeer.Common.Forms.Test.Views
 {

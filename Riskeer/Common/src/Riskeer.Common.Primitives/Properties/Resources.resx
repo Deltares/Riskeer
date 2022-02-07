@@ -177,4 +177,13 @@
   <data name="FailureMechanismSectionAssemblyCategoryGroup_None_DisplayName" xml:space="preserve">
     <value>&lt;selecteer&gt;</value>
   </data>
+  <data name="FailureMechanismSectionResultFurtherAnalysisType_NotNecessary_DisplayName" xml:space="preserve">
+    <value>Niet nodig</value>
+  </data>
+  <data name="FailureMechanismSectionResultFurtherAnalysisType_Necessary_DisplayName" xml:space="preserve">
+    <value>Nodig</value>
+  </data>
+  <data name="FailureMechanismSectionResultFurtherAnalysisType_Executed_DisplayName" xml:space="preserve">
+    <value>Uitgevoerd</value>
+  </data>
 </root>

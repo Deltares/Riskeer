@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -204,6 +204,33 @@ namespace Riskeer.Common.Primitives.Properties {
         public static string FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uitgevoerd.
+        /// </summary>
+        public static string FailureMechanismSectionResultFurtherAnalysisType_Executed_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionResultFurtherAnalysisType_Executed_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nodig.
+        /// </summary>
+        public static string FailureMechanismSectionResultFurtherAnalysisType_Necessary_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionResultFurtherAnalysisType_Necessary_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niet nodig.
+        /// </summary>
+        public static string FailureMechanismSectionResultFurtherAnalysisType_NotNecessary_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionResultFurtherAnalysisType_NotNecessary_DisplayName", resourceCulture);
             }
         }
         

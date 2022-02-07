@@ -26,6 +26,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Common.Plugin.TestUtil.FileImporters;
+using Riskeer.Common.Primitives;
 
 namespace Riskeer.Common.Plugin.Test.FileImporters
 {

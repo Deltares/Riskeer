@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.Properties;
+using Riskeer.Common.Primitives;
 
 namespace Riskeer.Common.Data.FailureMechanism
 {

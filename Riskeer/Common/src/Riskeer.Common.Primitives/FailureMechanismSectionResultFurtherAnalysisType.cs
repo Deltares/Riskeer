@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using Core.Common.Util.Attributes;
-using Riskeer.Common.Data.Properties;
+using Riskeer.Common.Primitives.Properties;
 
-namespace Riskeer.Common.Data.FailureMechanism
+namespace Riskeer.Common.Primitives
 {
     /// <summary>
     /// Specifies the types of the further analysis.

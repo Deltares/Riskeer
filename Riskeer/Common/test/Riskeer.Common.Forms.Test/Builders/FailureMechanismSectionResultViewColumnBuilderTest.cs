@@ -30,6 +30,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Builders;
+using Riskeer.Common.Primitives;
 
 namespace Riskeer.Common.Forms.Test.Builders
 {

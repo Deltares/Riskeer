@@ -22,9 +22,8 @@
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.FailureMechanism;
 
-namespace Riskeer.Common.Data.Test.FailureMechanism
+namespace Riskeer.Common.Primitives.Test
 {
     [TestFixture]
     public class FailureMechanismSectionResultFurtherAnalysisTypeTest : EnumWithResourcesDisplayNameTestFixture<FailureMechanismSectionResultFurtherAnalysisType>

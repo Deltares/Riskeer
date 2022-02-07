@@ -26,6 +26,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Util;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Properties;
+using Riskeer.Common.Primitives;
 
 namespace Riskeer.Common.Forms.Builders
 {
