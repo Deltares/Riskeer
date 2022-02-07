@@ -39,14 +39,13 @@ namespace Riskeer.AssemblyTool.Data.Test
             bool isRelevant = random.NextBoolean();
             bool hasProbabilitySpecified = random.NextBoolean();
             double sectionProbability = random.NextDouble();
-            bool furtherAnalysisNeeded = random.NextBoolean();
             var furtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
             double refinedSectionProbability = random.NextDouble();
 
             // Call
             var input = new FailureMechanismSectionAssemblyInput(
                 lowerLimitNorm, signalingNorm, isRelevant, hasProbabilitySpecified,
-                sectionProbability, furtherAnalysisNeeded, furtherAnalysisType, refinedSectionProbability);
+                sectionProbability, furtherAnalysisType, refinedSectionProbability);
 
             // Assert
             Assert.AreEqual(signalingNorm, input.SignalingNorm);
@@ -55,7 +54,6 @@ namespace Riskeer.AssemblyTool.Data.Test
             Assert.AreEqual(isRelevant, input.IsRelevant);
             Assert.AreEqual(hasProbabilitySpecified, input.HasProbabilitySpecified);
             Assert.AreEqual(sectionProbability, input.InitialSectionProbability);
-            Assert.AreEqual(furtherAnalysisNeeded, input.FurtherAnalysisNeeded);
             Assert.AreEqual(furtherAnalysisType, input.FurtherAnalysisType);
             Assert.AreEqual(refinedSectionProbability, input.RefinedSectionProbability);
         }

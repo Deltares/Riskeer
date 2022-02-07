@@ -38,17 +38,15 @@ namespace Riskeer.AssemblyTool.Data
         /// <param name="hasProbabilitySpecified">Indicator whether the section has a probability specified.</param>
         /// <param name="initialProfileProbability">The initial probability for the profile.</param>
         /// <param name="initialSectionProbability">The initial probability for the section.</param>
-        /// <param name="furtherAnalysisNeeded">The indicator whether the section needs further analysis.</param>
         /// <param name="furtherAnalysisType">The <see cref="FailureMechanismSectionResultFurtherAnalysisType"/>.</param>
         /// <param name="refinedProfileProbability">The refined probability for the profile.</param>
         /// <param name="refinedSectionProbability">The refined probability for the section.</param>
         public FailureMechanismSectionWithProfileProbabilityAssemblyInput(double lowerLimitNorm, double signalingNorm,
                                                                           bool isRelevant, bool hasProbabilitySpecified,
                                                                           double initialProfileProbability, double initialSectionProbability,
-                                                                          bool furtherAnalysisNeeded,
                                                                           FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType,
                                                                           double refinedProfileProbability, double refinedSectionProbability)
-            : base(lowerLimitNorm, signalingNorm, isRelevant, hasProbabilitySpecified, initialSectionProbability, furtherAnalysisNeeded, furtherAnalysisType, refinedSectionProbability)
+            : base(lowerLimitNorm, signalingNorm, isRelevant, hasProbabilitySpecified, initialSectionProbability, furtherAnalysisType, refinedSectionProbability)
         {
             InitialProfileProbability = initialProfileProbability;
             RefinedProfileProbability = refinedProfileProbability;

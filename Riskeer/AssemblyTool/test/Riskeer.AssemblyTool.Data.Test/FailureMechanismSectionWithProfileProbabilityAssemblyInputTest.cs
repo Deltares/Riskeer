@@ -40,7 +40,6 @@ namespace Riskeer.AssemblyTool.Data.Test
             bool hasProbabilitySpecified = random.NextBoolean();
             double profileProbability = random.NextDouble();
             double sectionProbability = random.NextDouble();
-            bool furtherAnalysisNeeded = random.NextBoolean();
             var furtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
             double refinedProfileProbability = random.NextDouble();
             double refinedSectionProbability = random.NextDouble();
@@ -48,7 +47,7 @@ namespace Riskeer.AssemblyTool.Data.Test
             // Call
             var input = new FailureMechanismSectionWithProfileProbabilityAssemblyInput(
                 lowerLimitNorm, signalingNorm, isRelevant, hasProbabilitySpecified, profileProbability, sectionProbability,
-                furtherAnalysisNeeded, furtherAnalysisType, refinedProfileProbability, refinedSectionProbability);
+                furtherAnalysisType, refinedProfileProbability, refinedSectionProbability);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionAssemblyInput>(input);
@@ -59,7 +58,6 @@ namespace Riskeer.AssemblyTool.Data.Test
             Assert.AreEqual(hasProbabilitySpecified, input.HasProbabilitySpecified);
             Assert.AreEqual(profileProbability, input.InitialProfileProbability);
             Assert.AreEqual(sectionProbability, input.InitialSectionProbability);
-            Assert.AreEqual(furtherAnalysisNeeded, input.FurtherAnalysisNeeded);
             Assert.AreEqual(furtherAnalysisType, input.FurtherAnalysisType);
             Assert.AreEqual(refinedProfileProbability, input.RefinedProfileProbability);
             Assert.AreEqual(refinedSectionProbability, input.RefinedSectionProbability);

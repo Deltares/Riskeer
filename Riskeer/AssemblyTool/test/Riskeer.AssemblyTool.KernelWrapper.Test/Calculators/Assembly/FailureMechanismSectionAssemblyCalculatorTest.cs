@@ -106,7 +106,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var random = new Random(21);
             var input = new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
                                                                  isRelevant, hasProbabilitySpecified,
-                                                                 random.NextDouble(), random.NextBoolean(),
+                                                                 random.NextDouble(),
                                                                  random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
                                                                  random.NextDouble());
             using (new AssemblyToolKernelFactoryConfig())
@@ -298,7 +298,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var input = new FailureMechanismSectionWithProfileProbabilityAssemblyInput(lowerLimitNorm, signalingNorm,
                                                                                        isRelevant, hasProbabilitySpecified,
                                                                                        random.NextDouble(), random.NextDouble(),
-                                                                                       random.NextBoolean(),random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
+                                                                                       random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
                                                                                        random.NextDouble(), random.NextDouble());
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -463,7 +463,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var random = new Random(21);
             return new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
                                                             random.NextBoolean(), random.NextBoolean(),
-                                                            random.NextDouble(), random.NextBoolean(),
+                                                            random.NextDouble(),
                                                             random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
                                                             random.NextDouble());
         }
@@ -477,7 +477,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             return new FailureMechanismSectionWithProfileProbabilityAssemblyInput(lowerLimitNorm, signalingNorm,
                                                                                   random.NextBoolean(), random.NextBoolean(),
                                                                                   random.NextDouble(), random.NextDouble(),
-                                                                                  random.NextBoolean(), random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
+                                                                                  random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
                                                                                   random.NextDouble(), random.NextDouble());
         }
 

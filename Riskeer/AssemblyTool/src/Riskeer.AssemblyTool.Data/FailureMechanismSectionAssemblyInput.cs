@@ -36,12 +36,11 @@ namespace Riskeer.AssemblyTool.Data
         /// <param name="isRelevant">The indicator whether the section is relevant.</param>
         /// <param name="hasProbabilitySpecified">Indicator whether the section has a probability specified.</param>
         /// <param name="initialSectionProbability">The initial probability for the section.</param>
-        /// <param name="furtherAnalysisNeeded">The indicator whether the section needs further analysis.</param>
         /// <param name="furtherAnalysisType">The <see cref="FailureMechanismSectionResultFurtherAnalysisType"/>.</param>
         /// <param name="refinedSectionProbability">The refined probability for the section.</param>
         public FailureMechanismSectionAssemblyInput(double lowerLimitNorm, double signalingNorm,
                                                     bool isRelevant, bool hasProbabilitySpecified,
-                                                    double initialSectionProbability, bool furtherAnalysisNeeded,
+                                                    double initialSectionProbability,
                                                     FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType,
                                                     double refinedSectionProbability)
         {
@@ -51,7 +50,6 @@ namespace Riskeer.AssemblyTool.Data
             IsRelevant = isRelevant;
             HasProbabilitySpecified = hasProbabilitySpecified;
             InitialSectionProbability = initialSectionProbability;
-            FurtherAnalysisNeeded = furtherAnalysisNeeded;
             FurtherAnalysisType = furtherAnalysisType;
             RefinedSectionProbability = refinedSectionProbability;
         }
