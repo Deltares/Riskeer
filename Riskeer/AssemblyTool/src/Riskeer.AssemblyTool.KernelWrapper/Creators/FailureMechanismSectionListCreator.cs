@@ -58,7 +58,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                                                                  string.Empty,
                                                                  sectionCollection.Select(s => new FmSectionWithDirectCategory(
                                                                                               s.SectionStart, s.SectionEnd,
-                                                                                              AssemblyCalculatorInputCreator.CreateFailureMechanismSectionCategory(
+                                                                                              AssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionCategory(
                                                                                                   s.CategoryGroup)))))
                                                      .ToArray();
         }

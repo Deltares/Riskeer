@@ -29,7 +29,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     /// <summary>
     /// Creates input instances that can be used in the assembly kernel.
     /// </summary>
-    internal static class AssemblyCalculatorInputCreator
+    internal static class AssemblyCalculatorInputCreatorOld
     {
         /// <summary>
         /// Creates a <see cref="EFmSectionCategory"/> from a <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.

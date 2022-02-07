@@ -29,13 +29,13 @@ using Riskeer.AssemblyTool.KernelWrapper.Creators;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class AssemblyCalculatorInputCreatorTest
+    public class AssemblyCalculatorInputCreatorOldTest
     {
         [Test]
         public void CreateFailureMechanismSectionCategory_WithInvalidEnumInput_ThrowInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => AssemblyCalculatorInputCreator.CreateFailureMechanismSectionCategory(
+            TestDelegate test = () => AssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionCategory(
                 (FailureMechanismSectionAssemblyCategoryGroup) 99);
 
             // Assert
@@ -58,7 +58,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             EFmSectionCategory expectedGroup)
         {
             // Call
-            EFmSectionCategory actualGroup = AssemblyCalculatorInputCreator.CreateFailureMechanismSectionCategory(
+            EFmSectionCategory actualGroup = AssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionCategory(
                 originalGroup);
 
             // Assert

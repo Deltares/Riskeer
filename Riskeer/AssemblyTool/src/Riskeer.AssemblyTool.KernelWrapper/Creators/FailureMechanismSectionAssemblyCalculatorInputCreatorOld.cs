@@ -123,7 +123,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(assembly));
             }
 
-            return new FmSectionAssemblyDirectResultWithProbability(AssemblyCalculatorInputCreator.CreateFailureMechanismSectionCategory(assembly.Group),
+            return new FmSectionAssemblyDirectResultWithProbability(AssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionCategory(assembly.Group),
                                                                     assembly.Probability);
         }
 
@@ -142,7 +142,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         public static FmSectionAssemblyDirectResult CreateFailureMechanismSectionAssemblyDirectResult(
             FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
         {
-            return new FmSectionAssemblyDirectResult(AssemblyCalculatorInputCreator.CreateFailureMechanismSectionCategory(categoryGroup));
+            return new FmSectionAssemblyDirectResult(AssemblyCalculatorInputCreatorOld.CreateFailureMechanismSectionCategory(categoryGroup));
         }
 
         /// <summary>
