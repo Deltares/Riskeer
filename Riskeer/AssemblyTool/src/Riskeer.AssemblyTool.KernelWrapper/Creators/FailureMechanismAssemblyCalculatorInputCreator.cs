@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
 using Riskeer.AssemblyTool.Data;
 using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
@@ -52,9 +51,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new AssemblyFailureMechanismSectionAssemblyResult(new Probability(result.ProfileProbability),
-                                                                     new Probability(result.SectionProbability),
-                                                                     ConvertFailureMechanismSectionAssemblyGroup(result.AssemblyGroup));
+            return new AssemblyFailureMechanismSectionAssemblyResult(
+                AssemblyCalculatorInputCreator.CreateProbability(result.ProfileProbability),
+                AssemblyCalculatorInputCreator.CreateProbability(result.SectionProbability),
+                ConvertFailureMechanismSectionAssemblyGroup(result.AssemblyGroup));
         }
 
         /// <summary>

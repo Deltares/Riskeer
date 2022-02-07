@@ -66,16 +66,17 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 ICategoryLimitsCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();
                 CategoriesList<InterpretationCategory> categories = assemblyCategoriesKernel.CalculateInterpretationCategoryLimitsWbi03(
-                    new AssessmentSection(CreateProbability(input.SignalingNorm), CreateProbability(input.LowerLimitNorm)));
+                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(input.SignalingNorm),
+                                          AssemblyCalculatorInputCreator.CreateProbability(input.LowerLimitNorm)));
 
                 IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
 
                 AssemblyFailureMechanismSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(
                     GetInitialMechanismProbabilitySpecification(input),
-                    CreateProbability(input.InitialSectionProbability),
+                    AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),
                     FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(
                         input.FurtherAnalysisType),
-                    CreateProbability(input.RefinedSectionProbability),
+                    AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability),
                     categories);
 
                 return FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(output);
@@ -101,17 +102,18 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 ICategoryLimitsCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();
                 CategoriesList<InterpretationCategory> categories = assemblyCategoriesKernel.CalculateInterpretationCategoryLimitsWbi03(
-                    new AssessmentSection(CreateProbability(input.SignalingNorm), CreateProbability(input.LowerLimitNorm)));
+                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(input.SignalingNorm),
+                                          AssemblyCalculatorInputCreator.CreateProbability(input.LowerLimitNorm)));
 
                 IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
 
                 AssemblyFailureMechanismSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(
                     GetInitialMechanismProbabilitySpecification(input),
-                    CreateProbability(input.InitialProfileProbability),
-                    CreateProbability(input.InitialSectionProbability),
+                    AssemblyCalculatorInputCreator.CreateProbability(input.InitialProfileProbability),
+                    AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),
                     FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(input.FurtherAnalysisType),
-                    CreateProbability(input.RefinedProfileProbability),
-                    CreateProbability(input.RefinedSectionProbability),
+                    AssemblyCalculatorInputCreator.CreateProbability(input.RefinedProfileProbability),
+                    AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability),
                     categories);
 
                 return FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(output);
@@ -136,11 +138,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             return input.HasProbabilitySpecified
                        ? ESectionInitialMechanismProbabilitySpecification.RelevantWithProbabilitySpecification
                        : ESectionInitialMechanismProbabilitySpecification.RelevantNoProbabilitySpecification;
-        }
-
-        private static Probability CreateProbability(double value)
-        {
-            return new Probability(value);
         }
     }
 }
