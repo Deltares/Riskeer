@@ -51,55 +51,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new RiskeerFailureMechanismSectionAssemblyResult(result.ProbabilityProfile.Value,
-                                                                    result.ProbabilitySection.Value,
-                                                                    result.NSection,
-                                                                    CreateFailureMechanismSectionAssemblyGroup(result.InterpretationCategory));
-        }
-
-        /// <summary>
-        /// Converts a <see cref="EInterpretationCategory"/> into a <see cref="FailureMechanismSectionAssemblyGroup"/>.
-        /// </summary>
-        /// <param name="category">The <see cref="EInterpretationCategory"/> to convert.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
-        /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionAssemblyGroup CreateFailureMechanismSectionAssemblyGroup(EInterpretationCategory category)
-        {
-            if (!Enum.IsDefined(typeof(EInterpretationCategory), category))
-            {
-                throw new InvalidEnumArgumentException(nameof(category),
-                                                       (int) category,
-                                                       typeof(EInterpretationCategory));
-            }
-
-            switch (category)
-            {
-                case EInterpretationCategory.NotDominant:
-                    return FailureMechanismSectionAssemblyGroup.NotDominant;
-                case EInterpretationCategory.III:
-                    return FailureMechanismSectionAssemblyGroup.III;
-                case EInterpretationCategory.II:
-                    return FailureMechanismSectionAssemblyGroup.II;
-                case EInterpretationCategory.I:
-                    return FailureMechanismSectionAssemblyGroup.I;
-                case EInterpretationCategory.Zero:
-                    return FailureMechanismSectionAssemblyGroup.Zero;
-                case EInterpretationCategory.IMin:
-                    return FailureMechanismSectionAssemblyGroup.IMin;
-                case EInterpretationCategory.IIMin:
-                    return FailureMechanismSectionAssemblyGroup.IIMin;
-                case EInterpretationCategory.IIIMin:
-                    return FailureMechanismSectionAssemblyGroup.IIIMin;
-                case EInterpretationCategory.Dominant:
-                    return FailureMechanismSectionAssemblyGroup.Dominant;
-                case EInterpretationCategory.Gr:
-                    return FailureMechanismSectionAssemblyGroup.Gr;
-                default:
-                    throw new NotSupportedException();
-            }
+            return new RiskeerFailureMechanismSectionAssemblyResult(
+                result.ProbabilityProfile.Value, result.ProbabilitySection.Value, result.NSection,
+                FailureMechanismSectionAssemblyGroupConverter.ConvertTo(result.InterpretationCategory));
         }
     }
 }

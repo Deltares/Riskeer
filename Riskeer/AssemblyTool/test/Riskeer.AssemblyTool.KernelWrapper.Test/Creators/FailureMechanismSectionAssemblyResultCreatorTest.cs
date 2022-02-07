@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
@@ -56,9 +54,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             double profileProbability = random.NextDouble();
             double sectionProbability = random.NextDouble();
 
-            var result = new AssemblyFailureMechanismSectionAssemblyResult(new Probability(profileProbability),
-                                                                           new Probability(sectionProbability),
-                                                                           (EInterpretationCategory) 99);
+            var result = new AssemblyFailureMechanismSectionAssemblyResult(
+                new Probability(profileProbability), new Probability(sectionProbability), (EInterpretationCategory) 99);
 
             // Call
             void Call() => FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(result);
@@ -69,19 +66,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCaseSource(nameof(GetValidCategoryConversions))]
-        public void CreateFailureMechanismSectionAssemblyResult_WithValidResult_ReturnsExpectedFailureMechanismSectionAssembly(
-            EInterpretationCategory category,
-            FailureMechanismSectionAssemblyGroup expectedCategory)
+        public void CreateFailureMechanismSectionAssemblyResult_WithValidResult_ReturnsExpectedFailureMechanismSectionAssembly()
         {
             // Setup
             var random = new Random(21);
             double profileProbability = random.NextDouble();
             double sectionProbability = random.NextDouble();
+            var category = random.NextEnumValue<EInterpretationCategory>();
 
-            var result = new AssemblyFailureMechanismSectionAssemblyResult(new Probability(profileProbability),
-                                                                           new Probability(sectionProbability),
-                                                                           category);
+            var result = new AssemblyFailureMechanismSectionAssemblyResult(
+                new Probability(profileProbability), new Probability(sectionProbability), category);
 
             // Call
             RiskeerFailureMechanismSectionAssemblyResult createdAssemblyResult = FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(result);
@@ -90,45 +84,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(profileProbability, createdAssemblyResult.ProfileProbability);
             Assert.AreEqual(sectionProbability, createdAssemblyResult.SectionProbability);
             Assert.AreEqual(result.NSection, createdAssemblyResult.N);
-            Assert.AreEqual(expectedCategory, createdAssemblyResult.AssemblyGroup);
-        }
-
-        [Test]
-        public void CreateFailureMechanismSectionAssemblyGroup_InvalidCategory_ThrowsInvalidEnumArgumentException()
-        {
-            // Call
-            void Call() => FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyGroup((EInterpretationCategory) 99);
-
-            // Assert
-            var expectedMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetValidCategoryConversions))]
-        public void CreateFailureMechanismSectionAssemblyGroup_ValidCategory_ReturnsExpectedValue(
-            EInterpretationCategory category,
-            FailureMechanismSectionAssemblyGroup expectedCategory)
-        {
-            // Call
-            FailureMechanismSectionAssemblyGroup createdCategory = FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyGroup(category);
-
-            // Assert
-            Assert.AreEqual(expectedCategory, createdCategory);
-        }
-
-        private static IEnumerable<TestCaseData> GetValidCategoryConversions()
-        {
-            yield return new TestCaseData(EInterpretationCategory.NotDominant, FailureMechanismSectionAssemblyGroup.NotDominant);
-            yield return new TestCaseData(EInterpretationCategory.III, FailureMechanismSectionAssemblyGroup.III);
-            yield return new TestCaseData(EInterpretationCategory.II, FailureMechanismSectionAssemblyGroup.II);
-            yield return new TestCaseData(EInterpretationCategory.I, FailureMechanismSectionAssemblyGroup.I);
-            yield return new TestCaseData(EInterpretationCategory.Zero, FailureMechanismSectionAssemblyGroup.Zero);
-            yield return new TestCaseData(EInterpretationCategory.IMin, FailureMechanismSectionAssemblyGroup.IMin);
-            yield return new TestCaseData(EInterpretationCategory.IIMin, FailureMechanismSectionAssemblyGroup.IIMin);
-            yield return new TestCaseData(EInterpretationCategory.IIIMin, FailureMechanismSectionAssemblyGroup.IIIMin);
-            yield return new TestCaseData(EInterpretationCategory.Dominant, FailureMechanismSectionAssemblyGroup.Dominant);
-            yield return new TestCaseData(EInterpretationCategory.Gr, FailureMechanismSectionAssemblyGroup.Gr);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category),
+                            createdAssemblyResult.AssemblyGroup);
         }
     }
 }

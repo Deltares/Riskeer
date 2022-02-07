@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using Assembly.Kernel.Model.Categories;
 using Riskeer.AssemblyTool.Data;
 using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
@@ -54,52 +53,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             return new AssemblyFailureMechanismSectionAssemblyResult(
                 AssemblyCalculatorInputCreator.CreateProbability(result.ProfileProbability),
                 AssemblyCalculatorInputCreator.CreateProbability(result.SectionProbability),
-                ConvertFailureMechanismSectionAssemblyGroup(result.AssemblyGroup));
-        }
-
-        /// <summary>
-        /// Converts a <see cref="FailureMechanismSectionAssemblyGroup"/> into a <see cref="EInterpretationCategory"/>.
-        /// </summary>
-        /// <param name="assemblyGroup">The <see cref="FailureMechanismSectionAssemblyGroup"/> to convert.</param>
-        /// <returns>A <see cref="EInterpretationCategory"/> based on <paramref name="assemblyGroup"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assemblyGroup"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="assemblyGroup"/>
-        /// is a valid value, but unsupported.</exception>
-        private static EInterpretationCategory ConvertFailureMechanismSectionAssemblyGroup(FailureMechanismSectionAssemblyGroup assemblyGroup)
-        {
-            if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyGroup), assemblyGroup))
-            {
-                throw new InvalidEnumArgumentException(nameof(assemblyGroup),
-                                                       (int) assemblyGroup,
-                                                       typeof(FailureMechanismSectionAssemblyGroup));
-            }
-
-            switch (assemblyGroup)
-            {
-                case FailureMechanismSectionAssemblyGroup.NotDominant:
-                    return EInterpretationCategory.NotDominant;
-                case FailureMechanismSectionAssemblyGroup.III:
-                    return EInterpretationCategory.III;
-                case FailureMechanismSectionAssemblyGroup.II:
-                    return EInterpretationCategory.II;
-                case FailureMechanismSectionAssemblyGroup.I:
-                    return EInterpretationCategory.I;
-                case FailureMechanismSectionAssemblyGroup.Zero:
-                    return EInterpretationCategory.Zero;
-                case FailureMechanismSectionAssemblyGroup.IMin:
-                    return EInterpretationCategory.IMin;
-                case FailureMechanismSectionAssemblyGroup.IIMin:
-                    return EInterpretationCategory.IIMin;
-                case FailureMechanismSectionAssemblyGroup.IIIMin:
-                    return EInterpretationCategory.IIIMin;
-                case FailureMechanismSectionAssemblyGroup.Dominant:
-                    return EInterpretationCategory.Dominant;
-                case FailureMechanismSectionAssemblyGroup.Gr:
-                    return EInterpretationCategory.Gr;
-                default:
-                    throw new NotSupportedException();
-            }
+                FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(result.AssemblyGroup));
         }
     }
 }
