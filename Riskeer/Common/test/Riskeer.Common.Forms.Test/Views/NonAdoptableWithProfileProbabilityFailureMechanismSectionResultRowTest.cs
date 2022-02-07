@@ -570,7 +570,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(row.IsRelevant, input.IsRelevant);
                 Assert.IsTrue(input.HasProbabilitySpecified);
                 Assert.AreEqual(row.InitialFailureMechanismResultSectionProbability, input.InitialSectionProbability);
-                Assert.AreEqual(row.FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.Executed, input.FurtherAnalysisNeeded);
+                Assert.AreEqual(row.FurtherAnalysisType, input.FurtherAnalysisType);
                 Assert.AreEqual(row.RefinedSectionProbability, input.RefinedSectionProbability);
             }
 
@@ -612,7 +612,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsTrue(input.HasProbabilitySpecified);
                 Assert.AreEqual(row.InitialFailureMechanismResultProfileProbability, input.InitialProfileProbability);
                 Assert.AreEqual(row.InitialFailureMechanismResultSectionProbability, input.InitialSectionProbability);
-                Assert.AreEqual(row.FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.Executed, input.FurtherAnalysisNeeded);
+                Assert.AreEqual(row.FurtherAnalysisType, input.FurtherAnalysisType);
                 Assert.AreEqual(row.RefinedProfileProbability, input.RefinedProfileProbability);
                 Assert.AreEqual(row.RefinedSectionProbability, input.RefinedSectionProbability);
             }

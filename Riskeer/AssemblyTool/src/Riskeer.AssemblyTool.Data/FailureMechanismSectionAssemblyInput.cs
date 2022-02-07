@@ -80,11 +80,6 @@ namespace Riskeer.AssemblyTool.Data
         public double InitialSectionProbability { get; }
 
         /// <summary>
-        /// Gets the indicator whether the section needs refinement.
-        /// </summary>
-        public bool FurtherAnalysisNeeded { get; }
-        
-        /// <summary>
         /// Gets the <see cref="FailureMechanismSectionResultFurtherAnalysisType"/>.
         /// </summary>
         public FailureMechanismSectionResultFurtherAnalysisType FurtherAnalysisType { get; }
