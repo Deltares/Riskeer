@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
@@ -56,11 +55,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        /// <inheritdoc />
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="FailureMechanismSectionAssemblyInput.FurtherAnalysisType"/>
-        /// is invalid.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyInput.FurtherAnalysisType"/>
-        /// is valid but not supported.</exception>
         public RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input)
         {
             if (input == null)
@@ -96,11 +90,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        /// <inheritdoc />
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="FailureMechanismSectionAssemblyInput.FurtherAnalysisType"/>
-        /// is invalid.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyInput.FurtherAnalysisType"/>
-        /// is valid but not supported.</exception>
         public RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
         {
             if (input == null)

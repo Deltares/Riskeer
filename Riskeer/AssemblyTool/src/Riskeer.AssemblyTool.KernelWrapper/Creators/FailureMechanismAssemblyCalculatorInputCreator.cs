@@ -31,7 +31,7 @@ using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.F
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates input instances that can be used in the failure mechanism assembly calculator.
+    /// Creates input that can be used in the failure mechanism assembly calculator.
     /// </summary>
     internal static class FailureMechanismAssemblyCalculatorInputCreator
     {
@@ -55,11 +55,42 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 
             return new AssemblyFailureMechanismSectionAssemblyResult(new Probability(result.ProfileProbability),
                                                                      new Probability(result.SectionProbability),
-                                                                     CreateInterpretationCategory(result.AssemblyGroup));
+                                                                     ConvertFailureMechanismSectionAssemblyGroup(result.AssemblyGroup));
         }
 
         /// <summary>
-        /// Converts a <see cref="EInterpretationCategory"/> into a <see cref="FailureMechanismSectionAssemblyGroup"/>.
+        /// Converts a <see cref="FailureMechanismSectionResultFurtherAnalysisType"/> into an
+        /// <see cref="ERefinementStatus"/>.
+        /// </summary>
+        /// <param name="furtherAnalysisType">The <see cref="FailureMechanismSectionResultFurtherAnalysisType"/> to convert.</param>
+        /// <returns>The converted <see cref="ERefinementStatus"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="furtherAnalysisType"/> is invalid.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="furtherAnalysisType"/>
+        /// is valid but not supported.</exception>
+        public static ERefinementStatus ConvertFailureMechanismSectionResultFurtherAnalysisType(FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType)
+        {
+            if (!Enum.IsDefined(typeof(FailureMechanismSectionResultFurtherAnalysisType), furtherAnalysisType))
+            {
+                throw new InvalidEnumArgumentException(nameof(furtherAnalysisType),
+                                                       (int) furtherAnalysisType,
+                                                       typeof(FailureMechanismSectionResultFurtherAnalysisType));
+            }
+
+            switch (furtherAnalysisType)
+            {
+                case FailureMechanismSectionResultFurtherAnalysisType.NotNecessary:
+                    return ERefinementStatus.NotNecessary;
+                case FailureMechanismSectionResultFurtherAnalysisType.Necessary:
+                    return ERefinementStatus.Necessary;
+                case FailureMechanismSectionResultFurtherAnalysisType.Executed:
+                    return ERefinementStatus.Performed;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        /// <summary>
+        /// Converts a <see cref="FailureMechanismSectionAssemblyGroup"/> into a <see cref="EInterpretationCategory"/>.
         /// </summary>
         /// <param name="assemblyGroup">The <see cref="FailureMechanismSectionAssemblyGroup"/> to convert.</param>
         /// <returns>A <see cref="EInterpretationCategory"/> based on <paramref name="assemblyGroup"/>.</returns>
@@ -67,7 +98,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="assemblyGroup"/>
         /// is a valid value, but unsupported.</exception>
-        private static EInterpretationCategory CreateInterpretationCategory(FailureMechanismSectionAssemblyGroup assemblyGroup)
+        private static EInterpretationCategory ConvertFailureMechanismSectionAssemblyGroup(FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyGroup), assemblyGroup))
             {
@@ -98,37 +129,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return EInterpretationCategory.Dominant;
                 case FailureMechanismSectionAssemblyGroup.Gr:
                     return EInterpretationCategory.Gr;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-        
-        /// <summary>
-        /// Converts a <see cref="FailureMechanismSectionResultFurtherAnalysisType"/> into an
-        /// <see cref="ERefinementStatus"/>.
-        /// </summary>
-        /// <param name="furtherAnalysisType">The <see cref="FailureMechanismSectionResultFurtherAnalysisType"/> to convert.</param>
-        /// <returns>The converted <see cref="ERefinementStatus"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="furtherAnalysisType"/> is invalid.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="furtherAnalysisType"/>
-        /// is valid but not supported.</exception>
-        public static ERefinementStatus ConvertFailureMechanismSectionResultFurtherAnalysisType(FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType)
-        {
-            if (!Enum.IsDefined(typeof(FailureMechanismSectionResultFurtherAnalysisType), furtherAnalysisType))
-            {
-                throw new InvalidEnumArgumentException(nameof(furtherAnalysisType),
-                                                       (int) furtherAnalysisType,
-                                                       typeof(FailureMechanismSectionResultFurtherAnalysisType));
-            }
-
-            switch (furtherAnalysisType)
-            {
-                case FailureMechanismSectionResultFurtherAnalysisType.NotNecessary:
-                    return ERefinementStatus.NotNecessary;
-                case FailureMechanismSectionResultFurtherAnalysisType.Necessary:
-                    return ERefinementStatus.Necessary;
-                case FailureMechanismSectionResultFurtherAnalysisType.Executed:
-                    return ERefinementStatus.Performed;
                 default:
                     throw new NotSupportedException();
             }
