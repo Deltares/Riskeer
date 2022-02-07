@@ -29,6 +29,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Primitives;
 
 namespace Riskeer.Common.Data.AssemblyTool
 {
@@ -210,12 +211,14 @@ namespace Riskeer.Common.Data.AssemblyTool
             return PerformAssembly(input);
         }
 
-        private static FailureMechanismSectionAssemblyInput CreateInput(IAssessmentSection assessmentSection, bool isRelevant, double initialSectionProbability, bool furtherAnalysisNeeded, double refinedSectionProbability, bool hasProbabilitySpecified)
+        private static FailureMechanismSectionAssemblyInput CreateInput(IAssessmentSection assessmentSection, bool isRelevant, double initialSectionProbability,
+                                                                        bool furtherAnalysisNeeded, double refinedSectionProbability, bool hasProbabilitySpecified)
         {
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
             return new FailureMechanismSectionAssemblyInput(
                 failureMechanismContribution.LowerLimitNorm, failureMechanismContribution.SignalingNorm,
-                isRelevant, hasProbabilitySpecified, initialSectionProbability, furtherAnalysisNeeded, refinedSectionProbability);
+                isRelevant, hasProbabilitySpecified, initialSectionProbability, furtherAnalysisNeeded,
+                FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, refinedSectionProbability);
         }
 
         private static FailureMechanismSectionWithProfileProbabilityAssemblyInput CreateInput(IAssessmentSection assessmentSection,
@@ -252,7 +255,8 @@ namespace Riskeer.Common.Data.AssemblyTool
             return new FailureMechanismSectionWithProfileProbabilityAssemblyInput(
                 failureMechanismContribution.LowerLimitNorm, failureMechanismContribution.SignalingNorm,
                 isRelevant, hasProbabilitySpecified, initialProfileProbability, initialSectionProbability,
-                furtherAnalysisNeeded, refinedProfileProbability, refinedSectionProbability);
+                furtherAnalysisNeeded, FailureMechanismSectionResultFurtherAnalysisType.NotNecessary,
+                refinedProfileProbability, refinedSectionProbability);
         }
 
         /// <summary>

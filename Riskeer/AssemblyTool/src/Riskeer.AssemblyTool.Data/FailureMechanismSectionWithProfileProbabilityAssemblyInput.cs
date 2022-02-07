@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Riskeer.Common.Primitives;
+
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
@@ -37,14 +39,16 @@ namespace Riskeer.AssemblyTool.Data
         /// <param name="initialProfileProbability">The initial probability for the profile.</param>
         /// <param name="initialSectionProbability">The initial probability for the section.</param>
         /// <param name="furtherAnalysisNeeded">The indicator whether the section needs further analysis.</param>
+        /// <param name="furtherAnalysisType">The <see cref="FailureMechanismSectionResultFurtherAnalysisType"/>.</param>
         /// <param name="refinedProfileProbability">The refined probability for the profile.</param>
         /// <param name="refinedSectionProbability">The refined probability for the section.</param>
         public FailureMechanismSectionWithProfileProbabilityAssemblyInput(double lowerLimitNorm, double signalingNorm,
                                                                           bool isRelevant, bool hasProbabilitySpecified,
                                                                           double initialProfileProbability, double initialSectionProbability,
                                                                           bool furtherAnalysisNeeded,
+                                                                          FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType,
                                                                           double refinedProfileProbability, double refinedSectionProbability)
-            : base(lowerLimitNorm, signalingNorm, isRelevant, hasProbabilitySpecified, initialSectionProbability, furtherAnalysisNeeded, refinedSectionProbability)
+            : base(lowerLimitNorm, signalingNorm, isRelevant, hasProbabilitySpecified, initialSectionProbability, furtherAnalysisNeeded, furtherAnalysisType, refinedSectionProbability)
         {
             InitialProfileProbability = initialProfileProbability;
             RefinedProfileProbability = refinedProfileProbability;

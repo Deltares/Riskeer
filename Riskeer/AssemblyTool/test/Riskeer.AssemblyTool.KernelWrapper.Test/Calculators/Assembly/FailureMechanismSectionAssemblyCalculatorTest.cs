@@ -35,6 +35,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
+using Riskeer.Common.Primitives;
 using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
@@ -106,6 +107,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var input = new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
                                                                  isRelevant, hasProbabilitySpecified,
                                                                  random.NextDouble(), random.NextBoolean(),
+                                                                 random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
                                                                  random.NextDouble());
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -296,7 +298,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             var input = new FailureMechanismSectionWithProfileProbabilityAssemblyInput(lowerLimitNorm, signalingNorm,
                                                                                        isRelevant, hasProbabilitySpecified,
                                                                                        random.NextDouble(), random.NextDouble(),
-                                                                                       random.NextBoolean(),
+                                                                                       random.NextBoolean(),random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
                                                                                        random.NextDouble(), random.NextDouble());
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -462,6 +464,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             return new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
                                                             random.NextBoolean(), random.NextBoolean(),
                                                             random.NextDouble(), random.NextBoolean(),
+                                                            random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
                                                             random.NextDouble());
         }
 
@@ -474,8 +477,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             return new FailureMechanismSectionWithProfileProbabilityAssemblyInput(lowerLimitNorm, signalingNorm,
                                                                                   random.NextBoolean(), random.NextBoolean(),
                                                                                   random.NextDouble(), random.NextDouble(),
-                                                                                  random.NextBoolean(), random.NextDouble(),
-                                                                                  random.NextDouble());
+                                                                                  random.NextBoolean(), random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
+                                                                                  random.NextDouble(), random.NextDouble());
         }
 
         private static CategoriesList<InterpretationCategory> CreateCategoryLimits()

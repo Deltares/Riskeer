@@ -22,6 +22,7 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.Common.Primitives;
 
 namespace Riskeer.AssemblyTool.Data.Test
 {
@@ -29,7 +30,7 @@ namespace Riskeer.AssemblyTool.Data.Test
     public class FailureMechanismSectionAssemblyInputTest
     {
         [Test]
-        public void Constructor_WithArguments_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
@@ -39,22 +40,23 @@ namespace Riskeer.AssemblyTool.Data.Test
             bool hasProbabilitySpecified = random.NextBoolean();
             double sectionProbability = random.NextDouble();
             bool furtherAnalysisNeeded = random.NextBoolean();
+            var furtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
             double refinedSectionProbability = random.NextDouble();
 
             // Call
-            var input = new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
-                                                                 isRelevant, hasProbabilitySpecified,
-                                                                 sectionProbability, furtherAnalysisNeeded,
-                                                                 refinedSectionProbability);
+            var input = new FailureMechanismSectionAssemblyInput(
+                lowerLimitNorm, signalingNorm, isRelevant, hasProbabilitySpecified,
+                sectionProbability, furtherAnalysisNeeded, furtherAnalysisType, refinedSectionProbability);
 
             // Assert
             Assert.AreEqual(signalingNorm, input.SignalingNorm);
             Assert.AreEqual(lowerLimitNorm, input.LowerLimitNorm);
-            
+
             Assert.AreEqual(isRelevant, input.IsRelevant);
             Assert.AreEqual(hasProbabilitySpecified, input.HasProbabilitySpecified);
             Assert.AreEqual(sectionProbability, input.InitialSectionProbability);
             Assert.AreEqual(furtherAnalysisNeeded, input.FurtherAnalysisNeeded);
+            Assert.AreEqual(furtherAnalysisType, input.FurtherAnalysisType);
             Assert.AreEqual(refinedSectionProbability, input.RefinedSectionProbability);
         }
     }

@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Riskeer.Common.Primitives;
+
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
@@ -35,10 +37,12 @@ namespace Riskeer.AssemblyTool.Data
         /// <param name="hasProbabilitySpecified">Indicator whether the section has a probability specified.</param>
         /// <param name="initialSectionProbability">The initial probability for the section.</param>
         /// <param name="furtherAnalysisNeeded">The indicator whether the section needs further analysis.</param>
+        /// <param name="furtherAnalysisType">The <see cref="FailureMechanismSectionResultFurtherAnalysisType"/>.</param>
         /// <param name="refinedSectionProbability">The refined probability for the section.</param>
         public FailureMechanismSectionAssemblyInput(double lowerLimitNorm, double signalingNorm,
                                                     bool isRelevant, bool hasProbabilitySpecified,
                                                     double initialSectionProbability, bool furtherAnalysisNeeded,
+                                                    FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType,
                                                     double refinedSectionProbability)
         {
             LowerLimitNorm = lowerLimitNorm;
@@ -48,6 +52,7 @@ namespace Riskeer.AssemblyTool.Data
             HasProbabilitySpecified = hasProbabilitySpecified;
             InitialSectionProbability = initialSectionProbability;
             FurtherAnalysisNeeded = furtherAnalysisNeeded;
+            FurtherAnalysisType = furtherAnalysisType;
             RefinedSectionProbability = refinedSectionProbability;
         }
 
@@ -80,6 +85,11 @@ namespace Riskeer.AssemblyTool.Data
         /// Gets the indicator whether the section needs refinement.
         /// </summary>
         public bool FurtherAnalysisNeeded { get; }
+        
+        /// <summary>
+        /// Gets the <see cref="FailureMechanismSectionResultFurtherAnalysisType"/>.
+        /// </summary>
+        public FailureMechanismSectionResultFurtherAnalysisType FurtherAnalysisType { get; }
 
         /// <summary>
         /// Gets the refined probability for the section.
