@@ -19,9 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Data.Entity;
-using System.Data.SQLite;
 
 namespace Riskeer.Storage.Core.DbContext
 {
@@ -38,13 +36,6 @@ namespace Riskeer.Storage.Core.DbContext
         public RiskeerEntities(string connString) : base(connString)
         {
             Configuration.LazyLoadingEnabled = false;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-
-            SQLiteConnectionHelper.ForcefullyDisposeSQLiteConnection();
         }
 
         /// <summary>
@@ -150,6 +141,13 @@ namespace Riskeer.Storage.Core.DbContext
                                        .Load();
 
             LoadIllustrationPointsIntoContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            SQLiteConnectionHelper.ForcefullyDisposeSQLiteConnection();
         }
 
         private void LoadIllustrationPointsIntoContext()
