@@ -31,7 +31,7 @@ namespace Riskeer.Storage.Core.TestUtil.FailureMechanismResults
         public byte IsRelevant { get; set; }
         public byte InitialFailureMechanismResultType { get; set; }
         public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
-        public byte FurtherAnalysisNeeded { get; set; }
+        public byte FurtherAnalysisType { get; set; }
         public double? RefinedSectionProbability { get; set; }
         public double? ManualInitialFailureMechanismResultProfileProbability { get; set; }
         public double? RefinedProfileProbability { get; set; }

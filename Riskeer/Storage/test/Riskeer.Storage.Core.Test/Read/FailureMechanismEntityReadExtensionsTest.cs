@@ -169,7 +169,7 @@ namespace Riskeer.Storage.Core.Test.Read
             sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
             sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<AdoptableInitialFailureMechanismResultType>());
             sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
-            sectionResult.FurtherAnalysisNeeded = Convert.ToByte(random.NextBoolean());
+            sectionResult.FurtherAnalysisType = Convert.ToByte(random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>());
             sectionResult.RefinedSectionProbability = random.NextDouble();
         }
 
@@ -178,7 +178,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.IsRelevant), sectionResult.IsRelevant);
             Assert.AreEqual((AdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
             Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultSectionProbability);
-            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.FurtherAnalysisNeeded), sectionResult.FurtherAnalysisNeeded);
+            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.FurtherAnalysisType), sectionResult.FurtherAnalysisType);
             Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
         }
 
@@ -208,7 +208,7 @@ namespace Riskeer.Storage.Core.Test.Read
             sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
             sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>());
             sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
-            sectionResult.FurtherAnalysisNeeded = Convert.ToByte(random.NextBoolean());
+            sectionResult.FurtherAnalysisType = Convert.ToByte(random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>());
             sectionResult.RefinedSectionProbability = random.NextDouble();
         }
 
@@ -217,14 +217,12 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.IsRelevant), sectionResult.IsRelevant);
             Assert.AreEqual((NonAdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
             Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultSectionProbability);
-            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.FurtherAnalysisNeeded), sectionResult.FurtherAnalysisNeeded);
+            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.FurtherAnalysisType), sectionResult.FurtherAnalysisType);
             Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
         }
 
         private static void SetSectionResult(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
         {
-            var random = new Random(21);
-
             SetSectionResult((INonAdoptableFailureMechanismSectionResultEntity) sectionResult);
             sectionResult.ManualInitialFailureMechanismResultProfileProbability = sectionResult.ManualInitialFailureMechanismResultSectionProbability - 1e-3;
             sectionResult.RefinedProfileProbability = sectionResult.RefinedSectionProbability - 1e-3;

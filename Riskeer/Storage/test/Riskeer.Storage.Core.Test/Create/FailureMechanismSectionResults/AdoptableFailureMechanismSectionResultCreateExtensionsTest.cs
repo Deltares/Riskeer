@@ -51,7 +51,7 @@ namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
             bool isRelevant = random.NextBoolean();
             var initialFailureMechanismResultType = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
             double manualSectionProbability = random.NextDouble();
-            bool furtherAnalysisNeeded = random.NextBoolean();
+            var furtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
             double refinedSectionProbability = random.NextDouble();
 
             var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
@@ -59,7 +59,7 @@ namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
                 IsRelevant = isRelevant,
                 InitialFailureMechanismResultType = initialFailureMechanismResultType,
                 ManualInitialFailureMechanismResultSectionProbability = manualSectionProbability,
-                FurtherAnalysisNeeded = furtherAnalysisNeeded,
+                FurtherAnalysisType = furtherAnalysisType,
                 RefinedSectionProbability = refinedSectionProbability
             };
 
@@ -70,7 +70,7 @@ namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(Convert.ToByte(initialFailureMechanismResultType), entity.InitialFailureMechanismResultType);
             Assert.AreEqual(manualSectionProbability, entity.ManualInitialFailureMechanismResultSectionProbability);
-            Assert.AreEqual(Convert.ToByte(furtherAnalysisNeeded), entity.FurtherAnalysisNeeded);
+            Assert.AreEqual(Convert.ToByte(furtherAnalysisType), entity.FurtherAnalysisType);
             Assert.AreEqual(refinedSectionProbability, entity.RefinedSectionProbability);
         }
 

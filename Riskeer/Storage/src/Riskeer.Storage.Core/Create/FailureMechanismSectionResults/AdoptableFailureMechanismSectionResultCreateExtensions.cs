@@ -51,7 +51,7 @@ namespace Riskeer.Storage.Core.Create.FailureMechanismSectionResults
                 IsRelevant = Convert.ToByte(result.IsRelevant),
                 InitialFailureMechanismResultType = Convert.ToByte(result.InitialFailureMechanismResultType),
                 ManualInitialFailureMechanismResultSectionProbability = result.ManualInitialFailureMechanismResultSectionProbability.ToNaNAsNull(),
-                FurtherAnalysisNeeded = Convert.ToByte(result.FurtherAnalysisNeeded),
+                FurtherAnalysisType = Convert.ToByte(result.FurtherAnalysisType),
                 RefinedSectionProbability = result.RefinedSectionProbability.ToNaNAsNull()
             };
         }

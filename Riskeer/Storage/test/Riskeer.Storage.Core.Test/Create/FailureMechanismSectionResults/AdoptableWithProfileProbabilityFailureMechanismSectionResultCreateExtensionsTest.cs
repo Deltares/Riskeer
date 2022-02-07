@@ -52,7 +52,7 @@ namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
             var initialFailureMechanismResultType = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
             double manualProfileProbability = random.NextDouble();
             double manualSectionProbability = manualProfileProbability + 1e-3;
-            bool furtherAnalysisNeeded = random.NextBoolean();
+            var furtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
             var probabilityRefinementType = random.NextEnumValue<ProbabilityRefinementType>();
             double refinedProfileProbability = random.NextDouble();
             double refinedSectionProbability = refinedProfileProbability + 1e-3;
@@ -63,7 +63,7 @@ namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
                 InitialFailureMechanismResultType = initialFailureMechanismResultType,
                 ManualInitialFailureMechanismResultProfileProbability = manualProfileProbability,
                 ManualInitialFailureMechanismResultSectionProbability = manualSectionProbability,
-                FurtherAnalysisNeeded = furtherAnalysisNeeded,
+                FurtherAnalysisType = furtherAnalysisType,
                 ProbabilityRefinementType = probabilityRefinementType,
                 RefinedProfileProbability = refinedProfileProbability,
                 RefinedSectionProbability = refinedSectionProbability
@@ -77,7 +77,7 @@ namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
             Assert.AreEqual(Convert.ToByte(initialFailureMechanismResultType), entity.InitialFailureMechanismResultType);
             Assert.AreEqual(manualProfileProbability, entity.ManualInitialFailureMechanismResultProfileProbability);
             Assert.AreEqual(manualSectionProbability, entity.ManualInitialFailureMechanismResultSectionProbability);
-            Assert.AreEqual(Convert.ToByte(furtherAnalysisNeeded), entity.FurtherAnalysisNeeded);
+            Assert.AreEqual(Convert.ToByte(furtherAnalysisType), entity.FurtherAnalysisType);
             Assert.AreEqual(Convert.ToByte(probabilityRefinementType), entity.ProbabilityRefinementType);
             Assert.AreEqual(refinedProfileProbability, entity.RefinedProfileProbability);
             Assert.AreEqual(refinedSectionProbability, entity.RefinedSectionProbability);

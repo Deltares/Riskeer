@@ -42,9 +42,9 @@ namespace Riskeer.Storage.Core.DbContext
         double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
 
         /// <summary>
-        /// Gets or sets whether further analysis is needed.
+        /// Gets or sets the type used for further analysis.
         /// </summary>
-        byte FurtherAnalysisNeeded { get; set; }
+        byte FurtherAnalysisType { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the refined probability per failure mechanism section result.

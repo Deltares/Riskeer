@@ -66,7 +66,7 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
             bool isRelevant = random.NextBoolean();
             var initialFailureMechanismResultType = random.NextEnumValue<AdoptableInitialFailureMechanismResultType>();
             double manualSectionProbability = random.NextDouble();
-            bool furtherAnalysisNeeded = random.NextBoolean();
+            var furtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
             double refinedSectionProbability = random.NextDouble();
 
             var entity = new TestAdoptableFailureMechanismSectionResultEntity
@@ -74,7 +74,7 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
                 IsRelevant = Convert.ToByte(isRelevant),
                 InitialFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
                 ManualInitialFailureMechanismResultSectionProbability = manualSectionProbability,
-                FurtherAnalysisNeeded = Convert.ToByte(furtherAnalysisNeeded),
+                FurtherAnalysisType = Convert.ToByte(furtherAnalysisType),
                 RefinedSectionProbability = refinedSectionProbability
             };
             var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
@@ -86,7 +86,7 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
             Assert.AreEqual(isRelevant, sectionResult.IsRelevant);
             Assert.AreEqual(initialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
             Assert.AreEqual(manualSectionProbability, sectionResult.ManualInitialFailureMechanismResultSectionProbability);
-            Assert.AreEqual(furtherAnalysisNeeded, sectionResult.FurtherAnalysisNeeded);
+            Assert.AreEqual(furtherAnalysisType, sectionResult.FurtherAnalysisType);
             Assert.AreEqual(refinedSectionProbability, sectionResult.RefinedSectionProbability);
         }
 
