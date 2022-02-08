@@ -190,7 +190,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual("Aangescherpte\r\nfaalkans per vak\r\n[1/jaar]", dataGridView.Columns[refinedSectionProbabilityIndex].HeaderText);
                 Assert.AreEqual("Rekenwaarde\r\nfaalkans per doorsnede\r\n[1/jaar]", dataGridView.Columns[profileProbabilityIndex].HeaderText);
                 Assert.AreEqual("Rekenwaarde\r\nfaalkans per vak\r\n[1/jaar]", dataGridView.Columns[sectionProbabilityIndex].HeaderText);
-                Assert.AreEqual("Nvak* [-]", dataGridView.Columns[sectionNIndex].HeaderText);
+                Assert.AreEqual("Rekenwaarde Nvak*\r\n[-]", dataGridView.Columns[sectionNIndex].HeaderText);
                 Assert.AreEqual("Duidingsklasse", dataGridView.Columns[assemblyGroupIndex].HeaderText);
 
                 Assert.IsTrue(dataGridView.Columns[nameColumnIndex].ReadOnly);
@@ -214,6 +214,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        [SetCulture("nl-NL")]
         public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
         {
             // Setup

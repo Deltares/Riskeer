@@ -652,6 +652,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(rowAssemblyResult.ProfileProbability, row.ProfileProbability);
                 Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
                 Assert.AreEqual(rowAssemblyResult.N, row.SectionN, row.SectionN.GetAccuracy());
+                Assert.AreEqual(2, row.SectionN.NumberOfDecimalPlaces);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.AssemblyGroup),
                                 row.AssemblyGroup);
             }

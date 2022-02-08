@@ -673,7 +673,7 @@ namespace Riskeer.Common.Forms.Test.Builders
 
                 var columnData = (DataGridViewTextBoxColumn) dataGridView.Columns[0];
                 Assert.AreEqual(dataPropertyName, columnData.DataPropertyName);
-                Assert.AreEqual("Nvak* [-]", columnData.HeaderText);
+                Assert.AreEqual("Rekenwaarde Nvak*\r\n[-]", columnData.HeaderText);
                 Assert.IsFalse(columnData.ReadOnly);
             }
         }
