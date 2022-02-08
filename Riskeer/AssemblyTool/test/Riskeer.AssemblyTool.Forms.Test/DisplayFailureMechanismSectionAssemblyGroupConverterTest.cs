@@ -41,7 +41,7 @@ namespace Riskeer.AssemblyTool.Forms.Test
         }
 
         [Test]
-        [TestCase(FailureMechanismSectionAssemblyGroup.NotDominant, DisplayFailureMechanismSectionAssemblyGroup.ND)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.NotDominant, DisplayFailureMechanismSectionAssemblyGroup.NotDominant)]
         [TestCase(FailureMechanismSectionAssemblyGroup.III, DisplayFailureMechanismSectionAssemblyGroup.III)]
         [TestCase(FailureMechanismSectionAssemblyGroup.II, DisplayFailureMechanismSectionAssemblyGroup.II)]
         [TestCase(FailureMechanismSectionAssemblyGroup.I, DisplayFailureMechanismSectionAssemblyGroup.I)]
@@ -49,7 +49,7 @@ namespace Riskeer.AssemblyTool.Forms.Test
         [TestCase(FailureMechanismSectionAssemblyGroup.IMin, DisplayFailureMechanismSectionAssemblyGroup.IMin)]
         [TestCase(FailureMechanismSectionAssemblyGroup.IIMin, DisplayFailureMechanismSectionAssemblyGroup.IIMin)]
         [TestCase(FailureMechanismSectionAssemblyGroup.IIIMin, DisplayFailureMechanismSectionAssemblyGroup.IIIMin)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.Dominant, DisplayFailureMechanismSectionAssemblyGroup.D)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.Dominant, DisplayFailureMechanismSectionAssemblyGroup.Dominant)]
         [TestCase(FailureMechanismSectionAssemblyGroup.Gr, DisplayFailureMechanismSectionAssemblyGroup.GR)]
         public void Convert_ValidValue_ReturnsConvertedValue(FailureMechanismSectionAssemblyGroup categoryGroup,
                                                              DisplayFailureMechanismSectionAssemblyGroup expectedDisplayCategoryGroup)

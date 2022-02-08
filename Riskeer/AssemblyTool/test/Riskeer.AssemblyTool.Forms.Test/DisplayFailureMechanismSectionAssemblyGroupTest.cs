@@ -32,7 +32,7 @@ namespace Riskeer.AssemblyTool.Forms.Test
             new Dictionary<DisplayFailureMechanismSectionAssemblyGroup, int>
             {
                 {
-                    DisplayFailureMechanismSectionAssemblyGroup.ND, 1
+                    DisplayFailureMechanismSectionAssemblyGroup.NotDominant, 1
                 },
                 {
                     DisplayFailureMechanismSectionAssemblyGroup.III, 2
@@ -44,25 +44,22 @@ namespace Riskeer.AssemblyTool.Forms.Test
                     DisplayFailureMechanismSectionAssemblyGroup.I, 4
                 },
                 {
-                    DisplayFailureMechanismSectionAssemblyGroup.ZeroPlus, 5
+                    DisplayFailureMechanismSectionAssemblyGroup.Zero, 5
                 },
                 {
-                    DisplayFailureMechanismSectionAssemblyGroup.Zero, 6
+                    DisplayFailureMechanismSectionAssemblyGroup.IMin, 6
                 },
                 {
-                    DisplayFailureMechanismSectionAssemblyGroup.IMin, 7
+                    DisplayFailureMechanismSectionAssemblyGroup.IIMin, 7
                 },
                 {
-                    DisplayFailureMechanismSectionAssemblyGroup.IIMin, 8
+                    DisplayFailureMechanismSectionAssemblyGroup.IIIMin, 8
                 },
                 {
-                    DisplayFailureMechanismSectionAssemblyGroup.IIIMin, 9
+                    DisplayFailureMechanismSectionAssemblyGroup.Dominant, 9
                 },
                 {
-                    DisplayFailureMechanismSectionAssemblyGroup.D, 10
-                },
-                {
-                    DisplayFailureMechanismSectionAssemblyGroup.GR, 11
+                    DisplayFailureMechanismSectionAssemblyGroup.GR, 10
                 }
             };
 
@@ -70,7 +67,7 @@ namespace Riskeer.AssemblyTool.Forms.Test
             new Dictionary<DisplayFailureMechanismSectionAssemblyGroup, string>
             {
                 {
-                    DisplayFailureMechanismSectionAssemblyGroup.ND, "ND"
+                    DisplayFailureMechanismSectionAssemblyGroup.NotDominant, "ND"
                 },
                 {
                     DisplayFailureMechanismSectionAssemblyGroup.III, "+III"
@@ -80,9 +77,6 @@ namespace Riskeer.AssemblyTool.Forms.Test
                 },
                 {
                     DisplayFailureMechanismSectionAssemblyGroup.I, "+I"
-                },
-                {
-                    DisplayFailureMechanismSectionAssemblyGroup.ZeroPlus, "+0"
                 },
                 {
                     DisplayFailureMechanismSectionAssemblyGroup.Zero, "0"
@@ -97,7 +91,7 @@ namespace Riskeer.AssemblyTool.Forms.Test
                     DisplayFailureMechanismSectionAssemblyGroup.IIIMin, "-III"
                 },
                 {
-                    DisplayFailureMechanismSectionAssemblyGroup.D, "D"
+                    DisplayFailureMechanismSectionAssemblyGroup.Dominant, "D"
                 },
                 {
                     DisplayFailureMechanismSectionAssemblyGroup.GR, ""

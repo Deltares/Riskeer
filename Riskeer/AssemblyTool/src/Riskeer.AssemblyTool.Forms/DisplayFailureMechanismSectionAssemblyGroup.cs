@@ -29,8 +29,8 @@ namespace Riskeer.AssemblyTool.Forms
     /// </summary>
     public enum DisplayFailureMechanismSectionAssemblyGroup
     {
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyGroup_ND_DisplayName))]
-        ND = 1,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyGroup_NotDominant_DisplayName))]
+        NotDominant = 1,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyGroup_III_DisplayName))]
         III = 2,
@@ -41,25 +41,22 @@ namespace Riskeer.AssemblyTool.Forms
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyGroup_I_DisplayName))]
         I = 4,
 
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyGroup_ZeroPlus_DisplayName))]
-        ZeroPlus = 5,
-
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyGroup_Zero_DisplayName))]
-        Zero = 6,
+        Zero = 5,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyGroup_IMin_DisplayName))]
-        IMin = 7,
+        IMin = 6,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyGroup_IIMin_DisplayName))]
-        IIMin = 8,
+        IIMin = 7,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyGroup_IIIMin_DisplayName))]
-        IIIMin = 9,
+        IIIMin = 8,
         
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyGroup_D_DisplayName))]
-        D = 10,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyGroup_Dominant_DisplayName))]
+        Dominant = 9,
 
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.DisplayFailureMechanismSectionAssemblyGroup_GR_DisplayName))]
-        GR = 11
+        GR = 10
     }
 }

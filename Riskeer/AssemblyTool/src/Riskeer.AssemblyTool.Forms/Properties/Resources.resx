@@ -123,7 +123,7 @@
   <data name="DisplayFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName" xml:space="preserve">
     <value>-</value>
   </data>
-  <data name="DisplayFailureMechanismSectionAssemblyGroup_ND_DisplayName" xml:space="preserve">
+  <data name="DisplayFailureMechanismSectionAssemblyGroup_NotDominant_DisplayName" xml:space="preserve">
     <value>ND</value>
   </data>
   <data name="DisplayFailureMechanismSectionAssemblyGroup_III_DisplayName" xml:space="preserve">
@@ -134,9 +134,6 @@
   </data>
   <data name="DisplayFailureMechanismSectionAssemblyGroup_I_DisplayName" xml:space="preserve">
     <value>+I</value>
-  </data>
-  <data name="DisplayFailureMechanismSectionAssemblyGroup_ZeroPlus_DisplayName" xml:space="preserve">
-    <value>+0</value>
   </data>
   <data name="DisplayFailureMechanismSectionAssemblyGroup_Zero_DisplayName" xml:space="preserve">
     <value>0</value>
@@ -150,7 +147,7 @@
   <data name="DisplayFailureMechanismSectionAssemblyGroup_IIIMin_DisplayName" xml:space="preserve">
     <value>-III</value>
   </data>
-  <data name="DisplayFailureMechanismSectionAssemblyGroup_D_DisplayName" xml:space="preserve">
+  <data name="DisplayFailureMechanismSectionAssemblyGroup_Dominant_DisplayName" xml:space="preserve">
     <value>D</value>
   </data>
   <data name="DisplayFailureMechanismSectionAssemblyGroup_GR_DisplayName" xml:space="preserve">

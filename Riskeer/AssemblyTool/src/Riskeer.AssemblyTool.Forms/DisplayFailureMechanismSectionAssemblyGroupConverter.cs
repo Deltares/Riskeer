@@ -53,7 +53,7 @@ namespace Riskeer.AssemblyTool.Forms
             switch (assemblyGroup)
             {
                 case FailureMechanismSectionAssemblyGroup.NotDominant:
-                    return DisplayFailureMechanismSectionAssemblyGroup.ND;
+                    return DisplayFailureMechanismSectionAssemblyGroup.NotDominant;
                 case FailureMechanismSectionAssemblyGroup.III:
                     return DisplayFailureMechanismSectionAssemblyGroup.III;
                 case FailureMechanismSectionAssemblyGroup.II:
@@ -69,7 +69,7 @@ namespace Riskeer.AssemblyTool.Forms
                 case FailureMechanismSectionAssemblyGroup.IIIMin:
                     return DisplayFailureMechanismSectionAssemblyGroup.IIIMin;
                 case FailureMechanismSectionAssemblyGroup.Dominant:
-                    return DisplayFailureMechanismSectionAssemblyGroup.D;
+                    return DisplayFailureMechanismSectionAssemblyGroup.Dominant;
                 case FailureMechanismSectionAssemblyGroup.Gr:
                     return DisplayFailureMechanismSectionAssemblyGroup.GR;
                 default:

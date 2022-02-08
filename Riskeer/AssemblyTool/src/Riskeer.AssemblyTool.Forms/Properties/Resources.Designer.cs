@@ -102,9 +102,9 @@ namespace Riskeer.AssemblyTool.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to D.
         /// </summary>
-        internal static string DisplayFailureMechanismSectionAssemblyGroup_D_DisplayName {
+        internal static string DisplayFailureMechanismSectionAssemblyGroup_Dominant_DisplayName {
             get {
-                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_D_DisplayName", resourceCulture);
+                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_Dominant_DisplayName", resourceCulture);
             }
         }
         
@@ -174,9 +174,9 @@ namespace Riskeer.AssemblyTool.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to ND.
         /// </summary>
-        internal static string DisplayFailureMechanismSectionAssemblyGroup_ND_DisplayName {
+        internal static string DisplayFailureMechanismSectionAssemblyGroup_NotDominant_DisplayName {
             get {
-                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_ND_DisplayName", resourceCulture);
+                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_NotDominant_DisplayName", resourceCulture);
             }
         }
         
@@ -186,15 +186,6 @@ namespace Riskeer.AssemblyTool.Forms.Properties {
         internal static string DisplayFailureMechanismSectionAssemblyGroup_Zero_DisplayName {
             get {
                 return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_Zero_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to +0.
-        /// </summary>
-        internal static string DisplayFailureMechanismSectionAssemblyGroup_ZeroPlus_DisplayName {
-            get {
-                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyGroup_ZeroPlus_DisplayName", resourceCulture);
             }
         }
     }
