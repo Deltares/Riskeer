@@ -35,7 +35,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
-using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
@@ -239,7 +239,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         private static void AssertFailureMechanismSectionAssemblyResults(IEnumerable<RiskeerFailureMechanismSectionAssemblyResult> expected,
-                                                                         IEnumerable<AssemblyFailureMechanismSectionAssemblyResult> actual)
+                                                                         IEnumerable<KernelFailureMechanismSectionAssemblyResult> actual)
         {
             int nrOfExpectedResults = expected.Count();
             Assert.AreEqual(nrOfExpectedResults, actual.Count());
@@ -251,7 +251,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         private static void AssertFailureMechanismSectionAssemblyResult(RiskeerFailureMechanismSectionAssemblyResult expected,
-                                                                        AssemblyFailureMechanismSectionAssemblyResult actual)
+                                                                        KernelFailureMechanismSectionAssemblyResult actual)
         {
             ProbabilityAssert.AreEqual(expected.ProfileProbability, actual.ProbabilityProfile);
             ProbabilityAssert.AreEqual(expected.SectionProbability, actual.ProbabilitySection);

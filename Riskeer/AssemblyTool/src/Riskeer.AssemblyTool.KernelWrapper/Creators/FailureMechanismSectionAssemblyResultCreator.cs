@@ -23,7 +23,7 @@ using System;
 using System.ComponentModel;
 using Assembly.Kernel.Model.Categories;
 using Riskeer.AssemblyTool.Data;
-using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
@@ -35,16 +35,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     internal static class FailureMechanismSectionAssemblyResultCreator
     {
         /// <summary>
-        /// Converts an <see cref="AssemblyFailureMechanismSectionAssemblyResult"/> into a <see cref="RiskeerFailureMechanismSectionAssemblyResult"/>.
+        /// Converts an <see cref="KernelFailureMechanismSectionAssemblyResult"/> into a <see cref="RiskeerFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
-        /// <param name="result">The <see cref="AssemblyFailureMechanismSectionAssemblyResult"/> to convert.</param>
+        /// <param name="result">The <see cref="KernelFailureMechanismSectionAssemblyResult"/> to convert.</param>
         /// <returns>A <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="EInterpretationCategory"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="EInterpretationCategory"/>
         /// is a valid value, but unsupported.</exception>
-        public static RiskeerFailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(AssemblyFailureMechanismSectionAssemblyResult result)
+        public static RiskeerFailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(KernelFailureMechanismSectionAssemblyResult result)
         {
             if (result == null)
             {

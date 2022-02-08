@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
-using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
@@ -89,7 +89,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                                                                           random.NextDouble(),
                                                                           assemblyGroup);
             // Call
-            AssemblyFailureMechanismSectionAssemblyResult createdResult = FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(result);
+            KernelFailureMechanismSectionAssemblyResult createdResult = FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(result);
 
             // Assert
             ProbabilityAssert.AreEqual(profileProbability, createdResult.ProbabilityProfile);

@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using Riskeer.AssemblyTool.Data;
-using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
@@ -33,24 +33,24 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     internal static class FailureMechanismAssemblyCalculatorInputCreator
     {
         /// <summary>
-        /// Creates an <see cref="AssemblyFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.
+        /// Creates an <see cref="KernelFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.
         /// </summary>
         /// <param name="result">The <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> to create the
-        /// <see cref="AssemblyFailureMechanismSectionAssemblyResult"/> with.</param>
-        /// <returns>An <see cref="AssemblyFailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <see cref="KernelFailureMechanismSectionAssemblyResult"/> with.</param>
+        /// <returns>An <see cref="KernelFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="FailureMechanismSectionAssemblyGroup"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public static AssemblyFailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(RiskeerFailureMechanismSectionAssemblyResult result)
+        public static KernelFailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(RiskeerFailureMechanismSectionAssemblyResult result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new AssemblyFailureMechanismSectionAssemblyResult(
+            return new KernelFailureMechanismSectionAssemblyResult(
                 AssemblyCalculatorInputCreator.CreateProbability(result.ProfileProbability),
                 AssemblyCalculatorInputCreator.CreateProbability(result.SectionProbability),
                 FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(result.AssemblyGroup));

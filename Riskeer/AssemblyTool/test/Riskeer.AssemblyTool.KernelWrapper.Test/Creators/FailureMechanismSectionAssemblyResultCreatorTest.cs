@@ -26,7 +26,7 @@ using Assembly.Kernel.Model.Categories;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
-using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
@@ -54,7 +54,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             double profileProbability = random.NextDouble();
             double sectionProbability = random.NextDouble();
 
-            var result = new AssemblyFailureMechanismSectionAssemblyResult(
+            var result = new KernelFailureMechanismSectionAssemblyResult(
                 new Probability(profileProbability), new Probability(sectionProbability), (EInterpretationCategory) 99);
 
             // Call
@@ -74,7 +74,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             double sectionProbability = random.NextDouble();
             var category = random.NextEnumValue<EInterpretationCategory>();
 
-            var result = new AssemblyFailureMechanismSectionAssemblyResult(
+            var result = new KernelFailureMechanismSectionAssemblyResult(
                 new Probability(profileProbability), new Probability(sectionProbability), category);
 
             // Call

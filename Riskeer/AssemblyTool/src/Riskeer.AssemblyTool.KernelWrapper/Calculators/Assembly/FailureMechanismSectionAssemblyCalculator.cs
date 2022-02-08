@@ -28,7 +28,7 @@ using Assembly.Kernel.Model.Categories;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
-using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
@@ -71,7 +71,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 
                 IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
 
-                AssemblyFailureMechanismSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(
+                KernelFailureMechanismSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(
                     GetInitialMechanismProbabilitySpecification(input),
                     AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),
                     FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(
@@ -107,7 +107,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 
                 IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
 
-                AssemblyFailureMechanismSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(
+                KernelFailureMechanismSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(
                     GetInitialMechanismProbabilitySpecification(input),
                     AssemblyCalculatorInputCreator.CreateProbability(input.InitialProfileProbability),
                     AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),

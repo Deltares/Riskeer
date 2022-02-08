@@ -27,7 +27,7 @@ using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
-using AssemblyFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
@@ -65,7 +65,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
 
-                AssemblyFailureMechanismSectionAssemblyResult[] kernelInput =
+                KernelFailureMechanismSectionAssemblyResult[] kernelInput =
                     sectionAssemblyResults.Select(FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult)
                                           .ToArray();
 
