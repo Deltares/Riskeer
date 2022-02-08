@@ -217,7 +217,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De categoriegrenzen zijn niet aaneengesloten en spannen niet de volledige faalskansruimte..
+        ///   Looks up a localized string similar to De categoriegrenzen zijn niet aaneengesloten en spannen niet de volledige faalkansruimte..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_GetErrorMessage_InvalidCategoryLimits {
             get {
