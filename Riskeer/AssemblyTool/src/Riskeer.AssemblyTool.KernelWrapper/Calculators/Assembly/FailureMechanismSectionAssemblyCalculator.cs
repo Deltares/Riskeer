@@ -62,33 +62,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 throw new ArgumentNullException(nameof(input));
             }
 
-            try
-            {
-                ICategoryLimitsCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();
-                CategoriesList<InterpretationCategory> categories = assemblyCategoriesKernel.CalculateInterpretationCategoryLimitsWbi03(
-                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(input.SignalingNorm),
-                                          AssemblyCalculatorInputCreator.CreateProbability(input.LowerLimitNorm)));
-
-                IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-
-                KernelFailureMechanismSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(
+            KernelFailureMechanismSectionAssemblyResult GetAssemblyResultFunc(
+                IAssessmentResultsTranslator kernel, CategoriesList<InterpretationCategory> categories) =>
+                kernel.TranslateAssessmentResultWbi0A2(
                     GetInitialMechanismProbabilitySpecification(input),
                     AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(
-                        input.FurtherAnalysisType),
+                    FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(input.FurtherAnalysisType),
                     AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability),
                     categories);
 
-                return FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(output);
-            }
-            catch (AssemblyException e)
-            {
-                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
-            }
-            catch (Exception e)
-            {
-                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
-            }
+            return AssembleFailureMechanismSection(GetAssemblyResultFunc, input.SignalingNorm, input.LowerLimitNorm);
         }
 
         public RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
@@ -98,16 +81,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 throw new ArgumentNullException(nameof(input));
             }
 
-            try
-            {
-                ICategoryLimitsCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();
-                CategoriesList<InterpretationCategory> categories = assemblyCategoriesKernel.CalculateInterpretationCategoryLimitsWbi03(
-                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(input.SignalingNorm),
-                                          AssemblyCalculatorInputCreator.CreateProbability(input.LowerLimitNorm)));
-
-                IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-
-                KernelFailureMechanismSectionAssemblyResult output = kernel.TranslateAssessmentResultWbi0A2(
+            KernelFailureMechanismSectionAssemblyResult GetAssemblyResultFunc(
+                IAssessmentResultsTranslator kernel, CategoriesList<InterpretationCategory> categories) =>
+                kernel.TranslateAssessmentResultWbi0A2(
                     GetInitialMechanismProbabilitySpecification(input),
                     AssemblyCalculatorInputCreator.CreateProbability(input.InitialProfileProbability),
                     AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),
@@ -115,6 +91,22 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                     AssemblyCalculatorInputCreator.CreateProbability(input.RefinedProfileProbability),
                     AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability),
                     categories);
+
+            return AssembleFailureMechanismSection(GetAssemblyResultFunc, input.SignalingNorm, input.LowerLimitNorm);
+        }
+
+        private RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(
+            Func<IAssessmentResultsTranslator, CategoriesList<InterpretationCategory>, KernelFailureMechanismSectionAssemblyResult> getAssemblyResultFunc,
+            double signalingNorm, double lowerLimitNorm)
+        {
+            try
+            {
+                ICategoryLimitsCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();
+                CategoriesList<InterpretationCategory> categories = assemblyCategoriesKernel.CalculateInterpretationCategoryLimitsWbi03(
+                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalingNorm),
+                                          AssemblyCalculatorInputCreator.CreateProbability(lowerLimitNorm)));
+
+                KernelFailureMechanismSectionAssemblyResult output = getAssemblyResultFunc(factory.CreateFailureMechanismSectionAssemblyKernel(), categories);
 
                 return FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(output);
             }

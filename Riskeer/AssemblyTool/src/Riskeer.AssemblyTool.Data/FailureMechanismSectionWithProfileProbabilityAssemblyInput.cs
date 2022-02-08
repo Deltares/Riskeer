@@ -24,8 +24,8 @@ using Riskeer.Common.Primitives;
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
-    /// Class that contains the data that is necessary to determine the failure mechanism section assembly
-    /// taking into account the profile probabilities. 
+    /// Class that contains the data that is necessary to determine
+    /// the failure mechanism section assembly with profile probabilities. 
     /// </summary>
     public class FailureMechanismSectionWithProfileProbabilityAssemblyInput : FailureMechanismSectionAssemblyInput
     {
