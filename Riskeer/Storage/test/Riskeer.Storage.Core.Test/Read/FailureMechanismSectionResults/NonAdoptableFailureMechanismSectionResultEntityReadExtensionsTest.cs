@@ -24,6 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Primitives;
 using Riskeer.Storage.Core.Read.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.TestUtil.FailureMechanismResults;
 

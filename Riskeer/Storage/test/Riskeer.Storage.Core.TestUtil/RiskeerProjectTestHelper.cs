@@ -40,6 +40,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.Probabilistics;
 using Riskeer.Common.Data.Structures;
+using Riskeer.Common.Primitives;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;

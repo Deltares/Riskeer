@@ -34,6 +34,7 @@ using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Primitives;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;

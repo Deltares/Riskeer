@@ -21,6 +21,7 @@
 
 using System;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Primitives;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.FailureMechanismSectionResults
