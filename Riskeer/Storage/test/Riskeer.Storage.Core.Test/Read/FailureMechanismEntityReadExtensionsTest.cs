@@ -58,6 +58,95 @@ namespace Riskeer.Storage.Core.Test.Read
     [TestFixture]
     public class FailureMechanismEntityReadExtensionsTest
     {
+        private static FailureMechanismSectionEntity CreateSimpleFailureMechanismSectionEntity()
+        {
+            var dummyPoints = new[]
+            {
+                new Point2D(0, 0)
+            };
+            string dummyPointXml = new Point2DCollectionXmlSerializer().ToXml(dummyPoints);
+            var failureMechanismSectionEntity = new FailureMechanismSectionEntity
+            {
+                Name = "section",
+                FailureMechanismSectionPointXml = dummyPointXml
+            };
+            return failureMechanismSectionEntity;
+        }
+
+        private static void SetSectionResult(IAdoptableFailureMechanismSectionResultEntity sectionResult)
+        {
+            var random = new Random(21);
+
+            sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
+            sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<AdoptableInitialFailureMechanismResultType>());
+            sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+            sectionResult.FurtherAnalysisType = Convert.ToByte(random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>());
+            sectionResult.RefinedSectionProbability = random.NextDouble();
+        }
+
+        private static void AssertSectionResults(IAdoptableFailureMechanismSectionResultEntity sectionResultEntity, AdoptableFailureMechanismSectionResult sectionResult)
+        {
+            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.IsRelevant), sectionResult.IsRelevant);
+            Assert.AreEqual((AdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
+            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual((FailureMechanismSectionResultFurtherAnalysisType) sectionResultEntity.FurtherAnalysisType, sectionResult.FurtherAnalysisType);
+            Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
+        }
+
+        private static void SetSectionResult(IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
+        {
+            var random = new Random(21);
+
+            SetSectionResult((IAdoptableFailureMechanismSectionResultEntity) sectionResult);
+            sectionResult.ManualInitialFailureMechanismResultProfileProbability = sectionResult.ManualInitialFailureMechanismResultSectionProbability - 1e-3;
+            sectionResult.ProbabilityRefinementType = Convert.ToByte(random.NextEnumValue<ProbabilityRefinementType>());
+            sectionResult.RefinedProfileProbability = sectionResult.RefinedSectionProbability - 1e-3;
+        }
+
+        private static void AssertSectionResults(IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity, AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
+        {
+            AssertSectionResults((IAdoptableFailureMechanismSectionResultEntity) sectionResultEntity, sectionResult);
+
+            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual((ProbabilityRefinementType) sectionResultEntity.ProbabilityRefinementType, sectionResult.ProbabilityRefinementType);
+            Assert.AreEqual(sectionResultEntity.RefinedProfileProbability.ToNullAsNaN(), sectionResult.RefinedProfileProbability);
+        }
+
+        private static void SetSectionResult(INonAdoptableFailureMechanismSectionResultEntity sectionResult)
+        {
+            var random = new Random(21);
+
+            sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
+            sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>());
+            sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+            sectionResult.FurtherAnalysisType = Convert.ToByte(random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>());
+            sectionResult.RefinedSectionProbability = random.NextDouble();
+        }
+
+        private static void AssertSectionResults(INonAdoptableFailureMechanismSectionResultEntity sectionResultEntity, NonAdoptableFailureMechanismSectionResult sectionResult)
+        {
+            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.IsRelevant), sectionResult.IsRelevant);
+            Assert.AreEqual((NonAdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
+            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual((FailureMechanismSectionResultFurtherAnalysisType) sectionResultEntity.FurtherAnalysisType, sectionResult.FurtherAnalysisType);
+            Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
+        }
+
+        private static void SetSectionResult(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
+        {
+            SetSectionResult((INonAdoptableFailureMechanismSectionResultEntity) sectionResult);
+            sectionResult.ManualInitialFailureMechanismResultProfileProbability = sectionResult.ManualInitialFailureMechanismResultSectionProbability - 1e-3;
+            sectionResult.RefinedProfileProbability = sectionResult.RefinedSectionProbability - 1e-3;
+        }
+
+        private static void AssertSectionResults(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
+        {
+            AssertSectionResults((INonAdoptableFailureMechanismSectionResultEntity) sectionResultEntity, sectionResult);
+
+            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual(sectionResultEntity.RefinedProfileProbability.ToNullAsNaN(), sectionResult.RefinedProfileProbability);
+        }
+
         #region GrassCoverSlipOffInwards
 
         [Test]
@@ -100,7 +189,7 @@ namespace Riskeer.Storage.Core.Test.Read
             GrassCoverSlipOffInwardsFailureMechanismMetaEntity metaEntity = entity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single();
             Assert.AreEqual(metaEntity.N, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
-        
+
         [Test]
         public void ReadAsGrassCoverSlipOffInwardsFailureMechanism_WithSectionsSet_ReturnsNewGrassCoverSlipOffInwardsFailureMechanismWithFailureMechanismSectionsAdded()
         {
@@ -146,95 +235,6 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         #endregion
-
-        private static FailureMechanismSectionEntity CreateSimpleFailureMechanismSectionEntity()
-        {
-            var dummyPoints = new[]
-            {
-                new Point2D(0, 0)
-            };
-            string dummyPointXml = new Point2DCollectionXmlSerializer().ToXml(dummyPoints);
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity
-            {
-                Name = "section",
-                FailureMechanismSectionPointXml = dummyPointXml
-            };
-            return failureMechanismSectionEntity;
-        }
-
-        private static void SetSectionResult(IAdoptableFailureMechanismSectionResultEntity sectionResult)
-        {
-            var random = new Random(21);
-
-            sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
-            sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<AdoptableInitialFailureMechanismResultType>());
-            sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
-            sectionResult.FurtherAnalysisType = Convert.ToByte(random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>());
-            sectionResult.RefinedSectionProbability = random.NextDouble();
-        }
-
-        private static void AssertSectionResults(IAdoptableFailureMechanismSectionResultEntity sectionResultEntity, AdoptableFailureMechanismSectionResult sectionResult)
-        {
-            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.IsRelevant), sectionResult.IsRelevant);
-            Assert.AreEqual((AdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
-            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultSectionProbability);
-            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.FurtherAnalysisType), sectionResult.FurtherAnalysisType);
-            Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
-        }
-
-        private static void SetSectionResult(IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
-        {
-            var random = new Random(21);
-
-            SetSectionResult((IAdoptableFailureMechanismSectionResultEntity) sectionResult);
-            sectionResult.ManualInitialFailureMechanismResultProfileProbability = sectionResult.ManualInitialFailureMechanismResultSectionProbability - 1e-3;
-            sectionResult.ProbabilityRefinementType = Convert.ToByte(random.NextEnumValue<ProbabilityRefinementType>());
-            sectionResult.RefinedProfileProbability = sectionResult.RefinedSectionProbability - 1e-3;
-        }
-
-        private static void AssertSectionResults(IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity, AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
-        {
-            AssertSectionResults((IAdoptableFailureMechanismSectionResultEntity) sectionResultEntity, sectionResult);
-
-            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultProfileProbability);
-            Assert.AreEqual((ProbabilityRefinementType) sectionResultEntity.ProbabilityRefinementType, sectionResult.ProbabilityRefinementType);
-            Assert.AreEqual(sectionResultEntity.RefinedProfileProbability.ToNullAsNaN(), sectionResult.RefinedProfileProbability);
-        }
-
-        private static void SetSectionResult(INonAdoptableFailureMechanismSectionResultEntity sectionResult)
-        {
-            var random = new Random(21);
-
-            sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
-            sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>());
-            sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
-            sectionResult.FurtherAnalysisType = Convert.ToByte(random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>());
-            sectionResult.RefinedSectionProbability = random.NextDouble();
-        }
-
-        private static void AssertSectionResults(INonAdoptableFailureMechanismSectionResultEntity sectionResultEntity, NonAdoptableFailureMechanismSectionResult sectionResult)
-        {
-            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.IsRelevant), sectionResult.IsRelevant);
-            Assert.AreEqual((NonAdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
-            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultSectionProbability);
-            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.FurtherAnalysisType), sectionResult.FurtherAnalysisType);
-            Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
-        }
-
-        private static void SetSectionResult(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
-        {
-            SetSectionResult((INonAdoptableFailureMechanismSectionResultEntity) sectionResult);
-            sectionResult.ManualInitialFailureMechanismResultProfileProbability = sectionResult.ManualInitialFailureMechanismResultSectionProbability - 1e-3;
-            sectionResult.RefinedProfileProbability = sectionResult.RefinedSectionProbability - 1e-3;
-        }
-
-        private static void AssertSectionResults(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
-        {
-            AssertSectionResults((INonAdoptableFailureMechanismSectionResultEntity) sectionResultEntity, sectionResult);
-
-            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultProfileProbability);
-            Assert.AreEqual(sectionResultEntity.RefinedProfileProbability.ToNullAsNaN(), sectionResult.RefinedProfileProbability);
-        }
 
         #region WaterPressureAsphaltCover
 
