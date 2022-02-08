@@ -729,7 +729,7 @@ SELECT
     0
 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
 INSERT INTO WaveImpactAsphaltCoverSectionResultEntity (
-[WaveImpactAsphaltCoverSectionResultEntityId],
+    [WaveImpactAsphaltCoverSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
