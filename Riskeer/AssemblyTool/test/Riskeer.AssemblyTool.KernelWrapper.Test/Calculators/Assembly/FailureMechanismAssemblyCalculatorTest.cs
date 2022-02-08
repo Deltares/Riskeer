@@ -173,7 +173,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -199,7 +199,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 var exception = Assert.Throws<FailureMechanismAssemblyCalculatorException>(Call);
                 Assert.IsInstanceOf<Exception>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 

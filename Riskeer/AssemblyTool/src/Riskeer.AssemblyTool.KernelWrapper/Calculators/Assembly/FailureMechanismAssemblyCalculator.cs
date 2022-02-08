@@ -43,7 +43,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Creates a new instance of <see cref="FailureMechanismAssemblyCalculator"/>.
         /// </summary>
         /// <param name="factory">The factory responsible for creating the assembly kernel.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="factory"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
         public FailureMechanismAssemblyCalculator(IAssemblyToolKernelFactory factory)
         {
             if (factory == null)

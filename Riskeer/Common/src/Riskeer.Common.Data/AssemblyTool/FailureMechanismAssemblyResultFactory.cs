@@ -30,7 +30,7 @@ using Riskeer.Common.Data.Exceptions;
 namespace Riskeer.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// Factory for creating assembly results of a failure mechanism.
+    /// Factory for calculating assembly results of a failure mechanism.
     /// </summary>
     public static class FailureMechanismAssemblyResultFactory
     {

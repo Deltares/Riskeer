@@ -73,17 +73,21 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void AssembleFailureMechanism_CalculatorRan_ReturnsOutput()
         {
             // Setup
+            var random = new Random(21);
+            double expectedAssemblyResult = random.NextDouble();
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                calculator.AssemblyResult = expectedAssemblyResult;
+
                 // Call
                 double assemblyResult = FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
                     0, Enumerable.Empty<FailureMechanismSectionAssemblyResult>());
 
                 // Assert
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                Assert.AreEqual(calculator.AssemblyResult, assemblyResult);
+                Assert.AreEqual(expectedAssemblyResult, assemblyResult);
             }
         }
 
