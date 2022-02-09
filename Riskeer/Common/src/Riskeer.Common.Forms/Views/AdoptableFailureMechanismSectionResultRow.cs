@@ -241,7 +241,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                AssemblyResult = FailureMechanismSectionResultAssemblyFactory.Assemble(
+                AssemblyResult = FailureMechanismSectionResultAssemblyFactory.AssembleSection(
                     SectionResult, assessmentSection, calculateInitialFailureMechanismResultProbabilityFunc);
             }
             catch (AssemblyException e)

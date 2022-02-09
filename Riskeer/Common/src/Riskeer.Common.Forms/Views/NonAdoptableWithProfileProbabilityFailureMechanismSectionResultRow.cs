@@ -290,7 +290,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                AssemblyResult = FailureMechanismSectionResultAssemblyFactory.Assemble(SectionResult, assessmentSection, lengthEffectProvider.UseLengthEffect);
+                AssemblyResult = FailureMechanismSectionResultAssemblyFactory.AssembleSection(SectionResult, assessmentSection, lengthEffectProvider.UseLengthEffect);
             }
             catch (AssemblyException e)
             {
