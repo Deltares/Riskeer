@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
@@ -73,13 +72,13 @@ namespace Riskeer.Integration.IO.Factories
                                                                                                                 failureMechanismAssemblyMethod);
             }
 
-            FailureMechanismAssembly failureMechanismAssembly = MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection, false);
+            var failureMechanismAssembly = new FailureMechanismAssembly(0, FailureMechanismAssemblyCategoryGroup.None);
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
-                CreateExportableFailureMechanismSectionResults(failureMechanism, assessmentSection),
+                CreateExportableFailureMechanismSectionResults(failureMechanism),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
@@ -90,40 +89,21 @@ namespace Riskeer.Integration.IO.Factories
         /// </summary>
         /// <param name="failureMechanism">The <see cref="MacroStabilityInwardsFailureMechanism"/> to create a collection
         /// of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/> for.</param>
-        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> CreateExportableFailureMechanismSectionResults(
-            MacroStabilityInwardsFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection)
+            MacroStabilityInwardsFailureMechanism failureMechanism)
         {
             IDictionary<MacroStabilityInwardsFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResultsOld);
 
-            IEnumerable<MacroStabilityInwardsCalculationScenario> macroStabilityInwardsCalculationScenarios =
-                failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>();
-
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
             foreach (KeyValuePair<MacroStabilityInwardsFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                MacroStabilityInwardsFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
-
-                FailureMechanismSectionAssemblyOld simpleAssembly =
-                    MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyOld detailedAssembly =
-                    MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
-                                                                                                    macroStabilityInwardsCalculationScenarios,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
-                FailureMechanismSectionAssemblyOld tailorMadeAssembly =
-                    MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult,
-                                                                                                      failureMechanism,
-                                                                                                      assessmentSection);
-                FailureMechanismSectionAssemblyOld combinedAssembly =
-                    MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
-                                                                                                    macroStabilityInwardsCalculationScenarios,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+                var simpleAssembly = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
+                var detailedAssembly = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
+                var tailorMadeAssembly = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
+                var combinedAssembly = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
 
                 exportableResults.Add(
                     new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
