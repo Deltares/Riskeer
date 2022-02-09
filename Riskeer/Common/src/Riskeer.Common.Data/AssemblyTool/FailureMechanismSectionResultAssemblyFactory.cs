@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -92,22 +92,20 @@ namespace Riskeer.Common.Data.AssemblyTool
             NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult, IAssessmentSection assessmentSection,
             bool useLengthEffect)
         {
-            FailureMechanismSectionAssemblyInput input;
-
             bool hasProbabilitySpecified = sectionResult.InitialFailureMechanismResultType != NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
 
-            if (useLengthEffect)
-            {
-                input = CreateInput(
-                    assessmentSection, sectionResult.IsRelevant, hasProbabilitySpecified, sectionResult.ManualInitialFailureMechanismResultProfileProbability, sectionResult.ManualInitialFailureMechanismResultSectionProbability,
-                    sectionResult.FurtherAnalysisType, sectionResult.RefinedProfileProbability, sectionResult.RefinedSectionProbability);
-            }
-            else
-            {
-                input = CreateInput(
-                    assessmentSection, sectionResult.IsRelevant, sectionResult.ManualInitialFailureMechanismResultSectionProbability,
-                    sectionResult.FurtherAnalysisType, sectionResult.RefinedSectionProbability, hasProbabilitySpecified);
-            }
+            FailureMechanismSectionAssemblyInput input = useLengthEffect
+                                                             ? CreateInput(
+                                                                 assessmentSection, sectionResult.IsRelevant, hasProbabilitySpecified,
+                                                                 sectionResult.ManualInitialFailureMechanismResultProfileProbability,
+                                                                 sectionResult.ManualInitialFailureMechanismResultSectionProbability,
+                                                                 sectionResult.FurtherAnalysisType, sectionResult.RefinedProfileProbability,
+                                                                 sectionResult.RefinedSectionProbability)
+                                                             : CreateInput(
+                                                                 assessmentSection, sectionResult.IsRelevant,
+                                                                 sectionResult.ManualInitialFailureMechanismResultSectionProbability,
+                                                                 sectionResult.FurtherAnalysisType, sectionResult.RefinedSectionProbability,
+                                                                 hasProbabilitySpecified);
 
             return PerformAssembly(input);
         }
