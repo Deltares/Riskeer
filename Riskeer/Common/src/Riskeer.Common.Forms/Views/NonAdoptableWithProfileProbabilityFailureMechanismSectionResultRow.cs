@@ -290,20 +290,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                if (lengthEffectProvider.UseLengthEffect)
-                {
-                    AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                        assessmentSection, IsRelevant, InitialFailureMechanismResultType, InitialFailureMechanismResultProfileProbability,
-                        InitialFailureMechanismResultSectionProbability, FurtherAnalysisType,
-                        SectionResult.RefinedProfileProbability, SectionResult.RefinedSectionProbability);
-                }
-                else
-                {
-                    AssemblyResult = FailureMechanismSectionAssemblyGroupFactory.AssembleSection(
-                        assessmentSection, IsRelevant, InitialFailureMechanismResultType,
-                        InitialFailureMechanismResultSectionProbability, FurtherAnalysisType,
-                        SectionResult.RefinedSectionProbability);
-                }
+                AssemblyResult = FailureMechanismSectionResultAssemblyFactory.Assemble(SectionResult, assessmentSection, lengthEffectProvider.UseLengthEffect);
             }
             catch (AssemblyException e)
             {
