@@ -29,7 +29,7 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for a collection of <see cref="NonAdoptableFailureMechanismSectionResult"/>
+    /// This class is a presentation object for a collection of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
     /// for the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
     /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanismSectionResultContext : FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
