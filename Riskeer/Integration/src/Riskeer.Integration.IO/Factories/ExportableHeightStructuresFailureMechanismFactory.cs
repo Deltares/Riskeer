@@ -21,11 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Common.Data.Structures;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
@@ -74,13 +72,13 @@ namespace Riskeer.Integration.IO.Factories
                                                                                                                 failureMechanismAssemblyMethod);
             }
 
-            FailureMechanismAssembly failureMechanismAssembly = HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection, false);
+            var failureMechanismAssembly = new FailureMechanismAssembly(0, FailureMechanismAssemblyCategoryGroup.None);
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
-                CreateExportableFailureMechanismSectionResults(failureMechanism, assessmentSection),
+                CreateExportableFailureMechanismSectionResults(failureMechanism),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
@@ -91,39 +89,21 @@ namespace Riskeer.Integration.IO.Factories
         /// </summary>
         /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/> to create a collection of
         /// <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/> for.</param>
-        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> CreateExportableFailureMechanismSectionResults(
-            HeightStructuresFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection)
+            HeightStructuresFailureMechanism failureMechanism)
         {
             IDictionary<HeightStructuresFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResultsOld);
 
-            StructuresCalculationScenario<HeightStructuresInput>[] structuresCalculationScenarios = failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>().ToArray();
-
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
             foreach (KeyValuePair<HeightStructuresFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                HeightStructuresFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
-
-                FailureMechanismSectionAssemblyOld simpleAssembly =
-                    HeightStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyOld detailedAssembly =
-                    HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
-                                                                                               structuresCalculationScenarios,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
-                FailureMechanismSectionAssemblyOld tailorMadeAssembly =
-                    HeightStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult,
-                                                                                                 failureMechanism,
-                                                                                                 assessmentSection);
-                FailureMechanismSectionAssemblyOld combinedAssembly =
-                    HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
-                                                                                               structuresCalculationScenarios,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
+                var simpleAssembly = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
+                var detailedAssembly = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
+                var tailorMadeAssembly = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
+                var combinedAssembly = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
 
                 exportableResults.Add(
                     new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
