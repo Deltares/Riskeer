@@ -21,14 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Integration.IO.Factories
 {
@@ -74,13 +72,13 @@ namespace Riskeer.Integration.IO.Factories
                                                                                                                 failureMechanismAssemblyMethod);
             }
 
-            FailureMechanismAssembly failureMechanismAssembly = PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection, false);
+            var failureMechanismAssembly = new FailureMechanismAssembly(0, FailureMechanismAssemblyCategoryGroup.None);
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
-                CreateExportableFailureMechanismSectionResults(failureMechanism, assessmentSection),
+                CreateExportableFailureMechanismSectionResults(failureMechanism),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
@@ -91,39 +89,21 @@ namespace Riskeer.Integration.IO.Factories
         /// </summary>
         /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to create a
         /// collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/> for.</param>
-        /// <param name="assessmentSection">The assessment section the sections belong to.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> CreateExportableFailureMechanismSectionResults(
-            PipingFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection)
+            PipingFailureMechanism failureMechanism)
         {
             IDictionary<PipingFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanism.SectionResultsOld);
 
-            IEnumerable<SemiProbabilisticPipingCalculationScenario> pipingCalculationScenarios = failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>();
-
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>();
             foreach (KeyValuePair<PipingFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                PipingFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
-
-                FailureMechanismSectionAssemblyOld simpleAssembly =
-                    PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyOld detailedAssembly =
-                    PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult,
-                                                                                     pipingCalculationScenarios,
-                                                                                     failureMechanism,
-                                                                                     assessmentSection);
-                FailureMechanismSectionAssemblyOld tailorMadeAssembly =
-                    PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection);
-                FailureMechanismSectionAssemblyOld combinedAssembly =
-                    PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult,
-                                                                                     pipingCalculationScenarios,
-                                                                                     failureMechanism,
-                                                                                     assessmentSection);
+                var simpleAssembly = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
+                var detailedAssembly = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
+                var tailorMadeAssembly = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
+                var combinedAssembly = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
 
                 exportableResults.Add(
                     new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(
