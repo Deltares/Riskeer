@@ -72,7 +72,7 @@ namespace Riskeer.Integration.IO.Factories
                                                                                                                    failureMechanismAssemblyMethod);
             }
 
-            FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
+            const FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = FailureMechanismAssemblyCategoryGroup.None;
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
@@ -98,16 +98,10 @@ namespace Riskeer.Integration.IO.Factories
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
             foreach (KeyValuePair<StabilityStoneCoverFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                StabilityStoneCoverFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
-
-                FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =
-                    StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup detailedAssembly =
-                    StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly =
-                    StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup combinedAssembly =
-                    StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult);
+                const FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
+                const FailureMechanismSectionAssemblyCategoryGroup detailedAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
+                const FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
+                const FailureMechanismSectionAssemblyCategoryGroup combinedAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
 
                 exportableResults.Add(
                     new ExportableAggregatedFailureMechanismSectionAssemblyResult(
