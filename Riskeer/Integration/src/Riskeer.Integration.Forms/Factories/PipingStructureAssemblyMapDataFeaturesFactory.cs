@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld>(
                 failureMechanism,
-                PipingStructureFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld>(
                 failureMechanism,
-                PipingStructureFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
+                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld>(
                 failureMechanism,
-                PipingStructureFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
+                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld>(
                 failureMechanism,
-                PipingStructureFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
+                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment);
         }
     }
 }

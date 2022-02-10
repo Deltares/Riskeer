@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld>(
                 failureMechanism,
-                MicrostabilityFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld>(
                 failureMechanism,
-                MicrostabilityFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
+                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld>(
                 failureMechanism,
-                MicrostabilityFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
+                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld>(
                 failureMechanism,
-                MicrostabilityFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
+                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment);
         }
     }
 }

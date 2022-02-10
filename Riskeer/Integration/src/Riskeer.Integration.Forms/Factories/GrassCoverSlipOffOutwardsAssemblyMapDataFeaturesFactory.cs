@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
+                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
+                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
+                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment);
         }
     }
 }

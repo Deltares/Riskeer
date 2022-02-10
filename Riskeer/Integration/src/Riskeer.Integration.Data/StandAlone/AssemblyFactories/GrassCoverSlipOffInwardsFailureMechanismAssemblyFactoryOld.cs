@@ -38,7 +38,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
     /// <summary>
     /// Factory for creating assembly results for a grass cover slip off inwards failure mechanism.
     /// </summary>
-    public static class GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory
+    public static class GrassCoverSlipOffInwardsFailureMechanismAssemblyFactoryOld
     {
         /// <summary>
         /// Assembles the simple assessment results.

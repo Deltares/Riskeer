@@ -226,11 +226,11 @@ namespace Riskeer.Integration.Data.Assembly
                 WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.WaveImpactAsphaltCover, useManual),
                 GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.GrassCoverErosionOutwards, useManual),
                 DuneErosionFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.DuneErosion, useManual),
-                MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Microstability, useManual),
-                WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaterPressureAsphaltCover, useManual),
-                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, useManual),
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, useManual),
-                PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.PipingStructure, useManual)
+                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.Microstability, useManual),
+                WaterPressureAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.WaterPressureAsphaltCover, useManual),
+                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, useManual),
+                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, useManual),
+                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.PipingStructure, useManual)
             };
         }
     }

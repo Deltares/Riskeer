@@ -41,7 +41,7 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 {
     [TestFixture]
-    public class GrassCoverSlipOffInwardsFailureMechanismAssemblyFactoryTest
+    public class MicrostabilityFailureMechanismAssemblyFactoryOldTest
     {
         #region Simple Assembly
 
@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
+            TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -62,7 +62,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             // Setup
             var random = new Random(21);
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(failureMechanismSection)
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(failureMechanismSection)
             {
                 SimpleAssessmentResult = random.NextEnumValue<SimpleAssessmentResultType>()
             };
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentResult, calculator.SimpleAssessmentInput);
@@ -85,7 +85,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(failureMechanismSection);
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                    MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, actualOutput);
@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Setup
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(failureMechanismSection);
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(failureMechanismSection);
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
@@ -115,7 +115,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleDetailedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(null);
+            TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -144,7 +144,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleDetailedAssessment_WithInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
@@ -152,7 +152,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentResultInput);
@@ -163,7 +163,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleDetailedAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
@@ -172,7 +172,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                    MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.DetailedAssessmentAssemblyGroupOutput, actualOutput);
@@ -183,7 +183,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleDetailedAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
@@ -192,7 +192,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleTailorMadeAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(null);
+            TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -223,7 +223,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             // Setup
             var random = new Random(21);
             FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(failureMechanismSection)
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(failureMechanismSection)
             {
                 TailorMadeAssessmentResult = random.NextEnumValue<TailorMadeAssessmentResultType>()
             };
@@ -234,7 +234,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentResultInput);
@@ -245,7 +245,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleTailorMadeAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
@@ -254,7 +254,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                    MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.TailorMadeAssemblyCategoryOutput, actualOutput);
@@ -265,7 +265,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleTailorMadeAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
@@ -274,7 +274,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -292,7 +292,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleCombinedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(null);
+            TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -306,7 +306,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -317,7 +317,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
@@ -333,7 +333,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             SimpleAssessmentResultType simpleAssessmentResult)
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 SimpleAssessmentResult = simpleAssessmentResult
             };
@@ -344,7 +344,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
@@ -357,7 +357,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleCombinedAssessment_AssemblyRan_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
@@ -366,7 +366,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                    MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup? calculatorOutput = calculator.CombinedAssemblyCategoryOutput;
@@ -378,7 +378,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleCombinedAssessment_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
@@ -387,7 +387,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -405,7 +405,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void GetSectionAssemblyCategoryGroup_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 null,
                 new Random(39).NextBoolean());
 
@@ -418,7 +418,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void GetSectionAssemblyCategoryGroup_WithoutManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
@@ -426,7 +426,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                MicrostabilityFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
@@ -441,7 +441,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void GetSectionAssemblyCategoryGroup_WithoutManualInput_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
@@ -449,7 +449,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = MicrostabilityFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
@@ -462,14 +462,14 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void GetSectionAssemblyCategoryGroup_WithManualInputAndUseManualTrue_ReturnsOutput()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>()
             };
 
             // Call
-            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = MicrostabilityFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 sectionResult,
                 true);
 
@@ -483,7 +483,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Setup
             var random = new Random(39);
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = random.NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>()
@@ -495,7 +495,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = MicrostabilityFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     false);
 
@@ -508,7 +508,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void GetSectionAssemblyCategoryGroup_WithoutManualInputAndCalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
@@ -517,7 +517,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     false);
 
@@ -533,15 +533,15 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void GetSectionAssemblyCategoryGroup_WithUseManualAndUseManualInputTrueAndInvalidManualFailureMechanismSectionAssemblyCategoryGroup_ThrowsAssemblyException()
         {
             // Setup
-            var sectionResult = new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            var sectionResult = new MicrostabilityFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
             {
                 UseManualAssembly = true,
                 ManualAssemblyCategoryGroup = (ManualFailureMechanismSectionAssemblyCategoryGroup) 99
             };
 
             // Call
-            TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult,
-                                                                                                                              true);
+            TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(sectionResult,
+                                                                                                                       true);
 
             // Assert
             var exception = Assert.Throws<AssemblyException>(call);
@@ -558,7 +558,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(null, new Random(39).NextBoolean());
+            TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(null, new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -569,13 +569,13 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleFailureMechanism_FailureMechanismNotInAssembly_ReturnsNotApplicableCategory()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism
+            var failureMechanism = new MicrostabilityFailureMechanism
             {
                 InAssembly = false
             };
 
             // Call
-            FailureMechanismAssemblyCategoryGroup category = GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+            FailureMechanismAssemblyCategoryGroup category = MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
             // Assert
             Assert.AreEqual(FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory(), category);
@@ -585,7 +585,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleFailureMechanism_WithoutManualInput_SetsInputOnCalculator()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
@@ -598,7 +598,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
@@ -609,12 +609,12 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleFailureMechanism_WithManualInputAndUseManualTrue_SetsInputOnCalculator()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
+            MicrostabilityFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = new Random(39).NextEnumValue<ManualFailureMechanismSectionAssemblyCategoryGroup>();
 
@@ -624,7 +624,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, true);
+                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, true);
 
                 // Assert
                 Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
@@ -636,12 +636,12 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleFailureMechanism_WithManualInputAndUseManualFalse_SetsCombinedInputOnCalculator()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
-            GrassCoverSlipOffInwardsFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
+            MicrostabilityFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
             sectionResult.UseManualAssembly = true;
             sectionResult.ManualAssemblyCategoryGroup = ManualFailureMechanismSectionAssemblyCategoryGroup.IIv;
 
@@ -652,7 +652,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
+                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, false);
 
                 // Assert
                 Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
@@ -670,8 +670,8 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup actualOutput =
-                    GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(new GrassCoverSlipOffInwardsFailureMechanism(),
-                                                                                                     new Random(39).NextBoolean());
+                    MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(new MicrostabilityFailureMechanism(),
+                                                                                              new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismAssemblyCategoryGroupOutput, actualOutput);
@@ -689,8 +689,8 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
-                    new GrassCoverSlipOffInwardsFailureMechanism(),
+                TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
+                    new MicrostabilityFailureMechanism(),
                     new Random(39).NextBoolean());
 
                 // Assert
@@ -705,7 +705,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleFailureMechanism_FailureMechanismSectionCalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+            var failureMechanism = new MicrostabilityFailureMechanism();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
@@ -718,8 +718,8 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
-                                                                                                                           new Random(39).NextBoolean());
+                TestDelegate call = () => MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism,
+                                                                                                                    new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);

@@ -36,9 +36,9 @@ using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
 {
     /// <summary>
-    /// Factory for creating assembly results for a piping structure failure mechanism.
+    /// Factory for creating assembly results for a microstability failure mechanism.
     /// </summary>
-    public static class PipingStructureFailureMechanismAssemblyFactory
+    public static class MicrostabilityFailureMechanismAssemblyFactoryOld
     {
         /// <summary>
         /// Assembles the simple assessment results.
@@ -51,7 +51,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleSimpleAssessment(
-            PipingStructureFailureMechanismSectionResultOld failureMechanismSectionResult)
+            MicrostabilityFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -83,7 +83,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleDetailedAssessment(
-            PipingStructureFailureMechanismSectionResultOld failureMechanismSectionResult)
+            MicrostabilityFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -116,7 +116,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleTailorMadeAssessment(
-            PipingStructureFailureMechanismSectionResultOld failureMechanismSectionResult)
+            MicrostabilityFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -148,7 +148,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup AssembleCombinedAssessment(
-            PipingStructureFailureMechanismSectionResultOld failureMechanismSectionResult)
+            MicrostabilityFailureMechanismSectionResultOld failureMechanismSectionResult)
         {
             if (failureMechanismSectionResult == null)
             {
@@ -190,7 +190,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// could not be created.</exception>
         public static FailureMechanismSectionAssemblyCategoryGroup GetSectionAssemblyCategoryGroup(
-            PipingStructureFailureMechanismSectionResultOld failureMechanismSectionResult,
+            MicrostabilityFailureMechanismSectionResultOld failureMechanismSectionResult,
             bool useManual)
         {
             if (failureMechanismSectionResult == null)
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the <see cref="FailureMechanismAssemblyCategoryGroup"/>
         /// could not be created.</exception>
-        public static FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(PipingStructureFailureMechanism failureMechanism,
+        public static FailureMechanismAssemblyCategoryGroup AssembleFailureMechanism(MicrostabilityFailureMechanism failureMechanism,
                                                                                      bool useManual)
         {
             if (failureMechanism == null)

@@ -258,7 +258,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return MicrostabilityFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
+                return MicrostabilityFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup;
             }
         }
 
@@ -282,7 +282,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
+                return WaterPressureAsphaltCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup;
             }
         }
 
@@ -298,7 +298,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
+                return GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup;
             }
         }
 
@@ -306,7 +306,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
+                return GrassCoverSlipOffInwardsFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup;
             }
         }
 
@@ -332,7 +332,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return PipingStructureFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
+                return PipingStructureFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup;
             }
         }
 

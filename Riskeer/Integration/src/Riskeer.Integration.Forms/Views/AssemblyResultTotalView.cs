@@ -385,35 +385,35 @@ namespace Riskeer.Integration.Forms.Views
         {
             MicrostabilityFailureMechanism microstability = AssessmentSection.Microstability;
             return new FailureMechanismAssemblyCategoryGroupResultRow(microstability,
-                                                                      () => MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(microstability, true));
+                                                                      () => MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(microstability, true));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateWaterPressureAsphaltCoverFailureMechanismAssemblyResultRow()
         {
             WaterPressureAsphaltCoverFailureMechanism waterPressureAsphaltCover = AssessmentSection.WaterPressureAsphaltCover;
             return new FailureMechanismAssemblyCategoryGroupResultRow(waterPressureAsphaltCover,
-                                                                      () => WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(waterPressureAsphaltCover, true));
+                                                                      () => WaterPressureAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(waterPressureAsphaltCover, true));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateGrassCoverSlipOffOutwardsFailureMechanismAssemblyResultRow()
         {
             GrassCoverSlipOffOutwardsFailureMechanism grassCoverSlipOffOutwards = AssessmentSection.GrassCoverSlipOffOutwards;
             return new FailureMechanismAssemblyCategoryGroupResultRow(grassCoverSlipOffOutwards,
-                                                                      () => GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverSlipOffOutwards, true));
+                                                                      () => GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(grassCoverSlipOffOutwards, true));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateGrassCoverSlipOffInwardsFailureMechanismAssemblyResultRow()
         {
             GrassCoverSlipOffInwardsFailureMechanism grassCoverSlipOffInwards = AssessmentSection.GrassCoverSlipOffInwards;
             return new FailureMechanismAssemblyCategoryGroupResultRow(grassCoverSlipOffInwards,
-                                                                      () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverSlipOffInwards, true));
+                                                                      () => GrassCoverSlipOffInwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(grassCoverSlipOffInwards, true));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreatePipingStructureFailureMechanismAssemblyResultRow()
         {
             PipingStructureFailureMechanism pipingStructure = AssessmentSection.PipingStructure;
             return new FailureMechanismAssemblyCategoryGroupResultRow(pipingStructure,
-                                                                      () => PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(pipingStructure, true));
+                                                                      () => PipingStructureFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(pipingStructure, true));
         }
 
         #endregion

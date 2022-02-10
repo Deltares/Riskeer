@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
-                WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                WaterPressureAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
-                WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
+                WaterPressureAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
-                WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
+                WaterPressureAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment);
         }
     }
 }

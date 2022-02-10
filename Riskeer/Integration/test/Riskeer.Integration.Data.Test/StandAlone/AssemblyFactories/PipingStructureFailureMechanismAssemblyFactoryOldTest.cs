@@ -41,7 +41,7 @@ using Riskeer.Integration.Data.StandAlone.SectionResults;
 namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 {
     [TestFixture]
-    public class PipingStructureFailureMechanismAssemblyFactoryTest
+    public class PipingStructureFailureMechanismAssemblyFactoryOldTest
     {
         #region Simple Assembly
 
@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
+            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                PipingStructureFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentResult, calculator.SimpleAssessmentInput);
@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    PipingStructureFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                    PipingStructureFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, actualOutput);
@@ -115,7 +115,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleDetailedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.AssembleDetailedAssessment(null);
+            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -152,7 +152,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                PipingStructureFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.DetailedAssessmentResult, calculator.DetailedAssessmentResultInput);
@@ -172,7 +172,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    PipingStructureFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                    PipingStructureFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.DetailedAssessmentAssemblyGroupOutput, actualOutput);
@@ -192,7 +192,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleTailorMadeAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(null);
+            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -234,7 +234,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                PipingStructureFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentResultInput);
@@ -254,7 +254,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    PipingStructureFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                    PipingStructureFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.TailorMadeAssemblyCategoryOutput, actualOutput);
@@ -274,7 +274,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -292,7 +292,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleCombinedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.AssembleCombinedAssessment(null);
+            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -317,7 +317,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                PipingStructureFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
@@ -344,7 +344,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                PipingStructureFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
@@ -366,7 +366,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    PipingStructureFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                    PipingStructureFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssemblyCategoryGroup? calculatorOutput = calculator.CombinedAssemblyCategoryOutput;
@@ -387,7 +387,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -405,7 +405,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void GetSectionAssemblyCategoryGroup_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 null,
                 new Random(39).NextBoolean());
 
@@ -426,7 +426,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                PipingStructureFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                PipingStructureFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
@@ -449,7 +449,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = PipingStructureFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = PipingStructureFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
@@ -469,7 +469,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             };
 
             // Call
-            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = PipingStructureFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = PipingStructureFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 sectionResult,
                 true);
 
@@ -495,7 +495,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = PipingStructureFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = PipingStructureFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     false);
 
@@ -517,7 +517,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     false);
 
@@ -540,8 +540,8 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             };
 
             // Call
-            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(sectionResult,
-                                                                                                                     true);
+            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(sectionResult,
+                                                                                                                        true);
 
             // Assert
             var exception = Assert.Throws<AssemblyException>(call);
@@ -558,7 +558,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(null, new Random(39).NextBoolean());
+            TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(null, new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -575,7 +575,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             };
 
             // Call
-            FailureMechanismAssemblyCategoryGroup category = PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+            FailureMechanismAssemblyCategoryGroup category = PipingStructureFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
             // Assert
             Assert.AreEqual(FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory(), category);
@@ -598,7 +598,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
@@ -624,7 +624,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, true);
+                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, true);
 
                 // Assert
                 Assert.AreEqual(ManualFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(sectionResult.ManualAssemblyCategoryGroup),
@@ -652,7 +652,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
+                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, false);
 
                 // Assert
                 Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
@@ -670,8 +670,8 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup actualOutput =
-                    PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(new PipingStructureFailureMechanism(),
-                                                                                            new Random(39).NextBoolean());
+                    PipingStructureFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(new PipingStructureFailureMechanism(),
+                                                                                               new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismAssemblyCategoryGroupOutput, actualOutput);
@@ -689,7 +689,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     new PipingStructureFailureMechanism(),
                     new Random(39).NextBoolean());
 
@@ -718,8 +718,8 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
-                                                                                                                  new Random(39).NextBoolean());
+                TestDelegate call = () => PipingStructureFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism,
+                                                                                                                     new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);

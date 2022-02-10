@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
+                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
+                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Riskeer.Integration.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
+                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
     /// <summary>
     /// Factory for creating assembly results for a water pressure asphalt cover failure mechanism.
     /// </summary>
-    public static class WaterPressureAsphaltCoverFailureMechanismAssemblyFactory
+    public static class WaterPressureAsphaltCoverFailureMechanismAssemblyFactoryOld
     {
         /// <summary>
         /// Assembles the simple assessment results.
