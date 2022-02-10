@@ -25,7 +25,6 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
@@ -74,7 +73,7 @@ namespace Riskeer.Integration.IO.Factories
                                                                                                                    failureMechanismAssemblyMethod);
             }
 
-            FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
+            const FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = FailureMechanismAssemblyCategoryGroup.None;
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
@@ -100,14 +99,9 @@ namespace Riskeer.Integration.IO.Factories
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly>();
             foreach (KeyValuePair<WaterPressureAsphaltCoverFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                WaterPressureAsphaltCoverFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
-
-                FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =
-                    WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly =
-                    WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup combinedAssembly =
-                    WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult);
+                const FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
+                const FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
+                const FailureMechanismSectionAssemblyCategoryGroup combinedAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
 
                 exportableResults.Add(
                     new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(

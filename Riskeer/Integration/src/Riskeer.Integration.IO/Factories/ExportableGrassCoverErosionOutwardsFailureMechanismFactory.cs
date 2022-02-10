@@ -24,9 +24,9 @@ using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
+using Riskeer.GrassCoverErosionOutwards.Data;
 
 namespace Riskeer.Integration.IO.Factories
 {
@@ -72,7 +72,7 @@ namespace Riskeer.Integration.IO.Factories
                                                                                                                    failureMechanismAssemblyMethod);
             }
 
-            FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
+            const FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = FailureMechanismAssemblyCategoryGroup.None;
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
@@ -98,16 +98,10 @@ namespace Riskeer.Integration.IO.Factories
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
             foreach (KeyValuePair<GrassCoverErosionOutwardsFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                GrassCoverErosionOutwardsFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
-
-                FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =
-                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup detailedAssembly =
-                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly =
-                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup combinedAssembly =
-                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult);
+                const FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
+                const FailureMechanismSectionAssemblyCategoryGroup detailedAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
+                const FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
+                const FailureMechanismSectionAssemblyCategoryGroup combinedAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
 
                 exportableResults.Add(
                     new ExportableAggregatedFailureMechanismSectionAssemblyResult(

@@ -25,7 +25,6 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
@@ -74,7 +73,7 @@ namespace Riskeer.Integration.IO.Factories
                                                                                                                    failureMechanismAssemblyMethod);
             }
 
-            FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
+            const FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = FailureMechanismAssemblyCategoryGroup.None;
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
@@ -100,16 +99,10 @@ namespace Riskeer.Integration.IO.Factories
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
             foreach (KeyValuePair<MicrostabilityFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                MicrostabilityFailureMechanismSectionResultOld failureMechanismSectionResult = failureMechanismSectionPair.Key;
-
-                FailureMechanismSectionAssemblyCategoryGroup simpleAssembly =
-                    MicrostabilityFailureMechanismAssemblyFactory.AssembleSimpleAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup detailedAssembly =
-                    MicrostabilityFailureMechanismAssemblyFactory.AssembleDetailedAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly =
-                    MicrostabilityFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(failureMechanismSectionResult);
-                FailureMechanismSectionAssemblyCategoryGroup combinedAssembly =
-                    MicrostabilityFailureMechanismAssemblyFactory.AssembleCombinedAssessment(failureMechanismSectionResult);
+                const FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
+                const FailureMechanismSectionAssemblyCategoryGroup detailedAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
+                const FailureMechanismSectionAssemblyCategoryGroup tailorMadeAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
+                const FailureMechanismSectionAssemblyCategoryGroup combinedAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
 
                 exportableResults.Add(
                     new ExportableAggregatedFailureMechanismSectionAssemblyResult(

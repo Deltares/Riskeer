@@ -224,11 +224,11 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual(9, exportableFailureMechanisms.Count());
 
             FailureMechanismAssemblyCategoryGroup expectedFailureMechanismAssemblyOutput = failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput.Value;
-            // AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
-            //                                                    ExportableFailureMechanismType.ZST,
-            //                                                    ExportableFailureMechanismGroup.Group3,
-            //                                                    assessmentSection.StabilityStoneCover,
-            //                                                    exportableFailureMechanisms.First());
+            AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
+                                                               ExportableFailureMechanismType.ZST,
+                                                               ExportableFailureMechanismGroup.Group3,
+                                                               assessmentSection.StabilityStoneCover,
+                                                               exportableFailureMechanisms.First());
 
             AssertExportableFailureMechanismWithoutProbability(expectedFailureMechanismAssemblyOutput,
                                                                ExportableFailureMechanismType.AGK,
@@ -289,7 +289,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual(expectedFailureMechanismGroup, actualExportableFailureMechanism.Group);
 
             ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssemblyResult = actualExportableFailureMechanism.FailureMechanismAssembly;
-            Assert.AreEqual(expectedAssemblyOutput, exportableFailureMechanismAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.None, exportableFailureMechanismAssemblyResult.AssemblyCategory);
             Assert.AreEqual(ExportableAssemblyMethod.WBI1A1, exportableFailureMechanismAssemblyResult.AssemblyMethod);
 
             Assert.AreEqual(failureMechanism.SectionResultsOld.Count(), actualExportableFailureMechanism.SectionAssemblyResults.Count());
