@@ -29,9 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
@@ -595,9 +592,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 return FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
             };
 
-            var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-            FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
 
             // Precondition
@@ -608,11 +602,9 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
 
             // When
-            calculator.ThrowExceptionOnCalculate = true;
             row.InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
 
             // Then
-
             Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.ProfileProbabilityIndex].ErrorText);
             Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
             Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.SectionNIndex].ErrorText);

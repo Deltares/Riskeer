@@ -25,6 +25,7 @@ using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
@@ -102,7 +103,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -130,7 +134,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -146,18 +153,19 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism
             });
-
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -173,13 +181,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -187,21 +194,19 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new GrassCoverErosionOutwardsFailureMechanism());
@@ -209,8 +214,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -224,7 +227,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var context = new GrassCoverErosionOutwardsFailurePathContext(failureMechanism, assessmentSection);
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -247,9 +253,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);

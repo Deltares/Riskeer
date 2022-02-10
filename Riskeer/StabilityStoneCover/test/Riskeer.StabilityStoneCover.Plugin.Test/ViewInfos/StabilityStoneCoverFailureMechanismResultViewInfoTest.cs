@@ -25,6 +25,7 @@ using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
@@ -96,14 +97,15 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
-
             mocks.ReplayAll();
 
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -119,19 +121,21 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
 
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 otherFailureMechanism
             });
-
             mocks.ReplayAll();
 
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -147,18 +151,19 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism
             });
-
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -174,13 +179,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -188,21 +192,18 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new StabilityStoneCoverFailureMechanism());
@@ -210,8 +211,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -225,7 +224,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -248,7 +250,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN, fm => false))
+                failureMechanism.SectionResults, failureMechanism,
+                fm => fm.GeneralInput.N,
+                fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
