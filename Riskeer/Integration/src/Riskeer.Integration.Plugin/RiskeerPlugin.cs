@@ -78,6 +78,7 @@ using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Forms.Dialogs;
 using Riskeer.Integration.Forms.Factories;
@@ -1106,7 +1107,7 @@ namespace Riskeer.Integration.Plugin
         private ViewInfo<TContext, IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
             Func<TFailureMechanism, double> getNFunc, Func<TFailureMechanism, bool> getUseLengthEffectFunc)
             where TContext : FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
-            where TFailureMechanism : class, IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+            where TFailureMechanism : class, IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, IHasGeneralInput
         {
             return new RiskeerViewInfo<
                 TContext,
@@ -1117,8 +1118,14 @@ namespace Riskeer.Integration.Plugin
                 GetViewData = context => context.WrappedData,
                 CloseForData = CloseFailureMechanismResultViewForData<TFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult,
                     NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism>, NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow>,
-                CreateInstance = context => new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism>(
-                    context.WrappedData, (TFailureMechanism) context.FailureMechanism, context.AssessmentSection, getNFunc, getUseLengthEffectFunc)
+                CreateInstance = context =>
+                {
+                    var failureMechanism = (TFailureMechanism) context.FailureMechanism;
+                    IAssessmentSection assessmentSection = context.AssessmentSection;
+                    return new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism>(
+                        context.WrappedData, failureMechanism, getNFunc, getUseLengthEffectFunc,
+                        sr => StandAloneFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
+                }
             };
         }
 

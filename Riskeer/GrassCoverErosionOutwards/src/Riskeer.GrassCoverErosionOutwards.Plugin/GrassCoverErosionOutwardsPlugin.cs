@@ -134,9 +134,18 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
-                    context.WrappedData, (GrassCoverErosionOutwardsFailureMechanism) context.FailureMechanism, context.AssessmentSection,
-                    fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection)
+                CreateInstance = context =>
+                {
+                    var failureMechanism = (GrassCoverErosionOutwardsFailureMechanism) context.FailureMechanism;
+                    IAssessmentSection assessmentSection = context.AssessmentSection;
+
+                    return new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
+                        context.WrappedData,
+                        failureMechanism,
+                        fm => fm.GeneralInput.N,
+                        fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                        sr => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
+                }
             };
 
             yield return new RiskeerViewInfo<GrassCoverErosionOutwardsWaveConditionsInputContext,

@@ -113,12 +113,18 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
-                CreateInstance = context => new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
-                    context.WrappedData,
-                    (WaveImpactAsphaltCoverFailureMechanism) context.FailureMechanism,
-                    context.AssessmentSection,
-                    fm => fm.GeneralWaveImpactAsphaltCoverInput.GetN(context.AssessmentSection.ReferenceLine.Length),
-                    fm => fm.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection)
+                CreateInstance = context =>
+                {
+                    var failureMechanism = (WaveImpactAsphaltCoverFailureMechanism) context.FailureMechanism;
+                    IAssessmentSection assessmentSection = context.AssessmentSection;
+
+                    return new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
+                        context.WrappedData,
+                        failureMechanism,
+                        fm => fm.GeneralWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length),
+                        fm => fm.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection,
+                        sr => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
+                }
             };
 
             yield return new RiskeerViewInfo<WaveImpactAsphaltCoverWaveConditionsInputContext,
