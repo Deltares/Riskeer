@@ -67,10 +67,10 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
             bool isRelevant = random.NextBoolean();
             var initialFailureMechanismResultType = random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>();
             double manualProfileProbability = random.NextDouble();
-            double manualSectionProbability = manualProfileProbability + 1e-3;
+            double manualSectionProbability = random.NextDouble();
             var furtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
             double refinedProfileProbability = random.NextDouble();
-            double refinedSectionProbability = refinedProfileProbability + 1e-3;
+            double refinedSectionProbability = random.NextDouble();
 
             var entity = new StabilityStoneCoverSectionResultEntity
             {
