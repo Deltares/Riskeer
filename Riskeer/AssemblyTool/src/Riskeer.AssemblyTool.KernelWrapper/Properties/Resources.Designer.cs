@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -280,7 +280,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De faalkans per vak moet groter of gelijk zijn aan de faalkans per doorsnede..
+        ///   Looks up a localized string similar to De faalkans per vak moet groter zijn dan of gelijk zijn aan de faalkans per doorsnede.
         /// </summary>
         internal static string AssemblyErrorMessageCreator_ProfileProbabilityGreaterThanSectionProbability {
             get {
