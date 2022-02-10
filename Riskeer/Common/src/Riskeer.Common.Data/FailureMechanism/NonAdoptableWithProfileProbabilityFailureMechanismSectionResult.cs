@@ -52,7 +52,7 @@ namespace Riskeer.Common.Data.FailureMechanism
             get => manualInitialFailureMechanismResultProfileProbability;
             set
             {
-                ValidateInitialProfileProbability(value);
+                ValidateFailureProbability(value);
                 manualInitialFailureMechanismResultProfileProbability = value;
             }
         }
@@ -70,44 +70,8 @@ namespace Riskeer.Common.Data.FailureMechanism
             get => refinedProfileProbability;
             set
             {
-                ValidateRefinedProfileProbability(value);
+                ValidateFailureProbability(value);
                 refinedProfileProbability = value;
-            }
-        }
-
-        private void ValidateInitialProfileProbability(double value)
-        {
-            ValidateFailureProbability(value);
-            ValidateProbabilities(value, ManualInitialFailureMechanismResultSectionProbability,
-                                  RiskeerCommonDataResources.WithProfileProbabilityFailureMechanismSectionResult_ManualInitialFailureMechanismResultSectionProbability_must_be_greater_than_ManualInitialFailureMechanismResultProfileProbability);
-        }
-
-        protected override void ValidateInitialSectionProbability(double value)
-        {
-            base.ValidateInitialSectionProbability(value);
-            ValidateProbabilities(ManualInitialFailureMechanismResultProfileProbability, value,
-                                  RiskeerCommonDataResources.WithProfileProbabilityFailureMechanismSectionResult_ManualInitialFailureMechanismResultSectionProbability_must_be_greater_than_ManualInitialFailureMechanismResultProfileProbability);
-        }
-
-        private void ValidateRefinedProfileProbability(double value)
-        {
-            ValidateFailureProbability(value);
-            ValidateProbabilities(value, RefinedSectionProbability,
-                                  RiskeerCommonDataResources.WithProfileProbabilityFailureMechanismSectionResult_RefinedSectionProbability_must_be_greater_than_RefinedProfileProbability);
-        }
-
-        protected override void ValidateRefinedSectionProbability(double value)
-        {
-            base.ValidateRefinedSectionProbability(value);
-            ValidateProbabilities(RefinedProfileProbability, value,
-                                  RiskeerCommonDataResources.WithProfileProbabilityFailureMechanismSectionResult_RefinedSectionProbability_must_be_greater_than_RefinedProfileProbability);
-        }
-
-        private static void ValidateProbabilities(double profileProbability, double sectionProbability, string errorMessage)
-        {
-            if (profileProbability > sectionProbability)
-            {
-                throw new ArgumentOutOfRangeException(null, errorMessage);
             }
         }
     }

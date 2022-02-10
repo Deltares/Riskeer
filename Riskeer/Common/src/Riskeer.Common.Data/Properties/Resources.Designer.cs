@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -978,27 +978,6 @@ namespace Riskeer.Common.Data.Properties {
             get {
                 return ResourceManager.GetString("UpdateDataStrategyBase_UpdateTargetCollectionData_Imported_data_must_contain_uniq" +
                         "ue_items", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De faalkans van het initiële mechanisme per doorsnede moet kleiner of gelijk zijn aan de faalkans van het initiële mechanisme per vak..
-        /// </summary>
-        public static string WithProfileProbabilityFailureMechanismSectionResult_ManualInitialFailureMechanismResultSectionProbability_must_be_greater_than_ManualInitialFailureMechanismResultProfileProbability {
-            get {
-                return ResourceManager.GetString("WithProfileProbabilityFailureMechanismSectionResult_ManualInitialFailureMechanism" +
-                        "ResultSectionProbability_must_be_greater_than_ManualInitialFailureMechanismResul" +
-                        "tProfileProbability", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De aangescherpte faalkans per doorsnede moet kleiner of gelijk zijn aan de aangescherpte faalkans per vak..
-        /// </summary>
-        public static string WithProfileProbabilityFailureMechanismSectionResult_RefinedSectionProbability_must_be_greater_than_RefinedProfileProbability {
-            get {
-                return ResourceManager.GetString("WithProfileProbabilityFailureMechanismSectionResult_RefinedSectionProbability_mus" +
-                        "t_be_greater_than_RefinedProfileProbability", resourceCulture);
             }
         }
     }
