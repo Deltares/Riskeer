@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Riskeer.Common.Forms.Properties;
+
 namespace Riskeer.Common.Forms.Providers
 {
     /// <summary>
@@ -28,7 +30,7 @@ namespace Riskeer.Common.Forms.Providers
     {
         public string GetManualProbabilityValidationError(double probability)
         {
-            return double.IsNaN(probability) ? "De waarde voor de faalkans ontbreekt." : string.Empty;
+            return double.IsNaN(probability) ? Resources.FailureMechanismSectionResultRowErrorProvider_Probability_must_not_be_NaN : string.Empty;
         }
     }
 }

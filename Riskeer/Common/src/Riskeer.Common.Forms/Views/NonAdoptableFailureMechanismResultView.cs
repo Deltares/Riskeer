@@ -79,7 +79,8 @@ namespace Riskeer.Common.Forms.Views
             return new NonAdoptableFailureMechanismSectionResultRow(
                 sectionResult,
                 CreateErrorProvider(),
-                assessmentSection, new NonAdoptableFailureMechanismSectionResultRow.ConstructionProperties
+                assessmentSection,
+                new NonAdoptableFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultSectionProbabilityIndex = initialFailureMechanismResultSectionProbabilityIndex,

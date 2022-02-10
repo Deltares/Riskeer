@@ -99,7 +99,8 @@ namespace Riskeer.Common.Forms.Views
                 sectionResult,
                 CreateErrorProvider(),
                 CreateLengthEffectProvider(),
-                assessmentSection, new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
+                assessmentSection,
+                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
                     InitialFailureMechanismResultProfileProbabilityIndex = initialFailureMechanismResultProfileProbabilityIndex,
