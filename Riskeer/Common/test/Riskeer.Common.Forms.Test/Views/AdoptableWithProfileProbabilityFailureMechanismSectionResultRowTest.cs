@@ -777,7 +777,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndAssemblyThrowsException_ThenAssemblyPropertiesSetToDefault()
+        public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndPerformAssemblyThrowsException_ThenAssemblyPropertiesSetToDefault()
         {
             // Given
             var mocks = new MockRepository();
@@ -821,7 +821,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndAssemblyThrowsException_ThenShowError()
+        public void GivenRowWithoutAssemblyErrors_WhenUpdatingAndPerformAssemblyThrowsException_ThenShowError()
         {
             // Given
             var mocks = new MockRepository();
@@ -867,7 +867,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenRowWithAssemblyErrors_WhenUpdatingAndAssemblyDoesNotThrowException_ThenNoErrorShown()
+        public void GivenRowWithAssemblyErrors_WhenUpdatingAndPerformAssemblyDoesNotThrowException_ThenNoErrorShown()
         {
             // Given
             var mocks = new MockRepository();
