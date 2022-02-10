@@ -34,13 +34,13 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class FailureMechanismSectionListCreatorTest
+    public class FailureMechanismSectionListCreatorOldTest
     {
         [Test]
         public void Create_FailureMechanismSectionsCollectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => FailureMechanismSectionListCreator.Create(null);
+            TestDelegate call = () => FailureMechanismSectionListCreatorOld.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -62,7 +62,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             };
 
             // Call
-            IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists = FailureMechanismSectionListCreator.Create(combinedAssemblyFailureMechanismInputs);
+            IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists = FailureMechanismSectionListCreatorOld.Create(combinedAssemblyFailureMechanismInputs);
 
             // Assert
             CombinedFailureMechanismSectionsInputAssert.AssertCombinedFailureMechanismInput(combinedAssemblyFailureMechanismInputs, failureMechanismSectionLists);
@@ -72,7 +72,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void Create_InvalidGroup_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => FailureMechanismSectionListCreator.Create(new[]
+            TestDelegate test = () => FailureMechanismSectionListCreatorOld.Create(new[]
             {
                 new[]
                 {
@@ -98,7 +98,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void Create_ValidGroup_ReturnEFmSectionCategory(FailureMechanismSectionAssemblyCategoryGroup originalGroup, EFmSectionCategory expectedGroup)
         {
             // Call
-            IEnumerable<FailureMechanismSectionList> output = FailureMechanismSectionListCreator.Create(new[]
+            IEnumerable<FailureMechanismSectionList> output = FailureMechanismSectionListCreatorOld.Create(new[]
             {
                 new[]
                 {

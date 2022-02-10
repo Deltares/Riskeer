@@ -132,7 +132,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 ICommonFailureMechanismSectionAssembler kernel = factory.CreateCombinedFailureMechanismSectionAssemblyKernel();
-                AssemblyResult output = kernel.AssembleCommonFailureMechanismSections(FailureMechanismSectionListCreator.Create(input), assessmentSectionLength, false);
+                AssemblyResult output = kernel.AssembleCommonFailureMechanismSections(FailureMechanismSectionListCreatorOld.Create(input), assessmentSectionLength, false);
 
                 return CombinedFailureMechanismSectionAssemblyCreatorOld.Create(output);
             }
