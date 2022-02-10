@@ -38,7 +38,7 @@ namespace Riskeer.MacroStabilityInwards.Data
     /// <summary>
     /// Factory for assembling assembly results for a macro stability inwards failure mechanism.
     /// </summary>
-    public static class MacroStabilityInwardsFailureMechanismAssemblyFactory
+    public static class MacroStabilityInwardsFailureMechanismAssemblyFactoryOld
     {
         /// <summary>
         /// Assembles the simple assessment results.

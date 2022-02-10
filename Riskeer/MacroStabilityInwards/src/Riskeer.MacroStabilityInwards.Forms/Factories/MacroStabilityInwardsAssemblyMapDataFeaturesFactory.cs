@@ -50,7 +50,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                MacroStabilityInwardsFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                sectionResult => MacroStabilityInwardsFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                     sectionResult,
                     failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(),
                     failureMechanism,
@@ -102,9 +102,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
-                                                                                                                   failureMechanism,
-                                                                                                                   assessmentSection));
+                sectionResult => MacroStabilityInwardsFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult,
+                                                                                                                      failureMechanism,
+                                                                                                                      assessmentSection));
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                sectionResult => MacroStabilityInwardsFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult,
                     failureMechanism.Calculations.Cast<MacroStabilityInwardsCalculationScenario>(),
                     failureMechanism,

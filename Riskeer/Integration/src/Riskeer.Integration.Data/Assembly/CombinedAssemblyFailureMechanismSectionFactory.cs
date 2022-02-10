@@ -249,7 +249,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return (sectionResult, assessmentSection, useManual) => MacroStabilityInwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                return (sectionResult, assessmentSection, useManual) => MacroStabilityInwardsFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult, assessmentSection.MacroStabilityInwards, assessmentSection, useManual);
             }
         }

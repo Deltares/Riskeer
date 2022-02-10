@@ -340,9 +340,9 @@ namespace Riskeer.Integration.Forms.Views
         {
             MacroStabilityInwardsFailureMechanism macroStabilityInwards = AssessmentSection.MacroStabilityInwards;
             return new FailureMechanismAssemblyResultRow(macroStabilityInwards,
-                                                         () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(macroStabilityInwards,
-                                                                                                                                             AssessmentSection,
-                                                                                                                                             true));
+                                                         () => MacroStabilityInwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(macroStabilityInwards,
+                                                                                                                                                AssessmentSection,
+                                                                                                                                                true));
         }
 
         #endregion
