@@ -37,7 +37,7 @@ using Riskeer.Common.Primitives;
 namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryTest
+    public class GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOldTest
     {
         #region Simple Assembly
 
@@ -45,7 +45,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
+            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -69,7 +69,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentResult, calculator.SimpleAssessmentInput);
@@ -90,7 +90,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, actualOutput);
@@ -111,7 +111,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -129,7 +129,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void AssembleDetailedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(null);
+            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -157,7 +157,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm, calculator.DetailedAssessmentResultForFactorizedSignalingNormInput);
@@ -182,7 +182,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.DetailedAssessmentAssemblyGroupOutput, actualOutput);
@@ -203,7 +203,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -221,7 +221,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void AssembleTailorMadeAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(null);
+            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -245,7 +245,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentCategoryGroupResultInput);
@@ -266,7 +266,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.TailorMadeAssemblyCategoryOutput, actualOutput);
@@ -287,7 +287,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -305,7 +305,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void AssembleCombinedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                 null);
 
             // Assert
@@ -331,7 +331,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
@@ -358,7 +358,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
@@ -380,7 +380,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                         sectionResult);
 
                 // Assert
@@ -402,7 +402,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult);
 
                 // Assert
@@ -421,7 +421,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void GetSectionAssemblyCategoryGroup_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 null,
                 new Random(39).NextBoolean());
 
@@ -442,7 +442,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
@@ -465,7 +465,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
@@ -485,7 +485,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             };
 
             // Call
-            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 sectionResult,
                 true);
 
@@ -510,7 +510,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     false);
 
@@ -532,7 +532,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     false);
 
@@ -552,7 +552,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(null, new Random(39).NextBoolean());
+            TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(null, new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -569,7 +569,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             };
 
             // Call
-            FailureMechanismAssemblyCategoryGroup category = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+            FailureMechanismAssemblyCategoryGroup category = GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
             // Assert
             Assert.AreEqual(FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory(), category);
@@ -592,7 +592,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
@@ -618,7 +618,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, true);
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, true);
 
                 // Assert
                 Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
@@ -645,7 +645,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, false);
 
                 // Assert
                 Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
@@ -663,8 +663,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup actualOutput =
-                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                                      new Random(39).NextBoolean());
+                    GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                         new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismAssemblyCategoryGroupOutput, actualOutput);
@@ -682,7 +682,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     new GrassCoverErosionOutwardsFailureMechanism(),
                     new Random(39).NextBoolean());
 
@@ -711,8 +711,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
-                                                                                                                            new Random(39).NextBoolean());
+                TestDelegate call = () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism,
+                                                                                                                               new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);

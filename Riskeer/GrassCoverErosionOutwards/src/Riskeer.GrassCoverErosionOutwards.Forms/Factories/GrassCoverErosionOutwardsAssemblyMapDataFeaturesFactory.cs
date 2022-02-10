@@ -48,7 +48,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment);
         }
     }
 }

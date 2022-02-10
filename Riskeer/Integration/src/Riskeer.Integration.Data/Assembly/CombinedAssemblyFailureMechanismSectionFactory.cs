@@ -290,7 +290,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
+                return GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup;
             }
         }
 
