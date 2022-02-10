@@ -221,12 +221,5 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 sectionResult, calculationScenarios,
                 (scenario, lineSegments) => scenario.IsDikeProfileIntersectionWithReferenceLineInSection(lineSegments));
         }
-
-        private ILengthEffectProvider CreateLengthEffectProvider()
-        {
-            return new LengthEffectProvider(
-                () => FailureMechanism.GeneralInput.ApplyLengthEffectInSection,
-                () => 1.0);
-        }
     }
 }

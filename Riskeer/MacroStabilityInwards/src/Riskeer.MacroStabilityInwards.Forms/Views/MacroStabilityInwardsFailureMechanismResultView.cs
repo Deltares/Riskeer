@@ -202,12 +202,5 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             return new FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider<MacroStabilityInwardsCalculationScenario>(
                 sectionResult, calculationScenarios, (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
         }
-
-        private ILengthEffectProvider CreateLengthEffectProvider(FailureMechanismSectionResult sectionResult)
-        {
-            return new LengthEffectProvider(
-                () => FailureMechanism.GeneralInput.ApplyLengthEffectInSection,
-                () => FailureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
-        }
     }
 }

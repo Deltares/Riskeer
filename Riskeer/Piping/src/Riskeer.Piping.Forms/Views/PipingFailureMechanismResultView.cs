@@ -210,12 +210,5 @@ namespace Riskeer.Piping.Forms.Views
                 sectionResult, calculationScenarios,
                 (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments));
         }
-
-        private ILengthEffectProvider CreateLengthEffectProvider(FailureMechanismSectionResult sectionResult)
-        {
-            return new LengthEffectProvider(
-                () => FailureMechanism.GeneralInput.ApplyLengthEffectInSection,
-                () => FailureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
-        }
     }
 }

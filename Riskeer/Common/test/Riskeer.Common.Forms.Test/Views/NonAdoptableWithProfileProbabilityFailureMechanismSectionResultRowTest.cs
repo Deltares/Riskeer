@@ -307,7 +307,6 @@ namespace Riskeer.Common.Forms.Test.Views
             errorProvider.Stub(ep => ep.GetManualProbabilityValidationError(double.NaN))
                          .IgnoreArguments()
                          .Return("error");
-            var lengthEffectProvider = mocks.Stub<ILengthEffectProvider>();
             mocks.ReplayAll();
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
