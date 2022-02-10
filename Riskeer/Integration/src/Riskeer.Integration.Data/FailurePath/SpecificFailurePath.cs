@@ -42,6 +42,7 @@ namespace Riskeer.Integration.Data.FailurePath
         public SpecificFailurePath()
         {
             Name = Resources.SpecificFailurePath_Name_DefaultName;
+            Code = Resources.SpecificFailurePath_Code_DefaultName;
 
             sectionCollection = new FailureMechanismSectionCollection();
             InAssembly = true;
@@ -60,6 +61,8 @@ namespace Riskeer.Integration.Data.FailurePath
 
         public string Name { get; set; }
 
+        public string Code { get; set; }
+        
         public IEnumerable<FailureMechanismSection> Sections
         {
             get

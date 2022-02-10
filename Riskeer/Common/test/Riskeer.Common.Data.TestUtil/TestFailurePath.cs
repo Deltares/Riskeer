@@ -40,6 +40,7 @@ namespace Riskeer.Common.Data.TestUtil
         public TestFailurePath()
         {
             Name = "Faalpad";
+            Code = "NIEUW";
 
             sectionCollection = new FailureMechanismSectionCollection();
             InAssembly = true;
@@ -53,6 +54,8 @@ namespace Riskeer.Common.Data.TestUtil
         public GeneralInput GeneralInput { get; }
 
         public string Name { get; }
+        
+        public string Code { get; }
 
         public IEnumerable<FailureMechanismSection> Sections
         {

@@ -44,6 +44,7 @@ namespace Riskeer.Integration.Data.Test.FailurePath
             Assert.IsInstanceOf<Observable>(failurePath);
             Assert.IsInstanceOf<IFailurePath>(failurePath);
             Assert.AreEqual("Nieuw faalpad", failurePath.Name);
+            Assert.AreEqual("NIEUW", failurePath.Code);
             Assert.IsNotNull(failurePath.Input);
             Assert.IsNotNull(failurePath.InAssemblyInputComments);
             Assert.IsNotNull(failurePath.InAssemblyOutputComments);

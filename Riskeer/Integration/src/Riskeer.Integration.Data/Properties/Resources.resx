@@ -162,4 +162,7 @@
   <data name="SpecificFailurePath_Name_DefaultName" xml:space="preserve">
     <value>Nieuw faalpad</value>
   </data>
+  <data name="SpecificFailurePath_Code_DefaultName" xml:space="preserve">
+    <value>NIEUW</value>
+  </data>
 </root>

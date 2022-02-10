@@ -35,6 +35,11 @@ namespace Riskeer.Common.Data.FailurePath
         /// Gets the name of the failure path.
         /// </summary>
         string Name { get; }
+        
+        /// <summary>
+        /// Gets the code of the failure path.
+        /// </summary>
+        string Code { get; }
 
         /// <summary>
         /// Gets the comments associated with the input of the data object when it is part of the assembly.
