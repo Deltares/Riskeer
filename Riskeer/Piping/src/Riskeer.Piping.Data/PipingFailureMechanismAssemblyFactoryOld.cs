@@ -39,7 +39,7 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Factory for assembling assembly results for a piping failure mechanism.
     /// </summary>
-    public static class PipingFailureMechanismAssemblyFactory
+    public static class PipingFailureMechanismAssemblyFactoryOld
     {
         /// <summary>
         /// Assembles the simple assessment results.

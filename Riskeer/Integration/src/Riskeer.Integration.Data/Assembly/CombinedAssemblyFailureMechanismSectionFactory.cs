@@ -231,7 +231,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return (sectionResult, assessmentSection, useManual) => PipingFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                return (sectionResult, assessmentSection, useManual) => PipingFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult, assessmentSection.Piping, assessmentSection, useManual);
             }
         }

@@ -331,9 +331,9 @@ namespace Riskeer.Integration.Forms.Views
         {
             PipingFailureMechanism piping = AssessmentSection.Piping;
             return new FailureMechanismAssemblyResultRow(piping,
-                                                         () => PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(piping,
-                                                                                                                              AssessmentSection,
-                                                                                                                              true));
+                                                         () => PipingFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(piping,
+                                                                                                                                 AssessmentSection,
+                                                                                                                                 true));
         }
 
         private FailureMechanismAssemblyResultRowBase CreateMacroStabilityInwardsFailureMechanismAssemblyResultRow()

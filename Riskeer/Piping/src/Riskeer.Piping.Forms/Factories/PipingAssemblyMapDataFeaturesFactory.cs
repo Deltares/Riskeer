@@ -51,7 +51,7 @@ namespace Riskeer.Piping.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResultOld>(
                 failureMechanism,
-                PipingFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                PipingFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Riskeer.Piping.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => PipingFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                sectionResult => PipingFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                     sectionResult,
                     failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
                     failureMechanism,
@@ -103,9 +103,9 @@ namespace Riskeer.Piping.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => PipingFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection));
+                sectionResult => PipingFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult,
+                                                                                                       failureMechanism,
+                                                                                                       assessmentSection));
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Riskeer.Piping.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<PipingFailureMechanism, PipingFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => PipingFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                sectionResult => PipingFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult,
                     failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(),
                     failureMechanism,

@@ -212,7 +212,7 @@ namespace Riskeer.Integration.Data.Assembly
                 HeightStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.HeightStructures, assessmentSection, useManual),
                 ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.ClosingStructures, assessmentSection, useManual),
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection, useManual),
-                PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Piping, assessmentSection, useManual),
+                PipingFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.Piping, assessmentSection, useManual),
                 MacroStabilityInwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection, useManual)
             };
         }
