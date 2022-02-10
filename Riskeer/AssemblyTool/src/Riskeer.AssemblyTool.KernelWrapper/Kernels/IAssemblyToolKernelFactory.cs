@@ -45,5 +45,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
         /// </summary>
         /// <returns>A new <see cref="IAssessmentResultsTranslator"/>.</returns>
         IFailureMechanismResultAssembler CreateFailureMechanismAssemblyKernel();
+        
+        /// <summary>
+        /// Creates a combined failure mechanism section assembly kernel.
+        /// </summary>
+        /// <returns>A new <see cref="ICommonFailureMechanismSectionAssembler"/>.</returns>
+        ICommonFailureMechanismSectionAssembler CreateCombinedFailureMechanismSectionAssemblyKernel();
     }
 }

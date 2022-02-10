@@ -21,58 +21,18 @@
 
 using System;
 using System.Collections.Generic;
-using Assembly.Kernel.Old.Exceptions;
-using Assembly.Kernel.Old.Interfaces;
-using Assembly.Kernel.Old.Model;
-using Assembly.Kernel.Old.Model.CategoryLimits;
+using Assembly.Kernel.Exceptions;
+using Assembly.Kernel.Interfaces;
+using Assembly.Kernel.Model.AssessmentSection;
+using Assembly.Kernel.Model.FailureMechanismSections;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
     /// <summary>
     /// Assessment section assembly kernel stub for testing purposes.
     /// </summary>
-    public class AssessmentSectionAssemblyKernelStub : IAssessmentGradeAssembler
+    public class AssessmentSectionAssemblyKernelStub : ICommonFailureMechanismSectionAssembler
     {
-        /// <summary>
-        /// Gets a value indicating whether an assembly is partial.
-        /// </summary>
-        public bool? PartialAssembly { get; private set; }
-
-        /// <summary>
-        /// Gets or sets the failure mechanism category result
-        /// </summary>
-        public EFailureMechanismCategory FailureMechanismCategoryResult { get; set; }
-
-        /// <summary>
-        /// Gets or sets the failure mechanism assembly result.
-        /// </summary>
-        public FailureMechanismAssemblyResult FailureMechanismAssemblyResult { get; set; }
-
-        /// <summary>
-        /// Gets or sets the assessment section assembly result.
-        /// </summary>
-        public EAssessmentGrade AssessmentSectionAssemblyResult { get; set; }
-
-        /// <summary>
-        /// Gets the collection of <see cref="FailureMechanismAssemblyResult"/> used as an input parameter for assembly methods.
-        /// </summary>
-        public IEnumerable<FailureMechanismAssemblyResult> FailureMechanismAssemblyResults { get; private set; }
-
-        /// <summary>
-        /// Gets the <see cref="EFailureMechanismCategory"/> used as an input parameter for assembly methods.
-        /// </summary>
-        public EFailureMechanismCategory? AssemblyResultNoFailureProbability { get; private set; }
-
-        /// <summary>
-        /// Gets the <see cref="FailureMechanismAssemblyResult"/> used as an input parameter for assembly methods.
-        /// </summary>
-        public FailureMechanismAssemblyResult AssemblyResultWithFailureProbability { get; private set; }
-
-        /// <summary>
-        /// Gets the <see cref="CategoriesList{TCategory}"/> used as an input parameter for assembly methods.
-        /// </summary>
-        public CategoriesList<FailureMechanismCategory> FailureMechanismCategories { get; private set; }
-
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not. 
         /// </summary>
@@ -88,45 +48,97 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// </summary>
         public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
-        public EFailureMechanismCategory AssembleAssessmentSectionWbi2A1(IEnumerable<FailureMechanismAssemblyResult> failureMechanismAssemblyResults,
-                                                                         bool partialAssembly)
+        /// <summary>
+        /// Gets the assessment section length used as an input parameter for assembly methods.
+        /// </summary>
+        public double AssessmentSectionLength { get; private set; }
+
+        /// <summary>
+        /// Gets an <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionList"/> used as an input parameter for assembly methods.
+        /// </summary>
+        public IEnumerable<FailureMechanismSectionList> FailureMechanismSectionLists { get; private set; }
+
+        /// <summary>
+        /// Gets the partial assembly used as an input parameter for assembly methods.
+        /// </summary>
+        public bool PartialAssembly { get; private set; }
+
+        /// <summary>
+        /// Gets the common sections used as an input parameter for assembly methods.
+        /// </summary>
+        public FailureMechanismSectionList CommonSections { get; private set; }
+
+        /// <summary>
+        /// Gets the <see cref="FailureMechanismSectionList"/> used as an input parameter for assembly methods.
+        /// </summary>
+        public FailureMechanismSectionList FailureMechanismSectionListInput { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="AssemblyResult"/>.
+        /// </summary>
+        public AssemblyResult AssemblyResult { get; set; }
+
+        /// <summary>
+        /// Gets ors sets the <see cref="FailureMechanismSectionList"/> result.
+        /// </summary>
+        public FailureMechanismSectionList FailureMechanismSectionListResult { get; set; }
+
+        /// <summary>
+        /// Gets or sets the failure mechanism sections with category result.
+        /// </summary>
+        public IEnumerable<FailureMechanismSectionWithCategory> FailureMechanismSectionsWithCategory { get; set; }
+
+        public AssemblyResult AssembleCommonFailureMechanismSections(IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists,
+                                                                     double assessmentSectionLength, bool partialAssembly)
         {
             ThrowException();
 
+            FailureMechanismSectionLists = failureMechanismSectionLists;
+            AssessmentSectionLength = assessmentSectionLength;
             PartialAssembly = partialAssembly;
-            FailureMechanismAssemblyResults = failureMechanismAssemblyResults;
 
             Calculated = true;
 
-            return FailureMechanismCategoryResult;
+            return AssemblyResult;
         }
 
-        public FailureMechanismAssemblyResult AssembleAssessmentSectionWbi2B1(IEnumerable<FailureMechanismAssemblyResult> failureMechanismAssemblyResults,
-                                                                              CategoriesList<FailureMechanismCategory> categories,
-                                                                              bool partialAssembly)
+        public FailureMechanismSectionList FindGreatestCommonDenominatorSectionsWbi3A1(IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists,
+                                                                                       double assessmentSectionLength)
         {
             ThrowException();
 
-            PartialAssembly = partialAssembly;
-            FailureMechanismCategories = categories;
-            FailureMechanismAssemblyResults = failureMechanismAssemblyResults;
+            FailureMechanismSectionLists = failureMechanismSectionLists;
+            AssessmentSectionLength = assessmentSectionLength;
 
             Calculated = true;
 
-            return FailureMechanismAssemblyResult;
+            return FailureMechanismSectionListResult;
         }
 
-        public EAssessmentGrade AssembleAssessmentSectionWbi2C1(EFailureMechanismCategory assemblyResultNoFailureProbability,
-                                                                FailureMechanismAssemblyResult assemblyResultWithFailureProbability)
+        public FailureMechanismSectionList TranslateFailureMechanismResultsToCommonSectionsWbi3B1(FailureMechanismSectionList failureMechanismSectionList,
+                                                                                                  FailureMechanismSectionList commonSections)
         {
             ThrowException();
 
-            AssemblyResultNoFailureProbability = assemblyResultNoFailureProbability;
-            AssemblyResultWithFailureProbability = assemblyResultWithFailureProbability;
+            FailureMechanismSectionListInput = failureMechanismSectionList;
+            CommonSections = commonSections;
 
             Calculated = true;
 
-            return AssessmentSectionAssemblyResult;
+            return FailureMechanismSectionListResult;
+        }
+
+        public IEnumerable<FailureMechanismSectionWithCategory> DetermineCombinedResultPerCommonSectionWbi3C1(IEnumerable<FailureMechanismSectionList> failureMechanismResults,
+                                                                                                              bool partialAssembly)
+        {
+            ThrowException();
+
+            FailureMechanismSectionLists = failureMechanismResults;
+            PartialAssembly = partialAssembly;
+
+            Calculated = true;
+
+            return FailureMechanismSectionsWithCategory;
         }
 
         private void ThrowException()
@@ -138,7 +150,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
             if (ThrowAssemblyExceptionOnCalculate)
             {
-                throw new AssemblyException("entity", EAssemblyErrors.CategoryLowerLimitOutOfRange);
+                throw new AssemblyException("entity", EAssemblyErrors.EmptyResultsList);
             }
         }
     }

@@ -110,5 +110,18 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
             // Assert
             Assert.IsInstanceOf<FailureMechanismResultAssembler>(kernel);
         }
+
+        [Test]
+        public void CreateCombinedFailureMechanismSectionAssemblyKernel_Always_ReturnsKernelCommonFailureMechanismSectionAssembler()
+        {
+            // Setup
+            IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
+
+            // Call
+            ICommonFailureMechanismSectionAssembler kernel = factory.CreateCombinedFailureMechanismSectionAssemblyKernel();
+
+            // Assert
+            Assert.IsInstanceOf<CommonFailureMechanismSectionAssembler>(kernel);
+        }
     }
 }

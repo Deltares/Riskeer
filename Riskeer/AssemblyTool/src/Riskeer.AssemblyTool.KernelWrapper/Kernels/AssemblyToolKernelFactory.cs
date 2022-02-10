@@ -56,5 +56,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
         {
             return new FailureMechanismResultAssembler();
         }
+
+        public ICommonFailureMechanismSectionAssembler CreateCombinedFailureMechanismSectionAssemblyKernel()
+        {
+            return new CommonFailureMechanismSectionAssembler();
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
             LastCreatedAssemblyCategoriesKernel = new AssemblyCategoriesKernelStubOld();
             LastCreatedFailureMechanismSectionAssemblyKernel = new FailureMechanismSectionAssemblyKernelStubOld();
             LastCreatedFailureMechanismAssemblyKernel = new FailureMechanismAssemblyKernelStubOld();
-            LastCreatedAssessmentSectionAssemblyKernel = new AssessmentSectionAssemblyKernelStub();
+            LastCreatedAssessmentSectionAssemblyKernel = new AssessmentSectionAssemblyKernelStubOld();
             LastCreatedCombinedFailureMechanismSectionAssemblyKernel = new CombinedFailureMechanismSectionAssemblyKernelStub();
         }
 
@@ -61,7 +61,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
         /// <summary>
         /// Gets the last created assessment section assembly kernel.
         /// </summary>
-        public AssessmentSectionAssemblyKernelStub LastCreatedAssessmentSectionAssemblyKernel { get; }
+        public AssessmentSectionAssemblyKernelStubOld LastCreatedAssessmentSectionAssemblyKernel { get; }
 
         /// <summary>
         /// Gets the last created combined failure mechanism section assembly kernel.
