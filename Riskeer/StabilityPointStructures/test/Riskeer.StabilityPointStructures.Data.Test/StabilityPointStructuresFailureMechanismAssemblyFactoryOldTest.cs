@@ -41,7 +41,7 @@ using Riskeer.Common.Primitives;
 namespace Riskeer.StabilityPointStructures.Data.Test
 {
     [TestFixture]
-    public class StabilityPointStructuresFailureMechanismAssemblyFactoryTest
+    public class StabilityPointStructuresFailureMechanismAssemblyFactoryOldTest
     {
         private static void AssertAssemblyCategoriesInput(IAssessmentSection assessmentSection,
                                                           StabilityPointStructuresFailureMechanism failureMechanism,
@@ -59,7 +59,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -83,7 +83,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentResult, calculator.SimpleAssessmentValidityOnlyInput);
@@ -104,7 +104,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyOld actualOutput =
-                    StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                    StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssemblyOld calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
@@ -126,7 +126,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
@@ -149,7 +149,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                 null, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                 new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
@@ -168,7 +168,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
@@ -187,7 +187,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(), null, assessmentSection);
 
@@ -201,7 +201,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void AssembleDetailedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(), new StabilityPointStructuresFailureMechanism(), null);
 
@@ -231,7 +231,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                     sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                     failureMechanism, assessmentSection);
 
@@ -264,7 +264,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyOld actualOutput =
-                    StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                    StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                         sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                         failureMechanism, assessmentSection);
 
@@ -294,7 +294,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                     sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                     failureMechanism, assessmentSection);
 
@@ -320,7 +320,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(
                 null, new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
             // Assert
@@ -338,7 +338,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, assessmentSection);
 
@@ -352,7 +352,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void AssembleTailorMadeAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new StabilityPointStructuresFailureMechanism(), null);
 
@@ -379,7 +379,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
@@ -411,7 +411,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyOld actualOutput =
-                    StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                    StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(
                         sectionResult,
                         failureMechanism,
                         assessmentSection);
@@ -442,7 +442,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(
                     sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
@@ -467,7 +467,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                 null, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                 new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
@@ -486,7 +486,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
@@ -505,7 +505,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(), null, assessmentSection);
 
@@ -519,7 +519,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void AssembleCombinedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                 new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(), new StabilityPointStructuresFailureMechanism(), null);
 
@@ -552,7 +552,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                     failureMechanism, assessmentSection);
 
@@ -585,7 +585,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                     failureMechanism, assessmentSection);
 
@@ -616,7 +616,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyOld actualOutput =
-                    StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                         sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                         failureMechanism, assessmentSection);
 
@@ -645,7 +645,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult, Enumerable.Empty<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                     failureMechanism, assessmentSection);
 
@@ -671,7 +671,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 null, new StabilityPointStructuresFailureMechanism(),
                 assessmentSection, new Random(39).NextBoolean());
 
@@ -690,7 +690,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, assessmentSection, new Random(39).NextBoolean());
 
@@ -704,7 +704,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void GetSectionAssemblyCategoryGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 new StabilityPointStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new StabilityPointStructuresFailureMechanism(), null, new Random(39).NextBoolean());
 
@@ -730,7 +730,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                StabilityPointStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
@@ -769,7 +769,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                StabilityPointStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
@@ -808,7 +808,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                StabilityPointStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
@@ -839,7 +839,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
@@ -873,7 +873,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
@@ -907,7 +907,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityPointStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
@@ -949,7 +949,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 }
 
                 // Call
-                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult, failureMechanism, assessmentSection, useManualAssembly);
 
                 // Assert
@@ -974,7 +974,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                 null, assessmentSection, new Random(39).NextBoolean());
 
             // Assert
@@ -987,7 +987,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
         public void AssembleFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+            void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                 new StabilityPointStructuresFailureMechanism(), null, new Random(39).NextBoolean());
 
             // Assert
@@ -1009,7 +1009,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            FailureMechanismAssembly assembly = StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+            FailureMechanismAssembly assembly = StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                 failureMechanism,
                 assessmentSection,
                 new Random(39).NextBoolean());
@@ -1040,7 +1040,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     failureMechanism,
                     assessmentSection,
                     new Random(39).NextBoolean());
@@ -1075,7 +1075,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     failureMechanism,
                     assessmentSection,
                     true);
@@ -1110,7 +1110,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     failureMechanism,
                     assessmentSection,
                     false);
@@ -1138,7 +1138,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
 
                 // Call
                 FailureMechanismAssembly actualOutput =
-                    StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                    StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                         failureMechanism,
                         assessmentSection,
                         new Random(39).NextBoolean());
@@ -1166,7 +1166,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     failureMechanism, assessmentSection, new Random(39).NextBoolean());
 
                 // Assert
@@ -1199,7 +1199,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                void Call() => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     failureMechanism, assessmentSection, new Random(39).NextBoolean());
 
                 // Assert

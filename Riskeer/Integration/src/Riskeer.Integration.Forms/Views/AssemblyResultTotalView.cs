@@ -309,9 +309,9 @@ namespace Riskeer.Integration.Forms.Views
         {
             StabilityPointStructuresFailureMechanism stabilityPointStructures = AssessmentSection.StabilityPointStructures;
             return new FailureMechanismAssemblyResultRow(stabilityPointStructures,
-                                                         () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(stabilityPointStructures,
-                                                                                                                                                AssessmentSection,
-                                                                                                                                                true));
+                                                         () => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(stabilityPointStructures,
+                                                                                                                                                   AssessmentSection,
+                                                                                                                                                   true));
         }
 
         private FailureMechanismAssemblyResultRow CreateGrassCoverErosionInwardsFailureMechanismAssemblyResultRow()

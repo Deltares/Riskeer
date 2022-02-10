@@ -340,7 +340,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return (sectionResult, assessmentSection, useManual) => StabilityPointStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                return (sectionResult, assessmentSection, useManual) => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult, assessmentSection.StabilityPointStructures, assessmentSection, useManual);
             }
         }

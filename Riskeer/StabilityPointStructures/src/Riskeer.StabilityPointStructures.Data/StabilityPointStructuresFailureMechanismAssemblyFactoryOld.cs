@@ -38,7 +38,7 @@ namespace Riskeer.StabilityPointStructures.Data
     /// <summary>
     /// Factory for assembling assembly results for a stability point structures failure mechanism.
     /// </summary>
-    public static class StabilityPointStructuresFailureMechanismAssemblyFactory
+    public static class StabilityPointStructuresFailureMechanismAssemblyFactoryOld
     {
         /// <summary>
         /// Assembles the simple assessment results.

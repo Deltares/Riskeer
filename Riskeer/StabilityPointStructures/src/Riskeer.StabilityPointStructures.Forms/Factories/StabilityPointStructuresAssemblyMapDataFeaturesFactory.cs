@@ -52,7 +52,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Factories
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<StabilityPointStructuresFailureMechanism,
                 StabilityPointStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
-                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Factories
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<StabilityPointStructuresFailureMechanism,
                 StabilityPointStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                sectionResult => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                     sectionResult,
                     failureMechanism.Calculations.Cast<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                     failureMechanism,
@@ -107,9 +107,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Factories
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<StabilityPointStructuresFailureMechanism,
                 StabilityPointStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
-                                                                                                                      failureMechanism,
-                                                                                                                      assessmentSection));
+                sectionResult => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult,
+                                                                                                                         failureMechanism,
+                                                                                                                         assessmentSection));
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<StabilityPointStructuresFailureMechanism, StabilityPointStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                sectionResult => StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult,
                     failureMechanism.Calculations.Cast<StructuresCalculationScenario<StabilityPointStructuresInput>>(),
                     failureMechanism,
