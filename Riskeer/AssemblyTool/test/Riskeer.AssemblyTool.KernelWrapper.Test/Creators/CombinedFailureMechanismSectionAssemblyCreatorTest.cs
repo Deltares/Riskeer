@@ -21,8 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using Assembly.Kernel.Old.Model;
-using Assembly.Kernel.Old.Model.FmSectionTypes;
+using Assembly.Kernel.Model.AssessmentSection;
+using Assembly.Kernel.Model.Categories;
+using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
@@ -32,16 +33,16 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class CombinedFailureMechanismSectionAssemblyCreatorOldTest
+    public class CombinedFailureMechanismSectionAssemblyCreatorTest
     {
         [Test]
         public void Create_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => CombinedFailureMechanismSectionAssemblyCreatorOld.Create(null);
+            void Call() => CombinedFailureMechanismSectionAssemblyCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("result", exception.ParamName);
         }
 
@@ -74,7 +75,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                 })
             };
 
-            FmSectionWithDirectCategory[] combinedResults =
+            FailureMechanismSectionWithCategory[] combinedResults =
             {
                 CreateCategory(sections[0], random),
                 CreateCategory(sections[1], random),
@@ -84,15 +85,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             var assembly = new AssemblyResult(failureMechanismResults, combinedResults);
 
             // Call
-            IEnumerable<CombinedFailureMechanismSectionAssemblyOld> results = CombinedFailureMechanismSectionAssemblyCreatorOld.Create(assembly);
+            IEnumerable<CombinedFailureMechanismSectionAssembly> results = CombinedFailureMechanismSectionAssemblyCreator.Create(assembly);
 
             // Assert
-            CombinedFailureMechanismSectionAssemblyAssertOld.AssertAssembly(assembly, results);
+            CombinedFailureMechanismSectionAssemblyAssert.AssertAssembly(assembly, results);
         }
 
-        private static FmSectionWithDirectCategory CreateCategory(Tuple<double, double> section, Random random)
+        private static FailureMechanismSectionWithCategory CreateCategory(Tuple<double, double> section, Random random)
         {
-            return new FmSectionWithDirectCategory(section.Item1, section.Item2, random.NextEnumValue<EFmSectionCategory>());
+            return new FailureMechanismSectionWithCategory(section.Item1, section.Item2, random.NextEnumValue<EInterpretationCategory>());
         }
     }
 }

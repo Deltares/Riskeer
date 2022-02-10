@@ -681,7 +681,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 }, random.NextDouble()).ToArray();
 
                 // Assert
-                CombinedFailureMechanismSectionAssemblyAssert.AssertAssembly(kernel.AssemblyResult, output);
+                CombinedFailureMechanismSectionAssemblyAssertOld.AssertAssembly(kernel.AssemblyResult, output);
             }
         }
 

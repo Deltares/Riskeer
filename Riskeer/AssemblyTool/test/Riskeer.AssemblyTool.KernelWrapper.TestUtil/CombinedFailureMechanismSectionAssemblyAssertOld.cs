@@ -21,48 +21,42 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Assembly.Kernel.Model.AssessmentSection;
-using Assembly.Kernel.Model.FailureMechanismSections;
+using Assembly.Kernel.Old.Model;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Creators;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
 {
     /// <summary>
     /// Class that asserts combined failure mechanism section assemblies.
     /// </summary>
-    public static class CombinedFailureMechanismSectionAssemblyAssert
+    public static class CombinedFailureMechanismSectionAssemblyAssertOld
     {
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
         /// <param name="original">The original <see cref="AssemblyResult"/>.</param>
-        /// <param name="actual">The actual collection of <see cref="CombinedFailureMechanismSectionAssembly"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="CombinedFailureMechanismSectionAssemblyOld"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertAssembly(AssemblyResult original, IEnumerable<CombinedFailureMechanismSectionAssembly> actual)
+        public static void AssertAssembly(AssemblyResult original, IEnumerable<CombinedFailureMechanismSectionAssemblyOld> actual)
         {
-            FailureMechanismSectionWithCategory[] combinedResults = original.CombinedSectionResult.ToArray();
+            FmSectionWithDirectCategory[] combinedResults = original.CombinedSectionResult.ToArray();
             Assert.AreEqual(combinedResults.Length, actual.Count());
             for (var i = 0; i < combinedResults.Length; i++)
             {
-                FailureMechanismSectionWithCategory combinedResult = combinedResults[i];
-                CombinedFailureMechanismSectionAssembly actualCombinedFailureMechanismSectionAssembly = actual.ElementAt(i);
-                
-                Assert.AreEqual(combinedResult.SectionStart, actualCombinedFailureMechanismSectionAssembly.Section.SectionStart);
-                Assert.AreEqual(combinedResult.SectionEnd, actualCombinedFailureMechanismSectionAssembly.Section.SectionEnd);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(combinedResult.Category),
-                                actualCombinedFailureMechanismSectionAssembly.Section.AssemblyGroup);
+                Assert.AreEqual(combinedResults[i].SectionStart, actual.ElementAt(i).Section.SectionStart);
+                Assert.AreEqual(combinedResults[i].SectionEnd, actual.ElementAt(i).Section.SectionEnd);
+                Assert.AreEqual(AssemblyCategoryAssert.GetFailureMechanismSectionCategoryGroup(combinedResults[i].Category), actual.ElementAt(i).Section.CategoryGroup);
 
                 FailureMechanismSectionList[] failureMechanismResults = original.ResultPerFailureMechanism.ToArray();
-                Assert.AreEqual(failureMechanismResults.Length, actualCombinedFailureMechanismSectionAssembly.FailureMechanismAssemblyGroupResults.Count());
+                Assert.AreEqual(failureMechanismResults.Length, actual.ElementAt(i).FailureMechanismResults.Count());
 
                 for (var j = 0; j < failureMechanismResults.Length; j++)
                 {
-                    FailureMechanismSectionAssemblyGroup expectedGroup = FailureMechanismSectionAssemblyGroupConverter.ConvertTo(
-                        ((FailureMechanismSectionWithCategory) failureMechanismResults[j].Sections.ElementAt(i)).Category);
-                    Assert.AreEqual(expectedGroup, actualCombinedFailureMechanismSectionAssembly.FailureMechanismAssemblyGroupResults.ElementAt(j));
+                    FailureMechanismSectionAssemblyCategoryGroup expectedGroup = AssemblyCategoryAssert.GetFailureMechanismSectionCategoryGroup(
+                        ((FmSectionWithDirectCategory) failureMechanismResults[j].Sections.ElementAt(i)).Category);
+                    Assert.AreEqual(expectedGroup, actual.ElementAt(i).FailureMechanismResults.ElementAt(j));
                 }
             }
         }
