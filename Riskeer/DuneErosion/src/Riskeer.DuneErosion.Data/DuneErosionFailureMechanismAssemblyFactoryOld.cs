@@ -36,7 +36,7 @@ namespace Riskeer.DuneErosion.Data
     /// <summary>
     /// Factory for creating assembly results for a dune erosion failure mechanism.
     /// </summary>
-    public static class DuneErosionFailureMechanismAssemblyFactory
+    public static class DuneErosionFailureMechanismAssemblyFactoryOld
     {
         /// <summary>
         /// Assembles the simple assessment results based on <paramref name="failureMechanismSectionResult"/>.

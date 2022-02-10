@@ -349,7 +349,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
+                return DuneErosionFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup;
             }
         }
 

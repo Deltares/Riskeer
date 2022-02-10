@@ -374,7 +374,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             DuneErosionFailureMechanism duneErosion = AssessmentSection.DuneErosion;
             return new FailureMechanismAssemblyCategoryGroupResultRow(duneErosion,
-                                                                      () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(duneErosion, true));
+                                                                      () => DuneErosionFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(duneErosion, true));
         }
 
         #endregion

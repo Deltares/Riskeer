@@ -37,7 +37,7 @@ using Riskeer.Common.Primitives;
 namespace Riskeer.DuneErosion.Data.Test
 {
     [TestFixture]
-    public class DuneErosionFailureMechanismAssemblyFactoryTest
+    public class DuneErosionFailureMechanismAssemblyFactoryOldTest
     {
         #region Simple Assembly
 
@@ -45,7 +45,7 @@ namespace Riskeer.DuneErosion.Data.Test
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
+            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -69,7 +69,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                DuneErosionFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentResult, calculator.SimpleAssessmentValidityOnlyInput);
@@ -90,7 +90,7 @@ namespace Riskeer.DuneErosion.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    DuneErosionFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                    DuneErosionFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, actualOutput);
@@ -111,7 +111,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -129,7 +129,7 @@ namespace Riskeer.DuneErosion.Data.Test
         public void AssembleDetailedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleDetailedAssessment(null);
+            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -157,7 +157,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                DuneErosionFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm, calculator.DetailedAssessmentResultForFactorizedSignalingNormInput);
@@ -182,7 +182,7 @@ namespace Riskeer.DuneErosion.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    DuneErosionFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                    DuneErosionFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.DetailedAssessmentAssemblyGroupOutput, actualOutput);
@@ -203,7 +203,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -221,7 +221,7 @@ namespace Riskeer.DuneErosion.Data.Test
         public void AssembleTailorMadeAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(null);
+            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -245,7 +245,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                DuneErosionFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentCategoryGroupResultInput);
@@ -266,7 +266,7 @@ namespace Riskeer.DuneErosion.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    DuneErosionFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                    DuneErosionFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.TailorMadeAssemblyCategoryOutput, actualOutput);
@@ -287,7 +287,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -305,7 +305,7 @@ namespace Riskeer.DuneErosion.Data.Test
         public void AssembleCombinedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                 null);
 
             // Assert
@@ -331,7 +331,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
@@ -355,7 +355,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
@@ -377,7 +377,7 @@ namespace Riskeer.DuneErosion.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    DuneErosionFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                         sectionResult);
 
                 // Assert
@@ -399,7 +399,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult);
 
                 // Assert
@@ -418,7 +418,7 @@ namespace Riskeer.DuneErosion.Data.Test
         public void GetSectionAssemblyCategoryGroup_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 null,
                 new Random(39).NextBoolean());
 
@@ -439,7 +439,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                DuneErosionFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
@@ -462,7 +462,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = DuneErosionFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
@@ -482,7 +482,7 @@ namespace Riskeer.DuneErosion.Data.Test
             };
 
             // Call
-            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = DuneErosionFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 sectionResult,
                 true);
 
@@ -507,7 +507,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = DuneErosionFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     false);
 
@@ -529,7 +529,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     false);
 
@@ -549,7 +549,7 @@ namespace Riskeer.DuneErosion.Data.Test
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(null, new Random(39).NextBoolean());
+            TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(null, new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -566,7 +566,7 @@ namespace Riskeer.DuneErosion.Data.Test
             };
 
             // Call
-            FailureMechanismAssemblyCategoryGroup category = DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+            FailureMechanismAssemblyCategoryGroup category = DuneErosionFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
             // Assert
             Assert.AreEqual(FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory(), category);
@@ -589,7 +589,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
@@ -615,7 +615,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 FailureMechanismAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, true);
+                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, true);
 
                 // Assert
                 Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
@@ -642,7 +642,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
+                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, false);
 
                 // Assert
                 Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
@@ -660,8 +660,8 @@ namespace Riskeer.DuneErosion.Data.Test
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup actualOutput =
-                    DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(new DuneErosionFailureMechanism(),
-                                                                                        new Random(39).NextBoolean());
+                    DuneErosionFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(new DuneErosionFailureMechanism(),
+                                                                                           new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismAssemblyCategoryGroupOutput, actualOutput);
@@ -679,7 +679,7 @@ namespace Riskeer.DuneErosion.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     new DuneErosionFailureMechanism(),
                     new Random(39).NextBoolean());
 
@@ -708,8 +708,8 @@ namespace Riskeer.DuneErosion.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
-                                                                                                              new Random(39).NextBoolean());
+                TestDelegate call = () => DuneErosionFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism,
+                                                                                                                 new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);

@@ -225,7 +225,7 @@ namespace Riskeer.Integration.Data.Assembly
                 StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityStoneCover, useManual),
                 WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaveImpactAsphaltCover, useManual),
                 GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionOutwards, useManual),
-                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.DuneErosion, useManual),
+                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.DuneErosion, useManual),
                 MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Microstability, useManual),
                 WaterPressureAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaterPressureAsphaltCover, useManual),
                 GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, useManual),

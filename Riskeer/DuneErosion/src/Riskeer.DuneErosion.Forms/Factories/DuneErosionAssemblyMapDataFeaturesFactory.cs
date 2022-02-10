@@ -48,7 +48,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResultOld>(
                 failureMechanism,
-                DuneErosionFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResultOld>(
                 failureMechanism,
-                DuneErosionFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
+                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResultOld>(
                 failureMechanism,
-                DuneErosionFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
+                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Riskeer.DuneErosion.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<DuneErosionFailureMechanism, DuneErosionFailureMechanismSectionResultOld>(
                 failureMechanism,
-                DuneErosionFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
+                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment);
         }
     }
 }
