@@ -37,7 +37,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     /// <summary>
     /// Factory for assembling assembly results for a grass cover erosion inwards failure mechanism.
     /// </summary>
-    public static class GrassCoverErosionInwardsFailureMechanismAssemblyFactory
+    public static class GrassCoverErosionInwardsFailureMechanismAssemblyFactoryOld
     {
         /// <summary>
         /// Assembles the simple assessment results.

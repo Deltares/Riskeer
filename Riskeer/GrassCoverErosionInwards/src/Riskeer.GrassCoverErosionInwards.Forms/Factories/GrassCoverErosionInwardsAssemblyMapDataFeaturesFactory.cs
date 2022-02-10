@@ -51,7 +51,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<GrassCoverErosionInwardsFailureMechanism,
                 GrassCoverErosionInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                GrassCoverErosionInwardsFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<GrassCoverErosionInwardsFailureMechanism,
                 GrassCoverErosionInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                sectionResult => GrassCoverErosionInwardsFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                     sectionResult,
                     failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism,
@@ -106,9 +106,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<GrassCoverErosionInwardsFailureMechanism,
                 GrassCoverErosionInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
-                                                                                                                      failureMechanism,
-                                                                                                                      assessmentSection));
+                sectionResult => GrassCoverErosionInwardsFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult,
+                                                                                                                         failureMechanism,
+                                                                                                                         assessmentSection));
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                sectionResult => GrassCoverErosionInwardsFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult,
                     failureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculationScenario>(),
                     failureMechanism,
