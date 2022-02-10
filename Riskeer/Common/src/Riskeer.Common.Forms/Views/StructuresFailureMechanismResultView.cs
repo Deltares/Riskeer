@@ -111,7 +111,7 @@ namespace Riskeer.Common.Forms.Views
                 sectionResult,
                 () => sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios),
                 CreateErrorProvider(sectionResult, calculationScenarios),
-                assessmentSection,
+                () => StructuresFailureMechanismAssemblyFactory.AssembleSection<TStructuresInput>(sectionResult, FailureMechanism, assessmentSection),
                 new AdoptableFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,

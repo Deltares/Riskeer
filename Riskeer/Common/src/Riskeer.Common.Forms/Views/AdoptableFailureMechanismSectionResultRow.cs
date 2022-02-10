@@ -22,8 +22,8 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Views
 
         private readonly Func<double> calculateInitialFailureMechanismResultProbabilityFunc;
         private readonly IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider;
-        private readonly IAssessmentSection assessmentSection;
+        private readonly Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="AdoptableFailureMechanismSectionResultRow"/>.
@@ -58,14 +58,14 @@ namespace Riskeer.Common.Forms.Views
         /// to calculate the initial mechanism result probability.</param>
         /// <param name="failureMechanismSectionResultRowErrorProvider">The error provider to use for
         /// the failure mechanism section result row.</param>
-        /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
+        /// <param name="performAssemblyFunc">Function to perform the assembly.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="AdoptableFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public AdoptableFailureMechanismSectionResultRow(AdoptableFailureMechanismSectionResult sectionResult,
                                                          Func<double> calculateInitialFailureMechanismResultProbabilityFunc,
                                                          IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider,
-                                                         IAssessmentSection assessmentSection,
+                                                         Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc,
                                                          ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
@@ -79,9 +79,9 @@ namespace Riskeer.Common.Forms.Views
                 throw new ArgumentNullException(nameof(failureMechanismSectionResultRowErrorProvider));
             }
 
-            if (assessmentSection == null)
+            if (performAssemblyFunc == null)
             {
-                throw new ArgumentNullException(nameof(assessmentSection));
+                throw new ArgumentNullException(nameof(performAssemblyFunc));
             }
 
             if (constructionProperties == null)
@@ -91,7 +91,7 @@ namespace Riskeer.Common.Forms.Views
 
             this.calculateInitialFailureMechanismResultProbabilityFunc = calculateInitialFailureMechanismResultProbabilityFunc;
             this.failureMechanismSectionResultRowErrorProvider = failureMechanismSectionResultRowErrorProvider;
-            this.assessmentSection = assessmentSection;
+            this.performAssemblyFunc = performAssemblyFunc;
 
             initialFailureMechanismResultTypeIndex = constructionProperties.InitialFailureMechanismResultTypeIndex;
             initialFailureMechanismResultSectionProbabilityIndex = constructionProperties.InitialFailureMechanismResultSectionProbabilityIndex;
@@ -241,8 +241,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                AssemblyResult = FailureMechanismSectionResultAssemblyFactory.AssembleSection(
-                    SectionResult, assessmentSection, calculateInitialFailureMechanismResultProbabilityFunc);
+                AssemblyResult = performAssemblyFunc();
             }
             catch (AssemblyException e)
             {

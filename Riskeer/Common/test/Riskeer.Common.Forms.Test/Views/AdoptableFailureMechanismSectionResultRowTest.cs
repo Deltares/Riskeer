@@ -28,10 +28,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.Probability;
@@ -66,11 +64,13 @@ namespace Riskeer.Common.Forms.Test.Views
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
             mocks.ReplayAll();
 
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new AdoptableFailureMechanismSectionResultRow(result, null, errorProvider, new AssessmentSectionStub(),
+            void Call() => new AdoptableFailureMechanismSectionResultRow(result, null, errorProvider, performAssemblyFunc,
                                                                          ConstructionProperties);
 
             // Assert
@@ -83,11 +83,13 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_FailureMechanismSectionResultErrorProviderNull_ThrowsArgumentNullException()
         {
             // Setup
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, null, new AssessmentSectionStub(),
+            void Call() => new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, null, performAssemblyFunc,
                                                                          ConstructionProperties);
 
             // Assert
@@ -96,7 +98,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void Constructor_PerformAssemblyFuncNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -112,7 +114,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
+            Assert.AreEqual("performAssemblyFunc", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -124,12 +126,14 @@ namespace Riskeer.Common.Forms.Test.Views
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
             mocks.ReplayAll();
 
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
 
             // Call
             void Call() => new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                         new AssessmentSectionStub(), null);
+                                                                         performAssemblyFunc, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -145,42 +149,41 @@ namespace Riskeer.Common.Forms.Test.Views
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
             mocks.ReplayAll();
 
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
+
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
 
             double initialFailureMechanismResultProbability = new Random(21).NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => initialFailureMechanismResultProbability, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            // Call
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => initialFailureMechanismResultProbability, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
 
-                // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionResultRow<AdoptableFailureMechanismSectionResult>>(row);
-                Assert.AreEqual(result.IsRelevant, row.IsRelevant);
-                Assert.AreEqual(result.InitialFailureMechanismResultType, row.InitialFailureMechanismResultType);
-                Assert.AreEqual(initialFailureMechanismResultProbability, row.InitialFailureMechanismResultSectionProbability);
-                Assert.AreEqual(result.FurtherAnalysisType, row.FurtherAnalysisType);
-                Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismSectionResultRow<AdoptableFailureMechanismSectionResult>>(row);
+            Assert.AreEqual(result.IsRelevant, row.IsRelevant);
+            Assert.AreEqual(result.InitialFailureMechanismResultType, row.InitialFailureMechanismResultType);
+            Assert.AreEqual(initialFailureMechanismResultProbability, row.InitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual(result.FurtherAnalysisType, row.FurtherAnalysisType);
+            Assert.AreEqual(result.RefinedSectionProbability, row.RefinedSectionProbability);
 
-                TestHelper.AssertTypeConverter<AdoptableFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
-                TestHelper.AssertTypeConverter<AdoptableFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(AdoptableFailureMechanismSectionResultRow.RefinedSectionProbability));
-                TestHelper.AssertTypeConverter<AdoptableFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
-                    nameof(AdoptableFailureMechanismSectionResultRow.SectionProbability));
+            TestHelper.AssertTypeConverter<AdoptableFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                nameof(AdoptableFailureMechanismSectionResultRow.InitialFailureMechanismResultSectionProbability));
+            TestHelper.AssertTypeConverter<AdoptableFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                nameof(AdoptableFailureMechanismSectionResultRow.RefinedSectionProbability));
+            TestHelper.AssertTypeConverter<AdoptableFailureMechanismSectionResultRow, NoProbabilityValueDoubleConverter>(
+                nameof(AdoptableFailureMechanismSectionResultRow.SectionProbability));
 
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-                Assert.AreEqual(6, columnStateDefinitions.Count);
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(6, columnStateDefinitions.Count);
 
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultTypeIndex);
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex);
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.FurtherAnalysisTypeIndex);
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.RefinedSectionProbabilityIndex);
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SectionProbabilityIndex);
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.AssemblyGroupIndex);
-            }
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultTypeIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.FurtherAnalysisTypeIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.RefinedSectionProbabilityIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.SectionProbabilityIndex);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, ConstructionProperties.AssemblyGroupIndex);
 
             mocks.VerifyAll();
         }
@@ -199,21 +202,18 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableFailureMechanismSectionResult(section);
 
             double sectionProbability = new Random(21).NextDouble();
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => sectionProbability, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => sectionProbability, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            // Precondition
+            Assert.AreEqual(sectionProbability, row.InitialFailureMechanismResultSectionProbability);
 
-                // Precondition
-                Assert.AreEqual(sectionProbability, row.InitialFailureMechanismResultSectionProbability);
+            // When
+            row.InitialFailureMechanismResultType = newValue;
 
-                // When
-                row.InitialFailureMechanismResultType = newValue;
-
-                // Then
-                Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
-            }
+            // Then
+            Assert.AreEqual(result.ManualInitialFailureMechanismResultSectionProbability, row.InitialFailureMechanismResultSectionProbability);
 
             mocks.VerifyAll();
         }
@@ -233,16 +233,15 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
 
-                // Then
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-                Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex].ErrorText);
-            }
+            // When
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
+
+            // Then
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex].ErrorText);
 
             mocks.VerifyAll();
         }
@@ -268,16 +267,15 @@ namespace Riskeer.Common.Forms.Test.Views
                 ManualInitialFailureMechanismResultSectionProbability = sectionProbability
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
 
-                // Then
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-                Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex].ErrorText);
-            }
+            // When
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
+
+            // Then
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex].ErrorText);
 
             mocks.VerifyAll();
         }
@@ -304,16 +302,15 @@ namespace Riskeer.Common.Forms.Test.Views
                 InitialFailureMechanismResultType = initialFailureMechanismResultType
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
 
-                // Then
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex].ErrorText);
-            }
+            // When
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
+
+            // Then
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex].ErrorText);
 
             mocks.VerifyAll();
         }
@@ -342,16 +339,15 @@ namespace Riskeer.Common.Forms.Test.Views
                 RefinedSectionProbability = sectionProbability
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
 
-                // Then
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-                Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex].ErrorText);
-            }
+            // When
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
+
+            // Then
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex].ErrorText);
 
             mocks.VerifyAll();
         }
@@ -378,18 +374,23 @@ namespace Riskeer.Common.Forms.Test.Views
                 FurtherAnalysisType = furtherAnalysisType
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // When
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
 
-                // Then
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-                Assert.IsEmpty(columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex].ErrorText);
-            }
+            // When
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
+
+            // Then
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.IsEmpty(columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex].ErrorText);
 
             mocks.VerifyAll();
+        }
+
+        private static FailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult()
+        {
+            var random = new Random(21);
+            return new FailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
         }
 
         #region Registration
@@ -476,17 +477,15 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new AdoptableFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
 
-                // Call
-                setPropertyAction(row);
+            // Call
+            setPropertyAction(row);
 
-                // Assert
-                Assert.AreEqual(newValue, assertPropertyFunc(result));
-            }
+            // Assert
+            Assert.AreEqual(newValue, assertPropertyFunc(result));
 
             mocks.VerifyAll();
         }
@@ -502,18 +501,17 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
 
-                // Call
-                void Call() => setPropertyAction(row);
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
 
-                // Assert
-                const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            }
+            // Call
+            void Call() => setPropertyAction(row);
+
+            // Assert
+            const string expectedMessage = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
 
             mocks.VerifyAll();
         }
@@ -521,43 +519,6 @@ namespace Riskeer.Common.Forms.Test.Views
         #endregion
 
         #region Assembly
-
-        [Test]
-        public void Constructor_AssemblyRan_InputCorrectlySetOnCalculator()
-        {
-            // Setup
-            const double initialSectionProbability = 0.2;
-
-            var mocks = new MockRepository();
-            var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
-            mocks.ReplayAll();
-
-            var assessmentSection = new AssessmentSectionStub();
-
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var result = new AdoptableFailureMechanismSectionResult(section);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                // Call
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => initialSectionProbability, errorProvider, assessmentSection, ConstructionProperties);
-
-                // Assert
-                FailureMechanismSectionAssemblyInput input = calculator.FailureMechanismSectionAssemblyInput;
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, input.SignalingNorm);
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, input.LowerLimitNorm);
-                Assert.AreEqual(row.IsRelevant, input.IsRelevant);
-                Assert.IsTrue(input.HasProbabilitySpecified);
-                Assert.AreEqual(initialSectionProbability, input.InitialSectionProbability);
-                Assert.AreEqual(row.FurtherAnalysisType, input.FurtherAnalysisType);
-                Assert.AreEqual(row.RefinedSectionProbability, input.RefinedSectionProbability);
-            }
-
-            mocks.VerifyAll();
-        }
 
         [Test]
         public void Constructor_AssemblyRan_ReturnsAssemblyResult()
@@ -572,26 +533,20 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            FailureMechanismSectionAssemblyResult assemblyResult = CreateFailureMechanismSectionAssemblyResult();
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = () => assemblyResult;
 
-                // Call
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            // Call
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
 
-                // Assert
-                FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
-                FailureMechanismSectionAssemblyResult rowAssemblyResult = row.AssemblyResult;
-                Assert.AreSame(calculatorOutput, rowAssemblyResult);
+            // Assert
+            FailureMechanismSectionAssemblyResult rowAssemblyResult = row.AssemblyResult;
+            Assert.AreSame(assemblyResult, rowAssemblyResult);
 
-                Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.AssemblyGroup),
-                                row.AssemblyGroup);
-            }
+            Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.AssemblyGroup),
+                            row.AssemblyGroup);
 
             mocks.VerifyAll();
         }
@@ -609,32 +564,35 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            int nrOfCalls = 0;
+            FailureMechanismSectionAssemblyResult assemblyResult = CreateFailureMechanismSectionAssemblyResult();
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = () =>
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+                if (nrOfCalls == 1)
+                {
+                    throw new AssemblyException();
+                }
 
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+                nrOfCalls++;
+                return assemblyResult;
+            };
 
-                // Precondition
-                FailureMechanismSectionAssemblyResult calculatorOutput = calculator.FailureMechanismSectionAssemblyResultOutput;
-                Assert.AreSame(calculatorOutput, row.AssemblyResult);
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
 
-                // When
-                calculator.ThrowExceptionOnCalculate = true;
-                row.InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual;
+            // Precondition
+            Assert.AreSame(assemblyResult, row.AssemblyResult);
 
-                // Then
-                var expectedAssemblyResult = new DefaultFailureMechanismSectionAssemblyResult();
-                FailureMechanismSectionAssemblyResult actualAssemblyResult = row.AssemblyResult;
-                Assert.AreEqual(expectedAssemblyResult.N, actualAssemblyResult.N);
-                Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualAssemblyResult.SectionProbability);
-                Assert.AreEqual(expectedAssemblyResult.ProfileProbability, actualAssemblyResult.ProfileProbability);
-                Assert.AreEqual(expectedAssemblyResult.AssemblyGroup, actualAssemblyResult.AssemblyGroup);
-            }
+            // When
+            row.InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual;
+
+            // Then
+            var expectedAssemblyResult = new DefaultFailureMechanismSectionAssemblyResult();
+            FailureMechanismSectionAssemblyResult actualAssemblyResult = row.AssemblyResult;
+            Assert.AreEqual(expectedAssemblyResult.N, actualAssemblyResult.N);
+            Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualAssemblyResult.SectionProbability);
+            Assert.AreEqual(expectedAssemblyResult.ProfileProbability, actualAssemblyResult.ProfileProbability);
+            Assert.AreEqual(expectedAssemblyResult.AssemblyGroup, actualAssemblyResult.AssemblyGroup);
 
             mocks.VerifyAll();
         }
@@ -650,29 +608,34 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            const string errorText = "Message";
+            int nrOfCalls = 0;
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = () =>
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                if (nrOfCalls == 1)
+                {
+                    throw new AssemblyException(errorText);
+                }
 
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+                nrOfCalls++;
+                return CreateFailureMechanismSectionAssemblyResult();
+            };
 
-                // Precondition
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
-                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
 
-                // When
-                calculator.ThrowExceptionOnCalculate = true;
-                row.InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual;
+            // Precondition
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
+            Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
 
-                // Then
-                const string expectedErrorText = "Message";
+            // When
+            row.InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual;
 
-                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
-                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
-            }
+            // Then
+
+            Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
+            Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
 
             mocks.VerifyAll();
         }
@@ -688,30 +651,35 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
+            const string errorText = "Message";
+            int nrOfCalls = 0;
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = () =>
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
+                if (nrOfCalls == 0)
+                {
+                    nrOfCalls++;
+                    throw new AssemblyException(errorText);
+                }
 
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+                return CreateFailureMechanismSectionAssemblyResult();
+            };
 
-                // Precondition
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-                const string expectedErrorText = "Message";
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
 
-                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
-                Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
+            // Precondition
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            const string expectedErrorText = "Message";
 
-                // When
-                calculator.ThrowExceptionOnCalculate = false;
-                row.InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual;
+            Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
+            Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
 
-                // Then
-                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
-                Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
-            }
+            // When
+            row.InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual;
+
+            // Then
+            Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
+            Assert.AreEqual(string.Empty, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
 
             mocks.VerifyAll();
         }
@@ -731,18 +699,17 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
 
-                // Assert
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            // Call
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
 
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                    columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex], true, true);
-            }
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex], true, true);
 
             mocks.VerifyAll();
         }
@@ -767,24 +734,23 @@ namespace Riskeer.Common.Forms.Test.Views
                 InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
 
-                // Assert
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            // Call
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
 
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                    columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultTypeIndex], isRelevant);
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                    columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex], isRelevant);
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                    columnStateDefinitions[ConstructionProperties.FurtherAnalysisTypeIndex], isRelevant);
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                    columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], isRelevant);
-            }
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultTypeIndex], isRelevant);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex], isRelevant);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                columnStateDefinitions[ConstructionProperties.FurtherAnalysisTypeIndex], isRelevant);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], isRelevant);
 
             mocks.VerifyAll();
         }
@@ -812,18 +778,17 @@ namespace Riskeer.Common.Forms.Test.Views
                 InitialFailureMechanismResultType = initialFailureMechanismResultType
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
 
-                // Assert
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            // Call
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
 
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                    columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex], isEnabled, isReadOnly);
-            }
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                columnStateDefinitions[ConstructionProperties.InitialFailureMechanismResultSectionProbabilityIndex], isEnabled, isReadOnly);
 
             mocks.VerifyAll();
         }
@@ -852,18 +817,17 @@ namespace Riskeer.Common.Forms.Test.Views
                 FurtherAnalysisType = furtherAnalysisType
             };
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                // Call
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = CreateFailureMechanismSectionAssemblyResult;
 
-                // Assert
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            // Call
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
 
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
-                    columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], expectedEnabled);
-            }
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnState(
+                columnStateDefinitions[ConstructionProperties.RefinedSectionProbabilityIndex], expectedEnabled);
 
             mocks.VerifyAll();
         }
@@ -881,22 +845,17 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResult(double.NaN, double.NaN, double.NaN, assemblyGroup);
+            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = () => new FailureMechanismSectionAssemblyResult(double.NaN, double.NaN, double.NaN, assemblyGroup);
 
-                // Call
-                var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
-                                                                        new AssessmentSectionStub(), ConstructionProperties);
+            // Call
+            var row = new AdoptableFailureMechanismSectionResultRow(result, () => double.NaN, errorProvider,
+                                                                    performAssemblyFunc, ConstructionProperties);
 
-                // Assert
-                IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(
-                    columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex], expectedBackgroundColor);
-            }
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(
+                columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex], expectedBackgroundColor);
 
             mocks.VerifyAll();
         }
