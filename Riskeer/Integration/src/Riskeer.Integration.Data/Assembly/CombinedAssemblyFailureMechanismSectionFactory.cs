@@ -266,7 +266,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return StabilityStoneCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
+                return StabilityStoneCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup;
             }
         }
 

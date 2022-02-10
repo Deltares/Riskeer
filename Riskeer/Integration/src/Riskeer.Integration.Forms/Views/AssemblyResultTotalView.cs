@@ -353,7 +353,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             StabilityStoneCoverFailureMechanism stabilityStoneCover = AssessmentSection.StabilityStoneCover;
             return new FailureMechanismAssemblyCategoryGroupResultRow(stabilityStoneCover,
-                                                                      () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(stabilityStoneCover, true));
+                                                                      () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(stabilityStoneCover, true));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateWaveImpactFailureMechanismAssemblyResultRow()

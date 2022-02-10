@@ -36,7 +36,7 @@ namespace Riskeer.StabilityStoneCover.Data
     /// <summary>
     /// Factory for creating assembly results for a stability stone cover failure mechanism.
     /// </summary>
-    public static class StabilityStoneCoverFailureMechanismAssemblyFactory
+    public static class StabilityStoneCoverFailureMechanismAssemblyFactoryOld
     {
         /// <summary>
         /// Assembles the simple assessment results.

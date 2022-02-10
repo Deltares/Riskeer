@@ -37,7 +37,7 @@ using Riskeer.Common.Primitives;
 namespace Riskeer.StabilityStoneCover.Data.Test
 {
     [TestFixture]
-    public class StabilityStoneCoverFailureMechanismAssemblyFactoryTest
+    public class StabilityStoneCoverFailureMechanismAssemblyFactoryOldTest
     {
         #region Simple Assembly
 
@@ -45,7 +45,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
+            TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -69,7 +69,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentResult, calculator.SimpleAssessmentValidityOnlyInput);
@@ -90,7 +90,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                    StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, actualOutput);
@@ -111,7 +111,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -129,7 +129,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         public void AssembleDetailedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(null);
+            TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -157,7 +157,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm, calculator.DetailedAssessmentResultForFactorizedSignalingNormInput);
@@ -182,7 +182,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                    StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.DetailedAssessmentAssemblyGroupOutput, actualOutput);
@@ -203,7 +203,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -221,7 +221,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         public void AssembleTailorMadeAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(null);
+            TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -245,7 +245,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentCategoryGroupResultInput);
@@ -266,7 +266,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                    StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.TailorMadeAssemblyCategoryOutput, actualOutput);
@@ -287,7 +287,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -305,7 +305,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         public void AssembleCombinedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                 null);
 
             // Assert
@@ -331,7 +331,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
@@ -355,7 +355,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
@@ -377,7 +377,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                         sectionResult);
 
                 // Assert
@@ -399,7 +399,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult);
 
                 // Assert
@@ -418,7 +418,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         public void GetSectionAssemblyCategoryGroup_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 null,
                 new Random(39).NextBoolean());
 
@@ -439,7 +439,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityStoneCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
@@ -462,7 +462,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityStoneCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityStoneCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
@@ -482,7 +482,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             };
 
             // Call
-            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityStoneCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityStoneCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 sectionResult,
                 true);
 
@@ -507,7 +507,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityStoneCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = StabilityStoneCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     false);
 
@@ -529,7 +529,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     false);
 
@@ -549,7 +549,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(null, new Random(39).NextBoolean());
+            TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(null, new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -566,7 +566,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             };
 
             // Call
-            FailureMechanismAssemblyCategoryGroup category = StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+            FailureMechanismAssemblyCategoryGroup category = StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
             // Assert
             Assert.AreEqual(FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory(), category);
@@ -589,7 +589,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
@@ -615,7 +615,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 FailureMechanismAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, true);
+                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, true);
 
                 // Assert
                 Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
@@ -642,7 +642,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
+                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, false);
 
                 // Assert
                 Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
@@ -660,8 +660,8 @@ namespace Riskeer.StabilityStoneCover.Data.Test
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup actualOutput =
-                    StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(new StabilityStoneCoverFailureMechanism(),
-                                                                                                new Random(39).NextBoolean());
+                    StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(new StabilityStoneCoverFailureMechanism(),
+                                                                                                   new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismAssemblyCategoryGroupOutput, actualOutput);
@@ -679,7 +679,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     new StabilityStoneCoverFailureMechanism(),
                     new Random(39).NextBoolean());
 
@@ -708,8 +708,8 @@ namespace Riskeer.StabilityStoneCover.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
-                                                                                                                      new Random(39).NextBoolean());
+                TestDelegate call = () => StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism,
+                                                                                                                         new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);

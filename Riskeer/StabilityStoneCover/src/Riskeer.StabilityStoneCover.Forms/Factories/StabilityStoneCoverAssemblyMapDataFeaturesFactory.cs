@@ -48,7 +48,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
+                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
+                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
+                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment);
         }
     }
 }
