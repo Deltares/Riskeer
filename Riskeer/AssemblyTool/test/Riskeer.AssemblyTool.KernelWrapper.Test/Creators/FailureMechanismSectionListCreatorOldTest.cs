@@ -65,7 +65,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists = FailureMechanismSectionListCreatorOld.Create(combinedAssemblyFailureMechanismInputs);
 
             // Assert
-            CombinedFailureMechanismSectionsInputAssert.AssertCombinedFailureMechanismInput(combinedAssemblyFailureMechanismInputs, failureMechanismSectionLists);
+            CombinedFailureMechanismSectionsInputAssertOld.AssertCombinedFailureMechanismInput(combinedAssemblyFailureMechanismInputs, failureMechanismSectionLists);
         }
 
         [Test]

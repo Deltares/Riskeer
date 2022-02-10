@@ -643,7 +643,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 Assert.AreEqual(assessmentSectionLength, kernel.AssessmentSectionLengthInput.Value);
-                CombinedFailureMechanismSectionsInputAssert.AssertCombinedFailureMechanismInput(input, kernel.FailureMechanismSectionListsInput);
+                CombinedFailureMechanismSectionsInputAssertOld.AssertCombinedFailureMechanismInput(input, kernel.FailureMechanismSectionListsInput);
                 Assert.IsFalse(kernel.PartialAssembly);
             }
         }

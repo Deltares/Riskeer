@@ -19,13 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assembly.Kernel.Old.Model;
-using Assembly.Kernel.Old.Model.FmSectionTypes;
+using Assembly.Kernel.Model.FailureMechanismSections;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Creators;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
 {
@@ -37,60 +36,35 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original collection of <see cref="CombinedAssemblyFailureMechanismSectionOld"/>
+        /// <param name="original">The original collection of <see cref="CombinedAssemblyFailureMechanismSection"/>
         /// collections.</param>
-        /// <param name="actual">The actual collection of <see cref="FailureMechanismSectionList"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionList"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertCombinedFailureMechanismInput(IEnumerable<CombinedAssemblyFailureMechanismSectionOld[]> original, IEnumerable<FailureMechanismSectionList> actual)
+        public static void AssertCombinedFailureMechanismInput(IEnumerable<CombinedAssemblyFailureMechanismSection[]> original, IEnumerable<FailureMechanismSectionList> actual)
         {
             Assert.AreEqual(original.Count(), actual.Count());
 
             for (var i = 0; i < original.Count(); i++)
             {
-                CombinedAssemblyFailureMechanismSectionOld[] sections = original.ElementAt(i);
+                CombinedAssemblyFailureMechanismSection[] sections = original.ElementAt(i);
                 FailureMechanismSectionList sectionList = actual.ElementAt(i);
                 Assert.IsEmpty(sectionList.FailureMechanismId);
                 AssertSections(sections, sectionList.Sections);
             }
         }
 
-        private static void AssertSections(IEnumerable<CombinedAssemblyFailureMechanismSectionOld> originalSections, IEnumerable<FailureMechanismSection> failureMechanismSections)
+        private static void AssertSections(IEnumerable<CombinedAssemblyFailureMechanismSection> originalSections, IEnumerable<FailureMechanismSection> failureMechanismSections)
         {
             Assert.AreEqual(originalSections.Count(), failureMechanismSections.Count());
-            Assert.IsTrue(failureMechanismSections.All(r => r.GetType() == typeof(FmSectionWithDirectCategory)));
+            Assert.IsTrue(failureMechanismSections.All(fms => fms.GetType() == typeof(FailureMechanismSectionWithCategory)));
+
             CollectionAssert.AreEqual(originalSections.Select(s => s.SectionStart), failureMechanismSections.Select(r => r.SectionStart));
             CollectionAssert.AreEqual(originalSections.Select(s => s.SectionEnd), failureMechanismSections.Select(r => r.SectionEnd));
-            CollectionAssert.AreEqual(originalSections.Select(s => ConvertCategoryGroup(s.CategoryGroup)),
-                                      failureMechanismSections.Select(r => (FmSectionWithDirectCategory) r)
-                                                              .Select(category => category.Category));
-        }
-
-        private static EFmSectionCategory ConvertCategoryGroup(FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
-        {
-            switch (categoryGroup)
-            {
-                case FailureMechanismSectionAssemblyCategoryGroup.None:
-                    return EFmSectionCategory.Gr;
-                case FailureMechanismSectionAssemblyCategoryGroup.NotApplicable:
-                    return EFmSectionCategory.NotApplicable;
-                case FailureMechanismSectionAssemblyCategoryGroup.Iv:
-                    return EFmSectionCategory.Iv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IIv:
-                    return EFmSectionCategory.IIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IIIv:
-                    return EFmSectionCategory.IIIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.IVv:
-                    return EFmSectionCategory.IVv;
-                case FailureMechanismSectionAssemblyCategoryGroup.Vv:
-                    return EFmSectionCategory.Vv;
-                case FailureMechanismSectionAssemblyCategoryGroup.VIv:
-                    return EFmSectionCategory.VIv;
-                case FailureMechanismSectionAssemblyCategoryGroup.VIIv:
-                    return EFmSectionCategory.VIIv;
-                default:
-                    throw new NotSupportedException();
-            }
+            CollectionAssert.AreEqual(originalSections.Select(s => FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(s.AssemblyGroup)),
+                                      failureMechanismSections.Select(fms => fms)
+                                                              .Cast<FailureMechanismSectionWithCategory>()
+                                                              .Select(c => c.Category));
         }
     }
 }
