@@ -68,7 +68,7 @@ namespace Riskeer.Integration.Data.Assembly
             try
             {
                 IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
-                IAssessmentSectionAssemblyCalculator calculator =
+                IAssessmentSectionAssemblyCalculatorOld calculator =
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Data.Assembly
             try
             {
                 IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
-                IAssessmentSectionAssemblyCalculator calculator =
+                IAssessmentSectionAssemblyCalculatorOld calculator =
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 return calculator.AssembleFailureMechanisms(GetFailureMechanismsWithoutProbabilityAssemblyResults(assessmentSection,
@@ -141,7 +141,7 @@ namespace Riskeer.Integration.Data.Assembly
             try
             {
                 IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
-                IAssessmentSectionAssemblyCalculator calculator =
+                IAssessmentSectionAssemblyCalculatorOld calculator =
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 return calculator.AssembleAssessmentSection(AssembleFailureMechanismsWithoutProbability(assessmentSection, useManual),
@@ -175,7 +175,7 @@ namespace Riskeer.Integration.Data.Assembly
             try
             {
                 IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
-                IAssessmentSectionAssemblyCalculator calculator =
+                IAssessmentSectionAssemblyCalculatorOld calculator =
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 Dictionary<IFailureMechanism, int> failureMechanismsToAssemble = assessmentSection.GetFailureMechanisms()

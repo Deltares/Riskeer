@@ -130,11 +130,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 // Call
-                IAssessmentSectionAssemblyCalculator calculator =
+                IAssessmentSectionAssemblyCalculatorOld calculator =
                     factory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
 
                 // Assert
-                Assert.IsInstanceOf<AssessmentSectionAssemblyCalculator>(calculator);
+                Assert.IsInstanceOf<AssessmentSectionAssemblyCalculatorOld>(calculator);
             }
         }
     }

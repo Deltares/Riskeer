@@ -79,7 +79,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
             return LastCreatedFailureMechanismAssemblyCalculator;
         }
 
-        public IAssessmentSectionAssemblyCalculator CreateAssessmentSectionAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
+        public IAssessmentSectionAssemblyCalculatorOld CreateAssessmentSectionAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
         {
             return LastCreatedAssessmentSectionAssemblyCalculator;
         }
