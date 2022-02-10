@@ -274,7 +274,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup;
+                return WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup;
             }
         }
 

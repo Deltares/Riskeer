@@ -48,7 +48,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment);
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment);
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyCategoryGroupFeatures<WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismSectionResultOld>(
                 failureMechanism,
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment);
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment);
         }
     }
 }

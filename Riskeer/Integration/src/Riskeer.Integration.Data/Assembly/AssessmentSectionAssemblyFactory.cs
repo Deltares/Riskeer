@@ -223,7 +223,7 @@ namespace Riskeer.Integration.Data.Assembly
             return new[]
             {
                 StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.StabilityStoneCover, useManual),
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaveImpactAsphaltCover, useManual),
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.WaveImpactAsphaltCover, useManual),
                 GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.GrassCoverErosionOutwards, useManual),
                 DuneErosionFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.DuneErosion, useManual),
                 MicrostabilityFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Microstability, useManual),

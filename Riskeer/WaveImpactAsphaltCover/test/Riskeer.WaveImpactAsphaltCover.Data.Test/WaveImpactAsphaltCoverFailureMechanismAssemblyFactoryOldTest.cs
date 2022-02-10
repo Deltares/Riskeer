@@ -37,7 +37,7 @@ using Riskeer.Common.Primitives;
 namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryTest
+    public class WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOldTest
     {
         #region Simple Assembly
 
@@ -45,7 +45,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
+            TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -69,7 +69,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentResult, calculator.SimpleAssessmentInput);
@@ -90,7 +90,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, actualOutput);
@@ -111,7 +111,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -129,7 +129,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void AssembleDetailedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(null);
+            TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -157,7 +157,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.DetailedAssessmentResultForFactorizedSignalingNorm, calculator.DetailedAssessmentResultForFactorizedSignalingNormInput);
@@ -182,7 +182,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.DetailedAssessmentAssemblyGroupOutput, actualOutput);
@@ -203,7 +203,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleDetailedAssessment(sectionResult);
+                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -221,7 +221,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void AssembleTailorMadeAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(null);
+            TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -245,7 +245,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.TailorMadeAssessmentResult, calculator.TailorMadeAssessmentCategoryGroupResultInput);
@@ -266,7 +266,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.TailorMadeAssemblyCategoryOutput, actualOutput);
@@ -287,7 +287,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult);
+                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);
@@ -305,7 +305,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void AssembleCombinedAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                 null);
 
             // Assert
@@ -331,7 +331,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
@@ -358,7 +358,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(sectionResult);
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(calculator.SimpleAssessmentAssemblyOutput.Group, calculator.CombinedSimpleAssemblyGroupInput);
@@ -380,7 +380,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyCategoryGroup actualOutput =
-                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                         sectionResult);
 
                 // Assert
@@ -402,7 +402,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult);
 
                 // Assert
@@ -421,7 +421,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void GetSectionAssemblyCategoryGroup_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 null,
                 new Random(39).NextBoolean());
 
@@ -442,7 +442,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
@@ -465,7 +465,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     new Random(39).NextBoolean());
 
@@ -485,7 +485,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             };
 
             // Call
-            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            FailureMechanismSectionAssemblyCategoryGroup categoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 sectionResult,
                 true);
 
@@ -510,7 +510,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     false);
 
@@ -532,7 +532,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     false);
 
@@ -552,7 +552,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
         public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(null, new Random(39).NextBoolean());
+            TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(null, new Random(39).NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -569,7 +569,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             };
 
             // Call
-            FailureMechanismAssemblyCategoryGroup category = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+            FailureMechanismAssemblyCategoryGroup category = WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
             // Assert
             Assert.AreEqual(FailureMechanismAssemblyResultFactoryOld.CreateNotApplicableCategory(), category);
@@ -592,7 +592,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
@@ -618,7 +618,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, true);
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, true);
 
                 // Assert
                 Assert.AreEqual(sectionResult.ManualAssemblyCategoryGroup, calculator.FailureMechanismSectionCategories.Single());
@@ -645,7 +645,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, false);
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism, false);
 
                 // Assert
                 Assert.AreEqual(sectionCalculator.CombinedAssemblyCategoryOutput, calculator.FailureMechanismSectionCategories.Single());
@@ -663,8 +663,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 
                 // Call
                 FailureMechanismAssemblyCategoryGroup actualOutput =
-                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                                   new Random(39).NextBoolean());
+                    WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                                      new Random(39).NextBoolean());
 
                 // Assert
                 Assert.AreEqual(calculator.FailureMechanismAssemblyCategoryGroupOutput, actualOutput);
@@ -682,7 +682,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     new WaveImpactAsphaltCoverFailureMechanism(),
                     new Random(39).NextBoolean());
 
@@ -711,8 +711,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism,
-                                                                                                                         new Random(39).NextBoolean());
+                TestDelegate call = () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(failureMechanism,
+                                                                                                                            new Random(39).NextBoolean());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(call);

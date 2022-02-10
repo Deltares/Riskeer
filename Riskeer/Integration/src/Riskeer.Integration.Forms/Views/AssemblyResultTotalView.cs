@@ -360,7 +360,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover = AssessmentSection.WaveImpactAsphaltCover;
             return new FailureMechanismAssemblyCategoryGroupResultRow(waveImpactAsphaltCover,
-                                                                      () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(waveImpactAsphaltCover, true));
+                                                                      () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(waveImpactAsphaltCover, true));
         }
 
         private FailureMechanismAssemblyCategoryGroupResultRow CreateGrassCoverErosionOutwardsFailureMechanismAssemblyResultRow()

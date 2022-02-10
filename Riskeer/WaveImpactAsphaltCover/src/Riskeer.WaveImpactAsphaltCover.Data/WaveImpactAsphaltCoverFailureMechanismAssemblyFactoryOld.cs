@@ -36,7 +36,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     /// <summary>
     /// Factory for creating assembly results for a wave impact asphalt cover failure mechanism.
     /// </summary>
-    public static class WaveImpactAsphaltCoverFailureMechanismAssemblyFactory
+    public static class WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld
     {
         /// <summary>
         /// Assembles the simple assessment results.
