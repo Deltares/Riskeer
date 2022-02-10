@@ -291,9 +291,9 @@ namespace Riskeer.Integration.Forms.Views
         {
             ClosingStructuresFailureMechanism closingStructures = AssessmentSection.ClosingStructures;
             return new FailureMechanismAssemblyResultRow(closingStructures,
-                                                         () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(closingStructures,
-                                                                                                                                         AssessmentSection,
-                                                                                                                                         true));
+                                                         () => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(closingStructures,
+                                                                                                                                            AssessmentSection,
+                                                                                                                                            true));
         }
 
         private FailureMechanismAssemblyResultRow CreateHeightStructuresFailureMechanismAssemblyResultRow()

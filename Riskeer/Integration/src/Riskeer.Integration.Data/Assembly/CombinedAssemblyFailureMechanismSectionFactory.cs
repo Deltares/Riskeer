@@ -323,7 +323,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return (sectionResult, assessmentSection, useManual) => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                return (sectionResult, assessmentSection, useManual) => ClosingStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult, assessmentSection.ClosingStructures, assessmentSection, useManual);
             }
         }

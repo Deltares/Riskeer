@@ -52,7 +52,7 @@ namespace Riskeer.ClosingStructures.Forms.Factories
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<ClosingStructuresFailureMechanism,
                 ClosingStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
-                ClosingStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Riskeer.ClosingStructures.Forms.Factories
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<ClosingStructuresFailureMechanism,
                 ClosingStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                sectionResult => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                     sectionResult,
                     failureMechanism.Calculations.Cast<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism,
@@ -107,9 +107,9 @@ namespace Riskeer.ClosingStructures.Forms.Factories
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<ClosingStructuresFailureMechanism,
                 ClosingStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => ClosingStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
-                                                                                                               failureMechanism,
-                                                                                                               assessmentSection));
+                sectionResult => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult,
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection));
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace Riskeer.ClosingStructures.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<ClosingStructuresFailureMechanism, ClosingStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                sectionResult => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult,
                     failureMechanism.Calculations.Cast<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism,

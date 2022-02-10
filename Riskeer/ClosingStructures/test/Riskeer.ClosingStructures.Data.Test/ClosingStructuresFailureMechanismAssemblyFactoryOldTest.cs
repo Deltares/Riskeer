@@ -41,7 +41,7 @@ using Riskeer.Common.Primitives;
 namespace Riskeer.ClosingStructures.Data.Test
 {
     [TestFixture]
-    public class ClosingStructuresFailureMechanismAssemblyFactoryTest
+    public class ClosingStructuresFailureMechanismAssemblyFactoryOldTest
     {
         private static void AssertAssemblyCategoriesInput(IAssessmentSection assessmentSection,
                                                           ClosingStructuresFailureMechanism failureMechanism,
@@ -59,7 +59,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void AssembleSimpleAssessment_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(null);
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -83,7 +83,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 Assert.AreEqual(sectionResult.SimpleAssessmentResult, calculator.SimpleAssessmentInput);
@@ -104,7 +104,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyOld actualOutput =
-                    ClosingStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                    ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 FailureMechanismSectionAssemblyOld calculatorOutput = calculator.SimpleAssessmentAssemblyOutput;
@@ -126,7 +126,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment(sectionResult);
+                void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment(sectionResult);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
@@ -149,7 +149,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                 null, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                 new ClosingStructuresFailureMechanism(), assessmentSection);
 
@@ -168,7 +168,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                 new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, new ClosingStructuresFailureMechanism(), assessmentSection);
 
@@ -187,7 +187,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                 new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), null, assessmentSection);
 
@@ -201,7 +201,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void AssembleDetailedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                 new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), new ClosingStructuresFailureMechanism(), null);
 
@@ -231,7 +231,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                     sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection);
 
@@ -264,7 +264,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyOld actualOutput =
-                    ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                    ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                         sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                         failureMechanism, assessmentSection);
 
@@ -294,7 +294,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                     sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection);
 
@@ -320,7 +320,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(
                 null, new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Assert
@@ -338,7 +338,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(
                 new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, assessmentSection);
 
@@ -352,7 +352,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void AssembleTailorMadeAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(
                 new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new ClosingStructuresFailureMechanism(), null);
 
@@ -379,7 +379,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(
                     sectionResult,
                     failureMechanism,
                     assessmentSection);
@@ -411,7 +411,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyOld actualOutput =
-                    ClosingStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                    ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(
                         sectionResult,
                         failureMechanism,
                         assessmentSection);
@@ -442,7 +442,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(
+                void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(
                     sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
@@ -467,7 +467,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                 null, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                 new ClosingStructuresFailureMechanism(), assessmentSection);
 
@@ -486,7 +486,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                 new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, new ClosingStructuresFailureMechanism(), assessmentSection);
 
@@ -505,7 +505,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                 new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), null, assessmentSection);
 
@@ -519,7 +519,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void AssembleCombinedAssessment_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                 new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(), new ClosingStructuresFailureMechanism(), null);
 
@@ -551,7 +551,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection);
 
@@ -587,7 +587,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection);
 
@@ -618,7 +618,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
                 // Call
                 FailureMechanismSectionAssemblyOld actualOutput =
-                    ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                    ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                         sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                         failureMechanism, assessmentSection);
 
@@ -647,7 +647,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult, Enumerable.Empty<StructuresCalculationScenario<ClosingStructuresInput>>(),
                     failureMechanism, assessmentSection);
 
@@ -673,7 +673,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 null, new ClosingStructuresFailureMechanism(), assessmentSection, new Random(39).NextBoolean());
 
             // Assert
@@ -691,7 +691,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 null, assessmentSection, new Random(39).NextBoolean());
 
@@ -705,7 +705,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void GetSectionAssemblyCategoryGroup_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                 new ClosingStructuresFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()),
                 new ClosingStructuresFailureMechanism(), null, new Random(39).NextBoolean());
 
@@ -731,7 +731,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                ClosingStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
@@ -770,7 +770,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                ClosingStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
@@ -809,7 +809,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                ClosingStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
@@ -840,7 +840,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = ClosingStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
@@ -874,7 +874,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = ClosingStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
@@ -908,7 +908,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                FailureMechanismSectionAssemblyCategoryGroup categoryGroup = ClosingStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult,
                     failureMechanism,
                     assessmentSection,
@@ -950,7 +950,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 }
 
                 // Call
-                void Call() => ClosingStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult, failureMechanism, assessmentSection, useManualAssembly);
 
                 // Assert
@@ -975,7 +975,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                 null, assessmentSection, new Random(39).NextBoolean());
 
             // Assert
@@ -988,7 +988,7 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void AssembleFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+            void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                 new ClosingStructuresFailureMechanism(), null, new Random(39).NextBoolean());
 
             // Assert
@@ -1010,7 +1010,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             mocks.ReplayAll();
 
             // Call
-            FailureMechanismAssembly assembly = ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+            FailureMechanismAssembly assembly = ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                 failureMechanism,
                 assessmentSection,
                 new Random(39).NextBoolean());
@@ -1041,7 +1041,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     failureMechanism,
                     assessmentSection,
                     new Random(39).NextBoolean());
@@ -1076,7 +1076,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     failureMechanism,
                     assessmentSection,
                     true);
@@ -1111,7 +1111,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 FailureMechanismSectionAssemblyCalculatorOldStub sectionCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     failureMechanism,
                     assessmentSection,
                     false);
@@ -1139,7 +1139,7 @@ namespace Riskeer.ClosingStructures.Data.Test
 
                 // Call
                 FailureMechanismAssembly actualOutput =
-                    ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                    ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                         failureMechanism,
                         assessmentSection,
                         new Random(39).NextBoolean());
@@ -1167,7 +1167,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     failureMechanism, assessmentSection, new Random(39).NextBoolean());
 
                 // Assert
@@ -1200,7 +1200,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 calculator.ThrowExceptionOnCalculateCombinedAssembly = true;
 
                 // Call
-                void Call() => ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(
+                void Call() => ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(
                     failureMechanism, assessmentSection, new Random(39).NextBoolean());
 
                 // Assert

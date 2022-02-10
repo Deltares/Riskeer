@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Data.Assembly
             {
                 GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection, useManual),
                 HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.HeightStructures, assessmentSection, useManual),
-                ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.ClosingStructures, assessmentSection, useManual),
+                ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.ClosingStructures, assessmentSection, useManual),
                 StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection, useManual),
                 PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Piping, assessmentSection, useManual),
                 MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection, useManual)

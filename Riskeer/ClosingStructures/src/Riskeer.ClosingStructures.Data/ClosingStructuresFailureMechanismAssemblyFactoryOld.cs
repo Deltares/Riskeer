@@ -38,7 +38,7 @@ namespace Riskeer.ClosingStructures.Data
     /// <summary>
     /// Factory for assembling assembly results for a closing structures failure mechanism.
     /// </summary>
-    public static class ClosingStructuresFailureMechanismAssemblyFactory
+    public static class ClosingStructuresFailureMechanismAssemblyFactoryOld
     {
         /// <summary>
         /// Assembles the simple assessment results.
