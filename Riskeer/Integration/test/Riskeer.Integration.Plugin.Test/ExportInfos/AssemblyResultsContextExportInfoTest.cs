@@ -116,7 +116,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineWithGeometry_ReturnsTrue()
+        public void IsEnabled_Always_ReturnsFalse()
         {
             // Setup
             var random = new Random(21);
@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 bool isEnabled = info.IsEnabled(context);
 
                 // Assert
-                Assert.IsTrue(isEnabled);
+                Assert.IsFalse(isEnabled);
             }
         }
 
