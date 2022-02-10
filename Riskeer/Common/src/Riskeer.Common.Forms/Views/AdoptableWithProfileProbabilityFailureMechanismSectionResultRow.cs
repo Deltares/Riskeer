@@ -90,6 +90,11 @@ namespace Riskeer.Common.Forms.Views
                 throw new ArgumentNullException(nameof(performAssemblyFunc));
             }
 
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException(nameof(constructionProperties));
+            }
+
             this.calculateProbabilityStrategy = calculateProbabilityStrategy;
             this.failureMechanismSectionResultRowErrorProvider = failureMechanismSectionResultRowErrorProvider;
             this.performAssemblyFunc = performAssemblyFunc;
