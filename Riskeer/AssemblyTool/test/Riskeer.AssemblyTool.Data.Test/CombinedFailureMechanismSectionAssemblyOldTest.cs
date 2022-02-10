@@ -28,13 +28,13 @@ using NUnit.Framework;
 namespace Riskeer.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class CombinedFailureMechanismSectionAssemblyTest
+    public class CombinedFailureMechanismSectionAssemblyOldTest
     {
         [Test]
         public void Constructor_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new CombinedFailureMechanismSectionAssembly(null, Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup>());
+            TestDelegate call = () => new CombinedFailureMechanismSectionAssemblyOld(null, Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -50,7 +50,7 @@ namespace Riskeer.AssemblyTool.Data.Test
                                                                       random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
             // Call
-            TestDelegate call = () => new CombinedFailureMechanismSectionAssembly(section, null);
+            TestDelegate call = () => new CombinedFailureMechanismSectionAssemblyOld(section, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -67,7 +67,7 @@ namespace Riskeer.AssemblyTool.Data.Test
             IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismResults = Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup>();
 
             // Call
-            var assembly = new CombinedFailureMechanismSectionAssembly(section, failureMechanismResults);
+            var assembly = new CombinedFailureMechanismSectionAssemblyOld(section, failureMechanismResults);
 
             // Assert
             Assert.AreSame(section, assembly.Section);

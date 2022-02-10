@@ -27,15 +27,15 @@ namespace Riskeer.AssemblyTool.Data
     /// <summary>
     /// Assembly for the combined failure mechanism section.
     /// </summary>
-    public class CombinedFailureMechanismSectionAssembly
+    public class CombinedFailureMechanismSectionAssemblyOld
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CombinedFailureMechanismSectionAssembly"/>.
+        /// Creates a new instance of <see cref="CombinedFailureMechanismSectionAssemblyOld"/>.
         /// </summary>
         /// <param name="section">The section of the assembly.</param>
         /// <param name="failureMechanismResults">The assembly results per failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public CombinedFailureMechanismSectionAssembly(CombinedAssemblyFailureMechanismSection section,
+        public CombinedFailureMechanismSectionAssemblyOld(CombinedAssemblyFailureMechanismSection section,
                                                        IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismResults)
         {
             if (section == null)

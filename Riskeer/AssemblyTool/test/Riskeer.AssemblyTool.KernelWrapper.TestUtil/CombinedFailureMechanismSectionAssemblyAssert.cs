@@ -36,10 +36,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
         /// <param name="original">The original <see cref="AssemblyResult"/>.</param>
-        /// <param name="actual">The actual collection of <see cref="CombinedFailureMechanismSectionAssembly"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="CombinedFailureMechanismSectionAssemblyOld"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertAssembly(AssemblyResult original, IEnumerable<CombinedFailureMechanismSectionAssembly> actual)
+        public static void AssertAssembly(AssemblyResult original, IEnumerable<CombinedFailureMechanismSectionAssemblyOld> actual)
         {
             FmSectionWithDirectCategory[] combinedResults = original.CombinedSectionResult.ToArray();
             Assert.AreEqual(combinedResults.Length, actual.Count());

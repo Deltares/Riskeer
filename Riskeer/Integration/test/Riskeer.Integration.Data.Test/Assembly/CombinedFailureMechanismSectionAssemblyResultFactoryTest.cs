@@ -55,7 +55,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => CombinedFailureMechanismSectionAssemblyResultFactory.Create(Enumerable.Empty<CombinedFailureMechanismSectionAssembly>(),
+            TestDelegate call = () => CombinedFailureMechanismSectionAssemblyResultFactory.Create(Enumerable.Empty<CombinedFailureMechanismSectionAssemblyOld>(),
                                                                                                   null, new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
 
             // Assert
@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => CombinedFailureMechanismSectionAssemblyResultFactory.Create(Enumerable.Empty<CombinedFailureMechanismSectionAssembly>(),
+            TestDelegate call = () => CombinedFailureMechanismSectionAssemblyResultFactory.Create(Enumerable.Empty<CombinedFailureMechanismSectionAssemblyOld>(),
                                                                                                   new Dictionary<IFailureMechanism, int>(), null);
 
             // Assert
@@ -94,8 +94,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var section2 = new CombinedAssemblyFailureMechanismSection(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
             var output = new[]
             {
-                new CombinedFailureMechanismSectionAssembly(section1, GetFailureMechanismsOutput(failureMechanisms.Keys, random)),
-                new CombinedFailureMechanismSectionAssembly(section2, GetFailureMechanismsOutput(failureMechanisms.Keys, random))
+                new CombinedFailureMechanismSectionAssemblyOld(section1, GetFailureMechanismsOutput(failureMechanisms.Keys, random)),
+                new CombinedFailureMechanismSectionAssemblyOld(section2, GetFailureMechanismsOutput(failureMechanisms.Keys, random))
             };
 
             // Call
@@ -147,8 +147,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var section2 = new CombinedAssemblyFailureMechanismSection(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
             var output = new[]
             {
-                new CombinedFailureMechanismSectionAssembly(section1, GetFailureMechanismsOutput(failureMechanisms.Keys, random)),
-                new CombinedFailureMechanismSectionAssembly(section2, GetFailureMechanismsOutput(failureMechanisms.Keys, random))
+                new CombinedFailureMechanismSectionAssemblyOld(section1, GetFailureMechanismsOutput(failureMechanisms.Keys, random)),
+                new CombinedFailureMechanismSectionAssemblyOld(section2, GetFailureMechanismsOutput(failureMechanisms.Keys, random))
             };
 
             // Call

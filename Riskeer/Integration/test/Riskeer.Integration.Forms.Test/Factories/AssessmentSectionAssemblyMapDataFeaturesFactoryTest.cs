@@ -74,7 +74,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                CombinedFailureMechanismSectionAssembly[] failureMechanismSectionAssembly =
+                CombinedFailureMechanismSectionAssemblyOld[] failureMechanismSectionAssembly =
                 {
                     CreateCombinedFailureMechanismSectionAssembly(assessmentSection, 20),
                     CreateCombinedFailureMechanismSectionAssembly(assessmentSection, 21)
@@ -160,10 +160,10 @@ namespace Riskeer.Integration.Forms.Test.Factories
             }
         }
 
-        private static CombinedFailureMechanismSectionAssembly CreateCombinedFailureMechanismSectionAssembly(AssessmentSection assessmentSection, int seed)
+        private static CombinedFailureMechanismSectionAssemblyOld CreateCombinedFailureMechanismSectionAssembly(AssessmentSection assessmentSection, int seed)
         {
             var random = new Random(seed);
-            return new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(random.NextDouble(),
+            return new CombinedFailureMechanismSectionAssemblyOld(new CombinedAssemblyFailureMechanismSection(random.NextDouble(),
                                                                                                            random.NextDouble(),
                                                                                                            random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
                                                                assessmentSection.GetFailureMechanisms()

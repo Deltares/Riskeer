@@ -28,32 +28,32 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="CombinedFailureMechanismSectionAssembly"/> instances.
+    /// Creates <see cref="CombinedFailureMechanismSectionAssemblyOld"/> instances.
     /// </summary>
-    internal static class CombinedFailureMechanismSectionAssemblyCreator
+    internal static class CombinedFailureMechanismSectionAssemblyCreatorOld
     {
         /// <summary>
-        /// Creates a collection of <see cref="CombinedFailureMechanismSectionAssembly"/>
+        /// Creates a collection of <see cref="CombinedFailureMechanismSectionAssemblyOld"/>
         /// based on the <paramref name="result"/>.
         /// </summary>
         /// <param name="result">The <see cref="AssemblyResult"/> to create the
-        /// <see cref="CombinedFailureMechanismSectionAssembly"/> for.</param>
-        /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssembly"/>.</returns>
+        /// <see cref="CombinedFailureMechanismSectionAssemblyOld"/> for.</param>
+        /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<CombinedFailureMechanismSectionAssembly> Create(AssemblyResult result)
+        public static IEnumerable<CombinedFailureMechanismSectionAssemblyOld> Create(AssemblyResult result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            var sectionAssemblies = new List<CombinedFailureMechanismSectionAssembly>();
+            var sectionAssemblies = new List<CombinedFailureMechanismSectionAssemblyOld>();
 
             for (var i = 0; i < result.CombinedSectionResult.Count(); i++)
             {
                 FmSectionWithDirectCategory section = result.CombinedSectionResult.ElementAt(i);
-                sectionAssemblies.Add(new CombinedFailureMechanismSectionAssembly(
+                sectionAssemblies.Add(new CombinedFailureMechanismSectionAssemblyOld(
                                           CreateSection(section),
                                           result.ResultPerFailureMechanism
                                                 .Select(failureMechanismSectionList =>

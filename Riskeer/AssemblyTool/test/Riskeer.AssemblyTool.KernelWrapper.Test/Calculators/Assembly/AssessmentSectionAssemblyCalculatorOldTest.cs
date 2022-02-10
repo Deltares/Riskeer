@@ -672,7 +672,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new AssessmentSectionAssemblyCalculatorOld(factory);
 
                 // Call
-                CombinedFailureMechanismSectionAssembly[] output = calculator.AssembleCombinedFailureMechanismSections(new[]
+                CombinedFailureMechanismSectionAssemblyOld[] output = calculator.AssembleCombinedFailureMechanismSections(new[]
                 {
                     new[]
                     {

@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Data.Assembly
         /// <param name="assessmentSection">The assessment section to use while creating the results.</param>
         /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> Create(IEnumerable<CombinedFailureMechanismSectionAssembly> output,
+        public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> Create(IEnumerable<CombinedFailureMechanismSectionAssemblyOld> output,
                                                                                         IDictionary<IFailureMechanism, int> failureMechanisms,
                                                                                         AssessmentSection assessmentSection)
         {

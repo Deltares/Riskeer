@@ -103,7 +103,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets or sets the output of the combined failure mechanism section assembly.
         /// </summary>
-        public IEnumerable<CombinedFailureMechanismSectionAssembly> CombinedFailureMechanismSectionAssemblyOutput { get; set; }
+        public IEnumerable<CombinedFailureMechanismSectionAssemblyOld> CombinedFailureMechanismSectionAssemblyOutput { get; set; }
 
         /// <summary>
         /// Sets an indicator whether an exception must be thrown while performing a calculation.
@@ -165,7 +165,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return AssembleAssessmentSectionCategoryGroupOutput.Value;
         }
 
-        public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input,
+        public IEnumerable<CombinedFailureMechanismSectionAssemblyOld> AssembleCombinedFailureMechanismSections(IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input,
                                                                                                              double assessmentSectionLength)
         {
             if (ThrowExceptionOnCalculate)
@@ -178,7 +178,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             return CombinedFailureMechanismSectionAssemblyOutput ?? (CombinedFailureMechanismSectionAssemblyOutput = new[]
                                                                         {
-                                                                            new CombinedFailureMechanismSectionAssembly(
+                                                                            new CombinedFailureMechanismSectionAssemblyOld(
                                                                                 new CombinedAssemblyFailureMechanismSection(0, 1, FailureMechanismSectionAssemblyCategoryGroup.IIIv),
                                                                                 input.Select(failureMechanism => FailureMechanismSectionAssemblyCategoryGroup.VIv).ToArray())
                                                                         });

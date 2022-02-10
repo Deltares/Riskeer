@@ -32,13 +32,13 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class CombinedFailureMechanismSectionAssemblyCreatorTest
+    public class CombinedFailureMechanismSectionAssemblyCreatorOldTest
     {
         [Test]
         public void Create_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => CombinedFailureMechanismSectionAssemblyCreator.Create(null);
+            TestDelegate call = () => CombinedFailureMechanismSectionAssemblyCreatorOld.Create(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -84,7 +84,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             var assembly = new AssemblyResult(failureMechanismResults, combinedResults);
 
             // Call
-            IEnumerable<CombinedFailureMechanismSectionAssembly> results = CombinedFailureMechanismSectionAssemblyCreator.Create(assembly);
+            IEnumerable<CombinedFailureMechanismSectionAssemblyOld> results = CombinedFailureMechanismSectionAssemblyCreatorOld.Create(assembly);
 
             // Assert
             CombinedFailureMechanismSectionAssemblyAssert.AssertAssembly(assembly, results);

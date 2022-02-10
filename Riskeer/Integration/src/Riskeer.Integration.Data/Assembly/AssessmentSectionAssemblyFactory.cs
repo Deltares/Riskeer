@@ -187,7 +187,7 @@ namespace Riskeer.Integration.Data.Assembly
                                                                                                   })
                                                                                                   .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
-                IEnumerable<CombinedFailureMechanismSectionAssembly> output = calculator.AssembleCombinedFailureMechanismSections(
+                IEnumerable<CombinedFailureMechanismSectionAssemblyOld> output = calculator.AssembleCombinedFailureMechanismSections(
                     CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, failureMechanismsToAssemble.Keys, useManual),
                     assessmentSection.ReferenceLine.Length);
 
