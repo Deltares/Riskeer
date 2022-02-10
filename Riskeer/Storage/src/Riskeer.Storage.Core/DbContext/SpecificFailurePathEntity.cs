@@ -44,6 +44,7 @@ namespace Riskeer.Storage.Core.DbContext
         public long SpecificFailurePathEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
         public string Name { get; set; }
+        public string Code { get; set; }
         public int Order { get; set; }
         public double N { get; set; }
         public byte ApplyLengthEffectInSection { get; set; }
