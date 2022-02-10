@@ -103,8 +103,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 sectionResult,
                 CreateCalculateStrategy(sectionResult, calculationScenarios),
                 CreateErrorProvider(sectionResult, calculationScenarios),
-                CreateLengthEffectProvider(sectionResult),
-                assessmentSection,
+                () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, assessmentSection),
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,

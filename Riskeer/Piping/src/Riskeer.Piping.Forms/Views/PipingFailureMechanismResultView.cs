@@ -127,8 +127,7 @@ namespace Riskeer.Piping.Forms.Views
                 PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(
                     FailureMechanism, sectionResult, scenarioConfigurationForSection, assessmentSection),
                 CreateErrorProvider(sectionResult, scenarioConfigurationForSection),
-                CreateLengthEffectProvider(sectionResult),
-                assessmentSection,
+                () => PipingFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, assessmentSection),
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,

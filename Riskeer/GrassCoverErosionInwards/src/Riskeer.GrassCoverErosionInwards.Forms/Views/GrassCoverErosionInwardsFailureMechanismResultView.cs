@@ -110,8 +110,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
                 sectionResult,
                 CreateCalculateStrategy(sectionResult, calculationScenarios),
                 CreateErrorProvider(sectionResult, calculationScenarios),
-                CreateLengthEffectProvider(),
-                assessmentSection,
+                () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, assessmentSection),
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,

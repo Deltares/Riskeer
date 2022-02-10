@@ -23,8 +23,8 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
@@ -54,8 +54,7 @@ namespace Riskeer.Common.Forms.Views
 
         private readonly IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
         private readonly IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider;
-        private readonly ILengthEffectProvider lengthEffectProvider;
-        private readonly IAssessmentSection assessmentSection;
+        private readonly Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultRow"/>.
@@ -65,16 +64,14 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="calculateProbabilityStrategy">The strategy used to calculate probabilities.</param>
         /// <param name="failureMechanismSectionResultRowErrorProvider">The error provider to use for
         /// the failure mechanism section result row.</param>
-        /// <param name="lengthEffectProvider">The provider to get the length effect properties.</param>
-        /// <param name="assessmentSection">The assessment section the section result belongs to.</param>
+        /// <param name="performAssemblyFunc">Function to perform the assembly.</param>
         /// <param name="constructionProperties">The property values required to create an instance of
         /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultRow"/>.</param>
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
                                                                                IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
                                                                                IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider,
-                                                                               ILengthEffectProvider lengthEffectProvider,
-                                                                               IAssessmentSection assessmentSection,
+                                                                               Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc,
                                                                                ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
@@ -88,25 +85,14 @@ namespace Riskeer.Common.Forms.Views
                 throw new ArgumentNullException(nameof(failureMechanismSectionResultRowErrorProvider));
             }
 
-            if (lengthEffectProvider == null)
+            if (performAssemblyFunc == null)
             {
-                throw new ArgumentNullException(nameof(lengthEffectProvider));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (constructionProperties == null)
-            {
-                throw new ArgumentNullException(nameof(constructionProperties));
+                throw new ArgumentNullException(nameof(performAssemblyFunc));
             }
 
             this.calculateProbabilityStrategy = calculateProbabilityStrategy;
             this.failureMechanismSectionResultRowErrorProvider = failureMechanismSectionResultRowErrorProvider;
-            this.lengthEffectProvider = lengthEffectProvider;
-            this.assessmentSection = assessmentSection;
+            this.performAssemblyFunc = performAssemblyFunc;
 
             initialFailureMechanismResultTypeIndex = constructionProperties.InitialFailureMechanismResultTypeIndex;
             initialFailureMechanismResultProfileProbabilityIndex = constructionProperties.InitialFailureMechanismResultProfileProbabilityIndex;
@@ -346,9 +332,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                AssemblyResult = FailureMechanismSectionResultAssemblyFactory.AssembleSection(
-                    SectionResult, assessmentSection, calculateProbabilityStrategy,
-                    lengthEffectProvider.UseLengthEffect, lengthEffectProvider.SectionN);
+                AssemblyResult = performAssemblyFunc();
             }
             catch (AssemblyException e)
             {
