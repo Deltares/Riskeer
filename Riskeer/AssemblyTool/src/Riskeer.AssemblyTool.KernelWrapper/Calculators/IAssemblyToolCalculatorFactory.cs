@@ -54,5 +54,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
         /// <returns>The failure mechanism assembly calculator.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
         IFailureMechanismAssemblyCalculator CreateFailureMechanismAssemblyCalculator(IAssemblyToolKernelFactory factory);
+        
+        /// <summary>
+        /// Creates an assessment section assembly calculator.
+        /// </summary>
+        /// <param name="factory">The factory responsible for creating the assembly kernel.</param>
+        /// <returns>The assessment section assembly calculator.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
+        IAssessmentSectionAssemblyCalculator CreateAssessmentSectionAssemblyCalculator(IAssemblyToolKernelFactory factory);
     }
 }
