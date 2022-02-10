@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
@@ -56,53 +57,44 @@ namespace Riskeer.Integration.IO.Factories
             return new ExportableAssessmentSection(assessmentSection.Name,
                                                    assessmentSection.Id,
                                                    assessmentSection.ReferenceLine.Points,
-                                                   CreateExportableAssessmentSectionAssemblyResult(assessmentSection),
-                                                   CreateExportableFailureMechanismAssemblyResultWithProbability(assessmentSection),
-                                                   CreateExportableFailureMechanismAssemblyResultWithoutProbability(assessmentSection),
+                                                   CreateExportableAssessmentSectionAssemblyResult(),
+                                                   CreateExportableFailureMechanismAssemblyResultWithProbability(),
+                                                   CreateExportableFailureMechanismAssemblyResultWithoutProbability(),
                                                    CreateExportableFailureMechanismsWithProbability(assessmentSection),
                                                    CreateExportableFailureMechanismsWithoutProbability(assessmentSection),
                                                    CreateExportableCombinedSectionAssemblyCollection(assessmentSection));
         }
 
         /// <summary>
-        /// Creates an <see cref="ExportableAssessmentSectionAssemblyResult"/> with the assembly result
-        /// based on <paramref name="assessmentSection"/>.
+        /// Creates an <see cref="ExportableAssessmentSectionAssemblyResult"/> with the assembly result.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section to create an <see cref="ExportableAssessmentSectionAssemblyResult"/> for.</param>
         /// <returns>An <see cref="ExportableAssessmentSectionAssemblyResult"/> with assembly result.</returns>
-        /// <exception cref="AssemblyException">Thrown when assembly result cannot be created for <paramref name="assessmentSection"/>.</exception>
-        private static ExportableAssessmentSectionAssemblyResult CreateExportableAssessmentSectionAssemblyResult(AssessmentSection assessmentSection)
+        private static ExportableAssessmentSectionAssemblyResult CreateExportableAssessmentSectionAssemblyResult()
         {
             return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.WBI2C1,
-                                                                 AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection, false));
+                                                                 AssessmentSectionAssemblyCategoryGroup.None);
         }
 
         /// <summary>
-        /// Creates an <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> with the assembly result
-        /// based on <paramref name="assessmentSection"/>.
+        /// Creates an <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> with the assembly result.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section to create an <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> for.</param>
         /// <returns>An <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> with assembly result.</returns>
-        /// <exception cref="AssemblyException">Thrown when assembly result cannot be created for <paramref name="assessmentSection"/>.</exception>
-        private static ExportableFailureMechanismAssemblyResultWithProbability CreateExportableFailureMechanismAssemblyResultWithProbability(AssessmentSection assessmentSection)
+        private static ExportableFailureMechanismAssemblyResultWithProbability CreateExportableFailureMechanismAssemblyResultWithProbability()
         {
-            FailureMechanismAssembly assemblyResult = AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection, false);
+            var assemblyResult = new FailureMechanismAssembly(0, FailureMechanismAssemblyCategoryGroup.None);
             return new ExportableFailureMechanismAssemblyResultWithProbability(ExportableAssemblyMethod.WBI2B1,
                                                                                assemblyResult.Group,
                                                                                assemblyResult.Probability);
         }
 
         /// <summary>
-        /// Creates an <see cref="ExportableFailureMechanismAssemblyResult"/> with the assembly result
-        /// based on <paramref name="assessmentSection"/>.
+        /// Creates an <see cref="ExportableFailureMechanismAssemblyResult"/> with the assembly result.
         /// </summary>
-        /// <param name="assessmentSection">The assessment section to create an <see cref="ExportableFailureMechanismAssemblyResult"/> for.</param>
         /// <returns>An <see cref="ExportableFailureMechanismAssemblyResult"/> with assembly result.</returns>
-        /// <exception cref="AssemblyException">Thrown when assembly result cannot be created for <paramref name="assessmentSection"/>.</exception>
-        private static ExportableFailureMechanismAssemblyResult CreateExportableFailureMechanismAssemblyResultWithoutProbability(AssessmentSection assessmentSection)
+        private static ExportableFailureMechanismAssemblyResult CreateExportableFailureMechanismAssemblyResultWithoutProbability()
         {
             return new ExportableFailureMechanismAssemblyResult(ExportableAssemblyMethod.WBI2A1,
-                                                                AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, false));
+                                                                FailureMechanismAssemblyCategoryGroup.None);
         }
 
         /// <summary>
@@ -158,9 +150,9 @@ namespace Riskeer.Integration.IO.Factories
         /// <param name="assessmentSection">The assessment section to create a collection of <see cref="ExportableCombinedSectionAssembly"/> for.</param>
         /// <returns>A <see cref="CreateExportableCombinedSectionAssemblyCollection"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
-        private static IEnumerable<ExportableCombinedSectionAssembly> CreateExportableCombinedSectionAssemblyCollection(AssessmentSection assessmentSection)
+        private static IEnumerable<ExportableCombinedSectionAssembly> CreateExportableCombinedSectionAssemblyCollection(IAssessmentSection assessmentSection)
         {
-            IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, false);
+            IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults = new List<CombinedFailureMechanismSectionAssemblyResult>();
             return ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, assessmentSection.ReferenceLine);
         }
     }
