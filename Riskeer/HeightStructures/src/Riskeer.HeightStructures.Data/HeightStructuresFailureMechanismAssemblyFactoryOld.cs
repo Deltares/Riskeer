@@ -38,7 +38,7 @@ namespace Riskeer.HeightStructures.Data
     /// <summary>
     /// Factory for assembling assembly results for a height structures failure mechanism.
     /// </summary>
-    public static class HeightStructuresFailureMechanismAssemblyFactory
+    public static class HeightStructuresFailureMechanismAssemblyFactoryOld
     {
         /// <summary>
         /// Assembles the simple assessment results.

@@ -300,9 +300,9 @@ namespace Riskeer.Integration.Forms.Views
         {
             HeightStructuresFailureMechanism heightStructures = AssessmentSection.HeightStructures;
             return new FailureMechanismAssemblyResultRow(heightStructures,
-                                                         () => HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(heightStructures,
-                                                                                                                                        AssessmentSection,
-                                                                                                                                        true));
+                                                         () => HeightStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(heightStructures,
+                                                                                                                                           AssessmentSection,
+                                                                                                                                           true));
         }
 
         private FailureMechanismAssemblyResultRow CreateStabilityPointsStructuresFailureMechanismAssemblyResultRow()

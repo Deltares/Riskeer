@@ -52,7 +52,7 @@ namespace Riskeer.HeightStructures.Forms.Factories
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<HeightStructuresFailureMechanism,
                 HeightStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
-                HeightStructuresFailureMechanismAssemblyFactory.AssembleSimpleAssessment);
+                HeightStructuresFailureMechanismAssemblyFactoryOld.AssembleSimpleAssessment);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Riskeer.HeightStructures.Forms.Factories
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<HeightStructuresFailureMechanism,
                 HeightStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => HeightStructuresFailureMechanismAssemblyFactory.AssembleDetailedAssessment(
+                sectionResult => HeightStructuresFailureMechanismAssemblyFactoryOld.AssembleDetailedAssessment(
                     sectionResult,
                     failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism,
@@ -107,9 +107,9 @@ namespace Riskeer.HeightStructures.Forms.Factories
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<HeightStructuresFailureMechanism,
                 HeightStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => HeightStructuresFailureMechanismAssemblyFactory.AssembleTailorMadeAssessment(sectionResult,
-                                                                                                              failureMechanism,
-                                                                                                              assessmentSection));
+                sectionResult => HeightStructuresFailureMechanismAssemblyFactoryOld.AssembleTailorMadeAssessment(sectionResult,
+                                                                                                                 failureMechanism,
+                                                                                                                 assessmentSection));
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace Riskeer.HeightStructures.Forms.Factories
 
             return AssemblyMapDataFeaturesFactory.CreateAssemblyFeatures<HeightStructuresFailureMechanism, HeightStructuresFailureMechanismSectionResultOld>(
                 failureMechanism,
-                sectionResult => HeightStructuresFailureMechanismAssemblyFactory.AssembleCombinedAssessment(
+                sectionResult => HeightStructuresFailureMechanismAssemblyFactoryOld.AssembleCombinedAssessment(
                     sectionResult,
                     failureMechanism.Calculations.Cast<StructuresCalculationScenario<HeightStructuresInput>>(),
                     failureMechanism,

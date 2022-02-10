@@ -314,7 +314,7 @@ namespace Riskeer.Integration.Data.Assembly
         {
             get
             {
-                return (sectionResult, assessmentSection, useManual) => HeightStructuresFailureMechanismAssemblyFactory.GetSectionAssemblyCategoryGroup(
+                return (sectionResult, assessmentSection, useManual) => HeightStructuresFailureMechanismAssemblyFactoryOld.GetSectionAssemblyCategoryGroup(
                     sectionResult, assessmentSection.HeightStructures, assessmentSection, useManual);
             }
         }
