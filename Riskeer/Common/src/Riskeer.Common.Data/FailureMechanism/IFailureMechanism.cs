@@ -39,11 +39,6 @@ namespace Riskeer.Common.Data.FailureMechanism
         double Contribution { get; set; }
 
         /// <summary>
-        /// Gets the code of the <see cref="IFailureMechanism"/>.
-        /// </summary>
-        string Code { get; }
-
-        /// <summary>
         /// Gets the group of the <see cref="IFailureMechanism"/>.
         /// </summary>
         int Group { get; }
