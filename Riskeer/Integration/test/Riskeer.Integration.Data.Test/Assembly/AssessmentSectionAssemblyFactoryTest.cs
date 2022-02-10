@@ -694,15 +694,15 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, random.NextBoolean());
 
                 // Assert
-                IEnumerable<CombinedAssemblyFailureMechanismSection>[] actualInput = calculator.CombinedFailureMechanismSectionsInput.ToArray();
-                IEnumerable<CombinedAssemblyFailureMechanismSection>[] expectedInput = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
+                IEnumerable<CombinedAssemblyFailureMechanismSectionOld>[] actualInput = calculator.CombinedFailureMechanismSectionsInput.ToArray();
+                IEnumerable<CombinedAssemblyFailureMechanismSectionOld>[] expectedInput = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
                     assessmentSection, assessmentSection.GetFailureMechanisms(), random.NextBoolean()).ToArray();
                 Assert.AreEqual(expectedInput.Length, actualInput.Length);
 
                 for (var i = 0; i < expectedInput.Length; i++)
                 {
-                    CombinedAssemblyFailureMechanismSection[] actualSections = actualInput[i].ToArray();
-                    CombinedAssemblyFailureMechanismSection[] expectedSections = expectedInput[i].ToArray();
+                    CombinedAssemblyFailureMechanismSectionOld[] actualSections = actualInput[i].ToArray();
+                    CombinedAssemblyFailureMechanismSectionOld[] expectedSections = expectedInput[i].ToArray();
                     Assert.AreEqual(expectedSections.Length, actualSections.Length);
 
                     for (var j = 0; j < expectedSections.Length; j++)
@@ -894,7 +894,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         private static CombinedFailureMechanismSectionAssemblyOld CreateCombinedFailureMechanismSectionAssembly(AssessmentSection assessmentSection, int seed)
         {
             var random = new Random(seed);
-            return new CombinedFailureMechanismSectionAssemblyOld(new CombinedAssemblyFailureMechanismSection(random.NextDouble(),
+            return new CombinedFailureMechanismSectionAssemblyOld(new CombinedAssemblyFailureMechanismSectionOld(random.NextDouble(),
                                                                                                            random.NextDouble(),
                                                                                                            random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
                                                                assessmentSection.GetFailureMechanisms()

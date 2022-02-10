@@ -38,6 +38,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
         IEnumerable<CombinedFailureMechanismSectionAssemblyOld> AssembleCombinedFailureMechanismSections(
-            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input, double assessmentSectionLength);
+            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> input, double assessmentSectionLength);
     }
 }

@@ -35,7 +35,7 @@ namespace Riskeer.AssemblyTool.Data
         /// <param name="section">The section of the assembly.</param>
         /// <param name="failureMechanismResults">The assembly results per failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public CombinedFailureMechanismSectionAssemblyOld(CombinedAssemblyFailureMechanismSection section,
+        public CombinedFailureMechanismSectionAssemblyOld(CombinedAssemblyFailureMechanismSectionOld section,
                                                        IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismResults)
         {
             if (section == null)
@@ -55,7 +55,7 @@ namespace Riskeer.AssemblyTool.Data
         /// <summary>
         /// Gets the section of the assembly.
         /// </summary>
-        public CombinedAssemblyFailureMechanismSection Section { get; }
+        public CombinedAssemblyFailureMechanismSectionOld Section { get; }
 
         /// <summary>
         /// Gets the assembly results per failure mechanism.

@@ -56,8 +56,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             {
                 new[]
                 {
-                    new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
-                    new CombinedAssemblyFailureMechanismSection(1, 2, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                    new CombinedAssemblyFailureMechanismSectionOld(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
+                    new CombinedAssemblyFailureMechanismSectionOld(1, 2, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
                 }
             };
 
@@ -76,7 +76,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             {
                 new[]
                 {
-                    new CombinedAssemblyFailureMechanismSection(0, 1, (FailureMechanismSectionAssemblyCategoryGroup) 99)
+                    new CombinedAssemblyFailureMechanismSectionOld(0, 1, (FailureMechanismSectionAssemblyCategoryGroup) 99)
                 }
             });
 
@@ -102,7 +102,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             {
                 new[]
                 {
-                    new CombinedAssemblyFailureMechanismSection(0, 1, originalGroup)
+                    new CombinedAssemblyFailureMechanismSectionOld(0, 1, originalGroup)
                 }
             });
 

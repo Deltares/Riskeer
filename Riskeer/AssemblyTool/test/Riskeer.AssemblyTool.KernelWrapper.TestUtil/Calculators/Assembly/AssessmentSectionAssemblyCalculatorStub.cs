@@ -39,7 +39,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets the combined failure mechanism sections input.
         /// </summary>
-        public IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> CombinedFailureMechanismSectionsInput { get; private set; }
+        public IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> CombinedFailureMechanismSectionsInput { get; private set; }
 
         /// <summary>
         /// Gets the assessment section length input.
@@ -52,7 +52,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public IEnumerable<CombinedFailureMechanismSectionAssemblyOld> CombinedFailureMechanismSectionAssemblyOutput { get; set; }
 
         public IEnumerable<CombinedFailureMechanismSectionAssemblyOld> AssembleCombinedFailureMechanismSections(
-            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input, double assessmentSectionLength)
+            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> input, double assessmentSectionLength)
         {
             if (ThrowExceptionOnCalculate)
             {

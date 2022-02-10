@@ -47,7 +47,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>
         /// is a valid value, but unsupported.</exception>
         public static IEnumerable<FailureMechanismSectionList> Create(
-            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> failureMechanismSectionsCollection)
+            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> failureMechanismSectionsCollection)
         {
             if (failureMechanismSectionsCollection == null)
             {

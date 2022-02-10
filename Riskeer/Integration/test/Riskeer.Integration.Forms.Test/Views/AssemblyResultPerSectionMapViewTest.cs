@@ -451,7 +451,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                                                                                                              FailureMechanismSectionAssemblyCategoryGroup totalResult)
         {
             var random = new Random(37);
-            return new CombinedFailureMechanismSectionAssemblyOld(new CombinedAssemblyFailureMechanismSection(random.NextDouble(),
+            return new CombinedFailureMechanismSectionAssemblyOld(new CombinedAssemblyFailureMechanismSectionOld(random.NextDouble(),
                                                                                                            random.NextDouble(),
                                                                                                            totalResult),
                                                                assessmentSection.GetFailureMechanisms()

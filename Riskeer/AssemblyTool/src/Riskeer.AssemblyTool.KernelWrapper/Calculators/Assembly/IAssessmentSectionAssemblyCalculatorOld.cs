@@ -76,7 +76,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssemblyOld"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
-        IEnumerable<CombinedFailureMechanismSectionAssemblyOld> AssembleCombinedFailureMechanismSections(IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input,
+        IEnumerable<CombinedFailureMechanismSectionAssemblyOld> AssembleCombinedFailureMechanismSections(IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> input,
                                                                                                       double assessmentSectionLength);
     }
 }

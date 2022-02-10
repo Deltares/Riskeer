@@ -24,15 +24,15 @@ namespace Riskeer.AssemblyTool.Data
     /// <summary>
     /// The failure mechanism section of a combined assembly.
     /// </summary>
-    public class CombinedAssemblyFailureMechanismSection
+    public class CombinedAssemblyFailureMechanismSectionOld
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CombinedAssemblyFailureMechanismSection"/>.
+        /// Creates a new instance of <see cref="CombinedAssemblyFailureMechanismSectionOld"/>.
         /// </summary>
         /// <param name="sectionStart">The start of the section from the beginning of the reference line in meters.</param>
         /// <param name="sectionEnd">The end of the section from the beginning of the reference line in meters.</param>
         /// <param name="categoryGroup">The category group assembly.</param>
-        public CombinedAssemblyFailureMechanismSection(double sectionStart, double sectionEnd, FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
+        public CombinedAssemblyFailureMechanismSectionOld(double sectionStart, double sectionEnd, FailureMechanismSectionAssemblyCategoryGroup categoryGroup)
         {
             SectionStart = sectionStart;
             SectionEnd = sectionEnd;

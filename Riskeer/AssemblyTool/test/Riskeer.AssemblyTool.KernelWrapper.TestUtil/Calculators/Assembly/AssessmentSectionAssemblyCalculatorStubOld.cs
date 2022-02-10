@@ -75,7 +75,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets the combined failure mechanism sections input.
         /// </summary>
-        public IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> CombinedFailureMechanismSectionsInput { get; private set; }
+        public IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> CombinedFailureMechanismSectionsInput { get; private set; }
 
         /// <summary>
         /// Gets the assessment section length input.
@@ -165,7 +165,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return AssembleAssessmentSectionCategoryGroupOutput.Value;
         }
 
-        public IEnumerable<CombinedFailureMechanismSectionAssemblyOld> AssembleCombinedFailureMechanismSections(IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input,
+        public IEnumerable<CombinedFailureMechanismSectionAssemblyOld> AssembleCombinedFailureMechanismSections(IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> input,
                                                                                                              double assessmentSectionLength)
         {
             if (ThrowExceptionOnCalculate)
@@ -179,7 +179,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             return CombinedFailureMechanismSectionAssemblyOutput ?? (CombinedFailureMechanismSectionAssemblyOutput = new[]
                                                                         {
                                                                             new CombinedFailureMechanismSectionAssemblyOld(
-                                                                                new CombinedAssemblyFailureMechanismSection(0, 1, FailureMechanismSectionAssemblyCategoryGroup.IIIv),
+                                                                                new CombinedAssemblyFailureMechanismSectionOld(0, 1, FailureMechanismSectionAssemblyCategoryGroup.IIIv),
                                                                                 input.Select(failureMechanism => FailureMechanismSectionAssemblyCategoryGroup.VIv).ToArray())
                                                                         });
         }

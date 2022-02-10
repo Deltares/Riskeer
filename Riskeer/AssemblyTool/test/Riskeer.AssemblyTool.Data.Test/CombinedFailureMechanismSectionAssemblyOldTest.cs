@@ -46,7 +46,7 @@ namespace Riskeer.AssemblyTool.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var section = new CombinedAssemblyFailureMechanismSection(random.NextDouble(), random.NextDouble(),
+            var section = new CombinedAssemblyFailureMechanismSectionOld(random.NextDouble(), random.NextDouble(),
                                                                       random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
 
             // Call
@@ -62,7 +62,7 @@ namespace Riskeer.AssemblyTool.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var section = new CombinedAssemblyFailureMechanismSection(random.NextDouble(), random.NextDouble(),
+            var section = new CombinedAssemblyFailureMechanismSectionOld(random.NextDouble(), random.NextDouble(),
                                                                       random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
             IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismResults = Enumerable.Empty<FailureMechanismSectionAssemblyCategoryGroup>();
 

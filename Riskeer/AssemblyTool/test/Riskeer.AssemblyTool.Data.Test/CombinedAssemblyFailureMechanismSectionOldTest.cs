@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Riskeer.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class CombinedAssemblyFailureMechanismSectionTest
+    public class CombinedAssemblyFailureMechanismSectionOldTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -38,7 +38,7 @@ namespace Riskeer.AssemblyTool.Data.Test
             var categoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             // Call
-            var assembly = new CombinedAssemblyFailureMechanismSection(sectionStart, sectionEnd, categoryGroup);
+            var assembly = new CombinedAssemblyFailureMechanismSectionOld(sectionStart, sectionEnd, categoryGroup);
 
             // Assert
             Assert.AreEqual(sectionStart, assembly.SectionStart);

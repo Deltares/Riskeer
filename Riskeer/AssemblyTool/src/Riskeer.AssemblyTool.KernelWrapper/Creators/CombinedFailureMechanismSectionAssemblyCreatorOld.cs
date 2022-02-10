@@ -66,9 +66,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             return sectionAssemblies;
         }
 
-        private static CombinedAssemblyFailureMechanismSection CreateSection(FmSectionWithDirectCategory section)
+        private static CombinedAssemblyFailureMechanismSectionOld CreateSection(FmSectionWithDirectCategory section)
         {
-            return new CombinedAssemblyFailureMechanismSection(
+            return new CombinedAssemblyFailureMechanismSectionOld(
                 section.SectionStart, section.SectionEnd,
                 FailureMechanismSectionAssemblyCreatorOld.CreateFailureMechanismSectionAssemblyCategoryGroup(section.Category));
         }

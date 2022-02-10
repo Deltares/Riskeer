@@ -37,25 +37,25 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original collection of <see cref="CombinedAssemblyFailureMechanismSection"/>
+        /// <param name="original">The original collection of <see cref="CombinedAssemblyFailureMechanismSectionOld"/>
         /// collections.</param>
         /// <param name="actual">The actual collection of <see cref="FailureMechanismSectionList"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertCombinedFailureMechanismInput(IEnumerable<CombinedAssemblyFailureMechanismSection[]> original, IEnumerable<FailureMechanismSectionList> actual)
+        public static void AssertCombinedFailureMechanismInput(IEnumerable<CombinedAssemblyFailureMechanismSectionOld[]> original, IEnumerable<FailureMechanismSectionList> actual)
         {
             Assert.AreEqual(original.Count(), actual.Count());
 
             for (var i = 0; i < original.Count(); i++)
             {
-                CombinedAssemblyFailureMechanismSection[] sections = original.ElementAt(i);
+                CombinedAssemblyFailureMechanismSectionOld[] sections = original.ElementAt(i);
                 FailureMechanismSectionList sectionList = actual.ElementAt(i);
                 Assert.IsEmpty(sectionList.FailureMechanismId);
                 AssertSections(sections, sectionList.Sections);
             }
         }
 
-        private static void AssertSections(IEnumerable<CombinedAssemblyFailureMechanismSection> originalSections, IEnumerable<FailureMechanismSection> failureMechanismSections)
+        private static void AssertSections(IEnumerable<CombinedAssemblyFailureMechanismSectionOld> originalSections, IEnumerable<FailureMechanismSection> failureMechanismSections)
         {
             Assert.AreEqual(originalSections.Count(), failureMechanismSections.Count());
             Assert.IsTrue(failureMechanismSections.All(r => r.GetType() == typeof(FmSectionWithDirectCategory)));

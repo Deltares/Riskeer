@@ -596,7 +596,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 {
                     new[]
                     {
-                        new CombinedAssemblyFailureMechanismSection(0, 1, (FailureMechanismSectionAssemblyCategoryGroup) 99)
+                        new CombinedAssemblyFailureMechanismSectionOld(0, 1, (FailureMechanismSectionAssemblyCategoryGroup) 99)
                     }
                 }, random.Next());
 
@@ -616,7 +616,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 new[]
                 {
-                    new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                    new CombinedAssemblyFailureMechanismSectionOld(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
                 }
             };
             double assessmentSectionLength = random.NextDouble();
@@ -676,7 +676,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 {
                     new[]
                     {
-                        new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                        new CombinedAssemblyFailureMechanismSectionOld(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
                     }
                 }, random.NextDouble()).ToArray();
 
@@ -713,7 +713,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 {
                     new[]
                     {
-                        new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                        new CombinedAssemblyFailureMechanismSectionOld(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
                     }
                 }, random.NextDouble()).ToArray();
 
@@ -743,7 +743,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 {
                     new[]
                     {
-                        new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                        new CombinedAssemblyFailureMechanismSectionOld(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
                     }
                 }, random.NextDouble()).ToArray();
 
@@ -773,7 +773,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 {
                     new[]
                     {
-                        new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
+                        new CombinedAssemblyFailureMechanismSectionOld(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>())
                     }
                 }, random.NextDouble()).ToArray();
 

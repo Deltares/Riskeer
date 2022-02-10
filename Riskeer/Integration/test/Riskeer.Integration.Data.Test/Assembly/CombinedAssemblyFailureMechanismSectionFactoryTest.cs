@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
-                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
+                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
                     assessmentSection, assessmentSection.GetFailureMechanisms(), random.NextBoolean());
 
                 // Assert
@@ -120,7 +120,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
-                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
+                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
                     assessmentSection, new[]
                     {
                         failureMechanismInAssembly
@@ -155,7 +155,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
         private static void AssertSectionsWithResult<T>(IEnumerable<T> originalSectionResults,
                                                         FailureMechanismSectionAssemblyCategoryGroup expectedAssemblyCategoryGroupInput,
-                                                        IEnumerable<CombinedAssemblyFailureMechanismSection> inputSections)
+                                                        IEnumerable<CombinedAssemblyFailureMechanismSectionOld> inputSections)
             where T : FailureMechanismSectionResultOld
         {
             AssertSections(originalSectionResults, inputSections);
@@ -166,7 +166,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             }
         }
 
-        private static void AssertSections<T>(IEnumerable<T> originalSectionResults, IEnumerable<CombinedAssemblyFailureMechanismSection> inputSections)
+        private static void AssertSections<T>(IEnumerable<T> originalSectionResults, IEnumerable<CombinedAssemblyFailureMechanismSectionOld> inputSections)
             where T : FailureMechanismSectionResultOld
         {
             Assert.AreEqual(originalSectionResults.Count(), inputSections.Count());
@@ -197,7 +197,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
-                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, new[]
+                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> input = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, new[]
                 {
                     failureMechanismInAssembly
                 }, true);
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // When
-                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, new[]
+                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> input = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, new[]
                 {
                     failureMechanismInAssembly
                 }, false);
@@ -247,7 +247,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
-                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, new[]
+                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> input = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, new[]
                 {
                     failureMechanismInAssembly
                 }, true);
@@ -266,7 +266,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // When
-                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, new[]
+                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> input = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, new[]
                 {
                     failureMechanismInAssembly
                 }, false);
@@ -279,7 +279,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         private static void AssertInputForFailureMechanismsWithoutProbabilityWithManualAssembly(IFailureMechanism failureMechanism,
-                                                                                                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> actualInput)
+                                                                                                IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> actualInput)
         {
             var duneErosion = failureMechanism as DuneErosionFailureMechanism;
             if (duneErosion != null)

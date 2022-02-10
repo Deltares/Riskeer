@@ -90,8 +90,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
                                                                                     })
                                                                                     .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
-            var section1 = new CombinedAssemblyFailureMechanismSection(0, 5, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var section2 = new CombinedAssemblyFailureMechanismSection(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var section1 = new CombinedAssemblyFailureMechanismSectionOld(0, 5, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var section2 = new CombinedAssemblyFailureMechanismSectionOld(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
             var output = new[]
             {
                 new CombinedFailureMechanismSectionAssemblyOld(section1, GetFailureMechanismsOutput(failureMechanisms.Keys, random)),
@@ -143,8 +143,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
                                                                                     })
                                                                                     .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
-            var section1 = new CombinedAssemblyFailureMechanismSection(0, 5, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var section2 = new CombinedAssemblyFailureMechanismSection(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var section1 = new CombinedAssemblyFailureMechanismSectionOld(0, 5, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var section2 = new CombinedAssemblyFailureMechanismSectionOld(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
             var output = new[]
             {
                 new CombinedFailureMechanismSectionAssemblyOld(section1, GetFailureMechanismsOutput(failureMechanisms.Keys, random)),

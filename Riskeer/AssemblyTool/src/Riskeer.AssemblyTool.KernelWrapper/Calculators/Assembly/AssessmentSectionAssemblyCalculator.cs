@@ -49,7 +49,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         }
 
         public IEnumerable<CombinedFailureMechanismSectionAssemblyOld> AssembleCombinedFailureMechanismSections(
-            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input, double assessmentSectionLength)
+            IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> input, double assessmentSectionLength)
         {
             return new List<CombinedFailureMechanismSectionAssemblyOld>();
         }

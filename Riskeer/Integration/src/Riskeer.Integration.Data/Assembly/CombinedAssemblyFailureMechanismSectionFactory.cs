@@ -41,19 +41,19 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 namespace Riskeer.Integration.Data.Assembly
 {
     /// <summary>
-    /// Factory that creates <see cref="CombinedAssemblyFailureMechanismSection"/> instances.
+    /// Factory that creates <see cref="CombinedAssemblyFailureMechanismSectionOld"/> instances.
     /// </summary>
     internal static class CombinedAssemblyFailureMechanismSectionFactory
     {
         /// <summary>
-        /// Creates a collection of <see cref="CombinedAssemblyFailureMechanismSection"/> collections.
+        /// Creates a collection of <see cref="CombinedAssemblyFailureMechanismSectionOld"/> collections.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to use.</param>
         /// <param name="failureMechanisms">The failure mechanisms to build input for.</param>
         /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
-        /// <returns>A collection of <see cref="CombinedAssemblyFailureMechanismSection"/> collections.</returns>
+        /// <returns>A collection of <see cref="CombinedAssemblyFailureMechanismSectionOld"/> collections.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> CreateInput(AssessmentSection assessmentSection,
+        public static IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>> CreateInput(AssessmentSection assessmentSection,
                                                                                                     IEnumerable<IFailureMechanism> failureMechanisms,
                                                                                                     bool useManual)
         {
@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Data.Assembly
                 throw new ArgumentNullException(nameof(failureMechanisms));
             }
 
-            var inputs = new List<IEnumerable<CombinedAssemblyFailureMechanismSection>>();
+            var inputs = new List<IEnumerable<CombinedAssemblyFailureMechanismSectionOld>>();
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             if (failureMechanisms.Contains(pipingFailureMechanism))
@@ -177,7 +177,7 @@ namespace Riskeer.Integration.Data.Assembly
             return inputs;
         }
 
-        private static IEnumerable<CombinedAssemblyFailureMechanismSection> CreateCombinedSections<TFailureMechanismSectionResult>(
+        private static IEnumerable<CombinedAssemblyFailureMechanismSectionOld> CreateCombinedSections<TFailureMechanismSectionResult>(
             IEnumerable<TFailureMechanismSectionResult> sectionResults,
             AssessmentSection assessmentSection,
             Func<TFailureMechanismSectionResult, AssessmentSection, bool, FailureMechanismSectionAssemblyCategoryGroup> getAssemblyFunc,
@@ -188,7 +188,7 @@ namespace Riskeer.Integration.Data.Assembly
 
             return sectionResults.Select(sectionResult =>
                                  {
-                                     CombinedAssemblyFailureMechanismSection section = CreateSection(sectionResult,
+                                     CombinedAssemblyFailureMechanismSectionOld section = CreateSection(sectionResult,
                                                                                                      getAssemblyFunc(sectionResult,
                                                                                                                      assessmentSection,
                                                                                                                      useManual),
@@ -199,7 +199,7 @@ namespace Riskeer.Integration.Data.Assembly
                                  .ToArray();
         }
 
-        private static IEnumerable<CombinedAssemblyFailureMechanismSection> CreateCombinedSections<TFailureMechanismSectionResult>(
+        private static IEnumerable<CombinedAssemblyFailureMechanismSectionOld> CreateCombinedSections<TFailureMechanismSectionResult>(
             IEnumerable<TFailureMechanismSectionResult> sectionResults,
             Func<TFailureMechanismSectionResult, bool, FailureMechanismSectionAssemblyCategoryGroup> getAssemblyFunc,
             bool useManual)
@@ -209,20 +209,20 @@ namespace Riskeer.Integration.Data.Assembly
 
             return sectionResults.Select(sectionResult =>
                                  {
-                                     CombinedAssemblyFailureMechanismSection section = CreateSection(sectionResult, getAssemblyFunc(sectionResult, useManual), totalSectionsLength);
+                                     CombinedAssemblyFailureMechanismSectionOld section = CreateSection(sectionResult, getAssemblyFunc(sectionResult, useManual), totalSectionsLength);
                                      totalSectionsLength = section.SectionEnd;
                                      return section;
                                  })
                                  .ToArray();
         }
 
-        private static CombinedAssemblyFailureMechanismSection CreateSection<TFailureMechanismSectionResult>(
+        private static CombinedAssemblyFailureMechanismSectionOld CreateSection<TFailureMechanismSectionResult>(
             TFailureMechanismSectionResult sectionResult, FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup,
             double sectionStart)
             where TFailureMechanismSectionResult : FailureMechanismSectionResultOld
         {
             double sectionEnd = sectionResult.Section.Length + sectionStart;
-            return new CombinedAssemblyFailureMechanismSection(sectionStart, sectionEnd, assemblyCategoryGroup);
+            return new CombinedAssemblyFailureMechanismSectionOld(sectionStart, sectionEnd, assemblyCategoryGroup);
         }
 
         #region Assembly Funcs

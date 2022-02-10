@@ -163,7 +163,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
         private static CombinedFailureMechanismSectionAssemblyOld CreateCombinedFailureMechanismSectionAssembly(AssessmentSection assessmentSection, int seed)
         {
             var random = new Random(seed);
-            return new CombinedFailureMechanismSectionAssemblyOld(new CombinedAssemblyFailureMechanismSection(random.NextDouble(),
+            return new CombinedFailureMechanismSectionAssemblyOld(new CombinedAssemblyFailureMechanismSectionOld(random.NextDouble(),
                                                                                                            random.NextDouble(),
                                                                                                            random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
                                                                assessmentSection.GetFailureMechanisms()
