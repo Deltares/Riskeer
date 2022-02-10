@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 failureMechanismAssemblyCalculator.FailureMechanismAssemblyOutput = new FailureMechanismAssembly(
                     random.NextDouble(), random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
 
-                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
 
                 // Call
                 AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(assessmentSection,
@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.AssembleFailureMechanismsAssemblyOutput = new FailureMechanismAssembly(
                     random.NextDouble(), random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
 
@@ -126,7 +126,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -232,7 +232,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 FailureMechanismAssemblyCalculatorOldStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
                 failureMechanismAssemblyCalculator.FailureMechanismAssemblyCategoryGroupOutput = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
 
-                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
 
                 // Call
                 AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(assessmentSection, random.NextBoolean());
@@ -254,7 +254,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
 
                 // Call
@@ -273,7 +273,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -455,7 +455,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 FailureMechanismAssemblyCalculatorOldStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
-                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyOutput = new FailureMechanismAssembly(
                     random.NextDouble(), random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
                 assessmentSectionAssemblyCalculator.AssembleFailureMechanismsAssemblyCategoryGroupOutput = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
@@ -489,7 +489,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.AssembleFailureMechanismsAssemblyOutput = new FailureMechanismAssembly(
                     random.NextDouble(), random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
                 calculator.AssembleAssessmentSectionCategoryGroupOutput = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
@@ -509,7 +509,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -687,7 +687,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssembly[0];
 
                 // Call
@@ -725,7 +725,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
                 {
                     CreateCombinedFailureMechanismSectionAssembly(assessmentSection, 20),
@@ -785,7 +785,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -904,7 +904,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
         private static void AssertGroup1And2FailureMechanismInputs(AssessmentSection assessmentSection,
                                                                    FailureMechanismAssembly expectedFailureMechanismAssembly,
-                                                                   AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator)
+                                                                   AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator)
         {
             IEnumerable<IFailureMechanism> expectedFailureMechanisms = GetExpectedGroup1And2FailureMechanisms(assessmentSection);
             IEnumerable<FailureMechanismAssembly> failureMechanismAssemblyInput = assessmentSectionAssemblyCalculator.FailureMechanismAssemblyInput;
@@ -918,7 +918,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
         private static void AssertGroup3And4FailureMechanismInputs(AssessmentSection assessmentSection,
                                                                    FailureMechanismAssemblyCategoryGroup expectedAssemblyCategoryGroup,
-                                                                   AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator)
+                                                                   AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator)
         {
             IEnumerable<IFailureMechanism> expectedFailureMechanisms = GetExpectedGroup3And4FailureMechanisms(assessmentSection);
             IEnumerable<FailureMechanismAssemblyCategoryGroup> failureMechanismAssemblyInput =

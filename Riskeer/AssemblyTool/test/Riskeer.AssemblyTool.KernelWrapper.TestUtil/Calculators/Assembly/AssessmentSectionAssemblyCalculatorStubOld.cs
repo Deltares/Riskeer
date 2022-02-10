@@ -30,7 +30,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
     /// <summary>
     /// Assessment section assembly calculator stub for testing purposes.
     /// </summary>
-    public class AssessmentSectionAssemblyCalculatorStub : IAssessmentSectionAssemblyCalculatorOld
+    public class AssessmentSectionAssemblyCalculatorStubOld : IAssessmentSectionAssemblyCalculatorOld
     {
         /// <summary>
         /// Gets the lower norm input when assembling the assessment section with failure mechanisms

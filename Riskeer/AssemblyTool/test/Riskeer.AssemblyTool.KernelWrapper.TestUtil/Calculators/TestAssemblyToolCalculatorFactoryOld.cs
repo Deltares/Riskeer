@@ -41,7 +41,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
             LastCreatedAssemblyCategoriesCalculator = new AssemblyCategoriesCalculatorStub();
             LastCreatedFailureMechanismSectionAssemblyCalculator = new FailureMechanismSectionAssemblyCalculatorOldStub();
             LastCreatedFailureMechanismAssemblyCalculator = new FailureMechanismAssemblyCalculatorOldStub();
-            LastCreatedAssessmentSectionAssemblyCalculator = new AssessmentSectionAssemblyCalculatorStub();
+            LastCreatedAssessmentSectionAssemblyCalculator = new AssessmentSectionAssemblyCalculatorStubOld();
         }
 
         /// <summary>
@@ -60,9 +60,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         public FailureMechanismAssemblyCalculatorOldStub LastCreatedFailureMechanismAssemblyCalculator { get; }
 
         /// <summary>
-        /// Gets the last created <see cref="AssessmentSectionAssemblyCalculatorStub"/>.
+        /// Gets the last created <see cref="AssessmentSectionAssemblyCalculatorStubOld"/>.
         /// </summary>
-        public AssessmentSectionAssemblyCalculatorStub LastCreatedAssessmentSectionAssemblyCalculator { get; }
+        public AssessmentSectionAssemblyCalculatorStubOld LastCreatedAssessmentSectionAssemblyCalculator { get; }
 
         public IAssemblyCategoriesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactoryOld factory)
         {

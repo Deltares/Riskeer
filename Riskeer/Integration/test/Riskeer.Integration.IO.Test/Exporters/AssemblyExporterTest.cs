@@ -96,7 +96,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 assessmentSectionAssemblyCalculator.ThrowExceptionOnCalculate = true;
 
                 // Call
@@ -124,7 +124,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 assessmentSectionAssemblyCalculator.AssembleAssessmentSectionCategoryGroupOutput = invalidAssessmentSectionAssemblyCategoryGroup;
 
                 // Call
