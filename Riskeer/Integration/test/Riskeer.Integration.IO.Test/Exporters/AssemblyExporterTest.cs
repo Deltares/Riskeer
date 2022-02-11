@@ -186,62 +186,64 @@ namespace Riskeer.Integration.IO.Test.Exporters
             }
         }
 
-        // [Test]
-        // public void Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile()
-        // {
-        //     // Setup
-        //     string filePath = TestHelper.GetScratchPadPath(nameof(Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile));
-        //     AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
-        //
-        //     var exporter = new AssemblyExporter(assessmentSection, filePath);
-        //
-        //     using (new FileDisposeHelper(filePath))
-        //     using (new AssemblyToolCalculatorFactoryConfigOld())
-        //     {
-        //         var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-        //         AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-        //         assessmentSectionAssemblyCalculator.AssembleAssessmentSectionCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.A;
-        //
-        //         // Call
-        //         bool isExported = exporter.Export();
-        //
-        //         // Assert
-        //         Assert.IsTrue(File.Exists(filePath));
-        //         Assert.IsTrue(isExported);
-        //
-        //         string expectedGmlFilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
-        //                                                   nameof(AssemblyExporter), "ExpectedGml.gml");
-        //         string expectedGml = File.ReadAllText(expectedGmlFilePath);
-        //         string actualGml = File.ReadAllText(filePath);
-        //         Assert.AreEqual(expectedGml, actualGml);
-        //     }
-        // }
-        //
-        // [Test]
-        // public void Export_InvalidDirectoryRights_LogsErrorAndReturnsFalse()
-        // {
-        //     // Setup
-        //     string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogsErrorAndReturnsFalse));
-        //     AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
-        //
-        //     var exporter = new AssemblyExporter(assessmentSection, filePath);
-        //
-        //     using (var fileDisposeHelper = new FileDisposeHelper(filePath))
-        //     using (new AssemblyToolCalculatorFactoryConfigOld())
-        //     {
-        //         fileDisposeHelper.LockFiles();
-        //
-        //         // Call
-        //         var isExported = true;
-        //         Action call = () => isExported = exporter.Export();
-        //
-        //         // Assert
-        //         string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
-        //                                  "Er is geen toetsoordeel geëxporteerd.";
-        //         TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
-        //         Assert.IsFalse(isExported);
-        //     }
-        // }
+        [Test]
+        [Explicit("Fix this test in WTI-2681")]
+        public void Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile));
+            AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
+        
+            var exporter = new AssemblyExporter(assessmentSection, filePath);
+        
+            using (new FileDisposeHelper(filePath))
+            using (new AssemblyToolCalculatorFactoryConfigOld())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
+                AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                assessmentSectionAssemblyCalculator.AssembleAssessmentSectionCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.A;
+        
+                // Call
+                bool isExported = exporter.Export();
+        
+                // Assert
+                Assert.IsTrue(File.Exists(filePath));
+                Assert.IsTrue(isExported);
+        
+                string expectedGmlFilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
+                                                          nameof(AssemblyExporter), "ExpectedGml.gml");
+                string expectedGml = File.ReadAllText(expectedGmlFilePath);
+                string actualGml = File.ReadAllText(filePath);
+                Assert.AreEqual(expectedGml, actualGml);
+            }
+        }
+        
+        [Test]
+        [Explicit("Fix this test in WTI-2681")]
+        public void Export_InvalidDirectoryRights_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogsErrorAndReturnsFalse));
+            AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
+        
+            var exporter = new AssemblyExporter(assessmentSection, filePath);
+        
+            using (var fileDisposeHelper = new FileDisposeHelper(filePath))
+            using (new AssemblyToolCalculatorFactoryConfigOld())
+            {
+                fileDisposeHelper.LockFiles();
+        
+                // Call
+                var isExported = true;
+                Action call = () => isExported = exporter.Export();
+        
+                // Assert
+                string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
+                                         "Er is geen toetsoordeel geëxporteerd.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                Assert.IsFalse(isExported);
+            }
+        }
 
         private static AssessmentSection CreateConfiguredAssessmentSection()
         {
