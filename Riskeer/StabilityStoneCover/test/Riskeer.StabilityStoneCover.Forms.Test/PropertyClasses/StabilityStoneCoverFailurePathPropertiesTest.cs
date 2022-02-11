@@ -166,7 +166,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
                                                                             "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
-            PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex - 1];
+            PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
                                                                             generalCategory,
                                                                             "In assemblage",
