@@ -20,15 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
@@ -41,10 +38,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
-        private const int contributionPropertyIndex = 4;
-        private const int inAssemblyPropertyIndex = 5;
-        private const int nPropertyIndex = 6;
-        private const int applyLengthEffectInSectionPropertyIndex = 7;
+        private const int inAssemblyPropertyIndex = 4;
+        private const int nPropertyIndex = 5;
+        private const int applyLengthEffectInSectionPropertyIndex = 6;
 
         private readonly IAssessmentSection assessmentSection;
 
@@ -79,8 +75,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 
         private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
         {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(N).Equals(propertyName)
+            return nameof(N).Equals(propertyName)
                    || nameof(ApplyLengthEffectInSection).Equals(propertyName);
         }
 
@@ -159,20 +154,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
             get
             {
                 return data.Group;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(contributionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Contribution_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Contribution_Description))]
-        public string Contribution
-        {
-            get
-            {
-                return string.Format(Resources.FailureMechanismProperties_Contribution_Other_Percentage_0,
-                                     assessmentSection.GetContributingFailureMechanisms().Single(fm => fm is OtherFailureMechanism).Contribution);
             }
         }
 
