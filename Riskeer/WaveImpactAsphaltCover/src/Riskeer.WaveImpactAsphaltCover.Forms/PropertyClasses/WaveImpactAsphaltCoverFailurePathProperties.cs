@@ -39,12 +39,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
         private const int groupPropertyIndex = 3;
-        private const int contributionPropertyIndex = 4;
-        private const int inAssemblyPropertyIndex = 5;
-        private const int sectionLengthPropertyIndex = 6;
+        private const int inAssemblyPropertyIndex = 4;
+        private const int sectionLengthPropertyIndex = 5;
         private const int deltaLPropertyIndex = 7;
-        private const int nPropertyIndex = 8;
-        private const int applyLengthEffectInSectionPropertyIndex = 9;
+        private const int nPropertyIndex = 7;
+        private const int applyLengthEffectInSectionPropertyIndex = 8;
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -76,8 +75,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
 
         private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
         {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(DeltaL).Equals(propertyName)
+            return nameof(DeltaL).Equals(propertyName)
                    || nameof(SectionLength).Equals(propertyName)
                    || nameof(N).Equals(propertyName)
                    || nameof(ApplyLengthEffectInSection).Equals(propertyName);
@@ -106,19 +104,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
             get
             {
                 return data.InAssembly;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(contributionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Contribution_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Contribution_Description))]
-        public double Contribution
-        {
-            get
-            {
-                return data.Contribution;
             }
         }
 
