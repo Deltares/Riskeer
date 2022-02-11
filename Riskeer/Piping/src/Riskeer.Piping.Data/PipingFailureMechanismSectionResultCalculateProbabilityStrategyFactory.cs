@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -27,15 +28,41 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 
 namespace Riskeer.Piping.Data
 {
+    /// <summary>
+    /// Factory to create instances of <see cref="IFailureMechanismSectionResultCalculateProbabilityStrategy"/> for section results
+    /// of the <see cref="PipingFailureMechanism"/>.
+    /// </summary>
     public static class PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory
     {
-        public static IFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(
-            PipingFailureMechanism failureMechanism,
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
-            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection,
-            IAssessmentSection assessmentSection)
+        /// <summary>
+        /// Creates a <see cref="IFailureMechanismSectionResultCalculateProbabilityStrategy"/> based on the input arguments.
+        /// </summary>
+        /// <param name="sectionResult">The section result to create the strategy for.</param>
+        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to create the strategy with.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to create the strategy with.</param>
+        /// <returns>An <see cref="IFailureMechanismSectionResultCalculateProbabilityStrategy"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IFailureMechanismSectionResultCalculateProbabilityStrategy CreateCalculateStrategy(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
+                                                                                                         PipingFailureMechanism failureMechanism,
+                                                                                                         IAssessmentSection assessmentSection)
         {
-            bool scenarioConfigurationTypeIsSemiProbabilistic = failureMechanism.ScenarioConfigurationTypeIsSemiProbabilistic(scenarioConfigurationForSection);
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+            
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            bool scenarioConfigurationTypeIsSemiProbabilistic = failureMechanism.ScenarioConfigurationTypeIsSemiProbabilistic(
+                failureMechanism.GetScenarioConfigurationForSection(sectionResult));
 
             return scenarioConfigurationTypeIsSemiProbabilistic
                        ? (IFailureMechanismSectionResultCalculateProbabilityStrategy) CreateSemiProbabilisticCalculateStrategy(failureMechanism, sectionResult, assessmentSection)
