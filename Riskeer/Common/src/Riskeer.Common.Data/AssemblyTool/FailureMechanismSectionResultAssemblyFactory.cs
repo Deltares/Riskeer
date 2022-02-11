@@ -32,13 +32,42 @@ using Riskeer.Common.Primitives;
 
 namespace Riskeer.Common.Data.AssemblyTool
 {
+    /// <summary>
+    /// Factory for creating assembly results for a failure mechanism section.
+    /// </summary>
     public static class FailureMechanismSectionResultAssemblyFactory
     {
+        /// <summary>
+        /// Assembles a failure mechanism section result based on the input arguments. 
+        /// </summary>
+        /// <param name="sectionResult">The section result to assemble for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to assemble with.</param>
+        /// <param name="calculateProbabilityStrategy">The <see cref="IFailureMechanismSectionResultCalculateProbabilityStrategy"/>
+        /// to assemble with.</param>
+        /// <param name="useLengthEffect">Indicator whether to use the length effect or not.</param>
+        /// <param name="sectionN">The N value for the section.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public static FailureMechanismSectionAssemblyResult AssembleSection(
             AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult, IAssessmentSection assessmentSection,
             IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
             bool useLengthEffect, double sectionN)
         {
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (calculateProbabilityStrategy == null)
+            {
+                throw new ArgumentNullException(nameof(calculateProbabilityStrategy));
+            }
+
             bool adopt = sectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt;
             double initialFailureMechanismResultSectionProbability =
                 adopt
