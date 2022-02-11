@@ -63,11 +63,8 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection =
-                failureMechanism.GetScenarioConfigurationForSection(sectionResult);
-
             IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy =
-                PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(sectionResult, scenarioConfigurationForSection, failureMechanism, assessmentSection);
+                PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(sectionResult, failureMechanism, assessmentSection);
 
             return FailureMechanismSectionResultAssemblyFactory.AssembleSection(
                 sectionResult, assessmentSection, calculateProbabilityStrategy,

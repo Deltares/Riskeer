@@ -120,12 +120,10 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override AdoptableWithProfileProbabilityFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
-            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection = FailureMechanism.GetScenarioConfigurationForSection(sectionResult);
-
             return new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(
                 sectionResult,
-                PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(sectionResult, scenarioConfigurationForSection, FailureMechanism, assessmentSection),
-                CreateErrorProvider(sectionResult, scenarioConfigurationForSection),
+                PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(sectionResult, FailureMechanism, assessmentSection),
+                CreateErrorProvider(sectionResult),
                 () => PipingFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, assessmentSection),
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
@@ -198,9 +196,9 @@ namespace Riskeer.Piping.Forms.Views
                 nameof(AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.AssemblyGroup));
         }
 
-        private IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider CreateErrorProvider(
-            FailureMechanismSectionResult sectionResult, PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection)
+        private IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider CreateErrorProvider(FailureMechanismSectionResult sectionResult)
         {
+            PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationForSection = FailureMechanism.GetScenarioConfigurationForSection(sectionResult);
             IEnumerable<IPipingCalculationScenario<PipingInput>> calculationScenarios = FailureMechanism.ScenarioConfigurationTypeIsSemiProbabilistic(scenarioConfigurationForSection)
                                                                                             ? (IEnumerable<IPipingCalculationScenario<PipingInput>>) FailureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
                                                                                             : FailureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>();
