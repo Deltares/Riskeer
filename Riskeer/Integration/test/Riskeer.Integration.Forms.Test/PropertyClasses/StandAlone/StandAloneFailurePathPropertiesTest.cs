@@ -48,25 +48,19 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            void Call() => new StandAloneFailurePathProperties(null, assessmentSection);
+            void Call() => new StandAloneFailurePathProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanism", paramName);
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new StandAloneFailurePathProperties(new TestFailureMechanism(), null);
+            void Call() => new StandAloneFailurePathProperties(new TestFailureMechanism());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -102,7 +96,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             mocks.ReplayAll();
 
             // Call
-            var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new StandAloneFailurePathProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<IHasGeneralInput>>(properties);
@@ -121,17 +115,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         public void Constructor_InAssemblyTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new TestFailureMechanism
             {
                 InAssembly = true
             };
 
             // Call
-            var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new StandAloneFailurePathProperties(failureMechanism);
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -179,25 +169,19 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             lengthEffectCategory,
                                                                             "Toepassen lengte-effect binnen vak",
                                                                             "Geeft aan of het lengte-effect binnen een vak toegepast wordt.");
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_InAssemblyFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new TestFailureMechanism
             {
                 InAssembly = false
             };
 
             // Call
-            var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new StandAloneFailurePathProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -232,8 +216,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -247,10 +229,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             var mocks = new MockRepository();
             var failureMechanism = mocks.StrictMock<IHasGeneralInput>();
             failureMechanism.Stub(fm => fm.GeneralInput).Return(new GeneralInput());
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new StandAloneFailurePathProperties(failureMechanism);
 
             // Call
             void Call() => properties.N = (RoundedDouble) newN;
@@ -273,10 +254,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             var failureMechanism = mocks.StrictMock<IHasGeneralInput>();
             failureMechanism.Expect(fm => fm.NotifyObservers());
             failureMechanism.Stub(fm => fm.GeneralInput).Return(new GeneralInput());
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new StandAloneFailurePathProperties(failureMechanism);
 
             // Call
             properties.N = (RoundedDouble) newN;
@@ -295,10 +275,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             var failureMechanism = mocks.StrictMock<IHasGeneralInput>();
             failureMechanism.Expect(fm => fm.NotifyObservers());
             failureMechanism.Stub(fm => fm.GeneralInput).Return(new GeneralInput());
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new StandAloneFailurePathProperties(failureMechanism);
 
             // Call
             properties.ApplyLengthEffectInSection = true;
@@ -315,15 +294,11 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
         {
             // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             var failureMechanism = new TestFailureMechanism
             {
                 InAssembly = inAssembly
             };
-            var properties = new StandAloneFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new StandAloneFailurePathProperties(failureMechanism);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
@@ -335,7 +310,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
-            mocks.VerifyAll();
         }
     }
 }

@@ -240,7 +240,7 @@ namespace Riskeer.Integration.Plugin
             };
             yield return new PropertyInfo<IFailurePathContext<IHasGeneralInput>, StandAloneFailurePathProperties>
             {
-                CreateInstance = context => new StandAloneFailurePathProperties(context.WrappedData, context.Parent)
+                CreateInstance = context => new StandAloneFailurePathProperties(context.WrappedData)
             };
             yield return new PropertyInfo<SpecificFailurePathContext, SpecificFailurePathProperties>
             {

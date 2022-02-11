@@ -24,7 +24,6 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -42,27 +41,17 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
         private const int nPropertyIndex = 5;
         private const int applyLengthEffectInSectionPropertyIndex = 6;
 
-        private readonly IAssessmentSection assessmentSection;
-
         /// <summary>
         /// Creates a new instance of <see cref="StandAloneFailurePathProperties"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
-        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StandAloneFailurePathProperties(IHasGeneralInput failureMechanism, IAssessmentSection assessmentSection)
+        public StandAloneFailurePathProperties(IHasGeneralInput failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.assessmentSection = assessmentSection;
 
             Data = failureMechanism;
         }
