@@ -311,6 +311,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var failurePath = new SpecificFailurePath
             {
                 Name = "Just a Name",
+                Code = "FAALPAD",
                 InAssemblyInputComments =
                 {
                     Body = "Some input text"
@@ -336,6 +337,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(failurePath.Name, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(failurePath.Code, entity.Code);
             TestHelper.AssertAreEqualButNotSame(failurePath.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
             TestHelper.AssertAreEqualButNotSame(failurePath.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             TestHelper.AssertAreEqualButNotSame(failurePath.NotInAssemblyComments.Body, entity.NotInAssemblyComments);

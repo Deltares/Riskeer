@@ -87,6 +87,7 @@ namespace Riskeer.Storage.Core.Read
             var specificFailurePath = new SpecificFailurePath
             {
                 Name = entity.Name,
+                Code = entity.Code,
                 Input =
                 {
                     N = (RoundedDouble) entity.N,

@@ -203,6 +203,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new SpecificFailurePathEntity
             {
                 Name = "Specific failure path name",
+                Code = "FAALPAD",
                 N = random.NextDouble(1.0, 20.0),
                 ApplyLengthEffectInSection = Convert.ToByte(random.NextBoolean()),
                 InAssembly = Convert.ToByte(inAssembly),
@@ -227,6 +228,7 @@ namespace Riskeer.Storage.Core.Test.Read
             AssertCommonFailurePathProperties(entity, specificFailurePath);
 
             Assert.AreEqual(entity.Name, specificFailurePath.Name);
+            Assert.AreEqual(entity.Code, specificFailurePath.Code);
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
             Assert.AreEqual(filePath, specificFailurePath.FailureMechanismSectionSourcePath);
 
