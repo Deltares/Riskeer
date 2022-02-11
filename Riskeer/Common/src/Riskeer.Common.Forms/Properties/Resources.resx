@@ -465,9 +465,6 @@
     <data name="FailureMechanism_Code_DisplayName" xml:space="preserve">
     <value>Label</value>
   </data>
-    <data name="FailurePath_Group_Description" xml:space="preserve">
-    <value>De groep waar het toetsspoor toe behoort.</value>
-  </data>
     <data name="FailurePath_Group_DisplayName" xml:space="preserve">
     <value>Groep</value>
   </data>

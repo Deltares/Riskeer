@@ -39,13 +39,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int groupPropertyIndex = 2;
-        private const int inAssemblyPropertyIndex = 3;
-        private const int aPropertyIndex = 4;
-        private const int bPropertyIndex = 5;
-        private const int sectionLengthPropertyIndex = 6;
-        private const int nPropertyIndex = 7;
-        private const int applyLengthEffectInSectionPropertyIndex = 8;
+        private const int inAssemblyPropertyIndex = 2;
+        private const int aPropertyIndex = 3;
+        private const int bPropertyIndex = 4;
+        private const int sectionLengthPropertyIndex = 5;
+        private const int nPropertyIndex = 6;
+        private const int applyLengthEffectInSectionPropertyIndex = 7;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -80,7 +79,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<PipingFailureMechanismProperties>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
-            Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
             PipingProbabilityAssessmentInput probabilityAssessmentInput = failureMechanism.PipingProbabilityAssessmentInput;
@@ -114,7 +112,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect";
@@ -131,13 +129,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
@@ -202,7 +193,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
 
@@ -218,13 +209,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
@@ -315,7 +299,6 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
 
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.A)));

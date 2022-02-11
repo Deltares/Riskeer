@@ -36,13 +36,12 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int groupPropertyIndex = 3;
-        private const int inAssemblyPropertyIndex = 4;
+        private const int inAssemblyPropertyIndex = 3;
 
-        private const int cPropertyIndex = 5;
-        private const int n2APropertyIndex = 6;
-        private const int nPropertyIndex = 7;
-        private const int applyLengthEffectInSectionPropertyIndex = 8;
+        private const int cPropertyIndex = 4;
+        private const int n2APropertyIndex = 5;
+        private const int nPropertyIndex = 6;
+        private const int applyLengthEffectInSectionPropertyIndex = 7;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresFailurePathProperties"/>.
@@ -55,33 +54,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
             CodePropertyIndex = codePropertyIndex
         }) {}
 
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
-        }
-
-        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
-        {
-            return nameof(C).Equals(propertyName)
-                   || nameof(N2A).Equals(propertyName)
-                   || nameof(N).Equals(propertyName)
-                   || nameof(ApplyLengthEffectInSection).Equals(propertyName);
-        }
-
         #region General
-
-        [PropertyOrder(groupPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Group_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Group_Description))]
-        public int Group
-        {
-            get
-            {
-                return data.Group;
-            }
-        }
 
         [PropertyOrder(inAssemblyPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
@@ -96,6 +69,20 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         }
 
         #endregion
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
+        }
+
+        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
+        {
+            return nameof(C).Equals(propertyName)
+                   || nameof(N2A).Equals(propertyName)
+                   || nameof(N).Equals(propertyName)
+                   || nameof(ApplyLengthEffectInSection).Equals(propertyName);
+        }
 
         #region Length effect parameters
 

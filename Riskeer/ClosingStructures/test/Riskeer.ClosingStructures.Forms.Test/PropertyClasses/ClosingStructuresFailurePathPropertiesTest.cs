@@ -36,12 +36,11 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int groupPropertyIndex = 2;
-        private const int inAssemblyPropertyIndex = 3;
-        private const int cPropertyIndex = 4;
-        private const int n2APropertyIndex = 5;
-        private const int nPropertyIndex = 6;
-        private const int applyLengthEffectInSectionPropertyIndex = 7;
+        private const int inAssemblyPropertyIndex = 2;
+        private const int cPropertyIndex = 3;
+        private const int n2APropertyIndex = 4;
+        private const int nPropertyIndex = 5;
+        private const int applyLengthEffectInSectionPropertyIndex = 6;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -61,7 +60,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
-            Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
             GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
@@ -84,7 +82,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             const string lengthEffectCategory = "Lengte-effect";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(8, dynamicProperties.Count);
+            Assert.AreEqual(7, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -98,13 +96,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
@@ -156,7 +147,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             const string generalCategory = "Algemeen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -170,13 +161,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
@@ -255,7 +239,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
 
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.C)));

@@ -36,11 +36,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int groupPropertyIndex = 3;
-        private const int contributionPropertyIndex = 4;
-        private const int inAssemblyPropertyIndex = 5;
-        private const int nPropertyIndex = 6;
-        private const int applyLengthEffectInSectionPropertyIndex = 7;
+        private const int contributionPropertyIndex = 3;
+        private const int inAssemblyPropertyIndex = 4;
+        private const int nPropertyIndex = 5;
+        private const int applyLengthEffectInSectionPropertyIndex = 6;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingStructureFailurePathProperties"/>.
@@ -128,18 +127,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
             get
             {
                 return data.Code;
-            }
-        }
-
-        [PropertyOrder(groupPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Group_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Group_Description))]
-        public int Group
-        {
-            get
-            {
-                return data.Group;
             }
         }
 

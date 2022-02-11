@@ -38,11 +38,10 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int groupPropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int inAssemblyPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int applyLengthEffectInSectionPropertyIndex = 6;
+        private const int contributionPropertyIndex = 2;
+        private const int inAssemblyPropertyIndex = 3;
+        private const int nPropertyIndex = 4;
+        private const int applyLengthEffectInSectionPropertyIndex = 5;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -62,7 +61,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
-            Assert.AreEqual(failureMechanism.Group, properties.Group);
             Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
@@ -82,7 +80,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect";
@@ -99,13 +97,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
@@ -150,7 +141,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
 
@@ -166,13 +157,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor groupProperty = dynamicProperties[groupPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(groupProperty,
-                                                                            generalCategory,
-                                                                            "Groep",
-                                                                            "De groep waar het toetsspoor toe behoort.",
                                                                             true);
 
             PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex - 1];
@@ -251,7 +235,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
-            Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Group)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
 
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));

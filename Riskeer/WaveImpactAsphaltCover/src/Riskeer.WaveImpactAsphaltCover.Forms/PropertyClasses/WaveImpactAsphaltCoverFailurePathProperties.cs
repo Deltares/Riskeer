@@ -38,12 +38,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int groupPropertyIndex = 3;
-        private const int inAssemblyPropertyIndex = 4;
-        private const int sectionLengthPropertyIndex = 5;
-        private const int deltaLPropertyIndex = 7;
-        private const int nPropertyIndex = 7;
-        private const int applyLengthEffectInSectionPropertyIndex = 8;
+        private const int inAssemblyPropertyIndex = 3;
+        private const int sectionLengthPropertyIndex = 4;
+        private const int deltaLPropertyIndex = 5;
+        private const int nPropertyIndex = 6;
+        private const int applyLengthEffectInSectionPropertyIndex = 7;
+
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
@@ -67,33 +67,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
             this.assessmentSection = assessmentSection;
         }
 
-        [DynamicVisibleValidationMethod]
-        public bool DynamicVisibleValidationMethod(string propertyName)
-        {
-            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
-        }
-
-        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
-        {
-            return nameof(DeltaL).Equals(propertyName)
-                   || nameof(SectionLength).Equals(propertyName)
-                   || nameof(N).Equals(propertyName)
-                   || nameof(ApplyLengthEffectInSection).Equals(propertyName);
-        }
-
         #region General
-
-        [PropertyOrder(groupPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Group_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Group_Description))]
-        public int Group
-        {
-            get
-            {
-                return data.Group;
-            }
-        }
 
         [PropertyOrder(inAssemblyPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
@@ -108,6 +82,20 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         }
 
         #endregion
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
+        }
+
+        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
+        {
+            return nameof(DeltaL).Equals(propertyName)
+                   || nameof(SectionLength).Equals(propertyName)
+                   || nameof(N).Equals(propertyName)
+                   || nameof(ApplyLengthEffectInSection).Equals(propertyName);
+        }
 
         #region Length effect parameters
 

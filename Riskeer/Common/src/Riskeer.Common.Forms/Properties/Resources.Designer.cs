@@ -1980,15 +1980,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De groep waar het toetsspoor toe behoort..
-        /// </summary>
-        public static string FailurePath_Group_Description {
-            get {
-                return ResourceManager.GetString("FailurePath_Group_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Groep.
         /// </summary>
         public static string FailurePath_Group_DisplayName {
