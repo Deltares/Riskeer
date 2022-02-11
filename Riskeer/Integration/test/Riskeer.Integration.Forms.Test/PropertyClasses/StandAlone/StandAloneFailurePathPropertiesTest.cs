@@ -57,17 +57,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
         }
 
         [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new StandAloneFailurePathProperties(new TestFailureMechanism());
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
