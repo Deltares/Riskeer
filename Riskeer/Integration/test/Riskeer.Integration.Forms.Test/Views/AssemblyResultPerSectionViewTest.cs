@@ -35,13 +35,10 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.TestUtil;
-using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.Piping.Data;
 using CoreGuiResources = Core.Gui.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -71,7 +68,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int duneErosionColumnIndex = 18;
         private const int expectedColumnCount = 19;
         private const string assemblyResultOutdatedWarning = "Toetsoordeel is verouderd. Druk op de \"Toetsoordeel verversen\" knop om opnieuw te berekenen.";
-        private const string assemblyResultManualWarning = "Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.";
 
         private Form testForm;
 
@@ -115,7 +111,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new AssemblyResultPerSectionView(assessmentSection))
             {
                 testForm.Controls.Add(view);
@@ -152,7 +148,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultPerSectionView())
             {
                 // Then
@@ -187,7 +183,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_AssessmentSectionWithReferenceLine_ExpectedValues()
         {
             // Call
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultPerSectionView())
             {
                 DataGridView dataGridView = GetDataGridView();
@@ -221,7 +217,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             bool readOnly, string errorText, CellStyle style)
         {
             // Given
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultPerSectionView())
             {
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
@@ -256,7 +252,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 assessmentSection.NotifyObservers();
@@ -284,7 +280,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Precondition
@@ -311,7 +307,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Precondition
@@ -340,7 +336,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var calculation = new TestHeightStructuresCalculationScenario();
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(calculation);
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Precondition
@@ -368,10 +364,10 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 new Random(21).NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = withError;
 
                 using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
@@ -391,153 +387,6 @@ namespace Riskeer.Integration.Forms.Test.Views
                     // Then
                     Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
                     Assert.AreEqual(expectedPadding, warningProvider.GetIconPadding(button));
-                }
-            }
-        }
-
-        [Test]
-        public void GivenFormWithAssemblyResultPerSectionViewAndManualAssembly_WhenShown_ThenManualAssemblyUsed()
-        {
-            // Given
-            var random = new Random(21);
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
-                random.NextEnumValue<AssessmentSectionComposition>());
-            MacroStabilityInwardsFailureMechanismSectionResultOld sectionResult = assessmentSection.MacroStabilityInwards.SectionResultsOld.First();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyProbability = random.NextDouble();
-
-            using (new AssemblyToolCalculatorFactoryConfigOld())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                // When
-                using (ShowAssemblyResultPerSectionView(assessmentSection))
-                {
-                    // Then
-                    Assert.AreEqual(sectionResult.ManualAssemblyProbability, calculator.ManualAssemblyProbabilityInput);
-                }
-            }
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenFormWithAssemblyResultPerSectionViewWithManualAssembly_ThenExpectedWarningSet(bool hasManualAssembly)
-        {
-            // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
-            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResultsOld.Single().UseManualAssembly = hasManualAssembly;
-
-            // When
-            using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
-            {
-                // Then 
-                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
-                Button button = buttonTester.Properties;
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(view);
-                Assert.AreEqual(hasManualAssembly ? assemblyResultManualWarning : string.Empty, manualAssemblyWarningProvider.GetError(button));
-            }
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenFormWithAssemblyResultPerSectionViewWithManualAssembly_WhenAssessmentSectionNotifiesObservers_ThenWarningsSet(
-            bool hasManualAssembly)
-        {
-            // Given
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
-            ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
-            foreach (IHasSectionResults<FailureMechanismSectionResultOld> failureMechanism in assessmentSection.GetFailureMechanisms()
-                                                                                                            .Cast<IHasSectionResults<FailureMechanismSectionResultOld>>())
-            {
-                FailureMechanismTestHelper.AddSectionsBasedOnReferenceLine(assessmentSection.ReferenceLine, failureMechanism, 1);
-                failureMechanism.SectionResultsOld.Single().UseManualAssembly = hasManualAssembly;
-            }
-
-            using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView(assessmentSection))
-            {
-                // Precondition
-                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
-                Button button = buttonTester.Properties;
-                Assert.IsFalse(button.Enabled);
-                ErrorProvider warningProvider = GetWarningProvider(view);
-                Assert.IsEmpty(warningProvider.GetError(button));
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(view);
-                string expectedManualAssemblyWarning = hasManualAssembly ? assemblyResultManualWarning : string.Empty;
-                Assert.AreEqual(4, manualAssemblyWarningProvider.GetIconPadding(button));
-                Assert.AreEqual(expectedManualAssemblyWarning, manualAssemblyWarningProvider.GetError(button));
-
-                // When
-                assessmentSection.NotifyObservers();
-
-                // Then 
-                Assert.AreEqual(assemblyResultOutdatedWarning, warningProvider.GetError(button));
-                Assert.AreEqual(expectedManualAssemblyWarning, manualAssemblyWarningProvider.GetError(button));
-                Assert.AreEqual(24, manualAssemblyWarningProvider.GetIconPadding(button));
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionObserversNotified_WhenRefreshingAssemblyResults_ThenWarningPaddingSet()
-        {
-            // Given
-            using (new AssemblyToolCalculatorFactoryConfigOld())
-            using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView())
-            {
-                AssessmentSection assessmentSection = view.AssessmentSection;
-                PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-                failureMechanism.SectionResultsOld.Single().UseManualAssembly = true;
-                assessmentSection.NotifyObservers();
-
-                // Precondition
-                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
-                Button button = buttonTester.Properties;
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(view);
-                Assert.AreEqual(24, manualAssemblyWarningProvider.GetIconPadding(button));
-
-                // When
-                buttonTester.Click();
-
-                // Then
-                Assert.AreEqual(4, manualAssemblyWarningProvider.GetIconPadding(button));
-                Assert.AreEqual(assemblyResultManualWarning, manualAssemblyWarningProvider.GetError(button));
-            }
-        }
-
-        [Test]
-        public void GivenAssemblyResultPerSectionViewWithError_WhenNotified_ThenWarningAndPaddingSet()
-        {
-            // Given
-            using (new AssemblyToolCalculatorFactoryConfigOld())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
-
-                using (AssemblyResultPerSectionView view = ShowAssemblyResultPerSectionView())
-                {
-                    AssessmentSection assessmentSection = view.AssessmentSection;
-                    PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-                    FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-                    failureMechanism.SectionResultsOld.Single().UseManualAssembly = true;
-
-                    // Precondition
-                    ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
-                    Button button = buttonTester.Properties;
-                    ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(view);
-                    Assert.AreEqual(24, manualAssemblyWarningProvider.GetIconPadding(button));
-
-                    // When
-                    assessmentSection.NotifyObservers();
-
-                    // Then
-                    Assert.AreEqual(44, manualAssemblyWarningProvider.GetIconPadding(button));
-                    Assert.AreEqual(assemblyResultManualWarning, manualAssemblyWarningProvider.GetError(button));
                 }
             }
         }
@@ -567,11 +416,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         private static ErrorProvider GetWarningProvider(AssemblyResultPerSectionView resultControl)
         {
             return TypeUtils.GetField<ErrorProvider>(resultControl, "warningProvider");
-        }
-
-        private static ErrorProvider GetManualAssemblyWarningProvider(AssemblyResultPerSectionView resultControl)
-        {
-            return TypeUtils.GetField<ErrorProvider>(resultControl, "manualAssemblyWarningProvider");
         }
 
         private AssemblyResultPerSectionView ShowAssemblyResultPerSectionView()

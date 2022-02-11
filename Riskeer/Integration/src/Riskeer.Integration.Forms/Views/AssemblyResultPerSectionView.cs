@@ -87,7 +87,6 @@ namespace Riskeer.Integration.Forms.Views
             base.OnLoad(e);
 
             InitializeDataGridView();
-            CheckManualAssemblyResults();
 
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
@@ -114,42 +113,7 @@ namespace Riskeer.Integration.Forms.Views
 
                 warningProvider.SetIconPadding(refreshAssemblyResultsButton,
                                                string.IsNullOrEmpty(errorProvider.GetError(refreshAssemblyResultsButton)) ? 4 : 24);
-                CheckManualAssemblyResults();
             }
-        }
-
-        private void CheckManualAssemblyResults()
-        {
-            SetManualAssemblyWarningIconPadding();
-
-            if (AssessmentSectionHelper.HasManualAssemblyResults(AssessmentSection))
-            {
-                manualAssemblyWarningProvider.SetError(refreshAssemblyResultsButton,
-                                                       RiskeerCommonFormsResources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies);
-            }
-        }
-
-        private void SetManualAssemblyWarningIconPadding()
-        {
-            bool hasError = !string.IsNullOrEmpty(errorProvider.GetError(refreshAssemblyResultsButton));
-            bool hasWarning = !string.IsNullOrEmpty(warningProvider.GetError(refreshAssemblyResultsButton));
-
-            int manualAssemblyWarningPadding;
-            if (hasError && hasWarning)
-            {
-                manualAssemblyWarningPadding = 44;
-            }
-            else if (hasError || hasWarning)
-            {
-                manualAssemblyWarningPadding = 24;
-            }
-            else
-            {
-                manualAssemblyWarningPadding = 4;
-            }
-
-            manualAssemblyWarningProvider.SetIconPadding(refreshAssemblyResultsButton,
-                                                         manualAssemblyWarningPadding);
         }
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
@@ -245,15 +209,12 @@ namespace Riskeer.Integration.Forms.Views
             {
                 errorProvider.SetError(refreshAssemblyResultsButton, e.Message);
             }
-
-            CheckManualAssemblyResults();
         }
 
         private void ClearCurrentData()
         {
             errorProvider.SetError(refreshAssemblyResultsButton, string.Empty);
             warningProvider.SetError(refreshAssemblyResultsButton, string.Empty);
-            manualAssemblyWarningProvider.SetError(refreshAssemblyResultsButton, string.Empty);
             dataGridViewControl.SetDataSource(Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>());
         }
     }
