@@ -41,10 +41,15 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
     [TestFixture]
     public class FailureMechanismSectionResultAssemblyFactoryTest
     {
+        private static bool IsInitialFailureMechanismResultTypeAdopt(AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType)
+        {
+            return initialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt;
+        }
+
         #region AdoptableWithProfileProbabilityFailureMechanismSectionResult
 
         [Test]
-        public void AssembleSectionAdoptableWithoutProfileProbability_SectionResultNull_ThrowsArgumentNullException()
+        public void AssembleSectionAdoptableSectionWithProfileProbability_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -66,7 +71,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleSectionAdoptableWithoutProfileProbability_AssessmentSectionNull_ThrowsArgumentNullException()
+        public void AssembleSectionAdoptableSectionWithProfileProbability_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -89,7 +94,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleSectionAdoptableWithoutProfileProbability_CalculateProbabilityStrategyNull_ThrowsArgumentNullException()
+        public void AssembleSectionAdoptableSectionWithProfileProbability_CalculateProbabilityStrategyNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -128,7 +133,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
             var mocks = new MockRepository();
             var calculateStrategy = mocks.StrictMock<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            bool isInitialFailureMechanismResultTypeAdopt = initialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt;
+            bool isInitialFailureMechanismResultTypeAdopt = IsInitialFailureMechanismResultTypeAdopt(initialFailureMechanismResultType);
             if (isInitialFailureMechanismResultTypeAdopt)
             {
                 calculateStrategy.Expect(cs => cs.CalculateSectionProbability())
@@ -195,7 +200,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
             var mocks = new MockRepository();
             var calculateStrategy = mocks.StrictMock<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
-            bool isInitialFailureMechanismResultTypeAdopt = initialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt;
+            bool isInitialFailureMechanismResultTypeAdopt = IsInitialFailureMechanismResultTypeAdopt(initialFailureMechanismResultType);
             if (isInitialFailureMechanismResultTypeAdopt)
             {
                 calculateStrategy.Expect(cs => cs.CalculateProfileProbability())
@@ -308,7 +313,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleSectionAdoptableWithProfileProbability_CalculatorRan_ReturnsExpectedOutput()
+        public void AssembleSectionAdoptableSectionWithProfileProbability_CalculatorRan_ReturnsExpectedOutput()
         {
             // Setup
             var random = new Random(21);
@@ -335,7 +340,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleSectionAdoptableWithProfileProbability_CalculatorThrowsException_ThrowsAssemblyException()
+        public void AssembleSectionAdoptableSectionWithProfileProbability_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             var random = new Random(21);
@@ -356,6 +361,158 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Call
                 void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(
                     sectionResult, assessmentSection, calculateStrategy, random.NextBoolean(), random.NextDouble());
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(Call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        #endregion
+
+        #region AdoptableFailureMechanismSectionResult
+
+        [Test]
+        public void AssembleSectionAdoptableSectionWithoutProfileProbability_SectionResultNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(null, assessmentSection, () => double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sectionResult", exception.ParamName);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleSectionAdoptableSectionWithoutProfileProbability_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            // Call
+            void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, null, () => double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleSectionAdoptableSectionWithoutProfileProbability_CalculateProbabilityFuncNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            // Call
+            void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, assessmentSection, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("calculateProbabilityFunc", exception.ParamName);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(AdoptableInitialFailureMechanismResultType.Adopt, true)]
+        [TestCase(AdoptableInitialFailureMechanismResultType.Manual, true)]
+        [TestCase(AdoptableInitialFailureMechanismResultType.NoFailureProbability, false)]
+        public void AssembleSectionAdoptableSectionWithoutProfileProbability_WithInput_ReturnsExpectedOutput(
+            AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType, bool expectedHasProbabilitySpecified)
+        {
+            // Setup
+            var random = new Random(21);
+            bool isRelevant = random.NextBoolean();
+            double manualSectionProbability = random.NextDouble();
+            double calculatedSectionProbability = random.NextDouble();
+            var furtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
+            double refinedSectionProbability = random.NextDouble();
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+            {
+                IsRelevant = isRelevant,
+                InitialFailureMechanismResultType = initialFailureMechanismResultType,
+                ManualInitialFailureMechanismResultSectionProbability = manualSectionProbability,
+                FurtherAnalysisType = furtherAnalysisType,
+                RefinedSectionProbability = refinedSectionProbability
+            };
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, assessmentSection, () => calculatedSectionProbability);
+
+                // Assert
+                FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
+                FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
+                Assert.AreEqual(failureMechanismContribution.SignalingNorm, calculatorInput.SignalingNorm);
+                Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, calculatorInput.LowerLimitNorm);
+
+                Assert.AreEqual(isRelevant, calculatorInput.IsRelevant);
+                Assert.AreEqual(expectedHasProbabilitySpecified, calculatorInput.HasProbabilitySpecified);
+
+                double expectedInitialSectionProbability = IsInitialFailureMechanismResultTypeAdopt(initialFailureMechanismResultType)
+                                                               ? calculatedSectionProbability
+                                                               : manualSectionProbability;
+                Assert.AreEqual(expectedInitialSectionProbability, calculatorInput.InitialSectionProbability);
+                Assert.AreEqual(furtherAnalysisType, calculatorInput.FurtherAnalysisType);
+                Assert.AreEqual(refinedSectionProbability, calculatorInput.RefinedSectionProbability);
+            }
+        }
+
+        [Test]
+        public void AssembleSectionAdoptableSectionWithoutProfileProbability_CalculatorRan_ReturnsExpectedOutput()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, assessmentSection, () => double.NaN);
+
+                // Assert
+                Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, result);
+            }
+        }
+
+        [Test]
+        public void AssembleSectionAdoptableSectionWithoutProfileProbability_CalculatorThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, assessmentSection, () => double.NaN);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
