@@ -47,7 +47,8 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <param name="useLengthEffect">Indicator whether to use the length effect or not.</param>
         /// <param name="sectionN">The N value for the section.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="sectionResult"/>,
+        /// <paramref name="assessmentSection"/> or <paramref name="calculateProbabilityStrategy"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
         public static FailureMechanismSectionAssemblyResult AssembleSection(
             AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult, IAssessmentSection assessmentSection,
@@ -142,10 +143,30 @@ namespace Riskeer.Common.Data.AssemblyTool
             return PerformAssembly(input);
         }
 
+        /// <summary>
+        /// Assembles a failure mechanism section result based on the input arguments. 
+        /// </summary>
+        /// <param name="sectionResult">The section result to assemble for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to assemble with.</param>
+        /// <param name="useLengthEffect">Indicator whether to use the length effect or not.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="sectionResult"/> or <paramref name="assessmentSection"/>
+        /// is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the section could not be successfully assembled.</exception>
         public static FailureMechanismSectionAssemblyResult AssembleSection(
             NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult, IAssessmentSection assessmentSection,
             bool useLengthEffect)
         {
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             bool hasProbabilitySpecified = sectionResult.InitialFailureMechanismResultType != NonAdoptableInitialFailureMechanismResultType.NoFailureProbability;
 
             FailureMechanismSectionAssemblyInput input = useLengthEffect
