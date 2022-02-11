@@ -36,9 +36,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     public class SpecificFailurePathProperties : ObjectProperties<SpecificFailurePath>
     {
         private const int namePropertyIndex = 1;
-        private const int inAssemblyPropertyIndex = 2;
-        private const int nPropertyIndex = 3;
-        private const int applyLengthEffectInSectionPropertyIndex = 4;
+        private const int codePropertyIndex = 2;
+        private const int inAssemblyPropertyIndex = 3;
+        private const int nPropertyIndex = 4;
+        private const int applyLengthEffectInSectionPropertyIndex = 5;
 
         /// <summary>
         /// Creates a new instance of <see cref="SpecificFailurePathProperties"/>.
@@ -82,6 +83,23 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             set
             {
                 data.Name = value;
+                data.NotifyObservers();
+            }
+        }
+        
+        [PropertyOrder(codePropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailurePath_Code_Description))]
+        public string Code
+        {
+            get
+            {
+                return data.Code;
+            }
+            set
+            {
+                data.Code = value;
                 data.NotifyObservers();
             }
         }

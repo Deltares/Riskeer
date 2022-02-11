@@ -39,9 +39,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
     public class SpecificFailurePathPropertiesTest
     {
         private const int namePropertyIndex = 0;
-        private const int inAssemblyPropertyIndex = 1;
-        private const int nPropertyIndex = 2;
-        private const int applyLengthEffectInSectionPropertyIndex = 3;
+        private const int codePropertyIndex = 1;
+        private const int inAssemblyPropertyIndex = 2;
+        private const int nPropertyIndex = 3;
+        private const int applyLengthEffectInSectionPropertyIndex = 4;
 
         [Test]
         public void Constructor_DataNull_ThrowsArgumentNullException()
@@ -74,6 +75,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.IsInstanceOf<ObjectProperties<SpecificFailurePath>>(properties);
             Assert.AreEqual(failurePath.Name, properties.Name);
+            Assert.AreEqual(failurePath.Code, properties.Code);
             Assert.AreEqual(failurePath.InAssembly, properties.InAssembly);
 
             GeneralInput input = failurePath.Input;
@@ -96,7 +98,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect";
@@ -106,6 +108,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Naam",
                                                                             "Naam van het faalpad.");
+            
+            PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Label van het faalpad.");
 
             PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
@@ -141,7 +149,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(2, dynamicProperties.Count);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
 
@@ -150,6 +158,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Naam",
                                                                             "Naam van het faalpad.");
+            
+            PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Label van het faalpad.");
 
             PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
@@ -165,7 +179,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var projectObserver = mocks.StrictMock<IObserver>();
-            const int numberOfChangedProperties = 2;
+            const int numberOfChangedProperties = 3;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
@@ -182,12 +196,15 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Call
             const string newName = "Some new cool pretty name";
+            const string newCode = "Nieuw Faalpad";
             RoundedDouble newN = random.NextRoundedDouble(1.0, 20.0);
             properties.Name = newName;
+            properties.Code = newCode;
             properties.N = newN;
 
             // Assert
             Assert.AreEqual(newName, failurePath.Name);
+            Assert.AreEqual(newCode, failurePath.Code);
 
             GeneralInput input = failurePath.Input;
             Assert.AreEqual(newN, input.N, input.N.GetAccuracy());

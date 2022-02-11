@@ -371,4 +371,7 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="FailurePath_Name_Description" xml:space="preserve">
     <value>Naam van het faalpad.</value>
   </data>
+  <data name="FailurePath_Code_Description" xml:space="preserve">
+    <value>Label van het faalpad.</value>
+  </data>
 </root>

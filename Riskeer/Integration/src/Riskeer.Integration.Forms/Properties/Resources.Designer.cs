@@ -428,6 +428,15 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Label van het faalpad..
+        /// </summary>
+        public static string FailurePath_Code_Description {
+            get {
+                return ResourceManager.GetString("FailurePath_Code_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Naam van het faalpad..
         /// </summary>
         public static string FailurePath_Name_Description {
