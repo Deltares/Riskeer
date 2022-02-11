@@ -63,7 +63,7 @@ namespace Riskeer.Integration.Forms.Factories
             }
             catch (AssemblyException)
             {
-                return new MapFeature[0];
+                return Array.Empty<MapFeature>();
             }
 
             var mapFeatures = new List<MapFeature>();
@@ -75,8 +75,8 @@ namespace Riskeer.Integration.Forms.Factories
                 MapFeature mapFeature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(geometry);
 
                 mapFeature.MetaData[RiskeerCommonFormsResources.AssemblyCategory_Group_DisplayName] =
-                    new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
-                        DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(assemblyResult.TotalResult)).DisplayName;
+                    new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
+                        DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyResult.TotalResult)).DisplayName;
                 mapFeature.MetaData[Resources.SectionNumber_DisplayName] = assemblyResult.SectionNumber;
 
                 mapFeatures.Add(mapFeature);

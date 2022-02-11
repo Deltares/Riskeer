@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.TestUtil;
 using Core.Common.Util.Extensions;
 using NUnit.Framework;
@@ -112,9 +113,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
                 // Call
                 IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
                     assessmentSection, new[]
@@ -123,9 +121,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     });
 
                 // Assert
-                AssertSectionsWithResult(((IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults,
-                                         calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup,
-                                         inputs.Single());
+                IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults = ((IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults;
+                AssertSections(failureMechanismSectionResults, inputs.Single());
             }
         }
 

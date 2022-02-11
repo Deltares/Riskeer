@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Data.Assembly
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/>
         /// is <c>null</c>.</exception>
         public CombinedFailureMechanismSectionAssemblyResult(int sectionNumber, double sectionStart, double sectionEnd,
-                                                             FailureMechanismSectionAssemblyCategoryGroup totalResult,
+                                                             FailureMechanismSectionAssemblyGroup totalResult,
                                                              ConstructionProperties properties)
         {
             if (properties == null)
@@ -92,82 +92,82 @@ namespace Riskeer.Integration.Data.Assembly
         /// <summary>
         /// Gets the total assembly result.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup TotalResult { get; }
+        public FailureMechanismSectionAssemblyGroup TotalResult { get; }
 
         /// <summary>
         /// Gets the assembly result for piping.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup Piping { get; }
+        public FailureMechanismSectionAssemblyGroup Piping { get; }
 
         /// <summary>
         /// Gets the assembly result for grass cover erosion inwards.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup GrassCoverErosionInwards { get; }
+        public FailureMechanismSectionAssemblyGroup GrassCoverErosionInwards { get; }
 
         /// <summary>
         /// Gets the assembly result for macro stability inwards.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup MacroStabilityInwards { get; }
+        public FailureMechanismSectionAssemblyGroup MacroStabilityInwards { get; }
 
         /// <summary>
         /// Gets the assembly result for microstability.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup Microstability { get; }
+        public FailureMechanismSectionAssemblyGroup Microstability { get; }
 
         /// <summary>
         /// Gets the assembly result for stability stone cover.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup StabilityStoneCover { get; }
+        public FailureMechanismSectionAssemblyGroup StabilityStoneCover { get; }
 
         /// <summary>
         /// Gets the assembly result for wave impact asphalt cover.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup WaveImpactAsphaltCover { get; }
+        public FailureMechanismSectionAssemblyGroup WaveImpactAsphaltCover { get; }
 
         /// <summary>
         /// Gets the assembly result for water pressure asphalt cover.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup WaterPressureAsphaltCover { get; }
+        public FailureMechanismSectionAssemblyGroup WaterPressureAsphaltCover { get; }
 
         /// <summary>
         /// Gets the assembly result for grass cover erosion outwards.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup GrassCoverErosionOutwards { get; }
+        public FailureMechanismSectionAssemblyGroup GrassCoverErosionOutwards { get; }
 
         /// <summary>
         /// Gets the assembly result for grass cover slip off outwards.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup GrassCoverSlipOffOutwards { get; }
+        public FailureMechanismSectionAssemblyGroup GrassCoverSlipOffOutwards { get; }
 
         /// <summary>
         /// Gets the assembly result for grass cover slip off inwards.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup GrassCoverSlipOffInwards { get; }
+        public FailureMechanismSectionAssemblyGroup GrassCoverSlipOffInwards { get; }
 
         /// <summary>
         /// Gets the assembly result for height structures.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup HeightStructures { get; }
+        public FailureMechanismSectionAssemblyGroup HeightStructures { get; }
 
         /// <summary>
         /// Gets the assembly result for closing structures.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup ClosingStructures { get; }
+        public FailureMechanismSectionAssemblyGroup ClosingStructures { get; }
 
         /// <summary>
         /// Gets the assembly result for piping structure.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup PipingStructure { get; }
+        public FailureMechanismSectionAssemblyGroup PipingStructure { get; }
 
         /// <summary>
         /// Gets the assembly result for stability point structures.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup StabilityPointStructures { get; }
+        public FailureMechanismSectionAssemblyGroup StabilityPointStructures { get; }
 
         /// <summary>
         /// Gets the assembly result for dune erosion.
         /// </summary>
-        public FailureMechanismSectionAssemblyCategoryGroup DuneErosion { get; }
+        public FailureMechanismSectionAssemblyGroup DuneErosion { get; }
 
         /// <summary>
         /// Container for properties for constructing a <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.
@@ -179,97 +179,97 @@ namespace Riskeer.Integration.Data.Assembly
             /// </summary>
             public ConstructionProperties()
             {
-                Piping = FailureMechanismSectionAssemblyCategoryGroup.None;
-                GrassCoverErosionInwards = FailureMechanismSectionAssemblyCategoryGroup.None;
-                MacroStabilityInwards = FailureMechanismSectionAssemblyCategoryGroup.None;
-                Microstability = FailureMechanismSectionAssemblyCategoryGroup.None;
-                StabilityStoneCover = FailureMechanismSectionAssemblyCategoryGroup.None;
-                WaveImpactAsphaltCover = FailureMechanismSectionAssemblyCategoryGroup.None;
-                WaterPressureAsphaltCover = FailureMechanismSectionAssemblyCategoryGroup.None;
-                GrassCoverErosionOutwards = FailureMechanismSectionAssemblyCategoryGroup.None;
-                GrassCoverSlipOffOutwards = FailureMechanismSectionAssemblyCategoryGroup.None;
-                GrassCoverSlipOffInwards = FailureMechanismSectionAssemblyCategoryGroup.None;
-                HeightStructures = FailureMechanismSectionAssemblyCategoryGroup.None;
-                ClosingStructures = FailureMechanismSectionAssemblyCategoryGroup.None;
-                PipingStructure = FailureMechanismSectionAssemblyCategoryGroup.None;
-                StabilityPointStructures = FailureMechanismSectionAssemblyCategoryGroup.None;
-                DuneErosion = FailureMechanismSectionAssemblyCategoryGroup.None;
+                Piping = FailureMechanismSectionAssemblyGroup.Gr;
+                GrassCoverErosionInwards = FailureMechanismSectionAssemblyGroup.Gr;
+                MacroStabilityInwards = FailureMechanismSectionAssemblyGroup.Gr;
+                Microstability = FailureMechanismSectionAssemblyGroup.Gr;
+                StabilityStoneCover = FailureMechanismSectionAssemblyGroup.Gr;
+                WaveImpactAsphaltCover = FailureMechanismSectionAssemblyGroup.Gr;
+                WaterPressureAsphaltCover = FailureMechanismSectionAssemblyGroup.Gr;
+                GrassCoverErosionOutwards = FailureMechanismSectionAssemblyGroup.Gr;
+                GrassCoverSlipOffOutwards = FailureMechanismSectionAssemblyGroup.Gr;
+                GrassCoverSlipOffInwards = FailureMechanismSectionAssemblyGroup.Gr;
+                HeightStructures = FailureMechanismSectionAssemblyGroup.Gr;
+                ClosingStructures = FailureMechanismSectionAssemblyGroup.Gr;
+                PipingStructure = FailureMechanismSectionAssemblyGroup.Gr;
+                StabilityPointStructures = FailureMechanismSectionAssemblyGroup.Gr;
+                DuneErosion = FailureMechanismSectionAssemblyGroup.Gr;
             }
 
             /// <summary>
             /// Gets or sets the assembly result for piping.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup Piping { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup Piping { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for grass cover erosion inwards.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup GrassCoverErosionInwards { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup GrassCoverErosionInwards { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for macro stability inwards.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup MacroStabilityInwards { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup MacroStabilityInwards { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for microstability.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup Microstability { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup Microstability { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for stability stone cover.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup StabilityStoneCover { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup StabilityStoneCover { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for wave impact asphalt cover.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup WaveImpactAsphaltCover { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup WaveImpactAsphaltCover { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for water pressure asphalt cover.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup WaterPressureAsphaltCover { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup WaterPressureAsphaltCover { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for grass cover erosion outwards.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup GrassCoverErosionOutwards { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup GrassCoverErosionOutwards { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for grass cover slip off outwards.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup GrassCoverSlipOffOutwards { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup GrassCoverSlipOffOutwards { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for grass cover slip off inwards.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup GrassCoverSlipOffInwards { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup GrassCoverSlipOffInwards { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for height structures.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup HeightStructures { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup HeightStructures { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for closing structures.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup ClosingStructures { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup ClosingStructures { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for piping structure.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup PipingStructure { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup PipingStructure { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for stability point structures.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup StabilityPointStructures { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup StabilityPointStructures { internal get; set; }
 
             /// <summary>
             /// Gets or sets the assembly result for dune erosion.
             /// </summary>
-            public FailureMechanismSectionAssemblyCategoryGroup DuneErosion { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup DuneErosion { internal get; set; }
         }
     }
 }

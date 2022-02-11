@@ -149,7 +149,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             });
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
@@ -488,8 +488,8 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 Assert.AreEqual(2, actualFeature.MetaData.Keys.Count);
                 Assert.AreEqual(expectedAssemblyResult.SectionNumber, actualFeature.MetaData["Vaknummer"]);
-                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
-                                    DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssemblyResult.TotalResult)).DisplayName,
+                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
+                                    DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedAssemblyResult.TotalResult)).DisplayName,
                                 mapFeatures.ElementAt(i).MetaData["Categorie"]);
             }
         }

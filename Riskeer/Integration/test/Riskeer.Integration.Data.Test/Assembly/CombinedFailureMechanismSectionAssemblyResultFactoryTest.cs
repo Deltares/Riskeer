@@ -40,11 +40,12 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => CombinedFailureMechanismSectionAssemblyResultFactory.Create(null, new Dictionary<IFailureMechanism, int>(),
-                                                                                                  new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
+            void Call() => CombinedFailureMechanismSectionAssemblyResultFactory.Create(
+                null, new Dictionary<IFailureMechanism, int>(),
+                new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("output", exception.ParamName);
         }
 
@@ -55,11 +56,12 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => CombinedFailureMechanismSectionAssemblyResultFactory.Create(Enumerable.Empty<CombinedFailureMechanismSectionAssemblyOld>(),
-                                                                                                  null, new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
+            void Call() => CombinedFailureMechanismSectionAssemblyResultFactory.Create(
+                Enumerable.Empty<CombinedFailureMechanismSectionAssembly>(), null,
+                new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanisms", exception.ParamName);
         }
 
@@ -67,11 +69,12 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => CombinedFailureMechanismSectionAssemblyResultFactory.Create(Enumerable.Empty<CombinedFailureMechanismSectionAssemblyOld>(),
-                                                                                                  new Dictionary<IFailureMechanism, int>(), null);
+            void Call() => CombinedFailureMechanismSectionAssemblyResultFactory.Create(
+                Enumerable.Empty<CombinedFailureMechanismSectionAssembly>(),
+                new Dictionary<IFailureMechanism, int>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -90,12 +93,12 @@ namespace Riskeer.Integration.Data.Test.Assembly
                                                                                     })
                                                                                     .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
-            var section1 = new CombinedAssemblyFailureMechanismSectionOld(0, 5, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var section2 = new CombinedAssemblyFailureMechanismSectionOld(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var section1 = new CombinedAssemblyFailureMechanismSection(0, 5, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            var section2 = new CombinedAssemblyFailureMechanismSection(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
             var output = new[]
             {
-                new CombinedFailureMechanismSectionAssemblyOld(section1, GetFailureMechanismsOutput(failureMechanisms.Keys, random)),
-                new CombinedFailureMechanismSectionAssemblyOld(section2, GetFailureMechanismsOutput(failureMechanisms.Keys, random))
+                new CombinedFailureMechanismSectionAssembly(section1, GetFailureMechanismsOutput(failureMechanisms.Keys, random)),
+                new CombinedFailureMechanismSectionAssembly(section2, GetFailureMechanismsOutput(failureMechanisms.Keys, random))
             };
 
             // Call
@@ -108,23 +111,23 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(i + 1, results[i].SectionNumber);
                 Assert.AreEqual(output[i].Section.SectionStart, results[i].SectionStart);
                 Assert.AreEqual(output[i].Section.SectionEnd, results[i].SectionEnd);
-                Assert.AreEqual(output[i].Section.CategoryGroup, results[i].TotalResult);
+                Assert.AreEqual(output[i].Section.AssemblyGroup, results[i].TotalResult);
 
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.Piping]), results[i].Piping);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverErosionInwards]), results[i].GrassCoverErosionInwards);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.MacroStabilityInwards]), results[i].MacroStabilityInwards);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.Microstability]), results[i].Microstability);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.StabilityStoneCover]), results[i].StabilityStoneCover);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.WaveImpactAsphaltCover]), results[i].WaveImpactAsphaltCover);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.WaterPressureAsphaltCover]), results[i].WaterPressureAsphaltCover);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverErosionOutwards]), results[i].GrassCoverErosionOutwards);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverSlipOffOutwards]), results[i].GrassCoverSlipOffOutwards);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverSlipOffInwards]), results[i].GrassCoverSlipOffInwards);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.HeightStructures]), results[i].HeightStructures);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.ClosingStructures]), results[i].ClosingStructures);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.PipingStructure]), results[i].PipingStructure);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.StabilityPointStructures]), results[i].StabilityPointStructures);
-                Assert.AreEqual(output[i].FailureMechanismResults.ElementAt(failureMechanisms[assessmentSection.DuneErosion]), results[i].DuneErosion);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.Piping]), results[i].Piping);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverErosionInwards]), results[i].GrassCoverErosionInwards);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.MacroStabilityInwards]), results[i].MacroStabilityInwards);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.Microstability]), results[i].Microstability);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.StabilityStoneCover]), results[i].StabilityStoneCover);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.WaveImpactAsphaltCover]), results[i].WaveImpactAsphaltCover);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.WaterPressureAsphaltCover]), results[i].WaterPressureAsphaltCover);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverErosionOutwards]), results[i].GrassCoverErosionOutwards);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverSlipOffOutwards]), results[i].GrassCoverSlipOffOutwards);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverSlipOffInwards]), results[i].GrassCoverSlipOffInwards);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.HeightStructures]), results[i].HeightStructures);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.ClosingStructures]), results[i].ClosingStructures);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.PipingStructure]), results[i].PipingStructure);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.StabilityPointStructures]), results[i].StabilityPointStructures);
+                Assert.AreEqual(output[i].FailureMechanismAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.DuneErosion]), results[i].DuneErosion);
             }
         }
 
@@ -143,18 +146,17 @@ namespace Riskeer.Integration.Data.Test.Assembly
                                                                                     })
                                                                                     .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
-            var section1 = new CombinedAssemblyFailureMechanismSectionOld(0, 5, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var section2 = new CombinedAssemblyFailureMechanismSectionOld(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
+            var section1 = new CombinedAssemblyFailureMechanismSection(0, 5, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            var section2 = new CombinedAssemblyFailureMechanismSection(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
             var output = new[]
             {
-                new CombinedFailureMechanismSectionAssemblyOld(section1, GetFailureMechanismsOutput(failureMechanisms.Keys, random)),
-                new CombinedFailureMechanismSectionAssemblyOld(section2, GetFailureMechanismsOutput(failureMechanisms.Keys, random))
+                new CombinedFailureMechanismSectionAssembly(section1, GetFailureMechanismsOutput(failureMechanisms.Keys, random)),
+                new CombinedFailureMechanismSectionAssembly(section2, GetFailureMechanismsOutput(failureMechanisms.Keys, random))
             };
 
             // Call
-            CombinedFailureMechanismSectionAssemblyResult[] results = CombinedFailureMechanismSectionAssemblyResultFactory.Create(output,
-                                                                                                                                  new Dictionary<IFailureMechanism, int>(),
-                                                                                                                                  assessmentSection).ToArray();
+            CombinedFailureMechanismSectionAssemblyResult[] results = CombinedFailureMechanismSectionAssemblyResultFactory.Create(
+                output, new Dictionary<IFailureMechanism, int>(), assessmentSection).ToArray();
 
             // Assert
             Assert.AreEqual(output.Length, results.Length);
@@ -162,30 +164,30 @@ namespace Riskeer.Integration.Data.Test.Assembly
             {
                 Assert.AreEqual(output[i].Section.SectionStart, results[i].SectionStart);
                 Assert.AreEqual(output[i].Section.SectionEnd, results[i].SectionEnd);
-                Assert.AreEqual(output[i].Section.CategoryGroup, results[i].TotalResult);
+                Assert.AreEqual(output[i].Section.AssemblyGroup, results[i].TotalResult);
 
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].Piping);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].GrassCoverErosionInwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].MacroStabilityInwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].Microstability);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].StabilityStoneCover);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].WaveImpactAsphaltCover);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].WaterPressureAsphaltCover);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].GrassCoverErosionOutwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].GrassCoverSlipOffOutwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].GrassCoverSlipOffInwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].HeightStructures);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].ClosingStructures);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].PipingStructure);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].StabilityPointStructures);
-                Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, results[i].DuneErosion);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].Piping);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].GrassCoverErosionInwards);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].MacroStabilityInwards);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].Microstability);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].StabilityStoneCover);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].WaveImpactAsphaltCover);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].WaterPressureAsphaltCover);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].GrassCoverErosionOutwards);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].GrassCoverSlipOffOutwards);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].GrassCoverSlipOffInwards);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].HeightStructures);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].ClosingStructures);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].PipingStructure);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].StabilityPointStructures);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].DuneErosion);
             }
         }
 
-        private static IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> GetFailureMechanismsOutput(IEnumerable<IFailureMechanism> failureMechanisms,
-                                                                                                            Random random)
+        private static IEnumerable<FailureMechanismSectionAssemblyGroup> GetFailureMechanismsOutput(
+            IEnumerable<IFailureMechanism> failureMechanisms, Random random)
         {
-            return failureMechanisms.Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()).ToArray();
+            return failureMechanisms.Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()).ToArray();
         }
     }
 }

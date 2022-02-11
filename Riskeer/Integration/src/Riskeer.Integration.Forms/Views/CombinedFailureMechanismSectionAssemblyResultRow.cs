@@ -118,7 +118,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.TotalResult);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.TotalResult);
             }
         }
 
@@ -129,7 +129,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.Piping);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.Piping);
             }
         }
 
@@ -140,7 +140,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
             }
         }
 
@@ -151,7 +151,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
             }
         }
 
@@ -162,7 +162,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.Microstability);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.Microstability);
             }
         }
 
@@ -173,7 +173,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
             }
         }
 
@@ -184,7 +184,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
             }
         }
 
@@ -195,7 +195,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
             }
         }
 
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
             }
         }
 
@@ -217,7 +217,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
             }
         }
 
@@ -228,7 +228,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
             }
         }
 
@@ -239,7 +239,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
             }
         }
 
@@ -250,7 +250,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
             }
         }
 
@@ -261,7 +261,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
             }
         }
 
@@ -272,7 +272,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
             }
         }
 
@@ -283,7 +283,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             get
             {
-                return FailureMechanismSectionAssemblyCategoryGroupHelper.GetCategoryGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
+                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
             }
         }
 
@@ -329,10 +329,10 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
         }
 
-        private static CellStyle CreateCellStyle(FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup)
+        private static CellStyle CreateCellStyle(FailureMechanismSectionAssemblyGroup assemblyCategoryGroup)
         {
             return new CellStyle(Color.FromKnownColor(KnownColor.ControlText),
-                                 AssemblyCategoryGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyCategoryGroup));
+                                 AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyCategoryGroup));
         }
     }
 }

@@ -174,9 +174,9 @@ namespace Riskeer.Integration.Data.Assembly
 
             try
             {
-                IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
-                IAssessmentSectionAssemblyCalculatorOld calculator =
-                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
+                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IAssessmentSectionAssemblyCalculator calculator = calculatorFactory.CreateAssessmentSectionAssemblyCalculator(
+                    AssemblyToolKernelFactory.Instance);
 
                 Dictionary<IFailureMechanism, int> failureMechanismsToAssemble = assessmentSection.GetFailureMechanisms()
                                                                                                   .Where(fm => fm.InAssembly)
@@ -187,8 +187,8 @@ namespace Riskeer.Integration.Data.Assembly
                                                                                                   })
                                                                                                   .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
-                IEnumerable<CombinedFailureMechanismSectionAssemblyOld> output = calculator.AssembleCombinedFailureMechanismSections(
-                    CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, failureMechanismsToAssemble.Keys, useManual),
+                IEnumerable<CombinedFailureMechanismSectionAssembly> output = calculator.AssembleCombinedFailureMechanismSections(
+                    CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, failureMechanismsToAssemble.Keys),
                     assessmentSection.ReferenceLine.Length);
 
                 return CombinedFailureMechanismSectionAssemblyResultFactory.Create(output, failureMechanismsToAssemble, assessmentSection);

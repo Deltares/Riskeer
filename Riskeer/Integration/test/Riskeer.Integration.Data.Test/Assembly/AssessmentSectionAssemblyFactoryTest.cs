@@ -669,47 +669,46 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void AssembleCombinedPerFailureMechanismSection_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(null,
-                                                                                                                  new Random(39).NextBoolean());
+            void Call() => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(null, new Random(39).NextBoolean());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
-        public void AssembleCombinedPerFailureMechanismSection_WithAssessmentSectionWithoutManualSectionAssemblyResults_SetsInputOnCalculator()
+        public void AssembleCombinedPerFailureMechanismSection_WithAssessmentSection_SetsInputOnCalculator()
         {
             var random = new Random(21);
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyOld[0];
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = Array.Empty<CombinedFailureMechanismSectionAssembly>();
 
                 // Call
                 AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, random.NextBoolean());
 
                 // Assert
-                IEnumerable<CombinedAssemblyFailureMechanismSectionOld>[] actualInput = calculator.CombinedFailureMechanismSectionsInput.ToArray();
-                IEnumerable<CombinedAssemblyFailureMechanismSectionOld>[] expectedInput = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, assessmentSection.GetFailureMechanisms(), random.NextBoolean()).ToArray();
+                IEnumerable<CombinedAssemblyFailureMechanismSection>[] actualInput = calculator.CombinedFailureMechanismSectionsInput.ToArray();
+                IEnumerable<CombinedAssemblyFailureMechanismSection>[] expectedInput = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
+                    assessmentSection, assessmentSection.GetFailureMechanisms()).ToArray();
                 Assert.AreEqual(expectedInput.Length, actualInput.Length);
 
                 for (var i = 0; i < expectedInput.Length; i++)
                 {
-                    CombinedAssemblyFailureMechanismSectionOld[] actualSections = actualInput[i].ToArray();
-                    CombinedAssemblyFailureMechanismSectionOld[] expectedSections = expectedInput[i].ToArray();
+                    CombinedAssemblyFailureMechanismSection[] actualSections = actualInput[i].ToArray();
+                    CombinedAssemblyFailureMechanismSection[] expectedSections = expectedInput[i].ToArray();
                     Assert.AreEqual(expectedSections.Length, actualSections.Length);
 
                     for (var j = 0; j < expectedSections.Length; j++)
                     {
                         Assert.AreEqual(expectedSections[j].SectionStart, actualSections[j].SectionStart);
                         Assert.AreEqual(expectedSections[j].SectionEnd, actualSections[j].SectionEnd);
-                        Assert.AreEqual(expectedSections[j].CategoryGroup, actualSections[j].CategoryGroup);
+                        Assert.AreEqual(expectedSections[j].AssemblyGroup, actualSections[j].AssemblyGroup);
                     }
                 }
             }
@@ -722,10 +721,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
                 {
                     CreateCombinedFailureMechanismSectionAssembly(assessmentSection, 20),
@@ -782,18 +781,17 @@ namespace Riskeer.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssessmentSectionAssemblyCalculatorStubOld calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection,
-                                                                                                                      random.NextBoolean());
+                void Call() => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, random.NextBoolean());
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<AssessmentSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -808,77 +806,22 @@ namespace Riskeer.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection,
-                                                                                                                      random.NextBoolean());
+                void Call() => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, random.NextBoolean());
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<AssemblyException>(innerException);
                 Assert.AreEqual("Voor een of meerdere toetssporen kan geen oordeel worden bepaald.", exception.Message);
             }
         }
-
-        #region Manual Assembly Used
-
-        [Test]
-        public void AssembleCombinedPerFailureMechanismSection_FailureMechanismHasManualSectionAssemblyAndUseManualTrue_SetsManualAssemblyInputOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
-            using (new AssemblyToolCalculatorFactoryConfigOld())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                FailureMechanismSectionAssemblyCalculatorOldStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.AreEqual(probability, failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
-            }
-        }
-
-        [Test]
-        public void AssembleCombinedPerFailureMechanismSection_FailureMechanismHasManualSectionAssemblyAndUseManualFalse_SetsAssemblyInputOnCalculator()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-
-            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
-            sectionResult.UseManualAssembly = true;
-            double probability = new Random(39).NextDouble();
-            sectionResult.ManualAssemblyProbability = probability;
-
-            using (new AssemblyToolCalculatorFactoryConfigOld())
-            {
-                // When
-                AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, false);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                FailureMechanismSectionAssemblyCalculatorOldStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyAssemblyOutput);
-            }
-        }
-
-        #endregion
 
         #endregion
 
@@ -891,15 +834,15 @@ namespace Riskeer.Integration.Data.Test.Assembly
             return assessmentSection;
         }
 
-        private static CombinedFailureMechanismSectionAssemblyOld CreateCombinedFailureMechanismSectionAssembly(AssessmentSection assessmentSection, int seed)
+        private static CombinedFailureMechanismSectionAssembly CreateCombinedFailureMechanismSectionAssembly(AssessmentSection assessmentSection, int seed)
         {
             var random = new Random(seed);
-            return new CombinedFailureMechanismSectionAssemblyOld(new CombinedAssemblyFailureMechanismSectionOld(random.NextDouble(),
-                                                                                                           random.NextDouble(),
-                                                                                                           random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()),
-                                                               assessmentSection.GetFailureMechanisms()
-                                                                                .Where(fm => fm.InAssembly)
-                                                                                .Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>()).ToArray());
+            return new CombinedFailureMechanismSectionAssembly(
+                new CombinedAssemblyFailureMechanismSection(random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()),
+                assessmentSection.GetFailureMechanisms()
+                                 .Where(fm => fm.InAssembly)
+                                 .Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
+                                 .ToArray());
         }
 
         private static void AssertGroup1And2FailureMechanismInputs(AssessmentSection assessmentSection,

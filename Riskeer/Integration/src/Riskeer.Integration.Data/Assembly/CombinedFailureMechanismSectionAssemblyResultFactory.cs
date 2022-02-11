@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Data.Assembly
         /// <param name="assessmentSection">The assessment section to use while creating the results.</param>
         /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> Create(IEnumerable<CombinedFailureMechanismSectionAssemblyOld> output,
+        public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> Create(IEnumerable<CombinedFailureMechanismSectionAssembly> output,
                                                                                         IDictionary<IFailureMechanism, int> failureMechanisms,
                                                                                         AssessmentSection assessmentSection)
         {
@@ -64,14 +64,14 @@ namespace Riskeer.Integration.Data.Assembly
                                      sectionNumber + 1,
                                      assembly.Section.SectionStart,
                                      assembly.Section.SectionEnd,
-                                     assembly.Section.CategoryGroup,
-                                     CreateFailureMechanismResults(assembly.FailureMechanismResults,
+                                     assembly.Section.AssemblyGroup,
+                                     CreateFailureMechanismResults(assembly.FailureMechanismAssemblyGroupResults,
                                                                    failureMechanisms, assessmentSection)))
                          .ToArray();
         }
 
         private static CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties CreateFailureMechanismResults(
-            IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismResults,
+            IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismResults,
             IDictionary<IFailureMechanism, int> failureMechanisms,
             AssessmentSection assessmentSection)
         {
@@ -97,13 +97,13 @@ namespace Riskeer.Integration.Data.Assembly
             return constructionProperties;
         }
 
-        private static FailureMechanismSectionAssemblyCategoryGroup GetCategoryGroup(IFailureMechanism failureMechanism,
-                                                                                     IDictionary<IFailureMechanism, int> failureMechanisms,
-                                                                                     IEnumerable<FailureMechanismSectionAssemblyCategoryGroup> failureMechanismResults)
+        private static FailureMechanismSectionAssemblyGroup GetCategoryGroup(IFailureMechanism failureMechanism,
+                                                                             IDictionary<IFailureMechanism, int> failureMechanisms,
+                                                                             IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismResults)
         {
             return failureMechanisms.ContainsKey(failureMechanism)
                        ? failureMechanismResults.ElementAt(failureMechanisms[failureMechanism])
-                       : FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
+                       : FailureMechanismSectionAssemblyGroup.Gr;
         }
     }
 }
