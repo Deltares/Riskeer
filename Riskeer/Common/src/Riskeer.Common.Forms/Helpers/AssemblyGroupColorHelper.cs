@@ -60,13 +60,13 @@ namespace Riskeer.Common.Forms.Helpers
                 case FailureMechanismSectionAssemblyGroup.I:
                     return Color.FromArgb(198, 224, 180);
                 case FailureMechanismSectionAssemblyGroup.Zero:
-                    return Color.FromArgb(255, 165, 0);
+                    return Color.FromArgb(255, 255, 0);
                 case FailureMechanismSectionAssemblyGroup.IMin:
-                    return Color.FromArgb(255, 0, 0);
+                    return Color.FromArgb(255, 165, 0);
                 case FailureMechanismSectionAssemblyGroup.IIMin:
-                    return Color.FromArgb(178, 34, 34);
+                    return Color.FromArgb(255, 0, 0);
                 case FailureMechanismSectionAssemblyGroup.IIIMin:
-                    return Color.FromArgb(128, 0, 0);
+                    return Color.FromArgb(178, 34, 34);
                 case FailureMechanismSectionAssemblyGroup.Dominant:
                     return Color.FromArgb(255, 90, 172);
                 case FailureMechanismSectionAssemblyGroup.Gr:

@@ -43,10 +43,10 @@ namespace Riskeer.Common.Forms.TestUtil
                 yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.III, Color.FromArgb(34, 139, 34));
                 yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.II, Color.FromArgb(146, 208, 80));
                 yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.I, Color.FromArgb(198, 224, 180));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.Zero, Color.FromArgb(255, 165, 0));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.IMin, Color.FromArgb(255, 0, 0));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.IIMin, Color.FromArgb(178, 34, 34));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.IIIMin, Color.FromArgb(128, 0, 0));
+                yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.Zero, Color.FromArgb(255, 255, 0));
+                yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.IMin, Color.FromArgb(255, 165, 0));
+                yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.IIMin, Color.FromArgb(255, 0, 0));
+                yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.IIIMin, Color.FromArgb(178, 34, 34));
                 yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.Dominant, Color.FromArgb(255, 90, 172));
                 yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.Gr, Color.FromArgb(255, 255, 255));
             }
