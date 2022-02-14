@@ -57,7 +57,7 @@ namespace Riskeer.Common.Forms.TestUtil
             AssertCategoryTheme("-II", Color.FromArgb(255, 255, 0, 0), theme.CategoryThemes.ElementAt(6));
             AssertCategoryTheme("-III", Color.FromArgb(255, 178, 34, 34), theme.CategoryThemes.ElementAt(7));
             AssertCategoryTheme("D", Color.FromArgb(255, 255, 90, 172), theme.CategoryThemes.ElementAt(8));
-            AssertCategoryTheme(string.Empty, Color.FromArgb(255, 255, 255, 255), theme.CategoryThemes.ElementAt(9));
+            AssertCategoryTheme(string.Empty, Color.FromArgb(0, 0, 0, 0), theme.CategoryThemes.ElementAt(9));
         }
 
         private static void AssertCategoryTheme(string expectedValue, Color expectedColor, LineCategoryTheme categoryTheme)

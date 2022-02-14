@@ -19,15 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using Core.Common.Util;
 using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Factories
@@ -41,24 +37,24 @@ namespace Riskeer.Common.Forms.Factories
         private const LineDashStyle lineDashStyle = LineDashStyle.Solid;
 
         /// <summary>
-        /// Creates a <see cref="MapTheme{T}"/> based on the values of <see cref="FailureMechanismSectionAssemblyGroup"/>.
+        /// Creates a <see cref="MapTheme{T}"/> based on the values of <see cref="DisplayFailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
         /// <returns>The created <see cref="MapTheme{T}"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyGroup"/>
-        /// is a valid value, but unsupported.</exception>
         public static MapTheme<LineCategoryTheme> CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
         {
-            var categoryThemes = new List<LineCategoryTheme>();
-
-            foreach (FailureMechanismSectionAssemblyGroup enumValue in Enum.GetValues(typeof(FailureMechanismSectionAssemblyGroup)))
+            return new MapTheme<LineCategoryTheme>(Resources.AssemblyGroup_DisplayName, new[]
             {
-                LineCategoryTheme theme = CreateCategoryTheme(AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(enumValue),
-                                                              DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(enumValue));
-
-                categoryThemes.Add(theme);
-            }
-
-            return new MapTheme<LineCategoryTheme>(Resources.AssemblyGroup_DisplayName, categoryThemes);
+                CreateCategoryTheme(Color.FromArgb(255, 192, 192, 192), DisplayFailureMechanismSectionAssemblyGroup.NotDominant),
+                CreateCategoryTheme(Color.FromArgb(255, 34, 139, 34), DisplayFailureMechanismSectionAssemblyGroup.III),
+                CreateCategoryTheme(Color.FromArgb(255, 146, 208, 80), DisplayFailureMechanismSectionAssemblyGroup.II),
+                CreateCategoryTheme(Color.FromArgb(255, 198, 224, 180), DisplayFailureMechanismSectionAssemblyGroup.I),
+                CreateCategoryTheme(Color.FromArgb(255, 255, 255, 0), DisplayFailureMechanismSectionAssemblyGroup.Zero),
+                CreateCategoryTheme(Color.FromArgb(255, 255, 165, 0), DisplayFailureMechanismSectionAssemblyGroup.IMin),
+                CreateCategoryTheme(Color.FromArgb(255, 255, 0, 0), DisplayFailureMechanismSectionAssemblyGroup.IIMin),
+                CreateCategoryTheme(Color.FromArgb(255, 178, 34, 34), DisplayFailureMechanismSectionAssemblyGroup.IIIMin),
+                CreateCategoryTheme(Color.FromArgb(255, 255, 90, 172), DisplayFailureMechanismSectionAssemblyGroup.Dominant),
+                CreateCategoryTheme(Color.FromArgb(0, 0, 0, 0), DisplayFailureMechanismSectionAssemblyGroup.GR)
+            });
         }
 
         private static LineCategoryTheme CreateCategoryTheme(Color color, DisplayFailureMechanismSectionAssemblyGroup categoryGroup)
