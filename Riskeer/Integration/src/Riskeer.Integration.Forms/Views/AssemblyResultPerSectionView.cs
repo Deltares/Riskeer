@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Forms.Views
                                                  RiskeerCommonFormsResources.SectionEnd_DisplayName,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.TotalResult),
-                                                 Resources.AssemblyResultPerSection_DisplayName,
+                                                 RiskeerCommonFormsResources.AssemblyGroup_DisplayName,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.Piping),
                                                  PipingDataResources.PipingFailureMechanism_DisplayCode,

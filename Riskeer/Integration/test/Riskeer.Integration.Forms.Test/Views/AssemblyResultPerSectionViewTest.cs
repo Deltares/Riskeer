@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -96,10 +96,10 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssemblyResultPerSectionView(null);
+            void Call() => new AssemblyResultPerSectionView(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -160,7 +160,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssertColumn(dataGridViewColumns[sectionNumberColumnIndex], "Vaknummer");
                 AssertColumn(dataGridViewColumns[sectionStartColumnIndex], "Metrering van* [m]");
                 AssertColumn(dataGridViewColumns[sectionEndColumnIndex], "Metrering tot* [m]");
-                AssertColumn(dataGridViewColumns[sectionTotalAssemblyResultColumnIndex], "Gecombineerd vakoordeel");
+                AssertColumn(dataGridViewColumns[sectionTotalAssemblyResultColumnIndex], "Duidingsklasse");
                 AssertColumn(dataGridViewColumns[pipingColumnIndex], "STPH");
                 AssertColumn(dataGridViewColumns[grassCoverErosionInwardsColumnIndex], "GEKB");
                 AssertColumn(dataGridViewColumns[macroStabilityInwardsColumnIndex], "STBI");

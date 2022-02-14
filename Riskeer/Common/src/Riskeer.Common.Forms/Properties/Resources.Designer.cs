@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -124,6 +124,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string AssemblyCategory_UpperBoundary_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyCategory_UpperBoundary_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duidingsklasse.
+        /// </summary>
+        public static string AssemblyGroup_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyGroup_DisplayName", resourceCulture);
             }
         }
         
@@ -1596,15 +1605,6 @@ namespace Riskeer.Common.Forms.Properties {
             get {
                 return ResourceManager.GetString("FailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_depend" +
                         "ent_data", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Duidingsklasse.
-        /// </summary>
-        public static string FailureMechanismResultView_AssemblyGroup_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_AssemblyGroup_DisplayName", resourceCulture);
             }
         }
         

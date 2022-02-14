@@ -370,7 +370,7 @@ namespace Riskeer.Common.Forms.Builders
 
             dataGridViewControl.AddTextBoxColumn(
                 dataPropertyName,
-                Resources.FailureMechanismResultView_AssemblyGroup_DisplayName);
+                Resources.AssemblyGroup_DisplayName);
         }
 
         #endregion
