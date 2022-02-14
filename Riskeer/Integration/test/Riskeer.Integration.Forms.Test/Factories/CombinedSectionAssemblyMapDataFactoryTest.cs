@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             Assert.AreEqual(LineDashStyle.Solid, lineStyle.DashStyle);
 
             Assert.AreEqual("Vaknummer", data.SelectedMetaDataAttribute);
-            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(data.Theme);
+            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyGroupMapTheme(data.Theme);
         }
     }
 }

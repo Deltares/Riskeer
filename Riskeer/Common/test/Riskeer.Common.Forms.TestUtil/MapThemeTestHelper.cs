@@ -25,7 +25,6 @@ using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 
 namespace Riskeer.Common.Forms.TestUtil
 {
@@ -34,32 +33,6 @@ namespace Riskeer.Common.Forms.TestUtil
     /// </summary>
     public static class MapThemeTestHelper
     {
-        /// <summary>
-        /// Asserts whether the <paramref name="theme"/> is configured for category values
-        /// of type <see cref="DisplayFailureMechanismSectionAssemblyCategoryGroup"/>.
-        /// </summary>
-        /// <param name="theme">The <see cref="MapTheme{T}"/> to assert.</param>
-        /// <exception cref="AssertionException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="theme"/> does not have the expected attribute name it categorizes its data on.</item>
-        /// <item><paramref name="theme"/> does not have the expected number of criteria as themes.</item>
-        /// <item><paramref name="theme"/> does not have the expected categorical criteria as themes.</item>
-        /// </list></exception>
-        public static void AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(MapTheme<LineCategoryTheme> theme)
-        {
-            Assert.AreEqual("Categorie", theme.AttributeName);
-            Assert.AreEqual(9, theme.CategoryThemes.Count());
-            AssertCategoryTheme("Iv", Color.FromArgb(255, 0, 255, 0), theme.CategoryThemes.ElementAt(0));
-            AssertCategoryTheme("IIv", Color.FromArgb(255, 118, 147, 60), theme.CategoryThemes.ElementAt(1));
-            AssertCategoryTheme("IIIv", Color.FromArgb(255, 255, 255, 0), theme.CategoryThemes.ElementAt(2));
-            AssertCategoryTheme("IVv", Color.FromArgb(255, 204, 192, 218), theme.CategoryThemes.ElementAt(3));
-            AssertCategoryTheme("Vv", Color.FromArgb(255, 255, 153, 0), theme.CategoryThemes.ElementAt(4));
-            AssertCategoryTheme("VIv", Color.FromArgb(255, 255, 0, 0), theme.CategoryThemes.ElementAt(5));
-            AssertCategoryTheme("VIIv", Color.FromArgb(255, 255, 255, 255), theme.CategoryThemes.ElementAt(6));
-            AssertCategoryTheme("-", Color.FromArgb(0, 0, 0, 0), theme.CategoryThemes.ElementAt(7));
-            AssertCategoryTheme(string.Empty, Color.FromArgb(0, 0, 0, 0), theme.CategoryThemes.ElementAt(8));
-        }
-        
         /// <summary>
         /// Asserts whether the <paramref name="theme"/> is configured for category values
         /// of type <see cref="FailureMechanismSectionAssemblyGroup"/>.

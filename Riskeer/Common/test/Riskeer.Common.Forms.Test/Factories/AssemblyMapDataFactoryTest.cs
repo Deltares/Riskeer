@@ -89,7 +89,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             Assert.AreEqual(expectedVisibility, actualMapLineData.IsVisible);
             Assert.AreEqual("Categorie", actualMapLineData.SelectedMetaDataAttribute);
             RiskeerMapDataFactoryTestHelper.AssertEqualStyle(actualMapLineData.Style, Color.Empty, 6, LineDashStyle.Solid);
-            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(actualMapLineData.Theme);
+            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyGroupMapTheme(actualMapLineData.Theme);
         }
     }
 }

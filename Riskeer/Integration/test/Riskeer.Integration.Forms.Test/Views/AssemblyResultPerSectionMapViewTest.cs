@@ -487,7 +487,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(expectedAssemblyResult.SectionNumber, actualFeature.MetaData["Vaknummer"]);
                 Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
                                     DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedAssemblyResult.TotalResult)).DisplayName,
-                                mapFeatures.ElementAt(i).MetaData["Categorie"]);
+                                mapFeatures.ElementAt(i).MetaData["Duidingsklasse"]);
             }
         }
 
