@@ -38,7 +38,7 @@ namespace Riskeer.MacroStabilityInwards.Data
                                                                                               .OfType<MacroStabilityInwardsCalculationScenario>()
                                                                                               .ToArray();
 
-            return FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                 sectionResult, assessmentSection,
                 new MacroStabilityInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(sectionResult, calculationScenarios, failureMechanism),
                 failureMechanism.GeneralInput.ApplyLengthEffectInSection,

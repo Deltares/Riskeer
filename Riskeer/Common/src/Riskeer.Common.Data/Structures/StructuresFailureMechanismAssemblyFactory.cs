@@ -68,7 +68,7 @@ namespace Riskeer.Common.Data.Structures
                                                                                                      .OfType<StructuresCalculationScenario<TStructuresInput>>()
                                                                                                      .ToArray();
 
-            return FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                 sectionResult, assessmentSection, () => sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios));
         }
     }

@@ -66,7 +66,7 @@ namespace Riskeer.Piping.Data
             IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy =
                 PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(sectionResult, failureMechanism, assessmentSection);
 
-            return FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                 sectionResult, assessmentSection, calculateProbabilityStrategy,
                 failureMechanism.GeneralInput.ApplyLengthEffectInSection,
                 failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length));

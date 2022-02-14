@@ -66,7 +66,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                                                                                                  .OfType<GrassCoverErosionInwardsCalculationScenario>()
                                                                                                  .ToArray();
 
-            return FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                 sectionResult, assessmentSection,
                 new GrassCoverErosionInwardsFailureMechanismSectionResultCalculateProbabilityStrategy(sectionResult, calculationScenarios),
                 failureMechanism.GeneralInput.ApplyLengthEffectInSection, 1.0);

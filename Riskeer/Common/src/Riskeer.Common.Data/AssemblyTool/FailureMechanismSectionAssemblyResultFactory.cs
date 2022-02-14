@@ -35,7 +35,7 @@ namespace Riskeer.Common.Data.AssemblyTool
     /// <summary>
     /// Factory for creating assembly results for a failure mechanism section.
     /// </summary>
-    public static class FailureMechanismSectionResultAssemblyFactory
+    public static class FailureMechanismSectionAssemblyResultFactory
     {
         /// <summary>
         /// Assembles a failure mechanism section result based on the input arguments. 

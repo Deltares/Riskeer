@@ -61,7 +61,7 @@ namespace Riskeer.StabilityStoneCover.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, assessmentSection, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
+            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
         }
     }
 }

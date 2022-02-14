@@ -220,7 +220,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                AssemblyResult = FailureMechanismSectionResultAssemblyFactory.AssembleSection(SectionResult, assessmentSection);
+                AssemblyResult = FailureMechanismSectionAssemblyResultFactory.AssembleSection(SectionResult, assessmentSection);
             }
             catch (AssemblyException e)
             {

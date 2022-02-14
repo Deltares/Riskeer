@@ -39,7 +39,7 @@ using Riskeer.Common.Primitives;
 namespace Riskeer.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
-    public class FailureMechanismSectionResultAssemblyFactoryTest
+    public class FailureMechanismSectionAssemblyResultFactoryTest
     {
         private static bool IsInitialFailureMechanismResultTypeAdopt(AdoptableInitialFailureMechanismResultType initialFailureMechanismResultType)
         {
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             mocks.ReplayAll();
 
             // Call
-            void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+            void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                 null, assessmentSection, calculateStrategy, random.NextBoolean(), random.NextDouble());
 
             // Assert
@@ -83,7 +83,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+            void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                 sectionResult, null, calculateStrategy, random.NextBoolean(), random.NextDouble());
 
             // Assert
@@ -106,7 +106,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+            void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                 sectionResult, assessmentSection, null, random.NextBoolean(), random.NextDouble());
 
             // Assert
@@ -159,7 +159,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection, calculateStrategy, false, random.NextDouble());
 
                 // Assert
@@ -231,7 +231,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection, calculateStrategy, true, random.NextDouble());
 
                 // Assert
@@ -289,7 +289,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection, calculateStrategy, true, sectionN);
 
                 // Assert
@@ -331,7 +331,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection, calculateStrategy, random.NextBoolean(), random.NextDouble());
 
                 // Assert
@@ -359,7 +359,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+                void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection, calculateStrategy, random.NextBoolean(), random.NextDouble());
 
                 // Assert
@@ -383,7 +383,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             mocks.ReplayAll();
 
             // Call
-            void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(null, assessmentSection, () => double.NaN);
+            void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(null, assessmentSection, () => double.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -399,7 +399,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, null, () => double.NaN);
+            void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, null, () => double.NaN);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -417,7 +417,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, assessmentSection, null);
+            void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -458,7 +458,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, assessmentSection, () => calculatedSectionProbability);
+                FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, () => calculatedSectionProbability);
 
                 // Assert
                 FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
@@ -491,7 +491,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, assessmentSection, () => double.NaN);
+                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, () => double.NaN);
 
                 // Assert
                 Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, result);
@@ -512,7 +512,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, assessmentSection, () => double.NaN);
+                void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, () => double.NaN);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
@@ -537,7 +537,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var random = new Random(21);
 
             // Call
-            void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(null, assessmentSection, random.NextBoolean());
+            void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(null, assessmentSection, random.NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -554,7 +554,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var sectionResult = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, null, random.NextBoolean());
+            void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, null, random.NextBoolean());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -591,7 +591,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, assessmentSection, false);
+                FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, false);
 
                 // Assert
                 FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
@@ -642,7 +642,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, assessmentSection, true);
+                FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, true);
 
                 // Assert
                 FailureMechanismSectionWithProfileProbabilityAssemblyInput calculatorInput = calculator.FailureMechanismSectionWithProfileProbabilityAssemblyInput;
@@ -674,7 +674,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection, random.NextBoolean());
 
                 // Assert
@@ -697,7 +697,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+                void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection, random.NextBoolean());
 
                 // Assert
@@ -721,7 +721,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             mocks.ReplayAll();
 
             // Call
-            void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(null, assessmentSection);
+            void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -737,7 +737,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var sectionResult = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
-            void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, null);
+            void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -774,7 +774,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, assessmentSection);
+                FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
@@ -804,7 +804,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection);
 
                 // Assert
@@ -826,7 +826,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+                void Call() => FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection);
 
                 // Assert

@@ -11,7 +11,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
                                                                             IHasGeneralInput failureMechanism,
                                                                             IAssessmentSection assessmentSection)
         {
-            return FailureMechanismSectionResultAssemblyFactory.AssembleSection(sectionResult, assessmentSection, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
+            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
         }
     }
 }
