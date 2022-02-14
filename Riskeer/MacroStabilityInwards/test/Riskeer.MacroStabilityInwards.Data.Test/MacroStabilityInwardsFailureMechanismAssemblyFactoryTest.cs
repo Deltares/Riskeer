@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -36,10 +35,10 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 
-namespace Riskeer.Piping.Data.Test
+namespace Riskeer.MacroStabilityInwards.Data.Test
 {
     [TestFixture]
-    public class PipingFailureMechanismAssemblyFactoryTest
+    public class MacroStabilityInwardsFailureMechanismAssemblyFactoryTest
     {
         [Test]
         public void AssembleSection_SectionResultNull_ThrowsArgumentNullException()
@@ -49,10 +48,10 @@ namespace Riskeer.Piping.Data.Test
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            void Call() => PipingFailureMechanismAssemblyFactory.AssembleSection(null, failureMechanism, assessmentSection);
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -73,7 +72,7 @@ namespace Riskeer.Piping.Data.Test
             var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => PipingFailureMechanismAssemblyFactory.AssembleSection(sectionResult, null, assessmentSection);
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -89,10 +88,10 @@ namespace Riskeer.Piping.Data.Test
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            var failureMechanism = new PipingFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            void Call() => PipingFailureMechanismAssemblyFactory.AssembleSection(sectionResult, failureMechanism, null);
+            void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -105,30 +104,29 @@ namespace Riskeer.Piping.Data.Test
             // Setup
             var random = new Random(21);
 
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
             {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, "APath");
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
-            sectionResult.IsRelevant = random.NextBoolean();
-            sectionResult.InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual;
-            sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
-            sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
-            sectionResult.FurtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
-            sectionResult.ProbabilityRefinementType = ProbabilityRefinementType.Both;
-            sectionResult.RefinedProfileProbability = random.NextDouble();
-            sectionResult.RefinedSectionProbability = random.NextDouble();
+                IsRelevant = random.NextBoolean(),
+                InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual,
+                ManualInitialFailureMechanismResultProfileProbability = random.NextDouble(),
+                ManualInitialFailureMechanismResultSectionProbability = random.NextDouble(),
+                FurtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
+                ProbabilityRefinementType = ProbabilityRefinementType.Both,
+                RefinedProfileProbability = random.NextDouble(),
+                RefinedSectionProbability = random.NextDouble()
+            };
 
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
-            
+
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                PipingFailureMechanismAssemblyFactory.AssembleSection(sectionResult, failureMechanism, assessmentSection);
+                MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
                 FailureMechanismSectionWithProfileProbabilityAssemblyInput calculatorInput = calculator.FailureMechanismSectionWithProfileProbabilityAssemblyInput;
@@ -151,13 +149,10 @@ namespace Riskeer.Piping.Data.Test
         public void AssembleSection_CalculatorRan_ReturnsExpectedOutput()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, "APath");
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -166,7 +161,7 @@ namespace Riskeer.Piping.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = PipingFailureMechanismAssemblyFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResult result = MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(
                     sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
@@ -178,13 +173,10 @@ namespace Riskeer.Piping.Data.Test
         public void AssembleSection_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            var failureMechanism = new PipingFailureMechanism();
-            failureMechanism.SetSections(new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            }, "APath");
-            AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult = failureMechanism.SectionResults.Single();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -194,7 +186,7 @@ namespace Riskeer.Piping.Data.Test
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => PipingFailureMechanismAssemblyFactory.AssembleSection(
+                void Call() => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(
                     sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
