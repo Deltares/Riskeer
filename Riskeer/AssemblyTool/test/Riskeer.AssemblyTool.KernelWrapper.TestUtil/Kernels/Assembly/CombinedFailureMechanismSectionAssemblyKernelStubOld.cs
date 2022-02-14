@@ -30,7 +30,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
     /// <summary>
     /// Combined failure mechanism section assembly kernel stub for testing purposes.
     /// </summary>
-    public class CombinedFailureMechanismSectionAssemblyKernelStub : ICommonFailureMechanismSectionAssembler
+    public class CombinedFailureMechanismSectionAssemblyKernelStubOld : ICommonFailureMechanismSectionAssembler
     {
         /// <summary>
         /// Sets an indicator whether an <see cref="Exception"/> must be thrown while performing a calculation.
