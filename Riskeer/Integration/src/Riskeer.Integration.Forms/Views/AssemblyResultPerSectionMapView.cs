@@ -27,7 +27,6 @@ using Core.Components.Gis.Forms;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Forms.Factories;
 using Riskeer.Integration.Forms.Observers;
 using Riskeer.Integration.Forms.Properties;
@@ -76,7 +75,6 @@ namespace Riskeer.Integration.Forms.Views
             mapDataCollection.Add(assemblyResultsMapData);
 
             SetAllMapDataFeatures();
-            SetWarningPanel();
 
             riskeerMapControl.SetAllData(mapDataCollection, assessmentSection.BackgroundData);
         }
@@ -111,11 +109,7 @@ namespace Riskeer.Integration.Forms.Views
 
         private void CreateObservers()
         {
-            assessmentSectionResultObserver = new Observer(() =>
-            {
-                UpdateAssessmentSectionData();
-                SetWarningPanel();
-            })
+            assessmentSectionResultObserver = new Observer(UpdateAssessmentSectionData)
             {
                 Observable = new AssessmentSectionResultObserver(AssessmentSection)
             };
@@ -125,11 +119,6 @@ namespace Riskeer.Integration.Forms.Views
         {
             SetReferenceLineMapData();
             SetAssemblyResultsMapData();
-        }
-
-        private void SetWarningPanel()
-        {
-            warningPanel.Visible = AssessmentSectionHelper.HasManualAssemblyResults(AssessmentSection);
         }
 
         private void UpdateAssessmentSectionData()

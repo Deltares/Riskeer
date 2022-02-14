@@ -40,11 +40,6 @@ namespace Riskeer.Integration.Forms.Views
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssemblyResultPerSectionMapView));
             this.riskeerMapControl = new Riskeer.Common.Forms.Views.RiskeerMapControl();
-            this.warningPanel = new System.Windows.Forms.Panel();
-            this.warningIcon = new System.Windows.Forms.PictureBox();
-            this.warningText = new System.Windows.Forms.Label();
-            this.warningPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.warningIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // riskeerMapControl
@@ -56,50 +51,13 @@ namespace Riskeer.Integration.Forms.Views
             this.riskeerMapControl.Size = new System.Drawing.Size(562, 150);
             this.riskeerMapControl.TabIndex = 0;
             // 
-            // warningPanel
-            // 
-            this.warningPanel.BackColor = System.Drawing.SystemColors.Info;
-            this.warningPanel.Controls.Add(this.warningText);
-            this.warningPanel.Controls.Add(this.warningIcon);
-            this.warningPanel.Location = new System.Drawing.Point(0, 25);
-            this.warningPanel.Name = "warningPanel";
-            this.warningPanel.Size = new System.Drawing.Size(562, 100);
-            this.warningPanel.TabIndex = 1;
-            this.warningPanel.AutoSize = true;
-            this.warningPanel.Dock = DockStyle.Top;
-            // 
-            // warningIcon
-            // 
-            this.warningIcon.Image = global::Riskeer.Common.Forms.Properties.Resources.PencilWarning.ToBitmap();
-            this.warningIcon.Location = new System.Drawing.Point(4, 4);
-            this.warningIcon.MaximumSize = new System.Drawing.Size(16, 16);
-            this.warningIcon.Name = "warningIcon";
-            this.warningIcon.Size = new System.Drawing.Size(16, 16);
-            this.warningIcon.TabIndex = 0;
-            this.warningIcon.TabStop = false;
-            this.warningIcon.SizeMode = PictureBoxSizeMode.StretchImage;
-            this.warningIcon.Dock = DockStyle.Left;
-            // 
-            // warningText
-            // 
-            this.warningText.AutoSize = true;
-            this.warningText.Location = new System.Drawing.Point(27, 6);
-            this.warningText.Name = "warningText";
-            this.warningText.Size = new System.Drawing.Size(35, 13);
-            this.warningText.TabIndex = 1;
-            this.warningText.Text = global::Riskeer.Common.Forms.Properties.Resources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies;
-            // 
             // AssemblyResultPerSectionMapView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.riskeerMapControl);
-            this.Controls.Add(this.warningPanel);
             this.Name = "AssemblyResultPerSectionMapView";
             this.Size = new System.Drawing.Size(562, 150);
-            this.warningPanel.ResumeLayout(false);
-            this.warningPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.warningIcon)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -107,8 +65,5 @@ namespace Riskeer.Integration.Forms.Views
         #endregion
 
         private Riskeer.Common.Forms.Views.RiskeerMapControl riskeerMapControl;
-        private Panel warningPanel;
-        private PictureBox warningIcon;
-        private Label warningText;
     }
 }

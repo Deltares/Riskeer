@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -42,14 +41,12 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Forms.Views;
 using Riskeer.Integration.Util;
-using Riskeer.Piping.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Test.Views
@@ -88,16 +85,11 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<IMapView>(view);
                 Assert.IsNull(view.Data);
 
-                Assert.AreEqual(2, view.Controls.Count);
+                Assert.AreEqual(1, view.Controls.Count);
 
                 IMapControl mapControl = GetMapControl(view);
                 Assert.AreSame(view.Map, mapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
-
-                Panel warningPanel = GetWarningPanel(view);
-                Assert.AreEqual(DockStyle.Top, warningPanel.Dock);
-                Assert.IsFalse(warningPanel.Visible);
-                Assert.IsTrue(warningPanel.AutoSize);
 
                 Assert.AreSame(assessmentSection, view.AssessmentSection);
 
@@ -355,78 +347,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             }
         }
 
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenViewWithVariousManualAssemblyResultConfigurations_WhenShowingView_ThenExpectedWarningSet(bool hasManualAssembly)
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
-            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResultsOld.Single().UseManualAssembly = hasManualAssembly;
-
-            // When
-            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
-            {
-                // Then 
-                Panel warningPanel = GetWarningPanel(view);
-                Assert.AreEqual(hasManualAssembly, warningPanel.Visible);
-                AssertWarningPanel(warningPanel);
-            }
-        }
-
-        [Test]
-        public void GivenViewWithoutManualAssemblyResults_WhenAssessmentSectionWithManualAssemblyResultsAndNotifiesObservers_ThenExpectedWarningSet()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
-
-            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
-            {
-                Panel warningPanel = GetWarningPanel(view);
-
-                // Precondition
-                Assert.IsFalse(warningPanel.Visible);
-
-                // When
-                PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-                FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-                failureMechanism.SectionResultsOld.Single().UseManualAssembly = true;
-                failureMechanism.NotifyObservers();
-
-                // Then 
-                Assert.IsTrue(warningPanel.Visible);
-                AssertWarningPanel(warningPanel);
-            }
-        }
-
-        [Test]
-        public void GivenViewWithManualAssemblyResults_WhenAssessmentSectionWithoutManualAssemblyResultsAndNotifiesObservers_ThenExpectedWarningSet()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSectionWithReferenceLine();
-            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            failureMechanism.SectionResultsOld.Single().UseManualAssembly = true;
-
-            using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
-            {
-                Panel warningPanel = GetWarningPanel(view);
-
-                // Precondition
-                Assert.IsTrue(warningPanel.Visible);
-                AssertWarningPanel(warningPanel);
-
-                // When
-                failureMechanism.SectionResultsOld.Single().UseManualAssembly = false;
-                failureMechanism.NotifyObservers();
-
-                // Then 
-                Assert.IsFalse(warningPanel.Visible);
-            }
-        }
-
         private static AssessmentSection CreateAssessmentSection()
         {
             var random = new Random(21);
@@ -489,27 +409,6 @@ namespace Riskeer.Integration.Forms.Test.Views
                                     DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedAssemblyResult.TotalResult)).DisplayName,
                                 mapFeatures.ElementAt(i).MetaData["Duidingsklasse"]);
             }
-        }
-
-        private static Panel GetWarningPanel(AssemblyResultPerSectionMapView view)
-        {
-            return (Panel) view.Controls[1];
-        }
-
-        private static void AssertWarningPanel(Panel warningPanel)
-        {
-            Assert.AreEqual(2, warningPanel.Controls.Count);
-
-            var warningIcon = (PictureBox) warningPanel.Controls.Find("warningIcon", false).Single();
-            TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.PencilWarning.ToBitmap(), warningIcon.Image);
-            Assert.AreEqual(DockStyle.Left, warningIcon.Dock);
-            Assert.AreEqual(16, warningIcon.MaximumSize.Height);
-            Assert.AreEqual(16, warningIcon.MaximumSize.Width);
-            Assert.AreEqual(PictureBoxSizeMode.StretchImage, warningIcon.SizeMode);
-            Assert.AreEqual(SystemColors.Info, warningPanel.BackColor);
-
-            var warningText = (Label) warningPanel.Controls.Find("warningText", false).Single();
-            Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", warningText.Text);
         }
 
         private static IMapControl GetMapControl(AssemblyResultPerSectionMapView view)
