@@ -39,7 +39,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
             LastCreatedAssemblyCategoryLimitsKernel = new AssemblyCategoryLimitsKernelStub();
             LastCreatedFailureMechanismSectionAssemblyKernel = new FailureMechanismSectionAssemblyKernelStub();
             LastCreatedFailureMechanismAssemblyKernel = new FailureMechanismAssemblyKernelStub();
-            LastCreatedAssessmentSectionAssemblyKernel = new AssessmentSectionAssemblyKernelStub();
+            LastCreatedCombinedFailureMechanismSectionAssemblyKernel = new CombinedFailureMechanismSectionAssemblyKernelStub();
         }
 
         /// <summary>
@@ -58,9 +58,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
         public FailureMechanismAssemblyKernelStub LastCreatedFailureMechanismAssemblyKernel { get; }
         
         /// <summary>
-        /// Gets the last created assessment section assembly kernel.
+        /// Gets the last created combined failure mechanism section assembly kernel.
         /// </summary>
-        public AssessmentSectionAssemblyKernelStub LastCreatedAssessmentSectionAssemblyKernel { get; }
+        public CombinedFailureMechanismSectionAssemblyKernelStub LastCreatedCombinedFailureMechanismSectionAssemblyKernel { get; }
 
         public ICategoryLimitsCalculator CreateAssemblyCategoriesKernel()
         {
@@ -79,7 +79,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
 
         public ICommonFailureMechanismSectionAssembler CreateCombinedFailureMechanismSectionAssemblyKernel()
         {
-            return LastCreatedAssessmentSectionAssemblyKernel;
+            return LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
         }
     }
 }

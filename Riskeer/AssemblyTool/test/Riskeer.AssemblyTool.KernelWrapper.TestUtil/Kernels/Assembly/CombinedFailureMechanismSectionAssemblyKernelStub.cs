@@ -29,9 +29,9 @@ using Assembly.Kernel.Model.FailureMechanismSections;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 {
     /// <summary>
-    /// Assessment section assembly kernel stub for testing purposes.
+    /// Combined failure mechanism section assembly kernel stub for testing purposes.
     /// </summary>
-    public class AssessmentSectionAssemblyKernelStub : ICommonFailureMechanismSectionAssembler
+    public class CombinedFailureMechanismSectionAssemblyKernelStub : ICommonFailureMechanismSectionAssembler
     {
         /// <summary>
         /// Gets a value indicating whether a calculation was called or not. 
