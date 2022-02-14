@@ -61,5 +61,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
         {
             return new CommonFailureMechanismSectionAssembler();
         }
+
+        public IAssessmentGradeAssembler CreateAssessmentSectionAssemblyKernel()
+        {
+            return new AssessmentGradeAssembler();
+        }
     }
 }
