@@ -25,7 +25,7 @@ using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Views;
+using Riskeer.Common.Forms.MapLayers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Factories;
 using Riskeer.Integration.Forms.Observers;

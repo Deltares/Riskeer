@@ -29,7 +29,7 @@ using Core.Components.Gis.Forms;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Views;
+using Riskeer.Common.Forms.MapLayers;
 
 namespace Riskeer.Integration.Forms.Views
 {

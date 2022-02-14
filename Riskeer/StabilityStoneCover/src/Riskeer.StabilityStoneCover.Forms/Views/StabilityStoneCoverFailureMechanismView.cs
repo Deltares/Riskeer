@@ -30,7 +30,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Views;
+using Riskeer.Common.Forms.MapLayers;
 using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.Factories;

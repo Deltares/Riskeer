@@ -32,7 +32,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Views;
+using Riskeer.Common.Forms.MapLayers;
 using Riskeer.StabilityPointStructures.Data;
 using StabilityPointStructuresDataResources = Riskeer.StabilityPointStructures.Data.Properties.Resources;
 

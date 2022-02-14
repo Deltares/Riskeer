@@ -21,7 +21,7 @@
 
 using System;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Forms.Views;
+using Riskeer.Common.Forms.MapLayers;
 
 namespace Riskeer.Integration.Forms.Views
 {

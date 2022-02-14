@@ -28,6 +28,7 @@ using Core.Components.Gis.Forms;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.MapLayers;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Data.FailurePath;
 

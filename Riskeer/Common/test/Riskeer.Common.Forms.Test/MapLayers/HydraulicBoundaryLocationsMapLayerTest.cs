@@ -31,10 +31,10 @@ using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.MapLayers;
 using Riskeer.Common.Forms.TestUtil;
-using Riskeer.Common.Forms.Views;
 
-namespace Riskeer.Common.Forms.Test.Views
+namespace Riskeer.Common.Forms.Test.MapLayers
 {
     [TestFixture]
     public class HydraulicBoundaryLocationsMapLayerTest

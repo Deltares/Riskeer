@@ -32,7 +32,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Factories;
-using Riskeer.Common.Forms.Views;
+using Riskeer.Common.Forms.MapLayers;
 using Riskeer.HeightStructures.Data;
 using HeightStructuresDataResources = Riskeer.HeightStructures.Data.Properties.Resources;
 

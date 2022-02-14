@@ -32,7 +32,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
 
-namespace Riskeer.Common.Forms.Views
+namespace Riskeer.Common.Forms.MapLayers
 {
     /// <summary>
     /// Map layer to show hydraulic boundary locations.
