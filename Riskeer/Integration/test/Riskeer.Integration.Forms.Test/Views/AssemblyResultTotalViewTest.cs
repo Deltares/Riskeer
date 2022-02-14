@@ -128,7 +128,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(3, view.Controls.Count);
 
                 Button button = GetRefreshAssemblyResultButtonTester().Properties;
-                Assert.AreEqual("Toetsoordeel verversen", button.Text);
+                Assert.AreEqual("Resultaten verversen", button.Text);
                 Assert.IsFalse(button.Enabled);
 
                 var groupBox = (GroupBox) new ControlTester("assemblyResultGroupBox").TheObject;

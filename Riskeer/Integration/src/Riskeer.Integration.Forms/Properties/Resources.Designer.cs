@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -816,7 +816,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel verversen.
+        ///   Looks up a localized string similar to Resultaten verversen.
         /// </summary>
         public static string RefreshAssemblyResultsButton_Text {
             get {

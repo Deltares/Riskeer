@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -121,7 +121,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(2, view.Controls.Count);
 
                 var button = (Button) GetRefreshAssemblyResultButtonTester().TheObject;
-                Assert.AreEqual("Toetsoordeel verversen", button.Text);
+                Assert.AreEqual("Resultaten verversen", button.Text);
                 Assert.IsFalse(button.Enabled);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
