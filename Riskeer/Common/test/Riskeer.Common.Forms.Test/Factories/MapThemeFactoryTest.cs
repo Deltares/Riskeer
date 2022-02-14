@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             MapTheme<LineCategoryTheme> mapTheme = MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme();
 
             // Assert
-            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyCategoryGroupMapTheme(mapTheme);
+            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyGroupMapTheme(mapTheme);
         }
     }
 }
