@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Assembly.Kernel.Old.Model;
+using Assembly.Kernel.Model.Categories;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 
@@ -35,7 +35,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         /// Gets a collection of test cases to test the conversion between <see cref="EAssessmentGrade"/>
         /// and <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
         /// </summary>
-        public static IEnumerable<TestCaseData> AsssementGradeConversionCases
+        public static IEnumerable<TestCaseData> AssessmentGradeConversionCases
         {
             get
             {
