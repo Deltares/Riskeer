@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int stabilityPointStructuresColumnIndex = 17;
         private const int duneErosionColumnIndex = 18;
         private const int expectedColumnCount = 19;
-        private const string assemblyResultOutdatedWarning = "Toetsoordeel is verouderd. Druk op de \"Toetsoordeel verversen\" knop om opnieuw te berekenen.";
+        private const string assemblyResultOutdatedWarning = "De resultaten zijn verouderd. Druk op de \"Resultaten verversen\" knop om opnieuw te berekenen.";
 
         private Form testForm;
 

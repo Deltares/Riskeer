@@ -136,7 +136,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel is verouderd. Druk op de &quot;Toetsoordeel verversen&quot; knop om opnieuw te berekenen..
+        ///   Looks up a localized string similar to De resultaten zijn verouderd. Druk op de &quot;Resultaten verversen&quot; knop om opnieuw te berekenen..
         /// </summary>
         public static string AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate {
             get {
