@@ -134,6 +134,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(assessmentSectionLength, kernel.AssessmentSectionLength);
                 CombinedFailureMechanismSectionsInputAssert.AssertCombinedFailureMechanismInput(input, kernel.FailureMechanismSectionLists);
                 Assert.IsFalse(kernel.PartialAssembly);
+                Assert.IsTrue(kernel.Calculated);
             }
         }
 
@@ -198,16 +199,17 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                TestDelegate test = () => calculator.AssembleCombinedFailureMechanismSections(new[]
-                {
-                    new[]
-                    {
-                        new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
-                    }
-                }, random.NextDouble()).ToArray();
+                void Call() => calculator.AssembleCombinedFailureMechanismSections(new[]
+                                         {
+                                             new[]
+                                             {
+                                                 new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
+                                             }
+                                         }, random.NextDouble())
+                                         .ToArray();
 
                 // Assert
-                var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(test);
+                var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
                 Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
             }

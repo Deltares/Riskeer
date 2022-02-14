@@ -64,29 +64,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool PartialAssembly { get; private set; }
 
         /// <summary>
-        /// Gets the common sections used as an input parameter for assembly methods.
-        /// </summary>
-        public FailureMechanismSectionList CommonSections { get; private set; }
-
-        /// <summary>
-        /// Gets the <see cref="FailureMechanismSectionList"/> used as an input parameter for assembly methods.
-        /// </summary>
-        public FailureMechanismSectionList FailureMechanismSectionListInput { get; private set; }
-
-        /// <summary>
         /// Gets or sets the <see cref="AssemblyResult"/>.
         /// </summary>
         public AssemblyResult AssemblyResult { get; set; }
-
-        /// <summary>
-        /// Gets ors sets the <see cref="FailureMechanismSectionList"/> result.
-        /// </summary>
-        public FailureMechanismSectionList FailureMechanismSectionListResult { get; set; }
-
-        /// <summary>
-        /// Gets or sets the failure mechanism sections with category result.
-        /// </summary>
-        public IEnumerable<FailureMechanismSectionWithCategory> FailureMechanismSectionsWithCategory { get; set; }
 
         public AssemblyResult AssembleCommonFailureMechanismSections(IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists,
                                                                      double assessmentSectionLength, bool partialAssembly)
@@ -105,40 +85,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public FailureMechanismSectionList FindGreatestCommonDenominatorSectionsWbi3A1(IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists,
                                                                                        double assessmentSectionLength)
         {
-            ThrowException();
-
-            FailureMechanismSectionLists = failureMechanismSectionLists;
-            AssessmentSectionLength = assessmentSectionLength;
-
-            Calculated = true;
-
-            return FailureMechanismSectionListResult;
+            throw new NotImplementedException();
         }
 
         public FailureMechanismSectionList TranslateFailureMechanismResultsToCommonSectionsWbi3B1(FailureMechanismSectionList failureMechanismSectionList,
                                                                                                   FailureMechanismSectionList commonSections)
         {
-            ThrowException();
-
-            FailureMechanismSectionListInput = failureMechanismSectionList;
-            CommonSections = commonSections;
-
-            Calculated = true;
-
-            return FailureMechanismSectionListResult;
+            throw new NotImplementedException();
         }
 
         public IEnumerable<FailureMechanismSectionWithCategory> DetermineCombinedResultPerCommonSectionWbi3C1(IEnumerable<FailureMechanismSectionList> failureMechanismResults,
                                                                                                               bool partialAssembly)
         {
-            ThrowException();
-
-            FailureMechanismSectionLists = failureMechanismResults;
-            PartialAssembly = partialAssembly;
-
-            Calculated = true;
-
-            return FailureMechanismSectionsWithCategory;
+            throw new NotImplementedException();
         }
 
         private void ThrowException()
