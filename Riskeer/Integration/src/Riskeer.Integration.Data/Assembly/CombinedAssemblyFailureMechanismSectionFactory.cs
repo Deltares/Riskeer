@@ -242,10 +242,10 @@ namespace Riskeer.Integration.Data.Assembly
                 sectionResult, assessmentSection.GrassCoverSlipOffInwards, assessmentSection);
 
         private static Func<NonAdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> PipingStructureAssemblyFunc =>
-            FailureMechanismSectionResultAssemblyFactory.AssembleSection;
+            FailureMechanismSectionAssemblyResultFactory.AssembleSection;
 
         private static Func<NonAdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> DuneErosionAssemblyFunc =>
-            FailureMechanismSectionResultAssemblyFactory.AssembleSection;
+            FailureMechanismSectionAssemblyResultFactory.AssembleSection;
 
         #endregion
     }
