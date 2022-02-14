@@ -114,7 +114,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                     AssessmentSectionAssemblyInputCreator.CreateFailureMechanismCategory(failureMechanismsWithoutProbability),
                     AssessmentSectionAssemblyInputCreator.CreateFailureMechanismAssemblyResult(failureMechanismsWithProbability));
 
-                return AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(output);
+                return AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategory(output);
             }
             catch (AssemblyException e)
             {

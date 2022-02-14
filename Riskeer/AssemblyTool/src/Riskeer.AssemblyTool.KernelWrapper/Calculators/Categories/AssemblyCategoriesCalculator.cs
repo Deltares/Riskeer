@@ -61,7 +61,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
                 CategoriesList<AssessmentSectionCategory> output = kernel.CalculateAssessmentSectionCategoryLimitsWbi21(
                     new AssessmentSection(1, signalingNorm, lowerLimitNorm));
 
-                return AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
+                return AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategories(output);
             }
             catch (AssemblyException e)
             {

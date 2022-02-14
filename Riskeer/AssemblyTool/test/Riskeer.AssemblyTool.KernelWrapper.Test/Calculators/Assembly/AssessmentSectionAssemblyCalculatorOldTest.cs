@@ -489,7 +489,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                                                                                                        failureMechanismsWithProbability);
 
                 // Assert
-                AssessmentSectionAssemblyCategoryGroup expectedAssembly = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(kernel.AssessmentSectionAssemblyResult);
+                AssessmentSectionAssemblyCategoryGroup expectedAssembly = AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategory(kernel.AssessmentSectionAssemblyResult);
                 Assert.AreEqual(expectedAssembly, assembly);
             }
         }

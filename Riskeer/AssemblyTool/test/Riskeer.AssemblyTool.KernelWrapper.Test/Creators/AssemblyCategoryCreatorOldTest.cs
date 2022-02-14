@@ -35,13 +35,13 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class AssemblyCategoryCreatorTest
+    public class AssemblyCategoryCreatorOldTest
     {
         [Test]
         public void CreateAssessmentSectionAssemblyCategories_CategoriesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(null);
+            TestDelegate call = () => AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategories(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -63,7 +63,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categories);
+            IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategories(categories);
 
             // Assert
             AssemblyCategoryAssert.AssertAssessmentSectionAssemblyCategories(categories, result);
@@ -79,7 +79,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categories);
+            TestDelegate test = () => AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategories(categories);
 
             // Assert
             const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EAssessmentGrade'.";
@@ -87,7 +87,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCaseSource(typeof(AssessmentGradeConversionTestHelper), nameof(AssessmentGradeConversionTestHelper.AsssementGradeConversionCases))]
+        [TestCaseSource(typeof(AssessmentGradeConversionTestHelperOld), nameof(AssessmentGradeConversionTestHelperOld.AssessmentGradeConversionCases))]
         public void CreateAssessmentSectionAssemblyCategories_CategoryWithValidAssessmentGrade_ExpectedAssessmentSectionAssemblyCategoryResultType(
             EAssessmentGrade categoryGroup,
             AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
@@ -99,7 +99,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(categories);
+            IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategories(categories);
 
             // Assert
             Assert.AreEqual(expectedCategoryGroup, result.Single().Group);
@@ -109,7 +109,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentSectionAssemblyCategoryGroup_WithInvalidAssessmentGrade_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory((EAssessmentGrade) 99);
+            TestDelegate test = () => AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategory((EAssessmentGrade) 99);
 
             // Assert
             const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EAssessmentGrade'.";
@@ -117,13 +117,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCaseSource(typeof(AssessmentGradeConversionTestHelper), nameof(AssessmentGradeConversionTestHelper.AsssementGradeConversionCases))]
+        [TestCaseSource(typeof(AssessmentGradeConversionTestHelperOld), nameof(AssessmentGradeConversionTestHelperOld.AssessmentGradeConversionCases))]
         public void CreateAssessmentSectionAssemblyCategory_WithValidAssessmentGrade_ExpectedAssessmentSectionAssemblyCategoryResultType(
             EAssessmentGrade categoryGroup,
             AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
         {
             // Call
-            AssessmentSectionAssemblyCategoryGroup categoryResult = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(categoryGroup);
+            AssessmentSectionAssemblyCategoryGroup categoryResult = AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategory(categoryGroup);
 
             // Assert
             Assert.AreEqual(expectedCategoryGroup, categoryResult);
@@ -133,7 +133,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateFailureMechanismAssemblyCategories_CategoriesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(null);
+            TestDelegate call = () => AssemblyCategoryCreatorOld.CreateFailureMechanismAssemblyCategories(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -155,7 +155,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<FailureMechanismAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categories);
+            IEnumerable<FailureMechanismAssemblyCategory> result = AssemblyCategoryCreatorOld.CreateFailureMechanismAssemblyCategories(categories);
 
             // Assert
             AssemblyCategoryAssert.AssertFailureMechanismAssemblyCategories(categories, result);
@@ -171,7 +171,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categories);
+            TestDelegate test = () => AssemblyCategoryCreatorOld.CreateFailureMechanismAssemblyCategories(categories);
 
             // Assert
             const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFailureMechanismCategory'.";
@@ -199,7 +199,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<FailureMechanismAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismAssemblyCategories(categories);
+            IEnumerable<FailureMechanismAssemblyCategory> result = AssemblyCategoryCreatorOld.CreateFailureMechanismAssemblyCategories(categories);
 
             // Assert
             Assert.AreEqual(expectedCategoryGroup, result.Single().Group);
@@ -209,7 +209,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateFailureMechanismSectionAssemblyCategories_CategoriesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(null);
+            TestDelegate call = () => AssemblyCategoryCreatorOld.CreateFailureMechanismSectionAssemblyCategories(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -231,7 +231,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categories);
+            IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreatorOld.CreateFailureMechanismSectionAssemblyCategories(categories);
 
             // Assert
             AssemblyCategoryAssert.AssertFailureMechanismSectionAssemblyCategories(categories, result);
@@ -247,7 +247,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            TestDelegate test = () => AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categories);
+            TestDelegate test = () => AssemblyCategoryCreatorOld.CreateFailureMechanismSectionAssemblyCategories(categories);
 
             // Assert
             const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EFmSectionCategory'.";
@@ -275,7 +275,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreator.CreateFailureMechanismSectionAssemblyCategories(categories);
+            IEnumerable<FailureMechanismSectionAssemblyCategory> result = AssemblyCategoryCreatorOld.CreateFailureMechanismSectionAssemblyCategories(categories);
 
             // Assert
             Assert.AreEqual(expectedCategoryGroup, result.Single().Group);

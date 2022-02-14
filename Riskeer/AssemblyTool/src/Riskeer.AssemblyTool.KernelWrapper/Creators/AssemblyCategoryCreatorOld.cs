@@ -32,7 +32,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     /// <summary>
     /// Creates <see cref="AssemblyGroupBoundaries"/> instances.
     /// </summary>
-    internal static class AssemblyCategoryCreator
+    internal static class AssemblyCategoryCreatorOld
     {
         /// <summary>
         /// Creates a collection of <see cref="AssessmentSectionAssemblyCategory"/>
