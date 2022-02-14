@@ -39,7 +39,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
         private readonly IAssemblyToolKernelFactory factory;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyCategoriesCalculator"/>.
+        /// Creates a new instance of <see cref="AssemblyGroupBoundariesCalculator"/>.
         /// </summary>
         /// <param name="factory">The factory responsible for creating the assembly categories kernel.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
