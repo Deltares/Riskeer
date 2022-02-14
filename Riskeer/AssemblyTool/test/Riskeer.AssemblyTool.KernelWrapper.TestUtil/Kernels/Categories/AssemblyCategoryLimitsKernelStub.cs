@@ -45,7 +45,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         /// <summary>
         /// Sets the <see cref="CategoriesList{TCategory}"/> assembly result.
         /// </summary>
-        public CategoriesList<InterpretationCategory> CategoryLimits { private get; set; }
+        public CategoriesList<InterpretationCategory> InterpretationCategoryLimits { private get; set; }
+
+        /// <summary>
+        /// Sets the <see cref="CategoriesList{TCategory}"/> assembly result.
+        /// </summary>
+        public CategoriesList<AssessmentSectionCategory> AssessmentSectionCategoryLimits { private get; set; }
 
         /// <summary>
         /// Sets an indicator whether an <see cref="Exception"/> must be thrown while performing a calculation.
@@ -59,7 +64,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
 
         public CategoriesList<AssessmentSectionCategory> CalculateAssessmentSectionCategoryLimitsWbi21(AssessmentSection section)
         {
-            throw new NotImplementedException();
+            ThrowException();
+
+            Calculated = true;
+            AssessmentSection = section;
+
+            return AssessmentSectionCategoryLimits;
         }
 
         public CategoriesList<InterpretationCategory> CalculateInterpretationCategoryLimitsWbi03(AssessmentSection section)
@@ -69,7 +79,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
             Calculated = true;
             AssessmentSection = section;
 
-            return CategoryLimits;
+            return InterpretationCategoryLimits;
         }
 
         private void ThrowException()
