@@ -69,12 +69,11 @@ namespace Riskeer.Integration.Forms.Factories
             var mapFeatures = new List<MapFeature>();
             foreach (CombinedFailureMechanismSectionAssemblyResult assemblyResult in assemblyResults)
             {
-                IEnumerable<Point2D> geometry = FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(assessmentSection.ReferenceLine,
-                                                                                                                 assemblyResult.SectionStart,
-                                                                                                                 assemblyResult.SectionEnd);
+                IEnumerable<Point2D> geometry = FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
+                    assessmentSection.ReferenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd);
                 MapFeature mapFeature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(geometry);
 
-                mapFeature.MetaData[RiskeerCommonFormsResources.AssemblyCategory_Group_DisplayName] =
+                mapFeature.MetaData[RiskeerCommonFormsResources.AssemblyGroup_DisplayName] =
                     new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
                         DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyResult.TotalResult)).DisplayName;
                 mapFeature.MetaData[Resources.SectionNumber_DisplayName] = assemblyResult.SectionNumber;
