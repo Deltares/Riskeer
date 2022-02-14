@@ -27,9 +27,9 @@ namespace Riskeer.AssemblyTool.Data
     public class FailureMechanismSectionAssemblyResult
     {
         /// <summary>
-        /// Instantiates a <see cref="FailureMechanismSectionAssemblyResult"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyResult"/>.
         /// </summary>
-        /// <param name="profileProbability">The probability of the failure mechanism section, expressed for profile</param>
+        /// <param name="profileProbability">The probability of the failure mechanism section, expressed for profile.</param>
         /// <param name="sectionProbability">The probability of the failure mechanism section, expressed for the section.</param>
         /// <param name="n">The length effect of the failure mechanism section.</param>
         /// <param name="assemblyGroup">The <see cref="FailureMechanismSectionAssemblyGroup"/>.</param>
