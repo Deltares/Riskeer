@@ -743,28 +743,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
-
-        [Test]
-        public void AssembleSectionNonAdoptableSectionWithoutProfileProbability_CalculatorRan_ReturnsExpectedOutput()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSectionStub();
-            var sectionResult = new NonAdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionResultAssemblyFactory.AssembleSection(
-                    sectionResult, assessmentSection);
-
-                // Assert
-                Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, result);
-            }
-        }
-
+        
         [Test]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.Manual, true)]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.NoFailureProbability, false)]
@@ -809,6 +788,27 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 Assert.AreEqual(manualInitialSectionProbability, calculatorInput.InitialSectionProbability);
                 Assert.AreEqual(furtherAnalysisType, calculatorInput.FurtherAnalysisType);
                 Assert.AreEqual(refinedSectionProbability, calculatorInput.RefinedSectionProbability);
+            }
+        }
+
+        [Test]
+        public void AssembleSectionNonAdoptableSectionWithoutProfileProbability_CalculatorRan_ReturnsExpectedOutput()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSectionStub();
+            var sectionResult = new NonAdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                // Call
+                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionResultAssemblyFactory.AssembleSection(
+                    sectionResult, assessmentSection);
+
+                // Assert
+                Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, result);
             }
         }
 

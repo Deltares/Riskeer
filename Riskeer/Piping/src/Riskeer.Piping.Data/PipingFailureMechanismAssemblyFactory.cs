@@ -37,9 +37,9 @@ namespace Riskeer.Piping.Data
         /// <summary>
         /// Assembles the section based on the input arguments.
         /// </summary>
-        /// <param name="sectionResult"></param>
-        /// <param name="failureMechanism"></param>
-        /// <param name="assessmentSection"></param>
+        /// <param name="sectionResult">The section result to assemble.</param>
+        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> the section result belongs to.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the section belongs to.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be assembled.</exception>
