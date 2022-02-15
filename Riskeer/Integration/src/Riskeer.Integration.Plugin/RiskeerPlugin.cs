@@ -787,7 +787,14 @@ namespace Riskeer.Integration.Plugin
 
             yield return CreateSpecificFailurePathTreeNodeInfo();
 
-            yield return new TreeNodeInfo<AssemblyGroupsContext>();
+            yield return new TreeNodeInfo<AssemblyGroupsContext>
+            {
+                Text = context => Resources.AssemblyGroups_DisplayName,
+                Image = context => RiskeerCommonFormsResources.NormsIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
 
             yield return new TreeNodeInfo<GenericFailurePathsContext>
             {
@@ -1806,6 +1813,7 @@ namespace Riskeer.Integration.Plugin
 
             return new object[]
             {
+                new AssemblyGroupsContext(assessmentSection),
                 new GenericFailurePathsContext(assessmentSection),
                 new SpecificFailurePathsContext(assessmentSection.SpecificFailurePaths, assessmentSection),
                 new AssemblyResultsContext(assessmentSection)

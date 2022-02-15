@@ -155,16 +155,19 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 object[] objects = info.ChildNodeObjects(context).ToArray();
 
                 // Assert
-                Assert.AreEqual(3, objects.Length);
+                Assert.AreEqual(4, objects.Length);
 
-                var genericFailurePathsContext = (GenericFailurePathsContext) objects[0];
+                var assemblyGroupsContext = (AssemblyGroupsContext) objects[0];
+                Assert.AreSame(assessmentSection, assemblyGroupsContext.WrappedData);
+
+                var genericFailurePathsContext = (GenericFailurePathsContext) objects[1];
                 Assert.AreSame(assessmentSection, genericFailurePathsContext.WrappedData);
 
-                var specificFailurePathsContext = (SpecificFailurePathsContext) objects[1];
+                var specificFailurePathsContext = (SpecificFailurePathsContext) objects[2];
                 Assert.AreSame(assessmentSection.SpecificFailurePaths, specificFailurePathsContext.WrappedData);
                 Assert.AreSame(assessmentSection, specificFailurePathsContext.AssessmentSection);
 
-                var assemblyResultsContext = (AssemblyResultsContext) objects[2];
+                var assemblyResultsContext = (AssemblyResultsContext) objects[3];
                 Assert.AreSame(assessmentSection, assemblyResultsContext.WrappedData);
             }
         }

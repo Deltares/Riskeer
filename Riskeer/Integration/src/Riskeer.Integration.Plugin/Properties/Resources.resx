@@ -59,7 +59,8 @@
               : using a System.ComponentModel.TypeConverter
               : and then encoded with base64 encoding.
       -->
-    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root"
+    <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
+                id="root"
                 xmlns="">
         <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
         <xsd:element name="root" msdata:IsDataSet="true">
@@ -140,7 +141,8 @@
 
 Wilt u doorgaan?</value>
   </data>
-    <data name="FailureMechanismContributionNormChangeHandler_ClearAllNormDependentSemiProbabilisticCalculationOutput_Results_of_NumberOfCalculations_0_calculations_cleared" xml:space="preserve">
+    <data name="FailureMechanismContributionNormChangeHandler_ClearAllNormDependentSemiProbabilisticCalculationOutput_Results_of_NumberOfCalculations_0_calculations_cleared"
+          xml:space="preserve">
     <value>De resultaten van {0} semi-probabilistische berekeningen zonder handmatige waterstand zijn verwijderd.</value>
   </data>
     <data name="FailureMechanismContributionNormChangeHandler_ClearNormDependingHydraulicBoundaryLocationCalculationOutput_Calculation_results_cleared"
@@ -201,7 +203,7 @@ Weet u zeker dat u wilt doorgaan?</value>
     <value>Hydraulische belastingen zijn samengevoegd.</value>
   </data>
     <data name="AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced"
-        xml:space="preserve">
+          xml:space="preserve">
         <value>Gegevens van het generieke faalpad '{0}' zijn vervangen.</value>
     </data>
     <data name="AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_not_merged"
@@ -282,17 +284,20 @@ belastingen</value>
           xml:space="preserve">
     <value>Het traject kan niet aangemaakt worden met een ondergrens van {0} en een signaleringswaarde van {1}. De waarde van de ondergrens en signaleringswaarde moet in het bereik {2} liggen en de ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.</value>
   </data>
-    <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_semi_probabilistic_data" xml:space="preserve">
+    <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_semi_probabilistic_data"
+          xml:space="preserve">
         <value>Als u de norm aanpast, dan worden de rekenresultaten van semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
     </data>
-    <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_hydraulic_calculations_data_and_semi_probabilistic_data" xml:space="preserve">
+    <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_hydraulic_calculations_data_and_semi_probabilistic_data"
+          xml:space="preserve">
         <value>Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm en semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
     </data>
-    <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_hydraulic_calculations_data" xml:space="preserve">
+    <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_hydraulic_calculations_data"
+          xml:space="preserve">
         <value>Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
@@ -318,5 +323,8 @@ Weet u zeker dat u wilt doorgaan?</value>
     </data>
     <data name="AssessmentSectionMergeHandler_TryMergeFailurePath_FailurePath_0_added" xml:space="preserve">
         <value>Faalpad '{0}' en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalpaden.</value>
+    </data>
+    <data name="AssemblyGroups_DisplayName" xml:space="preserve">
+        <value>Duidingsklassen</value>
     </data>
 </root>
