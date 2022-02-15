@@ -210,7 +210,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
 
         #region Calculations MapData
 
-        protected virtual void UpdateCalculationsMapData()
+        private void UpdateCalculationsMapData()
         {
             SetCalculationsMapData();
             calculationsMapData.NotifyObservers();
