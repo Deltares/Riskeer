@@ -2763,6 +2763,7 @@ namespace Riskeer.Integration.Plugin
             AssessmentSection assessmentSection = context.WrappedData;
             return new object[]
             {
+                new NormClassesContext(assessmentSection),
                 new AssemblyResultTotalContext(assessmentSection),
                 new AssemblyResultPerSectionContext(assessmentSection),
                 new AssemblyResultPerSectionMapContext(assessmentSection)
