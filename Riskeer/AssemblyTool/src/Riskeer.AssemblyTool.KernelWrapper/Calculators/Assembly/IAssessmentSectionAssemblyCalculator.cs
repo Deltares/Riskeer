@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
 
@@ -29,6 +30,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
     /// </summary>
     public interface IAssessmentSectionAssemblyCalculator
     {
+        /// <summary>
+        /// Assembles an assessment section based on the input arguments.
+        /// </summary>
+        /// <param name="failureMechanismProbabilities">The collection of failure mechanism probabilities.</param>
+        /// <param name="lowerLimitNorm">The lower limit norm to assemble with.</param>
+        /// <param name="signalingNorm">The signalling norm to assemble with.</param>
+        /// <returns>A <see cref="AssessmentSectionAssemblyResult"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismProbabilities"/> is <c>null</c>.</exception>
+        /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
+        /// an error occurs while assembling.</exception>
+        AssessmentSectionAssemblyResult AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities,
+                                                                  double lowerLimitNorm,
+                                                                  double signalingNorm);
+
         /// <summary>
         /// Assembles the combined assessment section for the given input.
         /// </summary>

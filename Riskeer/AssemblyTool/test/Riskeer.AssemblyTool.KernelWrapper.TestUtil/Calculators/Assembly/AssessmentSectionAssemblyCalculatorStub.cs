@@ -38,6 +38,26 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public bool ThrowExceptionOnCalculate { private get; set; }
 
         /// <summary>
+        /// Gets the failure mechanism probabilities input.
+        /// </summary>
+        public IEnumerable<double> FailureMechanismProbabilitiesInput { get; private set; }
+
+        /// <summary>
+        /// Gets the lower limit norm input.
+        /// </summary>
+        public double LowerLimitNormInput { get; private set; }
+
+        /// <summary>
+        /// Gets the signaling norm input.
+        /// </summary>
+        public double SignalingNormInput { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the output of an assessment section assembly.
+        /// </summary>
+        public AssessmentSectionAssemblyResult AssessmentSectionAssemblyResult { get; set; } 
+
+        /// <summary>
         /// Gets the combined failure mechanism sections input.
         /// </summary>
         public IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> CombinedFailureMechanismSectionsInput { get; private set; }
@@ -51,6 +71,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// Gets or sets the output of the combined failure mechanism section assembly.
         /// </summary>
         public IEnumerable<CombinedFailureMechanismSectionAssembly> CombinedFailureMechanismSectionAssemblyOutput { get; set; }
+
+        public AssessmentSectionAssemblyResult AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities, double lowerLimitNorm, double signalingNorm)
+        {
+            if (ThrowExceptionOnCalculate)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException("Message", new Exception());
+            }
+
+            FailureMechanismProbabilitiesInput = failureMechanismProbabilities;
+            LowerLimitNormInput = lowerLimitNorm;
+            SignalingNormInput = signalingNorm;
+
+            return AssessmentSectionAssemblyResult ?? (AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResult(0.14, AssessmentSectionAssemblyCategoryGroup.NotApplicable));
+        }
 
         public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(
             IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input, double assessmentSectionLength)
