@@ -93,6 +93,58 @@ namespace Riskeer.Common.Forms.Factories
             return CreateCategoryGroupFeatures(failureMechanism, getAssemblyCategoryGroupFunc).ToArray();
         }
 
+        /// <summary>
+        /// Creates a collection of <see cref="MapFeature"/> for instances of <see cref="FailureMechanismSectionAssemblyResult"/>.
+        /// </summary>
+        /// <typeparam name="TSectionResult">The type of section result to create the features for.</typeparam>
+        /// <param name="failureMechanism">The failure mechanism to create the features for.</param>
+        /// <param name="performAssemblyFunc">The <see cref="Func{T,T2}"/> used to assemble the result of a section result.</param>
+        /// <returns>A collection of <see cref="MapFeature"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<MapFeature> CreateAssemblyGroupFeatures<TSectionResult>(
+            IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult> failureMechanism,
+            Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
+            where TSectionResult : FailureMechanismSectionResult
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (performAssemblyFunc == null)
+            {
+                throw new ArgumentNullException(nameof(performAssemblyFunc));
+            }
+
+            return CreateAssemblyGroupFeatures(failureMechanism.SectionResults, performAssemblyFunc).ToArray();
+        }
+
+        private static IEnumerable<MapFeature> CreateAssemblyGroupFeatures<TSectionResult>(
+            IEnumerable<TSectionResult> sectionResults, Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
+            where TSectionResult : FailureMechanismSectionResult
+        {
+            foreach (TSectionResult sectionResult in sectionResults)
+            {
+                MapFeature feature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(sectionResult.Section.Points);
+
+                FailureMechanismSectionAssemblyResult assemblyResult;
+                try
+                {
+                    assemblyResult = performAssemblyFunc(sectionResult);
+                }
+                catch (AssemblyException)
+                {
+                    continue;
+                }
+
+                feature.MetaData[Resources.AssemblyCategory_Group_DisplayName] =
+                    new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
+                        DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyResult.AssemblyGroup)).DisplayName;
+
+                yield return feature;
+            }
+        }
+
         private static IEnumerable<MapFeature> CreateFeatures<TFailureMechanism, TSectionResult>(
             TFailureMechanism failureMechanism, Func<TSectionResult, FailureMechanismSectionAssemblyOld> getAssemblyFunc)
             where TFailureMechanism : IHasSectionResults<TSectionResult> where TSectionResult : FailureMechanismSectionResultOld
