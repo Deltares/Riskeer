@@ -36,10 +36,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int inAssemblyPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int applyLengthEffectInSectionPropertyIndex = 6;
+        private const int inAssemblyPropertyIndex = 3;
+        private const int nPropertyIndex = 4;
+        private const int applyLengthEffectInSectionPropertyIndex = 5;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingStructureFailurePathProperties"/>.
@@ -64,8 +63,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 
         private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
         {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(N).Equals(propertyName)
+            return nameof(N).Equals(propertyName)
                    || nameof(ApplyLengthEffectInSection).Equals(propertyName);
         }
 
@@ -127,19 +125,6 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
             get
             {
                 return data.Code;
-            }
-        }
-
-        [DynamicVisible]
-        [PropertyOrder(contributionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Contribution_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Contribution_Description))]
-        public double Contribution
-        {
-            get
-            {
-                return data.Contribution;
             }
         }
 
