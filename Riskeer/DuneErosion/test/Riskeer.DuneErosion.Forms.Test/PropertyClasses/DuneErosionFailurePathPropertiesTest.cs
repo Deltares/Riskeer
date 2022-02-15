@@ -38,10 +38,9 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
-        private const int contributionPropertyIndex = 2;
-        private const int inAssemblyPropertyIndex = 3;
-        private const int nPropertyIndex = 4;
-        private const int applyLengthEffectInSectionPropertyIndex = 5;
+        private const int inAssemblyPropertyIndex = 2;
+        private const int nPropertyIndex = 3;
+        private const int applyLengthEffectInSectionPropertyIndex = 4;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -61,7 +60,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
-            Assert.AreEqual(failureMechanism.Contribution, properties.Contribution);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
             GeneralDuneErosionInput generalInput = failureMechanism.GeneralInput;
@@ -80,7 +78,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(6, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string lengthEffectCategory = "Lengte-effect";
@@ -97,13 +95,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het toetsspoor.",
-                                                                            true);
-
-            PropertyDescriptor contributionProperty = dynamicProperties[contributionPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(contributionProperty,
-                                                                            generalCategory,
-                                                                            "Faalkansbijdrage [%]",
-                                                                            "Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject.",
                                                                             true);
 
             PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
@@ -159,7 +150,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Het label van het toetsspoor.",
                                                                             true);
 
-            PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex - 1];
+            PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
                                                                             generalCategory,
                                                                             "In assemblage",
@@ -237,7 +228,6 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Code)));
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.InAssembly)));
 
-            Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.Contribution)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
 
