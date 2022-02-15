@@ -787,6 +787,8 @@ namespace Riskeer.Integration.Plugin
 
             yield return CreateSpecificFailurePathTreeNodeInfo();
 
+            yield return new TreeNodeInfo<AssemblyGroupsContext>();
+
             yield return new TreeNodeInfo<GenericFailurePathsContext>
             {
                 Text = context => Resources.GenericFailurePaths_DisplayName,
