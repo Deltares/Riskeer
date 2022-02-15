@@ -29,15 +29,15 @@ using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class AssemblyResultsContextTreeNodeInfoTest
+    public class NormClassesContextTreeNodeInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -53,8 +53,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNotNull(info.Image);
                 Assert.IsNotNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
-                Assert.IsNotNull(info.ExpandOnCreate);
-                Assert.IsNotNull(info.ChildNodeObjects);
+                Assert.IsNull(info.ExpandOnCreate);
+                Assert.IsNull(info.ChildNodeObjects);
                 Assert.IsNull(info.CanRename);
                 Assert.IsNull(info.OnNodeRenamed);
                 Assert.IsNull(info.CanRemove);
@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Assemblage", text);
+                Assert.AreEqual("Normklassen", text);
             }
         }
 
@@ -97,43 +97,26 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Image image = info.Image(null);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RiskeerCommonFormsResources.GeneralFolderIcon, image);
+                TestHelper.AssertImagesAreEqual(Resources.NormsIcon, image);
             }
         }
 
         [Test]
-        public void ExpandOnCreate_Always_ReturnsTrue()
-        {
-            // Setup
-            using (var plugin = new RiskeerPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Call
-                bool expandOnCreate = info.ExpandOnCreate(null);
-
-                // Assert
-                Assert.IsTrue(expandOnCreate);
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_WithContext_CallsContextMenuBuilderMethods()
+        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
         {
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            var context = new AssemblyResultsContext(assessmentSection);
+            var context = new NormClassesContext(assessmentSection);
 
             var mocks = new MockRepository();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
 
             using (mocks.Ordered())
             {
-                menuBuilder.Expect(mb => mb.AddExportItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
@@ -158,41 +141,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        [Test]
-        public void ChildNodeObjects_WithContext_ReturnsChildrenOfData()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            var context = new AssemblyResultsContext(assessmentSection);
-
-            using (var plugin = new RiskeerPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Call
-                object[] objects = info.ChildNodeObjects(context).ToArray();
-
-                // Assert
-                Assert.AreEqual(4, objects.Length);
-
-                var normClassesContext = (NormClassesContext) objects[0];
-                Assert.AreSame(assessmentSection, normClassesContext.WrappedData);
-
-                var assemblyResultTotalContext = (AssemblyResultTotalContext) objects[1];
-                Assert.AreSame(assessmentSection, assemblyResultTotalContext.WrappedData);
-
-                var assemblyResultPerSectionContext = (AssemblyResultPerSectionContext) objects[2];
-                Assert.AreSame(assessmentSection, assemblyResultPerSectionContext.WrappedData);
-
-                var assemblyResultPerSectionMapContext = (AssemblyResultPerSectionMapContext) objects[3];
-                Assert.AreSame(assessmentSection, assemblyResultPerSectionMapContext.WrappedData);
-            }
-        }
-
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(AssemblyResultsContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(NormClassesContext));
         }
     }
 }

@@ -2686,6 +2686,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Normklassen.
+        /// </summary>
+        public static string NormClasses_DisplayName {
+            get {
+                return ResourceManager.GetString("NormClasses_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Normen.
         /// </summary>
         public static string Norms_DisplayName {

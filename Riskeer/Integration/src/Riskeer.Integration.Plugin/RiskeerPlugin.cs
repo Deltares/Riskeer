@@ -1001,6 +1001,17 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
 
+            yield return new TreeNodeInfo<NormClassesContext>
+            {
+                Text = context => RiskeerCommonFormsResources.NormClasses_DisplayName,
+                Image = context => RiskeerCommonFormsResources.NormsIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
             yield return new TreeNodeInfo<AssemblyResultTotalContext>
             {
                 Text = context => RiskeerCommonFormsResources.CombinedAssembly_DisplayName,

@@ -1421,6 +1421,9 @@ berekende kans
     <data name="AssemblyMapDataFactory_TailorMadeAssemblyMapData" xml:space="preserve">
     <value>Toetsoordeel toets op maat</value>
   </data>
+    <data name="NormClasses_DisplayName" xml:space="preserve">
+    <value>Normklassen</value>
+  </data>
     <data name="CombinedAssembly_DisplayName" xml:space="preserve">
     <value>Gecombineerd toetsoordeel</value>
   </data>
