@@ -20,12 +20,10 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
-using Core.Components.Gis.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.MapLayers;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Forms.Factories;
 using PipingDataResources = Riskeer.Piping.Data.Properties.Resources;
 
 namespace Riskeer.Piping.Forms.Views
@@ -35,12 +33,7 @@ namespace Riskeer.Piping.Forms.Views
     /// </summary>
     public class PipingFailurePathView : PipingFailureMechanismView
     {
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
-
-        private RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResultOld>, PipingFailureMechanismSectionResultOld> sectionResultObserver;
+        private CalculatableFailureMechanismSectionResultsMapLayer<PipingFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, PipingInput> mapLayer;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailurePathView"/>.
@@ -48,11 +41,12 @@ namespace Riskeer.Piping.Forms.Views
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailurePathView(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) : base(failureMechanism, assessmentSection) {}
+        public PipingFailurePathView(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            : base(failureMechanism, assessmentSection) {}
 
         protected override void Dispose(bool disposing)
         {
-            sectionResultObserver.Dispose();
+            mapLayer.Dispose();
 
             base.Dispose(disposing);
         }
@@ -61,69 +55,9 @@ namespace Riskeer.Piping.Forms.Views
         {
             base.CreateMapData();
 
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
-
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            MapDataCollection.Insert(4, assemblyMapDataCollection);
+            mapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<PipingFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, PipingInput>(
+                FailureMechanism, sr => PipingFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection));
+            MapDataCollection.Insert(4, mapLayer.MapData);
         }
-
-        protected override void CreateObservers()
-        {
-            base.CreateObservers();
-
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<PipingFailureMechanismSectionResultOld>, PipingFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
-            {
-                Observable = FailureMechanism.SectionResultsOld
-            };
-        }
-
-        protected override void SetAllMapDataFeatures()
-        {
-            base.SetAllMapDataFeatures();
-
-            SetAssemblyMapData();
-        }
-
-        protected override void UpdateSemiProbabilisticCalculationsMapData()
-        {
-            base.UpdateSemiProbabilisticCalculationsMapData();
-
-            UpdateAssemblyMapData();
-        }
-
-        protected override void UpdateFailureMechanismMapData()
-        {
-            base.UpdateFailureMechanismMapData();
-
-            UpdateAssemblyMapData();
-        }
-
-        #region Assembly MapData
-
-        private void UpdateAssemblyMapData()
-        {
-            SetAssemblyMapData();
-            simpleAssemblyMapData.NotifyObservers();
-            detailedAssemblyMapData.NotifyObservers();
-            tailorMadeAssemblyMapData.NotifyObservers();
-            combinedAssemblyMapData.NotifyObservers();
-        }
-
-        private void SetAssemblyMapData()
-        {
-            simpleAssemblyMapData.Features = PipingAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
-            detailedAssemblyMapData.Features = PipingAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism, AssessmentSection);
-            tailorMadeAssemblyMapData.Features = PipingAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism, AssessmentSection);
-            combinedAssemblyMapData.Features = PipingAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism, AssessmentSection);
-        }
-
-        #endregion
     }
 }
