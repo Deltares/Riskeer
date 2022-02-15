@@ -34,6 +34,7 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Common.Forms.TestUtil
@@ -343,6 +344,48 @@ namespace Riskeer.Common.Forms.TestUtil
             AssertAssemblyMapData("Toetsoordeel gedetailleerde toets", failureMechanism, expectedDetailedAssemblyCategory, assemblyMapDataCollection.ElementAt(1));
             AssertAssemblyMapData("Toetsoordeel eenvoudige toets", failureMechanism, expectedSimpleAssemblyCategory, assemblyMapDataCollection.ElementAt(2));
             AssertAssemblyMapData("Gecombineerd toetsoordeel", failureMechanism, expectedCombinedAssemblyCategory, assemblyMapDataCollection.ElementAt(3));
+        }
+
+        /// <summary>
+        /// Asserts whether the <see cref="MapData"/> contains the data that is representative 
+        /// for the <paramref name="expectedAssemblyResult"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the that contains the original data.</param>
+        /// <param name="expectedAssemblyResult">The expected <see cref="FailureMechanismSectionAssemblyResult"/> that contains the original data.</param>
+        /// <param name="mapData">The <see cref="MapDataCollection"/> that needs to be asserted.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>the name of the <see cref="MapData"/> is not <c>Duidingsklasse per vak</c>;</item>
+        /// <item>the amount of features in <paramref name="mapData"/> is not equal to the 
+        /// amount of the <see cref="IFailurePath.Sections"/>;</item>
+        /// <item>the geometries of the features in <paramref name="mapData"/> are not equal to 
+        /// the expected geometry of the <see cref="IFailurePath.Sections"/>;</item>
+        /// <item>the meta data does not contain the <see cref="DisplayFailureMechanismSectionAssemblyGroup"/>.</item>
+        /// </list>
+        /// </exception>
+        public static void AssertAssemblyMapData(IFailureMechanism failureMechanism,
+                                                 FailureMechanismSectionAssemblyResult expectedAssemblyResult,
+                                                 MapData mapData)
+        {
+            var assemblyMapLineData = (MapLineData) mapData;
+            Assert.AreEqual("Duidingsklasse per vak", assemblyMapLineData.Name);
+
+            MapFeature[] features = assemblyMapLineData.Features.ToArray();
+            FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
+            Assert.AreEqual(sections.Length, features.Length);
+
+            for (var index = 0; index < sections.Length; index++)
+            {
+                MapFeature feature = features[index];
+
+                FailureMechanismSection failureMechanismSection = sections[index];
+                CollectionAssert.AreEqual(failureMechanismSection.Points, feature.MapGeometries.Single().PointCollections.Single());
+
+                Assert.AreEqual(1, feature.MetaData.Count);
+                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
+                                    DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedAssemblyResult.AssemblyGroup)).DisplayName,
+                                feature.MetaData["Categorie"]);
+            }
         }
 
         private static void AssertAssemblyMapData(string expectedMapDataName,

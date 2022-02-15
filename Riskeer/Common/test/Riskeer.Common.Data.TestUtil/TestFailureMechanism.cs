@@ -31,7 +31,7 @@ namespace Riskeer.Common.Data.TestUtil
     /// Simple failure mechanism which can be used for testing.
     /// </summary>
     public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResultOld, TestFailureMechanismSectionResult>,
-                                        IHasGeneralInput
+                                        IHasGeneralInput, ICalculatableFailureMechanism
     {
         private const string defaultName = "Test failure mechanism";
         private const string defaultCode = "TFM";
@@ -70,13 +70,16 @@ namespace Riskeer.Common.Data.TestUtil
         {
             sectionResultsOld = new ObservableList<FailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
-            Calculations = calculations;
+            CalculationsGroup = new CalculationGroup();
+            CalculationsGroup.Children.AddRange(calculations);
             GeneralInput = new GeneralInput();
         }
 
+        public CalculationGroup CalculationsGroup { get; }
+
         public GeneralInput GeneralInput { get; }
 
-        public override IEnumerable<ICalculation> Calculations { get; }
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
         public IObservableEnumerable<FailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
 
