@@ -21,9 +21,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
+using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentSection;
+using Assembly.Kernel.Model.Categories;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
@@ -50,6 +53,39 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
 
             this.factory = factory;
+        }
+
+        public AssessmentSectionAssemblyResult AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities,
+                                                                         double lowerLimitNorm,
+                                                                         double signalingNorm)
+        {
+            if (failureMechanismProbabilities == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismProbabilities));
+            }
+
+            try
+            {
+                ICategoryLimitsCalculator categoryLimitsKernel = factory.CreateAssemblyCategoriesKernel();
+                CategoriesList<AssessmentSectionCategory> categoryLimits = categoryLimitsKernel.CalculateAssessmentSectionCategoryLimitsWbi21(
+                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalingNorm),
+                                          AssemblyCalculatorInputCreator.CreateProbability(lowerLimitNorm)));
+
+                IAssessmentGradeAssembler assessmentSectionAssemblyKernel = factory.CreateAssessmentSectionAssemblyKernel();
+                IEnumerable<Probability> probabilities = failureMechanismProbabilities.Select(AssemblyCalculatorInputCreator.CreateProbability)
+                                                                                      .ToArray();
+
+                AssessmentSectionResult assemblyResult = assessmentSectionAssemblyKernel.AssembleAssessmentSectionWbi2B1(probabilities, categoryLimits, false);
+                return AssessmentSectionAssemblyResultCreator.CreateAssessmentSectionAssemblyResult(assemblyResult);
+            }
+            catch (AssemblyException e)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+            }
+            catch (Exception e)
+            {
+                throw new AssessmentSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+            }
         }
 
         public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(

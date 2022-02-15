@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Assembly.Kernel.Exceptions;
+using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.Categories;
 using Assembly.Kernel.Model.FailureMechanismSections;
@@ -36,6 +38,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {
@@ -67,6 +70,184 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("factory", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_FailureMechanismProbabilitiesNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+            var calculator = new AssessmentSectionAssemblyCalculator(kernelFactory);
+
+            // Call
+            void Call() => calculator.AssembleAssessmentSection(null, random.NextDouble(), random.NextDouble());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanismProbabilities", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_WithValidInput_InputCorrectlySetToKernel()
+        {
+            // Setup
+            var random = new Random(21);
+            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = signalingNorm + 1e-3;
+
+            int nrOfProbabilities = random.Next(1, 10);
+            IEnumerable<double> failureMechanismProbabilities = Enumerable.Repeat(random.NextDouble(), nrOfProbabilities)
+                                                                          .ToArray();
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+
+                var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
+                {
+                    new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), new Probability(0), new Probability(1))
+                });
+                AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
+                categoryLimitsKernel.AssessmentSectionCategoryLimits = categoryLimits;
+
+                AssessmentSectionAssemblyKernelStub assessmentSectionAssemblyKernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
+                assessmentSectionAssemblyKernel.AssessmentSectionAssemblyResult = new AssessmentSectionResult(new Probability(random.NextDouble()), random.NextEnumValue<EAssessmentGrade>());
+
+                var calculator = new AssessmentSectionAssemblyCalculator(factory);
+
+                // Call
+                calculator.AssembleAssessmentSection(failureMechanismProbabilities, lowerLimitNorm, signalingNorm);
+
+                // Assert
+                Assert.IsTrue(categoryLimitsKernel.Calculated);
+                ProbabilityAssert.AreEqual(lowerLimitNorm, categoryLimitsKernel.AssessmentSection.FailureProbabilityLowerLimit);
+                ProbabilityAssert.AreEqual(signalingNorm, categoryLimitsKernel.AssessmentSection.FailureProbabilitySignallingLimit);
+
+                Assert.IsTrue(assessmentSectionAssemblyKernel.Calculated);
+                Assert.IsFalse(assessmentSectionAssemblyKernel.PartialAssembly);
+                Assert.AreSame(categoryLimits, assessmentSectionAssemblyKernel.Categories);
+
+                IEnumerable<Probability> actualProbabilitiesInput = assessmentSectionAssemblyKernel.FailureMechanismProbabilities;
+                Assert.AreEqual(nrOfProbabilities, actualProbabilitiesInput.Count());
+                for (var i = 0; i < nrOfProbabilities; i++)
+                {
+                    ProbabilityAssert.AreEqual(failureMechanismProbabilities.ElementAt(i),
+                                               actualProbabilitiesInput.ElementAt(i));
+                }
+            }
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
+        {
+            // Setup
+            var random = new Random(21);
+            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = signalingNorm + 1e-3;
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
+                var assemblyResult = new AssessmentSectionResult(new Probability(random.NextDouble()), random.NextEnumValue<EAssessmentGrade>());
+                kernel.AssessmentSectionAssemblyResult = assemblyResult;
+
+                var calculator = new AssessmentSectionAssemblyCalculator(factory);
+
+                // Call
+                AssessmentSectionAssemblyResult result = calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), lowerLimitNorm, signalingNorm);
+
+                // Assert
+                Assert.AreEqual(assemblyResult.FailureProbability, result.Probability);
+                Assert.AreEqual(AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(assemblyResult.Category),
+                                result.AssemblyCategoryGroup);
+            }
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_KernelWithInvalidOutput_ThrowsAssessmentSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(21);
+            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = signalingNorm + 1e-3;
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
+                var assemblyResult = new AssessmentSectionResult(new Probability(random.NextDouble()), (EAssessmentGrade) 99);
+                kernel.AssessmentSectionAssemblyResult = assemblyResult;
+
+                var calculator = new AssessmentSectionAssemblyCalculator(factory);
+
+                // Call
+                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), lowerLimitNorm, signalingNorm);
+
+                // Assert
+                var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
+                Assert.IsInstanceOf<InvalidEnumArgumentException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_KernelThrowsException_ThrowsAssessmentSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(21);
+            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = signalingNorm + 1e-3;
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
+                kernel.ThrowExceptionOnCalculate = true;
+
+                var calculator = new AssessmentSectionAssemblyCalculator(factory);
+
+                // Call
+                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), lowerLimitNorm, signalingNorm);
+
+                // Assert
+                var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
+                Assert.IsInstanceOf<Exception>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_KernelThrowsAssemblyException_ThrowsAssessmentSectionAssemblyCalculatorException()
+        {
+            // Setup
+            var random = new Random(21);
+            double signalingNorm = random.NextDouble();
+            double lowerLimitNorm = signalingNorm + 1e-3;
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssessmentSectionAssemblyKernelStub kernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
+                kernel.ThrowAssemblyExceptionOnCalculate = true;
+
+                var calculator = new AssessmentSectionAssemblyCalculator(factory);
+
+                // Call
+                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), lowerLimitNorm, signalingNorm);
+
+                // Assert
+                var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
+                Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
+                {
+                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.InvalidCategoryLimits)
+                }), exception.Message);
+            }
         }
 
         [Test]
