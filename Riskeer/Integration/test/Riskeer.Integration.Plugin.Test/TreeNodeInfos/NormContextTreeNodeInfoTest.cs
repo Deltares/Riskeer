@@ -112,8 +112,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
             {
-                menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
-                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
@@ -139,7 +137,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.VerifyAll();
         }
 
-        private TreeNodeInfo GetInfo(RiskeerPlugin plugin)
+        private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(NormContext));
         }
