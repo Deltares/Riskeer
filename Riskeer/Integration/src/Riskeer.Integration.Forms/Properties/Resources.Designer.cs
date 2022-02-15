@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -415,15 +415,6 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string FailureMechanismMergeDataRow_NumberOfCalculations_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismMergeDataRow_NumberOfCalculations_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overig ({0}).
-        /// </summary>
-        public static string FailureMechanismProperties_Contribution_Other_Percentage_0 {
-            get {
-                return ResourceManager.GetString("FailureMechanismProperties_Contribution_Other_Percentage_0", resourceCulture);
             }
         }
         

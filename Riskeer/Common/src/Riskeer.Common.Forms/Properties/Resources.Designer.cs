@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -1958,24 +1958,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailurePath_ApplyLengthEffectInSection_DisplayName {
             get {
                 return ResourceManager.GetString("FailurePath_ApplyLengthEffectInSection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Procentuele bijdrage van dit toetsspoor aan de totale overstromingskans van het traject..
-        /// </summary>
-        public static string FailurePath_Contribution_Description {
-            get {
-                return ResourceManager.GetString("FailurePath_Contribution_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faalkansbijdrage [%].
-        /// </summary>
-        public static string FailurePath_Contribution_DisplayName {
-            get {
-                return ResourceManager.GetString("FailurePath_Contribution_DisplayName", resourceCulture);
             }
         }
         
