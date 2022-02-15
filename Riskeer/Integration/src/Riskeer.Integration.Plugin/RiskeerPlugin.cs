@@ -47,6 +47,7 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
@@ -462,6 +463,14 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = RiskeerPluginHelper.ShouldCloseViewWithCalculationData,
                 CreateInstance = context => new GeneralResultFaultTreeIllustrationPointView(
                     context.WrappedData, () => context.WrappedData.Output?.GeneralResult)
+            };
+
+            yield return new RiskeerViewInfo<NormClassesContext, FailureMechanismContribution, AssessmentSectionAssemblyCategoriesView>(() => Gui)
+            {
+                GetViewName = (view, context) => RiskeerCommonFormsResources.NormClasses_DisplayName,
+                CloseForData = (view, dataToCloseFor) => dataToCloseFor is IAssessmentSection assessmentSection
+                                                         && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution,
+                CreateInstance = context => new AssessmentSectionAssemblyCategoriesView(context.WrappedData.FailureMechanismContribution)
             };
 
             yield return new RiskeerViewInfo<AssemblyResultTotalContext, AssessmentSection, AssemblyResultTotalView>(() => Gui)

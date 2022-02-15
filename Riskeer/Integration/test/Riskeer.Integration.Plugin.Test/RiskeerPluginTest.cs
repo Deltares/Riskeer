@@ -476,6 +476,12 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
+                    typeof(NormClassesContext),
+                    typeof(AssessmentSection),
+                    typeof(AssessmentSectionAssemblyCategoriesView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
                     typeof(AssemblyResultTotalContext),
                     typeof(AssessmentSection),
                     typeof(AssemblyResultTotalView));
