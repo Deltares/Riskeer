@@ -35,10 +35,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
-        private const int contributionPropertyIndex = 3;
-        private const int inAssemblyPropertyIndex = 4;
-        private const int nPropertyIndex = 5;
-        private const int applyLengthEffectInSectionPropertyIndex = 6;
+        private const int inAssemblyPropertyIndex = 3;
+        private const int nPropertyIndex = 4;
+        private const int applyLengthEffectInSectionPropertyIndex = 5;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailurePathProperties"/>.
@@ -51,6 +50,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex
             }) {}
+
+        #region General
+
+        [PropertyOrder(inAssemblyPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_Description))]
+        public bool InAssembly
+        {
+            get
+            {
+                return data.InAssembly;
+            }
+        }
+
+        #endregion
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
@@ -65,8 +80,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
 
         private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
         {
-            return nameof(Contribution).Equals(propertyName)
-                   || nameof(N).Equals(propertyName)
+            return nameof(N).Equals(propertyName)
                    || nameof(ApplyLengthEffectInSection).Equals(propertyName);
         }
 
@@ -105,35 +119,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
             {
                 data.GeneralInput.ApplyLengthEffectInSection = value;
                 data.NotifyObservers();
-            }
-        }
-
-        #endregion
-
-        #region General
-
-        [DynamicVisible]
-        [PropertyOrder(contributionPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Contribution_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_Contribution_Description))]
-        public double Contribution
-        {
-            get
-            {
-                return data.Contribution;
-            }
-        }
-
-        [PropertyOrder(inAssemblyPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_Description))]
-        public bool InAssembly
-        {
-            get
-            {
-                return data.InAssembly;
             }
         }
 
