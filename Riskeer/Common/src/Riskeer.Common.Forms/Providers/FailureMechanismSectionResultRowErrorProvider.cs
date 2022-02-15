@@ -30,7 +30,7 @@ namespace Riskeer.Common.Forms.Providers
     {
         public string GetManualProbabilityValidationError(double probability)
         {
-            return double.IsNaN(probability) ? Resources.FailureMechanismSectionResultRowErrorProvider_Probability_must_not_be_NaN : string.Empty;
+            return double.IsNaN(probability) ? Resources.FailureProbability_must_not_be_NaN : string.Empty;
         }
     }
 }

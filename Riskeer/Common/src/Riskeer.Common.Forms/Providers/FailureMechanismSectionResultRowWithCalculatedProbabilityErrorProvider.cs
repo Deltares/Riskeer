@@ -74,9 +74,6 @@ namespace Riskeer.Common.Forms.Providers
             this.intersectionFunc = intersectionFunc;
         }
 
-        /// <inheritdoc />
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="getProbabilityFunc"/>
-        /// is <c>null</c>.</exception>
         public string GetCalculatedProbabilityValidationError(Func<double> getProbabilityFunc)
         {
             if (getProbabilityFunc == null)

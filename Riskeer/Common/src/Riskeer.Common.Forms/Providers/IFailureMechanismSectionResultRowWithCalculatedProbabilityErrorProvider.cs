@@ -35,6 +35,7 @@ namespace Riskeer.Common.Forms.Providers
         /// <param name="getProbabilityFunc">The function to get the probability to validate.</param>
         /// <returns>An error message when the validation fails;
         /// or <see cref="string.Empty"/> when there are no errors.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="getProbabilityFunc"/> is <c>null</c>.</exception>
         string GetCalculatedProbabilityValidationError(Func<double> getProbabilityFunc);
     }
 }

@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Test.Providers
             string errorMessage = errorProvider.GetManualProbabilityValidationError(double.NaN);
 
             // Assert
-            Assert.AreEqual("De waarde voor de faalkans ontbreekt.", errorMessage);
+            Assert.AreEqual("Er moet een waarde worden ingevuld voor de faalkans.", errorMessage);
         }
 
         [Test]

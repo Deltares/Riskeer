@@ -972,7 +972,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
 
                 errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
-                Assert.AreEqual("De waarde voor de faalkans ontbreekt.", errorMessage);
+                Assert.AreEqual("Er moet een waarde worden ingevuld voor de faalkans.", errorMessage);
             }
 
             mocks.VerifyAll();

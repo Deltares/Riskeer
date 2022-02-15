@@ -280,7 +280,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De faalkans per vak moet groter zijn dan of gelijk zijn aan de faalkans per doorsnede.
+        ///   Looks up a localized string similar to De faalkans per vak moet groter zijn dan of gelijk zijn aan de faalkans per doorsnede..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_ProfileProbabilityGreaterThanSectionProbability {
             get {

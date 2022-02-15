@@ -199,7 +199,7 @@
     <value>Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_ProfileProbabilityGreaterThanSectionProbability" xml:space="preserve">
-    <value>De faalkans per vak moet groter zijn dan of gelijk zijn aan de faalkans per doorsnede</value>
+    <value>De faalkans per vak moet groter zijn dan of gelijk zijn aan de faalkans per doorsnede.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_ErrorConstructingErrorMessage" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden.</value>

@@ -62,7 +62,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <summary>
         /// Gets or sets the value of the manual initial failure mechanism result per failure mechanism section as a probability.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"> Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         public double ManualInitialFailureMechanismResultSectionProbability
         {
             get => manualInitialFailureMechanismResultSectionProbability;
@@ -81,7 +81,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <summary>
         /// Gets or sets the value of the refined probability per failure mechanism section.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException"> Thrown when <paramref name="value"/> is not in range [0,1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         public double RefinedSectionProbability
         {
             get => refinedSectionProbability;

@@ -1701,15 +1701,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans ontbreekt..
-        /// </summary>
-        public static string FailureMechanismResultView_ManualFailurePathAssemblyProbablity_must_be_a_number {
-            get {
-                return ResourceManager.GetString("FailureMechanismResultView_ManualFailurePathAssemblyProbablity_must_be_a_number", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Aanscherpen faalkans.
         /// </summary>
         public static string FailureMechanismResultView_ProbabilityRefinementType_DisplayName {
@@ -1850,15 +1841,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans ontbreekt..
-        /// </summary>
-        public static string FailureMechanismSectionResultRowErrorProvider_Probability_must_not_be_NaN {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionResultRowErrorProvider_Probability_must_not_be_NaN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Alle maatgevende berekeningen voor dit vak moeten een geldige uitkomst hebben..
         /// </summary>
         public static string FailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider_All_relevant_calculation_scenarios_must_have_valid_output {
@@ -1994,6 +1976,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailurePathContextMenuStrip_In_assembly {
             get {
                 return ResourceManager.GetString("FailurePathContextMenuStrip_In_assembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er moet een waarde worden ingevuld voor de faalkans..
+        /// </summary>
+        public static string FailureProbability_must_not_be_NaN {
+            get {
+                return ResourceManager.GetString("FailureProbability_must_not_be_NaN", resourceCulture);
             }
         }
         

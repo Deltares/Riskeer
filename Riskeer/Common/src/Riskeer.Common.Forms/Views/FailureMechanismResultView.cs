@@ -352,7 +352,7 @@ namespace Riskeer.Common.Forms.Views
             failurePathAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
             if (IsManualAssembly() && double.IsNaN(probability))
             {
-                SetErrorMessage(Resources.FailureMechanismResultView_ManualFailurePathAssemblyProbablity_must_be_a_number);
+                SetErrorMessage(Resources.FailureProbability_must_not_be_NaN);
             }
         }
 
