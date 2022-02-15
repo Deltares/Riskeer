@@ -96,26 +96,6 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_ReferenceLineWithoutGeometry_ReturnsFalse()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            var context = new AssemblyResultsContext(assessmentSection);
-
-            using (var plugin = new RiskeerPlugin())
-            {
-                ExportInfo info = GetExportInfo(plugin);
-
-                // Call
-                bool isEnabled = info.IsEnabled(context);
-
-                // Assert
-                Assert.IsFalse(isEnabled);
-            }
-        }
-
-        [Test]
         public void IsEnabled_Always_ReturnsFalse()
         {
             // Setup
