@@ -78,6 +78,15 @@ namespace Riskeer.Common.Forms.Factories
             return CreateAssemblyMapLineData(Resources.CombinedAssembly_DisplayName, true);
         }
 
+        /// <summary>
+        /// Creates a <see cref="MapLineData"/> with default styling for assembly results.
+        /// </summary>
+        /// <returns>The created <see cref="MapLineData"/>.</returns>
+        public static MapLineData CreateAssemblyMapData()
+        {
+            return CreateAssemblyMapLineData(Resources.AssemblyCategoryPerSection_DisplayName, true);
+        }
+
         private static MapLineData CreateAssemblyMapLineData(string name, bool isVisible)
         {
             return new MapLineData(name, new LineStyle

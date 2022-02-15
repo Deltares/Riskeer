@@ -1634,4 +1634,7 @@ faalkans per vak
     <data name="FailureProbability_must_not_be_NaN" xml:space="preserve">
       <value>Er moet een waarde worden ingevuld voor de faalkans.</value>
     </data>
+    <data name="AssemblyCategoryPerSection_DisplayName" xml:space="preserve">
+      <value>Duidingsklasse per vak</value>
+    </data>
 </root>

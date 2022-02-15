@@ -128,6 +128,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duidingsklasse per vak.
+        /// </summary>
+        public static string AssemblyCategoryPerSection_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyCategoryPerSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duidingsklasse.
         /// </summary>
         public static string AssemblyGroup_DisplayName {

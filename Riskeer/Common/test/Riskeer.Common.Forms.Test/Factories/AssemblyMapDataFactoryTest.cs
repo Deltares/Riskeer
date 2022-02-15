@@ -82,6 +82,16 @@ namespace Riskeer.Common.Forms.Test.Factories
             AssertAssemblyMapLineData("Gecombineerd toetsoordeel", true, data);
         }
 
+        [Test]
+        public void CreateAssemblyMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
+        {
+            // Call
+            MapLineData data = AssemblyMapDataFactory.CreateAssemblyMapData();
+
+            // Assert
+            AssertAssemblyMapLineData("Duidingsklasse per vak", true, data);
+        }
+
         private static void AssertAssemblyMapLineData(string expectedName, bool expectedVisibility, MapLineData actualMapLineData)
         {
             CollectionAssert.IsEmpty(actualMapLineData.Features);
