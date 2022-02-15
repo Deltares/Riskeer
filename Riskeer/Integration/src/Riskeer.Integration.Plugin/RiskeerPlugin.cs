@@ -45,7 +45,6 @@ using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
@@ -322,14 +321,6 @@ namespace Riskeer.Integration.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<NormContext, FailureMechanismContribution, AssessmentSectionAssemblyCategoriesView>(() => Gui)
-            {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.Norms_DisplayName,
-                CloseForData = (view, dataToCloseFor) => dataToCloseFor is IAssessmentSection assessmentSection
-                                                         && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution,
-                CreateInstance = context => new AssessmentSectionAssemblyCategoriesView(context.AssessmentSection.FailureMechanismContribution)
-            };
-
             yield return new RiskeerViewInfo<WaterLevelCalculationsForNormTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>(() => Gui)
             {
                 GetViewName = (view, context) => GetWaterLevelCalculationsForNormTargetProbabilitiesViewName(context.WrappedData, context.AssessmentSection),

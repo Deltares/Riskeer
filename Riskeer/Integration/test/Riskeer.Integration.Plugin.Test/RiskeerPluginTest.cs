@@ -383,13 +383,7 @@ namespace Riskeer.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(25, viewInfos.Length);
-
-                PluginTestHelper.AssertViewInfoDefined(
-                    viewInfos,
-                    typeof(NormContext),
-                    typeof(FailureMechanismContribution),
-                    typeof(AssessmentSectionAssemblyCategoriesView));
+                Assert.AreEqual(24, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
