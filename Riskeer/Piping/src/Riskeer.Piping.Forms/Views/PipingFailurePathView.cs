@@ -33,7 +33,7 @@ namespace Riskeer.Piping.Forms.Views
     /// </summary>
     public class PipingFailurePathView : PipingFailureMechanismView
     {
-        private CalculatableFailureMechanismSectionResultsMapLayer<PipingFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, PipingInput> mapLayer;
+        private CalculatableFailureMechanismSectionResultsMapLayer<PipingFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, PipingInput> assemblyResultMapLayer;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailurePathView"/>.
@@ -46,7 +46,7 @@ namespace Riskeer.Piping.Forms.Views
 
         protected override void Dispose(bool disposing)
         {
-            mapLayer.Dispose();
+            assemblyResultMapLayer.Dispose();
 
             base.Dispose(disposing);
         }
@@ -55,9 +55,9 @@ namespace Riskeer.Piping.Forms.Views
         {
             base.CreateMapData();
 
-            mapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<PipingFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, PipingInput>(
+            assemblyResultMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<PipingFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, PipingInput>(
                 FailureMechanism, sr => PipingFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection));
-            MapDataCollection.Insert(4, mapLayer.MapData);
+            MapDataCollection.Insert(4, assemblyResultMapLayer.MapData);
         }
     }
 }
