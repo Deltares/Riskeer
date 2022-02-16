@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
@@ -89,16 +87,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Func<double> performAssemblyFunc = () =>
-            {
-                IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults =
-                    failureMechanism.SectionResults.Select(sr => AssembleSection(sr, failureMechanism, assessmentSection))
-                                    .ToArray();
-
-                return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(failureMechanism.GeneralWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length),
-                                                                                      sectionAssemblyResults);
-            };
-            return FailurePathAssemblyHelper.AssembleFailurePath(failureMechanism, performAssemblyFunc);
+            return FailurePathAssemblyHelper.AssembleFailurePath(
+                failureMechanism, sr => AssembleSection(sr, failureMechanism, assessmentSection),
+                failureMechanism.GeneralWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length));
         }
     }
 }

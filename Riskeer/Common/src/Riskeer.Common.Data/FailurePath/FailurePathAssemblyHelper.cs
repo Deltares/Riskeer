@@ -20,6 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.FailurePath
 {
@@ -29,34 +34,81 @@ namespace Riskeer.Common.Data.FailurePath
     public static class FailurePathAssemblyHelper
     {
         /// <summary>
-        /// Assembles the failure path based on the input arguments.
+        /// Assembles the failure mechanism section.
+        /// </summary>
+        /// <param name="sectionResult">The section result to assemble.</param>
+        /// <param name="performSectionAssemblyFunc">The <see cref="Func{T1,TResult}"/>to perform the assembly.</param>
+        /// <typeparam name="TSectionResult">The type of section result.</typeparam>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <remarks>When the failure mechanism section cannot be assembled,
+        /// a <see cref="DefaultFailureMechanismSectionAssemblyResult"/> is created.</remarks>
+        public static FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection<TSectionResult>(
+            TSectionResult sectionResult, Func<TSectionResult, FailureMechanismSectionAssemblyResult> performSectionAssemblyFunc)
+            where TSectionResult : FailureMechanismSectionResult
+        {
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+
+            if (performSectionAssemblyFunc == null)
+            {
+                throw new ArgumentNullException(nameof(performSectionAssemblyFunc));
+            }
+
+            try
+            {
+                return performSectionAssemblyFunc(sectionResult);
+            }
+            catch (AssemblyException)
+            {
+                return new DefaultFailureMechanismSectionAssemblyResult();
+            }
+        }
+
+        /// <summary>
+        /// Assembles the failure path.
         /// </summary>
         /// <param name="failurePath">The <see cref="IFailurePath"/> to assemble.</param>
-        /// <param name="performFailurePathAssemblyFunc">The function to perform the failure path assembly with.</param>
-        /// <returns>A <see cref="double"/> representing the failure path probability.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static double AssembleFailurePath(IFailurePath failurePath,
-                                                 Func<double> performFailurePathAssemblyFunc)
+        /// <param name="performSectionAssemblyFunc">The <see cref="Func{T1,TResult}"/> to perform the failure mechanism section assembly.</param>
+        /// <param name="failurePathN">The n value of the <paramref name="failurePath"/>.</param>
+        /// <typeparam name="TSectionResult">The type of section result.</typeparam>
+        /// <returns>The failure path probability.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/>
+        /// or <paramref name="performSectionAssemblyFunc"/> is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>
+        public static double AssembleFailurePath<TSectionResult>(
+            IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult> failurePath,
+            Func<TSectionResult, FailureMechanismSectionAssemblyResult> performSectionAssemblyFunc,
+            double failurePathN)
+            where TSectionResult : FailureMechanismSectionResult
         {
             if (failurePath == null)
             {
                 throw new ArgumentNullException(nameof(failurePath));
             }
 
-            if (performFailurePathAssemblyFunc == null)
+            if (performSectionAssemblyFunc == null)
             {
-                throw new ArgumentNullException(nameof(performFailurePathAssemblyFunc));
+                throw new ArgumentNullException(nameof(performSectionAssemblyFunc));
             }
 
             if (!failurePath.InAssembly)
             {
                 return double.NaN;
             }
-            
+
             FailurePathAssemblyResult assemblyResult = failurePath.AssemblyResult;
-            return assemblyResult.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual
-                       ? assemblyResult.ManualFailurePathAssemblyProbability
-                       : performFailurePathAssemblyFunc();
+            if (assemblyResult.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual)
+            {
+                return assemblyResult.ManualFailurePathAssemblyProbability;
+            }
+
+            return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
+                failurePathN, failurePath.SectionResults.Select(sr => AssembleFailureMechanismSection(
+                                                                    sr, performSectionAssemblyFunc))
+                                         .ToArray());
         }
     }
 }

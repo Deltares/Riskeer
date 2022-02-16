@@ -20,9 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
@@ -57,16 +54,9 @@ namespace Riskeer.DuneErosion.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Func<double> performAssemblyFunc = () =>
-            {
-                IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults =
-                    failureMechanism.SectionResults.Select(sr => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, assessmentSection))
-                                    .ToArray();
-
-                return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(failureMechanism.GeneralInput.N,
-                                                                                      sectionAssemblyResults);
-            };
-            return FailurePathAssemblyHelper.AssembleFailurePath(failureMechanism, performAssemblyFunc);
+            return FailurePathAssemblyHelper.AssembleFailurePath(
+                failureMechanism, sr => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, assessmentSection),
+                failureMechanism.GeneralInput.N);
         }
     }
 }
