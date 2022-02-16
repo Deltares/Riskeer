@@ -436,6 +436,105 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void AssembleAssessmentSection_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
+            void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_WithAssessmentSection_SetsInputOnCalculator()
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+
+                // Call
+                AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
+
+                // Assert
+                FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+                Assert.AreEqual(contribution.SignalingNorm, assessmentSectionAssemblyCalculator.SignalingNormInput);
+                Assert.AreEqual(contribution.LowerLimitNorm, assessmentSectionAssemblyCalculator.LowerLimitNormInput);
+
+                foreach (double failureMechanismProbability in assessmentSectionAssemblyCalculator.FailureMechanismProbabilitiesInput)
+                {
+                    Assert.AreEqual(failureMechanismAssemblyCalculator.AssemblyResult, failureMechanismProbability);
+                }
+            }
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_AssemblyRan_ReturnsOutput()
+        {
+            // Setup
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+
+                // Call
+                AssessmentSectionAssemblyResult result = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
+
+                // Assert
+                Assert.AreSame(assessmentSectionAssemblyCalculator.AssessmentSectionAssemblyResult, result);
+            }
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_CalculatorThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSection());
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<AssessmentSectionAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleAssessmentSection_FailureMechanismCalculatorThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSection());
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<AssemblyException>(innerException);
+                Assert.AreEqual("Voor een of meerdere toetssporen kan geen oordeel worden bepaald.", exception.Message);
+            }
+        }
+
+        [Test]
+        public void AssembleAssessmentSectionOld_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Call
             TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(null, new Random(39).NextBoolean());
 
             // Assert
@@ -444,7 +543,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSection_WithAssessmentSectionWithoutManualSectionAssemblyResults_SetsInputOnCalculator()
+        public void AssembleAssessmentSectionOld_WithAssessmentSectionWithoutManualSectionAssemblyResults_SetsInputOnCalculator()
         {
             // Setup
             var random = new Random(21);
@@ -480,7 +579,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSection_AssemblyRan_ReturnsOutput()
+        public void AssembleAssessmentSectionOld_AssemblyRan_ReturnsOutput()
         {
             // Setup
             var random = new Random(21);
@@ -503,7 +602,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSection_CalculatorThrowsException_ThrowsAssemblyException()
+        public void AssembleAssessmentSectionOld_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfigOld())
@@ -525,7 +624,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSection_FailureMechanismCalculatorThrowsException_ThrowsAssemblyException()
+        public void AssembleAssessmentSectionOld_FailureMechanismCalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfigOld())

@@ -126,6 +126,40 @@ namespace Riskeer.Integration.Data.Assembly
         /// Assembles the assessment section.
         /// </summary>
         /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
+        /// <returns>A <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when <see cref="AssessmentSectionAssemblyResult"/> cannot be created.</exception>
+        public static AssessmentSectionAssemblyResult AssembleAssessmentSection(AssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            try
+            {
+                IAssemblyToolCalculatorFactory calculatorFactory = AssemblyToolCalculatorFactory.Instance;
+                IAssessmentSectionAssemblyCalculator calculator =
+                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
+
+                IEnumerable<double> failureMechanismAssemblyResult = GetFailureMechanismAssemblyResults(assessmentSection);
+                FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
+                return calculator.AssembleAssessmentSection(failureMechanismAssemblyResult, contribution.LowerLimitNorm, contribution.SignalingNorm);
+            }
+            catch (AssessmentSectionAssemblyCalculatorException e)
+            {
+                throw new AssemblyException(e.Message, e);
+            }
+            catch (AssemblyException e)
+            {
+                throw new AssemblyException(Resources.AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims, e);
+            }
+        }
+        
+        /// <summary>
+        /// Assembles the assessment section.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
         /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
         /// <returns>A <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
@@ -203,6 +237,35 @@ namespace Riskeer.Integration.Data.Assembly
             }
         }
 
+        /// <summary>
+        /// Gets the failure mechanism assembly results based on the input arguments.
+        /// </summary>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to retrieve the failure mechanism assembly results
+        /// for.</param>
+        /// <returns>A collection of failure mechanism assembly results.</returns>
+        /// <exception cref="AssemblyException">Thrown when the results could not be assembled.</exception>
+        private static IEnumerable<double> GetFailureMechanismAssemblyResults(AssessmentSection assessmentSection)
+        {
+            return new[]
+            {
+                PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Piping, assessmentSection),
+                MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection),
+                GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection),
+                ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.ClosingStructures, assessmentSection),
+                HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.HeightStructures, assessmentSection),
+                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection),
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
+                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityStoneCover, assessmentSection),
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
+                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.DuneErosion, assessmentSection),
+                PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.PipingStructure, assessmentSection),
+                StandAloneFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, assessmentSection),
+                StandAloneFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection),
+                StandAloneFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Microstability, assessmentSection),
+                StandAloneFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaterPressureAsphaltCover, assessmentSection)
+            };
+        }
+        
         private static IEnumerable<FailureMechanismAssembly> GetFailureMechanismWithProbabilityAssemblyResults(AssessmentSection assessmentSection,
                                                                                                                bool useManual)
         {
