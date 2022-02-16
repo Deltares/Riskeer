@@ -35,7 +35,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 
-namespace Riskeer.Common.Data.Test.FailurePath
+namespace Riskeer.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
     public class FailurePathAssemblyHelperTest

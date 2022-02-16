@@ -23,7 +23,6 @@ using System;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
 {

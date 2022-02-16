@@ -170,7 +170,9 @@ namespace Riskeer.Integration.Data.Assembly
 
             return sectionResults.Select(sectionResult =>
                                  {
-                                     FailureMechanismSectionAssemblyResult failureMechanismSectionAssemblyResult = getAssemblyFunc(sectionResult, assessmentSection);
+                                     FailureMechanismSectionAssemblyResult failureMechanismSectionAssemblyResult = FailurePathAssemblyHelper.AssembleFailureMechanismSection(
+                                         sectionResult, sr => getAssemblyFunc(sr, assessmentSection));
+
                                      CombinedAssemblyFailureMechanismSection section = CreateSection(
                                          sectionResult, failureMechanismSectionAssemblyResult.AssemblyGroup, totalSectionsLength);
                                      totalSectionsLength = section.SectionEnd;
