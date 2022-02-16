@@ -26,8 +26,8 @@ using Core.Components.Gis.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.MapLayers;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.MacroStabilityInwards.Forms.Factories;
 using MacroStabilityInwardsDataResources = Riskeer.MacroStabilityInwards.Data.Properties.Resources;
 
 namespace Riskeer.MacroStabilityInwards.Forms.Views
@@ -41,14 +41,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         private MapPointData sectionsStartPointMapData;
         private MapPointData sectionsEndPointMapData;
 
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
+        private CalculatableFailureMechanismSectionResultsMapLayer<MacroStabilityInwardsFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, MacroStabilityInwardsInput> assemblyResultsMapLayer;
 
         private Observer failureMechanismObserver;
-
-        private RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld>, MacroStabilityInwardsFailureMechanismSectionResultOld> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailurePathView"/>.
@@ -61,7 +56,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         protected override void Dispose(bool disposing)
         {
             failureMechanismObserver.Dispose();
-            sectionResultObserver.Dispose();
+            assemblyResultsMapLayer.Dispose();
 
             base.Dispose(disposing);
         }
@@ -69,42 +64,30 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         protected override void CreateMapData()
         {
             base.CreateMapData();
-            
+
             MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
             sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
+            assemblyResultsMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<MacroStabilityInwardsFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, MacroStabilityInwardsInput>(
+                FailureMechanism, sr => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection));
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
             MapDataCollection.Insert(3, sectionsMapDataCollection);
 
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            MapDataCollection.Insert(4, assemblyMapDataCollection);
+            MapDataCollection.Insert(4, assemblyResultsMapLayer.MapData);
         }
 
         protected override void CreateObservers()
         {
             base.CreateObservers();
-            
+
             failureMechanismObserver = new Observer(UpdateFailureMechanismMapData)
             {
                 Observable = FailureMechanism
-            };
-
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld>, MacroStabilityInwardsFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
-            {
-                Observable = FailureMechanism.SectionResultsOld
             };
         }
 
@@ -113,42 +96,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             base.SetAllMapDataFeatures();
 
             SetSectionsMapData();
-
-            SetAssemblyMapData();
         }
 
-        #region Assembly MapData
-
-        private void UpdateAssemblyMapData()
-        {
-            SetAssemblyMapData();
-            simpleAssemblyMapData.NotifyObservers();
-            detailedAssemblyMapData.NotifyObservers();
-            tailorMadeAssemblyMapData.NotifyObservers();
-            combinedAssemblyMapData.NotifyObservers();
-        }
-
-        private void SetAssemblyMapData()
-        {
-            simpleAssemblyMapData.Features = MacroStabilityInwardsAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
-            detailedAssemblyMapData.Features = MacroStabilityInwardsAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism, AssessmentSection);
-            tailorMadeAssemblyMapData.Features = MacroStabilityInwardsAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism, AssessmentSection);
-            combinedAssemblyMapData.Features = MacroStabilityInwardsAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism, AssessmentSection);
-        }
-
-        #endregion
-
-        #region Calculations MapData
-
-        protected override void UpdateCalculationsMapData()
-        {
-            base.UpdateCalculationsMapData();
-
-            UpdateAssemblyMapData();
-        }
-
-        #endregion
-        
         #region FailureMechanism MapData
 
         private void UpdateFailureMechanismMapData()
@@ -157,8 +106,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
             sectionsMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetSectionsMapData()
