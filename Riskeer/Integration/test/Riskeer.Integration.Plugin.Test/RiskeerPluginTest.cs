@@ -382,7 +382,7 @@ namespace Riskeer.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(24, viewInfos.Length);
+                Assert.AreEqual(25, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -522,6 +522,12 @@ namespace Riskeer.Integration.Plugin.Test
                     typeof(SpecificFailurePathContext),
                     typeof(SpecificFailurePathView));
 
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(AssemblyGroupsContext),
+                    typeof(AssessmentSection),
+                    typeof(AssemblyGroupsView));
+                
                 viewInfos.ForEachElementDo(vi =>
                 {
                     Assert.AreEqual(symbol, vi.GetSymbol());
