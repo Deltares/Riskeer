@@ -21,14 +21,14 @@
 
 using System.Linq;
 using Core.Common.Controls.Views;
-using Core.Components.Gis.Features;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.Integration.Forms.Views;
 
@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(
                 tni => tni.ViewType == typeof(FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
-                           GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>));
+                           NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
         }
 
         [TearDown]
@@ -92,8 +92,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> view =
-                CreateView(failureMechanism, assessmentSection))
+            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
+                   CreateView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -112,8 +112,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> view =
-                CreateView(failureMechanism, assessmentSection))
+            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
+                   CreateView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -161,25 +161,20 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
-                GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>>(view);
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(view);
 
             var failureMechanismView = (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
-                GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>) view;
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>) view;
             Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
-        private static FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> CreateView(
+        private static FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> CreateView(
             GrassCoverSlipOffOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
-                GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>(
-                failureMechanism,
-                assessmentSection,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>);
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                failureMechanism, assessmentSection, sr => new DefaultFailureMechanismSectionAssemblyResult());
         }
     }
 }

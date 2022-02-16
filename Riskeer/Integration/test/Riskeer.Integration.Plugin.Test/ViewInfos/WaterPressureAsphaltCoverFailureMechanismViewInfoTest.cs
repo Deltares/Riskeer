@@ -21,14 +21,14 @@
 
 using System.Linq;
 using Core.Common.Controls.Views;
-using Core.Components.Gis.Features;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.Integration.Forms.Views;
 
@@ -47,8 +47,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(
-                tni => tni.ViewType == typeof(FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
-                           WaterPressureAsphaltCoverFailureMechanismSectionResultOld>));
+                tni => tni.ViewType == typeof(FailureMechanismWithDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
+                           NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
         }
 
         [TearDown]
@@ -92,8 +92,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld> view =
-                CreateView(failureMechanism, assessmentSection))
+            using (FailureMechanismWithDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
+                   CreateView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -112,8 +112,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
-            using (FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld> view =
-                CreateView(failureMechanism, assessmentSection))
+            using (FailureMechanismWithDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
+                   CreateView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -160,25 +160,21 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
-                WaterPressureAsphaltCoverFailureMechanismSectionResultOld>>(view);
+            Assert.IsInstanceOf<FailureMechanismWithDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(view);
 
-            var failureMechanismView = (FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
-                WaterPressureAsphaltCoverFailureMechanismSectionResultOld>) view;
+            var failureMechanismView = (FailureMechanismWithDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>) view;
             Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
-        private static FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld> CreateView(
+        private static FailureMechanismWithDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> CreateView(
             WaterPressureAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
-                WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(
-                failureMechanism,
-                assessmentSection,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>);
+            return new FailureMechanismWithDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism,
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                failureMechanism, assessmentSection, sr => new DefaultFailureMechanismSectionAssemblyResult());
         }
     }
 }

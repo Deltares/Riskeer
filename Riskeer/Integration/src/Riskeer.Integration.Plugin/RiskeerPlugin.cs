@@ -41,8 +41,10 @@ using Core.Gui.Forms.ViewHost;
 using Core.Gui.Helpers;
 using Core.Gui.Plugin;
 using log4net;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
 using Riskeer.Common.Data;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -78,9 +80,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Forms.Dialogs;
-using Riskeer.Integration.Forms.Factories;
 using Riskeer.Integration.Forms.Merge;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
@@ -397,49 +397,20 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseAssessmentSectionViewForData
             };
 
-            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<MicrostabilityFailurePathContext, MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld>(
-                context => new FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld>(
-                    context.WrappedData,
-                    context.Parent,
-                    () => MicrostabilityAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(context.WrappedData),
-                    () => MicrostabilityAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(context.WrappedData),
-                    () => MicrostabilityAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
-                    () => MicrostabilityAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
+            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<MicrostabilityFailurePathContext, MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                (context, sr) => StandAloneFailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
-            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<GrassCoverSlipOffOutwardsFailurePathContext, GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>(
-                context => new FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>(
-                    context.WrappedData,
-                    context.Parent,
-                    () => GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(context.WrappedData),
-                    () => GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(context.WrappedData),
-                    () => GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
-                    () => GrassCoverSlipOffOutwardsAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
+            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<GrassCoverSlipOffOutwardsFailurePathContext, GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                (context, sr) => StandAloneFailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
-            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<GrassCoverSlipOffInwardsFailurePathContext, GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>(
-                context => new FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>(
-                    context.WrappedData,
-                    context.Parent,
-                    () => GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(context.WrappedData),
-                    () => GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(context.WrappedData),
-                    () => GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
-                    () => GrassCoverSlipOffInwardsAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
+            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<GrassCoverSlipOffInwardsFailurePathContext, GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                (context, sr) => StandAloneFailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
-            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<PipingStructureFailurePathContext, PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld>(
-                context => new FailureMechanismWithDetailedAssessmentView<PipingStructureFailureMechanism, PipingStructureFailureMechanismSectionResultOld>(
-                    context.WrappedData,
-                    context.Parent,
-                    () => PipingStructureAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(context.WrappedData),
-                    () => PipingStructureAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(context.WrappedData),
-                    () => PipingStructureAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
-                    () => PipingStructureAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
+            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<PipingStructureFailurePathContext, PipingStructureFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                (context, sr) => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, context.Parent));
 
-            yield return CreateFailureMechanismWithoutDetailedAssessmentViewInfo<WaterPressureAsphaltCoverFailurePathContext, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(
-                context => new FailureMechanismWithoutDetailedAssessmentView<WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismSectionResultOld>(
-                    context.WrappedData,
-                    context.Parent,
-                    () => WaterPressureAsphaltCoverAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(context.WrappedData),
-                    () => WaterPressureAsphaltCoverAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(context.WrappedData),
-                    () => WaterPressureAsphaltCoverAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(context.WrappedData)));
+            yield return CreateFailureMechanismWithDetailedAssessmentViewInfo<WaterPressureAsphaltCoverFailurePathContext, WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                (context, sr) => StandAloneFailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
             yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, GrassCoverSlipOffInwardsFailureMechanism>(
                 fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
@@ -1417,10 +1388,9 @@ namespace Riskeer.Integration.Plugin
         #region FailureMechanismWithDetailedAssessmentView ViewInfo
 
         private ViewInfo<TFailureMechanismContext, TFailureMechanism, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithDetailedAssessmentViewInfo<
-            TFailureMechanismContext, TFailureMechanism, TSectionResult>(
-            Func<TFailureMechanismContext, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> createInstanceFunc)
-            where TSectionResult : FailureMechanismSectionResultOld
-            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TSectionResult>
+            TFailureMechanismContext, TFailureMechanism, TSectionResult>(Func<TFailureMechanismContext, TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
+            where TSectionResult : FailureMechanismSectionResult
+            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>
             where TFailureMechanismContext : IFailurePathContext<TFailureMechanism>
         {
             return new RiskeerViewInfo<TFailureMechanismContext, TFailureMechanism,
@@ -1429,7 +1399,8 @@ namespace Riskeer.Integration.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CreateInstance = createInstanceFunc
+                CreateInstance = context => new FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>(
+                    context.WrappedData, context.Parent, sr => performAssemblyFunc(context, sr))
             };
         }
 

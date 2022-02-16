@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
@@ -37,15 +37,13 @@ namespace Riskeer.Integration.Forms.Views
     /// This class is a view showing map data for a failure mechanism with a detailed assessment.
     /// </summary>
     public partial class FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult> : UserControl, IMapView
-        where TFailureMechanism : IHasSectionResults<TSectionResult>
-        where TSectionResult : FailureMechanismSectionResultOld
+        where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>
+        where TSectionResult : FailureMechanismSectionResult
     {
-        private readonly Func<IEnumerable<MapFeature>> getSimpleAssemblyFeaturesFunc;
-        private readonly Func<IEnumerable<MapFeature>> getDetailedAssemblyFeaturesFunc;
-        private readonly Func<IEnumerable<MapFeature>> getTailorMadeAssemblyFeaturesFunc;
-        private readonly Func<IEnumerable<MapFeature>> getCombinedAssemblyFeaturesFunc;
+        private readonly Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc;
 
         private HydraulicBoundaryLocationsMapLayer hydraulicBoundaryLocationsMapLayer;
+        private NonCalculatableFailureMechanismSectionResultsMapLayer<TSectionResult> assemblyResultMapLayer;
 
         private MapDataCollection mapDataCollection;
         private MapLineData referenceLineMapData;
@@ -54,37 +52,20 @@ namespace Riskeer.Integration.Forms.Views
         private MapPointData sectionsStartPointMapData;
         private MapPointData sectionsEndPointMapData;
 
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
-
         private Observer failureMechanismObserver;
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
-
-        private RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismWithDetailedAssessmentView{TFailureMechanism, TSectionResult}"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
-        /// <param name="getSimpleAssemblyFeaturesFunc">The <see cref="Func{T}"/> that returns a collection of <see cref="MapFeature"/> representing
-        /// the simple assembly results for this failure mechanism.</param>
-        /// <param name="getDetailedAssemblyFeaturesFunc">The <see cref="Func{T}"/> that returns a collection of <see cref="MapFeature"/> representing
-        /// the detailed assembly results for this failure mechanism.</param>
-        /// <param name="getTailorMadeAssemblyFeaturesFunc">The <see cref="Func{T}"/> that returns a collection of <see cref="MapFeature"/> representing
-        /// the tailor made assembly results for this failure mechanism.</param>
-        /// <param name="getCombinedAssemblyFeaturesFunc">The <see cref="Func{T}"/> that returns a collection of <see cref="MapFeature"/> representing
-        /// the combined assembly results for this failure mechanism.</param>
+        /// <param name="performAssemblyFunc">The <see cref="Func{T1,TResult}"/> used to assemble the result of a section result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismWithDetailedAssessmentView(TFailureMechanism failureMechanism,
-                                                          IAssessmentSection assessmentSection,
-                                                          Func<IEnumerable<MapFeature>> getSimpleAssemblyFeaturesFunc,
-                                                          Func<IEnumerable<MapFeature>> getDetailedAssemblyFeaturesFunc,
-                                                          Func<IEnumerable<MapFeature>> getTailorMadeAssemblyFeaturesFunc,
-                                                          Func<IEnumerable<MapFeature>> getCombinedAssemblyFeaturesFunc)
+        public FailureMechanismWithDetailedAssessmentView(
+            TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
+            Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
         {
             if (failureMechanism == null)
             {
@@ -96,35 +77,16 @@ namespace Riskeer.Integration.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (getSimpleAssemblyFeaturesFunc == null)
+            if (performAssemblyFunc == null)
             {
-                throw new ArgumentNullException(nameof(getSimpleAssemblyFeaturesFunc));
+                throw new ArgumentNullException(nameof(performAssemblyFunc));
             }
-
-            if (getDetailedAssemblyFeaturesFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getDetailedAssemblyFeaturesFunc));
-            }
-
-            if (getTailorMadeAssemblyFeaturesFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getTailorMadeAssemblyFeaturesFunc));
-            }
-
-            if (getCombinedAssemblyFeaturesFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getCombinedAssemblyFeaturesFunc));
-            }
-
-            this.getSimpleAssemblyFeaturesFunc = getSimpleAssemblyFeaturesFunc;
-            this.getDetailedAssemblyFeaturesFunc = getDetailedAssemblyFeaturesFunc;
-            this.getTailorMadeAssemblyFeaturesFunc = getTailorMadeAssemblyFeaturesFunc;
-            this.getCombinedAssemblyFeaturesFunc = getCombinedAssemblyFeaturesFunc;
 
             InitializeComponent();
 
             FailureMechanism = failureMechanism;
             AssessmentSection = assessmentSection;
+            this.performAssemblyFunc = performAssemblyFunc;
 
             CreateObservers();
 
@@ -145,13 +107,7 @@ namespace Riskeer.Integration.Forms.Views
 
         public object Data { get; set; }
 
-        public IMapControl Map
-        {
-            get
-            {
-                return riskeerMapControl.MapControl;
-            }
-        }
+        public IMapControl Map => riskeerMapControl.MapControl;
 
         protected override void Dispose(bool disposing)
         {
@@ -159,7 +115,7 @@ namespace Riskeer.Integration.Forms.Views
             assessmentSectionObserver.Dispose();
             referenceLineObserver.Dispose();
             hydraulicBoundaryLocationsMapLayer.Dispose();
-            sectionResultObserver.Dispose();
+            assemblyResultMapLayer.Dispose();
 
             if (disposing)
             {
@@ -180,11 +136,8 @@ namespace Riskeer.Integration.Forms.Views
             sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
+            assemblyResultMapLayer = new NonCalculatableFailureMechanismSectionResultsMapLayer<TSectionResult>(
+                FailureMechanism, performAssemblyFunc);
 
             mapDataCollection.Add(referenceLineMapData);
 
@@ -193,12 +146,7 @@ namespace Riskeer.Integration.Forms.Views
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
             mapDataCollection.Add(sectionsMapDataCollection);
 
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            mapDataCollection.Add(assemblyMapDataCollection);
-
+            mapDataCollection.Add(assemblyResultMapLayer.MapData);
             mapDataCollection.Add(hydraulicBoundaryLocationsMapLayer.MapData);
         }
 
@@ -216,40 +164,13 @@ namespace Riskeer.Integration.Forms.Views
             {
                 Observable = AssessmentSection.ReferenceLine
             };
-
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult>(UpdateAssemblyMapData, sr => sr)
-            {
-                Observable = FailureMechanism.SectionResultsOld
-            };
         }
 
         private void SetAllMapDataFeatures()
         {
             SetReferenceLineMapData();
             SetSectionsMapData();
-            UpdateAssemblyMapData();
         }
-
-        #region Assembly MapData
-
-        private void UpdateAssemblyMapData()
-        {
-            SetAssemblyMapData();
-            simpleAssemblyMapData.NotifyObservers();
-            detailedAssemblyMapData.NotifyObservers();
-            tailorMadeAssemblyMapData.NotifyObservers();
-            combinedAssemblyMapData.NotifyObservers();
-        }
-
-        private void SetAssemblyMapData()
-        {
-            simpleAssemblyMapData.Features = getSimpleAssemblyFeaturesFunc();
-            detailedAssemblyMapData.Features = getDetailedAssemblyFeaturesFunc();
-            tailorMadeAssemblyMapData.Features = getTailorMadeAssemblyFeaturesFunc();
-            combinedAssemblyMapData.Features = getCombinedAssemblyFeaturesFunc();
-        }
-
-        #endregion
 
         #region AssessmentSection MapData
 
@@ -275,8 +196,6 @@ namespace Riskeer.Integration.Forms.Views
             sectionsMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetSectionsMapData()

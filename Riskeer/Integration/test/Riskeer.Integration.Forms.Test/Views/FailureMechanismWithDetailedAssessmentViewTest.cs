@@ -25,12 +25,13 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
-using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
-using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -53,18 +54,9 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int sectionsStartPointIndex = 1;
         private const int sectionsEndPointIndex = 2;
 
-        private const int tailorMadeAssemblyIndex = 0;
-        private const int detailedAssemblyIndex = 1;
-        private const int simpleAssemblyIndex = 2;
-        private const int combinedAssemblyIndex = 3;
-
         private const int sectionsObserverIndex = 1;
         private const int sectionsStartPointObserverIndex = 2;
         private const int sectionsEndPointObserverIndex = 3;
-        private const int simpleAssemblyObserverIndex = 4;
-        private const int detailedAssemblyObserverIndex = 5;
-        private const int tailorMadeAssemblyObserverIndex = 6;
-        private const int combinedAssemblyObserverIndex = 7;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -74,8 +66,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> view =
-                CreateView(failureMechanism, assessmentSection))
+            using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>, FailureMechanismSectionResult> view = CreateView(failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -101,16 +92,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
-                null,
-                assessmentSection,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>);
+            void Call() => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+                null, assessmentSection, sr => null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -120,117 +106,35 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResultOld>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
-                failureMechanism,
-                null,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>);
+            void Call() => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+                failureMechanism, null, sr => null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_GetSimpleAssemblyFeaturesFuncNull_ThrowsArgumentNullException()
+        public void Constructor_PerformAssemblyFuncNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResultOld>>();
+            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
-                failureMechanism,
-                assessmentSection,
-                null,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>);
+            void Call() => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+                failureMechanism, assessmentSection, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getSimpleAssemblyFeaturesFunc", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_GetDetailedAssemblyFeaturesFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResultOld>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
-                failureMechanism,
-                assessmentSection,
-                Enumerable.Empty<MapFeature>,
-                null,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getDetailedAssemblyFeaturesFunc", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_GetTailorMadeAssemblyFeaturesFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResultOld>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
-                failureMechanism,
-                assessmentSection,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                null,
-                Enumerable.Empty<MapFeature>);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getTailorMadeAssemblyFeaturesFunc", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_GetCombinedAssemblyFeaturesFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResultOld>>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            // Call
-            TestDelegate call = () => new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
-                failureMechanism,
-                assessmentSection,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("getCombinedAssemblyFeaturesFunc", exception.ParamName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("performAssemblyFunc", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -241,8 +145,8 @@ namespace Riskeer.Integration.Forms.Test.Views
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             // Call
-            using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> view =
-                CreateView(new TestFailureMechanism(), assessmentSection))
+            using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+                   CreateView(new TestFailureMechanism(), assessmentSection))
             {
                 // Assert
                 MapDataTestHelper.AssertImageBasedMapData(assessmentSection.BackgroundData, view.Map.BackgroundMapData);
@@ -285,31 +189,14 @@ namespace Riskeer.Integration.Forms.Test.Views
                 new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2))
             });
 
-            var simpleAssemblyFeatures = new[]
-            {
-                new MapFeature(Enumerable.Empty<MapGeometry>())
-            };
-            var detailedAssemblyFeatures = new[]
-            {
-                new MapFeature(Enumerable.Empty<MapGeometry>())
-            };
-            var tailorMadeAssemblyFeatures = new[]
-            {
-                new MapFeature(Enumerable.Empty<MapGeometry>())
-            };
-            var combinedAssemblyFeatures = new[]
-            {
-                new MapFeature(Enumerable.Empty<MapGeometry>())
-            };
+            var random = new Random(21);
+            var failureMechanismSectionAssemblyResult = new FailureMechanismSectionAssemblyResult(
+                random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
             // Call
-            using (var view = new FailureMechanismWithDetailedAssessmentView<TestFailureMechanism, FailureMechanismSectionResultOld>(
-                failureMechanism,
-                assessmentSection,
-                () => simpleAssemblyFeatures,
-                () => detailedAssemblyFeatures,
-                () => tailorMadeAssemblyFeatures,
-                () => combinedAssemblyFeatures))
+            using (var view = new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+                       failureMechanism, assessmentSection, sr => failureMechanismSectionAssemblyResult))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -328,12 +215,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
 
-                IEnumerable<MapData> assemblyMapDataList = ((MapDataCollection) mapDataList[assemblyResultsIndex]).Collection;
-                Assert.AreEqual(4, assemblyMapDataList.Count());
-                CollectionAssert.AreEqual(simpleAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(simpleAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(detailedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(detailedAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(tailorMadeAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(tailorMadeAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(combinedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(combinedAssemblyIndex)).Features);
+                MapDataTestHelper.AssertAssemblyMapData(failureMechanism, failureMechanismSectionAssemblyResult, mapDataList[assemblyResultsIndex]);
             }
         }
 
@@ -353,8 +235,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> view =
-                CreateView(new TestFailureMechanism(), assessmentSection))
+            using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+                   CreateView(new TestFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -394,8 +276,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> view =
-                CreateView(new TestFailureMechanism(), assessmentSection))
+            using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+                   CreateView(new TestFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -424,13 +306,13 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void UpdateObserver_FailureMechanismSectionsUpdated_MapDataUpdated()
+        public void UpdateObserver_FailureMechanismUpdated_MapDataUpdated()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> view =
-                CreateView(failureMechanism, new AssessmentSectionStub()))
+            using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+                   CreateView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -444,10 +326,6 @@ namespace Riskeer.Integration.Forms.Test.Views
                 observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
                 observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
                 mocks.ReplayAll();
 
                 // Call
@@ -475,14 +353,14 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Setup
             const int updatedReferenceLineLayerIndex = referenceLineIndex + 3;
             const int updatedSectionCollectionIndex = sectionsCollectionIndex - 1;
-            const int updatedAssemblyResultsCollectionIndex = assemblyResultsIndex - 1;
+            const int updatedAssemblyResultsIndex = assemblyResultsIndex - 1;
             const int updatedHydraulicLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
 
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new TestFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> view =
-                CreateView(failureMechanism, assessmentSection))
+            using (FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+                   CreateView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -501,8 +379,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 var sectionsData = (MapDataCollection) mapDataCollection.ElementAt(updatedSectionCollectionIndex);
                 Assert.AreEqual("Vakindeling", sectionsData.Name);
 
-                var assemblyResultsData = (MapDataCollection) mapDataCollection.ElementAt(updatedAssemblyResultsCollectionIndex);
-                Assert.AreEqual("Toetsoordeel", assemblyResultsData.Name);
+                var assemblyResultsData = (MapLineData) mapDataCollection.ElementAt(updatedAssemblyResultsIndex);
+                Assert.AreEqual("Duidingsklasse per vak", assemblyResultsData.Name);
 
                 var hydraulicLocationsData = (MapPointData) mapDataCollection.ElementAt(updatedHydraulicLocationsLayerIndex);
                 Assert.AreEqual("Hydraulische belastingen", hydraulicLocationsData.Name);
@@ -526,192 +404,20 @@ namespace Riskeer.Integration.Forms.Test.Views
                 var actualSectionsData = (MapDataCollection) mapDataCollection.ElementAt(updatedSectionCollectionIndex);
                 Assert.AreEqual("Vakindeling", actualSectionsData.Name);
 
-                var actualAssemblyResultsData = (MapDataCollection) mapDataCollection.ElementAt(updatedAssemblyResultsCollectionIndex);
-                Assert.AreEqual("Toetsoordeel", actualAssemblyResultsData.Name);
+                var actualAssemblyResultsData = (MapLineData) mapDataCollection.ElementAt(updatedAssemblyResultsIndex);
+                Assert.AreEqual("Duidingsklasse per vak", actualAssemblyResultsData.Name);
 
                 var actualHydraulicLocationsData = (MapPointData) mapDataCollection.ElementAt(updatedHydraulicLocationsLayerIndex);
                 Assert.AreEqual("Hydraulische belastingen", actualHydraulicLocationsData.Name);
             }
         }
 
-        [Test]
-        public void GivenViewWithAssemblyFeatures_WhenFailureMechanismNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var random = new Random(39);
-            var failureMechanism = new TestFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
-
-            var originalSimpleAssemblyFeatures = new[]
-            {
-                new MapFeature(Enumerable.Empty<MapGeometry>())
-            };
-            var originalDetailedAssemblyFeatures = new[]
-            {
-                new MapFeature(Enumerable.Empty<MapGeometry>())
-            };
-            var originalTailorMadeAssemblyFeatures = new[]
-            {
-                new MapFeature(Enumerable.Empty<MapGeometry>())
-            };
-            var originalCombinedAssemblyFeatures = new[]
-            {
-                new MapFeature(Enumerable.Empty<MapGeometry>())
-            };
-
-            using (var view = new FailureMechanismWithDetailedAssessmentView<TestFailureMechanism, FailureMechanismSectionResultOld>(
-                failureMechanism,
-                new AssessmentSectionStub(),
-                () => originalSimpleAssemblyFeatures,
-                () => originalDetailedAssemblyFeatures,
-                () => originalTailorMadeAssemblyFeatures,
-                () => originalCombinedAssemblyFeatures))
-            {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                // Precondition
-                IEnumerable<MapData> assemblyMapDataList = ((MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex)).Collection;
-                CollectionAssert.AreEqual(originalSimpleAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(simpleAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(originalDetailedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(detailedAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(originalTailorMadeAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(tailorMadeAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(originalCombinedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(combinedAssemblyIndex)).Features);
-
-                // When
-                originalSimpleAssemblyFeatures = new[]
-                {
-                    new MapFeature(Enumerable.Empty<MapGeometry>()),
-                    new MapFeature(Enumerable.Empty<MapGeometry>())
-                };
-                originalDetailedAssemblyFeatures = new[]
-                {
-                    new MapFeature(Enumerable.Empty<MapGeometry>()),
-                    new MapFeature(Enumerable.Empty<MapGeometry>())
-                };
-                originalTailorMadeAssemblyFeatures = new[]
-                {
-                    new MapFeature(Enumerable.Empty<MapGeometry>()),
-                    new MapFeature(Enumerable.Empty<MapGeometry>())
-                };
-                originalCombinedAssemblyFeatures = new[]
-                {
-                    new MapFeature(Enumerable.Empty<MapGeometry>()),
-                    new MapFeature(Enumerable.Empty<MapGeometry>())
-                };
-                failureMechanism.NotifyObservers();
-
-                // Then
-                CollectionAssert.AreEqual(originalSimpleAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(simpleAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(originalDetailedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(detailedAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(originalTailorMadeAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(tailorMadeAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(originalCombinedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(combinedAssemblyIndex)).Features);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void GivenViewWithAssemblyFeatures_WhenFailureMechanismSectionResultNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var random = new Random(39);
-            var failureMechanism = new TestFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
-
-            var originalSimpleAssemblyFeatures = new[]
-            {
-                new MapFeature(Enumerable.Empty<MapGeometry>())
-            };
-            var originalDetailedAssemblyFeatures = new[]
-            {
-                new MapFeature(Enumerable.Empty<MapGeometry>())
-            };
-            var originalTailorMadeAssemblyFeatures = new[]
-            {
-                new MapFeature(Enumerable.Empty<MapGeometry>())
-            };
-            var originalCombinedAssemblyFeatures = new[]
-            {
-                new MapFeature(Enumerable.Empty<MapGeometry>())
-            };
-
-            using (var view = new FailureMechanismWithDetailedAssessmentView<TestFailureMechanism, FailureMechanismSectionResultOld>(
-                failureMechanism,
-                new AssessmentSectionStub(),
-                () => originalSimpleAssemblyFeatures,
-                () => originalDetailedAssemblyFeatures,
-                () => originalTailorMadeAssemblyFeatures,
-                () => originalCombinedAssemblyFeatures))
-            {
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                // Precondition
-                IEnumerable<MapData> assemblyMapDataList = ((MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex)).Collection;
-                CollectionAssert.AreEqual(originalSimpleAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(simpleAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(originalDetailedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(detailedAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(originalTailorMadeAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(tailorMadeAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(originalCombinedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(combinedAssemblyIndex)).Features);
-
-                // When
-                originalSimpleAssemblyFeatures = new[]
-                {
-                    new MapFeature(Enumerable.Empty<MapGeometry>()),
-                    new MapFeature(Enumerable.Empty<MapGeometry>())
-                };
-                originalDetailedAssemblyFeatures = new[]
-                {
-                    new MapFeature(Enumerable.Empty<MapGeometry>()),
-                    new MapFeature(Enumerable.Empty<MapGeometry>())
-                };
-                originalTailorMadeAssemblyFeatures = new[]
-                {
-                    new MapFeature(Enumerable.Empty<MapGeometry>()),
-                    new MapFeature(Enumerable.Empty<MapGeometry>())
-                };
-                originalCombinedAssemblyFeatures = new[]
-                {
-                    new MapFeature(Enumerable.Empty<MapGeometry>()),
-                    new MapFeature(Enumerable.Empty<MapGeometry>())
-                };
-                failureMechanism.SectionResultsOld.First().NotifyObservers();
-
-                // Then
-                CollectionAssert.AreEqual(originalSimpleAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(simpleAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(originalDetailedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(detailedAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(originalTailorMadeAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(tailorMadeAssemblyIndex)).Features);
-                CollectionAssert.AreEqual(originalCombinedAssemblyFeatures, ((MapLineData) assemblyMapDataList.ElementAt(combinedAssemblyIndex)).Features);
-                mocks.VerifyAll();
-            }
-        }
-
-        private static FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld> CreateView(
-            IHasSectionResults<FailureMechanismSectionResultOld> failureMechanism,
+        private static FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>, FailureMechanismSectionResult> CreateView(
+            IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult> failureMechanism,
             IAssessmentSection assessmentSection)
         {
-            return new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld>, FailureMechanismSectionResultOld>(
-                failureMechanism,
-                assessmentSection,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>);
+            return new FailureMechanismWithDetailedAssessmentView<IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+                failureMechanism, assessmentSection, sr => new DefaultFailureMechanismSectionAssemblyResult());
         }
 
         private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
@@ -723,12 +429,15 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(4, mapDataList.Count);
 
             var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
+            var assemblyResultsMapData = (MapLineData) mapDataList[assemblyResultsIndex];
             var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[hydraulicBoundaryLocationsIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
+            CollectionAssert.IsEmpty(assemblyResultsMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
 
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+            Assert.AreEqual("Duidingsklasse per vak", assemblyResultsMapData.Name);
             Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
 
             var sectionsMapDataCollection = (MapDataCollection) mapDataList[sectionsCollectionIndex];
@@ -747,26 +456,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
             Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
             Assert.AreEqual("Vakindeling", sectionsMapData.Name);
-
-            var assemblyResultsMapDataCollection = (MapDataCollection) mapDataList[assemblyResultsIndex];
-            Assert.AreEqual("Toetsoordeel", assemblyResultsMapDataCollection.Name);
-            List<MapData> assemblyMapDataList = assemblyResultsMapDataCollection.Collection.ToList();
-            Assert.AreEqual(4, assemblyMapDataList.Count);
-
-            var combinedAssemblyMapData = (MapLineData) assemblyMapDataList[combinedAssemblyIndex];
-            var simpleAssemblyMapData = (MapLineData) assemblyMapDataList[simpleAssemblyIndex];
-            var detailedAssemblyMapData = (MapLineData) assemblyMapDataList[detailedAssemblyIndex];
-            var tailorMadeAssemblyMapData = (MapLineData) assemblyMapDataList[tailorMadeAssemblyIndex];
-
-            CollectionAssert.IsEmpty(combinedAssemblyMapData.Features);
-            CollectionAssert.IsEmpty(simpleAssemblyMapData.Features);
-            CollectionAssert.IsEmpty(detailedAssemblyMapData.Features);
-            CollectionAssert.IsEmpty(tailorMadeAssemblyMapData.Features);
-
-            Assert.AreEqual("Gecombineerd toetsoordeel", combinedAssemblyMapData.Name);
-            Assert.AreEqual("Toetsoordeel eenvoudige toets", simpleAssemblyMapData.Name);
-            Assert.AreEqual("Toetsoordeel gedetailleerde toets", detailedAssemblyMapData.Name);
-            Assert.AreEqual("Toetsoordeel toets op maat", tailorMadeAssemblyMapData.Name);
         }
 
         /// <summary>
@@ -793,29 +482,12 @@ namespace Riskeer.Integration.Forms.Test.Views
             var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
             sectionsCollection[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
 
-            MapData[] assemblyResultsCollection = ((MapDataCollection) mapDataArray[assemblyResultsIndex]).Collection.ToArray();
-            var simpleAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
-            assemblyResultsCollection[simpleAssemblyIndex].Attach(simpleAssemblyMapDataObserver);
-
-            var detailedAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
-            assemblyResultsCollection[detailedAssemblyIndex].Attach(detailedAssemblyMapDataObserver);
-
-            var tailorMadeAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
-            assemblyResultsCollection[tailorMadeAssemblyIndex].Attach(tailorMadeAssemblyMapDataObserver);
-
-            var combinedAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
-            assemblyResultsCollection[combinedAssemblyIndex].Attach(combinedAssemblyMapDataObserver);
-
             return new[]
             {
                 referenceLineMapDataObserver,
                 sectionsMapDataObserver,
                 sectionsStartPointMapDataObserver,
-                sectionsEndPointMapDataObserver,
-                simpleAssemblyMapDataObserver,
-                detailedAssemblyMapDataObserver,
-                tailorMadeAssemblyMapDataObserver,
-                combinedAssemblyMapDataObserver
+                sectionsEndPointMapDataObserver
             };
         }
     }

@@ -21,14 +21,14 @@
 
 using System.Linq;
 using Core.Common.Controls.Views;
-using Core.Components.Gis.Features;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.Integration.Forms.Views;
 
@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(
                 tni => tni.ViewType == typeof(FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
-                           MicrostabilityFailureMechanismSectionResultOld>));
+                           NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
         }
 
         [TearDown]
@@ -92,8 +92,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new MicrostabilityFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld> view =
-                CreateView(failureMechanism, assessmentSection))
+            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
+                   CreateView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -112,8 +112,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new MicrostabilityFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld> view =
-                CreateView(failureMechanism, assessmentSection))
+            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
+                   CreateView(failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -161,25 +161,20 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
-                MicrostabilityFailureMechanismSectionResultOld>>(view);
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(view);
 
             var failureMechanismView = (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
-                MicrostabilityFailureMechanismSectionResultOld>) view;
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>) view;
             Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
-        private static FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, MicrostabilityFailureMechanismSectionResultOld> CreateView(
+        private static FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> CreateView(
             MicrostabilityFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
-                MicrostabilityFailureMechanismSectionResultOld>(
-                failureMechanism,
-                assessmentSection,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>,
-                Enumerable.Empty<MapFeature>);
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                failureMechanism, assessmentSection, sr => new DefaultFailureMechanismSectionAssemblyResult());
         }
     }
 }
