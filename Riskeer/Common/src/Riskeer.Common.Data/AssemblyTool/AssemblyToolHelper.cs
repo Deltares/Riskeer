@@ -29,9 +29,9 @@ using Riskeer.Common.Data.FailurePath;
 namespace Riskeer.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// Class that contains helper methods for assembling a failure path.
+    /// Class that contains helper methods for performing assembly routines.
     /// </summary>
-    public static class FailurePathAssemblyHelper
+    public static class AssemblyToolHelper
     {
         /// <summary>
         /// Assembles the failure mechanism section.
@@ -70,23 +70,23 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <summary>
         /// Assembles the failure path.
         /// </summary>
-        /// <param name="failurePath">The <see cref="IFailurePath"/> to assemble.</param>
+        /// <param name="failureMechanism">The failure mechanism to assemble.</param>
         /// <param name="performSectionAssemblyFunc">The <see cref="Func{T1,TResult}"/> to perform the failure mechanism section assembly.</param>
-        /// <param name="failurePathN">The n value of the <paramref name="failurePath"/>.</param>
+        /// <param name="failureMechanismN">The n value of the <paramref name="failureMechanism"/>.</param>
         /// <typeparam name="TSectionResult">The type of section result.</typeparam>
         /// <returns>The failure path probability.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="performSectionAssemblyFunc"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>
-        public static double AssembleFailurePath<TSectionResult>(
-            IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult> failurePath,
+        public static double AssemblyFailureMechanism<TSectionResult>(
+            IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult> failureMechanism,
             Func<TSectionResult, FailureMechanismSectionAssemblyResult> performSectionAssemblyFunc,
-            double failurePathN)
+            double failureMechanismN)
             where TSectionResult : FailureMechanismSectionResult
         {
-            if (failurePath == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(failurePath));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
             if (performSectionAssemblyFunc == null)
@@ -94,21 +94,21 @@ namespace Riskeer.Common.Data.AssemblyTool
                 throw new ArgumentNullException(nameof(performSectionAssemblyFunc));
             }
 
-            if (!failurePath.InAssembly)
+            if (!failureMechanism.InAssembly)
             {
                 return double.NaN;
             }
 
-            FailurePathAssemblyResult assemblyResult = failurePath.AssemblyResult;
+            FailurePathAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
             if (assemblyResult.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual)
             {
                 return assemblyResult.ManualFailurePathAssemblyProbability;
             }
 
             return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
-                failurePathN, failurePath.SectionResults.Select(sr => AssembleFailureMechanismSection(
-                                                                    sr, performSectionAssemblyFunc))
-                                         .ToArray());
+                failureMechanismN, failureMechanism.SectionResults.Select(sr => AssembleFailureMechanismSection(
+                                                                              sr, performSectionAssemblyFunc))
+                                                   .ToArray());
         }
     }
 }

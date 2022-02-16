@@ -86,7 +86,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return FailurePathAssemblyHelper.AssembleFailurePath(
+            return AssemblyToolHelper.AssemblyFailureMechanism(
                 failureMechanism, sr => AssembleSection(sr, failureMechanism, assessmentSection),
                 failureMechanism.GeneralWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length));
         }

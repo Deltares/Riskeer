@@ -94,7 +94,7 @@ namespace Riskeer.Piping.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return FailurePathAssemblyHelper.AssembleFailurePath(
+            return AssemblyToolHelper.AssemblyFailureMechanism(
                 failureMechanism, sr => AssembleSection(sr, failureMechanism, assessmentSection),
                 failureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
         }

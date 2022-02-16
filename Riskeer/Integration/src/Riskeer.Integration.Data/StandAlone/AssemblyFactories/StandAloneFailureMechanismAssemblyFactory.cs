@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return FailurePathAssemblyHelper.AssembleFailurePath(
+            return AssemblyToolHelper.AssemblyFailureMechanism(
                 failureMechanism, sr => AssembleSection(sr, failureMechanism, assessmentSection),
                 failureMechanism.GeneralInput.N);
         }

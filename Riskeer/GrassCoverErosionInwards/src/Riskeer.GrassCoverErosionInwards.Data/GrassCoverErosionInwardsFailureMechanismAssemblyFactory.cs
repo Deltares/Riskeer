@@ -94,8 +94,9 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return FailurePathAssemblyHelper.AssembleFailurePath(failureMechanism, sr => AssembleSection(sr, failureMechanism, assessmentSection),
-                                                                 failureMechanism.GeneralInput.N);
+            return AssemblyToolHelper.AssemblyFailureMechanism(
+                failureMechanism, sr => AssembleSection(sr, failureMechanism, assessmentSection),
+                failureMechanism.GeneralInput.N);
         }
     }
 }

@@ -53,7 +53,7 @@ namespace Riskeer.DuneErosion.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return FailurePathAssemblyHelper.AssembleFailurePath(
+            return AssemblyToolHelper.AssemblyFailureMechanism(
                 failureMechanism, sr => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, assessmentSection),
                 failureMechanism.GeneralInput.N);
         }
