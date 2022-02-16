@@ -107,7 +107,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failurePath", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
