@@ -211,10 +211,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
 
         #region Calculations MapData
 
-        /// <summary>
-        /// Updates the calculations map data.
-        /// </summary>
-        protected virtual void UpdateCalculationsMapData()
+        private void UpdateCalculationsMapData()
         {
             SetCalculationsMapData();
             calculationsMapData.NotifyObservers();
