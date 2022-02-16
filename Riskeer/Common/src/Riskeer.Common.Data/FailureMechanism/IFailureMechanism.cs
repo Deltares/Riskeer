@@ -39,11 +39,6 @@ namespace Riskeer.Common.Data.FailureMechanism
         double Contribution { get; set; }
 
         /// <summary>
-        /// Gets the group of the <see cref="IFailureMechanism"/>.
-        /// </summary>
-        int Group { get; }
-
-        /// <summary>
         /// Gets an <see cref="IEnumerable{T}"/> of all the <see cref="ICalculation"/> instances added to
         /// the failure mechanism.
         /// </summary>

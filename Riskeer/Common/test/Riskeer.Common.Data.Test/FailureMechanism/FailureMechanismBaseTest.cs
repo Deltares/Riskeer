@@ -77,7 +77,6 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             Assert.AreEqual(0, failureMechanism.Contribution);
             Assert.AreEqual(name, failureMechanism.Name);
             Assert.AreEqual(code, failureMechanism.Code);
-            Assert.AreEqual(group, failureMechanism.Group);
             Assert.IsNotNull(failureMechanism.InAssemblyInputComments);
             Assert.IsNotNull(failureMechanism.InAssemblyOutputComments);
             Assert.IsNotNull(failureMechanism.NotInAssemblyComments);

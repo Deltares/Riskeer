@@ -47,7 +47,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             Assert.IsInstanceOf<IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", failureMechanism.Name);
             Assert.AreEqual("GEKB", failureMechanism.Code);
-            Assert.AreEqual(1, failureMechanism.Group);
 
             Assert.IsInstanceOf<GeneralGrassCoverErosionInwardsInput>(failureMechanism.GeneralInput);
 

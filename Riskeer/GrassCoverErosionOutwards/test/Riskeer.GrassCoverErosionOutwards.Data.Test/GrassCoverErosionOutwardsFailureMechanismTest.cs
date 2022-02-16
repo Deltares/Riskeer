@@ -44,7 +44,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             Assert.IsInstanceOf<IHasSectionResults<GrassCoverErosionOutwardsFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Grasbekleding erosie buitentalud", failureMechanism.Name);
             Assert.AreEqual("GEBU", failureMechanism.Code);
-            Assert.AreEqual(3, failureMechanism.Group);
             Assert.IsInstanceOf<GeneralGrassCoverErosionOutwardsInput>(failureMechanism.GeneralInput);
 
             Assert.AreEqual("Hydraulische belastingen", failureMechanism.WaveConditionsCalculationGroup.Name);

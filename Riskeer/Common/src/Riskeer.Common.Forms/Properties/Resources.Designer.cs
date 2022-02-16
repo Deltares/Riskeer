@@ -1935,15 +1935,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Groep.
-        /// </summary>
-        public static string FailurePath_Group_DisplayName {
-            get {
-                return ResourceManager.GetString("FailurePath_Group_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Geeft aan of dit faalpad wordt meegenomen in de assemblage..
         /// </summary>
         public static string FailurePath_InAssembly_Description {

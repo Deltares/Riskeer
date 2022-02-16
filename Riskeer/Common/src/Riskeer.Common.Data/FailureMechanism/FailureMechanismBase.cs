@@ -59,7 +59,6 @@ namespace Riskeer.Common.Data.FailureMechanism
 
             Name = name;
             Code = failureMechanismCode;
-            Group = group;
             sectionCollection = new FailureMechanismSectionCollection();
             InAssembly = true;
             InAssemblyInputComments = new Comment();
@@ -90,8 +89,6 @@ namespace Riskeer.Common.Data.FailureMechanism
         public string Name { get; }
 
         public string Code { get; }
-
-        public int Group { get; }
 
         public abstract IEnumerable<ICalculation> Calculations { get; }
 

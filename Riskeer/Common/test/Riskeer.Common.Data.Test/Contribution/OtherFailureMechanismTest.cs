@@ -37,7 +37,6 @@ namespace Riskeer.Common.Data.Test.Contribution
             // Assert
             Assert.AreEqual("Overig", failureMechanism.Name);
             Assert.AreEqual("-", failureMechanism.Code);
-            Assert.AreEqual(int.MinValue, failureMechanism.Group);
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
         }

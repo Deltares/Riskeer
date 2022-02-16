@@ -942,7 +942,6 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             Assert.AreEqual(failureMechanism.Name, cells[failureMechanismNameColumnIndex].Value);
             Assert.AreEqual(failureMechanism.Code, cells[failureMechanismCodeColumnIndex].Value);
-            Assert.AreEqual(failureMechanism.Group, cells[failureMechanismGroupColumnIndex].Value);
         }
 
         private static void AssertAssemblyCells(IFailureMechanism failureMechanism,

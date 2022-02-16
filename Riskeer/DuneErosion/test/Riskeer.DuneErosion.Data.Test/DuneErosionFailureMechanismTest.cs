@@ -43,7 +43,6 @@ namespace Riskeer.DuneErosion.Data.Test
             Assert.IsInstanceOf<IHasSectionResults<DuneErosionFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Duinafslag", failureMechanism.Name);
             Assert.AreEqual("DA", failureMechanism.Code);
-            Assert.AreEqual(3, failureMechanism.Group);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.DuneLocations);
             CollectionAssert.IsEmpty(failureMechanism.DuneLocationCalculationsForUserDefinedTargetProbabilities);

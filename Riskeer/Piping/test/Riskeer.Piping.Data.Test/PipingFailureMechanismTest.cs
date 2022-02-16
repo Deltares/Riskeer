@@ -44,7 +44,6 @@ namespace Riskeer.Piping.Data.Test
             Assert.IsInstanceOf<IHasSectionResults<PipingFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Piping", failureMechanism.Name);
             Assert.AreEqual("STPH", failureMechanism.Code);
-            Assert.AreEqual(2, failureMechanism.Group);
 
             Assert.IsNotNull(failureMechanism.GeneralInput);
             Assert.IsNotNull(failureMechanism.PipingProbabilityAssessmentInput);
