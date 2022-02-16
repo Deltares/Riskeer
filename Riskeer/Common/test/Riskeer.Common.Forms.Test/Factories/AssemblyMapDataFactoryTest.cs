@@ -32,57 +32,6 @@ namespace Riskeer.Common.Forms.Test.Factories
     public class AssemblyMapDataFactoryTest
     {
         [Test]
-        public void CreateAssemblyMapDataCollection_ReturnsEmptyMapDataCollection()
-        {
-            // Call
-            MapDataCollection data = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-
-            // Assert
-            CollectionAssert.IsEmpty(data.Collection);
-            Assert.AreEqual("Toetsoordeel", data.Name);
-        }
-
-        [Test]
-        public void CreateFailureMechanismSectionsMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
-        {
-            // Call
-            MapLineData data = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-
-            // Assert
-            AssertAssemblyMapLineData("Toetsoordeel eenvoudige toets", false, data);
-        }
-
-        [Test]
-        public void CreateDetailedAssemblyMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
-        {
-            // Call
-            MapLineData data = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-
-            // Assert
-            AssertAssemblyMapLineData("Toetsoordeel gedetailleerde toets", false, data);
-        }
-
-        [Test]
-        public void CreateTailorMadeAssemblyMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
-        {
-            // Call
-            MapLineData data = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-
-            // Assert
-            AssertAssemblyMapLineData("Toetsoordeel toets op maat", false, data);
-        }
-
-        [Test]
-        public void CreateCombinedAssemblyMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
-        {
-            // Call
-            MapLineData data = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
-
-            // Assert
-            AssertAssemblyMapLineData("Gecombineerd toetsoordeel", true, data);
-        }
-
-        [Test]
         public void CreateAssemblyMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call

@@ -34,51 +34,6 @@ namespace Riskeer.Common.Forms.Factories
         private const LineDashStyle lineDashStyle = LineDashStyle.Solid;
 
         /// <summary>
-        /// Creates a <see cref="MapDataCollection"/> for assembly results.
-        /// </summary>
-        /// <returns>The created <see cref="MapDataCollection"/>.</returns>
-        public static MapDataCollection CreateAssemblyMapDataCollection()
-        {
-            return new MapDataCollection(Resources.AssemblyResult_DisplayName);
-        }
-
-        /// <summary>
-        /// Creates a <see cref="MapLineData"/> with default styling for a simple assembly.
-        /// </summary>
-        /// <returns>The created <see cref="MapLineData"/>.</returns>
-        public static MapLineData CreateSimpleAssemblyMapData()
-        {
-            return CreateAssemblyMapLineData(Resources.AssemblyMapDataFactory_SimpleAssemblyMapData, false);
-        }
-
-        /// <summary>
-        /// Creates a <see cref="MapLineData"/> with default styling for a detailed assembly.
-        /// </summary>
-        /// <returns>The created <see cref="MapLineData"/>.</returns>
-        public static MapLineData CreateDetailedAssemblyMapData()
-        {
-            return CreateAssemblyMapLineData(Resources.AssemblyMapDataFactory_DetailedAssemblyMapData, false);
-        }
-
-        /// <summary>
-        /// Creates a <see cref="MapLineData"/> with default styling for a tailor made assembly.
-        /// </summary>
-        /// <returns>The created <see cref="MapLineData"/>.</returns>
-        public static MapLineData CreateTailorMadeAssemblyMapData()
-        {
-            return CreateAssemblyMapLineData(Resources.AssemblyMapDataFactory_TailorMadeAssemblyMapData, false);
-        }
-
-        /// <summary>
-        /// Creates a <see cref="MapLineData"/> with default styling for a combined assembly.
-        /// </summary>
-        /// <returns>The created <see cref="MapLineData"/>.</returns>
-        public static MapLineData CreateCombinedAssemblyMapData()
-        {
-            return CreateAssemblyMapLineData(Resources.CombinedAssembly_DisplayName, true);
-        }
-
-        /// <summary>
         /// Creates a <see cref="MapLineData"/> with default styling for assembly results.
         /// </summary>
         /// <returns>The created <see cref="MapLineData"/>.</returns>

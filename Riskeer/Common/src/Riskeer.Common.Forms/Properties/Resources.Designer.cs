@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -142,33 +142,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string AssemblyGroup_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyGroup_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel gedetailleerde toets.
-        /// </summary>
-        public static string AssemblyMapDataFactory_DetailedAssemblyMapData {
-            get {
-                return ResourceManager.GetString("AssemblyMapDataFactory_DetailedAssemblyMapData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel eenvoudige toets.
-        /// </summary>
-        public static string AssemblyMapDataFactory_SimpleAssemblyMapData {
-            get {
-                return ResourceManager.GetString("AssemblyMapDataFactory_SimpleAssemblyMapData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel toets op maat.
-        /// </summary>
-        public static string AssemblyMapDataFactory_TailorMadeAssemblyMapData {
-            get {
-                return ResourceManager.GetString("AssemblyMapDataFactory_TailorMadeAssemblyMapData", resourceCulture);
             }
         }
         

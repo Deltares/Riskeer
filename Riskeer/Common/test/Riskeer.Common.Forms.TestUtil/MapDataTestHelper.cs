@@ -35,7 +35,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
-using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Common.Forms.TestUtil
 {
@@ -285,68 +284,6 @@ namespace Riskeer.Common.Forms.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether the <see cref="MapDataCollection"/> contains the data that is representative 
-        /// for the <paramref name="failureMechanism"/> and supplied <see cref="FailureMechanismSectionAssemblyOld"/>.
-        /// </summary>
-        /// <param name="expectedSimpleAssembly">The expected simple assembly.</param>
-        /// <param name="expectedDetailedAssembly">The expected detailed assembly.</param>
-        /// <param name="expectedTailorMadeAssembly">The expected tailor made assembly.</param>
-        /// <param name="expectedCombinedAssembly">The expected combined assembly.</param>
-        /// <param name="assemblyMapData">The <see cref="MapDataCollection"/> that needs to be asserted.</param>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the map data collection belongs to.</param>
-        /// <exception cref="AssertionException">Thrown when:
-        /// <list type="bullet">
-        /// <item>there is an incorrect amount of items in <paramref name="assemblyMapData"/>;</item>
-        /// <item>one of the items in <paramref name="assemblyMapData"/> has incorrect properties.</item>
-        /// </list>
-        /// </exception>
-        public static void AssertAssemblyMapDataCollection(FailureMechanismSectionAssemblyOld expectedSimpleAssembly,
-                                                           FailureMechanismSectionAssemblyOld expectedDetailedAssembly,
-                                                           FailureMechanismSectionAssemblyOld expectedTailorMadeAssembly,
-                                                           FailureMechanismSectionAssemblyOld expectedCombinedAssembly,
-                                                           MapDataCollection assemblyMapData,
-                                                           IFailureMechanism failureMechanism)
-        {
-            IEnumerable<MapData> assemblyMapDataCollection = assemblyMapData.Collection;
-            Assert.AreEqual(4, assemblyMapDataCollection.Count());
-            AssertAssemblyMapData("Toetsoordeel toets op maat", failureMechanism, expectedTailorMadeAssembly, assemblyMapDataCollection.ElementAt(0));
-            AssertAssemblyMapData("Toetsoordeel gedetailleerde toets", failureMechanism, expectedDetailedAssembly, assemblyMapDataCollection.ElementAt(1));
-            AssertAssemblyMapData("Toetsoordeel eenvoudige toets", failureMechanism, expectedSimpleAssembly, assemblyMapDataCollection.ElementAt(2));
-            AssertAssemblyMapData("Gecombineerd toetsoordeel", failureMechanism, expectedCombinedAssembly, assemblyMapDataCollection.ElementAt(3));
-        }
-
-        /// <summary>
-        /// Asserts whether the <see cref="MapDataCollection"/> contains the data that is representative 
-        /// for the <paramref name="failureMechanism"/> and supplied <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.
-        /// </summary>
-        /// <param name="expectedSimpleAssemblyCategory">The expected simple assembly category.</param>
-        /// <param name="expectedDetailedAssemblyCategory">The expected detailed assembly category.</param>
-        /// <param name="expectedTailorMadeAssemblyCategory">The expected tailor made assembly category.</param>
-        /// <param name="expectedCombinedAssemblyCategory">The expected combined assembly category.</param>
-        /// <param name="assemblyMapData">The <see cref="MapDataCollection"/> that needs to be asserted.</param>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the map data collection belongs to.</param>
-        /// <exception cref="AssertionException">Thrown when:
-        /// <list type="bullet">
-        /// <item>there is an incorrect amount of items in <paramref name="assemblyMapData"/>;</item>
-        /// <item>one of the items in <paramref name="assemblyMapData"/> has incorrect properties.</item>
-        /// </list>
-        /// </exception>
-        public static void AssertAssemblyMapDataCollection(FailureMechanismSectionAssemblyCategoryGroup expectedSimpleAssemblyCategory,
-                                                           FailureMechanismSectionAssemblyCategoryGroup expectedDetailedAssemblyCategory,
-                                                           FailureMechanismSectionAssemblyCategoryGroup expectedTailorMadeAssemblyCategory,
-                                                           FailureMechanismSectionAssemblyCategoryGroup expectedCombinedAssemblyCategory,
-                                                           MapDataCollection assemblyMapData,
-                                                           IFailureMechanism failureMechanism)
-        {
-            IEnumerable<MapData> assemblyMapDataCollection = assemblyMapData.Collection;
-            Assert.AreEqual(4, assemblyMapDataCollection.Count());
-            AssertAssemblyMapData("Toetsoordeel toets op maat", failureMechanism, expectedTailorMadeAssemblyCategory, assemblyMapDataCollection.ElementAt(0));
-            AssertAssemblyMapData("Toetsoordeel gedetailleerde toets", failureMechanism, expectedDetailedAssemblyCategory, assemblyMapDataCollection.ElementAt(1));
-            AssertAssemblyMapData("Toetsoordeel eenvoudige toets", failureMechanism, expectedSimpleAssemblyCategory, assemblyMapDataCollection.ElementAt(2));
-            AssertAssemblyMapData("Gecombineerd toetsoordeel", failureMechanism, expectedCombinedAssemblyCategory, assemblyMapDataCollection.ElementAt(3));
-        }
-
-        /// <summary>
         /// Asserts whether the <see cref="MapData"/> contains the data that is representative 
         /// for the <paramref name="expectedAssemblyResult"/>.
         /// </summary>
@@ -384,60 +321,6 @@ namespace Riskeer.Common.Forms.TestUtil
                 Assert.AreEqual(1, feature.MetaData.Count);
                 Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
                                     DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedAssemblyResult.AssemblyGroup)).DisplayName,
-                                feature.MetaData["Categorie"]);
-            }
-        }
-
-        private static void AssertAssemblyMapData(string expectedMapDataName,
-                                                  IFailureMechanism failureMechanism,
-                                                  FailureMechanismSectionAssemblyOld expectedAssembly,
-                                                  MapData mapData)
-        {
-            var assemblyMapLineData = (MapLineData) mapData;
-            Assert.AreEqual(expectedMapDataName, assemblyMapLineData.Name);
-
-            MapFeature[] features = assemblyMapLineData.Features.ToArray();
-            FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
-            Assert.AreEqual(sections.Length, features.Length);
-
-            for (var index = 0; index < sections.Length; index++)
-            {
-                MapFeature feature = features[index];
-
-                FailureMechanismSection failureMechanismSection = sections[index];
-                CollectionAssert.AreEqual(failureMechanismSection.Points, feature.MapGeometries.Single().PointCollections.Single());
-
-                Assert.AreEqual(2, feature.MetaData.Count);
-                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
-                                    DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedAssembly.Group)).DisplayName,
-                                feature.MetaData["Categorie"]);
-                Assert.AreEqual(new NoProbabilityValueDoubleConverter().ConvertToString(expectedAssembly.Probability),
-                                feature.MetaData["Faalkans"]);
-            }
-        }
-
-        private static void AssertAssemblyMapData(string expectedMapDataName,
-                                                  IFailureMechanism failureMechanism,
-                                                  FailureMechanismSectionAssemblyCategoryGroup expectedCategory,
-                                                  MapData mapData)
-        {
-            var assemblyMapLineData = (MapLineData) mapData;
-            Assert.AreEqual(expectedMapDataName, assemblyMapLineData.Name);
-
-            MapFeature[] features = assemblyMapLineData.Features.ToArray();
-            FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
-            Assert.AreEqual(sections.Length, features.Length);
-
-            for (var index = 0; index < sections.Length; index++)
-            {
-                MapFeature feature = features[index];
-
-                FailureMechanismSection failureMechanismSection = sections[index];
-                CollectionAssert.AreEqual(failureMechanismSection.Points, feature.MapGeometries.Single().PointCollections.Single());
-
-                Assert.AreEqual(1, feature.MetaData.Count);
-                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyCategoryGroup>(
-                                    DisplayFailureMechanismSectionAssemblyCategoryGroupConverter.Convert(expectedCategory)).DisplayName,
                                 feature.MetaData["Categorie"]);
             }
         }
