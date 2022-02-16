@@ -84,7 +84,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
 
                 // Assert
                 IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedAssemblyResults =
-                    AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
+                    AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
                 int expectedNrOfResults = expectedAssemblyResults.Count();
                 Assert.AreEqual(expectedNrOfResults, features.Count());
 

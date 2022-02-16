@@ -162,7 +162,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     Assert.AreEqual(3, mapData.Collection.Count());
 
                     IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedResults =
-                        AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
+                        AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
 
                     AssertCombinedFailureMechanismSectionAssemblyResultMapData(expectedResults,
                                                                                assessmentSection.ReferenceLine,
@@ -273,7 +273,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     mocks.ReplayAll();
 
                     IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedResults =
-                        AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
+                        AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
 
                     AssertCombinedFailureMechanismSectionAssemblyResultMapData(expectedResults,
                                                                                assessmentSection.ReferenceLine,
@@ -288,7 +288,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     failureMechanisms.ElementAt(random.Next(failureMechanisms.Count())).NotifyObservers();
 
                     // Then
-                    expectedResults = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
+                    expectedResults = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
                     AssertCombinedFailureMechanismSectionAssemblyResultMapData(expectedResults,
                                                                                assessmentSection.ReferenceLine,
                                                                                mapData.Collection.ElementAt(assemblyResultsIndex));
@@ -324,7 +324,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     mocks.ReplayAll();
 
                     IEnumerable<CombinedFailureMechanismSectionAssemblyResult> expectedResults =
-                        AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
+                        AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
 
                     AssertCombinedFailureMechanismSectionAssemblyResultMapData(expectedResults,
                                                                                assessmentSection.ReferenceLine,
@@ -338,7 +338,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     assessmentSection.NotifyObservers();
 
                     // Then
-                    expectedResults = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
+                    expectedResults = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
                     AssertCombinedFailureMechanismSectionAssemblyResultMapData(expectedResults,
                                                                                assessmentSection.ReferenceLine,
                                                                                mapData.Collection.ElementAt(assemblyResultsIndex));

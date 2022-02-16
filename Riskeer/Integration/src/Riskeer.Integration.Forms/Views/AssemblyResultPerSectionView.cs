@@ -201,7 +201,7 @@ namespace Riskeer.Integration.Forms.Views
 
             try
             {
-                dataGridViewControl.SetDataSource(AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(AssessmentSection, true)
+                dataGridViewControl.SetDataSource(AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(AssessmentSection)
                                                                                   .Select(r => new CombinedFailureMechanismSectionAssemblyResultRow(r))
                                                                                   .ToArray());
             }

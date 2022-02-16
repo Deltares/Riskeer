@@ -768,7 +768,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void AssembleCombinedPerFailureMechanismSection_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(null, new Random(39).NextBoolean());
+            void Call() => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -789,7 +789,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 calculator.CombinedFailureMechanismSectionAssemblyOutput = Array.Empty<CombinedFailureMechanismSectionAssembly>();
 
                 // Call
-                AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, random.NextBoolean());
+                AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
 
                 // Assert
                 IEnumerable<CombinedAssemblyFailureMechanismSection>[] actualInput = calculator.CombinedFailureMechanismSectionsInput.ToArray();
@@ -831,8 +831,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 };
 
                 // Call
-                CombinedFailureMechanismSectionAssemblyResult[] output = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection,
-                                                                                                                                                     random.NextBoolean())
+                CombinedFailureMechanismSectionAssemblyResult[] output = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(
+                                                                                                             assessmentSection)
                                                                                                          .ToArray();
 
                 // Assert
@@ -887,7 +887,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, random.NextBoolean());
+                void Call() => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
@@ -912,7 +912,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, random.NextBoolean());
+                void Call() => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);

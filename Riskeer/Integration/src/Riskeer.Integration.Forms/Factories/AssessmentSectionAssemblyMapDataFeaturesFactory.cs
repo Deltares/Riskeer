@@ -58,8 +58,7 @@ namespace Riskeer.Integration.Forms.Factories
             IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults;
             try
             {
-                assemblyResults =
-                    AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection, true);
+                assemblyResults = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
             }
             catch (AssemblyException)
             {
