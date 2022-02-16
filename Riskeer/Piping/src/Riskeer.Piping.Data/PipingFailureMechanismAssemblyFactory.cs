@@ -20,11 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Probability;
 
 namespace Riskeer.Piping.Data
@@ -70,6 +73,40 @@ namespace Riskeer.Piping.Data
                 sectionResult, assessmentSection, calculateProbabilityStrategy,
                 failureMechanism.GeneralInput.ApplyLengthEffectInSection,
                 failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
+        }
+
+        /// <summary>
+        /// Assembles the failure mechanism based on its input arguments.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="PipingFailureMechanism"/> to assemble.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/>
+        /// belongs to.</param>
+        /// <returns>A <see cref="double"/> representing the assembly result.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be assembled.</exception>
+        public static double AssembleFailureMechanism(PipingFailureMechanism failureMechanism,
+                                                      IAssessmentSection assessmentSection)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            Func<double> performAssemblyFunc = () =>
+            {
+                IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults =
+                    failureMechanism.SectionResults.Select(sr => AssembleSection(sr, failureMechanism, assessmentSection))
+                                    .ToArray();
+
+                return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(failureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length),
+                                                                                      sectionAssemblyResults);
+            };
+            return FailurePathAssemblyHelper.AssembleFailurePath(failureMechanism, performAssemblyFunc);
         }
     }
 }
