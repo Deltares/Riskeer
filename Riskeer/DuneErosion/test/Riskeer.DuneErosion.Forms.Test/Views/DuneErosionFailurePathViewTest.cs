@@ -59,18 +59,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
         private const int sectionsStartPointIndex = 1;
         private const int sectionsEndPointIndex = 2;
 
-        private const int tailorMadeAssemblyIndex = 0;
-        private const int detailedAssemblyIndex = 1;
-        private const int simpleAssemblyIndex = 2;
-        private const int combinedAssemblyIndex = 3;
-
         private const int sectionsObserverIndex = 0;
         private const int sectionsStartPointObserverIndex = 1;
         private const int sectionsEndPointObserverIndex = 2;
-        private const int simpleAssemblyObserverIndex = 3;
-        private const int detailedAssemblyObserverIndex = 4;
-        private const int tailorMadeAssemblyObserverIndex = 5;
-        private const int combinedAssemblyObserverIndex = 6;
 
         private Form testForm;
 
@@ -142,20 +133,14 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
                 new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2))
             });
 
-            var expectedSimpleAssembly = new FailureMechanismSectionAssemblyOld(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var expectedDetailedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var expectedTailorMadeAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var expectedCombinedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                calculator.SimpleAssessmentAssemblyOutput = expectedSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyGroupOutput = expectedDetailedAssemblyCategory;
-                calculator.TailorMadeAssemblyCategoryOutput = expectedTailorMadeAssemblyCategory;
-                calculator.CombinedAssemblyCategoryOutput = expectedCombinedAssemblyCategory;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                var failureMechanismSectionAssemblyResult = new FailureMechanismSectionAssemblyResult(
+                    random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+                calculator.FailureMechanismSectionAssemblyResultOutput = failureMechanismSectionAssemblyResult;
 
                 // Call
                 DuneErosionFailurePathView view = CreateView(failureMechanism, assessmentSection);
@@ -177,18 +162,13 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
                 AssertDuneLocationsMapData(failureMechanism, mapDataList[duneLocationsIndex]);
 
-                MapDataTestHelper.AssertAssemblyMapDataCollection(expectedSimpleAssembly.Group,
-                                                                  expectedDetailedAssemblyCategory,
-                                                                  expectedTailorMadeAssemblyCategory,
-                                                                  expectedCombinedAssemblyCategory,
-                                                                  (MapDataCollection) mapDataList[assemblyResultsIndex],
-                                                                  failureMechanism);
+                MapDataTestHelper.AssertAssemblyMapData(failureMechanism, failureMechanismSectionAssemblyResult, mapDataList[assemblyResultsIndex]);
             }
         }
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismSectionsUpdatedAndNotified_ThenMapDataUpdated()
+        public void GivenViewWithFailureMechanismSectionsData_WhenFailureMechanismUpdatedAndNotified_ThenMapDataUpdated()
         {
             // Given
             var failureMechanism = new DuneErosionFailureMechanism();
@@ -207,10 +187,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
             observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-            observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
             mocks.ReplayAll();
 
             // When
@@ -233,148 +209,11 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenViewWithAssemblyData_WhenFailureMechanismNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var random = new Random(39);
-            var failureMechanism = new DuneErosionFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
-
-            var originalSimpleAssembly = new FailureMechanismSectionAssemblyOld(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalDetailedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var originalTailorMadeAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var originalCombinedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-
-            using (new AssemblyToolCalculatorFactoryConfigOld())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyGroupOutput = originalDetailedAssemblyCategory;
-                calculator.TailorMadeAssemblyCategoryOutput = originalTailorMadeAssemblyCategory;
-                calculator.CombinedAssemblyCategoryOutput = originalCombinedAssemblyCategory;
-
-                DuneErosionFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
-
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[sectionsObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsStartPointObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[sectionsEndPointObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                // Precondition
-                var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
-                MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly.Group,
-                                                                  originalDetailedAssemblyCategory,
-                                                                  originalTailorMadeAssemblyCategory,
-                                                                  originalCombinedAssemblyCategory,
-                                                                  assemblyMapData,
-                                                                  failureMechanism);
-
-                // When
-                var updatedSimpleAssembly = new FailureMechanismSectionAssemblyOld(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                var updatedDetailedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-                var updatedTailorMadeAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-                var updatedCombinedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-                calculator.SimpleAssessmentAssemblyOutput = updatedSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyGroupOutput = updatedDetailedAssemblyCategory;
-                calculator.TailorMadeAssemblyCategoryOutput = updatedTailorMadeAssemblyCategory;
-                calculator.CombinedAssemblyCategoryOutput = updatedCombinedAssemblyCategory;
-                failureMechanism.NotifyObservers();
-
-                // Then
-                MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly.Group,
-                                                                  updatedDetailedAssemblyCategory,
-                                                                  updatedTailorMadeAssemblyCategory,
-                                                                  updatedCombinedAssemblyCategory,
-                                                                  assemblyMapData,
-                                                                  failureMechanism);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
-        public void GivenViewWithAssemblyData_WhenFailureMechanismSectionResultNotified_ThenMapDataUpdated()
-        {
-            // Given
-            var random = new Random(39);
-            var failureMechanism = new DuneErosionFailureMechanism();
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(1, 10));
-
-            var originalSimpleAssembly = new FailureMechanismSectionAssemblyOld(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-            var originalDetailedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var originalTailorMadeAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-            var originalCombinedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-
-            using (new AssemblyToolCalculatorFactoryConfigOld())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                FailureMechanismSectionAssemblyCalculatorOldStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-
-                calculator.SimpleAssessmentAssemblyOutput = originalSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyGroupOutput = originalDetailedAssemblyCategory;
-                calculator.TailorMadeAssemblyCategoryOutput = originalTailorMadeAssemblyCategory;
-                calculator.CombinedAssemblyCategoryOutput = originalCombinedAssemblyCategory;
-
-                DuneErosionFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
-
-                IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
-
-                var mocks = new MockRepository();
-                IObserver[] observers = AttachMapDataObservers(mocks, map.Data.Collection);
-                observers[simpleAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[detailedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[tailorMadeAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                observers[combinedAssemblyObserverIndex].Expect(obs => obs.UpdateObserver());
-                mocks.ReplayAll();
-
-                // Precondition
-                var assemblyMapData = (MapDataCollection) map.Data.Collection.ElementAt(assemblyResultsIndex);
-                MapDataTestHelper.AssertAssemblyMapDataCollection(originalSimpleAssembly.Group,
-                                                                  originalDetailedAssemblyCategory,
-                                                                  originalTailorMadeAssemblyCategory,
-                                                                  originalCombinedAssemblyCategory,
-                                                                  assemblyMapData,
-                                                                  failureMechanism);
-
-                // When
-                var updatedSimpleAssembly = new FailureMechanismSectionAssemblyOld(random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>());
-                var updatedDetailedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-                var updatedTailorMadeAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-                var updatedCombinedAssemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-                calculator.SimpleAssessmentAssemblyOutput = updatedSimpleAssembly;
-                calculator.DetailedAssessmentAssemblyGroupOutput = updatedDetailedAssemblyCategory;
-                calculator.TailorMadeAssemblyCategoryOutput = updatedTailorMadeAssemblyCategory;
-                calculator.CombinedAssemblyCategoryOutput = updatedCombinedAssemblyCategory;
-                failureMechanism.SectionResultsOld.First().NotifyObservers();
-
-                // Then
-                MapDataTestHelper.AssertAssemblyMapDataCollection(updatedSimpleAssembly.Group,
-                                                                  updatedDetailedAssemblyCategory,
-                                                                  updatedTailorMadeAssemblyCategory,
-                                                                  updatedCombinedAssemblyCategory,
-                                                                  assemblyMapData,
-                                                                  failureMechanism);
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        [Apartment(ApartmentState.STA)]
         public void UpdateObserver_DataUpdated_MapLayersSameOrder()
         {
             // Setup
             const int updatedReferenceLineLayerIndex = referenceLineIndex + 3;
-            const int updatedSectionsCollectionLayerIndex = sectionsCollectionIndex - 1;
+            const int updatedSectionsLayerIndex = sectionsCollectionIndex - 1;
             const int updatedAssemblyResultsCollectionIndex = assemblyResultsIndex - 1;
             const int updatedDuneLocationsLayerIndex = duneLocationsIndex - 1;
 
@@ -397,11 +236,11 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var referenceLineData = (MapLineData) mapDataCollection.ElementAt(updatedReferenceLineLayerIndex);
             Assert.AreEqual("Referentielijn", referenceLineData.Name);
 
-            var sectionsData = (MapDataCollection) mapDataCollection.ElementAt(updatedSectionsCollectionLayerIndex);
+            var sectionsData = (MapDataCollection) mapDataCollection.ElementAt(updatedSectionsLayerIndex);
             Assert.AreEqual("Vakindeling", sectionsData.Name);
 
-            var assemblyResultsData = (MapDataCollection) mapDataCollection.ElementAt(updatedAssemblyResultsCollectionIndex);
-            Assert.AreEqual("Toetsoordeel", assemblyResultsData.Name);
+            var assemblyResultsData = (MapLineData) mapDataCollection.ElementAt(updatedAssemblyResultsCollectionIndex);
+            Assert.AreEqual("Duidingsklasse per vak", assemblyResultsData.Name);
 
             var duneLocationsData = (MapPointData) mapDataCollection.ElementAt(updatedDuneLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", duneLocationsData.Name);
@@ -422,11 +261,11 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var actualReferenceLineData = (MapLineData) mapDataCollection.ElementAt(updatedReferenceLineLayerIndex);
             Assert.AreEqual("Referentielijn", actualReferenceLineData.Name);
 
-            var actualSectionsData = (MapDataCollection) mapDataCollection.ElementAt(updatedSectionsCollectionLayerIndex);
+            var actualSectionsData = (MapDataCollection) mapDataCollection.ElementAt(updatedSectionsLayerIndex);
             Assert.AreEqual("Vakindeling", actualSectionsData.Name);
 
-            var actualAssemblyResultsData = (MapDataCollection) mapDataCollection.ElementAt(updatedAssemblyResultsCollectionIndex);
-            Assert.AreEqual("Toetsoordeel", actualAssemblyResultsData.Name);
+            var actualAssemblyResultsData = (MapLineData) mapDataCollection.ElementAt(updatedAssemblyResultsCollectionIndex);
+            Assert.AreEqual("Duidingsklasse per vak", actualAssemblyResultsData.Name);
 
             var actualDuneLocationsData = (MapPointData) mapDataCollection.ElementAt(updatedDuneLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", actualDuneLocationsData.Name);
@@ -451,12 +290,15 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             Assert.AreEqual(4, mapDataList.Count);
 
             var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
+            var assemblyResultsMapData = (MapLineData) mapDataList[assemblyResultsIndex];
             var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[duneLocationsIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
+            CollectionAssert.IsEmpty(assemblyResultsMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
 
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
+            Assert.AreEqual("Duidingsklasse per vak", assemblyResultsMapData.Name);
             Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
 
             var sectionsMapDataCollection = (MapDataCollection) mapDataList[sectionsCollectionIndex];
@@ -475,26 +317,6 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             Assert.AreEqual("Vakindeling (eindpunten)", sectionsEndPointMapData.Name);
             Assert.AreEqual("Vakindeling (startpunten)", sectionsStartPointMapData.Name);
             Assert.AreEqual("Vakindeling", sectionsMapData.Name);
-
-            var assemblyResultsMapDataCollection = (MapDataCollection) mapDataList[assemblyResultsIndex];
-            Assert.AreEqual("Toetsoordeel", assemblyResultsMapDataCollection.Name);
-            List<MapData> assemblyMapDataList = assemblyResultsMapDataCollection.Collection.ToList();
-            Assert.AreEqual(4, assemblyMapDataList.Count);
-
-            var combinedAssemblyMapData = (MapLineData) assemblyMapDataList[combinedAssemblyIndex];
-            var simpleAssemblyMapData = (MapLineData) assemblyMapDataList[simpleAssemblyIndex];
-            var detailedAssemblyMapData = (MapLineData) assemblyMapDataList[detailedAssemblyIndex];
-            var tailorMadeAssemblyMapData = (MapLineData) assemblyMapDataList[tailorMadeAssemblyIndex];
-
-            CollectionAssert.IsEmpty(combinedAssemblyMapData.Features);
-            CollectionAssert.IsEmpty(simpleAssemblyMapData.Features);
-            CollectionAssert.IsEmpty(detailedAssemblyMapData.Features);
-            CollectionAssert.IsEmpty(tailorMadeAssemblyMapData.Features);
-
-            Assert.AreEqual("Gecombineerd toetsoordeel", combinedAssemblyMapData.Name);
-            Assert.AreEqual("Toetsoordeel eenvoudige toets", simpleAssemblyMapData.Name);
-            Assert.AreEqual("Toetsoordeel gedetailleerde toets", detailedAssemblyMapData.Name);
-            Assert.AreEqual("Toetsoordeel toets op maat", tailorMadeAssemblyMapData.Name);
         }
 
         /// <summary>
@@ -518,28 +340,11 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var sectionsEndPointMapDataObserver = mocks.StrictMock<IObserver>();
             sectionsCollection[sectionsEndPointIndex].Attach(sectionsEndPointMapDataObserver);
 
-            MapData[] assemblyResultsCollection = ((MapDataCollection) mapDataArray[assemblyResultsIndex]).Collection.ToArray();
-            var simpleAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
-            assemblyResultsCollection[simpleAssemblyIndex].Attach(simpleAssemblyMapDataObserver);
-
-            var detailedAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
-            assemblyResultsCollection[detailedAssemblyIndex].Attach(detailedAssemblyMapDataObserver);
-
-            var tailorMadeAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
-            assemblyResultsCollection[tailorMadeAssemblyIndex].Attach(tailorMadeAssemblyMapDataObserver);
-
-            var combinedAssemblyMapDataObserver = mocks.StrictMock<IObserver>();
-            assemblyResultsCollection[combinedAssemblyIndex].Attach(combinedAssemblyMapDataObserver);
-
             return new[]
             {
                 sectionsMapDataObserver,
                 sectionsStartPointMapDataObserver,
-                sectionsEndPointMapDataObserver,
-                simpleAssemblyMapDataObserver,
-                detailedAssemblyMapDataObserver,
-                tailorMadeAssemblyMapDataObserver,
-                combinedAssemblyMapDataObserver
+                sectionsEndPointMapDataObserver
             };
         }
 

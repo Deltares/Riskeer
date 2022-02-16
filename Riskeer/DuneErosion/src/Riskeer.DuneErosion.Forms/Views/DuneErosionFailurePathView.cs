@@ -23,11 +23,12 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.MapLayers;
 using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Forms.Factories;
 using DuneErosionDataResources = Riskeer.DuneErosion.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.Views
@@ -41,14 +42,9 @@ namespace Riskeer.DuneErosion.Forms.Views
         private MapPointData sectionsStartPointMapData;
         private MapPointData sectionsEndPointMapData;
 
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
+        private NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableFailureMechanismSectionResult> assemblyResultMapLayer;
 
         private Observer failureMechanismObserver;
-
-        private RecursiveObserver<IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld>, DuneErosionFailureMechanismSectionResultOld> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="DuneErosionFailurePathView"/>.
@@ -63,8 +59,7 @@ namespace Riskeer.DuneErosion.Forms.Views
         protected override void Dispose(bool disposing)
         {
             failureMechanismObserver.Dispose();
-
-            sectionResultObserver.Dispose();
+            assemblyResultMapLayer.Dispose();
 
             base.Dispose(disposing);
         }
@@ -77,12 +72,6 @@ namespace Riskeer.DuneErosion.Forms.Views
             {
                 Observable = FailureMechanism
             };
-
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld>,
-                DuneErosionFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
-            {
-                Observable = FailureMechanism.SectionResultsOld
-            };
         }
 
         protected override void CreateMapData()
@@ -94,22 +83,15 @@ namespace Riskeer.DuneErosion.Forms.Views
             sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
+            assemblyResultMapLayer = new NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableFailureMechanismSectionResult>(
+                FailureMechanism, sr => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, AssessmentSection));
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
             MapDataCollection.Insert(1, sectionsMapDataCollection);
 
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            MapDataCollection.Insert(2, assemblyMapDataCollection);
+            MapDataCollection.Insert(2, assemblyResultMapLayer.MapData);
         }
 
         protected override void SetAllMapDataFeatures()
@@ -117,7 +99,6 @@ namespace Riskeer.DuneErosion.Forms.Views
             base.SetAllMapDataFeatures();
 
             SetFailureMechanismMapData();
-            SetAssemblyMapData();
         }
 
         #region FailureMechanism MapData
@@ -128,8 +109,6 @@ namespace Riskeer.DuneErosion.Forms.Views
             sectionsMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetFailureMechanismMapData()
@@ -138,27 +117,6 @@ namespace Riskeer.DuneErosion.Forms.Views
             sectionsMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);
-        }
-
-        #endregion
-
-        #region Assembly MapData
-
-        private void UpdateAssemblyMapData()
-        {
-            SetAssemblyMapData();
-            simpleAssemblyMapData.NotifyObservers();
-            detailedAssemblyMapData.NotifyObservers();
-            tailorMadeAssemblyMapData.NotifyObservers();
-            combinedAssemblyMapData.NotifyObservers();
-        }
-
-        private void SetAssemblyMapData()
-        {
-            simpleAssemblyMapData.Features = DuneErosionAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
-            detailedAssemblyMapData.Features = DuneErosionAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism);
-            tailorMadeAssemblyMapData.Features = DuneErosionAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism);
-            combinedAssemblyMapData.Features = DuneErosionAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism);
         }
 
         #endregion
