@@ -26,8 +26,8 @@ using Core.Components.Gis.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.MapLayers;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Forms.Factories;
 using GrassCoverErosionOutwardsDataResources = Riskeer.GrassCoverErosionOutwards.Data.Properties.Resources;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
@@ -41,14 +41,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         private MapPointData sectionsStartPointMapData;
         private MapPointData sectionsEndPointMapData;
 
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
+        private NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> assemblyResultMapLayer;
 
         private Observer failureMechanismObserver;
-
-        private RecursiveObserver<IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>, GrassCoverErosionOutwardsFailureMechanismSectionResultOld> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailurePathView"/>.
@@ -57,12 +52,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsFailurePathView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                        IAssessmentSection assessmentSection) : base(failureMechanism, assessmentSection) {}
+                                                        IAssessmentSection assessmentSection) 
+            : base(failureMechanism, assessmentSection) {}
 
         protected override void Dispose(bool disposing)
         {
             failureMechanismObserver.Dispose();
-            sectionResultObserver.Dispose();
+            assemblyResultMapLayer.Dispose();
 
             base.Dispose(disposing);
         }
@@ -76,22 +72,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
             sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
+            assemblyResultMapLayer = new NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                FailureMechanism, sr => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection));
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
             MapDataCollection.Insert(1, sectionsMapDataCollection);
 
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            MapDataCollection.Insert(2, assemblyMapDataCollection);
+            MapDataCollection.Insert(2, assemblyResultMapLayer.MapData);
         }
 
         protected override void CreateObservers()
@@ -102,12 +91,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
             {
                 Observable = FailureMechanism
             };
-
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>,
-                GrassCoverErosionOutwardsFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
-            {
-                Observable = FailureMechanism.SectionResultsOld
-            };
         }
 
         protected override void SetAllMapDataFeatures()
@@ -115,41 +98,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
             base.SetAllMapDataFeatures();
 
             SetSectionsMapData();
-
-            SetAssemblyMapData();
         }
-
-        #region Calculations MapData
-
-        protected override void UpdateCalculationsMapData()
-        {
-            base.UpdateCalculationsMapData();
-
-            UpdateAssemblyMapData();
-        }
-
-        #endregion
-
-        #region Assembly MapData
-
-        private void UpdateAssemblyMapData()
-        {
-            SetAssemblyMapData();
-            simpleAssemblyMapData.NotifyObservers();
-            detailedAssemblyMapData.NotifyObservers();
-            tailorMadeAssemblyMapData.NotifyObservers();
-            combinedAssemblyMapData.NotifyObservers();
-        }
-
-        private void SetAssemblyMapData()
-        {
-            simpleAssemblyMapData.Features = GrassCoverErosionOutwardsAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
-            detailedAssemblyMapData.Features = GrassCoverErosionOutwardsAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism);
-            tailorMadeAssemblyMapData.Features = GrassCoverErosionOutwardsAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism);
-            combinedAssemblyMapData.Features = GrassCoverErosionOutwardsAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism);
-        }
-
-        #endregion
 
         #region FailureMechanism MapData
 
@@ -159,8 +108,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
             sectionsMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetSectionsMapData()
