@@ -26,47 +26,15 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
 {
     /// <summary>
-    /// Factory for assembling assembly results for a stand alone failure mechanism.
+    /// Factory for assembling assembly results for a piping structure failure mechanism.
     /// </summary>
-    public static class StandAloneFailureMechanismAssemblyFactory
+    public static class PipingStructureFailureMechanismAssemblyFactory
     {
-        /// <summary>
-        /// Assembles the section based on the input arguments.
-        /// </summary>
-        /// <param name="sectionResult">The section result to assemble.</param>
-        /// <param name="failureMechanism">The failure mechanism the section result belongs to.</param>
-        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the section belongs to.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when the section could not be assembled.</exception>
-        public static FailureMechanismSectionAssemblyResult AssembleSection(NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
-                                                                            IHasGeneralInput failureMechanism,
-                                                                            IAssessmentSection assessmentSection)
-        {
-            if (sectionResult == null)
-            {
-                throw new ArgumentNullException(nameof(sectionResult));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            return FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
-        }
-
         /// <summary>
         /// Assembles the failure mechanism based on its input arguments.
         /// </summary>
@@ -74,12 +42,9 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/>
         /// belongs to.</param>
         /// <returns>A <see cref="double"/> representing the assembly result.</returns>
-        /// <typeparam name="TFailureMechanism">The type of failure mechanism to assemble.</typeparam>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism cannot be assembled.</exception>
-        public static double AssembleFailureMechanism<TFailureMechanism>(TFailureMechanism failureMechanism,
-                                                                         IAssessmentSection assessmentSection)
-            where TFailureMechanism : IHasGeneralInput, IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+        public static double AssembleFailureMechanism(PipingStructureFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -94,7 +59,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
             Func<double> performAssemblyFunc = () =>
             {
                 IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults =
-                    failureMechanism.SectionResults.Select(sr => AssembleSection(sr, failureMechanism, assessmentSection))
+                    failureMechanism.SectionResults.Select(sr => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, assessmentSection))
                                     .ToArray();
                 return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(failureMechanism.GeneralInput.N, sectionAssemblyResults);
             };
