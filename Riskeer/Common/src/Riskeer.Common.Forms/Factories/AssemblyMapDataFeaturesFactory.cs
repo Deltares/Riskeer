@@ -82,7 +82,7 @@ namespace Riskeer.Common.Forms.Factories
                     continue;
                 }
 
-                feature.MetaData[Resources.AssemblyCategory_Group_DisplayName] =
+                feature.MetaData[Resources.AssemblyGroup_DisplayName] =
                     new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
                         DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyResult.AssemblyGroup)).DisplayName;
 

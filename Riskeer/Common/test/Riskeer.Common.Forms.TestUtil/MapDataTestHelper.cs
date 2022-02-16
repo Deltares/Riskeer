@@ -321,7 +321,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 Assert.AreEqual(1, feature.MetaData.Count);
                 Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
                                     DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedAssemblyResult.AssemblyGroup)).DisplayName,
-                                feature.MetaData["Categorie"]);
+                                feature.MetaData["Duidingsklasse"]);
             }
         }
 

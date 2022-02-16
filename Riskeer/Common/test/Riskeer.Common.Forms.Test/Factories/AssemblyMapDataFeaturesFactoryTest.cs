@@ -129,7 +129,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             Assert.AreEqual(1, mapFeature.MetaData.Keys.Count);
             Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
                                 DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedAssemblyResult.AssemblyGroup)).DisplayName,
-                            mapFeature.MetaData["Categorie"]);
+                            mapFeature.MetaData["Duidingsklasse"]);
         }
     }
 }
