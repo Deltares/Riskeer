@@ -25,9 +25,10 @@ using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.MapLayers;
 using Riskeer.StabilityPointStructures.Data;
-using Riskeer.StabilityPointStructures.Forms.Factories;
 using StabilityPointStructuresDataResources = Riskeer.StabilityPointStructures.Data.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Forms.Views
@@ -41,14 +42,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         private MapPointData sectionsStartPointMapData;
         private MapPointData sectionsEndPointMapData;
 
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
+        private CalculatableFailureMechanismSectionResultsMapLayer<StabilityPointStructuresFailureMechanism, AdoptableFailureMechanismSectionResult, StabilityPointStructuresInput> assemblyResultsMapLayer;
 
         private Observer failureMechanismObserver;
-
-        private RecursiveObserver<IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld>, StabilityPointStructuresFailureMechanismSectionResultOld> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailurePathView"/>.
@@ -57,12 +53,12 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StabilityPointStructuresFailurePathView(StabilityPointStructuresFailureMechanism failureMechanism,
-                                               IAssessmentSection assessmentSection) : base(failureMechanism, assessmentSection) {}
+                                                       IAssessmentSection assessmentSection) : base(failureMechanism, assessmentSection) {}
 
         protected override void Dispose(bool disposing)
         {
             failureMechanismObserver.Dispose();
-            sectionResultObserver.Dispose();
+            assemblyResultsMapLayer.Dispose();
 
             base.Dispose(disposing);
         }
@@ -70,28 +66,21 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         protected override void CreateMapData()
         {
             base.CreateMapData();
-            
+
             MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
             sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
+            assemblyResultsMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<StabilityPointStructuresFailureMechanism, AdoptableFailureMechanismSectionResult, StabilityPointStructuresInput>(
+                FailureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<StabilityPointStructuresInput>(sr, FailureMechanism, AssessmentSection));
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
             MapDataCollection.Insert(1, sectionsMapDataCollection);
 
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            MapDataCollection.Insert(2, assemblyMapDataCollection);
+            MapDataCollection.Insert(2, assemblyResultsMapLayer.MapData);
         }
 
         protected override void CreateObservers()
@@ -102,12 +91,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             {
                 Observable = FailureMechanism
             };
-
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<StabilityPointStructuresFailureMechanismSectionResultOld>,
-                StabilityPointStructuresFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
-            {
-                Observable = FailureMechanism.SectionResultsOld
-            };
         }
 
         protected override void SetAllMapDataFeatures()
@@ -115,40 +98,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             base.SetAllMapDataFeatures();
 
             SetSectionsMapData();
-            SetAssemblyMapData();
         }
-
-        #region Calculations MapData
-
-        protected override void UpdateCalculationsMapData()
-        {
-            base.UpdateCalculationsMapData();
-
-            UpdateAssemblyMapData();
-        }
-
-        #endregion
-
-        #region Assembly MapData
-
-        private void UpdateAssemblyMapData()
-        {
-            SetAssemblyMapData();
-            simpleAssemblyMapData.NotifyObservers();
-            detailedAssemblyMapData.NotifyObservers();
-            tailorMadeAssemblyMapData.NotifyObservers();
-            combinedAssemblyMapData.NotifyObservers();
-        }
-
-        private void SetAssemblyMapData()
-        {
-            simpleAssemblyMapData.Features = StabilityPointStructuresAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
-            detailedAssemblyMapData.Features = StabilityPointStructuresAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism, AssessmentSection);
-            tailorMadeAssemblyMapData.Features = StabilityPointStructuresAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism, AssessmentSection);
-            combinedAssemblyMapData.Features = StabilityPointStructuresAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism, AssessmentSection);
-        }
-
-        #endregion
 
         #region FailureMechanism MapData
 
@@ -158,8 +108,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
             sectionsMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetSectionsMapData()
