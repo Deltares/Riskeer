@@ -31,13 +31,11 @@ namespace Riskeer.Common.Forms.Observers
     /// related to its section results.
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism to listen to.</typeparam>
-    /// <typeparam name="TSectionResultOld">The type of the failure mechanism section results in the <typeparamref name="TFailureMechanism"/>.</typeparam>
     /// <typeparam name="TSectionResult">The type of the failure mechanism section results in the <typeparamref name="TFailureMechanism"/>.</typeparam>
     /// <typeparam name="TCalculation">The type of the calculations in the <typeparamref name="TFailureMechanism"/>.</typeparam>
-    public class CalculatableFailureMechanismResultObserver<TFailureMechanism, TSectionResultOld, TSectionResult, TCalculation>
-        : FailureMechanismResultObserver<TFailureMechanism, TSectionResultOld, TSectionResult>
-        where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResultOld, TSectionResult>, ICalculatableFailureMechanism
-        where TSectionResultOld : FailureMechanismSectionResultOld
+    public class CalculatableFailureMechanismResultObserver<TFailureMechanism, TSectionResult, TCalculation>
+        : FailureMechanismResultObserver<TFailureMechanism, TSectionResult>
+        where TFailureMechanism : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>, ICalculatableFailureMechanism
         where TSectionResult : FailureMechanismSectionResult
         where TCalculation : ICalculation<ICalculationInput>
     {
@@ -46,7 +44,7 @@ namespace Riskeer.Common.Forms.Observers
 
         /// <inheritdoc />
         /// <summary>
-        /// Creates a new instance of <see cref="CalculatableFailureMechanismResultObserver{TFailureMechanism,TSectionResultOld, TSectionResult, TCalculation}"/>.
+        /// Creates a new instance of <see cref="CalculatableFailureMechanismResultObserver{TFailureMechanism,TSectionResult,TCalculation}"/>.
         /// </summary>
         public CalculatableFailureMechanismResultObserver(TFailureMechanism failureMechanism)
             : base(failureMechanism)

@@ -39,12 +39,11 @@ namespace Riskeer.Common.Forms.Test.Observers
         {
             // Call
             using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
-                FailureMechanismSectionResultOld, FailureMechanismSectionResult,
-                TestCalculationWithInput>(new TestCalculatableFailureMechanism()))
+                FailureMechanismSectionResult, TestCalculationWithInput>(new TestCalculatableFailureMechanism()))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultObserver<TestCalculatableFailureMechanism,
-                    FailureMechanismSectionResultOld, FailureMechanismSectionResult>>(resultObserver);
+                    FailureMechanismSectionResult>>(resultObserver);
             }
         }
 
@@ -57,7 +56,6 @@ namespace Riskeer.Common.Forms.Test.Observers
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
-                FailureMechanismSectionResultOld,
                 FailureMechanismSectionResult,
                 TestCalculationWithInput>(failureMechanism))
             {
@@ -85,7 +83,6 @@ namespace Riskeer.Common.Forms.Test.Observers
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
-                FailureMechanismSectionResultOld,
                 FailureMechanismSectionResult,
                 TestCalculationWithInput>(failureMechanism))
             {

@@ -30,11 +30,9 @@ namespace Riskeer.Common.Forms.Observers
     /// its section results.
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism to observe.</typeparam>
-    /// <typeparam name="TSectionResultOld">The type of the section results in the failure mechanism.</typeparam>
     /// <typeparam name="TSectionResult">The type of the section results in the failure mechanism.</typeparam>
-    public class FailureMechanismResultObserver<TFailureMechanism, TSectionResultOld, TSectionResult> : Observable, IDisposable
-        where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResultOld, TSectionResult>
-        where TSectionResultOld : FailureMechanismSectionResultOld
+    public class FailureMechanismResultObserver<TFailureMechanism, TSectionResult> : Observable, IDisposable
+        where TFailureMechanism : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>
         where TSectionResult : FailureMechanismSectionResult
     {
         private readonly Observer failureMechanismObserver;
@@ -42,7 +40,7 @@ namespace Riskeer.Common.Forms.Observers
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismResultObserver{TFailureMechanism,TSectionResultOld,TSectionResult}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismResultObserver{TFailureMechanism, TSectionResult}"/>.
         /// </summary>
         /// <param name="failureMechanism">The <typeparamref name="TFailureMechanism"/> to observe.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
