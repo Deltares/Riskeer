@@ -25,9 +25,10 @@ using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.MapLayers;
 using Riskeer.HeightStructures.Data;
-using Riskeer.HeightStructures.Forms.Factories;
 using HeightStructuresDataResources = Riskeer.HeightStructures.Data.Properties.Resources;
 
 namespace Riskeer.HeightStructures.Forms.Views
@@ -41,14 +42,9 @@ namespace Riskeer.HeightStructures.Forms.Views
         private MapPointData sectionsStartPointMapData;
         private MapPointData sectionsEndPointMapData;
 
-        private MapLineData simpleAssemblyMapData;
-        private MapLineData detailedAssemblyMapData;
-        private MapLineData tailorMadeAssemblyMapData;
-        private MapLineData combinedAssemblyMapData;
+        private CalculatableFailureMechanismSectionResultsMapLayer<HeightStructuresFailureMechanism, AdoptableFailureMechanismSectionResult, HeightStructuresInput> assemblyResultsMapLayer;
 
         private Observer failureMechanismObserver;
-
-        private RecursiveObserver<IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld>, HeightStructuresFailureMechanismSectionResultOld> sectionResultObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailurePathView"/>.
@@ -62,7 +58,7 @@ namespace Riskeer.HeightStructures.Forms.Views
         protected override void Dispose(bool disposing)
         {
             failureMechanismObserver.Dispose();
-            sectionResultObserver.Dispose();
+            assemblyResultsMapLayer.Dispose();
 
             base.Dispose(disposing);
         }
@@ -70,28 +66,21 @@ namespace Riskeer.HeightStructures.Forms.Views
         protected override void CreateMapData()
         {
             base.CreateMapData();
-            
+
             MapDataCollection sectionsMapDataCollection = RiskeerMapDataFactory.CreateSectionsMapDataCollection();
             sectionsMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsMapData();
             sectionsStartPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsStartPointMapData();
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
-            MapDataCollection assemblyMapDataCollection = AssemblyMapDataFactory.CreateAssemblyMapDataCollection();
-            tailorMadeAssemblyMapData = AssemblyMapDataFactory.CreateTailorMadeAssemblyMapData();
-            detailedAssemblyMapData = AssemblyMapDataFactory.CreateDetailedAssemblyMapData();
-            simpleAssemblyMapData = AssemblyMapDataFactory.CreateSimpleAssemblyMapData();
-            combinedAssemblyMapData = AssemblyMapDataFactory.CreateCombinedAssemblyMapData();
+            assemblyResultsMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<HeightStructuresFailureMechanism, AdoptableFailureMechanismSectionResult, HeightStructuresInput>(
+                FailureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<HeightStructuresInput>(sr, FailureMechanism, AssessmentSection));
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
             MapDataCollection.Insert(1, sectionsMapDataCollection);
 
-            assemblyMapDataCollection.Add(tailorMadeAssemblyMapData);
-            assemblyMapDataCollection.Add(detailedAssemblyMapData);
-            assemblyMapDataCollection.Add(simpleAssemblyMapData);
-            assemblyMapDataCollection.Add(combinedAssemblyMapData);
-            MapDataCollection.Insert(2, assemblyMapDataCollection);
+            MapDataCollection.Insert(2, assemblyResultsMapLayer.MapData);
         }
 
         protected override void CreateObservers()
@@ -102,12 +91,6 @@ namespace Riskeer.HeightStructures.Forms.Views
             {
                 Observable = FailureMechanism
             };
-
-            sectionResultObserver = new RecursiveObserver<IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld>,
-                HeightStructuresFailureMechanismSectionResultOld>(UpdateAssemblyMapData, sr => sr)
-            {
-                Observable = FailureMechanism.SectionResultsOld
-            };
         }
 
         protected override void SetAllMapDataFeatures()
@@ -115,40 +98,7 @@ namespace Riskeer.HeightStructures.Forms.Views
             base.SetAllMapDataFeatures();
 
             SetSectionsMapData();
-            SetAssemblyMapData();
         }
-
-        #region Calculations MapData
-
-        protected override void UpdateCalculationsMapData()
-        {
-            base.UpdateCalculationsMapData();
-
-            UpdateAssemblyMapData();
-        }
-
-        #endregion
-
-        #region Assembly MapData
-
-        private void UpdateAssemblyMapData()
-        {
-            SetAssemblyMapData();
-            simpleAssemblyMapData.NotifyObservers();
-            detailedAssemblyMapData.NotifyObservers();
-            tailorMadeAssemblyMapData.NotifyObservers();
-            combinedAssemblyMapData.NotifyObservers();
-        }
-
-        private void SetAssemblyMapData()
-        {
-            simpleAssemblyMapData.Features = HeightStructuresAssemblyMapDataFeaturesFactory.CreateSimpleAssemblyFeatures(FailureMechanism);
-            detailedAssemblyMapData.Features = HeightStructuresAssemblyMapDataFeaturesFactory.CreateDetailedAssemblyFeatures(FailureMechanism, AssessmentSection);
-            tailorMadeAssemblyMapData.Features = HeightStructuresAssemblyMapDataFeaturesFactory.CreateTailorMadeAssemblyFeatures(FailureMechanism, AssessmentSection);
-            combinedAssemblyMapData.Features = HeightStructuresAssemblyMapDataFeaturesFactory.CreateCombinedAssemblyFeatures(FailureMechanism, AssessmentSection);
-        }
-
-        #endregion
 
         #region FailureMechanism MapData
 
@@ -158,8 +108,6 @@ namespace Riskeer.HeightStructures.Forms.Views
             sectionsMapData.NotifyObservers();
             sectionsStartPointMapData.NotifyObservers();
             sectionsEndPointMapData.NotifyObservers();
-
-            UpdateAssemblyMapData();
         }
 
         private void SetSectionsMapData()
