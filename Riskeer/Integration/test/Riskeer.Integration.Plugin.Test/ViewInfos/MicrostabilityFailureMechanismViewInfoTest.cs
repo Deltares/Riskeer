@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(
-                tni => tni.ViewType == typeof(FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
+                tni => tni.ViewType == typeof(StandAloneFailureMechanismView<MicrostabilityFailureMechanism,
                            NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
         }
 
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new MicrostabilityFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
+            using (StandAloneFailureMechanismView<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
                    CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new MicrostabilityFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
+            using (StandAloneFailureMechanismView<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
                    CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -160,20 +160,19 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
+            Assert.IsInstanceOf<StandAloneFailureMechanismView<MicrostabilityFailureMechanism,
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(view);
 
-            var failureMechanismView = (FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
+            var failureMechanismView = (StandAloneFailureMechanismView<MicrostabilityFailureMechanism,
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>) view;
             Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
-        private static FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> CreateView(
+        private static StandAloneFailureMechanismView<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> CreateView(
             MicrostabilityFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new FailureMechanismWithDetailedAssessmentView<MicrostabilityFailureMechanism,
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+            return new StandAloneFailureMechanismView<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 failureMechanism, assessmentSection, sr => new DefaultFailureMechanismSectionAssemblyResult());
         }
     }

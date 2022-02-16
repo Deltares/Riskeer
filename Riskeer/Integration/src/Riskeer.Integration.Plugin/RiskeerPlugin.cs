@@ -1387,41 +1387,20 @@ namespace Riskeer.Integration.Plugin
 
         #region FailureMechanismWithDetailedAssessmentView ViewInfo
 
-        private ViewInfo<TFailureMechanismContext, TFailureMechanism, FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithDetailedAssessmentViewInfo<
+        private ViewInfo<TFailureMechanismContext, TFailureMechanism, StandAloneFailureMechanismView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithDetailedAssessmentViewInfo<
             TFailureMechanismContext, TFailureMechanism, TSectionResult>(Func<TFailureMechanismContext, TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
             where TSectionResult : FailureMechanismSectionResult
             where TFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>
             where TFailureMechanismContext : IFailurePathContext<TFailureMechanism>
         {
             return new RiskeerViewInfo<TFailureMechanismContext, TFailureMechanism,
-                FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>>(() => Gui)
+                StandAloneFailureMechanismView<TFailureMechanism, TSectionResult>>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CreateInstance = context => new FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult>(
+                CreateInstance = context => new StandAloneFailureMechanismView<TFailureMechanism, TSectionResult>(
                     context.WrappedData, context.Parent, sr => performAssemblyFunc(context, sr))
-            };
-        }
-
-        #endregion
-
-        #region FailureMechanismWithoutDetailedAssessmentView ViewInfo
-
-        private ViewInfo<TFailureMechanismContext, TFailureMechanism, FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithoutDetailedAssessmentViewInfo<
-            TFailureMechanismContext, TFailureMechanism, TSectionResult>(
-            Func<TFailureMechanismContext, FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>> createInstanceFunc)
-            where TSectionResult : FailureMechanismSectionResultOld
-            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TSectionResult>
-            where TFailureMechanismContext : IFailurePathContext<TFailureMechanism>
-        {
-            return new RiskeerViewInfo<TFailureMechanismContext, TFailureMechanism,
-                FailureMechanismWithoutDetailedAssessmentView<TFailureMechanism, TSectionResult>>(() => Gui)
-            {
-                GetViewName = (view, context) => context.WrappedData.Name,
-                CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
-                AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CreateInstance = createInstanceFunc
             };
         }
 

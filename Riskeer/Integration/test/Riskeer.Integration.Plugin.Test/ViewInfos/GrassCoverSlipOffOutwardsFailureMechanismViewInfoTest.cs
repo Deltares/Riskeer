@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
             info = plugin.GetViewInfos().First(
-                tni => tni.ViewType == typeof(FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
+                tni => tni.ViewType == typeof(StandAloneFailureMechanismView<GrassCoverSlipOffOutwardsFailureMechanism,
                            NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
         }
 
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
+            using (StandAloneFailureMechanismView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
                    CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
 
-            using (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
+            using (StandAloneFailureMechanismView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> view =
                    CreateView(failureMechanism, assessmentSection))
             {
                 // Call
@@ -160,20 +160,19 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
+            Assert.IsInstanceOf<StandAloneFailureMechanismView<GrassCoverSlipOffOutwardsFailureMechanism,
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(view);
 
-            var failureMechanismView = (FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
+            var failureMechanismView = (StandAloneFailureMechanismView<GrassCoverSlipOffOutwardsFailureMechanism,
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>) view;
             Assert.AreSame(failureMechanism, failureMechanismView.FailureMechanism);
             Assert.AreSame(assessmentSection, failureMechanismView.AssessmentSection);
         }
 
-        private static FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> CreateView(
+        private static StandAloneFailureMechanismView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> CreateView(
             GrassCoverSlipOffOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new FailureMechanismWithDetailedAssessmentView<GrassCoverSlipOffOutwardsFailureMechanism,
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+            return new StandAloneFailureMechanismView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 failureMechanism, assessmentSection, sr => new DefaultFailureMechanismSectionAssemblyResult());
         }
     }

@@ -34,9 +34,9 @@ using Riskeer.Common.Forms.MapLayers;
 namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
-    /// This class is a view showing map data for a failure mechanism with a detailed assessment.
+    /// This class is a view showing map data for a stand alone failure mechanism.
     /// </summary>
-    public partial class FailureMechanismWithDetailedAssessmentView<TFailureMechanism, TSectionResult> : UserControl, IMapView
+    public partial class StandAloneFailureMechanismView<TFailureMechanism, TSectionResult> : UserControl, IMapView
         where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>
         where TSectionResult : FailureMechanismSectionResult
     {
@@ -57,15 +57,14 @@ namespace Riskeer.Integration.Forms.Views
         private Observer referenceLineObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismWithDetailedAssessmentView{TFailureMechanism, TSectionResult}"/>.
+        /// Creates a new instance of <see cref="StandAloneFailureMechanismView{TFailureMechanism,TSectionResult}"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <param name="performAssemblyFunc">The <see cref="Func{T1,TResult}"/> used to assemble the result of a section result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismWithDetailedAssessmentView(
-            TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
-            Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
+        public StandAloneFailureMechanismView(TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
+                                              Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
         {
             if (failureMechanism == null)
             {
