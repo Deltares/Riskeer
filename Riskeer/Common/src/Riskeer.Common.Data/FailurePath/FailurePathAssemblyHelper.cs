@@ -48,6 +48,11 @@ namespace Riskeer.Common.Data.FailurePath
                 throw new ArgumentNullException(nameof(performFailurePathAssemblyFunc));
             }
 
+            if (!failurePath.InAssembly)
+            {
+                return double.NaN;
+            }
+            
             FailurePathAssemblyResult assemblyResult = failurePath.AssemblyResult;
             return assemblyResult.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual
                        ? assemblyResult.ManualFailurePathAssemblyProbability

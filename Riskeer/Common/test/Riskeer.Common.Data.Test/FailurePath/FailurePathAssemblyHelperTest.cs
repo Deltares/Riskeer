@@ -57,7 +57,7 @@ namespace Riskeer.Common.Data.Test.FailurePath
         }
 
         [Test]
-        public void AssembleFailurePath_WithFailurePathAssemblyProbabilityResultTypeManual_ReturnsExpectedResult()
+        public void AssembleFailurePath_WithFailureInAssemblyFalse_ReturnsNaN()
         {
             // Setup
             var random = new Random(21);
@@ -65,28 +65,51 @@ namespace Riskeer.Common.Data.Test.FailurePath
 
             var mocks = new MockRepository();
             var failurePath = mocks.Stub<IFailurePath>();
+            mocks.ReplayAll();
+
+            failurePath.InAssembly = false;
+            
+            // Call
+            double assemblyResult = FailurePathAssemblyHelper.AssembleFailurePath(failurePath, () => probability);
+
+            // Assert
+            Assert.IsNaN(assemblyResult);
+            mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void AssembleFailurePath_WithFailurePathAssemblyProbabilityResultTypeManual_ReturnsExpectedProbability()
+        {
+            // Setup
+            var random = new Random(21);
+            double assemblyProbability = random.NextDouble();
+
+            var mocks = new MockRepository();
+            var failurePath = mocks.Stub<IFailurePath>();
             failurePath.Stub(fp => fp.AssemblyResult)
                        .Return(new FailurePathAssemblyResult
                        {
                            ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
-                           ManualFailurePathAssemblyProbability = probability
+                           ManualFailurePathAssemblyProbability = assemblyProbability
                        });
             mocks.ReplayAll();
+
+            failurePath.InAssembly = true;
 
             // Call
             double assemblyResult = FailurePathAssemblyHelper.AssembleFailurePath(failurePath, () => double.NaN);
 
             // Assert
-            Assert.AreEqual(probability, assemblyResult);
+            Assert.AreEqual(assemblyProbability, assemblyResult);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void AssembleFailurePath_WithFailurePathAssemblyProbabilityResultTypeAutomatic_ReturnsExpectedResult()
+        public void AssembleFailurePath_WithFailurePathAssemblyProbabilityResultTypeAutomatic_ReturnsExpectedProbability()
         {
             // Setup
             var random = new Random(21);
-            double probability = random.NextDouble();
+            double assemblyProbability = random.NextDouble();
 
             var mocks = new MockRepository();
             var failurePath = mocks.Stub<IFailurePath>();
@@ -98,11 +121,13 @@ namespace Riskeer.Common.Data.Test.FailurePath
                        });
             mocks.ReplayAll();
 
+            failurePath.InAssembly = true;
+
             // Call
-            double assemblyResult = FailurePathAssemblyHelper.AssembleFailurePath(failurePath, () => probability);
+            double assemblyResult = FailurePathAssemblyHelper.AssembleFailurePath(failurePath, () => assemblyProbability);
 
             // Assert
-            Assert.AreEqual(probability, assemblyResult);
+            Assert.AreEqual(assemblyProbability, assemblyResult);
             mocks.VerifyAll();
         }
     }
