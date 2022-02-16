@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.MapLayers
         /// Creates a new instance of <see cref="NonCalculatableFailureMechanismSectionResultsMapLayer{TSectionResult}"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure path to get the data from.</param>
-        /// <param name="performAssemblyFunc">The <see cref="Func{T,T2}"/> used to assemble the result of a section result.</param>
+        /// <param name="performAssemblyFunc">The <see cref="Func{T1,TResult}"/> used to assemble the result of a section result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public NonCalculatableFailureMechanismSectionResultsMapLayer(
             IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult> failureMechanism,
