@@ -22,12 +22,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Util;
-using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Integration.Forms.Views
@@ -36,24 +33,33 @@ namespace Riskeer.Integration.Forms.Views
     /// This class represents a row displaying the properties of a <see cref="IFailureMechanism"/>
     /// and its assembly result.
     /// </summary>
-    internal abstract class FailureMechanismAssemblyResultRowBase : IHasColumnStateDefinitions
+    internal class FailureMechanismAssemblyResultRow : IHasColumnStateDefinitions
     {
-        private const int categoryIndex = 3;
+        private const int probabilityIndex = 2;
         private readonly IFailureMechanism failureMechanism;
+        private readonly Func<double> performAssemblyFunc;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRowBase"/>.
+        /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to wrap so that it can be displayed as a row.</param>
+        /// <param name="performAssemblyFunc"></param>
         /// <exception cref="ArgumentNullException">Thrown when any parameters is <c>null</c>.</exception>
-        protected FailureMechanismAssemblyResultRowBase(IFailureMechanism failureMechanism)
+        public FailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism,
+                                                 Func<double> performAssemblyFunc)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
+            if (performAssemblyFunc == null)
+            {
+                throw new ArgumentNullException(nameof(performAssemblyFunc));
+            }
+
             this.failureMechanism = failureMechanism;
+            this.performAssemblyFunc = performAssemblyFunc;
 
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
@@ -62,47 +68,18 @@ namespace Riskeer.Integration.Forms.Views
         /// <summary>
         /// Gets the name of the failure mechanism.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return failureMechanism.Name;
-            }
-        }
+        public string Name => failureMechanism.Name;
 
         /// <summary>
         /// Gets the code of the failure mechanism.
         /// </summary>
-        public string Code
-        {
-            get
-            {
-                return failureMechanism.Code;
-            }
-        }
-
-        /// <summary>
-        /// Gets the group of the failure mechanism.
-        /// </summary>
-        public int Group
-        {
-            get
-            {
-                return failureMechanism.Group;
-            }
-        }
-
-        /// <summary>
-        /// Gets the group of the failure mechanism assembly.
-        /// </summary>
-        [TypeConverter(typeof(EnumTypeConverter))]
-        public FailureMechanismAssemblyCategoryGroup CategoryGroup { get; protected set; }
+        public string Code => failureMechanism.Code;
 
         /// <summary>
         /// Gets the probability of the failure mechanism assembly.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double Probability { get; protected set; }
+        public double Probability { get; private set; }
 
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
 
@@ -112,36 +89,30 @@ namespace Riskeer.Integration.Forms.Views
         public void Update()
         {
             ResetErrorTexts();
-            TryGetDerivedData();
-
-            SetCategoryGroupColumnStateDefinition();
+            TryGetAssemblyData();
         }
 
-        /// <summary>
-        /// Gets the derived data for the failure mechanism.
-        /// </summary>
-        protected abstract void TryGetDerivedData();
-
-        protected DataGridViewColumnStateDefinition GetCategoryGroupColumnStateDefinition()
+        private void TryGetAssemblyData()
         {
-            return ColumnStateDefinitions[categoryIndex];
-        }
-
-        private void SetCategoryGroupColumnStateDefinition()
-        {
-            GetCategoryGroupColumnStateDefinition().Style =
-                new CellStyle(Color.FromKnownColor(KnownColor.ControlText),
-                              AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(CategoryGroup));
+            try
+            {
+                Probability = performAssemblyFunc();
+            }
+            catch (AssemblyException e)
+            {
+                Probability = double.NaN;
+                ColumnStateDefinitions[probabilityIndex].ErrorText = e.Message;
+            }
         }
 
         private void CreateColumnStateDefinitions()
         {
-            ColumnStateDefinitions.Add(categoryIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+            ColumnStateDefinitions.Add(probabilityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
         }
 
         private void ResetErrorTexts()
         {
-            ColumnStateDefinitions[categoryIndex].ErrorText = string.Empty;
+            ColumnStateDefinitions[probabilityIndex].ErrorText = string.Empty;
         }
     }
 }
