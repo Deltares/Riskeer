@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
 {
@@ -40,6 +44,31 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
             }
 
             return FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
+        }
+
+        public static double AssembleFailureMechanism<TFailureMechanism>(TFailureMechanism failureMechanism,
+                                                                         AssessmentSection assessmentSection)
+            where TFailureMechanism : IHasGeneralInput, IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            Func<double> performAssemblyFunc = () =>
+            {
+                IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults =
+                    failureMechanism.SectionResults.Select(sr => AssembleSection(sr, failureMechanism, assessmentSection))
+                                    .ToArray();
+                return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(failureMechanism.GeneralInput.N, sectionAssemblyResults);
+            };
+
+            return FailurePathAssemblyHelper.AssembleFailurePath(failureMechanism, performAssemblyFunc);
         }
     }
 }

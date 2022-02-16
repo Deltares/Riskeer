@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -32,6 +33,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 
@@ -40,6 +42,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryTest
     {
+        #region AssembleSection
+
         [Test]
         public void AssembleSection_SectionResultNull_ThrowsArgumentNullException()
         {
@@ -191,5 +195,140 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
+
+        #endregion
+
+        #region AssembleFailureMechanism
+
+        [Test]
+        public void AssembleFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(null, assessmentSection);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            // Call
+            void Call() => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_WithInput_SetsInputOnCalculator()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                }
+            };
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, "APath");
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                // Call
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
+
+                // Assert
+                double expectedN = failureMechanism.GeneralWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length);
+                Assert.AreEqual(expectedN, failureMechanismAssemblyCalculator.FailureMechanismN);
+                Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_CalculatorRan_ReturnsExpectedOutput()
+        {
+            // Setup
+            var random = new Random(21);
+            double assemblyOutput = random.NextDouble();
+
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                }
+            };
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                calculator.AssemblyResult = assemblyOutput;
+
+                // Call
+                double result = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
+
+                // Assert
+                Assert.AreEqual(assemblyOutput, result);
+            }
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_CalculatorThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                }
+            };
+
+            var assessmentSection = new AssessmentSectionStub();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                void Call() => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(Call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+
+        #endregion
     }
 }
