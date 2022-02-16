@@ -371,19 +371,19 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             Assert.AreEqual(6, mapDataList.Count);
 
             var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
-            var assemblyResultsLineMapData = (MapLineData) mapDataList[assemblyResultsIndex];
+            var assemblyResultsMapData = (MapLineData) mapDataList[assemblyResultsIndex];
             var foreshoreProfilesMapData = (MapLineData) mapDataList[foreshoreProfilesIndex];
             var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[hydraulicBoundaryLocationsIndex];
             var calculationsMapData = (MapLineData) mapDataList[calculationsIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
-            CollectionAssert.IsEmpty(assemblyResultsLineMapData.Features);
+            CollectionAssert.IsEmpty(assemblyResultsMapData.Features);
             CollectionAssert.IsEmpty(foreshoreProfilesMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
             CollectionAssert.IsEmpty(calculationsMapData.Features);
 
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
-            Assert.AreEqual("Duidingsklasse per vak", assemblyResultsLineMapData.Name);
+            Assert.AreEqual("Duidingsklasse per vak", assemblyResultsMapData.Name);
             Assert.AreEqual("Voorlandprofielen", foreshoreProfilesMapData.Name);
             Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Berekeningen", calculationsMapData.Name);

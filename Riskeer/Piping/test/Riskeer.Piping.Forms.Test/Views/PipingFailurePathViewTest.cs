@@ -418,7 +418,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
             var stochasticSoilModelsMapData = (MapLineData) mapDataList[stochasticSoilModelsIndex];
             var surfaceLinesMapData = (MapLineData) mapDataList[surfaceLinesIndex];
-            var assemblyGroupsMapData = (MapLineData) mapDataList[assemblyResultsIndex];
+            var assemblyResultsMapData = (MapLineData) mapDataList[assemblyResultsIndex];
             var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[hydraulicBoundaryLocationsIndex];
             var probabilisticCalculationsMapData = (MapLineData) mapDataList[probabilisticCalculationsIndex];
             var semiProbabilisticCalculationsMapData = (MapLineData) mapDataList[semiProbabilisticCalculationsIndex];
@@ -426,7 +426,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
             CollectionAssert.IsEmpty(stochasticSoilModelsMapData.Features);
             CollectionAssert.IsEmpty(surfaceLinesMapData.Features);
-            CollectionAssert.IsEmpty(assemblyGroupsMapData.Features);
+            CollectionAssert.IsEmpty(assemblyResultsMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
             CollectionAssert.IsEmpty(probabilisticCalculationsMapData.Features);
             CollectionAssert.IsEmpty(semiProbabilisticCalculationsMapData.Features);
@@ -434,7 +434,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             Assert.AreEqual("Stochastische ondergrondmodellen", stochasticSoilModelsMapData.Name);
             Assert.AreEqual("Profielschematisaties", surfaceLinesMapData.Name);
-            Assert.AreEqual("Duidingsklasse per vak", assemblyGroupsMapData.Name);
+            Assert.AreEqual("Duidingsklasse per vak", assemblyResultsMapData.Name);
             Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
             Assert.AreEqual("Probabilistische berekeningen", probabilisticCalculationsMapData.Name);
             Assert.AreEqual("Semi-probabilistische berekeningen", semiProbabilisticCalculationsMapData.Name);

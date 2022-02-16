@@ -381,21 +381,21 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.AreEqual(7, mapDataList.Count);
 
             var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
-            var assemblyResultsMapLineMapData = (MapLineData) mapDataList[assemblyResultsIndex];
+            var assemblyResultsMapData = (MapLineData) mapDataList[assemblyResultsIndex];
             var foreshoreProfilesMapData = (MapLineData) mapDataList[foreshoreProfilesIndex];
             var structuresMapData = (MapPointData) mapDataList[structuresIndex];
             var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[hydraulicBoundaryLocationsIndex];
             var calculationsMapData = (MapLineData) mapDataList[calculationsIndex];
 
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
-            CollectionAssert.IsEmpty(assemblyResultsMapLineMapData.Features);
+            CollectionAssert.IsEmpty(assemblyResultsMapData.Features);
             CollectionAssert.IsEmpty(foreshoreProfilesMapData.Features);
             CollectionAssert.IsEmpty(structuresMapData.Features);
             CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
             CollectionAssert.IsEmpty(calculationsMapData.Features);
 
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
-            Assert.AreEqual("Duidingsklasse per vak", assemblyResultsMapLineMapData.Name);
+            Assert.AreEqual("Duidingsklasse per vak", assemblyResultsMapData.Name);
             Assert.AreEqual("Voorlandprofielen", foreshoreProfilesMapData.Name);
             Assert.AreEqual("Kunstwerken", structuresMapData.Name);
             Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
