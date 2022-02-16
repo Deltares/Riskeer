@@ -44,7 +44,7 @@ namespace Riskeer.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="PipingStructureFailureMechanism"/> class.
         /// </summary>
         public PipingStructureFailureMechanism()
-            : base(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code, 4)
+            : base(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code)
         {
             sectionResults = new ObservableList<NonAdoptableFailureMechanismSectionResult>();
             sectionResultsOld = new ObservableList<PipingStructureFailureMechanismSectionResultOld>();

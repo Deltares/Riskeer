@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="WaterPressureAsphaltCoverFailureMechanism"/> class.
         /// </summary>
         public WaterPressureAsphaltCoverFailureMechanism()
-            : base(Resources.WaterPressureAsphaltCoverFailureMechanism_DisplayName, Resources.WaterPressureAsphaltCoverFailureMechanism_Code, 4)
+            : base(Resources.WaterPressureAsphaltCoverFailureMechanism_DisplayName, Resources.WaterPressureAsphaltCoverFailureMechanism_Code)
         {
             sectionResultsOld = new ObservableList<WaterPressureAsphaltCoverFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();

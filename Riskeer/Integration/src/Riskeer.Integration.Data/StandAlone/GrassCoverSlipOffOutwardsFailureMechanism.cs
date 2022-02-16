@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/> class.
         /// </summary>
         public GrassCoverSlipOffOutwardsFailureMechanism()
-            : base(Resources.GrassCoverSlipOffOutwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffOutwardsFailureMechanism_Code, 4)
+            : base(Resources.GrassCoverSlipOffOutwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffOutwardsFailureMechanism_Code)
         {
             sectionResultsOld = new ObservableList<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();

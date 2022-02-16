@@ -44,7 +44,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/> class.
         /// </summary>
         public WaveImpactAsphaltCoverFailureMechanism()
-            : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code, 3)
+            : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code)
         {
             sectionResultsOld = new ObservableList<WaveImpactAsphaltCoverFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();

@@ -44,7 +44,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> class.
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism()
-            : base(Resources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionOutwardsFailureMechanism_Code, 3)
+            : base(Resources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionOutwardsFailureMechanism_Code)
         {
             sectionResultsOld = new ObservableList<GrassCoverErosionOutwardsFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();

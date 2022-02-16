@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Data.StandAlone
         /// Initializes a new instance of the <see cref="MicrostabilityFailureMechanism"/> class.
         /// </summary>
         public MicrostabilityFailureMechanism()
-            : base(Resources.MicrostabilityFailureMechanism_DisplayName, Resources.MicrostabilityFailureMechanism_Code, 4)
+            : base(Resources.MicrostabilityFailureMechanism_DisplayName, Resources.MicrostabilityFailureMechanism_Code)
         {
             sectionResultsOld = new ObservableList<MicrostabilityFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();

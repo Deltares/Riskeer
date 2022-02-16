@@ -44,7 +44,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanism"/> class.
         /// </summary>
         public GrassCoverErosionInwardsFailureMechanism()
-            : base(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, 1)
+            : base(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode)
         {
             CalculationsGroup = new CalculationGroup
             {

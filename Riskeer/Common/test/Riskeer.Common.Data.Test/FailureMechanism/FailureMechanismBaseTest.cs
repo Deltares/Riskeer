@@ -66,10 +66,9 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Setup
             const string name = "<cool name>";
             const string code = "<cool code>";
-            int group = new Random(39).Next();
 
             // Call
-            var failureMechanism = new SimpleFailureMechanismBase(name, code, group);
+            var failureMechanism = new SimpleFailureMechanismBase(name, code);
 
             // Assert
             Assert.IsInstanceOf<Observable>(failureMechanism);
@@ -282,8 +281,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         private class SimpleFailureMechanismBase : FailureMechanismBase
         {
             public SimpleFailureMechanismBase(string name = "SomeName",
-                                              string failureMechanismCode = "SomeCode",
-                                              int group = 1) : base(name, failureMechanismCode, group) {}
+                                              string failureMechanismCode = "SomeCode") : base(name, failureMechanismCode) {}
 
             public override IEnumerable<ICalculation> Calculations => throw new NotImplementedException();
 

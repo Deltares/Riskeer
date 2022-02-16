@@ -43,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanism"/>.
         /// </summary>
         public MacroStabilityInwardsFailureMechanism()
-            : base(Resources.MacroStabilityInwardsFailureMechanism_DisplayName, Resources.MacroStabilityInwardsFailureMechanism_Code, 2)
+            : base(Resources.MacroStabilityInwardsFailureMechanism_DisplayName, Resources.MacroStabilityInwardsFailureMechanism_Code)
         {
             GeneralInput = new GeneralMacroStabilityInwardsInput();
             MacroStabilityInwardsProbabilityAssessmentInput = new MacroStabilityInwardsProbabilityAssessmentInput();

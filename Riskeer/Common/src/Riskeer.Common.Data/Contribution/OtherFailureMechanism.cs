@@ -35,7 +35,7 @@ namespace Riskeer.Common.Data.Contribution
         /// <summary>
         /// Creates a new instance of <see cref="OtherFailureMechanism"/>.
         /// </summary>
-        public OtherFailureMechanism() : base(Resources.OtherFailureMechanism_DisplayName, Resources.OtherFailureMechanism_Code, int.MinValue) {}
+        public OtherFailureMechanism() : base(Resources.OtherFailureMechanism_DisplayName, Resources.OtherFailureMechanism_Code) {}
 
         public override IEnumerable<ICalculation> Calculations
         {

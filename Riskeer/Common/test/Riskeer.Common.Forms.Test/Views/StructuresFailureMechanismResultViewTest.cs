@@ -423,7 +423,7 @@ namespace Riskeer.Common.Forms.Test.Views
             private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
 
             public TestStructuresFailureMechanism()
-                : base("Test", "T", 1)
+                : base("Test", "T")
             {
                 CalculationsGroup = new CalculationGroup();
                 sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();

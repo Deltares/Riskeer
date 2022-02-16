@@ -43,7 +43,7 @@ namespace Riskeer.StabilityStoneCover.Data
         /// Initializes a new instance of the <see cref="StabilityStoneCoverFailureMechanism"/> class.
         /// </summary>
         public StabilityStoneCoverFailureMechanism()
-            : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code, 3)
+            : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code)
         {
             sectionResultsOld = new ObservableList<StabilityStoneCoverFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();

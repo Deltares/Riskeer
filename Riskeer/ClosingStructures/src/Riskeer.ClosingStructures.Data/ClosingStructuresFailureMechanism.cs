@@ -47,7 +47,7 @@ namespace Riskeer.ClosingStructures.Data
         /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanism"/> class.
         /// </summary>
         public ClosingStructuresFailureMechanism()
-            : base(Resources.ClosingStructuresFailureMechanism_DisplayName, Resources.ClosingStructuresFailureMechanism_Code, 1)
+            : base(Resources.ClosingStructuresFailureMechanism_DisplayName, Resources.ClosingStructuresFailureMechanism_Code)
         {
             CalculationsGroup = new CalculationGroup
             {

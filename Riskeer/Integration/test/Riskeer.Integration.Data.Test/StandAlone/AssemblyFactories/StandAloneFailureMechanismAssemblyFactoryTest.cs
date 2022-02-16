@@ -52,7 +52,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
-            public TestFailureMechanism() : base("Test", "Code", 1)
+            public TestFailureMechanism() : base("Test", "Code")
             {
                 sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
                 GeneralInput = new GeneralInput();

@@ -42,7 +42,7 @@ namespace Riskeer.Piping.Data
         /// Creates a new instance of <see cref="PipingFailureMechanism"/>.
         /// </summary>
         public PipingFailureMechanism()
-            : base(PipingDataResources.PipingFailureMechanism_DisplayName, PipingDataResources.PipingFailureMechanism_DisplayCode, 2)
+            : base(PipingDataResources.PipingFailureMechanism_DisplayName, PipingDataResources.PipingFailureMechanism_DisplayCode)
         {
             PipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput();
             GeneralInput = new GeneralPipingInput();

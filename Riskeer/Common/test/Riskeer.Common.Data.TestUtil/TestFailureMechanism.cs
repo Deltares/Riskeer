@@ -66,7 +66,7 @@ namespace Riskeer.Common.Data.TestUtil
             : this(defaultName, defaultCode, calculations) {}
 
         private TestFailureMechanism(string name, string code, IEnumerable<ICalculation> calculations)
-            : base(name, code, 1)
+            : base(name, code)
         {
             sectionResultsOld = new ObservableList<FailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<TestFailureMechanismSectionResult>();

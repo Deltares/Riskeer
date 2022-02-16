@@ -255,7 +255,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
 
-            public TestNonAdoptableFailureMechanism() : base("Test", "T", 1)
+            public TestNonAdoptableFailureMechanism() : base("Test", "T")
             {
                 sectionResults = new ObservableList<NonAdoptableFailureMechanismSectionResult>();
             }

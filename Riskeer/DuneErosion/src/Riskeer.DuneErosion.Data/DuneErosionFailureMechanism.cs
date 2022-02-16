@@ -43,7 +43,7 @@ namespace Riskeer.DuneErosion.Data
         /// Initializes a new instance of the <see cref="DuneErosionFailureMechanism"/> class.
         /// </summary>
         public DuneErosionFailureMechanism()
-            : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code, 3)
+            : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code)
         {
             sectionResultsOld = new ObservableList<DuneErosionFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<NonAdoptableFailureMechanismSectionResult>();

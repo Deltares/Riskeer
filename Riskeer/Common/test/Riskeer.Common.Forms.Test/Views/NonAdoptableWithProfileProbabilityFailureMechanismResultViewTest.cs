@@ -342,7 +342,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
-            public TestNonAdoptableWithProfileProbabilityFailureMechanism() : base("Test", "T", 1)
+            public TestNonAdoptableWithProfileProbabilityFailureMechanism() : base("Test", "T")
             {
                 sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             }
