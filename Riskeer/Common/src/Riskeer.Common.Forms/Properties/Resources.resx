@@ -1628,4 +1628,7 @@ faalkans per vak
     <data name="AssemblyCategoryPerSection_DisplayName" xml:space="preserve">
       <value>Duidingsklasse per vak</value>
     </data>
+    <data name="AssemblyGroups_DisplayName" xml:space="preserve">
+    <value>Duidingsklassen</value>
+  </data>
 </root>
