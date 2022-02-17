@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Forms.Helpers;
@@ -84,19 +85,19 @@ namespace Riskeer.Integration.Forms.Views
 
         private void UpdateTableData()
         {
-            Tuple<AssemblyGroupBoundaries, Color, FailureMechanismSectionAssemblyGroup>[] dataToSet;
+            Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>[] dataToSet;
             try
             {
                 dataToSet = AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(
                     AssessmentSection.FailureMechanismContribution.SignalingNorm, AssessmentSection.FailureMechanismContribution.LowerLimitNorm).Select(
-                    assemblyGroupBoundaries => new Tuple<AssemblyGroupBoundaries, Color, FailureMechanismSectionAssemblyGroup>(
+                    assemblyGroupBoundaries => new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
                         assemblyGroupBoundaries,
                         AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyGroupBoundaries.Group),
-                        assemblyGroupBoundaries.Group)).ToArray();
+                        DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyGroupBoundaries.Group))).ToArray();
             }
             catch (AssemblyException)
             {
-                dataToSet = Array.Empty<Tuple<AssemblyGroupBoundaries, Color, FailureMechanismSectionAssemblyGroup>>();
+                dataToSet = Array.Empty<Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>>();
             }
 
             assemblyGroupsTable.SetData(dataToSet);
