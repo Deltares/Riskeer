@@ -776,7 +776,9 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleCombinedPerFailureMechanismSection_WithAssessmentSection_SetsInputOnCalculator()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssembleCombinedPerFailureMechanismSection_WithAssessmentSection_SetsInputOnCalculator(bool failureMechanismSectionAssemblyThrowsException)
         {
             var random = new Random(21);
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
@@ -785,14 +787,17 @@ namespace Riskeer.Integration.Data.Test.Assembly
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.CombinedFailureMechanismSectionAssemblyOutput = Array.Empty<CombinedFailureMechanismSectionAssembly>();
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                failureMechanismSectionAssemblyCalculator.ThrowExceptionOnCalculate = failureMechanismSectionAssemblyThrowsException;
+
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = Array.Empty<CombinedFailureMechanismSectionAssembly>();
 
                 // Call
                 AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
 
                 // Assert
-                IEnumerable<CombinedAssemblyFailureMechanismSection>[] actualInput = calculator.CombinedFailureMechanismSectionsInput.ToArray();
+                IEnumerable<CombinedAssemblyFailureMechanismSection>[] actualInput = assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionsInput.ToArray();
                 IEnumerable<CombinedAssemblyFailureMechanismSection>[] expectedInput = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
                     assessmentSection, assessmentSection.GetFailureMechanisms()).ToArray();
                 Assert.AreEqual(expectedInput.Length, actualInput.Length);
@@ -894,31 +899,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<AssessmentSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
-            }
-        }
-
-        [Test]
-        public void AssembleCombinedPerFailureMechanismSection_FailureMechanismSectionCalculatorThrowsException_ThrowsAssemblyException()
-        {
-            // Setup
-            var random = new Random(21);
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
-                random.NextEnumValue<AssessmentSectionComposition>());
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
-
-                // Call
-                void Call() => AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection);
-
-                // Assert
-                var exception = Assert.Throws<AssemblyException>(Call);
-                Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<AssemblyException>(innerException);
-                Assert.AreEqual("Voor een of meerdere toetssporen kan geen oordeel worden bepaald.", exception.Message);
             }
         }
 
