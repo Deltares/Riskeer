@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Forms.Views
             this.components = new System.ComponentModel.Container();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.refreshAssemblyResultsButton = new Core.Common.Controls.Forms.EnhancedButton();
-            this.totalAssemblyCategoryGroupControl = new AssemblyResultWithProbabilityControl();
+            this.assessmentSectionAssemblyControl = new AssessmentSectionAssemblyResultControl();
             this.refreshButtonPanel = new System.Windows.Forms.Panel();
             this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.refreshButtonPanel.SuspendLayout();
@@ -72,14 +72,14 @@ namespace Riskeer.Integration.Forms.Views
             this.refreshAssemblyResultsButton.UseVisualStyleBackColor = true;
             this.refreshAssemblyResultsButton.Click += new System.EventHandler(this.RefreshAssemblyResults_Click);
             // 
-            // totalAssemblyCategoryGroupControl
+            // assessmentSectionAssemblyControl
             // 
-            this.totalAssemblyCategoryGroupControl.AutoSize = true;
-            this.totalAssemblyCategoryGroupControl.Dock = System.Windows.Forms.DockStyle.Top;
-            this.totalAssemblyCategoryGroupControl.Location = new System.Drawing.Point(90, 3);
-            this.totalAssemblyCategoryGroupControl.Name = "totalAssemblyCategoryGroupControl";
-            this.totalAssemblyCategoryGroupControl.Size = new System.Drawing.Size(690, 24);
-            this.totalAssemblyCategoryGroupControl.TabIndex = 3;
+            this.assessmentSectionAssemblyControl.AutoSize = true;
+            this.assessmentSectionAssemblyControl.Dock = System.Windows.Forms.DockStyle.Top;
+            this.assessmentSectionAssemblyControl.Location = new System.Drawing.Point(90, 3);
+            this.assessmentSectionAssemblyControl.Name = "assessmentSectionAssemblyControl";
+            this.assessmentSectionAssemblyControl.Size = new System.Drawing.Size(690, 24);
+            this.assessmentSectionAssemblyControl.TabIndex = 3;
             // 
             // refreshButtonPanel
             // 
@@ -104,7 +104,7 @@ namespace Riskeer.Integration.Forms.Views
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScrollMinSize = new System.Drawing.Size(350, 250);
             this.Controls.Add(this.dataGridViewControl);
-            this.Controls.Add(this.totalAssemblyCategoryGroupControl);
+            this.Controls.Add(this.assessmentSectionAssemblyControl);
             this.Controls.Add(this.refreshButtonPanel);
             this.Name = "AssemblyResultTotalView";
             this.Size = new System.Drawing.Size(789, 416);
@@ -119,7 +119,7 @@ namespace Riskeer.Integration.Forms.Views
 
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private Core.Common.Controls.Forms.EnhancedButton refreshAssemblyResultsButton;
-        private Controls.AssemblyResultWithProbabilityControl totalAssemblyCategoryGroupControl;
+        private Controls.AssessmentSectionAssemblyResultControl assessmentSectionAssemblyControl;
         private System.Windows.Forms.Panel refreshButtonPanel;
         private System.Windows.Forms.ErrorProvider warningProvider;
     }

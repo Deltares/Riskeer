@@ -25,7 +25,7 @@ using Core.Common.Controls;
 
 namespace Riskeer.Integration.Forms.Controls
 {
-    partial class AssemblyResultWithProbabilityControl
+    partial class AssessmentSectionAssemblyResultControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Forms.Controls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssemblyResultWithProbabilityControl));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionAssemblyResultControl));
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.resultLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.assessmentSectionAssemblyCategoryGroupLabel = new System.Windows.Forms.Label();
@@ -145,13 +145,13 @@ namespace Riskeer.Integration.Forms.Controls
             this.probabilityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.probabilityLabel.BackColor = Color.White;
             // 
-            // AssemblyResultWithProbabilityControl
+            // AssessmentSectionAssemblyResultControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.Controls.Add(this.resultLayoutPanel);
-            this.Name = "AssemblyResultWithProbabilityControl";
+            this.Name = "AssessmentSectionAssemblyResultControl";
             this.Size = new System.Drawing.Size(1361, 796);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.resultLayoutPanel.ResumeLayout(false);
@@ -160,7 +160,7 @@ namespace Riskeer.Integration.Forms.Controls
         }
 
         #endregion
-
+        
         private System.Windows.Forms.ErrorProvider errorProvider;
         private TableLayoutPanel resultLayoutPanel;
         private Label assessmentSectionAssemblyCategoryGroupLabel;

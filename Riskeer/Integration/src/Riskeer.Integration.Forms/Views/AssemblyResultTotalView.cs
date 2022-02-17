@@ -203,17 +203,17 @@ namespace Riskeer.Integration.Forms.Views
         
         private void UpdateTotalAssemblyCategoryGroupControl()
         {
-            totalAssemblyCategoryGroupControl.ClearAssemblyResult();
-            totalAssemblyCategoryGroupControl.ClearMessages();
+            assessmentSectionAssemblyControl.ClearAssemblyResult();
+            assessmentSectionAssemblyControl.ClearMessages();
 
             try
             {
-                totalAssemblyCategoryGroupControl.SetAssemblyResult(
+                assessmentSectionAssemblyControl.SetAssemblyResult(
                     AssessmentSectionAssemblyFactory.AssembleAssessmentSection(AssessmentSection));
             }
             catch (AssemblyException e)
             {
-                totalAssemblyCategoryGroupControl.SetError(e.Message);
+                assessmentSectionAssemblyControl.SetError(e.Message);
             }
         }
 

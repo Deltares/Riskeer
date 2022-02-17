@@ -34,14 +34,14 @@ namespace Riskeer.Integration.Forms.Controls
     /// <summary>
     /// Control to display an assembly result with probability.
     /// </summary>
-    public partial class AssemblyResultWithProbabilityControl : UserControl
+    public partial class AssessmentSectionAssemblyResultControl : UserControl
     {
         private readonly NoProbabilityValueDoubleConverter converter = new NoProbabilityValueDoubleConverter();
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyResultWithProbabilityControl"/>.
+        /// Creates a new instance of <see cref="AssessmentSectionAssemblyResultControl"/>.
         /// </summary>
-        public AssemblyResultWithProbabilityControl()
+        public AssessmentSectionAssemblyResultControl()
         {
             InitializeComponent();
         }
@@ -59,7 +59,8 @@ namespace Riskeer.Integration.Forms.Controls
                 throw new ArgumentNullException(nameof(errorMessage));
             }
 
-            errorProvider.SetError(this, errorMessage);
+            SetErrorProviderMessage(errorMessage);
+            SetErrorProviderIconPadding();
         }
 
         /// <summary>
@@ -67,9 +68,10 @@ namespace Riskeer.Integration.Forms.Controls
         /// </summary>
         public void ClearMessages()
         {
-            errorProvider.SetError(this, string.Empty);
+            errorProvider.SetError(groupLabel, string.Empty);
+            errorProvider.SetError(probabilityLabel, string.Empty);
         }
-        
+
         /// <summary>
         /// Sets the value of <paramref name="result"/> on the control.
         /// </summary>
@@ -100,6 +102,18 @@ namespace Riskeer.Integration.Forms.Controls
             groupLabel.Text = string.Empty;
             groupLabel.BackColor = Color.White;
             probabilityLabel.Text = Resources.RoundedDouble_No_result_dash;
+        }
+
+        private void SetErrorProviderMessage(string errorMessage)
+        {
+            errorProvider.SetError(groupLabel, errorMessage);
+            errorProvider.SetError(probabilityLabel, errorMessage);
+        }
+
+        private void SetErrorProviderIconPadding()
+        {
+            errorProvider.SetIconPadding(groupLabel, 3);
+            errorProvider.SetIconPadding(probabilityLabel, 3);
         }
     }
 }
