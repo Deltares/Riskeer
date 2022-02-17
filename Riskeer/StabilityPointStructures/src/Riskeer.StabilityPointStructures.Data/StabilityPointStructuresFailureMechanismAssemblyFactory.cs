@@ -20,9 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
@@ -57,10 +54,9 @@ namespace Riskeer.StabilityPointStructures.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults =
-                failureMechanism.SectionResults.Select(sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<StabilityPointStructuresInput>(sr, failureMechanism, assessmentSection))
-                                .ToArray();
-            return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(failureMechanism.GeneralInput.N, sectionAssemblyResults);
+            return AssemblyToolHelper.AssemblyFailureMechanism(
+                failureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<StabilityPointStructuresInput>(sr, failureMechanism, assessmentSection),
+                failureMechanism.GeneralInput.N);
         }
     }
 }

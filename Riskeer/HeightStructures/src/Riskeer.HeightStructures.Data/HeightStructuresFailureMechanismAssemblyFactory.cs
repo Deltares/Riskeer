@@ -20,9 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
@@ -38,7 +35,7 @@ namespace Riskeer.HeightStructures.Data
         /// <summary>
         /// Assembles the failure mechanism based on its input arguments.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/> to assemble.</param>
+        /// <param name="failureMechanism">The <see cref="HeightStructuresFailureMechanism"/> to assemble.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/>
         /// belongs to.</param>
         /// <returns>A <see cref="double"/> representing the assembly result.</returns>
@@ -57,10 +54,9 @@ namespace Riskeer.HeightStructures.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults =
-                failureMechanism.SectionResults.Select(sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<HeightStructuresInput>(sr, failureMechanism, assessmentSection))
-                                .ToArray();
-            return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(failureMechanism.GeneralInput.N, sectionAssemblyResults);
+            return AssemblyToolHelper.AssemblyFailureMechanism(
+                failureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<HeightStructuresInput>(sr, failureMechanism, assessmentSection),
+                failureMechanism.GeneralInput.N);
         }
     }
 }
