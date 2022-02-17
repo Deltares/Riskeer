@@ -479,10 +479,11 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 CreateInstance = context => new AssemblyResultPerSectionMapView(context.WrappedData)
             };
-            
+
             yield return new RiskeerViewInfo<AssemblyGroupsContext, AssessmentSection, AssemblyGroupsView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyGroups_DisplayName,
+                CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 CreateInstance = context => new AssemblyGroupsView(context.WrappedData)
             };
         }
