@@ -104,7 +104,6 @@ namespace Riskeer.Integration.Forms.Views
             base.OnLoad(e);
 
             InitializeDataGridView();
-            CheckManualAssemblyResults();
             UpdateAssemblyResultControls();
 
             dataGridViewControl.CellFormatting += HandleCellStyling;
@@ -129,7 +128,6 @@ namespace Riskeer.Integration.Forms.Views
                 refreshAssemblyResultsButton.Enabled = true;
                 warningProvider.SetError(refreshAssemblyResultsButton,
                                          Resources.AssemblyResultView_RefreshAssemblyResultsButton_Warning_Result_is_outdated_Press_Refresh_button_to_recalculate);
-                SetManualAssemblyWarningPadding();
             }
         }
 
@@ -179,8 +177,6 @@ namespace Riskeer.Integration.Forms.Views
         {
             ResetRefreshAssemblyResultsButton();
 
-            CheckManualAssemblyResults();
-
             if (updateDataSource)
             {
                 SetDataSource();
@@ -193,27 +189,11 @@ namespace Riskeer.Integration.Forms.Views
 
             UpdateAssemblyResultControls();
         }
-
-        private void CheckManualAssemblyResults()
-        {
-            if (AssessmentSectionHelper.HasManualAssemblyResults(AssessmentSection))
-            {
-                SetManualAssemblyWarningPadding();
-                manualAssemblyWarningProvider.SetError(refreshAssemblyResultsButton,
-                                                       RiskeerCommonFormsResources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies);
-            }
-        }
-
-        private void SetManualAssemblyWarningPadding()
-        {
-            manualAssemblyWarningProvider.SetIconPadding(refreshAssemblyResultsButton, string.IsNullOrEmpty(warningProvider.GetError(refreshAssemblyResultsButton)) ? 4 : 24);
-        }
-
+        
         private void ResetRefreshAssemblyResultsButton()
         {
             refreshAssemblyResultsButton.Enabled = false;
             warningProvider.SetError(refreshAssemblyResultsButton, string.Empty);
-            manualAssemblyWarningProvider.SetError(refreshAssemblyResultsButton, string.Empty);
         }
 
         private void UpdateAssemblyResultControls()

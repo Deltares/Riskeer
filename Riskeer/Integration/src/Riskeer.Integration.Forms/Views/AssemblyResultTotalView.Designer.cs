@@ -51,12 +51,10 @@ namespace Riskeer.Integration.Forms.Views
             this.failureMechanismsWithoutProbabilityAssemblyControl = new Riskeer.Common.Forms.Controls.FailureMechanismAssemblyCategoryGroupControl();
             this.refreshButtonPanel = new System.Windows.Forms.Panel();
             this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.manualAssemblyWarningProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.assemblyResultGroupBox.SuspendLayout();
             this.assemblyResultTableLayoutPanel.SuspendLayout();
             this.refreshButtonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.manualAssemblyWarningProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewControl
@@ -193,13 +191,6 @@ namespace Riskeer.Integration.Forms.Views
             this.warningProvider.Icon = Core.Gui.Properties.Resources.warning;
             this.warningProvider.SetIconPadding(this.refreshAssemblyResultsButton, 4);
             // 
-            // manualAssemblyWarningProvider
-            // 
-            this.manualAssemblyWarningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.manualAssemblyWarningProvider.ContainerControl = this;
-            this.manualAssemblyWarningProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.PencilWarning;
-            this.manualAssemblyWarningProvider.SetIconPadding(this.refreshAssemblyResultsButton, 4);
-            // 
             // AssemblyResultTotalView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -217,7 +208,6 @@ namespace Riskeer.Integration.Forms.Views
             this.refreshButtonPanel.ResumeLayout(false);
             this.refreshButtonPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.manualAssemblyWarningProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -236,6 +226,5 @@ namespace Riskeer.Integration.Forms.Views
         private Riskeer.Common.Forms.Controls.FailureMechanismAssemblyCategoryGroupControl failureMechanismsWithoutProbabilityAssemblyControl;
         private System.Windows.Forms.Panel refreshButtonPanel;
         private System.Windows.Forms.ErrorProvider warningProvider;
-        private System.Windows.Forms.ErrorProvider manualAssemblyWarningProvider;
     }
 }
