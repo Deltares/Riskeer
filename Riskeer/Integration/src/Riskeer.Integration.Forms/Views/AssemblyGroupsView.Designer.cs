@@ -38,7 +38,7 @@ namespace Riskeer.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.assemblyCategoriesTable = new AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup>();
+            this.assemblyGroupsTable = new AssemblyCategoriesTable<FailureMechanismSectionAssemblyGroup>();
             this.groupBoxPanel = new System.Windows.Forms.Panel();
             this.groupBoxPanel.SuspendLayout();
             this.groupBox = new System.Windows.Forms.GroupBox();
@@ -47,11 +47,11 @@ namespace Riskeer.Integration.Forms.Views
             // 
             // failureMechanismAssemblyCategoriesTable
             // 
-            this.assemblyCategoriesTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.assemblyCategoriesTable.MultiSelect = true;
-            this.assemblyCategoriesTable.Name = "assemblyCategoriesTable";
-            this.assemblyCategoriesTable.Padding = new System.Windows.Forms.Padding(5);
-            this.assemblyCategoriesTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.assemblyGroupsTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.assemblyGroupsTable.MultiSelect = true;
+            this.assemblyGroupsTable.Name = "assemblyGroupsTable";
+            this.assemblyGroupsTable.Padding = new System.Windows.Forms.Padding(5);
+            this.assemblyGroupsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
             //
             // groupBoxPanel
             //
@@ -62,7 +62,7 @@ namespace Riskeer.Integration.Forms.Views
             // 
             // groupBox
             // 
-            this.groupBox.Controls.Add(assemblyCategoriesTable);
+            this.groupBox.Controls.Add(assemblyGroupsTable);
             this.groupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox.Location = new System.Drawing.Point(0, 0);
             this.groupBox.Margin = new System.Windows.Forms.Padding(5);
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Forms.Views
 
         #endregion
 
-        private AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> assemblyCategoriesTable;
+        private AssemblyCategoriesTable<FailureMechanismSectionAssemblyGroup> assemblyGroupsTable;
         private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.Panel groupBoxPanel;
     }

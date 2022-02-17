@@ -20,13 +20,19 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Views;
@@ -40,13 +46,35 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new AssemblyGroupsView(null);
+            void Call() => new AssemblyGroupsView(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
+        [Test]
+        public void CreateFailureMechanismSectionAssemblyGroupBoundaries_CalculatorThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                void Call() => new AssemblyGroupsView(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+                // Assert
+                // Aanpassen, verandert doordat exception niet meer doorbubbelt.
+                var exception = Assert.Throws<AssemblyException>(Call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<AssemblyCategoriesCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
+            }
+        }
+        
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -73,71 +101,119 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Fill, groupBox.Dock);
                 Assert.AreEqual("Duidingsklassen", groupBox.Text);
 
-                AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismCategoriesTable(view);
-                Assert.AreEqual(DockStyle.Fill, failureMechanismSectionCategoriesTable.Dock);
+                AssemblyCategoriesTable<FailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
+                Assert.AreEqual(DockStyle.Fill, assemblyGroupsTable.Dock);
             }
         }
 
-        // [Test]
-        // public void Constructor_WithValidParameters_FillTableWithData()
-        // {
-        //     // Setup
-        //     var random = new Random(21);
-        //
-        //     var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-        //     const int nrOfCategories = 1;
-        //     Func<IEnumerable<FailureMechanismAssemblyCategory>> getAssemblyCategoriesFunc =
-        //         () => Enumerable.Repeat(CreateRandomFailureMechanismAssemblyCategory(random), nrOfCategories);
-        //
-        //     // Call
-        //     using (var view = new AssemblyGroupsView(assessmentSection))
-        //     {
-        //         AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismCategoriesTable(view);
-        //
-        //         // Assert
-        //         Assert.AreEqual(nrOfCategories, failureMechanismSectionCategoriesTable.Rows.Count);
-        //     }
-        // }
-        //
-        // [Test]
-        // public void GivenViewWithValidData_WhenFailureMechanismContributionUpdated_ThenDataTableUpdated()
-        // {
-        //     // Given
-        //     var random = new Random(21);
-        //
-        //     var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-        //     var nrOfCategories = 1;
-        //     Func<IEnumerable<FailureMechanismAssemblyCategory>> getFailureMechanismCategories =
-        //         () => Enumerable.Repeat(CreateRandomFailureMechanismAssemblyCategory(random), nrOfCategories);
-        //
-        //     using (var view = new AssemblyGroupsView(assessmentSection))
-        //     {
-        //         AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> failureMechanismSectionCategoriesTable = GetFailureMechanismCategoriesTable(view);
-        //
-        //         // Precondition
-        //         Assert.AreEqual(nrOfCategories, failureMechanismSectionCategoriesTable.Rows.Count);
-        //
-        //         // When
-        //         nrOfCategories = 2;
-        //         assessmentSection.FailureMechanismContribution.NotifyObservers();
-        //
-        //         // Then
-        //         Assert.AreEqual(nrOfCategories, failureMechanismSectionCategoriesTable.Rows.Count);
-        //     }
-        // }
-
-        private static AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup> GetFailureMechanismCategoriesTable(
-            AssemblyGroupsView view)
+        [Test]
+        public void Constructor_WithValidParameters_InputCorrectlySet()
         {
-            return ControlTestHelper.GetControls<AssemblyCategoriesTable<FailureMechanismAssemblyCategoryGroup>>(
-                view, "assemblyCategoriesTable").Single();
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            
+            // Call
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
+                using (new AssemblyGroupsView(assessmentSection))
+                {
+                    // Assert
+                    Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, calculator.LowerLimitNorm);
+                    Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, calculator.SignalingNorm);
+                }
+            }
+        }
+        
+        [Test]
+        public void Constructor_WithValidParameters_FillTableWithData()
+        {
+            // Setup
+            var random = new Random();
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            
+            
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
+                var failureMechanismSectionAssemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+                double lowerBoundary = random.NextDouble();
+                double upperBoundary = random.NextDouble();
+                calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput = new List<FailureMechanismSectionAssemblyGroupBoundaries>
+                {
+                    new FailureMechanismSectionAssemblyGroupBoundaries(failureMechanismSectionAssemblyGroup, lowerBoundary, upperBoundary)
+                };
+                
+                // Call
+                using (var view = new AssemblyGroupsView(assessmentSection))
+                {
+                    AssemblyCategoriesTable<FailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
+
+                    // Assert
+                    Assert.AreEqual(1, assemblyGroupsTable.Rows.Count);
+                    var row = (AssemblyCategoryRow<FailureMechanismSectionAssemblyGroup>) assemblyGroupsTable.Rows[0].DataBoundItem;
+                    Assert.AreEqual(failureMechanismSectionAssemblyGroup, row.Group);
+                    Assert.AreEqual(lowerBoundary, row.LowerBoundary);
+                    Assert.AreEqual(upperBoundary, row.UpperBoundary);
+                }
+            }
+        }
+        
+        [Test]
+        public void GivenViewWithValidData_WhenFailureMechanismContributionUpdated_ThenDataTableUpdated()
+        {
+            // Given
+            var random = new Random();     
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+        
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
+                var output = new List<FailureMechanismSectionAssemblyGroupBoundaries>
+                {
+                    CreateRandomFailureMechanismSectionAssemblyGroupBoundaries(random)
+                };
+
+                calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput = output;
+                
+                using (var view = new AssemblyGroupsView(assessmentSection))
+                {
+                    AssemblyCategoriesTable<FailureMechanismSectionAssemblyGroup> failureMechanismSectionCategoriesTable = GetAssemblyGroupsTable(view);
+        
+                    // Precondition
+                    int groupBoundaries = output.Count;
+                    Assert.AreEqual(1, failureMechanismSectionCategoriesTable.Rows.Count);
+
+                    int newGroupBoundaries = random.Next(1, 10);
+                    for (var i = 1; i <= newGroupBoundaries; i++)
+                    {
+                        output.Add(CreateRandomFailureMechanismSectionAssemblyGroupBoundaries(random));
+                    }
+                    
+                    // When
+                    assessmentSection.FailureMechanismContribution.NotifyObservers();
+        
+                    // Then
+                    Assert.AreEqual(groupBoundaries + newGroupBoundaries, failureMechanismSectionCategoriesTable.Rows.Count);
+                }
+            }
         }
 
-        private static FailureMechanismAssemblyCategory CreateRandomFailureMechanismAssemblyCategory(Random random)
+        private static AssemblyCategoriesTable<FailureMechanismSectionAssemblyGroup> GetAssemblyGroupsTable(
+            AssemblyGroupsView view)
         {
-            return new FailureMechanismAssemblyCategory(random.NextDouble(),
-                                                        random.NextDouble(),
-                                                        random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>());
+            return ControlTestHelper.GetControls<AssemblyCategoriesTable<FailureMechanismSectionAssemblyGroup>>(
+                view, "assemblyGroupsTable").Single();
+        }
+
+        private static FailureMechanismSectionAssemblyGroupBoundaries CreateRandomFailureMechanismSectionAssemblyGroupBoundaries(Random random)
+        {
+            return new FailureMechanismSectionAssemblyGroupBoundaries(random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                                                                      random.NextDouble(),
+                                                                      random.NextDouble());
         }
     }
 }

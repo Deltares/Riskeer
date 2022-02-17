@@ -20,10 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Forms.Views
@@ -76,12 +80,15 @@ namespace Riskeer.Integration.Forms.Views
 
         private void UpdateTableData()
         {
-            // assemblyCategoriesTable.SetData(
-            //     getAssemblyCategoriesFunc().Select(
-            //         category => new Tuple<AssemblyGroupBoundaries, Color, FailureMechanismAssemblyCategoryGroup>(
-            //             category,
-            //             AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(category.Group),
-            //             category.Group)).ToArray());
+            Tuple<AssemblyGroupBoundaries, Color, FailureMechanismSectionAssemblyGroup>[] dataToSet =
+                AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(
+                    AssessmentSection.FailureMechanismContribution.SignalingNorm, AssessmentSection.FailureMechanismContribution.LowerLimitNorm).Select(
+                    assemblyGroupBoundaries => new Tuple<AssemblyGroupBoundaries, Color, FailureMechanismSectionAssemblyGroup>(
+                        assemblyGroupBoundaries,
+                        AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyGroupBoundaries.Group),
+                        assemblyGroupBoundaries.Group)).ToArray();
+            
+            assemblyGroupsTable.SetData(dataToSet);
         }
     }
 }
