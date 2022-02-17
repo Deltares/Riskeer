@@ -79,6 +79,7 @@ namespace Riskeer.Integration.Forms.Views
             this.assessmentSectionAssemblyControl.Location = new System.Drawing.Point(90, 3);
             this.assessmentSectionAssemblyControl.Name = "assessmentSectionAssemblyControl";
             this.assessmentSectionAssemblyControl.Size = new System.Drawing.Size(690, 24);
+            this.assessmentSectionAssemblyControl.Name = "assessmentSectionAssemblyControl";
             this.assessmentSectionAssemblyControl.TabIndex = 3;
             // 
             // refreshButtonPanel
