@@ -100,38 +100,11 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel groepen 3 en 4.
-        /// </summary>
-        public static string AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text {
-            get {
-                return ResourceManager.GetString("AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel groepen 1 en 2.
-        /// </summary>
-        public static string AssemblyResultTotalView_FailureMechanismsWithProbabilityResultLabel_Text {
-            get {
-                return ResourceManager.GetString("AssemblyResultTotalView_FailureMechanismsWithProbabilityResultLabel_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Benaderde faalkans [1/jaar].
         /// </summary>
         public static string AssemblyResultTotalView_Probability_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyResultTotalView_Probability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Veiligheidsoordeel.
-        /// </summary>
-        public static string AssemblyResultTotalView_TotalResultLabel_Text {
-            get {
-                return ResourceManager.GetString("AssemblyResultTotalView_TotalResultLabel_Text", resourceCulture);
             }
         }
         

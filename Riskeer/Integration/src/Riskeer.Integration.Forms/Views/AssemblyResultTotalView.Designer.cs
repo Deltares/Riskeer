@@ -42,17 +42,10 @@ namespace Riskeer.Integration.Forms.Views
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.refreshAssemblyResultsButton = new Core.Common.Controls.Forms.EnhancedButton();
             this.assemblyResultGroupBox = new System.Windows.Forms.GroupBox();
-            this.assemblyResultTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.totalResultLabel = new System.Windows.Forms.Label();
-            this.failureMechanismsWithProbabilityLabel = new System.Windows.Forms.Label();
-            this.failureMechanismsWithoutProbabilityLabel = new System.Windows.Forms.Label();
             this.totalAssemblyCategoryGroupControl = new AssessmentSectionAssemblyCategoryGroupControl();
-            this.failureMechanismsWithProbabilityAssemblyControl = new Riskeer.Common.Forms.Controls.FailureMechanismAssemblyControl();
-            this.failureMechanismsWithoutProbabilityAssemblyControl = new Riskeer.Common.Forms.Controls.FailureMechanismAssemblyCategoryGroupControl();
             this.refreshButtonPanel = new System.Windows.Forms.Panel();
             this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.assemblyResultGroupBox.SuspendLayout();
-            this.assemblyResultTableLayoutPanel.SuspendLayout();
             this.refreshButtonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).BeginInit();
             this.SuspendLayout();
@@ -82,70 +75,15 @@ namespace Riskeer.Integration.Forms.Views
             // 
             // assemblyResultGroupBox
             // 
-            this.assemblyResultGroupBox.Controls.Add(this.assemblyResultTableLayoutPanel);
+            this.assemblyResultGroupBox.Controls.Add(this.totalAssemblyCategoryGroupControl);
             this.assemblyResultGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.assemblyResultGroupBox.Location = new System.Drawing.Point(0, 35);
             this.assemblyResultGroupBox.Margin = new System.Windows.Forms.Padding(5);
             this.assemblyResultGroupBox.Name = "assemblyResultGroupBox";
-            this.assemblyResultGroupBox.Size = new System.Drawing.Size(789, 110);
+            this.assemblyResultGroupBox.Size = new System.Drawing.Size(789, 50);
             this.assemblyResultGroupBox.TabIndex = 1;
             this.assemblyResultGroupBox.TabStop = false;
             this.assemblyResultGroupBox.Text = global::Riskeer.Common.Forms.Properties.Resources.CombinedAssembly_DisplayName;
-            // 
-            // assemblyResultTableLayoutPanel
-            // 
-            this.assemblyResultTableLayoutPanel.AutoSize = true;
-            this.assemblyResultTableLayoutPanel.ColumnCount = 2;
-            this.assemblyResultTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.assemblyResultTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.assemblyResultTableLayoutPanel.Controls.Add(this.totalResultLabel, 0, 0);
-            this.assemblyResultTableLayoutPanel.Controls.Add(this.failureMechanismsWithProbabilityLabel, 0, 1);
-            this.assemblyResultTableLayoutPanel.Controls.Add(this.failureMechanismsWithoutProbabilityLabel, 0, 2);
-            this.assemblyResultTableLayoutPanel.Controls.Add(this.totalAssemblyCategoryGroupControl, 1, 0);
-            this.assemblyResultTableLayoutPanel.Controls.Add(this.failureMechanismsWithProbabilityAssemblyControl, 1, 1);
-            this.assemblyResultTableLayoutPanel.Controls.Add(this.failureMechanismsWithoutProbabilityAssemblyControl, 1, 2);
-            this.assemblyResultTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.assemblyResultTableLayoutPanel.Location = new System.Drawing.Point(3, 16);
-            this.assemblyResultTableLayoutPanel.Name = "assemblyResultTableLayoutPanel";
-            this.assemblyResultTableLayoutPanel.RowCount = 3;
-            this.assemblyResultTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.assemblyResultTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.assemblyResultTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.assemblyResultTableLayoutPanel.Size = new System.Drawing.Size(783, 91);
-            this.assemblyResultTableLayoutPanel.TabIndex = 0;
-            // 
-            // totalResultLabel
-            // 
-            this.totalResultLabel.AutoSize = true;
-            this.totalResultLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.totalResultLabel.Location = new System.Drawing.Point(3, 0);
-            this.totalResultLabel.Name = "totalResultLabel";
-            this.totalResultLabel.Size = new System.Drawing.Size(81, 30);
-            this.totalResultLabel.TabIndex = 0;
-            this.totalResultLabel.Text = global::Riskeer.Integration.Forms.Properties.Resources.AssemblyResultTotalView_TotalResultLabel_Text;
-            this.totalResultLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // failureMechanismsWithProbabilityLabel
-            // 
-            this.failureMechanismsWithProbabilityLabel.AutoSize = true;
-            this.failureMechanismsWithProbabilityLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.failureMechanismsWithProbabilityLabel.Location = new System.Drawing.Point(3, 30);
-            this.failureMechanismsWithProbabilityLabel.Name = "failureMechanismsWithProbabilityLabel";
-            this.failureMechanismsWithProbabilityLabel.Size = new System.Drawing.Size(81, 30);
-            this.failureMechanismsWithProbabilityLabel.TabIndex = 1;
-            this.failureMechanismsWithProbabilityLabel.Text = global::Riskeer.Integration.Forms.Properties.Resources.AssemblyResultTotalView_FailureMechanismsWithProbabilityResultLabel_Text;
-            this.failureMechanismsWithProbabilityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // failureMechanismsWithoutProbabilityLabel
-            // 
-            this.failureMechanismsWithoutProbabilityLabel.AutoSize = true;
-            this.failureMechanismsWithoutProbabilityLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.failureMechanismsWithoutProbabilityLabel.Location = new System.Drawing.Point(3, 60);
-            this.failureMechanismsWithoutProbabilityLabel.Name = "failureMechanismsWithoutProbabilityLabel";
-            this.failureMechanismsWithoutProbabilityLabel.Size = new System.Drawing.Size(81, 31);
-            this.failureMechanismsWithoutProbabilityLabel.TabIndex = 2;
-            this.failureMechanismsWithoutProbabilityLabel.Text = global::Riskeer.Integration.Forms.Properties.Resources.AssemblyResultTotalView_FailureMechanismsWithoutProbabilityResultLabel_Text;
-            this.failureMechanismsWithoutProbabilityLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // totalAssemblyCategoryGroupControl
             // 
@@ -155,24 +93,6 @@ namespace Riskeer.Integration.Forms.Views
             this.totalAssemblyCategoryGroupControl.Name = "totalAssemblyCategoryGroupControl";
             this.totalAssemblyCategoryGroupControl.Size = new System.Drawing.Size(690, 24);
             this.totalAssemblyCategoryGroupControl.TabIndex = 3;
-            // 
-            // failureMechanismsWithProbabilityAssemblyControl
-            // 
-            this.failureMechanismsWithProbabilityAssemblyControl.AutoSize = true;
-            this.failureMechanismsWithProbabilityAssemblyControl.Dock = System.Windows.Forms.DockStyle.Left;
-            this.failureMechanismsWithProbabilityAssemblyControl.Location = new System.Drawing.Point(90, 33);
-            this.failureMechanismsWithProbabilityAssemblyControl.Name = "failureMechanismsWithProbabilityAssemblyControl";
-            this.failureMechanismsWithProbabilityAssemblyControl.Size = new System.Drawing.Size(112, 24);
-            this.failureMechanismsWithProbabilityAssemblyControl.TabIndex = 4;
-            // 
-            // failureMechanismsWithoutProbabilityAssemblyControl
-            // 
-            this.failureMechanismsWithoutProbabilityAssemblyControl.AutoSize = true;
-            this.failureMechanismsWithoutProbabilityAssemblyControl.Dock = System.Windows.Forms.DockStyle.Left;
-            this.failureMechanismsWithoutProbabilityAssemblyControl.Location = new System.Drawing.Point(90, 63);
-            this.failureMechanismsWithoutProbabilityAssemblyControl.Name = "failureMechanismsWithoutProbabilityAssemblyControl";
-            this.failureMechanismsWithoutProbabilityAssemblyControl.Size = new System.Drawing.Size(56, 25);
-            this.failureMechanismsWithoutProbabilityAssemblyControl.TabIndex = 5;
             // 
             // refreshButtonPanel
             // 
@@ -203,8 +123,6 @@ namespace Riskeer.Integration.Forms.Views
             this.Size = new System.Drawing.Size(789, 416);
             this.assemblyResultGroupBox.ResumeLayout(false);
             this.assemblyResultGroupBox.PerformLayout();
-            this.assemblyResultTableLayoutPanel.ResumeLayout(false);
-            this.assemblyResultTableLayoutPanel.PerformLayout();
             this.refreshButtonPanel.ResumeLayout(false);
             this.refreshButtonPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).EndInit();
@@ -217,13 +135,7 @@ namespace Riskeer.Integration.Forms.Views
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private Core.Common.Controls.Forms.EnhancedButton refreshAssemblyResultsButton;
         private System.Windows.Forms.GroupBox assemblyResultGroupBox;
-        private System.Windows.Forms.TableLayoutPanel assemblyResultTableLayoutPanel;
-        private System.Windows.Forms.Label totalResultLabel;
-        private System.Windows.Forms.Label failureMechanismsWithProbabilityLabel;
-        private System.Windows.Forms.Label failureMechanismsWithoutProbabilityLabel;
         private Controls.AssessmentSectionAssemblyCategoryGroupControl totalAssemblyCategoryGroupControl;
-        private Riskeer.Common.Forms.Controls.FailureMechanismAssemblyControl failureMechanismsWithProbabilityAssemblyControl;
-        private Riskeer.Common.Forms.Controls.FailureMechanismAssemblyCategoryGroupControl failureMechanismsWithoutProbabilityAssemblyControl;
         private System.Windows.Forms.Panel refreshButtonPanel;
         private System.Windows.Forms.ErrorProvider warningProvider;
     }

@@ -25,26 +25,37 @@ using Core.Common.Util;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Integration.Forms.Controls
 {
     /// <summary>
     /// Control to display a <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
     /// </summary>
-    public class AssessmentSectionAssemblyCategoryGroupControl : AssemblyResultControl
+    public class AssessmentSectionAssemblyCategoryGroupControl : AssemblyResultWithProbabilityControl
     {
+        private readonly NoProbabilityValueDoubleConverter converter = new NoProbabilityValueDoubleConverter();
+        
         /// <summary>
         /// Sets the value of <paramref name="result"/> on the control.
         /// </summary>
-        /// <param name="result">The <see cref="AssessmentSectionAssemblyCategoryGroup"/> to set on the control.</param>
+        /// <param name="result">The <see cref="AssessmentSectionAssemblyResult"/> to set on the control.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="result"/>
         /// has an invalid value for <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="result"/>
         /// is not supported.</exception>
-        public void SetAssemblyResult(AssessmentSectionAssemblyCategoryGroup result)
+        public void SetAssemblyResult(AssessmentSectionAssemblyResult result)
         {
-            GroupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result).DisplayName;
-            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result);
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
+            GroupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result.AssemblyCategoryGroup).DisplayName;
+            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result.AssemblyCategoryGroup);
+
+            ProbabilityLabel.Text = converter.ConvertToString(result.Probability);
         }
     }
 }

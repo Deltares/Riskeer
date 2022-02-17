@@ -199,42 +199,8 @@ namespace Riskeer.Integration.Forms.Views
         private void UpdateAssemblyResultControls()
         {
             UpdateTotalAssemblyCategoryGroupControl();
-            UpdateFailureMechanismsWithProbabilityAssemblyControl();
-            UpdateFailureMechanismsWithoutProbabilityAssemblyControl();
         }
-
-        private void UpdateFailureMechanismsWithoutProbabilityAssemblyControl()
-        {
-            failureMechanismsWithoutProbabilityAssemblyControl.ClearAssemblyResult();
-            failureMechanismsWithoutProbabilityAssemblyControl.ClearMessages();
-
-            try
-            {
-                failureMechanismsWithoutProbabilityAssemblyControl.SetAssemblyResult(
-                    AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithoutProbability(AssessmentSection, true));
-            }
-            catch (AssemblyException e)
-            {
-                failureMechanismsWithoutProbabilityAssemblyControl.SetError(e.Message);
-            }
-        }
-
-        private void UpdateFailureMechanismsWithProbabilityAssemblyControl()
-        {
-            failureMechanismsWithProbabilityAssemblyControl.ClearAssemblyResult();
-            failureMechanismsWithProbabilityAssemblyControl.ClearMessages();
-
-            try
-            {
-                failureMechanismsWithProbabilityAssemblyControl.SetAssemblyResult(
-                    AssessmentSectionAssemblyFactory.AssembleFailureMechanismsWithProbability(AssessmentSection, true));
-            }
-            catch (AssemblyException e)
-            {
-                failureMechanismsWithProbabilityAssemblyControl.SetError(e.Message);
-            }
-        }
-
+        
         private void UpdateTotalAssemblyCategoryGroupControl()
         {
             totalAssemblyCategoryGroupControl.ClearAssemblyResult();
@@ -243,7 +209,7 @@ namespace Riskeer.Integration.Forms.Views
             try
             {
                 totalAssemblyCategoryGroupControl.SetAssemblyResult(
-                    AssessmentSectionAssemblyFactory.AssembleAssessmentSection(AssessmentSection, true));
+                    AssessmentSectionAssemblyFactory.AssembleAssessmentSection(AssessmentSection));
             }
             catch (AssemblyException e)
             {
