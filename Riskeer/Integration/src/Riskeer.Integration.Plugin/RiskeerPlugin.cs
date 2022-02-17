@@ -482,7 +482,7 @@ namespace Riskeer.Integration.Plugin
             
             yield return new RiskeerViewInfo<AssemblyGroupsContext, AssessmentSection, AssemblyGroupsView>(() => Gui)
             {
-                GetViewName = (view, context) => "Duidingsklassen",
+                GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyGroups_DisplayName,
                 CreateInstance = context => new AssemblyGroupsView(context.WrappedData)
             };
         }

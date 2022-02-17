@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using Riskeer.AssemblyTool.Data;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Views
 {
@@ -70,7 +71,7 @@ namespace Riskeer.Integration.Forms.Views
             this.groupBox.Size = new System.Drawing.Size(150, 150);
             this.groupBox.TabIndex = 0;
             this.groupBox.TabStop = false;
-            this.groupBox.Text = "Duidingsklassen";
+            this.groupBox.Text = RiskeerCommonFormsResources.AssemblyGroups_DisplayName;
             // 
             // AssemblyGroupsView
             // 

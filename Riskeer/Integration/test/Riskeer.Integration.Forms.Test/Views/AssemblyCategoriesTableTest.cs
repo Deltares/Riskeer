@@ -33,7 +33,7 @@ namespace Riskeer.Integration.Forms.Test.Views
     [TestFixture]
     public class AssemblyCategoriesTableTest
     {
-        private const int categoryGroupColumnIndex = 0;
+        private const int assemblyGroupColumnIndex = 0;
         private const int colorColumnIndex = 1;
         private const int lowerBoundaryColumnIndex = 2;
         private const int upperBoundaryColumnIndex = 3;
@@ -47,8 +47,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<DataGridViewControl>(table);
 
-                DataGridViewColumn groupColumn = table.GetColumnFromIndex(categoryGroupColumnIndex);
-                Assert.AreEqual("Categorie", groupColumn.HeaderText);
+                DataGridViewColumn groupColumn = table.GetColumnFromIndex(assemblyGroupColumnIndex);
+                Assert.AreEqual("Duidingsklasse", groupColumn.HeaderText);
                 Assert.IsTrue(groupColumn.ReadOnly);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(groupColumn);
 
@@ -165,7 +165,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     Tuple<AssemblyGroupBoundaries, Color, TestAssemblyCategoryGroup> category = categories[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
 
-                    Assert.AreEqual(category.Item3, rowCells[categoryGroupColumnIndex].Value);
+                    Assert.AreEqual(category.Item3, rowCells[assemblyGroupColumnIndex].Value);
                     Assert.AreEqual(category.Item2, rowCells[colorColumnIndex].Value);
                     Assert.AreEqual(category.Item1.LowerBoundary, rowCells[lowerBoundaryColumnIndex].Value);
                     Assert.AreEqual(category.Item1.UpperBoundary, rowCells[upperBoundaryColumnIndex].Value);
