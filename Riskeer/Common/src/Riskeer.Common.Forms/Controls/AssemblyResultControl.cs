@@ -22,7 +22,6 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Controls
 {
@@ -54,23 +53,13 @@ namespace Riskeer.Common.Forms.Controls
 
             errorProvider.SetError(this, errorMessage);
         }
-
-        /// <summary>
-        /// Sets a manual assembly warning message on the control.
-        /// </summary>
-        public void SetManualAssemblyWarning()
-        {
-            manualAssemblyWarningProvider.SetIconPadding(this, string.IsNullOrEmpty(errorProvider.GetError(this)) ? 4 : 24);
-            manualAssemblyWarningProvider.SetError(this, Resources.ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies);
-        }
-
+        
         /// <summary>
         /// Clears the messages of the control.
         /// </summary>
         public void ClearMessages()
         {
             errorProvider.SetError(this, string.Empty);
-            manualAssemblyWarningProvider.SetError(this, string.Empty);
         }
 
         /// <summary>

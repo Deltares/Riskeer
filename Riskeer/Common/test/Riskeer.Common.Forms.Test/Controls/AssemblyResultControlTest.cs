@@ -64,11 +64,6 @@ namespace Riskeer.Common.Forms.Test.Controls
                 TestHelper.AssertImagesAreEqual(Resources.ErrorIcon.ToBitmap(), errorProvider.Icon.ToBitmap());
                 Assert.AreEqual(ErrorBlinkStyle.NeverBlink, errorProvider.BlinkStyle);
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
-
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(resultControl);
-                TestHelper.AssertImagesAreEqual(Resources.PencilWarning.ToBitmap(), manualAssemblyWarningProvider.Icon.ToBitmap());
-                Assert.AreEqual(ErrorBlinkStyle.NeverBlink, manualAssemblyWarningProvider.BlinkStyle);
-                Assert.IsEmpty(manualAssemblyWarningProvider.GetError(resultControl));
             }
         }
 
@@ -104,46 +99,7 @@ namespace Riskeer.Common.Forms.Test.Controls
             }
         }
 
-        [Test]
-        public void SetManualAssemblyWarning_Always_SetsWarningMessageOnControl()
-        {
-            // Setup
-            using (var resultControl = new TestAssemblyResultControl())
-            {
-                // Call
-                resultControl.SetManualAssemblyWarning();
 
-                // Assert
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(resultControl);
-                Assert.AreEqual("Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen.", manualAssemblyWarningProvider.GetError(resultControl));
-            }
-        }
-
-        [Test]
-        [TestCase(true, 24)]
-        [TestCase(false, 4)]
-        public void GivenControlWithOrWithoutErrorMessage_WhenManualAssemblyWarningSet_ThenWarningSetWithExpectedPadding(bool hasError, int expectedPadding)
-        {
-            // Given
-            using (var resultControl = new TestAssemblyResultControl())
-            {
-                if (hasError)
-                {
-                    resultControl.SetError("Error");
-                }
-
-                // Precondition
-                ErrorProvider errorProvider = GetErrorProvider(resultControl);
-                Assert.AreEqual(hasError, !string.IsNullOrEmpty(errorProvider.GetError(resultControl)));
-
-                // When
-                resultControl.SetManualAssemblyWarning();
-
-                // Then
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(resultControl);
-                Assert.AreEqual(expectedPadding, manualAssemblyWarningProvider.GetIconPadding(resultControl));
-            }
-        }
 
         [Test]
         public void GivenControlWithMessages_WhenMessagesCleared_ThenMessagesCleared()
@@ -152,7 +108,6 @@ namespace Riskeer.Common.Forms.Test.Controls
             using (var resultControl = new TestAssemblyResultControl())
             {
                 resultControl.SetError("Error");
-                resultControl.SetManualAssemblyWarning();
 
                 // When
                 resultControl.ClearMessages();
@@ -160,9 +115,6 @@ namespace Riskeer.Common.Forms.Test.Controls
                 // Then
                 ErrorProvider errorProvider = GetErrorProvider(resultControl);
                 Assert.IsEmpty(errorProvider.GetError(resultControl));
-
-                ErrorProvider manualAssemblyWarningProvider = GetManualAssemblyWarningProvider(resultControl);
-                Assert.IsEmpty(manualAssemblyWarningProvider.GetError(resultControl));
             }
         }
 
@@ -189,12 +141,7 @@ namespace Riskeer.Common.Forms.Test.Controls
         {
             return TypeUtils.GetField<ErrorProvider>(resultControl, "errorProvider");
         }
-
-        private static ErrorProvider GetManualAssemblyWarningProvider(AssemblyResultControl resultControl)
-        {
-            return TypeUtils.GetField<ErrorProvider>(resultControl, "manualAssemblyWarningProvider");
-        }
-
+        
         private static TableLayoutPanel GetGroupPanel(AssemblyResultControl resultControl)
         {
             return (TableLayoutPanel) resultControl.Controls["GroupPanel"];

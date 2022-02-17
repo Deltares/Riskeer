@@ -56,7 +56,6 @@ namespace Riskeer.Common.Forms.Controls
             this.GroupPanel = new System.Windows.Forms.TableLayoutPanel();
             this.GroupLabel = new Core.Common.Controls.BorderedLabel();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.manualAssemblyWarningProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.GroupPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -95,12 +94,6 @@ namespace Riskeer.Common.Forms.Controls
             this.errorProvider.ContainerControl = this;
             this.errorProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.ErrorIcon;
             // 
-            // warningProvider
-            // 
-            this.manualAssemblyWarningProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.manualAssemblyWarningProvider.ContainerControl = this;
-            this.manualAssemblyWarningProvider.Icon = global::Riskeer.Common.Forms.Properties.Resources.PencilWarning;
-            // 
             // AssemblyResultControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,7 +105,6 @@ namespace Riskeer.Common.Forms.Controls
             this.GroupPanel.ResumeLayout(false);
             this.GroupPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.manualAssemblyWarningProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -121,7 +113,6 @@ namespace Riskeer.Common.Forms.Controls
         #endregion
         protected System.Windows.Forms.TableLayoutPanel GroupPanel;
         private System.Windows.Forms.ErrorProvider errorProvider;
-        private System.Windows.Forms.ErrorProvider manualAssemblyWarningProvider;
         protected BorderedLabel GroupLabel;
     }
 }

@@ -2558,16 +2558,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel is (deels) gebaseerd op handmatig overschreven toetsoordelen..
-        /// </summary>
-        public static string ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblies {
-            get {
-                return ResourceManager.GetString("ManualAssemblyWarning_FailureMechanismAssemblyResult_is_based_on_manual_assemblie" +
-                        "s", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap MapsIcon {
