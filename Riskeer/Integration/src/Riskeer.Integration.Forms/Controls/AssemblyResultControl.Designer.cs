@@ -19,10 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Windows.Forms;
 using Core.Common.Controls;
 
-namespace Riskeer.Common.Forms.Controls
+namespace Riskeer.Integration.Forms.Controls
 {
      abstract partial class AssemblyResultControl   
      {

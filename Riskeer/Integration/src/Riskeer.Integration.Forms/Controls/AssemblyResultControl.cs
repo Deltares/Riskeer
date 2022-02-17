@@ -23,7 +23,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Riskeer.Common.Forms.Controls
+namespace Riskeer.Integration.Forms.Controls
 {
     /// <summary>
     /// Base control to display an assembly result.

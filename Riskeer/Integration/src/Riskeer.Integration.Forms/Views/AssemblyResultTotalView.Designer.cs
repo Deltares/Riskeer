@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Forms.Views
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.refreshAssemblyResultsButton = new Core.Common.Controls.Forms.EnhancedButton();
             this.assemblyResultGroupBox = new System.Windows.Forms.GroupBox();
-            this.totalAssemblyCategoryGroupControl = new AssessmentSectionAssemblyCategoryGroupControl();
+            this.totalAssemblyCategoryGroupControl = new AssemblyResultWithProbabilityControl();
             this.refreshButtonPanel = new System.Windows.Forms.Panel();
             this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.assemblyResultGroupBox.SuspendLayout();
@@ -135,7 +135,7 @@ namespace Riskeer.Integration.Forms.Views
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private Core.Common.Controls.Forms.EnhancedButton refreshAssemblyResultsButton;
         private System.Windows.Forms.GroupBox assemblyResultGroupBox;
-        private Controls.AssessmentSectionAssemblyCategoryGroupControl totalAssemblyCategoryGroupControl;
+        private Controls.AssemblyResultWithProbabilityControl totalAssemblyCategoryGroupControl;
         private System.Windows.Forms.Panel refreshButtonPanel;
         private System.Windows.Forms.ErrorProvider warningProvider;
     }

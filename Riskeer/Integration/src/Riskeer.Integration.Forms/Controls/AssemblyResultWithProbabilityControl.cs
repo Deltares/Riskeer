@@ -23,19 +23,27 @@ using System;
 using System.ComponentModel;
 using Core.Common.Util;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Integration.Forms.Controls
 {
     /// <summary>
-    /// Control to display a <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
+    /// Control to display an assembly result with probability.
     /// </summary>
-    public class AssessmentSectionAssemblyCategoryGroupControl : AssemblyResultWithProbabilityControl
+    public partial class AssemblyResultWithProbabilityControl : AssemblyResultControl
     {
         private readonly NoProbabilityValueDoubleConverter converter = new NoProbabilityValueDoubleConverter();
-        
+
+        /// <summary>
+        /// Creates a new instance of <see cref="AssemblyResultWithProbabilityControl"/>.
+        /// </summary>
+        public AssemblyResultWithProbabilityControl()
+        {
+            InitializeComponent();
+        }
+
         /// <summary>
         /// Sets the value of <paramref name="result"/> on the control.
         /// </summary>
@@ -56,6 +64,12 @@ namespace Riskeer.Integration.Forms.Controls
             GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result.AssemblyCategoryGroup);
 
             ProbabilityLabel.Text = converter.ConvertToString(result.Probability);
+        }
+
+        public override void ClearAssemblyResult()
+        {
+            base.ClearAssemblyResult();
+            ProbabilityLabel.Text = Resources.RoundedDouble_No_result_dash;
         }
     }
 }

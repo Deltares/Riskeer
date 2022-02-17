@@ -21,7 +21,7 @@
 
 using Core.Common.Controls;
 
-namespace Riskeer.Common.Forms.Controls
+namespace Riskeer.Integration.Forms.Controls
 {
     partial class AssemblyResultWithProbabilityControl
     {
