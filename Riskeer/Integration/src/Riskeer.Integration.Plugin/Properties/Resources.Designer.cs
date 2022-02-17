@@ -61,15 +61,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Duidingsklassen.
-        /// </summary>
-        public static string AssemblyGroups_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyGroups_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to gml.
         /// </summary>
         public static string AssemblyResult_file_filter_Extension {

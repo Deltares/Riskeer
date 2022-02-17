@@ -795,7 +795,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<AssemblyGroupsContext>
             {
-                Text = context => Resources.AssemblyGroups_DisplayName,
+                Text = context => RiskeerCommonFormsResources.AssemblyGroups_DisplayName,
                 Image = context => RiskeerCommonFormsResources.NormsIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()

@@ -183,7 +183,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                     // Precondition
                     int groupBoundaries = output.Count;
-                    Assert.AreEqual(1, failureMechanismSectionCategoriesTable.Rows.Count);
+                    Assert.AreEqual(groupBoundaries, failureMechanismSectionCategoriesTable.Rows.Count);
 
                     int newGroupBoundaries = random.Next(1, 10);
                     for (var i = 1; i <= newGroupBoundaries; i++)

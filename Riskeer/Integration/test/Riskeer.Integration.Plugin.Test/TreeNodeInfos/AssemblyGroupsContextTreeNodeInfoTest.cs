@@ -42,6 +42,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var plugin = new RiskeerPlugin())
             {
+                // Call
                 TreeNodeInfo info = GetInfo(plugin);
 
                 // Assert
