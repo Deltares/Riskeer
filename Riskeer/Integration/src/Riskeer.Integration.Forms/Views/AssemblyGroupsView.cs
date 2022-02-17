@@ -34,7 +34,7 @@ using Riskeer.Integration.Data;
 namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
-    /// View to show a collection of <see cref="FailureMechanismAssemblyCategory"/>.
+    /// View to show a collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>.
     /// </summary>
     public partial class AssemblyGroupsView : UserControl, IView
     {
@@ -44,7 +44,7 @@ namespace Riskeer.Integration.Forms.Views
         /// Creates a new instance of <see cref="AssemblyGroupsView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="assessmentSection"/> is <c>null</c>.</exception>
         public AssemblyGroupsView(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
@@ -64,6 +64,9 @@ namespace Riskeer.Integration.Forms.Views
             UpdateTableData();
         }
 
+        /// <summary>
+        /// Gets the <see cref="AssessmentSection"/>.
+        /// </summary>
         public AssessmentSection AssessmentSection { get; }
 
         public object Data { get; set; }
