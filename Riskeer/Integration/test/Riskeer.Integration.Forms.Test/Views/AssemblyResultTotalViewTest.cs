@@ -40,7 +40,6 @@ using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -50,7 +49,6 @@ using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.TestUtil;
-using Riskeer.Integration.Forms.Controls;
 using Riskeer.Integration.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.Piping.Data;
@@ -855,7 +853,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
         private static BorderedLabel GetGroupLabel(AssemblyResultControl control)
         {
-            return (BorderedLabel) ((TableLayoutPanel) control.Controls["GroupPanel"]).GetControlFromPosition(0, 0);
+            return (BorderedLabel) ((TableLayoutPanel) control.Controls["groupPanel"]).GetControlFromPosition(0, 0);
         }
 
         private static BorderedLabel GetProbabilityLabel(FailureMechanismAssemblyControl control)

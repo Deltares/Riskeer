@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
 using Riskeer.Integration.Forms.Controls;
 
 namespace Riskeer.Integration.Forms.Views
@@ -41,11 +42,9 @@ namespace Riskeer.Integration.Forms.Views
             this.components = new System.ComponentModel.Container();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.refreshAssemblyResultsButton = new Core.Common.Controls.Forms.EnhancedButton();
-            this.assemblyResultGroupBox = new System.Windows.Forms.GroupBox();
             this.totalAssemblyCategoryGroupControl = new AssemblyResultWithProbabilityControl();
             this.refreshButtonPanel = new System.Windows.Forms.Panel();
             this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.assemblyResultGroupBox.SuspendLayout();
             this.refreshButtonPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).BeginInit();
             this.SuspendLayout();
@@ -73,22 +72,10 @@ namespace Riskeer.Integration.Forms.Views
             this.refreshAssemblyResultsButton.UseVisualStyleBackColor = true;
             this.refreshAssemblyResultsButton.Click += new System.EventHandler(this.RefreshAssemblyResults_Click);
             // 
-            // assemblyResultGroupBox
-            // 
-            this.assemblyResultGroupBox.Controls.Add(this.totalAssemblyCategoryGroupControl);
-            this.assemblyResultGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.assemblyResultGroupBox.Location = new System.Drawing.Point(0, 35);
-            this.assemblyResultGroupBox.Margin = new System.Windows.Forms.Padding(5);
-            this.assemblyResultGroupBox.Name = "assemblyResultGroupBox";
-            this.assemblyResultGroupBox.Size = new System.Drawing.Size(789, 50);
-            this.assemblyResultGroupBox.TabIndex = 1;
-            this.assemblyResultGroupBox.TabStop = false;
-            this.assemblyResultGroupBox.Text = global::Riskeer.Common.Forms.Properties.Resources.CombinedAssembly_DisplayName;
-            // 
             // totalAssemblyCategoryGroupControl
             // 
             this.totalAssemblyCategoryGroupControl.AutoSize = true;
-            this.totalAssemblyCategoryGroupControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.totalAssemblyCategoryGroupControl.Dock = System.Windows.Forms.DockStyle.Top;
             this.totalAssemblyCategoryGroupControl.Location = new System.Drawing.Point(90, 3);
             this.totalAssemblyCategoryGroupControl.Name = "totalAssemblyCategoryGroupControl";
             this.totalAssemblyCategoryGroupControl.Size = new System.Drawing.Size(690, 24);
@@ -117,12 +104,10 @@ namespace Riskeer.Integration.Forms.Views
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScrollMinSize = new System.Drawing.Size(350, 250);
             this.Controls.Add(this.dataGridViewControl);
-            this.Controls.Add(this.assemblyResultGroupBox);
+            this.Controls.Add(this.totalAssemblyCategoryGroupControl);
             this.Controls.Add(this.refreshButtonPanel);
             this.Name = "AssemblyResultTotalView";
             this.Size = new System.Drawing.Size(789, 416);
-            this.assemblyResultGroupBox.ResumeLayout(false);
-            this.assemblyResultGroupBox.PerformLayout();
             this.refreshButtonPanel.ResumeLayout(false);
             this.refreshButtonPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).EndInit();
@@ -134,7 +119,6 @@ namespace Riskeer.Integration.Forms.Views
 
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private Core.Common.Controls.Forms.EnhancedButton refreshAssemblyResultsButton;
-        private System.Windows.Forms.GroupBox assemblyResultGroupBox;
         private Controls.AssemblyResultWithProbabilityControl totalAssemblyCategoryGroupControl;
         private System.Windows.Forms.Panel refreshButtonPanel;
         private System.Windows.Forms.ErrorProvider warningProvider;

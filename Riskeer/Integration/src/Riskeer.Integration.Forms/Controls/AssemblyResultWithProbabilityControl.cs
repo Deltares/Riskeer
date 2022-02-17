@@ -21,6 +21,8 @@
 
 using System;
 using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
 using Core.Common.Util;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.Helpers;
@@ -32,7 +34,7 @@ namespace Riskeer.Integration.Forms.Controls
     /// <summary>
     /// Control to display an assembly result with probability.
     /// </summary>
-    public partial class AssemblyResultWithProbabilityControl : AssemblyResultControl
+    public partial class AssemblyResultWithProbabilityControl : UserControl
     {
         private readonly NoProbabilityValueDoubleConverter converter = new NoProbabilityValueDoubleConverter();
 
@@ -44,6 +46,30 @@ namespace Riskeer.Integration.Forms.Controls
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Sets the error message of the control.
+        /// </summary>
+        /// <param name="errorMessage">The error message to set.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="errorMessage"/>
+        /// is <c>null</c>.</exception>
+        public void SetError(string errorMessage)
+        {
+            if (errorMessage == null)
+            {
+                throw new ArgumentNullException(nameof(errorMessage));
+            }
+
+            errorProvider.SetError(this, errorMessage);
+        }
+
+        /// <summary>
+        /// Clears the messages of the control.
+        /// </summary>
+        public void ClearMessages()
+        {
+            errorProvider.SetError(this, string.Empty);
+        }
+        
         /// <summary>
         /// Sets the value of <paramref name="result"/> on the control.
         /// </summary>
@@ -60,16 +86,20 @@ namespace Riskeer.Integration.Forms.Controls
                 throw new ArgumentNullException(nameof(result));
             }
 
-            GroupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result.AssemblyCategoryGroup).DisplayName;
-            GroupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result.AssemblyCategoryGroup);
+            groupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result.AssemblyCategoryGroup).DisplayName;
+            groupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result.AssemblyCategoryGroup);
 
-            ProbabilityLabel.Text = converter.ConvertToString(result.Probability);
+            probabilityLabel.Text = converter.ConvertToString(result.Probability);
         }
 
-        public override void ClearAssemblyResult()
+        /// <summary>
+        /// Clears the assembly result of the control.
+        /// </summary>
+        public void ClearAssemblyResult()
         {
-            base.ClearAssemblyResult();
-            ProbabilityLabel.Text = Resources.RoundedDouble_No_result_dash;
+            groupLabel.Text = string.Empty;
+            groupLabel.BackColor = Color.White;
+            probabilityLabel.Text = Resources.RoundedDouble_No_result_dash;
         }
     }
 }

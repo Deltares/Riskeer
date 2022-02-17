@@ -27,9 +27,7 @@ using Core.Common.TestUtil;
 using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.Common.Forms.Controls;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Integration.Forms.Controls;
 
 namespace Riskeer.Integration.Forms.Test.Controls
 {
@@ -98,7 +96,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
 
         private static BorderedLabel GetGroupLabel(AssessmentSectionAssemblyCategoryGroupControl resultControl)
         {
-            return (BorderedLabel) ((TableLayoutPanel) resultControl.Controls["GroupPanel"]).GetControlFromPosition(0, 0);
+            return (BorderedLabel) ((TableLayoutPanel) resultControl.Controls["groupPanel"]).GetControlFromPosition(0, 0);
         }
     }
 }
