@@ -27,7 +27,6 @@ using Core.Common.Util;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
-using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Integration.Forms.Controls
 {
@@ -36,8 +35,6 @@ namespace Riskeer.Integration.Forms.Controls
     /// </summary>
     public partial class AssessmentSectionAssemblyResultControl : UserControl
     {
-        private readonly NoProbabilityValueDoubleConverter converter = new NoProbabilityValueDoubleConverter();
-
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionAssemblyResultControl"/>.
         /// </summary>
@@ -91,7 +88,7 @@ namespace Riskeer.Integration.Forms.Controls
             groupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result.AssemblyCategoryGroup).DisplayName;
             groupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result.AssemblyCategoryGroup);
 
-            probabilityLabel.Text = converter.ConvertToString(result.Probability);
+            probabilityLabel.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(result.Probability);
         }
 
         /// <summary>

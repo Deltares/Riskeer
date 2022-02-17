@@ -57,8 +57,8 @@ namespace Riskeer.Integration.Forms.Controls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionAssemblyResultControl));
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.resultLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.assessmentSectionAssemblyCategoryGroupLabel = new System.Windows.Forms.Label();
-            this.assessmentSectionFailureProbabilityLabel = new System.Windows.Forms.Label();
+            this.assemblyCategoryGroupDisplayNameLabel = new System.Windows.Forms.Label();
+            this.assemblyProbabilityDisplayNameLabel = new System.Windows.Forms.Label();
             this.groupLabel = new Core.Common.Controls.BorderedLabel();
             this.probabilityLabel = new Core.Common.Controls.BorderedLabel();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -76,8 +76,8 @@ namespace Riskeer.Integration.Forms.Controls
             this.resultLayoutPanel.ColumnCount = 2;
             this.resultLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.resultLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.resultLayoutPanel.Controls.Add(this.assessmentSectionAssemblyCategoryGroupLabel, 0, 0);
-            this.resultLayoutPanel.Controls.Add(this.assessmentSectionFailureProbabilityLabel, 0, 1);
+            this.resultLayoutPanel.Controls.Add(this.assemblyCategoryGroupDisplayNameLabel, 0, 0);
+            this.resultLayoutPanel.Controls.Add(this.assemblyProbabilityDisplayNameLabel, 0, 1);
             this.resultLayoutPanel.Controls.Add(this.groupLabel, 1, 0);
             this.resultLayoutPanel.Controls.Add(this.probabilityLabel, 1, 1);
             this.resultLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -90,31 +90,31 @@ namespace Riskeer.Integration.Forms.Controls
             this.resultLayoutPanel.AutoSize = true;
             this.resultLayoutPanel.TabIndex = 0;
             // 
-            // assessmentSectionAssemblyCategoryGroupLabel
+            // assemblyCategoryGroupDisplayNameLabel
             // 
-            this.assessmentSectionAssemblyCategoryGroupLabel.AutoSize = true;
-            this.assessmentSectionAssemblyCategoryGroupLabel.TextAlign = ContentAlignment.MiddleLeft;
-            this.assessmentSectionAssemblyCategoryGroupLabel.Location = new System.Drawing.Point(3, 0);
-            this.assessmentSectionAssemblyCategoryGroupLabel.Name = "assessmentSectionAssemblyCategoryGroupLabel";
-            this.assessmentSectionAssemblyCategoryGroupLabel.Size = new System.Drawing.Size(92, 13);
-            this.assessmentSectionAssemblyCategoryGroupLabel.Dock = DockStyle.Left;
-            this.assessmentSectionAssemblyCategoryGroupLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.assessmentSectionAssemblyCategoryGroupLabel.Margin = new System.Windows.Forms.Padding(3);
-            this.assessmentSectionAssemblyCategoryGroupLabel.TabIndex = 0;
-            this.assessmentSectionAssemblyCategoryGroupLabel.Text = "Veiligheidsoordeel";
+            this.assemblyCategoryGroupDisplayNameLabel.AutoSize = true;
+            this.assemblyCategoryGroupDisplayNameLabel.TextAlign = ContentAlignment.MiddleLeft;
+            this.assemblyCategoryGroupDisplayNameLabel.Location = new System.Drawing.Point(3, 0);
+            this.assemblyCategoryGroupDisplayNameLabel.Name = "assemblyCategoryGroupDisplayNameLabel";
+            this.assemblyCategoryGroupDisplayNameLabel.Size = new System.Drawing.Size(92, 13);
+            this.assemblyCategoryGroupDisplayNameLabel.Dock = DockStyle.Left;
+            this.assemblyCategoryGroupDisplayNameLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.assemblyCategoryGroupDisplayNameLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.assemblyCategoryGroupDisplayNameLabel.TabIndex = 0;
+            this.assemblyCategoryGroupDisplayNameLabel.Text = "Veiligheidsoordeel";
             // 
-            // assessmentSectionFailureProbabilityLabel
+            // assemblyProbabilityDisplayNameLabel
             // 
-            this.assessmentSectionFailureProbabilityLabel.AutoSize = true;
-            this.assessmentSectionFailureProbabilityLabel.TextAlign = ContentAlignment.MiddleLeft;
-            this.assessmentSectionFailureProbabilityLabel.Location = new System.Drawing.Point(3, 398);
-            this.assessmentSectionFailureProbabilityLabel.Name = "assessmentSectionFailureProbabilityLabel";
-            this.assessmentSectionFailureProbabilityLabel.Size = new System.Drawing.Size(50, 13);
-            this.assessmentSectionFailureProbabilityLabel.Dock = DockStyle.Left;
-            this.assessmentSectionFailureProbabilityLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.assessmentSectionFailureProbabilityLabel.Margin = new System.Windows.Forms.Padding(3);
-            this.assessmentSectionFailureProbabilityLabel.TabIndex = 1;
-            this.assessmentSectionFailureProbabilityLabel.Text = "Faalkans";
+            this.assemblyProbabilityDisplayNameLabel.AutoSize = true;
+            this.assemblyProbabilityDisplayNameLabel.TextAlign = ContentAlignment.MiddleLeft;
+            this.assemblyProbabilityDisplayNameLabel.Location = new System.Drawing.Point(3, 398);
+            this.assemblyProbabilityDisplayNameLabel.Name = "assemblyProbabilityDisplayNameLabel";
+            this.assemblyProbabilityDisplayNameLabel.Size = new System.Drawing.Size(50, 13);
+            this.assemblyProbabilityDisplayNameLabel.Dock = DockStyle.Left;
+            this.assemblyProbabilityDisplayNameLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.assemblyProbabilityDisplayNameLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.assemblyProbabilityDisplayNameLabel.TabIndex = 1;
+            this.assemblyProbabilityDisplayNameLabel.Text = "Faalkans";
             // 
             // groupLabel
             // 
@@ -163,8 +163,8 @@ namespace Riskeer.Integration.Forms.Controls
         
         private System.Windows.Forms.ErrorProvider errorProvider;
         private TableLayoutPanel resultLayoutPanel;
-        private Label assessmentSectionAssemblyCategoryGroupLabel;
-        private Label assessmentSectionFailureProbabilityLabel;
+        private Label assemblyCategoryGroupDisplayNameLabel;
+        private Label assemblyProbabilityDisplayNameLabel;
         private BorderedLabel groupLabel;
         private BorderedLabel probabilityLabel;
     }
