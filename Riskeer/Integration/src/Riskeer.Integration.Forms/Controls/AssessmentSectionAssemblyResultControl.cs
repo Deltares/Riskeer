@@ -61,9 +61,9 @@ namespace Riskeer.Integration.Forms.Controls
         }
 
         /// <summary>
-        /// Clears the messages of the control.
+        /// Clears the errors of the control.
         /// </summary>
-        public void ClearMessages()
+        public void ClearErrors()
         {
             errorProvider.SetError(groupLabel, string.Empty);
             errorProvider.SetError(probabilityLabel, string.Empty);

@@ -204,7 +204,7 @@ namespace Riskeer.Integration.Forms.Views
         private void UpdateTotalAssemblyCategoryGroupControl()
         {
             assessmentSectionAssemblyControl.ClearAssemblyResult();
-            assessmentSectionAssemblyControl.ClearMessages();
+            assessmentSectionAssemblyControl.ClearErrors();
 
             try
             {

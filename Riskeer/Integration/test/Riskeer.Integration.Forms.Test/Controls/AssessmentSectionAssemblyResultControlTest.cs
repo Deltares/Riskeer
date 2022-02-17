@@ -193,7 +193,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
         }
 
         [Test]
-        public void GivenControlWithMessages_WhenMessagesCleared_ThenMessagesCleared()
+        public void GivenControlWithErrors_WhenErrorsCleared_ThenErrorsCleared()
         {
             // Given
             using (var resultControl = new AssessmentSectionAssemblyResultControl())
@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
                 Assert.IsNotEmpty(errorProvider.GetError(probabilityLabel));
 
                 // When
-                resultControl.ClearMessages();
+                resultControl.ClearErrors();
 
                 // Then
                 Assert.IsEmpty(errorProvider.GetError(groupLabel));
