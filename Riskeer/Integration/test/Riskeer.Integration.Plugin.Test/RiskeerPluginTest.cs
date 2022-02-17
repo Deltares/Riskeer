@@ -548,7 +548,7 @@ namespace Riskeer.Integration.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(39, treeNodeInfos.Length);
+                Assert.AreEqual(40, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSectionStateRootContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicLoadsStateRootContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CalculationsStateRootContext)));
