@@ -63,6 +63,8 @@ namespace Riskeer.Integration.Forms.Views
 
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
+
+            Update();
         }
 
         /// <summary>

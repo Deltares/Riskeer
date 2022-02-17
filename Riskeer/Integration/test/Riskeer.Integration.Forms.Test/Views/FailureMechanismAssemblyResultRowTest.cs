@@ -42,10 +42,10 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismAssemblyResultRow(null, () => double.NaN);
+            void Call() => new FailureMechanismAssemblyResultRow(null, () => double.NaN);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -58,10 +58,10 @@ namespace Riskeer.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismAssemblyResultRow(failureMechanism, null);
+            void Call() => new FailureMechanismAssemblyResultRow(failureMechanism, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("performAssemblyFunc", exception.ParamName);
             mocks.VerifyAll();
         }
