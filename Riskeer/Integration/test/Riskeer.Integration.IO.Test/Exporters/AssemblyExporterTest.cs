@@ -21,7 +21,6 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -171,23 +170,23 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
-        
+
             var exporter = new AssemblyExporter(assessmentSection, filePath);
-        
+
             using (new FileDisposeHelper(filePath))
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 assessmentSectionAssemblyCalculator.AssembleAssessmentSectionCategoryGroupOutput = AssessmentSectionAssemblyCategoryGroup.A;
-        
+
                 // Call
                 bool isExported = exporter.Export();
-        
+
                 // Assert
                 Assert.IsTrue(File.Exists(filePath));
                 Assert.IsTrue(isExported);
-        
+
                 string expectedGmlFilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
                                                           nameof(AssemblyExporter), "ExpectedGml.gml");
                 string expectedGml = File.ReadAllText(expectedGmlFilePath);
@@ -195,7 +194,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 Assert.AreEqual(expectedGml, actualGml);
             }
         }
-        
+
         [Test]
         [Explicit("Fix this test in WTI-2681")]
         public void Export_InvalidDirectoryRights_LogsErrorAndReturnsFalse()
@@ -203,18 +202,18 @@ namespace Riskeer.Integration.IO.Test.Exporters
             // Setup
             string filePath = TestHelper.GetScratchPadPath(nameof(Export_InvalidDirectoryRights_LogsErrorAndReturnsFalse));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
-        
+
             var exporter = new AssemblyExporter(assessmentSection, filePath);
-        
+
             using (var fileDisposeHelper = new FileDisposeHelper(filePath))
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 fileDisposeHelper.LockFiles();
-        
+
                 // Call
                 var isExported = true;
                 Action call = () => isExported = exporter.Export();
-        
+
                 // Assert
                 string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
                                          "Er is geen toetsoordeel geëxporteerd.";
