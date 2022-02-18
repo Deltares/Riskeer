@@ -36,11 +36,10 @@ namespace Riskeer.Integration.IO.Test.Helpers
         public void CreateFailureMechanismSectionResultLookup_FailureMechanismSectionResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
-                ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup<TestFailureMechanismSectionResultOld>(null);
+            void Call() => ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup<TestFailureMechanismSectionResult>(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismSectionResults", exception.ParamName);
         }
 
@@ -50,17 +49,17 @@ namespace Riskeer.Integration.IO.Test.Helpers
             // Setup
             var failureMechanismSectionResults = new[]
             {
-                new TestFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
                     new Point2D(0, 0),
                     new Point2D(0, 10)
                 })),
-                new TestFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
                     new Point2D(0, 10),
                     new Point2D(0, 20)
                 })),
-                new TestFailureMechanismSectionResultOld(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
                     new Point2D(0, 20),
                     new Point2D(0, 40)
@@ -68,25 +67,25 @@ namespace Riskeer.Integration.IO.Test.Helpers
             };
 
             // Call
-            IDictionary<TestFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionResultsLookup =
+            IDictionary<TestFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionResultsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
 
             // Assert
             CollectionAssert.AreEqual(failureMechanismSectionResults, failureMechanismSectionResultsLookup.Keys);
 
-            TestFailureMechanismSectionResultOld firstSectionResult = failureMechanismSectionResults[0];
+            TestFailureMechanismSectionResult firstSectionResult = failureMechanismSectionResults[0];
             ExportableFailureMechanismSection firstExportableSection = failureMechanismSectionResultsLookup[firstSectionResult];
             Assert.AreSame(firstSectionResult.Section.Points, firstExportableSection.Geometry);
             Assert.AreEqual(0, firstExportableSection.StartDistance);
             Assert.AreEqual(10, firstExportableSection.EndDistance);
 
-            TestFailureMechanismSectionResultOld secondSectionResult = failureMechanismSectionResults[1];
+            TestFailureMechanismSectionResult secondSectionResult = failureMechanismSectionResults[1];
             ExportableFailureMechanismSection secondExportableSection = failureMechanismSectionResultsLookup[secondSectionResult];
             Assert.AreSame(secondSectionResult.Section.Points, secondExportableSection.Geometry);
             Assert.AreEqual(10, secondExportableSection.StartDistance);
             Assert.AreEqual(20, secondExportableSection.EndDistance);
 
-            TestFailureMechanismSectionResultOld thirdSectionResult = failureMechanismSectionResults[2];
+            TestFailureMechanismSectionResult thirdSectionResult = failureMechanismSectionResults[2];
             ExportableFailureMechanismSection thirdExportableSection = failureMechanismSectionResultsLookup[thirdSectionResult];
             Assert.AreSame(thirdSectionResult.Section.Points, thirdExportableSection.Geometry);
             Assert.AreEqual(20, thirdExportableSection.StartDistance);

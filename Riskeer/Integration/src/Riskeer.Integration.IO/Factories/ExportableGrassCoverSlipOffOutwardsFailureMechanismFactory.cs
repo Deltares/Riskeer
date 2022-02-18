@@ -24,10 +24,10 @@ using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
 
 namespace Riskeer.Integration.IO.Factories
 {
@@ -77,7 +77,7 @@ namespace Riskeer.Integration.IO.Factories
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
-                CreateFailureMechanismSectionResults(failureMechanism.SectionResultsOld),
+                CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
@@ -86,18 +86,18 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>
         /// with assembly results based on <paramref name="failureMechanismSectionResults"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld"/>
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
         /// to create a <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResult> CreateFailureMechanismSectionResults(
-            IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld> failureMechanismSectionResults)
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> failureMechanismSectionResults)
         {
-            IDictionary<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+            IDictionary<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
 
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
-            foreach (KeyValuePair<GrassCoverSlipOffOutwardsFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
+            foreach (KeyValuePair<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 const FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
                 const FailureMechanismSectionAssemblyCategoryGroup detailedAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;

@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
 
@@ -77,7 +77,7 @@ namespace Riskeer.Integration.IO.Factories
 
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
-                CreateFailureMechanismSectionResults(failureMechanism.SectionResultsOld),
+                CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
                 failureMechanismCode,
                 failureMechanismGroup);
         }
@@ -86,18 +86,18 @@ namespace Riskeer.Integration.IO.Factories
         /// Creates a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>
         /// with assembly results based on the sections in <paramref name="failureMechanismSectionResults"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionResults">The collection of <see cref="PipingStructureFailureMechanismSectionResultOld"/>
+        /// <param name="failureMechanismSectionResults">The collection of <see cref="NonAdoptableFailureMechanismSectionResult"/>
         /// to create a collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A collection of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         private static IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResult> CreateFailureMechanismSectionResults(
-            IEnumerable<PipingStructureFailureMechanismSectionResultOld> failureMechanismSectionResults)
+            IEnumerable<NonAdoptableFailureMechanismSectionResult> failureMechanismSectionResults)
         {
-            IDictionary<PipingStructureFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
+            IDictionary<NonAdoptableFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =
                 ExportableFailureMechanismSectionHelper.CreateFailureMechanismSectionResultLookup(failureMechanismSectionResults);
 
             var exportableResults = new List<ExportableAggregatedFailureMechanismSectionAssemblyResult>();
-            foreach (KeyValuePair<PipingStructureFailureMechanismSectionResultOld, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
+            foreach (KeyValuePair<NonAdoptableFailureMechanismSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
                 const FailureMechanismSectionAssemblyCategoryGroup simpleAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;
                 const FailureMechanismSectionAssemblyCategoryGroup detailedAssembly = FailureMechanismSectionAssemblyCategoryGroup.None;

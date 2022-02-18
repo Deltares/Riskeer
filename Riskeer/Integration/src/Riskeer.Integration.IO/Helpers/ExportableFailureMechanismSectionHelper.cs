@@ -43,7 +43,7 @@ namespace Riskeer.Integration.IO.Helpers
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionResults"/> is <c>null</c>.</exception>
         public static IDictionary<TSectionResult, ExportableFailureMechanismSection> CreateFailureMechanismSectionResultLookup<TSectionResult>(
             IEnumerable<TSectionResult> failureMechanismSectionResults)
-            where TSectionResult : FailureMechanismSectionResultOld
+            where TSectionResult : FailureMechanismSectionResult
         {
             if (failureMechanismSectionResults == null)
             {
