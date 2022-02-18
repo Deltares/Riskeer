@@ -33,7 +33,7 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of failure mechanism.</typeparam>
     public class NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism> : FailureMechanismResultView<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow, TFailureMechanism>
-        where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+        where TFailureMechanism : IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultProfileProbabilityIndex = 3;
