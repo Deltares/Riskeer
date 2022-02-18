@@ -1077,7 +1077,7 @@ namespace Riskeer.Integration.Plugin
         private ViewInfo<TContext, IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>, NonAdoptableFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
             Func<TFailureMechanism, double> getNFunc)
             where TContext : FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
-            where TFailureMechanism : class, IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
+            where TFailureMechanism : class, IHasSectionResults<NonAdoptableFailureMechanismSectionResult>
         {
             return new RiskeerViewInfo<
                 TContext,
@@ -1096,7 +1096,7 @@ namespace Riskeer.Integration.Plugin
         private ViewInfo<TContext, IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
             Func<TFailureMechanism, double> getNFunc, Func<TFailureMechanism, bool> getUseLengthEffectFunc)
             where TContext : FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
-            where TFailureMechanism : class, IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, IHasGeneralInput
+            where TFailureMechanism : class, IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, IHasGeneralInput
         {
             return new RiskeerViewInfo<
                 TContext,
@@ -1406,7 +1406,7 @@ namespace Riskeer.Integration.Plugin
         private ViewInfo<TFailureMechanismContext, TFailureMechanism, StandAloneFailureMechanismView<TFailureMechanism, TSectionResult>> CreateFailureMechanismWithDetailedAssessmentViewInfo<
             TFailureMechanismContext, TFailureMechanism, TSectionResult>(Func<TFailureMechanismContext, TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
             where TSectionResult : FailureMechanismSectionResult
-            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>
+            where TFailureMechanism : FailureMechanismBase, IHasSectionResults<TSectionResult>
             where TFailureMechanismContext : IFailurePathContext<TFailureMechanism>
         {
             return new RiskeerViewInfo<TFailureMechanismContext, TFailureMechanism,
@@ -1425,7 +1425,7 @@ namespace Riskeer.Integration.Plugin
         #region FailureMechanismResults ViewInfo
 
         private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TSectionResult, TView, TSectionResultRow>(TView view, object dataToCloseFor)
-            where TFailureMechanism : class, IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>
+            where TFailureMechanism : class, IHasSectionResults<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
             where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
             where TView : FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism>

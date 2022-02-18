@@ -121,7 +121,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     });
 
                 // Assert
-                IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults = ((IHasSectionResults<FailureMechanismSectionResultOld, FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults;
+                IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults = ((IHasSectionResults<FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults;
                 AssertSections(failureMechanismSectionResults, inputs.Single());
             }
         }

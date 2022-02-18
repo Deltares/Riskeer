@@ -37,7 +37,7 @@ namespace Riskeer.Integration.Forms.Views
     /// This class is a view showing map data for a stand alone failure mechanism.
     /// </summary>
     public partial class StandAloneFailureMechanismView<TFailureMechanism, TSectionResult> : UserControl, IMapView
-        where TFailureMechanism : IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>
+        where TFailureMechanism : IHasSectionResults<TSectionResult>
         where TSectionResult : FailureMechanismSectionResult
     {
         private readonly Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc;

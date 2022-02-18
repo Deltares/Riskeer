@@ -188,7 +188,7 @@ namespace Riskeer.Integration.Forms.Observers
         }
 
         private Observer CreateCalculatableFailureMechanismObserver<TFailureMechanism, TSectionResult, TCalculation>(TFailureMechanism failureMechanism)
-            where TFailureMechanism : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>, ICalculatableFailureMechanism
+            where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism
             where TSectionResult : FailureMechanismSectionResult
             where TCalculation : ICalculation<ICalculationInput>
         {
@@ -200,7 +200,7 @@ namespace Riskeer.Integration.Forms.Observers
         }
 
         private Observer CreateFailureMechanismObserver<TFailureMechanism, TSectionResult>(TFailureMechanism failureMechanism)
-            where TFailureMechanism : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>
+            where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             return new Observer(NotifyObservers)
