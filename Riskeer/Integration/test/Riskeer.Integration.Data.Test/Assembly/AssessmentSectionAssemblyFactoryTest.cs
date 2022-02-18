@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
-using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
@@ -289,14 +288,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
         #region Helpers
 
-        private static AssessmentSection CreateAssessmentSectionWithFailureMechanismsNotPartOfAssembly()
-        {
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.GetFailureMechanisms().ForEachElementDo(fm => fm.InAssembly = false);
-            return assessmentSection;
-        }
-
-        private static CombinedFailureMechanismSectionAssembly CreateCombinedFailureMechanismSectionAssembly(AssessmentSection assessmentSection, int seed)
+        private static CombinedFailureMechanismSectionAssembly CreateCombinedFailureMechanismSectionAssembly(
+            IAssessmentSection assessmentSection, int seed)
         {
             var random = new Random(seed);
             return new CombinedFailureMechanismSectionAssembly(
@@ -307,69 +300,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
                                  .ToArray());
         }
 
-        private static void AssertGroup1And2FailureMechanismInputs(AssessmentSection assessmentSection,
-                                                                   FailureMechanismAssembly expectedFailureMechanismAssembly,
-                                                                   AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator)
-        {
-            IEnumerable<IFailureMechanism> expectedFailureMechanisms = GetExpectedGroup1And2FailureMechanisms(assessmentSection);
-            IEnumerable<FailureMechanismAssembly> failureMechanismAssemblyInput = assessmentSectionAssemblyCalculator.FailureMechanismAssemblyInput;
-            Assert.AreEqual(expectedFailureMechanisms.Count(), failureMechanismAssemblyInput.Count());
-            foreach (FailureMechanismAssembly failureMechanismAssembly in failureMechanismAssemblyInput)
-            {
-                Assert.AreEqual(expectedFailureMechanismAssembly.Group, failureMechanismAssembly.Group);
-                Assert.AreEqual(expectedFailureMechanismAssembly.Probability, failureMechanismAssembly.Probability);
-            }
-        }
-
-        private static void AssertGroup3And4FailureMechanismInputs(AssessmentSection assessmentSection,
-                                                                   FailureMechanismAssemblyCategoryGroup expectedAssemblyCategoryGroup,
-                                                                   AssessmentSectionAssemblyCalculatorStubOld assessmentSectionAssemblyCalculator)
-        {
-            IEnumerable<IFailureMechanism> expectedFailureMechanisms = GetExpectedGroup3And4FailureMechanisms(assessmentSection);
-            IEnumerable<FailureMechanismAssemblyCategoryGroup> failureMechanismAssemblyInput =
-                assessmentSectionAssemblyCalculator.FailureMechanismAssemblyCategoryGroupInput;
-            Assert.AreEqual(expectedFailureMechanisms.Count(), failureMechanismAssemblyInput.Count());
-            Assert.IsTrue(failureMechanismAssemblyInput.All(i => i == expectedAssemblyCategoryGroup));
-        }
-
         private static AssessmentSection CreateAssessmentSection()
         {
             var random = new Random(21);
             return new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-        }
-
-        private static IEnumerable<IFailureMechanism> GetExpectedGroup1And2FailureMechanisms(AssessmentSection assessmentSection)
-        {
-            return new IFailureMechanism[]
-            {
-                assessmentSection.GrassCoverErosionInwards,
-                assessmentSection.HeightStructures,
-                assessmentSection.ClosingStructures,
-                assessmentSection.StabilityPointStructures,
-                assessmentSection.Piping,
-                assessmentSection.MacroStabilityInwards
-            };
-        }
-
-        private static IEnumerable<IFailureMechanism> GetExpectedGroup3And4FailureMechanisms(AssessmentSection assessmentSection)
-        {
-            return new IFailureMechanism[]
-            {
-                assessmentSection.StabilityStoneCover,
-                assessmentSection.WaveImpactAsphaltCover,
-                assessmentSection.GrassCoverErosionOutwards,
-                assessmentSection.DuneErosion,
-                assessmentSection.Microstability,
-                assessmentSection.WaterPressureAsphaltCover,
-                assessmentSection.GrassCoverSlipOffOutwards,
-                assessmentSection.GrassCoverSlipOffInwards,
-                assessmentSection.PipingStructure
-            };
-        }
-
-        private static T GetFailureMechanismSectionResult<T>(IHasSectionResults<T> failureMechanism) where T : FailureMechanismSectionResultOld
-        {
-            return failureMechanism.SectionResultsOld.Single();
         }
 
         #endregion
