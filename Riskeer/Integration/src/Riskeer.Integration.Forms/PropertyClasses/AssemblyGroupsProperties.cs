@@ -34,7 +34,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of a collection of <see cref="FailureMechanismSectionAssemblyCategory"/> for properties panel.
+    /// ViewModel of a collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/> for properties panel.
     /// </summary>
     public class AssemblyGroupsProperties : ObjectProperties<AssessmentSection>
     {
@@ -43,8 +43,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyGroupsProperties"/>.
         /// </summary>
-        /// <param name="assessmentSection">The collection of <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="assessmentSection"/> is <c>null</c>.</exception>
         public AssemblyGroupsProperties(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
