@@ -251,7 +251,7 @@ namespace Riskeer.Common.Forms.Test.Views
             return (DataGridView) new ControlTester("dataGridView").TheObject;
         }
 
-        private class TestNonAdoptableFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
+        private class TestNonAdoptableFailureMechanism : FailureMechanismBase, IHasSectionResults< NonAdoptableFailureMechanismSectionResult>
         {
             private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
 
@@ -261,7 +261,6 @@ namespace Riskeer.Common.Forms.Test.Views
             }
 
             public override IEnumerable<ICalculation> Calculations { get; }
-            public IObservableEnumerable<FailureMechanismSectionResultOld> SectionResultsOld { get; }
             public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
             protected override void AddSectionDependentData(FailureMechanismSection section)

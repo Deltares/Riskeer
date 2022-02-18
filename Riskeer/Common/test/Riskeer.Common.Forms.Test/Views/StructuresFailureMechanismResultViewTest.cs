@@ -115,7 +115,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             using (var view = new StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<AdoptableFailureMechanismSectionResult,
@@ -418,7 +418,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         private class TestStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism,
-                                                       IHasSectionResults<FailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
+                                                       IHasSectionResults<AdoptableFailureMechanismSectionResult>
         {
             private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
 
@@ -432,7 +432,7 @@ namespace Riskeer.Common.Forms.Test.Views
             public CalculationGroup CalculationsGroup { get; }
 
             public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
-            public IObservableEnumerable<FailureMechanismSectionResultOld> SectionResultsOld { get; }
+
             public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
             protected override void AddSectionDependentData(FailureMechanismSection section)

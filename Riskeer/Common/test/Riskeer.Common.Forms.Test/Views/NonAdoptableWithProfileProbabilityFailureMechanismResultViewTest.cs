@@ -338,7 +338,7 @@ namespace Riskeer.Common.Forms.Test.Views
             return failureMechanismResultView;
         }
 
-        private class TestNonAdoptableWithProfileProbabilityFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+        private class TestNonAdoptableWithProfileProbabilityFailureMechanism : FailureMechanismBase, IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
             private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
@@ -350,7 +350,6 @@ namespace Riskeer.Common.Forms.Test.Views
             public bool UseLengthEffect { get; set; }
 
             public override IEnumerable<ICalculation> Calculations { get; }
-            public IObservableEnumerable<FailureMechanismSectionResultOld> SectionResultsOld { get; }
             public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
             protected override void AddSectionDependentData(FailureMechanismSection section)
