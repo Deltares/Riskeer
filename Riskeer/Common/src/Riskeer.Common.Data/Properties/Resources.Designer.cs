@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -393,15 +393,6 @@ namespace Riskeer.Common.Data.Properties {
         public static string FailureMechanism_Calculations_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanism_Calculations_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Voor een of meerdere vakken kan geen resultaat worden bepaald..
-        /// </summary>
-        public static string FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism {
-            get {
-                return ResourceManager.GetString("FailureMechanismAssemblyFactory_Error_while_assembling_failureMechanism", resourceCulture);
             }
         }
         
