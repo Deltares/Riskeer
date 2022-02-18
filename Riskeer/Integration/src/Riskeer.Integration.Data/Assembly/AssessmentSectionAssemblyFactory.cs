@@ -50,79 +50,6 @@ namespace Riskeer.Integration.Data.Assembly
     public static class AssessmentSectionAssemblyFactory
     {
         /// <summary>
-        /// Assembles the results of the failure mechanisms with probability within the assessment sections.
-        /// </summary>
-        /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
-        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
-        /// <returns>A <see cref="FailureMechanismAssembly"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when <see cref="FailureMechanismAssembly"/> cannot be created.</exception>
-        public static FailureMechanismAssembly AssembleFailureMechanismsWithProbability(AssessmentSection assessmentSection,
-                                                                                        bool useManual)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            try
-            {
-                IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
-                IAssessmentSectionAssemblyCalculatorOld calculator =
-                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
-
-                FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                return calculator.AssembleFailureMechanisms(GetFailureMechanismWithProbabilityAssemblyResults(assessmentSection, useManual),
-                                                            failureMechanismContribution.SignalingNorm,
-                                                            failureMechanismContribution.LowerLimitNorm,
-                                                            assessmentSection.FailureProbabilityMarginFactor);
-            }
-            catch (AssessmentSectionAssemblyCalculatorException e)
-            {
-                throw new AssemblyException(e.Message, e);
-            }
-            catch (AssemblyException e)
-            {
-                throw new AssemblyException(Resources.AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims, e);
-            }
-        }
-
-        /// <summary>
-        /// Assembles the results of failure mechanisms without probability within the assessment section.
-        /// </summary>
-        /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
-        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
-        /// <returns>A <see cref="FailureMechanismAssemblyCategoryGroup"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when <see cref="AssessmentSectionAssemblyCategoryGroup"/> cannot be created.</exception>
-        public static FailureMechanismAssemblyCategoryGroup AssembleFailureMechanismsWithoutProbability(AssessmentSection assessmentSection,
-                                                                                                        bool useManual)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            try
-            {
-                IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
-                IAssessmentSectionAssemblyCalculatorOld calculator =
-                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
-
-                return calculator.AssembleFailureMechanisms(GetFailureMechanismsWithoutProbabilityAssemblyResults(assessmentSection,
-                                                                                                                  useManual));
-            }
-            catch (AssessmentSectionAssemblyCalculatorException e)
-            {
-                throw new AssemblyException(e.Message, e);
-            }
-            catch (AssemblyException e)
-            {
-                throw new AssemblyException(Resources.AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims, e);
-            }
-        }
-
-        /// <summary>
         /// Assembles the assessment section.
         /// </summary>
         /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
@@ -153,37 +80,6 @@ namespace Riskeer.Integration.Data.Assembly
             catch (AssemblyException e)
             {
                 throw new AssemblyException(Resources.AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims, e);
-            }
-        }
-        
-        /// <summary>
-        /// Assembles the assessment section.
-        /// </summary>
-        /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
-        /// <param name="useManual">Indicator that determines whether the manual assembly should be considered when assembling the result.</param>
-        /// <returns>A <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        /// <exception cref="AssemblyException">Thrown when <see cref="AssessmentSectionAssemblyCategoryGroup"/> cannot be created.</exception>
-        public static AssessmentSectionAssemblyCategoryGroup AssembleAssessmentSection(AssessmentSection assessmentSection,
-                                                                                       bool useManual)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            try
-            {
-                IAssemblyToolCalculatorFactoryOld calculatorFactory = AssemblyToolCalculatorFactoryOld.Instance;
-                IAssessmentSectionAssemblyCalculatorOld calculator =
-                    calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
-
-                return calculator.AssembleAssessmentSection(AssembleFailureMechanismsWithoutProbability(assessmentSection, useManual),
-                                                            AssembleFailureMechanismsWithProbability(assessmentSection, useManual));
-            }
-            catch (AssessmentSectionAssemblyCalculatorException e)
-            {
-                throw new AssemblyException(e.Message, e);
             }
         }
 
@@ -262,37 +158,6 @@ namespace Riskeer.Integration.Data.Assembly
                 StandAloneFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection),
                 StandAloneFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Microstability, assessmentSection),
                 StandAloneFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaterPressureAsphaltCover, assessmentSection)
-            };
-        }
-        
-        private static IEnumerable<FailureMechanismAssembly> GetFailureMechanismWithProbabilityAssemblyResults(AssessmentSection assessmentSection,
-                                                                                                               bool useManual)
-        {
-            return new[]
-            {
-                GrassCoverErosionInwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection, useManual),
-                HeightStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.HeightStructures, assessmentSection, useManual),
-                ClosingStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.ClosingStructures, assessmentSection, useManual),
-                StabilityPointStructuresFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection, useManual),
-                PipingFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.Piping, assessmentSection, useManual),
-                MacroStabilityInwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection, useManual)
-            };
-        }
-
-        private static IEnumerable<FailureMechanismAssemblyCategoryGroup> GetFailureMechanismsWithoutProbabilityAssemblyResults(AssessmentSection assessmentSection,
-                                                                                                                                bool useManual)
-        {
-            return new[]
-            {
-                StabilityStoneCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.StabilityStoneCover, useManual),
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.WaveImpactAsphaltCover, useManual),
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.GrassCoverErosionOutwards, useManual),
-                DuneErosionFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.DuneErosion, useManual),
-                MicrostabilityFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.Microstability, useManual),
-                WaterPressureAsphaltCoverFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.WaterPressureAsphaltCover, useManual),
-                GrassCoverSlipOffOutwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, useManual),
-                GrassCoverSlipOffInwardsFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, useManual),
-                PipingStructureFailureMechanismAssemblyFactoryOld.AssembleFailureMechanism(assessmentSection.PipingStructure, useManual)
             };
         }
     }
