@@ -44,7 +44,6 @@ namespace Riskeer.Common.Forms.Factories
         {
             return new MapTheme<LineCategoryTheme>(Resources.AssemblyGroup_DisplayName, new[]
             {
-                CreateCategoryTheme(Color.FromArgb(255, 192, 192, 192), DisplayFailureMechanismSectionAssemblyGroup.NotDominant),
                 CreateCategoryTheme(Color.FromArgb(255, 34, 139, 34), DisplayFailureMechanismSectionAssemblyGroup.III),
                 CreateCategoryTheme(Color.FromArgb(255, 146, 208, 80), DisplayFailureMechanismSectionAssemblyGroup.II),
                 CreateCategoryTheme(Color.FromArgb(255, 198, 224, 180), DisplayFailureMechanismSectionAssemblyGroup.I),
@@ -53,6 +52,7 @@ namespace Riskeer.Common.Forms.Factories
                 CreateCategoryTheme(Color.FromArgb(255, 255, 0, 0), DisplayFailureMechanismSectionAssemblyGroup.IIMin),
                 CreateCategoryTheme(Color.FromArgb(255, 178, 34, 34), DisplayFailureMechanismSectionAssemblyGroup.IIIMin),
                 CreateCategoryTheme(Color.FromArgb(255, 255, 90, 172), DisplayFailureMechanismSectionAssemblyGroup.Dominant),
+                CreateCategoryTheme(Color.FromArgb(255, 192, 192, 192), DisplayFailureMechanismSectionAssemblyGroup.NotDominant),
                 CreateCategoryTheme(Color.FromArgb(0, 0, 0, 0), DisplayFailureMechanismSectionAssemblyGroup.GR)
             });
         }
