@@ -139,28 +139,6 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_WithManualAssemblyResult_LogsWarning()
-        {
-            // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(Export_WithManualAssemblyResult_LogsWarning));
-            AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
-            assessmentSection.Piping.SectionResultsOld.First().UseManualAssembly = true;
-
-            var exporter = new AssemblyExporter(assessmentSection, filePath);
-
-            using (new FileDisposeHelper(filePath))
-            using (new AssemblyToolCalculatorFactoryConfigOld())
-            {
-                // Call
-                Action call = () => exporter.Export();
-
-                // Assert
-                const string expectedMessage = "Veiligheidsoordeel is (deels) gebaseerd op handmatig ingevoerde toetsoordelen. Tijdens het exporteren worden handmatig ingevoerde toetsoordelen genegeerd.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Warn));
-            }
-        }
-
-        [Test]
         public void Export_AssemblyCreatorExceptionThrown_LogsErrorAndReturnsFalse()
         {
             // Setup
