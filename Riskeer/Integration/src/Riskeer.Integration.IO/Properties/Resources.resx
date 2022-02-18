@@ -150,9 +150,6 @@
   <data name="AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResult" xml:space="preserve">
     <value>Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd.</value>
   </data>
-  <data name="AssemblyExporter_CheckManualAssembly_Assembly_result_contains_manual_results_exporter_will_ignore_manual_results" xml:space="preserve">
-    <value>Veiligheidsoordeel is (deels) gebaseerd op handmatig ingevoerde toetsoordelen. Tijdens het exporteren worden handmatig ingevoerde toetsoordelen genegeerd.</value>
-  </data>
   <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file" xml:space="preserve">
     <value>Inlezen van het hydraulische belastingen bestand.</value>
   </data>

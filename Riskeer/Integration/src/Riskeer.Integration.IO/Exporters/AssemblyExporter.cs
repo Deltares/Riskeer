@@ -28,7 +28,6 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Exceptions;
@@ -68,8 +67,6 @@ namespace Riskeer.Integration.IO.Exporters
 
         public bool Export()
         {
-            CheckManualAssembly();
-
             ExportableAssessmentSection exportableAssessmentSection = CreateExportableAssessmentSection();
             if (!ValidateExportableAssessmentSection(exportableAssessmentSection))
             {
@@ -94,14 +91,6 @@ namespace Riskeer.Integration.IO.Exporters
             }
 
             return true;
-        }
-
-        private void CheckManualAssembly()
-        {
-            if (AssessmentSectionHelper.HasManualAssemblyResults(assessmentSection))
-            {
-                log.Warn(Resources.AssemblyExporter_CheckManualAssembly_Assembly_result_contains_manual_results_exporter_will_ignore_manual_results);
-            }
         }
 
         private ExportableAssessmentSection CreateExportableAssessmentSection()
