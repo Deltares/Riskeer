@@ -1346,8 +1346,14 @@ Betrouwbaarheidsindex = {1}</value>
     <data name="AssemblyCategory_LowerBoundary_DisplayName" xml:space="preserve">
     <value>Ondergrens [1/jaar]</value>
   </data>
+    <data name="AssemblyCategory_LowerBoundary_Description" xml:space="preserve">
+    <value>Ondergrens van de duidingsklasse.</value>
+  </data>
     <data name="AssemblyCategory_UpperBoundary_DisplayName" xml:space="preserve">
     <value>Bovengrens [1/jaar]</value>
+  </data>
+    <data name="AssemblyCategory_UpperBoundary_Description" xml:space="preserve">
+    <value>Bovengrens van de duidingsklasse.</value>
   </data>
     <data name="DesignWaterLevelCalculation_Result_Description" xml:space="preserve">
     <value>Berekende waterstand.</value>
@@ -1623,5 +1629,11 @@ faalkans per vak
     </data>
     <data name="AssemblyGroups_DisplayName" xml:space="preserve">
     <value>Duidingsklassen</value>
+  </data>
+    <data name="AssemblyGroup_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+    <data name="AssemblyGroup_Name_Description" xml:space="preserve">
+    <value>Naam van de duidingsklasse.</value>
   </data>
 </root>

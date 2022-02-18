@@ -110,11 +110,29 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ondergrens van de duidingsklasse..
+        /// </summary>
+        public static string AssemblyCategory_LowerBoundary_Description {
+            get {
+                return ResourceManager.GetString("AssemblyCategory_LowerBoundary_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ondergrens [1/jaar].
         /// </summary>
         public static string AssemblyCategory_LowerBoundary_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyCategory_LowerBoundary_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bovengrens van de duidingsklasse..
+        /// </summary>
+        public static string AssemblyCategory_UpperBoundary_Description {
+            get {
+                return ResourceManager.GetString("AssemblyCategory_UpperBoundary_Description", resourceCulture);
             }
         }
         
@@ -142,6 +160,24 @@ namespace Riskeer.Common.Forms.Properties {
         public static string AssemblyGroup_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyGroup_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van de duidingsklasse..
+        /// </summary>
+        public static string AssemblyGroup_Name_Description {
+            get {
+                return ResourceManager.GetString("AssemblyGroup_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string AssemblyGroup_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyGroup_Name_DisplayName", resourceCulture);
             }
         }
         

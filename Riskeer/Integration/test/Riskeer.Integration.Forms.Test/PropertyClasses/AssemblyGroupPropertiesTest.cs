@@ -1,0 +1,127 @@
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+//
+// This file is part of Riskeer.
+//
+// Riskeer is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.ComponentModel;
+using Core.Common.TestUtil;
+using Core.Common.Util;
+using Core.Gui.PropertyBag;
+using Core.Gui.TestUtil;
+using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Forms.PropertyClasses;
+
+namespace Riskeer.Integration.Forms.Test.PropertyClasses
+{
+    [TestFixture]
+    public class AssemblyGroupPropertiesTest
+    {
+        [Test]
+        public void Constructor_AssemblyGroupBoundariesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new AssemblyGroupProperties(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assemblyGroupBoundaries", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_ValidParameters_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(39);
+            var assemblyCategory = new FailureMechanismSectionAssemblyGroupBoundaries(random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                                                                                      random.NextDouble(),
+                                                                                      random.NextDouble());
+
+            // Call
+            var properties = new AssemblyGroupProperties(assemblyCategory);
+
+            // Assert
+            Assert.IsInstanceOf<ObjectProperties<FailureMechanismSectionAssemblyGroupBoundaries>>(properties);
+            Assert.AreSame(assemblyCategory, properties.Data);
+            TestHelper.AssertTypeConverter<AssemblyGroupProperties, ExpandableObjectConverter>();
+
+            Assert.AreEqual(assemblyCategory.Group, properties.Group);
+            Assert.AreEqual(assemblyCategory.LowerBoundary, properties.LowerBoundary);
+            Assert.AreEqual(assemblyCategory.UpperBoundary, properties.UpperBoundary);
+        }
+
+        [Test]
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        {
+            // Setup
+            var random = new Random(39);
+            var assemblyCategory = new FailureMechanismSectionAssemblyGroupBoundaries(random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                                                                                      random.NextDouble(),
+                                                                                      random.NextDouble());
+
+            // Call
+            var properties = new AssemblyGroupProperties(assemblyCategory);
+            // Assert
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
+
+            const string generalCategoryName = "Algemeen";
+
+            PropertyDescriptor nameProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategoryName,
+                                                                            "Naam",
+                                                                            "Naam van de duidingsklasse.",
+                                                                            true);
+
+            PropertyDescriptor lowerBoundaryProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerBoundaryProperty,
+                                                                            generalCategoryName,
+                                                                            "Ondergrens [1/jaar]",
+                                                                            "Ondergrens van de duidingsklasse.",
+                                                                            true);
+
+            PropertyDescriptor upperBoundaryProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryProperty,
+                                                                            generalCategoryName,
+                                                                            "Bovengrens [1/jaar]",
+                                                                            "Bovengrens van de duidingsklasse.",
+                                                                            true);
+        }
+
+        [Test]
+        public void ToString_Always_ReturnsCategoryGroupDisplayName()
+        {
+            // Setup
+            var random = new Random(39);
+            var categoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var properties = new AssemblyGroupProperties(new FailureMechanismSectionAssemblyGroupBoundaries(categoryGroup,
+                                                                                                            random.NextDouble(),
+                                                                                                            random.NextDouble()));
+
+            // Call
+            var result = properties.ToString();
+
+            // Assert
+            Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismSectionAssemblyGroup>(categoryGroup).DisplayName,
+                            result);
+        }
+    }
+}
