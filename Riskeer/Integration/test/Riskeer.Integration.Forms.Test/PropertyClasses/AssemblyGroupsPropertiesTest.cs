@@ -77,7 +77,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureMechanismSectionCategoriesProperty,
                                                                             generalCategoryName,
                                                                             "Duidingsklassen",
-                                                                            "Duidingsklassen",
+                                                                            "De duidingsklassen per vak voor dit toetsspoor.",
                                                                             true);
         }
     }

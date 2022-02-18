@@ -182,6 +182,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De duidingsklassen per vak voor dit toetsspoor..
+        /// </summary>
+        public static string AssemblyGroups_Description {
+            get {
+                return ResourceManager.GetString("AssemblyGroups_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duidingsklassen.
         /// </summary>
         public static string AssemblyGroups_DisplayName {

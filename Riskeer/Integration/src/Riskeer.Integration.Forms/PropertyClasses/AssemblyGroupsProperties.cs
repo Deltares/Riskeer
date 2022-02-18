@@ -58,7 +58,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [PropertyOrder(failureMechanismSectionAssemblyCategoryPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyGroups_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyGroups_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyGroups_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         public AssemblyGroupProperties[] FailureMechanismAssemblyGroups
         {
@@ -70,10 +70,13 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         private AssemblyGroupProperties[] GetFailureMechanismAssemblyGroups()
         {
-            var assessmentSection = Data as AssessmentSection;
+            if (Data is AssessmentSection assessmentSection)
+            {
+                return AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(
+                    assessmentSection.FailureMechanismContribution.SignalingNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm).Select(category => new AssemblyGroupProperties(category)).ToArray();
+            }
 
-            return AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(
-                assessmentSection.FailureMechanismContribution.SignalingNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm).Select(category => new AssemblyGroupProperties(category)).ToArray();
+            return Array.Empty<AssemblyGroupProperties>();
         }
     }
 }
