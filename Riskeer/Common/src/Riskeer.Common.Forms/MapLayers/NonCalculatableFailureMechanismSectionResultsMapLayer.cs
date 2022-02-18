@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.MapLayers
     {
         private readonly Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc;
 
-        private readonly IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult> failureMechanism;
+        private readonly IHasSectionResults<TSectionResult> failureMechanism;
 
         private Observer failureMechanismObserver;
         private RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> sectionResultObserver;
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.MapLayers
         /// <param name="performAssemblyFunc">The <see cref="Func{T1,TResult}"/> used to assemble the result of a section result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
         public NonCalculatableFailureMechanismSectionResultsMapLayer(
-            IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult> failureMechanism,
+            IHasSectionResults<TSectionResult> failureMechanism,
             Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
         {
             if (failureMechanism == null)

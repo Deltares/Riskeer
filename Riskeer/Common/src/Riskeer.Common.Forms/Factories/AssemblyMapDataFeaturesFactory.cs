@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<MapFeature> CreateAssemblyGroupFeatures<TSectionResult>(
-            IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult> failureMechanism,
+            IHasSectionResults<TSectionResult> failureMechanism,
             Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
             where TSectionResult : FailureMechanismSectionResult
         {

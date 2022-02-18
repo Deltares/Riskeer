@@ -37,10 +37,10 @@ namespace Riskeer.Common.Forms.Test.Observers
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(null);
+            void Call() => new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -73,29 +73,6 @@ namespace Riskeer.Common.Forms.Test.Observers
 
                 // When
                 failureMechanism.NotifyObservers();
-
-                // Then
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void GivenFailureMechanismResultObserverWithAttachedObserver_WhenFailureMechanismSectionResultCollectionNotifiesObservers_ThenAttachedObserverNotified()
-        {
-            // Given
-            var failureMechanism = new TestFailureMechanism();
-
-            using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism))
-            {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
-                resultObserver.Attach(observer);
-
-                // When
-                failureMechanism.SectionResultsOld.NotifyObservers();
 
                 // Then
                 mocks.VerifyAll();

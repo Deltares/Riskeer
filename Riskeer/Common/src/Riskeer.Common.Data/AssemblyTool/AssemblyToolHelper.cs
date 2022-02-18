@@ -79,7 +79,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// or <paramref name="performSectionAssemblyFunc"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>
         public static double AssemblyFailureMechanism<TSectionResult>(
-            IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult> failureMechanism,
+            IHasSectionResults<TSectionResult> failureMechanism,
             Func<TSectionResult, FailureMechanismSectionAssemblyResult> performSectionAssemblyFunc,
             double failureMechanismN)
             where TSectionResult : FailureMechanismSectionResult

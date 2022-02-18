@@ -35,7 +35,7 @@ namespace Riskeer.Common.Forms.Observers
     /// <typeparam name="TCalculation">The type of the calculations in the <typeparamref name="TFailureMechanism"/>.</typeparam>
     public class CalculatableFailureMechanismResultObserver<TFailureMechanism, TSectionResult, TCalculation>
         : FailureMechanismResultObserver<TFailureMechanism, TSectionResult>
-        where TFailureMechanism : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResultOld, TSectionResult>, ICalculatableFailureMechanism
+        where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism
         where TSectionResult : FailureMechanismSectionResult
         where TCalculation : ICalculation<ICalculationInput>
     {
