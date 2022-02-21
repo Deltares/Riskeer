@@ -142,7 +142,7 @@ namespace Riskeer.Integration.Forms.Views
                                                  true);
 
             dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismAssemblyResultRow.Probability),
-                                                 Resources.AssemblyResultTotalView_Probability_DisplayName,
+                                                 Resources.AssemblyResult_Probability_DisplayName,
                                                  true);
 
             SetDataSource();

@@ -253,8 +253,8 @@
   <data name="ReferenceLineProperties_Geometry_Description" xml:space="preserve">
     <value>Lijst van alle coördinaten (X-coördinaat, Y-coördinaat) die samen de referentielijn vormen.</value>
   </data>
-  <data name="AssemblyResultTotalView_Probability_DisplayName" xml:space="preserve">
-    <value>Benaderde faalkans [1/jaar]</value>
+  <data name="AssemblyResult_Probability_DisplayName" xml:space="preserve">
+    <value>Faalkans [1/jaar]</value>
   </data>
   <data name="FailureMechanism_Name_DisplayName" xml:space="preserve">
     <value>Toetsspoor</value>
@@ -361,5 +361,8 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   </data>
   <data name="FailurePath_Code_Description" xml:space="preserve">
     <value>Het label van het faalpad.</value>
+  </data>
+  <data name="AssessmentSectionAssemblyResultControl_AssemblyCategoryGroup_DisplayName" xml:space="preserve">
+    <value>Veiligheidsoordeel</value>
   </data>
 </root>

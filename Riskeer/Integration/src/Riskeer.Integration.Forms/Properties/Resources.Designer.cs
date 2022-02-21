@@ -82,6 +82,15 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faalkans [1/jaar].
+        /// </summary>
+        public static string AssemblyResult_Probability_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResult_Probability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gecombineerd vakoordeel.
         /// </summary>
         public static string AssemblyResultPerSection_DisplayName {
@@ -96,15 +105,6 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string AssemblyResultPerSectionMapView_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyResultPerSectionMapView_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Benaderde faalkans [1/jaar].
-        /// </summary>
-        public static string AssemblyResultTotalView_Probability_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResultTotalView_Probability_DisplayName", resourceCulture);
             }
         }
         
@@ -151,6 +151,15 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string AssessmentSection_Name_DisplayName {
             get {
                 return ResourceManager.GetString("AssessmentSection_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veiligheidsoordeel.
+        /// </summary>
+        public static string AssessmentSectionAssemblyResultControl_AssemblyCategoryGroup_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionAssemblyResultControl_AssemblyCategoryGroup_DisplayName", resourceCulture);
             }
         }
         

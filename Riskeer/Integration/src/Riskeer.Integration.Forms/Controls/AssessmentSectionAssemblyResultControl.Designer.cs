@@ -22,6 +22,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
+using Riskeer.Integration.Forms.Properties;
 
 namespace Riskeer.Integration.Forms.Controls
 {
@@ -101,7 +102,7 @@ namespace Riskeer.Integration.Forms.Controls
             this.assemblyCategoryGroupDisplayNameLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.assemblyCategoryGroupDisplayNameLabel.Margin = new System.Windows.Forms.Padding(3);
             this.assemblyCategoryGroupDisplayNameLabel.TabIndex = 0;
-            this.assemblyCategoryGroupDisplayNameLabel.Text = "Veiligheidsoordeel";
+            this.assemblyCategoryGroupDisplayNameLabel.Text = Resources.AssessmentSectionAssemblyResultControl_AssemblyCategoryGroup_DisplayName;
             // 
             // assemblyProbabilityDisplayNameLabel
             // 
@@ -114,7 +115,7 @@ namespace Riskeer.Integration.Forms.Controls
             this.assemblyProbabilityDisplayNameLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.assemblyProbabilityDisplayNameLabel.Margin = new System.Windows.Forms.Padding(3);
             this.assemblyProbabilityDisplayNameLabel.TabIndex = 1;
-            this.assemblyProbabilityDisplayNameLabel.Text = "Faalkans";
+            this.assemblyProbabilityDisplayNameLabel.Text = Resources.AssemblyResult_Probability_DisplayName;
             // 
             // groupLabel
             // 
