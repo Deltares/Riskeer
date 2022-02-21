@@ -15,38 +15,42 @@ namespace Riskeer.Integration.Forms.Views
 {
     public partial class AssemblyResultsOverviewCanvasView : UserControl, IView
     {
-        private readonly Pen pen;
         private double widthPerMeter;
 
         public AssemblyResultsOverviewCanvasView(AssessmentSection assessmentSection)
         {
             AssessmentSection = assessmentSection;
             InitializeComponent();
-            
-            pen = new Pen(Color.Black, 2);
         }
 
-        protected override void OnLoad(EventArgs e)
+        protected override void OnResize(EventArgs e)
         {
-            Graphics g = pictureBox.CreateGraphics();
-            
-            widthPerMeter = g.ClipBounds.Width / AssessmentSection.ReferenceLine.Length;
-            
-            var rowCounter = 0;
-            foreach (IFailureMechanism failureMechanism in AssessmentSection.GetFailureMechanisms().Where(fm => fm.InAssembly))
-            {
-                if (failureMechanism is PipingFailureMechanism piping)
-                {
-                    CreateRow(piping, PipingAssemblyFunc, rowCounter++, g);
-                }
+            Render();
+            base.OnResize(e);
+        }
 
-                if (failureMechanism is GrassCoverErosionInwardsFailureMechanism gekb)
+        private void Render()
+        {    
+            using (var image = new Bitmap(pictureBox.Width, pictureBox.Height))
+            using (var graphics = Graphics.FromImage(image))
+            using (var pen = new Pen(Color.Black, 2))
+            {
+                widthPerMeter = image.Width / AssessmentSection.ReferenceLine.Length;
+                var rowCounter = 0;
+                foreach (IFailureMechanism failureMechanism in AssessmentSection.GetFailureMechanisms().Where(fm => fm.InAssembly))
                 {
-                    CreateRow(gekb, GrassCoverErosionInwardsAssemblyFunc, rowCounter++, g);
+                    if (failureMechanism is PipingFailureMechanism piping)
+                    {
+                        CreateRow(piping, PipingAssemblyFunc, rowCounter++, graphics, pen);
+                    }
+                    if (failureMechanism is GrassCoverErosionInwardsFailureMechanism gekb)
+                    {
+                        CreateRow(gekb, GrassCoverErosionInwardsAssemblyFunc, rowCounter++, graphics, pen);
+                    }
                 }
+                pictureBox.Image?.Dispose();
+                pictureBox.Image = (Bitmap) image.Clone();
             }
-            
-            OnPaint(new PaintEventArgs(g, Rectangle.Ceiling(g.ClipBounds)));
         }
 
         public AssessmentSection AssessmentSection { get; }
@@ -55,17 +59,17 @@ namespace Riskeer.Integration.Forms.Views
 
         private void CreateRow<TFailureMechanism, TSectionResult>(TFailureMechanism failureMechanism,
                                                                   Func<TSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> performAssemblyFunc,
-                                                                  int rowNumber, Graphics graphics)
+                                                                  int rowNumber, Graphics graphics, Pen pen)
             where TFailureMechanism : IHasSectionResults<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
-            var height = 10;
+            var height = 30;
             var xPosition = 0;
             int yPosition = height * rowNumber;
             
-            graphics.DrawRectangle(pen, new Rectangle(xPosition, yPosition, 10, height));
+            graphics.DrawRectangle(pen, new Rectangle(xPosition, yPosition, 100, height));
 
-            xPosition = 10;
+            xPosition = 100;
 
             foreach (TSectionResult sectionResult in failureMechanism.SectionResults)
             {
@@ -73,6 +77,7 @@ namespace Riskeer.Integration.Forms.Views
                     sectionResult, sr => performAssemblyFunc(sr, AssessmentSection));
 
                 var sectionWidth = (int) (widthPerMeter * sectionResult.Section.Length);
+                graphics.DrawRectangle(pen, new Rectangle(xPosition, yPosition, sectionWidth, height));
                 graphics.FillRectangle(new SolidBrush(AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(
                                                           sectionAssemblyResult.AssemblyGroup)),
                                        xPosition, yPosition, sectionWidth, height);
