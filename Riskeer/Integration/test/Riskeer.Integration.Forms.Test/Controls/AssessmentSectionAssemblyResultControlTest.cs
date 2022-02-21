@@ -63,7 +63,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
                 Assert.AreEqual(new Padding(3), assemblyCategoryGroupDisplayNameLabel.Margin);
 
                 var failureProbabilityDisplayNameLabel = (Label) panel.GetControlFromPosition(0, 1);
-                Assert.AreEqual("Faalkans 1/jaar]", failureProbabilityDisplayNameLabel.Text);
+                Assert.AreEqual("Faalkans [1/jaar]", failureProbabilityDisplayNameLabel.Text);
                 Assert.IsTrue(failureProbabilityDisplayNameLabel.AutoSize);
                 Assert.AreEqual(DockStyle.Left, failureProbabilityDisplayNameLabel.Dock);
                 Assert.AreEqual(new Padding(5, 0, 5, 0), failureProbabilityDisplayNameLabel.Padding);
