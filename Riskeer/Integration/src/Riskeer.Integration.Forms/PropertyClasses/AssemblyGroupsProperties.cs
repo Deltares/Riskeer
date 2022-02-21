@@ -73,7 +73,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             if (Data is AssessmentSection assessmentSection)
             {
                 return AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(
-                    assessmentSection.FailureMechanismContribution.SignalingNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm).Select(category => new AssemblyGroupProperties(category)).ToArray();
+                    assessmentSection.FailureMechanismContribution.SignalingNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm)
+                                                         .Select(category => new AssemblyGroupProperties(category)).ToArray();
             }
 
             return Array.Empty<AssemblyGroupProperties>();
