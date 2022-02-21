@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -213,11 +213,11 @@ namespace Riskeer.Integration.Data.Assembly
 
         private static Func<AdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> ClosingStructuresAssemblyFunc =>
             (sectionResult, assessmentSection) => StructuresFailureMechanismAssemblyFactory.AssembleSection<ClosingStructuresInput>(
-                sectionResult, assessmentSection.HeightStructures, assessmentSection);
+                sectionResult, assessmentSection.ClosingStructures, assessmentSection);
 
         private static Func<AdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> StabilityPointStructuresAssemblyFunc =>
             (sectionResult, assessmentSection) => StructuresFailureMechanismAssemblyFactory.AssembleSection<StabilityPointStructuresInput>(
-                sectionResult, assessmentSection.HeightStructures, assessmentSection);
+                sectionResult, assessmentSection.StabilityPointStructures, assessmentSection);
 
         private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> GrassCoverErosionOutwardsAssemblyFunc =>
             (sectionResult, assessmentSection) => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(
