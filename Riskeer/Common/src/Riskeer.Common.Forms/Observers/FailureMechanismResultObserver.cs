@@ -27,7 +27,7 @@ namespace Riskeer.Common.Forms.Observers
 {
     /// <summary>
     /// Class that observes all objects in an <typeparamref name="TFailureMechanism"/> related to
-    /// its section results.
+    /// its assembly results.
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism to observe.</typeparam>
     /// <typeparam name="TSectionResult">The type of the section results in the failure mechanism.</typeparam>
@@ -36,6 +36,7 @@ namespace Riskeer.Common.Forms.Observers
         where TSectionResult : FailureMechanismSectionResult
     {
         private readonly Observer failureMechanismObserver;
+        private readonly Observer failureMechanismAssemblyResultObserver;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
 
         /// <summary>
@@ -55,6 +56,11 @@ namespace Riskeer.Common.Forms.Observers
                 Observable = failureMechanism
             };
 
+            failureMechanismAssemblyResultObserver = new Observer(NotifyObservers)
+            {
+                Observable = failureMechanism.AssemblyResult
+            };
+            
             failureMechanismSectionResultsObserver = new RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult>(
                 NotifyObservers,
                 sr => sr)
@@ -74,6 +80,7 @@ namespace Riskeer.Common.Forms.Observers
             if (disposing)
             {
                 failureMechanismObserver.Dispose();
+                failureMechanismAssemblyResultObserver.Dispose();
                 failureMechanismSectionResultsObserver.Dispose();
             }
         }

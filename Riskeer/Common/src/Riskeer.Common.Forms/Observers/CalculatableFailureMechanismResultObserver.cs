@@ -28,7 +28,7 @@ namespace Riskeer.Common.Forms.Observers
 {
     /// <summary>
     /// Class that observes all objects in an <typeparamref name="TFailureMechanism"/>
-    /// related to its section results.
+    /// related to its assembly results.
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism to listen to.</typeparam>
     /// <typeparam name="TSectionResult">The type of the failure mechanism section results in the <typeparamref name="TFailureMechanism"/>.</typeparam>
