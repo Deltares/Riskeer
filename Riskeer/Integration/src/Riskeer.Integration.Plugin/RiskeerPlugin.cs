@@ -480,6 +480,13 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultPerSectionMapView(context.WrappedData)
             };
 
+            yield return new RiskeerViewInfo<AssemblyOverviewContext, AssessmentSection, AssemblyResultsOverviewView>(() => Gui)
+            {
+                GetViewName = (view, context) => RiskeerFormsResources.AssemblyResultPerSectionMapView_DisplayName,
+                CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
+                CreateInstance = context => new AssemblyResultsOverviewView(context.WrappedData)
+            };
+
             yield return new RiskeerViewInfo<AssemblyGroupsContext, AssessmentSection, AssemblyGroupsView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyGroups_DisplayName,
@@ -1011,6 +1018,15 @@ namespace Riskeer.Integration.Plugin
             yield return new TreeNodeInfo<AssemblyResultPerSectionContext>
             {
                 Text = context => RiskeerFormsResources.AssemblyResultPerSection_DisplayName,
+                Image = context => Resources.AssemblyResultPerSection,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<AssemblyOverviewContext>
+            {
+                Text = context => "Overzicht",
                 Image = context => Resources.AssemblyResultPerSection,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
@@ -2741,6 +2757,7 @@ namespace Riskeer.Integration.Plugin
             AssessmentSection assessmentSection = context.WrappedData;
             return new object[]
             {
+                new AssemblyOverviewContext(assessmentSection),
                 new NormClassesContext(assessmentSection),
                 new AssemblyResultTotalContext(assessmentSection),
                 new AssemblyResultPerSectionContext(assessmentSection),
