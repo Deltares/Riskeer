@@ -27,6 +27,7 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Forms;
 using Riskeer.Integration.Forms.PropertyClasses;
 
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
@@ -62,13 +63,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.AreSame(assemblyCategory, properties.Data);
             TestHelper.AssertTypeConverter<AssemblyGroupProperties, ExpandableObjectConverter>();
 
-            Assert.AreEqual(assemblyCategory.Group, properties.Group);
+            Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyCategory.Group), properties.Group);
             Assert.AreEqual(assemblyCategory.LowerBoundary, properties.LowerBoundary);
             Assert.AreEqual(assemblyCategory.UpperBoundary, properties.UpperBoundary);
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             var random = new Random(39);
@@ -107,7 +108,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void ToString_Always_ReturnsCategoryGroupDisplayName()
+        public void ToString_Always_ReturnsAssemblyGroupDisplayName()
         {
             // Setup
             var random = new Random(39);
@@ -120,8 +121,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var result = properties.ToString();
 
             // Assert
-            Assert.AreEqual(new EnumDisplayWrapper<FailureMechanismSectionAssemblyGroup>(categoryGroup).DisplayName,
-                            result);
+            Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
+                                DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(categoryGroup)).DisplayName, result);
         }
     }
 }
