@@ -33,30 +33,6 @@ namespace Riskeer.Common.Forms.Test.Helpers
     public class AssemblyCategoryGroupColorHelperTest
     {
         [Test]
-        public void GetFailureMechanismSectionAssemblyCategoryGroupColor_WithInvalidFailureMechanismSectionAssemblyCategoryGroup_ThrowsInvalidEnumArgumentException()
-        {
-            // Call
-            TestDelegate test = () => AssemblyCategoryGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(
-                (FailureMechanismSectionAssemblyCategoryGroup) 99);
-
-            // Assert
-            const string expectedMessage = "The value of argument 'assemblyCategoryGroup' (99) is invalid for Enum type 'FailureMechanismSectionAssemblyCategoryGroup'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
-        [TestCaseSource(typeof(AssemblyCategoryColorTestHelper), nameof(AssemblyCategoryColorTestHelper.FailureMechanismSectionAssemblyCategoryGroupColorCases))]
-        public void GetFailureMechanismSectionAssemblyCategoryGroupColor_WithFailureMechanismSectionAssemblyCategoryGroup_ReturnsExpectedColor(
-            FailureMechanismSectionAssemblyCategoryGroup assemblyCategoryGroup, Color expectedColor)
-        {
-            // Call
-            Color color = AssemblyCategoryGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyCategoryGroup);
-
-            // Assert
-            Assert.AreEqual(expectedColor, color);
-        }
-
-        [Test]
         public void GetAssessmentSectionAssemblyCategoryGroupColor_WithInvalidAssessmentSectionAssemblyCategoryGroup_ThrowsInvalidEnumArgumentException()
         {
             // Call
@@ -75,30 +51,6 @@ namespace Riskeer.Common.Forms.Test.Helpers
         {
             // Call
             Color color = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(assemblyCategoryGroup);
-
-            // Assert
-            Assert.AreEqual(expectedColor, color);
-        }
-
-        [Test]
-        public void GetFailureMechanismAssemblyCategoryGroupColor_WithInvalidFailureMechanismSectionAssemblyCategoryGroup_ThrowsInvalidEnumArgumentException()
-        {
-            // Call
-            TestDelegate test = () => AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(
-                (FailureMechanismAssemblyCategoryGroup) 99);
-
-            // Assert
-            const string expectedMessage = "The value of argument 'assemblyCategoryGroup' (99) is invalid for Enum type 'FailureMechanismAssemblyCategoryGroup'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
-        [TestCaseSource(typeof(AssemblyCategoryColorTestHelper), nameof(AssemblyCategoryColorTestHelper.FailureMechanismAssemblyCategoryGroupColorCases))]
-        public void GetFailureMechanismAssemblyCategoryGroupColor_WithFailureMechanismSectionAssemblyCategoryGroup_ReturnsExpectedColor(
-            FailureMechanismAssemblyCategoryGroup assemblyCategoryGroup, Color expectedColor)
-        {
-            // Call
-            Color color = AssemblyCategoryGroupColorHelper.GetFailureMechanismAssemblyCategoryGroupColor(assemblyCategoryGroup);
 
             // Assert
             Assert.AreEqual(expectedColor, color);

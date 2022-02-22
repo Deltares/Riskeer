@@ -33,26 +33,6 @@ namespace Riskeer.Common.Forms.TestUtil
     {
         /// <summary>
         /// Gets a collection of test cases to test the colors belonging to various
-        /// <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> values.
-        /// </summary>
-        public static IEnumerable<TestCaseData> FailureMechanismSectionAssemblyCategoryGroupColorCases
-        {
-            get
-            {
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.NotApplicable, Color.FromArgb(255, 255, 255));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.None, Color.FromArgb(255, 255, 255));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.Iv, Color.FromArgb(0, 255, 0));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.IIv, Color.FromArgb(118, 147, 60));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.IIIv, Color.FromArgb(255, 255, 0));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.IVv, Color.FromArgb(204, 192, 218));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.Vv, Color.FromArgb(255, 153, 0));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.VIv, Color.FromArgb(255, 0, 0));
-                yield return new TestCaseData(FailureMechanismSectionAssemblyCategoryGroup.VIIv, Color.FromArgb(255, 255, 255));
-            }
-        }
-
-        /// <summary>
-        /// Gets a collection of test cases to test the colors belonging to various
         /// <see cref="AssessmentSectionAssemblyCategoryGroup"/> values.
         /// </summary>
         public static IEnumerable<TestCaseData> AssessmentSectionAssemblyCategoryGroupColorCases
@@ -67,26 +47,6 @@ namespace Riskeer.Common.Forms.TestUtil
                 yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.None, Color.White);
                 yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.NotAssessed, Color.White);
                 yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.NotApplicable, Color.White);
-            }
-        }
-
-        /// <summary>
-        /// Gets a collection of test cases to test the colors belong to various 
-        /// <see cref="FailureMechanismAssemblyCategoryGroup"/> values.
-        /// </summary>
-        public static IEnumerable<TestCaseData> FailureMechanismAssemblyCategoryGroupColorCases
-        {
-            get
-            {
-                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.NotApplicable, Color.FromArgb(255, 255, 255));
-                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.None, Color.FromArgb(255, 255, 255));
-                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.It, Color.FromArgb(0, 255, 0));
-                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.IIt, Color.FromArgb(118, 147, 60));
-                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.IIIt, Color.FromArgb(255, 255, 0));
-                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.IVt, Color.FromArgb(204, 192, 218));
-                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.Vt, Color.FromArgb(255, 153, 0));
-                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.VIt, Color.FromArgb(255, 0, 0));
-                yield return new TestCaseData(FailureMechanismAssemblyCategoryGroup.VIIt, Color.FromArgb(255, 255, 255));
             }
         }
     }
