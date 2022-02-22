@@ -12,7 +12,7 @@ namespace Riskeer.Integration.Forms.Views
             AssessmentSection = assessmentSection;
             InitializeComponent();
 
-            wpfElementHost.Child = new AssemblyOverviewControl(new AssemblyOverviewViewModel(assessmentSection));
+            wpfElementHost.Child = new AssemblyOverviewControl(assessmentSection);
         }
 
         public AssessmentSection AssessmentSection { get; }

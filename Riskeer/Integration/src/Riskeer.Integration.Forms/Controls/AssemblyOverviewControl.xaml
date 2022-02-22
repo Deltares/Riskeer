@@ -26,11 +26,13 @@ All rights reserved.
                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:controls="clr-namespace:Riskeer.Integration.Forms.Controls"
-                   mc:Ignorable="d"
-                   d:DataContext="{d:DesignInstance IsDesignTimeCreatable=False, Type={x:Type controls:AssemblyOverviewViewModel}}">
+                   mc:Ignorable="d">
 
-    <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <DataGrid Name="dataGrid" ItemsSource="{Binding CombinedAssemblyResults}" AutoGenerateColumns="true"
-                  CanUserResizeColumns="True" />
-    </DockPanel>
+    <Grid x:Name="gd" Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
+        <ScrollViewer HorizontalScrollBarVisibility="Visible">
+            <Canvas Width="{Binding ElementName=gd, Path=ActualWidth}"
+                    Height="{Binding ElementName=gd, Path=ActualHeight}"
+                    Name="canvas"/>
+        </ScrollViewer>
+    </Grid>
 </UserControl>
