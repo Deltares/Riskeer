@@ -34,9 +34,8 @@ namespace Riskeer.StabilityStoneCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Stability of Stone Cover failure mechanism.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
-        private readonly ObservableList<StabilityStoneCoverFailureMechanismSectionResultOld> sectionResultsOld;
         private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
@@ -45,7 +44,6 @@ namespace Riskeer.StabilityStoneCover.Data
         public StabilityStoneCoverFailureMechanism()
             : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code)
         {
-            sectionResultsOld = new ObservableList<StabilityStoneCoverFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
@@ -72,20 +70,16 @@ namespace Riskeer.StabilityStoneCover.Data
 
         public override IEnumerable<ICalculation> Calculations => WaveConditionsCalculationGroup.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>();
 
-        public IObservableEnumerable<StabilityStoneCoverFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
         public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new StabilityStoneCoverFailureMechanismSectionResultOld(section));
             sectionResults.Add(new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResultsOld.Clear();
             sectionResults.Clear();
         }
     }

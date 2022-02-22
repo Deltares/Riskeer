@@ -35,7 +35,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
     public class StabilityPointStructuresFailureMechanismTest
     {
         [Test]
-        public void DefaultConstructor_Always_PropertiesSet()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -43,7 +43,7 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<AdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Sterkte en stabiliteit puntconstructies", failureMechanism.Name);
             Assert.AreEqual("STKWp", failureMechanism.Code);
 
@@ -56,7 +56,6 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.StabilityPointStructures);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
 
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
@@ -75,9 +74,6 @@ namespace Riskeer.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
-            Assert.AreEqual(1, failureMechanism.SectionResultsOld.Count());
-            Assert.AreSame(section, failureMechanism.SectionResultsOld.First().Section);
-
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
         }
@@ -101,14 +97,12 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             });
 
             // Precondition
-            Assert.AreEqual(2, failureMechanism.SectionResultsOld.Count());
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 

@@ -25,16 +25,13 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Factories;
-using Riskeer.Piping.Data;
 
 namespace Riskeer.Integration.IO.Test.Factories
 {
@@ -42,7 +39,7 @@ namespace Riskeer.Integration.IO.Test.Factories
     public class ExportableAssessmentSectionFactoryTest
     {
         private const FailureMechanismAssemblyCategoryGroup assemblyCategoryGroup = FailureMechanismAssemblyCategoryGroup.None;
-        
+
         [Test]
         public void CreateExportableAssessmentSection_AssessmentSectionNull_ThrowsArgumentNullException()
         {
@@ -117,38 +114,6 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                     assessmentSection);
 
                 Assert.AreEqual(0, exportableAssessmentSection.CombinedSectionAssemblies.Count());
-            }
-        }
-
-        [Test]
-        public void CreateExportableAssessmentSection_AssessmentSectionWithManualSectionAssemblyWithProbability_ManualAssemblyNotExecuted()
-        {
-            // Given
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
-            {
-                Id = "1"
-            };
-            ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
-
-            PipingFailureMechanism failureMechanism = assessmentSection.Piping;
-            failureMechanism.InAssembly = true;
-            FailureMechanismTestHelper.AddSections(failureMechanism, 1);
-            PipingFailureMechanismSectionResultOld sectionResult = failureMechanism.SectionResultsOld.Single();
-            sectionResult.UseManualAssembly = true;
-            sectionResult.ManualAssemblyProbability = random.NextDouble();
-
-            using (new AssemblyToolCalculatorFactoryConfigOld())
-            {
-                // When
-                ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
-
-                // Then
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                FailureMechanismSectionAssemblyCalculatorOldStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                Assert.IsNull(failureMechanismSectionAssemblyCalculator.ManualAssemblyCategoriesInput);
-                Assert.AreEqual(0, failureMechanismSectionAssemblyCalculator.ManualAssemblyNInput);
-                Assert.AreEqual(0, failureMechanismSectionAssemblyCalculator.ManualAssemblyProbabilityInput);
             }
         }
 

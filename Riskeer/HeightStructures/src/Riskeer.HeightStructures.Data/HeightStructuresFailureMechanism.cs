@@ -37,9 +37,8 @@ namespace Riskeer.HeightStructures.Data
     /// </summary>
     public class HeightStructuresFailureMechanism : FailureMechanismBase,
                                                     ICalculatableFailureMechanism,
-                                                    IHasSectionResults<HeightStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
+                                                    IHasSectionResults<AdoptableFailureMechanismSectionResult>
     {
-        private readonly ObservableList<HeightStructuresFailureMechanismSectionResultOld> sectionResultsOld;
         private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
@@ -56,7 +55,6 @@ namespace Riskeer.HeightStructures.Data
             HeightStructures = new StructureCollection<HeightStructure>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
 
-            sectionResultsOld = new ObservableList<HeightStructuresFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
         }
 
@@ -82,20 +80,16 @@ namespace Riskeer.HeightStructures.Data
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
 
-        public IObservableEnumerable<HeightStructuresFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
         public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new HeightStructuresFailureMechanismSectionResultOld(section));
             sectionResults.Add(new AdoptableFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResultsOld.Clear();
             sectionResults.Clear();
         }
     }

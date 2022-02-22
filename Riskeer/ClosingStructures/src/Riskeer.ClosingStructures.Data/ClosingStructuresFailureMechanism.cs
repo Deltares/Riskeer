@@ -38,9 +38,8 @@ namespace Riskeer.ClosingStructures.Data
     /// </summary>
     public class ClosingStructuresFailureMechanism : FailureMechanismBase,
                                                      ICalculatableFailureMechanism,
-                                                     IHasSectionResults<ClosingStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>
+                                                     IHasSectionResults<AdoptableFailureMechanismSectionResult>
     {
-        private readonly ObservableList<ClosingStructuresFailureMechanismSectionResultOld> sectionResultsOld;
         private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
@@ -56,7 +55,6 @@ namespace Riskeer.ClosingStructures.Data
 
             GeneralInput = new GeneralClosingStructuresInput();
             ClosingStructures = new StructureCollection<ClosingStructure>();
-            sectionResultsOld = new ObservableList<ClosingStructuresFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
@@ -80,20 +78,16 @@ namespace Riskeer.ClosingStructures.Data
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
 
-        public IObservableEnumerable<ClosingStructuresFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
         public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new ClosingStructuresFailureMechanismSectionResultOld(section));
             sectionResults.Add(new AdoptableFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResultsOld.Clear();
             sectionResults.Clear();
         }
     }

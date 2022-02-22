@@ -34,9 +34,8 @@ namespace Riskeer.MacroStabilityInwards.Data
     /// </summary>
     public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase,
                                                          ICalculatableFailureMechanism,
-                                                         IHasSectionResults<MacroStabilityInwardsFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+                                                         IHasSectionResults<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
-        private readonly ObservableList<MacroStabilityInwardsFailureMechanismSectionResultOld> sectionResultsOld;
         private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
@@ -54,7 +53,6 @@ namespace Riskeer.MacroStabilityInwards.Data
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
 
-            sectionResultsOld = new ObservableList<MacroStabilityInwardsFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult>();
         }
 
@@ -83,20 +81,16 @@ namespace Riskeer.MacroStabilityInwards.Data
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
-        public IObservableEnumerable<MacroStabilityInwardsFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
         public IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new MacroStabilityInwardsFailureMechanismSectionResultOld(section));
             sectionResults.Add(new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResultsOld.Clear();
             sectionResults.Clear();
         }
     }

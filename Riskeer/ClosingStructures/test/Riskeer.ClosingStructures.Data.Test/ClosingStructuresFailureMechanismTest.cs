@@ -34,7 +34,7 @@ namespace Riskeer.ClosingStructures.Data.Test
     public class ClosingStructuresFailureMechanismTest
     {
         [Test]
-        public void DefaultConstructor_Always_PropertiesSet()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -42,7 +42,7 @@ namespace Riskeer.ClosingStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<ClosingStructuresFailureMechanismSectionResultOld, AdoptableFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<AdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Betrouwbaarheid sluiting kunstwerk", failureMechanism.Name);
             Assert.AreEqual("BSKW", failureMechanism.Code);
 
@@ -57,7 +57,6 @@ namespace Riskeer.ClosingStructures.Data.Test
 
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
         }
 
         [Test]
@@ -76,8 +75,6 @@ namespace Riskeer.ClosingStructures.Data.Test
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.AreEqual(1, failureMechanism.SectionResultsOld.Count());
-            Assert.AreSame(section, failureMechanism.SectionResultsOld.First().Section);
             Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
         }
 
@@ -101,14 +98,12 @@ namespace Riskeer.ClosingStructures.Data.Test
 
             // Precondition
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
-            Assert.AreEqual(2, failureMechanism.SectionResultsOld.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
         }
 
         [Test]

@@ -34,14 +34,14 @@ namespace Riskeer.StabilityStoneCover.Data.Test
     public class StabilityStoneCoverFailureMechanismTest
     {
         [Test]
-        public void DefaultConstructor_Always_PropertiesSet()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Stabiliteit steenzetting", failureMechanism.Name);
             Assert.AreEqual("ZST", failureMechanism.Code);
             Assert.IsInstanceOf<GeneralStabilityStoneCoverWaveConditionsInput>(failureMechanism.GeneralInput);
@@ -52,7 +52,6 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
 
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
@@ -71,9 +70,6 @@ namespace Riskeer.StabilityStoneCover.Data.Test
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
-            Assert.AreEqual(1, failureMechanism.SectionResultsOld.Count());
-            Assert.AreSame(section, failureMechanism.SectionResultsOld.First().Section);
-
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
         }
@@ -97,14 +93,12 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             });
 
             // Precondition
-            Assert.AreEqual(2, failureMechanism.SectionResultsOld.Count());
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 

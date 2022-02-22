@@ -33,9 +33,8 @@ namespace Riskeer.DuneErosion.Data
     /// Model containing input and output needed to perform different levels of the
     /// Dune Erosion failure mechanism.
     /// </summary>
-    public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<DuneErosionFailureMechanismSectionResultOld, NonAdoptableFailureMechanismSectionResult>
+    public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<NonAdoptableFailureMechanismSectionResult>
     {
-        private readonly ObservableList<DuneErosionFailureMechanismSectionResultOld> sectionResultsOld;
         private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<DuneLocation> duneLocationCollection = new ObservableList<DuneLocation>();
 
@@ -45,7 +44,6 @@ namespace Riskeer.DuneErosion.Data
         public DuneErosionFailureMechanism()
             : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code)
         {
-            sectionResultsOld = new ObservableList<DuneErosionFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<NonAdoptableFailureMechanismSectionResult>();
             GeneralInput = new GeneralDuneErosionInput();
             DuneLocationCalculationsForUserDefinedTargetProbabilities = new ObservableList<DuneLocationCalculationsForTargetProbability>();
@@ -73,8 +71,6 @@ namespace Riskeer.DuneErosion.Data
                 yield break;
             }
         }
-
-        public IObservableEnumerable<DuneErosionFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
 
         public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
@@ -104,13 +100,11 @@ namespace Riskeer.DuneErosion.Data
         {
             base.AddSectionDependentData(section);
 
-            sectionResultsOld.Add(new DuneErosionFailureMechanismSectionResultOld(section));
             sectionResults.Add(new NonAdoptableFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResultsOld.Clear();
             sectionResults.Clear();
         }
     }

@@ -34,14 +34,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
     public class WaveImpactAsphaltCoverFailureMechanismTest
     {
         [Test]
-        public void Constructor_Always_PropertiesSet()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Golfklappen op asfaltbekleding", failureMechanism.Name);
             Assert.AreEqual("AGK", failureMechanism.Code);
             Assert.IsNotNull(failureMechanism.GeneralWaveImpactAsphaltCoverInput);
@@ -54,7 +54,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
         }
 
         [Test]
@@ -72,9 +71,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 
             // Assert
             Assert.AreEqual(1, failureMechanism.Sections.Count());
-            Assert.AreEqual(1, failureMechanism.SectionResultsOld.Count());
-            Assert.AreSame(section, failureMechanism.SectionResultsOld.First().Section);
-
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.AreSame(section, failureMechanism.SectionResults.First().Section);
         }
@@ -98,14 +94,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             });
 
             // Precondition
-            Assert.AreEqual(2, failureMechanism.SectionResultsOld.Count());
             Assert.AreEqual(2, failureMechanism.SectionResults.Count());
 
             // Call
             failureMechanism.ClearAllSections();
 
             // Assert
-            CollectionAssert.IsEmpty(failureMechanism.SectionResultsOld);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 

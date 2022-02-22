@@ -32,9 +32,8 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<PipingFailureMechanismSectionResultOld, AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
-        private readonly ObservableList<PipingFailureMechanismSectionResultOld> sectionResultsOld;
         private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerFailureMechanismSection;
 
@@ -53,7 +52,6 @@ namespace Riskeer.Piping.Data
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
 
-            sectionResultsOld = new ObservableList<PipingFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult>();
 
             ScenarioConfigurationType = PipingScenarioConfigurationType.SemiProbabilistic;
@@ -96,21 +94,17 @@ namespace Riskeer.Piping.Data
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
-        public IObservableEnumerable<PipingFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
         public IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new PipingFailureMechanismSectionResultOld(section));
             sectionResults.Add(new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
             scenarioConfigurationsPerFailureMechanismSection.Add(new PipingScenarioConfigurationPerFailureMechanismSection(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResultsOld.Clear();
             sectionResults.Clear();
             scenarioConfigurationsPerFailureMechanismSection.Clear();
         }
