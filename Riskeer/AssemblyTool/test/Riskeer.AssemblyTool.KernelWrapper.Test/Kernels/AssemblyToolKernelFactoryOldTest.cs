@@ -80,57 +80,5 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
             // Assert
             Assert.IsInstanceOf<CategoryLimitsCalculator>(assemblyCategoriesKernel);
         }
-
-        [Test]
-        public void CreateFailureMechanismSectionAssemblyKernel_Always_ReturnsKernelAssessmentResultsTranslator()
-        {
-            // Setup
-            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactoryOld.Instance;
-
-            // Call
-            IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-
-            // Assert
-            Assert.IsInstanceOf<AssessmentResultsTranslator>(kernel);
-        }
-
-        [Test]
-        public void CreateFailureMechanismAssemblyKernel_Always_ReturnsKernelFailureMechanismResultAssembler()
-        {
-            // Setup
-            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactoryOld.Instance;
-
-            // Call
-            IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
-
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismResultAssembler>(kernel);
-        }
-
-        [Test]
-        public void CreateAssessmentSectionAssemblyKernel_Always_ReturnsKernelAssessmentGradeAssembler()
-        {
-            // Setup
-            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactoryOld.Instance;
-
-            // Call
-            IAssessmentGradeAssembler kernel = factory.CreateAssessmentSectionAssemblyKernel();
-
-            // Assert
-            Assert.IsInstanceOf<AssessmentGradeAssembler>(kernel);
-        }
-
-        [Test]
-        public void CreateCombinedFailureMechanismSectionAssemblyKernel_Always_ReturnsKernelCommonFailureMechanismSectionAssembler()
-        {
-            // Setup
-            IAssemblyToolKernelFactoryOld factory = AssemblyToolKernelFactoryOld.Instance;
-
-            // Call
-            ICommonFailureMechanismSectionAssembler kernel = factory.CreateCombinedFailureMechanismSectionAssemblyKernel();
-
-            // Assert
-            Assert.IsInstanceOf<CommonFailureMechanismSectionAssembler>(kernel);
-        }
     }
 }

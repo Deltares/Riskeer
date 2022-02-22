@@ -49,25 +49,5 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
         {
             return new CategoryLimitsCalculator();
         }
-
-        public IAssessmentResultsTranslator CreateFailureMechanismSectionAssemblyKernel()
-        {
-            return new AssessmentResultsTranslator();
-        }
-
-        public IFailureMechanismResultAssembler CreateFailureMechanismAssemblyKernel()
-        {
-            return new FailureMechanismResultAssembler();
-        }
-
-        public IAssessmentGradeAssembler CreateAssessmentSectionAssemblyKernel()
-        {
-            return new AssessmentGradeAssembler();
-        }
-
-        public ICommonFailureMechanismSectionAssembler CreateCombinedFailureMechanismSectionAssemblyKernel()
-        {
-            return new CommonFailureMechanismSectionAssembler();
-        }
     }
 }

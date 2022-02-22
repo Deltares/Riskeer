@@ -33,29 +33,5 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
         /// </summary>
         /// <returns>A new <see cref="ICategoryLimitsCalculator"/>.</returns>
         ICategoryLimitsCalculator CreateAssemblyCategoriesKernel();
-
-        /// <summary>
-        /// Creates a failure mechanism section assembly kernel.
-        /// </summary>
-        /// <returns>A new <see cref="IAssessmentResultsTranslator"/>.</returns>
-        IAssessmentResultsTranslator CreateFailureMechanismSectionAssemblyKernel();
-
-        /// <summary>
-        /// Creates a failure mechanism assembly kernel.
-        /// </summary>
-        /// <returns>A new <see cref="IFailureMechanismResultAssembler"/>.</returns>
-        IFailureMechanismResultAssembler CreateFailureMechanismAssemblyKernel();
-
-        /// <summary>
-        /// Creates an assessment section assembly kernel.
-        /// </summary>
-        /// <returns>A new <see cref="IAssessmentGradeAssembler"/>.</returns>
-        IAssessmentGradeAssembler CreateAssessmentSectionAssemblyKernel();
-
-        /// <summary>
-        /// Creates a combined failure mechanism section assembly kernel.
-        /// </summary>
-        /// <returns>A new <see cref="ICommonFailureMechanismSectionAssembler"/>.</returns>
-        ICommonFailureMechanismSectionAssembler CreateCombinedFailureMechanismSectionAssemblyKernel();
     }
 }
