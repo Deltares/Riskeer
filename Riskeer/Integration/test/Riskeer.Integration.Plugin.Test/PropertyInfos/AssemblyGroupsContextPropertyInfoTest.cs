@@ -27,6 +27,7 @@ using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Forms;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
@@ -98,7 +99,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
                 {
                     FailureMechanismSectionAssemblyGroupBoundaries category = calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.ElementAt(i);
                     AssemblyGroupProperties property = properties.FailureMechanismAssemblyGroups[i];
-                    Assert.AreEqual(category.Group, property.Group);
+                    Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(category.Group), property.Group);
                     Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
                     Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);
                 }
