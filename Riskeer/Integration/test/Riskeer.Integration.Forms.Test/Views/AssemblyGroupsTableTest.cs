@@ -31,7 +31,7 @@ using Riskeer.Integration.Forms.Views;
 namespace Riskeer.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class AssemblyCategoriesTableTest
+    public class AssemblyGroupsTableTest
     {
         private const int assemblyGroupColumnIndex = 0;
         private const int colorColumnIndex = 1;
@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_InitializesWithColumns()
         {
             // Call
-            using (var table = new AssemblyCategoriesTable<TestAssemblyCategoryGroup>())
+            using (var table = new AssemblyGroupsTable<TestAssemblyCategoryGroup>())
             {
                 // Assert
                 Assert.IsInstanceOf<DataGridViewControl>(table);
@@ -77,7 +77,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void SetData_NoDataAlreadySet_SetNewData()
         {
             // Setup
-            using (var table = new AssemblyCategoriesTable<TestAssemblyCategoryGroup>())
+            using (var table = new AssemblyGroupsTable<TestAssemblyCategoryGroup>())
             {
                 Tuple<AssemblyGroupBoundaries, Color, TestAssemblyCategoryGroup>[] categories =
                 {
@@ -98,7 +98,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void SetData_SetNullDataAfterDataAlreadySet_ClearsData()
         {
             // Setup
-            using (var table = new AssemblyCategoriesTable<TestAssemblyCategoryGroup>())
+            using (var table = new AssemblyGroupsTable<TestAssemblyCategoryGroup>())
             {
                 Tuple<AssemblyGroupBoundaries, Color, TestAssemblyCategoryGroup>[] categories =
                 {
@@ -120,7 +120,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void SetData_SetNewDataAfterDataAlreadySet_ClearDataAndAddNewData()
         {
             // Setup
-            using (var table = new AssemblyCategoriesTable<TestAssemblyCategoryGroup>())
+            using (var table = new AssemblyGroupsTable<TestAssemblyCategoryGroup>())
             {
                 table.SetData(new[]
                 {
@@ -146,7 +146,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void SetData_WithData_ExpectedValuesInTable()
         {
             // Setup
-            using (var table = new AssemblyCategoriesTable<TestAssemblyCategoryGroup>())
+            using (var table = new AssemblyGroupsTable<TestAssemblyCategoryGroup>())
             {
                 Tuple<AssemblyGroupBoundaries, Color, TestAssemblyCategoryGroup>[] categories =
                 {

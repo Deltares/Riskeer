@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.assemblyGroupsTable = new AssemblyCategoriesTable<DisplayFailureMechanismSectionAssemblyGroup>();
+            this.assemblyGroupsTable = new AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup>();
             this.groupBoxPanel = new System.Windows.Forms.Panel();
             this.groupBoxPanel.SuspendLayout();
             this.groupBox = new System.Windows.Forms.GroupBox();
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Forms.Views
 
         #endregion
 
-        private AssemblyCategoriesTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable;
+        private AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable;
         private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.Panel groupBoxPanel;
     }

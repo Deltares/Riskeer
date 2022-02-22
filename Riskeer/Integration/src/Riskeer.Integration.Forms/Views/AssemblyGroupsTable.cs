@@ -33,13 +33,13 @@ namespace Riskeer.Integration.Forms.Views
     /// This class defines a table in which properties of <see cref="AssemblyGroupBoundaries"/> instances are displayed.
     /// </summary>
     /// <typeparam name="T">The type of the enum to display in the table rows.</typeparam>
-    public class AssemblyCategoriesTable<T> : DataGridViewControl
+    public class AssemblyGroupsTable<T> : DataGridViewControl
         where T : struct
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyCategoriesTable{T}"/>.
+        /// Creates a new instance of <see cref="AssemblyGroupsTable{T}"/>.
         /// </summary>
-        public AssemblyCategoriesTable()
+        public AssemblyGroupsTable()
         {
             AddColumns();
         }

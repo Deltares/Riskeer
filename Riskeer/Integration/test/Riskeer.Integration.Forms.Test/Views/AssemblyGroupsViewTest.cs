@@ -66,10 +66,10 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // Call
                 using (var view = new AssemblyGroupsView(assessmentSection))
                 {
-                    AssemblyCategoriesTable<DisplayFailureMechanismSectionAssemblyGroup> failureMechanismSectionCategoriesTable = GetAssemblyGroupsTable(view);
+                    AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
 
                     // Assert
-                    Assert.IsEmpty(failureMechanismSectionCategoriesTable.Rows);
+                    Assert.IsEmpty(failureMechanismSectionGroupsTable.Rows);
                 }
             }
         }
@@ -100,7 +100,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(DockStyle.Fill, groupBox.Dock);
                 Assert.AreEqual("Duidingsklassen", groupBox.Text);
 
-                AssemblyCategoriesTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
+                AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
                 Assert.AreEqual(DockStyle.Fill, assemblyGroupsTable.Dock);
             }
         }
@@ -147,7 +147,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // Call
                 using (var view = new AssemblyGroupsView(assessmentSection))
                 {
-                    AssemblyCategoriesTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
+                    AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
 
                     // Assert
                     Assert.AreEqual(1, assemblyGroupsTable.Rows.Count);
@@ -179,11 +179,11 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 using (var view = new AssemblyGroupsView(assessmentSection))
                 {
-                    AssemblyCategoriesTable<DisplayFailureMechanismSectionAssemblyGroup> failureMechanismSectionCategoriesTable = GetAssemblyGroupsTable(view);
+                    AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
 
                     // Precondition
                     int groupBoundaries = output.Count;
-                    Assert.AreEqual(groupBoundaries, failureMechanismSectionCategoriesTable.Rows.Count);
+                    Assert.AreEqual(groupBoundaries, failureMechanismSectionGroupsTable.Rows.Count);
 
                     int newGroupBoundaries = random.Next(1, 10);
                     for (var i = 1; i <= newGroupBoundaries; i++)
@@ -195,15 +195,15 @@ namespace Riskeer.Integration.Forms.Test.Views
                     assessmentSection.FailureMechanismContribution.NotifyObservers();
 
                     // Then
-                    Assert.AreEqual(groupBoundaries + newGroupBoundaries, failureMechanismSectionCategoriesTable.Rows.Count);
+                    Assert.AreEqual(groupBoundaries + newGroupBoundaries, failureMechanismSectionGroupsTable.Rows.Count);
                 }
             }
         }
 
-        private static AssemblyCategoriesTable<DisplayFailureMechanismSectionAssemblyGroup> GetAssemblyGroupsTable(
+        private static AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> GetAssemblyGroupsTable(
             AssemblyGroupsView view)
         {
-            return ControlTestHelper.GetControls<AssemblyCategoriesTable<DisplayFailureMechanismSectionAssemblyGroup>>(
+            return ControlTestHelper.GetControls<AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup>>(
                 view, "assemblyGroupsTable").Single();
         }
 

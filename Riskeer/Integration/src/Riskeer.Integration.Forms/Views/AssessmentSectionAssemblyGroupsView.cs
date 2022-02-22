@@ -85,7 +85,7 @@ namespace Riskeer.Integration.Forms.Views
 
         private void UpdateTableData()
         {
-            assemblyCategoriesTable.SetData(
+            assemblyGroupsTable.SetData(
                 AssemblyToolCategoriesFactory.CreateAssessmentSectionAssemblyCategories(
                                                  FailureMechanismContribution.SignalingNorm,
                                                  FailureMechanismContribution.LowerLimitNorm)

@@ -40,19 +40,19 @@ namespace Riskeer.Integration.Forms.Views
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionAssemblyGroupsView));
-            this.assemblyCategoriesTable = new AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup>();
+            this.assemblyGroupsTable = new AssemblyGroupsTable<AssessmentSectionAssemblyCategoryGroup>();
             this.SuspendLayout();
             // 
             // assessmentSectionAssemblyCategoriesTable
             // 
-            resources.ApplyResources(this.assemblyCategoriesTable, "assemblyCategoriesTable");
-            this.assemblyCategoriesTable.MultiSelect = true;
-            this.assemblyCategoriesTable.Name = "assemblyCategoriesTable";
-            this.assemblyCategoriesTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            resources.ApplyResources(this.assemblyGroupsTable, "assemblyGroupsTable");
+            this.assemblyGroupsTable.MultiSelect = true;
+            this.assemblyGroupsTable.Name = "assemblyGroupsTable";
+            this.assemblyGroupsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
             // 
             // FailureMechanismSectionsView
             // 
-            this.Controls.Add(this.assemblyCategoriesTable);
+            this.Controls.Add(this.assemblyGroupsTable);
             this.Name = "AssessmentSectionAssemblyGroupsView";
             resources.ApplyResources(this, "$this");
             this.ResumeLayout(false);
@@ -62,6 +62,6 @@ namespace Riskeer.Integration.Forms.Views
 
         #endregion
 
-        private AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup> assemblyCategoriesTable;
+        private AssemblyGroupsTable<AssessmentSectionAssemblyCategoryGroup> assemblyGroupsTable;
     }
 }
