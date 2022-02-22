@@ -19,35 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
-using NUnit.Framework;
-using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.TestUtil;
-using Riskeer.Integration.Data;
-using Riskeer.Integration.Forms.PresentationObjects;
 
-namespace Riskeer.Integration.Forms.Test.PresentationObjects
+namespace Riskeer.Integration.Forms.PresentationObjects
 {
-    [TestFixture]
-    public class NormClassesContextTest
+    /// <summary>
+    /// Presentation object for presenting the assembly groups of an <see cref="IAssessmentSection"/>.
+    /// </summary>
+    public class AssessmentSectionAssemblyGroupsContext : ObservableWrappedObjectContextBase<IAssessmentSection>
     {
-        [Test]
-        public void Constructor_ValidParameters_ExpectedValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
-            mocks.ReplayAll();
-
-            // Call
-            var context = new NormClassesContext(assessmentSection);
-
-            // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<AssessmentSection>>(context);
-            Assert.AreSame(assessmentSection, context.WrappedData);
-
-            mocks.VerifyAll();
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="AssessmentSectionAssemblyGroupsContext"/>.
+        /// </summary>
+        /// <param name="assessmentSection">The assessment section to present the assembly groups for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        public AssessmentSectionAssemblyGroupsContext(IAssessmentSection assessmentSection) : base(assessmentSection) {}
     }
 }

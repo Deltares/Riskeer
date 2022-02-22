@@ -56,7 +56,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(NormClassesContext), info.DataType);
+            Assert.AreEqual(typeof(AssessmentSectionAssemblyGroupsContext), info.DataType);
             Assert.AreEqual(typeof(FailureMechanismContribution), info.ViewDataType);
         }
 
@@ -68,7 +68,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
             mocks.ReplayAll();
 
-            var context = new NormClassesContext(assessmentSection);
+            var context = new AssessmentSectionAssemblyGroupsContext(assessmentSection);
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call

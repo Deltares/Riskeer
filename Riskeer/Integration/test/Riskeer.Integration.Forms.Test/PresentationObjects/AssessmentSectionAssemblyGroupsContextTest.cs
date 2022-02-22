@@ -19,22 +19,34 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Controls.PresentationObjects;
+using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
+using Riskeer.Integration.Forms.PresentationObjects;
 
-namespace Riskeer.Integration.Forms.PresentationObjects
+namespace Riskeer.Integration.Forms.Test.PresentationObjects
 {
-    /// <summary>
-    /// Presentation object for presenting the norm classes of an <see cref="IAssessmentSection"/>.
-    /// </summary>
-    public class NormClassesContext : ObservableWrappedObjectContextBase<IAssessmentSection>
+    [TestFixture]
+    public class AssessmentSectionAssemblyGroupsContextTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="NormClassesContext"/>.
-        /// </summary>
-        /// <param name="assessmentSection">The assessment section to present the norm classes for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public NormClassesContext(IAssessmentSection assessmentSection) : base(assessmentSection) {}
+        [Test]
+        public void Constructor_ValidParameters_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
+            mocks.ReplayAll();
+
+            // Call
+            var context = new AssessmentSectionAssemblyGroupsContext(assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IAssessmentSection>>(context);
+            Assert.AreSame(assessmentSection, context.WrappedData);
+
+            mocks.VerifyAll();
+        }
     }
 }

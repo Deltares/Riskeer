@@ -476,7 +476,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(NormClassesContext),
+                    typeof(AssessmentSectionAssemblyGroupsContext),
                     typeof(FailureMechanismContribution),
                     typeof(AssessmentSectionAssemblyCategoriesView));
 
@@ -591,7 +591,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterPressureAsphaltCoverFailureMechanismSectionResultContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(Comment)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StructuresOutputContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(NormClassesContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSectionAssemblyGroupsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultTotalContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultPerSectionContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultsContext)));

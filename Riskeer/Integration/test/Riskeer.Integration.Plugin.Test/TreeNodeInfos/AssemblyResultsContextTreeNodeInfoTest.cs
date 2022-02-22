@@ -176,8 +176,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 // Assert
                 Assert.AreEqual(4, objects.Length);
 
-                var normClassesContext = (NormClassesContext) objects[0];
-                Assert.AreSame(assessmentSection, normClassesContext.WrappedData);
+                var assessmentSectionAssemblyGroupsContext = (AssessmentSectionAssemblyGroupsContext) objects[0];
+                Assert.AreSame(assessmentSection, assessmentSectionAssemblyGroupsContext.WrappedData);
 
                 var assemblyResultTotalContext = (AssemblyResultTotalContext) objects[1];
                 Assert.AreSame(assessmentSection, assemblyResultTotalContext.WrappedData);

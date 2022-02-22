@@ -107,7 +107,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var mocks = new MockRepository();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
 
-            var context = new NormClassesContext(assessmentSection);
+            var context = new AssessmentSectionAssemblyGroupsContext(assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
 
@@ -142,7 +142,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(NormClassesContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(AssessmentSectionAssemblyGroupsContext));
         }
     }
 }

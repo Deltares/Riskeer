@@ -1411,7 +1411,7 @@ berekende kans
     <data name="AssemblyResult_DisplayName" xml:space="preserve">
     <value>Toetsoordeel</value>
   </data>
-    <data name="NormClasses_DisplayName" xml:space="preserve">
+    <data name="AssessmentSectionAssemblyGroups_DisplayName" xml:space="preserve">
     <value>Normklassen</value>
   </data>
     <data name="CombinedAssembly_DisplayName" xml:space="preserve">

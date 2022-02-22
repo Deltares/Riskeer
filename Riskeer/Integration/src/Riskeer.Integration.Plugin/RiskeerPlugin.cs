@@ -465,9 +465,9 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData, () => context.WrappedData.Output?.GeneralResult)
             };
 
-            yield return new RiskeerViewInfo<NormClassesContext, FailureMechanismContribution, AssessmentSectionAssemblyCategoriesView>(() => Gui)
+            yield return new RiskeerViewInfo<AssessmentSectionAssemblyGroupsContext, FailureMechanismContribution, AssessmentSectionAssemblyCategoriesView>(() => Gui)
             {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.NormClasses_DisplayName,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.AssessmentSectionAssemblyGroups_DisplayName,
                 CloseForData = (view, dataToCloseFor) => dataToCloseFor is IAssessmentSection assessmentSection
                                                          && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution,
                 CreateInstance = context => new AssessmentSectionAssemblyCategoriesView(context.WrappedData.FailureMechanismContribution)
@@ -1002,9 +1002,9 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<NormClassesContext>
+            yield return new TreeNodeInfo<AssessmentSectionAssemblyGroupsContext>
             {
-                Text = context => RiskeerCommonFormsResources.NormClasses_DisplayName,
+                Text = context => RiskeerCommonFormsResources.AssessmentSectionAssemblyGroups_DisplayName,
                 Image = context => RiskeerCommonFormsResources.NormsIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
@@ -2755,7 +2755,7 @@ namespace Riskeer.Integration.Plugin
             AssessmentSection assessmentSection = context.WrappedData;
             return new object[]
             {
-                new NormClassesContext(assessmentSection),
+                new AssessmentSectionAssemblyGroupsContext(assessmentSection),
                 new AssemblyResultTotalContext(assessmentSection),
                 new AssemblyResultPerSectionContext(assessmentSection),
                 new AssemblyResultPerSectionMapContext(assessmentSection)

@@ -218,6 +218,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Normklassen.
+        /// </summary>
+        public static string AssessmentSectionAssemblyGroups_DisplayName {
+            get {
+                return ResourceManager.GetString("AssessmentSectionAssemblyGroups_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is er een dam aanwezig?.
         /// </summary>
         public static string BreakWater_HasBreakWater_Description {
@@ -2699,15 +2708,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string NormalDistribution_VariationCoefficient_Description {
             get {
                 return ResourceManager.GetString("NormalDistribution_VariationCoefficient_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Normklassen.
-        /// </summary>
-        public static string NormClasses_DisplayName {
-            get {
-                return ResourceManager.GetString("NormClasses_DisplayName", resourceCulture);
             }
         }
         
