@@ -33,20 +33,19 @@ using Riskeer.Common.Forms.Helpers;
 namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
-    /// View for a <see cref="FailureMechanismContribution"/> to show 
-    /// a collection of <see cref="AssessmentSectionAssemblyCategory"/>.
+    /// View for a <see cref="FailureMechanismContribution"/> to show a collection of <see cref="AssessmentSectionAssemblyCategory"/>.
     /// </summary>
-    public partial class AssessmentSectionAssemblyCategoriesView : UserControl, IView
+    public partial class AssessmentSectionAssemblyGroupsView : UserControl, IView
     {
         private readonly Observer failureMechanismContributionObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionAssemblyCategoriesView"/>.
+        /// Creates a new instance of <see cref="AssessmentSectionAssemblyGroupsView"/>.
         /// </summary>
         /// <param name="failureMechanismContribution">The failure mechanism contribution belonging to the view.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismContribution"/>
         /// is <c>null</c>.</exception>
-        public AssessmentSectionAssemblyCategoriesView(FailureMechanismContribution failureMechanismContribution)
+        public AssessmentSectionAssemblyGroupsView(FailureMechanismContribution failureMechanismContribution)
         {
             if (failureMechanismContribution == null)
             {

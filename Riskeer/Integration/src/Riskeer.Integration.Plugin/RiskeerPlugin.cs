@@ -465,12 +465,12 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData, () => context.WrappedData.Output?.GeneralResult)
             };
 
-            yield return new RiskeerViewInfo<AssessmentSectionAssemblyGroupsContext, FailureMechanismContribution, AssessmentSectionAssemblyCategoriesView>(() => Gui)
+            yield return new RiskeerViewInfo<AssessmentSectionAssemblyGroupsContext, FailureMechanismContribution, AssessmentSectionAssemblyGroupsView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssessmentSectionAssemblyGroups_DisplayName,
                 CloseForData = (view, dataToCloseFor) => dataToCloseFor is IAssessmentSection assessmentSection
                                                          && assessmentSection.FailureMechanismContribution == view.FailureMechanismContribution,
-                CreateInstance = context => new AssessmentSectionAssemblyCategoriesView(context.WrappedData.FailureMechanismContribution)
+                CreateInstance = context => new AssessmentSectionAssemblyGroupsView(context.WrappedData.FailureMechanismContribution)
             };
 
             yield return new RiskeerViewInfo<AssemblyResultTotalContext, AssessmentSection, AssemblyResultTotalView>(() => Gui)

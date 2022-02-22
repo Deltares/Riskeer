@@ -34,7 +34,7 @@ using Riskeer.Integration.Forms.Views;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class AssessmentSectionAssemblyCategoriesViewInfoTest
+    public class AssessmentSectionAssemblyGroupsViewInfoTest
     {
         private RiskeerPlugin plugin;
         private ViewInfo info;
@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionAssemblyCategoriesView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssessmentSectionAssemblyGroupsView));
         }
 
         [TearDown]
@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 // Call
-                var view = (AssessmentSectionAssemblyCategoriesView) info.CreateInstance(context);
+                var view = (AssessmentSectionAssemblyGroupsView) info.CreateInstance(context);
 
                 // Assert
                 Assert.AreSame(assessmentSection.FailureMechanismContribution, view.FailureMechanismContribution);
@@ -98,7 +98,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             Type viewType = info.ViewType;
 
             // Assert
-            Assert.AreEqual(typeof(AssessmentSectionAssemblyCategoriesView), viewType);
+            Assert.AreEqual(typeof(AssessmentSectionAssemblyGroupsView), viewType);
         }
 
         [Test]
@@ -110,7 +110,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
-            using (var view = new AssessmentSectionAssemblyCategoriesView(assessmentSection.FailureMechanismContribution))
+            using (var view = new AssessmentSectionAssemblyGroupsView(assessmentSection.FailureMechanismContribution))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -132,7 +132,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
-            using (var view = new AssessmentSectionAssemblyCategoriesView(assessmentSection1.FailureMechanismContribution))
+            using (var view = new AssessmentSectionAssemblyGroupsView(assessmentSection1.FailureMechanismContribution))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection2);

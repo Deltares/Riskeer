@@ -39,13 +39,13 @@ using Riskeer.Integration.Forms.Views;
 namespace Riskeer.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class AssessmentSectionAssemblyCategoriesViewTest
+    public class AssessmentSectionAssemblyGroupsViewTest
     {
         [Test]
         public void Constructor_FailureMechanismContributionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new AssessmentSectionAssemblyCategoriesView(null);
+            TestDelegate test = () => new AssessmentSectionAssemblyGroupsView(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -60,7 +60,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             // Call
             using (new AssemblyToolCalculatorFactoryConfigOld())
-            using (var view = new AssessmentSectionAssemblyCategoriesView(failureMechanismContribution))
+            using (var view = new AssessmentSectionAssemblyGroupsView(failureMechanismContribution))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             failureMechanismContribution.Attach(observer);
 
             using (new AssemblyToolCalculatorFactoryConfigOld())
-            using (var view = new AssessmentSectionAssemblyCategoriesView(failureMechanismContribution))
+            using (var view = new AssessmentSectionAssemblyGroupsView(failureMechanismContribution))
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
@@ -120,7 +120,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private static AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup> GetCategoriesTable(AssessmentSectionAssemblyCategoriesView view)
+        private static AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup> GetCategoriesTable(AssessmentSectionAssemblyGroupsView view)
         {
             return ControlTestHelper.GetControls<AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup>>(
                 view, "assemblyCategoriesTable").Single();

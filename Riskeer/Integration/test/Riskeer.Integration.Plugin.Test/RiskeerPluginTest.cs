@@ -478,7 +478,7 @@ namespace Riskeer.Integration.Plugin.Test
                     viewInfos,
                     typeof(AssessmentSectionAssemblyGroupsContext),
                     typeof(FailureMechanismContribution),
-                    typeof(AssessmentSectionAssemblyCategoriesView));
+                    typeof(AssessmentSectionAssemblyGroupsView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

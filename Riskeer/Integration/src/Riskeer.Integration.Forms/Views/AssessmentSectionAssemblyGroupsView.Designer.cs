@@ -23,7 +23,7 @@ using Riskeer.AssemblyTool.Data;
 
 namespace Riskeer.Integration.Forms.Views
 {
-    partial class AssessmentSectionAssemblyCategoriesView
+    partial class AssessmentSectionAssemblyGroupsView
     {
 
         /// <summary> 
@@ -39,7 +39,7 @@ namespace Riskeer.Integration.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionAssemblyCategoriesView));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionAssemblyGroupsView));
             this.assemblyCategoriesTable = new AssemblyCategoriesTable<AssessmentSectionAssemblyCategoryGroup>();
             this.SuspendLayout();
             // 
@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Forms.Views
             // FailureMechanismSectionsView
             // 
             this.Controls.Add(this.assemblyCategoriesTable);
-            this.Name = "AssessmentSectionAssemblyCategoriesView";
+            this.Name = "AssessmentSectionAssemblyGroupsView";
             resources.ApplyResources(this, "$this");
             this.ResumeLayout(false);
 
