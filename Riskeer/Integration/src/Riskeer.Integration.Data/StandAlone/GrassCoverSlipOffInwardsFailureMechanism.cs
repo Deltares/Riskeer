@@ -24,7 +24,6 @@ using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.Properties;
-using Riskeer.Integration.Data.StandAlone.SectionResults;
 
 namespace Riskeer.Integration.Data.StandAlone
 {
@@ -33,10 +32,9 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Grass Cover Slip Off Inwards failure mechanism.
     /// </summary>
     public class GrassCoverSlipOffInwardsFailureMechanism : FailureMechanismBase,
-                                                            IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                                                            IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                                                             IHasGeneralInput
     {
-        private readonly ObservableList<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld> sectionResultsOld;
         private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
@@ -45,7 +43,6 @@ namespace Riskeer.Integration.Data.StandAlone
         public GrassCoverSlipOffInwardsFailureMechanism()
             : base(Resources.GrassCoverSlipOffInwardsFailureMechanism_DisplayName, Resources.GrassCoverSlipOffInwardsFailureMechanism_Code)
         {
-            sectionResultsOld = new ObservableList<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             GeneralInput = new GeneralInput();
         }
@@ -60,20 +57,16 @@ namespace Riskeer.Integration.Data.StandAlone
             }
         }
 
-        public IObservableEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
         public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new GrassCoverSlipOffInwardsFailureMechanismSectionResultOld(section));
             sectionResults.Add(new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResultsOld.Clear();
             sectionResults.Clear();
         }
     }
