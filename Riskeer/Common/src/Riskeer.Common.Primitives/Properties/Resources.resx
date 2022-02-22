@@ -117,65 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AssessmentResultType_NotAssessed" xml:space="preserve">
-    <value>NGO</value>
-  </data>
-  <data name="Probability_DisplayName" xml:space="preserve">
-    <value>Faalkans</value>
-  </data>
-  <data name="SimpleAssessmentResultType_AssessFurther" xml:space="preserve">
-    <value>VB</value>
-  </data>
-  <data name="AssessmentResultType_None" xml:space="preserve">
-    <value>&lt;selecteer&gt;</value>
-  </data>
-  <data name="SimpleAssessmentResultType_NotApplicable" xml:space="preserve">
-    <value>NVT</value>
-  </data>
-  <data name="AssessmentResultType_ProbabilityNegligible" xml:space="preserve">
-    <value>FV</value>
-  </data>
-  <data name="SimpleAssessmentValidityOnlyResultType_Applicable" xml:space="preserve">
-    <value>WVT</value>
-  </data>
-  <data name="AssessmentResultType_Insufficient" xml:space="preserve">
-    <value>VN</value>
-  </data>
-  <data name="AssessmentResultType_Sufficient" xml:space="preserve">
-    <value>V</value>
-  </data>
-  <data name="TailorMadeAssessmentCategoryGroupResultType_Iv_FV_DisplayName" xml:space="preserve">
-    <value>Iv (FV)</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_IIv_DisplayName" xml:space="preserve">
-    <value>IIv</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_IIIv_DisplayName" xml:space="preserve">
-    <value>IIIv</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_IVv_DisplayName" xml:space="preserve">
-    <value>IVv</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_Vv_DisplayName" xml:space="preserve">
-    <value>Vv</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_VIv_DisplayName" xml:space="preserve">
-    <value>VIv</value>
-  </data>
   <data name="TailorMadeAssessmentCategoryGroupResultType_VIIv_NGO_DisplayName" xml:space="preserve">
     <value>VIIv (NGO)</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_VIIv_DisplayName" xml:space="preserve">
-    <value>VIIv</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_Iv_DisplayName" xml:space="preserve">
-    <value>Iv</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName" xml:space="preserve">
-    <value>NVT</value>
-  </data>
-  <data name="FailureMechanismSectionAssemblyCategoryGroup_None_DisplayName" xml:space="preserve">
-    <value>&lt;selecteer&gt;</value>
   </data>
   <data name="FailureMechanismSectionResultFurtherAnalysisType_NotNecessary_DisplayName" xml:space="preserve">
     <value>Niet nodig</value>

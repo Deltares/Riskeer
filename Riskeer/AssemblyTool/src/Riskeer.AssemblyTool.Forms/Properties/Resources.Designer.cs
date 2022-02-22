@@ -82,24 +82,6 @@ namespace Riskeer.AssemblyTool.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string DisplayFailureMechanismSectionAssemblyCategoryGroup_None_DisplayName {
-            get {
-                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyCategoryGroup_None_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to -.
-        /// </summary>
-        internal static string DisplayFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName {
-            get {
-                return ResourceManager.GetString("DisplayFailureMechanismSectionAssemblyCategoryGroup_NotApplicable_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to D.
         /// </summary>
         internal static string DisplayFailureMechanismSectionAssemblyGroup_Dominant_DisplayName {
