@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewControl>(table);
 
                 DataGridViewColumn groupColumn = table.GetColumnFromIndex(assemblyGroupColumnIndex);
-                Assert.AreEqual("Duidingsklasse", groupColumn.HeaderText);
+                Assert.AreEqual("Naam", groupColumn.HeaderText);
                 Assert.IsTrue(groupColumn.ReadOnly);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(groupColumn);
 
