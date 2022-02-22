@@ -45,30 +45,29 @@ namespace Riskeer.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Sets the given <paramref name="categories"/> for which the properties
-        /// are shown in the table.
+        /// Sets the given <paramref name="groups"/> for which the properties are shown in the table.
         /// </summary>
-        /// <param name="categories">The collection of <see cref="Tuple{T, T, T}"/>.</param>
-        public void SetData(IEnumerable<Tuple<AssemblyGroupBoundaries, Color, T>> categories)
+        /// <param name="groups">The collection of <see cref="Tuple{T, T, T}"/>.</param>
+        public void SetData(IEnumerable<Tuple<AssemblyGroupBoundaries, Color, T>> groups)
         {
-            SetDataSource(categories?.Select(category => new AssemblyCategoryRow<T>(category.Item1, category.Item2, category.Item3)).ToArray());
+            SetDataSource(groups?.Select(group => new AssemblyCategoryRow<T>(group.Item1, group.Item2, group.Item3)).ToArray());
         }
 
         private void AddColumns()
         {
             AddTextBoxColumn(nameof(AssemblyCategoryRow<T>.Group),
-                             RiskeerCommonFormsResources.AssemblyCategory_Group_DisplayName,
+                             RiskeerCommonFormsResources.AssemblyGroup_Group_DisplayName,
                              true);
 
             AddColorColumn(nameof(AssemblyCategoryRow<T>.Color),
-                           RiskeerCommonFormsResources.AssemblyCategory_Color_DisplayName);
+                           RiskeerCommonFormsResources.AssemblyGroup_Color_DisplayName);
 
             AddTextBoxColumn(nameof(AssemblyCategoryRow<T>.LowerBoundary),
-                             RiskeerCommonFormsResources.AssemblyCategory_LowerBoundary_DisplayName,
+                             RiskeerCommonFormsResources.AssemblyGroup_LowerBoundary_DisplayName,
                              true);
 
             AddTextBoxColumn(nameof(AssemblyCategoryRow<T>.UpperBoundary),
-                             RiskeerCommonFormsResources.AssemblyCategory_UpperBoundary_DisplayName,
+                             RiskeerCommonFormsResources.AssemblyGroup_UpperBoundary_DisplayName,
                              true);
         }
     }

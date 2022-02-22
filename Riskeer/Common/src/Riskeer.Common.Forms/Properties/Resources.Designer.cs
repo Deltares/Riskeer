@@ -92,38 +92,11 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kleur.
-        /// </summary>
-        public static string AssemblyCategory_Color_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyCategory_Color_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string AssemblyCategory_Group_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyCategory_Group_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Ondergrens van de duidingsklasse..
         /// </summary>
         public static string AssemblyCategory_LowerBoundary_Description {
             get {
                 return ResourceManager.GetString("AssemblyCategory_LowerBoundary_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ondergrens [1/jaar].
-        /// </summary>
-        public static string AssemblyCategory_LowerBoundary_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyCategory_LowerBoundary_DisplayName", resourceCulture);
             }
         }
         
@@ -137,15 +110,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bovengrens [1/jaar].
-        /// </summary>
-        public static string AssemblyCategory_UpperBoundary_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyCategory_UpperBoundary_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Duidingsklasse per vak.
         /// </summary>
         public static string AssemblyCategoryPerSection_DisplayName {
@@ -155,11 +119,38 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kleur.
+        /// </summary>
+        public static string AssemblyGroup_Color_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyGroup_Color_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duidingsklasse.
         /// </summary>
         public static string AssemblyGroup_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyGroup_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string AssemblyGroup_Group_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyGroup_Group_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ondergrens [1/jaar].
+        /// </summary>
+        public static string AssemblyGroup_LowerBoundary_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyGroup_LowerBoundary_DisplayName", resourceCulture);
             }
         }
         
@@ -178,6 +169,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string AssemblyGroup_Name_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyGroup_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bovengrens [1/jaar].
+        /// </summary>
+        public static string AssemblyGroup_UpperBoundary_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyGroup_UpperBoundary_DisplayName", resourceCulture);
             }
         }
         
