@@ -60,26 +60,26 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             Assert.AreEqual(typeof(FailureMechanismContribution), info.ViewDataType);
         }
 
-        // [Test]
-        // public void CreateInstance_WithContext_SetsExpectedViewProperties()
-        // {
-        //     // Setup
-        //     var mocks = new MockRepository();
-        //     IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
-        //     mocks.ReplayAll();
-        //
-        //     var context = new NormClassesContext(assessmentSection);
-        //     using (new AssemblyToolCalculatorFactoryConfigOld())
-        //     {
-        //         // Call
-        //         var view = (AssessmentSectionAssemblyCategoriesView) info.CreateInstance(context);
-        //
-        //         // Assert
-        //         Assert.AreSame(assessmentSection.FailureMechanismContribution, view.FailureMechanismContribution);
-        //     }
-        //
-        //     mocks.VerifyAll();
-        // }
+        [Test]
+        public void CreateInstance_WithContext_SetsExpectedViewProperties()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
+            mocks.ReplayAll();
+
+            var context = new NormClassesContext(assessmentSection);
+            using (new AssemblyToolCalculatorFactoryConfigOld())
+            {
+                // Call
+                var view = (AssessmentSectionAssemblyCategoriesView) info.CreateInstance(context);
+
+                // Assert
+                Assert.AreSame(assessmentSection.FailureMechanismContribution, view.FailureMechanismContribution);
+            }
+
+            mocks.VerifyAll();
+        }
 
         [Test]
         public void GetViewName_Always_ReturnsViewName()

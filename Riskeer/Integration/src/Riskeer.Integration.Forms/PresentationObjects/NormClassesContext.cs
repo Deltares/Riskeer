@@ -21,20 +21,20 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Riskeer.Integration.Data;
+using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for presenting the norm classes of an <see cref="AssessmentSection"/>.
+    /// Presentation object for presenting the norm classes of an <see cref="IAssessmentSection"/>.
     /// </summary>
-    public class NormClassesContext : ObservableWrappedObjectContextBase<AssessmentSection>
+    public class NormClassesContext : ObservableWrappedObjectContextBase<IAssessmentSection>
     {
         /// <summary>
         /// Creates a new instance of <see cref="NormClassesContext"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to present the norm classes for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public NormClassesContext(AssessmentSection assessmentSection) : base(assessmentSection) {}
+        public NormClassesContext(IAssessmentSection assessmentSection) : base(assessmentSection) {}
     }
 }

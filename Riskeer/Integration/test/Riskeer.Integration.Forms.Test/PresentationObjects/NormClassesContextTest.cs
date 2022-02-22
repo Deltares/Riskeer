@@ -21,7 +21,9 @@
 
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 
@@ -34,7 +36,9 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         public void Constructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var mocks = new MockRepository();
+            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
+            mocks.ReplayAll();
 
             // Call
             var context = new NormClassesContext(assessmentSection);
@@ -42,6 +46,8 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<AssessmentSection>>(context);
             Assert.AreSame(assessmentSection, context.WrappedData);
+
+            mocks.VerifyAll();
         }
     }
 }
