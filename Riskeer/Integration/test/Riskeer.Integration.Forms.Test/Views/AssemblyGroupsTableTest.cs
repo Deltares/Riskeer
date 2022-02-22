@@ -33,7 +33,7 @@ namespace Riskeer.Integration.Forms.Test.Views
     [TestFixture]
     public class AssemblyGroupsTableTest
     {
-        private const int assemblyGroupColumnIndex = 0;
+        private const int groupColumnIndex = 0;
         private const int colorColumnIndex = 1;
         private const int lowerBoundaryColumnIndex = 2;
         private const int upperBoundaryColumnIndex = 3;
@@ -42,12 +42,12 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_InitializesWithColumns()
         {
             // Call
-            using (var table = new AssemblyGroupsTable<TestAssemblyCategoryGroup>())
+            using (var table = new AssemblyGroupsTable<TestAssemblyGroup>())
             {
                 // Assert
                 Assert.IsInstanceOf<DataGridViewControl>(table);
 
-                DataGridViewColumn groupColumn = table.GetColumnFromIndex(assemblyGroupColumnIndex);
+                DataGridViewColumn groupColumn = table.GetColumnFromIndex(groupColumnIndex);
                 Assert.AreEqual("Naam", groupColumn.HeaderText);
                 Assert.IsTrue(groupColumn.ReadOnly);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(groupColumn);
@@ -77,20 +77,20 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void SetData_NoDataAlreadySet_SetNewData()
         {
             // Setup
-            using (var table = new AssemblyGroupsTable<TestAssemblyCategoryGroup>())
+            using (var table = new AssemblyGroupsTable<TestAssemblyGroup>())
             {
-                Tuple<AssemblyGroupBoundaries, Color, TestAssemblyCategoryGroup>[] categories =
+                Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup>[] groups =
                 {
-                    CreateAssessmentSectionAssemblyCategory(),
-                    CreateAssessmentSectionAssemblyCategory(),
-                    CreateAssessmentSectionAssemblyCategory()
+                    CreateAssessmentSectionAssemblyGroup(),
+                    CreateAssessmentSectionAssemblyGroup(),
+                    CreateAssessmentSectionAssemblyGroup()
                 };
 
                 // Call
-                table.SetData(categories);
+                table.SetData(groups);
 
                 // Assert
-                Assert.AreEqual(categories.Length, table.Rows.Count);
+                Assert.AreEqual(groups.Length, table.Rows.Count);
             }
         }
 
@@ -98,15 +98,15 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void SetData_SetNullDataAfterDataAlreadySet_ClearsData()
         {
             // Setup
-            using (var table = new AssemblyGroupsTable<TestAssemblyCategoryGroup>())
+            using (var table = new AssemblyGroupsTable<TestAssemblyGroup>())
             {
-                Tuple<AssemblyGroupBoundaries, Color, TestAssemblyCategoryGroup>[] categories =
+                Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup>[] groups =
                 {
-                    CreateAssessmentSectionAssemblyCategory(),
-                    CreateAssessmentSectionAssemblyCategory(),
-                    CreateAssessmentSectionAssemblyCategory()
+                    CreateAssessmentSectionAssemblyGroup(),
+                    CreateAssessmentSectionAssemblyGroup(),
+                    CreateAssessmentSectionAssemblyGroup()
                 };
-                table.SetData(categories);
+                table.SetData(groups);
 
                 // Call
                 table.SetData(null);
@@ -120,25 +120,25 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void SetData_SetNewDataAfterDataAlreadySet_ClearDataAndAddNewData()
         {
             // Setup
-            using (var table = new AssemblyGroupsTable<TestAssemblyCategoryGroup>())
+            using (var table = new AssemblyGroupsTable<TestAssemblyGroup>())
             {
                 table.SetData(new[]
                 {
-                    CreateAssessmentSectionAssemblyCategory()
+                    CreateAssessmentSectionAssemblyGroup()
                 });
 
-                Tuple<AssemblyGroupBoundaries, Color, TestAssemblyCategoryGroup>[] newCategories =
+                Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup>[] newGroups =
                 {
-                    CreateAssessmentSectionAssemblyCategory(),
-                    CreateAssessmentSectionAssemblyCategory(),
-                    CreateAssessmentSectionAssemblyCategory()
+                    CreateAssessmentSectionAssemblyGroup(),
+                    CreateAssessmentSectionAssemblyGroup(),
+                    CreateAssessmentSectionAssemblyGroup()
                 };
 
                 // Call
-                table.SetData(newCategories);
+                table.SetData(newGroups);
 
                 // Assert
-                Assert.AreEqual(newCategories.Length, table.Rows.Count);
+                Assert.AreEqual(newGroups.Length, table.Rows.Count);
             }
         }
 
@@ -146,48 +146,48 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void SetData_WithData_ExpectedValuesInTable()
         {
             // Setup
-            using (var table = new AssemblyGroupsTable<TestAssemblyCategoryGroup>())
+            using (var table = new AssemblyGroupsTable<TestAssemblyGroup>())
             {
-                Tuple<AssemblyGroupBoundaries, Color, TestAssemblyCategoryGroup>[] categories =
+                Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup>[] groups =
                 {
-                    CreateAssessmentSectionAssemblyCategory(),
-                    CreateAssessmentSectionAssemblyCategory(),
-                    CreateAssessmentSectionAssemblyCategory()
+                    CreateAssessmentSectionAssemblyGroup(),
+                    CreateAssessmentSectionAssemblyGroup(),
+                    CreateAssessmentSectionAssemblyGroup()
                 };
 
                 // Call
-                table.SetData(categories);
+                table.SetData(groups);
 
                 // Assert
-                Assert.AreEqual(categories.Length, table.Rows.Count);
+                Assert.AreEqual(groups.Length, table.Rows.Count);
                 for (var i = 0; i < table.Rows.Count; i++)
                 {
-                    Tuple<AssemblyGroupBoundaries, Color, TestAssemblyCategoryGroup> category = categories[i];
+                    Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup> group = groups[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
 
-                    Assert.AreEqual(category.Item3, rowCells[assemblyGroupColumnIndex].Value);
-                    Assert.AreEqual(category.Item2, rowCells[colorColumnIndex].Value);
-                    Assert.AreEqual(category.Item1.LowerBoundary, rowCells[lowerBoundaryColumnIndex].Value);
-                    Assert.AreEqual(category.Item1.UpperBoundary, rowCells[upperBoundaryColumnIndex].Value);
+                    Assert.AreEqual(group.Item3, rowCells[groupColumnIndex].Value);
+                    Assert.AreEqual(group.Item2, rowCells[colorColumnIndex].Value);
+                    Assert.AreEqual(group.Item1.LowerBoundary, rowCells[lowerBoundaryColumnIndex].Value);
+                    Assert.AreEqual(group.Item1.UpperBoundary, rowCells[upperBoundaryColumnIndex].Value);
                 }
             }
         }
 
-        private static Tuple<AssemblyGroupBoundaries, Color, TestAssemblyCategoryGroup> CreateAssessmentSectionAssemblyCategory()
+        private static Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup> CreateAssessmentSectionAssemblyGroup()
         {
             var random = new Random(39);
-            return new Tuple<AssemblyGroupBoundaries, Color, TestAssemblyCategoryGroup>(new TestAssemblyCategory(random.NextDouble(), random.NextDouble()),
-                                                                                        Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
-                                                                                        random.NextEnumValue<TestAssemblyCategoryGroup>());
+            return new Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup>(new TestAssemblyGroupBoundaries(random.NextDouble(), random.NextDouble()),
+                                                                                Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
+                                                                                random.NextEnumValue<TestAssemblyGroup>());
         }
 
-        private class TestAssemblyCategory : AssemblyGroupBoundaries
+        private class TestAssemblyGroupBoundaries : AssemblyGroupBoundaries
         {
-            public TestAssemblyCategory(double lowerBoundary, double upperBoundary)
+            public TestAssemblyGroupBoundaries(double lowerBoundary, double upperBoundary)
                 : base(lowerBoundary, upperBoundary) {}
         }
 
-        private enum TestAssemblyCategoryGroup
+        private enum TestAssemblyGroup
         {
             I = 1
         }
