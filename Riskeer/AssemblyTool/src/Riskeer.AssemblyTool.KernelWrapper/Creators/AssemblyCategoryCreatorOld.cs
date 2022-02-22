@@ -63,62 +63,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Creates a collection of <see cref="FailureMechanismAssemblyCategory"/>
-        /// based on the information given in the <paramref name="categories"/>.
-        /// </summary>
-        /// <param name="categories">The <see cref="CategoriesList{TCategory}"/>
-        /// with <see cref="FailureMechanismCategory"/> to create the result for.</param>
-        /// <returns>A collection of <see cref="FailureMechanismAssemblyCategory"/>
-        /// with information taken from the <paramref name="categories"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categories"/>
-        /// contains an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="categories"/>
-        /// contains a valid value, but unsupported.</exception>
-        public static IEnumerable<FailureMechanismAssemblyCategory> CreateFailureMechanismAssemblyCategories(
-            CategoriesList<FailureMechanismCategory> categories)
-        {
-            if (categories == null)
-            {
-                throw new ArgumentNullException(nameof(categories));
-            }
-
-            return categories.Categories.Select(
-                categoriesOutput => new FailureMechanismAssemblyCategory(
-                    categoriesOutput.LowerLimit,
-                    categoriesOutput.UpperLimit,
-                    FailureMechanismAssemblyCreator.CreateFailureMechanismAssemblyCategoryGroup(categoriesOutput.Category))).ToArray();
-        }
-
-        /// <summary>
-        /// Creates a collection of <see cref="FailureMechanismSectionAssemblyCategory"/>
-        /// based on the information given in the <paramref name="categories"/>.
-        /// </summary>
-        /// <param name="categories">The <see cref="CategoriesList{TCategory}"/> with
-        /// <see cref="FmSectionCategory"/> to create the result for.</param>
-        /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyCategory"/>
-        /// with information taken from the <paramref name="categories"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categories"/>
-        /// contains an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="categories"/>
-        /// contains a valid value, but unsupported.</exception>
-        public static IEnumerable<FailureMechanismSectionAssemblyCategory> CreateFailureMechanismSectionAssemblyCategories(
-            CategoriesList<FmSectionCategory> categories)
-        {
-            if (categories == null)
-            {
-                throw new ArgumentNullException(nameof(categories));
-            }
-
-            return categories.Categories.Select(
-                categoriesOutput => new FailureMechanismSectionAssemblyCategory(
-                    categoriesOutput.LowerLimit,
-                    categoriesOutput.UpperLimit,
-                    FailureMechanismSectionAssemblyCreatorOld.CreateFailureMechanismSectionAssemblyCategoryGroup(categoriesOutput.Category))).ToArray();
-        }
-
-        /// <summary>
         /// Creates a <see cref="AssessmentSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.
         /// </summary>
         /// <param name="category">The <see cref="EAssessmentGrade"/> to convert.</param>
