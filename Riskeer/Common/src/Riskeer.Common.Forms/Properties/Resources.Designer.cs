@@ -101,7 +101,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Categorie.
+        ///   Looks up a localized string similar to Naam.
         /// </summary>
         public static string AssemblyCategory_Group_DisplayName {
             get {

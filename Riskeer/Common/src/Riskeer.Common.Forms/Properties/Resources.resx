@@ -1337,11 +1337,11 @@ Betrouwbaarheidsindex = {1}</value>
     <data name="FailureMechanismResultView_FailureMechanismAssemblyLabel" xml:space="preserve">
       <value>Gecombineerde faalkans [1/jaar]</value>
     </data>
+    <data name="AssemblyCategory_Group_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
     <data name="AssemblyCategory_Color_DisplayName" xml:space="preserve">
     <value>Kleur</value>
-  </data>
-    <data name="AssemblyCategory_Group_DisplayName" xml:space="preserve">
-    <value>Categorie</value>
   </data>
     <data name="AssemblyCategory_LowerBoundary_DisplayName" xml:space="preserve">
     <value>Ondergrens [1/jaar]</value>
