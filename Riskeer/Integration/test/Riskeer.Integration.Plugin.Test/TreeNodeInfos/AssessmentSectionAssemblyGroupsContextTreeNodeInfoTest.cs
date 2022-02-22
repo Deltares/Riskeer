@@ -36,7 +36,7 @@ using Riskeer.Integration.Forms.PresentationObjects;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class NormClassesContextTreeNodeInfoTest
+    public class AssessmentSectionAssemblyGroupsContextTreeNodeInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
