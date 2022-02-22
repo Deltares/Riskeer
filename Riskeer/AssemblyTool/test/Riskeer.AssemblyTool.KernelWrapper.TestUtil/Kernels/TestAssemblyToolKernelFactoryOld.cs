@@ -21,7 +21,6 @@
 
 using Assembly.Kernel.Old.Interfaces;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
@@ -37,10 +36,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
         public TestAssemblyToolKernelFactoryOld()
         {
             LastCreatedAssemblyCategoriesKernel = new AssemblyCategoriesKernelStubOld();
-            LastCreatedFailureMechanismSectionAssemblyKernel = new FailureMechanismSectionAssemblyKernelStubOld();
-            LastCreatedFailureMechanismAssemblyKernel = new FailureMechanismAssemblyKernelStubOld();
-            LastCreatedAssessmentSectionAssemblyKernel = new AssessmentSectionAssemblyKernelStubOld();
-            LastCreatedCombinedFailureMechanismSectionAssemblyKernel = new CombinedFailureMechanismSectionAssemblyKernelStubOld();
         }
 
         /// <summary>
@@ -48,49 +43,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
         /// </summary>
         public AssemblyCategoriesKernelStubOld LastCreatedAssemblyCategoriesKernel { get; }
 
-        /// <summary>
-        /// Gets the last created failure mechanism section assembly kernel.
-        /// </summary>
-        public FailureMechanismSectionAssemblyKernelStubOld LastCreatedFailureMechanismSectionAssemblyKernel { get; }
-
-        /// <summary>
-        /// Gets the last created failure mechanism assembly kernel.
-        /// </summary>
-        public FailureMechanismAssemblyKernelStubOld LastCreatedFailureMechanismAssemblyKernel { get; }
-
-        /// <summary>
-        /// Gets the last created assessment section assembly kernel.
-        /// </summary>
-        public AssessmentSectionAssemblyKernelStubOld LastCreatedAssessmentSectionAssemblyKernel { get; }
-
-        /// <summary>
-        /// Gets the last created combined failure mechanism section assembly kernel.
-        /// </summary>
-        public CombinedFailureMechanismSectionAssemblyKernelStubOld LastCreatedCombinedFailureMechanismSectionAssemblyKernel { get; }
-
         public ICategoryLimitsCalculator CreateAssemblyCategoriesKernel()
         {
             return LastCreatedAssemblyCategoriesKernel;
-        }
-
-        public IAssessmentResultsTranslator CreateFailureMechanismSectionAssemblyKernel()
-        {
-            return LastCreatedFailureMechanismSectionAssemblyKernel;
-        }
-
-        public IFailureMechanismResultAssembler CreateFailureMechanismAssemblyKernel()
-        {
-            return LastCreatedFailureMechanismAssemblyKernel;
-        }
-
-        public IAssessmentGradeAssembler CreateAssessmentSectionAssemblyKernel()
-        {
-            return LastCreatedAssessmentSectionAssemblyKernel;
-        }
-
-        public ICommonFailureMechanismSectionAssembler CreateCombinedFailureMechanismSectionAssemblyKernel()
-        {
-            return LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
         }
     }
 }
