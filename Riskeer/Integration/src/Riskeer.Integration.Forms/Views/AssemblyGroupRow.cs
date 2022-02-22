@@ -29,54 +29,54 @@ using Riskeer.Common.Forms.TypeConverters;
 namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
-    /// This class represents a row displaying the properties of a <see cref="AssemblyGroupBoundaries"/>.
+    /// This class represents a row displaying the properties of an assembly group.
     /// </summary>
     /// <typeparam name="T">The type of the enum to display.</typeparam>
-    internal class AssemblyCategoryRow<T>
+    internal class AssemblyGroupRow<T>
         where T : struct
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyCategoryRow{T}"/>.
+        /// Creates a new instance of <see cref="AssemblyGroupRow{T}"/>.
         /// </summary>
-        /// <param name="assemblyCategory">The <see cref="AssemblyGroupBoundaries"/> to use.</param>
-        /// <param name="assemblyColor">The <see cref="Color"/> belonging to this category.</param>
-        /// <param name="assemblyCategoryGroup">The category group of this category.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assemblyCategory"/>
+        /// <param name="assemblyGroupBoundaries">The <see cref="AssemblyGroupBoundaries"/> to use.</param>
+        /// <param name="assemblyColor">The <see cref="Color"/> belonging to this group.</param>
+        /// <param name="assemblyGroup">The actual assembly group.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assemblyGroupBoundaries"/>
         /// is <c>null</c>.</exception>
-        public AssemblyCategoryRow(AssemblyGroupBoundaries assemblyCategory,
-                                   Color assemblyColor,
-                                   T assemblyCategoryGroup)
+        public AssemblyGroupRow(AssemblyGroupBoundaries assemblyGroupBoundaries,
+                                Color assemblyColor,
+                                T assemblyGroup)
         {
-            if (assemblyCategory == null)
+            if (assemblyGroupBoundaries == null)
             {
-                throw new ArgumentNullException(nameof(assemblyCategory));
+                throw new ArgumentNullException(nameof(assemblyGroupBoundaries));
             }
 
-            Group = assemblyCategoryGroup;
+            Group = assemblyGroup;
             Color = assemblyColor;
-            UpperBoundary = assemblyCategory.UpperBoundary;
-            LowerBoundary = assemblyCategory.LowerBoundary;
+            UpperBoundary = assemblyGroupBoundaries.UpperBoundary;
+            LowerBoundary = assemblyGroupBoundaries.LowerBoundary;
         }
 
         /// <summary>
-        /// Gets the display name of the category group.
+        /// Gets the display name of the assembly group.
         /// </summary>
         [TypeConverter(typeof(EnumTypeConverter))]
         public T Group { get; }
 
         /// <summary>
-        /// Gets the color of the category.
+        /// Gets the color of the assembly group.
         /// </summary>
         public Color Color { get; }
 
         /// <summary>
-        /// Gets the lower boundary of the category.
+        /// Gets the lower boundary of the assembly group.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double LowerBoundary { get; }
 
         /// <summary>
-        /// Gets the upper boundary of the category.
+        /// Gets the upper boundary of the assembly group.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double UpperBoundary { get; }

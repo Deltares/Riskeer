@@ -50,23 +50,23 @@ namespace Riskeer.Integration.Forms.Views
         /// <param name="groups">The collection of <see cref="Tuple{T, T, T}"/>.</param>
         public void SetData(IEnumerable<Tuple<AssemblyGroupBoundaries, Color, T>> groups)
         {
-            SetDataSource(groups?.Select(group => new AssemblyCategoryRow<T>(group.Item1, group.Item2, group.Item3)).ToArray());
+            SetDataSource(groups?.Select(group => new AssemblyGroupRow<T>(group.Item1, group.Item2, group.Item3)).ToArray());
         }
 
         private void AddColumns()
         {
-            AddTextBoxColumn(nameof(AssemblyCategoryRow<T>.Group),
+            AddTextBoxColumn(nameof(AssemblyGroupRow<T>.Group),
                              RiskeerCommonFormsResources.AssemblyGroup_Group_DisplayName,
                              true);
 
-            AddColorColumn(nameof(AssemblyCategoryRow<T>.Color),
+            AddColorColumn(nameof(AssemblyGroupRow<T>.Color),
                            RiskeerCommonFormsResources.AssemblyGroup_Color_DisplayName);
 
-            AddTextBoxColumn(nameof(AssemblyCategoryRow<T>.LowerBoundary),
+            AddTextBoxColumn(nameof(AssemblyGroupRow<T>.LowerBoundary),
                              RiskeerCommonFormsResources.AssemblyGroup_LowerBoundary_DisplayName,
                              true);
 
-            AddTextBoxColumn(nameof(AssemblyCategoryRow<T>.UpperBoundary),
+            AddTextBoxColumn(nameof(AssemblyGroupRow<T>.UpperBoundary),
                              RiskeerCommonFormsResources.AssemblyGroup_UpperBoundary_DisplayName,
                              true);
         }

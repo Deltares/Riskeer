@@ -151,7 +151,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                     // Assert
                     Assert.AreEqual(1, assemblyGroupsTable.Rows.Count);
-                    var row = (AssemblyCategoryRow<DisplayFailureMechanismSectionAssemblyGroup>) assemblyGroupsTable.Rows[0].DataBoundItem;
+                    var row = (AssemblyGroupRow<DisplayFailureMechanismSectionAssemblyGroup>) assemblyGroupsTable.Rows[0].DataBoundItem;
                     Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(failureMechanismSectionAssemblyGroup), row.Group);
                     Assert.AreEqual(lowerBoundary, row.LowerBoundary);
                     Assert.AreEqual(upperBoundary, row.UpperBoundary);
