@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Assembly.Kernel.Old.Model;
 using Assembly.Kernel.Old.Model.CategoryLimits;
-using Assembly.Kernel.Old.Model.FmSectionTypes;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 
@@ -53,77 +52,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
             CollectionAssert.AreEqual(original.Categories.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
         }
 
-        /// <summary>
-        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
-        /// </summary>
-        /// <param name="original">The original <see cref="CategoriesList{TCategory}"/> with
-        /// <see cref="FailureMechanismCategory"/>.</param>
-        /// <param name="actual">The actual collection of <see cref="FailureMechanismAssemblyCategory"/>.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertFailureMechanismAssemblyCategories(CategoriesList<FailureMechanismCategory> original,
-                                                                    IEnumerable<FailureMechanismAssemblyCategory> actual)
-        {
-            Assert.AreEqual(original.Categories.Length, actual.Count());
-
-            CollectionAssert.AreEqual(original.Categories.Select(o => GetFailureMechanismCategoryGroup(o.Category)), actual.Select(r => r.Group));
-            CollectionAssert.AreEqual(original.Categories.Select(o => o.LowerLimit), actual.Select(r => r.LowerBoundary));
-            CollectionAssert.AreEqual(original.Categories.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
-        }
-
-        /// <summary>
-        /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
-        /// </summary>
-        /// <param name="original">The original <see cref="CategoriesList{TCategory}"/>
-        /// with <see cref="FmSectionCategory"/>.</param>
-        /// <param name="actual">The actual collection of <see cref="FailureMechanismSectionAssemblyCategory"/>.</param>
-        /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
-        /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertFailureMechanismSectionAssemblyCategories(CategoriesList<FmSectionCategory> original,
-                                                                           IEnumerable<FailureMechanismSectionAssemblyCategory> actual)
-        {
-            Assert.AreEqual(original.Categories.Length, actual.Count());
-
-            CollectionAssert.AreEqual(original.Categories.Select(o => GetFailureMechanismSectionCategoryGroup(o.Category)), actual.Select(r => r.Group));
-            CollectionAssert.AreEqual(original.Categories.Select(o => o.LowerLimit), actual.Select(r => r.LowerBoundary));
-            CollectionAssert.AreEqual(original.Categories.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
-        }
-
-        /// <summary>
-        /// Gets the <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based
-        /// on the given <paramref name="category"/>.
-        /// </summary>
-        /// <param name="category">The <see cref="EFmSectionCategory"/> to convert.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/>.</returns>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
-        /// is not valid.</exception>
-        public static FailureMechanismSectionAssemblyCategoryGroup GetFailureMechanismSectionCategoryGroup(EFmSectionCategory category)
-        {
-            switch (category)
-            {
-                case EFmSectionCategory.Iv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.Iv;
-                case EFmSectionCategory.IIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IIv;
-                case EFmSectionCategory.IIIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IIIv;
-                case EFmSectionCategory.IVv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.IVv;
-                case EFmSectionCategory.Vv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.Vv;
-                case EFmSectionCategory.VIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.VIv;
-                case EFmSectionCategory.VIIv:
-                    return FailureMechanismSectionAssemblyCategoryGroup.VIIv;
-                case EFmSectionCategory.NotApplicable:
-                    return FailureMechanismSectionAssemblyCategoryGroup.NotApplicable;
-                case EFmSectionCategory.Gr:
-                    return FailureMechanismSectionAssemblyCategoryGroup.None;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
         private static AssessmentSectionAssemblyCategoryGroup GetAssessmentSectionCategoryGroup(EAssessmentGrade category)
         {
             switch (category)
@@ -144,33 +72,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
                     return AssessmentSectionAssemblyCategoryGroup.NotAssessed;
                 case EAssessmentGrade.Nvt:
                     return AssessmentSectionAssemblyCategoryGroup.NotApplicable;
-                default:
-                    throw new NotSupportedException();
-            }
-        }
-
-        private static FailureMechanismAssemblyCategoryGroup GetFailureMechanismCategoryGroup(EFailureMechanismCategory category)
-        {
-            switch (category)
-            {
-                case EFailureMechanismCategory.It:
-                    return FailureMechanismAssemblyCategoryGroup.It;
-                case EFailureMechanismCategory.IIt:
-                    return FailureMechanismAssemblyCategoryGroup.IIt;
-                case EFailureMechanismCategory.IIIt:
-                    return FailureMechanismAssemblyCategoryGroup.IIIt;
-                case EFailureMechanismCategory.IVt:
-                    return FailureMechanismAssemblyCategoryGroup.IVt;
-                case EFailureMechanismCategory.Vt:
-                    return FailureMechanismAssemblyCategoryGroup.Vt;
-                case EFailureMechanismCategory.VIt:
-                    return FailureMechanismAssemblyCategoryGroup.VIt;
-                case EFailureMechanismCategory.VIIt:
-                    return FailureMechanismAssemblyCategoryGroup.VIIt;
-                case EFailureMechanismCategory.Nvt:
-                    return FailureMechanismAssemblyCategoryGroup.NotApplicable;
-                case EFailureMechanismCategory.Gr:
-                    return FailureMechanismAssemblyCategoryGroup.None;
                 default:
                     throw new NotSupportedException();
             }
