@@ -179,7 +179,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
             using (var fileDisposeHelper = new FileDisposeHelper(filePath))
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
                 fileDisposeHelper.LockFiles();
 
