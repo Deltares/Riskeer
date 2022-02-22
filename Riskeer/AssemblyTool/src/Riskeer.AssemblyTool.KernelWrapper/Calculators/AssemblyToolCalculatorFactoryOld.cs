@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
@@ -52,21 +51,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
         public IAssemblyCategoriesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactoryOld factory)
         {
             return new AssemblyCategoriesCalculator(factory);
-        }
-
-        public IFailureMechanismSectionAssemblyCalculatorOld CreateFailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
-        {
-            return new FailureMechanismSectionAssemblyCalculatorOld(factory);
-        }
-
-        public IFailureMechanismAssemblyCalculatorOld CreateFailureMechanismAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
-        {
-            return new FailureMechanismAssemblyCalculatorOld(factory);
-        }
-
-        public IAssessmentSectionAssemblyCalculatorOld CreateAssessmentSectionAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
-        {
-            return new AssessmentSectionAssemblyCalculatorOld(factory);
         }
     }
 }

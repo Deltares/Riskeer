@@ -21,7 +21,6 @@
 
 using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
@@ -84,57 +83,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
 
                 // Assert
                 Assert.IsInstanceOf<AssemblyCategoriesCalculator>(calculator);
-            }
-        }
-
-        [Test]
-        public void CreateFailureMechanismSectionAssemblyCalculator_WithKernelFactory_ReturnsFailureMechanismSectionAssemblyCalculator()
-        {
-            // Setup
-            IAssemblyToolCalculatorFactoryOld factory = AssemblyToolCalculatorFactoryOld.Instance;
-
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                // Call
-                IFailureMechanismSectionAssemblyCalculatorOld calculator =
-                    factory.CreateFailureMechanismSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
-
-                // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionAssemblyCalculatorOld>(calculator);
-            }
-        }
-
-        [Test]
-        public void CreateFailureMechanismAssemblyCalculator_WithKernelFactory_ReturnsFailureMechanismAssemblyCalculator()
-        {
-            // Setup
-            IAssemblyToolCalculatorFactoryOld factory = AssemblyToolCalculatorFactoryOld.Instance;
-
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                // Call
-                IFailureMechanismAssemblyCalculatorOld calculator =
-                    factory.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
-
-                // Assert
-                Assert.IsInstanceOf<FailureMechanismAssemblyCalculatorOld>(calculator);
-            }
-        }
-
-        [Test]
-        public void CreateAssessmentSectionAssemblyCalculator_WithKernelFactory_ReturnsAssessmentSectionAssemblyCalculator()
-        {
-            // Setup
-            IAssemblyToolCalculatorFactoryOld factory = AssemblyToolCalculatorFactoryOld.Instance;
-
-            using (new AssemblyToolKernelFactoryConfigOld())
-            {
-                // Call
-                IAssessmentSectionAssemblyCalculatorOld calculator =
-                    factory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactoryOld.Instance);
-
-                // Assert
-                Assert.IsInstanceOf<AssessmentSectionAssemblyCalculatorOld>(calculator);
             }
         }
     }

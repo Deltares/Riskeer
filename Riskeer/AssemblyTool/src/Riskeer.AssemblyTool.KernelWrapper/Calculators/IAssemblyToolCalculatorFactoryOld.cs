@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
@@ -38,29 +37,5 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
         /// <returns>The assembly categories calculator.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
         IAssemblyCategoriesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactoryOld factory);
-
-        /// <summary>
-        /// Creates a failure mechanism section assembly calculator.
-        /// </summary>
-        /// <param name="factory">The factory responsible for creating the assembly kernel.</param>
-        /// <returns>The failure mechanism section assembly calculator.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
-        IFailureMechanismSectionAssemblyCalculatorOld CreateFailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactoryOld factory);
-
-        /// <summary>
-        /// Creates a failure mechanism assembly calculator.
-        /// </summary>
-        /// <param name="factory">The factory responsible for creating the assembly kernel.</param>
-        /// <returns>The failure mechanism assembly calculator.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
-        IFailureMechanismAssemblyCalculatorOld CreateFailureMechanismAssemblyCalculator(IAssemblyToolKernelFactoryOld factory);
-
-        /// <summary>
-        /// Creates an assessment section assembly calculator.
-        /// </summary>
-        /// <param name="factory">The factory responsible for creating the assembly kernel.</param>
-        /// <returns>The assessment section assembly calculator.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
-        IAssessmentSectionAssemblyCalculatorOld CreateAssessmentSectionAssemblyCalculator(IAssemblyToolKernelFactoryOld factory);
     }
 }

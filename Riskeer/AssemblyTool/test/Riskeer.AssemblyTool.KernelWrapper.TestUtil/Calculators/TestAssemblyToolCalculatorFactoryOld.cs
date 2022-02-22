@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
@@ -39,9 +37,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         public TestAssemblyToolCalculatorFactoryOld()
         {
             LastCreatedAssemblyCategoriesCalculator = new AssemblyCategoriesCalculatorStub();
-            LastCreatedFailureMechanismSectionAssemblyCalculator = new FailureMechanismSectionAssemblyCalculatorOldStub();
-            LastCreatedFailureMechanismAssemblyCalculator = new FailureMechanismAssemblyCalculatorOldStub();
-            LastCreatedAssessmentSectionAssemblyCalculator = new AssessmentSectionAssemblyCalculatorStubOld();
         }
 
         /// <summary>
@@ -49,39 +44,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         /// </summary>
         public AssemblyCategoriesCalculatorStub LastCreatedAssemblyCategoriesCalculator { get; }
 
-        /// <summary>
-        /// Gets the last created <see cref="FailureMechanismSectionAssemblyCalculatorOldStub"/>.
-        /// </summary>
-        public FailureMechanismSectionAssemblyCalculatorOldStub LastCreatedFailureMechanismSectionAssemblyCalculator { get; }
-
-        /// <summary>
-        /// Gets the last created <see cref="FailureMechanismAssemblyCalculatorOldStub"/>.
-        /// </summary>
-        public FailureMechanismAssemblyCalculatorOldStub LastCreatedFailureMechanismAssemblyCalculator { get; }
-
-        /// <summary>
-        /// Gets the last created <see cref="AssessmentSectionAssemblyCalculatorStubOld"/>.
-        /// </summary>
-        public AssessmentSectionAssemblyCalculatorStubOld LastCreatedAssessmentSectionAssemblyCalculator { get; }
-
         public IAssemblyCategoriesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactoryOld factory)
         {
             return LastCreatedAssemblyCategoriesCalculator;
-        }
-
-        public IFailureMechanismSectionAssemblyCalculatorOld CreateFailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
-        {
-            return LastCreatedFailureMechanismSectionAssemblyCalculator;
-        }
-
-        public IFailureMechanismAssemblyCalculatorOld CreateFailureMechanismAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
-        {
-            return LastCreatedFailureMechanismAssemblyCalculator;
-        }
-
-        public IAssessmentSectionAssemblyCalculatorOld CreateAssessmentSectionAssemblyCalculator(IAssemblyToolKernelFactoryOld factory)
-        {
-            return LastCreatedAssessmentSectionAssemblyCalculator;
         }
     }
 }
