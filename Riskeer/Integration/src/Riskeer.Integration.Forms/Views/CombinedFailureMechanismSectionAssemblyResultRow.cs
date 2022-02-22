@@ -332,7 +332,7 @@ namespace Riskeer.Integration.Forms.Views
         private static CellStyle CreateCellStyle(FailureMechanismSectionAssemblyGroup assemblyCategoryGroup)
         {
             return new CellStyle(Color.FromKnownColor(KnownColor.ControlText),
-                                 AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyCategoryGroup));
+                                 AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyCategoryGroup));
         }
     }
 }

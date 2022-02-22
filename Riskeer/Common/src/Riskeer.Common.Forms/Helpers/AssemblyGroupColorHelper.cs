@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// has an invalid value for <see cref="FailureMechanismSectionAssemblyGroup"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="assemblyGroup"/>
         /// is not supported.</exception>
-        public static Color GetFailureMechanismSectionAssemblyCategoryGroupColor(FailureMechanismSectionAssemblyGroup assemblyGroup)
+        public static Color GetFailureMechanismSectionAssemblyGroupColor(FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyGroup), assemblyGroup))
             {

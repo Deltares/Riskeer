@@ -33,13 +33,13 @@ namespace Riskeer.Common.Forms.Test.Helpers
     public class AssemblyGroupColorHelperTest
     {
         [Test]
-        public void GetFailureMechanismSectionAssemblyCategoryGroupColor_InvalidFailureMechanismSectionAssemblyGroup_ThrowsInvalidEnumArgumentException()
+        public void GetFailureMechanismSectionAssemblyGroupColor_InvalidFailureMechanismSectionAssemblyGroup_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             const FailureMechanismSectionAssemblyGroup assemblyGroup = (FailureMechanismSectionAssemblyGroup) 99;
 
             // Call
-            void Call() => AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyGroup);
+            void Call() => AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroup);
 
             // Assert
             var expectedMessage = $"The value of argument 'assemblyGroup' ({assemblyGroup}) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyGroup)}'.";
@@ -48,11 +48,11 @@ namespace Riskeer.Common.Forms.Test.Helpers
 
         [Test]
         [TestCaseSource(typeof(AssemblyGroupColorTestHelper), nameof(AssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
-        public void GetFailureMechanismSectionAssemblyCategoryGroupColor_ValidFailureMechanismSectionAssemblyGroup_ReturnsExpectedColor(
+        public void GetFailureMechanismSectionAssemblyGroupColor_ValidFailureMechanismSectionAssemblyGroup_ReturnsExpectedColor(
             FailureMechanismSectionAssemblyGroup assemblyGroup, Color expectedColor)
         {
             // Call
-            Color color = AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyGroup);
+            Color color = AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroup);
 
             // Assert
             Assert.AreEqual(expectedColor, color);

@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Forms.Views
                     AssessmentSection.FailureMechanismContribution.SignalingNorm, AssessmentSection.FailureMechanismContribution.LowerLimitNorm).Select(
                     assemblyGroupBoundaries => new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
                         assemblyGroupBoundaries,
-                        AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyCategoryGroupColor(assemblyGroupBoundaries.Group),
+                        AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroupBoundaries.Group),
                         DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyGroupBoundaries.Group))).ToArray();
             }
             catch (AssemblyException)
