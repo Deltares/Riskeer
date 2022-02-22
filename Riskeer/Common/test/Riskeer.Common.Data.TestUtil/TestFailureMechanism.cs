@@ -30,12 +30,11 @@ namespace Riskeer.Common.Data.TestUtil
     /// <summary>
     /// Simple failure mechanism which can be used for testing.
     /// </summary>
-    public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<FailureMechanismSectionResultOld, TestFailureMechanismSectionResult>,
+    public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<TestFailureMechanismSectionResult>,
                                         IHasGeneralInput, ICalculatableFailureMechanism
     {
         private const string defaultName = "Test failure mechanism";
         private const string defaultCode = "TFM";
-        private readonly ObservableList<FailureMechanismSectionResultOld> sectionResultsOld;
         private readonly ObservableList<TestFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
@@ -68,7 +67,6 @@ namespace Riskeer.Common.Data.TestUtil
         private TestFailureMechanism(string name, string code, IEnumerable<ICalculation> calculations)
             : base(name, code)
         {
-            sectionResultsOld = new ObservableList<FailureMechanismSectionResultOld>();
             sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup();
             CalculationsGroup.Children.AddRange(calculations);
@@ -81,20 +79,16 @@ namespace Riskeer.Common.Data.TestUtil
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
-        public IObservableEnumerable<FailureMechanismSectionResultOld> SectionResultsOld => sectionResultsOld;
-
         public IObservableEnumerable<TestFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResultsOld.Add(new TestFailureMechanismSectionResultOld(section));
             sectionResults.Add(new TestFailureMechanismSectionResult(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResultsOld.Clear();
             sectionResults.Clear();
         }
     }

@@ -35,19 +35,4 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// </summary>
         IObservableEnumerable<T> SectionResults { get; }
     }
-
-    /// <summary>
-    /// This interface describes an <see cref="IFailureMechanism"/> containing <see cref="FailureMechanismSectionResultOld"/> objects.
-    /// </summary>
-    /// <typeparam name="TOld">The old type of the section results.</typeparam>
-    /// <typeparam name="T">The type of the section results.</typeparam>
-    public interface IHasSectionResults<out TOld, out T> : IHasSectionResults<T>
-        where TOld : FailureMechanismSectionResultOld
-        where T : FailureMechanismSectionResult
-    {
-        /// <summary>
-        /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="FailureMechanismSectionResultOld"/>.
-        /// </summary>
-        IObservableEnumerable<TOld> SectionResultsOld { get; }
-    }
 }
