@@ -444,7 +444,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // Then
                 Assert.AreNotSame(dataSource, dataGridView.DataSource);
                 Assert.AreEqual(view.AssessmentSection.GetFailureMechanisms().Count(), rows.Count);
-                AssertAssemblyCells(view.AssessmentSection.Piping, double.NaN, rows[0].Cells);
+                AssertAssemblyCells(view.AssessmentSection.Piping, 0, rows[0].Cells);
             }
         }
 
