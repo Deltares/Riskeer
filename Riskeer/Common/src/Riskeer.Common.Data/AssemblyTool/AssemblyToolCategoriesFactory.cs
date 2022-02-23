@@ -29,17 +29,17 @@ using Riskeer.Common.Data.Exceptions;
 namespace Riskeer.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// Factory for calculating the assembly tool categories.
+    /// Factory for calculating the assessment section assembly groups.
     /// </summary>
     public static class AssemblyToolCategoriesFactory
     {
         /// <summary>
-        /// Creates the assessment section assembly categories.
+        /// Creates the assessment section assembly groups.
         /// </summary>
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AssessmentSectionAssemblyCategory"/>.</returns>
-        /// <exception cref="AssemblyException">Thrown when an error occurred while creating the categories.</exception>
+        /// <exception cref="AssemblyException">Thrown when an error occurred while creating the groups.</exception>
         public static IEnumerable<AssessmentSectionAssemblyCategory> CreateAssessmentSectionAssemblyCategories(double signalingNorm, double lowerLimitNorm)
         {
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactoryOld.Instance.CreateAssemblyCategoriesCalculator(
