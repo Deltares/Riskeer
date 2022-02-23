@@ -123,7 +123,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         private static AssemblyGroupsTable<AssessmentSectionAssemblyCategoryGroup> GetCategoriesTable(AssessmentSectionAssemblyGroupsView view)
         {
             return ControlTestHelper.GetControls<AssemblyGroupsTable<AssessmentSectionAssemblyCategoryGroup>>(
-                view, "assemblyCategoriesTable").Single();
+                view, "assemblyGroupsTable").Single();
         }
     }
 }
