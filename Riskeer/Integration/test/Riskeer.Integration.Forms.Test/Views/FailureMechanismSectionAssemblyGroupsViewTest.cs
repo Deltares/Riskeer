@@ -150,11 +150,17 @@ namespace Riskeer.Integration.Forms.Test.Views
                     AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
 
                     // Assert
-                    Assert.AreEqual(1, assemblyGroupsTable.Rows.Count);
-                    var row = (AssemblyGroupRow<DisplayFailureMechanismSectionAssemblyGroup>) assemblyGroupsTable.Rows[0].DataBoundItem;
-                    Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(failureMechanismSectionAssemblyGroup), row.Group);
-                    Assert.AreEqual(lowerBoundary, row.LowerBoundary);
-                    Assert.AreEqual(upperBoundary, row.UpperBoundary);
+                    Assert.AreEqual(calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count(), assemblyGroupsTable.Rows.Count);
+
+                    for (int i = 0; i < calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count(); i++)
+                    {
+                        FailureMechanismSectionAssemblyGroupBoundaries expectedBoundary = calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.ElementAt(i);
+                        var actualBoundary = (AssemblyGroupRow<DisplayFailureMechanismSectionAssemblyGroup>) assemblyGroupsTable.Rows[i].DataBoundItem;
+
+                        Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedBoundary.Group), actualBoundary.Group);
+                        Assert.AreEqual(expectedBoundary.LowerBoundary, actualBoundary.LowerBoundary);
+                        Assert.AreEqual(expectedBoundary.UpperBoundary, actualBoundary.UpperBoundary);
+                    }
                 }
             }
         }
@@ -172,7 +178,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
                 var output = new List<FailureMechanismSectionAssemblyGroupBoundaries>
                 {
-                    CreateRandomDisplayFailureMechanismSectionAssemblyGroupBoundaries(random)
+                    CreateFailureMechanismSectionAssemblyGroupBoundaries(random)
                 };
 
                 calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput = output;
@@ -188,7 +194,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     int newGroupBoundaries = random.Next(1, 10);
                     for (var i = 1; i <= newGroupBoundaries; i++)
                     {
-                        output.Add(CreateRandomDisplayFailureMechanismSectionAssemblyGroupBoundaries(random));
+                        output.Add(CreateFailureMechanismSectionAssemblyGroupBoundaries(random));
                     }
 
                     // When
@@ -207,7 +213,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 view, "assemblyGroupsTable").Single();
         }
 
-        private static FailureMechanismSectionAssemblyGroupBoundaries CreateRandomDisplayFailureMechanismSectionAssemblyGroupBoundaries(Random random)
+        private static FailureMechanismSectionAssemblyGroupBoundaries CreateFailureMechanismSectionAssemblyGroupBoundaries(Random random)
         {
             return new FailureMechanismSectionAssemblyGroupBoundaries(random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
                                                                       random.NextDouble(),
