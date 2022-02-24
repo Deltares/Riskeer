@@ -51,6 +51,19 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.IsNotNull(info.Image);
                 Assert.IsNotNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.ExpandOnCreate);
+                Assert.IsNull(info.ChildNodeObjects);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNull(info.CanCheck);
+                Assert.IsNull(info.CheckedState);
+                Assert.IsNull(info.OnNodeChecked);
+                Assert.IsNull(info.CanDrag);
+                Assert.IsNull(info.CanDrop);
+                Assert.IsNull(info.CanInsert);
+                Assert.IsNull(info.OnDrop);
             }
         }
 
@@ -95,6 +108,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (mocks.Ordered())
             {
                 menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
+                menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 

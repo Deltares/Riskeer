@@ -814,6 +814,8 @@ namespace Riskeer.Integration.Plugin
                 Image = context => RiskeerCommonFormsResources.NormsIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
 
