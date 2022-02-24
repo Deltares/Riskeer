@@ -1609,7 +1609,7 @@ faalkans per doorsnede
 faalkans per vak
 [1/jaar]</value>
   </data>
-    <data name="AssemblyGroup_DisplayName" xml:space="preserve">
+    <data name="AssemblyCategory_Name_DisplayName" xml:space="preserve">
     <value>Duidingsklasse</value>
   </data>
     <data name="FailurePath_ApplyLengthEffectInSection_DisplayName" xml:space="preserve">
