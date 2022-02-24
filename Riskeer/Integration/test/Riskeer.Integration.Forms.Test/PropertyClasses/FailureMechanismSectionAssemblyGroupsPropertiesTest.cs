@@ -32,13 +32,13 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class AssemblyGroupsPropertiesTest
+    public class FailureMechanismSectionAssemblyGroupsPropertiesTest
     {
         [Test]
         public void Constructor_assessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new AssemblyGroupsProperties(null);
+            void Call() => new FailureMechanismSectionAssemblyGroupsProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -52,20 +52,20 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            var properties = new AssemblyGroupsProperties(assessmentSection);
+            var properties = new FailureMechanismSectionAssemblyGroupsProperties(assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<AssemblyGroupsProperties>(properties);
+            Assert.IsInstanceOf<FailureMechanismSectionAssemblyGroupsProperties>(properties);
             Assert.AreSame(assessmentSection, properties.Data);
-            TestHelper.AssertTypeConverter<AssemblyGroupsProperties, ExpandableArrayConverter>(
-                nameof(AssemblyGroupsProperties.FailureMechanismAssemblyGroups));
+            TestHelper.AssertTypeConverter<FailureMechanismSectionAssemblyGroupsProperties, ExpandableArrayConverter>(
+                nameof(FailureMechanismSectionAssemblyGroupsProperties.FailureMechanismAssemblyGroups));
         }
 
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Call
-            var properties = new AssemblyGroupsProperties(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var properties = new FailureMechanismSectionAssemblyGroupsProperties(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

@@ -36,17 +36,17 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// ViewModel of a <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/> for properties panel.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public class AssemblyGroupProperties : ObjectProperties<FailureMechanismSectionAssemblyGroupBoundaries>
+    public class FailureMechanismSectionAssemblyGroupProperties : ObjectProperties<FailureMechanismSectionAssemblyGroupBoundaries>
     {
         private const int groupPropertyIndex = 1;
         private const int lowerBoundaryPropertyIndex = 2;
         private const int upperBoundaryPropertyIndex = 3;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyGroupProperties"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyGroupProperties"/>.
         /// </summary>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="assemblyGroupBoundaries"/> is <c>null</c>.</exception>         
-        public AssemblyGroupProperties(FailureMechanismSectionAssemblyGroupBoundaries assemblyGroupBoundaries)
+        public FailureMechanismSectionAssemblyGroupProperties(FailureMechanismSectionAssemblyGroupBoundaries assemblyGroupBoundaries)
         {
             if (assemblyGroupBoundaries == null)
             {

@@ -36,16 +36,16 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of a collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/> for properties panel.
     /// </summary>
-    public class AssemblyGroupsProperties : ObjectProperties<AssessmentSection>
+    public class FailureMechanismSectionAssemblyGroupsProperties : ObjectProperties<AssessmentSection>
     {
         private const int failureMechanismSectionAssemblyCategoryPropertyIndex = 1;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyGroupsProperties"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyGroupsProperties"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="assessmentSection"/> is <c>null</c>.</exception>
-        public AssemblyGroupsProperties(AssessmentSection assessmentSection)
+        public FailureMechanismSectionAssemblyGroupsProperties(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
@@ -60,7 +60,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyGroups_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyGroups_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
-        public AssemblyGroupProperties[] FailureMechanismAssemblyGroups
+        public FailureMechanismSectionAssemblyGroupProperties[] FailureMechanismAssemblyGroups
         {
             get
             {
@@ -68,16 +68,16 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             }
         }
 
-        private AssemblyGroupProperties[] GetFailureMechanismAssemblyGroups()
+        private FailureMechanismSectionAssemblyGroupProperties[] GetFailureMechanismAssemblyGroups()
         {
             if (Data is AssessmentSection assessmentSection)
             {
                 return AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(
                     assessmentSection.FailureMechanismContribution.SignalingNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm)
-                                                         .Select(category => new AssemblyGroupProperties(category)).ToArray();
+                                                         .Select(category => new FailureMechanismSectionAssemblyGroupProperties(category)).ToArray();
             }
 
-            return Array.Empty<AssemblyGroupProperties>();
+            return Array.Empty<FailureMechanismSectionAssemblyGroupProperties>();
         }
     }
 }

@@ -336,7 +336,7 @@ namespace Riskeer.Integration.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(FailureMechanismSectionAssemblyGroupsContext),
-                    typeof(AssemblyGroupsProperties));
+                    typeof(FailureMechanismSectionAssemblyGroupsProperties));
             }
         }
 

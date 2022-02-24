@@ -62,7 +62,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(FailureMechanismSectionAssemblyGroupsContext), info.DataType);
-            Assert.AreEqual(typeof(AssemblyGroupsProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(FailureMechanismSectionAssemblyGroupsProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -90,15 +90,15 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<AssemblyGroupsProperties>(objectProperties);
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyGroupsProperties>(objectProperties);
 
-                var properties = (AssemblyGroupsProperties) objectProperties;
+                var properties = (FailureMechanismSectionAssemblyGroupsProperties) objectProperties;
 
                 Assert.AreEqual(calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count(), properties.FailureMechanismAssemblyGroups.Length);
                 for (var i = 0; i < calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count(); i++)
                 {
                     FailureMechanismSectionAssemblyGroupBoundaries category = calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.ElementAt(i);
-                    AssemblyGroupProperties property = properties.FailureMechanismAssemblyGroups[i];
+                    FailureMechanismSectionAssemblyGroupProperties property = properties.FailureMechanismAssemblyGroups[i];
                     Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(category.Group), property.Group);
                     Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
                     Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);

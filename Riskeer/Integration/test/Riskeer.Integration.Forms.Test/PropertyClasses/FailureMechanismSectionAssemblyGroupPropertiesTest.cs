@@ -33,13 +33,13 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class AssemblyGroupPropertiesTest
+    public class FailureMechanismSectionAssemblyGroupPropertiesTest
     {
         [Test]
         public void Constructor_AssemblyGroupBoundariesNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new AssemblyGroupProperties(null);
+            void Call() => new FailureMechanismSectionAssemblyGroupProperties(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -56,12 +56,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                                       random.NextDouble());
 
             // Call
-            var properties = new AssemblyGroupProperties(assemblyCategory);
+            var properties = new FailureMechanismSectionAssemblyGroupProperties(assemblyCategory);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<FailureMechanismSectionAssemblyGroupBoundaries>>(properties);
             Assert.AreSame(assemblyCategory, properties.Data);
-            TestHelper.AssertTypeConverter<AssemblyGroupProperties, ExpandableObjectConverter>();
+            TestHelper.AssertTypeConverter<FailureMechanismSectionAssemblyGroupProperties, ExpandableObjectConverter>();
 
             Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyCategory.Group), properties.Group);
             Assert.AreEqual(assemblyCategory.LowerBoundary, properties.LowerBoundary);
@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                                       random.NextDouble());
 
             // Call
-            var properties = new AssemblyGroupProperties(assemblyCategory);
+            var properties = new FailureMechanismSectionAssemblyGroupProperties(assemblyCategory);
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
@@ -113,7 +113,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(39);
             var categoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
-            var properties = new AssemblyGroupProperties(new FailureMechanismSectionAssemblyGroupBoundaries(categoryGroup,
+            var properties = new FailureMechanismSectionAssemblyGroupProperties(new FailureMechanismSectionAssemblyGroupBoundaries(categoryGroup,
                                                                                                             random.NextDouble(),
                                                                                                             random.NextDouble()));
 
