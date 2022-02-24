@@ -33,7 +33,7 @@ using Riskeer.Common.Data.Exceptions;
 namespace Riskeer.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
-    public class AssemblyToolCategoriesFactoryTest
+    public class AssessmentSectionAssemblyGroupsFactoryTest
     {
         [Test]
         public void CreateAssessmentSectionAssemblyCategories_WithInput_SetsInputOnCalculator()
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssemblyToolCategoriesFactory.CreateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm);
+                AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
@@ -71,7 +71,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssessmentSectionAssemblyCategory[] output = AssemblyToolCategoriesFactory.CreateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm).ToArray();
+                AssessmentSectionAssemblyCategory[] output = AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm).ToArray();
 
                 // Assert
                 AssessmentSectionAssemblyCategory[] calculatorOutput = calculator.AssessmentSectionCategoriesOutput.ToArray();
@@ -94,7 +94,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssemblyToolCategoriesFactory.CreateAssessmentSectionAssemblyCategories(0, 0);
+                void Call() => AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyCategories(0, 0);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);

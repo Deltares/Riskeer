@@ -86,13 +86,13 @@ namespace Riskeer.Integration.Forms.Views
         private void UpdateTableData()
         {
             assemblyGroupsTable.SetData(
-                AssemblyToolCategoriesFactory.CreateAssessmentSectionAssemblyCategories(
-                                                 FailureMechanismContribution.SignalingNorm,
-                                                 FailureMechanismContribution.LowerLimitNorm)
-                                             .Select(category => new Tuple<AssemblyGroupBoundaries, Color, AssessmentSectionAssemblyCategoryGroup>(
-                                                         category,
-                                                         AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(category.Group),
-                                                         category.Group)).ToArray());
+                AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyCategories(
+                                                          FailureMechanismContribution.SignalingNorm,
+                                                          FailureMechanismContribution.LowerLimitNorm)
+                                                      .Select(category => new Tuple<AssemblyGroupBoundaries, Color, AssessmentSectionAssemblyCategoryGroup>(
+                                                                  category,
+                                                                  AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(category.Group),
+                                                                  category.Group)).ToArray());
         }
     }
 }
