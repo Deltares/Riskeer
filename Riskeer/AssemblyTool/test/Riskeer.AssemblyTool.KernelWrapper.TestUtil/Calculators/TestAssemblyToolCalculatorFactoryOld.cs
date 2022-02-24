@@ -36,17 +36,17 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         /// </summary>
         public TestAssemblyToolCalculatorFactoryOld()
         {
-            LastCreatedAssemblyCategoriesCalculator = new AssemblyCategoriesCalculatorStub();
+            LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator = new AssessmentSectionAssemblyGroupBoundariesCalculatorStub();
         }
 
         /// <summary>
-        /// Gets the last created <see cref="AssemblyCategoriesCalculatorStub"/>.
+        /// Gets the last created <see cref="AssessmentSectionAssemblyGroupBoundariesCalculatorStub"/>.
         /// </summary>
-        public AssemblyCategoriesCalculatorStub LastCreatedAssemblyCategoriesCalculator { get; }
+        public AssessmentSectionAssemblyGroupBoundariesCalculatorStub LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator { get; }
 
-        public IAssemblyCategoriesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactoryOld factory)
+        public IAssessmentSectionAssemblyGroupBoundariesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactoryOld factory)
         {
-            return LastCreatedAssemblyCategoriesCalculator;
+            return LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
         }
     }
 }

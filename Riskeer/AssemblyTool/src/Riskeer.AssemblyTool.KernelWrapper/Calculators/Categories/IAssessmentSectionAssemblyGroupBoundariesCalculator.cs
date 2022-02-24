@@ -25,17 +25,16 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
 {
     /// <summary>
-    /// Interface representing an assembly categories calculator.
+    /// Interface representing an assessment section assembly group boundaries calculator.
     /// </summary>
-    public interface IAssemblyCategoriesCalculator
+    public interface IAssessmentSectionAssemblyGroupBoundariesCalculator
     {
         /// <summary>
-        /// Performs the calculation for getting the assessment section categories.
+        /// Performs the calculation for getting the assessment section assembly group boundaries.
         /// </summary>
         /// <param name="signalingNorm">The signaling norm to calculate with.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>
-        /// <returns>An <see cref="IEnumerable{T}"/> with categories of
-        /// <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.</returns>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.</returns>
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
         /// while performing the calculation.</exception>
         IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionCategories(

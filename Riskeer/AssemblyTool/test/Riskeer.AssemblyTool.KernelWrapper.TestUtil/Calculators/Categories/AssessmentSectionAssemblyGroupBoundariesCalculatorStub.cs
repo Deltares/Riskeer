@@ -29,7 +29,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
     /// <summary>
     /// Assembly categories calculator stub for testing purposes.
     /// </summary>
-    public class AssemblyCategoriesCalculatorStub : IAssemblyCategoriesCalculator
+    public class AssessmentSectionAssemblyGroupBoundariesCalculatorStub : IAssessmentSectionAssemblyGroupBoundariesCalculator
     {
         /// <summary>
         /// Gets the signaling norm that is used in the calculation.

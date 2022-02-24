@@ -42,7 +42,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurred while creating the group boundaries.</exception>
         public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyGroupBoundaries(double signalingNorm, double lowerLimitNorm)
         {
-            IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactoryOld.Instance.CreateAssemblyCategoriesCalculator(
+            IAssessmentSectionAssemblyGroupBoundariesCalculator calculator = AssemblyToolCalculatorFactoryOld.Instance.CreateAssemblyCategoriesCalculator(
                 AssemblyToolKernelFactoryOld.Instance);
 
             try

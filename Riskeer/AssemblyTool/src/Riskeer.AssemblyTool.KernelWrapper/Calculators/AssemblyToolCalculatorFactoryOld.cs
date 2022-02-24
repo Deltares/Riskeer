@@ -48,9 +48,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
             }
         }
 
-        public IAssemblyCategoriesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactoryOld factory)
+        public IAssessmentSectionAssemblyGroupBoundariesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactoryOld factory)
         {
-            return new AssemblyCategoriesCalculator(factory);
+            return new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
         }
     }
 }

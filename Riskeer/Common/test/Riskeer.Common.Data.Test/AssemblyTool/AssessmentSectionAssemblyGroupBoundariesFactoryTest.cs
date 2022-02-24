@@ -46,7 +46,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+                AssessmentSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
 
                 // Call
                 AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
@@ -68,7 +68,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+                AssessmentSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
 
                 // Call
                 AssessmentSectionAssemblyGroupBoundaries[] output = AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm).ToArray();
@@ -90,7 +90,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             using (new AssemblyToolCalculatorFactoryConfigOld())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
-                AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
+                AssessmentSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call

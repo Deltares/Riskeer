@@ -78,11 +78,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             using (new AssemblyToolKernelFactoryConfigOld())
             {
                 // Call
-                IAssemblyCategoriesCalculator calculator = factory.CreateAssemblyCategoriesCalculator(
+                IAssessmentSectionAssemblyGroupBoundariesCalculator calculator = factory.CreateAssemblyCategoriesCalculator(
                     AssemblyToolKernelFactoryOld.Instance);
 
                 // Assert
-                Assert.IsInstanceOf<AssemblyCategoriesCalculator>(calculator);
+                Assert.IsInstanceOf<AssessmentSectionAssemblyGroupBoundariesCalculator>(calculator);
             }
         }
     }

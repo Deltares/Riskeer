@@ -36,6 +36,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
         /// <param name="factory">The factory responsible for creating the assembly categories kernel.</param>
         /// <returns>The assembly categories calculator.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
-        IAssemblyCategoriesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactoryOld factory);
+        IAssessmentSectionAssemblyGroupBoundariesCalculator CreateAssemblyCategoriesCalculator(IAssemblyToolKernelFactoryOld factory);
     }
 }

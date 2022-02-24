@@ -34,16 +34,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
     /// <summary>
     /// Class representing an assembly categories calculator.
     /// </summary>
-    public class AssemblyCategoriesCalculator : IAssemblyCategoriesCalculator
+    public class AssessmentSectionAssemblyGroupBoundariesCalculator : IAssessmentSectionAssemblyGroupBoundariesCalculator
     {
         private readonly IAssemblyToolKernelFactoryOld factory;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyCategoriesCalculator"/>.
+        /// Creates a new instance of <see cref="AssessmentSectionAssemblyGroupBoundariesCalculator"/>.
         /// </summary>
         /// <param name="factory">The factory responsible for creating the assembly categories kernel.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public AssemblyCategoriesCalculator(IAssemblyToolKernelFactoryOld factory)
+        public AssessmentSectionAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactoryOld factory)
         {
             if (factory == null)
             {

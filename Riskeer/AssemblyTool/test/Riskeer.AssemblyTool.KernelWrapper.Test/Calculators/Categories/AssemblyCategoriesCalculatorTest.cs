@@ -43,7 +43,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         public void Constructor_FactoryNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new AssemblyCategoriesCalculator(null);
+            void Call() => new AssessmentSectionAssemblyGroupBoundariesCalculator(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -59,10 +59,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             mocks.ReplayAll();
 
             // Call
-            var calculator = new AssemblyCategoriesCalculator(factory);
+            var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
             // Assert
-            Assert.IsInstanceOf<IAssemblyCategoriesCalculator>(calculator);
+            Assert.IsInstanceOf<IAssessmentSectionAssemblyGroupBoundariesCalculator>(calculator);
             mocks.VerifyAll();
         }
 
@@ -80,7 +80,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.AssessmentSectionCategoriesOutput = CategoriesListTestFactory.CreateAssessmentSectionCategories();
 
-                var calculator = new AssemblyCategoriesCalculator(factory);
+                var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
                 calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
@@ -106,7 +106,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.AssessmentSectionCategoriesOutput = output;
 
-                var calculator = new AssemblyCategoriesCalculator(factory);
+                var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
                 IEnumerable<AssessmentSectionAssemblyGroupBoundaries> result = calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
@@ -130,7 +130,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new AssemblyCategoriesCalculator(factory);
+                var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
                 void Call() => calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
@@ -156,7 +156,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new AssemblyCategoriesCalculator(factory);
+                var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
                 void Call() => calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
