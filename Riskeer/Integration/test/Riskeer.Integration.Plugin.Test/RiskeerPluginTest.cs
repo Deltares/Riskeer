@@ -537,7 +537,7 @@ namespace Riskeer.Integration.Plugin.Test
                     viewInfos,
                     typeof(FailureMechanismSectionAssemblyGroupsContext),
                     typeof(AssessmentSection),
-                    typeof(AssemblyGroupsView));
+                    typeof(FailureMechanismSectionAssemblyGroupsView));
 
                 viewInfos.ForEachElementDo(vi =>
                 {

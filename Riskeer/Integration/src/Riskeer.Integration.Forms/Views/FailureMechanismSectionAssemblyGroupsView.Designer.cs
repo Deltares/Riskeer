@@ -25,7 +25,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Views
 {
-    partial class AssemblyGroupsView
+    partial class FailureMechanismSectionAssemblyGroupsView
     {
         /// <summary> 
         /// Required designer variable.
@@ -74,9 +74,9 @@ namespace Riskeer.Integration.Forms.Views
             this.groupBox.TabStop = false;
             this.groupBox.Text = RiskeerCommonFormsResources.AssemblyGroups_DisplayName;
             // 
-            // AssemblyGroupsView
+            // FailureMechanismSectionAssemblyGroupsView
             // 
-            this.Name = "AssemblyGroupsView";
+            this.Name = "FailureMechanismSectionAssemblyGroupsView";
             this.Controls.Add(this.groupBoxPanel);
             this.Size = new System.Drawing.Size(750, 420);
             this.AutoScrollMinSize = new System.Drawing.Size(400, 100);

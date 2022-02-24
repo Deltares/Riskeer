@@ -494,11 +494,11 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultPerSectionMapView(context.WrappedData)
             };
 
-            yield return new RiskeerViewInfo<FailureMechanismSectionAssemblyGroupsContext, AssessmentSection, AssemblyGroupsView>(() => Gui)
+            yield return new RiskeerViewInfo<FailureMechanismSectionAssemblyGroupsContext, AssessmentSection, FailureMechanismSectionAssemblyGroupsView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyGroups_DisplayName,
                 CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
-                CreateInstance = context => new AssemblyGroupsView(context.WrappedData)
+                CreateInstance = context => new FailureMechanismSectionAssemblyGroupsView(context.WrappedData)
             };
         }
 

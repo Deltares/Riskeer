@@ -37,16 +37,16 @@ namespace Riskeer.Integration.Forms.Views
     /// <summary>
     /// View to show a collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>.
     /// </summary>
-    public partial class AssemblyGroupsView : UserControl, IView
+    public partial class FailureMechanismSectionAssemblyGroupsView : UserControl, IView
     {
         private readonly Observer failureMechanismContributionObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyGroupsView"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyGroupsView"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="assessmentSection"/> is <c>null</c>.</exception>
-        public AssemblyGroupsView(AssessmentSection assessmentSection)
+        public FailureMechanismSectionAssemblyGroupsView(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {

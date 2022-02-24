@@ -32,7 +32,7 @@ using Riskeer.Integration.Forms.Views;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class AssemblyGroupsViewInfoTest
+    public class FailureMechanismSectionAssemblyGroupsViewInfoTest
     {
         private RiskeerPlugin plugin;
         private ViewInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(AssemblyGroupsView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(FailureMechanismSectionAssemblyGroupsView));
         }
 
         [TearDown]
@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
-            using (var view = new AssemblyGroupsView(assessmentSection))
+            using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection1 = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             var assessmentSection2 = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
-            using (var view = new AssemblyGroupsView(assessmentSection1))
+            using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection1))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection2);
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var context = new FailureMechanismSectionAssemblyGroupsContext(assessmentSection);
 
             // Call
-            var view = (AssemblyGroupsView) info.CreateInstance(context);
+            var view = (FailureMechanismSectionAssemblyGroupsView) info.CreateInstance(context);
 
             // Assert
             Assert.AreSame(assessmentSection, view.AssessmentSection);

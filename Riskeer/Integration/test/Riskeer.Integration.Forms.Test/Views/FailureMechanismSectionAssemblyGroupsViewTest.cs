@@ -39,13 +39,13 @@ using Riskeer.Integration.Forms.Views;
 namespace Riskeer.Integration.Forms.Test.Views
 {
     [TestFixture]
-    public class AssemblyGroupsViewTest
+    public class FailureMechanismSectionAssemblyGroupsViewTest
     {
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new AssemblyGroupsView(null);
+            void Call() => new FailureMechanismSectionAssemblyGroupsView(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -64,7 +64,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                using (var view = new AssemblyGroupsView(assessmentSection))
+                using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
                 {
                     AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
 
@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            using (var view = new AssemblyGroupsView(assessmentSection))
+            using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -116,7 +116,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
-                using (new AssemblyGroupsView(assessmentSection))
+                using (new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
                 {
                     // Assert
                     Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, calculator.LowerLimitNorm);
@@ -145,7 +145,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 };
 
                 // Call
-                using (var view = new AssemblyGroupsView(assessmentSection))
+                using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
                 {
                     AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
 
@@ -177,7 +177,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput = output;
 
-                using (var view = new AssemblyGroupsView(assessmentSection))
+                using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
                 {
                     AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
 
@@ -201,7 +201,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         private static AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> GetAssemblyGroupsTable(
-            AssemblyGroupsView view)
+            FailureMechanismSectionAssemblyGroupsView view)
         {
             return ControlTestHelper.GetControls<AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup>>(
                 view, "assemblyGroupsTable").Single();
