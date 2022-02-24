@@ -31,7 +31,7 @@ namespace Riskeer.Common.Data.AssemblyTool
     /// <summary>
     /// Factory for calculating the assessment section assembly group boundaries.
     /// </summary>
-    public static class AssessmentSectionAssemblyGroupsFactory
+    public static class AssessmentSectionAssemblyGroupBoundariesFactory
     {
         /// <summary>
         /// Creates the assessment section assembly group boundaries.

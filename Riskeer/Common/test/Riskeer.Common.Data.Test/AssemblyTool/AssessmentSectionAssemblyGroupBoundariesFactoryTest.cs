@@ -33,7 +33,7 @@ using Riskeer.Common.Data.Exceptions;
 namespace Riskeer.Common.Data.Test.AssemblyTool
 {
     [TestFixture]
-    public class AssessmentSectionAssemblyGroupsFactoryTest
+    public class AssessmentSectionAssemblyGroupBoundariesFactoryTest
     {
         [Test]
         public void CreateAssessmentSectionAssemblyGroupBoundaries_WithInput_SetsInputOnCalculator()
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
@@ -71,7 +71,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssessmentSectionAssemblyGroupBoundaries[] output = AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm).ToArray();
+                AssessmentSectionAssemblyGroupBoundaries[] output = AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm).ToArray();
 
                 // Assert
                 AssessmentSectionAssemblyGroupBoundaries[] calculatorOutput = calculator.AssessmentSectionCategoriesOutput.ToArray();
@@ -94,7 +94,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyGroupBoundaries(0, 0);
+                void Call() => AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(0, 0);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
