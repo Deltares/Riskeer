@@ -30,49 +30,49 @@ namespace Riskeer.AssemblyTool.Data
     public enum AssessmentSectionAssemblyGroup
     {
         /// <summary>
-        /// Represents the category group GR (No result) for an assessment section.
+        /// Represents group GR (No result).
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_None_DisplayName))]
         None = 1,
 
         /// <summary>
-        /// Represents the category group NVT (Not applicable) for an assessment section.
+        /// Represents group NVT (Not applicable).
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_Empty_DisplayName))]
         NotApplicable = 2,
 
         /// <summary>
-        /// Represents the category group NGO (Not assessed) for an assessment section.
+        /// Represents group NGO (Not assessed).
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_NotAssessed_DisplayName))]
         NotAssessed = 3,
 
         /// <summary>
-        /// Represents the category group A+ for an assessment section.
+        /// Represents group A+.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_APlus_DisplayName))]
         APlus = 4,
 
         /// <summary>
-        /// Represents the category group A+ for an assessment section.
+        /// Represents group A.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_A_DisplayName))]
         A = 5,
 
         /// <summary>
-        /// Represents the category group B for an assessment section.
+        /// Represents group B.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_B_DisplayName))]
         B = 6,
 
         /// <summary>
-        /// Represents the category group C for an assessment section.
+        /// Represents group C.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_C_DisplayName))]
         C = 7,
 
         /// <summary>
-        /// Represents the category group D for an assessment section.
+        /// Represents group D.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_D_DisplayName))]
         D = 8
