@@ -73,11 +73,6 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(1, groupBoxPanel.Controls.Count);
                 Assert.AreEqual(DockStyle.Fill, groupBoxPanel.Dock);
 
-                GroupBox groupBox = ControlTestHelper.GetControls<GroupBox>(groupBoxPanel, "groupBox").Single();
-                Assert.AreEqual(1, groupBox.Controls.Count);
-                Assert.AreEqual(DockStyle.Fill, groupBox.Dock);
-                Assert.AreEqual("Duidingsklassen", groupBox.Text);
-
                 AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
                 Assert.AreEqual(DockStyle.Fill, assemblyGroupsTable.Dock);
             }
@@ -107,20 +102,12 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_WithValidParameters_FillTableWithData()
         {
             // Setup
-            var random = new Random();
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
-                var failureMechanismSectionAssemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
-                double lowerBoundary = random.NextDouble();
-                double upperBoundary = random.NextDouble();
-                calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput = new List<FailureMechanismSectionAssemblyGroupBoundaries>
-                {
-                    new FailureMechanismSectionAssemblyGroupBoundaries(failureMechanismSectionAssemblyGroup, lowerBoundary, upperBoundary)
-                };
 
                 // Call
                 using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
