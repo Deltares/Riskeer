@@ -70,9 +70,9 @@ namespace Riskeer.Common.Data.AssemblyTool
                 throw new ArgumentNullException(nameof(calculateProbabilityStrategy));
             }
 
-            bool adopt = sectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt;
+            bool isInitialFailureMechanismResultTypeAdopt = sectionResult.InitialFailureMechanismResultType == AdoptableInitialFailureMechanismResultType.Adopt;
             double initialFailureMechanismResultSectionProbability =
-                adopt
+                isInitialFailureMechanismResultTypeAdopt
                     ? calculateProbabilityStrategy.CalculateSectionProbability()
                     : sectionResult.ManualInitialFailureMechanismResultSectionProbability;
 
@@ -81,7 +81,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             if (useLengthEffect)
             {
                 double initialFailureMechanismResultProfileProbability =
-                    adopt
+                    isInitialFailureMechanismResultTypeAdopt
                         ? calculateProbabilityStrategy.CalculateProfileProbability()
                         : sectionResult.ManualInitialFailureMechanismResultProfileProbability;
 

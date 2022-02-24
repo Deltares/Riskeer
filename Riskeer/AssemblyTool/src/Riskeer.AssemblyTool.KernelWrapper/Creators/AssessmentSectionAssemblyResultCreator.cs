@@ -33,10 +33,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     public static class AssessmentSectionAssemblyResultCreator
     {
         /// <summary>
-        /// Converts an <see cref="AssessmentSectionResult"/> into a <see cref="RiskeerFailureMechanismSectionAssemblyResult"/>.
+        /// Converts an <see cref="AssessmentSectionResult"/> into a <see cref="AssessmentSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="result">The <see cref="AssessmentSectionResult"/> to convert.</param>
-        /// <returns>A <see cref="AssessmentSectionAssemblyResult"/> based on <paramref name="result"/>.</returns>
+        /// <returns>An <see cref="AssessmentSectionAssemblyResult"/> based on <paramref name="result"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="EInterpretationCategory"/>
         /// is an invalid value.</exception>

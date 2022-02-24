@@ -128,7 +128,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithFailureInAssemblyFalse_ReturnsZero()
+        public void AssembleFailureMechanism_WithFailurePathInAssemblyFalse_ReturnsZero()
         {
             // Setup
             var random = new Random(21);
@@ -149,7 +149,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithFailurePathAssemblyProbabilityResultTypeManual_ReturnsExpectedAssemblyResult()
+        public void AssembleFailureMechanism_WithFailurePathInAssemblyAndProbabilityResultTypeManual_ReturnsExpectedAssemblyResult()
         {
             // Setup
             var random = new Random(21);
@@ -176,7 +176,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithFailurePathAssemblyProbabilityResultTypeAutomatic_InputCorrectlySetOnCalculator()
+        public void AssembleFailureMechanism_WithFailurePathInAssemblyAndProbabilityResultTypeAutomatic_InputCorrectlySetOnCalculator()
         {
             // Setup
             var random = new Random(21);
@@ -223,7 +223,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithFailurePathAssemblyProbabilityResultTypeAutomaticAndFailureMechanismSectionAssemblyThrowsException_InputCorrectlySetOnCalculator()
+        public void AssembleFailureMechanism_WithFailurePathInAssemblyAndProbabilityResultTypeAutomaticAndFailureMechanismSectionAssemblyThrowsException_InputCorrectlySetOnCalculator()
         {
             // Setup
             var random = new Random(21);
@@ -264,7 +264,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithFailurePathAssemblyProbabilityResultTypeAutomatic_ReturnsExpectedAssemblyResult()
+        public void AssembleFailureMechanism_WithFailurePathInAssemblyAndProbabilityResultTypeAutomatic_ReturnsExpectedAssemblyResult()
         {
             // Setup
             var random = new Random(21);
