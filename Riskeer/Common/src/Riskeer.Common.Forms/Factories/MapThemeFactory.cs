@@ -42,7 +42,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>The created <see cref="MapTheme{T}"/>.</returns>
         public static MapTheme<LineCategoryTheme> CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
         {
-            return new MapTheme<LineCategoryTheme>(Resources.AssemblyCategory_Name_DisplayName, new[]
+            return new MapTheme<LineCategoryTheme>(Resources.AssemblyGroup_DisplayName, new[]
             {
                 CreateCategoryTheme(Color.FromArgb(255, 34, 139, 34), DisplayFailureMechanismSectionAssemblyGroup.III),
                 CreateCategoryTheme(Color.FromArgb(255, 146, 208, 80), DisplayFailureMechanismSectionAssemblyGroup.II),
