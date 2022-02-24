@@ -39,7 +39,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.</returns>
-        /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurred while creating the group boundaries.</exception>
+        /// <exception cref="AssessmentSectionAssemblyGroupBoundariesException">Thrown when an error occurred while creating the group boundaries.</exception>
         public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyGroupBoundaries(double signalingNorm, double lowerLimitNorm)
         {
             IAssessmentSectionAssemblyGroupBoundariesCalculator calculator = AssemblyToolCalculatorFactoryOld.Instance.CreateAssemblyCategoriesCalculator(
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             {
                 return calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
             }
-            catch (AssemblyCategoriesCalculatorException e)
+            catch (AssessmentSectionAssemblyGroupBoundariesException e)
             {
                 throw new AssemblyException(e.Message, e);
             }

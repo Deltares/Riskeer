@@ -28,32 +28,32 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
     /// The exception that is thrown when an error occurs while performing an assembly categories calculation.
     /// </summary>
     [Serializable]
-    public class AssemblyCategoriesCalculatorException : Exception
+    public class AssessmentSectionAssemblyGroupBoundariesException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssemblyCategoriesCalculatorException"/> class.
+        /// Initializes a new instance of the <see cref="AssessmentSectionAssemblyGroupBoundariesException"/> class.
         /// </summary>
-        public AssemblyCategoriesCalculatorException() {}
+        public AssessmentSectionAssemblyGroupBoundariesException() {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssemblyCategoriesCalculatorException"/> class
+        /// Initializes a new instance of the <see cref="AssessmentSectionAssemblyGroupBoundariesException"/> class
         /// with a specified error message.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
-        public AssemblyCategoriesCalculatorException(string message) : base(message) {}
+        public AssessmentSectionAssemblyGroupBoundariesException(string message) : base(message) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssemblyCategoriesCalculatorException"/> class
+        /// Initializes a new instance of the <see cref="AssessmentSectionAssemblyGroupBoundariesException"/> class
         /// with a specified error message and a reference to the inner exception that is
         /// the cause of this exception.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="inner">The exception that is the cause of the current exception, 
         /// or a null reference if no inner exception is specified.</param>
-        public AssemblyCategoriesCalculatorException(string message, Exception inner) : base(message, inner) {}
+        public AssessmentSectionAssemblyGroupBoundariesException(string message, Exception inner) : base(message, inner) {}
 
         /// <summary>
-        /// Initializes a new instance of <see cref="AssemblyCategoriesCalculatorException"/> with
+        /// Initializes a new instance of <see cref="AssessmentSectionAssemblyGroupBoundariesException"/> with
         /// serialized data.</summary>
         /// <param name="info">The <see cref="SerializationInfo"/> that holds the serialized
         /// object data about the exception being thrown.</param>
@@ -63,6 +63,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <c>null</c>.</exception>
         /// <exception cref="SerializationException">The class name is <c>null</c> or
         /// <see cref="Exception.HResult" /> is zero (0).</exception>
-        protected AssemblyCategoriesCalculatorException(SerializationInfo info, StreamingContext context) : base(info, context) {}
+        protected AssessmentSectionAssemblyGroupBoundariesException(SerializationInfo info, StreamingContext context) : base(info, context) {}
     }
 }

@@ -65,11 +65,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
             }
             catch (AssemblyException e)
             {
-                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreatorOld.CreateErrorMessage(e.Errors), e);
+                throw new AssessmentSectionAssemblyGroupBoundariesException(AssemblyErrorMessageCreatorOld.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
-                throw new AssemblyCategoriesCalculatorException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
+                throw new AssessmentSectionAssemblyGroupBoundariesException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
             }
         }
     }

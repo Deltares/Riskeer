@@ -27,5 +27,5 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 {
     [TestFixture]
-    public class AssemblyCategoriesCalculatorExceptionTest : CustomExceptionDesignGuidelinesTestFixture<AssemblyCategoriesCalculatorException, Exception> {}
+    public class AssessmentSectionAssemblyGroupBoundariesExceptionTest : CustomExceptionDesignGuidelinesTestFixture<AssessmentSectionAssemblyGroupBoundariesException, Exception> {}
 }
