@@ -28,6 +28,7 @@ using Core.Common.Controls.Views;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Data;
@@ -88,8 +89,9 @@ namespace Riskeer.Integration.Forms.Views
             Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>[] dataToSet;
             try
             {
+                FailureMechanismContribution failureMechanismContribution = AssessmentSection.FailureMechanismContribution;
                 dataToSet = AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(
-                    AssessmentSection.FailureMechanismContribution.SignalingNorm, AssessmentSection.FailureMechanismContribution.LowerLimitNorm).Select(
+                    failureMechanismContribution.SignalingNorm, failureMechanismContribution.LowerLimitNorm).Select(
                     assemblyGroupBoundaries => new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
                         assemblyGroupBoundaries,
                         AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroupBoundaries.Group),
