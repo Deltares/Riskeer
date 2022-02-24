@@ -83,7 +83,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             LowerLimitNormInput = lowerLimitNorm;
             SignalingNormInput = signalingNorm;
 
-            return AssessmentSectionAssemblyResult ?? (AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResult(0.14, AssessmentSectionAssemblyCategoryGroup.NotApplicable));
+            return AssessmentSectionAssemblyResult ?? (AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResult(0.14, AssessmentSectionAssemblyGroup.NotApplicable));
         }
 
         public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(

@@ -37,33 +37,33 @@ namespace Riskeer.Common.Forms.Helpers
         /// <param name="assemblyCategoryGroup">The category group to get the color for.</param>
         /// <returns>The <see cref="Color"/> corresponding to the given category group.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assemblyCategoryGroup"/>
-        /// has an invalid value for <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</exception>
+        /// has an invalid value for <see cref="AssessmentSectionAssemblyGroup"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="assemblyCategoryGroup"/>
         /// is not supported.</exception>
-        public static Color GetAssessmentSectionAssemblyCategoryGroupColor(AssessmentSectionAssemblyCategoryGroup assemblyCategoryGroup)
+        public static Color GetAssessmentSectionAssemblyCategoryGroupColor(AssessmentSectionAssemblyGroup assemblyCategoryGroup)
         {
-            if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyCategoryGroup), assemblyCategoryGroup))
+            if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyGroup), assemblyCategoryGroup))
             {
                 throw new InvalidEnumArgumentException(nameof(assemblyCategoryGroup),
                                                        (int) assemblyCategoryGroup,
-                                                       typeof(AssessmentSectionAssemblyCategoryGroup));
+                                                       typeof(AssessmentSectionAssemblyGroup));
             }
 
             switch (assemblyCategoryGroup)
             {
-                case AssessmentSectionAssemblyCategoryGroup.APlus:
+                case AssessmentSectionAssemblyGroup.APlus:
                     return Color.FromArgb(0, 255, 0);
-                case AssessmentSectionAssemblyCategoryGroup.A:
+                case AssessmentSectionAssemblyGroup.A:
                     return Color.FromArgb(118, 147, 60);
-                case AssessmentSectionAssemblyCategoryGroup.B:
+                case AssessmentSectionAssemblyGroup.B:
                     return Color.FromArgb(255, 255, 0);
-                case AssessmentSectionAssemblyCategoryGroup.C:
+                case AssessmentSectionAssemblyGroup.C:
                     return Color.FromArgb(255, 153, 0);
-                case AssessmentSectionAssemblyCategoryGroup.D:
+                case AssessmentSectionAssemblyGroup.D:
                     return Color.FromArgb(255, 0, 0);
-                case AssessmentSectionAssemblyCategoryGroup.None:
-                case AssessmentSectionAssemblyCategoryGroup.NotApplicable:
-                case AssessmentSectionAssemblyCategoryGroup.NotAssessed:
+                case AssessmentSectionAssemblyGroup.None:
+                case AssessmentSectionAssemblyGroup.NotApplicable:
+                case AssessmentSectionAssemblyGroup.NotAssessed:
                     return Color.White;
                 default:
                     throw new NotSupportedException();

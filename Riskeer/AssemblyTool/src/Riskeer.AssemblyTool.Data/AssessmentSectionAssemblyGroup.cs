@@ -25,9 +25,9 @@ using Riskeer.AssemblyTool.Data.Properties;
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
-    /// Enum defining the assembly categories for an assessment section.
+    /// Enum defining the assembly groups for an assessment section.
     /// </summary>
-    public enum AssessmentSectionAssemblyCategoryGroup
+    public enum AssessmentSectionAssemblyGroup
     {
         /// <summary>
         /// Represents the category group GR (No result) for an assessment section.

@@ -48,7 +48,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCaseSource(typeof(AssessmentGradeConversionTestHelper), nameof(AssessmentGradeConversionTestHelper.AssessmentGradeConversionCases))]
         public void CreateAssessmentSectionAssemblyResult_WithResult_ReturnsExpectedResult(
             EAssessmentGrade categoryGroup,
-            AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
+            AssessmentSectionAssemblyGroup expectedCategoryGroup)
         {
             // Setup
             var random = new Random(21);

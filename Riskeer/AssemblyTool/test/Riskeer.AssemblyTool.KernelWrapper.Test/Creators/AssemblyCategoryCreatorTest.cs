@@ -47,10 +47,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCaseSource(typeof(AssessmentGradeConversionTestHelper), nameof(AssessmentGradeConversionTestHelper.AssessmentGradeConversionCases))]
         public void CreateAssessmentSectionAssemblyCategory_WithValidAssessmentGrade_ExpectedAssessmentSectionAssemblyCategoryResultType(
             EAssessmentGrade categoryGroup,
-            AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
+            AssessmentSectionAssemblyGroup expectedCategoryGroup)
         {
             // Call
-            AssessmentSectionAssemblyCategoryGroup categoryResult = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(categoryGroup);
+            AssessmentSectionAssemblyGroup categoryResult = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(categoryGroup);
 
             // Assert
             Assert.AreEqual(expectedCategoryGroup, categoryResult);

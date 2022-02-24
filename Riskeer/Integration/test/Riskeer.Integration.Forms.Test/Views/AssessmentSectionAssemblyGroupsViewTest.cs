@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(1, view.Controls.Count);
                 Assert.AreSame(failureMechanismContribution, view.FailureMechanismContribution);
 
-                AssemblyGroupsTable<AssessmentSectionAssemblyCategoryGroup> tableControl = GetCategoriesTable(view);
+                AssemblyGroupsTable<AssessmentSectionAssemblyGroup> tableControl = GetCategoriesTable(view);
                 Assert.AreEqual(DockStyle.Fill, tableControl.Dock);
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
@@ -98,7 +98,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
 
-                AssemblyGroupsTable<AssessmentSectionAssemblyCategoryGroup> groupsTable = GetCategoriesTable(view);
+                AssemblyGroupsTable<AssessmentSectionAssemblyGroup> groupsTable = GetCategoriesTable(view);
 
                 // Precondition
                 Assert.AreEqual(calculator.AssessmentSectionAssemblyGroupBoundariesOutput.Count(), groupsTable.Rows.Count);
@@ -108,7 +108,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 {
                     new AssessmentSectionAssemblyGroupBoundaries(random.NextDouble(),
                                                                  random.NextDouble(),
-                                                                 random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>())
+                                                                 random.NextEnumValue<AssessmentSectionAssemblyGroup>())
                 };
                 calculator.AssessmentSectionAssemblyGroupBoundariesOutput = newOutput;
                 failureMechanismContribution.NotifyObservers();
@@ -120,9 +120,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             mocks.VerifyAll();
         }
 
-        private static AssemblyGroupsTable<AssessmentSectionAssemblyCategoryGroup> GetCategoriesTable(AssessmentSectionAssemblyGroupsView view)
+        private static AssemblyGroupsTable<AssessmentSectionAssemblyGroup> GetCategoriesTable(AssessmentSectionAssemblyGroupsView view)
         {
-            return ControlTestHelper.GetControls<AssemblyGroupsTable<AssessmentSectionAssemblyCategoryGroup>>(
+            return ControlTestHelper.GetControls<AssemblyGroupsTable<AssessmentSectionAssemblyGroup>>(
                 view, "assemblyGroupsTable").Single();
         }
     }

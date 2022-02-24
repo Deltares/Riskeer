@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Forms.Controls
         /// <param name="result">The <see cref="AssessmentSectionAssemblyResult"/> to set on the control.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="result"/>
-        /// has an invalid value for <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</exception>
+        /// has an invalid value for <see cref="AssessmentSectionAssemblyGroup"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="result"/>
         /// is not supported.</exception>
         public void SetAssemblyResult(AssessmentSectionAssemblyResult result)
@@ -85,7 +85,7 @@ namespace Riskeer.Integration.Forms.Controls
                 throw new ArgumentNullException(nameof(result));
             }
 
-            groupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result.AssemblyCategoryGroup).DisplayName;
+            groupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyGroup>(result.AssemblyCategoryGroup).DisplayName;
             groupLabel.BackColor = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result.AssemblyCategoryGroup);
 
             probabilityLabel.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(result.Probability);

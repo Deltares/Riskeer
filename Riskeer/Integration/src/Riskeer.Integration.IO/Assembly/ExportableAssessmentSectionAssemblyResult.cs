@@ -35,7 +35,7 @@ namespace Riskeer.Integration.IO.Assembly
         /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
         /// <param name="assemblyCategory">The assembly result.</param>
         public ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod assemblyMethod,
-                                                         AssessmentSectionAssemblyCategoryGroup assemblyCategory)
+                                                         AssessmentSectionAssemblyGroup assemblyCategory)
         {
             AssemblyMethod = assemblyMethod;
             AssemblyCategory = assemblyCategory;
@@ -49,6 +49,6 @@ namespace Riskeer.Integration.IO.Assembly
         /// <summary>
         /// Gets the assembly category.
         /// </summary>
-        public AssessmentSectionAssemblyCategoryGroup AssemblyCategory { get; }
+        public AssessmentSectionAssemblyGroup AssemblyCategory { get; }
     }
 }

@@ -108,8 +108,8 @@ namespace Riskeer.Integration.IO.Exporters
         private static bool ValidateExportableAssessmentSection(ExportableAssessmentSection exportableAssessmentSection)
         {
             return exportableAssessmentSection != null
-                   && exportableAssessmentSection.AssessmentSectionAssembly.AssemblyCategory != AssessmentSectionAssemblyCategoryGroup.None
-                   && exportableAssessmentSection.AssessmentSectionAssembly.AssemblyCategory != AssessmentSectionAssemblyCategoryGroup.NotApplicable;
+                   && exportableAssessmentSection.AssessmentSectionAssembly.AssemblyCategory != AssessmentSectionAssemblyGroup.None
+                   && exportableAssessmentSection.AssessmentSectionAssembly.AssemblyCategory != AssessmentSectionAssemblyGroup.NotApplicable;
         }
 
         private static void LogErrorMessage()

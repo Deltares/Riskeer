@@ -89,10 +89,10 @@ namespace Riskeer.Integration.Forms.Views
                 AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(
                                                                    FailureMechanismContribution.SignalingNorm,
                                                                    FailureMechanismContribution.LowerLimitNorm)
-                                                               .Select(category => new Tuple<AssemblyGroupBoundaries, Color, AssessmentSectionAssemblyCategoryGroup>(
-                                                                           category,
-                                                                           AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(category.Group),
-                                                                           category.Group)).ToArray());
+                                                               .Select(group => new Tuple<AssemblyGroupBoundaries, Color, AssessmentSectionAssemblyGroup>(
+                                                                           group,
+                                                                           AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(group.Group),
+                                                                           group.Group)).ToArray());
         }
     }
 }

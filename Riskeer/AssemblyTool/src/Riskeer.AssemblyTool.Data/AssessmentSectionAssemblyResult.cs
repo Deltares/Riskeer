@@ -30,9 +30,9 @@ namespace Riskeer.AssemblyTool.Data
         /// Creates a new instance of <see cref="AssessmentSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="probability">The failure probability of the assessment section.</param>
-        /// <param name="assemblyCategoryGroup">The <see cref="AssessmentSectionAssemblyCategoryGroup"/>.</param>
+        /// <param name="assemblyCategoryGroup">The <see cref="AssessmentSectionAssemblyGroup"/>.</param>
         public AssessmentSectionAssemblyResult(double probability,
-                                               AssessmentSectionAssemblyCategoryGroup assemblyCategoryGroup)
+                                               AssessmentSectionAssemblyGroup assemblyCategoryGroup)
         {
             Probability = probability;
             AssemblyCategoryGroup = assemblyCategoryGroup;
@@ -44,8 +44,8 @@ namespace Riskeer.AssemblyTool.Data
         public double Probability { get; }
 
         /// <summary>
-        /// Gets the <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
+        /// Gets the <see cref="AssessmentSectionAssemblyGroup"/>.
         /// </summary>
-        public AssessmentSectionAssemblyCategoryGroup AssemblyCategoryGroup { get; }
+        public AssessmentSectionAssemblyGroup AssemblyCategoryGroup { get; }
     }
 }

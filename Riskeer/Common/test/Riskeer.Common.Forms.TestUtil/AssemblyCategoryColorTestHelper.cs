@@ -33,20 +33,20 @@ namespace Riskeer.Common.Forms.TestUtil
     {
         /// <summary>
         /// Gets a collection of test cases to test the colors belonging to various
-        /// <see cref="AssessmentSectionAssemblyCategoryGroup"/> values.
+        /// <see cref="AssessmentSectionAssemblyGroup"/> values.
         /// </summary>
         public static IEnumerable<TestCaseData> AssessmentSectionAssemblyCategoryGroupColorCases
         {
             get
             {
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.APlus, Color.FromArgb(0, 255, 0));
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.A, Color.FromArgb(118, 147, 60));
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.B, Color.FromArgb(255, 255, 0));
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.C, Color.FromArgb(255, 153, 0));
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.D, Color.FromArgb(255, 0, 0));
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.None, Color.White);
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.NotAssessed, Color.White);
-                yield return new TestCaseData(AssessmentSectionAssemblyCategoryGroup.NotApplicable, Color.White);
+                yield return new TestCaseData(AssessmentSectionAssemblyGroup.APlus, Color.FromArgb(0, 255, 0));
+                yield return new TestCaseData(AssessmentSectionAssemblyGroup.A, Color.FromArgb(118, 147, 60));
+                yield return new TestCaseData(AssessmentSectionAssemblyGroup.B, Color.FromArgb(255, 255, 0));
+                yield return new TestCaseData(AssessmentSectionAssemblyGroup.C, Color.FromArgb(255, 153, 0));
+                yield return new TestCaseData(AssessmentSectionAssemblyGroup.D, Color.FromArgb(255, 0, 0));
+                yield return new TestCaseData(AssessmentSectionAssemblyGroup.None, Color.White);
+                yield return new TestCaseData(AssessmentSectionAssemblyGroup.NotAssessed, Color.White);
+                yield return new TestCaseData(AssessmentSectionAssemblyGroup.NotApplicable, Color.White);
             }
         }
     }

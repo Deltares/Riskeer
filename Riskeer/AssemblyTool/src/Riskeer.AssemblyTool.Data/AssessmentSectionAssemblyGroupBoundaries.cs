@@ -32,7 +32,7 @@ namespace Riskeer.AssemblyTool.Data
         /// <param name="lowerBoundary">The lower boundary of the group.</param>
         /// <param name="upperBoundary">The upper boundary of the group.</param>
         /// <param name="group">The actual assessment section group.</param>
-        public AssessmentSectionAssemblyGroupBoundaries(double lowerBoundary, double upperBoundary, AssessmentSectionAssemblyCategoryGroup group)
+        public AssessmentSectionAssemblyGroupBoundaries(double lowerBoundary, double upperBoundary, AssessmentSectionAssemblyGroup group)
             : base(lowerBoundary, upperBoundary)
         {
             Group = group;
@@ -41,6 +41,6 @@ namespace Riskeer.AssemblyTool.Data
         /// <summary>
         /// Gets the actual assessment section group.
         /// </summary>
-        public AssessmentSectionAssemblyCategoryGroup Group { get; }
+        public AssessmentSectionAssemblyGroup Group { get; }
     }
 }

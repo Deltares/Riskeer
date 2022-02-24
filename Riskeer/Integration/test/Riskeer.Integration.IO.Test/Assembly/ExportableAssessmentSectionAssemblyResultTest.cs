@@ -36,7 +36,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Setup
             var random = new Random(21);
             var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
-            var category = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+            var category = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
 
             // Call
             var assembly = new ExportableAssessmentSectionAssemblyResult(assemblyMethod, category);

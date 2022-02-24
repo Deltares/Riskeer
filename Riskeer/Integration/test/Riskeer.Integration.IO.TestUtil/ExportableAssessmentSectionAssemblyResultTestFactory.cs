@@ -37,7 +37,7 @@ namespace Riskeer.Integration.IO.TestUtil
         public static ExportableAssessmentSectionAssemblyResult CreateResult()
         {
             return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.WBI2C1,
-                                                                 AssessmentSectionAssemblyCategoryGroup.C);
+                                                                 AssessmentSectionAssemblyGroup.C);
         }
     }
 }

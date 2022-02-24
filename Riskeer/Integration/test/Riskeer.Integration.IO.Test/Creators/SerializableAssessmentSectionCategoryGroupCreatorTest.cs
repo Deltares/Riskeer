@@ -36,20 +36,20 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_InvalidAssessmentSectionAssemblyCategoryGroup_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            const AssessmentSectionAssemblyCategoryGroup groupInput = (AssessmentSectionAssemblyCategoryGroup) 999;
+            const AssessmentSectionAssemblyGroup groupInput = (AssessmentSectionAssemblyGroup) 999;
 
             // Call
             TestDelegate call = () => SerializableAssessmentSectionCategoryGroupCreator.Create(groupInput);
 
             // Assert
-            string message = $"The value of argument 'categoryGroup' ({groupInput}) is invalid for Enum type '{nameof(AssessmentSectionAssemblyCategoryGroup)}'.";
+            string message = $"The value of argument 'categoryGroup' ({groupInput}) is invalid for Enum type '{nameof(AssessmentSectionAssemblyGroup)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, message);
         }
 
         [Test]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.None)]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.NotApplicable)]
-        public void Create_WithNotSupportedInvalidCategoryGroup_ThrowsNotSupportedException(AssessmentSectionAssemblyCategoryGroup notSupportedCategoryGroup)
+        [TestCase(AssessmentSectionAssemblyGroup.None)]
+        [TestCase(AssessmentSectionAssemblyGroup.NotApplicable)]
+        public void Create_WithNotSupportedInvalidCategoryGroup_ThrowsNotSupportedException(AssessmentSectionAssemblyGroup notSupportedCategoryGroup)
         {
             // Call
             TestDelegate call = () => SerializableAssessmentSectionCategoryGroupCreator.Create(notSupportedCategoryGroup);
@@ -59,13 +59,13 @@ namespace Riskeer.Integration.IO.Test.Creators
         }
 
         [Test]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.APlus, SerializableAssessmentSectionCategoryGroup.APlus)]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.A, SerializableAssessmentSectionCategoryGroup.A)]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.B, SerializableAssessmentSectionCategoryGroup.B)]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.C, SerializableAssessmentSectionCategoryGroup.C)]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.D, SerializableAssessmentSectionCategoryGroup.D)]
-        [TestCase(AssessmentSectionAssemblyCategoryGroup.NotAssessed, SerializableAssessmentSectionCategoryGroup.NotAssessed)]
-        public void Create_WithValidAssessmentSectionAssemblyCategoryGroup_ReturnExpectedValues(AssessmentSectionAssemblyCategoryGroup categoryGroup,
+        [TestCase(AssessmentSectionAssemblyGroup.APlus, SerializableAssessmentSectionCategoryGroup.APlus)]
+        [TestCase(AssessmentSectionAssemblyGroup.A, SerializableAssessmentSectionCategoryGroup.A)]
+        [TestCase(AssessmentSectionAssemblyGroup.B, SerializableAssessmentSectionCategoryGroup.B)]
+        [TestCase(AssessmentSectionAssemblyGroup.C, SerializableAssessmentSectionCategoryGroup.C)]
+        [TestCase(AssessmentSectionAssemblyGroup.D, SerializableAssessmentSectionCategoryGroup.D)]
+        [TestCase(AssessmentSectionAssemblyGroup.NotAssessed, SerializableAssessmentSectionCategoryGroup.NotAssessed)]
+        public void Create_WithValidAssessmentSectionAssemblyCategoryGroup_ReturnExpectedValues(AssessmentSectionAssemblyGroup categoryGroup,
                                                                                                 SerializableAssessmentSectionCategoryGroup expectedGroup)
         {
             // Call

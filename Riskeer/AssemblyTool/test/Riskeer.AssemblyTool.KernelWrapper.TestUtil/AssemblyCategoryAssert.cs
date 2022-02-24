@@ -52,26 +52,26 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
             CollectionAssert.AreEqual(original.Categories.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
         }
 
-        private static AssessmentSectionAssemblyCategoryGroup GetAssessmentSectionCategoryGroup(EAssessmentGrade category)
+        private static AssessmentSectionAssemblyGroup GetAssessmentSectionCategoryGroup(EAssessmentGrade category)
         {
             switch (category)
             {
                 case EAssessmentGrade.APlus:
-                    return AssessmentSectionAssemblyCategoryGroup.APlus;
+                    return AssessmentSectionAssemblyGroup.APlus;
                 case EAssessmentGrade.A:
-                    return AssessmentSectionAssemblyCategoryGroup.A;
+                    return AssessmentSectionAssemblyGroup.A;
                 case EAssessmentGrade.B:
-                    return AssessmentSectionAssemblyCategoryGroup.B;
+                    return AssessmentSectionAssemblyGroup.B;
                 case EAssessmentGrade.C:
-                    return AssessmentSectionAssemblyCategoryGroup.C;
+                    return AssessmentSectionAssemblyGroup.C;
                 case EAssessmentGrade.D:
-                    return AssessmentSectionAssemblyCategoryGroup.D;
+                    return AssessmentSectionAssemblyGroup.D;
                 case EAssessmentGrade.Gr:
-                    return AssessmentSectionAssemblyCategoryGroup.None;
+                    return AssessmentSectionAssemblyGroup.None;
                 case EAssessmentGrade.Ngo:
-                    return AssessmentSectionAssemblyCategoryGroup.NotAssessed;
+                    return AssessmentSectionAssemblyGroup.NotAssessed;
                 case EAssessmentGrade.Nvt:
-                    return AssessmentSectionAssemblyCategoryGroup.NotApplicable;
+                    return AssessmentSectionAssemblyGroup.NotApplicable;
                 default:
                     throw new NotSupportedException();
             }

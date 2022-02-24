@@ -72,7 +72,7 @@ namespace Riskeer.Integration.IO.Factories
         private static ExportableAssessmentSectionAssemblyResult CreateExportableAssessmentSectionAssemblyResult()
         {
             return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.WBI2C1,
-                                                                 AssessmentSectionAssemblyCategoryGroup.None);
+                                                                 AssessmentSectionAssemblyGroup.None);
         }
 
         /// <summary>

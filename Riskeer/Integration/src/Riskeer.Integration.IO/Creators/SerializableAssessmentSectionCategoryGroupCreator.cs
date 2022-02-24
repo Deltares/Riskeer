@@ -41,28 +41,28 @@ namespace Riskeer.Integration.IO.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public static SerializableAssessmentSectionCategoryGroup Create(AssessmentSectionAssemblyCategoryGroup categoryGroup)
+        public static SerializableAssessmentSectionCategoryGroup Create(AssessmentSectionAssemblyGroup categoryGroup)
         {
-            if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyCategoryGroup), categoryGroup))
+            if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyGroup), categoryGroup))
             {
                 throw new InvalidEnumArgumentException(nameof(categoryGroup),
                                                        (int) categoryGroup,
-                                                       typeof(AssessmentSectionAssemblyCategoryGroup));
+                                                       typeof(AssessmentSectionAssemblyGroup));
             }
 
             switch (categoryGroup)
             {
-                case AssessmentSectionAssemblyCategoryGroup.NotAssessed:
+                case AssessmentSectionAssemblyGroup.NotAssessed:
                     return SerializableAssessmentSectionCategoryGroup.NotAssessed;
-                case AssessmentSectionAssemblyCategoryGroup.APlus:
+                case AssessmentSectionAssemblyGroup.APlus:
                     return SerializableAssessmentSectionCategoryGroup.APlus;
-                case AssessmentSectionAssemblyCategoryGroup.A:
+                case AssessmentSectionAssemblyGroup.A:
                     return SerializableAssessmentSectionCategoryGroup.A;
-                case AssessmentSectionAssemblyCategoryGroup.B:
+                case AssessmentSectionAssemblyGroup.B:
                     return SerializableAssessmentSectionCategoryGroup.B;
-                case AssessmentSectionAssemblyCategoryGroup.C:
+                case AssessmentSectionAssemblyGroup.C:
                     return SerializableAssessmentSectionCategoryGroup.C;
-                case AssessmentSectionAssemblyCategoryGroup.D:
+                case AssessmentSectionAssemblyGroup.D:
                     return SerializableAssessmentSectionCategoryGroup.D;
                 default:
                     throw new NotSupportedException();

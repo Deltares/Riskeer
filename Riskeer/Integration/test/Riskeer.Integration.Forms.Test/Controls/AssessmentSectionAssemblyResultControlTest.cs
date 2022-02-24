@@ -110,7 +110,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
             // Setup
             var random = new Random(39);
             var result = new AssessmentSectionAssemblyResult(random.NextDouble(),
-                                                             random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+                                                             random.NextEnumValue<AssessmentSectionAssemblyGroup>());
             using (var resultControl = new AssessmentSectionAssemblyResultControl())
             {
                 // Call
@@ -134,7 +134,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
             using (var resultControl = new AssessmentSectionAssemblyResultControl())
             {
                 var result = new AssessmentSectionAssemblyResult(random.NextDouble(),
-                                                                 random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>());
+                                                                 random.NextEnumValue<AssessmentSectionAssemblyGroup>());
                 resultControl.SetAssemblyResult(result);
 
                 // Precondition
@@ -218,9 +218,9 @@ namespace Riskeer.Integration.Forms.Test.Controls
             }
         }
 
-        private static void AssertGroupLabel(AssessmentSectionAssemblyCategoryGroup result, BorderedLabel groupLabel)
+        private static void AssertGroupLabel(AssessmentSectionAssemblyGroup result, BorderedLabel groupLabel)
         {
-            Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyCategoryGroup>(result).DisplayName,
+            Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyGroup>(result).DisplayName,
                             groupLabel.Text);
             Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result),
                             groupLabel.BackColor);

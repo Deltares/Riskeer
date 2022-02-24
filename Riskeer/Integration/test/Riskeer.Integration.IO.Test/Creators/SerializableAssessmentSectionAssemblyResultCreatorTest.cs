@@ -51,11 +51,11 @@ namespace Riskeer.Integration.IO.Test.Creators
             var result = new ExportableAssessmentSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
                                                                        random.NextEnumValue(new[]
                                                                        {
-                                                                           AssessmentSectionAssemblyCategoryGroup.NotAssessed,
-                                                                           AssessmentSectionAssemblyCategoryGroup.A,
-                                                                           AssessmentSectionAssemblyCategoryGroup.B,
-                                                                           AssessmentSectionAssemblyCategoryGroup.C,
-                                                                           AssessmentSectionAssemblyCategoryGroup.D
+                                                                           AssessmentSectionAssemblyGroup.NotAssessed,
+                                                                           AssessmentSectionAssemblyGroup.A,
+                                                                           AssessmentSectionAssemblyGroup.B,
+                                                                           AssessmentSectionAssemblyGroup.C,
+                                                                           AssessmentSectionAssemblyGroup.D
                                                                        }));
 
             // Call

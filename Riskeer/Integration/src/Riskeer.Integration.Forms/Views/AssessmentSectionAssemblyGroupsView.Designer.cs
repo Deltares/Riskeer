@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Forms.Views
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionAssemblyGroupsView));
-            this.assemblyGroupsTable = new AssemblyGroupsTable<AssessmentSectionAssemblyCategoryGroup>();
+            this.assemblyGroupsTable = new AssemblyGroupsTable<AssessmentSectionAssemblyGroup>();
             this.SuspendLayout();
             // 
             // assessmentSectionAssemblyCategoriesTable
@@ -62,6 +62,6 @@ namespace Riskeer.Integration.Forms.Views
 
         #endregion
 
-        private AssemblyGroupsTable<AssessmentSectionAssemblyCategoryGroup> assemblyGroupsTable;
+        private AssemblyGroupsTable<AssessmentSectionAssemblyGroup> assemblyGroupsTable;
     }
 }

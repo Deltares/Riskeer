@@ -33,20 +33,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
     {
         /// <summary>
         /// Gets a collection of test cases to test the conversion between <see cref="EAssessmentGrade"/>
-        /// and <see cref="AssessmentSectionAssemblyCategoryGroup"/>.
+        /// and <see cref="AssessmentSectionAssemblyGroup"/>.
         /// </summary>
         public static IEnumerable<TestCaseData> AssessmentGradeConversionCases
         {
             get
             {
-                yield return new TestCaseData(EAssessmentGrade.APlus, AssessmentSectionAssemblyCategoryGroup.APlus);
-                yield return new TestCaseData(EAssessmentGrade.A, AssessmentSectionAssemblyCategoryGroup.A);
-                yield return new TestCaseData(EAssessmentGrade.B, AssessmentSectionAssemblyCategoryGroup.B);
-                yield return new TestCaseData(EAssessmentGrade.C, AssessmentSectionAssemblyCategoryGroup.C);
-                yield return new TestCaseData(EAssessmentGrade.D, AssessmentSectionAssemblyCategoryGroup.D);
-                yield return new TestCaseData(EAssessmentGrade.Gr, AssessmentSectionAssemblyCategoryGroup.None);
-                yield return new TestCaseData(EAssessmentGrade.Nvt, AssessmentSectionAssemblyCategoryGroup.NotApplicable);
-                yield return new TestCaseData(EAssessmentGrade.Ngo, AssessmentSectionAssemblyCategoryGroup.NotAssessed);
+                yield return new TestCaseData(EAssessmentGrade.APlus, AssessmentSectionAssemblyGroup.APlus);
+                yield return new TestCaseData(EAssessmentGrade.A, AssessmentSectionAssemblyGroup.A);
+                yield return new TestCaseData(EAssessmentGrade.B, AssessmentSectionAssemblyGroup.B);
+                yield return new TestCaseData(EAssessmentGrade.C, AssessmentSectionAssemblyGroup.C);
+                yield return new TestCaseData(EAssessmentGrade.D, AssessmentSectionAssemblyGroup.D);
+                yield return new TestCaseData(EAssessmentGrade.Gr, AssessmentSectionAssemblyGroup.None);
+                yield return new TestCaseData(EAssessmentGrade.Nvt, AssessmentSectionAssemblyGroup.NotApplicable);
+                yield return new TestCaseData(EAssessmentGrade.Ngo, AssessmentSectionAssemblyGroup.NotAssessed);
             }
         }
     }

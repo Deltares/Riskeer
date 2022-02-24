@@ -64,9 +64,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
             return AssessmentSectionAssemblyGroupBoundariesOutput
                    ?? (AssessmentSectionAssemblyGroupBoundariesOutput = new[]
                           {
-                              new AssessmentSectionAssemblyGroupBoundaries(1, 2, AssessmentSectionAssemblyCategoryGroup.A),
-                              new AssessmentSectionAssemblyGroupBoundaries(2.01, 3, AssessmentSectionAssemblyCategoryGroup.B),
-                              new AssessmentSectionAssemblyGroupBoundaries(3.01, 4, AssessmentSectionAssemblyCategoryGroup.C)
+                              new AssessmentSectionAssemblyGroupBoundaries(1, 2, AssessmentSectionAssemblyGroup.A),
+                              new AssessmentSectionAssemblyGroupBoundaries(2.01, 3, AssessmentSectionAssemblyGroup.B),
+                              new AssessmentSectionAssemblyGroupBoundaries(3.01, 4, AssessmentSectionAssemblyGroup.C)
                           });
         }
     }

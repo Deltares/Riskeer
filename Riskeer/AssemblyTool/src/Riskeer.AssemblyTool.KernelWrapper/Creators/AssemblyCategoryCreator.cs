@@ -32,15 +32,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     public static class AssemblyCategoryCreator
     {
         /// <summary>
-        /// Creates a <see cref="AssessmentSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.
+        /// Creates a <see cref="AssessmentSectionAssemblyGroup"/> based on <paramref name="category"/>.
         /// </summary>
         /// <param name="category">The <see cref="EAssessmentGrade"/> to convert.</param>
-        /// <returns>A <see cref="AssessmentSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.</returns>
+        /// <returns>A <see cref="AssessmentSectionAssemblyGroup"/> based on <paramref name="category"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
         /// is a valid value, but unsupported.</exception>
-        public static AssessmentSectionAssemblyCategoryGroup CreateAssessmentSectionAssemblyCategory(EAssessmentGrade category)
+        public static AssessmentSectionAssemblyGroup CreateAssessmentSectionAssemblyCategory(EAssessmentGrade category)
         {
             if (!Enum.IsDefined(typeof(EAssessmentGrade), category))
             {
@@ -52,21 +52,21 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             switch (category)
             {
                 case EAssessmentGrade.APlus:
-                    return AssessmentSectionAssemblyCategoryGroup.APlus;
+                    return AssessmentSectionAssemblyGroup.APlus;
                 case EAssessmentGrade.A:
-                    return AssessmentSectionAssemblyCategoryGroup.A;
+                    return AssessmentSectionAssemblyGroup.A;
                 case EAssessmentGrade.B:
-                    return AssessmentSectionAssemblyCategoryGroup.B;
+                    return AssessmentSectionAssemblyGroup.B;
                 case EAssessmentGrade.C:
-                    return AssessmentSectionAssemblyCategoryGroup.C;
+                    return AssessmentSectionAssemblyGroup.C;
                 case EAssessmentGrade.D:
-                    return AssessmentSectionAssemblyCategoryGroup.D;
+                    return AssessmentSectionAssemblyGroup.D;
                 case EAssessmentGrade.Gr:
-                    return AssessmentSectionAssemblyCategoryGroup.None;
+                    return AssessmentSectionAssemblyGroup.None;
                 case EAssessmentGrade.Ngo:
-                    return AssessmentSectionAssemblyCategoryGroup.NotAssessed;
+                    return AssessmentSectionAssemblyGroup.NotAssessed;
                 case EAssessmentGrade.Nvt:
-                    return AssessmentSectionAssemblyCategoryGroup.NotApplicable;
+                    return AssessmentSectionAssemblyGroup.NotApplicable;
                 default:
                     throw new NotSupportedException();
             }

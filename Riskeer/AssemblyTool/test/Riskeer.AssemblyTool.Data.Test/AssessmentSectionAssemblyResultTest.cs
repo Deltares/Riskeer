@@ -34,7 +34,7 @@ namespace Riskeer.AssemblyTool.Data.Test
             // Setup
             var random = new Random(21);
             double probability = random.NextDouble();
-            var category = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+            var category = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
 
             // Call
             var result = new AssessmentSectionAssemblyResult(probability, category);

@@ -26,71 +26,71 @@ using NUnit.Framework;
 namespace Riskeer.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class AssessmentSectionAssemblyCategoryGroupTest : EnumWithResourcesDisplayNameTestFixture<AssessmentSectionAssemblyCategoryGroup>
+    public class AssessmentSectionAssemblyCategoryGroupTest : EnumWithResourcesDisplayNameTestFixture<AssessmentSectionAssemblyGroup>
     {
-        protected override IDictionary<AssessmentSectionAssemblyCategoryGroup, int> ExpectedValueForEnumValues
+        protected override IDictionary<AssessmentSectionAssemblyGroup, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<AssessmentSectionAssemblyCategoryGroup, int>
+                return new Dictionary<AssessmentSectionAssemblyGroup, int>
                 {
                     {
-                        AssessmentSectionAssemblyCategoryGroup.None, 1
+                        AssessmentSectionAssemblyGroup.None, 1
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.NotApplicable, 2
+                        AssessmentSectionAssemblyGroup.NotApplicable, 2
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.NotAssessed, 3
+                        AssessmentSectionAssemblyGroup.NotAssessed, 3
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.APlus, 4
+                        AssessmentSectionAssemblyGroup.APlus, 4
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.A, 5
+                        AssessmentSectionAssemblyGroup.A, 5
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.B, 6
+                        AssessmentSectionAssemblyGroup.B, 6
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.C, 7
+                        AssessmentSectionAssemblyGroup.C, 7
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.D, 8
+                        AssessmentSectionAssemblyGroup.D, 8
                     }
                 };
             }
         }
 
-        protected override IDictionary<AssessmentSectionAssemblyCategoryGroup, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<AssessmentSectionAssemblyGroup, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<AssessmentSectionAssemblyCategoryGroup, string>
+                return new Dictionary<AssessmentSectionAssemblyGroup, string>
                 {
                     {
-                        AssessmentSectionAssemblyCategoryGroup.None, ""
+                        AssessmentSectionAssemblyGroup.None, ""
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.APlus, "A+"
+                        AssessmentSectionAssemblyGroup.APlus, "A+"
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.A, "A"
+                        AssessmentSectionAssemblyGroup.A, "A"
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.B, "B"
+                        AssessmentSectionAssemblyGroup.B, "B"
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.C, "C"
+                        AssessmentSectionAssemblyGroup.C, "C"
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.D, "D"
+                        AssessmentSectionAssemblyGroup.D, "D"
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.NotApplicable, "-"
+                        AssessmentSectionAssemblyGroup.NotApplicable, "-"
                     },
                     {
-                        AssessmentSectionAssemblyCategoryGroup.NotAssessed, "NGO"
+                        AssessmentSectionAssemblyGroup.NotAssessed, "NGO"
                     }
                 };
             }

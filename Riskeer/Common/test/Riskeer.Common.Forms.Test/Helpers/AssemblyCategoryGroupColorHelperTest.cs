@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         {
             // Call
             TestDelegate test = () => AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(
-                (AssessmentSectionAssemblyCategoryGroup) 99);
+                (AssessmentSectionAssemblyGroup) 99);
 
             // Assert
             const string expectedMessage = "The value of argument 'assemblyCategoryGroup' (99) is invalid for Enum type 'AssessmentSectionAssemblyCategoryGroup'.";
@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         [Test]
         [TestCaseSource(typeof(AssemblyCategoryColorTestHelper), nameof(AssemblyCategoryColorTestHelper.AssessmentSectionAssemblyCategoryGroupColorCases))]
         public void GetAssessmentSectionAssemblyCategoryGroupColor_WithAssessmentSectionAssemblyCategoryGroup_ReturnsExpectedColor(
-            AssessmentSectionAssemblyCategoryGroup assemblyCategoryGroup, Color expectedColor)
+            AssessmentSectionAssemblyGroup assemblyCategoryGroup, Color expectedColor)
         {
             // Call
             Color color = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(assemblyCategoryGroup);

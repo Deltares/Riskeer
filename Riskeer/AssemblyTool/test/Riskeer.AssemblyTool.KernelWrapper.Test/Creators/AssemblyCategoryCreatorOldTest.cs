@@ -89,7 +89,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCaseSource(typeof(AssessmentGradeConversionTestHelperOld), nameof(AssessmentGradeConversionTestHelperOld.AssessmentGradeConversionCases))]
         public void CreateAssessmentSectionAssemblyCategories_CategoryWithValidAssessmentGrade_ExpectedAssessmentSectionAssemblyCategoryResultType(
             EAssessmentGrade categoryGroup,
-            AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
+            AssessmentSectionAssemblyGroup expectedCategoryGroup)
         {
             // Setup
             var categories = new CategoriesList<AssessmentSectionCategory>(new[]
@@ -119,10 +119,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCaseSource(typeof(AssessmentGradeConversionTestHelperOld), nameof(AssessmentGradeConversionTestHelperOld.AssessmentGradeConversionCases))]
         public void CreateAssessmentSectionAssemblyCategory_WithValidAssessmentGrade_ExpectedAssessmentSectionAssemblyCategoryResultType(
             EAssessmentGrade categoryGroup,
-            AssessmentSectionAssemblyCategoryGroup expectedCategoryGroup)
+            AssessmentSectionAssemblyGroup expectedCategoryGroup)
         {
             // Call
-            AssessmentSectionAssemblyCategoryGroup categoryResult = AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategory(categoryGroup);
+            AssessmentSectionAssemblyGroup categoryResult = AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategory(categoryGroup);
 
             // Assert
             Assert.AreEqual(expectedCategoryGroup, categoryResult);

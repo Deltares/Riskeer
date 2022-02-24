@@ -33,7 +33,7 @@ namespace Riskeer.AssemblyTool.Data.Test
         {
             // Setup
             var random = new Random(39);
-            var assessmentSectionGroup = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+            var assessmentSectionGroup = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
 
