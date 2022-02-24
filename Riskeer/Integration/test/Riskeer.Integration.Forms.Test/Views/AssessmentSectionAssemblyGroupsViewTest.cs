@@ -74,7 +74,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
                 AssessmentSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
-                Assert.AreEqual(calculator.AssessmentSectionCategoriesOutput.Count(), tableControl.Rows.Count);
+                Assert.AreEqual(calculator.AssessmentSectionAssemblyGroupBoundariesOutput.Count(), tableControl.Rows.Count);
             }
         }
 
@@ -101,7 +101,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssemblyGroupsTable<AssessmentSectionAssemblyCategoryGroup> groupsTable = GetCategoriesTable(view);
 
                 // Precondition
-                Assert.AreEqual(calculator.AssessmentSectionCategoriesOutput.Count(), groupsTable.Rows.Count);
+                Assert.AreEqual(calculator.AssessmentSectionAssemblyGroupBoundariesOutput.Count(), groupsTable.Rows.Count);
 
                 // When
                 var newOutput = new[]
@@ -110,7 +110,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                                                                  random.NextDouble(),
                                                                  random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>())
                 };
-                calculator.AssessmentSectionCategoriesOutput = newOutput;
+                calculator.AssessmentSectionAssemblyGroupBoundariesOutput = newOutput;
                 failureMechanismContribution.NotifyObservers();
 
                 // Then

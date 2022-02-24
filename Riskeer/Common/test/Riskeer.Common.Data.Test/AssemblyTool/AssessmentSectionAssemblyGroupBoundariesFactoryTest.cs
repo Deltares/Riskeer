@@ -74,7 +74,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 AssessmentSectionAssemblyGroupBoundaries[] output = AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm).ToArray();
 
                 // Assert
-                AssessmentSectionAssemblyGroupBoundaries[] calculatorOutput = calculator.AssessmentSectionCategoriesOutput.ToArray();
+                AssessmentSectionAssemblyGroupBoundaries[] calculatorOutput = calculator.AssessmentSectionAssemblyGroupBoundariesOutput.ToArray();
 
                 Assert.AreEqual(calculatorOutput.Length, output.Length);
                 CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));

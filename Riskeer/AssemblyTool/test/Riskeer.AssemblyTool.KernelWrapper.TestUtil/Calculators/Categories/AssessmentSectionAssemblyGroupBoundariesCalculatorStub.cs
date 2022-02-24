@@ -27,7 +27,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
 {
     /// <summary>
-    /// Assembly categories calculator stub for testing purposes.
+    /// Assembly assessment section assembly group boundaries calculator stub for testing purposes.
     /// </summary>
     public class AssessmentSectionAssemblyGroupBoundariesCalculatorStub : IAssessmentSectionAssemblyGroupBoundariesCalculator
     {
@@ -44,7 +44,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         /// <summary>
         /// Gets or sets the output of the <see cref="AssessmentSectionAssemblyGroupBoundaries"/> calculation.
         /// </summary>
-        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> AssessmentSectionCategoriesOutput { get; set; }
+        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> AssessmentSectionAssemblyGroupBoundariesOutput { get; set; }
 
         /// <summary>
         /// Sets an indicator whether an exception must be thrown while performing the calculation.
@@ -61,8 +61,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
             SignalingNorm = signalingNorm;
             LowerLimitNorm = lowerLimitNorm;
 
-            return AssessmentSectionCategoriesOutput
-                   ?? (AssessmentSectionCategoriesOutput = new[]
+            return AssessmentSectionAssemblyGroupBoundariesOutput
+                   ?? (AssessmentSectionAssemblyGroupBoundariesOutput = new[]
                           {
                               new AssessmentSectionAssemblyGroupBoundaries(1, 2, AssessmentSectionAssemblyCategoryGroup.A),
                               new AssessmentSectionAssemblyGroupBoundaries(2.01, 3, AssessmentSectionAssemblyCategoryGroup.B),
