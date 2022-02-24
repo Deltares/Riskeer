@@ -36,7 +36,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
     public class AssessmentSectionAssemblyGroupsFactoryTest
     {
         [Test]
-        public void CreateAssessmentSectionAssemblyCategories_WithInput_SetsInputOnCalculator()
+        public void CreateAssessmentSectionAssemblyGroupBoundaries_WithInput_SetsInputOnCalculator()
         {
             // Setup
             var random = new Random(11);
@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm);
+                AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
@@ -58,7 +58,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void CreateAssessmentSectionAssemblyCategories_CalculatorRan_ReturnsOutput()
+        public void CreateAssessmentSectionAssemblyGroupBoundaries_CalculatorRan_ReturnsOutput()
         {
             // Setup
             var random = new Random(11);
@@ -71,7 +71,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssessmentSectionAssemblyGroupBoundaries[] output = AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm).ToArray();
+                AssessmentSectionAssemblyGroupBoundaries[] output = AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm).ToArray();
 
                 // Assert
                 AssessmentSectionAssemblyGroupBoundaries[] calculatorOutput = calculator.AssessmentSectionCategoriesOutput.ToArray();
@@ -84,7 +84,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void CreateAssessmentSectionAssemblyCategories_CalculatorThrowsException_ThrowsAssemblyException()
+        public void CreateAssessmentSectionAssemblyGroupBoundaries_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfigOld())
@@ -94,7 +94,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyCategories(0, 0);
+                void Call() => AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyGroupBoundaries(0, 0);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);

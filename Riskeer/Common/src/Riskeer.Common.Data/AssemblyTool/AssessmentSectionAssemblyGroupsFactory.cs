@@ -29,18 +29,18 @@ using Riskeer.Common.Data.Exceptions;
 namespace Riskeer.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// Factory for calculating the assessment section assembly groups.
+    /// Factory for calculating the assessment section assembly group boundaries.
     /// </summary>
     public static class AssessmentSectionAssemblyGroupsFactory
     {
         /// <summary>
-        /// Creates the assessment section assembly groups.
+        /// Creates the assessment section assembly group boundaries.
         /// </summary>
         /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.</returns>
-        /// <exception cref="AssemblyException">Thrown when an error occurred while creating the groups.</exception>
-        public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyCategories(double signalingNorm, double lowerLimitNorm)
+        /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurred while creating the group boundaries.</exception>
+        public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyGroupBoundaries(double signalingNorm, double lowerLimitNorm)
         {
             IAssemblyCategoriesCalculator calculator = AssemblyToolCalculatorFactoryOld.Instance.CreateAssemblyCategoriesCalculator(
                 AssemblyToolKernelFactoryOld.Instance);
