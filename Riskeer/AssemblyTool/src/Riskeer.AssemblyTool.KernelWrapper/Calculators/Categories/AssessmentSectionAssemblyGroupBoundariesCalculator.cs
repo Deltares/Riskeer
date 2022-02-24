@@ -32,7 +32,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
 {
     /// <summary>
-    /// Class representing an assembly categories calculator.
+    /// Class representing an assessment section assembly group boundaries calculator.
     /// </summary>
     public class AssessmentSectionAssemblyGroupBoundariesCalculator : IAssessmentSectionAssemblyGroupBoundariesCalculator
     {
@@ -53,7 +53,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
             this.factory = factory;
         }
 
-        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionCategories(double signalingNorm, double lowerLimitNorm)
+        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionAssemblyGroupBoundaries(double signalingNorm, double lowerLimitNorm)
         {
             try
             {

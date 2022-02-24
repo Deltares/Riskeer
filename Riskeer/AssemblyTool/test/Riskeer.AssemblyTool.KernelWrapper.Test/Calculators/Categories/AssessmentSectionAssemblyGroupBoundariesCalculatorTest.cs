@@ -37,7 +37,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 {
     [TestFixture]
-    public class AssemblyCategoriesCalculatorTest
+    public class AssessmentSectionAssemblyGroupBoundariesCalculatorTest
     {
         [Test]
         public void Constructor_FactoryNull_ThrowsArgumentNullException()
@@ -67,7 +67,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_WithInput_InputCorrectlySetToKernel()
+        public void CalculateAssessmentSectionAssemblyGroupBoundaries_WithInput_InputCorrectlySetToKernel()
         {
             // Setup
             var random = new Random(11);
@@ -83,7 +83,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
+                calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 Assert.AreEqual(lowerLimitNorm, kernel.LowerLimitNorm);
@@ -92,7 +92,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
+        public void CalculateAssessmentSectionAssemblyGroupBoundaries_KernelWithCompleteOutput_OutputCorrectlyReturnedByCalculator()
         {
             // Setup
             var random = new Random(11);
@@ -109,7 +109,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                IEnumerable<AssessmentSectionAssemblyGroupBoundaries> result = calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
+                IEnumerable<AssessmentSectionAssemblyGroupBoundaries> result = calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 AssemblyCategoryAssert.AssertAssessmentSectionAssemblyCategories(output, result);
@@ -117,7 +117,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_KernelThrowsException_ThrowAssemblyCategoriesCalculatorException()
+        public void CalculateAssessmentSectionAssemblyGroupBoundaries_KernelThrowsException_ThrowAssemblyCategoriesCalculatorException()
         {
             // Setup
             var random = new Random(11);
@@ -133,7 +133,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                void Call() => calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
+                void Call() => calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(Call);
@@ -143,7 +143,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         }
 
         [Test]
-        public void CalculateAssessmentSectionCategories_KernelThrowsAssemblyException_ThrowAssemblyCategoriesCalculatorException()
+        public void CalculateAssessmentSectionAssemblyGroupBoundaries_KernelThrowsAssemblyException_ThrowAssemblyCategoriesCalculatorException()
         {
             // Setup
             var random = new Random(11);
@@ -159,7 +159,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                void Call() => calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
+                void Call() => calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyCategoriesCalculatorException>(Call);

@@ -37,7 +37,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.</returns>
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
         /// while performing the calculation.</exception>
-        IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionCategories(
+        IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionAssemblyGroupBoundaries(
             double signalingNorm, double lowerLimitNorm);
     }
 }

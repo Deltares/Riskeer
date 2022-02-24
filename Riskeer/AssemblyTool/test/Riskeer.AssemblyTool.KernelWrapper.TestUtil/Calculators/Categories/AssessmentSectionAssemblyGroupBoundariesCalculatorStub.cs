@@ -51,7 +51,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
-        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionCategories(double signalingNorm, double lowerLimitNorm)
+        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionAssemblyGroupBoundaries(double signalingNorm, double lowerLimitNorm)
         {
             if (ThrowExceptionOnCalculate)
             {

@@ -47,7 +47,7 @@ namespace Riskeer.Common.Data.AssemblyTool
 
             try
             {
-                return calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
+                return calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
             }
             catch (AssemblyCategoriesCalculatorException e)
             {
