@@ -120,7 +120,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(AssemblyGroupsContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionAssemblyGroupsContext));
         }
     }
 }

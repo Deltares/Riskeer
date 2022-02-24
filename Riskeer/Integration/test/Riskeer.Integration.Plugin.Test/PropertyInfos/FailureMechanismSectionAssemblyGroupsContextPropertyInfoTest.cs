@@ -39,7 +39,7 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class AssemblyGroupsContextPropertyInfoTest
+    public class FailureMechanismSectionAssemblyGroupsContextPropertyInfoTest
     {
         private RiskeerPlugin plugin;
         private PropertyInfo info;
@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.DataType == typeof(AssemblyGroupsContext));
+            info = plugin.GetPropertyInfos().First(tni => tni.DataType == typeof(FailureMechanismSectionAssemblyGroupsContext));
         }
 
         [TearDown]
@@ -61,7 +61,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(AssemblyGroupsContext), info.DataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionAssemblyGroupsContext), info.DataType);
             Assert.AreEqual(typeof(AssemblyGroupsProperties), info.PropertyObjectType);
         }
 
@@ -70,7 +70,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         {
             // Setup
             var random = new Random();
-            var context = new AssemblyGroupsContext(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var context = new FailureMechanismSectionAssemblyGroupsContext(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {

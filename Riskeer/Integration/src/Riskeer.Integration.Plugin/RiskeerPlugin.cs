@@ -319,7 +319,7 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new StructuresOutputProperties(context.WrappedData.Output)
             };
 
-            yield return new PropertyInfo<AssemblyGroupsContext, AssemblyGroupsProperties>
+            yield return new PropertyInfo<FailureMechanismSectionAssemblyGroupsContext, AssemblyGroupsProperties>
             {
                 CreateInstance = context => new AssemblyGroupsProperties(context.WrappedData)
             };
@@ -494,7 +494,7 @@ namespace Riskeer.Integration.Plugin
                 CreateInstance = context => new AssemblyResultPerSectionMapView(context.WrappedData)
             };
 
-            yield return new RiskeerViewInfo<AssemblyGroupsContext, AssessmentSection, AssemblyGroupsView>(() => Gui)
+            yield return new RiskeerViewInfo<FailureMechanismSectionAssemblyGroupsContext, AssessmentSection, AssemblyGroupsView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyGroups_DisplayName,
                 CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
@@ -808,7 +808,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return CreateSpecificFailurePathTreeNodeInfo();
 
-            yield return new TreeNodeInfo<AssemblyGroupsContext>
+            yield return new TreeNodeInfo<FailureMechanismSectionAssemblyGroupsContext>
             {
                 Text = context => RiskeerCommonFormsResources.AssemblyGroups_DisplayName,
                 Image = context => RiskeerCommonFormsResources.NormsIcon,
@@ -1834,7 +1834,7 @@ namespace Riskeer.Integration.Plugin
 
             return new object[]
             {
-                new AssemblyGroupsContext(assessmentSection),
+                new FailureMechanismSectionAssemblyGroupsContext(assessmentSection),
                 new GenericFailurePathsContext(assessmentSection),
                 new SpecificFailurePathsContext(assessmentSection.SpecificFailurePaths, assessmentSection),
                 new AssemblyResultsContext(assessmentSection)

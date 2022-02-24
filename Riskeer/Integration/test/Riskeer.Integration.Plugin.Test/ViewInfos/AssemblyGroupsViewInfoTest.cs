@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(AssemblyGroupsContext), info.DataType);
+            Assert.AreEqual(typeof(FailureMechanismSectionAssemblyGroupsContext), info.DataType);
             Assert.AreEqual(typeof(AssessmentSection), info.ViewDataType);
         }
 
@@ -109,7 +109,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            var context = new AssemblyGroupsContext(assessmentSection);
+            var context = new FailureMechanismSectionAssemblyGroupsContext(assessmentSection);
 
             // Call
             var view = (AssemblyGroupsView) info.CreateInstance(context);

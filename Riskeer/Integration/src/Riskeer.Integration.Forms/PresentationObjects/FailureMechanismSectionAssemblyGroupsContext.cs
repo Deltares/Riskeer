@@ -21,30 +21,20 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
-using Core.Common.TestUtil;
-using NUnit.Framework;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Forms.PresentationObjects;
 
-namespace Riskeer.Integration.Forms.Test.PresentationObjects
+namespace Riskeer.Integration.Forms.PresentationObjects
 {
-    [TestFixture]
-    public class AssemblyGroupsContextTest
+    /// <summary>
+    /// Presentation object for the assembly groups.
+    /// </summary>
+    public class FailureMechanismSectionAssemblyGroupsContext : ObservableWrappedObjectContextBase<AssessmentSection>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-
-            // Call
-            var context = new AssemblyGroupsContext(assessmentSection);
-
-            // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<AssessmentSection>>(context);
-            Assert.AreSame(assessmentSection, context.WrappedData);
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyGroupsContext"/>.
+        /// </summary>
+        /// <param name="wrappedData">The <see cref="AssessmentSection"/> that the <see cref="FailureMechanismSectionAssemblyGroupsContext"/> belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
+        public FailureMechanismSectionAssemblyGroupsContext(AssessmentSection wrappedData) : base(wrappedData) {}
     }
 }
