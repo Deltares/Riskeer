@@ -43,8 +43,6 @@ namespace Riskeer.Integration.Forms.Views
             this.assemblyGroupsTable = new AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup>();
             this.groupBoxPanel = new System.Windows.Forms.Panel();
             this.groupBoxPanel.SuspendLayout();
-            this.groupBox = new System.Windows.Forms.GroupBox();
-            this.groupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // failureMechanismAssemblyCategoriesTable
@@ -57,22 +55,10 @@ namespace Riskeer.Integration.Forms.Views
             //
             // groupBoxPanel
             //
-            this.groupBoxPanel.Controls.Add(this.groupBox);
+            this.groupBoxPanel.Controls.Add(this.assemblyGroupsTable);
             this.groupBoxPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBoxPanel.Name = "groupBoxPanel";
             this.groupBoxPanel.Padding = new System.Windows.Forms.Padding(3);
-            // 
-            // groupBox
-            // 
-            this.groupBox.Controls.Add(assemblyGroupsTable);
-            this.groupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox.Location = new System.Drawing.Point(0, 0);
-            this.groupBox.Margin = new System.Windows.Forms.Padding(5);
-            this.groupBox.Name = "groupBox";
-            this.groupBox.Size = new System.Drawing.Size(150, 150);
-            this.groupBox.TabIndex = 0;
-            this.groupBox.TabStop = false;
-            this.groupBox.Text = RiskeerCommonFormsResources.AssemblyGroups_DisplayName;
             // 
             // FailureMechanismSectionAssemblyGroupsView
             // 
@@ -81,7 +67,6 @@ namespace Riskeer.Integration.Forms.Views
             this.Size = new System.Drawing.Size(750, 420);
             this.AutoScrollMinSize = new System.Drawing.Size(400, 100);
             this.groupBoxPanel.ResumeLayout(false);
-            this.groupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -89,7 +74,6 @@ namespace Riskeer.Integration.Forms.Views
         #endregion
 
         private AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable;
-        private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.Panel groupBoxPanel;
     }
 }
