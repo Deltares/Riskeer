@@ -153,7 +153,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithValidData_CalculatorThrowsException_SetsEmptyDataTable()
+        public void GivenViewWithValidData_WhenCalculatorThrowsException_ThenSetsEmptyDataTable()
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -180,7 +180,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenViewWithInValidData_CalculationWithValidData_SetsDataTable()
+        public void GivenViewWithInValidData_WhenCalculationWithValidData_ThenSetsDataTable()
         {
             // Given
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
