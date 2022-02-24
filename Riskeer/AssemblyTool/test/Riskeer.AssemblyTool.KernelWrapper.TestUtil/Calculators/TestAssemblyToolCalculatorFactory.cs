@@ -70,7 +70,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         /// </summary>
         public AssessmentSectionAssemblyCalculatorStub LastCreatedAssessmentSectionAssemblyCalculator { get; }
 
-        public IAssessmentSectionAssemblyGroupBoundariesCalculator CreateAssessmentSectionAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactoryOld factory)
+        public IAssessmentSectionAssemblyGroupBoundariesCalculator CreateAssessmentSectionAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
         {
             return LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
         }

@@ -43,7 +43,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyGroupBoundaries(double signalingNorm, double lowerLimitNorm)
         {
             IAssessmentSectionAssemblyGroupBoundariesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssessmentSectionAssemblyGroupBoundariesCalculator(
-                AssemblyToolKernelFactoryOld.Instance);
+                AssemblyToolKernelFactory.Instance);
 
             try
             {
