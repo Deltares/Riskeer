@@ -51,7 +51,7 @@ namespace Riskeer.Common.Forms.Factories
                                    },
                                    MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme())
             {
-                SelectedMetaDataAttribute = Resources.AssemblyCategory_Name_DisplayName,
+                SelectedMetaDataAttribute = Resources.AssemblyGroup_Name_DisplayName,
                 IsVisible = isVisible
             };
         }
