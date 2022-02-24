@@ -38,11 +38,17 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         /// </summary>
         public TestAssemblyToolCalculatorFactory()
         {
+            LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator = new AssessmentSectionAssemblyGroupBoundariesCalculatorStub();
             LastCreatedAssemblyGroupBoundariesCalculator = new AssemblyGroupBoundariesCalculatorStub();
             LastCreatedFailureMechanismSectionAssemblyCalculator = new FailureMechanismSectionAssemblyCalculatorStub();
             LastCreatedFailureMechanismAssemblyCalculator = new FailureMechanismAssemblyCalculatorStub();
             LastCreatedAssessmentSectionAssemblyCalculator = new AssessmentSectionAssemblyCalculatorStub();
         }
+
+        /// <summary>
+        /// Gets the last created <see cref="AssessmentSectionAssemblyGroupBoundariesCalculatorStub"/>.
+        /// </summary>
+        public AssessmentSectionAssemblyGroupBoundariesCalculatorStub LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator { get; }
 
         /// <summary>
         /// Gets the last created <see cref="AssemblyGroupBoundariesCalculatorStub"/>.
@@ -58,11 +64,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
         /// Gets the last created <see cref="FailureMechanismAssemblyCalculatorStub"/>.
         /// </summary>
         public FailureMechanismAssemblyCalculatorStub LastCreatedFailureMechanismAssemblyCalculator { get; }
-        
+
         /// <summary>
         /// Gets the last created <see cref="AssessmentSectionAssemblyCalculatorStub"/>.
         /// </summary>
         public AssessmentSectionAssemblyCalculatorStub LastCreatedAssessmentSectionAssemblyCalculator { get; }
+
+        public IAssessmentSectionAssemblyGroupBoundariesCalculator CreateAssessmentSectionAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactoryOld factory)
+        {
+            return LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
+        }
 
         public IAssemblyGroupBoundariesCalculator CreateAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
         {

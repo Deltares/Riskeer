@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
                 (AssessmentSectionAssemblyGroup) 99);
 
             // Assert
-            const string expectedMessage = "The value of argument 'assemblyCategoryGroup' (99) is invalid for Enum type 'AssessmentSectionAssemblyCategoryGroup'.";
+            const string expectedMessage = "The value of argument 'assemblyCategoryGroup' (99) is invalid for Enum type 'AssessmentSectionAssemblyGroup'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
         }
 
