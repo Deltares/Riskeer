@@ -222,7 +222,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
         {
             Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyGroup>(result).DisplayName,
                             groupLabel.Text);
-            Assert.AreEqual(AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(result),
+            Assert.AreEqual(AssessmentSectionAssemblyGroupColorHelper.GetAssessmentSectionAssemblyGroupColor(result),
                             groupLabel.BackColor);
         }
 

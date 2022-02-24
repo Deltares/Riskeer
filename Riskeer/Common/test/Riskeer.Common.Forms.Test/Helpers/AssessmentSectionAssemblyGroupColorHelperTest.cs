@@ -30,27 +30,26 @@ using Riskeer.Common.Forms.TestUtil;
 namespace Riskeer.Common.Forms.Test.Helpers
 {
     [TestFixture]
-    public class AssemblyCategoryGroupColorHelperTest
+    public class AssessmentSectionAssemblyGroupColorHelperTest
     {
         [Test]
-        public void GetAssessmentSectionAssemblyCategoryGroupColor_WithInvalidAssessmentSectionAssemblyCategoryGroup_ThrowsInvalidEnumArgumentException()
+        public void GetAssessmentSectionAssemblyGroupColorWithInvalidAssessmentSectionAssemblyGroup_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(
-                (AssessmentSectionAssemblyGroup) 99);
+            void Call() => AssessmentSectionAssemblyGroupColorHelper.GetAssessmentSectionAssemblyGroupColor((AssessmentSectionAssemblyGroup) 99);
 
             // Assert
-            const string expectedMessage = "The value of argument 'assemblyCategoryGroup' (99) is invalid for Enum type 'AssessmentSectionAssemblyGroup'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+            const string expectedMessage = "The value of argument 'assessmentSectionAssemblyGroup' (99) is invalid for Enum type 'AssessmentSectionAssemblyGroup'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
         }
 
         [Test]
-        [TestCaseSource(typeof(AssemblyCategoryColorTestHelper), nameof(AssemblyCategoryColorTestHelper.AssessmentSectionAssemblyCategoryGroupColorCases))]
-        public void GetAssessmentSectionAssemblyCategoryGroupColor_WithAssessmentSectionAssemblyCategoryGroup_ReturnsExpectedColor(
-            AssessmentSectionAssemblyGroup assemblyCategoryGroup, Color expectedColor)
+        [TestCaseSource(typeof(AssessmentSectionAssemblyGroupColorTestHelper), nameof(AssessmentSectionAssemblyGroupColorTestHelper.AssessmentSectionAssemblyGroupColorCases))]
+        public void GetAssessmentSectionAssemblyGroupColor_WithAssessmentSectionAssemblyGroup_ReturnsExpectedColor(
+            AssessmentSectionAssemblyGroup assessmentSectionAssemblyGroup, Color expectedColor)
         {
             // Call
-            Color color = AssemblyCategoryGroupColorHelper.GetAssessmentSectionAssemblyCategoryGroupColor(assemblyCategoryGroup);
+            Color color = AssessmentSectionAssemblyGroupColorHelper.GetAssessmentSectionAssemblyGroupColor(assessmentSectionAssemblyGroup);
 
             // Assert
             Assert.AreEqual(expectedColor, color);

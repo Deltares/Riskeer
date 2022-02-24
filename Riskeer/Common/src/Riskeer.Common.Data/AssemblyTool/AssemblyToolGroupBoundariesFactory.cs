@@ -29,7 +29,7 @@ using Riskeer.Common.Data.Exceptions;
 namespace Riskeer.Common.Data.AssemblyTool
 {
     /// <summary>
-    /// Factory for calculating the assembly tool group boundaries.
+    /// Factory for calculating the failure mechanism section assembly group boundaries.
     /// </summary>
     public static class AssemblyToolGroupBoundariesFactory
     {

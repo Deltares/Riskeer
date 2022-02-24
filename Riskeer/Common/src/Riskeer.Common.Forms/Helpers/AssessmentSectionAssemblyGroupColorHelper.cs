@@ -27,29 +27,29 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
-    /// Helper class for determining the colors belonging to various assembly category groups.
+    /// Helper class for determining the colors belonging to various assessment section assembly groups.
     /// </summary>
-    public static class AssemblyCategoryGroupColorHelper
+    public static class AssessmentSectionAssemblyGroupColorHelper
     {
         /// <summary>
-        /// Gets the color for an assessment section assembly category group.
+        /// Gets the color for an assessment section assembly group.
         /// </summary>
-        /// <param name="assemblyCategoryGroup">The category group to get the color for.</param>
-        /// <returns>The <see cref="Color"/> corresponding to the given category group.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assemblyCategoryGroup"/>
+        /// <param name="assessmentSectionAssemblyGroup">The assembly group to get the color for.</param>
+        /// <returns>The <see cref="Color"/> corresponding to the given assembly group.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assessmentSectionAssemblyGroup"/>
         /// has an invalid value for <see cref="AssessmentSectionAssemblyGroup"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="assemblyCategoryGroup"/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="assessmentSectionAssemblyGroup"/>
         /// is not supported.</exception>
-        public static Color GetAssessmentSectionAssemblyCategoryGroupColor(AssessmentSectionAssemblyGroup assemblyCategoryGroup)
+        public static Color GetAssessmentSectionAssemblyGroupColor(AssessmentSectionAssemblyGroup assessmentSectionAssemblyGroup)
         {
-            if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyGroup), assemblyCategoryGroup))
+            if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyGroup), assessmentSectionAssemblyGroup))
             {
-                throw new InvalidEnumArgumentException(nameof(assemblyCategoryGroup),
-                                                       (int) assemblyCategoryGroup,
+                throw new InvalidEnumArgumentException(nameof(assessmentSectionAssemblyGroup),
+                                                       (int) assessmentSectionAssemblyGroup,
                                                        typeof(AssessmentSectionAssemblyGroup));
             }
 
-            switch (assemblyCategoryGroup)
+            switch (assessmentSectionAssemblyGroup)
             {
                 case AssessmentSectionAssemblyGroup.APlus:
                     return Color.FromArgb(0, 255, 0);

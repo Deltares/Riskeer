@@ -27,15 +27,15 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
-    /// Class that can be used to assert the color corresponding to assembly category groups.
+    /// Class that can be used to assert the color corresponding to assessment section assembly groups.
     /// </summary>
-    public static class AssemblyCategoryColorTestHelper
+    public static class AssessmentSectionAssemblyGroupColorTestHelper
     {
         /// <summary>
         /// Gets a collection of test cases to test the colors belonging to various
         /// <see cref="AssessmentSectionAssemblyGroup"/> values.
         /// </summary>
-        public static IEnumerable<TestCaseData> AssessmentSectionAssemblyCategoryGroupColorCases
+        public static IEnumerable<TestCaseData> AssessmentSectionAssemblyGroupColorCases
         {
             get
             {
