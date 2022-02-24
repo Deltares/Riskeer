@@ -62,7 +62,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategories(categories);
+            IEnumerable<AssessmentSectionAssemblyGroupBoundaries> result = AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategories(categories);
 
             // Assert
             AssemblyCategoryAssert.AssertAssessmentSectionAssemblyCategories(categories, result);
@@ -98,7 +98,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             });
 
             // Call
-            IEnumerable<AssessmentSectionAssemblyCategory> result = AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategories(categories);
+            IEnumerable<AssessmentSectionAssemblyGroupBoundaries> result = AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategories(categories);
 
             // Assert
             Assert.AreEqual(expectedCategoryGroup, result.Single().Group);

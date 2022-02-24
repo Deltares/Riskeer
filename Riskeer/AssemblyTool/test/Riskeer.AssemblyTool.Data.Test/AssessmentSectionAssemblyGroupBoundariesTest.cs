@@ -26,25 +26,25 @@ using NUnit.Framework;
 namespace Riskeer.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class AssessmentSectionAssemblyCategoryTest
+    public class AssessmentSectionAssemblyGroupBoundariesTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
             var random = new Random(39);
-            var categoryType = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
+            var assessmentSectionGroup = random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>();
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
 
             // Call
-            var category = new AssessmentSectionAssemblyCategory(lowerBoundary, upperBoundary, categoryType);
+            var groupBoundaries = new AssessmentSectionAssemblyGroupBoundaries(lowerBoundary, upperBoundary, assessmentSectionGroup);
 
             // Assert
-            Assert.IsInstanceOf<AssemblyGroupBoundaries>(category);
-            Assert.AreEqual(lowerBoundary, category.LowerBoundary);
-            Assert.AreEqual(upperBoundary, category.UpperBoundary);
-            Assert.AreEqual(categoryType, category.Group);
+            Assert.IsInstanceOf<AssemblyGroupBoundaries>(groupBoundaries);
+            Assert.AreEqual(lowerBoundary, groupBoundaries.LowerBoundary);
+            Assert.AreEqual(upperBoundary, groupBoundaries.UpperBoundary);
+            Assert.AreEqual(assessmentSectionGroup, groupBoundaries.Group);
         }
     }
 }

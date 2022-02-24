@@ -33,7 +33,7 @@ using Riskeer.Common.Forms.Helpers;
 namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
-    /// View for a <see cref="FailureMechanismContribution"/> to show a collection of <see cref="AssessmentSectionAssemblyCategory"/>.
+    /// View for a <see cref="FailureMechanismContribution"/> to show a collection of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.
     /// </summary>
     public partial class AssessmentSectionAssemblyGroupsView : UserControl, IView
     {

@@ -109,7 +109,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 var calculator = new AssemblyCategoriesCalculator(factory);
 
                 // Call
-                IEnumerable<AssessmentSectionAssemblyCategory> result = calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
+                IEnumerable<AssessmentSectionAssemblyGroupBoundaries> result = calculator.CalculateAssessmentSectionCategories(signalingNorm, lowerLimitNorm);
 
                 // Assert
                 AssemblyCategoryAssert.AssertAssessmentSectionAssemblyCategories(output, result);

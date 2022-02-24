@@ -45,10 +45,10 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_FailureMechanismContributionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new AssessmentSectionAssemblyGroupsView(null);
+            void Call() => new AssessmentSectionAssemblyGroupsView(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("failureMechanismContribution", paramName);
         }
 
@@ -106,9 +106,9 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // When
                 var newOutput = new[]
                 {
-                    new AssessmentSectionAssemblyCategory(random.NextDouble(),
-                                                          random.NextDouble(),
-                                                          random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>())
+                    new AssessmentSectionAssemblyGroupBoundaries(random.NextDouble(),
+                                                                 random.NextDouble(),
+                                                                 random.NextEnumValue<AssessmentSectionAssemblyCategoryGroup>())
                 };
                 calculator.AssessmentSectionCategoriesOutput = newOutput;
                 failureMechanismContribution.NotifyObservers();

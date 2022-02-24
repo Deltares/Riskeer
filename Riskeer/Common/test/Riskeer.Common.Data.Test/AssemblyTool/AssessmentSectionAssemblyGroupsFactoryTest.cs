@@ -71,10 +71,10 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 AssemblyCategoriesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyCategoriesCalculator;
 
                 // Call
-                AssessmentSectionAssemblyCategory[] output = AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm).ToArray();
+                AssessmentSectionAssemblyGroupBoundaries[] output = AssessmentSectionAssemblyGroupsFactory.CreateAssessmentSectionAssemblyCategories(signalingNorm, lowerLimitNorm).ToArray();
 
                 // Assert
-                AssessmentSectionAssemblyCategory[] calculatorOutput = calculator.AssessmentSectionCategoriesOutput.ToArray();
+                AssessmentSectionAssemblyGroupBoundaries[] calculatorOutput = calculator.AssessmentSectionCategoriesOutput.ToArray();
 
                 Assert.AreEqual(calculatorOutput.Length, output.Length);
                 CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));

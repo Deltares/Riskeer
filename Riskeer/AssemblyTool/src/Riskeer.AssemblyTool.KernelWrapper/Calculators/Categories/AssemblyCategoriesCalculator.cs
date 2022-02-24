@@ -53,7 +53,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
             this.factory = factory;
         }
 
-        public IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionCategories(double signalingNorm, double lowerLimitNorm)
+        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionCategories(double signalingNorm, double lowerLimitNorm)
         {
             try
             {

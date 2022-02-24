@@ -42,16 +42,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public double LowerLimitNorm { get; private set; }
 
         /// <summary>
-        /// Gets or sets the output of the <see cref="AssessmentSectionAssemblyCategory"/> calculation.
+        /// Gets or sets the output of the <see cref="AssessmentSectionAssemblyGroupBoundaries"/> calculation.
         /// </summary>
-        public IEnumerable<AssessmentSectionAssemblyCategory> AssessmentSectionCategoriesOutput { get; set; }
+        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> AssessmentSectionCategoriesOutput { get; set; }
 
         /// <summary>
         /// Sets an indicator whether an exception must be thrown while performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
-        public IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionCategories(double signalingNorm, double lowerLimitNorm)
+        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionCategories(double signalingNorm, double lowerLimitNorm)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -64,9 +64,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
             return AssessmentSectionCategoriesOutput
                    ?? (AssessmentSectionCategoriesOutput = new[]
                           {
-                              new AssessmentSectionAssemblyCategory(1, 2, AssessmentSectionAssemblyCategoryGroup.A),
-                              new AssessmentSectionAssemblyCategory(2.01, 3, AssessmentSectionAssemblyCategoryGroup.B),
-                              new AssessmentSectionAssemblyCategory(3.01, 4, AssessmentSectionAssemblyCategoryGroup.C)
+                              new AssessmentSectionAssemblyGroupBoundaries(1, 2, AssessmentSectionAssemblyCategoryGroup.A),
+                              new AssessmentSectionAssemblyGroupBoundaries(2.01, 3, AssessmentSectionAssemblyCategoryGroup.B),
+                              new AssessmentSectionAssemblyGroupBoundaries(3.01, 4, AssessmentSectionAssemblyCategoryGroup.C)
                           });
         }
     }

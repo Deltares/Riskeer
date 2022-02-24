@@ -39,11 +39,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         /// </summary>
         /// <param name="original">The original <see cref="CategoriesList{TCategory}"/> with
         /// <see cref="AssessmentSectionCategory"/>.</param>
-        /// <param name="actual">The actual collection of <see cref="AssessmentSectionAssemblyCategory"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
         public static void AssertAssessmentSectionAssemblyCategories(CategoriesList<AssessmentSectionCategory> original,
-                                                                     IEnumerable<AssessmentSectionAssemblyCategory> actual)
+                                                                     IEnumerable<AssessmentSectionAssemblyGroupBoundaries> actual)
         {
             Assert.AreEqual(original.Categories.Length, actual.Count());
 

@@ -22,24 +22,24 @@
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
-    /// Assembly category for assessment section.
+    /// Assembly group boundaries for assessment section.
     /// </summary>
-    public class AssessmentSectionAssemblyCategory : AssemblyGroupBoundaries
+    public class AssessmentSectionAssemblyGroupBoundaries : AssemblyGroupBoundaries
     {
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionAssemblyCategory"/>.
+        /// Creates a new instance of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.
         /// </summary>
-        /// <param name="lowerBoundary">The lower boundary of the category.</param>
-        /// <param name="upperBoundary">The upper boundary of the category.</param>
-        /// <param name="group">The group of the category.</param>
-        public AssessmentSectionAssemblyCategory(double lowerBoundary, double upperBoundary, AssessmentSectionAssemblyCategoryGroup group)
+        /// <param name="lowerBoundary">The lower boundary of the group.</param>
+        /// <param name="upperBoundary">The upper boundary of the group.</param>
+        /// <param name="group">The actual assessment section group.</param>
+        public AssessmentSectionAssemblyGroupBoundaries(double lowerBoundary, double upperBoundary, AssessmentSectionAssemblyCategoryGroup group)
             : base(lowerBoundary, upperBoundary)
         {
             Group = group;
         }
 
         /// <summary>
-        /// Gets the group of the assembly category.
+        /// Gets the actual assessment section group.
         /// </summary>
         public AssessmentSectionAssemblyCategoryGroup Group { get; }
     }

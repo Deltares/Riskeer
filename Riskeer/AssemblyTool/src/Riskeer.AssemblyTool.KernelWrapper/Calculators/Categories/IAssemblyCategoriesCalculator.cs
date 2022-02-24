@@ -35,10 +35,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <param name="signalingNorm">The signaling norm to calculate with.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> with categories of
-        /// <see cref="AssessmentSectionAssemblyCategory"/>.</returns>
+        /// <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.</returns>
         /// <exception cref="AssemblyCategoriesCalculatorException">Thrown when an error occurs
         /// while performing the calculation.</exception>
-        IEnumerable<AssessmentSectionAssemblyCategory> CalculateAssessmentSectionCategories(
+        IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionCategories(
             double signalingNorm, double lowerLimitNorm);
     }
 }

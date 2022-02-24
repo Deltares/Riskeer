@@ -35,19 +35,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     internal static class AssemblyCategoryCreatorOld
     {
         /// <summary>
-        /// Creates a collection of <see cref="AssessmentSectionAssemblyCategory"/>
+        /// Creates a collection of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>
         /// based on the information given in the <paramref name="categories"/>.
         /// </summary>
         /// <param name="categories">The <see cref="CategoriesList{TCategory}"/> with
         /// <see cref="AssessmentSectionCategory"/> to create the result for.</param>
-        /// <returns>A collection of <see cref="AssessmentSectionAssemblyCategory"/>
+        /// <returns>A collection of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>
         /// with information taken from the <paramref name="categories"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categories"/>
         /// contains an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="categories"/>
         /// contains a valid value, but unsupported.</exception>
-        public static IEnumerable<AssessmentSectionAssemblyCategory> CreateAssessmentSectionAssemblyCategories(
+        public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyCategories(
             CategoriesList<AssessmentSectionCategory> categories)
         {
             if (categories == null)
@@ -56,7 +56,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             }
 
             return categories.Categories.Select(
-                categoriesOutput => new AssessmentSectionAssemblyCategory(
+                categoriesOutput => new AssessmentSectionAssemblyGroupBoundaries(
                     categoriesOutput.LowerLimit,
                     categoriesOutput.UpperLimit,
                     CreateAssessmentSectionAssemblyCategory(categoriesOutput.Category))).ToArray();
