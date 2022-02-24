@@ -151,7 +151,62 @@ namespace Riskeer.Integration.Forms.Test.Views
                 }
             }
         }
-        
+
+        [Test]
+        public void GivenViewWithValidData_CalculatorThrowsException_SetsEmptyDataTable()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
+
+                using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
+                {
+                    AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
+
+                    // Precondition
+                    Assert.IsNotEmpty(failureMechanismSectionGroupsTable.Rows);
+
+                    // When
+                    calculator.ThrowExceptionOnCalculate = true;
+                    assessmentSection.FailureMechanismContribution.NotifyObservers();
+
+                    // Then
+                    Assert.IsEmpty(failureMechanismSectionGroupsTable.Rows);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenViewWithInValidData_CalculationWithValidData_SetsDataTable()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
+                {
+                    AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
+
+                    // Precondition
+                    Assert.IsEmpty(failureMechanismSectionGroupsTable.Rows);
+
+                    // When
+                    calculator.ThrowExceptionOnCalculate = false;
+                    assessmentSection.FailureMechanismContribution.NotifyObservers();
+
+                    // Then
+                    Assert.IsNotEmpty(failureMechanismSectionGroupsTable.Rows);
+                }
+            }
+        }
+
         [Test]
         public void GivenViewWithValidData_WhenFailureMechanismContributionUpdated_ThenDataTableUpdated()
         {
