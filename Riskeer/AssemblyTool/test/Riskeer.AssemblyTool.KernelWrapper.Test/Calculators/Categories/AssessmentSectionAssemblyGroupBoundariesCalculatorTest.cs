@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Assembly.Kernel.Exceptions;
+using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -78,7 +79,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoryLimitsKernelStub kernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                kernel.AssessmentSectionCategoryLimits = CategoriesListTestFactory.CreateAssessmentSectionCategories();
+                kernel.AssessmentSectionCategoryLimits = CreateCategoryLimits();
 
                 var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
@@ -98,7 +99,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             var random = new Random(11);
             double lowerLimitNorm = random.NextDouble(0.5, 1.0);
             double signalingNorm = random.NextDouble(0.0, 0.5);
-            CategoriesList<AssessmentSectionCategory> output = CategoriesListTestFactory.CreateAssessmentSectionCategories();
+            CategoriesList<AssessmentSectionCategory> output = CreateCategoryLimits();
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -169,6 +170,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                     new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryLowerLimitOutOfRange)
                 }), exception.Message);
             }
+        }
+        
+        private static CategoriesList<AssessmentSectionCategory> CreateCategoryLimits()
+        {
+            var random = new Random(21);
+
+            return new CategoriesList<AssessmentSectionCategory>(new[]
+            {
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), new Probability(0), new Probability(0.25)),
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), new Probability(0.25), new Probability(0.5)),
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), new Probability(0.5), new Probability(0.75)),
+                new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), new Probability(0.75), new Probability(1.0))
+            });
         }
     }
 }
