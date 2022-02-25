@@ -39,7 +39,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
 {
     [TestFixture]
-    public class AssemblyGroupBoundariesCalculatorTest
+    public class FailureMechanismSectionAssemblyGroupBoundariesCalculatorTest
     {
         [Test]
         public void Constructor_ExpectedValues()
