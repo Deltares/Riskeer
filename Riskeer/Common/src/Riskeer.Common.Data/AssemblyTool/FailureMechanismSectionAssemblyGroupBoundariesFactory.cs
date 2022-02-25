@@ -31,7 +31,7 @@ namespace Riskeer.Common.Data.AssemblyTool
     /// <summary>
     /// Factory for calculating the failure mechanism section assembly group boundaries.
     /// </summary>
-    public static class AssemblyToolGroupBoundariesFactory
+    public static class FailureMechanismSectionAssemblyGroupBoundariesFactory
     {
         /// <summary>
         /// Creates the failure mechanism section assembly group boundaries.

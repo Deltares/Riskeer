@@ -90,7 +90,7 @@ namespace Riskeer.Integration.Forms.Views
             try
             {
                 FailureMechanismContribution failureMechanismContribution = AssessmentSection.FailureMechanismContribution;
-                dataToSet = AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(
+                dataToSet = FailureMechanismSectionAssemblyGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(
                     failureMechanismContribution.SignalingNorm, failureMechanismContribution.LowerLimitNorm).Select(
                     assemblyGroupBoundaries => new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
                         assemblyGroupBoundaries,
