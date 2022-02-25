@@ -27,6 +27,7 @@ using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -98,7 +99,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(Group).DisplayName;
+            return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(data.Group);
         }
     }
 }
