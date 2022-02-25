@@ -28,6 +28,7 @@ using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
+using Riskeer.Common.Data.Contribution;
 using Riskeer.Integration.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -70,14 +71,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         private FailureMechanismSectionAssemblyGroupProperties[] GetFailureMechanismAssemblyGroups()
         {
-            if (Data is AssessmentSection assessmentSection)
-            {
-                return AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(
-                    assessmentSection.FailureMechanismContribution.SignalingNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm)
-                                                         .Select(category => new FailureMechanismSectionAssemblyGroupProperties(category)).ToArray();
-            }
-
-            return Array.Empty<FailureMechanismSectionAssemblyGroupProperties>();
+            FailureMechanismContribution contribution = data.FailureMechanismContribution;
+            return AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(contribution.SignalingNorm, contribution.LowerLimitNorm)
+                                                     .Select(category => new FailureMechanismSectionAssemblyGroupProperties(category))
+                                                     .ToArray();
         }
     }
 }
