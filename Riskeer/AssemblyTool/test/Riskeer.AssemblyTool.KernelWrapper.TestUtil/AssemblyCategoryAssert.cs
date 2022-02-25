@@ -22,8 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assembly.Kernel.Old.Model;
-using Assembly.Kernel.Old.Model.CategoryLimits;
+using Assembly.Kernel.Model.Categories;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 

@@ -171,7 +171,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 }), exception.Message);
             }
         }
-        
+
         private static CategoriesList<AssessmentSectionCategory> CreateCategoryLimits()
         {
             var random = new Random(21);
