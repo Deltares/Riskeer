@@ -50,7 +50,7 @@ namespace Riskeer.Common.Data.AssemblyTool
             {
                 return calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
             }
-            catch (AssessmentSectionAssemblyGroupBoundariesException e)
+            catch (AssessmentSectionAssemblyGroupBoundariesCalculatorException e)
             {
                 throw new AssemblyException(e.Message, e);
             }

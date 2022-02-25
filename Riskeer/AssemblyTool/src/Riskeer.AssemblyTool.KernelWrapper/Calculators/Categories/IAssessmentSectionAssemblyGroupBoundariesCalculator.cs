@@ -35,7 +35,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
         /// <param name="signalingNorm">The signaling norm to calculate with.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.</returns>
-        /// <exception cref="AssessmentSectionAssemblyGroupBoundariesException">Thrown when an error occurs
+        /// <exception cref="AssessmentSectionAssemblyGroupBoundariesCalculatorException">Thrown when an error occurs
         /// while performing the calculation.</exception>
         IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionAssemblyGroupBoundaries(
             double signalingNorm, double lowerLimitNorm);

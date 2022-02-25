@@ -56,7 +56,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         {
             if (ThrowExceptionOnCalculate)
             {
-                throw new AssessmentSectionAssemblyGroupBoundariesException("Message", new Exception());
+                throw new AssessmentSectionAssemblyGroupBoundariesCalculatorException("Message", new Exception());
             }
 
             SignalingNorm = signalingNorm;

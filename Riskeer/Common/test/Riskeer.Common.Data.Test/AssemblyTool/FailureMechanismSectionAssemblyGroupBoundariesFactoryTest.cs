@@ -108,7 +108,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
-                Assert.IsInstanceOf<AssessmentSectionAssemblyGroupBoundariesException>(innerException);
+                Assert.IsInstanceOf<AssessmentSectionAssemblyGroupBoundariesCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
             }
         }
