@@ -20,11 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Core.Common.TestUtil;
 using Core.Gui.Converters;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Forms;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
@@ -79,6 +86,52 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "Duidingsklassen",
                                                                             "De duidingsklassen per vak voor dit toetsspoor.",
                                                                             true);
+        }
+
+        [Test]
+        public void GetFailureMechanismAssemblyGroups_AssemblyThrowsException_SetsEmptyProperties()
+        {
+            // Setup
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                var properties = new FailureMechanismSectionAssemblyGroupsProperties(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+                // Assert
+                Assert.IsEmpty(properties.FailureMechanismAssemblyGroups);
+            }
+        }
+
+        [Test]
+        public void GetFailureMechanismAssemblyGroups_AssemblySucceeds_CorrectlySetsProperties()
+        {
+            // Setup
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
+
+                // Call
+                var properties = new FailureMechanismSectionAssemblyGroupsProperties(new AssessmentSection(AssessmentSectionComposition.Dike));
+
+                // Assert
+                FailureMechanismSectionAssemblyGroupProperties[] failureMechanismAssemblyGroups = properties.FailureMechanismAssemblyGroups;
+                IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> output = calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput;
+                Assert.AreEqual(output.Count(), failureMechanismAssemblyGroups.Length);
+                for (var i = 0; i < output.Count(); i++)
+                {
+                    FailureMechanismSectionAssemblyGroupBoundaries category = output.ElementAt(i);
+
+                    FailureMechanismSectionAssemblyGroupProperties property = failureMechanismAssemblyGroups[i];
+                    Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(category.Group), property.Group);
+                    Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
+                    Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);
+                }
+            }
         }
     }
 }
