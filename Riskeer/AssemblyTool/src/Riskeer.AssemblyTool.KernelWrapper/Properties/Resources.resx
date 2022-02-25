@@ -117,15 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AssemblyErrorMessageCreator_SignalingLimitOutOfRange" xml:space="preserve">
-    <value>Signaleringskans moet in het bereik [0,1] liggen.</value>
-  </data>
-  <data name="AssemblyErrorMessageCreator_LowerLimitOutOfRange" xml:space="preserve">
-    <value>Ondergrens moet in het bereik [0,1] liggen.</value>
-  </data>
-  <data name="AssemblyErrorMessageCreator_FailureProbabilityMarginOutOfRange" xml:space="preserve">
-    <value>Faalkansruimte moet in het bereik [0,1] liggen.</value>
-  </data>
   <data name="AssemblyErrorMessageCreator_LengthEffectFactorOutOfRange" xml:space="preserve">
     <value>Lengte-effect factor moet minimaal 1 zijn.</value>
   </data>
@@ -135,32 +126,11 @@
   <data name="AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit" xml:space="preserve">
     <value>De signaleringskans moet kleiner zijn dan de ondergrens.</value>
   </data>
-  <data name="AssemblyErrorMessageCreator_PsigDsnAbovePsig" xml:space="preserve">
-    <value>Berekende signaleringskans per doorsnede is groter dan de signaleringskans van het traject.</value>
-  </data>
-  <data name="AssemblyErrorMessageCreator_PlowDsnAbovePlow" xml:space="preserve">
-    <value>Berekende ondergrens per doorsnede is groter dan de ondergrens van het traject.</value>
-  </data>
   <data name="AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit" xml:space="preserve">
     <value>De categoriebovengrens moet boven de categorieondergrens liggen.</value>
   </data>
-  <data name="AssemblyErrorMessageCreator_CategoryLowerLimitOutOfRange" xml:space="preserve">
-    <value>Categoriebovengrens moet in het bereik [0,1] liggen.</value>
-  </data>
-  <data name="AssemblyErrorMessageCreator_CategoryUpperLimitOutOfRange" xml:space="preserve">
-    <value>Categorieondergrens moet in het bereik [0,1] liggen.</value>
-  </data>
-  <data name="AssemblyErrorMessageCreator_TranslateAssessmentInvalidInput" xml:space="preserve">
-    <value>Er is een ongeldig resultaat gespecificeerd voor de gebruikte methode.</value>
-  </data>
   <data name="AssemblyErrorMessageCreator_ValueMayNotBeNull" xml:space="preserve">
     <value>Er is ongeldige invoer gedefinieerd voor de gebruikte methode.</value>
-  </data>
-  <data name="AssemblyErrorMessageCreator_CategoryNotAllowed" xml:space="preserve">
-    <value>Het specificeren van een toetsoordeel voor deze categorie is niet mogelijk.</value>
-  </data>
-  <data name="AssemblyErrorMessageCreator_DoesNotComplyAfterComply" xml:space="preserve">
-    <value>Een lagere categorie moet als voldoende worden aangemerkt indien het vak aan een hogere categorie voldoet.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_FailureMechanismSectionLengthInvalid" xml:space="preserve">
     <value>Gezamenlijke lengte van alle deelvakken moet gelijk zijn aan de trajectlengte.</value>
@@ -173,9 +143,6 @@
   </data>
   <data name="AssemblyErrorMessageCreator_InputNotTheSameType" xml:space="preserve">
     <value>De resultaten voor alle vakken moeten allen wel of geen kansspecificatie bevatten.</value>
-  </data>
-  <data name="AssemblyErrorMessageCreator_NoSectionsImported" xml:space="preserve">
-    <value>Er moet een vakindeling zijn geïmporteerd.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_CommonFailureMechanismSectionsNotConsecutive" xml:space="preserve">
     <value>Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m].</value>
