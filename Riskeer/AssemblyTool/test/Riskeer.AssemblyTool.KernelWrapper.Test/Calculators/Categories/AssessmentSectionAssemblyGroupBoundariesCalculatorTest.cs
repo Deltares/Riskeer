@@ -139,7 +139,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyGroupBoundariesException>(Call);
                 Assert.IsNotNull(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), exception.Message);
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
             }
         }
 
@@ -165,9 +165,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyGroupBoundariesException>(Call);
                 Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreatorOld.CreateErrorMessage(new[]
+                Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
                 {
-                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.CategoryLowerLimitOutOfRange)
+                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.EmptyResultsList)
                 }), exception.Message);
             }
         }
