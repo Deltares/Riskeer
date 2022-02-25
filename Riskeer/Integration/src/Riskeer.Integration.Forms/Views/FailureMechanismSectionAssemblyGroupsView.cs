@@ -96,6 +96,18 @@ namespace Riskeer.Integration.Forms.Views
                         assemblyGroupBoundaries,
                         AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroupBoundaries.Group),
                         DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyGroupBoundaries.Group))).ToArray();
+
+                dataToSet = dataToSet.Concat(new[]
+                {
+                    new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
+                        new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.Dominant, double.NaN, double.NaN),
+                        AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(FailureMechanismSectionAssemblyGroup.Dominant),
+                        DisplayFailureMechanismSectionAssemblyGroup.Dominant),
+                    new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
+                        new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.NotDominant, double.NaN, double.NaN),
+                        AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(FailureMechanismSectionAssemblyGroup.NotDominant),
+                        DisplayFailureMechanismSectionAssemblyGroup.NotDominant)
+                }).ToArray();
             }
             catch (AssemblyException)
             {

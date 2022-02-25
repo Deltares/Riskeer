@@ -121,7 +121,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 // Assert
                 FailureMechanismSectionAssemblyGroupProperties[] failureMechanismAssemblyGroups = properties.FailureMechanismAssemblyGroups;
                 IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> output = calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput;
-                Assert.AreEqual(output.Count(), failureMechanismAssemblyGroups.Length);
+                Assert.AreEqual(output.Count() + 2, failureMechanismAssemblyGroups.Length);
                 for (var i = 0; i < output.Count(); i++)
                 {
                     FailureMechanismSectionAssemblyGroupBoundaries category = output.ElementAt(i);

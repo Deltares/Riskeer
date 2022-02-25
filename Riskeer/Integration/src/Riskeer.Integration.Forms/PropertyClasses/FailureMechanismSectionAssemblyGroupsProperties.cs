@@ -80,6 +80,13 @@ namespace Riskeer.Integration.Forms.PropertyClasses
                 dataToSet = AssemblyToolGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(contribution.SignalingNorm, contribution.LowerLimitNorm)
                                                               .Select(category => new FailureMechanismSectionAssemblyGroupProperties(category))
                                                               .ToArray();
+                dataToSet = dataToSet.Concat(new[]
+                {
+                    new FailureMechanismSectionAssemblyGroupProperties(
+                        new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.Dominant, double.NaN, double.NaN)),
+                    new FailureMechanismSectionAssemblyGroupProperties(
+                        new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.NotDominant, double.NaN, double.NaN))
+                }).ToArray();
             }
             catch (AssemblyException)
             {
