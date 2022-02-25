@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
 
             // Call
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new AssessmentSectionAssemblyGroupsView(failureMechanismContribution))
             {
                 // Assert
@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssemblyGroupsTable<AssessmentSectionAssemblyGroup> tableControl = GetCategoriesTable(view);
                 Assert.AreEqual(DockStyle.Fill, tableControl.Dock);
 
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
                 Assert.AreEqual(calculator.AssessmentSectionAssemblyGroupBoundariesOutput.Count(), tableControl.Rows.Count);
             }
@@ -92,10 +92,10 @@ namespace Riskeer.Integration.Forms.Test.Views
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
             failureMechanismContribution.Attach(observer);
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             using (var view = new AssessmentSectionAssemblyGroupsView(failureMechanismContribution))
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
 
                 AssemblyGroupsTable<AssessmentSectionAssemblyGroup> groupsTable = GetCategoriesTable(view);
