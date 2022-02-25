@@ -28,6 +28,7 @@ using Core.Gui.PropertyBag;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Forms.TypeConverters;
+using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
@@ -58,8 +59,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(groupPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyGroup_Name_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyGroup_Name_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_Name_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_Name_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
         public DisplayFailureMechanismSectionAssemblyGroup Group
         {
@@ -71,8 +72,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(lowerBoundaryPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyGroup_LowerBoundary_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyCategory_LowerBoundary_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_LowerBoundary_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_LowerBoundary_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double LowerBoundary
         {
@@ -84,8 +85,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(upperBoundaryPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyGroup_UpperBoundary_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyCategory_UpperBoundary_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_UpperBoundary_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_UpperBoundary_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double UpperBoundary
         {

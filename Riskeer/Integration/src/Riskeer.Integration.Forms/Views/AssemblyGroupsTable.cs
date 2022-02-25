@@ -25,6 +25,7 @@ using System.Drawing;
 using System.Linq;
 using Core.Common.Controls.DataGrid;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Views
@@ -63,11 +64,11 @@ namespace Riskeer.Integration.Forms.Views
                            RiskeerCommonFormsResources.AssemblyGroup_Color_DisplayName);
 
             AddTextBoxColumn(nameof(AssemblyGroupRow<T>.LowerBoundary),
-                             RiskeerCommonFormsResources.AssemblyGroup_LowerBoundary_DisplayName,
+                             Resources.AssemblyGroup_LowerBoundary_DisplayName,
                              true);
 
             AddTextBoxColumn(nameof(AssemblyGroupRow<T>.UpperBoundary),
-                             RiskeerCommonFormsResources.AssemblyGroup_UpperBoundary_DisplayName,
+                             Resources.AssemblyGroup_UpperBoundary_DisplayName,
                              true);
         }
     }
