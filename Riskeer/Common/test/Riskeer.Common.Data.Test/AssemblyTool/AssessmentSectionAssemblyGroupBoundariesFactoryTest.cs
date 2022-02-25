@@ -43,9 +43,9 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double signalingNorm = random.NextDouble();
             double lowerLimitNorm = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
 
                 // Call
@@ -65,9 +65,9 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double signalingNorm = random.NextDouble();
             double lowerLimitNorm = random.NextDouble();
 
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
 
                 // Call
@@ -87,9 +87,9 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         public void CreateAssessmentSectionAssemblyGroupBoundaries_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            using (new AssemblyToolCalculatorFactoryConfigOld())
+            using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactoryOld) AssemblyToolCalculatorFactoryOld.Instance;
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
                 calculator.ThrowExceptionOnCalculate = true;
 
