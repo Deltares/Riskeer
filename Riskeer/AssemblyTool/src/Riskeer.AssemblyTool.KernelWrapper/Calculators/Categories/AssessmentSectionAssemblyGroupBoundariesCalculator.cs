@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentSection;
@@ -61,15 +62,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
                 CategoriesList<AssessmentSectionCategory> output = kernel.CalculateAssessmentSectionCategoryLimitsWbi21(
                     new AssessmentSection(new Probability(signalingNorm), new Probability(lowerLimitNorm)));
 
-                return AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategories(output);
+                return AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategories(output);
             }
             catch (AssemblyException e)
             {
-                throw new AssessmentSectionAssemblyGroupBoundariesException(AssemblyErrorMessageCreatorOld.CreateErrorMessage(e.Errors), e);
+                throw new AssessmentSectionAssemblyGroupBoundariesException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
             }
             catch (Exception e)
             {
-                throw new AssessmentSectionAssemblyGroupBoundariesException(AssemblyErrorMessageCreatorOld.CreateGenericErrorMessage(), e);
+                throw new AssessmentSectionAssemblyGroupBoundariesException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
             }
         }
     }
