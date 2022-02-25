@@ -20,7 +20,9 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Assembly.Kernel.Model.Categories;
 using Riskeer.AssemblyTool.Data;
 
@@ -31,6 +33,33 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     /// </summary>
     public static class AssemblyCategoryCreator
     {
+        /// <summary>
+        /// Creates a collection of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>
+        /// based on the information given in the <paramref name="categories"/>.
+        /// </summary>
+        /// <param name="categories">The <see cref="Assembly.Kernel.Old.Model.CategoryLimits.CategoriesList{TCategory}"/> with
+        /// <see cref="Assembly.Kernel.Old.Model.CategoryLimits.AssessmentSectionCategory"/> to create the result for.</param>
+        /// <returns>A collection of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>
+        /// with information taken from the <paramref name="categories"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categories"/>
+        /// contains an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="categories"/>
+        /// contains a valid value, but unsupported.</exception>
+        public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyCategories(CategoriesList<AssessmentSectionCategory> categories)
+        {
+            if (categories == null)
+            {
+                throw new ArgumentNullException(nameof(categories));
+            }
+
+            return categories.Categories.Select(
+                categoriesOutput => new AssessmentSectionAssemblyGroupBoundaries(
+                    categoriesOutput.LowerLimit,
+                    categoriesOutput.UpperLimit,
+                    CreateAssessmentSectionAssemblyCategory(categoriesOutput.Category))).ToArray();
+        }
+
         /// <summary>
         /// Creates a <see cref="AssessmentSectionAssemblyGroup"/> based on <paramref name="category"/>.
         /// </summary>
