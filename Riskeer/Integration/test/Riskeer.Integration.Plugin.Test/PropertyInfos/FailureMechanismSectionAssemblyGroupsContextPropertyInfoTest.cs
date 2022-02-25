@@ -19,18 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using Core.Common.TestUtil;
 using Core.Gui.Plugin;
 using Core.Gui.PropertyBag;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
@@ -69,48 +61,14 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void CreateInstance_ValidArguments_ReturnProperties()
         {
             // Setup
-            var random = new Random();
             var context = new FailureMechanismSectionAssemblyGroupsContext(new AssessmentSection(AssessmentSectionComposition.Dike));
 
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssemblyGroupBoundariesCalculator;
-                var output = new List<FailureMechanismSectionAssemblyGroupBoundaries>();
+            // Call
+            IObjectProperties objectProperties = info.CreateInstance(context);
 
-                int newGroupBoundaries = random.Next(1, 10);
-                for (var i = 1; i <= newGroupBoundaries; i++)
-                {
-                    output.Add(CreateRandomDisplayFailureMechanismSectionAssemblyGroupBoundaries(random));
-                }
-
-                calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput = output;
-
-                // Call
-                IObjectProperties objectProperties = info.CreateInstance(context);
-
-                // Assert
-                Assert.IsInstanceOf<FailureMechanismSectionAssemblyGroupsProperties>(objectProperties);
-
-                var properties = (FailureMechanismSectionAssemblyGroupsProperties) objectProperties;
-
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count(), properties.FailureMechanismAssemblyGroups.Length);
-                for (var i = 0; i < calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count(); i++)
-                {
-                    FailureMechanismSectionAssemblyGroupBoundaries category = calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.ElementAt(i);
-                    FailureMechanismSectionAssemblyGroupProperties property = properties.FailureMechanismAssemblyGroups[i];
-                    Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(category.Group), property.Group);
-                    Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
-                    Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);
-                }
-            }
-        }
-
-        private static FailureMechanismSectionAssemblyGroupBoundaries CreateRandomDisplayFailureMechanismSectionAssemblyGroupBoundaries(Random random)
-        {
-            return new FailureMechanismSectionAssemblyGroupBoundaries(random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                                                                      random.NextDouble(),
-                                                                      random.NextDouble());
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismSectionAssemblyGroupsProperties>(objectProperties);
+            Assert.AreSame(context.WrappedData, objectProperties.Data);
         }
     }
 }
