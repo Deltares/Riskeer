@@ -21,10 +21,10 @@
 
 using System;
 using System.Collections.Generic;
-using Assembly.Kernel.Old.Exceptions;
-using Assembly.Kernel.Old.Interfaces;
-using Assembly.Kernel.Old.Model;
-using Assembly.Kernel.Old.Model.CategoryLimits;
+using Assembly.Kernel.Interfaces;
+using Assembly.Kernel.Model;
+using Assembly.Kernel.Model.AssessmentSection;
+using Assembly.Kernel.Model.Categories;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
@@ -59,7 +59,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
             {
                 ICategoryLimitsCalculator kernel = factory.CreateAssemblyCategoriesKernel();
                 CategoriesList<AssessmentSectionCategory> output = kernel.CalculateAssessmentSectionCategoryLimitsWbi21(
-                    new AssessmentSection(1, signalingNorm, lowerLimitNorm));
+                    new AssessmentSection(new Probability(signalingNorm), new Probability(lowerLimitNorm)));
 
                 return AssemblyCategoryCreatorOld.CreateAssessmentSectionAssemblyCategories(output);
             }
