@@ -50,10 +50,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             mocks.ReplayAll();
 
             // Call
-            var calculator = new AssemblyGroupBoundariesCalculator(factory);
+            var calculator = new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
 
             // Assert
-            Assert.IsInstanceOf<IAssemblyGroupBoundariesCalculator>(calculator);
+            Assert.IsInstanceOf<IFailureMechanismSectionAssemblyGroupBoundariesCalculator>(calculator);
             mocks.VerifyAll();
         }
 
@@ -61,7 +61,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         public void Constructor_FactoryNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new AssemblyGroupBoundariesCalculator(null);
+            void Call() => new FailureMechanismSectionAssemblyGroupBoundariesCalculator(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -82,7 +82,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 CategoriesList<InterpretationCategory> categoryLimits = CreateCategoryLimits();
                 categoryLimitsKernel.InterpretationCategoryLimits = categoryLimits;
 
-                var calculator = new AssemblyGroupBoundariesCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
                 calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
@@ -108,7 +108,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 CategoriesList<InterpretationCategory> categoryLimits = CreateCategoryLimits();
                 categoryLimitsKernel.InterpretationCategoryLimits = categoryLimits;
 
-                var calculator = new AssemblyGroupBoundariesCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
                 IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> result =
@@ -138,7 +138,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 });
                 categoryLimitsKernel.InterpretationCategoryLimits = categoryLimits;
 
-                var calculator = new AssemblyGroupBoundariesCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
                 void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
@@ -165,7 +165,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
                 categoryLimitsKernel.ThrowExceptionOnCalculate = true;
 
-                var calculator = new AssemblyGroupBoundariesCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
                 void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
@@ -192,7 +192,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
                 categoryLimitsKernel.ThrowAssemblyExceptionOnCalculate = true;
 
-                var calculator = new AssemblyGroupBoundariesCalculator(factory);
+                var calculator = new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
                 void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);

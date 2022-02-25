@@ -48,9 +48,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
             return new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
         }
 
-        public IAssemblyGroupBoundariesCalculator CreateAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
+        public IFailureMechanismSectionAssemblyGroupBoundariesCalculator CreateAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
         {
-            return new AssemblyGroupBoundariesCalculator(factory);
+            return new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
         }
 
         public IFailureMechanismSectionAssemblyCalculator CreateFailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactory factory)

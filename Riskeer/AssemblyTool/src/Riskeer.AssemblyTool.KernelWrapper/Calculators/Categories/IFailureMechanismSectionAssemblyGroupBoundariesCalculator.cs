@@ -25,9 +25,9 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
 {
     /// <summary>
-    /// Interface representing an assembly group boundaries calculator.
+    /// Interface representing a failure mechanism section assembly group boundaries calculator.
     /// </summary>
-    public interface IAssemblyGroupBoundariesCalculator
+    public interface IFailureMechanismSectionAssemblyGroupBoundariesCalculator
     {
         /// <summary>
         /// Performs the calculation to get a collection of assembly group boundaries for a failure mechanism section.

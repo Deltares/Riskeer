@@ -29,7 +29,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
     /// <summary>
     /// Assembly group boundaries calculator stub for testing purposes.
     /// </summary>
-    public class AssemblyGroupBoundariesCalculatorStub : IAssemblyGroupBoundariesCalculator
+    public class FailureMechanismSectionAssemblyGroupBoundariesCalculatorStub : IFailureMechanismSectionAssemblyGroupBoundariesCalculator
     {
         /// <summary>
         /// Gets the signaling norm that is used in the calculation.

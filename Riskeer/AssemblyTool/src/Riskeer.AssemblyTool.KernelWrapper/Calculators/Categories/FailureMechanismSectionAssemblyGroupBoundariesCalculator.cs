@@ -32,18 +32,18 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
 {
     /// <summary>
-    /// Class representing an assembly group boundaries calculator.
+    /// Class representing a failure mechanism section assembly group boundaries calculator.
     /// </summary>
-    public class AssemblyGroupBoundariesCalculator : IAssemblyGroupBoundariesCalculator
+    public class FailureMechanismSectionAssemblyGroupBoundariesCalculator : IFailureMechanismSectionAssemblyGroupBoundariesCalculator
     {
         private readonly IAssemblyToolKernelFactory factory;
 
         /// <summary>
-        /// Creates a new instance of <see cref="AssemblyGroupBoundariesCalculator"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyGroupBoundariesCalculator"/>.
         /// </summary>
-        /// <param name="factory">The factory responsible for creating the assembly categories kernel.</param>
+        /// <param name="factory">The factory responsible for creating the assembly groups kernel.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
-        public AssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
+        public FailureMechanismSectionAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
         {
             if (factory == null)
             {

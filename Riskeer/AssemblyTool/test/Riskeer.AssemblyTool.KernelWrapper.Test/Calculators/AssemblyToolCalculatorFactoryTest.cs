@@ -83,11 +83,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             using (new AssemblyToolKernelFactoryConfig())
             {
                 // Call
-                IAssemblyGroupBoundariesCalculator calculator = factory.CreateAssemblyGroupBoundariesCalculator(
+                IFailureMechanismSectionAssemblyGroupBoundariesCalculator calculator = factory.CreateAssemblyGroupBoundariesCalculator(
                     AssemblyToolKernelFactory.Instance);
 
                 // Assert
-                Assert.IsInstanceOf<AssemblyGroupBoundariesCalculator>(calculator);
+                Assert.IsInstanceOf<FailureMechanismSectionAssemblyGroupBoundariesCalculator>(calculator);
             }
         }
 

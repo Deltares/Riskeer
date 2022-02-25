@@ -43,7 +43,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         public static IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CreateFailureMechanismSectionAssemblyGroupBoundaries(
             double signalingNorm, double lowerLimitNorm)
         {
-            IAssemblyGroupBoundariesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyGroupBoundariesCalculator(
+            IFailureMechanismSectionAssemblyGroupBoundariesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssemblyGroupBoundariesCalculator(
                 AssemblyToolKernelFactory.Instance);
 
             try
