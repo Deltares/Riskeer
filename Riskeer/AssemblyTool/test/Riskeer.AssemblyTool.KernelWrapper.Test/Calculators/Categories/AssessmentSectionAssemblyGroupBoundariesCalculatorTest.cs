@@ -21,8 +21,8 @@
 
 using System;
 using System.Collections.Generic;
-using Assembly.Kernel.Old.Exceptions;
-using Assembly.Kernel.Old.Model.CategoryLimits;
+using Assembly.Kernel.Exceptions;
+using Assembly.Kernel.Model.Categories;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -55,7 +55,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
         {
             // Setup
             var mocks = new MockRepository();
-            var factory = mocks.Stub<IAssemblyToolKernelFactoryOld>();
+            var factory = mocks.Stub<IAssemblyToolKernelFactory>();
             mocks.ReplayAll();
 
             // Call
@@ -74,11 +74,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             double lowerLimitNorm = random.NextDouble(0.5, 1.0);
             double signalingNorm = random.NextDouble(0.0, 0.5);
 
-            using (new AssemblyToolKernelFactoryConfigOld())
+            using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.AssessmentSectionCategoriesOutput = CategoriesListTestFactory.CreateAssessmentSectionCategories();
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoryLimitsKernelStub kernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
+                kernel.AssessmentSectionCategoryLimits = CategoriesListTestFactory.CreateAssessmentSectionCategories();
 
                 var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
@@ -86,8 +86,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
                 calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
-                Assert.AreEqual(lowerLimitNorm, kernel.LowerLimitNorm);
-                Assert.AreEqual(signalingNorm, kernel.SignalingNorm);
+                Assert.AreEqual(lowerLimitNorm, kernel.AssessmentSection.FailureProbabilityLowerLimit.Value);
+                Assert.AreEqual(signalingNorm, kernel.AssessmentSection.FailureProbabilitySignallingLimit.Value);
             }
         }
 
@@ -100,11 +100,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             double signalingNorm = random.NextDouble(0.0, 0.5);
             CategoriesList<AssessmentSectionCategory> output = CategoriesListTestFactory.CreateAssessmentSectionCategories();
 
-            using (new AssemblyToolKernelFactoryConfigOld())
+            using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
-                kernel.AssessmentSectionCategoriesOutput = output;
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoryLimitsKernelStub kernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
+                kernel.AssessmentSectionCategoryLimits = output;
 
                 var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
@@ -124,10 +124,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             double lowerLimitNorm = random.NextDouble(0.5, 1.0);
             double signalingNorm = random.NextDouble(0.0, 0.5);
 
-            using (new AssemblyToolKernelFactoryConfigOld())
+            using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoryLimitsKernelStub kernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
                 kernel.ThrowExceptionOnCalculate = true;
 
                 var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
@@ -150,10 +150,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             double lowerLimitNorm = random.NextDouble(0.5, 1.0);
             double signalingNorm = random.NextDouble(0.0, 0.5);
 
-            using (new AssemblyToolKernelFactoryConfigOld())
+            using (new AssemblyToolKernelFactoryConfig())
             {
-                var factory = (TestAssemblyToolKernelFactoryOld) AssemblyToolKernelFactoryOld.Instance;
-                AssemblyCategoriesKernelStubOld kernel = factory.LastCreatedAssemblyCategoriesKernel;
+                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
+                AssemblyCategoryLimitsKernelStub kernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
                 kernel.ThrowAssemblyExceptionOnCalculate = true;
 
                 var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
