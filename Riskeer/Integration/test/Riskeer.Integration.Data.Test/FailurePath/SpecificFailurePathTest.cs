@@ -83,7 +83,7 @@ namespace Riskeer.Integration.Data.Test.FailurePath
         }
 
         [Test]
-        public void SetSections_ValidSections_SectionsAndSourcePathSet()
+        public void SetSections_ValidSections_SectionsAndSourcePathAndSectionResultsSet()
         {
             // Setup
             string sourcePath = TestHelper.GetScratchPadPath();
@@ -103,20 +103,20 @@ namespace Riskeer.Integration.Data.Test.FailurePath
                 new Point2D(-2, -1)
             });
 
-            // Call
-            failurePath.SetSections(new[]
+            FailureMechanismSection[] sections =
             {
                 section1,
                 section2
-            }, sourcePath);
+            };
+
+            // Call
+            failurePath.SetSections(sections, sourcePath);
 
             // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                section1,
-                section2
-            }, failurePath.Sections);
+            CollectionAssert.AreEqual(sections, failurePath.Sections);
             Assert.AreEqual(sourcePath, failurePath.FailureMechanismSectionSourcePath);
+            Assert.AreEqual(2, failurePath.SectionResults.Count());
+            CollectionAssert.AreEqual(sections, failurePath.SectionResults.Select(sr => sr.Section));
         }
 
         [Test]
@@ -200,13 +200,15 @@ namespace Riskeer.Integration.Data.Test.FailurePath
             // Precondition
             Assert.AreEqual(sourcePath, failurePath.FailureMechanismSectionSourcePath);
             CollectionAssert.IsNotEmpty(failurePath.Sections);
+            CollectionAssert.IsNotEmpty(failurePath.SectionResults);
 
             // Call
             failurePath.ClearAllSections();
 
             // Assert
-            CollectionAssert.IsEmpty(failurePath.Sections);
             Assert.IsNull(failurePath.FailureMechanismSectionSourcePath);
+            CollectionAssert.IsEmpty(failurePath.Sections);
+            CollectionAssert.IsEmpty(failurePath.SectionResults);
         }
     }
 }

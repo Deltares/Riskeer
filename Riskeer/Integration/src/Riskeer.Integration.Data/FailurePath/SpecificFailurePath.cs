@@ -35,6 +35,7 @@ namespace Riskeer.Integration.Data.FailurePath
     public class SpecificFailurePath : Observable, IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private readonly FailureMechanismSectionCollection sectionCollection;
+        private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Creates a new instance of the <see cref="SpecificFailurePath"/> class.
@@ -52,7 +53,7 @@ namespace Riskeer.Integration.Data.FailurePath
             NotInAssemblyComments = new Comment();
 
             AssemblyResult = new FailurePathAssemblyResult();
-            SectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
+            sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
         }
 
         /// <summary>
@@ -78,7 +79,7 @@ namespace Riskeer.Integration.Data.FailurePath
 
         public bool InAssembly { get; set; }
 
-        public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults { get; }
+        public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {
@@ -93,10 +94,16 @@ namespace Riskeer.Integration.Data.FailurePath
             }
 
             sectionCollection.SetSections(sections, sourcePath);
+
+            foreach (FailureMechanismSection section in sections)
+            {
+                sectionResults.Add(new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
+            }
         }
 
         public void ClearAllSections()
         {
+            sectionResults.Clear();
             sectionCollection.Clear();
         }
     }
