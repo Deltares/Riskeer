@@ -32,49 +32,49 @@ namespace Riskeer.AssemblyTool.Data
         /// <summary>
         /// Represents group GR (No result).
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_None_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_None_DisplayName))]
         None = 1,
 
         /// <summary>
         /// Represents group NVT (Not applicable).
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_Empty_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_Empty_DisplayName))]
         NotApplicable = 2,
 
         /// <summary>
         /// Represents group NGO (Not assessed).
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_NotAssessed_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_NotAssessed_DisplayName))]
         NotAssessed = 3,
 
         /// <summary>
         /// Represents group A+.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_APlus_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_APlus_DisplayName))]
         APlus = 4,
 
         /// <summary>
         /// Represents group A.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_A_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_A_DisplayName))]
         A = 5,
 
         /// <summary>
         /// Represents group B.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_B_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_B_DisplayName))]
         B = 6,
 
         /// <summary>
         /// Represents group C.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_C_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_C_DisplayName))]
         C = 7,
 
         /// <summary>
         /// Represents group D.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyCategoryGroup_D_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_D_DisplayName))]
         D = 8
     }
 }

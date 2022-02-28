@@ -84,72 +84,72 @@ namespace Riskeer.AssemblyTool.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to A.
         /// </summary>
-        internal static string AssessmentSectionAssemblyCategoryGroup_A_DisplayName {
+        internal static string AssessmentSectionAssemblyGroup_A_DisplayName {
             get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_A_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_A_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to A+.
         /// </summary>
-        internal static string AssessmentSectionAssemblyCategoryGroup_APlus_DisplayName {
+        internal static string AssessmentSectionAssemblyGroup_APlus_DisplayName {
             get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_APlus_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_APlus_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to B.
         /// </summary>
-        internal static string AssessmentSectionAssemblyCategoryGroup_B_DisplayName {
+        internal static string AssessmentSectionAssemblyGroup_B_DisplayName {
             get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_B_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_B_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to C.
         /// </summary>
-        internal static string AssessmentSectionAssemblyCategoryGroup_C_DisplayName {
+        internal static string AssessmentSectionAssemblyGroup_C_DisplayName {
             get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_C_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_C_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to D.
         /// </summary>
-        internal static string AssessmentSectionAssemblyCategoryGroup_D_DisplayName {
+        internal static string AssessmentSectionAssemblyGroup_D_DisplayName {
             get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_D_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_D_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to -.
         /// </summary>
-        internal static string AssessmentSectionAssemblyCategoryGroup_Empty_DisplayName {
+        internal static string AssessmentSectionAssemblyGroup_Empty_DisplayName {
             get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_Empty_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_Empty_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
-        internal static string AssessmentSectionAssemblyCategoryGroup_None_DisplayName {
+        internal static string AssessmentSectionAssemblyGroup_None_DisplayName {
             get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_None_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_None_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to NGO.
         /// </summary>
-        internal static string AssessmentSectionAssemblyCategoryGroup_NotAssessed_DisplayName {
+        internal static string AssessmentSectionAssemblyGroup_NotAssessed_DisplayName {
             get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyCategoryGroup_NotAssessed_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_NotAssessed_DisplayName", resourceCulture);
             }
         }
         
