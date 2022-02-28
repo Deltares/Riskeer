@@ -126,7 +126,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateAssessmentSectionAssemblyCalculator_WithKernelFactory_Returns()
+        public void CreateAssessmentSectionAssemblyCalculator_WithKernelFactory_ReturnsAssessmentSectionAssemblyCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;

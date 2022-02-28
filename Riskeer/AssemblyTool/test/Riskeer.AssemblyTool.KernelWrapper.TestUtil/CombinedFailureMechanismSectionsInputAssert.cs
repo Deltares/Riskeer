@@ -38,7 +38,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         /// </summary>
         /// <param name="original">The original collection of <see cref="CombinedAssemblyFailureMechanismSection"/>
         /// collections.</param>
-        /// <param name="actual">The actual collection of <see cref="Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionList"/>.</param>
+        /// <param name="actual">The actual collection of <see cref="FailureMechanismSectionList"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
         public static void AssertCombinedFailureMechanismInput(IEnumerable<CombinedAssemblyFailureMechanismSection[]> original, IEnumerable<FailureMechanismSectionList> actual)

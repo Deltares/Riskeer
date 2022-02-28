@@ -68,13 +68,13 @@ namespace Riskeer.Common.Data.AssemblyTool
         }
 
         /// <summary>
-        /// Assembles the failure path.
+        /// Assembles the failure mechanism.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to assemble.</param>
         /// <param name="performSectionAssemblyFunc">The <see cref="Func{T1,TResult}"/> to perform the failure mechanism section assembly.</param>
         /// <param name="failureMechanismN">The n value of the <paramref name="failureMechanism"/>.</param>
         /// <typeparam name="TSectionResult">The type of section result.</typeparam>
-        /// <returns>The failure path probability.</returns>
+        /// <returns>The failure mechanism probability.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// or <paramref name="performSectionAssemblyFunc"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>

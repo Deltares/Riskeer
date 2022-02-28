@@ -50,6 +50,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="input">The collection of failure mechanism section collections to assemble for.</param>
         /// <param name="assessmentSectionLength">The length of the assessment section.</param>
         /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssembly"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
         IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(

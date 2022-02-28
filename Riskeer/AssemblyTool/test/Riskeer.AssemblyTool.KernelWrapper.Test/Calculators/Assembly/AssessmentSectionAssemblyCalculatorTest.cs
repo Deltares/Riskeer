@@ -251,6 +251,24 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
+        public void AssembleCombinedFailureMechanismSections_InputNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var kernelFactory = mocks.Stub<IAssemblyToolKernelFactory>();
+            mocks.ReplayAll();
+
+            var calculator = new AssessmentSectionAssemblyCalculator(kernelFactory);
+
+            // Call
+            void Call() => calculator.AssembleCombinedFailureMechanismSections(null, double.NaN);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
+        }
+
+        [Test]
         public void AssembleCombinedFailureMechanismSections_WithInvalidInput_ThrowsAssessmentSectionAssemblyCalculatorException()
         {
             // Setup
