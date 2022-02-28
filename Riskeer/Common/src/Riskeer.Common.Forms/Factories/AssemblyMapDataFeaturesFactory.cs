@@ -22,12 +22,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Util;
 using Core.Components.Gis.Features;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 using RiskeerCommonPrimitivesResources = Riskeer.Common.Primitives.Properties.Resources;
 
@@ -83,8 +82,7 @@ namespace Riskeer.Common.Forms.Factories
                 }
 
                 feature.MetaData[Resources.AssemblyGroup_DisplayName] =
-                    new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
-                        DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyResult.AssemblyGroup)).DisplayName;
+                    FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(assemblyResult.AssemblyGroup);
 
                 yield return feature;
             }

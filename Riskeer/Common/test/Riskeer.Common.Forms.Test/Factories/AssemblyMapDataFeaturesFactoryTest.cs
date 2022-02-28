@@ -23,16 +23,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Common.Forms.Test.Factories
 {
@@ -127,8 +126,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             Assert.AreEqual(1, mapGeometries.Count());
             CollectionAssert.AreEqual(section.Points, mapGeometries.Single().PointCollections.First());
             Assert.AreEqual(1, mapFeature.MetaData.Keys.Count);
-            Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
-                                DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedAssemblyResult.AssemblyGroup)).DisplayName,
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(expectedAssemblyResult.AssemblyGroup),
                             mapFeature.MetaData["Duidingsklasse"]);
         }
     }

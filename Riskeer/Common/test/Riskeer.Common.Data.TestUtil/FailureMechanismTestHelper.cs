@@ -21,9 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Geometry;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 
@@ -57,18 +55,6 @@ namespace Riskeer.Common.Data.TestUtil
         public static void AddSections(IFailureMechanism failureMechanism, int numberOfSections)
         {
             AddSections(failureMechanism, numberOfSections, new Point2D(-1, -1), new Point2D(15, 15));
-        }
-
-        /// <summary>
-        /// Adds a number of failure mechanism sections to <paramref name="failureMechanism"/>
-        /// based on the <paramref name="referenceLine"/> geometry and <paramref name="numberOfSections"/>.
-        /// </summary>
-        /// <param name="referenceLine">The reference line to get the geometry from.</param>
-        /// <param name="failureMechanism">The failure mechanism to add sections to.</param>
-        /// <param name="numberOfSections">The number of sections to add to the <paramref name="failureMechanism"/>.</param>
-        public static void AddSectionsBasedOnReferenceLine(ReferenceLine referenceLine, IFailureMechanism failureMechanism, int numberOfSections)
-        {
-            AddSections(failureMechanism, numberOfSections, referenceLine.Points.First(), referenceLine.Points.Last());
         }
 
         private static void AddSections(IFailureMechanism failureMechanism, int numberOfSections, Point2D startPoint, Point2D endPoint)
