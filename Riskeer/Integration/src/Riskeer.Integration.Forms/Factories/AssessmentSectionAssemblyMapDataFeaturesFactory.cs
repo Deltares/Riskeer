@@ -22,11 +22,10 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
-using Core.Common.Util;
 using Core.Components.Gis.Features;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Forms.Factories;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Forms.Properties;
@@ -73,8 +72,7 @@ namespace Riskeer.Integration.Forms.Factories
                 MapFeature mapFeature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(geometry);
 
                 mapFeature.MetaData[RiskeerCommonFormsResources.AssemblyGroup_DisplayName] =
-                    new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
-                        DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyResult.TotalResult)).DisplayName;
+                    FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(assemblyResult.TotalResult);
                 mapFeature.MetaData[Resources.SectionNumber_DisplayName] = assemblyResult.SectionNumber;
 
                 mapFeatures.Add(mapFeature);
