@@ -200,8 +200,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
             }
         }
 
-        private static void AssertSections<T>(IEnumerable<T> originalSectionResults, IEnumerable<CombinedAssemblyFailureMechanismSection> inputSections)
-            where T : FailureMechanismSectionResult
+        private static void AssertSections(IEnumerable<FailureMechanismSectionResult> originalSectionResults,
+                                           IEnumerable<CombinedAssemblyFailureMechanismSection> inputSections)
         {
             Assert.AreEqual(originalSectionResults.Count(), inputSections.Count());
 

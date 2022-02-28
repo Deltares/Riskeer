@@ -24,16 +24,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Data.TestUtil;
@@ -101,8 +100,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
 
                     Assert.AreEqual(2, actualFeature.MetaData.Keys.Count);
                     Assert.AreEqual(expectedAssemblyResult.SectionNumber, actualFeature.MetaData["Vaknummer"]);
-                    Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
-                                        DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedAssemblyResult.TotalResult)).DisplayName,
+                    Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(expectedAssemblyResult.TotalResult),
                                     features.ElementAt(i).MetaData["Duidingsklasse"]);
                 }
             }
