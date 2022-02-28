@@ -32,23 +32,18 @@ namespace Riskeer.Common.Forms.Test.Factories
     public class AssemblyMapDataFactoryTest
     {
         [Test]
-        public void CreateAssemblyMapData_ReturnsEmptyMapLineDataWithExpectedStyling()
+        public void CreateFailureMechanismSectionAssemblyMapData_Always_ReturnsEmptyMapLineDataWithExpectedStyling()
         {
             // Call
-            MapLineData data = AssemblyMapDataFactory.CreateAssemblyMapData();
+            MapLineData data = AssemblyMapDataFactory.CreateFailureMechanismSectionAssemblyMapData();
 
             // Assert
-            AssertAssemblyMapLineData("Duidingsklasse per vak", true, data);
-        }
-
-        private static void AssertAssemblyMapLineData(string expectedName, bool expectedVisibility, MapLineData actualMapLineData)
-        {
-            CollectionAssert.IsEmpty(actualMapLineData.Features);
-            Assert.AreEqual(expectedName, actualMapLineData.Name);
-            Assert.AreEqual(expectedVisibility, actualMapLineData.IsVisible);
-            Assert.AreEqual("Duidingsklasse", actualMapLineData.SelectedMetaDataAttribute);
-            RiskeerMapDataFactoryTestHelper.AssertEqualStyle(actualMapLineData.Style, Color.Empty, 6, LineDashStyle.Solid);
-            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyGroupMapTheme(actualMapLineData.Theme);
+            CollectionAssert.IsEmpty(data.Features);
+            Assert.AreEqual("Duidingsklasse per vak", data.Name);
+            Assert.AreEqual(true, data.IsVisible);
+            Assert.AreEqual("Duidingsklasse", data.SelectedMetaDataAttribute);
+            RiskeerMapDataFactoryTestHelper.AssertEqualStyle(data.Style, Color.Empty, 6, LineDashStyle.Solid);
+            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyGroupMapTheme(data.Theme);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace Riskeer.Common.Forms.MapLayers
 
             CreateObservers();
 
-            MapData = AssemblyMapDataFactory.CreateAssemblyMapData();
+            MapData = AssemblyMapDataFactory.CreateFailureMechanismSectionAssemblyMapData();
             SetFeatures();
         }
 
