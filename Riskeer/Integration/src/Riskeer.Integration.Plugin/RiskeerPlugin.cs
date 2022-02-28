@@ -693,22 +693,9 @@ namespace Riskeer.Integration.Plugin
                 WaterPressureAsphaltCoverFailureMechanismSectionsContext, WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
 
-            yield return new UpdateInfo<SpecificFailurePathSectionsContext>
-            {
-                CreateFileImporter = (context, filePath) =>
-                    new FailureMechanismSectionsImporter(context.WrappedData,
-                                                         context.AssessmentSection.ReferenceLine,
-                                                         filePath,
-                                                         new FailureMechanismSectionReplaceStrategy(context.WrappedData),
-                                                         new UpdateMessageProvider()),
-                Name = RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
-                Category = RiskeerCommonFormsResources.Riskeer_Category,
-                Image = RiskeerCommonFormsResources.SectionsIcon,
-                FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
-                                                              RiskeerCommonIOResources.Shape_file_filter_Description),
-                CurrentPath = context => context.WrappedData.FailureMechanismSectionSourcePath,
-                IsEnabled = context => context.WrappedData.FailureMechanismSectionSourcePath != null
-            };
+            yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
+                SpecificFailurePathSectionsContext, SpecificFailurePath, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
         }
 
         public override IEnumerable<object> GetChildDataWithViewDefinitions(object viewData)
