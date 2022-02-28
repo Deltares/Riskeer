@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssemblyTool;
@@ -298,6 +299,46 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
                 // Assert
                 Assert.AreEqual(expectedAssemblyResult, assemblyResult);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void AssembleFailureMechanism_WithFailurePathInAssemblyAndProbabilityResultTypeAutomaticAndFailureMechanismAssemblyThrowsException_ThrowsAssemblyException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failurePath = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            failurePath.Stub(fp => fp.AssemblyResult)
+                       .Return(new FailurePathAssemblyResult
+                       {
+                           ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic,
+                           ManualFailurePathAssemblyProbability = double.NaN
+                       });
+            failurePath.Stub(fp => fp.SectionResults)
+                       .Return(new ObservableList<TestFailureMechanismSectionResult>
+                       {
+                           new TestFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection())
+                       });
+            mocks.ReplayAll();
+
+            failurePath.InAssembly = true;
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                failureMechanismAssemblyCalculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                void Call() => AssemblyToolHelper.AssemblyFailureMechanism(failurePath, sr => null, double.NaN);
+
+                // Assert
+                var exception = Assert.Throws<AssemblyException>(Call);
+                Exception innerException = exception.InnerException;
+                Assert.IsInstanceOf<FailureMechanismAssemblyCalculatorException>(innerException);
+                Assert.AreEqual(innerException.Message, exception.Message);
             }
 
             mocks.VerifyAll();
