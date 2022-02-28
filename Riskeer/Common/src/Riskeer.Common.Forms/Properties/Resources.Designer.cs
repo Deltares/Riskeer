@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -142,6 +142,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string AssemblyGroups_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyGroups_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rekenwaarde faalkans per vak.
+        /// </summary>
+        public static string AssemblyMapDataFeaturesFactory_ProbabilityPerSection_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyMapDataFeaturesFactory_ProbabilityPerSection_DisplayName", resourceCulture);
             }
         }
         

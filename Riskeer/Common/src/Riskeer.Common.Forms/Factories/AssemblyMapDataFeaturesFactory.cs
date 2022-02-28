@@ -28,7 +28,6 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
-using RiskeerCommonPrimitivesResources = Riskeer.Common.Primitives.Properties.Resources;
 
 namespace Riskeer.Common.Forms.Factories
 {
@@ -83,6 +82,7 @@ namespace Riskeer.Common.Forms.Factories
 
                 feature.MetaData[Resources.AssemblyGroup_DisplayName] =
                     FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(assemblyResult.AssemblyGroup);
+                feature.MetaData[Resources.AssemblyMapDataFeaturesFactory_ProbabilityPerSection_DisplayName] = assemblyResult.SectionProbability;
 
                 yield return feature;
             }

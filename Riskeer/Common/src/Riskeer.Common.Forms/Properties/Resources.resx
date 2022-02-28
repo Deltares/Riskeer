@@ -1621,4 +1621,7 @@ faalkans per vak
     <data name="AssemblyGroups_Description" xml:space="preserve">
     <value>De duidingsklassen per vak voor dit toetsspoor.</value>
   </data>
+    <data name="AssemblyMapDataFeaturesFactory_ProbabilityPerSection_DisplayName" xml:space="preserve">
+      <value>Rekenwaarde faalkans per vak</value>
+    </data>
 </root>

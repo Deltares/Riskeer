@@ -125,9 +125,10 @@ namespace Riskeer.Common.Forms.Test.Factories
 
             Assert.AreEqual(1, mapGeometries.Count());
             CollectionAssert.AreEqual(section.Points, mapGeometries.Single().PointCollections.First());
-            Assert.AreEqual(1, mapFeature.MetaData.Keys.Count);
+            Assert.AreEqual(2, mapFeature.MetaData.Keys.Count);
             Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(expectedAssemblyResult.AssemblyGroup),
                             mapFeature.MetaData["Duidingsklasse"]);
+            Assert.AreEqual(expectedAssemblyResult.SectionProbability, mapFeature.MetaData["Rekenwaarde faalkans per vak"]);
         }
     }
 }
