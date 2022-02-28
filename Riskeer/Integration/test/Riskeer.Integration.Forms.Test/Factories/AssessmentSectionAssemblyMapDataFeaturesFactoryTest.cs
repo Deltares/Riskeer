@@ -36,6 +36,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.Data.TestUtil;
 using Riskeer.Integration.Forms.Factories;
 using Riskeer.Integration.Util;
 
@@ -74,8 +75,8 @@ namespace Riskeer.Integration.Forms.Test.Factories
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 CombinedFailureMechanismSectionAssembly[] failureMechanismSectionAssembly =
                 {
-                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection, 20),
-                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection, 21)
+                    CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 20),
+                    CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 21)
                 };
                 calculator.CombinedFailureMechanismSectionAssemblyOutput = failureMechanismSectionAssembly;
 
@@ -132,17 +133,6 @@ namespace Riskeer.Integration.Forms.Test.Factories
                 // Assert
                 CollectionAssert.IsEmpty(features);
             }
-        }
-
-        private static CombinedFailureMechanismSectionAssembly CreateCombinedFailureMechanismSectionAssembly(IAssessmentSection assessmentSection, int seed)
-        {
-            var random = new Random(seed);
-            return new CombinedFailureMechanismSectionAssembly(
-                new CombinedAssemblyFailureMechanismSection(random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()),
-                assessmentSection.GetFailureMechanisms()
-                                 .Where(fm => fm.InAssembly)
-                                 .Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
-                                 .ToArray());
         }
 
         private static void AssertEqualPointCollections(ReferenceLine referenceLine,

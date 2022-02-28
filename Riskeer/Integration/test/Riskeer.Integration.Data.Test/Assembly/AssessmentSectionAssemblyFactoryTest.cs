@@ -34,6 +34,7 @@ using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.Data.TestUtil;
 using Riskeer.Integration.TestUtil;
 
 namespace Riskeer.Integration.Data.Test.Assembly
@@ -211,8 +212,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
                 {
-                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection, 20),
-                    CreateCombinedFailureMechanismSectionAssembly(assessmentSection, 21)
+                    CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 20),
+                    CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 21)
                 };
 
                 // Call
@@ -285,18 +286,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
         #endregion
 
         #region Helpers
-
-        private static CombinedFailureMechanismSectionAssembly CreateCombinedFailureMechanismSectionAssembly(
-            IAssessmentSection assessmentSection, int seed)
-        {
-            var random = new Random(seed);
-            return new CombinedFailureMechanismSectionAssembly(
-                new CombinedAssemblyFailureMechanismSection(random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()),
-                assessmentSection.GetFailureMechanisms()
-                                 .Where(fm => fm.InAssembly)
-                                 .Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
-                                 .ToArray());
-        }
 
         private static AssessmentSection CreateAssessmentSection()
         {

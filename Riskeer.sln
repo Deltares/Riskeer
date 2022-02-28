@@ -1680,17 +1680,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{8BE49C65-DD0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F73AF5D7-DDD9-4A48-A171-037817B59056}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Gui", "Core\Gui\src\Core.Gui\Core.Gui.csproj", "{FE63A65E-C5AF-456D-A786-912F9B7E26A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Gui", "Core\Gui\src\Core.Gui\Core.Gui.csproj", "{FE63A65E-C5AF-456D-A786-912F9B7E26A1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Gui.Test", "Core\Gui\test\Core.Gui.Test\Core.Gui.Test.csproj", "{D0C7032E-5730-46D1-A06F-7C4F06BA590A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Gui.Test", "Core\Gui\test\Core.Gui.Test\Core.Gui.Test.csproj", "{D0C7032E-5730-46D1-A06F-7C4F06BA590A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Gui.TestUtil", "Core\Gui\test\Core.Gui.TestUtil\Core.Gui.TestUtil.csproj", "{073EE964-974D-442E-801F-F4FCD6D303F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Gui.TestUtil", "Core\Gui\test\Core.Gui.TestUtil\Core.Gui.TestUtil.csproj", "{073EE964-974D-442E-801F-F4FCD6D303F5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Riskeer.Integration.Data.TestUtil", "Riskeer\Integration\test\Riskeer.Integration.Data.TestUtil\Riskeer.Integration.Data.TestUtil.csproj", "{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
@@ -3439,6 +3444,12 @@ Global
 		{073EE964-974D-442E-801F-F4FCD6D303F5}.Release|x86.Build.0 = Release|x86
 		{073EE964-974D-442E-801F-F4FCD6D303F5}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{073EE964-974D-442E-801F-F4FCD6D303F5}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
+		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.Debug|x86.Build.0 = Debug|Any CPU
+		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.Release|x86.ActiveCfg = Release|Any CPU
+		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.Release|x86.Build.0 = Release|Any CPU
+		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.ReleaseForCodeCoverage|x86.ActiveCfg = Debug|Any CPU
+		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.ReleaseForCodeCoverage|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -3806,6 +3817,7 @@ Global
 		{FE63A65E-C5AF-456D-A786-912F9B7E26A1} = {8BE49C65-DD09-4890-82B1-5216BF13E757}
 		{D0C7032E-5730-46D1-A06F-7C4F06BA590A} = {F73AF5D7-DDD9-4A48-A171-037817B59056}
 		{073EE964-974D-442E-801F-F4FCD6D303F5} = {F73AF5D7-DDD9-4A48-A171-037817B59056}
+		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513} = {88E04195-C43E-40D3-B5F2-3A25E1E79E03}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {039D31AA-B517-4354-B8CD-0B2B826D0B1F}
