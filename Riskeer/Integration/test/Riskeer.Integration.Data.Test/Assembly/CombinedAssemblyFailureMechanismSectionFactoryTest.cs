@@ -187,10 +187,9 @@ namespace Riskeer.Integration.Data.Test.Assembly
             yield return new TestCaseData(assessmentSection, assessmentSection.DuneErosion);
         }
 
-        private static void AssertSectionsWithResult<T>(IEnumerable<T> originalSectionResults,
-                                                        FailureMechanismSectionAssemblyGroup expectedAssemblyGroupInput,
-                                                        IEnumerable<CombinedAssemblyFailureMechanismSection> inputSections)
-            where T : FailureMechanismSectionResult
+        private static void AssertSectionsWithResult(IEnumerable<FailureMechanismSectionResult> originalSectionResults,
+                                                     FailureMechanismSectionAssemblyGroup expectedAssemblyGroupInput,
+                                                     IEnumerable<CombinedAssemblyFailureMechanismSection> inputSections)
         {
             AssertSections(originalSectionResults, inputSections);
 
