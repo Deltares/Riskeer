@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Geometry;
-using Core.Common.Util;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Geometries;
@@ -35,6 +34,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Common.Forms.TestUtil
 {
@@ -319,8 +319,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 CollectionAssert.AreEqual(failureMechanismSection.Points, feature.MapGeometries.Single().PointCollections.Single());
 
                 Assert.AreEqual(1, feature.MetaData.Count);
-                Assert.AreEqual(new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(
-                                    DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedAssemblyResult.AssemblyGroup)).DisplayName,
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(expectedAssemblyResult.AssemblyGroup),
                                 feature.MetaData["Duidingsklasse"]);
             }
         }

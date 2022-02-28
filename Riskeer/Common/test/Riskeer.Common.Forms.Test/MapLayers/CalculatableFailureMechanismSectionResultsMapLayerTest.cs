@@ -88,6 +88,10 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
 
                 // When
+                assemblyResult = new FailureMechanismSectionAssemblyResult(
+                    random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+
                 failureMechanism.CalculationsGroup.Children.Add(new TestCalculation());
                 failureMechanism.CalculationsGroup.NotifyObservers();
 
@@ -131,6 +135,10 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
 
                 // When
+                assemblyResult = new FailureMechanismSectionAssemblyResult(
+                    random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+
                 calculationScenario.IsRelevant = false;
                 calculationScenario.NotifyObservers();
 
@@ -174,6 +182,10 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
 
                 // When
+                assemblyResult = new FailureMechanismSectionAssemblyResult(
+                    random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+
                 calculationScenario.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
                 calculationScenario.InputParameters.NotifyObservers();
 
@@ -222,6 +234,10 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, assemblyResult, mapLayer.MapData);
 
                 // When
+                assemblyResult = new FailureMechanismSectionAssemblyResult(
+                    random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+
                 nestedCalculationScenario.InputParameters.HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
                 nestedCalculationScenario.InputParameters.NotifyObservers();
 
