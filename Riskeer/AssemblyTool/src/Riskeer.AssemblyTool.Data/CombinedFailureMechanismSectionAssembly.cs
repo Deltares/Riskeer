@@ -33,23 +33,24 @@ namespace Riskeer.AssemblyTool.Data
         /// Creates a new instance of <see cref="CombinedFailureMechanismSectionAssembly"/>.
         /// </summary>
         /// <param name="section">The section of the assembly.</param>
-        /// <param name="failureMechanismAssemblyGroupResults">The assembly group results per failure mechanism.</param>
+        /// <param name="failureMechanismSectionAssemblyGroupResults">The failure mechanism section
+        /// assembly group results per failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public CombinedFailureMechanismSectionAssembly(CombinedAssemblyFailureMechanismSection section,
-                                                       IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismAssemblyGroupResults)
+                                                       IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismSectionAssemblyGroupResults)
         {
             if (section == null)
             {
                 throw new ArgumentNullException(nameof(section));
             }
 
-            if (failureMechanismAssemblyGroupResults == null)
+            if (failureMechanismSectionAssemblyGroupResults == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanismAssemblyGroupResults));
+                throw new ArgumentNullException(nameof(failureMechanismSectionAssemblyGroupResults));
             }
 
             Section = section;
-            FailureMechanismAssemblyGroupResults = failureMechanismAssemblyGroupResults;
+            FailureMechanismSectionAssemblyGroupResults = failureMechanismSectionAssemblyGroupResults;
         }
 
         /// <summary>
@@ -58,8 +59,8 @@ namespace Riskeer.AssemblyTool.Data
         public CombinedAssemblyFailureMechanismSection Section { get; }
 
         /// <summary>
-        /// Gets the assembly group results per failure mechanism.
+        /// Gets the failure mechanism section assembly group results per failure mechanism.
         /// </summary>
-        public IEnumerable<FailureMechanismSectionAssemblyGroup> FailureMechanismAssemblyGroupResults { get; }
+        public IEnumerable<FailureMechanismSectionAssemblyGroup> FailureMechanismSectionAssemblyGroupResults { get; }
     }
 }

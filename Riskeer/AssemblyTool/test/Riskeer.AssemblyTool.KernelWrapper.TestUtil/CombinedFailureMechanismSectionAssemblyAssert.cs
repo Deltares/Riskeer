@@ -56,13 +56,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
                                 actualCombinedFailureMechanismSectionAssembly.Section.AssemblyGroup);
 
                 FailureMechanismSectionList[] failureMechanismResults = original.ResultPerFailureMechanism.ToArray();
-                Assert.AreEqual(failureMechanismResults.Length, actualCombinedFailureMechanismSectionAssembly.FailureMechanismAssemblyGroupResults.Count());
+                Assert.AreEqual(failureMechanismResults.Length, actualCombinedFailureMechanismSectionAssembly.FailureMechanismSectionAssemblyGroupResults.Count());
 
                 for (var j = 0; j < failureMechanismResults.Length; j++)
                 {
                     FailureMechanismSectionAssemblyGroup expectedGroup = FailureMechanismSectionAssemblyGroupConverter.ConvertTo(
                         ((FailureMechanismSectionWithCategory) failureMechanismResults[j].Sections.ElementAt(i)).Category);
-                    Assert.AreEqual(expectedGroup, actualCombinedFailureMechanismSectionAssembly.FailureMechanismAssemblyGroupResults.ElementAt(j));
+                    Assert.AreEqual(expectedGroup, actualCombinedFailureMechanismSectionAssembly.FailureMechanismSectionAssemblyGroupResults.ElementAt(j));
                 }
             }
         }
