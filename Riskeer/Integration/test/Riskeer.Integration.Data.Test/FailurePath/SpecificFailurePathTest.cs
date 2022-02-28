@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.Data.FailurePath;
 
 namespace Riskeer.Integration.Data.Test.FailurePath
@@ -42,7 +41,7 @@ namespace Riskeer.Integration.Data.Test.FailurePath
 
             // Assert
             Assert.IsInstanceOf<Observable>(failurePath);
-            Assert.IsInstanceOf<IFailurePath>(failurePath);
+            Assert.IsInstanceOf<IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failurePath);
             Assert.AreEqual("Nieuw faalpad", failurePath.Name);
             Assert.AreEqual("NIEUW", failurePath.Code);
             Assert.IsNotNull(failurePath.Input);
@@ -52,6 +51,7 @@ namespace Riskeer.Integration.Data.Test.FailurePath
             Assert.IsNotNull(failurePath.AssemblyResult);
             Assert.IsTrue(failurePath.InAssembly);
             CollectionAssert.IsEmpty(failurePath.Sections);
+            CollectionAssert.IsEmpty(failurePath.SectionResults);
         }
 
         [Test]

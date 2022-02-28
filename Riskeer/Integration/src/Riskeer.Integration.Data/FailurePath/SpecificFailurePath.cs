@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Data.FailurePath
     /// <summary>
     /// This class is the implementation for a specific failure path.
     /// </summary>
-    public class SpecificFailurePath : Observable, IFailurePath
+    public class SpecificFailurePath : Observable, IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private readonly FailureMechanismSectionCollection sectionCollection;
 
@@ -52,6 +52,7 @@ namespace Riskeer.Integration.Data.FailurePath
             NotInAssemblyComments = new Comment();
 
             AssemblyResult = new FailurePathAssemblyResult();
+            SectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
         }
 
         /// <summary>
@@ -62,24 +63,12 @@ namespace Riskeer.Integration.Data.FailurePath
         public string Name { get; set; }
 
         public string Code { get; set; }
-        
-        public IEnumerable<FailureMechanismSection> Sections
-        {
-            get
-            {
-                return sectionCollection;
-            }
-        }
+
+        public IEnumerable<FailureMechanismSection> Sections => sectionCollection;
 
         public FailurePathAssemblyResult AssemblyResult { get; }
 
-        public string FailureMechanismSectionSourcePath
-        {
-            get
-            {
-                return sectionCollection.SourcePath;
-            }
-        }
+        public string FailureMechanismSectionSourcePath => sectionCollection.SourcePath;
 
         public Comment InAssemblyInputComments { get; }
 
@@ -88,6 +77,8 @@ namespace Riskeer.Integration.Data.FailurePath
         public Comment NotInAssemblyComments { get; }
 
         public bool InAssembly { get; set; }
+
+        public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults { get; }
 
         public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {

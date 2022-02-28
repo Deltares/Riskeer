@@ -20,14 +20,15 @@
 // All rights reserved.
 
 using Core.Common.Base;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// This interface describes an <see cref="IFailureMechanism"/> containing <see cref="FailureMechanismSectionResult"/> objects.
+    /// This interface describes an <see cref="IFailurePath"/> containing <see cref="FailureMechanismSectionResult"/> objects.
     /// </summary>
     /// <typeparam name="T">The type of the section results.</typeparam>
-    public interface IHasSectionResults<out T> : IFailureMechanism
+    public interface IHasSectionResults<out T> : IFailurePath
         where T : FailureMechanismSectionResult
     {
         /// <summary>
