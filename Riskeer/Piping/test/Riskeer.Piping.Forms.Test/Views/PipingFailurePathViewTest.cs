@@ -25,13 +25,11 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Features;
 using Core.Components.Gis.Forms;
 using Core.Components.Gis.Geometries;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
@@ -199,13 +197,6 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                var failureMechanismSectionAssemblyResult = new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
-                calculator.FailureMechanismSectionAssemblyResultOutput = failureMechanismSectionAssemblyResult;
-
                 // Call
                 PipingFailurePathView view = CreateView(failureMechanism, assessmentSection);
 
@@ -230,7 +221,9 @@ namespace Riskeer.Piping.Forms.Test.Views
                 AssertProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<ProbabilisticPipingCalculationScenario>(), mapDataList[probabilisticCalculationsIndex]);
                 AssertSemiProbabilisticCalculationsMapData(failureMechanism.Calculations.OfType<SemiProbabilisticPipingCalculationScenario>(), mapDataList[semiProbabilisticCalculationsIndex]);
 
-                MapDataTestHelper.AssertAssemblyMapData(failureMechanism, failureMechanismSectionAssemblyResult, mapDataList[assemblyResultsIndex]);
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                MapDataTestHelper.AssertAssemblyMapData(failureMechanism, calculator.FailureMechanismSectionAssemblyResultOutput, mapDataList[assemblyResultsIndex]);
             }
         }
 
