@@ -36,7 +36,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentSectionAssemblyCategoryGroup_WithInvalidAssessmentGrade_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory((EAssessmentGrade) 99);
+            TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyGroup((EAssessmentGrade) 99);
 
             // Assert
             const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EAssessmentGrade'.";
@@ -45,15 +45,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 
         [Test]
         [TestCaseSource(typeof(AssessmentGradeConversionTestHelper), nameof(AssessmentGradeConversionTestHelper.AssessmentGradeConversionCases))]
-        public void CreateAssessmentSectionAssemblyCategory_WithValidAssessmentGrade_ExpectedAssessmentSectionAssemblyCategoryResultType(
-            EAssessmentGrade categoryGroup,
+        public void CreateAssessmentSectionAssemblyGroup_WithValidAssessmentGrade_ExpectedAssessmentSectionAssemblyGroupResultType(
+            EAssessmentGrade group,
             AssessmentSectionAssemblyGroup expectedCategoryGroup)
         {
             // Call
-            AssessmentSectionAssemblyGroup categoryResult = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyCategory(categoryGroup);
+            AssessmentSectionAssemblyGroup result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyGroup(group);
 
             // Assert
-            Assert.AreEqual(expectedCategoryGroup, categoryResult);
+            Assert.AreEqual(expectedCategoryGroup, result);
         }
     }
 }

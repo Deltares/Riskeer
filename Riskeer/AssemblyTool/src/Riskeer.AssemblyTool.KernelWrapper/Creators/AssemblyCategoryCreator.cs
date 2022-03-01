@@ -57,28 +57,28 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 categoriesOutput => new AssessmentSectionAssemblyGroupBoundaries(
                     categoriesOutput.LowerLimit,
                     categoriesOutput.UpperLimit,
-                    CreateAssessmentSectionAssemblyCategory(categoriesOutput.Category))).ToArray();
+                    CreateAssessmentSectionAssemblyGroup(categoriesOutput.Category))).ToArray();
         }
 
         /// <summary>
-        /// Creates a <see cref="AssessmentSectionAssemblyGroup"/> based on <paramref name="category"/>.
+        /// Creates an <see cref="AssessmentSectionAssemblyGroup"/> based on <paramref name="group"/>.
         /// </summary>
-        /// <param name="category">The <see cref="EAssessmentGrade"/> to convert.</param>
-        /// <returns>A <see cref="AssessmentSectionAssemblyGroup"/> based on <paramref name="category"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
+        /// <param name="group">The <see cref="EAssessmentGrade"/> to convert.</param>
+        /// <returns>A <see cref="AssessmentSectionAssemblyGroup"/> based on <paramref name="group"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="group"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="group"/>
         /// is a valid value, but unsupported.</exception>
-        public static AssessmentSectionAssemblyGroup CreateAssessmentSectionAssemblyCategory(EAssessmentGrade category)
+        public static AssessmentSectionAssemblyGroup CreateAssessmentSectionAssemblyGroup(EAssessmentGrade group)
         {
-            if (!Enum.IsDefined(typeof(EAssessmentGrade), category))
+            if (!Enum.IsDefined(typeof(EAssessmentGrade), group))
             {
-                throw new InvalidEnumArgumentException(nameof(category),
-                                                       (int) category,
+                throw new InvalidEnumArgumentException(nameof(group),
+                                                       (int) group,
                                                        typeof(EAssessmentGrade));
             }
 
-            switch (category)
+            switch (group)
             {
                 case EAssessmentGrade.APlus:
                     return AssessmentSectionAssemblyGroup.APlus;
