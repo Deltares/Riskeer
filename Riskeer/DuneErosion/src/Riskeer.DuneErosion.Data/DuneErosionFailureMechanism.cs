@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.DuneErosion.Data.Properties;
 
 namespace Riskeer.DuneErosion.Data
@@ -34,7 +33,7 @@ namespace Riskeer.DuneErosion.Data
     /// Model containing input and output needed to perform different levels of the
     /// Dune Erosion failure mechanism.
     /// </summary>
-    public class DuneErosionFailureMechanism : FailureMechanismBase, IFailurePath<NonAdoptableFailureMechanismSectionResult>
+    public class DuneErosionFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>
     {
         private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<DuneLocation> duneLocationCollection = new ObservableList<DuneLocation>();
@@ -50,6 +49,16 @@ namespace Riskeer.DuneErosion.Data
             DuneLocationCalculationsForUserDefinedTargetProbabilities = new ObservableList<DuneLocationCalculationsForTargetProbability>();
         }
 
+        public override IEnumerable<ICalculation> Calculations
+        {
+            get
+            {
+                yield break;
+            }
+        }
+
+        public override IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
+
         /// <summary>
         /// Gets the general dune erosion calculation input parameters that apply to each calculation.
         /// </summary>
@@ -64,16 +73,6 @@ namespace Riskeer.DuneErosion.Data
         /// Gets the dune location calculations corresponding to the user defined target probabilities.
         /// </summary>
         public ObservableList<DuneLocationCalculationsForTargetProbability> DuneLocationCalculationsForUserDefinedTargetProbabilities { get; }
-
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                yield break;
-            }
-        }
-
-        public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         /// <summary>
         /// Sets dune locations and calculations for the failure mechanism.

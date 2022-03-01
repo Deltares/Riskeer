@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -33,9 +32,7 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Piping Structure failure mechanism.
     /// </summary>
-    public class PipingStructureFailureMechanism : FailureMechanismBase,
-                                                   IFailurePath<NonAdoptableFailureMechanismSectionResult>,
-                                                   IHasGeneralInput
+    public class PipingStructureFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>, IHasGeneralInput
     {
         private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
 
@@ -52,6 +49,8 @@ namespace Riskeer.Integration.Data.StandAlone
             };
         }
 
+        public override IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
+
         public GeneralInput GeneralInput { get; }
 
         public override IEnumerable<ICalculation> Calculations
@@ -61,8 +60,6 @@ namespace Riskeer.Integration.Data.StandAlone
                 yield break;
             }
         }
-
-        public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {

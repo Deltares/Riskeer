@@ -25,7 +25,6 @@ using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.GrassCoverErosionInwards.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -34,9 +33,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     /// <summary>
     /// Model for performing grass cover erosion inwards calculations.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase,
-                                                            ICalculatableFailureMechanism,
-                                                            IFailurePath<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase<AdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                                                            ICalculatableFailureMechanism
     {
         private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
@@ -55,6 +53,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             DikeProfiles = new DikeProfileCollection();
         }
 
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
+
+        public override IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
+
         /// <summary>
         /// Gets the general grass cover erosion inwards calculation input parameters that apply to each calculation.
         /// </summary>
@@ -66,10 +68,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         public DikeProfileCollection DikeProfiles { get; }
 
         public CalculationGroup CalculationsGroup { get; }
-
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
-
-        public IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {

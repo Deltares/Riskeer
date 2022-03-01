@@ -26,7 +26,6 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 using Riskeer.HeightStructures.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -36,9 +35,8 @@ namespace Riskeer.HeightStructures.Data
     /// <summary>
     /// Failure mechanism for Height structures.
     /// </summary>
-    public class HeightStructuresFailureMechanism : FailureMechanismBase,
-                                                    ICalculatableFailureMechanism,
-                                                    IFailurePath<AdoptableFailureMechanismSectionResult>
+    public class HeightStructuresFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>,
+                                                    ICalculatableFailureMechanism
     {
         private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
 
@@ -59,6 +57,10 @@ namespace Riskeer.HeightStructures.Data
             sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
         }
 
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
+
+        public override IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
+
         /// <summary>
         /// Gets the height structures calculation input parameters that apply to each calculation.
         /// </summary>
@@ -78,10 +80,6 @@ namespace Riskeer.HeightStructures.Data
         /// Gets the container of all calculations.
         /// </summary>
         public CalculationGroup CalculationsGroup { get; }
-
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
-
-        public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {

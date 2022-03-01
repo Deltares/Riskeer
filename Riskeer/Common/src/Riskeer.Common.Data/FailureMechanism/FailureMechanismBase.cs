@@ -35,7 +35,9 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// to implement <see cref="IFailureMechanism"/> can and should most likely inherit
     /// from this class.
     /// </summary>
-    public abstract class FailureMechanismBase : Observable, IFailureMechanism
+    /// <typeparam name="T">The type of section results.</typeparam>
+    public abstract class FailureMechanismBase<T> : Observable, IFailureMechanism, IFailurePath<T>
+        where T : FailureMechanismSectionResult
     {
         private static readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
         private readonly FailureMechanismSectionCollection sectionCollection;
@@ -106,6 +108,8 @@ namespace Riskeer.Common.Data.FailureMechanism
         public Comment NotInAssemblyComments { get; }
 
         public bool InAssembly { get; set; }
+
+        public abstract IObservableEnumerable<T> SectionResults { get; }
 
         public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {

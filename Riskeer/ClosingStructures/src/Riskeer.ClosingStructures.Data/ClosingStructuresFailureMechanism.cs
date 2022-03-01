@@ -27,7 +27,6 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -37,9 +36,8 @@ namespace Riskeer.ClosingStructures.Data
     /// Model containing input and output needed to perform different levels of the
     /// Closing Structures failure mechanism.
     /// </summary>
-    public class ClosingStructuresFailureMechanism : FailureMechanismBase,
-                                                     ICalculatableFailureMechanism,
-                                                     IFailurePath<AdoptableFailureMechanismSectionResult>
+    public class ClosingStructuresFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>,
+                                                     ICalculatableFailureMechanism
     {
         private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
 
@@ -60,6 +58,8 @@ namespace Riskeer.ClosingStructures.Data
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
+
         /// <summary>
         /// Gets the general closing structures calculation input parameters that apply to each calculation.
         /// </summary>
@@ -75,11 +75,9 @@ namespace Riskeer.ClosingStructures.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
+        public override IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
+
         public CalculationGroup CalculationsGroup { get; }
-
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
-
-        public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {

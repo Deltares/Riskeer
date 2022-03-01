@@ -26,7 +26,6 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 using Riskeer.StabilityPointStructures.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -37,9 +36,8 @@ namespace Riskeer.StabilityPointStructures.Data
     /// Model containing input and output needed to perform different levels of the
     /// Strength and Stability of Point Constructions failure mechanism.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanism : FailureMechanismBase,
-                                                            ICalculatableFailureMechanism,
-                                                            IFailurePath<AdoptableFailureMechanismSectionResult>
+    public class StabilityPointStructuresFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>,
+                                                            ICalculatableFailureMechanism
     {
         private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
 
@@ -60,6 +58,8 @@ namespace Riskeer.StabilityPointStructures.Data
             sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
         }
 
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>();
+
         /// <summary>
         /// Gets the general stability point structures calculation input parameters that apply to each calculation.
         /// </summary>
@@ -75,11 +75,9 @@ namespace Riskeer.StabilityPointStructures.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
+        public override IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
+
         public CalculationGroup CalculationsGroup { get; }
-
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>();
-
-        public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {

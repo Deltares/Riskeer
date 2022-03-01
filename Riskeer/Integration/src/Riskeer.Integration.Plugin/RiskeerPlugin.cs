@@ -1412,7 +1412,7 @@ namespace Riskeer.Integration.Plugin
         private ViewInfo<TFailureMechanismContext, TFailureMechanism, StandAloneFailureMechanismView<TFailureMechanism, TSectionResult>> CreateFailureMechanismViewInfo<
             TFailureMechanismContext, TFailureMechanism, TSectionResult>(Func<TFailureMechanismContext, TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
             where TSectionResult : FailureMechanismSectionResult
-            where TFailureMechanism : FailureMechanismBase, IFailurePath<TSectionResult>
+            where TFailureMechanism : FailureMechanismBase<TSectionResult>
             where TFailureMechanismContext : IFailurePathContext<TFailureMechanism>
         {
             return new RiskeerViewInfo<TFailureMechanismContext, TFailureMechanism,

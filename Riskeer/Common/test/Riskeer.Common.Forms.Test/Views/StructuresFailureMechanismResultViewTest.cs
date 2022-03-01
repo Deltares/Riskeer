@@ -34,7 +34,6 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
@@ -418,8 +417,7 @@ namespace Riskeer.Common.Forms.Test.Views
             return (DataGridView) new ControlTester("dataGridView").TheObject;
         }
 
-        private class TestStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism,
-                                                       IFailurePath<AdoptableFailureMechanismSectionResult>
+        private class TestStructuresFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism
         {
             private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
 
@@ -430,11 +428,11 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
             }
 
-            public CalculationGroup CalculationsGroup { get; }
-
             public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
-            public IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
+            public override IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
+
+            public CalculationGroup CalculationsGroup { get; }
 
             protected override void AddSectionDependentData(FailureMechanismSection section)
             {

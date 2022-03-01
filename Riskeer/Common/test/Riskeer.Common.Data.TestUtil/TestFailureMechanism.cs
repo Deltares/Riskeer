@@ -24,14 +24,13 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Simple failure mechanism which can be used for testing.
     /// </summary>
-    public class TestFailureMechanism : FailureMechanismBase, IFailurePath<TestFailureMechanismSectionResult>,
+    public class TestFailureMechanism : FailureMechanismBase<TestFailureMechanismSectionResult>,
                                         IHasGeneralInput, ICalculatableFailureMechanism
     {
         private const string defaultName = "Test failure mechanism";
@@ -74,13 +73,13 @@ namespace Riskeer.Common.Data.TestUtil
             GeneralInput = new GeneralInput();
         }
 
+        public override IObservableEnumerable<TestFailureMechanismSectionResult> SectionResults => sectionResults;
+
         public CalculationGroup CalculationsGroup { get; }
 
         public GeneralInput GeneralInput { get; }
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
-
-        public IObservableEnumerable<TestFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {

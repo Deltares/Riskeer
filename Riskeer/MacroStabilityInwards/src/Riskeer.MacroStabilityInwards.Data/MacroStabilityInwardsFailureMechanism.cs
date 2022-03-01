@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.MacroStabilityInwards.Data.Properties;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -33,9 +32,8 @@ namespace Riskeer.MacroStabilityInwards.Data
     /// <summary>
     /// Model for performing macro stability inwards calculations.
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase,
-                                                         ICalculatableFailureMechanism,
-                                                         IFailurePath<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase<AdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                                                         ICalculatableFailureMechanism
     {
         private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
@@ -56,6 +54,8 @@ namespace Riskeer.MacroStabilityInwards.Data
 
             sectionResults = new ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult>();
         }
+
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
         /// <summary>
         /// Gets the available surface lines within the scope of the macro stability inwards failure mechanism.
@@ -78,11 +78,9 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// </summary>
         public MacroStabilityInwardsProbabilityAssessmentInput MacroStabilityInwardsProbabilityAssessmentInput { get; }
 
+        public override IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
+
         public CalculationGroup CalculationsGroup { get; }
-
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
-
-        public IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {

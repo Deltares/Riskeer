@@ -23,7 +23,6 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.Data.Properties;
 
 namespace Riskeer.Integration.Data.StandAlone
@@ -32,7 +31,7 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Model containing input and output needed to perform different levels of the
     /// Microstability failure mechanism.
     /// </summary>
-    public class MicrostabilityFailureMechanism : FailureMechanismBase, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+    public class MicrostabilityFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                                                   IHasGeneralInput
     {
         private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
@@ -47,6 +46,8 @@ namespace Riskeer.Integration.Data.StandAlone
             GeneralInput = new GeneralInput();
         }
 
+        public override IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
+
         public GeneralInput GeneralInput { get; }
 
         public override IEnumerable<ICalculation> Calculations
@@ -56,8 +57,6 @@ namespace Riskeer.Integration.Data.StandAlone
                 yield break;
             }
         }
-
-        public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {

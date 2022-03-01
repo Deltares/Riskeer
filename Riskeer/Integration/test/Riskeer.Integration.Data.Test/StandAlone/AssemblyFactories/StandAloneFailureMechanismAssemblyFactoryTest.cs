@@ -46,8 +46,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
     [TestFixture]
     public class StandAloneFailureMechanismAssemblyFactoryTest
     {
-        private class TestFailureMechanism : FailureMechanismBase,
-                                             IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+        private class TestFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                                              IHasGeneralInput
         {
             private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
@@ -60,7 +59,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
             public override IEnumerable<ICalculation> Calculations { get; }
 
-            public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
+            public override IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
             public GeneralInput GeneralInput { get; }
 

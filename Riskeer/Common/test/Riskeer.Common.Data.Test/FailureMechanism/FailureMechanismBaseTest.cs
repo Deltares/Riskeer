@@ -278,7 +278,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             Assert.IsTrue(failureMechanism.SectionDependentDataCleared);
         }
 
-        private class SimpleFailureMechanismBase : FailureMechanismBase
+        private class SimpleFailureMechanismBase : FailureMechanismBase<FailureMechanismSectionResult>
         {
             public SimpleFailureMechanismBase(string name = "SomeName",
                                               string failureMechanismCode = "SomeCode")
@@ -289,6 +289,8 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             public bool SectionDependentDataCleared { get; private set; }
 
             public bool SectionDependentDataAdded { get; private set; }
+
+            public override IObservableEnumerable<FailureMechanismSectionResult> SectionResults { get; }
 
             protected override void AddSectionDependentData(FailureMechanismSection section)
             {

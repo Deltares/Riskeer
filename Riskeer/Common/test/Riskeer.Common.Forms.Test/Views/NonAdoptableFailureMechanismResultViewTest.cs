@@ -32,7 +32,6 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
@@ -113,7 +112,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             using (var view = new NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => double.NaN))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<NonAdoptableFailureMechanismSectionResult,
@@ -252,7 +251,7 @@ namespace Riskeer.Common.Forms.Test.Views
             return (DataGridView) new ControlTester("dataGridView").TheObject;
         }
 
-        private class TestNonAdoptableFailureMechanism : FailureMechanismBase, IFailurePath<NonAdoptableFailureMechanismSectionResult>
+        private class TestNonAdoptableFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>
         {
             private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
 
@@ -262,7 +261,7 @@ namespace Riskeer.Common.Forms.Test.Views
             }
 
             public override IEnumerable<ICalculation> Calculations { get; }
-            public IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
+            public override IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
             protected override void AddSectionDependentData(FailureMechanismSection section)
             {
