@@ -79,8 +79,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             const string generalCategoryName = "Algemeen";
 
-            PropertyDescriptor failureMechanismSectionCategoriesProperty = dynamicProperties[0];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureMechanismSectionCategoriesProperty,
+            PropertyDescriptor assessmentSectionAssemblyGroupsProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(assessmentSectionAssemblyGroupsProperty,
                                                                             generalCategoryName,
                                                                             "Normklassen",
                                                                             "De normklassen per vak voor dit toetsspoor.",
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetFailureMechanismAssemblyGroups_AssemblyThrowsException_SetsEmptyProperties()
+        public void GetAssessmentSectionAssemblyGroups_AssemblyThrowsException_SetsEmptyProperties()
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -106,7 +106,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetFailureMechanismAssemblyGroups_AssemblySucceeds_CorrectlySetsProperties()
+        public void GetAssessmentSectionAssemblyGroups_AssemblySucceeds_CorrectlySetsProperties()
         {
             // Setup
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -118,14 +118,14 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 var properties = new AssessmentSectionAssemblyGroupsProperties(new AssessmentSection(AssessmentSectionComposition.Dike));
 
                 // Assert
-                AssessmentSectionAssemblyGroupProperties[] failureMechanismAssemblyGroups = properties.AssessmentSectionAssemblyGroups;
+                AssessmentSectionAssemblyGroupProperties[] assessmentSectionAssemblyGroups = properties.AssessmentSectionAssemblyGroups;
                 IEnumerable<AssessmentSectionAssemblyGroupBoundaries> output = calculator.AssessmentSectionAssemblyGroupBoundariesOutput;
-                Assert.AreEqual(output.Count(), failureMechanismAssemblyGroups.Length);
+                Assert.AreEqual(output.Count(), assessmentSectionAssemblyGroups.Length);
                 for (var i = 0; i < output.Count(); i++)
                 {
                     AssessmentSectionAssemblyGroupBoundaries category = output.ElementAt(i);
 
-                    AssessmentSectionAssemblyGroupProperties property = failureMechanismAssemblyGroups[i];
+                    AssessmentSectionAssemblyGroupProperties property = assessmentSectionAssemblyGroups[i];
                     Assert.AreEqual(category.Group, property.Group);
                     Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
                     Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);
