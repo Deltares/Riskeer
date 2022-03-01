@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             try
             {
                 dataToSet = AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(contribution.SignalingNorm, contribution.LowerLimitNorm)
-                                                                           .Select(category => new AssessmentSectionAssemblyGroupProperties(category))
+                                                                           .Select(assemblyGroupBoundaries => new AssessmentSectionAssemblyGroupProperties(assemblyGroupBoundaries))
                                                                            .ToArray();
             }
             catch (AssemblyException)
