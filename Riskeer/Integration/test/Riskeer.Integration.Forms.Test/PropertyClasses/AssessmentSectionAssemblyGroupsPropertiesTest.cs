@@ -123,12 +123,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 Assert.AreEqual(output.Count(), assessmentSectionAssemblyGroups.Length);
                 for (var i = 0; i < output.Count(); i++)
                 {
-                    AssessmentSectionAssemblyGroupBoundaries category = output.ElementAt(i);
+                    AssessmentSectionAssemblyGroupBoundaries assemblyGroup = output.ElementAt(i);
 
                     AssessmentSectionAssemblyGroupProperties property = assessmentSectionAssemblyGroups[i];
-                    Assert.AreEqual(category.Group, property.Group);
-                    Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
-                    Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);
+                    Assert.AreEqual(assemblyGroup.Group, property.Group);
+                    Assert.AreEqual(assemblyGroup.UpperBoundary, property.UpperBoundary);
+                    Assert.AreEqual(assemblyGroup.LowerBoundary, property.LowerBoundary);
                 }
             }
         }

@@ -50,21 +50,21 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(39);
-            var assemblyCategory = new AssessmentSectionAssemblyGroupBoundaries(random.NextDouble(),
+            var assemblyGroup = new AssessmentSectionAssemblyGroupBoundaries(random.NextDouble(),
                                                                                 random.NextDouble(),
                                                                                 random.NextEnumValue<AssessmentSectionAssemblyGroup>());
 
             // Call
-            var properties = new AssessmentSectionAssemblyGroupProperties(assemblyCategory);
+            var properties = new AssessmentSectionAssemblyGroupProperties(assemblyGroup);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<AssessmentSectionAssemblyGroupBoundaries>>(properties);
-            Assert.AreSame(assemblyCategory, properties.Data);
+            Assert.AreSame(assemblyGroup, properties.Data);
             TestHelper.AssertTypeConverter<AssessmentSectionAssemblyGroupProperties, ExpandableObjectConverter>();
 
-            Assert.AreEqual(assemblyCategory.Group, properties.Group);
-            Assert.AreEqual(assemblyCategory.LowerBoundary, properties.LowerBoundary);
-            Assert.AreEqual(assemblyCategory.UpperBoundary, properties.UpperBoundary);
+            Assert.AreEqual(assemblyGroup.Group, properties.Group);
+            Assert.AreEqual(assemblyGroup.LowerBoundary, properties.LowerBoundary);
+            Assert.AreEqual(assemblyGroup.UpperBoundary, properties.UpperBoundary);
         }
 
         [Test]
@@ -72,12 +72,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(39);
-            var assemblyCategory = new AssessmentSectionAssemblyGroupBoundaries(random.NextDouble(),
+            var assemblyGroup = new AssessmentSectionAssemblyGroupBoundaries(random.NextDouble(),
                                                                                 random.NextDouble(),
                                                                                 random.NextEnumValue<AssessmentSectionAssemblyGroup>());
 
             // Call
-            var properties = new AssessmentSectionAssemblyGroupProperties(assemblyCategory);
+            var properties = new AssessmentSectionAssemblyGroupProperties(assemblyGroup);
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
@@ -111,17 +111,17 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(39);
-            var categoryGroup = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
+            var assemblyGroup = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
             var properties = new AssessmentSectionAssemblyGroupProperties(new AssessmentSectionAssemblyGroupBoundaries(
                                                                                                             random.NextDouble(),
                                                                                                             random.NextDouble(),
-                                                                                                            categoryGroup));
+                                                                                                            assemblyGroup));
 
             // Call
             var result = properties.ToString();
 
             // Assert
-            Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyGroup>(categoryGroup).DisplayName, result);
+            Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyGroup>(assemblyGroup).DisplayName, result);
         }
     }
 }
