@@ -30,13 +30,13 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class AssemblyCategoryCreatorTest
+    public class AssessmentSectionAssemblyGroupCreatorTest
     {
         [Test]
         public void CreateAssessmentSectionAssemblyCategoryGroup_WithInvalidAssessmentGrade_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            void Call() => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyGroup((EAssessmentGrade) 99);
+            void Call() => AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup((EAssessmentGrade) 99);
 
             // Assert
             const string exceptionMessage = "The value of argument 'group' (99) is invalid for Enum type 'EAssessmentGrade'.";
@@ -50,7 +50,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             AssessmentSectionAssemblyGroup expectedCategoryGroup)
         {
             // Call
-            AssessmentSectionAssemblyGroup result = AssemblyCategoryCreator.CreateAssessmentSectionAssemblyGroup(group);
+            AssessmentSectionAssemblyGroup result = AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup(group);
 
             // Assert
             Assert.AreEqual(expectedCategoryGroup, result);

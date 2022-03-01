@@ -50,7 +50,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             }
 
             return new AssessmentSectionAssemblyResult(result.FailureProbability,
-                                                       AssemblyCategoryCreator.CreateAssessmentSectionAssemblyGroup(result.Category));
+                                                       AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup(result.Category));
         }
     }
 }

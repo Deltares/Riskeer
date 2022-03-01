@@ -29,31 +29,31 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates assembly categories.
+    /// Creates assessment section assembly groups.
     /// </summary>
-    public static class AssemblyCategoryCreator
+    public static class AssessmentSectionAssemblyGroupCreator
     {
         /// <summary>
         /// Creates a collection of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>
-        /// based on the information given in the <paramref name="categories"/>.
+        /// based on the information given in the <paramref name="groups"/>.
         /// </summary>
-        /// <param name="categories">The <see cref="Assembly.Kernel.Old.Model.CategoryLimits.CategoriesList{TCategory}"/> with
-        /// <see cref="Assembly.Kernel.Old.Model.CategoryLimits.AssessmentSectionCategory"/> to create the result for.</param>
+        /// <param name="groups">The <see cref="CategoriesList{TCategory}"/> with <see cref="AssessmentSectionCategory"/>
+        /// to create the result for.</param>
         /// <returns>A collection of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>
-        /// with information taken from the <paramref name="categories"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categories"/>
+        /// with information taken from the <paramref name="groups"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="groups"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="groups"/>
         /// contains an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="categories"/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="groups"/>
         /// contains a valid value, but unsupported.</exception>
-        public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyCategories(CategoriesList<AssessmentSectionCategory> categories)
+        public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyCategories(CategoriesList<AssessmentSectionCategory> groups)
         {
-            if (categories == null)
+            if (groups == null)
             {
-                throw new ArgumentNullException(nameof(categories));
+                throw new ArgumentNullException(nameof(groups));
             }
 
-            return categories.Categories.Select(
+            return groups.Categories.Select(
                 categoriesOutput => new AssessmentSectionAssemblyGroupBoundaries(
                     categoriesOutput.LowerLimit,
                     categoriesOutput.UpperLimit,
