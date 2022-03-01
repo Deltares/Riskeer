@@ -124,12 +124,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                 Assert.AreEqual(output.Count() + 2, failureMechanismAssemblyGroups.Length);
                 for (var i = 0; i < output.Count(); i++)
                 {
-                    FailureMechanismSectionAssemblyGroupBoundaries category = output.ElementAt(i);
+                    FailureMechanismSectionAssemblyGroupBoundaries assemblyGroupBoundaries = output.ElementAt(i);
 
                     FailureMechanismSectionAssemblyGroupProperties property = failureMechanismAssemblyGroups[i];
-                    Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(category.Group), property.Group);
-                    Assert.AreEqual(category.UpperBoundary, property.UpperBoundary);
-                    Assert.AreEqual(category.LowerBoundary, property.LowerBoundary);
+                    Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyGroupBoundaries.Group), property.Group);
+                    Assert.AreEqual(assemblyGroupBoundaries.UpperBoundary, property.UpperBoundary);
+                    Assert.AreEqual(assemblyGroupBoundaries.LowerBoundary, property.LowerBoundary);
                 }
             }
         }

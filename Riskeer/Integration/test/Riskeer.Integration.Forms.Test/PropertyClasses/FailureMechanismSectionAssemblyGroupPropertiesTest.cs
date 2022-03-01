@@ -112,8 +112,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(39);
-            var categoryGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
-            var properties = new FailureMechanismSectionAssemblyGroupProperties(new FailureMechanismSectionAssemblyGroupBoundaries(categoryGroup,
+            var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var properties = new FailureMechanismSectionAssemblyGroupProperties(new FailureMechanismSectionAssemblyGroupBoundaries(assemblyGroup,
                                                                                                             random.NextDouble(),
                                                                                                             random.NextDouble()));
 
@@ -121,7 +121,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var result = properties.ToString();
 
             // Assert
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(categoryGroup), result);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(assemblyGroup), result);
         }
     }
 }
