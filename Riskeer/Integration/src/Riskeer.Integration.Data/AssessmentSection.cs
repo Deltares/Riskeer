@@ -126,7 +126,6 @@ namespace Riskeer.Integration.Data
             stabilityPointStructures = new StabilityPointStructuresFailureMechanism();
             pipingStructure = new PipingStructureFailureMechanism();
             duneErosion = new DuneErosionFailureMechanism();
-            OtherFailureMechanism = new OtherFailureMechanism();
 
             failureProbabilityMarginFactor = new RoundedDouble(2);
 
@@ -405,11 +404,6 @@ namespace Riskeer.Integration.Data
         }
 
         /// <summary>
-        /// Gets the "Overige" category failure mechanism.
-        /// </summary>
-        public OtherFailureMechanism OtherFailureMechanism { get; }
-
-        /// <summary>
         /// Gets the failure probability margin factor.
         /// </summary>
         public RoundedDouble FailureProbabilityMarginFactor
@@ -514,7 +508,6 @@ namespace Riskeer.Integration.Data
             yield return PipingStructure;
             yield return StabilityPointStructures;
             yield return DuneErosion;
-            yield return OtherFailureMechanism;
         }
 
         /// <inheritdoc />
@@ -545,7 +538,6 @@ namespace Riskeer.Integration.Data
                     PipingStructure.Contribution = 2;
                     StabilityPointStructures.Contribution = 2;
                     DuneErosion.Contribution = 0;
-                    OtherFailureMechanism.Contribution = 30;
                     FailureProbabilityMarginFactor = (RoundedDouble) 0.58;
                     break;
                 case AssessmentSectionComposition.Dune:
@@ -560,7 +552,6 @@ namespace Riskeer.Integration.Data
                     PipingStructure.Contribution = 0;
                     StabilityPointStructures.Contribution = 0;
                     DuneErosion.Contribution = 70;
-                    OtherFailureMechanism.Contribution = 30;
                     FailureProbabilityMarginFactor = (RoundedDouble) 0;
                     break;
                 case AssessmentSectionComposition.DikeAndDune:
@@ -575,7 +566,6 @@ namespace Riskeer.Integration.Data
                     PipingStructure.Contribution = 2;
                     StabilityPointStructures.Contribution = 2;
                     DuneErosion.Contribution = 10;
-                    OtherFailureMechanism.Contribution = 20;
                     FailureProbabilityMarginFactor = (RoundedDouble) 0.58;
                     break;
                 default:

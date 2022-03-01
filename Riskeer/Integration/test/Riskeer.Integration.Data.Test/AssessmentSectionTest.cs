@@ -269,7 +269,7 @@ namespace Riskeer.Integration.Data.Test
                                                                      .ToArray();
 
             // Assert
-            Assert.AreEqual(12, failureMechanisms.Length);
+            Assert.AreEqual(11, failureMechanisms.Length);
             CollectionAssert.AreEqual(new IFailureMechanism[]
             {
                 assessmentSection.Piping,
@@ -282,8 +282,7 @@ namespace Riskeer.Integration.Data.Test
                 assessmentSection.ClosingStructures,
                 assessmentSection.PipingStructure,
                 assessmentSection.StabilityPointStructures,
-                assessmentSection.DuneErosion,
-                assessmentSection.OtherFailureMechanism
+                assessmentSection.DuneErosion
             }, failureMechanisms);
         }
 
@@ -477,7 +476,6 @@ namespace Riskeer.Integration.Data.Test
             Assert.AreEqual(contributions[8], assessmentSection.PipingStructure.Contribution);
             Assert.AreEqual(contributions[9], assessmentSection.StabilityPointStructures.Contribution);
             Assert.AreEqual(contributions[10], assessmentSection.DuneErosion.Contribution);
-            Assert.AreEqual(contributions[11], assessmentSection.OtherFailureMechanism.Contribution);
         }
 
         private static IEnumerable<double> GetContributions(AssessmentSectionComposition composition)
@@ -498,8 +496,7 @@ namespace Riskeer.Integration.Data.Test
                         4,
                         2,
                         2,
-                        0,
-                        30
+                        0
                     };
                     break;
                 case AssessmentSectionComposition.Dune:
@@ -515,8 +512,7 @@ namespace Riskeer.Integration.Data.Test
                         0,
                         0,
                         0,
-                        70,
-                        30
+                        70
                     };
                     break;
                 case AssessmentSectionComposition.DikeAndDune:
@@ -532,8 +528,7 @@ namespace Riskeer.Integration.Data.Test
                         4,
                         2,
                         2,
-                        10,
-                        20
+                        10
                     };
                     break;
                 default:
