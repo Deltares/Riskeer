@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             try
             {
                 dataToSet = FailureMechanismSectionAssemblyGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(contribution.SignalingNorm, contribution.LowerLimitNorm)
-                                                              .Select(category => new FailureMechanismSectionAssemblyGroupProperties(category))
+                                                              .Select(assemblyGroupBoundaries => new FailureMechanismSectionAssemblyGroupProperties(assemblyGroupBoundaries))
                                                               .ToArray();
                 dataToSet = dataToSet.Concat(new[]
                 {
