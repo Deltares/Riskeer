@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;

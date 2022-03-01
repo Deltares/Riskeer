@@ -5,8 +5,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
-    <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
+    <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+    <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

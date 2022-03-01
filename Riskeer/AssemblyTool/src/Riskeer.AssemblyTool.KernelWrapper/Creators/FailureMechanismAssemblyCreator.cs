@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using Assembly.Kernel.Old.Model;
-using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data.Old;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {

@@ -22,11 +22,12 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data.Old;
 
-namespace Riskeer.AssemblyTool.Data.Test
+namespace Riskeer.AssemblyTool.Data.Test.Old
 {
     [TestFixture]
-    public class FailureMechanismAssemblyTest
+    public class FailureMechanismSectionAssemblyOldTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -34,10 +35,10 @@ namespace Riskeer.AssemblyTool.Data.Test
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
-            var group = random.NextEnumValue<FailureMechanismAssemblyCategoryGroup>();
+            var group = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
 
             // Call
-            var assembly = new FailureMechanismAssembly(probability, group);
+            var assembly = new FailureMechanismSectionAssemblyOld(probability, group);
 
             // Assert
             Assert.AreEqual(probability, assembly.Probability);

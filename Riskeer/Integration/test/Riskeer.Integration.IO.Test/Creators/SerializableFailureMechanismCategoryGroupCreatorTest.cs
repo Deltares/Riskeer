@@ -23,7 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.Creators;
 

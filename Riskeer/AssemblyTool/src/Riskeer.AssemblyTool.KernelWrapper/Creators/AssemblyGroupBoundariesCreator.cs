@@ -34,7 +34,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     internal static class AssemblyGroupBoundariesCreator
     {
         /// <summary>
-        /// Creates a collection of <see cref="FailureMechanismSectionAssemblyCategory"/>
+        /// Creates a collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>
         /// based on the information given in the <paramref name="categories"/>.
         /// </summary>
         /// <param name="categories">The <see cref="CategoriesList{TCategory}"/> with

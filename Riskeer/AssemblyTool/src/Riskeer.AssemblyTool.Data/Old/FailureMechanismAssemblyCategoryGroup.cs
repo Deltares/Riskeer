@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Riskeer.AssemblyTool.Data.Properties;
 
-namespace Riskeer.AssemblyTool.Data
+namespace Riskeer.AssemblyTool.Data.Old
 {
     /// <summary>
     /// Enum defining the assembly categories for a failure mechanism.

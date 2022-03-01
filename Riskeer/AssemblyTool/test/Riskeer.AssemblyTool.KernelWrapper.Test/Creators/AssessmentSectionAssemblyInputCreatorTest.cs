@@ -25,7 +25,7 @@ using System.ComponentModel;
 using Assembly.Kernel.Old.Model;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators

@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;

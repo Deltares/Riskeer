@@ -19,29 +19,32 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.TestUtil;
-using NUnit.Framework;
-
-namespace Riskeer.AssemblyTool.Data.Test
+namespace Riskeer.AssemblyTool.Data.Old
 {
-    [TestFixture]
-    public class FailureMechanismSectionAssemblyOldTest
+    /// <summary>
+    /// Assembly for a failure mechanism.
+    /// </summary>
+    public class FailureMechanismAssembly
     {
-        [Test]
-        public void Constructor_ExpectedValues()
+        /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismAssembly"/>.
+        /// </summary>
+        /// <param name="probability">The probability of the assembly.</param>
+        /// <param name="group">The group of the assembly.</param>
+        public FailureMechanismAssembly(double probability, FailureMechanismAssemblyCategoryGroup group)
         {
-            // Setup
-            var random = new Random(39);
-            double probability = random.NextDouble();
-            var group = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
-
-            // Call
-            var assembly = new FailureMechanismSectionAssemblyOld(probability, group);
-
-            // Assert
-            Assert.AreEqual(probability, assembly.Probability);
-            Assert.AreEqual(group, assembly.Group);
+            Probability = probability;
+            Group = group;
         }
+
+        /// <summary>
+        /// Gets the probability of the assembly.
+        /// </summary>
+        public double Probability { get; }
+
+        /// <summary>
+        /// Gets the group of the assembly.
+        /// </summary>
+        public FailureMechanismAssemblyCategoryGroup Group { get; }
     }
 }

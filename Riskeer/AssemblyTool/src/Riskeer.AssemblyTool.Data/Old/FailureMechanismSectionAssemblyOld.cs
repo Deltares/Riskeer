@@ -19,27 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.AssemblyTool.Data
+namespace Riskeer.AssemblyTool.Data.Old
 {
     /// <summary>
-    /// Assembly category for failure mechanism section.
+    /// Assembly for failure mechanism section.
     /// </summary>
-    public class FailureMechanismSectionAssemblyCategory : AssemblyGroupBoundaries
+    public class FailureMechanismSectionAssemblyOld
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyCategory"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyOld"/>.
         /// </summary>
-        /// <param name="lowerBoundary">The lower boundary of the category.</param>
-        /// <param name="upperBoundary">The upper boundary of the category.</param>
-        /// <param name="group">The group of the category.</param>
-        public FailureMechanismSectionAssemblyCategory(double lowerBoundary, double upperBoundary, FailureMechanismSectionAssemblyCategoryGroup group)
-            : base(lowerBoundary, upperBoundary)
+        /// <param name="probability">The probability of the assembly.</param>
+        /// <param name="group">The group of the assembly.</param>
+        public FailureMechanismSectionAssemblyOld(double probability, FailureMechanismSectionAssemblyCategoryGroup group)
         {
+            Probability = probability;
             Group = group;
         }
 
         /// <summary>
-        /// Gets the group of the assembly category.
+        /// Gets the probability of the assembly.
+        /// </summary>
+        public double Probability { get; }
+
+        /// <summary>
+        /// Gets the group of the assembly.
         /// </summary>
         public FailureMechanismSectionAssemblyCategoryGroup Group { get; }
     }
