@@ -41,19 +41,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         /// <param name="actual">The actual collection of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertAssessmentSectionAssemblyCategories(CategoriesList<AssessmentSectionCategory> original,
-                                                                     IEnumerable<AssessmentSectionAssemblyGroupBoundaries> actual)
+        public static void AssertAssessmentSectionAssemblyGroups(CategoriesList<AssessmentSectionCategory> original,
+                                                                 IEnumerable<AssessmentSectionAssemblyGroupBoundaries> actual)
         {
             Assert.AreEqual(original.Categories.Length, actual.Count());
 
-            CollectionAssert.AreEqual(original.Categories.Select(o => GetAssessmentSectionCategoryGroup(o.Category)), actual.Select(r => r.Group));
+            CollectionAssert.AreEqual(original.Categories.Select(o => GetAssessmentSectionAssemblyGroup(o.Category)), actual.Select(r => r.Group));
             CollectionAssert.AreEqual(original.Categories.Select(o => o.LowerLimit.Value), actual.Select(r => r.LowerBoundary));
             CollectionAssert.AreEqual(original.Categories.Select(o => o.UpperLimit.Value), actual.Select(r => r.UpperBoundary));
         }
 
-        private static AssessmentSectionAssemblyGroup GetAssessmentSectionCategoryGroup(EAssessmentGrade category)
+        private static AssessmentSectionAssemblyGroup GetAssessmentSectionAssemblyGroup(EAssessmentGrade group)
         {
-            switch (category)
+            switch (group)
             {
                 case EAssessmentGrade.APlus:
                     return AssessmentSectionAssemblyGroup.APlus;

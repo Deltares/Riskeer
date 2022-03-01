@@ -110,7 +110,7 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
 
         #endregion
 
-        #region SerializableAssessmentSectionCategoryGroup
+        #region SerializableAssessmentSectionAssemblyGroup
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssessmentSectionAssemblyGroup.APlus"/>.
