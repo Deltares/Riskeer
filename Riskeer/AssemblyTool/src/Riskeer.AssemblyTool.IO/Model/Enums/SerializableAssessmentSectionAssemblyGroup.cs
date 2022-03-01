@@ -26,42 +26,42 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
     /// <summary>
     /// Serializable enum defining the assembly groups for an assessment section.
     /// </summary>
-    public enum SerializableAssessmentSectionGroup
+    public enum SerializableAssessmentSectionAssemblyGroup
     {
         /// <summary>
         /// Represents the assembly group A+.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupAPlus)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupAPlus)]
         APlus = 1,
 
         /// <summary>
         /// Represents the assembly group A.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupA)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupA)]
         A = 2,
 
         /// <summary>
         /// Represents the assembly group B.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupB)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupB)]
         B = 3,
 
         /// <summary>
         /// Represents the assembly group C.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupC)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupC)]
         C = 4,
 
         /// <summary>
         /// Represents the assembly group D.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupD)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupD)]
         D = 5,
 
         /// <summary>
         /// Represents the assembly group NGO (Not assessed).
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupNotAssessed)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupNotAssessed)]
         NotAssessed = 6
     }
 }

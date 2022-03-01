@@ -113,34 +113,34 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         #region SerializableAssessmentSectionCategoryGroup
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentSectionGroup.APlus"/>.
+        /// Identifier for <see cref="SerializableAssessmentSectionAssemblyGroup.APlus"/>.
         /// </summary>
-        public const string SerializableAssessmentSectionGroupAPlus = "A+";
+        public const string SerializableAssessmentSectionAssemblyGroupAPlus = "A+";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentSectionGroup.A"/>.
+        /// Identifier for <see cref="SerializableAssessmentSectionAssemblyGroup.A"/>.
         /// </summary>
-        public const string SerializableAssessmentSectionGroupA = "A";
+        public const string SerializableAssessmentSectionAssemblyGroupA = "A";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentSectionGroup.B"/>.
+        /// Identifier for <see cref="SerializableAssessmentSectionAssemblyGroup.B"/>.
         /// </summary>
-        public const string SerializableAssessmentSectionGroupB = "B";
+        public const string SerializableAssessmentSectionAssemblyGroupB = "B";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentSectionGroup.C"/>.
+        /// Identifier for <see cref="SerializableAssessmentSectionAssemblyGroup.C"/>.
         /// </summary>
-        public const string SerializableAssessmentSectionGroupC = "C";
+        public const string SerializableAssessmentSectionAssemblyGroupC = "C";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentSectionGroup.D"/>.
+        /// Identifier for <see cref="SerializableAssessmentSectionAssemblyGroup.D"/>.
         /// </summary>
-        public const string SerializableAssessmentSectionGroupD = "D";
+        public const string SerializableAssessmentSectionAssemblyGroupD = "D";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentSectionGroup.NotAssessed"/>.
+        /// Identifier for <see cref="SerializableAssessmentSectionAssemblyGroup.NotAssessed"/>.
         /// </summary>
-        public const string SerializableAssessmentSectionGroupNotAssessed = "NGO";
+        public const string SerializableAssessmentSectionAssemblyGroupNotAssessed = "NGO";
 
         #endregion
 

@@ -27,7 +27,7 @@ using Riskeer.AssemblyTool.IO.Model.Enums;
 namespace Riskeer.Integration.IO.Creators
 {
     /// <summary>
-    /// Creator to create <see cref="SerializableAssessmentSectionGroup"/>.
+    /// Creator to create <see cref="SerializableAssessmentSectionAssemblyGroup"/>.
     /// </summary>
     public static class SerializableAssessmentSectionCategoryGroupCreator
     {
@@ -41,7 +41,7 @@ namespace Riskeer.Integration.IO.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryGroup"/>
         /// is a valid value, but unsupported.</exception>
-        public static SerializableAssessmentSectionGroup Create(AssessmentSectionAssemblyGroup categoryGroup)
+        public static SerializableAssessmentSectionAssemblyGroup Create(AssessmentSectionAssemblyGroup categoryGroup)
         {
             if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyGroup), categoryGroup))
             {
@@ -53,17 +53,17 @@ namespace Riskeer.Integration.IO.Creators
             switch (categoryGroup)
             {
                 case AssessmentSectionAssemblyGroup.NotAssessed:
-                    return SerializableAssessmentSectionGroup.NotAssessed;
+                    return SerializableAssessmentSectionAssemblyGroup.NotAssessed;
                 case AssessmentSectionAssemblyGroup.APlus:
-                    return SerializableAssessmentSectionGroup.APlus;
+                    return SerializableAssessmentSectionAssemblyGroup.APlus;
                 case AssessmentSectionAssemblyGroup.A:
-                    return SerializableAssessmentSectionGroup.A;
+                    return SerializableAssessmentSectionAssemblyGroup.A;
                 case AssessmentSectionAssemblyGroup.B:
-                    return SerializableAssessmentSectionGroup.B;
+                    return SerializableAssessmentSectionAssemblyGroup.B;
                 case AssessmentSectionAssemblyGroup.C:
-                    return SerializableAssessmentSectionGroup.C;
+                    return SerializableAssessmentSectionAssemblyGroup.C;
                 case AssessmentSectionAssemblyGroup.D:
-                    return SerializableAssessmentSectionGroup.D;
+                    return SerializableAssessmentSectionAssemblyGroup.D;
                 default:
                     throw new NotSupportedException();
             }

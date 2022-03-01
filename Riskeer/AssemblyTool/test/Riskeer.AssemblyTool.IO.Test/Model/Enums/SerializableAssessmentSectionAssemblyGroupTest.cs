@@ -27,59 +27,59 @@ using Riskeer.AssemblyTool.IO.Model.Enums;
 namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
 {
     [TestFixture]
-    public class SerializableAssessmentSectionCategoryGroupTest : EnumWithXmlEnumNameTestFixture<SerializableAssessmentSectionGroup>
+    public class SerializableAssessmentSectionAssemblyGroupTest : EnumWithXmlEnumNameTestFixture<SerializableAssessmentSectionAssemblyGroup>
     {
-        protected override IDictionary<SerializableAssessmentSectionGroup, int> ExpectedValueForEnumValues
+        protected override IDictionary<SerializableAssessmentSectionAssemblyGroup, int> ExpectedValueForEnumValues
         {
             get
             {
-                return new Dictionary<SerializableAssessmentSectionGroup, int>
+                return new Dictionary<SerializableAssessmentSectionAssemblyGroup, int>
                 {
                     {
-                        SerializableAssessmentSectionGroup.APlus, 1
+                        SerializableAssessmentSectionAssemblyGroup.APlus, 1
                     },
                     {
-                        SerializableAssessmentSectionGroup.A, 2
+                        SerializableAssessmentSectionAssemblyGroup.A, 2
                     },
                     {
-                        SerializableAssessmentSectionGroup.B, 3
+                        SerializableAssessmentSectionAssemblyGroup.B, 3
                     },
                     {
-                        SerializableAssessmentSectionGroup.C, 4
+                        SerializableAssessmentSectionAssemblyGroup.C, 4
                     },
                     {
-                        SerializableAssessmentSectionGroup.D, 5
+                        SerializableAssessmentSectionAssemblyGroup.D, 5
                     },
                     {
-                        SerializableAssessmentSectionGroup.NotAssessed, 6
+                        SerializableAssessmentSectionAssemblyGroup.NotAssessed, 6
                     }
                 };
             }
         }
 
-        protected override IDictionary<SerializableAssessmentSectionGroup, string> ExpectedDisplayNameForEnumValues
+        protected override IDictionary<SerializableAssessmentSectionAssemblyGroup, string> ExpectedDisplayNameForEnumValues
         {
             get
             {
-                return new Dictionary<SerializableAssessmentSectionGroup, string>
+                return new Dictionary<SerializableAssessmentSectionAssemblyGroup, string>
                 {
                     {
-                        SerializableAssessmentSectionGroup.APlus, "A+"
+                        SerializableAssessmentSectionAssemblyGroup.APlus, "A+"
                     },
                     {
-                        SerializableAssessmentSectionGroup.A, "A"
+                        SerializableAssessmentSectionAssemblyGroup.A, "A"
                     },
                     {
-                        SerializableAssessmentSectionGroup.B, "B"
+                        SerializableAssessmentSectionAssemblyGroup.B, "B"
                     },
                     {
-                        SerializableAssessmentSectionGroup.C, "C"
+                        SerializableAssessmentSectionAssemblyGroup.C, "C"
                     },
                     {
-                        SerializableAssessmentSectionGroup.D, "D"
+                        SerializableAssessmentSectionAssemblyGroup.D, "D"
                     },
                     {
-                        SerializableAssessmentSectionGroup.NotAssessed, "NGO"
+                        SerializableAssessmentSectionAssemblyGroup.NotAssessed, "NGO"
                     }
                 };
             }
