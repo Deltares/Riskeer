@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// </summary>
     public class FailureMechanismSectionAssemblyGroupsProperties : ObjectProperties<AssessmentSection>
     {
-        private const int failureMechanismSectionAssemblyCategoryPropertyIndex = 1;
+        private const int failureMechanismSectionAssemblyGroupPropertyIndex = 1;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyGroupsProperties"/>.
@@ -57,7 +57,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             Data = assessmentSection;
         }
 
-        [PropertyOrder(failureMechanismSectionAssemblyCategoryPropertyIndex)]
+        [PropertyOrder(failureMechanismSectionAssemblyGroupPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyGroups_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyGroups_Description))]
