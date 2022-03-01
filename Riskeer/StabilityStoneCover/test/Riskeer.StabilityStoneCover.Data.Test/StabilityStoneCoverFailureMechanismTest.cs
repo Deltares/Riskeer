@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.StabilityStoneCover.Data.Test
@@ -41,7 +42,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Stabiliteit steenzetting", failureMechanism.Name);
             Assert.AreEqual("ZST", failureMechanism.Code);
             Assert.IsInstanceOf<GeneralStabilityStoneCoverWaveConditionsInput>(failureMechanism.GeneralInput);

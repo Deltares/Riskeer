@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -33,7 +34,7 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Piping Structure failure mechanism.
     /// </summary>
     public class PipingStructureFailureMechanism : FailureMechanismBase,
-                                                   IHasSectionResults<NonAdoptableFailureMechanismSectionResult>,
+                                                   IFailurePath<NonAdoptableFailureMechanismSectionResult>,
                                                    IHasGeneralInput
     {
         private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;

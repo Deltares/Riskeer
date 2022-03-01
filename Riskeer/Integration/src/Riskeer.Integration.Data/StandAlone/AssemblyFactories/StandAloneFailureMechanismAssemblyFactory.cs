@@ -25,6 +25,7 @@ using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
 {
@@ -76,7 +77,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the failure mechanism cannot be assembled.</exception>
         public static double AssembleFailureMechanism<TFailureMechanism>(TFailureMechanism failureMechanism,
                                                                          IAssessmentSection assessmentSection)
-            where TFailureMechanism : IHasGeneralInput, IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+            where TFailureMechanism : IHasGeneralInput, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
             if (failureMechanism == null)
             {

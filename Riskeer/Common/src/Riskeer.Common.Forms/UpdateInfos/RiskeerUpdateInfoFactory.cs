@@ -23,6 +23,7 @@ using System;
 using Core.Common.Util;
 using Core.Gui.Plugin;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.IO.FileImporters;
@@ -53,7 +54,7 @@ namespace Riskeer.Common.Forms.UpdateInfos
         public static UpdateInfo<TSectionContext> CreateFailureMechanismSectionsUpdateInfo<TSectionContext, TFailureMechanism, TSectionResult>(
             IFailureMechanismSectionResultUpdateStrategy<TSectionResult> sectionResultUpdateStrategy)
             where TSectionContext : FailureMechanismSectionsContext
-            where TFailureMechanism : IHasSectionResults<TSectionResult>
+            where TFailureMechanism : IFailurePath<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             if (sectionResultUpdateStrategy == null)

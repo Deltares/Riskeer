@@ -26,6 +26,7 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 using Riskeer.HeightStructures.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -37,7 +38,7 @@ namespace Riskeer.HeightStructures.Data
     /// </summary>
     public class HeightStructuresFailureMechanism : FailureMechanismBase,
                                                     ICalculatableFailureMechanism,
-                                                    IHasSectionResults<AdoptableFailureMechanismSectionResult>
+                                                    IFailurePath<AdoptableFailureMechanismSectionResult>
     {
         private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
 

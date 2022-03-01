@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Piping.Data.SoilProfile;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using PipingDataResources = Riskeer.Piping.Data.Properties.Resources;
@@ -32,7 +33,7 @@ namespace Riskeer.Piping.Data
     /// <summary>
     /// Model for performing piping calculations.
     /// </summary>
-    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class PipingFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IFailurePath<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerFailureMechanismSection;

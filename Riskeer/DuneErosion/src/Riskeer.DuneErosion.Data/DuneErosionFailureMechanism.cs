@@ -25,6 +25,7 @@ using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.DuneErosion.Data.Properties;
 
 namespace Riskeer.DuneErosion.Data
@@ -33,7 +34,7 @@ namespace Riskeer.DuneErosion.Data
     /// Model containing input and output needed to perform different levels of the
     /// Dune Erosion failure mechanism.
     /// </summary>
-    public class DuneErosionFailureMechanism : FailureMechanismBase, IHasSectionResults<NonAdoptableFailureMechanismSectionResult>
+    public class DuneErosionFailureMechanism : FailureMechanismBase, IFailurePath<NonAdoptableFailureMechanismSectionResult>
     {
         private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<DuneLocation> duneLocationCollection = new ObservableList<DuneLocation>();

@@ -26,6 +26,7 @@ using Core.Components.Gis.Features;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 
@@ -45,7 +46,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>A collection of <see cref="MapFeature"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<MapFeature> CreateAssemblyGroupFeatures<TSectionResult>(
-            IHasSectionResults<TSectionResult> failureMechanism,
+            IFailurePath<TSectionResult> failureMechanism,
             Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
             where TSectionResult : FailureMechanismSectionResult
         {

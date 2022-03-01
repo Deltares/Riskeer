@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.StabilityStoneCover.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -34,7 +35,7 @@ namespace Riskeer.StabilityStoneCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Stability of Stone Cover failure mechanism.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 

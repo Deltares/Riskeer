@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.Observers
 {
@@ -35,7 +36,7 @@ namespace Riskeer.Common.Forms.Observers
     /// <typeparam name="TCalculation">The type of the calculations in the <typeparamref name="TFailureMechanism"/>.</typeparam>
     public class CalculatableFailureMechanismResultObserver<TFailureMechanism, TSectionResult, TCalculation>
         : FailureMechanismResultObserver<TFailureMechanism, TSectionResult>
-        where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism
+        where TFailureMechanism : IFailureMechanism, IFailurePath<TSectionResult>, ICalculatableFailureMechanism
         where TSectionResult : FailureMechanismSectionResult
         where TCalculation : ICalculation<ICalculationInput>
     {

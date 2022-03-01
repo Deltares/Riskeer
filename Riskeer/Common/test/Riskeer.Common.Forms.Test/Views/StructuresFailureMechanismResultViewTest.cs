@@ -34,6 +34,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
@@ -418,7 +419,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         private class TestStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism,
-                                                       IHasSectionResults<AdoptableFailureMechanismSectionResult>
+                                                       IFailurePath<AdoptableFailureMechanismSectionResult>
         {
             private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
 

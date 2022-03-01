@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
 
@@ -59,7 +60,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailurePath<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
@@ -75,7 +76,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailurePath<TestFailureMechanismSectionResult>>();
             var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
@@ -92,7 +93,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailurePath<TestFailureMechanismSectionResult>>();
             var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
@@ -110,7 +111,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailurePath<TestFailureMechanismSectionResult>>();
             var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 

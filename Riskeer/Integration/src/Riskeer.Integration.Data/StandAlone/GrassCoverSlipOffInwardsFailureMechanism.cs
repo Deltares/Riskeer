@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.Data.Properties;
 
 namespace Riskeer.Integration.Data.StandAlone
@@ -32,7 +33,7 @@ namespace Riskeer.Integration.Data.StandAlone
     /// Grass Cover Slip Off Inwards failure mechanism.
     /// </summary>
     public class GrassCoverSlipOffInwardsFailureMechanism : FailureMechanismBase,
-                                                            IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                                                            IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                                                             IHasGeneralInput
     {
         private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;

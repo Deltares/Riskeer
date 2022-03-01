@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.GrassCoverErosionInwards.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -35,7 +36,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     /// </summary>
     public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase,
                                                             ICalculatableFailureMechanism,
-                                                            IHasSectionResults<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+                                                            IFailurePath<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 

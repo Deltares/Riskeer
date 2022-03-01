@@ -27,6 +27,7 @@ using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Providers;
@@ -39,7 +40,7 @@ namespace Riskeer.Common.Forms.Views
     /// <typeparam name="TFailureMechanism">The type of failure mechanism.</typeparam>
     /// <typeparam name="TStructuresInput">The type of input.</typeparam>
     public class StructuresFailureMechanismResultView<TFailureMechanism, TStructuresInput> : FailureMechanismResultView<AdoptableFailureMechanismSectionResult, AdoptableFailureMechanismSectionResultRow, TFailureMechanism>
-        where TFailureMechanism : IHasSectionResults<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism, IFailureMechanism
+        where TFailureMechanism : IFailurePath<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism, IFailureMechanism
         where TStructuresInput : IStructuresCalculationInput<StructureBase>, new()
     {
         private const int initialFailureMechanismResultTypeIndex = 2;

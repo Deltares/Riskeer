@@ -34,6 +34,7 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
@@ -66,7 +67,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            using (StandAloneFailureMechanismView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view = CreateView(failureMechanism, assessmentSection))
+            using (StandAloneFailureMechanismView<IFailurePath<FailureMechanismSectionResult>, FailureMechanismSectionResult> view = CreateView(failureMechanism, assessmentSection))
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -92,7 +93,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            void Call() => new StandAloneFailureMechanismView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+            void Call() => new StandAloneFailureMechanismView<IFailurePath<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
                 null, assessmentSection, sr => null);
 
             // Assert
@@ -106,11 +107,11 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            void Call() => new StandAloneFailureMechanismView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+            void Call() => new StandAloneFailureMechanismView<IFailurePath<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
                 failureMechanism, null, sr => null);
 
             // Assert
@@ -124,12 +125,12 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
-            void Call() => new StandAloneFailureMechanismView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+            void Call() => new StandAloneFailureMechanismView<IFailurePath<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
                 failureMechanism, assessmentSection, null);
 
             // Assert
@@ -145,7 +146,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
             // Call
-            using (StandAloneFailureMechanismView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+            using (StandAloneFailureMechanismView<IFailurePath<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
                    CreateView(new TestFailureMechanism(), assessmentSection))
             {
                 // Assert
@@ -195,7 +196,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
             // Call
-            using (var view = new StandAloneFailureMechanismView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+            using (var view = new StandAloneFailureMechanismView<IFailurePath<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
                        failureMechanism, assessmentSection, sr => failureMechanismSectionAssemblyResult))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
@@ -235,7 +236,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            using (StandAloneFailureMechanismView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+            using (StandAloneFailureMechanismView<IFailurePath<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
                    CreateView(new TestFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
@@ -276,7 +277,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            using (StandAloneFailureMechanismView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+            using (StandAloneFailureMechanismView<IFailurePath<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
                    CreateView(new TestFailureMechanism(), assessmentSection))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
@@ -311,7 +312,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Setup
             var failureMechanism = new TestFailureMechanism();
 
-            using (StandAloneFailureMechanismView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+            using (StandAloneFailureMechanismView<IFailurePath<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
                    CreateView(failureMechanism, new AssessmentSectionStub()))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
@@ -359,7 +360,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new TestFailureMechanism();
 
-            using (StandAloneFailureMechanismView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
+            using (StandAloneFailureMechanismView<IFailurePath<FailureMechanismSectionResult>, FailureMechanismSectionResult> view =
                    CreateView(failureMechanism, assessmentSection))
             {
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
@@ -412,11 +413,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             }
         }
 
-        private static StandAloneFailureMechanismView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult> CreateView(
-            IHasSectionResults<FailureMechanismSectionResult> failureMechanism,
+        private static StandAloneFailureMechanismView<IFailurePath<FailureMechanismSectionResult>, FailureMechanismSectionResult> CreateView(
+            IFailurePath<FailureMechanismSectionResult> failureMechanism,
             IAssessmentSection assessmentSection)
         {
-            return new StandAloneFailureMechanismView<IHasSectionResults<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
+            return new StandAloneFailureMechanismView<IFailurePath<FailureMechanismSectionResult>, FailureMechanismSectionResult>(
                 failureMechanism, assessmentSection, sr => new DefaultFailureMechanismSectionAssemblyResult());
         }
 

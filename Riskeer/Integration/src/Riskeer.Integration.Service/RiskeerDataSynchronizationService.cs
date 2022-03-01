@@ -31,6 +31,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Service;
@@ -829,7 +830,7 @@ namespace Riskeer.Integration.Service
             removedObjects.AddRange(failureMechanism.Sections);
             changedObjects.Add(failureMechanism);
 
-            if (failureMechanism is IHasSectionResults<FailureMechanismSectionResult> failureMechanismWithSectionResults)
+            if (failureMechanism is IFailurePath<FailureMechanismSectionResult> failureMechanismWithSectionResults)
             {
                 removedObjects.AddRange(failureMechanismWithSectionResults.SectionResults);
                 changedObjects.Add(failureMechanismWithSectionResults.SectionResults);

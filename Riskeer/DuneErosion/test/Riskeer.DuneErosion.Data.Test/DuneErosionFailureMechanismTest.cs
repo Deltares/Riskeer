@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data.TestUtil;
 
@@ -40,7 +41,7 @@ namespace Riskeer.DuneErosion.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<NonAdoptableFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IFailurePath<NonAdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Duinafslag", failureMechanism.Name);
             Assert.AreEqual("DA", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);

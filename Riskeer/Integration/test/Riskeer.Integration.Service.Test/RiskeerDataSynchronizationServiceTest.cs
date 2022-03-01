@@ -34,6 +34,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
@@ -1958,7 +1959,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
-            where T : IFailureMechanism, IHasSectionResults<FailureMechanismSectionResult>
+            where T : IFailureMechanism, IFailurePath<FailureMechanismSectionResult>
         {
             foreach (FailureMechanismSection section in failureMechanism.Sections)
             {

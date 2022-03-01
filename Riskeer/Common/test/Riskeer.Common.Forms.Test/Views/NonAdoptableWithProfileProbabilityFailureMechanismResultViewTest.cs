@@ -31,6 +31,7 @@ using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
@@ -338,7 +339,7 @@ namespace Riskeer.Common.Forms.Test.Views
             return failureMechanismResultView;
         }
 
-        private class TestNonAdoptableWithProfileProbabilityFailureMechanism : FailureMechanismBase, IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+        private class TestNonAdoptableWithProfileProbabilityFailureMechanism : FailureMechanismBase, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
             private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 

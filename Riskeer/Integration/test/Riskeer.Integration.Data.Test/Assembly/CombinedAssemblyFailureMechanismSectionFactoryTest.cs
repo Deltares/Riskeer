@@ -32,6 +32,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.TestUtil;
 
@@ -121,7 +122,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     });
 
                 // Assert
-                IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults = ((IHasSectionResults<FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults;
+                IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults = ((IFailurePath<FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults;
                 AssertSections(failureMechanismSectionResults, inputs.Single());
             }
         }

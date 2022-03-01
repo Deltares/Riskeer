@@ -29,6 +29,7 @@ using Core.Common.Util.Extensions;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -318,7 +319,7 @@ namespace Riskeer.Integration.Forms.Views
         }
 
         private FailureMechanismAssemblyResultRow CreateStandAloneFailureMechanismAssemblyResultRow<TFailureMechanism>(TFailureMechanism failureMechanism)
-            where TFailureMechanism : IHasGeneralInput, IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+            where TFailureMechanism : IHasGeneralInput, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
             return new FailureMechanismAssemblyResultRow(failureMechanism, () => StandAloneFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, AssessmentSection));
         }

@@ -32,6 +32,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Primitives;
@@ -251,7 +252,7 @@ namespace Riskeer.Common.Forms.Test.Views
             return (DataGridView) new ControlTester("dataGridView").TheObject;
         }
 
-        private class TestNonAdoptableFailureMechanism : FailureMechanismBase, IHasSectionResults< NonAdoptableFailureMechanismSectionResult>
+        private class TestNonAdoptableFailureMechanism : FailureMechanismBase, IFailurePath<NonAdoptableFailureMechanismSectionResult>
         {
             private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
 

@@ -95,4 +95,17 @@ namespace Riskeer.Common.Data.FailurePath
         /// </summary>
         void ClearAllSections();
     }
+
+    /// <summary>
+    /// This interface describes an <see cref="IFailurePath"/> containing <see cref="FailureMechanismSectionResult"/> objects.
+    /// </summary>
+    /// <typeparam name="T">The type of the section results.</typeparam>
+    public interface IFailurePath<out T> : IFailurePath
+        where T : FailureMechanismSectionResult
+    {
+        /// <summary>
+        /// Gets an <see cref="IObservableEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/>.
+        /// </summary>
+        IObservableEnumerable<T> SectionResults { get; }
+    }
 }

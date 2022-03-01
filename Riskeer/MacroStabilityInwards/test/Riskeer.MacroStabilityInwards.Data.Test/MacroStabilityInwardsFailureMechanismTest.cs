@@ -24,6 +24,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.MacroStabilityInwards.Data.Test
@@ -40,7 +41,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IFailurePath<AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Macrostabiliteit binnenwaarts", failureMechanism.Name);
             Assert.AreEqual("STBI", failureMechanism.Code);
 

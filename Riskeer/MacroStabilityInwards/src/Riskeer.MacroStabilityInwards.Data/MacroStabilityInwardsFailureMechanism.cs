@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.MacroStabilityInwards.Data.Properties;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -34,7 +35,7 @@ namespace Riskeer.MacroStabilityInwards.Data
     /// </summary>
     public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase,
                                                          ICalculatableFailureMechanism,
-                                                         IHasSectionResults<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
+                                                         IFailurePath<AdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 

@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Factories;
 
 namespace Riskeer.Common.Forms.MapLayers
@@ -37,7 +38,7 @@ namespace Riskeer.Common.Forms.MapLayers
     {
         private readonly Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc;
 
-        private readonly IHasSectionResults<TSectionResult> failureMechanism;
+        private readonly IFailurePath<TSectionResult> failureMechanism;
 
         private Observer failureMechanismObserver;
         private RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> sectionResultObserver;
@@ -49,7 +50,7 @@ namespace Riskeer.Common.Forms.MapLayers
         /// <param name="performAssemblyFunc">The <see cref="Func{T1,TResult}"/> used to assemble the result of a section result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public NonCalculatableFailureMechanismSectionResultsMapLayer(
-            IHasSectionResults<TSectionResult> failureMechanism,
+            IFailurePath<TSectionResult> failureMechanism,
             Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
         {
             if (failureMechanism == null)

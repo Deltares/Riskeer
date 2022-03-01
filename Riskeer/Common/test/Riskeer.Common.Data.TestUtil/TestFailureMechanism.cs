@@ -24,13 +24,14 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
     /// Simple failure mechanism which can be used for testing.
     /// </summary>
-    public class TestFailureMechanism : FailureMechanismBase, IHasSectionResults<TestFailureMechanismSectionResult>,
+    public class TestFailureMechanism : FailureMechanismBase, IFailurePath<TestFailureMechanismSectionResult>,
                                         IHasGeneralInput, ICalculatableFailureMechanism
     {
         private const string defaultName = "Test failure mechanism";

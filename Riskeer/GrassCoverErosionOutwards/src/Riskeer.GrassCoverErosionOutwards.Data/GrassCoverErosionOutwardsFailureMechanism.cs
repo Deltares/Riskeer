@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.GrassCoverErosionOutwards.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 
@@ -34,7 +35,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
     /// Model containing input and output needed to perform different levels of the
     /// Grass Cover Erosion Outwards failure mechanism.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase, IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 

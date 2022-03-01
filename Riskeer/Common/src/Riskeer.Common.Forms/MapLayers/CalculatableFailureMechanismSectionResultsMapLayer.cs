@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.MapLayers
 {
@@ -35,7 +36,7 @@ namespace Riskeer.Common.Forms.MapLayers
     /// <typeparam name="TSectionResult">The type of section result.</typeparam>
     /// <typeparam name="TCalculationInput">The type of calculation input.</typeparam>
     public class CalculatableFailureMechanismSectionResultsMapLayer<TFailureMechanism, TSectionResult, TCalculationInput> : NonCalculatableFailureMechanismSectionResultsMapLayer<TSectionResult>
-        where TFailureMechanism : IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism
+        where TFailureMechanism : IFailurePath<TSectionResult>, ICalculatableFailureMechanism
         where TSectionResult : FailureMechanismSectionResult
         where TCalculationInput : class, ICalculationInput
     {

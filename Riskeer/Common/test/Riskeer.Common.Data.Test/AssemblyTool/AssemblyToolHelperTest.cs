@@ -116,7 +116,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var failurePath = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
@@ -135,7 +135,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var random = new Random(21);
 
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var failurePath = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             failurePath.InAssembly = false;
@@ -157,7 +157,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double expectedAssemblyResult = random.NextDouble();
 
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var failurePath = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             failurePath.Stub(fp => fp.AssemblyResult)
                        .Return(new FailurePathAssemblyResult
                        {
@@ -184,7 +184,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double failureMechanismN = random.NextDouble();
 
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
+            var failurePath = mocks.Stub<IFailurePath<TestFailureMechanismSectionResult>>();
             failurePath.Stub(fp => fp.AssemblyResult)
                        .Return(new FailurePathAssemblyResult
                        {
@@ -231,7 +231,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double failureMechanismN = random.NextDouble();
 
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IHasSectionResults<TestFailureMechanismSectionResult>>();
+            var failurePath = mocks.Stub<IFailurePath<TestFailureMechanismSectionResult>>();
             failurePath.Stub(fp => fp.AssemblyResult)
                        .Return(new FailurePathAssemblyResult
                        {
@@ -272,7 +272,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             double expectedAssemblyResult = random.NextDouble();
 
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var failurePath = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             failurePath.Stub(fp => fp.AssemblyResult)
                        .Return(new FailurePathAssemblyResult
                        {
@@ -309,7 +309,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IHasSectionResults<FailureMechanismSectionResult>>();
+            var failurePath = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             failurePath.Stub(fp => fp.AssemblyResult)
                        .Return(new FailurePathAssemblyResult
                        {

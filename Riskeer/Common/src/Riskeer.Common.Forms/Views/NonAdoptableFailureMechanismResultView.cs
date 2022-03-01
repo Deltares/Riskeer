@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Providers;
 
@@ -33,7 +34,7 @@ namespace Riskeer.Common.Forms.Views
     /// </summary>
     /// <typeparam name="TFailureMechanism">The type of failure mechanism.</typeparam>
     public class NonAdoptableFailureMechanismResultView<TFailureMechanism> : FailureMechanismResultView<NonAdoptableFailureMechanismSectionResult, NonAdoptableFailureMechanismSectionResultRow, TFailureMechanism>
-        where TFailureMechanism : IHasSectionResults<NonAdoptableFailureMechanismSectionResult>
+        where TFailureMechanism : IFailurePath<NonAdoptableFailureMechanismSectionResult>
     {
         private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultSectionProbabilityIndex = 3;

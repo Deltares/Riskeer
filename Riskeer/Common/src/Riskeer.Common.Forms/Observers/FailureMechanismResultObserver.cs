@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.Observers
 {
@@ -32,7 +33,7 @@ namespace Riskeer.Common.Forms.Observers
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism to observe.</typeparam>
     /// <typeparam name="TSectionResult">The type of the section results in the failure mechanism.</typeparam>
     public class FailureMechanismResultObserver<TFailureMechanism, TSectionResult> : Observable, IDisposable
-        where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>
+        where TFailureMechanism : IFailureMechanism, IFailurePath<TSectionResult>
         where TSectionResult : FailureMechanismSectionResult
     {
         private readonly Observer failureMechanismObserver;

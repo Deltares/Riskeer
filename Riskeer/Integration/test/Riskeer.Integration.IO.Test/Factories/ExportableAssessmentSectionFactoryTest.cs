@@ -29,6 +29,7 @@ using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Assembly;
@@ -159,7 +160,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
         private static void AssertExportableFailureMechanismWithProbability(ExportableFailureMechanismType expectedFailureMechanismCode,
                                                                             ExportableFailureMechanismGroup expectedFailureMechanismGroup,
-                                                                            IHasSectionResults<FailureMechanismSectionResult> failureMechanism,
+                                                                            IFailurePath<FailureMechanismSectionResult> failureMechanism,
                                                                             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> actualExportableFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanismCode, actualExportableFailureMechanism.Code);
@@ -231,7 +232,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
         private static void AssertExportableFailureMechanismWithoutProbability(ExportableFailureMechanismType expectedFailureMechanismCode,
                                                                                ExportableFailureMechanismGroup expectedFailureMechanismGroup,
-                                                                               IHasSectionResults<FailureMechanismSectionResult> failureMechanism,
+                                                                               IFailurePath<FailureMechanismSectionResult> failureMechanism,
                                                                                ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> actualExportableFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanismCode, actualExportableFailureMechanism.Code);

@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
 
@@ -39,7 +40,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
             Assert.IsInstanceOf<IHasGeneralInput>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Wateroverdruk bij asfaltbekleding", failureMechanism.Name);
             Assert.AreEqual("AWO", failureMechanism.Code);

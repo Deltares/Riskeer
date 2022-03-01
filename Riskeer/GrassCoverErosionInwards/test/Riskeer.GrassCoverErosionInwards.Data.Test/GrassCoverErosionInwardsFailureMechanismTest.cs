@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.GrassCoverErosionInwards.Data.Test
@@ -44,7 +45,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-            Assert.IsInstanceOf<IHasSectionResults<AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IFailurePath<AdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Grasbekleding erosie kruin en binnentalud", failureMechanism.Name);
             Assert.AreEqual("GEKB", failureMechanism.Code);
 

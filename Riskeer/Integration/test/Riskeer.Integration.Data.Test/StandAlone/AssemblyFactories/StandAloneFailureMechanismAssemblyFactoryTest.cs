@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
     public class StandAloneFailureMechanismAssemblyFactoryTest
     {
         private class TestFailureMechanism : FailureMechanismBase,
-                                             IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                                             IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                                              IHasGeneralInput
         {
             private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;

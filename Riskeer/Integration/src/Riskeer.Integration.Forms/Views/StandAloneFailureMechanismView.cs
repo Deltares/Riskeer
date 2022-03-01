@@ -28,6 +28,7 @@ using Core.Components.Gis.Forms;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
 
@@ -37,7 +38,7 @@ namespace Riskeer.Integration.Forms.Views
     /// This class is a view showing map data for a stand alone failure mechanism.
     /// </summary>
     public partial class StandAloneFailureMechanismView<TFailureMechanism, TSectionResult> : UserControl, IMapView
-        where TFailureMechanism : IHasSectionResults<TSectionResult>
+        where TFailureMechanism : IFailurePath<TSectionResult>
         where TSectionResult : FailureMechanismSectionResult
     {
         private readonly Func<TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc;

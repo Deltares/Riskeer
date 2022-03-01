@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Observers;
 using Riskeer.DuneErosion.Data;
@@ -188,7 +189,7 @@ namespace Riskeer.Integration.Forms.Observers
         }
 
         private Observer CreateCalculatableFailureMechanismObserver<TFailureMechanism, TSectionResult, TCalculation>(TFailureMechanism failureMechanism)
-            where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>, ICalculatableFailureMechanism
+            where TFailureMechanism : IFailureMechanism, IFailurePath<TSectionResult>, ICalculatableFailureMechanism
             where TSectionResult : FailureMechanismSectionResult
             where TCalculation : ICalculation<ICalculationInput>
         {
@@ -200,7 +201,7 @@ namespace Riskeer.Integration.Forms.Observers
         }
 
         private Observer CreateFailureMechanismObserver<TFailureMechanism, TSectionResult>(TFailureMechanism failureMechanism)
-            where TFailureMechanism : IFailureMechanism, IHasSectionResults<TSectionResult>
+            where TFailureMechanism : IFailureMechanism, IFailurePath<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             return new Observer(NotifyObservers)

@@ -25,6 +25,7 @@ using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Revetment.Data;
 using Riskeer.WaveImpactAsphaltCover.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -35,7 +36,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Wave Impact on Asphalt failure mechanism.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase, IHasSectionResults<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
