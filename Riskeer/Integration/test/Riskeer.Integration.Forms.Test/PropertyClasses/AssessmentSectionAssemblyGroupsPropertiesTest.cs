@@ -82,8 +82,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor failureMechanismSectionCategoriesProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureMechanismSectionCategoriesProperty,
                                                                             generalCategoryName,
-                                                                            "Duidingsklassen",
-                                                                            "De duidingsklassen per vak voor dit toetsspoor.",
+                                                                            "Normklassen",
+                                                                            "De normklassen per vak voor dit toetsspoor.",
                                                                             true);
         }
 

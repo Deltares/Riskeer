@@ -32,6 +32,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
@@ -60,8 +61,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(assessmentSectionAssemblyGroupPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyGroups_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssemblyGroups_Description))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.AssessmentSectionAssemblyGroups_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroups_Description))]
         [TypeConverter(typeof(ExpandableArrayConverter))]
         public AssessmentSectionAssemblyGroupProperties[] AssessmentSectionAssemblyGroups
         {
