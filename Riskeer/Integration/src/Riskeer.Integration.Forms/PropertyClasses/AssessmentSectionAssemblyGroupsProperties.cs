@@ -31,7 +31,6 @@ using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -47,7 +46,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionAssemblyGroupsProperties"/>.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="AssessmentSection"/>.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="assessmentSection"/> is <c>null</c>.</exception>
         public AssessmentSectionAssemblyGroupsProperties(IAssessmentSection assessmentSection)
         {
