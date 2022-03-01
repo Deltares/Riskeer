@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Riskeer.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class AssessmentSectionAssemblyCategoryGroupTest : EnumWithResourcesDisplayNameTestFixture<AssessmentSectionAssemblyGroup>
+    public class AssessmentSectionAssemblyGroupTest : EnumWithResourcesDisplayNameTestFixture<AssessmentSectionAssemblyGroup>
     {
         protected override IDictionary<AssessmentSectionAssemblyGroup, int> ExpectedValueForEnumValues
         {
