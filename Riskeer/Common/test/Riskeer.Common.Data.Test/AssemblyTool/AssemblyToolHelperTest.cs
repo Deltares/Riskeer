@@ -129,7 +129,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        public void AssembleFailureMechanism_WithFailurePathInAssemblyFalse_ReturnsZero()
+        public void AssembleFailureMechanism_WithFailurePathInAssemblyFalse_ReturnsNaN()
         {
             // Setup
             var random = new Random(21);
@@ -145,7 +145,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 failurePath, sr => null, random.NextDouble());
 
             // Assert
-            Assert.AreEqual(0, assemblyResult);
+            Assert.IsNaN(assemblyResult);
             mocks.VerifyAll();
         }
 

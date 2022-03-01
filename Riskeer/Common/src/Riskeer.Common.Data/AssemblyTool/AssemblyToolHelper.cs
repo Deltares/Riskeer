@@ -96,7 +96,7 @@ namespace Riskeer.Common.Data.AssemblyTool
 
             if (!failureMechanism.InAssembly)
             {
-                return 0;
+                return double.NaN;
             }
 
             FailurePathAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
