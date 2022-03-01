@@ -281,7 +281,8 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         private class SimpleFailureMechanismBase : FailureMechanismBase
         {
             public SimpleFailureMechanismBase(string name = "SomeName",
-                                              string failureMechanismCode = "SomeCode") : base(name, failureMechanismCode) {}
+                                              string failureMechanismCode = "SomeCode")
+                : base(name, failureMechanismCode) {}
 
             public override IEnumerable<ICalculation> Calculations => throw new NotImplementedException();
 

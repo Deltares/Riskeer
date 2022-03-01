@@ -38,7 +38,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
     public class AssessmentSectionAssemblyResultControlTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             using (var form = new Form())

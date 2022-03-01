@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Forms.Views
         /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to wrap so that it can be displayed as a row.</param>
-        /// <param name="performAssemblyFunc"></param>
+        /// <param name="performAssemblyFunc">The <see cref="Func{T,T2}"/> used to assemble the result of a failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameters is <c>null</c>.</exception>
         public FailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism,
                                                  Func<double> performAssemblyFunc)
