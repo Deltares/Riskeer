@@ -29,9 +29,9 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
 {
     /// <summary>
-    /// Class for asserting categories result.
+    /// Class for asserting assessment section assembly groups result.
     /// </summary>
-    public static class AssemblyCategoryAssert
+    public static class AssessmentSectionAssemblyGroupAssert
     {
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.

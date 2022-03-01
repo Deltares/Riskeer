@@ -118,7 +118,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
 
                 // Assert
                 BorderedLabel groupLabel = GetGroupLabel(resultControl);
-                AssertGroupLabel(result.AssemblyCategoryGroup, groupLabel);
+                AssertGroupLabel(result.AssemblyGroup, groupLabel);
 
                 BorderedLabel probabilityLabel = GetProbabilityLabel(resultControl);
                 AssertProbabilityLabel(result.Probability, probabilityLabel);
@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
 
                 // Precondition
                 BorderedLabel groupLabel = GetGroupLabel(resultControl);
-                AssertGroupLabel(result.AssemblyCategoryGroup, groupLabel);
+                AssertGroupLabel(result.AssemblyGroup, groupLabel);
 
                 BorderedLabel probabilityLabel = GetProbabilityLabel(resultControl);
                 AssertProbabilityLabel(result.Probability, probabilityLabel);

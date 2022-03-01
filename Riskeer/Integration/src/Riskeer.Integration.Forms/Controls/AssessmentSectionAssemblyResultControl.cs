@@ -85,8 +85,8 @@ namespace Riskeer.Integration.Forms.Controls
                 throw new ArgumentNullException(nameof(result));
             }
 
-            groupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyGroup>(result.AssemblyCategoryGroup).DisplayName;
-            groupLabel.BackColor = AssessmentSectionAssemblyGroupColorHelper.GetAssessmentSectionAssemblyGroupColor(result.AssemblyCategoryGroup);
+            groupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyGroup>(result.AssemblyGroup).DisplayName;
+            groupLabel.BackColor = AssessmentSectionAssemblyGroupColorHelper.GetAssessmentSectionAssemblyGroupColor(result.AssemblyGroup);
 
             probabilityLabel.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(result.Probability);
         }
