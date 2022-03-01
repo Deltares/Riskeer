@@ -33,29 +33,29 @@ namespace Riskeer.Integration.IO.Test.Creators
     public class SerializableAssessmentSectionCategoryGroupCreatorTest
     {
         [Test]
-        public void Create_InvalidAssessmentSectionAssemblyCategoryGroup_ThrowInvalidEnumArgumentException()
+        public void Create_InvalidAssessmentSectionAssemblyGroup_ThrowInvalidEnumArgumentException()
         {
             // Setup
-            const AssessmentSectionAssemblyGroup groupInput = (AssessmentSectionAssemblyGroup) 999;
+            const AssessmentSectionAssemblyGroup group = (AssessmentSectionAssemblyGroup) 999;
 
             // Call
-            TestDelegate call = () => SerializableAssessmentSectionCategoryGroupCreator.Create(groupInput);
+            void Call() => SerializableAssessmentSectionCategoryGroupCreator.Create(group);
 
             // Assert
-            string message = $"The value of argument 'categoryGroup' ({groupInput}) is invalid for Enum type '{nameof(AssessmentSectionAssemblyGroup)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, message);
+            var message = $"The value of argument 'group' ({group}) is invalid for Enum type '{nameof(AssessmentSectionAssemblyGroup)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
         [TestCase(AssessmentSectionAssemblyGroup.None)]
         [TestCase(AssessmentSectionAssemblyGroup.NotApplicable)]
-        public void Create_WithNotSupportedInvalidCategoryGroup_ThrowsNotSupportedException(AssessmentSectionAssemblyGroup notSupportedCategoryGroup)
+        public void Create_WithNotSupportedAssessmentSectionAssemblyGroup_ThrowsNotSupportedException(AssessmentSectionAssemblyGroup notSupportedGroup)
         {
             // Call
-            TestDelegate call = () => SerializableAssessmentSectionCategoryGroupCreator.Create(notSupportedCategoryGroup);
+            void Call() => SerializableAssessmentSectionCategoryGroupCreator.Create(notSupportedGroup);
 
             // Assert
-            Assert.Throws<NotSupportedException>(call);
+            Assert.Throws<NotSupportedException>(Call);
         }
 
         [Test]
@@ -65,11 +65,11 @@ namespace Riskeer.Integration.IO.Test.Creators
         [TestCase(AssessmentSectionAssemblyGroup.C, SerializableAssessmentSectionCategoryGroup.C)]
         [TestCase(AssessmentSectionAssemblyGroup.D, SerializableAssessmentSectionCategoryGroup.D)]
         [TestCase(AssessmentSectionAssemblyGroup.NotAssessed, SerializableAssessmentSectionCategoryGroup.NotAssessed)]
-        public void Create_WithValidAssessmentSectionAssemblyCategoryGroup_ReturnExpectedValues(AssessmentSectionAssemblyGroup categoryGroup,
-                                                                                                SerializableAssessmentSectionCategoryGroup expectedGroup)
+        public void Create_WithValidAssessmentSectionAssemblyGroup_ReturnExpectedValues(AssessmentSectionAssemblyGroup group,
+                                                                                        SerializableAssessmentSectionCategoryGroup expectedGroup)
         {
             // Call
-            SerializableAssessmentSectionCategoryGroup serializableGroup = SerializableAssessmentSectionCategoryGroupCreator.Create(categoryGroup);
+            SerializableAssessmentSectionCategoryGroup serializableGroup = SerializableAssessmentSectionCategoryGroupCreator.Create(group);
 
             // Assert
             Assert.AreEqual(expectedGroup, serializableGroup);

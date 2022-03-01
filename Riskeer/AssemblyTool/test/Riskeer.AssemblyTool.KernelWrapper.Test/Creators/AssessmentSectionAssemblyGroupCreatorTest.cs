@@ -33,7 +33,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
     public class AssessmentSectionAssemblyGroupCreatorTest
     {
         [Test]
-        public void CreateAssessmentSectionAssemblyCategoryGroup_WithInvalidAssessmentGrade_ThrowsInvalidEnumArgumentException()
+        public void CreateAssessmentSectionAssemblyGroup_WithInvalidAssessmentGrade_ThrowsInvalidEnumArgumentException()
         {
             // Call
             void Call() => AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup((EAssessmentGrade) 99);
