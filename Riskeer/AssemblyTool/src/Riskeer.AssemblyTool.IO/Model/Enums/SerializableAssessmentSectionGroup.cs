@@ -24,44 +24,44 @@ using System.Xml.Serialization;
 namespace Riskeer.AssemblyTool.IO.Model.Enums
 {
     /// <summary>
-    /// Serializable enum defining the assembly categories for an assessment section.
+    /// Serializable enum defining the assembly groups for an assessment section.
     /// </summary>
-    public enum SerializableAssessmentSectionCategoryGroup
+    public enum SerializableAssessmentSectionGroup
     {
         /// <summary>
-        /// Represents the assembly category A+ for an assessment section.
+        /// Represents the assembly group A+.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupAPlus)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupAPlus)]
         APlus = 1,
 
         /// <summary>
-        /// Represents the assembly category A for an assessment section.
+        /// Represents the assembly group A.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupA)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupA)]
         A = 2,
 
         /// <summary>
-        /// Represents the assembly category IIt for an assessment section.
+        /// Represents the assembly group B.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupB)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupB)]
         B = 3,
 
         /// <summary>
-        /// Represents the assembly category IIIt for an assessment section.
+        /// Represents the assembly group C.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupC)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupC)]
         C = 4,
 
         /// <summary>
-        /// Represents the assembly category IVt for an assessment section.
+        /// Represents the assembly group D.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupD)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupD)]
         D = 5,
 
         /// <summary>
-        /// Represents the assembly category NGO (Not assessed) for an assessment section.
+        /// Represents the assembly group NGO (Not assessed).
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupNotAssessed)]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupNotAssessed)]
         NotAssessed = 6
     }
 }

@@ -85,7 +85,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Identifier for an assessment section category group element.
         /// </summary>
-        public const string AssessmentSectionCategoryGroup = "categorie";
+        public const string AssessmentSectionAssemblyGroup = "categorie";
 
         /// <summary>
         /// Identifier for an assessment section ID reference attribute.

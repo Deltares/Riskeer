@@ -42,11 +42,11 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// Creates a new instance of <see cref="SerializableAssessmentSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="assemblyMethod">The method used to assemble this result.</param>
-        /// <param name="categoryGroup">The category group of this assembly result.</param>
+        /// <param name="group">The group of this assembly result.</param>
         public SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethod assemblyMethod,
-                                                           SerializableAssessmentSectionCategoryGroup categoryGroup) : this()
+                                                           SerializableAssessmentSectionGroup group) : this()
         {
-            CategoryGroup = categoryGroup;
+            Group = group;
             AssemblyMethod = assemblyMethod;
         }
 
@@ -57,10 +57,10 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         public SerializableAssemblyMethod AssemblyMethod { get; set; }
 
         /// <summary>
-        /// Gets or sets the category group of this assembly result.
+        /// Gets or sets the group of this assembly result.
         /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.AssessmentSectionCategoryGroup)]
-        public SerializableAssessmentSectionCategoryGroup CategoryGroup { get; set; }
+        [XmlElement(AssemblyXmlIdentifiers.AssessmentSectionAssemblyGroup)]
+        public SerializableAssessmentSectionGroup Group { get; set; }
 
         /// <summary>
         /// Gets or sets the status of this assembly result.

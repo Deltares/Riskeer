@@ -41,7 +41,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.AreEqual("BeoordelingsprocesID", AssemblyXmlIdentifiers.AssessmentProcessId);
             Assert.AreEqual("BeoordelingsprocesIDRef", AssemblyXmlIdentifiers.AssessmentProcessIdRef);
             Assert.AreEqual("veiligheidsoordeel", AssemblyXmlIdentifiers.AssessmentSectionAssemblyResult);
-            Assert.AreEqual("categorie", AssemblyXmlIdentifiers.AssessmentSectionCategoryGroup);
+            Assert.AreEqual("categorie", AssemblyXmlIdentifiers.AssessmentSectionAssemblyGroup);
             Assert.AreEqual("WaterkeringstelselIDRef", AssemblyXmlIdentifiers.AssessmentSectionIdRef);
             Assert.AreEqual("typeWaterkeringstelsel", AssemblyXmlIdentifiers.AssessmentSectionType);
             Assert.AreEqual("Waterkeringstelsel", AssemblyXmlIdentifiers.AssessmentSection);

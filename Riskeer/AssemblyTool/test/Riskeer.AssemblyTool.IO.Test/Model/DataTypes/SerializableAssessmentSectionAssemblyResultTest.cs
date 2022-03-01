@@ -39,13 +39,13 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
 
             // Assert
             Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
-            Assert.AreEqual((SerializableAssessmentSectionCategoryGroup) 0, assemblyResult.CategoryGroup);
+            Assert.AreEqual((SerializableAssessmentSectionGroup) 0, assemblyResult.Group);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
                 nameof(SerializableAssessmentSectionAssemblyResult.AssemblyMethod), "assemblagemethode");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
-                nameof(SerializableAssessmentSectionAssemblyResult.CategoryGroup), "categorie");
+                nameof(SerializableAssessmentSectionAssemblyResult.Group), "categorie");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
                 nameof(SerializableAssessmentSectionAssemblyResult.Status), "status");
         }
@@ -55,14 +55,14 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
         {
             // Setup
             var random = new Random(39);
-            var category = random.NextEnumValue<SerializableAssessmentSectionCategoryGroup>();
+            var category = random.NextEnumValue<SerializableAssessmentSectionGroup>();
             var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
 
             // Call
             var assemblyResult = new SerializableAssessmentSectionAssemblyResult(assemblyMethod, category);
 
             // Assert
-            Assert.AreEqual(category, assemblyResult.CategoryGroup);
+            Assert.AreEqual(category, assemblyResult.Group);
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
         }

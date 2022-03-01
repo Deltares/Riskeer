@@ -59,17 +59,17 @@ namespace Riskeer.Integration.IO.Test.Creators
         }
 
         [Test]
-        [TestCase(AssessmentSectionAssemblyGroup.APlus, SerializableAssessmentSectionCategoryGroup.APlus)]
-        [TestCase(AssessmentSectionAssemblyGroup.A, SerializableAssessmentSectionCategoryGroup.A)]
-        [TestCase(AssessmentSectionAssemblyGroup.B, SerializableAssessmentSectionCategoryGroup.B)]
-        [TestCase(AssessmentSectionAssemblyGroup.C, SerializableAssessmentSectionCategoryGroup.C)]
-        [TestCase(AssessmentSectionAssemblyGroup.D, SerializableAssessmentSectionCategoryGroup.D)]
-        [TestCase(AssessmentSectionAssemblyGroup.NotAssessed, SerializableAssessmentSectionCategoryGroup.NotAssessed)]
+        [TestCase(AssessmentSectionAssemblyGroup.APlus, SerializableAssessmentSectionGroup.APlus)]
+        [TestCase(AssessmentSectionAssemblyGroup.A, SerializableAssessmentSectionGroup.A)]
+        [TestCase(AssessmentSectionAssemblyGroup.B, SerializableAssessmentSectionGroup.B)]
+        [TestCase(AssessmentSectionAssemblyGroup.C, SerializableAssessmentSectionGroup.C)]
+        [TestCase(AssessmentSectionAssemblyGroup.D, SerializableAssessmentSectionGroup.D)]
+        [TestCase(AssessmentSectionAssemblyGroup.NotAssessed, SerializableAssessmentSectionGroup.NotAssessed)]
         public void Create_WithValidAssessmentSectionAssemblyGroup_ReturnExpectedValues(AssessmentSectionAssemblyGroup group,
-                                                                                        SerializableAssessmentSectionCategoryGroup expectedGroup)
+                                                                                        SerializableAssessmentSectionGroup expectedGroup)
         {
             // Call
-            SerializableAssessmentSectionCategoryGroup serializableGroup = SerializableAssessmentSectionCategoryGroupCreator.Create(group);
+            SerializableAssessmentSectionGroup serializableGroup = SerializableAssessmentSectionCategoryGroupCreator.Create(group);
 
             // Assert
             Assert.AreEqual(expectedGroup, serializableGroup);

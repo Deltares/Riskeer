@@ -48,12 +48,12 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("VI-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupVIv);
             Assert.AreEqual("VII-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupVIIv);
 
-            Assert.AreEqual("A+", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupAPlus);
-            Assert.AreEqual("A", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupA);
-            Assert.AreEqual("B", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupB);
-            Assert.AreEqual("C", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupC);
-            Assert.AreEqual("D", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupD);
-            Assert.AreEqual("NGO", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionCategoryGroupNotAssessed);
+            Assert.AreEqual("A+", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupAPlus);
+            Assert.AreEqual("A", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupA);
+            Assert.AreEqual("B", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupB);
+            Assert.AreEqual("C", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupC);
+            Assert.AreEqual("D", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupD);
+            Assert.AreEqual("NGO", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionGroupNotAssessed);
 
             Assert.AreEqual("WBI-0E-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0E1);
             Assert.AreEqual("WBI-0E-3", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0E3);
