@@ -27,7 +27,7 @@ namespace Riskeer.AssemblyTool.Data
     public class FailureMechanismSectionAssemblyGroupBoundaries : AssemblyGroupBoundaries
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismAssemblyCategory"/>.
+        /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>.
         /// </summary>
         /// <param name="group">The group of the failure mechanism section assembly.</param>
         /// <param name="lowerBoundary">The lower boundary of the assembly group.</param>
