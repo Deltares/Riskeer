@@ -36,11 +36,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateAssessmentSectionAssemblyCategoryGroup_WithInvalidAssessmentGrade_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyGroup((EAssessmentGrade) 99);
+            void Call() => AssemblyCategoryCreator.CreateAssessmentSectionAssemblyGroup((EAssessmentGrade) 99);
 
             // Assert
-            const string exceptionMessage = "The value of argument 'category' (99) is invalid for Enum type 'EAssessmentGrade'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, exceptionMessage);
+            const string exceptionMessage = "The value of argument 'group' (99) is invalid for Enum type 'EAssessmentGrade'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, exceptionMessage);
         }
 
         [Test]
