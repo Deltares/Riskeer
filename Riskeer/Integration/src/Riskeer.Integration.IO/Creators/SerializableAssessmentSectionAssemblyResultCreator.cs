@@ -46,7 +46,7 @@ namespace Riskeer.Integration.IO.Creators
             }
 
             return new SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethodCreator.Create(result.AssemblyMethod),
-                                                                   SerializableAssessmentSectionCategoryGroupCreator.Create(result.AssemblyCategory));
+                                                                   SerializableAssessmentSectionAssemblyGroupCreator.Create(result.AssemblyCategory));
         }
     }
 }

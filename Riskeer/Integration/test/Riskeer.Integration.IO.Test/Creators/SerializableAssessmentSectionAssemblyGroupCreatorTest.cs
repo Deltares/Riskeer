@@ -30,7 +30,7 @@ using Riskeer.Integration.IO.Creators;
 namespace Riskeer.Integration.IO.Test.Creators
 {
     [TestFixture]
-    public class SerializableAssessmentSectionCategoryGroupCreatorTest
+    public class SerializableAssessmentSectionAssemblyGroupCreatorTest
     {
         [Test]
         public void Create_InvalidAssessmentSectionAssemblyGroup_ThrowInvalidEnumArgumentException()
@@ -39,7 +39,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             const AssessmentSectionAssemblyGroup group = (AssessmentSectionAssemblyGroup) 999;
 
             // Call
-            void Call() => SerializableAssessmentSectionCategoryGroupCreator.Create(group);
+            void Call() => SerializableAssessmentSectionAssemblyGroupCreator.Create(group);
 
             // Assert
             var message = $"The value of argument 'group' ({group}) is invalid for Enum type '{nameof(AssessmentSectionAssemblyGroup)}'.";
@@ -52,7 +52,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_WithNotSupportedAssessmentSectionAssemblyGroup_ThrowsNotSupportedException(AssessmentSectionAssemblyGroup notSupportedGroup)
         {
             // Call
-            void Call() => SerializableAssessmentSectionCategoryGroupCreator.Create(notSupportedGroup);
+            void Call() => SerializableAssessmentSectionAssemblyGroupCreator.Create(notSupportedGroup);
 
             // Assert
             Assert.Throws<NotSupportedException>(Call);
@@ -69,7 +69,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                         SerializableAssessmentSectionAssemblyGroup expectedAssemblyGroup)
         {
             // Call
-            SerializableAssessmentSectionAssemblyGroup serializableAssemblyGroup = SerializableAssessmentSectionCategoryGroupCreator.Create(group);
+            SerializableAssessmentSectionAssemblyGroup serializableAssemblyGroup = SerializableAssessmentSectionAssemblyGroupCreator.Create(group);
 
             // Assert
             Assert.AreEqual(expectedAssemblyGroup, serializableAssemblyGroup);

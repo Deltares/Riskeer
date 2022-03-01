@@ -65,7 +65,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             // Assert
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(result.AssemblyMethod),
                             serializableResult.AssemblyMethod);
-            Assert.AreEqual(SerializableAssessmentSectionCategoryGroupCreator.Create(result.AssemblyCategory),
+            Assert.AreEqual(SerializableAssessmentSectionAssemblyGroupCreator.Create(result.AssemblyCategory),
                             serializableResult.AssemblyGroup);
         }
     }

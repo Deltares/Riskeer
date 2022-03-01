@@ -29,28 +29,28 @@ namespace Riskeer.Integration.IO.Creators
     /// <summary>
     /// Creator to create <see cref="SerializableAssessmentSectionAssemblyGroup"/>.
     /// </summary>
-    public static class SerializableAssessmentSectionCategoryGroupCreator
+    public static class SerializableAssessmentSectionAssemblyGroupCreator
     {
         /// <summary>
-        /// Creates a <see cref="SerializableFailureMechanismCategoryGroup"/> based on <paramref name="categoryGroup"/>.
+        /// Creates a <see cref="SerializableAssessmentSectionAssemblyGroup"/> based on <paramref name="group"/>.
         /// </summary>
-        /// <param name="categoryGroup">The <see cref="FailureMechanismAssemblyCategoryGroup"/> to
-        /// create a <see cref="SerializableFailureMechanismCategoryGroup"/> for.</param>
-        /// <returns>A <see cref="SerializableFailureMechanismCategoryGroup"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categoryGroup"/>
+        /// <param name="group">The <see cref="AssessmentSectionAssemblyGroup"/> to
+        /// create a <see cref="SerializableAssessmentSectionAssemblyGroup"/> for.</param>
+        /// <returns>A <see cref="SerializableAssessmentSectionAssemblyGroup"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="group"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="categoryGroup"/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="group"/>
         /// is a valid value, but unsupported.</exception>
-        public static SerializableAssessmentSectionAssemblyGroup Create(AssessmentSectionAssemblyGroup categoryGroup)
+        public static SerializableAssessmentSectionAssemblyGroup Create(AssessmentSectionAssemblyGroup group)
         {
-            if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyGroup), categoryGroup))
+            if (!Enum.IsDefined(typeof(AssessmentSectionAssemblyGroup), group))
             {
-                throw new InvalidEnumArgumentException(nameof(categoryGroup),
-                                                       (int) categoryGroup,
+                throw new InvalidEnumArgumentException(nameof(group),
+                                                       (int) group,
                                                        typeof(AssessmentSectionAssemblyGroup));
             }
 
-            switch (categoryGroup)
+            switch (group)
             {
                 case AssessmentSectionAssemblyGroup.NotAssessed:
                     return SerializableAssessmentSectionAssemblyGroup.NotAssessed;
