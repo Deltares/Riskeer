@@ -36,22 +36,22 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// <summary>
         /// Converts an <see cref="EInterpretationCategory"/> into a <see cref="FailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
-        /// <param name="category">The <see cref="EInterpretationCategory"/> to convert.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on <paramref name="category"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="category"/>
+        /// <param name="interpretationCategory">The <see cref="EInterpretationCategory"/> to convert.</param>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on <paramref name="interpretationCategory"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="interpretationCategory"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="category"/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="interpretationCategory"/>
         /// is a valid value, but unsupported.</exception>
-        public static FailureMechanismSectionAssemblyGroup ConvertTo(EInterpretationCategory category)
+        public static FailureMechanismSectionAssemblyGroup ConvertTo(EInterpretationCategory interpretationCategory)
         {
-            if (!Enum.IsDefined(typeof(EInterpretationCategory), category))
+            if (!Enum.IsDefined(typeof(EInterpretationCategory), interpretationCategory))
             {
-                throw new InvalidEnumArgumentException(nameof(category),
-                                                       (int) category,
+                throw new InvalidEnumArgumentException(nameof(interpretationCategory),
+                                                       (int) interpretationCategory,
                                                        typeof(EInterpretationCategory));
             }
 
-            switch (category)
+            switch (interpretationCategory)
             {
                 case EInterpretationCategory.NotDominant:
                     return FailureMechanismSectionAssemblyGroup.NotDominant;
