@@ -46,7 +46,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// contains an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="assessmentSectionCategories"/>
         /// contains a valid value, but unsupported.</exception>
-        public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyCategories(CategoriesList<AssessmentSectionCategory> assessmentSectionCategories)
+        public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyGroupBoundaries(CategoriesList<AssessmentSectionCategory> assessmentSectionCategories)
         {
             if (assessmentSectionCategories == null)
             {
