@@ -113,12 +113,13 @@ namespace Riskeer.Integration.Forms.Test.Views
                     AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
 
                     // Assert
-                    var expectedBoundaries = FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(assessmentSection);
-                    Assert.AreEqual(expectedBoundaries.Count(), assemblyGroupsTable.Rows.Count);
+                    IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> expectedAssemblyGroupBoundaries =
+                        FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(assessmentSection);
+                    Assert.AreEqual(expectedAssemblyGroupBoundaries.Count(), assemblyGroupsTable.Rows.Count);
 
-                    for (int i = 0; i < expectedBoundaries.Count(); i++)
+                    for (int i = 0; i < expectedAssemblyGroupBoundaries.Count(); i++)
                     {
-                        FailureMechanismSectionAssemblyGroupBoundaries expectedBoundary = expectedBoundaries.ElementAt(i);
+                        FailureMechanismSectionAssemblyGroupBoundaries expectedBoundary = expectedAssemblyGroupBoundaries.ElementAt(i);
                         var actualBoundary = (AssemblyGroupRow<DisplayFailureMechanismSectionAssemblyGroup>) assemblyGroupsTable.Rows[i].DataBoundItem;
 
                         Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedBoundary.FailureMechanismSectionAssemblyGroup), actualBoundary.Group);
