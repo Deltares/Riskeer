@@ -37,7 +37,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// </summary>
         /// <param name="result">The <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> to create the
         /// <see cref="KernelFailureMechanismSectionAssemblyResult"/> with.</param>
-        /// <returns>An <see cref="KernelFailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <returns>A <see cref="KernelFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="FailureMechanismSectionAssemblyGroup"/>
         /// is an invalid value.</exception>

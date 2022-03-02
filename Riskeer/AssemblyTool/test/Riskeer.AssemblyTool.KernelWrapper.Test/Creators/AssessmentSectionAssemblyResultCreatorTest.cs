@@ -47,21 +47,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [Test]
         [TestCaseSource(typeof(AssessmentGradeConversionTestHelper), nameof(AssessmentGradeConversionTestHelper.AssessmentGradeConversionCases))]
         public void CreateAssessmentSectionAssemblyResult_WithResult_ReturnsExpectedResult(
-            EAssessmentGrade categoryGroup,
-            AssessmentSectionAssemblyGroup expectedCategoryGroup)
+            EAssessmentGrade assessmentGrade,
+            AssessmentSectionAssemblyGroup expectedAssemblyGroup)
         {
             // Setup
             var random = new Random(21);
             double probability = random.NextDouble();
-            var result = new AssessmentSectionResult(new Probability(probability), categoryGroup);
+            var result = new AssessmentSectionResult(new Probability(probability), assessmentGrade);
 
             // Call
-            AssessmentSectionAssemblyResult createdResult =
-                AssessmentSectionAssemblyResultCreator.CreateAssessmentSectionAssemblyResult(result);
+            AssessmentSectionAssemblyResult createdResult = AssessmentSectionAssemblyResultCreator.CreateAssessmentSectionAssemblyResult(result);
 
             // Assert
             Assert.AreEqual(probability, createdResult.Probability);
-            Assert.AreEqual(expectedCategoryGroup, createdResult.AssemblyGroup);
+            Assert.AreEqual(expectedAssemblyGroup, createdResult.AssemblyGroup);
         }
     }
 }

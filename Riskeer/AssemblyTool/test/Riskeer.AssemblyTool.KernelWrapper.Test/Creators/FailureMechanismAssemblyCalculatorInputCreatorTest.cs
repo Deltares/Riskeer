@@ -53,16 +53,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(21);
             double probability = random.NextDouble();
-            const FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup = (FailureMechanismSectionAssemblyGroup) 99;
+            const FailureMechanismSectionAssemblyGroup assemblyGroup = (FailureMechanismSectionAssemblyGroup) 99;
 
             var result = new RiskeerFailureMechanismSectionAssemblyResult(
-                probability, probability, random.NextDouble(), failureMechanismSectionAssemblyGroup);
+                probability, probability, random.NextDouble(), assemblyGroup);
 
             // Call
             void Call() => FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(result);
 
             // Assert
-            var expectedMessage = $"The value of argument 'assemblyGroup' ({failureMechanismSectionAssemblyGroup}) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyGroup)}'.";
+            var expectedMessage = $"The value of argument 'assemblyGroup' ({assemblyGroup}) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyGroup)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
         }
 
@@ -78,7 +78,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyGroup.Dominant, EInterpretationCategory.Dominant)]
         [TestCase(FailureMechanismSectionAssemblyGroup.Gr, EInterpretationCategory.Gr)]
         public void CreateFailureMechanismSectionAssemblyResult_WithValidResult_ReturnsExpectedFailureMechanismSectionAssemblyResult(
-            FailureMechanismSectionAssemblyGroup assemblyGroup, EInterpretationCategory expectedCategory)
+            FailureMechanismSectionAssemblyGroup assemblyGroup, EInterpretationCategory expectedInterpretationCategory)
         {
             // Setup
             var random = new Random(21);
@@ -94,7 +94,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             // Assert
             ProbabilityAssert.AreEqual(profileProbability, createdResult.ProbabilityProfile);
             ProbabilityAssert.AreEqual(sectionProbability, createdResult.ProbabilitySection);
-            Assert.AreEqual(expectedCategory, createdResult.InterpretationCategory);
+            Assert.AreEqual(expectedInterpretationCategory, createdResult.InterpretationCategory);
         }
     }
 }
