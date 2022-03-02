@@ -35,7 +35,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
         private AssemblyToolCalculatorFactory() {}
 
         /// <summary>
-        /// Gets or sets an instance of <see cref="IAssemblyToolCalculatorFactoryOld"/>.
+        /// Gets or sets an instance of <see cref="IAssemblyToolCalculatorFactory"/>.
         /// </summary>
         public static IAssemblyToolCalculatorFactory Instance
         {

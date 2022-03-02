@@ -22,20 +22,18 @@
 using System;
 using System.ComponentModel;
 using Assembly.Kernel.Model.Categories;
-using Riskeer.AssemblyTool.Data;
 using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> instances and
-    /// <see cref="FailureMechanismSectionAssemblyGroup"/> values.
+    /// Creates <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> instances.
     /// </summary>
     internal static class FailureMechanismSectionAssemblyResultCreator
     {
         /// <summary>
-        /// Converts an <see cref="KernelFailureMechanismSectionAssemblyResult"/> into a <see cref="RiskeerFailureMechanismSectionAssemblyResult"/>.
+        /// Converts a <see cref="KernelFailureMechanismSectionAssemblyResult"/> into a <see cref="RiskeerFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="result">The <see cref="KernelFailureMechanismSectionAssemblyResult"/> to convert.</param>
         /// <returns>A <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.</returns>

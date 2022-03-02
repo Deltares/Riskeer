@@ -36,14 +36,14 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Setup
             var random = new Random(21);
             var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
-            var category = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
+            var assemblyGroup = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
 
             // Call
-            var assembly = new ExportableAssessmentSectionAssemblyResult(assemblyMethod, category);
+            var assembly = new ExportableAssessmentSectionAssemblyResult(assemblyMethod, assemblyGroup);
 
             // Assert
             Assert.AreEqual(assemblyMethod, assembly.AssemblyMethod);
-            Assert.AreEqual(category, assembly.AssemblyCategory);
+            Assert.AreEqual(assemblyGroup, assembly.AssemblyCategory);
         }
     }
 }

@@ -72,10 +72,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             var random = new Random(21);
             double profileProbability = random.NextDouble();
             double sectionProbability = random.NextDouble();
-            var category = random.NextEnumValue<EInterpretationCategory>();
+            var interpretationCategory = random.NextEnumValue<EInterpretationCategory>();
 
             var result = new KernelFailureMechanismSectionAssemblyResult(
-                new Probability(profileProbability), new Probability(sectionProbability), category);
+                new Probability(profileProbability), new Probability(sectionProbability), interpretationCategory);
 
             // Call
             RiskeerFailureMechanismSectionAssemblyResult createdAssemblyResult = FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(result);
@@ -84,7 +84,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(profileProbability, createdAssemblyResult.ProfileProbability);
             Assert.AreEqual(sectionProbability, createdAssemblyResult.SectionProbability);
             Assert.AreEqual(result.NSection, createdAssemblyResult.N);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category),
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(interpretationCategory),
                             createdAssemblyResult.FailureMechanismSectionAssemblyGroup);
         }
     }

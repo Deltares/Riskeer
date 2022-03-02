@@ -107,12 +107,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
 
-                var categoryLimits = new CategoriesList<AssessmentSectionCategory>(new[]
+                var assessmentSectionCategories = new CategoriesList<AssessmentSectionCategory>(new[]
                 {
                     new AssessmentSectionCategory(random.NextEnumValue<EAssessmentGrade>(), new Probability(0), new Probability(1))
                 });
                 AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                categoryLimitsKernel.AssessmentSectionCategoryLimits = categoryLimits;
+                categoryLimitsKernel.AssessmentSectionCategoryLimits = assessmentSectionCategories;
 
                 AssessmentSectionAssemblyKernelStub assessmentSectionAssemblyKernel = factory.LastCreatedAssessmentSectionAssemblyKernel;
                 assessmentSectionAssemblyKernel.AssessmentSectionAssemblyResult = new AssessmentSectionResult(new Probability(random.NextDouble()), random.NextEnumValue<EAssessmentGrade>());
@@ -129,7 +129,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 Assert.IsTrue(assessmentSectionAssemblyKernel.Calculated);
                 Assert.IsFalse(assessmentSectionAssemblyKernel.PartialAssembly);
-                Assert.AreSame(categoryLimits, assessmentSectionAssemblyKernel.Categories);
+                Assert.AreSame(assessmentSectionCategories, assessmentSectionAssemblyKernel.Categories);
 
                 IEnumerable<Probability> actualProbabilitiesInput = assessmentSectionAssemblyKernel.FailureMechanismProbabilities;
                 Assert.AreEqual(nrOfProbabilities, actualProbabilitiesInput.Count());

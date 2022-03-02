@@ -132,11 +132,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                var categoryLimits = new CategoriesList<InterpretationCategory>(new[]
+                var interpretationCategories = new CategoriesList<InterpretationCategory>(new[]
                 {
                     new InterpretationCategory((EInterpretationCategory) 99, new Probability(0), new Probability(1))
                 });
-                categoryLimitsKernel.InterpretationCategoryLimits = categoryLimits;
+                categoryLimitsKernel.InterpretationCategoryLimits = interpretationCategories;
 
                 var calculator = new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
 

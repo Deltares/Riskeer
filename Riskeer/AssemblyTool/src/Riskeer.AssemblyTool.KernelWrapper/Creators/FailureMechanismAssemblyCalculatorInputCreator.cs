@@ -33,7 +33,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     internal static class FailureMechanismAssemblyCalculatorInputCreator
     {
         /// <summary>
-        /// Creates an <see cref="KernelFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.
+        /// Creates a <see cref="KernelFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.
         /// </summary>
         /// <param name="result">The <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> to create the
         /// <see cref="KernelFailureMechanismSectionAssemblyResult"/> with.</param>
