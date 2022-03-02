@@ -29,40 +29,40 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
     /// <summary>
-    /// Creates <see cref="AssemblyGroupBoundaries"/> instances.
+    /// Creates failure mechanism section assembly groups.
     /// </summary>
-    internal static class AssemblyGroupBoundariesCreator
+    internal static class FailureMechanismSectionAssemblyGroupCreator
     {
         /// <summary>
         /// Creates a collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>
-        /// based on the information given in the <paramref name="categories"/>.
+        /// based on the information given in the <paramref name="groups"/>.
         /// </summary>
-        /// <param name="categories">The <see cref="CategoriesList{TCategory}"/> with
-        /// <see cref="Assembly.Kernel.Model.Categories.InterpretationCategory"/> to create the result for.</param>
+        /// <param name="groups">The <see cref="CategoriesList{TCategory}"/> with <see cref="InterpretationCategory"/>
+        /// to create the result for.</param>
         /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>
-        /// with information taken from the <paramref name="categories"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="categories"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="categories"/>
+        /// with information taken from the <paramref name="groups"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="groups"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="groups"/>
         /// contains an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="categories"/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="groups"/>
         /// contains a valid value, but unsupported.</exception>
         public static IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CreateFailureMechanismSectionAssemblyGroupBoundaries(
-            CategoriesList<InterpretationCategory> categories)
+            CategoriesList<InterpretationCategory> groups)
         {
-            if (categories == null)
+            if (groups == null)
             {
-                throw new ArgumentNullException(nameof(categories));
+                throw new ArgumentNullException(nameof(groups));
             }
 
-            return categories.Categories.Select(CreateFailureMechanismSectionAssemblyGroupBoundaries)
-                             .ToArray();
+            return groups.Categories.Select(CreateFailureMechanismSectionAssemblyGroupBoundaries)
+                         .ToArray();
         }
 
-        private static FailureMechanismSectionAssemblyGroupBoundaries CreateFailureMechanismSectionAssemblyGroupBoundaries(InterpretationCategory category)
+        private static FailureMechanismSectionAssemblyGroupBoundaries CreateFailureMechanismSectionAssemblyGroupBoundaries(InterpretationCategory group)
         {
             return new FailureMechanismSectionAssemblyGroupBoundaries(
-                category.LowerLimit, category.UpperLimit,
-                FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category.Category));
+                group.LowerLimit, group.UpperLimit,
+                FailureMechanismSectionAssemblyGroupConverter.ConvertTo(group.Category));
         }
     }
 }

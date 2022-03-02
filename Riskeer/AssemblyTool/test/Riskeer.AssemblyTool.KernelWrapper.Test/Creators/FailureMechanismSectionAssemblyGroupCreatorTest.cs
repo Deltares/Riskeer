@@ -33,26 +33,26 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
     [TestFixture]
-    public class AssemblyGroupBoundariesCreatorTest
+    public class FailureMechanismSectionAssemblyGroupCreatorTest
     {
         [Test]
-        public void CreateFailureMechanismSectionAssemblyGroupBoundaries_CategoriesNull_ThrowsArgumentNullException()
+        public void CreateFailureMechanismSectionAssemblyGroupBoundaries_GroupsNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => AssemblyGroupBoundariesCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(null);
+            void Call() => FailureMechanismSectionAssemblyGroupCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("categories", exception.ParamName);
+            Assert.AreEqual("groups", exception.ParamName);
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyGroupBoundaries_WithCategories_ReturnFailureMechanismAssemblyCategoryResult()
+        public void CreateFailureMechanismSectionAssemblyGroupBoundaries_WithGroups_ExpectedAssessmentSectionAssemblyGroupResultType()
         {
             // Setup
             var random = new Random(11);
 
-            var categories = new CategoriesList<InterpretationCategory>(new[]
+            var groups = new CategoriesList<InterpretationCategory>(new[]
             {
                 new InterpretationCategory(random.NextEnumValue<EInterpretationCategory>(), new Probability(0), new Probability(0.25)),
                 new InterpretationCategory(random.NextEnumValue<EInterpretationCategory>(), new Probability(0.25), new Probability(0.5)),
@@ -62,26 +62,26 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 
             // Call
             IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> result =
-                AssemblyGroupBoundariesCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(categories);
+                FailureMechanismSectionAssemblyGroupCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(groups);
 
             // Assert
-            AssemblyGroupBoundariesAssert.AssertFailureMechanismSectionAssemblyGroupBoundaries(categories, result);
+            AssemblyGroupBoundariesAssert.AssertFailureMechanismSectionAssemblyGroupBoundaries(groups, result);
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyGroupBoundaries_CategoryWithInvalidInterpretationCategory_ThrowsInvalidEnumArgumentException()
+        public void CreateFailureMechanismSectionAssemblyGroupBoundaries_GroupWithInvalidInterpretationCategory_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            var categories = new CategoriesList<InterpretationCategory>(new[]
+            var groups = new CategoriesList<InterpretationCategory>(new[]
             {
                 new InterpretationCategory((EInterpretationCategory) 99, new Probability(0), new Probability(1))
             });
 
             // Call
-            void Call() => AssemblyGroupBoundariesCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(categories);
+            void Call() => FailureMechanismSectionAssemblyGroupCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(groups);
 
             // Assert
-            var exceptionMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
+            var exceptionMessage = $"The value of argument 'group' (99) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, exceptionMessage);
         }
     }

@@ -63,7 +63,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
                     new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalingNorm),
                                           AssemblyCalculatorInputCreator.CreateProbability(lowerLimitNorm)));
 
-                return AssemblyGroupBoundariesCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(output);
+                return FailureMechanismSectionAssemblyGroupCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(output);
             }
             catch (AssemblyException e)
             {
