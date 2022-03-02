@@ -77,7 +77,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     throw new NotSupportedException();
             }
         }
-        
+
         /// <summary>
         /// Converts a <see cref="FailureMechanismSectionAssemblyGroup"/> into an <see cref="EInterpretationCategory"/>.
         /// </summary>

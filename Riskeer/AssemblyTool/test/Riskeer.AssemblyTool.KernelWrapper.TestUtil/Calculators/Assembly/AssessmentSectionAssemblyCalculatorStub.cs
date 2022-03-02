@@ -55,7 +55,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets or sets the output of an assessment section assembly.
         /// </summary>
-        public AssessmentSectionAssemblyResult AssessmentSectionAssemblyResult { get; set; } 
+        public AssessmentSectionAssemblyResult AssessmentSectionAssemblyResult { get; set; }
 
         /// <summary>
         /// Gets the combined failure mechanism sections input.

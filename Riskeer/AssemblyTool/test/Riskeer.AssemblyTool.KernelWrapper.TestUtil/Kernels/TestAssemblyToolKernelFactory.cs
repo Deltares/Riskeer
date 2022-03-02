@@ -57,7 +57,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
         /// Gets the last created failure mechanism assembly kernel.
         /// </summary>
         public FailureMechanismAssemblyKernelStub LastCreatedFailureMechanismAssemblyKernel { get; }
-        
+
         /// <summary>
         /// Gets the last created combined failure mechanism section assembly kernel.
         /// </summary>

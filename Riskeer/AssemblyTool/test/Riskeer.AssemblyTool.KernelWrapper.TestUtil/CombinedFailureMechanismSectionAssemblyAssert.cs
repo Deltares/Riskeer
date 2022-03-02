@@ -49,7 +49,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
             {
                 FailureMechanismSectionWithCategory combinedResult = combinedResults[i];
                 CombinedFailureMechanismSectionAssembly actualCombinedFailureMechanismSectionAssembly = actual.ElementAt(i);
-                
+
                 Assert.AreEqual(combinedResult.SectionStart, actualCombinedFailureMechanismSectionAssembly.Section.SectionStart);
                 Assert.AreEqual(combinedResult.SectionEnd, actualCombinedFailureMechanismSectionAssembly.Section.SectionEnd);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(combinedResult.Category),
