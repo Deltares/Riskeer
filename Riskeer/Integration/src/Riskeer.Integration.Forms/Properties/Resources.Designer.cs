@@ -209,7 +209,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De normklassen per vak voor dit toetsspoor..
+        ///   Looks up a localized string similar to De normklassen voor het traject..
         /// </summary>
         public static string AssessmentSectionAssemblyGroups_Description {
             get {

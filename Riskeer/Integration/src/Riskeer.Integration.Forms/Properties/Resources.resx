@@ -384,6 +384,6 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
     <value>Bovengrens van de duidingsklasse.</value>
   </data>
   <data name="AssessmentSectionAssemblyGroups_Description" xml:space="preserve">
-    <value>De normklassen per vak voor dit toetsspoor.</value>
+    <value>De normklassen voor het traject.</value>
   </data>
 </root>

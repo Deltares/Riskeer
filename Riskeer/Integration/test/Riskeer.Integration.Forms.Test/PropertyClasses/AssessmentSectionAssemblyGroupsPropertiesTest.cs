@@ -83,7 +83,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(assessmentSectionAssemblyGroupsProperty,
                                                                             generalCategoryName,
                                                                             "Normklassen",
-                                                                            "De normklassen per vak voor dit toetsspoor.",
+                                                                            "De normklassen voor het traject.",
                                                                             true);
         }
 
