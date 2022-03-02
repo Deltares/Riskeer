@@ -30,7 +30,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.Views;
 

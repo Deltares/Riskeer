@@ -48,7 +48,6 @@ using Riskeer.GrassCoverErosionOutwards.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;

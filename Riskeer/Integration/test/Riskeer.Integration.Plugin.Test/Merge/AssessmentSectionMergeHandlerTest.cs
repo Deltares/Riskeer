@@ -38,7 +38,6 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.Merge;
 using Riskeer.Integration.Plugin.Merge;
 using Riskeer.MacroStabilityInwards.Data;

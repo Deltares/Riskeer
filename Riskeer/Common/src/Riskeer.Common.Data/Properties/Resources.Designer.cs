@@ -853,6 +853,24 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NIEUW.
+        /// </summary>
+        public static string SpecificFailurePath_Code_DefaultName {
+            get {
+                return ResourceManager.GetString("SpecificFailurePath_Code_DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nieuw faalpad.
+        /// </summary>
+        public static string SpecificFailurePath_Name_DefaultName {
+            get {
+                return ResourceManager.GetString("SpecificFailurePath_Name_DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Standaardafwijking (σ) moet groter zijn dan of gelijk zijn aan 0..
         /// </summary>
         public static string StandardDeviation_Should_be_greater_or_equal_zero {

@@ -78,7 +78,6 @@ using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.Forms.Dialogs;
@@ -1924,7 +1923,7 @@ namespace Riskeer.Integration.Plugin
             var newFailurePath = new SpecificFailurePath
             {
                 Name = NamingHelper.GetUniqueName(failurePaths,
-                                                  RiskeerDataResources.SpecificFailurePath_Name_DefaultName,
+                                                  RiskeerCommonDataResources.SpecificFailurePath_Name_DefaultName,
                                                   fp => fp.Name)
             };
             failurePaths.Add(newFailurePath);

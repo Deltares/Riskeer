@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -187,24 +187,6 @@ namespace Riskeer.Integration.Data.Properties {
         public static string PipingStructureFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("PipingStructureFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NIEUW.
-        /// </summary>
-        public static string SpecificFailurePath_Code_DefaultName {
-            get {
-                return ResourceManager.GetString("SpecificFailurePath_Code_DefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nieuw faalpad.
-        /// </summary>
-        public static string SpecificFailurePath_Name_DefaultName {
-            get {
-                return ResourceManager.GetString("SpecificFailurePath_Name_DefaultName", resourceCulture);
             }
         }
         

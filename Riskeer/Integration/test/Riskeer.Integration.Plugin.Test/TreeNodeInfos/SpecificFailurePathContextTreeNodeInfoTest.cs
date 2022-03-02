@@ -33,7 +33,6 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
-using Riskeer.Integration.Data.FailurePath;
 using Riskeer.Integration.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
