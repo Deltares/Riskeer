@@ -127,7 +127,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                     FailureMechanismSectionAssemblyGroupBoundaries assemblyGroupBoundaries = output.ElementAt(i);
 
                     FailureMechanismSectionAssemblyGroupProperties property = failureMechanismAssemblyGroups[i];
-                    Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyGroupBoundaries.Group), property.Group);
+                    Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup), property.Group);
                     Assert.AreEqual(assemblyGroupBoundaries.UpperBoundary, property.UpperBoundary);
                     Assert.AreEqual(assemblyGroupBoundaries.LowerBoundary, property.LowerBoundary);
                 }

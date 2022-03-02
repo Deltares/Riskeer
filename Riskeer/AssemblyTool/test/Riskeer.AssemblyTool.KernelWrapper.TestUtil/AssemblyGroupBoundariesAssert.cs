@@ -52,7 +52,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
                 InterpretationCategory originalItem = original.Categories.ElementAt(i);
                 FailureMechanismSectionAssemblyGroupBoundaries actualItem = actual.ElementAt(i);
 
-                Assert.AreEqual(GetAssemblyGroup(originalItem.Category), actualItem.Group);
+                Assert.AreEqual(GetAssemblyGroup(originalItem.Category), actualItem.FailureMechanismSectionAssemblyGroup);
                 ProbabilityAssert.AreEqual(actualItem.LowerBoundary, originalItem.LowerLimit);
                 ProbabilityAssert.AreEqual(actualItem.UpperBoundary, originalItem.UpperLimit);
             }

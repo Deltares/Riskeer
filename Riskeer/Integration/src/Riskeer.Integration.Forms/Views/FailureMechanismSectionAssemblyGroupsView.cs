@@ -94,8 +94,8 @@ namespace Riskeer.Integration.Forms.Views
                     failureMechanismContribution.SignalingNorm, failureMechanismContribution.LowerLimitNorm).Select(
                     assemblyGroupBoundaries => new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
                         assemblyGroupBoundaries,
-                        AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroupBoundaries.Group),
-                        DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyGroupBoundaries.Group))).ToArray();
+                        AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup),
+                        DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup))).ToArray();
 
                 dataToSet = dataToSet.Concat(new[]
                 {

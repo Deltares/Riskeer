@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(data.Group);
+                return DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(data.FailureMechanismSectionAssemblyGroup);
             }
         }
 
@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(data.Group);
+            return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(data.FailureMechanismSectionAssemblyGroup);
         }
     }
 }

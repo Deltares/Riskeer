@@ -85,7 +85,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                     FailureMechanismSectionAssemblyGroupBoundaries expectedOutput = calculatorOutput[i];
                     FailureMechanismSectionAssemblyGroupBoundaries actualOutput = calculatorOutput[i];
 
-                    Assert.AreEqual(expectedOutput.Group, actualOutput.Group);
+                    Assert.AreEqual(expectedOutput.FailureMechanismSectionAssemblyGroup, actualOutput.FailureMechanismSectionAssemblyGroup);
                     Assert.AreEqual(expectedOutput.LowerBoundary, actualOutput.LowerBoundary);
                     Assert.AreEqual(expectedOutput.UpperBoundary, actualOutput.UpperBoundary);
                 }

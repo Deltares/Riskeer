@@ -22,57 +22,57 @@
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
-    /// Enum defining the assembly categories for a failure mechanism section.
+    /// Enum defining the assembly groups for a failure mechanism section.
     /// </summary>
     public enum FailureMechanismSectionAssemblyGroup
     {
         /// <summary>
-        /// Represents the interpretation category Not Dominant for a failure mechanism section.
+        /// Represents group Not Dominant.
         /// </summary>
         NotDominant = 1,
 
         /// <summary>
-        /// Represents the interpretation category III for a failure mechanism section.
+        /// Represents group III.
         /// </summary>
         III = 2,
 
         /// <summary>
-        /// Represents the interpretation category II for a failure mechanism section.
+        /// Represents group II.
         /// </summary>
         II = 3,
 
         /// <summary>
-        /// Represents the interpretation category I for a failure mechanism section.
+        /// Represents group I.
         /// </summary>
         I = 4,
 
         /// <summary>
-        /// Represents the interpretation category 0 for a failure mechanism section.
+        /// Represents group 0.
         /// </summary>
         Zero = 5,
 
         /// <summary>
-        /// Represents the interpretation category I- for a failure mechanism section.
+        /// Represents group I-.
         /// </summary>
         IMin = 6,
 
         /// <summary>
-        /// Represents the interpretation category II- for a failure mechanism section.
+        /// Represents group II-.
         /// </summary>
         IIMin = 7,
 
         /// <summary>
-        /// Represents the interpretation category III- for a failure mechanism section.
+        /// Represents group III-.
         /// </summary>
         IIIMin = 8,
 
         /// <summary>
-        /// Represents the interpretation category Dominant for a failure mechanism section.
+        /// Represents group Dominant.
         /// </summary>
         Dominant = 9,
 
         /// <summary>
-        /// Represents the interpretation category GR for a failure mechanism section.
+        /// Represents group GR.
         /// </summary>
         Gr = 10
     }

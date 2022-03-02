@@ -33,12 +33,12 @@ namespace Riskeer.AssemblyTool.Data.Test
         {
             // Setup
             var random = new Random(21);
-            var group = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
 
             // Call
-            var boundaries = new FailureMechanismSectionAssemblyGroupBoundaries(group, lowerBoundary, upperBoundary);
+            var boundaries = new FailureMechanismSectionAssemblyGroupBoundaries(assemblyGroup, lowerBoundary, upperBoundary);
 
             // Assert
             Assert.IsInstanceOf<AssemblyGroupBoundaries>(boundaries);

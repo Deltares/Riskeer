@@ -63,7 +63,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.AreSame(assemblyCategory, properties.Data);
             TestHelper.AssertTypeConverter<FailureMechanismSectionAssemblyGroupProperties, ExpandableObjectConverter>();
 
-            Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyCategory.Group), properties.Group);
+            Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyCategory.FailureMechanismSectionAssemblyGroup), properties.Group);
             Assert.AreEqual(assemblyCategory.LowerBoundary, properties.LowerBoundary);
             Assert.AreEqual(assemblyCategory.UpperBoundary, properties.UpperBoundary);
         }

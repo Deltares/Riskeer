@@ -122,7 +122,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                         FailureMechanismSectionAssemblyGroupBoundaries expectedBoundary = calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.ElementAt(i);
                         var actualBoundary = (AssemblyGroupRow<DisplayFailureMechanismSectionAssemblyGroup>) assemblyGroupsTable.Rows[i].DataBoundItem;
 
-                        Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedBoundary.Group), actualBoundary.Group);
+                        Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedBoundary.FailureMechanismSectionAssemblyGroup), actualBoundary.Group);
                         Assert.AreEqual(expectedBoundary.LowerBoundary, actualBoundary.LowerBoundary);
                         Assert.AreEqual(expectedBoundary.UpperBoundary, actualBoundary.UpperBoundary);
                     }
