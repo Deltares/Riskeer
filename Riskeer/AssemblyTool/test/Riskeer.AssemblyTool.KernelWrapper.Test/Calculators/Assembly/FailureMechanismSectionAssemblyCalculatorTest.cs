@@ -35,7 +35,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Groups;
 using Riskeer.Common.Primitives;
 using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;

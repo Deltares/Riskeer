@@ -25,7 +25,7 @@ using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.Categories;
 
-namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Groups
 {
     /// <summary>
     /// Assembly category limits kernel stub for testing purposes.
@@ -43,12 +43,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories
         public AssessmentSection AssessmentSection { get; private set; }
 
         /// <summary>
-        /// Sets the <see cref="CategoriesList{TCategory}"/> assembly result.
+        /// Sets the interpretation categories.
         /// </summary>
         public CategoriesList<InterpretationCategory> InterpretationCategoryLimits { private get; set; }
 
         /// <summary>
-        /// Sets the <see cref="CategoriesList{TCategory}"/> assembly result.
+        /// Sets the assessment section categories.
         /// </summary>
         public CategoriesList<AssessmentSectionCategory> AssessmentSectionCategoryLimits { private get; set; }
 

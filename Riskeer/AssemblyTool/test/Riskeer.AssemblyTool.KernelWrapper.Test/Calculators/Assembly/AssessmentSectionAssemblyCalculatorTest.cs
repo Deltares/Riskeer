@@ -38,7 +38,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Groups;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {

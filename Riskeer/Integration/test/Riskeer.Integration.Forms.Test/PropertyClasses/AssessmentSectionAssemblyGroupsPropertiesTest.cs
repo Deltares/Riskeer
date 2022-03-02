@@ -30,7 +30,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Groups;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;

@@ -40,7 +40,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public IEnumerable<Probability> FailureMechanismProbabilities { get; private set; }
 
         /// <summary>
-        /// Gets the collection of categories.
+        /// Gets the collection of assessment section categories.
         /// </summary>
         public CategoriesList<AssessmentSectionCategory> Categories { get; private set; }
 

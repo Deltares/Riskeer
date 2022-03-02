@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Groups;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;

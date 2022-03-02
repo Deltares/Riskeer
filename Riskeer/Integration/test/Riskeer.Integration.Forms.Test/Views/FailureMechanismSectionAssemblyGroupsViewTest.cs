@@ -30,7 +30,7 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Groups;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Integration.Data;

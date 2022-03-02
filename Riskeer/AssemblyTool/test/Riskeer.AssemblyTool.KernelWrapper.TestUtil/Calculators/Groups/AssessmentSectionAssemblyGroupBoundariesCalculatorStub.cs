@@ -24,12 +24,12 @@ using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups;
 
-namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
+namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Groups
 {
     /// <summary>
-    /// Assembly group boundaries calculator stub for testing purposes.
+    /// Assessment section assembly group boundaries calculator stub for testing purposes.
     /// </summary>
-    public class FailureMechanismSectionAssemblyGroupBoundariesCalculatorStub : IFailureMechanismSectionAssemblyGroupBoundariesCalculator
+    public class AssessmentSectionAssemblyGroupBoundariesCalculatorStub : IAssessmentSectionAssemblyGroupBoundariesCalculator
     {
         /// <summary>
         /// Gets the signaling norm that is used in the calculation.
@@ -42,17 +42,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
         public double LowerLimitNorm { get; private set; }
 
         /// <summary>
+        /// Gets or sets the output of the <see cref="AssessmentSectionAssemblyGroupBoundaries"/> calculation.
+        /// </summary>
+        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> AssessmentSectionAssemblyGroupBoundariesOutput { get; set; }
+
+        /// <summary>
         /// Sets an indicator whether an exception must be thrown while performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
-        /// <summary>
-        /// Gets or sets the output of the <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/> calculation.
-        /// </summary>
-        public IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> FailureMechanismSectionAssemblyGroupBoundariesOutput { get; set; }
-
-        public IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CalculateFailureMechanismSectionAssemblyGroupBoundaries(double signalingNorm,
-                                                                                                                                   double lowerLimitNorm)
+        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionAssemblyGroupBoundaries(double signalingNorm, double lowerLimitNorm)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -62,13 +61,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
             SignalingNorm = signalingNorm;
             LowerLimitNorm = lowerLimitNorm;
 
-            return FailureMechanismSectionAssemblyGroupBoundariesOutput ??
-                   (FailureMechanismSectionAssemblyGroupBoundariesOutput = new[]
-                       {
-                           new FailureMechanismSectionAssemblyGroupBoundaries(1, 2, FailureMechanismSectionAssemblyGroup.I),
-                           new FailureMechanismSectionAssemblyGroupBoundaries(2.01, 3, FailureMechanismSectionAssemblyGroup.II),
-                           new FailureMechanismSectionAssemblyGroupBoundaries(3.01, 4, FailureMechanismSectionAssemblyGroup.III)
-                       });
+            return AssessmentSectionAssemblyGroupBoundariesOutput
+                   ?? (AssessmentSectionAssemblyGroupBoundariesOutput = new[]
+                          {
+                              new AssessmentSectionAssemblyGroupBoundaries(1, 2, AssessmentSectionAssemblyGroup.A),
+                              new AssessmentSectionAssemblyGroupBoundaries(2.01, 3, AssessmentSectionAssemblyGroup.B),
+                              new AssessmentSectionAssemblyGroupBoundaries(3.01, 4, AssessmentSectionAssemblyGroup.C)
+                          });
         }
     }
 }

@@ -24,7 +24,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Groups;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
 {
@@ -34,7 +34,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
     public class TestAssemblyToolCalculatorFactory : IAssemblyToolCalculatorFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestAssemblyToolCalculatorFactoryOld"/>.
+        /// Creates a new instance of <see cref="TestAssemblyToolCalculatorFactory"/>.
         /// </summary>
         public TestAssemblyToolCalculatorFactory()
         {

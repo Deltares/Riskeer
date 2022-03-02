@@ -69,7 +69,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public Probability RefinedProbabilitySection { get; private set; }
 
         /// <summary>
-        /// Gets the collection of categories.
+        /// Gets the collection of interpretation categories.
         /// </summary>
         public CategoriesList<InterpretationCategory> Categories { get; private set; }
 
