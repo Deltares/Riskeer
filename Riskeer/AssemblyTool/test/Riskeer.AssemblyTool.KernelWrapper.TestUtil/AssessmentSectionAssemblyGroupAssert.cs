@@ -29,7 +29,7 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
 {
     /// <summary>
-    /// Class for asserting assessment section assembly groups result.
+    /// Class for asserting assessment section assembly groups.
     /// </summary>
     public static class AssessmentSectionAssemblyGroupAssert
     {

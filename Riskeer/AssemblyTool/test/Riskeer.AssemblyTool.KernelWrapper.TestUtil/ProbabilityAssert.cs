@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
 {
     /// <summary>
-    /// Class for asserting probabilities
+    /// Class for asserting probabilities.
     /// </summary>
     public static class ProbabilityAssert
     {

@@ -29,7 +29,7 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
 {
     /// <summary>
-    /// Class for asserting assembly group boundaries.
+    /// Class for asserting failure mechanism section assembly groups.
     /// </summary>
     public static class AssemblyGroupBoundariesAssert
     {
@@ -52,13 +52,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
                 InterpretationCategory originalItem = original.Categories.ElementAt(i);
                 FailureMechanismSectionAssemblyGroupBoundaries actualItem = actual.ElementAt(i);
 
-                Assert.AreEqual(GetAssemblyGroup(originalItem.Category), actualItem.FailureMechanismSectionAssemblyGroup);
+                Assert.AreEqual(GetFailureMechanismSectionAssemblyGroup(originalItem.Category), actualItem.FailureMechanismSectionAssemblyGroup);
                 ProbabilityAssert.AreEqual(actualItem.LowerBoundary, originalItem.LowerLimit);
                 ProbabilityAssert.AreEqual(actualItem.UpperBoundary, originalItem.UpperLimit);
             }
         }
 
-        private static FailureMechanismSectionAssemblyGroup GetAssemblyGroup(EInterpretationCategory category)
+        private static FailureMechanismSectionAssemblyGroup GetFailureMechanismSectionAssemblyGroup(EInterpretationCategory category)
         {
             switch (category)
             {
