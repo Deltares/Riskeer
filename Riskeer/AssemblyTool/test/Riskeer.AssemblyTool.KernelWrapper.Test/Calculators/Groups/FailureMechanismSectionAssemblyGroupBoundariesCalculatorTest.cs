@@ -29,14 +29,14 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Categories;
 
-namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Categories
+namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
 {
     [TestFixture]
     public class FailureMechanismSectionAssemblyGroupBoundariesCalculatorTest

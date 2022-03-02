@@ -22,7 +22,7 @@
 using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.Common.Data.Exceptions;
 

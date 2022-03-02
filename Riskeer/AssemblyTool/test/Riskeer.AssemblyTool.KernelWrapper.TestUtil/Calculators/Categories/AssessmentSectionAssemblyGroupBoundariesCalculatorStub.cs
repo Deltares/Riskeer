@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
 {

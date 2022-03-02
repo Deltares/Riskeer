@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators

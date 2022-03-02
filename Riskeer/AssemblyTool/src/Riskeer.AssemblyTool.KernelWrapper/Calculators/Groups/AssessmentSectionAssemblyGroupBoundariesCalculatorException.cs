@@ -22,7 +22,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Categories
+namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups
 {
     /// <summary>
     /// The exception that is thrown when an error occurs while performing an assessment section assembly group boundaries calculation.
