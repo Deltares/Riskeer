@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using Core.Common.Util;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
@@ -85,7 +84,7 @@ namespace Riskeer.Integration.Forms.Controls
                 throw new ArgumentNullException(nameof(result));
             }
 
-            groupLabel.Text = new EnumDisplayWrapper<AssessmentSectionAssemblyGroup>(result.AssemblyGroup).DisplayName;
+            groupLabel.Text = EnumDisplayNameHelper.GetDisplayName(result.AssemblyGroup);
             groupLabel.BackColor = AssessmentSectionAssemblyGroupColorHelper.GetAssessmentSectionAssemblyGroupColor(result.AssemblyGroup);
 
             probabilityLabel.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(result.Probability);

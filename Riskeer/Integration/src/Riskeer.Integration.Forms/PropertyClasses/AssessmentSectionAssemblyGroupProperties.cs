@@ -26,6 +26,7 @@ using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -61,43 +62,25 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_Name_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_Name_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
-        public AssessmentSectionAssemblyGroup Group
-        {
-            get
-            {
-                return data.AssessmentSectionAssemblyGroup;
-            }
-        }
+        public AssessmentSectionAssemblyGroup Group => data.Group;
 
         [PropertyOrder(lowerBoundaryPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_LowerBoundary_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_LowerBoundary_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double LowerBoundary
-        {
-            get
-            {
-                return data.LowerBoundary;
-            }
-        }
+        public double LowerBoundary => data.LowerBoundary;
 
         [PropertyOrder(upperBoundaryPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_UpperBoundary_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_UpperBoundary_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double UpperBoundary
-        {
-            get
-            {
-                return data.UpperBoundary;
-            }
-        }
+        public double UpperBoundary => data.UpperBoundary;
 
         public override string ToString()
         {
-            return new EnumDisplayWrapper<AssessmentSectionAssemblyGroup>(Group).DisplayName;
+            return EnumDisplayNameHelper.GetDisplayName(Group);
         }
     }
 }

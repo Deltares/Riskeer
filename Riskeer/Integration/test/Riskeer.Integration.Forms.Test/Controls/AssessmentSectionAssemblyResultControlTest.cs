@@ -24,7 +24,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using Core.Common.Util.Reflection;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
@@ -220,8 +219,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
 
         private static void AssertGroupLabel(AssessmentSectionAssemblyGroup result, BorderedLabel groupLabel)
         {
-            Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyGroup>(result).DisplayName,
-                            groupLabel.Text);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result), groupLabel.Text);
             Assert.AreEqual(AssessmentSectionAssemblyGroupColorHelper.GetAssessmentSectionAssemblyGroupColor(result),
                             groupLabel.BackColor);
         }

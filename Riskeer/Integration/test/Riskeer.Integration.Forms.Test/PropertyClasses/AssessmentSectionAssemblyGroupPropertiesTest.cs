@@ -22,11 +22,11 @@
 using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Forms.PropertyClasses;
 
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
@@ -121,7 +121,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var result = properties.ToString();
 
             // Assert
-            Assert.AreEqual(new EnumDisplayWrapper<AssessmentSectionAssemblyGroup>(assemblyGroup).DisplayName, result);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(assemblyGroup), result);
         }
     }
 }
