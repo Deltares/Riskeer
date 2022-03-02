@@ -35,34 +35,35 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     {
         /// <summary>
         /// Creates a collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>
-        /// based on the information given in the <paramref name="groups"/>.
+        /// based on the information given in the <paramref name="interpretationCategories"/>.
         /// </summary>
-        /// <param name="groups">The <see cref="CategoriesList{TCategory}"/> with <see cref="InterpretationCategory"/>
+        /// <param name="interpretationCategories">The <see cref="CategoriesList{TCategory}"/> with <see cref="InterpretationCategory"/>
         /// to create the result for.</param>
         /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>
-        /// with information taken from the <paramref name="groups"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="groups"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="groups"/>
+        /// with information taken from the <paramref name="interpretationCategories"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="interpretationCategories"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="interpretationCategories"/>
         /// contains an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="groups"/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="interpretationCategories"/>
         /// contains a valid value, but unsupported.</exception>
         public static IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CreateFailureMechanismSectionAssemblyGroupBoundaries(
-            CategoriesList<InterpretationCategory> groups)
+            CategoriesList<InterpretationCategory> interpretationCategories)
         {
-            if (groups == null)
+            if (interpretationCategories == null)
             {
-                throw new ArgumentNullException(nameof(groups));
+                throw new ArgumentNullException(nameof(interpretationCategories));
             }
 
-            return groups.Categories.Select(CreateFailureMechanismSectionAssemblyGroupBoundaries)
-                         .ToArray();
+            return interpretationCategories.Categories
+                                           .Select(CreateFailureMechanismSectionAssemblyGroupBoundaries)
+                                           .ToArray();
         }
 
-        private static FailureMechanismSectionAssemblyGroupBoundaries CreateFailureMechanismSectionAssemblyGroupBoundaries(InterpretationCategory group)
+        private static FailureMechanismSectionAssemblyGroupBoundaries CreateFailureMechanismSectionAssemblyGroupBoundaries(InterpretationCategory interpretationCategory)
         {
             return new FailureMechanismSectionAssemblyGroupBoundaries(
-                group.LowerLimit, group.UpperLimit,
-                FailureMechanismSectionAssemblyGroupConverter.ConvertTo(group.Category));
+                interpretationCategory.LowerLimit, interpretationCategory.UpperLimit,
+                FailureMechanismSectionAssemblyGroupConverter.ConvertTo(interpretationCategory.Category));
         }
     }
 }
