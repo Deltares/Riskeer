@@ -208,7 +208,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
 
                     // Precondition
-                    int expectedDefaultGroupBoundaries = output.Count + 2;
+                    int expectedDefaultGroupBoundaries = FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(assessmentSection).Count();
                     Assert.AreEqual(expectedDefaultGroupBoundaries, failureMechanismSectionGroupsTable.Rows.Count);
 
                     int newGroupBoundaries = random.Next(1, 10);
