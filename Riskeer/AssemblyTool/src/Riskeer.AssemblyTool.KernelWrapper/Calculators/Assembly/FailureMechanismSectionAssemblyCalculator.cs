@@ -44,7 +44,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyCalculator"/>.
         /// </summary>
         /// <param name="factory">The factory responsible for creating the assembly kernel.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any <paramref name="factory"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
         public FailureMechanismSectionAssemblyCalculator(IAssemblyToolKernelFactory factory)
         {
             if (factory == null)
@@ -63,13 +63,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
 
             KernelFailureMechanismSectionAssemblyResult GetAssemblyResultFunc(
-                IAssessmentResultsTranslator kernel, CategoriesList<InterpretationCategory> categories) =>
+                IAssessmentResultsTranslator kernel, CategoriesList<InterpretationCategory> interpretationCategories) =>
                 kernel.TranslateAssessmentResultWbi0A2(
                     GetInitialMechanismProbabilitySpecification(input),
                     AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),
                     FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(input.FurtherAnalysisType),
                     AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability),
-                    categories);
+                    interpretationCategories);
 
             return AssembleFailureMechanismSection(GetAssemblyResultFunc, input.SignalingNorm, input.LowerLimitNorm);
         }
@@ -82,7 +82,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
 
             KernelFailureMechanismSectionAssemblyResult GetAssemblyResultFunc(
-                IAssessmentResultsTranslator kernel, CategoriesList<InterpretationCategory> categories) =>
+                IAssessmentResultsTranslator kernel, CategoriesList<InterpretationCategory> interpretationCategories) =>
                 kernel.TranslateAssessmentResultWbi0A2(
                     GetInitialMechanismProbabilitySpecification(input),
                     AssemblyCalculatorInputCreator.CreateProbability(input.InitialProfileProbability),
@@ -90,7 +90,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                     FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(input.FurtherAnalysisType),
                     AssemblyCalculatorInputCreator.CreateProbability(input.RefinedProfileProbability),
                     AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability),
-                    categories);
+                    interpretationCategories);
 
             return AssembleFailureMechanismSection(GetAssemblyResultFunc, input.SignalingNorm, input.LowerLimitNorm);
         }
@@ -102,11 +102,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 ICategoryLimitsCalculator assemblyCategoriesKernel = factory.CreateAssemblyGroupsKernel();
-                CategoriesList<InterpretationCategory> categories = assemblyCategoriesKernel.CalculateInterpretationCategoryLimitsWbi03(
+                CategoriesList<InterpretationCategory> interpretationCategories = assemblyCategoriesKernel.CalculateInterpretationCategoryLimitsWbi03(
                     new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalingNorm),
                                           AssemblyCalculatorInputCreator.CreateProbability(lowerLimitNorm)));
 
-                KernelFailureMechanismSectionAssemblyResult output = getAssemblyResultFunc(factory.CreateFailureMechanismSectionAssemblyKernel(), categories);
+                KernelFailureMechanismSectionAssemblyResult output = getAssemblyResultFunc(factory.CreateFailureMechanismSectionAssemblyKernel(), interpretationCategories);
 
                 return FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(output);
             }

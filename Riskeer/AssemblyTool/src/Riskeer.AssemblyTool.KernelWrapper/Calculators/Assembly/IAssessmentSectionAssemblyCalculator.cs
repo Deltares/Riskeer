@@ -35,7 +35,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// </summary>
         /// <param name="failureMechanismProbabilities">The collection of failure mechanism probabilities.</param>
         /// <param name="lowerLimitNorm">The lower limit norm to assemble with.</param>
-        /// <param name="signalingNorm">The signalling norm to assemble with.</param>
+        /// <param name="signalingNorm">The signaling norm to assemble with.</param>
         /// <returns>A <see cref="AssessmentSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismProbabilities"/> is <c>null</c>.</exception>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when

@@ -67,7 +67,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 ICategoryLimitsCalculator categoryLimitsKernel = factory.CreateAssemblyGroupsKernel();
-                CategoriesList<AssessmentSectionCategory> categoryLimits = categoryLimitsKernel.CalculateAssessmentSectionCategoryLimitsWbi21(
+                CategoriesList<AssessmentSectionCategory> assessmentSectionCategories = categoryLimitsKernel.CalculateAssessmentSectionCategoryLimitsWbi21(
                     new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalingNorm),
                                           AssemblyCalculatorInputCreator.CreateProbability(lowerLimitNorm)));
 
@@ -75,7 +75,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 IEnumerable<Probability> probabilities = failureMechanismProbabilities.Select(AssemblyCalculatorInputCreator.CreateProbability)
                                                                                       .ToArray();
 
-                AssessmentSectionResult assemblyResult = assessmentSectionAssemblyKernel.AssembleAssessmentSectionWbi2B1(probabilities, categoryLimits, false);
+                AssessmentSectionResult assemblyResult = assessmentSectionAssemblyKernel.AssembleAssessmentSectionWbi2B1(probabilities, assessmentSectionCategories, false);
                 return AssessmentSectionAssemblyResultCreator.CreateAssessmentSectionAssemblyResult(assemblyResult);
             }
             catch (AssemblyException e)

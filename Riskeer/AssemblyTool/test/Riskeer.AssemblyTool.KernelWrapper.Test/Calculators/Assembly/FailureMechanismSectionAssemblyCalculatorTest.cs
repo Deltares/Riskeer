@@ -142,8 +142,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                CategoriesList<InterpretationCategory> categoryLimits = CreateCategoryLimits();
-                categoryLimitsKernel.InterpretationCategoryLimits = categoryLimits;
+                CategoriesList<InterpretationCategory> interpretationCategories = CreateInterpretationCategories();
+                categoryLimitsKernel.InterpretationCategoryLimits = interpretationCategories;
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = new KernelFailureMechanismSectionAssemblyResult(
@@ -159,7 +159,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 ProbabilityAssert.AreEqual(lowerLimitNorm, assessmentSection.FailureProbabilityLowerLimit);
                 ProbabilityAssert.AreEqual(signalingNorm, assessmentSection.FailureProbabilitySignallingLimit);
 
-                Assert.AreSame(categoryLimits, failureMechanismSectionAssemblyKernel.Categories);
+                Assert.AreSame(interpretationCategories, failureMechanismSectionAssemblyKernel.Categories);
                 Assert.AreEqual(expectedInitialMechanismProbabilitySpecification, failureMechanismSectionAssemblyKernel.InitialMechanismProbabilitySpecification);
                 Assert.AreEqual(input.InitialSectionProbability, failureMechanismSectionAssemblyKernel.ProbabilityInitialMechanismSection);
                 Assert.AreEqual(FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(input.FurtherAnalysisType),
@@ -178,7 +178,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                categoryLimitsKernel.InterpretationCategoryLimits = CreateCategoryLimits();
+                categoryLimitsKernel.InterpretationCategoryLimits = CreateInterpretationCategories();
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 var kernelResult = new KernelFailureMechanismSectionAssemblyResult(new Probability(random.NextDouble()),
@@ -213,7 +213,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                categoryLimitsKernel.InterpretationCategoryLimits = CreateCategoryLimits();
+                categoryLimitsKernel.InterpretationCategoryLimits = CreateInterpretationCategories();
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 var kernelResult = new KernelFailureMechanismSectionAssemblyResult(new Probability(random.NextDouble()),
@@ -362,8 +362,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                CategoriesList<InterpretationCategory> categoryLimits = CreateCategoryLimits();
-                categoryLimitsKernel.InterpretationCategoryLimits = categoryLimits;
+                CategoriesList<InterpretationCategory> interpretationCategories = CreateInterpretationCategories();
+                categoryLimitsKernel.InterpretationCategoryLimits = interpretationCategories;
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = new KernelFailureMechanismSectionAssemblyResult(
@@ -379,7 +379,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 ProbabilityAssert.AreEqual(lowerLimitNorm, assessmentSection.FailureProbabilityLowerLimit);
                 ProbabilityAssert.AreEqual(signalingNorm, assessmentSection.FailureProbabilitySignallingLimit);
 
-                Assert.AreSame(categoryLimits, failureMechanismSectionAssemblyKernel.Categories);
+                Assert.AreSame(interpretationCategories, failureMechanismSectionAssemblyKernel.Categories);
                 Assert.AreEqual(expectedInitialMechanismProbabilitySpecification, failureMechanismSectionAssemblyKernel.InitialMechanismProbabilitySpecification);
                 Assert.AreEqual(input.InitialProfileProbability, failureMechanismSectionAssemblyKernel.ProbabilityInitialMechanismProfile);
                 Assert.AreEqual(input.InitialSectionProbability, failureMechanismSectionAssemblyKernel.ProbabilityInitialMechanismSection);
@@ -400,7 +400,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                categoryLimitsKernel.InterpretationCategoryLimits = CreateCategoryLimits();
+                categoryLimitsKernel.InterpretationCategoryLimits = CreateInterpretationCategories();
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 var kernelResult = new KernelFailureMechanismSectionAssemblyResult(new Probability(random.NextDouble()),
@@ -435,7 +435,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                categoryLimitsKernel.InterpretationCategoryLimits = CreateCategoryLimits();
+                categoryLimitsKernel.InterpretationCategoryLimits = CreateInterpretationCategories();
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 var kernelResult = new KernelFailureMechanismSectionAssemblyResult(new Probability(random.NextDouble()),
@@ -540,7 +540,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                                                                                   random.NextDouble(), random.NextDouble());
         }
 
-        private static CategoriesList<InterpretationCategory> CreateCategoryLimits()
+        private static CategoriesList<InterpretationCategory> CreateInterpretationCategories()
         {
             return new CategoriesList<InterpretationCategory>(new[]
             {
