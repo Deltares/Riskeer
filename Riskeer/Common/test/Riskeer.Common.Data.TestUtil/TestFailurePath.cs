@@ -30,7 +30,7 @@ namespace Riskeer.Common.Data.TestUtil
     /// <summary>
     /// An implementation of <see cref="IFailurePath"/> that can be used for testing.
     /// </summary>
-    public class TestFailurePath : Observable, IFailurePath
+    public class TestFailurePath : Observable, IFailurePath<FailureMechanismSectionResult>
     {
         private readonly FailureMechanismSectionCollection sectionCollection;
 
@@ -102,5 +102,7 @@ namespace Riskeer.Common.Data.TestUtil
         {
             sectionCollection.Clear();
         }
+
+        public IObservableEnumerable<FailureMechanismSectionResult> SectionResults { get; }
     }
 }

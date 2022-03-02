@@ -527,11 +527,9 @@ namespace Riskeer.Integration.Plugin
                 FileFilterGenerator = new FileFilterGenerator(RiskeerCommonIOResources.Shape_file_filter_Extension,
                                                               RiskeerCommonIOResources.Shape_file_filter_Description),
                 IsEnabled = context => HasGeometry(context.AssessmentSection.ReferenceLine),
-                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(context.WrappedData,
-                                                                                                 context.AssessmentSection.ReferenceLine,
-                                                                                                 filePath,
-                                                                                                 new FailureMechanismSectionReplaceStrategy(context.WrappedData),
-                                                                                                 new ImportMessageProvider())
+                CreateFileImporter = (context, filePath) => new FailureMechanismSectionsImporter(
+                    context.WrappedData, context.AssessmentSection.ReferenceLine, filePath,
+                    new FailureMechanismSectionReplaceStrategy(context.WrappedData), new ImportMessageProvider())
             };
 
             yield return new ImportInfo<ForeshoreProfilesContext>

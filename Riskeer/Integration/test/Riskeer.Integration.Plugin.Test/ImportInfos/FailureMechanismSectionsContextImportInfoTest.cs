@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.IO.FileImporters;
@@ -90,7 +91,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
@@ -110,7 +111,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             mocks.ReplayAll();
@@ -141,7 +142,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 

@@ -30,6 +30,7 @@ using Core.Gui.Commands;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
@@ -95,7 +96,7 @@ namespace Riskeer.Integration.TestUtil
         /// <para>This will import 283 failure mechanism sections.</para>
         /// <para>Imports using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
-        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, System.Collections.Generic.IEnumerable{Riskeer.Common.Data.FailureMechanism.IFailureMechanism})"/>
+        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IEnumerable{IFailureMechanism})"/>
         public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
@@ -106,11 +107,10 @@ namespace Riskeer.Integration.TestUtil
                                                                                    "traject_6-3_vakken.shx"))
             {
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp");
-                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(failureMechanism,
-                                                                                           assessmentSection.ReferenceLine,
-                                                                                           filePath,
-                                                                                           new FailureMechanismSectionReplaceStrategy(failureMechanism),
-                                                                                           new ImportMessageProvider()),
+                var activity = new FileImportActivity(new FailureMechanismSectionsImporter(
+                                                          failureMechanism, assessmentSection.ReferenceLine, filePath,
+                                                          new FailureMechanismSectionReplaceStrategy((IFailurePath<FailureMechanismSectionResult>) failureMechanism),
+                                                          new ImportMessageProvider()),
                                                       "FailureMechanismSectionsImporter");
                 activity.Run();
                 activity.Finish();
@@ -144,11 +144,10 @@ namespace Riskeer.Integration.TestUtil
                     {
                         string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath,
                                                        "traject_6-3_vakken.shp");
-                        var importer = new FailureMechanismSectionsImporter(failureMechanism,
-                                                                            assessmentSection.ReferenceLine,
-                                                                            filePath,
-                                                                            new FailureMechanismSectionReplaceStrategy(failureMechanism),
-                                                                            new ImportMessageProvider());
+                        var importer = new FailureMechanismSectionsImporter(
+                            failureMechanism, assessmentSection.ReferenceLine, filePath,
+                            new FailureMechanismSectionReplaceStrategy((IFailurePath<FailureMechanismSectionResult>) failureMechanism),
+                            new ImportMessageProvider());
                         importer.Import();
                     }
                     else

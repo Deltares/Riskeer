@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -137,7 +138,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 menuBuilder.Expect(mb => mb.Build()).Return(null);
             }
 
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
@@ -167,7 +168,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             failureMechanism.Stub(fm => fm.Sections).Return(Enumerable.Empty<FailureMechanismSection>());
             mocks.ReplayAll();
 
@@ -192,7 +193,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             failureMechanism.Stub(fm => fm.Sections).Return(new[]
             {
                 new FailureMechanismSection("A", new[]

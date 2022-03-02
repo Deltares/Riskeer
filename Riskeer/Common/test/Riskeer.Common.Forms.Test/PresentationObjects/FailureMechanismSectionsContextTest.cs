@@ -55,7 +55,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             failurePath.Stub(fm => fm.Sections).Return(sectionsSequence);
             mocks.ReplayAll();
 
@@ -74,14 +74,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsContext(failurePath, null);
+            void Call() => new FailureMechanismSectionsContext(failurePath, null);
 
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            Assert.Throws<ArgumentNullException>(Call);
             mocks.VerifyAll();
         }
     }

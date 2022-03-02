@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 
@@ -75,5 +76,10 @@ namespace Riskeer.Common.Data.TestUtil
         public GeneralInput GeneralInput { get; }
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
+
+        protected override void AddSectionDependentData(FailureMechanismSection section)
+        {
+            ((ObservableList<TestFailureMechanismSectionResult>) SectionResults).Add(new TestFailureMechanismSectionResult(section));
+        }
     }
 }
