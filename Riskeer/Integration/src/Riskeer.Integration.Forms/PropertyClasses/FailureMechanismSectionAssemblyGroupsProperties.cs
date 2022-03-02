@@ -27,11 +27,9 @@ using Core.Gui.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.Common.Data.AssemblyTool;
-using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Properties;
+using Riskeer.Integration.Util;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
@@ -73,28 +71,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         private FailureMechanismSectionAssemblyGroupProperties[] GetFailureMechanismAssemblyGroups()
         {
-            FailureMechanismContribution contribution = data.FailureMechanismContribution;
-            FailureMechanismSectionAssemblyGroupProperties[] dataToSet;
 
-            try
-            {
-                dataToSet = FailureMechanismSectionAssemblyGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(contribution.SignalingNorm, contribution.LowerLimitNorm)
+                return FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(data)
                                                               .Select(assemblyGroupBoundaries => new FailureMechanismSectionAssemblyGroupProperties(assemblyGroupBoundaries))
                                                               .ToArray();
-                dataToSet = dataToSet.Concat(new[]
-                {
-                    new FailureMechanismSectionAssemblyGroupProperties(
-                        new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Dominant)),
-                    new FailureMechanismSectionAssemblyGroupProperties(
-                        new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.NotDominant))
-                }).ToArray();
-            }
-            catch (AssemblyException)
-            {
-                dataToSet = Array.Empty<FailureMechanismSectionAssemblyGroupProperties>();
-            }
-
-            return dataToSet;
         }
     }
 }

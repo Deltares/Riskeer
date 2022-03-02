@@ -27,11 +27,9 @@ using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Forms;
-using Riskeer.Common.Data.AssemblyTool;
-using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Data;
+using Riskeer.Integration.Util;
 
 namespace Riskeer.Integration.Forms.Views
 {
@@ -86,33 +84,12 @@ namespace Riskeer.Integration.Forms.Views
 
         private void UpdateTableData()
         {
-            Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>[] dataToSet;
-            try
-            {
-                FailureMechanismContribution failureMechanismContribution = AssessmentSection.FailureMechanismContribution;
-                dataToSet = FailureMechanismSectionAssemblyGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(
-                    failureMechanismContribution.SignalingNorm, failureMechanismContribution.LowerLimitNorm).Select(
-                    assemblyGroupBoundaries => new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
-                        assemblyGroupBoundaries,
-                        AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup),
-                        DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup))).ToArray();
-
-                dataToSet = dataToSet.Concat(new[]
-                {
-                    new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
-                        new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Dominant),
-                        AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(FailureMechanismSectionAssemblyGroup.Dominant),
-                        DisplayFailureMechanismSectionAssemblyGroup.Dominant),
-                    new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
-                        new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.NotDominant),
-                        AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(FailureMechanismSectionAssemblyGroup.NotDominant),
-                        DisplayFailureMechanismSectionAssemblyGroup.NotDominant)
-                }).ToArray();
-            }
-            catch (AssemblyException)
-            {
-                dataToSet = Array.Empty<Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>>();
-            }
+            Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>[] dataToSet = 
+                FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(AssessmentSection).Select(
+                assemblyGroupBoundaries => new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
+                    assemblyGroupBoundaries,
+                    AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup),
+                    DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup))).ToArray();
 
             assemblyGroupsTable.SetData(dataToSet);
         }

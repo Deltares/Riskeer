@@ -49,8 +49,8 @@ namespace Riskeer.Integration.Util
                                                                              failureMechanismContribution.LowerLimitNorm)
                        .Concat(new[]
                        {
-                           new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.Dominant, double.NaN, double.NaN),
-                           new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.NotDominant, double.NaN, double.NaN)
+                           new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Dominant),
+                           new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.NotDominant)
                        })
                        .ToArray();
             }
