@@ -23,6 +23,11 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories;
+using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Integration.Data;
 
 namespace Riskeer.Integration.Util.Test
 {
@@ -44,15 +49,41 @@ namespace Riskeer.Integration.Util.Test
         public void GetFailureMechanismSectionAssemblyGroupBoundaries_ReturnsCorrectAssemblyGroupBoundaries()
         {
             // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyGroupBoundariesCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> assemblyGroupBoundaries =
+                    FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(assessmentSection);
+
+                // Assert
+                Assert.IsEmpty(assemblyGroupBoundaries);
+            }
             
-            
-            // Call
-            IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> assemblyGroupBoundaries = 
-                FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(null);
-            
-            
-            // Assert
-            
+        }
+        
+        [Test]
+        public void CreateAssemblyGroupsView_CalculatorThrowsException_SetsEmptyDataTable()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyGroupBoundariesCalculator;
+                calculator.ThrowExceptionOnCalculate = true;
+
+                // Call
+                IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> assemblyGroupBoundaries =
+                    FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(assessmentSection);
+
+                // Assert
+                Assert.IsEmpty(assemblyGroupBoundaries);
+            }
         }
     }
 }

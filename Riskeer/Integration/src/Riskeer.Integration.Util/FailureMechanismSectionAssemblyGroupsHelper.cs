@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Riskeer.AssemblyTool.Data;
@@ -38,9 +39,15 @@ namespace Riskeer.Integration.Util
         /// Gets the failure mechanism section assembly group boundaries based on the failure mechanism contribution.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="assessmentSection"/> is <c>null</c>.</exception>
         /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>.</returns>
         public static IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> GetFailureMechanismSectionAssemblyGroupBoundaries(IAssessmentSection assessmentSection)
         {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
             try
             {
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;

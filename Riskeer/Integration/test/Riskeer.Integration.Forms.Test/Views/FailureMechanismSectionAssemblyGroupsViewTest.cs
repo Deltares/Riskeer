@@ -115,7 +115,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
 
                     // Assert
-                    Assert.AreEqual(calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count()  + 2, assemblyGroupsTable.Rows.Count);
+                    Assert.AreEqual(calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count() + 2, assemblyGroupsTable.Rows.Count);
 
                     for (int i = 0; i < calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count(); i++)
                     {
@@ -126,28 +126,6 @@ namespace Riskeer.Integration.Forms.Test.Views
                         Assert.AreEqual(expectedBoundary.LowerBoundary, actualBoundary.LowerBoundary);
                         Assert.AreEqual(expectedBoundary.UpperBoundary, actualBoundary.UpperBoundary);
                     }
-                }
-            }
-        }
-
-        [Test]
-        public void CreateAssemblyGroupsView_CalculatorThrowsException_SetsEmptyDataTable()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyGroupBoundariesCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
-
-                // Call
-                using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
-                {
-                    AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
-
-                    // Assert
-                    Assert.IsEmpty(failureMechanismSectionGroupsTable.Rows);
                 }
             }
         }
