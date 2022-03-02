@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -38,8 +37,6 @@ namespace Riskeer.HeightStructures.Data
     public class HeightStructuresFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>,
                                                     ICalculatableFailureMechanism
     {
-        private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresFailureMechanism"/> class.
         /// </summary>
@@ -53,13 +50,9 @@ namespace Riskeer.HeightStructures.Data
             GeneralInput = new GeneralHeightStructuresInput();
             HeightStructures = new StructureCollection<HeightStructure>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
-
-            sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
-
-        public override IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         /// <summary>
         /// Gets the height structures calculation input parameters that apply to each calculation.
@@ -80,16 +73,5 @@ namespace Riskeer.HeightStructures.Data
         /// Gets the container of all calculations.
         /// </summary>
         public CalculationGroup CalculationsGroup { get; }
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-            sectionResults.Add(new AdoptableFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResults.Clear();
-        }
     }
 }

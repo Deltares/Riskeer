@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -49,25 +48,14 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         private class TestFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                                              IHasGeneralInput
         {
-            private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
-
             public TestFailureMechanism() : base("Test", "Code")
             {
-                sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
                 GeneralInput = new GeneralInput();
             }
 
             public override IEnumerable<ICalculation> Calculations { get; }
 
-            public override IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
-
             public GeneralInput GeneralInput { get; }
-
-            protected override void AddSectionDependentData(FailureMechanismSection section)
-            {
-                base.AddSectionDependentData(section);
-                sectionResults.Add(new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
-            }
         }
 
         #region AssembleSection

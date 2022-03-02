@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -37,15 +36,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     /// </summary>
     public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
-        private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/> class.
         /// </summary>
         public WaveImpactAsphaltCoverFailureMechanism()
             : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code)
         {
-            sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             WaveConditionsCalculationGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
@@ -76,18 +72,5 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// Gets the container of all wave conditions calculations.
         /// </summary>
         public CalculationGroup WaveConditionsCalculationGroup { get; }
-
-        public override IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-            sectionResults.Add(new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResults.Clear();
-        }
     }
 }

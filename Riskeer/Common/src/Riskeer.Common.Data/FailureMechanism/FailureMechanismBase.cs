@@ -41,10 +41,11 @@ namespace Riskeer.Common.Data.FailureMechanism
     {
         private static readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
         private readonly FailureMechanismSectionCollection sectionCollection;
+        private readonly ObservableList<T> sectionResults;
         private double contribution;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="FailureMechanismBase"/> class.
+        /// Creates a new instance of the <see cref="FailureMechanismBase{T}"/> class.
         /// </summary>
         /// <param name="name">The name of the failure mechanism.</param>
         /// <param name="failureMechanismCode">The code of the failure mechanism.</param>
@@ -69,6 +70,7 @@ namespace Riskeer.Common.Data.FailureMechanism
             CalculationsInputComments = new Comment();
 
             AssemblyResult = new FailurePathAssemblyResult();
+            sectionResults = new ObservableList<T>();
         }
 
         public double Contribution
@@ -109,7 +111,7 @@ namespace Riskeer.Common.Data.FailureMechanism
 
         public bool InAssembly { get; set; }
 
-        public abstract IObservableEnumerable<T> SectionResults { get; }
+        public IObservableEnumerable<T> SectionResults => sectionResults;
 
         public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {
@@ -138,9 +140,15 @@ namespace Riskeer.Common.Data.FailureMechanism
             ClearSectionDependentData();
         }
 
-        protected virtual void AddSectionDependentData(FailureMechanismSection section) {}
+        protected virtual void AddSectionDependentData(FailureMechanismSection section)
+        {
+            sectionResults.Add(FailureMechanismSectionResultFactory.Create<T>(section));
+        }
 
-        protected virtual void ClearSectionDependentData() {}
+        protected virtual void ClearSectionDependentData()
+        {
+            sectionResults.Clear();
+        }
 
         private static void ValidateParameters(string failureMechanismName, string failureMechanismCode)
         {

@@ -34,7 +34,6 @@ namespace Riskeer.Piping.Data
     /// </summary>
     public class PipingFailureMechanism : FailureMechanismBase<AdoptableWithProfileProbabilityFailureMechanismSectionResult>, ICalculatableFailureMechanism
     {
-        private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerFailureMechanismSection;
 
         /// <summary>
@@ -51,8 +50,6 @@ namespace Riskeer.Piping.Data
             {
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
-
-            sectionResults = new ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult>();
 
             ScenarioConfigurationType = PipingScenarioConfigurationType.SemiProbabilistic;
             scenarioConfigurationsPerFailureMechanismSection = new ObservableList<PipingScenarioConfigurationPerFailureMechanismSection>();
@@ -92,20 +89,17 @@ namespace Riskeer.Piping.Data
         public IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection> ScenarioConfigurationsPerFailureMechanismSection =>
             scenarioConfigurationsPerFailureMechanismSection;
 
-        public override IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
-
         public CalculationGroup CalculationsGroup { get; }
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {
             base.AddSectionDependentData(section);
-            sectionResults.Add(new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
             scenarioConfigurationsPerFailureMechanismSection.Add(new PipingScenarioConfigurationPerFailureMechanismSection(section));
         }
 
         protected override void ClearSectionDependentData()
         {
-            sectionResults.Clear();
+            base.ClearSectionDependentData();
             scenarioConfigurationsPerFailureMechanismSection.Clear();
         }
     }

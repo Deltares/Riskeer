@@ -35,7 +35,6 @@ namespace Riskeer.DuneErosion.Data
     /// </summary>
     public class DuneErosionFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>
     {
-        private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
         private readonly ObservableList<DuneLocation> duneLocationCollection = new ObservableList<DuneLocation>();
 
         /// <summary>
@@ -44,7 +43,6 @@ namespace Riskeer.DuneErosion.Data
         public DuneErosionFailureMechanism()
             : base(Resources.DuneErosionFailureMechanism_DisplayName, Resources.DuneErosionFailureMechanism_Code)
         {
-            sectionResults = new ObservableList<NonAdoptableFailureMechanismSectionResult>();
             GeneralInput = new GeneralDuneErosionInput();
             DuneLocationCalculationsForUserDefinedTargetProbabilities = new ObservableList<DuneLocationCalculationsForTargetProbability>();
         }
@@ -56,8 +54,6 @@ namespace Riskeer.DuneErosion.Data
                 yield break;
             }
         }
-
-        public override IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         /// <summary>
         /// Gets the general dune erosion calculation input parameters that apply to each calculation.
@@ -94,18 +90,6 @@ namespace Riskeer.DuneErosion.Data
                 dlc.DuneLocationCalculations.Clear();
                 dlc.DuneLocationCalculations.AddRange(duneLocations.Select(dl => new DuneLocationCalculation(dl)));
             });
-        }
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-
-            sectionResults.Add(new NonAdoptableFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResults.Clear();
         }
     }
 }

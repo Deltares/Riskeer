@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.Properties;
@@ -34,22 +33,17 @@ namespace Riskeer.Integration.Data.StandAlone
     /// </summary>
     public class PipingStructureFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>, IHasGeneralInput
     {
-        private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PipingStructureFailureMechanism"/> class.
         /// </summary>
         public PipingStructureFailureMechanism()
             : base(Resources.PipingStructureFailureMechanism_DisplayName, Resources.PipingStructureFailureMechanism_Code)
         {
-            sectionResults = new ObservableList<NonAdoptableFailureMechanismSectionResult>();
             GeneralInput = new GeneralInput
             {
                 ApplyLengthEffectInSection = false
             };
         }
-
-        public override IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
 
         public GeneralInput GeneralInput { get; }
 
@@ -59,17 +53,6 @@ namespace Riskeer.Integration.Data.StandAlone
             {
                 yield break;
             }
-        }
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-            sectionResults.Add(new NonAdoptableFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResults.Clear();
         }
     }
 }

@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -253,21 +252,9 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private class TestNonAdoptableFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>
         {
-            private readonly ObservableList<NonAdoptableFailureMechanismSectionResult> sectionResults;
-
-            public TestNonAdoptableFailureMechanism() : base("Test", "T")
-            {
-                sectionResults = new ObservableList<NonAdoptableFailureMechanismSectionResult>();
-            }
+            public TestNonAdoptableFailureMechanism() : base("Test", "T") {}
 
             public override IEnumerable<ICalculation> Calculations { get; }
-            public override IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
-
-            protected override void AddSectionDependentData(FailureMechanismSection section)
-            {
-                base.AddSectionDependentData(section);
-                sectionResults.Add(new NonAdoptableFailureMechanismSectionResult(section));
-            }
         }
     }
 }

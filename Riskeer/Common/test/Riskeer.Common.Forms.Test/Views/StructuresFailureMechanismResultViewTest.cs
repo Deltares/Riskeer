@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -419,26 +418,15 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private class TestStructuresFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism
         {
-            private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
-
             public TestStructuresFailureMechanism()
                 : base("Test", "T")
             {
                 CalculationsGroup = new CalculationGroup();
-                sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
             }
 
             public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
-            public override IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
-
             public CalculationGroup CalculationsGroup { get; }
-
-            protected override void AddSectionDependentData(FailureMechanismSection section)
-            {
-                base.AddSectionDependentData(section);
-                sectionResults.Add(new AdoptableFailureMechanismSectionResult(section));
-            }
         }
     }
 }

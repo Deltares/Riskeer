@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -36,8 +35,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data
     public class GrassCoverErosionInwardsFailureMechanism : FailureMechanismBase<AdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                                                             ICalculatableFailureMechanism
     {
-        private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsFailureMechanism"/> class.
         /// </summary>
@@ -49,13 +46,10 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
-            sectionResults = new ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             DikeProfiles = new DikeProfileCollection();
         }
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
-
-        public override IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
 
         /// <summary>
         /// Gets the general grass cover erosion inwards calculation input parameters that apply to each calculation.
@@ -68,17 +62,5 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         public DikeProfileCollection DikeProfiles { get; }
 
         public CalculationGroup CalculationsGroup { get; }
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-
-            sectionResults.Add(new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResults.Clear();
-        }
     }
 }

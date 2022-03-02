@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 
@@ -35,7 +34,6 @@ namespace Riskeer.Common.Data.TestUtil
     {
         private const string defaultName = "Test failure mechanism";
         private const string defaultCode = "TFM";
-        private readonly ObservableList<TestFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Creates a new instance of <see cref="TestFailureMechanism"/> with a default name and code.
@@ -67,29 +65,15 @@ namespace Riskeer.Common.Data.TestUtil
         private TestFailureMechanism(string name, string code, IEnumerable<ICalculation> calculations)
             : base(name, code)
         {
-            sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup();
             CalculationsGroup.Children.AddRange(calculations);
             GeneralInput = new GeneralInput();
         }
-
-        public override IObservableEnumerable<TestFailureMechanismSectionResult> SectionResults => sectionResults;
 
         public CalculationGroup CalculationsGroup { get; }
 
         public GeneralInput GeneralInput { get; }
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-            sectionResults.Add(new TestFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResults.Clear();
-        }
     }
 }

@@ -40,11 +40,11 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void Constructor_NullOrEmptyName_ThrowsArgumentException(string name)
         {
             // Call
-            TestDelegate test = () => new SimpleFailureMechanismBase(name, "testCode");
+            void Call() => new SimpleFailureMechanismBase(name, "testCode");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentException>(test).ParamName;
-            Assert.AreEqual("failureMechanismName", paramName);
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual("failureMechanismName", exception.ParamName);
         }
 
         [Test]
@@ -53,11 +53,11 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void Constructor_NullOrEmptyCode_ThrowsArgumentException(string code)
         {
             // Call
-            TestDelegate test = () => new SimpleFailureMechanismBase("testName", code);
+            void Call() => new SimpleFailureMechanismBase("testName", code);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentException>(test).ParamName;
-            Assert.AreEqual("failureMechanismCode", paramName);
+            var exception = Assert.Throws<ArgumentException>(Call);
+            Assert.AreEqual("failureMechanismCode", exception.ParamName);
         }
 
         [Test]
@@ -83,8 +83,9 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             Assert.IsNotNull(failureMechanism.AssemblyResult);
             Assert.IsTrue(failureMechanism.InAssembly);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
-        
+
         [Test]
         [SetCulture("nl-NL")]
         [TestCase(double.NaN)]
@@ -150,7 +151,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void SetSections_ValidSections_SectionsAndSourcePathSet()
+        public void SetSections_ValidSections_SectionsAndSourcePathAndSectionRestulsSet()
         {
             // Setup
             string sourcePath = TestHelper.GetScratchPadPath();
@@ -170,21 +171,20 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                 new Point2D(-2, -1)
             });
 
-            // Call
-            failureMechanism.SetSections(new[]
+            FailureMechanismSection[] sections =
             {
                 section1,
                 section2
-            }, sourcePath);
+            };
+
+            // Call
+            failureMechanism.SetSections(sections, sourcePath);
 
             // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                section1,
-                section2
-            }, failureMechanism.Sections);
             Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
-            Assert.IsTrue(failureMechanism.SectionDependentDataAdded);
+            CollectionAssert.AreEqual(sections, failureMechanism.Sections);
+            Assert.AreEqual(sections.Length, failureMechanism.SectionResults.Count());
+            CollectionAssert.AreEqual(sections, failureMechanism.SectionResults.Select(sr => sr.Section));
         }
 
         [Test]
@@ -273,36 +273,18 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             failureMechanism.ClearAllSections();
 
             // Assert
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
-            Assert.IsTrue(failureMechanism.SectionDependentDataCleared);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
-        private class SimpleFailureMechanismBase : FailureMechanismBase<FailureMechanismSectionResult>
+        private class SimpleFailureMechanismBase : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>
         {
             public SimpleFailureMechanismBase(string name = "SomeName",
                                               string failureMechanismCode = "SomeCode")
                 : base(name, failureMechanismCode) {}
 
             public override IEnumerable<ICalculation> Calculations => throw new NotImplementedException();
-
-            public bool SectionDependentDataCleared { get; private set; }
-
-            public bool SectionDependentDataAdded { get; private set; }
-
-            public override IObservableEnumerable<FailureMechanismSectionResult> SectionResults { get; }
-
-            protected override void AddSectionDependentData(FailureMechanismSection section)
-            {
-                base.AddSectionDependentData(section);
-                SectionDependentDataAdded = true;
-            }
-
-            protected override void ClearSectionDependentData()
-            {
-                base.ClearSectionDependentData();
-                SectionDependentDataCleared = true;
-            }
         }
     }
 }

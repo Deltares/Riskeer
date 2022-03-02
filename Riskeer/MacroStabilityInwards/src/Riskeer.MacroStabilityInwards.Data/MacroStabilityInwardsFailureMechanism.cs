@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.MacroStabilityInwards.Data.Properties;
@@ -35,8 +34,6 @@ namespace Riskeer.MacroStabilityInwards.Data
     public class MacroStabilityInwardsFailureMechanism : FailureMechanismBase<AdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                                                          ICalculatableFailureMechanism
     {
-        private readonly ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanism"/>.
         /// </summary>
@@ -51,8 +48,6 @@ namespace Riskeer.MacroStabilityInwards.Data
             {
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
-
-            sectionResults = new ObservableList<AdoptableWithProfileProbabilityFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
@@ -78,19 +73,6 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// </summary>
         public MacroStabilityInwardsProbabilityAssessmentInput MacroStabilityInwardsProbabilityAssessmentInput { get; }
 
-        public override IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
-
         public CalculationGroup CalculationsGroup { get; }
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-            sectionResults.Add(new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResults.Clear();
-        }
     }
 }

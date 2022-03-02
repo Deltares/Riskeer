@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
@@ -39,8 +38,6 @@ namespace Riskeer.StabilityPointStructures.Data
     public class StabilityPointStructuresFailureMechanism : FailureMechanismBase<AdoptableFailureMechanismSectionResult>,
                                                             ICalculatableFailureMechanism
     {
-        private readonly ObservableList<AdoptableFailureMechanismSectionResult> sectionResults;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityPointStructuresFailureMechanism"/> class.
         /// </summary>
@@ -54,8 +51,6 @@ namespace Riskeer.StabilityPointStructures.Data
             GeneralInput = new GeneralStabilityPointStructuresInput();
             StabilityPointStructures = new StructureCollection<StabilityPointStructure>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
-
-            sectionResults = new ObservableList<AdoptableFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>();
@@ -75,19 +70,6 @@ namespace Riskeer.StabilityPointStructures.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
-        public override IObservableEnumerable<AdoptableFailureMechanismSectionResult> SectionResults => sectionResults;
-
         public CalculationGroup CalculationsGroup { get; }
-
-        protected override void AddSectionDependentData(FailureMechanismSection section)
-        {
-            base.AddSectionDependentData(section);
-            sectionResults.Add(new AdoptableFailureMechanismSectionResult(section));
-        }
-
-        protected override void ClearSectionDependentData()
-        {
-            sectionResults.Clear();
-        }
     }
 }

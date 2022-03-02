@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
@@ -340,23 +339,11 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private class TestNonAdoptableWithProfileProbabilityFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
-            private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
-
-            public TestNonAdoptableWithProfileProbabilityFailureMechanism() : base("Test", "T")
-            {
-                sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
-            }
+            public TestNonAdoptableWithProfileProbabilityFailureMechanism() : base("Test", "T") {}
 
             public override IEnumerable<ICalculation> Calculations { get; }
 
             public bool UseLengthEffect { get; set; }
-            public override IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
-
-            protected override void AddSectionDependentData(FailureMechanismSection section)
-            {
-                base.AddSectionDependentData(section);
-                sectionResults.Add(new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section));
-            }
         }
     }
 }
