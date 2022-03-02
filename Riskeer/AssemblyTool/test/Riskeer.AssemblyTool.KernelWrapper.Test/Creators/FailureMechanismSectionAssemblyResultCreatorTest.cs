@@ -61,7 +61,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             void Call() => FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(result);
 
             // Assert
-            var expectedMessage = $"The value of argument 'category' (99) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
+            var expectedMessage = $"The value of argument 'interpretationCategory' (99) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
         }
 
