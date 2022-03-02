@@ -62,7 +62,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_Name_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_Name_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
-        public AssessmentSectionAssemblyGroup Group => data.Group;
+        public AssessmentSectionAssemblyGroup Group => data.AssessmentSectionAssemblyGroup;
 
         [PropertyOrder(lowerBoundaryPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
