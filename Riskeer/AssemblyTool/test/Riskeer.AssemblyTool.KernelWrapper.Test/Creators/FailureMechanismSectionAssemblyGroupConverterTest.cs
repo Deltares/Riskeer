@@ -32,16 +32,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
     public class FailureMechanismSectionAssemblyGroupConverterTest
     {
         [Test]
-        public void ConvertTo_InvalidCategory_ThrowsInvalidEnumArgumentException()
+        public void ConvertTo_InvalidInterpretationCategory_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            const EInterpretationCategory category = (EInterpretationCategory) 99;
+            const EInterpretationCategory interpretationCategory = (EInterpretationCategory) 99;
 
             // Call
-            void Call() => FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category);
+            void Call() => FailureMechanismSectionAssemblyGroupConverter.ConvertTo(interpretationCategory);
 
             // Assert
-            var expectedMessage = $"The value of argument 'category' ({category}) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
+            var expectedMessage = $"The value of argument 'interpretationCategory' ({interpretationCategory}) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
         }
 
@@ -56,17 +56,17 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EInterpretationCategory.IIIMin, FailureMechanismSectionAssemblyGroup.IIIMin)]
         [TestCase(EInterpretationCategory.Dominant, FailureMechanismSectionAssemblyGroup.Dominant)]
         [TestCase(EInterpretationCategory.Gr, FailureMechanismSectionAssemblyGroup.Gr)]
-        public void ConvertTo_ValidCategory_ReturnsExpectedValue(EInterpretationCategory category, FailureMechanismSectionAssemblyGroup expectedAssemblyGroup)
+        public void ConvertTo_ValidInterpretationCategory_ReturnsExpectedValue(EInterpretationCategory interpretationCategory, FailureMechanismSectionAssemblyGroup expectedAssemblyGroup)
         {
             // Call
-            FailureMechanismSectionAssemblyGroup convertedAssemblyGroup = FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category);
+            FailureMechanismSectionAssemblyGroup convertedAssemblyGroup = FailureMechanismSectionAssemblyGroupConverter.ConvertTo(interpretationCategory);
 
             // Assert
             Assert.AreEqual(expectedAssemblyGroup, convertedAssemblyGroup);
         }
 
         [Test]
-        public void ConvertFrom_InvalidFailureMechanismSectionAssemblyGroup_ThrowsInvalidEnumArgumentException()
+        public void ConvertFrom_InvalidAssemblyGroup_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             const FailureMechanismSectionAssemblyGroup assemblyGroup = (FailureMechanismSectionAssemblyGroup) 99;
@@ -90,13 +90,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyGroup.IIIMin, EInterpretationCategory.IIIMin)]
         [TestCase(FailureMechanismSectionAssemblyGroup.Dominant, EInterpretationCategory.Dominant)]
         [TestCase(FailureMechanismSectionAssemblyGroup.Gr, EInterpretationCategory.Gr)]
-        public void ConvertFrom_ValidAssemblyGroup_ReturnsExpectedValue(FailureMechanismSectionAssemblyGroup assemblyGroup, EInterpretationCategory expectedCategory)
+        public void ConvertFrom_ValidAssemblyGroup_ReturnsExpectedValue(FailureMechanismSectionAssemblyGroup assemblyGroup, EInterpretationCategory expectedInterpretationCategory)
         {
             // Call
-            EInterpretationCategory convertedCategory = FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(assemblyGroup);
+            EInterpretationCategory convertedInterpretationCategory = FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(assemblyGroup);
 
             // Assert
-            Assert.AreEqual(expectedCategory, convertedCategory);
+            Assert.AreEqual(expectedInterpretationCategory, convertedInterpretationCategory);
         }
     }
 }
