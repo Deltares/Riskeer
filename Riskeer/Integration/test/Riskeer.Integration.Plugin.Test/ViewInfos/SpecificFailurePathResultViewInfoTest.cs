@@ -19,24 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
-using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Views;
-using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
+using Riskeer.Integration.Forms.PresentationObjects;
 
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class PipingStructureFailureMechanismResultViewInfoTest
+    public class SpecificFailurePathResultViewInfoTest
     {
         private MockRepository mocks;
         private RiskeerPlugin plugin;
@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>));
         }
 
         [TearDown]
@@ -60,8 +60,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingStructureFailureMechanismSectionResultContext), info.DataType);
-            Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>), info.ViewDataType);
+            Assert.AreEqual(typeof(SpecificFailurePathSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>), info.ViewDataType);
         }
 
         [Test]
@@ -71,8 +71,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingStructureFailureMechanism();
-            var context = new PipingStructureFailureMechanismSectionResultContext(
+            var failureMechanism = new SpecificFailurePath();
+            var context = new SpecificFailurePathSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
@@ -94,17 +94,21 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
+        public void CloseForData_AssessmentSectionRemovedWithoutFailurePath_ReturnsFalse()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
             assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingStructureFailureMechanism();
-            using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
+            var failureMechanism = new SpecificFailurePath();
+
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
+                       failureMechanism.SectionResults, failureMechanism,
+                       fm => fm.GeneralInput.N,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -120,18 +124,23 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
+            var otherFailureMechanism = new SpecificFailurePath();
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
+            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>
             {
                 otherFailureMechanism
             });
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingStructureFailureMechanism();
-            using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
+            var failureMechanism = new SpecificFailurePath();
+
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
+                       failureMechanism.SectionResults, failureMechanism,
+                       fm => fm.GeneralInput.N,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -147,17 +156,21 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new PipingStructureFailureMechanism();
+            var failureMechanism = new SpecificFailurePath();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
+            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>
             {
                 failureMechanism
             });
             mocks.ReplayAll();
 
-            using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
+                       failureMechanism.SectionResults, failureMechanism,
+                       fm => fm.GeneralInput.N,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -170,18 +183,20 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new PipingStructureFailureMechanism();
-
-            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
-            failurePathContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
+            var failureMechanism = new SpecificFailurePath();
+            var failurePathContext = new SpecificFailurePathContext(failureMechanism, assessmentSection);
+
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
+                       failureMechanism.SectionResults, failureMechanism,
+                       fm => fm.GeneralInput.N,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -197,15 +212,17 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
-            failurePathContext.Expect(fm => fm.WrappedData).Return(new PipingStructureFailureMechanism());
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingStructureFailureMechanism();
+            var failureMechanism = new SpecificFailurePath();
+            var failurePathContext = new SpecificFailurePathContext(new SpecificFailurePath(), assessmentSection);
 
-            using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
+                       failureMechanism.SectionResults, failureMechanism,
+                       fm => fm.GeneralInput.N,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -224,15 +241,15 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new PipingStructureFailureMechanism();
-            var context = new PipingStructureFailureMechanismSectionResultContext(
+            var failureMechanism = new SpecificFailurePath();
+            var context = new SpecificFailurePathSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>>(view);
+            Assert.IsInstanceOf<NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>>(view);
             mocks.VerifyAll();
         }
     }

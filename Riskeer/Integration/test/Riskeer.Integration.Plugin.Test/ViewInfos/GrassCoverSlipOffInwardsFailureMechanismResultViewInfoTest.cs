@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Integration.Data.StandAlone;
@@ -99,6 +100,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
@@ -129,6 +131,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 otherFailureMechanism
             });
+            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();

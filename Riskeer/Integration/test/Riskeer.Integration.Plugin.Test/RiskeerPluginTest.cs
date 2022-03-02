@@ -337,7 +337,7 @@ namespace Riskeer.Integration.Plugin.Test
                     propertyInfos,
                     typeof(FailureMechanismSectionAssemblyGroupsContext),
                     typeof(FailureMechanismSectionAssemblyGroupsProperties));
-                
+
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(AssessmentSectionAssemblyGroupsContext),
@@ -392,7 +392,7 @@ namespace Riskeer.Integration.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(26, viewInfos.Length);
+                Assert.AreEqual(27, viewInfos.Length);
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -461,6 +461,12 @@ namespace Riskeer.Integration.Plugin.Test
                     typeof(PipingStructureFailureMechanismSectionResultContext),
                     typeof(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>),
                     typeof(NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(SpecificFailurePathSectionResultContext),
+                    typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
+                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

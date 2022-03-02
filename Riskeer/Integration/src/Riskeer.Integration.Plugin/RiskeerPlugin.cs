@@ -435,6 +435,9 @@ namespace Riskeer.Integration.Plugin
             yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(
                 fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
 
+            yield return CreateFailureMechanismResultViewInfo<SpecificFailurePathSectionResultContext, SpecificFailurePath>(
+                fp => fp.GeneralInput.N, fp => fp.GeneralInput.ApplyLengthEffectInSection);
+
             yield return new RiskeerViewInfo<SpecificFailurePathContext, SpecificFailurePathView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
@@ -1428,7 +1431,8 @@ namespace Riskeer.Integration.Plugin
 
         #region FailureMechanismResults ViewInfo
 
-        private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TSectionResult, TView, TSectionResultRow>(TView view, object dataToCloseFor)
+        private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TSectionResult, TView, TSectionResultRow>(
+            TView view, object dataToCloseFor)
             where TFailureMechanism : class, IFailurePath<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
             where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
@@ -1439,10 +1443,13 @@ namespace Riskeer.Integration.Plugin
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<TFailureMechanism>()
-                                                    .FirstOrDefault();
+                                                    .FirstOrDefault()
+                                   ?? assessmentSection.SpecificFailurePaths
+                                                       .Cast<TFailureMechanism>()
+                                                       .FirstOrDefault(fp => fp == view.FailureMechanism);
             }
 
-            if (dataToCloseFor is IFailurePathContext<IFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is IFailurePathContext<IFailurePath> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData as TFailureMechanism;
             }
