@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Providers;
 using Riskeer.Common.Forms.Views;
@@ -113,9 +112,9 @@ namespace Riskeer.Piping.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override double GetN()
+        protected override double GetFailureMechanismAssemblyResult()
         {
-            return FailureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length);
+            return PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection);
         }
 
         protected override AdoptableWithProfileProbabilityFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)

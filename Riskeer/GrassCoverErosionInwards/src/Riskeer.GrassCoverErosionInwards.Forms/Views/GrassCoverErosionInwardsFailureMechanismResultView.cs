@@ -135,9 +135,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override double GetN()
+        protected override double GetFailureMechanismAssemblyResult()
         {
-            return FailureMechanism.GeneralInput.N;
+            return GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection);
         }
 
         protected override void AddDataGridColumns()
