@@ -35,25 +35,25 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     {
         /// <summary>
         /// Creates a collection of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>
-        /// based on the information given in the <paramref name="groups"/>.
+        /// based on the information given in the <paramref name="assessmentSectionCategories"/>.
         /// </summary>
-        /// <param name="groups">The <see cref="CategoriesList{TCategory}"/> with <see cref="AssessmentSectionCategory"/>
+        /// <param name="assessmentSectionCategories">The <see cref="CategoriesList{TCategory}"/> with <see cref="AssessmentSectionCategory"/>
         /// to create the result for.</param>
         /// <returns>A collection of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>
-        /// with information taken from the <paramref name="groups"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="groups"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="groups"/>
+        /// with information taken from the <paramref name="assessmentSectionCategories"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSectionCategories"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assessmentSectionCategories"/>
         /// contains an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="groups"/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="assessmentSectionCategories"/>
         /// contains a valid value, but unsupported.</exception>
-        public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyCategories(CategoriesList<AssessmentSectionCategory> groups)
+        public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyCategories(CategoriesList<AssessmentSectionCategory> assessmentSectionCategories)
         {
-            if (groups == null)
+            if (assessmentSectionCategories == null)
             {
-                throw new ArgumentNullException(nameof(groups));
+                throw new ArgumentNullException(nameof(assessmentSectionCategories));
             }
 
-            return groups.Categories.Select(
+            return assessmentSectionCategories.Categories.Select(
                 categoriesOutput => new AssessmentSectionAssemblyGroupBoundaries(
                     categoriesOutput.LowerLimit,
                     categoriesOutput.UpperLimit,
@@ -61,24 +61,24 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         }
 
         /// <summary>
-        /// Creates an <see cref="AssessmentSectionAssemblyGroup"/> based on <paramref name="group"/>.
+        /// Creates an <see cref="AssessmentSectionAssemblyGroup"/> based on <paramref name="assessmentGrade"/>.
         /// </summary>
-        /// <param name="group">The <see cref="EAssessmentGrade"/> to convert.</param>
-        /// <returns>A <see cref="AssessmentSectionAssemblyGroup"/> based on <paramref name="group"/>.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="group"/>
+        /// <param name="assessmentGrade">The <see cref="EAssessmentGrade"/> to convert.</param>
+        /// <returns>A <see cref="AssessmentSectionAssemblyGroup"/> based on <paramref name="assessmentGrade"/>.</returns>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assessmentGrade"/>
         /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="group"/>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="assessmentGrade"/>
         /// is a valid value, but unsupported.</exception>
-        public static AssessmentSectionAssemblyGroup CreateAssessmentSectionAssemblyGroup(EAssessmentGrade group)
+        public static AssessmentSectionAssemblyGroup CreateAssessmentSectionAssemblyGroup(EAssessmentGrade assessmentGrade)
         {
-            if (!Enum.IsDefined(typeof(EAssessmentGrade), group))
+            if (!Enum.IsDefined(typeof(EAssessmentGrade), assessmentGrade))
             {
-                throw new InvalidEnumArgumentException(nameof(group),
-                                                       (int) group,
+                throw new InvalidEnumArgumentException(nameof(assessmentGrade),
+                                                       (int) assessmentGrade,
                                                        typeof(EAssessmentGrade));
             }
 
-            switch (group)
+            switch (assessmentGrade)
             {
                 case EAssessmentGrade.APlus:
                     return AssessmentSectionAssemblyGroup.APlus;
