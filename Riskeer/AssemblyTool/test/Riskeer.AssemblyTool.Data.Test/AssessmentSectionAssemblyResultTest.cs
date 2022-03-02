@@ -34,14 +34,14 @@ namespace Riskeer.AssemblyTool.Data.Test
             // Setup
             var random = new Random(21);
             double probability = random.NextDouble();
-            var group = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
+            var assemblyGroup = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
 
             // Call
-            var result = new AssessmentSectionAssemblyResult(probability, group);
+            var result = new AssessmentSectionAssemblyResult(probability, assemblyGroup);
 
             // Assert
             Assert.AreEqual(probability, result.Probability);
-            Assert.AreEqual(group, result.AssemblyGroup);
+            Assert.AreEqual(assemblyGroup, result.AssemblyGroup);
         }
     }
 }

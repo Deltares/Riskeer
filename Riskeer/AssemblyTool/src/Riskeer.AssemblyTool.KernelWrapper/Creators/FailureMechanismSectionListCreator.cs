@@ -59,7 +59,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                                                                  sectionCollection.Select(
                                                                      s => new FailureMechanismSectionWithCategory(
                                                                          s.SectionStart, s.SectionEnd,
-                                                                         FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(s.AssemblyGroup)))))
+                                                                         FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(s.FailureMechanismSectionAssemblyGroup)))))
                                                      .ToArray();
         }
     }

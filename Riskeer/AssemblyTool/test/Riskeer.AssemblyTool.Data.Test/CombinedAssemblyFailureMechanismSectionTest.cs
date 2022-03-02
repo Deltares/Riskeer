@@ -43,7 +43,7 @@ namespace Riskeer.AssemblyTool.Data.Test
             // Assert
             Assert.AreEqual(sectionStart, assembly.SectionStart);
             Assert.AreEqual(sectionEnd, assembly.SectionEnd);
-            Assert.AreEqual(assemblyGroup, assembly.AssemblyGroup);
+            Assert.AreEqual(assemblyGroup, assembly.FailureMechanismSectionAssemblyGroup);
         }
     }
 }

@@ -33,18 +33,18 @@ namespace Riskeer.AssemblyTool.Data.Test
         {
             // Setup
             var random = new Random(39);
-            var assessmentSectionGroup = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
+            var assessmentSectionAssemblyGroup = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
 
             // Call
-            var groupBoundaries = new AssessmentSectionAssemblyGroupBoundaries(lowerBoundary, upperBoundary, assessmentSectionGroup);
+            var groupBoundaries = new AssessmentSectionAssemblyGroupBoundaries(lowerBoundary, upperBoundary, assessmentSectionAssemblyGroup);
 
             // Assert
             Assert.IsInstanceOf<AssemblyGroupBoundaries>(groupBoundaries);
             Assert.AreEqual(lowerBoundary, groupBoundaries.LowerBoundary);
             Assert.AreEqual(upperBoundary, groupBoundaries.UpperBoundary);
-            Assert.AreEqual(assessmentSectionGroup, groupBoundaries.Group);
+            Assert.AreEqual(assessmentSectionAssemblyGroup, groupBoundaries.AssessmentSectionAssemblyGroup);
         }
     }
 }

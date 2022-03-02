@@ -126,7 +126,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                     AssessmentSectionAssemblyGroupBoundaries assemblyGroup = output.ElementAt(i);
 
                     AssessmentSectionAssemblyGroupProperties property = assessmentSectionAssemblyGroups[i];
-                    Assert.AreEqual(assemblyGroup.Group, property.Group);
+                    Assert.AreEqual(assemblyGroup.AssessmentSectionAssemblyGroup, property.Group);
                     Assert.AreEqual(assemblyGroup.UpperBoundary, property.UpperBoundary);
                     Assert.AreEqual(assemblyGroup.LowerBoundary, property.LowerBoundary);
                 }

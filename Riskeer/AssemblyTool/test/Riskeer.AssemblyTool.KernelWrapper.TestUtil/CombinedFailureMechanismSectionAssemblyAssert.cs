@@ -53,7 +53,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
                 Assert.AreEqual(combinedResult.SectionStart, actualCombinedFailureMechanismSectionAssembly.Section.SectionStart);
                 Assert.AreEqual(combinedResult.SectionEnd, actualCombinedFailureMechanismSectionAssembly.Section.SectionEnd);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(combinedResult.Category),
-                                actualCombinedFailureMechanismSectionAssembly.Section.AssemblyGroup);
+                                actualCombinedFailureMechanismSectionAssembly.Section.FailureMechanismSectionAssemblyGroup);
 
                 FailureMechanismSectionList[] failureMechanismResults = original.ResultPerFailureMechanism.ToArray();
                 Assert.AreEqual(failureMechanismResults.Length, actualCombinedFailureMechanismSectionAssembly.FailureMechanismSectionAssemblyGroupResults.Count());

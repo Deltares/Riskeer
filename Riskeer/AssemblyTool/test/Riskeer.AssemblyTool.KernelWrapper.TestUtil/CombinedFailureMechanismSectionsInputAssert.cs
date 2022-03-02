@@ -61,7 +61,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
 
             CollectionAssert.AreEqual(originalSections.Select(s => s.SectionStart), failureMechanismSections.Select(r => r.SectionStart));
             CollectionAssert.AreEqual(originalSections.Select(s => s.SectionEnd), failureMechanismSections.Select(r => r.SectionEnd));
-            CollectionAssert.AreEqual(originalSections.Select(s => FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(s.AssemblyGroup)),
+            CollectionAssert.AreEqual(originalSections.Select(s => FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(s.FailureMechanismSectionAssemblyGroup)),
                                       failureMechanismSections.Select(fms => fms)
                                                               .Cast<FailureMechanismSectionWithCategory>()
                                                               .Select(c => c.Category));

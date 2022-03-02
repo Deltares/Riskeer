@@ -29,18 +29,18 @@ namespace Riskeer.AssemblyTool.Data
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.
         /// </summary>
-        /// <param name="lowerBoundary">The lower boundary of the group.</param>
-        /// <param name="upperBoundary">The upper boundary of the group.</param>
-        /// <param name="group">The actual assessment section group.</param>
-        public AssessmentSectionAssemblyGroupBoundaries(double lowerBoundary, double upperBoundary, AssessmentSectionAssemblyGroup group)
+        /// <param name="lowerBoundary">The lower boundary of the assembly group.</param>
+        /// <param name="upperBoundary">The upper boundary of the assembly group.</param>
+        /// <param name="assessmentSectionAssemblyGroup">The actual assessment section assembly group.</param>
+        public AssessmentSectionAssemblyGroupBoundaries(double lowerBoundary, double upperBoundary, AssessmentSectionAssemblyGroup assessmentSectionAssemblyGroup)
             : base(lowerBoundary, upperBoundary)
         {
-            Group = group;
+            AssessmentSectionAssemblyGroup = assessmentSectionAssemblyGroup;
         }
 
         /// <summary>
-        /// Gets the actual assessment section group.
+        /// Gets the actual assessment section assembly group.
         /// </summary>
-        public AssessmentSectionAssemblyGroup Group { get; }
+        public AssessmentSectionAssemblyGroup AssessmentSectionAssemblyGroup { get; }
     }
 }

@@ -65,7 +65,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             get
             {
-                return data.Group;
+                return data.AssessmentSectionAssemblyGroup;
             }
         }
 

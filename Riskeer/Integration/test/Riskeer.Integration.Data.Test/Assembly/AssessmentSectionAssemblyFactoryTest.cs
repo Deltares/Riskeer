@@ -193,7 +193,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     {
                         Assert.AreEqual(expectedSections[j].SectionStart, actualSections[j].SectionStart);
                         Assert.AreEqual(expectedSections[j].SectionEnd, actualSections[j].SectionEnd);
-                        Assert.AreEqual(expectedSections[j].AssemblyGroup, actualSections[j].AssemblyGroup);
+                        Assert.AreEqual(expectedSections[j].FailureMechanismSectionAssemblyGroup, actualSections[j].FailureMechanismSectionAssemblyGroup);
                     }
                 }
             }

@@ -91,8 +91,8 @@ namespace Riskeer.Integration.Forms.Views
                                                                    FailureMechanismContribution.LowerLimitNorm)
                                                                .Select(group => new Tuple<AssemblyGroupBoundaries, Color, AssessmentSectionAssemblyGroup>(
                                                                            group,
-                                                                           AssessmentSectionAssemblyGroupColorHelper.GetAssessmentSectionAssemblyGroupColor(group.Group),
-                                                                           group.Group)).ToArray());
+                                                                           AssessmentSectionAssemblyGroupColorHelper.GetAssessmentSectionAssemblyGroupColor(group.AssessmentSectionAssemblyGroup),
+                                                                           group.AssessmentSectionAssemblyGroup)).ToArray());
         }
     }
 }

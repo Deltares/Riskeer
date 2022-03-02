@@ -195,7 +195,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
             for (var i = 0; i < originalSectionResults.Count(); i++)
             {
-                Assert.AreEqual(expectedAssemblyGroupInput, inputSections.ElementAt(i).AssemblyGroup);
+                Assert.AreEqual(expectedAssemblyGroupInput, inputSections.ElementAt(i).FailureMechanismSectionAssemblyGroup);
             }
         }
 

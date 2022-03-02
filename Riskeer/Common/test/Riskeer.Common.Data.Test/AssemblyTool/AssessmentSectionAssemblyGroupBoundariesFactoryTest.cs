@@ -79,7 +79,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 Assert.AreEqual(calculatorOutput.Length, output.Length);
                 CollectionAssert.AreEqual(calculatorOutput.Select(co => co.LowerBoundary), output.Select(o => o.LowerBoundary));
                 CollectionAssert.AreEqual(calculatorOutput.Select(co => co.UpperBoundary), output.Select(o => o.UpperBoundary));
-                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.Group), output.Select(o => o.Group));
+                CollectionAssert.AreEqual(calculatorOutput.Select(co => co.AssessmentSectionAssemblyGroup), output.Select(o => o.AssessmentSectionAssemblyGroup));
             }
         }
 

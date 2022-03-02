@@ -111,7 +111,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(i + 1, results[i].SectionNumber);
                 Assert.AreEqual(output[i].Section.SectionStart, results[i].SectionStart);
                 Assert.AreEqual(output[i].Section.SectionEnd, results[i].SectionEnd);
-                Assert.AreEqual(output[i].Section.AssemblyGroup, results[i].TotalResult);
+                Assert.AreEqual(output[i].Section.FailureMechanismSectionAssemblyGroup, results[i].TotalResult);
 
                 Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.Piping]), results[i].Piping);
                 Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.GrassCoverErosionInwards]), results[i].GrassCoverErosionInwards);
@@ -164,7 +164,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             {
                 Assert.AreEqual(output[i].Section.SectionStart, results[i].SectionStart);
                 Assert.AreEqual(output[i].Section.SectionEnd, results[i].SectionEnd);
-                Assert.AreEqual(output[i].Section.AssemblyGroup, results[i].TotalResult);
+                Assert.AreEqual(output[i].Section.FailureMechanismSectionAssemblyGroup, results[i].TotalResult);
 
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].Piping);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].GrassCoverErosionInwards);

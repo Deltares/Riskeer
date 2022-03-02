@@ -31,12 +31,12 @@ namespace Riskeer.AssemblyTool.Data
         /// </summary>
         /// <param name="sectionStart">The start of the section from the beginning of the reference line in meters.</param>
         /// <param name="sectionEnd">The end of the section from the beginning of the reference line in meters.</param>
-        /// <param name="assemblyGroup">The assembly group.</param>
-        public CombinedAssemblyFailureMechanismSection(double sectionStart, double sectionEnd, FailureMechanismSectionAssemblyGroup assemblyGroup)
+        /// <param name="failureMechanismSectionAssemblyGroup">The failure mechanism section assembly group.</param>
+        public CombinedAssemblyFailureMechanismSection(double sectionStart, double sectionEnd, FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup)
         {
             SectionStart = sectionStart;
             SectionEnd = sectionEnd;
-            AssemblyGroup = assemblyGroup;
+            FailureMechanismSectionAssemblyGroup = failureMechanismSectionAssemblyGroup;
         }
 
         /// <summary>
@@ -52,8 +52,8 @@ namespace Riskeer.AssemblyTool.Data
         public double SectionEnd { get; }
 
         /// <summary>
-        /// Gets the assembly group.
+        /// Gets the failure mechanism section assembly group.
         /// </summary>
-        public FailureMechanismSectionAssemblyGroup AssemblyGroup { get; }
+        public FailureMechanismSectionAssemblyGroup FailureMechanismSectionAssemblyGroup { get; }
     }
 }
