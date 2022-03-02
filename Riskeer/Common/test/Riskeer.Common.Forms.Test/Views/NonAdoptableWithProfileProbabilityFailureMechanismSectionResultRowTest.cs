@@ -516,7 +516,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
             Assert.AreEqual(rowAssemblyResult.N, row.SectionN, row.SectionN.GetAccuracy());
             Assert.AreEqual(2, row.SectionN.NumberOfDecimalPlaces);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.AssemblyGroup),
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.FailureMechanismSectionAssemblyGroup),
                             row.AssemblyGroup);
 
             mocks.VerifyAll();
@@ -562,7 +562,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(expectedAssemblyResult.N, actualAssemblyResult.N);
             Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualAssemblyResult.SectionProbability);
             Assert.AreEqual(expectedAssemblyResult.ProfileProbability, actualAssemblyResult.ProfileProbability);
-            Assert.AreEqual(expectedAssemblyResult.AssemblyGroup, actualAssemblyResult.AssemblyGroup);
+            Assert.AreEqual(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup, actualAssemblyResult.FailureMechanismSectionAssemblyGroup);
 
             mocks.VerifyAll();
         }

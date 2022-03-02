@@ -174,7 +174,7 @@ namespace Riskeer.Integration.Data.Assembly
                                          sectionResult, sr => getAssemblyFunc(sr, assessmentSection));
 
                                      CombinedAssemblyFailureMechanismSection section = CreateSection(
-                                         sectionResult, failureMechanismSectionAssemblyResult.AssemblyGroup, totalSectionsLength);
+                                         sectionResult, failureMechanismSectionAssemblyResult.FailureMechanismSectionAssemblyGroup, totalSectionsLength);
                                      totalSectionsLength = section.SectionEnd;
                                      return section;
                                  })

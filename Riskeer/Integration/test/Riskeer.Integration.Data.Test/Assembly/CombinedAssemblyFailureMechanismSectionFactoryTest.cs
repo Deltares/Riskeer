@@ -85,21 +85,21 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 // Assert
                 Assert.AreEqual(15, inputs.Count());
 
-                AssertSectionsWithResult(assessmentSection.Piping.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(0));
-                AssertSectionsWithResult(assessmentSection.GrassCoverErosionInwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(1));
-                AssertSectionsWithResult(assessmentSection.MacroStabilityInwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(2));
-                AssertSectionsWithResult(assessmentSection.Microstability.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(3));
-                AssertSectionsWithResult(assessmentSection.StabilityStoneCover.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(4));
-                AssertSectionsWithResult(assessmentSection.WaveImpactAsphaltCover.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(5));
-                AssertSectionsWithResult(assessmentSection.WaterPressureAsphaltCover.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(6));
-                AssertSectionsWithResult(assessmentSection.GrassCoverErosionOutwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(7));
-                AssertSectionsWithResult(assessmentSection.GrassCoverSlipOffOutwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(8));
-                AssertSectionsWithResult(assessmentSection.GrassCoverSlipOffInwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(9));
-                AssertSectionsWithResult(assessmentSection.HeightStructures.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(10));
-                AssertSectionsWithResult(assessmentSection.ClosingStructures.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(11));
-                AssertSectionsWithResult(assessmentSection.PipingStructure.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(12));
-                AssertSectionsWithResult(assessmentSection.StabilityPointStructures.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(13));
-                AssertSectionsWithResult(assessmentSection.DuneErosion.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyGroup, inputs.ElementAt(14));
+                AssertSectionsWithResult(assessmentSection.Piping.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(0));
+                AssertSectionsWithResult(assessmentSection.GrassCoverErosionInwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(1));
+                AssertSectionsWithResult(assessmentSection.MacroStabilityInwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(2));
+                AssertSectionsWithResult(assessmentSection.Microstability.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(3));
+                AssertSectionsWithResult(assessmentSection.StabilityStoneCover.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(4));
+                AssertSectionsWithResult(assessmentSection.WaveImpactAsphaltCover.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(5));
+                AssertSectionsWithResult(assessmentSection.WaterPressureAsphaltCover.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(6));
+                AssertSectionsWithResult(assessmentSection.GrassCoverErosionOutwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(7));
+                AssertSectionsWithResult(assessmentSection.GrassCoverSlipOffOutwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(8));
+                AssertSectionsWithResult(assessmentSection.GrassCoverSlipOffInwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(9));
+                AssertSectionsWithResult(assessmentSection.HeightStructures.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(10));
+                AssertSectionsWithResult(assessmentSection.ClosingStructures.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(11));
+                AssertSectionsWithResult(assessmentSection.PipingStructure.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(12));
+                AssertSectionsWithResult(assessmentSection.StabilityPointStructures.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(13));
+                AssertSectionsWithResult(assessmentSection.DuneErosion.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(14));
             }
         }
 

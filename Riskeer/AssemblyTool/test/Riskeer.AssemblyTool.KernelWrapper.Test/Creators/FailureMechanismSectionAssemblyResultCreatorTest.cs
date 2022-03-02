@@ -85,7 +85,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             Assert.AreEqual(sectionProbability, createdAssemblyResult.SectionProbability);
             Assert.AreEqual(result.NSection, createdAssemblyResult.N);
             Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category),
-                            createdAssemblyResult.AssemblyGroup);
+                            createdAssemblyResult.FailureMechanismSectionAssemblyGroup);
         }
     }
 }

@@ -225,7 +225,7 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Gets the assembly group.
         /// </summary>
-        public string AssemblyGroup => FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(AssemblyResult.AssemblyGroup);
+        public string AssemblyGroup => FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(AssemblyResult.FailureMechanismSectionAssemblyGroup);
 
         public override void Update()
         {
@@ -335,7 +335,7 @@ namespace Riskeer.Common.Forms.Views
                 ColumnStateHelper.EnableColumn(ColumnStateDefinitions[refinedSectionProbabilityIndex]);
             }
 
-            FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(ColumnStateDefinitions[assemblyGroupIndex], AssemblyResult.AssemblyGroup);
+            FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(ColumnStateDefinitions[assemblyGroupIndex], AssemblyResult.FailureMechanismSectionAssemblyGroup);
         }
 
         /// <summary>

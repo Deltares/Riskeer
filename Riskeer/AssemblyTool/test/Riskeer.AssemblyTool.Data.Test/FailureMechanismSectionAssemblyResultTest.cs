@@ -36,19 +36,19 @@ namespace Riskeer.AssemblyTool.Data.Test
             double profileProbability = random.NextDouble();
             double sectionProbability = random.NextDouble();
             double n = random.NextDouble();
-            var interpretationCategory = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
 
             // Call
             var assembly = new FailureMechanismSectionAssemblyResult(profileProbability,
                                                                      sectionProbability,
                                                                      n,
-                                                                     interpretationCategory);
+                                                                     assemblyGroup);
 
             // Assert
             Assert.AreEqual(profileProbability, assembly.ProfileProbability);
             Assert.AreEqual(sectionProbability, assembly.SectionProbability);
             Assert.AreEqual(n, assembly.N);
-            Assert.AreEqual(interpretationCategory, assembly.AssemblyGroup);
+            Assert.AreEqual(assemblyGroup, assembly.FailureMechanismSectionAssemblyGroup);
         }
     }
 }

@@ -53,7 +53,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             return new KernelFailureMechanismSectionAssemblyResult(
                 AssemblyCalculatorInputCreator.CreateProbability(result.ProfileProbability),
                 AssemblyCalculatorInputCreator.CreateProbability(result.SectionProbability),
-                FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(result.AssemblyGroup));
+                FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(result.FailureMechanismSectionAssemblyGroup));
         }
     }
 }

@@ -81,7 +81,7 @@ namespace Riskeer.Common.Forms.Factories
                 }
 
                 feature.MetaData[Resources.AssemblyGroup_DisplayName] =
-                    FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(assemblyResult.AssemblyGroup);
+                    FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(assemblyResult.FailureMechanismSectionAssemblyGroup);
                 feature.MetaData[Resources.AssemblyMapDataFeaturesFactory_ProbabilityPerSection_DisplayName] = assemblyResult.SectionProbability;
 
                 yield return feature;

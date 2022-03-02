@@ -255,7 +255,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             ProbabilityAssert.AreEqual(expected.ProfileProbability, actual.ProbabilityProfile);
             ProbabilityAssert.AreEqual(expected.SectionProbability, actual.ProbabilitySection);
-            Assert.AreEqual(GetInterpretationCategory(expected.AssemblyGroup), actual.InterpretationCategory);
+            Assert.AreEqual(GetInterpretationCategory(expected.FailureMechanismSectionAssemblyGroup), actual.InterpretationCategory);
         }
 
         private static EInterpretationCategory GetInterpretationCategory(FailureMechanismSectionAssemblyGroup assemblyGroup)

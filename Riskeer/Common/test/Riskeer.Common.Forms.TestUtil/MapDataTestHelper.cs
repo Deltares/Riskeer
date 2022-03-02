@@ -319,7 +319,7 @@ namespace Riskeer.Common.Forms.TestUtil
                 CollectionAssert.AreEqual(failureMechanismSection.Points, feature.MapGeometries.Single().PointCollections.Single());
 
                 Assert.AreEqual(2, feature.MetaData.Count);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(expectedAssemblyResult.AssemblyGroup),
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup),
                                 feature.MetaData["Duidingsklasse"]);
                 Assert.AreEqual(expectedAssemblyResult.SectionProbability, feature.MetaData["Rekenwaarde faalkans per vak"]);
             }
