@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Forms.Views
             this.groupBoxPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // failureMechanismAssemblyCategoriesTable
+            // assemblyGroupsTable
             // 
             this.assemblyGroupsTable.Dock = System.Windows.Forms.DockStyle.Fill;
             this.assemblyGroupsTable.MultiSelect = true;

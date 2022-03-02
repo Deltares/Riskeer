@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Forms.Views
             this.assemblyGroupsTable = new AssemblyGroupsTable<AssessmentSectionAssemblyGroup>();
             this.SuspendLayout();
             // 
-            // assessmentSectionAssemblyCategoriesTable
+            // assemblyGroupsTable
             // 
             resources.ApplyResources(this.assemblyGroupsTable, "assemblyGroupsTable");
             this.assemblyGroupsTable.MultiSelect = true;

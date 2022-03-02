@@ -136,7 +136,7 @@
     <value>assemblyGroupsTable</value>
   </data>
   <data name="&gt;&gt;assemblyGroupsTable.Type" xml:space="preserve">
-    <value>Riskeer.Integration.Forms.Views.AssessmentSectionAssemblyCategoriesTable, Riskeer.Common.Forms, Version=18.1.1.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Riskeer.Integration.Forms.Views.AssemblyGroupsTable, Riskeer.Common.Forms, Version=18.1.1.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;assemblyGroupsTable.Parent" xml:space="preserve">
     <value>$this</value>
