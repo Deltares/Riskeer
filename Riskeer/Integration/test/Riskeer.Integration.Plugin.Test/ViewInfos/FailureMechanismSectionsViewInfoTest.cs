@@ -36,7 +36,7 @@ using Riskeer.Common.Plugin.TestUtil;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class FailureMechanismSectionsViewInfoTest
+    public class FailureMechanismSectionsViewInfoTest : ShouldCloseViewWithFailurePathTester
     {
         private static ViewInfo info;
 
@@ -86,23 +86,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.VerifyAll();
         }
 
-        [TestFixture]
-        public class ShouldCloseFailureMechanismSectionsViewForDataTester : ShouldCloseViewWithFailurePathTester
+        protected override bool ShouldCloseMethod(IView view, object o)
         {
-            protected override bool ShouldCloseMethod(IView view, object o)
-            {
-                return info.CloseForData(view, o);
-            }
+            return info.CloseForData(view, o);
+        }
 
-            protected override IView GetView(IFailurePath failurePath)
-            {
-                return new FailureMechanismSectionsView(failurePath.Sections, failurePath);
-            }
-
-            protected override IFailurePath GetFailurePath()
-            {
-                return new TestFailurePath();
-            }
+        protected override IView GetView(IFailurePath failurePath)
+        {
+            return new FailureMechanismSectionsView(failurePath.Sections, failurePath);
         }
     }
 }
