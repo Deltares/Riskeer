@@ -36,10 +36,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateErrorMessage_ErrorMessagesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => AssemblyErrorMessageCreator.CreateErrorMessage(null);
+            void Call() => AssemblyErrorMessageCreator.CreateErrorMessage(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("errorMessages", exception.ParamName);
         }
 
@@ -47,14 +47,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         public void CreateErrorMessage_InvalidAssemblyError_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => AssemblyErrorMessageCreator.CreateErrorMessage(new[]
+            void Call() => AssemblyErrorMessageCreator.CreateErrorMessage(new[]
             {
                 new AssemblyErrorMessage(string.Empty, (EAssemblyErrors) 9999)
             });
 
             // Assert
-            string expectedMessage = $"The value of argument 'assemblyError' (9999) is invalid for Enum type '{nameof(EAssemblyErrors)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(test, expectedMessage);
+            var expectedMessage = $"The value of argument 'assemblyError' (9999) is invalid for Enum type '{nameof(EAssemblyErrors)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
         }
 
         [Test]
