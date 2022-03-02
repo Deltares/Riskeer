@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Util.Test
         }
 
         [Test]
-        public void GetFailureMechanismSectionAssemblyGroupBoundaries_ReturnsCorrectAssemblyGroupBoundaries()
+        public void GetFailureMechanismSectionAssemblyGroupBoundaries_CalculationSuccessful_ReturnsCorrectAssemblyGroupBoundaries()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -76,7 +76,7 @@ namespace Riskeer.Integration.Util.Test
         }
         
         [Test]
-        public void CreateAssemblyGroupsView_CalculatorThrowsException_SetsEmptyDataTable()
+        public void CreateAssemblyGroupsView_CalculatorThrowsException_ReturnsEmptyCollectionOfAssemblyGroupBoundaries()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
