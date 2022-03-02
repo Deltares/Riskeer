@@ -57,7 +57,7 @@ namespace Riskeer.Integration.Forms.Views
         private void AddColumns()
         {
             AddTextBoxColumn(nameof(AssemblyGroupRow<T>.Group),
-                             RiskeerCommonFormsResources.AssemblyGroup_Group_DisplayName,
+                             Resources.AssemblyGroup_Name_DisplayName,
                              true);
 
             AddColorColumn(nameof(AssemblyGroupRow<T>.Color),

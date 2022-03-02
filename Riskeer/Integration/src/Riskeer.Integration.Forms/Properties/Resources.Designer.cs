@@ -464,6 +464,24 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De duidingsklassen per vak voor dit toetsspoor..
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyGroups_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyGroups_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duidingsklassen.
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyGroups_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyGroups_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het label van het faalpad..
         /// </summary>
         public static string FailurePath_Code_Description {

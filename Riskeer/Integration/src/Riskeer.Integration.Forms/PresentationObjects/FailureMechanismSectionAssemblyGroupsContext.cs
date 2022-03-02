@@ -26,7 +26,7 @@ using Riskeer.Integration.Data;
 namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for the assembly groups.
+    /// Presentation object for the failure mechanism section assembly groups.
     /// </summary>
     public class FailureMechanismSectionAssemblyGroupsContext : ObservableWrappedObjectContextBase<AssessmentSection>
     {

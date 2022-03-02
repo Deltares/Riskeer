@@ -1337,9 +1337,6 @@ Betrouwbaarheidsindex = {1}</value>
     <data name="FailureMechanismResultView_FailureMechanismAssemblyLabel" xml:space="preserve">
       <value>Gecombineerde faalkans [1/jaar]</value>
     </data>
-    <data name="AssemblyGroup_Group_DisplayName" xml:space="preserve">
-    <value>Naam</value>
-  </data>
     <data name="AssemblyGroup_Color_DisplayName" xml:space="preserve">
     <value>Kleur</value>
   </data>
@@ -1615,12 +1612,6 @@ faalkans per vak
     <data name="AssemblyCategoryPerSection_DisplayName" xml:space="preserve">
       <value>Duidingsklasse per vak</value>
     </data>
-    <data name="AssemblyGroups_DisplayName" xml:space="preserve">
-    <value>Duidingsklassen</value>
-  </data>
-    <data name="AssemblyGroups_Description" xml:space="preserve">
-    <value>De duidingsklassen per vak voor dit toetsspoor.</value>
-  </data>
     <data name="AssemblyMapDataFeaturesFactory_ProbabilityPerSection_DisplayName" xml:space="preserve">
       <value>Rekenwaarde faalkans per vak</value>
     </data>

@@ -386,4 +386,10 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="AssessmentSectionAssemblyGroups_Description" xml:space="preserve">
     <value>De normklassen voor het traject.</value>
   </data>
+  <data name="FailureMechanismSectionAssemblyGroups_DisplayName" xml:space="preserve">
+    <value>Duidingsklassen</value>
+  </data>
+  <data name="FailureMechanismSectionAssemblyGroups_Description" xml:space="preserve">
+    <value>De duidingsklassen per vak voor dit toetsspoor.</value>
+  </data>
 </root>

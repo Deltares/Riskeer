@@ -499,7 +499,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new RiskeerViewInfo<FailureMechanismSectionAssemblyGroupsContext, AssessmentSection, FailureMechanismSectionAssemblyGroupsView>(() => Gui)
             {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyGroups_DisplayName,
+                GetViewName = (view, context) => RiskeerFormsResources.FailureMechanismSectionAssemblyGroups_DisplayName,
                 CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 CreateInstance = context => new FailureMechanismSectionAssemblyGroupsView(context.WrappedData)
             };
@@ -813,7 +813,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<FailureMechanismSectionAssemblyGroupsContext>
             {
-                Text = context => RiskeerCommonFormsResources.AssemblyGroups_DisplayName,
+                Text = context => RiskeerFormsResources.FailureMechanismSectionAssemblyGroups_DisplayName,
                 Image = context => RiskeerCommonFormsResources.NormsIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
