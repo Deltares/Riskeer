@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         private FailureMechanismSectionAssemblyGroupProperties[] GetFailureMechanismAssemblyGroups()
         {
 
-                return FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(data)
+            return FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(data)
                                                               .Select(assemblyGroupBoundaries => new FailureMechanismSectionAssemblyGroupProperties(assemblyGroupBoundaries))
                                                               .ToArray();
         }

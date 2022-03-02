@@ -38,11 +38,11 @@ namespace Riskeer.Common.Forms.Test.Observers
         public void Constructor_WithFailureMechanism_ExpectedProperties()
         {
             // Call
-            using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
-                FailureMechanismSectionResult, TestCalculationWithInput>(new TestCalculatableFailureMechanism()))
+            using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestFailureMechanism,
+                FailureMechanismSectionResult, TestCalculationWithInput>(new TestFailureMechanism()))
             {
                 // Assert
-                Assert.IsInstanceOf<FailureMechanismResultObserver<TestCalculatableFailureMechanism,
+                Assert.IsInstanceOf<FailureMechanismResultObserver<TestFailureMechanism,
                     FailureMechanismSectionResult>>(resultObserver);
             }
         }
@@ -51,11 +51,11 @@ namespace Riskeer.Common.Forms.Test.Observers
         public void GivenFailureMechanismResultObserverWithCalculationAndAttachedObserver_WhenCalculationNotifiesObservers_ThenAttachedObserverNotified()
         {
             // Given
-            var failureMechanism = new TestCalculatableFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
             var calculation = new TestCalculationWithInput();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
+            using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestFailureMechanism,
                 FailureMechanismSectionResult,
                 TestCalculationWithInput>(failureMechanism))
             {
@@ -78,11 +78,11 @@ namespace Riskeer.Common.Forms.Test.Observers
         public void GivenFailureMechanismResultObserverWithCalculationAndAttachedObserver_WhenCalculationInputNotifiesObservers_ThenAttachedObserverNotified()
         {
             // Given
-            var failureMechanism = new TestCalculatableFailureMechanism();
+            var failureMechanism = new TestFailureMechanism();
             var calculation = new TestCalculationWithInput();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestCalculatableFailureMechanism,
+            using (var resultObserver = new CalculatableFailureMechanismResultObserver<TestFailureMechanism,
                 FailureMechanismSectionResult,
                 TestCalculationWithInput>(failureMechanism))
             {
@@ -99,16 +99,6 @@ namespace Riskeer.Common.Forms.Test.Observers
                 // Then
                 mocks.VerifyAll();
             }
-        }
-
-        private class TestCalculatableFailureMechanism : TestFailureMechanism, ICalculatableFailureMechanism
-        {
-            public TestCalculatableFailureMechanism()
-            {
-                CalculationsGroup = new CalculationGroup();
-            }
-
-            public CalculationGroup CalculationsGroup { get; }
         }
 
         private class TestCalculationWithInput : CloneableObservable, ICalculation<TestCalculationInput>
