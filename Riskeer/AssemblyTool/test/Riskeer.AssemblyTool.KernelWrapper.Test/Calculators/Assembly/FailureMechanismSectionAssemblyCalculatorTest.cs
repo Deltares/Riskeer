@@ -124,7 +124,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         [TestCase(false, false, ESectionInitialMechanismProbabilitySpecification.NotRelevant)]
         [TestCase(true, true, ESectionInitialMechanismProbabilitySpecification.RelevantWithProbabilitySpecification)]
         [TestCase(true, false, ESectionInitialMechanismProbabilitySpecification.RelevantNoProbabilitySpecification)]
-        public void AssembleFailureMechanismSection_WithValidInput_InputCorrectlySendToKernel(
+        public void AssembleFailureMechanismSection_WithValidInput_InputCorrectlySentToKernel(
             bool isRelevant, bool hasProbabilitySpecified,
             ESectionInitialMechanismProbabilitySpecification expectedInitialMechanismProbabilitySpecification)
         {
@@ -344,7 +344,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         [TestCase(false, false, ESectionInitialMechanismProbabilitySpecification.NotRelevant)]
         [TestCase(true, true, ESectionInitialMechanismProbabilitySpecification.RelevantWithProbabilitySpecification)]
         [TestCase(true, false, ESectionInitialMechanismProbabilitySpecification.RelevantNoProbabilitySpecification)]
-        public void AssembleFailureMechanismSectionWithProfileProbability_WithValidInput_InputCorrectlySendToKernel(
+        public void AssembleFailureMechanismSectionWithProfileProbability_WithValidInput_InputCorrectlySentToKernel(
             bool isRelevant, bool hasProbabilitySpecified,
             ESectionInitialMechanismProbabilitySpecification expectedInitialMechanismProbabilitySpecification)
         {

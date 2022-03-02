@@ -59,11 +59,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups
             try
             {
                 ICategoryLimitsCalculator kernel = factory.CreateAssemblyGroupsKernel();
-                CategoriesList<InterpretationCategory> output = kernel.CalculateInterpretationCategoryLimitsWbi03(
+                CategoriesList<InterpretationCategory> interpretationCategories = kernel.CalculateInterpretationCategoryLimitsWbi03(
                     new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalingNorm),
                                           AssemblyCalculatorInputCreator.CreateProbability(lowerLimitNorm)));
 
-                return FailureMechanismSectionAssemblyGroupCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(output);
+                return FailureMechanismSectionAssemblyGroupCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(interpretationCategories);
             }
             catch (AssemblyException e)
             {

@@ -69,7 +69,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
         }
 
         [Test]
-        public void CalculateFailureMechanismSectionAssemblyGroupBoundaries_WithValidInput_InputCorrectlySendToKernel()
+        public void CalculateFailureMechanismSectionAssemblyGroupBoundaries_WithValidInput_InputCorrectlySentToKernel()
         {
             // Setup
             const double lowerLimitNorm = 0.001;
@@ -79,8 +79,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                CategoriesList<InterpretationCategory> categoryLimits = CreateCategoryLimits();
-                categoryLimitsKernel.InterpretationCategoryLimits = categoryLimits;
+                categoryLimitsKernel.InterpretationCategoryLimits = CreateInterpretationCategories();
 
                 var calculator = new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
 
@@ -105,8 +104,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                CategoriesList<InterpretationCategory> categoryLimits = CreateCategoryLimits();
-                categoryLimitsKernel.InterpretationCategoryLimits = categoryLimits;
+                CategoriesList<InterpretationCategory> interpretationCategories = CreateInterpretationCategories();
+                categoryLimitsKernel.InterpretationCategoryLimits = interpretationCategories;
 
                 var calculator = new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
 
@@ -117,7 +116,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
                 // Assert
                 Assert.IsTrue(categoryLimitsKernel.Calculated);
 
-                AssemblyGroupBoundariesAssert.AssertFailureMechanismSectionAssemblyGroupBoundaries(categoryLimits, result);
+                AssemblyGroupBoundariesAssert.AssertFailureMechanismSectionAssemblyGroupBoundaries(interpretationCategories, result);
             }
         }
 
@@ -207,7 +206,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
             }
         }
 
-        private static CategoriesList<InterpretationCategory> CreateCategoryLimits()
+        private static CategoriesList<InterpretationCategory> CreateInterpretationCategories()
         {
             var random = new Random(21);
             return new CategoriesList<InterpretationCategory>(new[]
