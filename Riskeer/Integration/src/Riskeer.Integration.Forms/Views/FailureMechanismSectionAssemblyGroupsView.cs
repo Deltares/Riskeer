@@ -100,11 +100,11 @@ namespace Riskeer.Integration.Forms.Views
                 dataToSet = dataToSet.Concat(new[]
                 {
                     new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
-                        new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.Dominant, double.NaN, double.NaN),
+                        new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Dominant),
                         AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(FailureMechanismSectionAssemblyGroup.Dominant),
                         DisplayFailureMechanismSectionAssemblyGroup.Dominant),
                     new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
-                        new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.NotDominant, double.NaN, double.NaN),
+                        new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.NotDominant),
                         AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(FailureMechanismSectionAssemblyGroup.NotDominant),
                         DisplayFailureMechanismSectionAssemblyGroup.NotDominant)
                 }).ToArray();

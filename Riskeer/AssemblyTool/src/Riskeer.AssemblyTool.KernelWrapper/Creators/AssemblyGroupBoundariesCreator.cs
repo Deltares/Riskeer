@@ -61,8 +61,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         private static FailureMechanismSectionAssemblyGroupBoundaries CreateFailureMechanismSectionAssemblyGroupBoundaries(InterpretationCategory category)
         {
             return new FailureMechanismSectionAssemblyGroupBoundaries(
-                FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category.Category),
-                category.LowerLimit, category.UpperLimit);
+                category.LowerLimit, category.UpperLimit,
+                FailureMechanismSectionAssemblyGroupConverter.ConvertTo(category.Category));
         }
     }
 }

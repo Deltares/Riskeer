@@ -51,9 +51,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(39);
-            var assemblyCategory = new FailureMechanismSectionAssemblyGroupBoundaries(random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+            var assemblyCategory = new FailureMechanismSectionAssemblyGroupBoundaries(random.NextDouble(),
                                                                                       random.NextDouble(),
-                                                                                      random.NextDouble());
+                                                                                      random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
             // Call
             var properties = new FailureMechanismSectionAssemblyGroupProperties(assemblyCategory);
@@ -73,9 +73,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(39);
-            var assemblyCategory = new FailureMechanismSectionAssemblyGroupBoundaries(random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+            var assemblyCategory = new FailureMechanismSectionAssemblyGroupBoundaries(random.NextDouble(),
                                                                                       random.NextDouble(),
-                                                                                      random.NextDouble());
+                                                                                      random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
             // Call
             var properties = new FailureMechanismSectionAssemblyGroupProperties(assemblyCategory);
@@ -113,9 +113,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(39);
             var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
-            var properties = new FailureMechanismSectionAssemblyGroupProperties(new FailureMechanismSectionAssemblyGroupBoundaries(assemblyGroup,
-                                                                                                            random.NextDouble(),
-                                                                                                            random.NextDouble()));
+            var properties = new FailureMechanismSectionAssemblyGroupProperties(new FailureMechanismSectionAssemblyGroupBoundaries(random.NextDouble(),
+                                                                                                                                   random.NextDouble(),
+                                                                                                                                   assemblyGroup));
 
             // Call
             var result = properties.ToString();

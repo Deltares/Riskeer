@@ -29,10 +29,10 @@ namespace Riskeer.AssemblyTool.Data
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>.
         /// </summary>
-        /// <param name="failureMechanismSectionAssemblyGroup">The actual failure mechanism section assembly group.</param>
         /// <param name="lowerBoundary">The lower boundary of the assembly group.</param>
         /// <param name="upperBoundary">The upper boundary of the assembly group.</param>
-        public FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup, double lowerBoundary, double upperBoundary)
+        /// <param name="failureMechanismSectionAssemblyGroup">The actual failure mechanism section assembly group.</param>
+        public FailureMechanismSectionAssemblyGroupBoundaries(double lowerBoundary, double upperBoundary, FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup)
             : base(lowerBoundary, upperBoundary)
         {
             FailureMechanismSectionAssemblyGroup = failureMechanismSectionAssemblyGroup;

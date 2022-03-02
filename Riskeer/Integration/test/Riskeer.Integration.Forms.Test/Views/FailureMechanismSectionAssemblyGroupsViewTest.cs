@@ -257,9 +257,9 @@ namespace Riskeer.Integration.Forms.Test.Views
 
         private static FailureMechanismSectionAssemblyGroupBoundaries CreateFailureMechanismSectionAssemblyGroupBoundaries(Random random)
         {
-            return new FailureMechanismSectionAssemblyGroupBoundaries(random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+            return new FailureMechanismSectionAssemblyGroupBoundaries(random.NextDouble(),
                                                                       random.NextDouble(),
-                                                                      random.NextDouble());
+                                                                      random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
         }
     }
 }

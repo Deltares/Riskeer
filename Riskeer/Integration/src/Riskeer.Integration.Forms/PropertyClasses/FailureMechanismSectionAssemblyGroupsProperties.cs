@@ -84,9 +84,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses
                 dataToSet = dataToSet.Concat(new[]
                 {
                     new FailureMechanismSectionAssemblyGroupProperties(
-                        new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.Dominant, double.NaN, double.NaN)),
+                        new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Dominant)),
                     new FailureMechanismSectionAssemblyGroupProperties(
-                        new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.NotDominant, double.NaN, double.NaN))
+                        new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.NotDominant))
                 }).ToArray();
             }
             catch (AssemblyException)

@@ -65,9 +65,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Categories
             return FailureMechanismSectionAssemblyGroupBoundariesOutput ??
                    (FailureMechanismSectionAssemblyGroupBoundariesOutput = new[]
                        {
-                           new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.I, 1, 2),
-                           new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.II, 2.01, 3),
-                           new FailureMechanismSectionAssemblyGroupBoundaries(FailureMechanismSectionAssemblyGroup.III, 3.01, 4)
+                           new FailureMechanismSectionAssemblyGroupBoundaries(1, 2, FailureMechanismSectionAssemblyGroup.I),
+                           new FailureMechanismSectionAssemblyGroupBoundaries(2.01, 3, FailureMechanismSectionAssemblyGroup.II),
+                           new FailureMechanismSectionAssemblyGroupBoundaries(3.01, 4, FailureMechanismSectionAssemblyGroup.III)
                        });
         }
     }
