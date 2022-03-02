@@ -75,7 +75,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateAssemblyGroupBoundariesCalculator_WithKernelFactory_ReturnsAssemblyCategoriesCalculator()
+        public void CreateFailureMechanismSectionAssemblyGroupBoundariesCalculator_WithKernelFactory_ReturnsCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
@@ -83,7 +83,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
             using (new AssemblyToolKernelFactoryConfig())
             {
                 // Call
-                IFailureMechanismSectionAssemblyGroupBoundariesCalculator calculator = factory.CreateAssemblyGroupBoundariesCalculator(
+                IFailureMechanismSectionAssemblyGroupBoundariesCalculator calculator = factory.CreateFailureMechanismSectionAssemblyGroupBoundariesCalculator(
                     AssemblyToolKernelFactory.Instance);
 
                 // Assert
@@ -92,7 +92,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyCalculator_WithKernelFactory_ReturnsFailureMechanismSectionAssemblyCalculator()
+        public void CreateFailureMechanismSectionAssemblyCalculator_WithKernelFactory_ReturnsCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
@@ -109,7 +109,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateFailureMechanismAssemblyCalculator_WithKernelFactory_ReturnsFailureMechanismAssemblyCalculator()
+        public void CreateFailureMechanismAssemblyCalculator_WithKernelFactory_ReturnsCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
@@ -126,7 +126,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
-        public void CreateAssessmentSectionAssemblyCalculator_WithKernelFactory_ReturnsAssessmentSectionAssemblyCalculator()
+        public void CreateAssessmentSectionAssemblyCalculator_WithKernelFactory_ReturnsCalculator()
         {
             // Setup
             IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;

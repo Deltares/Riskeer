@@ -40,12 +40,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators
         IAssessmentSectionAssemblyGroupBoundariesCalculator CreateAssessmentSectionAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory);
 
         /// <summary>
-        /// Creates an assembly group boundaries calculator.
+        /// Creates an failure mechanism section assembly group boundaries calculator.
         /// </summary>
         /// <param name="factory">The factory responsible for creating the kernel.</param>
-        /// <returns>The assembly group boundaries calculator.</returns>
+        /// <returns>The failure mechanism section assembly group boundaries calculator.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="factory"/> is <c>null</c>.</exception>
-        IFailureMechanismSectionAssemblyGroupBoundariesCalculator CreateAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory);
+        IFailureMechanismSectionAssemblyGroupBoundariesCalculator CreateFailureMechanismSectionAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory);
 
         /// <summary>
         /// Creates a failure mechanism section assembly calculator.

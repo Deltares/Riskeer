@@ -75,7 +75,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators
             return LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
         }
 
-        public IFailureMechanismSectionAssemblyGroupBoundariesCalculator CreateAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
+        public IFailureMechanismSectionAssemblyGroupBoundariesCalculator CreateFailureMechanismSectionAssemblyGroupBoundariesCalculator(IAssemblyToolKernelFactory factory)
         {
             return LastCreatedFailureMechanismSectionAssemblyGroupBoundariesCalculator;
         }
