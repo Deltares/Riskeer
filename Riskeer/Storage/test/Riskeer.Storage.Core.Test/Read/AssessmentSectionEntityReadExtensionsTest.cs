@@ -1062,24 +1062,24 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            var specificFailurePath1 = section.SpecificFailurePaths[0] as SpecificFailurePath;
+            SpecificFailurePath specificFailurePath1 = section.SpecificFailurePaths[0];
             Assert.IsNotNull(specificFailurePath1);
             Assert.AreEqual(name1, specificFailurePath1.Name);
             Assert.AreEqual(inAssembly1, specificFailurePath1.InAssembly);
             Assert.AreEqual(inAssemblyInputComments1, specificFailurePath1.InAssemblyInputComments.Body);
             Assert.AreEqual(inAssemblyOutputComments1, specificFailurePath1.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments1, specificFailurePath1.NotInAssemblyComments.Body);
-            Assert.AreEqual(n1, specificFailurePath1.Input.N, specificFailurePath1.Input.N.GetAccuracy());
+            Assert.AreEqual(n1, specificFailurePath1.GeneralInput.N, specificFailurePath1.GeneralInput.N.GetAccuracy());
             Assert.IsNull(specificFailurePath1.FailureMechanismSectionSourcePath);
 
-            var specificFailurePath2 = section.SpecificFailurePaths[1] as SpecificFailurePath;
+            SpecificFailurePath specificFailurePath2 = section.SpecificFailurePaths[1];
             Assert.IsNotNull(specificFailurePath2);
             Assert.AreEqual(name2, specificFailurePath2.Name);
             Assert.AreEqual(inAssembly2, specificFailurePath2.InAssembly);
             Assert.AreEqual(inAssemblyInputComments2, specificFailurePath2.InAssemblyInputComments.Body);
             Assert.AreEqual(inAssemblyOutputComments2, specificFailurePath2.InAssemblyOutputComments.Body);
             Assert.AreEqual(notInAssemblyComments2, specificFailurePath2.NotInAssemblyComments.Body);
-            Assert.AreEqual(n2, specificFailurePath2.Input.N, specificFailurePath2.Input.N.GetAccuracy());
+            Assert.AreEqual(n2, specificFailurePath2.GeneralInput.N, specificFailurePath2.GeneralInput.N.GetAccuracy());
             Assert.IsNull(specificFailurePath2.FailureMechanismSectionSourcePath);
         }
 
@@ -1233,10 +1233,11 @@ namespace Riskeer.Storage.Core.Test.Read
             };
         }
 
-        private static void AssertFailureMechanismEqual(bool expectedInAssembly,
-                                                        string expectedInAssemblyInputComments, string expectedInAssemblyOutputComments,
-                                                        string expectedNotInAssemblyComments, string expectedCalculationsInputComments,
-                                                        IHasGeneralInput failureMechanism, double n)
+        private static void AssertFailureMechanismEqual<T>(bool expectedInAssembly,
+                                                           string expectedInAssemblyInputComments, string expectedInAssemblyOutputComments,
+                                                           string expectedNotInAssemblyComments, string expectedCalculationsInputComments,
+                                                           T failureMechanism, double n)
+            where T : IFailureMechanism, IHasGeneralInput
         {
             Assert.AreEqual(expectedInAssembly, failureMechanism.InAssembly);
             Assert.AreEqual(expectedInAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);

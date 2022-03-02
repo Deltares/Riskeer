@@ -25,6 +25,7 @@ using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Integration.Forms.Views
@@ -36,16 +37,16 @@ namespace Riskeer.Integration.Forms.Views
     internal class FailureMechanismAssemblyResultRow : IHasColumnStateDefinitions
     {
         private const int probabilityIndex = 2;
-        private readonly IFailureMechanism failureMechanism;
+        private readonly IFailurePath failureMechanism;
         private readonly Func<double> performAssemblyFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to wrap so that it can be displayed as a row.</param>
+        /// <param name="failureMechanism">The <see cref="IFailurePath"/> to wrap so that it can be displayed as a row.</param>
         /// <param name="performAssemblyFunc">The <see cref="Func{T,T2}"/> used to assemble the result of a failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameters is <c>null</c>.</exception>
-        public FailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism,
+        public FailureMechanismAssemblyResultRow(IFailurePath failureMechanism,
                                                  Func<double> performAssemblyFunc)
         {
             if (failureMechanism == null)

@@ -19,12 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Riskeer.Common.Data.FailurePath;
+
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// This interface describes an <see cref="IFailureMechanism"/> containing <see cref="FailureMechanism.GeneralInput"/> objects.
+    /// This interface describes an <see cref="IFailurePath"/> containing <see cref="FailureMechanism.GeneralInput"/> objects.
     /// </summary>
-    public interface IHasGeneralInput : IFailureMechanism
+    public interface IHasGeneralInput : IFailurePath
     {
         /// <summary>
         /// Gets the <see cref="FailureMechanism.GeneralInput"/>.

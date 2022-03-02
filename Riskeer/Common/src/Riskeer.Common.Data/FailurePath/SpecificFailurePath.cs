@@ -30,7 +30,7 @@ namespace Riskeer.Common.Data.FailurePath
     /// <summary>
     /// This class is the implementation for a specific failure path.
     /// </summary>
-    public class SpecificFailurePath : Observable, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class SpecificFailurePath : Observable, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, IHasGeneralInput
     {
         private readonly FailureMechanismSectionCollection sectionCollection;
         private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
@@ -45,7 +45,7 @@ namespace Riskeer.Common.Data.FailurePath
 
             sectionCollection = new FailureMechanismSectionCollection();
             InAssembly = true;
-            Input = new GeneralInput();
+            GeneralInput = new GeneralInput();
             InAssemblyInputComments = new Comment();
             InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
@@ -53,11 +53,6 @@ namespace Riskeer.Common.Data.FailurePath
             AssemblyResult = new FailurePathAssemblyResult();
             sectionResults = new ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
         }
-
-        /// <summary>
-        /// Gets the <see cref="GeneralInput"/>.
-        /// </summary>
-        public GeneralInput Input { get; }
 
         public string Name { get; set; }
 
@@ -78,6 +73,8 @@ namespace Riskeer.Common.Data.FailurePath
         public bool InAssembly { get; set; }
 
         public IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> SectionResults => sectionResults;
+
+        public GeneralInput GeneralInput { get; }
 
         public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {

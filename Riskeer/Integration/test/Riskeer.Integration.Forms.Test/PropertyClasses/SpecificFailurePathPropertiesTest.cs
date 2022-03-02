@@ -63,7 +63,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var failurePath = new SpecificFailurePath
             {
                 InAssembly = random.NextBoolean(),
-                Input =
+                GeneralInput =
                 {
                     ApplyLengthEffectInSection = random.NextBoolean()
                 }
@@ -78,10 +78,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(failurePath.Code, properties.Code);
             Assert.AreEqual(failurePath.InAssembly, properties.InAssembly);
 
-            GeneralInput input = failurePath.Input;
+            GeneralInput input = failurePath.GeneralInput;
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
             Assert.AreEqual(input.N, properties.N, properties.N.GetAccuracy());
-            Assert.AreEqual(failurePath.Input.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
+            Assert.AreEqual(input.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
         }
 
         [Test]
@@ -206,7 +206,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.AreEqual(newName, failurePath.Name);
             Assert.AreEqual(newCode, failurePath.Code);
 
-            GeneralInput input = failurePath.Input;
+            GeneralInput input = failurePath.GeneralInput;
             Assert.AreEqual(newN, input.N, input.N.GetAccuracy());
 
             mocks.VerifyAll();
@@ -257,7 +257,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             properties.ApplyLengthEffectInSection = true;
 
             // Assert
-            Assert.IsTrue(failureMechanism.Input.ApplyLengthEffectInSection);
+            Assert.IsTrue(failureMechanism.GeneralInput.ApplyLengthEffectInSection);
             mocks.VerifyAll();
         }
 

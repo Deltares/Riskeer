@@ -73,8 +73,8 @@ namespace Riskeer.Storage.Core.Create
             entity.Name = specificFailurePath.Name.DeepClone();
             entity.Code = specificFailurePath.Code.DeepClone();
             entity.Order = order;
-            entity.N = specificFailurePath.Input.N;
-            entity.ApplyLengthEffectInSection = Convert.ToByte(specificFailurePath.Input.ApplyLengthEffectInSection);
+            entity.N = specificFailurePath.GeneralInput.N;
+            entity.ApplyLengthEffectInSection = Convert.ToByte(specificFailurePath.GeneralInput.ApplyLengthEffectInSection);
 
             return entity;
         }

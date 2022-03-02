@@ -127,13 +127,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_N_Description))]
         public RoundedDouble N
         {
-            get
-            {
-                return data.Input.N;
-            }
+            get => data.GeneralInput.N;
             set
             {
-                data.Input.N = value;
+                data.GeneralInput.N = value;
                 data.NotifyObservers();
             }
         }
@@ -145,13 +142,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_ApplyLengthEffectInSection_Description))]
         public bool ApplyLengthEffectInSection
         {
-            get
-            {
-                return data.Input.ApplyLengthEffectInSection;
-            }
+            get => data.GeneralInput.ApplyLengthEffectInSection;
             set
             {
-                data.Input.ApplyLengthEffectInSection = value;
+                data.GeneralInput.ApplyLengthEffectInSection = value;
                 data.NotifyObservers();
             }
         }

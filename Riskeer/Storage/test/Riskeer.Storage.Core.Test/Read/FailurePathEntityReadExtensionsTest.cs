@@ -231,8 +231,8 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
             Assert.AreEqual(filePath, specificFailurePath.FailureMechanismSectionSourcePath);
 
-            Assert.AreEqual(entity.N, specificFailurePath.Input.N, specificFailurePath.Input.N.GetAccuracy());
-            Assert.AreEqual(Convert.ToBoolean(entity.ApplyLengthEffectInSection), specificFailurePath.Input.ApplyLengthEffectInSection);
+            Assert.AreEqual(entity.N, specificFailurePath.GeneralInput.N, specificFailurePath.GeneralInput.N.GetAccuracy());
+            Assert.AreEqual(Convert.ToBoolean(entity.ApplyLengthEffectInSection), specificFailurePath.GeneralInput.ApplyLengthEffectInSection);
         }
 
         [Test]

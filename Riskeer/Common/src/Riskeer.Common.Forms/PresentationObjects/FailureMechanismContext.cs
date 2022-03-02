@@ -22,17 +22,18 @@
 using System;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is an abstract base presentation object for a <see cref="IFailureMechanism"/> instance.
+    /// This class is an abstract base presentation object for a <see cref="IFailurePath"/> instance.
     /// </summary>
-    public abstract class FailureMechanismContext<T> : ObservableWrappedObjectContextBase<T>, IFailurePathContext<T> where T : IFailureMechanism
+    public abstract class FailureMechanismContext<T> : ObservableWrappedObjectContextBase<T>, IFailurePathContext<T>
+        where T : IFailurePath
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="FailureMechanismContext{T}"/> class.
+        /// Creates a new instance of <see cref="FailureMechanismContext{T}"/>.
         /// </summary>
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>

@@ -700,7 +700,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expected.FailureMechanismSectionSourcePath, actual.FailureMechanismSectionSourcePath);
             AssertFailureMechanismSections(expected.Sections, actual.Sections);
 
-            Assert.AreEqual(expected.Input.N, actual.Input.N);
+            Assert.AreEqual(expected.GeneralInput.N, actual.GeneralInput.N);
 
             AssertFailurePathAssemblyResult(expected.AssemblyResult, actual.AssemblyResult);
         }

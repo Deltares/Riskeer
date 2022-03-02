@@ -87,7 +87,7 @@ namespace Riskeer.Storage.Core.Read
             {
                 Name = entity.Name,
                 Code = entity.Code,
-                Input =
+                GeneralInput =
                 {
                     N = (RoundedDouble) entity.N,
                     ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection)

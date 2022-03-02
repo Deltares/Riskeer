@@ -542,7 +542,7 @@ namespace Riskeer.Storage.Core.TestUtil
             foreach (SpecificFailurePath failurePath in specificFailurePaths)
             {
                 var random = new Random(i);
-                failurePath.Input.N = random.NextRoundedDouble(1, 20);
+                failurePath.GeneralInput.N = random.NextRoundedDouble(1, 20);
 
                 failurePath.Name = $"Path {i}";
                 failurePath.InAssembly = random.NextBoolean();
