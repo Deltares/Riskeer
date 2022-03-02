@@ -104,19 +104,17 @@ namespace Riskeer.Common.Plugin
         /// <returns>Whether the view should be closed.</returns>
         public static bool ShouldCloseForFailurePathView(CloseForFailurePathView view, object removedObject)
         {
-            var assessmentSection = removedObject as IAssessmentSection;
-            var failurePathContext = removedObject as IFailurePathContext<IFailurePath>;
             var failurePath = removedObject as IFailurePath;
 
-            if (failurePathContext != null)
+            if (removedObject is IFailurePathContext<IFailurePath> failurePathContext)
             {
                 failurePath = failurePathContext.WrappedData;
             }
 
-            if (assessmentSection != null)
+            if (removedObject is IAssessmentSection assessmentSection)
             {
-                failurePath = assessmentSection.GetFailureMechanisms()
-                                               .FirstOrDefault(fm => fm == view.FailurePath)
+                failurePath = (IFailurePath) assessmentSection.GetFailureMechanisms()
+                                                              .FirstOrDefault(fm => fm == view.FailurePath)
                               ?? assessmentSection.SpecificFailurePaths
                                                   .FirstOrDefault(fp => fp == view.FailurePath);
             }

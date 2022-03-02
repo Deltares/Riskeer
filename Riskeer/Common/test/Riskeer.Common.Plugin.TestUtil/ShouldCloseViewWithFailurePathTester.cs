@@ -41,7 +41,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<IFailurePath>());
+            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
             mocks.ReplayAll();
 
             IFailurePath failurePath = GetFailurePath();
@@ -57,20 +57,20 @@ namespace Riskeer.Common.Plugin.TestUtil
 
             mocks.VerifyAll();
         }
-
+1
         [Test]
-        public void ShouldCloseMethod_ViewCorrespondingToRemovedAssessmentSectionAndFailurePath_ReturnsTrue()
+        public void ShouldCloseMethod_ViewCorrespondingToRemovedAssessmentSectionAndSpecificFailurePath_ReturnsTrue()
         {
             // Setup
-            IFailurePath failurePath = GetFailurePath();
-
+            var failurePath = GetFailurePath();
+            
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<IFailurePath>
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failurePath
             });
+            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
             mocks.ReplayAll();
 
             using (IView view = GetView(failurePath))

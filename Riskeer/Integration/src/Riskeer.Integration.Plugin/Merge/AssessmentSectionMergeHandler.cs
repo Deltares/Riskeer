@@ -113,7 +113,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
         #region FailurePaths
 
-        private static void MergeSpecificFailurePaths(AssessmentSection targetAssessmentSection, IEnumerable<IFailurePath> mergeFailurePaths)
+        private static void MergeSpecificFailurePaths(AssessmentSection targetAssessmentSection, IEnumerable<SpecificFailurePath> mergeFailurePaths)
         {
             if (mergeFailurePaths.Any())
             {

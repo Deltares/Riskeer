@@ -102,7 +102,7 @@ namespace Riskeer.Common.Plugin.Test
                 {
                     failureMechanism
                 });
-                assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<IFailurePath>());
+                assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
                 mocks.ReplayAll();
 
                 using (IView view = GetView(failureMechanism))
@@ -129,7 +129,7 @@ namespace Riskeer.Common.Plugin.Test
                 {
                     failureMechanism
                 });
-                assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<IFailurePath>());
+                assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
                 mocks.ReplayAll();
 
                 using (IView view = GetView(otherFailureMechanism))

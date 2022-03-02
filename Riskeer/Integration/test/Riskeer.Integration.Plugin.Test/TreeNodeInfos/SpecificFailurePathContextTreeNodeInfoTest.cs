@@ -208,7 +208,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var failurePath = new SpecificFailurePath();
             var context = new SpecificFailurePathContext(failurePath, assessmentSection);
 
-            var failurePaths = new ObservableList<IFailurePath>
+            var failurePaths = new ObservableList<SpecificFailurePath>
             {
                 failurePath
             };

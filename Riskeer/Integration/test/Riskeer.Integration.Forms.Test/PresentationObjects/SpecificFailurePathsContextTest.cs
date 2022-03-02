@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePaths = new ObservableList<IFailurePath>();
+            var failurePaths = new ObservableList<SpecificFailurePath>();
 
             // Call
             var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
@@ -57,7 +57,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failurePaths = new ObservableList<IFailurePath>();
+            var failurePaths = new ObservableList<SpecificFailurePath>();
 
             // Call
             void Call() => new SpecificFailurePathsContext(failurePaths, null);

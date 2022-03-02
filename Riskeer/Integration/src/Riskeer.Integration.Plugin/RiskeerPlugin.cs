@@ -1919,7 +1919,7 @@ namespace Riskeer.Integration.Plugin
 
         private static void AddSpecificFailurePath(SpecificFailurePathsContext nodeData)
         {
-            ObservableList<IFailurePath> failurePaths = nodeData.WrappedData;
+            ObservableList<SpecificFailurePath> failurePaths = nodeData.WrappedData;
             var newFailurePath = new SpecificFailurePath
             {
                 Name = NamingHelper.GetUniqueName(failurePaths,
@@ -1979,7 +1979,7 @@ namespace Riskeer.Integration.Plugin
         private static void SpecificFailurePathContextOnNodeRemoved(SpecificFailurePathContext nodeData, object parentNodeData)
         {
             var specificFailurePathsContext = (SpecificFailurePathsContext) parentNodeData;
-            ObservableList<IFailurePath> failurePaths = specificFailurePathsContext.WrappedData;
+            ObservableList<SpecificFailurePath> failurePaths = specificFailurePathsContext.WrappedData;
 
             failurePaths.Remove(nodeData.WrappedData);
             failurePaths.NotifyObservers();

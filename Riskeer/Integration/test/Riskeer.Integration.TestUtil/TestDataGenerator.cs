@@ -142,7 +142,7 @@ namespace Riskeer.Integration.TestUtil
         public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths(
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
-            var failurePaths = new List<IFailurePath>
+            var failurePaths = new List<SpecificFailurePath>
             {
                 new SpecificFailurePath
                 {

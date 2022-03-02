@@ -97,7 +97,7 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// <summary>
         /// Gets the collection of specific failure paths within the assessment section.
         /// </summary>
-        ObservableList<IFailurePath> SpecificFailurePaths { get; }
+        ObservableList<SpecificFailurePath> SpecificFailurePaths { get; }
 
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.
