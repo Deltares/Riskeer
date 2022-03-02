@@ -77,10 +77,11 @@ namespace Riskeer.Integration.Util.Test
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NotDominant, lastAssemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup);
                 Assert.AreEqual(double.NaN, lastAssemblyGroupBoundaries.UpperBoundary);
                 Assert.AreEqual(double.NaN, lastAssemblyGroupBoundaries.LowerBoundary);
-                
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NotDominant, assemblyGroupBoundaries.ElementAt(assemblyGroupBoundaries.Count() - 2).FailureMechanismSectionAssemblyGroup);
-                Assert.AreEqual(double.NaN, assemblyGroupBoundaries.ElementAt(assemblyGroupBoundaries.Count() - 2).UpperBoundary);
-                Assert.AreEqual(double.NaN, assemblyGroupBoundaries.ElementAt(assemblyGroupBoundaries.Count() - 2).LowerBoundary);
+
+                FailureMechanismSectionAssemblyGroupBoundaries secondLastAssemblyGroupBoundaries = assemblyGroupBoundaries.ElementAt(assemblyGroupBoundaries.Count() - 2);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NotDominant, secondLastAssemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup);
+                Assert.AreEqual(double.NaN, secondLastAssemblyGroupBoundaries.UpperBoundary);
+                Assert.AreEqual(double.NaN, secondLastAssemblyGroupBoundaries.LowerBoundary);
             }
         }
         
