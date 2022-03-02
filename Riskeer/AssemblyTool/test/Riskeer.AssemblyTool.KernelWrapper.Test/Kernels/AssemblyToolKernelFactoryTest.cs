@@ -73,16 +73,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Kernels
         }
 
         [Test]
-        public void CreateAssemblyCategoriesKernel_Always_ReturnsKernelCategoryLimitsCalculator()
+        public void CreateAssemblyGroupsKernel_Always_ReturnsKernelCategoryLimitsCalculator()
         {
             // Setup
             IAssemblyToolKernelFactory factory = AssemblyToolKernelFactory.Instance;
 
             // Call
-            ICategoryLimitsCalculator assemblyCategoriesKernel = factory.CreateAssemblyCategoriesKernel();
+            ICategoryLimitsCalculator assemblyGroupsKernel = factory.CreateAssemblyGroupsKernel();
 
             // Assert
-            Assert.IsInstanceOf<CategoryLimitsCalculator>(assemblyCategoriesKernel);
+            Assert.IsInstanceOf<CategoryLimitsCalculator>(assemblyGroupsKernel);
         }
 
         [Test]

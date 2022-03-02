@@ -42,7 +42,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
             set => instance = value;
         }
 
-        public ICategoryLimitsCalculator CreateAssemblyCategoriesKernel()
+        public ICategoryLimitsCalculator CreateAssemblyGroupsKernel()
         {
             return new CategoryLimitsCalculator();
         }

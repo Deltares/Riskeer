@@ -29,10 +29,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
     public interface IAssemblyToolKernelFactory
     {
         /// <summary>
-        /// Creates an assembly categories kernel.
+        /// Creates an assembly groups kernel.
         /// </summary>
         /// <returns>A new <see cref="ICategoryLimitsCalculator"/>.</returns>
-        ICategoryLimitsCalculator CreateAssemblyCategoriesKernel();
+        ICategoryLimitsCalculator CreateAssemblyGroupsKernel();
 
         /// <summary>
         /// Creates a failure mechanism section assembly kernel.
@@ -43,9 +43,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Kernels
         /// <summary>
         /// Creates a failure mechanism assembly kernel.
         /// </summary>
-        /// <returns>A new <see cref="IAssessmentResultsTranslator"/>.</returns>
+        /// <returns>A new <see cref="IFailureMechanismResultAssembler"/>.</returns>
         IFailureMechanismResultAssembler CreateFailureMechanismAssemblyKernel();
-        
+
         /// <summary>
         /// Creates a combined failure mechanism section assembly kernel.
         /// </summary>

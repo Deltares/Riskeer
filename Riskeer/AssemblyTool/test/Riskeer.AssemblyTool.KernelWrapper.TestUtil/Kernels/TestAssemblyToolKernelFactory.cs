@@ -65,7 +65,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels
 
         public AssessmentSectionAssemblyKernelStub LastCreatedAssessmentSectionAssemblyKernel { get; }
 
-        public ICategoryLimitsCalculator CreateAssemblyCategoriesKernel()
+        public ICategoryLimitsCalculator CreateAssemblyGroupsKernel()
         {
             return LastCreatedAssemblyCategoryLimitsKernel;
         }
