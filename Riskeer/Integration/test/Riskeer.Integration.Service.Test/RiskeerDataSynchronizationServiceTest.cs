@@ -1034,6 +1034,10 @@ namespace Riskeer.Integration.Service.Test
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.Sections);
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResults);
+
+            SpecificFailurePath specificFailurePath = assessmentSection.SpecificFailurePaths.First();
+            CollectionAssert.IsEmpty(specificFailurePath.Sections);
+            CollectionAssert.IsEmpty(specificFailurePath.SectionResults);
         }
 
         [Test]
@@ -1658,7 +1662,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AssertChangedObjects(ClearResults results, AssessmentSection assessmentSection)
         {
             IObservable[] changedObjects = results.ChangedObjects.ToArray();
-            Assert.AreEqual(54, changedObjects.Length);
+            Assert.AreEqual(56, changedObjects.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.Contains(changedObjects, pipingFailureMechanism);
@@ -1743,6 +1747,10 @@ namespace Riskeer.Integration.Service.Test
             PipingStructureFailureMechanism pipingStructureFailureMechanism = assessmentSection.PipingStructure;
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism);
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism.SectionResults);
+
+            SpecificFailurePath failurePath = assessmentSection.SpecificFailurePaths.First();
+            CollectionAssert.Contains(changedObjects, failurePath);
+            CollectionAssert.Contains(changedObjects, failurePath.SectionResults);
         }
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(AssessmentSection assessmentSection)
@@ -1763,6 +1771,7 @@ namespace Riskeer.Integration.Service.Test
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.PipingStructure));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StabilityPointStructures));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.DuneErosion));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.SpecificFailurePaths.First()));
             return expectedRemovedObjects;
         }
 
@@ -1959,7 +1968,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
-            where T : IFailureMechanism, IFailurePath<FailureMechanismSectionResult>
+            where T : IFailurePath<FailureMechanismSectionResult>
         {
             foreach (FailureMechanismSection section in failureMechanism.Sections)
             {

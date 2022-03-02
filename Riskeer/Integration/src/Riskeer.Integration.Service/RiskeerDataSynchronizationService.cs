@@ -496,7 +496,8 @@ namespace Riskeer.Integration.Service
             var changedObjects = new List<IObservable>();
             var removedObjects = new List<object>();
 
-            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms()
+                                                                       .Concat<IFailurePath>(assessmentSection.SpecificFailurePaths))
             {
                 ClearResults results = GetClearResultsForFailureMechanism(failureMechanism);
 
@@ -795,7 +796,7 @@ namespace Riskeer.Integration.Service
             return affectedObjects;
         }
 
-        private static ClearResults GetClearResultsForFailureMechanism(IFailureMechanism failureMechanism)
+        private static ClearResults GetClearResultsForFailureMechanism(IFailurePath failureMechanism)
         {
             switch (failureMechanism)
             {
@@ -818,11 +819,11 @@ namespace Riskeer.Integration.Service
                 case StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism:
                     return StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(stabilityPointStructuresFailureMechanism);
                 default:
-                    return ClearReferenceLineDependentDataForFailureMechanism(failureMechanism);
+                    return ClearReferenceLineDependentDataForFailureMechanism((IFailurePath<FailureMechanismSectionResult>) failureMechanism);
             }
         }
 
-        private static ClearResults ClearReferenceLineDependentDataForFailureMechanism(IFailureMechanism failureMechanism)
+        private static ClearResults ClearReferenceLineDependentDataForFailureMechanism(IFailurePath<FailureMechanismSectionResult> failureMechanism)
         {
             var removedObjects = new List<object>();
             var changedObjects = new List<IObservable>();
@@ -830,11 +831,8 @@ namespace Riskeer.Integration.Service
             removedObjects.AddRange(failureMechanism.Sections);
             changedObjects.Add(failureMechanism);
 
-            if (failureMechanism is IFailurePath<FailureMechanismSectionResult> failureMechanismWithSectionResults)
-            {
-                removedObjects.AddRange(failureMechanismWithSectionResults.SectionResults);
-                changedObjects.Add(failureMechanismWithSectionResults.SectionResults);
-            }
+            removedObjects.AddRange(failureMechanism.SectionResults);
+            changedObjects.Add(failureMechanism.SectionResults);
 
             failureMechanism.ClearAllSections();
 

@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.DuneErosion.Data;
@@ -49,7 +50,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
     [TestFixture]
     public class ReferenceLineUpdateHandlerTest : NUnitFormTest
     {
-        private const int expectedNumberOfRemovedInstances = 185;
+        private const int expectedNumberOfRemovedInstances = 189;
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
@@ -60,10 +61,10 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ReferenceLineUpdateHandler(null, viewCommands);
+            void Call() => new ReferenceLineUpdateHandler(null, viewCommands);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -77,11 +78,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new ReferenceLineUpdateHandler(assessmentSection, null);
+            void Call() => new ReferenceLineUpdateHandler(assessmentSection, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("viewCommands", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("viewCommands", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -159,11 +160,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var referenceLine = new ReferenceLine();
 
             // Call
-            TestDelegate call = () => handler.Update(null, referenceLine);
+            void Call() => handler.Update(null, referenceLine);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("originalReferenceLine", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("originalReferenceLine", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -181,11 +182,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             var referenceLine = new ReferenceLine();
 
             // Call
-            TestDelegate call = () => handler.Update(referenceLine, null);
+            void Call() => handler.Update(referenceLine, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("newReferenceLine", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("newReferenceLine", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -206,7 +207,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             IObservable[] observables = handler.Update(assessmentSection.ReferenceLine, referenceLine).ToArray();
 
             // Assert
-            Assert.AreEqual(54, observables.Length);
+            Assert.AreEqual(56, observables.Length);
 
             PipingFailureMechanism pipingFailureMechanism = assessmentSection.Piping;
             CollectionAssert.IsEmpty(pipingFailureMechanism.Sections);
@@ -347,6 +348,12 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.Contains(observables, pipingStructureFailureMechanism.SectionResults);
 
             CollectionAssert.AreEqual(referenceLine.Points, assessmentSection.ReferenceLine.Points);
+
+            SpecificFailurePath failurePath = assessmentSection.SpecificFailurePaths.First();
+            CollectionAssert.IsEmpty(failurePath.Sections);
+            CollectionAssert.IsEmpty(failurePath.SectionResults);
+            CollectionAssert.Contains(observables, failurePath);
+            CollectionAssert.Contains(observables, failurePath.SectionResults);
 
             mocks.VerifyAll();
         }

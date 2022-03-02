@@ -126,6 +126,10 @@ namespace Riskeer.Integration.TestUtil
             SetFullyConfiguredFailureMechanism(assessmentSection.PipingStructure);
             SetFullyConfiguredFailureMechanism(assessmentSection.WaterPressureAsphaltCover);
 
+            var failurePath = new SpecificFailurePath();
+            SetFullyConfiguredFailureMechanism(failurePath);
+            assessmentSection.SpecificFailurePaths.Add(failurePath);
+
             return assessmentSection;
         }
 
@@ -970,7 +974,7 @@ namespace Riskeer.Integration.TestUtil
             AddFailureMechanismSections(failureMechanism);
         }
 
-        private static void SetFullyConfiguredFailureMechanism(IFailureMechanism failureMechanism)
+        private static void SetFullyConfiguredFailureMechanism(IFailurePath failureMechanism)
         {
             AddFailureMechanismSections(failureMechanism);
         }
@@ -1069,7 +1073,7 @@ namespace Riskeer.Integration.TestUtil
             });
         }
 
-        private static void AddFailureMechanismSections(IFailureMechanism failureMechanism)
+        private static void AddFailureMechanismSections(IFailurePath failureMechanism)
         {
             var section1 = new FailureMechanismSection("1",
                                                        new[]
