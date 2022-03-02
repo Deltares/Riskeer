@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.PresentationObjects
 {
@@ -41,7 +42,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public FailureMechanismSectionResultContext(IObservableEnumerable<T> wrappedSectionResults, IFailureMechanism failureMechanism,
+        public FailureMechanismSectionResultContext(IObservableEnumerable<T> wrappedSectionResults, IFailurePath failureMechanism,
                                                     IAssessmentSection assessmentSection)
             : base(wrappedSectionResults)
         {
@@ -62,7 +63,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the <see cref="IFailureMechanism"/>.
         /// </summary>
-        public IFailureMechanism FailureMechanism { get; }
+        public IFailurePath FailureMechanism { get; }
 
         /// <summary>
         /// Gets the assessment section.
