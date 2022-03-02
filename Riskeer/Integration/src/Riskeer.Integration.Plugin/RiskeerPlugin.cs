@@ -967,6 +967,7 @@ namespace Riskeer.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<SpecificFailurePathSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
 
             yield return new TreeNodeInfo<Comment>
             {
@@ -1888,7 +1889,6 @@ namespace Riskeer.Integration.Plugin
         private static object[] SpecificFailurePathsChildNodeObjects(SpecificFailurePathsContext nodeData)
         {
             return nodeData.WrappedData
-                           .Cast<SpecificFailurePath>()
                            .Select(sfp => new SpecificFailurePathContext(sfp, nodeData.AssessmentSection))
                            .Cast<object>()
                            .ToArray();
@@ -2019,6 +2019,8 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
+                new SpecificFailurePathSectionResultContext(nodeData.WrappedData.SectionResults,
+                                                            nodeData.WrappedData, nodeData.Parent),
                 nodeData.WrappedData.InAssemblyOutputComments
             };
         }

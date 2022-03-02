@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), textColor);
         }
-        
+
         [Test]
         public void CanRename_Always_ReturnTrue()
         {
@@ -146,7 +146,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.IsTrue(canRename);
         }
-        
+
         [Test]
         public void CanDrag_Always_ReturnTrue()
         {
@@ -159,7 +159,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.IsTrue(canDrag);
         }
-        
+
         [Test]
         public void OnNodeRenamed_ChangesNameOfFailurePathAndNotifiesObservers()
         {
@@ -171,18 +171,18 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var failurePath = new SpecificFailurePath();
             failurePath.Attach(observer);
-            
+
             var context = new SpecificFailurePathContext(failurePath, assessmentSection);
 
             const string newName = "Updated FailurePath name";
-            
+
             // Call
             info.OnNodeRenamed(context, newName);
 
             // Assert
             Assert.AreEqual(newName, failurePath.Name);
         }
-        
+
         [Test]
         public void CanRemove_Always_ReturnTrue()
         {
@@ -195,7 +195,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Assert
             Assert.IsTrue(canRename);
         }
-        
+
         [Test]
         public void OnNodeRemoved_WithContexts_RemovesFailurePathFromCollectionAndNotifiesObservers()
         {
@@ -214,7 +214,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
             failurePaths.Attach(observer);
             var parentContext = new SpecificFailurePathsContext(failurePaths, assessmentSection);
-            
+
             // Call
             info.OnNodeRemoved(context, parentContext);
 
@@ -251,11 +251,16 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreSame(specificFailurePath.InAssemblyInputComments, inAssemblyInputComments);
 
             var outputFolder = (CategoryTreeFolder) children[1];
-            Assert.AreEqual(1, outputFolder.Contents.Count());
             Assert.AreEqual("Oordeel", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-            var inAssemblyOutputComments = (Comment) outputFolder.Contents.ElementAt(0);
+            Assert.AreEqual(2, outputFolder.Contents.Count());
+            var sectionResultContext = (SpecificFailurePathSectionResultContext) outputFolder.Contents.ElementAt(0);
+            Assert.AreSame(specificFailurePath.SectionResults, sectionResultContext.WrappedData);
+            Assert.AreSame(specificFailurePath, sectionResultContext.FailureMechanism);
+            Assert.AreSame(assessmentSection, sectionResultContext.AssessmentSection);
+
+            var inAssemblyOutputComments = (Comment) outputFolder.Contents.ElementAt(1);
             Assert.AreSame(specificFailurePath.InAssemblyOutputComments, inAssemblyOutputComments);
         }
 
