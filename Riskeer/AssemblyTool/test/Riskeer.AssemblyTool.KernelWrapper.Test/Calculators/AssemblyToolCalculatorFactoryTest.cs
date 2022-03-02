@@ -75,6 +75,23 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators
         }
 
         [Test]
+        public void CreateAssessmentSectionAssemblyGroupBoundariesCalculator_WithKernelFactory_ReturnsCalculator()
+        {
+            // Setup
+            IAssemblyToolCalculatorFactory factory = AssemblyToolCalculatorFactory.Instance;
+
+            using (new AssemblyToolKernelFactoryConfig())
+            {
+                // Call
+                IAssessmentSectionAssemblyGroupBoundariesCalculator calculator = factory.CreateAssessmentSectionAssemblyGroupBoundariesCalculator(
+                    AssemblyToolKernelFactory.Instance);
+
+                // Assert
+                Assert.IsInstanceOf<IAssessmentSectionAssemblyGroupBoundariesCalculator>(calculator);
+            }
+        }
+
+        [Test]
         public void CreateFailureMechanismSectionAssemblyGroupBoundariesCalculator_WithKernelFactory_ReturnsCalculator()
         {
             // Setup
