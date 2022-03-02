@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
@@ -54,16 +55,24 @@ namespace Riskeer.Integration.Util.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyGroupBoundariesCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
                 IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> assemblyGroupBoundaries =
                     FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(assessmentSection);
 
                 // Assert
-                Assert.IsEmpty(assemblyGroupBoundaries);
+                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count() + 2, assemblyGroupBoundaries.Count());
+
+                for (int i = 0; i < calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count(); i++)
+                {
+                    FailureMechanismSectionAssemblyGroupBoundaries expectedBoundary = calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.ElementAt(i);
+                    FailureMechanismSectionAssemblyGroupBoundaries actualBoundary = assemblyGroupBoundaries.ElementAt(i);
+                    
+                    Assert.AreEqual(expectedBoundary.FailureMechanismSectionAssemblyGroup, actualBoundary.FailureMechanismSectionAssemblyGroup);
+                    Assert.AreEqual(expectedBoundary.LowerBoundary, actualBoundary.LowerBoundary);
+                    Assert.AreEqual(expectedBoundary.UpperBoundary, actualBoundary.UpperBoundary);
+                }
             }
-            
         }
         
         [Test]
