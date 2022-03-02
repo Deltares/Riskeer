@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<IFailurePath>>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<SpecificFailurePath>>>(context);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             Assert.AreSame(failurePaths, context.WrappedData);
             mocks.VerifyAll();
