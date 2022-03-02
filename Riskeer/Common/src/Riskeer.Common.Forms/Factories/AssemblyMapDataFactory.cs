@@ -39,7 +39,7 @@ namespace Riskeer.Common.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateFailureMechanismSectionAssemblyMapData()
         {
-            return new MapLineData(Resources.AssemblyCategoryPerSection_DisplayName, new LineStyle
+            return new MapLineData(Resources.AssemblyGroupPerSection_DisplayName, new LineStyle
                                    {
                                        Width = lineWidth,
                                        DashStyle = lineDashStyle

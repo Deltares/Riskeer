@@ -92,15 +92,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Duidingsklasse per vak.
-        /// </summary>
-        public static string AssemblyCategoryPerSection_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyCategoryPerSection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kleur.
         /// </summary>
         public static string AssemblyGroup_Color_DisplayName {
@@ -115,6 +106,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string AssemblyGroup_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyGroup_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duidingsklasse per vak.
+        /// </summary>
+        public static string AssemblyGroupPerSection_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyGroupPerSection_DisplayName", resourceCulture);
             }
         }
         
