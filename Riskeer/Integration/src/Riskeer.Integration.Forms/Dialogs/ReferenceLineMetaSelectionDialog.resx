@@ -270,34 +270,34 @@
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="SignallingValueRadioButton.AutoSize" type="System.Boolean, mscorlib">
+  <data name="SignalingValueRadioButton.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="SignallingValueRadioButton.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="SignalingValueRadioButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>9, 29</value>
   </data>
-  <data name="SignallingValueRadioButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="SignalingValueRadioButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 5, 4, 5</value>
   </data>
-  <data name="SignallingValueRadioButton.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="SignalingValueRadioButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>173, 24</value>
   </data>
-  <data name="SignallingValueRadioButton.TabIndex" type="System.Int32, mscorlib">
+  <data name="SignalingValueRadioButton.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="SignallingValueRadioButton.Text" xml:space="preserve">
+  <data name="SignalingValueRadioButton.Text" xml:space="preserve">
     <value>Signaleringswaarde</value>
   </data>
-  <data name="&gt;&gt;SignallingValueRadioButton.Name" xml:space="preserve">
-    <value>SignallingValueRadioButton</value>
+  <data name="&gt;&gt;SignalingValueRadioButton.Name" xml:space="preserve">
+    <value>SignalingValueRadioButton</value>
   </data>
-  <data name="&gt;&gt;SignallingValueRadioButton.Type" xml:space="preserve">
+  <data name="&gt;&gt;SignalingValueRadioButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;SignallingValueRadioButton.Parent" xml:space="preserve">
+  <data name="&gt;&gt;SignalingValueRadioButton.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
-  <data name="&gt;&gt;SignallingValueRadioButton.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;SignalingValueRadioButton.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="LowLimitValueRadioButton.AutoSize" type="System.Boolean, mscorlib">

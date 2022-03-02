@@ -787,8 +787,8 @@ namespace Riskeer.Integration.Plugin.Test
         [TestCase(0.1, 0.01, "1/10", 0.01, 0.01, "1/100")]
         [Apartment(ApartmentState.STA)]
         public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsViewForLowerLimitNorm_WhenChangingNormAndObserversNotified_ThenViewTitleUpdated(
-            double lowerLimitNorm, double signallingNorm, string originalProbabilityText,
-            double newLowerLimitNorm, double newSignallingNorm, string expectedProbabilityText)
+            double lowerLimitNorm, double signalingNorm, string originalProbabilityText,
+            double newLowerLimitNorm, double newSignalingNorm, string expectedProbabilityText)
         {
             // Given
             var mocks = new MockRepository();
@@ -806,7 +806,7 @@ namespace Riskeer.Integration.Plugin.Test
                     FailureMechanismContribution =
                     {
                         LowerLimitNorm = lowerLimitNorm,
-                        SignalingNorm = signallingNorm
+                        SignalingNorm = signalingNorm
                     }
                 };
                 var project = new RiskeerProject(assessmentSection);
@@ -826,7 +826,7 @@ namespace Riskeer.Integration.Plugin.Test
                 // When
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
                 failureMechanismContribution.LowerLimitNorm = newLowerLimitNorm;
-                failureMechanismContribution.SignalingNorm = newSignallingNorm;
+                failureMechanismContribution.SignalingNorm = newSignalingNorm;
                 failureMechanismContribution.NotifyObservers();
 
                 // Then
@@ -839,9 +839,9 @@ namespace Riskeer.Integration.Plugin.Test
         [TestCase(0.01, 0.01, "1/100 (1)", 0.1, 0.01, "1/100")]
         [TestCase(0.1, 0.01, "1/100", 0.01, 0.01, "1/100 (1)")]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsViewForSignallingNorm_WhenChangingNormAndObserversNotified_ThenViewTitleUpdated(
-            double lowerLimitNorm, double signallingNorm, string originalProbabilityText,
-            double newLowerLimitNorm, double newSignallingNorm, string expectedProbabilityText)
+        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsViewForSignalingNorm_WhenChangingNormAndObserversNotified_ThenViewTitleUpdated(
+            double lowerLimitNorm, double signalingNorm, string originalProbabilityText,
+            double newLowerLimitNorm, double newSignalingNorm, string expectedProbabilityText)
         {
             // Given
             var mocks = new MockRepository();
@@ -859,7 +859,7 @@ namespace Riskeer.Integration.Plugin.Test
                     FailureMechanismContribution =
                     {
                         LowerLimitNorm = lowerLimitNorm,
-                        SignalingNorm = signallingNorm
+                        SignalingNorm = signalingNorm
                     }
                 };
                 var project = new RiskeerProject(assessmentSection);
@@ -879,7 +879,7 @@ namespace Riskeer.Integration.Plugin.Test
                 // When
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
                 failureMechanismContribution.LowerLimitNorm = newLowerLimitNorm;
-                failureMechanismContribution.SignalingNorm = newSignallingNorm;
+                failureMechanismContribution.SignalingNorm = newSignalingNorm;
                 failureMechanismContribution.NotifyObservers();
 
                 // Then

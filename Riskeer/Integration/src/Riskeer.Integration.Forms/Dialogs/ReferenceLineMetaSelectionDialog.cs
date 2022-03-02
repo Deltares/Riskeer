@@ -107,7 +107,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             {
                 SelectedReferenceLineMeta = referenceLineMetaSelectionRow.ReferenceLineMeta;
 
-                SelectedNormativeNorm = SignallingValueRadioButton.Checked
+                SelectedNormativeNorm = SignalingValueRadioButton.Checked
                                             ? NormType.Signaling
                                             : NormType.LowerLimit;
 

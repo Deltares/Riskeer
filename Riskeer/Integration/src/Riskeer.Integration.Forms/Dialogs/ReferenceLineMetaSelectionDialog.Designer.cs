@@ -57,7 +57,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.SelectAssessmentSectionLabel = new System.Windows.Forms.Label();
             this.ReferenceLineMetaDataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.SignallingValueRadioButton = new System.Windows.Forms.RadioButton();
+            this.SignalingValueRadioButton = new System.Windows.Forms.RadioButton();
             this.LowLimitValueRadioButton = new System.Windows.Forms.RadioButton();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -111,18 +111,18 @@ namespace Riskeer.Integration.Forms.Dialogs
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.SignallingValueRadioButton);
+            this.groupBox1.Controls.Add(this.SignalingValueRadioButton);
             this.groupBox1.Controls.Add(this.LowLimitValueRadioButton);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
-            // SignallingValueRadioButton
+            // SignalingValueRadioButton
             // 
-            resources.ApplyResources(this.SignallingValueRadioButton, "SignallingValueRadioButton");
-            this.SignallingValueRadioButton.Checked = true;
-            this.SignallingValueRadioButton.Name = "SignallingValueRadioButton";
-            this.SignallingValueRadioButton.TabStop = true;
-            this.SignallingValueRadioButton.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.SignalingValueRadioButton, "SignalingValueRadioButton");
+            this.SignalingValueRadioButton.Checked = true;
+            this.SignalingValueRadioButton.Name = "SignalingValueRadioButton";
+            this.SignalingValueRadioButton.TabStop = true;
+            this.SignalingValueRadioButton.UseVisualStyleBackColor = true;
             // 
             // LowLimitValueRadioButton
             // 
@@ -153,7 +153,7 @@ namespace Riskeer.Integration.Forms.Dialogs
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private Core.Common.Controls.DataGrid.DataGridViewControl ReferenceLineMetaDataGridViewControl;
         private System.Windows.Forms.RadioButton LowLimitValueRadioButton;
-        private System.Windows.Forms.RadioButton SignallingValueRadioButton;
+        private System.Windows.Forms.RadioButton SignalingValueRadioButton;
         private System.Windows.Forms.Label SelectAssessmentSectionLabel;
         private System.Windows.Forms.GroupBox groupBox1;
     }

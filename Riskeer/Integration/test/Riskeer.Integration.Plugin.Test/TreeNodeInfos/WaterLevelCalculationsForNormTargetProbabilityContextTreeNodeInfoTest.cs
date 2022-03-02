@@ -767,7 +767,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculationConfigurations))]
         [Apartment(ApartmentState.STA)]
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenLogMessagesAddedOutputSet(
-            double lowerLimitNorm, double signallingNorm,
+            double lowerLimitNorm, double signalingNorm,
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
             // Given
@@ -777,7 +777,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 FailureMechanismContribution =
                 {
                     LowerLimitNorm = lowerLimitNorm,
-                    SignalingNorm = signallingNorm
+                    SignalingNorm = signalingNorm
                 },
                 HydraulicBoundaryDatabase =
                 {
