@@ -122,7 +122,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         [Test]
         [TestCaseSource(typeof(AssemblyGroupColorTestHelper), nameof(AssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
         public void Constructor_WithCombinedFailureMechanismAssemblyResult_ExpectedColumnStates(
-            FailureMechanismSectionAssemblyGroup categoryGroup,
+            FailureMechanismSectionAssemblyGroup assemblyGroup,
             Color expectedBackgroundColor)
         {
             // Setup
@@ -132,24 +132,24 @@ namespace Riskeer.Integration.Forms.Test.Views
                 random.Next(),
                 random.NextDouble(),
                 random.NextDouble(),
-                categoryGroup,
+                assemblyGroup,
                 new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
                 {
-                    Piping = categoryGroup,
-                    GrassCoverErosionInwards = categoryGroup,
-                    MacroStabilityInwards = categoryGroup,
-                    Microstability = categoryGroup,
-                    StabilityStoneCover = categoryGroup,
-                    WaveImpactAsphaltCover = categoryGroup,
-                    WaterPressureAsphaltCover = categoryGroup,
-                    GrassCoverErosionOutwards = categoryGroup,
-                    GrassCoverSlipOffOutwards = categoryGroup,
-                    GrassCoverSlipOffInwards = categoryGroup,
-                    HeightStructures = categoryGroup,
-                    ClosingStructures = categoryGroup,
-                    PipingStructure = categoryGroup,
-                    StabilityPointStructures = categoryGroup,
-                    DuneErosion = categoryGroup
+                    Piping = assemblyGroup,
+                    GrassCoverErosionInwards = assemblyGroup,
+                    MacroStabilityInwards = assemblyGroup,
+                    Microstability = assemblyGroup,
+                    StabilityStoneCover = assemblyGroup,
+                    WaveImpactAsphaltCover = assemblyGroup,
+                    WaterPressureAsphaltCover = assemblyGroup,
+                    GrassCoverErosionOutwards = assemblyGroup,
+                    GrassCoverSlipOffOutwards = assemblyGroup,
+                    GrassCoverSlipOffInwards = assemblyGroup,
+                    HeightStructures = assemblyGroup,
+                    ClosingStructures = assemblyGroup,
+                    PipingStructure = assemblyGroup,
+                    StabilityPointStructures = assemblyGroup,
+                    DuneErosion = assemblyGroup
                 });
 
             // Call

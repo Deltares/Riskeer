@@ -54,12 +54,12 @@ namespace Riskeer.Integration.Forms.Test.Controls
                 Assert.AreEqual(2, panel.ColumnCount);
                 Assert.AreEqual(2, panel.RowCount);
 
-                var assemblyCategoryGroupDisplayNameLabel = (Label) panel.GetControlFromPosition(0, 0);
-                Assert.AreEqual("Veiligheidsoordeel", assemblyCategoryGroupDisplayNameLabel.Text);
-                Assert.IsTrue(assemblyCategoryGroupDisplayNameLabel.AutoSize);
-                Assert.AreEqual(DockStyle.Left, assemblyCategoryGroupDisplayNameLabel.Dock);
-                Assert.AreEqual(new Padding(5, 0, 5, 0), assemblyCategoryGroupDisplayNameLabel.Padding);
-                Assert.AreEqual(new Padding(3), assemblyCategoryGroupDisplayNameLabel.Margin);
+                var assemblyGroupDisplayNameLabel = (Label) panel.GetControlFromPosition(0, 0);
+                Assert.AreEqual("Veiligheidsoordeel", assemblyGroupDisplayNameLabel.Text);
+                Assert.IsTrue(assemblyGroupDisplayNameLabel.AutoSize);
+                Assert.AreEqual(DockStyle.Left, assemblyGroupDisplayNameLabel.Dock);
+                Assert.AreEqual(new Padding(5, 0, 5, 0), assemblyGroupDisplayNameLabel.Padding);
+                Assert.AreEqual(new Padding(3), assemblyGroupDisplayNameLabel.Margin);
 
                 var failureProbabilityDisplayNameLabel = (Label) panel.GetControlFromPosition(0, 1);
                 Assert.AreEqual("Faalkans [1/jaar]", failureProbabilityDisplayNameLabel.Text);
