@@ -28,7 +28,6 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
-using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
@@ -132,10 +131,11 @@ namespace Riskeer.Common.Forms.Views
         protected abstract TSectionResultRow CreateFailureMechanismSectionResultRow(TSectionResult sectionResult);
 
         /// <summary>
-        /// Gets the length effect factor 'N'.
+        /// Gets the failure mechanism assembly result.
         /// </summary>
-        /// <returns>A <see cref="double"/> representing the length effect factor 'N'.</returns>
-        protected abstract double GetN();
+        /// <returns>A <see cref="double"/> representing the failure mechanism assembly result.</returns>
+        /// <exception cref="AssemblyException">Thrown when the failure mechanism cannot be successfully assembled.</exception>
+        protected abstract double GetFailureMechanismAssemblyResult();
 
         protected override void Dispose(bool disposing)
         {
@@ -276,7 +276,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(GetN(), sectionResultRows.Select(r => r.AssemblyResult));
+                return GetFailureMechanismAssemblyResult();
             }
             catch (AssemblyException e)
             {
