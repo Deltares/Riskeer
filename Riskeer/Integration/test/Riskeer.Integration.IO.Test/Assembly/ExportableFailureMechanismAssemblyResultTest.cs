@@ -43,7 +43,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
 
             // Assert
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
-            Assert.AreEqual(assemblyCategory, assemblyResult.AssemblyCategory);
+            Assert.AreEqual(assemblyCategory, assemblyResult.AssemblyGroup);
         }
     }
 }

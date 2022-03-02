@@ -32,12 +32,12 @@ namespace Riskeer.Integration.IO.Assembly
         /// Creates a new instance of <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/>.
         /// </summary>
         /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
-        /// <param name="assemblyCategory">The assembly result.</param>
+        /// <param name="assemblyGroup">The assembly result.</param>
         /// <param name="probability">The probability of the assembly result.</param>
         public ExportableFailureMechanismAssemblyResultWithProbability(ExportableAssemblyMethod assemblyMethod,
-                                                                       FailureMechanismAssemblyCategoryGroup assemblyCategory,
+                                                                       FailureMechanismAssemblyCategoryGroup assemblyGroup,
                                                                        double probability)
-            : base(assemblyMethod, assemblyCategory)
+            : base(assemblyMethod, assemblyGroup)
         {
             Probability = probability;
         }

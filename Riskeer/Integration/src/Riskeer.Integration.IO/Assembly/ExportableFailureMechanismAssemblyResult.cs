@@ -32,12 +32,12 @@ namespace Riskeer.Integration.IO.Assembly
         /// Creates a new instance of <see cref="ExportableFailureMechanismAssemblyResult"/>.
         /// </summary>
         /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
-        /// <param name="assemblyCategory">The assembly result.</param>
+        /// <param name="assemblyGroup">The assembly result.</param>
         public ExportableFailureMechanismAssemblyResult(ExportableAssemblyMethod assemblyMethod,
-                                                        FailureMechanismAssemblyCategoryGroup assemblyCategory)
+                                                        FailureMechanismAssemblyCategoryGroup assemblyGroup)
         {
             AssemblyMethod = assemblyMethod;
-            AssemblyCategory = assemblyCategory;
+            AssemblyGroup = assemblyGroup;
         }
 
         /// <summary>
@@ -46,8 +46,8 @@ namespace Riskeer.Integration.IO.Assembly
         public ExportableAssemblyMethod AssemblyMethod { get; }
 
         /// <summary>
-        /// Gets the assembly category result.
+        /// Gets the assembly group result.
         /// </summary>
-        public FailureMechanismAssemblyCategoryGroup AssemblyCategory { get; }
+        public FailureMechanismAssemblyCategoryGroup AssemblyGroup { get; }
     }
 }

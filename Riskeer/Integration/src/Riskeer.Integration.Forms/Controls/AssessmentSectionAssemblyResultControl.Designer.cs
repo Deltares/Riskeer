@@ -58,7 +58,7 @@ namespace Riskeer.Integration.Forms.Controls
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssessmentSectionAssemblyResultControl));
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.resultLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.assemblyCategoryGroupDisplayNameLabel = new System.Windows.Forms.Label();
+            this.assemblyGroupDisplayNameLabel = new System.Windows.Forms.Label();
             this.assemblyProbabilityDisplayNameLabel = new System.Windows.Forms.Label();
             this.groupLabel = new Core.Common.Controls.BorderedLabel();
             this.probabilityLabel = new Core.Common.Controls.BorderedLabel();
@@ -77,7 +77,7 @@ namespace Riskeer.Integration.Forms.Controls
             this.resultLayoutPanel.ColumnCount = 2;
             this.resultLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.resultLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.resultLayoutPanel.Controls.Add(this.assemblyCategoryGroupDisplayNameLabel, 0, 0);
+            this.resultLayoutPanel.Controls.Add(this.assemblyGroupDisplayNameLabel, 0, 0);
             this.resultLayoutPanel.Controls.Add(this.assemblyProbabilityDisplayNameLabel, 0, 1);
             this.resultLayoutPanel.Controls.Add(this.groupLabel, 1, 0);
             this.resultLayoutPanel.Controls.Add(this.probabilityLabel, 1, 1);
@@ -91,18 +91,18 @@ namespace Riskeer.Integration.Forms.Controls
             this.resultLayoutPanel.AutoSize = true;
             this.resultLayoutPanel.TabIndex = 0;
             // 
-            // assemblyCategoryGroupDisplayNameLabel
+            // assemblyGroupDisplayNameLabel
             // 
-            this.assemblyCategoryGroupDisplayNameLabel.AutoSize = true;
-            this.assemblyCategoryGroupDisplayNameLabel.TextAlign = ContentAlignment.MiddleLeft;
-            this.assemblyCategoryGroupDisplayNameLabel.Location = new System.Drawing.Point(3, 0);
-            this.assemblyCategoryGroupDisplayNameLabel.Name = "assemblyCategoryGroupDisplayNameLabel";
-            this.assemblyCategoryGroupDisplayNameLabel.Size = new System.Drawing.Size(92, 13);
-            this.assemblyCategoryGroupDisplayNameLabel.Dock = DockStyle.Left;
-            this.assemblyCategoryGroupDisplayNameLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.assemblyCategoryGroupDisplayNameLabel.Margin = new System.Windows.Forms.Padding(3);
-            this.assemblyCategoryGroupDisplayNameLabel.TabIndex = 0;
-            this.assemblyCategoryGroupDisplayNameLabel.Text = Resources.AssessmentSectionAssemblyResultControl_AssemblyCategoryGroup_DisplayName;
+            this.assemblyGroupDisplayNameLabel.AutoSize = true;
+            this.assemblyGroupDisplayNameLabel.TextAlign = ContentAlignment.MiddleLeft;
+            this.assemblyGroupDisplayNameLabel.Location = new System.Drawing.Point(3, 0);
+            this.assemblyGroupDisplayNameLabel.Name = "assemblyGroupDisplayNameLabel";
+            this.assemblyGroupDisplayNameLabel.Size = new System.Drawing.Size(92, 13);
+            this.assemblyGroupDisplayNameLabel.Dock = DockStyle.Left;
+            this.assemblyGroupDisplayNameLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.assemblyGroupDisplayNameLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.assemblyGroupDisplayNameLabel.TabIndex = 0;
+            this.assemblyGroupDisplayNameLabel.Text = Resources.AssessmentSectionAssemblyResultControl_AssemblyGroup_DisplayName;
             // 
             // assemblyProbabilityDisplayNameLabel
             // 
@@ -164,7 +164,7 @@ namespace Riskeer.Integration.Forms.Controls
         
         private System.Windows.Forms.ErrorProvider errorProvider;
         private TableLayoutPanel resultLayoutPanel;
-        private Label assemblyCategoryGroupDisplayNameLabel;
+        private Label assemblyGroupDisplayNameLabel;
         private Label assemblyProbabilityDisplayNameLabel;
         private BorderedLabel groupLabel;
         private BorderedLabel probabilityLabel;

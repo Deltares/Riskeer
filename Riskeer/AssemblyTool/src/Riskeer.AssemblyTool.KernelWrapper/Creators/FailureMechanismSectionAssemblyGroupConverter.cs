@@ -37,7 +37,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// Converts an <see cref="EInterpretationCategory"/> into a <see cref="FailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
         /// <param name="interpretationCategory">The <see cref="EInterpretationCategory"/> to convert.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyCategoryGroup"/> based on <paramref name="interpretationCategory"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyGroup"/> based on <paramref name="interpretationCategory"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="interpretationCategory"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="interpretationCategory"/>

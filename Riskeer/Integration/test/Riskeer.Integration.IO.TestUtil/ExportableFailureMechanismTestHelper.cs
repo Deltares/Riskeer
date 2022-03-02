@@ -61,7 +61,7 @@ namespace Riskeer.Integration.IO.TestUtil
 
             ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyResult = exportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(expectedFailureMechanismAssemblyMethod, failureMechanismAssemblyResult.AssemblyMethod);
-            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyGroup);
             Assert.AreEqual(0, failureMechanismAssemblyResult.Probability);
 
             var exportableFailureMechanismSectionAssembly =
@@ -105,7 +105,7 @@ namespace Riskeer.Integration.IO.TestUtil
 
             ExportableFailureMechanismAssemblyResult failureMechanismAssemblyResult = exportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(expectedFailureMechanismAssemblyMethod, failureMechanismAssemblyResult.AssemblyMethod);
-            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.NotApplicable, failureMechanismAssemblyResult.AssemblyGroup);
 
             var exportableFailureMechanismSectionAssembly =
                 (ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult) exportableFailureMechanism.SectionAssemblyResults.Single();

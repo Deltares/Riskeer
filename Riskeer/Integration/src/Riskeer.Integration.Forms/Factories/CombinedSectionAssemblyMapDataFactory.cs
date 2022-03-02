@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Forms.Factories
                                        Width = 6,
                                        DashStyle = LineDashStyle.Solid
                                    },
-                                   MapThemeFactory.CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme())
+                                   MapThemeFactory.CreateDisplayFailureMechanismSectionAssemblyGroupMapTheme())
             {
                 ShowLabels = true,
                 SelectedMetaDataAttribute = Resources.SectionNumber_DisplayName

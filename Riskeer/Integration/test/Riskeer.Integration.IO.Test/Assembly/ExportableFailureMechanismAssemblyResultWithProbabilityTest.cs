@@ -46,7 +46,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
             Assert.IsInstanceOf<ExportableFailureMechanismAssemblyResult>(assemblyResult);
 
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
-            Assert.AreEqual(assemblyCategory, assemblyResult.AssemblyCategory);
+            Assert.AreEqual(assemblyCategory, assemblyResult.AssemblyGroup);
             Assert.AreEqual(probability, assemblyResult.Probability);
         }
     }

@@ -64,13 +64,13 @@ namespace Riskeer.Common.Forms.Test.Helpers
         [Test]
         [TestCaseSource(typeof(AssemblyGroupColorTestHelper), nameof(AssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
         public void SetAssemblyGroupStyle_ValidFailureMechanismSectionAssemblyGroup_UpdatesColumnStyle(
-            FailureMechanismSectionAssemblyGroup assemblyCategoryGroup, Color expectedColor)
+            FailureMechanismSectionAssemblyGroup assemblyGroup, Color expectedColor)
         {
             // Setup
             var columnStateDefinition = new DataGridViewColumnStateDefinition();
 
             // Call
-            FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(columnStateDefinition, assemblyCategoryGroup);
+            FailureMechanismSectionResultRowHelper.SetAssemblyGroupStyle(columnStateDefinition, assemblyGroup);
 
             // Assert
             Assert.AreEqual(expectedColor, columnStateDefinition.Style.BackgroundColor);

@@ -199,10 +199,10 @@ namespace Riskeer.Integration.Forms.Views
 
         private void UpdateAssemblyResultControls()
         {
-            UpdateTotalAssemblyCategoryGroupControl();
+            UpdateTotalAssemblyGroupControl();
         }
         
-        private void UpdateTotalAssemblyCategoryGroupControl()
+        private void UpdateTotalAssemblyGroupControl()
         {
             assessmentSectionAssemblyControl.ClearAssemblyResult();
             assessmentSectionAssemblyControl.ClearErrors();

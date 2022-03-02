@@ -329,10 +329,10 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
         }
 
-        private static CellStyle CreateCellStyle(FailureMechanismSectionAssemblyGroup assemblyCategoryGroup)
+        private static CellStyle CreateCellStyle(FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             return new CellStyle(Color.FromKnownColor(KnownColor.ControlText),
-                                 AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyCategoryGroup));
+                                 AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroup));
         }
     }
 }

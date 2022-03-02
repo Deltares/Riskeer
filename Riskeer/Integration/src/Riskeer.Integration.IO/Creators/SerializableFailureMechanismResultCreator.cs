@@ -53,7 +53,7 @@ namespace Riskeer.Integration.IO.Creators
             ValidateAssemblyResult(result);
 
             return new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethodCreator.Create(result.AssemblyMethod),
-                                                                  SerializableFailureMechanismCategoryGroupCreator.Create(result.AssemblyCategory));
+                                                                  SerializableFailureMechanismCategoryGroupCreator.Create(result.AssemblyGroup));
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Riskeer.Integration.IO.Creators
             ValidateAssemblyResult(result);
 
             return new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethodCreator.Create(result.AssemblyMethod),
-                                                                  SerializableFailureMechanismCategoryGroupCreator.Create(result.AssemblyCategory),
+                                                                  SerializableFailureMechanismCategoryGroupCreator.Create(result.AssemblyGroup),
                                                                   result.Probability);
         }
 
@@ -89,7 +89,7 @@ namespace Riskeer.Integration.IO.Creators
         /// and a serializable assembly result cannot be created.</exception>
         private static void ValidateAssemblyResult(ExportableFailureMechanismAssemblyResult result)
         {
-            if (result.AssemblyCategory == FailureMechanismAssemblyCategoryGroup.None)
+            if (result.AssemblyGroup == FailureMechanismAssemblyCategoryGroup.None)
             {
                 throw new AssemblyCreatorException(@"The assembly result is invalid and cannot be created.");
             }

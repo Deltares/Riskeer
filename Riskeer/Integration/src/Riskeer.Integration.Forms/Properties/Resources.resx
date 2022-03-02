@@ -362,7 +362,7 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="FailurePath_Code_Description" xml:space="preserve">
     <value>Het label van het faalpad.</value>
   </data>
-  <data name="AssessmentSectionAssemblyResultControl_AssemblyCategoryGroup_DisplayName" xml:space="preserve">
+  <data name="AssessmentSectionAssemblyResultControl_AssemblyGroup_DisplayName" xml:space="preserve">
     <value>Veiligheidsoordeel</value>
   </data>
   <data name="AssemblyGroup_Name_DisplayName" xml:space="preserve">

@@ -98,12 +98,12 @@ namespace Riskeer.Integration.IO.Test.Factories
 
                 ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyWithProbability = exportableAssessmentSection.FailureMechanismAssemblyWithProbability;
                 Assert.AreEqual(ExportableAssemblyMethod.WBI2B1, failureMechanismAssemblyWithProbability.AssemblyMethod);
-                Assert.AreEqual(assemblyCategoryGroup, failureMechanismAssemblyWithProbability.AssemblyCategory);
+                Assert.AreEqual(assemblyCategoryGroup, failureMechanismAssemblyWithProbability.AssemblyGroup);
                 Assert.AreEqual(0, failureMechanismAssemblyWithProbability.Probability);
 
                 ExportableFailureMechanismAssemblyResult failureMechanismAssemblyWithoutProbability = exportableAssessmentSection.FailureMechanismAssemblyWithoutProbability;
                 Assert.AreEqual(ExportableAssemblyMethod.WBI2A1, failureMechanismAssemblyWithoutProbability.AssemblyMethod);
-                Assert.AreEqual(assemblyCategoryGroup, failureMechanismAssemblyWithoutProbability.AssemblyCategory);
+                Assert.AreEqual(assemblyCategoryGroup, failureMechanismAssemblyWithoutProbability.AssemblyGroup);
 
                 ExportableAssessmentSectionAssemblyResult exportableAssessmentSectionAssemblyResult = exportableAssessmentSection.AssessmentSectionAssembly;
                 Assert.AreEqual(AssessmentSectionAssemblyGroup.None, exportableAssessmentSectionAssemblyResult.AssemblyCategory);
@@ -167,7 +167,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual(expectedFailureMechanismGroup, actualExportableFailureMechanism.Group);
 
             ExportableFailureMechanismAssemblyResultWithProbability exportableFailureMechanismAssemblyResult = actualExportableFailureMechanism.FailureMechanismAssembly;
-            Assert.AreEqual(assemblyCategoryGroup, exportableFailureMechanismAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(assemblyCategoryGroup, exportableFailureMechanismAssemblyResult.AssemblyGroup);
             Assert.AreEqual(0, exportableFailureMechanismAssemblyResult.Probability);
             Assert.AreEqual(ExportableAssemblyMethod.WBI1B1, exportableFailureMechanismAssemblyResult.AssemblyMethod);
 
@@ -239,7 +239,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual(expectedFailureMechanismGroup, actualExportableFailureMechanism.Group);
 
             ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssemblyResult = actualExportableFailureMechanism.FailureMechanismAssembly;
-            Assert.AreEqual(assemblyCategoryGroup, exportableFailureMechanismAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(assemblyCategoryGroup, exportableFailureMechanismAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableAssemblyMethod.WBI1A1, exportableFailureMechanismAssemblyResult.AssemblyMethod);
 
             Assert.AreEqual(failureMechanism.SectionResults.Count(), actualExportableFailureMechanism.SectionAssemblyResults.Count());

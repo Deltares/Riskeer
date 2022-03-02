@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.TestUtil
     public static class MapThemeTestHelper
     {
         /// <summary>
-        /// Asserts whether the <paramref name="theme"/> is configured for category values
+        /// Asserts whether the <paramref name="theme"/> is configured for values
         /// of type <see cref="FailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
         /// <param name="theme">The <see cref="MapTheme{T}"/> to assert.</param>

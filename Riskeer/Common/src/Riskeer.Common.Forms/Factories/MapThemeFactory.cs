@@ -40,24 +40,24 @@ namespace Riskeer.Common.Forms.Factories
         /// Creates a <see cref="MapTheme{T}"/> based on the values of <see cref="DisplayFailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
         /// <returns>The created <see cref="MapTheme{T}"/>.</returns>
-        public static MapTheme<LineCategoryTheme> CreateDisplayFailureMechanismAssemblyCategoryGroupMapTheme()
+        public static MapTheme<LineCategoryTheme> CreateDisplayFailureMechanismSectionAssemblyGroupMapTheme()
         {
             return new MapTheme<LineCategoryTheme>(Resources.AssemblyGroup_DisplayName, new[]
             {
-                CreateCategoryTheme(Color.FromArgb(255, 34, 139, 34), DisplayFailureMechanismSectionAssemblyGroup.III),
-                CreateCategoryTheme(Color.FromArgb(255, 146, 208, 80), DisplayFailureMechanismSectionAssemblyGroup.II),
-                CreateCategoryTheme(Color.FromArgb(255, 198, 224, 180), DisplayFailureMechanismSectionAssemblyGroup.I),
-                CreateCategoryTheme(Color.FromArgb(255, 255, 255, 0), DisplayFailureMechanismSectionAssemblyGroup.Zero),
-                CreateCategoryTheme(Color.FromArgb(255, 255, 165, 0), DisplayFailureMechanismSectionAssemblyGroup.IMin),
-                CreateCategoryTheme(Color.FromArgb(255, 255, 0, 0), DisplayFailureMechanismSectionAssemblyGroup.IIMin),
-                CreateCategoryTheme(Color.FromArgb(255, 178, 34, 34), DisplayFailureMechanismSectionAssemblyGroup.IIIMin),
-                CreateCategoryTheme(Color.FromArgb(255, 255, 90, 172), DisplayFailureMechanismSectionAssemblyGroup.Dominant),
-                CreateCategoryTheme(Color.FromArgb(255, 192, 192, 192), DisplayFailureMechanismSectionAssemblyGroup.NotDominant),
-                CreateCategoryTheme(Color.FromArgb(0, 0, 0, 0), DisplayFailureMechanismSectionAssemblyGroup.GR)
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 34, 139, 34), DisplayFailureMechanismSectionAssemblyGroup.III),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 146, 208, 80), DisplayFailureMechanismSectionAssemblyGroup.II),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 198, 224, 180), DisplayFailureMechanismSectionAssemblyGroup.I),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 255, 0), DisplayFailureMechanismSectionAssemblyGroup.Zero),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 165, 0), DisplayFailureMechanismSectionAssemblyGroup.IMin),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 0, 0), DisplayFailureMechanismSectionAssemblyGroup.IIMin),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 178, 34, 34), DisplayFailureMechanismSectionAssemblyGroup.IIIMin),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 90, 172), DisplayFailureMechanismSectionAssemblyGroup.Dominant),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 192, 192, 192), DisplayFailureMechanismSectionAssemblyGroup.NotDominant),
+                CreateAssemblyGroupTheme(Color.FromArgb(0, 0, 0, 0), DisplayFailureMechanismSectionAssemblyGroup.GR)
             });
         }
 
-        private static LineCategoryTheme CreateCategoryTheme(Color color, DisplayFailureMechanismSectionAssemblyGroup categoryGroup)
+        private static LineCategoryTheme CreateAssemblyGroupTheme(Color color, DisplayFailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             var lineStyle = new LineStyle
             {
@@ -66,13 +66,13 @@ namespace Riskeer.Common.Forms.Factories
                 Width = lineWidth
             };
 
-            return new LineCategoryTheme(CreateCriterion(categoryGroup), lineStyle);
+            return new LineCategoryTheme(CreateCriterion(assemblyGroup), lineStyle);
         }
 
-        private static ValueCriterion CreateCriterion(DisplayFailureMechanismSectionAssemblyGroup category)
+        private static ValueCriterion CreateCriterion(DisplayFailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             return new ValueCriterion(ValueCriterionOperator.EqualValue,
-                                      new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(category).DisplayName);
+                                      new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(assemblyGroup).DisplayName);
         }
     }
 }

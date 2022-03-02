@@ -72,7 +72,7 @@ namespace Riskeer.Integration.IO.TestUtil
         private static void AssertSerializableBaseProperties(ExportableFailureMechanismAssemblyResult expectedResult,
                                                              SerializableFailureMechanismAssemblyResult actualResult)
         {
-            Assert.AreEqual(SerializableFailureMechanismCategoryGroupCreator.Create(expectedResult.AssemblyCategory), actualResult.CategoryGroup);
+            Assert.AreEqual(SerializableFailureMechanismCategoryGroupCreator.Create(expectedResult.AssemblyGroup), actualResult.CategoryGroup);
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedResult.AssemblyMethod), actualResult.AssemblyMethod);
         }
     }
