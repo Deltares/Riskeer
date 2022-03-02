@@ -35,6 +35,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Views;
+using Riskeer.Integration.Util;
 
 namespace Riskeer.Integration.Forms.Test.Views
 {
@@ -99,27 +100,25 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithValidParameters_FillTableWithData()
+        public void Constructor_WithValidParameters_FillsTableWithData()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyGroupBoundariesCalculator;
-
                 // Call
                 using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
                 {
                     AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
 
                     // Assert
-                    Assert.AreEqual(calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count() + 2, assemblyGroupsTable.Rows.Count);
+                    var expectedBoundaries = FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(assessmentSection);
+                    Assert.AreEqual(expectedBoundaries.Count(), assemblyGroupsTable.Rows.Count);
 
-                    for (int i = 0; i < calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count(); i++)
+                    for (int i = 0; i < expectedBoundaries.Count(); i++)
                     {
-                        FailureMechanismSectionAssemblyGroupBoundaries expectedBoundary = calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.ElementAt(i);
+                        FailureMechanismSectionAssemblyGroupBoundaries expectedBoundary = expectedBoundaries.ElementAt(i);
                         var actualBoundary = (AssemblyGroupRow<DisplayFailureMechanismSectionAssemblyGroup>) assemblyGroupsTable.Rows[i].DataBoundItem;
 
                         Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(expectedBoundary.FailureMechanismSectionAssemblyGroup), actualBoundary.Group);
