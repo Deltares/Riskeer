@@ -68,7 +68,14 @@ namespace Riskeer.Storage.Core.DbContext
         public long AssessmentSectionEntityId { get; set; }
         public long? CalculationGroupEntityId { get; set; }
         public short FailureMechanismType { get; set; }
+        public byte InAssembly { get; set; }
+        public string FailureMechanismSectionCollectionSourcePath { get; set; }
+        public string InAssemblyInputComments { get; set; }
+        public string InAssemblyOutputComments { get; set; }
+        public string NotInAssemblyComments { get; set; }
         public string CalculationsInputComments { get; set; }
+        public byte FailurePathAssemblyProbabilityResultType { get; set; }
+        public double? ManualFailurePathAssemblyProbability { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
@@ -141,14 +148,6 @@ namespace Riskeer.Storage.Core.DbContext
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WaveImpactAsphaltCoverFailureMechanismMetaEntity> WaveImpactAsphaltCoverFailureMechanismMetaEntities { get; set; }
-
-        public byte InAssembly { get; set; }
-        public string FailureMechanismSectionCollectionSourcePath { get; set; }
-        public string InAssemblyInputComments { get; set; }
-        public string InAssemblyOutputComments { get; set; }
-        public string NotInAssemblyComments { get; set; }
-        public byte FailurePathAssemblyProbabilityResultType { get; set; }
-        public double? ManualFailurePathAssemblyProbability { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }

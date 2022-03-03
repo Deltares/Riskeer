@@ -34,9 +34,9 @@ namespace Riskeer.Storage.Core.DbContext
     {
         public long GrassCoverSlipOffInwardsFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
-
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
         public double N { get; set; }
         public byte ApplyLengthEffectInSection { get; set; }
+
+        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }
 }

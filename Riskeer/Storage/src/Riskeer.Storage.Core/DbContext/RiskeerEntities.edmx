@@ -1041,6 +1041,20 @@
           <Property Name="RefinedSectionProbability" Type="real" />
           <Property Name="RefinedProfileProbability" Type="real" />
         </EntityType>
+        <EntityType Name="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity">
+          <Key>
+            <PropertyRef Name="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" />
+          </Key>
+          <Property Name="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismSectionEntityId" Type="integer" />
+          <Property Name="IsRelevant" Type="tinyint" Nullable="false" />
+          <Property Name="InitialFailureMechanismResultType" Type="tinyint" Nullable="false" />
+          <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="real" />
+          <Property Name="ManualInitialFailureMechanismResultProfileProbability" Type="real" />
+          <Property Name="FurtherAnalysisType" Type="tinyint" Nullable="false" />
+          <Property Name="RefinedSectionProbability" Type="real" />
+          <Property Name="RefinedProfileProbability" Type="real" />
+        </EntityType>
         <EntityType Name="PipingCharacteristicPointEntity">
           <Key>
             <PropertyRef Name="PipingCharacteristicPointEntityId" />
@@ -2821,6 +2835,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity_0_0">
+          <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="0..1" />
+          <End Role="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" Type="Self.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismSectionEntity">
+              <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Principal>
+            <Dependent Role="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity">
+              <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PipingCharacteristicPointEntity_0_0">
           <End Role="SurfaceLineEntity" Type="Self.SurfaceLineEntity" Multiplicity="1" />
           <End Role="PipingCharacteristicPointEntity" Type="Self.PipingCharacteristicPointEntity" Multiplicity="*" />
@@ -3587,6 +3613,7 @@
           <EntitySet Name="MacroStabilityInwardsStochasticSoilProfileEntity" EntityType="Self.MacroStabilityInwardsStochasticSoilProfileEntity" store:Type="Tables" />
           <EntitySet Name="MicrostabilityFailureMechanismMetaEntity" EntityType="Self.MicrostabilityFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="MicrostabilitySectionResultEntity" EntityType="Self.MicrostabilitySectionResultEntity" store:Type="Tables" />
+          <EntitySet Name="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" EntityType="Self.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="PipingCharacteristicPointEntity" EntityType="Self.PipingCharacteristicPointEntity" store:Type="Tables" />
           <EntitySet Name="PipingFailureMechanismMetaEntity" EntityType="Self.PipingFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="PipingScenarioConfigurationPerFailureMechanismSectionEntity" EntityType="Self.PipingScenarioConfigurationPerFailureMechanismSectionEntity" store:Type="Tables" />
@@ -4014,6 +4041,10 @@
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="MicrostabilitySectionResultEntity" EntitySet="MicrostabilitySectionResultEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity_0_0" Association="Self.FK_NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity_0_0">
+            <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
+            <End Role="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" EntitySet="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_PipingCharacteristicPointEntity_0_0" Association="Self.FK_PipingCharacteristicPointEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
             <End Role="PipingCharacteristicPointEntity" EntitySet="PipingCharacteristicPointEntity" />
@@ -4313,6 +4344,7 @@
           <EntitySet Name="MacroStabilityInwardsStochasticSoilProfileEntities" EntityType="RiskeerEntitiesModel.MacroStabilityInwardsStochasticSoilProfileEntity" />
           <EntitySet Name="MicrostabilityFailureMechanismMetaEntities" EntityType="RiskeerEntitiesModel.MicrostabilityFailureMechanismMetaEntity" />
           <EntitySet Name="MicrostabilitySectionResultEntities" EntityType="RiskeerEntitiesModel.MicrostabilitySectionResultEntity" />
+          <EntitySet Name="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities" EntityType="RiskeerEntitiesModel.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" />
           <EntitySet Name="PipingCharacteristicPointEntities" EntityType="RiskeerEntitiesModel.PipingCharacteristicPointEntity" />
           <EntitySet Name="PipingFailureMechanismMetaEntities" EntityType="RiskeerEntitiesModel.PipingFailureMechanismMetaEntity" />
           <EntitySet Name="PipingScenarioConfigurationPerFailureMechanismSectionEntities" EntityType="RiskeerEntitiesModel.PipingScenarioConfigurationPerFailureMechanismSectionEntity" />
@@ -4606,6 +4638,10 @@
           <AssociationSet Name="FK_MicrostabilitySectionResultEntity_0_0" Association="RiskeerEntitiesModel.FK_MicrostabilitySectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="MicrostabilitySectionResultEntity" EntitySet="MicrostabilitySectionResultEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity_0_0" Association="RiskeerEntitiesModel.FK_NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity_0_0">
+            <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
+            <End Role="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" EntitySet="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_PipingScenarioConfigurationPerFailureMechanismSectionEntity_0_0" Association="RiskeerEntitiesModel.FK_PipingScenarioConfigurationPerFailureMechanismSectionEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
@@ -5296,6 +5332,7 @@
           <NavigationProperty Name="HeightStructuresSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_HeightStructuresSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="HeightStructuresSectionResultEntity" />
           <NavigationProperty Name="MacroStabilityInwardsSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_MacroStabilityInwardsSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="MacroStabilityInwardsSectionResultEntity" />
           <NavigationProperty Name="MicrostabilitySectionResultEntities" Relationship="RiskeerEntitiesModel.FK_MicrostabilitySectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="MicrostabilitySectionResultEntity" />
+          <NavigationProperty Name="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" />
           <NavigationProperty Name="PipingScenarioConfigurationPerFailureMechanismSectionEntities" Relationship="RiskeerEntitiesModel.FK_PipingScenarioConfigurationPerFailureMechanismSectionEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="PipingScenarioConfigurationPerFailureMechanismSectionEntity" />
           <NavigationProperty Name="PipingSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_PipingSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="PipingSectionResultEntity" />
           <NavigationProperty Name="PipingStructureSectionResultEntities" Relationship="RiskeerEntitiesModel.FK_PipingStructureSectionResultEntity_0_0" FromRole="FailureMechanismSectionEntity" ToRole="PipingStructureSectionResultEntity" />
@@ -6117,6 +6154,21 @@
           <Property Name="RefinedSectionProbability" Type="Double" />
           <Property Name="RefinedProfileProbability" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RiskeerEntitiesModel.FK_MicrostabilitySectionResultEntity_0_0" FromRole="MicrostabilitySectionResultEntity" ToRole="FailureMechanismSectionEntity" />
+        </EntityType>
+        <EntityType Name="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity">
+          <Key>
+            <PropertyRef Name="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity1" />
+          </Key>
+          <Property Name="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity1" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismSectionEntityId" Type="Int64" />
+          <Property Name="IsRelevant" Type="Byte" Nullable="false" />
+          <Property Name="InitialFailureMechanismResultType" Type="Byte" Nullable="false" />
+          <Property Name="ManualInitialFailureMechanismResultSectionProbability" Type="Double" />
+          <Property Name="ManualInitialFailureMechanismResultProfileProbability" Type="Double" />
+          <Property Name="FurtherAnalysisType" Type="Byte" Nullable="false" />
+          <Property Name="RefinedSectionProbability" Type="Double" />
+          <Property Name="RefinedProfileProbability" Type="Double" />
+          <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RiskeerEntitiesModel.FK_NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity_0_0" FromRole="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="PipingCharacteristicPointEntity">
           <Key>
@@ -7572,6 +7624,18 @@
               <PropertyRef Name="FailureMechanismSectionEntityId" />
             </Principal>
             <Dependent Role="MicrostabilitySectionResultEntity">
+              <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity_0_0">
+          <End Type="RiskeerEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="0..1" />
+          <End Type="RiskeerEntitiesModel.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" Role="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismSectionEntity">
+              <PropertyRef Name="FailureMechanismSectionEntityId" />
+            </Principal>
+            <Dependent Role="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity">
               <PropertyRef Name="FailureMechanismSectionEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -9524,6 +9588,21 @@
                 <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="MicrostabilitySectionResultEntityId" ColumnName="MicrostabilitySectionResultEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities">
+            <EntityTypeMapping TypeName="RiskeerEntitiesModel.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity">
+              <MappingFragment StoreEntitySet="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity">
+                <ScalarProperty Name="RefinedProfileProbability" ColumnName="RefinedProfileProbability" />
+                <ScalarProperty Name="RefinedSectionProbability" ColumnName="RefinedSectionProbability" />
+                <ScalarProperty Name="FurtherAnalysisType" ColumnName="FurtherAnalysisType" />
+                <ScalarProperty Name="ManualInitialFailureMechanismResultProfileProbability" ColumnName="ManualInitialFailureMechanismResultProfileProbability" />
+                <ScalarProperty Name="ManualInitialFailureMechanismResultSectionProbability" ColumnName="ManualInitialFailureMechanismResultSectionProbability" />
+                <ScalarProperty Name="InitialFailureMechanismResultType" ColumnName="InitialFailureMechanismResultType" />
+                <ScalarProperty Name="IsRelevant" ColumnName="IsRelevant" />
+                <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
+                <ScalarProperty Name="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity1" ColumnName="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

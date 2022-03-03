@@ -30,10 +30,10 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public partial class GrassCoverSlipOffInwardsSectionResultEntity
+    public class NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
     {
-        public long GrassCoverSlipOffInwardsSectionResultEntityId { get; set; }
-        public long FailureMechanismSectionEntityId { get; set; }
+        public long NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity1 { get; set; }
+        public long? FailureMechanismSectionEntityId { get; set; }
         public byte IsRelevant { get; set; }
         public byte InitialFailureMechanismResultType { get; set; }
         public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
