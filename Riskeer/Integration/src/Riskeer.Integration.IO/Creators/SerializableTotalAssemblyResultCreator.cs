@@ -56,8 +56,6 @@ namespace Riskeer.Integration.IO.Creators
 
             return new SerializableTotalAssemblyResult(idGenerator.GetNewId(Resources.SerializableTotalAssemblyResult_IdPrefix),
                                                        assessmentProcess,
-                                                       failureMechanismAssemblyResultWithoutProbability,
-                                                       failureMechanismAssemblyResultWithProbability,
                                                        assessmentSectionAssemblyResult);
         }
     }

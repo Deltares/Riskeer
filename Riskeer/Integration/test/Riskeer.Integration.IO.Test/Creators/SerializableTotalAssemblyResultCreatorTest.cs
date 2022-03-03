@@ -69,8 +69,6 @@ namespace Riskeer.Integration.IO.Test.Creators
             // Assert
             Assert.AreEqual("Vo.0", serializableTotalAssembly.Id);
             Assert.AreEqual(serializableAssessmentProcess.Id, serializableTotalAssembly.AssessmentProcessId);
-            Assert.AreSame(failureMechanismAssemblyResultWithProbability, serializableTotalAssembly.AssemblyResultWithProbability);
-            Assert.AreSame(failureMechanismAssemblyResultWithoutProbability, serializableTotalAssembly.AssemblyResultWithoutProbability);
             Assert.AreSame(assessmentSectionAssemblyResult, serializableTotalAssembly.AssessmentSectionAssemblyResult);
         }
     }

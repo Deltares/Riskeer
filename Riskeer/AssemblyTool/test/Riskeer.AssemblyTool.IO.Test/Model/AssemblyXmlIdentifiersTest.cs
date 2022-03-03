@@ -32,8 +32,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         {
             Assert.AreEqual("Assemblage", AssemblyXmlIdentifiers.Assembly);
             Assert.AreEqual("toetsspoorGroep", AssemblyXmlIdentifiers.FailureMechanismGroup);
-            Assert.AreEqual("toetsoordeelZonderKansschatting", AssemblyXmlIdentifiers.AssemblyResultWithoutProbability);
-            Assert.AreEqual("toetsoordeelMetKansschatting", AssemblyXmlIdentifiers.AssemblyResultWithProbability);
             Assert.AreEqual("http://localhost/standaarden/assemblage", AssemblyXmlIdentifiers.AssemblyNamespace);
             Assert.AreEqual("asm", AssemblyXmlIdentifiers.AssemblyNamespaceIdentifier);
             Assert.AreEqual("toets", AssemblyXmlIdentifiers.AssessmentType);

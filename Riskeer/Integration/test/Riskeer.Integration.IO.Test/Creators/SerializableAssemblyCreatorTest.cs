@@ -107,8 +107,6 @@ namespace Riskeer.Integration.IO.Test.Creators
             AssertSerializableAssessmentProcess("Bp.0", serializableAssessmentSection, serializableAssessmentProcess);
             var serializableTotalAssemblyResult = (SerializableTotalAssemblyResult) serializableAssemblyFeatureMembers[2];
             AssertSerializableTotalAssemblyResult("Vo.0",
-                                                  failureMechanismAssemblyResultWithoutProbability,
-                                                  failureMechanismAssemblyResultWithProbability,
                                                   assessmentSectionAssembly,
                                                   serializableAssessmentProcess,
                                                   serializableTotalAssemblyResult);
@@ -258,29 +256,12 @@ namespace Riskeer.Integration.IO.Test.Creators
         }
 
         private static void AssertSerializableTotalAssemblyResult(string expectedId,
-                                                                  ExportableFailureMechanismAssemblyResult expectedFailureMechanismAssemblyResultWithoutProbability,
-                                                                  ExportableFailureMechanismAssemblyResultWithProbability expectedFailureMechanismAssemblyResultWithProbability,
                                                                   ExportableAssessmentSectionAssemblyResult expectedAssessmentSectionAssemblyResult,
                                                                   SerializableAssessmentProcess expectedAssessmentProcess,
                                                                   SerializableTotalAssemblyResult serializableTotalAssembly)
         {
             Assert.AreEqual(expectedId, serializableTotalAssembly.Id);
             Assert.AreEqual(expectedAssessmentProcess.Id, serializableTotalAssembly.AssessmentProcessId);
-
-            SerializableFailureMechanismAssemblyResult serializableAssemblyResultWithoutProbability = serializableTotalAssembly.AssemblyResultWithoutProbability;
-            Assert.AreEqual(SerializableFailureMechanismCategoryGroupCreator.Create(expectedFailureMechanismAssemblyResultWithoutProbability.AssemblyGroup),
-                            serializableAssemblyResultWithoutProbability.CategoryGroup);
-            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedFailureMechanismAssemblyResultWithoutProbability.AssemblyMethod),
-                            serializableAssemblyResultWithoutProbability.AssemblyMethod);
-            Assert.IsNull(serializableAssemblyResultWithoutProbability.Probability);
-
-            SerializableFailureMechanismAssemblyResult serializableAssemblyResultWithProbability = serializableTotalAssembly.AssemblyResultWithProbability;
-            Assert.AreEqual(SerializableFailureMechanismCategoryGroupCreator.Create(expectedFailureMechanismAssemblyResultWithProbability.AssemblyGroup),
-                            serializableAssemblyResultWithProbability.CategoryGroup);
-            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedFailureMechanismAssemblyResultWithProbability.AssemblyMethod),
-                            serializableAssemblyResultWithProbability.AssemblyMethod);
-            Assert.AreEqual(expectedFailureMechanismAssemblyResultWithProbability.Probability,
-                            serializableAssemblyResultWithProbability.Probability);
 
             SerializableAssessmentSectionAssemblyResult serializableAssessmentSectionAssemblyResult = serializableTotalAssembly.AssessmentSectionAssemblyResult;
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyMethod),

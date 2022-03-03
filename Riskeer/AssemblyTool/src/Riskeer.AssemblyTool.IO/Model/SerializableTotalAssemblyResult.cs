@@ -42,15 +42,11 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The unique ID of the assembly result.</param>
         /// <param name="assessmentProcess">The assessment process this result belongs to.</param>
-        /// <param name="assemblyResultWithoutProbability">The assembly result for failure mechanisms with a probability.</param>
-        /// <param name="assemblyResultWithProbability">The assembly result for failure mechanisms without a probability.</param>
         /// <param name="assessmentSectionAssemblyResult">The assembly result for the assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public SerializableTotalAssemblyResult(string id,
                                                SerializableAssessmentProcess assessmentProcess,
-                                               SerializableFailureMechanismAssemblyResult assemblyResultWithoutProbability,
-                                               SerializableFailureMechanismAssemblyResult assemblyResultWithProbability,
                                                SerializableAssessmentSectionAssemblyResult assessmentSectionAssemblyResult) : this()
         {
             if (!SerializableIdValidator.Validate(id))
@@ -63,16 +59,6 @@ namespace Riskeer.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(assessmentProcess));
             }
 
-            if (assemblyResultWithoutProbability == null)
-            {
-                throw new ArgumentNullException(nameof(assemblyResultWithoutProbability));
-            }
-
-            if (assemblyResultWithProbability == null)
-            {
-                throw new ArgumentNullException(nameof(assemblyResultWithProbability));
-            }
-
             if (assessmentSectionAssemblyResult == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSectionAssemblyResult));
@@ -80,8 +66,6 @@ namespace Riskeer.AssemblyTool.IO.Model
 
             Id = id;
             AssessmentProcessId = assessmentProcess.Id;
-            AssemblyResultWithoutProbability = assemblyResultWithoutProbability;
-            AssemblyResultWithProbability = assemblyResultWithProbability;
             AssessmentSectionAssemblyResult = assessmentSectionAssemblyResult;
         }
 
@@ -102,17 +86,5 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.AssessmentSectionAssemblyResult)]
         public SerializableAssessmentSectionAssemblyResult AssessmentSectionAssemblyResult { get; set; }
-
-        /// <summary>
-        /// Gets or sets the assembly result with probability.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.AssemblyResultWithProbability)]
-        public SerializableFailureMechanismAssemblyResult AssemblyResultWithProbability { get; set; }
-
-        /// <summary>
-        /// Gets or sets the assembly result without probability.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.AssemblyResultWithoutProbability)]
-        public SerializableFailureMechanismAssemblyResult AssemblyResultWithoutProbability { get; set; }
     }
 }

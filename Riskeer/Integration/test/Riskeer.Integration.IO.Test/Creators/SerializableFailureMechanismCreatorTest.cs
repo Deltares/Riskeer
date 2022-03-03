@@ -187,8 +187,6 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             return new SerializableTotalAssemblyResult(totalAssemblyId,
                                                        new SerializableAssessmentProcess(),
-                                                       new SerializableFailureMechanismAssemblyResult(),
-                                                       new SerializableFailureMechanismAssemblyResult(),
                                                        new SerializableAssessmentSectionAssemblyResult());
         }
     }

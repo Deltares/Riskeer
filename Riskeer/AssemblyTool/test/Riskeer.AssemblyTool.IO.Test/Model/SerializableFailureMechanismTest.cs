@@ -135,8 +135,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             var failureMechanism = new SerializableFailureMechanism(id,
                                                                     new SerializableTotalAssemblyResult(totalResultId,
                                                                                                         new SerializableAssessmentProcess(),
-                                                                                                        new SerializableFailureMechanismAssemblyResult(),
-                                                                                                        new SerializableFailureMechanismAssemblyResult(),
                                                                                                         new SerializableAssessmentSectionAssemblyResult()),
                                                                     type,
                                                                     group,

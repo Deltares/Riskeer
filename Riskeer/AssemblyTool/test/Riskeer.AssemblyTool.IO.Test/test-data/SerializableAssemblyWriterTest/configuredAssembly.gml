@@ -28,17 +28,6 @@
         <asm:faalkans>0.00068354</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:veiligheidsoordeel>
-      <asm:toetsoordeelMetKansschatting>
-        <asm:assemblagemethode>WBI-3C-1</asm:assemblagemethode>
-        <asm:categorieTraject>NVT</asm:categorieTraject>
-        <asm:faalkans>0.000124</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeelMetKansschatting>
-      <asm:toetsoordeelZonderKansschatting>
-        <asm:assemblagemethode>WBI-2B-1</asm:assemblagemethode>
-        <asm:categorieTraject>II-traject</asm:categorieTraject>
-        <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeelZonderKansschatting>
     </asm:Veiligheidsoordeel>
     <asm:Toetsspoor ToetsspoorID="toetsspoorGABI" VeiligheidsoordeelIDRef="veiligheidsoordeel_1">
       <asm:typeToetsspoor>GABI</asm:typeToetsspoor>

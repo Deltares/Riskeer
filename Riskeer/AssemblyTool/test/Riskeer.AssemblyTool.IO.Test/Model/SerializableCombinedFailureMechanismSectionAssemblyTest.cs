@@ -147,8 +147,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             var random = new Random(39);
             var totalAssembly = new SerializableTotalAssemblyResult("totalAssemblyID",
                                                                     new SerializableAssessmentProcess(),
-                                                                    new SerializableFailureMechanismAssemblyResult(),
-                                                                    new SerializableFailureMechanismAssemblyResult(),
                                                                     new SerializableAssessmentSectionAssemblyResult());
             var section = new SerializableFailureMechanismSection("sectionID",
                                                                   new SerializableFailureMechanismSectionCollection(),
