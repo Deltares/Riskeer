@@ -44,9 +44,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
                 yield return new TestCaseData(EAssessmentGrade.B, AssessmentSectionAssemblyGroup.B);
                 yield return new TestCaseData(EAssessmentGrade.C, AssessmentSectionAssemblyGroup.C);
                 yield return new TestCaseData(EAssessmentGrade.D, AssessmentSectionAssemblyGroup.D);
-                yield return new TestCaseData(EAssessmentGrade.Gr, AssessmentSectionAssemblyGroup.None);
-                yield return new TestCaseData(EAssessmentGrade.Nvt, AssessmentSectionAssemblyGroup.NotApplicable);
-                yield return new TestCaseData(EAssessmentGrade.Ngo, AssessmentSectionAssemblyGroup.NotAssessed);
             }
         }
     }

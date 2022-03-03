@@ -90,12 +90,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return AssessmentSectionAssemblyGroup.C;
                 case EAssessmentGrade.D:
                     return AssessmentSectionAssemblyGroup.D;
-                case EAssessmentGrade.Gr:
-                    return AssessmentSectionAssemblyGroup.None;
-                case EAssessmentGrade.Ngo:
-                    return AssessmentSectionAssemblyGroup.NotAssessed;
-                case EAssessmentGrade.Nvt:
-                    return AssessmentSectionAssemblyGroup.NotApplicable;
                 default:
                     throw new NotSupportedException();
             }
