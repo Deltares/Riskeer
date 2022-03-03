@@ -28,12 +28,11 @@ using Core.Gui.Converters;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
-using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Groups;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PropertyClasses;
+using Riskeer.Integration.Util;
 
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
@@ -88,39 +87,21 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GetFailureMechanismAssemblyGroups_AssemblyThrowsException_SetsEmptyProperties()
-        {
-            // Setup
-            using (new AssemblyToolCalculatorFactoryConfig())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyGroupBoundariesCalculator;
-                calculator.ThrowExceptionOnCalculate = true;
-
-                // Call
-                var properties = new FailureMechanismSectionAssemblyGroupsProperties(new AssessmentSection(AssessmentSectionComposition.Dike));
-
-                // Assert
-                Assert.IsEmpty(properties.FailureMechanismAssemblyGroups);
-            }
-        }
-
-        [Test]
         public void GetFailureMechanismAssemblyGroups_AssemblySucceeds_CorrectlySetsProperties()
         {
             // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyGroupBoundariesCalculator;
-
                 // Call
-                var properties = new FailureMechanismSectionAssemblyGroupsProperties(new AssessmentSection(AssessmentSectionComposition.Dike));
+                var properties = new FailureMechanismSectionAssemblyGroupsProperties(assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssemblyGroupProperties[] failureMechanismAssemblyGroups = properties.FailureMechanismAssemblyGroups;
-                IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> output = calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput;
-                Assert.AreEqual(output.Count() + 2, failureMechanismAssemblyGroups.Length);
+                IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> output =
+                    FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(assessmentSection);
+
+                Assert.AreEqual(output.Count(), failureMechanismAssemblyGroups.Length);
                 for (var i = 0; i < output.Count(); i++)
                 {
                     FailureMechanismSectionAssemblyGroupBoundaries assemblyGroupBoundaries = output.ElementAt(i);

@@ -36,11 +36,13 @@ namespace Riskeer.Integration.Util
     public static class FailureMechanismSectionAssemblyGroupsHelper
     {
         /// <summary>
-        /// Gets the failure mechanism section assembly group boundaries based on the failure mechanism contribution.
+        /// Gets the failure mechanism section assembly group boundaries based on the assessment section.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="assessmentSection"/> is <c>null</c>.</exception>
         /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>.</returns>
+        /// <remarks>An empty collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>
+        /// is returned when the boundaries cannot be assembled.</remarks>
         public static IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> GetFailureMechanismSectionAssemblyGroupBoundaries(IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)

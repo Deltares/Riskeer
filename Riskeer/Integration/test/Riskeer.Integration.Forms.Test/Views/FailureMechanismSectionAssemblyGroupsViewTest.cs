@@ -207,11 +207,11 @@ namespace Riskeer.Integration.Forms.Test.Views
                     AssemblyGroupsTable<FailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
 
                     // Precondition
-                    int expectedDefaultGroupBoundaries = FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(assessmentSection).Count();
-                    Assert.AreEqual(expectedDefaultGroupBoundaries, failureMechanismSectionGroupsTable.Rows.Count);
+                    int expectedNrOfDefaultGroupBoundaries = FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(assessmentSection).Count();
+                    Assert.AreEqual(expectedNrOfDefaultGroupBoundaries, failureMechanismSectionGroupsTable.Rows.Count);
 
-                    int newGroupBoundaries = random.Next(1, 10);
-                    for (var i = 1; i <= newGroupBoundaries; i++)
+                    int newNrOfGroupBoundaries = random.Next(1, 10);
+                    for (var i = 1; i <= newNrOfGroupBoundaries; i++)
                     {
                         output.Add(CreateFailureMechanismSectionAssemblyGroupBoundaries(random));
                     }
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     assessmentSection.FailureMechanismContribution.NotifyObservers();
 
                     // Then
-                    Assert.AreEqual(expectedDefaultGroupBoundaries + newGroupBoundaries, failureMechanismSectionGroupsTable.Rows.Count);
+                    Assert.AreEqual(expectedNrOfDefaultGroupBoundaries + newNrOfGroupBoundaries, failureMechanismSectionGroupsTable.Rows.Count);
                 }
             }
         }
