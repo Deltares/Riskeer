@@ -40,9 +40,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             var random = new Random(39);
 
             // Call
-            void Call() => new AssemblyGroupRow<TestAssemblyGroup>(null,
-                                                                   Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
-                                                                   random.NextEnumValue<TestAssemblyGroup>());
+            void Call() => new AssemblyGroupRow<TestEnum>(null,
+                                                          Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
+                                                          random.NextEnumValue<TestEnum>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -56,12 +56,12 @@ namespace Riskeer.Integration.Forms.Test.Views
             var random = new Random(39);
             double lowerBoundary = random.NextDouble();
             double upperBoundary = random.NextDouble();
-            var group = random.NextEnumValue<TestAssemblyGroup>();
+            var group = random.NextEnumValue<TestEnum>();
             var color = Color.FromKnownColor(random.NextEnumValue<KnownColor>());
             var assemblyGroupBoundaries = new TestAssemblyGroupBoundaries(lowerBoundary, upperBoundary);
 
             // Call
-            var groupRow = new AssemblyGroupRow<TestAssemblyGroup>(assemblyGroupBoundaries, color, group);
+            var groupRow = new AssemblyGroupRow<TestEnum>(assemblyGroupBoundaries, color, group);
 
             // Assert
             Assert.AreEqual(group, groupRow.Group);
@@ -69,25 +69,15 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(lowerBoundary, groupRow.LowerBoundary);
             Assert.AreEqual(upperBoundary, groupRow.UpperBoundary);
 
-            TestHelper.AssertTypeConverter<AssemblyGroupRow<TestAssemblyGroup>,
-                EnumTypeConverter>(nameof(AssemblyGroupRow<TestAssemblyGroup>.Group));
-            TestHelper.AssertTypeConverter<AssemblyGroupRow<TestAssemblyGroup>,
-                NoProbabilityValueDoubleConverter>(
-                nameof(AssemblyGroupRow<TestAssemblyGroup>.LowerBoundary));
-            TestHelper.AssertTypeConverter<AssemblyGroupRow<TestAssemblyGroup>,
-                NoProbabilityValueDoubleConverter>(
-                nameof(AssemblyGroupRow<TestAssemblyGroup>.UpperBoundary));
+            TestHelper.AssertTypeConverter<AssemblyGroupRow<TestEnum>, EnumTypeConverter>(nameof(AssemblyGroupRow<TestEnum>.Group));
+            TestHelper.AssertTypeConverter<AssemblyGroupRow<TestEnum>, NoProbabilityValueDoubleConverter>(nameof(AssemblyGroupRow<TestEnum>.LowerBoundary));
+            TestHelper.AssertTypeConverter<AssemblyGroupRow<TestEnum>, NoProbabilityValueDoubleConverter>(nameof(AssemblyGroupRow<TestEnum>.UpperBoundary));
         }
 
         private class TestAssemblyGroupBoundaries : AssemblyGroupBoundaries
         {
             public TestAssemblyGroupBoundaries(double lowerBoundary, double upperBoundary)
                 : base(lowerBoundary, upperBoundary) {}
-        }
-
-        private enum TestAssemblyGroup
-        {
-            I = 1
         }
     }
 }

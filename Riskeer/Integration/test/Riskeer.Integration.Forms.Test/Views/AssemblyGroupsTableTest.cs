@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_InitializesWithColumns()
         {
             // Call
-            using (var table = new AssemblyGroupsTable<TestAssemblyGroup>())
+            using (var table = new AssemblyGroupsTable<TestEnum>())
             {
                 // Assert
                 Assert.IsInstanceOf<DataGridViewControl>(table);
@@ -77,9 +77,9 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void SetData_NoDataAlreadySet_SetNewData()
         {
             // Setup
-            using (var table = new AssemblyGroupsTable<TestAssemblyGroup>())
+            using (var table = new AssemblyGroupsTable<TestEnum>())
             {
-                Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup>[] groups =
+                Tuple<AssemblyGroupBoundaries, Color, TestEnum>[] groups =
                 {
                     CreateAssessmentSectionAssemblyGroup(),
                     CreateAssessmentSectionAssemblyGroup(),
@@ -98,9 +98,9 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void SetData_SetNullDataAfterDataAlreadySet_ClearsData()
         {
             // Setup
-            using (var table = new AssemblyGroupsTable<TestAssemblyGroup>())
+            using (var table = new AssemblyGroupsTable<TestEnum>())
             {
-                Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup>[] groups =
+                Tuple<AssemblyGroupBoundaries, Color, TestEnum>[] groups =
                 {
                     CreateAssessmentSectionAssemblyGroup(),
                     CreateAssessmentSectionAssemblyGroup(),
@@ -120,14 +120,14 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void SetData_SetNewDataAfterDataAlreadySet_ClearDataAndAddNewData()
         {
             // Setup
-            using (var table = new AssemblyGroupsTable<TestAssemblyGroup>())
+            using (var table = new AssemblyGroupsTable<TestEnum>())
             {
                 table.SetData(new[]
                 {
                     CreateAssessmentSectionAssemblyGroup()
                 });
 
-                Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup>[] newGroups =
+                Tuple<AssemblyGroupBoundaries, Color, TestEnum>[] newGroups =
                 {
                     CreateAssessmentSectionAssemblyGroup(),
                     CreateAssessmentSectionAssemblyGroup(),
@@ -146,9 +146,9 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void SetData_WithData_ExpectedValuesInTable()
         {
             // Setup
-            using (var table = new AssemblyGroupsTable<TestAssemblyGroup>())
+            using (var table = new AssemblyGroupsTable<TestEnum>())
             {
-                Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup>[] groups =
+                Tuple<AssemblyGroupBoundaries, Color, TestEnum>[] groups =
                 {
                     CreateAssessmentSectionAssemblyGroup(),
                     CreateAssessmentSectionAssemblyGroup(),
@@ -162,7 +162,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(groups.Length, table.Rows.Count);
                 for (var i = 0; i < table.Rows.Count; i++)
                 {
-                    Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup> group = groups[i];
+                    Tuple<AssemblyGroupBoundaries, Color, TestEnum> group = groups[i];
                     DataGridViewCellCollection rowCells = table.Rows[i].Cells;
 
                     Assert.AreEqual(group.Item3, rowCells[groupColumnIndex].Value);
@@ -173,23 +173,18 @@ namespace Riskeer.Integration.Forms.Test.Views
             }
         }
 
-        private static Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup> CreateAssessmentSectionAssemblyGroup()
+        private static Tuple<AssemblyGroupBoundaries, Color, TestEnum> CreateAssessmentSectionAssemblyGroup()
         {
             var random = new Random(39);
-            return new Tuple<AssemblyGroupBoundaries, Color, TestAssemblyGroup>(new TestAssemblyGroupBoundaries(random.NextDouble(), random.NextDouble()),
-                                                                                Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
-                                                                                random.NextEnumValue<TestAssemblyGroup>());
+            return new Tuple<AssemblyGroupBoundaries, Color, TestEnum>(new TestAssemblyGroupBoundaries(random.NextDouble(), random.NextDouble()),
+                                                                       Color.FromKnownColor(random.NextEnumValue<KnownColor>()),
+                                                                       random.NextEnumValue<TestEnum>());
         }
 
         private class TestAssemblyGroupBoundaries : AssemblyGroupBoundaries
         {
             public TestAssemblyGroupBoundaries(double lowerBoundary, double upperBoundary)
                 : base(lowerBoundary, upperBoundary) {}
-        }
-
-        private enum TestAssemblyGroup
-        {
-            I = 1
         }
     }
 }

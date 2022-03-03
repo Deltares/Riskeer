@@ -23,7 +23,6 @@ using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.PresentationObjects;
 
 namespace Riskeer.Integration.Forms.Test.PresentationObjects
@@ -32,11 +31,11 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
     public class AssessmentSectionAssemblyGroupsContextTest
     {
         [Test]
-        public void Constructor_ValidParameters_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call

@@ -27,10 +27,8 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
 using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Test.Properties;
 using Core.Common.TestUtil;
 using Core.Common.Util;
-using Core.Common.Util.Attributes;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 
@@ -983,10 +981,10 @@ namespace Core.Common.Controls.Test.DataGrid
                 });
 
                 // Call
-                TestDelegate call = () => control.GetRowFromIndex(5);
+                void Call() => control.GetRowFromIndex(5);
 
                 // Assert
-                Assert.Throws<ArgumentOutOfRangeException>(call);
+                Assert.Throws<ArgumentOutOfRangeException>(Call);
             }
         }
 
@@ -1086,10 +1084,10 @@ namespace Core.Common.Controls.Test.DataGrid
                 });
 
                 // Call
-                TestDelegate call = () => control.GetCell(5, 0);
+                void Call() => control.GetCell(5, 0);
 
                 // Assert
-                Assert.Throws<ArgumentOutOfRangeException>(call);
+                Assert.Throws<ArgumentOutOfRangeException>(Call);
             }
         }
 
@@ -1110,10 +1108,10 @@ namespace Core.Common.Controls.Test.DataGrid
                 });
 
                 // Call
-                TestDelegate call = () => control.GetCell(0, 5);
+                void Call() => control.GetCell(0, 5);
 
                 // Assert
-                Assert.Throws<ArgumentOutOfRangeException>(call);
+                Assert.Throws<ArgumentOutOfRangeException>(Call);
             }
         }
 
@@ -1163,10 +1161,10 @@ namespace Core.Common.Controls.Test.DataGrid
                 });
 
                 // Call
-                TestDelegate call = () => control.GetColumnFromIndex(5);
+                void Call() => control.GetColumnFromIndex(5);
 
                 // Assert
-                Assert.Throws<ArgumentOutOfRangeException>(call);
+                Assert.Throws<ArgumentOutOfRangeException>(Call);
             }
         }
 
@@ -1284,11 +1282,11 @@ namespace Core.Common.Controls.Test.DataGrid
                 DataGridViewCell firstcell = control.CurrentRow.HeaderCell;
 
                 // Call
-                TestDelegate test = () => control.SetCurrentCell(firstcell);
+                void Call() => control.SetCurrentCell(firstcell);
 
                 // Assert
                 const string message = "Unable to set the cell active.";
-                var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+                var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, message);
                 Assert.AreEqual("cell", exception.ParamName);
                 Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);
             }
@@ -1315,11 +1313,11 @@ namespace Core.Common.Controls.Test.DataGrid
                 dataGridViewRow.Visible = false;
 
                 // Call
-                TestDelegate test = () => control.SetCurrentCell(dataGridViewRow.Cells[0]);
+                void Call() => control.SetCurrentCell(dataGridViewRow.Cells[0]);
 
                 // Assert
                 const string message = "Unable to set the cell active.";
-                var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, message);
+                var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, message);
                 Assert.AreEqual("cell", exception.ParamName);
                 Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
             }
@@ -1420,14 +1418,6 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 Assert.AreEqual(isVisible, dataGridViewColumn.Visible);
             }
-        }
-
-        private enum TestEnum
-        {
-            NoDisplayName,
-
-            [ResourcesDisplayName(typeof(Resources), nameof(Resources.DataGridViewControlTest_DisplayNameValueDisplayName))]
-            DisplayName
         }
 
         private class TestDataGridViewRow

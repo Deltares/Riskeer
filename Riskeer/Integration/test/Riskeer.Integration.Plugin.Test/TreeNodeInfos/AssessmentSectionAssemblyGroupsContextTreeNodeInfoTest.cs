@@ -27,8 +27,6 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Forms.PresentationObjects;
@@ -105,9 +103,6 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks);
-
-            var context = new AssessmentSectionAssemblyGroupsContext(assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
 
@@ -122,7 +117,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
+                gui.Stub(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())
@@ -132,7 +127,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     plugin.Gui = gui;
 
                     // Call
-                    info.ContextMenuStrip(context, null, treeViewControl);
+                    info.ContextMenuStrip(null, null, treeViewControl);
                 }
             }
 

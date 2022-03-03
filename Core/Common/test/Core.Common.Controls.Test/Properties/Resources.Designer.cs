@@ -80,14 +80,5 @@ namespace Core.Common.Controls.Test.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Display name.
-        /// </summary>
-        internal static string DataGridViewControlTest_DisplayNameValueDisplayName {
-            get {
-                return ResourceManager.GetString("DataGridViewControlTest_DisplayNameValueDisplayName", resourceCulture);
-            }
-        }
     }
 }

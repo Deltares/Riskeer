@@ -25,7 +25,6 @@ namespace Riskeer.Integration.Forms.Views
 {
     partial class AssessmentSectionAssemblyGroupsView
     {
-
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -56,10 +55,8 @@ namespace Riskeer.Integration.Forms.Views
             this.Name = "AssessmentSectionAssemblyGroupsView";
             resources.ApplyResources(this, "$this");
             this.ResumeLayout(false);
-
         }
-
-
+        
         #endregion
 
         private AssemblyGroupsTable<AssessmentSectionAssemblyGroup> assemblyGroupsTable;
