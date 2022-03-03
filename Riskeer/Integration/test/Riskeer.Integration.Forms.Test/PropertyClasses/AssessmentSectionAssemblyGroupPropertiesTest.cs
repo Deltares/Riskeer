@@ -51,8 +51,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(39);
             var assemblyGroup = new AssessmentSectionAssemblyGroupBoundaries(random.NextDouble(),
-                                                                                random.NextDouble(),
-                                                                                random.NextEnumValue<AssessmentSectionAssemblyGroup>());
+                                                                             random.NextDouble(),
+                                                                             random.NextEnumValue<AssessmentSectionAssemblyGroup>());
 
             // Call
             var properties = new AssessmentSectionAssemblyGroupProperties(assemblyGroup);
@@ -73,11 +73,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Setup
             var random = new Random(39);
             var assemblyGroup = new AssessmentSectionAssemblyGroupBoundaries(random.NextDouble(),
-                                                                                random.NextDouble(),
-                                                                                random.NextEnumValue<AssessmentSectionAssemblyGroup>());
+                                                                             random.NextDouble(),
+                                                                             random.NextEnumValue<AssessmentSectionAssemblyGroup>());
 
             // Call
             var properties = new AssessmentSectionAssemblyGroupProperties(assemblyGroup);
+
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
@@ -113,9 +114,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var random = new Random(39);
             var assemblyGroup = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
             var properties = new AssessmentSectionAssemblyGroupProperties(new AssessmentSectionAssemblyGroupBoundaries(
-                                                                                                            random.NextDouble(),
-                                                                                                            random.NextDouble(),
-                                                                                                            assemblyGroup));
+                                                                              random.NextDouble(),
+                                                                              random.NextDouble(),
+                                                                              assemblyGroup));
 
             // Call
             var result = properties.ToString();
