@@ -70,8 +70,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("WBI-0A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0A1);
             Assert.AreEqual("WBI-1A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI1A1);
             Assert.AreEqual("WBI-1B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI1B1);
-            Assert.AreEqual("WBI-2A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI2A1);
-            Assert.AreEqual("WBI-2B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI2B1);
             Assert.AreEqual("WBI-2C-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI2C1);
             Assert.AreEqual("WBI-3A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3A1);
             Assert.AreEqual("WBI-3B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3B1);

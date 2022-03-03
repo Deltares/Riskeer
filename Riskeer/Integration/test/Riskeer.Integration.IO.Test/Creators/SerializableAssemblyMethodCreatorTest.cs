@@ -38,11 +38,11 @@ namespace Riskeer.Integration.IO.Test.Creators
             const ExportableAssemblyMethod assemblyMethod = (ExportableAssemblyMethod) 999;
 
             // Call
-            TestDelegate call = () => SerializableAssemblyMethodCreator.Create(assemblyMethod);
+            void Call() => SerializableAssemblyMethodCreator.Create(assemblyMethod);
 
             // Assert
-            string message = $"The value of argument 'assemblyMethod' ({assemblyMethod}) is invalid for Enum type '{nameof(ExportableAssemblyMethod)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call, message);
+            var message = $"The value of argument 'assemblyMethod' ({assemblyMethod}) is invalid for Enum type '{nameof(ExportableAssemblyMethod)}'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
         }
 
         [Test]
@@ -62,8 +62,6 @@ namespace Riskeer.Integration.IO.Test.Creators
         [TestCase(ExportableAssemblyMethod.WBI0A1, SerializableAssemblyMethod.WBI0A1)]
         [TestCase(ExportableAssemblyMethod.WBI1A1, SerializableAssemblyMethod.WBI1A1)]
         [TestCase(ExportableAssemblyMethod.WBI1B1, SerializableAssemblyMethod.WBI1B1)]
-        [TestCase(ExportableAssemblyMethod.WBI2A1, SerializableAssemblyMethod.WBI2A1)]
-        [TestCase(ExportableAssemblyMethod.WBI2B1, SerializableAssemblyMethod.WBI2B1)]
         [TestCase(ExportableAssemblyMethod.WBI2C1, SerializableAssemblyMethod.WBI2C1)]
         [TestCase(ExportableAssemblyMethod.WBI3A1, SerializableAssemblyMethod.WBI3A1)]
         [TestCase(ExportableAssemblyMethod.WBI3B1, SerializableAssemblyMethod.WBI3B1)]
