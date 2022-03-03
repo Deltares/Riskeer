@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Views
