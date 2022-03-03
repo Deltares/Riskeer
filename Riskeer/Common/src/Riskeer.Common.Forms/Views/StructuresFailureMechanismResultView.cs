@@ -54,7 +54,7 @@ namespace Riskeer.Common.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
         private readonly IAssessmentSection assessmentSection;
-        private readonly Func<TFailureMechanism, double> getNFunc;
+        private readonly Func<TFailureMechanism, IAssessmentSection, double> getFailureMechanismAssemblyResultFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="StructuresFailureMechanismResultView{TFailureMechanism,TStructuresInput}"/>.
@@ -63,12 +63,12 @@ namespace Riskeer.Common.Forms.Views
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
-        /// <param name="getNFunc">The <see cref="Func{T1,TResult}"/> to get the N.</param>
+        /// <param name="getFailureMechanismAssemblyResultFunc">The <see cref="Func{T1, T2, TResult}"/> to get the assembly result of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StructuresFailureMechanismResultView(IObservableEnumerable<AdoptableFailureMechanismSectionResult> failureMechanismSectionResults,
                                                     TFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection,
-                                                    Func<TFailureMechanism, double> getNFunc)
+                                                    Func<TFailureMechanism, IAssessmentSection, double> getFailureMechanismAssemblyResultFunc)
             : base(failureMechanismSectionResults, failureMechanism)
         {
             if (assessmentSection == null)
@@ -76,13 +76,13 @@ namespace Riskeer.Common.Forms.Views
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (getNFunc == null)
+            if (getFailureMechanismAssemblyResultFunc == null)
             {
-                throw new ArgumentNullException(nameof(getNFunc));
+                throw new ArgumentNullException(nameof(getFailureMechanismAssemblyResultFunc));
             }
 
             this.assessmentSection = assessmentSection;
-            this.getNFunc = getNFunc;
+            this.getFailureMechanismAssemblyResultFunc = getFailureMechanismAssemblyResultFunc;
 
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputsObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
@@ -132,9 +132,9 @@ namespace Riskeer.Common.Forms.Views
             base.Dispose(disposing);
         }
 
-        protected override double GetN()
+        protected override double GetFailureMechanismAssemblyResult()
         {
-            return getNFunc(FailureMechanism);
+            return getFailureMechanismAssemblyResultFunc(FailureMechanism, assessmentSection);
         }
 
         protected override void AddDataGridColumns()

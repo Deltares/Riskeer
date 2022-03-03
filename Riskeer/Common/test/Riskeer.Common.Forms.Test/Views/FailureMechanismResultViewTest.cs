@@ -191,13 +191,13 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             int nrOfCalls = 0;
-            Func<double> getAssemblyFunc = () =>
+            Func<double> getAssemblyResultFunc = () =>
             {
                 nrOfCalls++;
                 return double.NaN;
             };
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults, getAssemblyFunc))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults, getAssemblyResultFunc))
             {
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
@@ -223,13 +223,13 @@ namespace Riskeer.Common.Forms.Test.Views
             var sectionResults = new ObservableList<FailureMechanismSectionResult>();
 
             int nrOfCalls = 0;
-            Func<double> getAssemblyFunc = () =>
+            Func<double> getAssemblyResultFunc = () =>
             {
                 nrOfCalls++;
                 return double.NaN;
             };
 
-            using (ShowFailureMechanismResultsView(sectionResults, getAssemblyFunc))
+            using (ShowFailureMechanismResultsView(sectionResults, getAssemblyResultFunc))
             {
                 DataGridView dataGridView = GetDataGridView();
 
@@ -258,13 +258,13 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             int nrOfCalls = 0;
-            Func<double> getAssemblyFunc = () =>
+            Func<double> getAssemblyResultFunc = () =>
             {
                 nrOfCalls++;
                 return double.NaN;
             };
 
-            using (ShowFailureMechanismResultsView(sectionResults, getAssemblyFunc))
+            using (ShowFailureMechanismResultsView(sectionResults, getAssemblyResultFunc))
             {
                 var invalidated = false;
                 DataGridView dataGridView = GetDataGridView();
@@ -666,7 +666,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             int i = 0;
-            Func<double> getAssemblyFunc = () =>
+            Func<double> getAssemblyResultFunc = () =>
             {
                 if (i == 0)
                 {
@@ -677,7 +677,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 return double.NaN;
             };
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults, getAssemblyFunc))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism, failureMechanism.SectionResults, getAssemblyResultFunc))
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
