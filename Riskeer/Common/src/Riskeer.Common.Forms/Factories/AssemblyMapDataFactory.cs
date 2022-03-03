@@ -44,7 +44,7 @@ namespace Riskeer.Common.Forms.Factories
                                        Width = lineWidth,
                                        DashStyle = lineDashStyle
                                    },
-                                   MapThemeFactory.CreateDisplayFailureMechanismSectionAssemblyGroupMapTheme())
+                                   MapThemeFactory.CreateFailureMechanismSectionAssemblyGroupMapTheme())
             {
                 SelectedMetaDataAttribute = Resources.AssemblyGroup_DisplayName,
                 IsVisible = true

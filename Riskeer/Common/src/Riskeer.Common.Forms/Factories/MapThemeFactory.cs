@@ -37,10 +37,10 @@ namespace Riskeer.Common.Forms.Factories
         private const LineDashStyle lineDashStyle = LineDashStyle.Solid;
 
         /// <summary>
-        /// Creates a <see cref="MapTheme{T}"/> based on the values of <see cref="DisplayFailureMechanismSectionAssemblyGroup"/>.
+        /// Creates a <see cref="MapTheme{T}"/> based on the values of <see cref="FailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
         /// <returns>The created <see cref="MapTheme{T}"/>.</returns>
-        public static MapTheme<LineCategoryTheme> CreateDisplayFailureMechanismSectionAssemblyGroupMapTheme()
+        public static MapTheme<LineCategoryTheme> CreateFailureMechanismSectionAssemblyGroupMapTheme()
         {
             return new MapTheme<LineCategoryTheme>(Resources.AssemblyGroup_DisplayName, new[]
             {

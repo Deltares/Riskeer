@@ -43,7 +43,7 @@ namespace Riskeer.Common.Forms.Test.Factories
             Assert.AreEqual(true, data.IsVisible);
             Assert.AreEqual("Duidingsklasse", data.SelectedMetaDataAttribute);
             RiskeerMapDataFactoryTestHelper.AssertEqualStyle(data.Style, Color.Empty, 6, LineDashStyle.Solid);
-            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyGroupMapTheme(data.Theme);
+            MapThemeTestHelper.AssertFailureMechanismSectionAssemblyGroupMapTheme(data.Theme);
         }
     }
 }

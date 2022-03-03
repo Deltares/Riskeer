@@ -44,7 +44,7 @@ namespace Riskeer.Common.Forms.TestUtil
         /// <item><paramref name="theme"/> does not have the expected number of criteria as themes.</item>
         /// <item><paramref name="theme"/> does not have the expected categorical criteria as themes.</item>
         /// </list></exception>
-        public static void AssertDisplayFailureMechanismSectionAssemblyGroupMapTheme(MapTheme<LineCategoryTheme> theme)
+        public static void AssertFailureMechanismSectionAssemblyGroupMapTheme(MapTheme<LineCategoryTheme> theme)
         {
             Assert.AreEqual("Duidingsklasse", theme.AttributeName);
             Assert.AreEqual(10, theme.CategoryThemes.Count());

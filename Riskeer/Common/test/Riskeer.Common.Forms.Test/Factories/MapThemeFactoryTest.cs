@@ -30,13 +30,13 @@ namespace Riskeer.Common.Forms.Test.Factories
     public class MapThemeFactoryTest
     {
         [Test]
-        public void CreateDisplayFailureMechanismSectionAssemblyGroupMapTheme_ReturnsMapTheme()
+        public void CreateFailureMechanismSectionAssemblyGroupMapTheme_ReturnsMapTheme()
         {
             // Call
-            MapTheme<LineCategoryTheme> mapTheme = MapThemeFactory.CreateDisplayFailureMechanismSectionAssemblyGroupMapTheme();
+            MapTheme<LineCategoryTheme> mapTheme = MapThemeFactory.CreateFailureMechanismSectionAssemblyGroupMapTheme();
 
             // Assert
-            MapThemeTestHelper.AssertDisplayFailureMechanismSectionAssemblyGroupMapTheme(mapTheme);
+            MapThemeTestHelper.AssertFailureMechanismSectionAssemblyGroupMapTheme(mapTheme);
         }
     }
 }

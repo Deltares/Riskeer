@@ -296,7 +296,7 @@ namespace Riskeer.Common.Forms.TestUtil
         /// amount of the <see cref="IFailurePath.Sections"/>;</item>
         /// <item>the geometries of the features in <paramref name="mapData"/> are not equal to 
         /// the expected geometry of the <see cref="IFailurePath.Sections"/>;</item>
-        /// <item>the meta data does not contain the <see cref="DisplayFailureMechanismSectionAssemblyGroup"/>.</item>
+        /// <item>the meta data does not contain the <see cref="FailureMechanismSectionAssemblyGroup"/>.</item>
         /// </list>
         /// </exception>
         public static void AssertAssemblyMapData(IFailureMechanism failureMechanism,
