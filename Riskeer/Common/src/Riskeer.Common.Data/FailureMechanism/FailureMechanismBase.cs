@@ -39,7 +39,7 @@ namespace Riskeer.Common.Data.FailureMechanism
     public abstract class FailureMechanismBase<T> : Observable, IFailureMechanism, IFailurePath<T>
         where T : FailureMechanismSectionResult
     {
-        private static readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
+        private readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
         private readonly FailureMechanismSectionCollection sectionCollection;
         private readonly ObservableList<T> sectionResults;
         private double contribution;
