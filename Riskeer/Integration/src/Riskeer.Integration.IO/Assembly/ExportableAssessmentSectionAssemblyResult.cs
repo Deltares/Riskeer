@@ -34,11 +34,14 @@ namespace Riskeer.Integration.IO.Assembly
         /// </summary>
         /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
         /// <param name="assemblyGroup">The group of this assembly result.</param>
+        /// <param name="probability">The probability of this assembly result.</param>
         public ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod assemblyMethod,
-                                                         AssessmentSectionAssemblyGroup assemblyGroup)
+                                                         AssessmentSectionAssemblyGroup assemblyGroup,
+                                                         double probability)
         {
             AssemblyMethod = assemblyMethod;
             AssemblyGroup = assemblyGroup;
+            Probability = probability;
         }
 
         /// <summary>
@@ -50,5 +53,10 @@ namespace Riskeer.Integration.IO.Assembly
         /// Gets the group of this assembly result.
         /// </summary>
         public AssessmentSectionAssemblyGroup AssemblyGroup { get; }
+
+        /// <summary>
+        /// Gets the probability of this assembly result.
+        /// </summary>
+        public double Probability { get; }
     }
 }

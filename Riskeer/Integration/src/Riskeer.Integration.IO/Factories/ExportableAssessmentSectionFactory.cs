@@ -58,7 +58,7 @@ namespace Riskeer.Integration.IO.Factories
             return new ExportableAssessmentSection(assessmentSection.Name,
                                                    assessmentSection.Id,
                                                    assessmentSection.ReferenceLine.Points,
-                                                   CreateExportableAssessmentSectionAssemblyResult(),
+                                                   CreateExportableAssessmentSectionAssemblyResult(assessmentSection),
                                                    CreateExportableFailureMechanismAssemblyResultWithProbability(),
                                                    CreateExportableFailureMechanismAssemblyResultWithoutProbability(),
                                                    CreateExportableFailureMechanismsWithProbability(assessmentSection),
@@ -67,13 +67,17 @@ namespace Riskeer.Integration.IO.Factories
         }
 
         /// <summary>
-        /// Creates an <see cref="ExportableAssessmentSectionAssemblyResult"/> with the assembly result.
+        /// Creates an <see cref="ExportableAssessmentSectionAssemblyResult"/> with the assembly result
+        /// based on <paramref name="assessmentSection"/>.
         /// </summary>
+        /// <param name="assessmentSection">The assessment section to create an <see cref="ExportableAssessmentSectionAssemblyResult"/> for.</param>
         /// <returns>An <see cref="ExportableAssessmentSectionAssemblyResult"/> with assembly result.</returns>
-        private static ExportableAssessmentSectionAssemblyResult CreateExportableAssessmentSectionAssemblyResult()
+        /// <exception cref="AssemblyException">Thrown when assembly result cannot be created for <paramref name="assessmentSection"/>.</exception>
+        private static ExportableAssessmentSectionAssemblyResult CreateExportableAssessmentSectionAssemblyResult(AssessmentSection assessmentSection)
         {
-            return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.WBI2C1,
-                                                                 AssessmentSectionAssemblyGroup.None);
+            AssessmentSectionAssemblyResult assemblyResult = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
+            return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.WBI2C1, assemblyResult.AssemblyGroup,
+                                                                 assemblyResult.Probability);
         }
 
         /// <summary>

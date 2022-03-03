@@ -25,6 +25,7 @@
       <asm:veiligheidsoordeel>
         <asm:assemblagemethode>WBI-2C-1</asm:assemblagemethode>
         <asm:categorie>B</asm:categorie>
+        <asm:faalkans>0.00068354</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:veiligheidsoordeel>
       <asm:toetsoordeelMetKansschatting>

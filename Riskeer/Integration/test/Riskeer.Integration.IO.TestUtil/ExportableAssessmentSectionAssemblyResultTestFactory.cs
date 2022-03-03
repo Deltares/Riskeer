@@ -36,8 +36,8 @@ namespace Riskeer.Integration.IO.TestUtil
         /// <returns>A default instance of <see cref="ExportableAssessmentSectionAssemblyResult"/>.</returns>
         public static ExportableAssessmentSectionAssemblyResult CreateResult()
         {
-            return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.WBI2C1,
-                                                                 AssessmentSectionAssemblyGroup.C);
+            return new ExportableAssessmentSectionAssemblyResult(
+                ExportableAssemblyMethod.WBI2C1, AssessmentSectionAssemblyGroup.C, 0.0);
         }
     }
 }

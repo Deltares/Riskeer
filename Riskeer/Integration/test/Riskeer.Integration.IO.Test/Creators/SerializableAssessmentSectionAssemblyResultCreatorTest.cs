@@ -36,10 +36,10 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_AssessmentSectionAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableAssessmentSectionAssemblyResultCreator.Create(null);
+            void Call() => SerializableAssessmentSectionAssemblyResultCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("result", exception.ParamName);
         }
 
@@ -48,15 +48,16 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             // Setup
             var random = new Random(21);
-            var result = new ExportableAssessmentSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                       random.NextEnumValue(new[]
-                                                                       {
-                                                                           AssessmentSectionAssemblyGroup.NotAssessed,
-                                                                           AssessmentSectionAssemblyGroup.A,
-                                                                           AssessmentSectionAssemblyGroup.B,
-                                                                           AssessmentSectionAssemblyGroup.C,
-                                                                           AssessmentSectionAssemblyGroup.D
-                                                                       }));
+            var result = new ExportableAssessmentSectionAssemblyResult(
+                random.NextEnumValue<ExportableAssemblyMethod>(),
+                random.NextEnumValue(new[]
+                {
+                    AssessmentSectionAssemblyGroup.A,
+                    AssessmentSectionAssemblyGroup.B,
+                    AssessmentSectionAssemblyGroup.C,
+                    AssessmentSectionAssemblyGroup.D
+                }),
+                random.NextDouble());
 
             // Call
             SerializableAssessmentSectionAssemblyResult serializableResult =
@@ -67,6 +68,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                             serializableResult.AssemblyMethod);
             Assert.AreEqual(SerializableAssessmentSectionAssemblyGroupCreator.Create(result.AssemblyGroup),
                             serializableResult.AssemblyGroup);
+            Assert.AreEqual(result.Probability, serializableResult.Probability);
         }
     }
 }

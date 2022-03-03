@@ -48,7 +48,7 @@ namespace Riskeer.Integration.IO.Creators
             return new SerializableAssessmentSectionAssemblyResult(
                 SerializableAssemblyMethodCreator.Create(result.AssemblyMethod),
                 SerializableAssessmentSectionAssemblyGroupCreator.Create(result.AssemblyGroup),
-                double.NaN);
+                result.Probability);
         }
     }
 }
