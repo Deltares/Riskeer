@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.Drawing;
-using Core.Common.Util;
 using Core.Components.Gis.Style;
 using Core.Components.Gis.Theme;
-using Riskeer.AssemblyTool.Forms;
+using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Factories
@@ -44,20 +44,20 @@ namespace Riskeer.Common.Forms.Factories
         {
             return new MapTheme<LineCategoryTheme>(Resources.AssemblyGroup_DisplayName, new[]
             {
-                CreateAssemblyGroupTheme(Color.FromArgb(255, 34, 139, 34), DisplayFailureMechanismSectionAssemblyGroup.III),
-                CreateAssemblyGroupTheme(Color.FromArgb(255, 146, 208, 80), DisplayFailureMechanismSectionAssemblyGroup.II),
-                CreateAssemblyGroupTheme(Color.FromArgb(255, 198, 224, 180), DisplayFailureMechanismSectionAssemblyGroup.I),
-                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 255, 0), DisplayFailureMechanismSectionAssemblyGroup.Zero),
-                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 165, 0), DisplayFailureMechanismSectionAssemblyGroup.IMin),
-                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 0, 0), DisplayFailureMechanismSectionAssemblyGroup.IIMin),
-                CreateAssemblyGroupTheme(Color.FromArgb(255, 178, 34, 34), DisplayFailureMechanismSectionAssemblyGroup.IIIMin),
-                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 90, 172), DisplayFailureMechanismSectionAssemblyGroup.Dominant),
-                CreateAssemblyGroupTheme(Color.FromArgb(255, 192, 192, 192), DisplayFailureMechanismSectionAssemblyGroup.NotDominant),
-                CreateAssemblyGroupTheme(Color.FromArgb(0, 0, 0, 0), DisplayFailureMechanismSectionAssemblyGroup.GR)
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 34, 139, 34), FailureMechanismSectionAssemblyGroup.III),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 146, 208, 80), FailureMechanismSectionAssemblyGroup.II),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 198, 224, 180), FailureMechanismSectionAssemblyGroup.I),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 255, 0), FailureMechanismSectionAssemblyGroup.Zero),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 165, 0), FailureMechanismSectionAssemblyGroup.IMin),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 0, 0), FailureMechanismSectionAssemblyGroup.IIMin),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 178, 34, 34), FailureMechanismSectionAssemblyGroup.IIIMin),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 90, 172), FailureMechanismSectionAssemblyGroup.Dominant),
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 192, 192, 192), FailureMechanismSectionAssemblyGroup.NotDominant),
+                CreateAssemblyGroupTheme(Color.FromArgb(0, 0, 0, 0), FailureMechanismSectionAssemblyGroup.Gr)
             });
         }
 
-        private static LineCategoryTheme CreateAssemblyGroupTheme(Color color, DisplayFailureMechanismSectionAssemblyGroup assemblyGroup)
+        private static LineCategoryTheme CreateAssemblyGroupTheme(Color color, FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             var lineStyle = new LineStyle
             {
@@ -69,10 +69,10 @@ namespace Riskeer.Common.Forms.Factories
             return new LineCategoryTheme(CreateCriterion(assemblyGroup), lineStyle);
         }
 
-        private static ValueCriterion CreateCriterion(DisplayFailureMechanismSectionAssemblyGroup assemblyGroup)
+        private static ValueCriterion CreateCriterion(FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             return new ValueCriterion(ValueCriterionOperator.EqualValue,
-                                      new EnumDisplayWrapper<DisplayFailureMechanismSectionAssemblyGroup>(assemblyGroup).DisplayName);
+                                      EnumDisplayNameHelper.GetDisplayName(assemblyGroup));
         }
     }
 }

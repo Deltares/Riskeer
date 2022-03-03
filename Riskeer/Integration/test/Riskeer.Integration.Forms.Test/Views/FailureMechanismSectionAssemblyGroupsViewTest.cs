@@ -27,7 +27,6 @@ using Core.Common.Controls.Views;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Groups;
@@ -74,7 +73,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(1, groupBoxPanel.Controls.Count);
                 Assert.AreEqual(DockStyle.Fill, groupBoxPanel.Dock);
 
-                AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
+                AssemblyGroupsTable<FailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
                 Assert.AreEqual(DockStyle.Fill, assemblyGroupsTable.Dock);
             }
         }
@@ -110,7 +109,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // Call
                 using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
                 {
-                    AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
+                    AssemblyGroupsTable<FailureMechanismSectionAssemblyGroup> assemblyGroupsTable = GetAssemblyGroupsTable(view);
 
                     // Assert
                     IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> expectedAssemblyGroupBoundaries =
@@ -120,7 +119,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     for (int i = 0; i < expectedAssemblyGroupBoundaries.Count(); i++)
                     {
                         FailureMechanismSectionAssemblyGroupBoundaries expectedBoundary = expectedAssemblyGroupBoundaries.ElementAt(i);
-                        var actualBoundary = (AssemblyGroupRow<DisplayFailureMechanismSectionAssemblyGroup>) assemblyGroupsTable.Rows[i].DataBoundItem;
+                        var actualBoundary = (AssemblyGroupRow<FailureMechanismSectionAssemblyGroup>) assemblyGroupsTable.Rows[i].DataBoundItem;
 
                         Assert.AreEqual(expectedBoundary.FailureMechanismSectionAssemblyGroup, actualBoundary.Group);
                         Assert.AreEqual(expectedBoundary.LowerBoundary, actualBoundary.LowerBoundary);
@@ -142,7 +141,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
                 {
-                    AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
+                    AssemblyGroupsTable<FailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
 
                     // Precondition
                     Assert.IsNotEmpty(failureMechanismSectionGroupsTable.Rows);
@@ -170,7 +169,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
                 {
-                    AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
+                    AssemblyGroupsTable<FailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
 
                     // Precondition
                     Assert.IsEmpty(failureMechanismSectionGroupsTable.Rows);
@@ -205,7 +204,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 using (var view = new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
                 {
-                    AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
+                    AssemblyGroupsTable<FailureMechanismSectionAssemblyGroup> failureMechanismSectionGroupsTable = GetAssemblyGroupsTable(view);
 
                     // Precondition
                     int expectedDefaultGroupBoundaries = FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(assessmentSection).Count();
@@ -226,10 +225,10 @@ namespace Riskeer.Integration.Forms.Test.Views
             }
         }
 
-        private static AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup> GetAssemblyGroupsTable(
+        private static AssemblyGroupsTable<FailureMechanismSectionAssemblyGroup> GetAssemblyGroupsTable(
             FailureMechanismSectionAssemblyGroupsView view)
         {
-            return ControlTestHelper.GetControls<AssemblyGroupsTable<DisplayFailureMechanismSectionAssemblyGroup>>(
+            return ControlTestHelper.GetControls<AssemblyGroupsTable<FailureMechanismSectionAssemblyGroup>>(
                 view, "assemblyGroupsTable").Single();
         }
 
