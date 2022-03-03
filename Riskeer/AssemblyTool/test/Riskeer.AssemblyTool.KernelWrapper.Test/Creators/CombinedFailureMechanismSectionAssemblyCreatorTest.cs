@@ -61,13 +61,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 
             var failureMechanismResults = new[]
             {
-                new FailureMechanismSectionList(string.Empty, new[]
+                new FailureMechanismSectionList(new[]
                 {
                     CreateCategory(sections[0], random),
                     CreateCategory(sections[1], random),
                     CreateCategory(sections[2], random)
                 }),
-                new FailureMechanismSectionList(string.Empty, new[]
+                new FailureMechanismSectionList(new[]
                 {
                     CreateCategory(sections[0], random),
                     CreateCategory(sections[1], random),

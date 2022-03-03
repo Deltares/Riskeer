@@ -55,7 +55,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             }
 
             return failureMechanismSectionsCollection.Select(sectionCollection => new FailureMechanismSectionList(
-                                                                 string.Empty,
                                                                  sectionCollection.Select(
                                                                      s => new FailureMechanismSectionWithCategory(
                                                                          s.SectionStart, s.SectionEnd,

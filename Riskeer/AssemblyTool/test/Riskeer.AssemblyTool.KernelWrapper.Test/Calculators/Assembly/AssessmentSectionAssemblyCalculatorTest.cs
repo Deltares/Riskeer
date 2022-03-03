@@ -315,7 +315,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
                 kernel.AssemblyResult = new AssemblyResult(new[]
                 {
-                    new FailureMechanismSectionList(string.Empty, new[]
+                    new FailureMechanismSectionList(new[]
                     {
                         new FailureMechanismSectionWithCategory(0, 1, random.NextEnumValue<EInterpretationCategory>())
                     })
@@ -349,7 +349,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
                 kernel.AssemblyResult = new AssemblyResult(new[]
                 {
-                    new FailureMechanismSectionList(string.Empty, new[]
+                    new FailureMechanismSectionList(new[]
                     {
                         new FailureMechanismSectionWithCategory(0, 1, random.NextEnumValue<EInterpretationCategory>())
                     })
@@ -386,7 +386,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
                 kernel.AssemblyResult = new AssemblyResult(new[]
                 {
-                    new FailureMechanismSectionList(string.Empty, new[]
+                    new FailureMechanismSectionList(new[]
                     {
                         new FailureMechanismSectionWithCategory(0, 1, (EInterpretationCategory) 99)
                     })
