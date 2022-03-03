@@ -26,7 +26,6 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Util;
@@ -84,12 +83,12 @@ namespace Riskeer.Integration.Forms.Views
 
         private void UpdateTableData()
         {
-            Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>[] dataToSet = 
+            Tuple<AssemblyGroupBoundaries, Color, FailureMechanismSectionAssemblyGroup>[] dataToSet = 
                 FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(AssessmentSection).Select(
-                assemblyGroupBoundaries => new Tuple<AssemblyGroupBoundaries, Color, DisplayFailureMechanismSectionAssemblyGroup>(
+                    assemblyGroupBoundaries => new Tuple<AssemblyGroupBoundaries, Color, FailureMechanismSectionAssemblyGroup>(
                     assemblyGroupBoundaries,
                     AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup),
-                    DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup))).ToArray();
+                    assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup)).ToArray();
 
             assemblyGroupsTable.SetData(dataToSet);
         }

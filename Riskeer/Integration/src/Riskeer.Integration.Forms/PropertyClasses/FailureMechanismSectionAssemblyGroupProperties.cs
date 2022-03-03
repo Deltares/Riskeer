@@ -26,7 +26,6 @@ using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Integration.Forms.Properties;
@@ -63,11 +62,11 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_Name_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_Name_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
-        public DisplayFailureMechanismSectionAssemblyGroup Group
+        public FailureMechanismSectionAssemblyGroup Group
         {
             get
             {
-                return DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(data.FailureMechanismSectionAssemblyGroup);
+                return data.FailureMechanismSectionAssemblyGroup;
             }
         }
 

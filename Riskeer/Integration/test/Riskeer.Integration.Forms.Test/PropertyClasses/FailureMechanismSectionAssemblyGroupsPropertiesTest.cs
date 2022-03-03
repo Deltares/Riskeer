@@ -28,7 +28,6 @@ using Core.Gui.Converters;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Groups;
@@ -127,7 +126,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                     FailureMechanismSectionAssemblyGroupBoundaries assemblyGroupBoundaries = output.ElementAt(i);
 
                     FailureMechanismSectionAssemblyGroupProperties property = failureMechanismAssemblyGroups[i];
-                    Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup), property.Group);
+                    Assert.AreEqual(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup, property.Group);
                     Assert.AreEqual(assemblyGroupBoundaries.UpperBoundary, property.UpperBoundary);
                     Assert.AreEqual(assemblyGroupBoundaries.LowerBoundary, property.LowerBoundary);
                 }

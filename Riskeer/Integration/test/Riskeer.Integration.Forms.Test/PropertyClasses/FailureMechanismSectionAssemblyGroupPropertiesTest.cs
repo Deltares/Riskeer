@@ -26,7 +26,6 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Forms;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Forms.PropertyClasses;
 
@@ -63,7 +62,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.AreSame(assemblyCategory, properties.Data);
             TestHelper.AssertTypeConverter<FailureMechanismSectionAssemblyGroupProperties, ExpandableObjectConverter>();
 
-            Assert.AreEqual(DisplayFailureMechanismSectionAssemblyGroupConverter.Convert(assemblyCategory.FailureMechanismSectionAssemblyGroup), properties.Group);
+            Assert.AreEqual(assemblyCategory.FailureMechanismSectionAssemblyGroup, properties.Group);
             Assert.AreEqual(assemblyCategory.LowerBoundary, properties.LowerBoundary);
             Assert.AreEqual(assemblyCategory.UpperBoundary, properties.UpperBoundary);
         }
