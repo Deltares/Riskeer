@@ -157,7 +157,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 AssessmentSection assessmentSection = categoryLimitsKernel.AssessmentSection;
                 ProbabilityAssert.AreEqual(lowerLimitNorm, assessmentSection.FailureProbabilityLowerLimit);
-                ProbabilityAssert.AreEqual(signalingNorm, assessmentSection.FailureProbabilitySignallingLimit);
+                ProbabilityAssert.AreEqual(signalingNorm, assessmentSection.FailureProbabilitySignalingLimit);
 
                 Assert.AreSame(interpretationCategories, failureMechanismSectionAssemblyKernel.Categories);
                 Assert.AreEqual(expectedInitialMechanismProbabilitySpecification, failureMechanismSectionAssemblyKernel.InitialMechanismProbabilitySpecification);
@@ -377,7 +377,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 AssessmentSection assessmentSection = categoryLimitsKernel.AssessmentSection;
                 ProbabilityAssert.AreEqual(lowerLimitNorm, assessmentSection.FailureProbabilityLowerLimit);
-                ProbabilityAssert.AreEqual(signalingNorm, assessmentSection.FailureProbabilitySignallingLimit);
+                ProbabilityAssert.AreEqual(signalingNorm, assessmentSection.FailureProbabilitySignalingLimit);
 
                 Assert.AreSame(interpretationCategories, failureMechanismSectionAssemblyKernel.Categories);
                 Assert.AreEqual(expectedInitialMechanismProbabilitySpecification, failureMechanismSectionAssemblyKernel.InitialMechanismProbabilitySpecification);

@@ -125,7 +125,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Assert
                 Assert.IsTrue(categoryLimitsKernel.Calculated);
                 ProbabilityAssert.AreEqual(lowerLimitNorm, categoryLimitsKernel.AssessmentSection.FailureProbabilityLowerLimit);
-                ProbabilityAssert.AreEqual(signalingNorm, categoryLimitsKernel.AssessmentSection.FailureProbabilitySignallingLimit);
+                ProbabilityAssert.AreEqual(signalingNorm, categoryLimitsKernel.AssessmentSection.FailureProbabilitySignalingLimit);
 
                 Assert.IsTrue(assessmentSectionAssemblyKernel.Calculated);
                 Assert.IsFalse(assessmentSectionAssemblyKernel.PartialAssembly);

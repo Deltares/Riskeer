@@ -84,7 +84,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return Resources.AssemblyErrorMessageCreator_LengthEffectFactorOutOfRange;
                 case EAssemblyErrors.SectionLengthOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_SectionLengthOutOfRange;
-                case EAssemblyErrors.SignallingLimitAboveLowerLimit:
+                case EAssemblyErrors.SignalingLimitAboveLowerLimit:
                     return Resources.AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit;
                 case EAssemblyErrors.LowerLimitIsAboveUpperLimit:
                     return Resources.AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit;

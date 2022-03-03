@@ -88,7 +88,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
 
                 // Assert
                 Assert.AreEqual(lowerLimitNorm, kernel.AssessmentSection.FailureProbabilityLowerLimit.Value);
-                Assert.AreEqual(signalingNorm, kernel.AssessmentSection.FailureProbabilitySignallingLimit.Value);
+                Assert.AreEqual(signalingNorm, kernel.AssessmentSection.FailureProbabilitySignalingLimit.Value);
             }
         }
 

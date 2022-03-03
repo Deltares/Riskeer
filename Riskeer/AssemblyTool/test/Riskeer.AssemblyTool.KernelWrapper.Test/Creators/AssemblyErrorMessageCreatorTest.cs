@@ -60,7 +60,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [Test]
         [TestCase(EAssemblyErrors.LengthEffectFactorOutOfRange, "Lengte-effect factor moet minimaal 1 zijn.")]
         [TestCase(EAssemblyErrors.SectionLengthOutOfRange, "De trajectlengte moet groter zijn dan 0 [m].")]
-        [TestCase(EAssemblyErrors.SignallingLimitAboveLowerLimit, "De signaleringskans moet kleiner zijn dan de ondergrens.")]
+        [TestCase(EAssemblyErrors.SignalingLimitAboveLowerLimit, "De signaleringskans moet kleiner zijn dan de ondergrens.")]
         [TestCase(EAssemblyErrors.LowerLimitIsAboveUpperLimit, "De categoriebovengrens moet boven de categorieondergrens liggen.")]
         [TestCase(EAssemblyErrors.ValueMayNotBeNull, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
         [TestCase(EAssemblyErrors.FailureMechanismSectionLengthInvalid, "Gezamenlijke lengte van alle deelvakken moet gelijk zijn aan de trajectlengte.")]

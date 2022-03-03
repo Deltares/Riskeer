@@ -89,7 +89,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
                 // Assert
                 AssessmentSection assessmentSection = categoryLimitsKernel.AssessmentSection;
                 ProbabilityAssert.AreEqual(lowerLimitNorm, assessmentSection.FailureProbabilityLowerLimit);
-                ProbabilityAssert.AreEqual(signalingNorm, assessmentSection.FailureProbabilitySignallingLimit);
+                ProbabilityAssert.AreEqual(signalingNorm, assessmentSection.FailureProbabilitySignalingLimit);
             }
         }
 
