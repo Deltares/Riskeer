@@ -285,7 +285,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             SerializableAssessmentSectionAssemblyResult serializableAssessmentSectionAssemblyResult = serializableTotalAssembly.AssessmentSectionAssemblyResult;
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyMethod),
                             serializableAssessmentSectionAssemblyResult.AssemblyMethod);
-            Assert.AreEqual(SerializableAssessmentSectionAssemblyGroupCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyCategory),
+            Assert.AreEqual(SerializableAssessmentSectionAssemblyGroupCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyGroup),
                             serializableAssessmentSectionAssemblyResult.AssemblyGroup);
         }
 

@@ -33,12 +33,12 @@ namespace Riskeer.Integration.IO.Assembly
         /// Creates an instance of <see cref="ExportableAssessmentSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
-        /// <param name="assemblyCategory">The assembly result.</param>
+        /// <param name="assemblyGroup">The group of this assembly result.</param>
         public ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod assemblyMethod,
-                                                         AssessmentSectionAssemblyGroup assemblyCategory)
+                                                         AssessmentSectionAssemblyGroup assemblyGroup)
         {
             AssemblyMethod = assemblyMethod;
-            AssemblyCategory = assemblyCategory;
+            AssemblyGroup = assemblyGroup;
         }
 
         /// <summary>
@@ -47,8 +47,8 @@ namespace Riskeer.Integration.IO.Assembly
         public ExportableAssemblyMethod AssemblyMethod { get; }
 
         /// <summary>
-        /// Gets the assembly category.
+        /// Gets the group of this assembly result.
         /// </summary>
-        public AssessmentSectionAssemblyGroup AssemblyCategory { get; }
+        public AssessmentSectionAssemblyGroup AssemblyGroup { get; }
     }
 }
