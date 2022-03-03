@@ -104,7 +104,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -131,7 +131,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -157,7 +157,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -179,7 +179,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -201,7 +201,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new ClosingStructuresFailureMechanism());
@@ -224,7 +224,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             using (var view = new StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -247,7 +247,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N))
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);

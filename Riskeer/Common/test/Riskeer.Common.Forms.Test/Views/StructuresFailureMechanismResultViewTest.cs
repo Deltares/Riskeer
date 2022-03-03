@@ -80,7 +80,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_GetNFuncNull_ThrowsArgumentNullException()
+        public void Constructor_GetFailureMechanismAssemblyResultFuncNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -95,7 +95,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("getNFunc", exception.ParamName);
+            Assert.AreEqual("getFailureMechanismAssemblyResultFunc", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -215,14 +215,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void FailureMechanismResultsView_GetFailureMechanismAssemblyResultReturnsResult_SetsResultOnFailurePathAssemblyProbability()
         {
             // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-
             var failureMechanism = new TestStructuresFailureMechanism();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                section
-            });
-
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
@@ -235,11 +228,6 @@ namespace Riskeer.Common.Forms.Test.Views
             }
         }
 
-        private static TextBox GetFailurePathAssemblyProbabilityTextBox()
-        {
-            return (TextBox) new ControlTester("failurePathAssemblyProbabilityTextBox").TheObject;
-        }
-        
         [Test]
         public void GivenStructuresFailureMechanismResultView_WhenCalculationNotifiesObservers_ThenDataGridViewUpdatedAndAssemblyPerformed()
         {
@@ -266,7 +254,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 nrOfCalls++;
                 return double.NaN;
             };
-            
+
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism, getAssemblyResultFunc))
             {
@@ -313,7 +301,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 nrOfCalls++;
                 return double.NaN;
             };
-            
+
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowFailureMechanismResultsView(failureMechanism, getAssemblyResultFunc))
             {
@@ -381,6 +369,11 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(2, nrOfCalls);
                 Assert.IsTrue(rowsChanged);
             }
+        }
+
+        private static TextBox GetFailurePathAssemblyProbabilityTextBox()
+        {
+            return (TextBox) new ControlTester("failurePathAssemblyProbabilityTextBox").TheObject;
         }
 
         private StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> ShowFailureMechanismResultsView(

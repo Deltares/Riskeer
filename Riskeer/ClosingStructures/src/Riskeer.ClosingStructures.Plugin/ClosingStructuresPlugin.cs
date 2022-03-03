@@ -119,8 +119,8 @@ namespace Riskeer.ClosingStructures.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>(
-                    context.WrappedData,
-                    (ClosingStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection, fm => fm.GeneralInput.N)
+                    context.WrappedData, (ClosingStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection,
+                    ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism)
             };
 
             yield return new RiskeerViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>(() => Gui)

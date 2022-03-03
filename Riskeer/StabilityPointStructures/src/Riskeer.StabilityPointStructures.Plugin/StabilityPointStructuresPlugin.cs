@@ -117,7 +117,8 @@ namespace Riskeer.StabilityPointStructures.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                    context.WrappedData, (StabilityPointStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection, fm => fm.GeneralInput.N)
+                    context.WrappedData, (StabilityPointStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection,
+                    StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism)
             };
 
             yield return new RiskeerViewInfo<StabilityPointStructuresScenariosContext, CalculationGroup, StabilityPointStructuresScenariosView>(() => Gui)

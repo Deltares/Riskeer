@@ -103,7 +103,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var view = new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N);
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -129,7 +129,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var view = new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N);
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -154,7 +154,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var view = new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N);
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -175,7 +175,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var view = new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N);
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN);
 
             // Call
             bool closeForData = info.CloseForData(view, failureMechanism);
@@ -196,7 +196,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             var view = new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N);
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN);
 
             // Call
             bool closeForData = info.CloseForData(view, new HeightStructuresFailureMechanism());
@@ -218,7 +218,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             var view = new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N);
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN);
 
             // Call
             bool closeForData = info.CloseForData(view, context);
@@ -240,7 +240,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var context = new HeightStructuresFailurePathContext(new HeightStructuresFailureMechanism(), assessmentSection);
 
             var view = new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => fm.GeneralInput.N);
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN);
 
             // Call
             bool closeForData = info.CloseForData(view, context);

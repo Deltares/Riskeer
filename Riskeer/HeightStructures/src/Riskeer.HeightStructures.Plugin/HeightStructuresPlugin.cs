@@ -195,8 +195,8 @@ namespace Riskeer.HeightStructures.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 CreateInstance = context => new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
-                    context.WrappedData, (HeightStructuresFailureMechanism) context.FailureMechanism,
-                    context.AssessmentSection, fm => fm.GeneralInput.N)
+                    context.WrappedData, (HeightStructuresFailureMechanism) context.FailureMechanism, context.AssessmentSection,
+                    HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism)
             };
 
             yield return new RiskeerViewInfo<HeightStructuresCalculationGroupContext, CalculationGroup, HeightStructuresCalculationsView>(() => Gui)
