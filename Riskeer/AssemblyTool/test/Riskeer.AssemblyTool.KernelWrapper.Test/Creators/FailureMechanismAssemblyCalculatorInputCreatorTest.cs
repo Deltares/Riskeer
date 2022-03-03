@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Assembly.Kernel.Model.Categories;
 using Core.Common.TestUtil;
@@ -67,24 +68,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         }
 
         [Test]
-        [TestCase(FailureMechanismSectionAssemblyGroup.NotDominant, EInterpretationCategory.NotDominant)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.III, EInterpretationCategory.III)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.II, EInterpretationCategory.II)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.I, EInterpretationCategory.I)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.Zero, EInterpretationCategory.Zero)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.IMin, EInterpretationCategory.IMin)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.IIMin, EInterpretationCategory.IIMin)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.IIIMin, EInterpretationCategory.IIIMin)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.Dominant, EInterpretationCategory.Dominant)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.Gr, EInterpretationCategory.Gr)]
+        [TestCaseSource(nameof(ResultCases))]
         public void CreateFailureMechanismSectionAssemblyResult_WithValidResult_ReturnsExpectedFailureMechanismSectionAssemblyResult(
-            FailureMechanismSectionAssemblyGroup assemblyGroup, EInterpretationCategory expectedInterpretationCategory)
+            FailureMechanismSectionAssemblyGroup assemblyGroup, EInterpretationCategory expectedInterpretationCategory,
+            double profileProbability, double sectionProbability)
         {
             // Setup
             var random = new Random(21);
-            double profileProbability = random.NextDouble();
-            double sectionProbability = profileProbability + 0.001;
-
             var result = new RiskeerFailureMechanismSectionAssemblyResult(profileProbability, sectionProbability,
                                                                           random.NextDouble(),
                                                                           assemblyGroup);
@@ -95,6 +85,24 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             ProbabilityAssert.AreEqual(profileProbability, createdResult.ProbabilityProfile);
             ProbabilityAssert.AreEqual(sectionProbability, createdResult.ProbabilitySection);
             Assert.AreEqual(expectedInterpretationCategory, createdResult.InterpretationCategory);
+        }
+
+        private static IEnumerable<TestCaseData> ResultCases()
+        {
+            var random = new Random(21);
+            double profileProbability = random.NextDouble();
+            double sectionProbability = profileProbability + 0.001;
+
+            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.NotDominant, EInterpretationCategory.NotDominant, double.NaN, double.NaN);
+            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.III, EInterpretationCategory.III, profileProbability, sectionProbability);
+            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.II, EInterpretationCategory.II, profileProbability, sectionProbability);
+            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.I, EInterpretationCategory.I, profileProbability, sectionProbability);
+            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.Zero, EInterpretationCategory.Zero, profileProbability, sectionProbability);
+            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.IMin, EInterpretationCategory.IMin, profileProbability, sectionProbability);
+            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.IIMin, EInterpretationCategory.IIMin, profileProbability, sectionProbability);
+            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.IIIMin, EInterpretationCategory.IIIMin, profileProbability, sectionProbability);
+            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.Dominant, EInterpretationCategory.Dominant, double.NaN, double.NaN);
+            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.Gr, EInterpretationCategory.Gr, double.NaN, double.NaN);
         }
     }
 }
