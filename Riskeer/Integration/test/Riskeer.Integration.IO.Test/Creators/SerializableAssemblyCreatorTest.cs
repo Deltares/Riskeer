@@ -60,10 +60,6 @@ namespace Riskeer.Integration.IO.Test.Creators
             IEnumerable<Point2D> geometry = CreateGeometry();
             ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly =
                 ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult();
-            ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyResultWithProbability =
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability();
-            ExportableFailureMechanismAssemblyResult failureMechanismAssemblyResultWithoutProbability =
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability();
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> failureMechanismsWithProbability =
                 new[]
                 {
@@ -81,8 +77,6 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                               assessmentSectionId,
                                                                               geometry,
                                                                               assessmentSectionAssembly,
-                                                                              failureMechanismAssemblyResultWithProbability,
-                                                                              failureMechanismAssemblyResultWithoutProbability,
                                                                               failureMechanismsWithProbability,
                                                                               failureMechanismsWithoutProbability,
                                                                               new[]

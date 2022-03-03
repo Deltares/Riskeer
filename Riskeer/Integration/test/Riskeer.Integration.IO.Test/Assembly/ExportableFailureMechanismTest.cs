@@ -39,13 +39,12 @@ namespace Riskeer.Integration.IO.Test.Assembly
             var random = new Random(21);
 
             // Call
-            TestDelegate call = () => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(null,
-                                                                                                               Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
-                                                                                                               random.NextEnumValue<ExportableFailureMechanismType>(),
-                                                                                                               random.NextEnumValue<ExportableFailureMechanismGroup>());
+            void Call() => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+                null, Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
+                random.NextEnumValue<ExportableFailureMechanismType>(), random.NextEnumValue<ExportableFailureMechanismGroup>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismAssembly", exception.ParamName);
         }
 

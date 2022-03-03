@@ -35,14 +35,10 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_IdGeneratorNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableTotalAssemblyResultCreator.Create(null,
-                                                                                    new SerializableAssessmentProcess(),
-                                                                                    new SerializableFailureMechanismAssemblyResult(),
-                                                                                    new SerializableFailureMechanismAssemblyResult(),
-                                                                                    new SerializableAssessmentSectionAssemblyResult());
+            void Call() => SerializableTotalAssemblyResultCreator.Create(null, new SerializableAssessmentProcess(), new SerializableAssessmentSectionAssemblyResult());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("idGenerator", exception.ParamName);
         }
 
@@ -54,16 +50,12 @@ namespace Riskeer.Integration.IO.Test.Creators
 
             const string assessmentProcessId = "assessmentProcessId";
             var serializableAssessmentProcess = new SerializableAssessmentProcess(assessmentProcessId, new SerializableAssessmentSection());
-            var failureMechanismAssemblyResultWithProbability = new SerializableFailureMechanismAssemblyResult();
-            var failureMechanismAssemblyResultWithoutProbability = new SerializableFailureMechanismAssemblyResult();
             var assessmentSectionAssemblyResult = new SerializableAssessmentSectionAssemblyResult();
 
             // Call
             SerializableTotalAssemblyResult serializableTotalAssembly =
                 SerializableTotalAssemblyResultCreator.Create(idGenerator,
                                                               serializableAssessmentProcess,
-                                                              failureMechanismAssemblyResultWithProbability,
-                                                              failureMechanismAssemblyResultWithoutProbability,
                                                               assessmentSectionAssemblyResult);
 
             // Assert

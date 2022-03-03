@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data;
@@ -59,8 +58,6 @@ namespace Riskeer.Integration.IO.Factories
                                                    assessmentSection.Id,
                                                    assessmentSection.ReferenceLine.Points,
                                                    CreateExportableAssessmentSectionAssemblyResult(assessmentSection),
-                                                   CreateExportableFailureMechanismAssemblyResultWithProbability(),
-                                                   CreateExportableFailureMechanismAssemblyResultWithoutProbability(),
                                                    CreateExportableFailureMechanismsWithProbability(assessmentSection),
                                                    CreateExportableFailureMechanismsWithoutProbability(assessmentSection),
                                                    CreateExportableCombinedSectionAssemblyCollection(assessmentSection));
@@ -78,28 +75,6 @@ namespace Riskeer.Integration.IO.Factories
             AssessmentSectionAssemblyResult assemblyResult = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
             return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.WBI2C1, assemblyResult.AssemblyGroup,
                                                                  assemblyResult.Probability);
-        }
-
-        /// <summary>
-        /// Creates an <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> with the assembly result.
-        /// </summary>
-        /// <returns>An <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> with assembly result.</returns>
-        private static ExportableFailureMechanismAssemblyResultWithProbability CreateExportableFailureMechanismAssemblyResultWithProbability()
-        {
-            var assemblyResult = new FailureMechanismAssembly(0, FailureMechanismAssemblyCategoryGroup.None);
-            return new ExportableFailureMechanismAssemblyResultWithProbability(ExportableAssemblyMethod.WBI2B1,
-                                                                               assemblyResult.Group,
-                                                                               assemblyResult.Probability);
-        }
-
-        /// <summary>
-        /// Creates an <see cref="ExportableFailureMechanismAssemblyResult"/> with the assembly result.
-        /// </summary>
-        /// <returns>An <see cref="ExportableFailureMechanismAssemblyResult"/> with assembly result.</returns>
-        private static ExportableFailureMechanismAssemblyResult CreateExportableFailureMechanismAssemblyResultWithoutProbability()
-        {
-            return new ExportableFailureMechanismAssemblyResult(ExportableAssemblyMethod.WBI2A1,
-                                                                FailureMechanismAssemblyCategoryGroup.None);
         }
 
         /// <summary>

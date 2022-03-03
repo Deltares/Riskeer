@@ -36,18 +36,14 @@ namespace Riskeer.Integration.IO.Test.Assembly
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableAssessmentSection(null,
-                                                                      string.Empty,
-                                                                      Enumerable.Empty<Point2D>(),
-                                                                      ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
-                                                                      Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            void Call() => new ExportableAssessmentSection(null, string.Empty, Enumerable.Empty<Point2D>(),
+                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
+                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
+                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
         }
 
@@ -55,18 +51,14 @@ namespace Riskeer.Integration.IO.Test.Assembly
         public void Constructor_InvalidId_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
-                                                                      null,
-                                                                      Enumerable.Empty<Point2D>(),
-                                                                      ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
-                                                                      Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            void Call() => new ExportableAssessmentSection(string.Empty, null, Enumerable.Empty<Point2D>(),
+                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(), 
+                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
+                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
+                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("id", exception.ParamName);
         }
 
@@ -74,18 +66,14 @@ namespace Riskeer.Integration.IO.Test.Assembly
         public void Constructor_GeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
-                                                                      string.Empty,
-                                                                      null,
-                                                                      ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
-                                                                      Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, null,
+                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
+                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
+                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("geometry", exception.ParamName);
         }
 
@@ -93,75 +81,27 @@ namespace Riskeer.Integration.IO.Test.Assembly
         public void Constructor_AssessmentSectionAssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
-                                                                      string.Empty,
-                                                                      Enumerable.Empty<Point2D>(),
-                                                                      null,
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
-                                                                      Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, Enumerable.Empty<Point2D>(), null,
+                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
+                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
+                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSectionAssembly", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismAssemblyWithProbabilityNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
-                                                                      string.Empty,
-                                                                      Enumerable.Empty<Point2D>(),
-                                                                      ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                                      null,
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
-                                                                      Enumerable.Empty<ExportableCombinedSectionAssembly>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismAssemblyWithProbability", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismAssemblyWithoutProbabilityNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
-                                                                      string.Empty,
-                                                                      Enumerable.Empty<Point2D>(),
-                                                                      ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                                                                      null,
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
-                                                                      Enumerable.Empty<ExportableCombinedSectionAssembly>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failureMechanismAssemblyWithoutProbability", exception.ParamName);
         }
 
         [Test]
         public void Constructor_FailureMechanismsWithProbabilityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
-                                                                      string.Empty,
-                                                                      Enumerable.Empty<Point2D>(),
-                                                                      ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
-                                                                      null,
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
-                                                                      Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, Enumerable.Empty<Point2D>(),
+                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(), null,
+                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
+                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismsWithProbability", exception.ParamName);
         }
 
@@ -169,18 +109,13 @@ namespace Riskeer.Integration.IO.Test.Assembly
         public void Constructor_FailureMechanismsWithoutProbabilityNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
-                                                                      string.Empty,
-                                                                      Enumerable.Empty<Point2D>(),
-                                                                      ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
-                                                                      null,
-                                                                      Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, Enumerable.Empty<Point2D>(),
+                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
+                                                           null, Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismsWithoutProbability", exception.ParamName);
         }
 
@@ -188,18 +123,13 @@ namespace Riskeer.Integration.IO.Test.Assembly
         public void Constructor_CombinedSectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableAssessmentSection(string.Empty,
-                                                                      string.Empty,
-                                                                      Enumerable.Empty<Point2D>(),
-                                                                      ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                                                                      ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
-                                                                      Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
-                                                                      null);
+            void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, Enumerable.Empty<Point2D>(),
+                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
+                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("combinedSectionAssemblyResults", exception.ParamName);
         }
 
@@ -212,10 +142,6 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Setup
             IEnumerable<Point2D> geometry = Enumerable.Empty<Point2D>();
             ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly = ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult();
-            ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyResultWithProbability =
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability();
-            ExportableFailureMechanismAssemblyResult failureMechanismAssemblyResultWithoutProbability =
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability();
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> failureMechanismsWithProbability =
                 Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>();
             IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability =
@@ -227,8 +153,6 @@ namespace Riskeer.Integration.IO.Test.Assembly
                                                                     id,
                                                                     geometry,
                                                                     assessmentSectionAssembly,
-                                                                    failureMechanismAssemblyResultWithProbability,
-                                                                    failureMechanismAssemblyResultWithoutProbability,
                                                                     failureMechanismsWithProbability,
                                                                     failureMechanismsWithoutProbability,
                                                                     combinedSectionAssemblyResults);
@@ -238,8 +162,6 @@ namespace Riskeer.Integration.IO.Test.Assembly
             Assert.AreEqual(id, assessmentSection.Id);
             Assert.AreSame(geometry, assessmentSection.Geometry);
             Assert.AreSame(assessmentSectionAssembly, assessmentSection.AssessmentSectionAssembly);
-            Assert.AreSame(failureMechanismAssemblyResultWithProbability, assessmentSection.FailureMechanismAssemblyWithProbability);
-            Assert.AreSame(failureMechanismAssemblyResultWithoutProbability, assessmentSection.FailureMechanismAssemblyWithoutProbability);
             Assert.AreSame(failureMechanismsWithProbability, assessmentSection.FailureMechanismsWithProbability);
             Assert.AreSame(failureMechanismsWithoutProbability, assessmentSection.FailureMechanismsWithoutProbability);
             Assert.AreSame(combinedSectionAssemblyResults, assessmentSection.CombinedSectionAssemblies);

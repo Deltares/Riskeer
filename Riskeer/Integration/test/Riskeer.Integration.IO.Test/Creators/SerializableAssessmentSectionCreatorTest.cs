@@ -76,8 +76,6 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                    id,
                                                    CreateGeometry(),
                                                    ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                   ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                                                   ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
                                                    Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
                                                    Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
                                                    Enumerable.Empty<ExportableCombinedSectionAssembly>());

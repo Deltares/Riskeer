@@ -38,15 +38,11 @@ namespace Riskeer.Integration.IO.Creators
         /// </summary>
         /// <param name="idGenerator">The generator to generate an id for the <see cref="SerializableTotalAssemblyResult"/>.</param>
         /// <param name="assessmentProcess">The assessment process this result belongs to.</param>
-        /// <param name="failureMechanismAssemblyResultWithProbability">The assembly result for failure mechanisms with probability.</param>
-        /// <param name="failureMechanismAssemblyResultWithoutProbability">The assembly result for failure mechanisms without probability.</param>
         /// <param name="assessmentSectionAssemblyResult">The assembly result for the assessment section.</param>
         /// <returns>A <see cref="SerializableTotalAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static SerializableTotalAssemblyResult Create(IdentifierGenerator idGenerator,
                                                              SerializableAssessmentProcess assessmentProcess,
-                                                             SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResultWithProbability,
-                                                             SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResultWithoutProbability,
                                                              SerializableAssessmentSectionAssemblyResult assessmentSectionAssemblyResult)
         {
             if (idGenerator == null)

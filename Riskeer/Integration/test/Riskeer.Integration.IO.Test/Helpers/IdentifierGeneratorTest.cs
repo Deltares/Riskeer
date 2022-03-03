@@ -43,11 +43,11 @@ namespace Riskeer.Integration.IO.Test.Helpers
             var generator = new IdentifierGenerator();
 
             // Call
-            TestDelegate call = () => generator.GetNewId(invalidPrefix);
+            void Call() => generator.GetNewId(invalidPrefix);
 
             // Assert
             const string expectedMessage = "'prefix' is null, empty or consists of whitespace.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -126,10 +126,10 @@ namespace Riskeer.Integration.IO.Test.Helpers
         public void GenerateId_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => IdentifierGenerator.GeneratedId(null);
+            void Call() => IdentifierGenerator.GeneratedId(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -153,8 +153,6 @@ namespace Riskeer.Integration.IO.Test.Helpers
                                                    id,
                                                    Enumerable.Empty<Point2D>(),
                                                    ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                   ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                                                   ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
                                                    Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
                                                    Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
                                                    Enumerable.Empty<ExportableCombinedSectionAssembly>());
