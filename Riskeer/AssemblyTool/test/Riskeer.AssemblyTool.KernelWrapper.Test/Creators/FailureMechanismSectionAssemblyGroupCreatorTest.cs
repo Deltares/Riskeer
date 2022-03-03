@@ -65,7 +65,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                 FailureMechanismSectionAssemblyGroupCreator.CreateFailureMechanismSectionAssemblyGroupBoundaries(groups);
 
             // Assert
-            AssemblyGroupBoundariesAssert.AssertFailureMechanismSectionAssemblyGroupBoundaries(groups, assemblyGroups);
+            FailureMechanismSectionAssemblyGroupAssert.AssertFailureMechanismSectionAssemblyGroupBoundaries(groups, assemblyGroups);
         }
 
         [Test]

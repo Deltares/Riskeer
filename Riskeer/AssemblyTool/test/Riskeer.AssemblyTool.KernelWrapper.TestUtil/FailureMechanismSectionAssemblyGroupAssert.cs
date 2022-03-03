@@ -31,7 +31,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
     /// <summary>
     /// Class for asserting failure mechanism section assembly groups.
     /// </summary>
-    public static class AssemblyGroupBoundariesAssert
+    public static class FailureMechanismSectionAssemblyGroupAssert
     {
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
