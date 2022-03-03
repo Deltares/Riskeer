@@ -53,7 +53,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("B", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupB);
             Assert.AreEqual("C", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupC);
             Assert.AreEqual("D", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupD);
-            Assert.AreEqual("NGO", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupNotAssessed);
 
             Assert.AreEqual("WBI-0E-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0E1);
             Assert.AreEqual("WBI-0E-3", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0E3);

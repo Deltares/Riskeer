@@ -56,12 +56,6 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// Represents the assembly group D.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupD)]
-        D = 5,
-
-        /// <summary>
-        /// Represents the assembly group NGO (Not assessed).
-        /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupNotAssessed)]
-        NotAssessed = 6
+        D = 5
     }
 }

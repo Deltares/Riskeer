@@ -64,7 +64,6 @@ namespace Riskeer.Integration.IO.Test.Creators
         [TestCase(AssessmentSectionAssemblyGroup.B, SerializableAssessmentSectionAssemblyGroup.B)]
         [TestCase(AssessmentSectionAssemblyGroup.C, SerializableAssessmentSectionAssemblyGroup.C)]
         [TestCase(AssessmentSectionAssemblyGroup.D, SerializableAssessmentSectionAssemblyGroup.D)]
-        [TestCase(AssessmentSectionAssemblyGroup.NotAssessed, SerializableAssessmentSectionAssemblyGroup.NotAssessed)]
         public void Create_WithValidAssessmentSectionAssemblyGroup_ReturnExpectedValues(AssessmentSectionAssemblyGroup group,
                                                                                         SerializableAssessmentSectionAssemblyGroup expectedAssemblyGroup)
         {

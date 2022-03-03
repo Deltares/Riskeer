@@ -52,8 +52,6 @@ namespace Riskeer.Integration.IO.Creators
 
             switch (group)
             {
-                case AssessmentSectionAssemblyGroup.NotAssessed:
-                    return SerializableAssessmentSectionAssemblyGroup.NotAssessed;
                 case AssessmentSectionAssemblyGroup.APlus:
                     return SerializableAssessmentSectionAssemblyGroup.APlus;
                 case AssessmentSectionAssemblyGroup.A:

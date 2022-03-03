@@ -61,11 +61,11 @@ namespace Riskeer.Integration.IO.Creators
             SerializableAssessmentSection serializableAssessmentSection = SerializableAssessmentSectionCreator.Create(assessmentSection);
             SerializableAssessmentProcess serializableAssessmentProcess = SerializableAssessmentProcessCreator.Create(idGenerator, serializableAssessmentSection);
             SerializableTotalAssemblyResult serializableTotalAssemblyResult =
-                SerializableTotalAssemblyResultCreator.Create(idGenerator,
-                                                              serializableAssessmentProcess,
-                                                              SerializableFailureMechanismResultCreator.Create(assessmentSection.FailureMechanismAssemblyWithProbability),
-                                                              SerializableFailureMechanismResultCreator.Create(assessmentSection.FailureMechanismAssemblyWithoutProbability),
-                                                              SerializableAssessmentSectionAssemblyResultCreator.Create(assessmentSection.AssessmentSectionAssembly));
+                SerializableTotalAssemblyResultCreator.Create(
+                    idGenerator, serializableAssessmentProcess,
+                    SerializableFailureMechanismResultCreator.Create(assessmentSection.FailureMechanismAssemblyWithProbability),
+                    SerializableFailureMechanismResultCreator.Create(assessmentSection.FailureMechanismAssemblyWithoutProbability),
+                    SerializableAssessmentSectionAssemblyResultCreator.Create(assessmentSection.AssessmentSectionAssembly));
 
             AggregatedSerializableFailureMechanism[] aggregatedFailureMechanismsWithProbability = assessmentSection.FailureMechanismsWithProbability
                                                                                                                    .Select(fm => CreateFailureMechanismsWithProbability(idGenerator, serializableTotalAssemblyResult, fm))

@@ -137,11 +137,6 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// </summary>
         public const string SerializableAssessmentSectionAssemblyGroupD = "D";
 
-        /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentSectionAssemblyGroup.NotAssessed"/>.
-        /// </summary>
-        public const string SerializableAssessmentSectionAssemblyGroupNotAssessed = "NGO";
-
         #endregion
 
         #region SerializableAssemblyMethod
