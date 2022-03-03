@@ -26,7 +26,7 @@ using NUnit.Framework;
 namespace Riskeer.AssemblyTool.Data.Test
 {
     [TestFixture]
-    public class FailureMechanismSectionAssemblyGroupTest : EnumValuesTestFixture<FailureMechanismSectionAssemblyGroup, int>
+    public class FailureMechanismSectionAssemblyGroupTest : EnumWithResourcesDisplayNameTestFixture<FailureMechanismSectionAssemblyGroup>
     {
         protected override IDictionary<FailureMechanismSectionAssemblyGroup, int> ExpectedValueForEnumValues =>
             new Dictionary<FailureMechanismSectionAssemblyGroup, int>
@@ -60,6 +60,41 @@ namespace Riskeer.AssemblyTool.Data.Test
                 },
                 {
                     FailureMechanismSectionAssemblyGroup.Gr, 10
+                }
+            };
+
+        protected override IDictionary<FailureMechanismSectionAssemblyGroup, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<FailureMechanismSectionAssemblyGroup, string>
+            {
+                {
+                    FailureMechanismSectionAssemblyGroup.NotDominant, "ND"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.III, "+III"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.II, "+II"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.I, "+I"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.Zero, "0"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.IMin, "-I"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.IIMin, "-II"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.IIIMin, "-III"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.Dominant, "D"
+                },
+                {
+                    FailureMechanismSectionAssemblyGroup.Gr, ""
                 }
             };
     }

@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Util.Attributes;
+using Riskeer.AssemblyTool.Data.Properties;
+
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
@@ -29,51 +32,61 @@ namespace Riskeer.AssemblyTool.Data
         /// <summary>
         /// Represents group Not Dominant.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_NotDominant_DisplayName))]
         NotDominant = 1,
 
         /// <summary>
         /// Represents group III.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_III_DisplayName))]
         III = 2,
 
         /// <summary>
         /// Represents group II.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_II_DisplayName))]
         II = 3,
 
         /// <summary>
         /// Represents group I.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_I_DisplayName))]
         I = 4,
 
         /// <summary>
         /// Represents group 0.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_Zero_DisplayName))]
         Zero = 5,
 
         /// <summary>
         /// Represents group I-.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_IMin_DisplayName))]
         IMin = 6,
 
         /// <summary>
         /// Represents group II-.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_IIMin_DisplayName))]
         IIMin = 7,
 
         /// <summary>
         /// Represents group III-.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_IIIMin_DisplayName))]
         IIIMin = 8,
 
         /// <summary>
         /// Represents group Dominant.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_Dominant_DisplayName))]
         Dominant = 9,
 
         /// <summary>
         /// Represents group GR.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_Gr_DisplayName))]
         Gr = 10
     }
 }
