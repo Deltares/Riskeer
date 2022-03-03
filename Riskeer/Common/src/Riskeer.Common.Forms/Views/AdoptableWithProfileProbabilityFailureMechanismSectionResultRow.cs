@@ -257,7 +257,7 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Gets the assembly group.
         /// </summary>
-        public string AssemblyGroup => FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(AssemblyResult.FailureMechanismSectionAssemblyGroup);
+        public string AssemblyGroup => EnumDisplayNameHelper.GetDisplayName(AssemblyResult.FailureMechanismSectionAssemblyGroup);
 
         public override void Update()
         {

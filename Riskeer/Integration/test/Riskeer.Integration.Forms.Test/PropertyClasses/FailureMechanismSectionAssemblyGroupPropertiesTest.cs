@@ -120,7 +120,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var result = properties.ToString();
 
             // Assert
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(assemblyGroup), result);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(assemblyGroup), result);
         }
     }
 }

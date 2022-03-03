@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.Factories
                 MapFeature mapFeature = RiskeerMapDataFeaturesFactory.CreateSingleLineMapFeature(geometry);
 
                 mapFeature.MetaData[RiskeerCommonFormsResources.AssemblyGroup_DisplayName] =
-                    FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(assemblyResult.TotalResult);
+                    EnumDisplayNameHelper.GetDisplayName(assemblyResult.TotalResult);
                 mapFeature.MetaData[Resources.SectionNumber_DisplayName] = assemblyResult.SectionNumber;
 
                 mapFeatures.Add(mapFeature);

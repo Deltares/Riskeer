@@ -100,7 +100,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
 
                     Assert.AreEqual(2, actualFeature.MetaData.Keys.Count);
                     Assert.AreEqual(expectedAssemblyResult.SectionNumber, actualFeature.MetaData["Vaknummer"]);
-                    Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(expectedAssemblyResult.TotalResult),
+                    Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(expectedAssemblyResult.TotalResult),
                                     features.ElementAt(i).MetaData["Duidingsklasse"]);
                 }
             }

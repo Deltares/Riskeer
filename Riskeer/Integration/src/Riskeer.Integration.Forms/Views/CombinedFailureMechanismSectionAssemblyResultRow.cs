@@ -79,213 +79,99 @@ namespace Riskeer.Integration.Forms.Views
         /// <summary>
         /// Gets the number of the section.
         /// </summary>
-        public int SectionNumber
-        {
-            get
-            {
-                return combinedFailureMechanismSectionAssemblyResult.SectionNumber;
-            }
-        }
+        public int SectionNumber => combinedFailureMechanismSectionAssemblyResult.SectionNumber;
 
         /// <summary>
         /// Gets the start of the section from the beginning of the reference line.
         /// [m]
         /// </summary>
-        public RoundedDouble SectionStart
-        {
-            get
-            {
-                return new RoundedDouble(2, combinedFailureMechanismSectionAssemblyResult.SectionStart);
-            }
-        }
+        public RoundedDouble SectionStart => new RoundedDouble(2, combinedFailureMechanismSectionAssemblyResult.SectionStart);
 
         /// <summary>
         /// Gets the end of the section from the beginning of the reference line.
         /// [m]
         /// </summary>
-        public RoundedDouble SectionEnd
-        {
-            get
-            {
-                return new RoundedDouble(2, combinedFailureMechanismSectionAssemblyResult.SectionEnd);
-            }
-        }
+        public RoundedDouble SectionEnd => new RoundedDouble(2, combinedFailureMechanismSectionAssemblyResult.SectionEnd);
 
         /// <summary>
         /// Gets the total assembly result.
         /// </summary>
-        public string TotalResult
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.TotalResult);
-            }
-        }
+        public string TotalResult => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.TotalResult);
 
         /// <summary>
         /// Gets the assembly result for piping.
         /// </summary>
-        public string Piping
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.Piping);
-            }
-        }
+        public string Piping => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.Piping);
 
         /// <summary>
         /// Gets the assembly result for grass cover erosion inwards.
         /// </summary>
-        public string GrassCoverErosionInwards
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
-            }
-        }
+        public string GrassCoverErosionInwards => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
 
         /// <summary>
         /// Gets the assembly result for macro stability inwards.
         /// </summary>
-        public string MacroStabilityInwards
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
-            }
-        }
+        public string MacroStabilityInwards => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
 
         /// <summary>
         /// Gets the assembly result for microstability.
         /// </summary>
-        public string Microstability
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.Microstability);
-            }
-        }
+        public string Microstability => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.Microstability);
 
         /// <summary>
         /// Gets the assembly result for stability stone cover.
         /// </summary>
-        public string StabilityStoneCover
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
-            }
-        }
+        public string StabilityStoneCover => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
 
         /// <summary>
         /// Gets the assembly result for wave impact asphalt cover.
         /// </summary>
-        public string WaveImpactAsphaltCover
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
-            }
-        }
+        public string WaveImpactAsphaltCover => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
 
         /// <summary>
         /// Gets the assembly result for water pressure asphalt cover.
         /// </summary>
-        public string WaterPressureAsphaltCover
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
-            }
-        }
+        public string WaterPressureAsphaltCover => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
 
         /// <summary>
         /// Gets the assembly result for grass cover erosion outwards.
         /// </summary>
-        public string GrassCoverErosionOutwards
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
-            }
-        }
+        public string GrassCoverErosionOutwards => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
 
         /// <summary>
         /// Gets the assembly result for grass cover slip off outwards.
         /// </summary>
-        public string GrassCoverSlipOffOutwards
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
-            }
-        }
+        public string GrassCoverSlipOffOutwards => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
 
         /// <summary>
         /// Gets the assembly result for grass cover slip off inwards.
         /// </summary>
-        public string GrassCoverSlipOffInwards
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
-            }
-        }
+        public string GrassCoverSlipOffInwards => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
 
         /// <summary>
         /// Gets the assembly result for height structures.
         /// </summary>
-        public string HeightStructures
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
-            }
-        }
+        public string HeightStructures => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
 
         /// <summary>
         /// Gets the assembly result for closing structures.
         /// </summary>
-        public string ClosingStructures
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
-            }
-        }
+        public string ClosingStructures => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
 
         /// <summary>
         /// Gets the assembly result for piping structure.
         /// </summary>
-        public string PipingStructure
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
-            }
-        }
+        public string PipingStructure => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
 
         /// <summary>
         /// Gets the assembly result for stability point structures.
         /// </summary>
-        public string StabilityPointStructures
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
-            }
-        }
+        public string StabilityPointStructures => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
 
         /// <summary>
         /// Gets the assembly result for dune erosion.
         /// </summary>
-        public string DuneErosion
-        {
-            get
-            {
-                return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
-            }
-        }
+        public string DuneErosion => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
 
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
 

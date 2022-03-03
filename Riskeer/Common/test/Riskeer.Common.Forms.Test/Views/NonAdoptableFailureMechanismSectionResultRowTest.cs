@@ -496,7 +496,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreSame(calculatorOutput, row.AssemblyResult);
 
                 Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.FailureMechanismSectionAssemblyGroup),
+                Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(rowAssemblyResult.FailureMechanismSectionAssemblyGroup),
                                 row.AssemblyGroup);
             }
 

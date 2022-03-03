@@ -540,7 +540,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreSame(assemblyResult, rowAssemblyResult);
 
             Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(rowAssemblyResult.FailureMechanismSectionAssemblyGroup),
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(rowAssemblyResult.FailureMechanismSectionAssemblyGroup),
                             row.AssemblyGroup);
 
             mocks.VerifyAll();
@@ -553,8 +553,6 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider>();
             mocks.ReplayAll();
-
-            var random = new Random(39);
 
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new AdoptableFailureMechanismSectionResult(section);

@@ -101,22 +101,22 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(result.SectionStart, row.SectionStart, row.SectionStart.GetAccuracy());
             Assert.AreEqual(2, row.SectionStart.NumberOfDecimalPlaces);
             Assert.AreEqual(result.SectionEnd, row.SectionEnd, row.SectionEnd.GetAccuracy());
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.TotalResult), row.TotalResult);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.Piping), row.Piping);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.GrassCoverErosionInwards), row.GrassCoverErosionInwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.MacroStabilityInwards), row.MacroStabilityInwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.Microstability), row.Microstability);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.StabilityStoneCover), row.StabilityStoneCover);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.WaveImpactAsphaltCover), row.WaveImpactAsphaltCover);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.WaterPressureAsphaltCover), row.WaterPressureAsphaltCover);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.GrassCoverErosionOutwards), row.GrassCoverErosionOutwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.GrassCoverSlipOffOutwards), row.GrassCoverSlipOffOutwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.GrassCoverSlipOffInwards), row.GrassCoverSlipOffInwards);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.HeightStructures), row.HeightStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.ClosingStructures), row.ClosingStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.PipingStructure), row.PipingStructure);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.StabilityPointStructures), row.StabilityPointStructures);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(result.DuneErosion), row.DuneErosion);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.TotalResult), row.TotalResult);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.Piping), row.Piping);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.GrassCoverErosionInwards), row.GrassCoverErosionInwards);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.MacroStabilityInwards), row.MacroStabilityInwards);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.Microstability), row.Microstability);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.StabilityStoneCover), row.StabilityStoneCover);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.WaveImpactAsphaltCover), row.WaveImpactAsphaltCover);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.WaterPressureAsphaltCover), row.WaterPressureAsphaltCover);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.GrassCoverErosionOutwards), row.GrassCoverErosionOutwards);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.GrassCoverSlipOffOutwards), row.GrassCoverSlipOffOutwards);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.GrassCoverSlipOffInwards), row.GrassCoverSlipOffInwards);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.HeightStructures), row.HeightStructures);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.ClosingStructures), row.ClosingStructures);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.PipingStructure), row.PipingStructure);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.StabilityPointStructures), row.StabilityPointStructures);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.DuneErosion), row.DuneErosion);
         }
 
         [Test]

@@ -98,7 +98,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         public override string ToString()
         {
-            return FailureMechanismSectionAssemblyGroupDisplayHelper.GetAssemblyGroupDisplayName(data.FailureMechanismSectionAssemblyGroup);
+            return EnumDisplayNameHelper.GetDisplayName(data.FailureMechanismSectionAssemblyGroup);
         }
     }
 }
