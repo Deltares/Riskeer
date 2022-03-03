@@ -278,7 +278,7 @@ namespace Riskeer.AssemblyTool.IO.Test
                 assessmentProcess,
                 new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI2B1, SerializableFailureMechanismCategoryGroup.IIt),
                 new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismCategoryGroup.NotApplicable, 0.000124),
-                new SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethod.WBI2C1, SerializableAssessmentSectionAssemblyGroup.B));
+                new SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethod.WBI2C1, SerializableAssessmentSectionAssemblyGroup.B, 0.00068354));
 
             var failureMechanism = new SerializableFailureMechanism(
                 "toetsspoorGABI",

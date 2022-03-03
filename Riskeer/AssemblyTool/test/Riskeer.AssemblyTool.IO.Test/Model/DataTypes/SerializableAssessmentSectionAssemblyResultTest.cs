@@ -40,12 +40,15 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             // Assert
             Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
             Assert.AreEqual((SerializableAssessmentSectionAssemblyGroup) 0, assemblyResult.AssemblyGroup);
+            Assert.AreEqual(0, assemblyResult.Probability);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
                 nameof(SerializableAssessmentSectionAssemblyResult.AssemblyMethod), "assemblagemethode");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
                 nameof(SerializableAssessmentSectionAssemblyResult.AssemblyGroup), "categorie");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
+                nameof(SerializableAssessmentSectionAssemblyResult.Probability), "faalkans");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
                 nameof(SerializableAssessmentSectionAssemblyResult.Status), "status");
         }
@@ -57,13 +60,15 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             var random = new Random(39);
             var group = random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>();
             var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
+            double probability = random.NextDouble();
 
             // Call
-            var assemblyResult = new SerializableAssessmentSectionAssemblyResult(assemblyMethod, group);
+            var assemblyResult = new SerializableAssessmentSectionAssemblyResult(assemblyMethod, group, probability);
 
             // Assert
             Assert.AreEqual(group, assemblyResult.AssemblyGroup);
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
+            Assert.AreEqual(probability, assemblyResult.Probability);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
         }
     }

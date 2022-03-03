@@ -43,11 +43,15 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// </summary>
         /// <param name="assemblyMethod">The method used to assemble this result.</param>
         /// <param name="assemblyGroup">The group of this assembly result.</param>
+        /// <param name="probability">The probability of this assembly result.</param>
         public SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethod assemblyMethod,
-                                                           SerializableAssessmentSectionAssemblyGroup assemblyGroup) : this()
+                                                           SerializableAssessmentSectionAssemblyGroup assemblyGroup,
+                                                           double probability) 
+            : this()
         {
             AssemblyGroup = assemblyGroup;
             AssemblyMethod = assemblyMethod;
+            Probability = probability;
         }
 
         /// <summary>
@@ -62,6 +66,12 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         [XmlElement(AssemblyXmlIdentifiers.AssessmentSectionAssemblyGroup)]
         public SerializableAssessmentSectionAssemblyGroup AssemblyGroup { get; set; }
 
+        /// <summary>
+        /// Gets or sets the probability of this assembly result.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.Probability)]
+        public double Probability { get; set; }
+        
         /// <summary>
         /// Gets or sets the status of this assembly result.
         /// </summary>

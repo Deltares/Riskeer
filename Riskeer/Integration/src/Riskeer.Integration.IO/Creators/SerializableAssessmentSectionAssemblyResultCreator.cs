@@ -45,8 +45,10 @@ namespace Riskeer.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethodCreator.Create(result.AssemblyMethod),
-                                                                   SerializableAssessmentSectionAssemblyGroupCreator.Create(result.AssemblyCategory));
+            return new SerializableAssessmentSectionAssemblyResult(
+                SerializableAssemblyMethodCreator.Create(result.AssemblyMethod),
+                SerializableAssessmentSectionAssemblyGroupCreator.Create(result.AssemblyCategory),
+                double.NaN);
         }
     }
 }
