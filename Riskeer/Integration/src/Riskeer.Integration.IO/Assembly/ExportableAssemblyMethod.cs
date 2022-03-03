@@ -107,33 +107,23 @@ namespace Riskeer.Integration.IO.Assembly
         WBI1B1 = 16,
 
         /// <summary>
-        /// Represents the assembly method WBI-2A-1.
-        /// </summary>
-        WBI2A1 = 17,
-
-        /// <summary>
-        /// Represents the assembly method WBI-2B-1.
-        /// </summary>
-        WBI2B1 = 18,
-
-        /// <summary>
         /// Represents the assembly method WBI-2C-1.
         /// </summary>
-        WBI2C1 = 19,
+        WBI2C1 = 17,
 
         /// <summary>
         /// Represents the assembly method WBI-3A-1.
         /// </summary>
-        WBI3A1 = 20,
+        WBI3A1 = 18,
 
         /// <summary>
         /// Represents the assembly method WBI-3B-1.
         /// </summary>
-        WBI3B1 = 21,
+        WBI3B1 = 19,
 
         /// <summary>
         /// Represents the assembly method WBI-3C-1.
         /// </summary>
-        WBI3C1 = 22
+        WBI3C1 = 20
     }
 }
