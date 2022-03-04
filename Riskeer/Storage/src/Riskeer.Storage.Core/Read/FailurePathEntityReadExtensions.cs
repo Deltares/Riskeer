@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Storage.Core.DbContext;
+using Riskeer.Storage.Core.Read.FailureMechanismSectionResults;
 
 namespace Riskeer.Storage.Core.Read
 {
@@ -94,6 +95,7 @@ namespace Riskeer.Storage.Core.Read
                 }
             };
             entity.ReadCommonFailurePathProperties(specificFailurePath, collector);
+            ReadNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(entity, specificFailurePath, collector);
             return specificFailurePath;
         }
 
@@ -130,6 +132,20 @@ namespace Riskeer.Storage.Core.Read
             if (readFailureMechanismSections.Any())
             {
                 specificFailurePath.SetSections(readFailureMechanismSections, entity.FailureMechanismSectionCollectionSourcePath);
+            }
+        }
+
+        private static void ReadNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(this IFailurePathEntity entity,
+                                                                                                 SpecificFailurePath specificFailurePath,
+                                                                                                 ReadConversionCollector collector)
+        {
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in
+                     entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities))
+            {
+                FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult result = specificFailurePath.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+
+                sectionResultEntity.Read(result);
             }
         }
     }

@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
+using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Create
@@ -70,6 +72,7 @@ namespace Riskeer.Storage.Core.Create
             }
 
             var entity = Create<SpecificFailurePathEntity>(specificFailurePath, registry);
+            AddEntitiesForSectionResults(specificFailurePath.SectionResults, registry);
             entity.Name = specificFailurePath.Name.DeepClone();
             entity.Code = specificFailurePath.Code.DeepClone();
             entity.Order = order;
@@ -77,6 +80,18 @@ namespace Riskeer.Storage.Core.Create
             entity.ApplyLengthEffectInSection = Convert.ToByte(specificFailurePath.GeneralInput.ApplyLengthEffectInSection);
 
             return entity;
+        }
+
+        private static void AddEntitiesForSectionResults(
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults,
+            PersistenceRegistry registry)
+        {
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            {
+                var sectionResultEntity = failureMechanismSectionResult.Create<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>();
+                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
+                section.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
+            }
         }
 
         private static T Create<T>(this IFailurePath failurePath, PersistenceRegistry registry)

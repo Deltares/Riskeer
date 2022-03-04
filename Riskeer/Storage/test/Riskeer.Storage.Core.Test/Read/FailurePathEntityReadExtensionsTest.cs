@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -28,6 +29,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Primitives;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Serializers;
@@ -272,6 +274,41 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNull(specificFailurePath.FailureMechanismSectionSourcePath);
         }
 
+        [Test]
+        public void ReadSpecificFailurePath_ValidEntityWithSections_ReturnSpecificFailurePath()
+        {
+            // Setup
+            const string filePath = "failurePathSections/File/Path";
+            FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+            var entity = new SpecificFailurePathEntity
+            {
+                N = 1.1,
+                FailureMechanismSectionEntities = new List<FailureMechanismSectionEntity>
+                {
+                    failureMechanismSectionEntity
+                },
+                FailureMechanismSectionCollectionSourcePath = filePath
+            };
+            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            };
+            entity.FailureMechanismSectionEntities.First().NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities = new List<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>
+            {
+                sectionResultEntity
+            };
+            SetSectionResult(sectionResultEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            SpecificFailurePath specificFailurePath = entity.ReadSpecificFailurePath(collector);
+
+            // Assert
+            AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities).Single(),
+                                 specificFailurePath.SectionResults.Single());
+        }
+
         private static void AssertCommonFailurePathProperties(IFailurePathEntity entity, IFailurePath failurePath)
         {
             var inAssembly = Convert.ToBoolean(entity.InAssembly);
@@ -300,6 +337,30 @@ namespace Riskeer.Storage.Core.Test.Read
                 FailureMechanismSectionPointXml = dummyPointXml
             };
             return failureMechanismSectionEntity;
+        }
+
+        private static void AssertSectionResults(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
+        {
+            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.IsRelevant), sectionResult.IsRelevant);
+            Assert.AreEqual((NonAdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
+            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual((FailureMechanismSectionResultFurtherAnalysisType) sectionResultEntity.FurtherAnalysisType, sectionResult.FurtherAnalysisType);
+            Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
+            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual(sectionResultEntity.RefinedProfileProbability.ToNullAsNaN(), sectionResult.RefinedProfileProbability);
+        }
+
+        private static void SetSectionResult(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
+        {
+            var random = new Random(21);
+
+            sectionResult.IsRelevant = Convert.ToByte(random.NextBoolean());
+            sectionResult.InitialFailureMechanismResultType = Convert.ToByte(random.NextEnumValue<NonAdoptableInitialFailureMechanismResultType>());
+            sectionResult.ManualInitialFailureMechanismResultSectionProbability = random.NextDouble();
+            sectionResult.FurtherAnalysisType = Convert.ToByte(random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>());
+            sectionResult.RefinedSectionProbability = random.NextDouble();
+            sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
+            sectionResult.RefinedProfileProbability = random.NextDouble();
         }
     }
 }
