@@ -33,6 +33,8 @@ namespace Riskeer.Storage.Core.TestUtil
     /// </summary>
     public static class SectionResultHelper
     {
+        #region Set methods
+
         /// <summary>
         /// Sets random section results for a <see cref="IAdoptableFailureMechanismSectionResultEntity"/>. 
         /// </summary>
@@ -49,21 +51,6 @@ namespace Riskeer.Storage.Core.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether the data of the <see cref="IAdoptableFailureMechanismSectionResultEntity"/> and
-        /// <see cref="AdoptableFailureMechanismSectionResult"/> are equal.
-        /// </summary>
-        /// <param name="sectionResultEntity">The <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.</param>
-        /// <param name="sectionResult">The <see cref="AdoptableFailureMechanismSectionResult"/>.</param>
-        public static void AssertSectionResults(IAdoptableFailureMechanismSectionResultEntity sectionResultEntity, AdoptableFailureMechanismSectionResult sectionResult)
-        {
-            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.IsRelevant), sectionResult.IsRelevant);
-            Assert.AreEqual((AdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
-            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultSectionProbability);
-            Assert.AreEqual((FailureMechanismSectionResultFurtherAnalysisType) sectionResultEntity.FurtherAnalysisType, sectionResult.FurtherAnalysisType);
-            Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
-        }
-
-        /// <summary>
         /// Sets random section results for a <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>. 
         /// </summary>
         /// <param name="sectionResult">The <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.</param>
@@ -75,21 +62,6 @@ namespace Riskeer.Storage.Core.TestUtil
             sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
             sectionResult.ProbabilityRefinementType = Convert.ToByte(random.NextEnumValue<ProbabilityRefinementType>());
             sectionResult.RefinedProfileProbability = random.NextDouble();
-        }
-
-        /// <summary>
-        /// Asserts whether the data of the <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> and
-        /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> are equal.
-        /// </summary>
-        /// <param name="sectionResultEntity">The <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.</param>
-        /// <param name="sectionResult">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.</param>
-        public static void AssertSectionResults(IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity, AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
-        {
-            AssertSectionResults((IAdoptableFailureMechanismSectionResultEntity) sectionResultEntity, sectionResult);
-
-            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultProfileProbability);
-            Assert.AreEqual((ProbabilityRefinementType) sectionResultEntity.ProbabilityRefinementType, sectionResult.ProbabilityRefinementType);
-            Assert.AreEqual(sectionResultEntity.RefinedProfileProbability.ToNullAsNaN(), sectionResult.RefinedProfileProbability);
         }
 
         /// <summary>
@@ -108,6 +80,53 @@ namespace Riskeer.Storage.Core.TestUtil
         }
 
         /// <summary>
+        /// Sets random section results for a <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>. 
+        /// </summary>
+        /// <param name="sectionResult">The <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.</param>
+        public static void SetSectionResult(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
+        {
+            var random = new Random(21);
+
+            SetSectionResult((INonAdoptableFailureMechanismSectionResultEntity) sectionResult);
+            sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
+            sectionResult.RefinedProfileProbability = random.NextDouble();
+        }
+
+        #endregion
+
+        #region Assert methods
+
+        /// <summary>
+        /// Asserts whether the data of the <see cref="IAdoptableFailureMechanismSectionResultEntity"/> and
+        /// <see cref="AdoptableFailureMechanismSectionResult"/> are equal.
+        /// </summary>
+        /// <param name="sectionResultEntity">The <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.</param>
+        /// <param name="sectionResult">The <see cref="AdoptableFailureMechanismSectionResult"/>.</param>
+        public static void AssertSectionResults(IAdoptableFailureMechanismSectionResultEntity sectionResultEntity, AdoptableFailureMechanismSectionResult sectionResult)
+        {
+            Assert.AreEqual(Convert.ToBoolean(sectionResultEntity.IsRelevant), sectionResult.IsRelevant);
+            Assert.AreEqual((AdoptableInitialFailureMechanismResultType) sectionResultEntity.InitialFailureMechanismResultType, sectionResult.InitialFailureMechanismResultType);
+            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultSectionProbability);
+            Assert.AreEqual((FailureMechanismSectionResultFurtherAnalysisType) sectionResultEntity.FurtherAnalysisType, sectionResult.FurtherAnalysisType);
+            Assert.AreEqual(sectionResultEntity.RefinedSectionProbability.ToNullAsNaN(), sectionResult.RefinedSectionProbability);
+        }
+
+        /// <summary>
+        /// Asserts whether the data of the <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> and
+        /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> are equal.
+        /// </summary>
+        /// <param name="sectionResultEntity">The <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.</param>
+        /// <param name="sectionResult">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.</param>
+        public static void AssertSectionResults(IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity, AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
+        {
+            AssertSectionResults((IAdoptableFailureMechanismSectionResultEntity) sectionResultEntity, sectionResult);
+
+            Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultProfileProbability);
+            Assert.AreEqual((ProbabilityRefinementType) sectionResultEntity.ProbabilityRefinementType, sectionResult.ProbabilityRefinementType);
+            Assert.AreEqual(sectionResultEntity.RefinedProfileProbability.ToNullAsNaN(), sectionResult.RefinedProfileProbability);
+        }
+
+        /// <summary>
         /// Asserts whether the data of the <see cref="INonAdoptableFailureMechanismSectionResultEntity"/> and
         /// <see cref="NonAdoptableFailureMechanismSectionResult"/> are equal.
         /// </summary>
@@ -123,19 +142,6 @@ namespace Riskeer.Storage.Core.TestUtil
         }
 
         /// <summary>
-        /// Sets random section results for a <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>. 
-        /// </summary>
-        /// <param name="sectionResult">The <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.</param>
-        public static void SetSectionResult(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
-        {
-            var random = new Random(21);
-
-            SetSectionResult((INonAdoptableFailureMechanismSectionResultEntity) sectionResult);
-            sectionResult.ManualInitialFailureMechanismResultProfileProbability = random.NextDouble();
-            sectionResult.RefinedProfileProbability = random.NextDouble();
-        }
-
-        /// <summary>
         /// Asserts whether the data of the <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> and
         /// <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/> are equal.
         /// </summary>
@@ -148,5 +154,7 @@ namespace Riskeer.Storage.Core.TestUtil
             Assert.AreEqual(sectionResultEntity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN(), sectionResult.ManualInitialFailureMechanismResultProfileProbability);
             Assert.AreEqual(sectionResultEntity.RefinedProfileProbability.ToNullAsNaN(), sectionResult.RefinedProfileProbability);
         }
+
+        #endregion
     }
 }
