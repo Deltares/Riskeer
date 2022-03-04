@@ -190,6 +190,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is ongeldige invoer gedefinieerd voor de gebruikte methode..
+        /// </summary>
+        internal static string AssemblyErrorMessageCreator_InvalidInput {
+            get {
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_InvalidInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lengte-effect factor moet minimaal 1 zijn..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_LengthEffectFactorOutOfRange {
@@ -249,15 +258,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         internal static string AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit {
             get {
                 return ResourceManager.GetString("AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er is ongeldige invoer gedefinieerd voor de gebruikte methode..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_ValueMayNotBeNull {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_ValueMayNotBeNull", resourceCulture);
             }
         }
     }

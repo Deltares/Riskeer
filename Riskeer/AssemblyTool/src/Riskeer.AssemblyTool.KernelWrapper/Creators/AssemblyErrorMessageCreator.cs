@@ -90,7 +90,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return Resources.AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit;
                 case EAssemblyErrors.ValueMayNotBeNull:
                 case EAssemblyErrors.ValueMayNotBeNaN:
-                    return Resources.AssemblyErrorMessageCreator_ValueMayNotBeNull;
+                case EAssemblyErrors.NonMatchingProbabilityValues:
+                    return Resources.AssemblyErrorMessageCreator_InvalidInput;
                 case EAssemblyErrors.FailureMechanismSectionLengthInvalid:
                     return Resources.AssemblyErrorMessageCreator_FailureMechanismSectionLengthInvalid;
                 case EAssemblyErrors.FailureMechanismSectionSectionStartEndInvalid:

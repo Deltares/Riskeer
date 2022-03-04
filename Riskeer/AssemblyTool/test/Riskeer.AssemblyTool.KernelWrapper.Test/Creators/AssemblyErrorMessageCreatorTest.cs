@@ -78,6 +78,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EAssemblyErrors.ErrorConstructingErrorMessage, "Er is een onverwachte fout opgetreden.")]
         [TestCase(EAssemblyErrors.DominantSectionCannotBeAssembled, "Er zijn een of meerdere vakken met duidingsklasse 'Dominant'. Dit kan niet verder geassembleerd worden.")]
         [TestCase(EAssemblyErrors.EncounteredOneOrMoreSectionsWithoutResult, "Alle vakken moeten een resultaat hebben.")]
+        [TestCase(EAssemblyErrors.NonMatchingProbabilityValues, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
         public void CreateErrorMessage_SingleAssemblyError_ReturnsExpectedErrorMessage(EAssemblyErrors assemblyError, string expectedErrorMessage)
         {
             // Call

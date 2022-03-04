@@ -129,7 +129,7 @@
   <data name="AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit" xml:space="preserve">
     <value>De categoriebovengrens moet boven de categorieondergrens liggen.</value>
   </data>
-  <data name="AssemblyErrorMessageCreator_ValueMayNotBeNull" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_InvalidInput" xml:space="preserve">
     <value>Er is ongeldige invoer gedefinieerd voor de gebruikte methode.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_FailureMechanismSectionLengthInvalid" xml:space="preserve">
