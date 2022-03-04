@@ -65,8 +65,8 @@ namespace Riskeer.Integration.IO.Creators
                     idGenerator, serializableAssessmentProcess,
                     SerializableAssessmentSectionAssemblyResultCreator.Create(assessmentSection.AssessmentSectionAssembly));
 
-            AggregatedSerializableFailureMechanism[] aggregatedFailureMechanismsWithProbability = assessmentSection.FailureMechanismsWithProbability
-                                                                                                                   .Select(fm => CreateFailureMechanismsWithProbability(idGenerator, serializableTotalAssemblyResult, fm))
+            AggregatedSerializableFailureMechanism[] aggregatedFailureMechanismsWithProbability = assessmentSection.FailureMechanismsWithoutProbability
+                                                                                                                   .Select(fm => CreateFailureMechanismsWithoutProbability(idGenerator, serializableTotalAssemblyResult, fm))
                                                                                                                    .ToArray();
             AggregatedSerializableFailureMechanism[] aggregatedFailureMechanismsWithoutProbability = assessmentSection.FailureMechanismsWithoutProbability
                                                                                                                       .Select(fm => CreateFailureMechanismsWithoutProbability(idGenerator, serializableTotalAssemblyResult, fm))
@@ -94,13 +94,6 @@ namespace Riskeer.Integration.IO.Creators
                                             GetAllSerializableFailureMechanismSections(aggregatedFailureMechanismsWithProbability,
                                                                                        aggregatedFailureMechanismsWithoutProbability,
                                                                                        aggregatedSerializableCombinedFailureMechanismSectionAssemblies));
-        }
-
-        private static AggregatedSerializableFailureMechanism CreateFailureMechanismsWithProbability(IdentifierGenerator idGenerator,
-                                                                                                     SerializableTotalAssemblyResult serializableTotalAssemblyResult,
-                                                                                                     ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> failureMechanism)
-        {
-            return AggregatedSerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssemblyResult, failureMechanism);
         }
 
         private static AggregatedSerializableFailureMechanism CreateFailureMechanismsWithoutProbability(IdentifierGenerator idGenerator,

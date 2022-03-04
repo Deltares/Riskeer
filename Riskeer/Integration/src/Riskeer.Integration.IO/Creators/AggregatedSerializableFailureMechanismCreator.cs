@@ -86,54 +86,6 @@ namespace Riskeer.Integration.IO.Creators
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="AggregatedSerializableFailureMechanism"/> based on its input parameters.
-        /// </summary>
-        /// <param name="idGenerator">The id generator to generate an id for the serializable components.</param>
-        /// <param name="serializableTotalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/> the serializable components belong to.</param>
-        /// <param name="failureMechanism">The <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with a probability to
-        /// create an <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
-        /// <returns>An <see cref="AggregatedSerializableFailureMechanism"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="failureMechanism"/> is invalid to create a serializable counterpart for.</exception>
-        /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
-        /// contains unsupported items in the failure mechanism section assembly results.</exception>
-        public static AggregatedSerializableFailureMechanism Create(IdentifierGenerator idGenerator,
-                                                                    SerializableTotalAssemblyResult serializableTotalAssemblyResult,
-                                                                    ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> failureMechanism)
-        {
-            if (idGenerator == null)
-            {
-                throw new ArgumentNullException(nameof(idGenerator));
-            }
-
-            if (serializableTotalAssemblyResult == null)
-            {
-                throw new ArgumentNullException(nameof(serializableTotalAssemblyResult));
-            }
-
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            SerializableFailureMechanism serializableFailureMechanism = SerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssemblyResult, failureMechanism);
-            var serializableCollection = new SerializableFailureMechanismSectionCollection(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionCollection_IdPrefix));
-
-            AggregatedSerializableFailureMechanismSectionAssembly[] serializableFailureMechanismSectionAssemblyResults =
-                failureMechanism.SectionAssemblyResults
-                                .Select(sectionAssemblyResult => CreateFailureMechanismSectionAssembly(idGenerator,
-                                                                                                       serializableFailureMechanism,
-                                                                                                       serializableCollection,
-                                                                                                       sectionAssemblyResult))
-                                .ToArray();
-
-            return new AggregatedSerializableFailureMechanism(serializableFailureMechanism,
-                                                              serializableCollection,
-                                                              serializableFailureMechanismSectionAssemblyResults.Select(fmr => fmr.FailureMechanismSection),
-                                                              serializableFailureMechanismSectionAssemblyResults.Select(fmr => fmr.FailureMechanismSectionAssembly));
-        }
-
-        /// <summary>
         /// Creates an instance of <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/> based on its input parameters.
         /// </summary>
         /// <param name="idGenerator">The id generator to generate the id for the serializable components.</param>
