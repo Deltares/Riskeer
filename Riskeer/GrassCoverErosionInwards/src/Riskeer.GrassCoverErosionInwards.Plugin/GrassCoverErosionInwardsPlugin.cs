@@ -79,8 +79,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionInwardsFailurePathContext, GrassCoverErosionInwardsFailurePathProperties>
             {
                 CreateInstance = context => new GrassCoverErosionInwardsFailurePathProperties(
-                    context.WrappedData,
-                    new FailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>())
+                    context.WrappedData)
             };
             yield return new PropertyInfo<DikeProfile, DikeProfileProperties>();
             yield return new PropertyInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInputContextProperties>

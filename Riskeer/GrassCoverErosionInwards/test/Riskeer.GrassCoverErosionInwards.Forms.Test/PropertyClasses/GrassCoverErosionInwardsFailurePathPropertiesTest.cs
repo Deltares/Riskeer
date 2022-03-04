@@ -28,7 +28,6 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
 
@@ -44,24 +43,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         private const int applyLengthEffectInSectionPropertyIndex = 4;
 
         [Test]
-        public void Constructor_ChangeHandlerNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new GrassCoverErosionInwardsFailurePathProperties(new GrassCoverErosionInwardsFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("handler", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
-            mocks.ReplayAll();
-
             var random = new Random(21);
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
@@ -73,7 +57,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism, handler);
+            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismProperties>(properties);
@@ -87,25 +71,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                             properties.N,
                             properties.N.GetAccuracy());
             Assert.AreEqual(generalInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_InAssemblyTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 InAssembly = true
             };
 
             // Call
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism, handler);
+            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -146,25 +124,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             lengthEffectCategory,
                                                                             "Toepassen lengte-effect binnen vak",
                                                                             "Geeft aan of het lengte-effect binnen een vak toegepast wordt.");
-
-            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_InAssemblyFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 InAssembly = false
             };
 
             // Call
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism, handler);
+            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -192,8 +164,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "In assemblage",
                                                                             "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
                                                                             true);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -210,7 +180,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.Attach(observer);
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism, null);
+            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
 
             // Call
             void Call() => properties.N = (RoundedDouble) value;
@@ -235,7 +205,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.Attach(observer);
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism, null);
+            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
 
             // Call
             properties.N = (RoundedDouble) value;
@@ -252,14 +222,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             failureMechanism.Attach(observer);
 
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism, handler);
+            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
 
             // Call
             properties.ApplyLengthEffectInSection = true;
@@ -275,15 +244,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
         {
             // Setup
-            var mocks = new MockRepository();
-            var handler = mocks.Stub<IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism>>();
-            mocks.ReplayAll();
-
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism
             {
                 InAssembly = inAssembly
             };
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism, handler);
+            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
@@ -292,8 +257,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.N)));
             Assert.AreEqual(inAssembly, properties.DynamicVisibleValidationMethod(nameof(properties.ApplyLengthEffectInSection)));
-
-            mocks.VerifyAll();
         }
     }
 }
