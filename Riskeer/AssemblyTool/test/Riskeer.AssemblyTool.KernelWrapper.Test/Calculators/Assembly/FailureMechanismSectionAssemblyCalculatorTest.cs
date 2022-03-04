@@ -147,7 +147,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = new KernelFailureMechanismSectionAssemblyResult(
-                    new Probability(random.NextDouble(0.0, 0.01)), new Probability(random.NextDouble(0.01, 0.02)), random.NextEnumValue<EInterpretationCategory>());
+                    new Probability(random.NextDouble(0.0, 0.01)), new Probability(random.NextDouble(0.01, 0.02)), EInterpretationCategory.Zero);
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -199,39 +199,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(kernelResult.ProbabilitySection, result.SectionProbability);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(kernelResult.InterpretationCategory),
                                 result.FailureMechanismSectionAssemblyGroup);
-            }
-        }
-
-        [Test]
-        public void AssembleFailureMechanismSection_KernelWithInvalidOutput_ThrowsFailureMechanismSectionAssemblyCalculatorException()
-        {
-            // Setup
-            var random = new Random(21);
-            FailureMechanismSectionAssemblyInput input = CreateFailureMechanismSectionAssemblyInput();
-
-            using (new AssemblyToolKernelFactoryConfig())
-            {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                categoryLimitsKernel.InterpretationCategoryLimits = CreateInterpretationCategories();
-
-                FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                var kernelResult = new KernelFailureMechanismSectionAssemblyResult(new Probability(random.NextDouble()),
-                                                                                   new Probability(random.NextDouble()),
-                                                                                   (EInterpretationCategory) 99);
-                failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = kernelResult;
-
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
-
-                // Call
-                void Call() => calculator.AssembleFailureMechanismSection(input);
-
-                // Assert
-                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(Call);
-                Assert.IsInstanceOf<Exception>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
-
-                Assert.IsTrue(failureMechanismSectionAssemblyKernel.Calculated);
             }
         }
 
@@ -367,7 +334,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = new KernelFailureMechanismSectionAssemblyResult(
-                    new Probability(random.NextDouble(0.0, 0.01)), new Probability(random.NextDouble(0.01, 0.02)), random.NextEnumValue<EInterpretationCategory>());
+                    new Probability(random.NextDouble(0.0, 0.01)), new Probability(random.NextDouble(0.01, 0.02)), EInterpretationCategory.Zero);
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -421,39 +388,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(kernelResult.ProbabilitySection, result.SectionProbability);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(kernelResult.InterpretationCategory),
                                 result.FailureMechanismSectionAssemblyGroup);
-            }
-        }
-
-        [Test]
-        public void AssembleFailureMechanismSectionWithProfileProbability_KernelWithInvalidOutput_ThrowsFailureMechanismSectionAssemblyCalculatorException()
-        {
-            // Setup
-            var random = new Random(21);
-            FailureMechanismSectionWithProfileProbabilityAssemblyInput input = CreateFailureMechanismSectionWithProfileProbabilityAssemblyInput();
-
-            using (new AssemblyToolKernelFactoryConfig())
-            {
-                var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                AssemblyCategoryLimitsKernelStub categoryLimitsKernel = factory.LastCreatedAssemblyCategoryLimitsKernel;
-                categoryLimitsKernel.InterpretationCategoryLimits = CreateInterpretationCategories();
-
-                FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                var kernelResult = new KernelFailureMechanismSectionAssemblyResult(new Probability(random.NextDouble()),
-                                                                                   new Probability(random.NextDouble()),
-                                                                                   (EInterpretationCategory) 99);
-                failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = kernelResult;
-
-                var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
-
-                // Call
-                void Call() => calculator.AssembleFailureMechanismSection(input);
-
-                // Assert
-                var exception = Assert.Throws<FailureMechanismSectionAssemblyCalculatorException>(Call);
-                Assert.IsInstanceOf<Exception>(exception.InnerException);
-                Assert.AreEqual(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), exception.Message);
-
-                Assert.IsTrue(failureMechanismSectionAssemblyKernel.Calculated);
             }
         }
 
