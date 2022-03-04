@@ -31,7 +31,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void AssemblyXmlIdentifiers_ExpectedValues()
         {
             Assert.AreEqual("Assemblage", AssemblyXmlIdentifiers.Assembly);
-            Assert.AreEqual("toetsspoorGroep", AssemblyXmlIdentifiers.FailureMechanismGroup);
             Assert.AreEqual("http://localhost/standaarden/assemblage", AssemblyXmlIdentifiers.AssemblyNamespace);
             Assert.AreEqual("asm", AssemblyXmlIdentifiers.AssemblyNamespaceIdentifier);
             Assert.AreEqual("toets", AssemblyXmlIdentifiers.AssessmentType);

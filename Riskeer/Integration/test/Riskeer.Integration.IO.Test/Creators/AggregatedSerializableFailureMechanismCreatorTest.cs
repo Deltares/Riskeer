@@ -148,7 +148,6 @@ namespace Riskeer.Integration.IO.Test.Creators
             SerializableFailureMechanism serializableFailureMechanism = aggregatedFailureMechanism.FailureMechanism;
             Assert.AreEqual("Ts.0", serializableFailureMechanism.Id);
             Assert.AreEqual(serializableTotalAssembly.Id, serializableFailureMechanism.TotalAssemblyResultId);
-            Assert.AreEqual(SerializableFailureMechanismGroupCreator.Create(failureMechanism.Group), serializableFailureMechanism.FailureMechanismGroup);
             Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(failureMechanism.Code), serializableFailureMechanism.FailureMechanismType);
 
             SerializableFailureMechanismAssemblyResultTestHelper.AssertSerializableFailureMechanismAssemblyResult(failureMechanism.FailureMechanismAssembly,
@@ -273,7 +272,6 @@ namespace Riskeer.Integration.IO.Test.Creators
             SerializableFailureMechanism serializableFailureMechanism = aggregatedFailureMechanism.FailureMechanism;
             Assert.AreEqual("Ts.0", serializableFailureMechanism.Id);
             Assert.AreEqual(serializableTotalAssembly.Id, serializableFailureMechanism.TotalAssemblyResultId);
-            Assert.AreEqual(SerializableFailureMechanismGroupCreator.Create(failureMechanism.Group), serializableFailureMechanism.FailureMechanismGroup);
             Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(failureMechanism.Code), serializableFailureMechanism.FailureMechanismType);
 
             SerializableFailureMechanismAssemblyResultTestHelper.AssertSerializableFailureMechanismAssemblyResult(failureMechanism.FailureMechanismAssembly,

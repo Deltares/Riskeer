@@ -31,7 +31,6 @@
     </asm:Veiligheidsoordeel>
     <asm:Toetsspoor ToetsspoorID="toetsspoorGABI" VeiligheidsoordeelIDRef="veiligheidsoordeel_1">
       <asm:typeToetsspoor>GABI</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEEN</asm:toetsspoorGroep>
       <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
       <asm:toetsoordeel>
         <asm:assemblagemethode>WBI-1A-1</asm:assemblagemethode>

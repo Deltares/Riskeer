@@ -48,14 +48,12 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <param name="id">The unique ID of the assembly result.</param>
         /// <param name="totalAssemblyResult">The total assembly result the failure mechanism belongs to.</param>
         /// <param name="failureMechanismType">The type of the failure mechanism.</param>
-        /// <param name="failureMechanismGroup">The group of the failure mechanism.</param>
         /// <param name="failureMechanismAssemblyResult">The total failure mechanism assembly result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public SerializableFailureMechanism(string id,
                                             SerializableTotalAssemblyResult totalAssemblyResult,
                                             SerializableFailureMechanismType failureMechanismType,
-                                            SerializableFailureMechanismGroup failureMechanismGroup,
                                             SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResult) : this()
         {
             if (!SerializableIdValidator.Validate(id))
@@ -76,7 +74,6 @@ namespace Riskeer.AssemblyTool.IO.Model
             Id = id;
             TotalAssemblyResultId = totalAssemblyResult.Id;
             FailureMechanismType = failureMechanismType;
-            FailureMechanismGroup = failureMechanismGroup;
             FailureMechanismAssemblyResult = failureMechanismAssemblyResult;
         }
 
@@ -97,12 +94,6 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismType)]
         public SerializableFailureMechanismType FailureMechanismType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the failure mechanism group.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.FailureMechanismGroup)]
-        public SerializableFailureMechanismGroup FailureMechanismGroup { get; set; }
 
         /// <summary>
         /// Gets or sets the direct failure mechanism indicator.

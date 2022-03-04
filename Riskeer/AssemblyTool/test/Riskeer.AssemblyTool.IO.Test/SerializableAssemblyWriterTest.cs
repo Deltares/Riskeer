@@ -282,7 +282,6 @@ namespace Riskeer.AssemblyTool.IO.Test
                 "toetsspoorGABI",
                 totalAssemblyResult,
                 SerializableFailureMechanismType.GABI,
-                SerializableFailureMechanismGroup.Group4,
                 new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod.WBI1A1, SerializableFailureMechanismCategoryGroup.IIt));
 
             var sections1 = new SerializableFailureMechanismSectionCollection("vakindelingGABI");

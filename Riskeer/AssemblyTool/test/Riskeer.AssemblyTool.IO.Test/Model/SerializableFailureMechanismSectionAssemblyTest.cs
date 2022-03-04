@@ -67,29 +67,26 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionAssembly(invalidId,
-                                                                                      new SerializableFailureMechanism(),
-                                                                                      new SerializableFailureMechanismSection(),
-                                                                                      new SerializableFailureMechanismSectionAssemblyResult[0],
-                                                                                      new SerializableFailureMechanismSectionAssemblyResult());
+            void Call() => new SerializableFailureMechanismSectionAssembly(invalidId, new SerializableFailureMechanism(),
+                                                                           new SerializableFailureMechanismSection(),
+                                                                           Array.Empty<SerializableFailureMechanismSectionAssemblyResult>(),
+                                                                           new SerializableFailureMechanismSectionAssemblyResult());
 
             // Assert
             const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionAssembly("id",
-                                                                                      null,
-                                                                                      new SerializableFailureMechanismSection(),
-                                                                                      new SerializableFailureMechanismSectionAssemblyResult[0],
-                                                                                      new SerializableFailureMechanismSectionAssemblyResult());
+            void Call() => new SerializableFailureMechanismSectionAssembly("id", null, new SerializableFailureMechanismSection(),
+                                                                           Array.Empty<SerializableFailureMechanismSectionAssemblyResult>(),
+                                                                           new SerializableFailureMechanismSectionAssemblyResult());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -97,14 +94,12 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_SectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionAssembly("id",
-                                                                                      new SerializableFailureMechanism(),
-                                                                                      null,
-                                                                                      new SerializableFailureMechanismSectionAssemblyResult[0],
-                                                                                      new SerializableFailureMechanismSectionAssemblyResult());
+            void Call() => new SerializableFailureMechanismSectionAssembly("id", new SerializableFailureMechanism(),
+                                                                           null, Array.Empty<SerializableFailureMechanismSectionAssemblyResult>(),
+                                                                           new SerializableFailureMechanismSectionAssemblyResult());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("section", exception.ParamName);
         }
 
@@ -112,14 +107,12 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_SectionResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionAssembly("id",
-                                                                                      new SerializableFailureMechanism(),
-                                                                                      new SerializableFailureMechanismSection(),
-                                                                                      null,
-                                                                                      new SerializableFailureMechanismSectionAssemblyResult());
+            void Call() => new SerializableFailureMechanismSectionAssembly("id", new SerializableFailureMechanism(),
+                                                                           new SerializableFailureMechanismSection(), null,
+                                                                           new SerializableFailureMechanismSectionAssemblyResult());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResults", exception.ParamName);
         }
 
@@ -127,14 +120,13 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_CombinedSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableFailureMechanismSectionAssembly("id",
-                                                                                      new SerializableFailureMechanism(),
-                                                                                      new SerializableFailureMechanismSection(),
-                                                                                      new SerializableFailureMechanismSectionAssemblyResult[0],
-                                                                                      null);
+            void Call() => new SerializableFailureMechanismSectionAssembly("id", new SerializableFailureMechanism(),
+                                                                           new SerializableFailureMechanismSection(),
+                                                                           Array.Empty<SerializableFailureMechanismSectionAssemblyResult>(),
+                                                                           null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("combinedSectionResult", exception.ParamName);
         }
 
@@ -148,7 +140,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             var failureMechanism = new SerializableFailureMechanism("failureMechanismID",
                                                                     new SerializableTotalAssemblyResult(),
                                                                     random.NextEnumValue<SerializableFailureMechanismType>(),
-                                                                    random.NextEnumValue<SerializableFailureMechanismGroup>(),
                                                                     new SerializableFailureMechanismAssemblyResult());
             var section = new SerializableFailureMechanismSection("sectionID",
                                                                   new SerializableFailureMechanismSectionCollection(),
@@ -159,7 +150,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
                                                                       new Point2D(random.NextDouble(), random.NextDouble())
                                                                   },
                                                                   SerializableFailureMechanismSectionType.FailureMechanism);
-            var sectionResults = new SerializableFailureMechanismSectionAssemblyResult[0];
+            SerializableFailureMechanismSectionAssemblyResult[] sectionResults = Array.Empty<SerializableFailureMechanismSectionAssemblyResult>();
             var combinedSectionResult = new SerializableFailureMechanismSectionAssemblyResult();
 
             // Call
