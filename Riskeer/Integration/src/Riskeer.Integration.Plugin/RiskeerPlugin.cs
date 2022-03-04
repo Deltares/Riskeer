@@ -430,7 +430,7 @@ namespace Riskeer.Integration.Plugin
                 fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
 
             yield return CreateFailureMechanismResultViewInfo<PipingStructureFailureMechanismSectionResultContext, PipingStructureFailureMechanism>(
-                fm => fm.GeneralInput.N);
+                PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
             yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(
                 fm => fm.GeneralInput.N, fm => fm.GeneralInput.ApplyLengthEffectInSection);
@@ -1082,7 +1082,7 @@ namespace Riskeer.Integration.Plugin
         }
 
         private ViewInfo<TContext, IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>, NonAdoptableFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
-            Func<TFailureMechanism, double> getNFunc)
+            Func<TFailureMechanism, IAssessmentSection, double> getFailureMechanismAssemblyResultFunc)
             where TContext : FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
             where TFailureMechanism : class, IFailurePath<NonAdoptableFailureMechanismSectionResult>
         {
@@ -1096,7 +1096,7 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData<TFailureMechanism, NonAdoptableFailureMechanismSectionResult,
                     NonAdoptableFailureMechanismResultView<TFailureMechanism>, NonAdoptableFailureMechanismSectionResultRow>,
                 CreateInstance = context => new NonAdoptableFailureMechanismResultView<TFailureMechanism>(
-                    context.WrappedData, (TFailureMechanism) context.FailureMechanism, context.AssessmentSection, getNFunc)
+                    context.WrappedData, (TFailureMechanism) context.FailureMechanism, context.AssessmentSection, getFailureMechanismAssemblyResultFunc)
             };
         }
 

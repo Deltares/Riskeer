@@ -178,7 +178,7 @@ namespace Riskeer.DuneErosion.Plugin
                     context.WrappedData,
                     (DuneErosionFailureMechanism) context.FailureMechanism,
                     context.AssessmentSection,
-                    fm => fm.GeneralInput.N)
+                    DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism)
             };
 
             yield return new RiskeerViewInfo<DuneErosionHydraulicLoadsContext, DuneErosionFailureMechanismView>(() => Gui)
