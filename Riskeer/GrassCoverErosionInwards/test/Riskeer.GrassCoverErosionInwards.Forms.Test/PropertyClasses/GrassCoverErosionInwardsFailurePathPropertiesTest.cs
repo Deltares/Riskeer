@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
-using Riskeer.Common.Forms.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
 
@@ -202,34 +201,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         [TestCase(0.0)]
         [TestCase(-1.0)]
         [TestCase(-20.0)]
-        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double newN)
+        public void N_SetInvalidValue_ThrowsArgumentOutOfRangeExceptionNoNotifications(double value)
         {
             // Setup
             var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
+            var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionInwardsFailureMechanism, double>(
-                failureMechanism,
-                newN,
-                new[]
-                {
-                    observable
-                });
-
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(
-                failureMechanism,
-                changeHandler);
+            failureMechanism.Attach(observer);
+            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism, null);
 
             // Call
-            void Call() => properties.N = (RoundedDouble) newN;
+            void Call() => properties.N = (RoundedDouble) value;
 
             // Assert
             const string expectedMessage = "De waarde voor 'N' moet in het bereik [1,00, 20,00] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
-            Assert.IsTrue(changeHandler.Called);
-
             mocks.VerifyAll();
         }
 
@@ -237,34 +225,23 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         [TestCase(1.0)]
         [TestCase(10.0)]
         [TestCase(20.0)]
-        public void N_SetValidValue_UpdateDataAndNotifyObservers(double newN)
+        public void N_SetValidValue_SetsValueAndUpdatesObserver(double value)
         {
             // Setup
             var mocks = new MockRepository();
-            var observable = mocks.StrictMock<IObservable>();
-            observable.Expect(o => o.NotifyObservers());
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var changeHandler = new FailureMechanismSetPropertyValueAfterConfirmationParameterTester<GrassCoverErosionInwardsFailureMechanism, double>(
-                failureMechanism,
-                newN,
-                new[]
-                {
-                    observable
-                });
-
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(
-                failureMechanism,
-                changeHandler);
+            failureMechanism.Attach(observer);
+            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism, null);
 
             // Call
-            properties.N = (RoundedDouble) newN;
+            properties.N = (RoundedDouble) value;
 
             // Assert
-            Assert.AreEqual(newN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
-            Assert.IsTrue(changeHandler.Called);
-
+            Assert.AreEqual(value, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
             mocks.VerifyAll();
         }
 
