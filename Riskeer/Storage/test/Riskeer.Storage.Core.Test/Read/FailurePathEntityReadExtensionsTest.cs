@@ -295,9 +295,9 @@ namespace Riskeer.Storage.Core.Test.Read
             };
             entity.FailureMechanismSectionEntities.First().NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities =
                 new List<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>
-            {
-                sectionResultEntity
-            };
+                {
+                    sectionResultEntity
+                };
             SectionResultHelper.SetSectionResult(sectionResultEntity);
 
             var collector = new ReadConversionCollector();
