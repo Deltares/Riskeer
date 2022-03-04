@@ -101,10 +101,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 Assert.AreEqual(AssessmentSectionAssemblyGroup.APlus, exportableAssessmentSectionAssemblyResult.AssemblyGroup);
                 Assert.AreEqual(0.14, exportableAssessmentSectionAssemblyResult.Probability);
 
-                AssertExportableFailureMechanismsWithProbability(exportableAssessmentSection.FailureMechanismsWithProbability,
-                                                                 assessmentSection);
-
-                AssertExportableFailureMechanismsWithoutProbability(exportableAssessmentSection.FailureMechanismsWithoutProbability,
+                AssertExportableFailureMechanismsWithoutProbability(exportableAssessmentSection.FailureMechanisms,
                                                                     assessmentSection);
 
                 Assert.AreEqual(0, exportableAssessmentSection.CombinedSectionAssemblies.Count());

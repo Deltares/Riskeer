@@ -58,8 +58,7 @@ namespace Riskeer.Integration.IO.Factories
                                                    assessmentSection.Id,
                                                    assessmentSection.ReferenceLine.Points,
                                                    CreateExportableAssessmentSectionAssemblyResult(assessmentSection),
-                                                   CreateExportableFailureMechanismsWithProbability(assessmentSection),
-                                                   CreateExportableFailureMechanismsWithoutProbability(assessmentSection),
+                                                   CreateExportableFailureMechanisms(assessmentSection),
                                                    CreateExportableCombinedSectionAssemblyCollection(assessmentSection));
         }
 
@@ -108,7 +107,7 @@ namespace Riskeer.Integration.IO.Factories
         /// <returns>A collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> based on failure
         /// mechanisms with assembly results without a probability.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
-        private static IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> CreateExportableFailureMechanismsWithoutProbability(AssessmentSection assessmentSection)
+        private static IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> CreateExportableFailureMechanisms(AssessmentSection assessmentSection)
         {
             return new[]
             {

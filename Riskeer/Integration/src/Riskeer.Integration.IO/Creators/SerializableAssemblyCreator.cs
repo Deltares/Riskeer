@@ -65,11 +65,11 @@ namespace Riskeer.Integration.IO.Creators
                     idGenerator, serializableAssessmentProcess,
                     SerializableAssessmentSectionAssemblyResultCreator.Create(assessmentSection.AssessmentSectionAssembly));
 
-            AggregatedSerializableFailureMechanism[] aggregatedFailureMechanismsWithProbability = assessmentSection.FailureMechanismsWithoutProbability
-                                                                                                                   .Select(fm => CreateFailureMechanismsWithoutProbability(idGenerator, serializableTotalAssemblyResult, fm))
+            AggregatedSerializableFailureMechanism[] aggregatedFailureMechanismsWithProbability = assessmentSection.FailureMechanisms
+                                                                                                                   .Select(fm => CreateFailureMechanisms(idGenerator, serializableTotalAssemblyResult, fm))
                                                                                                                    .ToArray();
-            AggregatedSerializableFailureMechanism[] aggregatedFailureMechanismsWithoutProbability = assessmentSection.FailureMechanismsWithoutProbability
-                                                                                                                      .Select(fm => CreateFailureMechanismsWithoutProbability(idGenerator, serializableTotalAssemblyResult, fm))
+            AggregatedSerializableFailureMechanism[] aggregatedFailureMechanismsWithoutProbability = assessmentSection.FailureMechanisms
+                                                                                                                      .Select(fm => CreateFailureMechanisms(idGenerator, serializableTotalAssemblyResult, fm))
                                                                                                                       .ToArray();
 
             AggregatedSerializableCombinedFailureMechanismSectionAssemblies aggregatedSerializableCombinedFailureMechanismSectionAssemblies =
@@ -96,9 +96,9 @@ namespace Riskeer.Integration.IO.Creators
                                                                                        aggregatedSerializableCombinedFailureMechanismSectionAssemblies));
         }
 
-        private static AggregatedSerializableFailureMechanism CreateFailureMechanismsWithoutProbability(IdentifierGenerator idGenerator,
-                                                                                                        SerializableTotalAssemblyResult serializableTotalAssemblyResult,
-                                                                                                        ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism)
+        private static AggregatedSerializableFailureMechanism CreateFailureMechanisms(IdentifierGenerator idGenerator,
+                                                                                      SerializableTotalAssemblyResult serializableTotalAssemblyResult,
+                                                                                      ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism)
         {
             return AggregatedSerializableFailureMechanismCreator.Create(idGenerator, serializableTotalAssemblyResult, failureMechanism);
         }

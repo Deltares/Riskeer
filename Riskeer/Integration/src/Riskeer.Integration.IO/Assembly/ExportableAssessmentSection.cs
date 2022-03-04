@@ -38,10 +38,8 @@ namespace Riskeer.Integration.IO.Assembly
         /// <param name="id">The id of the assessment section.</param>
         /// <param name="geometry">The geometry of the assessment section.</param>
         /// <param name="assessmentSectionAssembly">The assembly result of the assessment section.</param>
-        /// <param name="failureMechanismsWithProbability">The assembly results with probability of failure
-        /// mechanisms belonging to this assessment section.</param>
-        /// <param name="failureMechanismsWithoutProbability">The assembly results without probability
-        /// of failure mechanisms belonging to this assessment section.</param>
+        /// <param name="failureMechanisms">The assembly results of failure mechanisms belonging
+        /// to this assessment section.</param>
         /// <param name="combinedSectionAssemblyResults">The combined section assembly results
         /// of this assessment section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
@@ -49,8 +47,7 @@ namespace Riskeer.Integration.IO.Assembly
                                            string id,
                                            IEnumerable<Point2D> geometry,
                                            ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
-                                           IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> failureMechanismsWithProbability,
-                                           IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability,
+                                           IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanisms,
                                            IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults)
         {
             if (name == null)
@@ -72,15 +69,9 @@ namespace Riskeer.Integration.IO.Assembly
             {
                 throw new ArgumentNullException(nameof(assessmentSectionAssembly));
             }
-
-            if (failureMechanismsWithProbability == null)
+            if (failureMechanisms == null)
             {
-                throw new ArgumentNullException(nameof(failureMechanismsWithProbability));
-            }
-
-            if (failureMechanismsWithoutProbability == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismsWithoutProbability));
+                throw new ArgumentNullException(nameof(failureMechanisms));
             }
 
             if (combinedSectionAssemblyResults == null)
@@ -92,8 +83,7 @@ namespace Riskeer.Integration.IO.Assembly
             Id = id;
             Geometry = geometry;
             AssessmentSectionAssembly = assessmentSectionAssembly;
-            FailureMechanismsWithProbability = failureMechanismsWithProbability;
-            FailureMechanismsWithoutProbability = failureMechanismsWithoutProbability;
+            FailureMechanisms = failureMechanisms;
             CombinedSectionAssemblies = combinedSectionAssemblyResults;
         }
 
@@ -118,14 +108,9 @@ namespace Riskeer.Integration.IO.Assembly
         public ExportableAssessmentSectionAssemblyResult AssessmentSectionAssembly { get; }
 
         /// <summary>
-        /// Gets the collection of assembly results with probability of failure mechanisms belonging to this assessment section.
+        /// Gets the collection of assembly results of failure mechanisms belonging to this assessment section.
         /// </summary>
-        public IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> FailureMechanismsWithProbability { get; }
-
-        /// <summary>
-        /// Gets the collection of assembly results without probability of failure mechanisms belonging to this assessment section.
-        /// </summary>
-        public IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> FailureMechanismsWithoutProbability { get; }
+        public IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> FailureMechanisms { get; }
 
         /// <summary>
         /// Gets the collection of combined section assembly results of this assessment section.

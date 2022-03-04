@@ -39,10 +39,10 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableAssessmentSectionCreator.Create(null);
+            void Call() => SerializableAssessmentSectionCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -72,13 +72,10 @@ namespace Riskeer.Integration.IO.Test.Creators
 
         private static ExportableAssessmentSection CreateAssessmentSection(string name, string id)
         {
-            return new ExportableAssessmentSection(name,
-                                                   id,
-                                                   CreateGeometry(),
-                                                   ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                   Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
-                                                   Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
-                                                   Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            return new ExportableAssessmentSection(
+                name, id, CreateGeometry(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
+                Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
+                Enumerable.Empty<ExportableCombinedSectionAssembly>());
         }
 
         private static IEnumerable<Point2D> CreateGeometry()

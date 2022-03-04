@@ -38,7 +38,6 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Call
             void Call() => new ExportableAssessmentSection(null, string.Empty, Enumerable.Empty<Point2D>(),
                                                            ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
                                                            Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
                                                            Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
@@ -53,7 +52,6 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Call
             void Call() => new ExportableAssessmentSection(string.Empty, null, Enumerable.Empty<Point2D>(),
                                                            ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(), 
-                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
                                                            Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
                                                            Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
@@ -68,7 +66,6 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Call
             void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, null,
                                                            ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
                                                            Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
                                                            Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
@@ -82,7 +79,6 @@ namespace Riskeer.Integration.IO.Test.Assembly
         {
             // Call
             void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, Enumerable.Empty<Point2D>(), null,
-                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
                                                            Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
                                                            Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
@@ -92,31 +88,17 @@ namespace Riskeer.Integration.IO.Test.Assembly
         }
 
         [Test]
-        public void Constructor_FailureMechanismsWithProbabilityNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, Enumerable.Empty<Point2D>(),
-                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(), null,
-                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
-                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanismsWithProbability", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_FailureMechanismsWithoutProbabilityNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismsNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, Enumerable.Empty<Point2D>(),
                                                            ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
-                                                           null, Enumerable.Empty<ExportableCombinedSectionAssembly>());
+                                                           null,
+                                                           Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failureMechanismsWithoutProbability", exception.ParamName);
+            Assert.AreEqual("failureMechanisms", exception.ParamName);
         }
 
         [Test]
@@ -125,7 +107,6 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Call
             void Call() => new ExportableAssessmentSection(string.Empty, string.Empty, Enumerable.Empty<Point2D>(),
                                                            ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                           Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>(),
                                                            Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(), null);
 
             // Assert
@@ -142,28 +123,20 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Setup
             IEnumerable<Point2D> geometry = Enumerable.Empty<Point2D>();
             ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly = ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult();
-            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> failureMechanismsWithProbability =
-                Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>>();
-            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability =
+            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanisms =
                 Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>();
             IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults = Enumerable.Empty<ExportableCombinedSectionAssembly>();
 
             // Call
-            var assessmentSection = new ExportableAssessmentSection(name,
-                                                                    id,
-                                                                    geometry,
-                                                                    assessmentSectionAssembly,
-                                                                    failureMechanismsWithProbability,
-                                                                    failureMechanismsWithoutProbability,
-                                                                    combinedSectionAssemblyResults);
+            var assessmentSection = new ExportableAssessmentSection(
+                name, id, geometry, assessmentSectionAssembly, failureMechanisms, combinedSectionAssemblyResults);
 
             // Assert
             Assert.AreEqual(name, assessmentSection.Name);
             Assert.AreEqual(id, assessmentSection.Id);
             Assert.AreSame(geometry, assessmentSection.Geometry);
             Assert.AreSame(assessmentSectionAssembly, assessmentSection.AssessmentSectionAssembly);
-            Assert.AreSame(failureMechanismsWithProbability, assessmentSection.FailureMechanismsWithProbability);
-            Assert.AreSame(failureMechanismsWithoutProbability, assessmentSection.FailureMechanismsWithoutProbability);
+            Assert.AreSame(failureMechanisms, assessmentSection.FailureMechanisms);
             Assert.AreSame(combinedSectionAssemblyResults, assessmentSection.CombinedSectionAssemblies);
         }
     }

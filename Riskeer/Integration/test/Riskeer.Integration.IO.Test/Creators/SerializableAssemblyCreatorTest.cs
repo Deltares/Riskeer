@@ -43,10 +43,10 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableAssemblyCreator.Create(null);
+            void Call() => SerializableAssemblyCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -60,25 +60,18 @@ namespace Riskeer.Integration.IO.Test.Creators
             IEnumerable<Point2D> geometry = CreateGeometry();
             ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly =
                 ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult();
-            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> failureMechanismsWithProbability =
+            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanisms =
                 new[]
                 {
-                    CreateFailureMechanismWithProbability(),
-                    CreateFailureMechanismWithProbability()
-                };
-            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanismsWithoutProbability =
-                new[]
-                {
-                    CreateFailureMechanismWithoutProbability(),
-                    CreateFailureMechanismWithoutProbability()
+                    CreateFailureMechanism(),
+                    CreateFailureMechanism()
                 };
 
             var exportableAssessmentSection = new ExportableAssessmentSection(assessmentSectionName,
                                                                               assessmentSectionId,
                                                                               geometry,
                                                                               assessmentSectionAssembly,
-                                                                              failureMechanismsWithProbability,
-                                                                              failureMechanismsWithoutProbability,
+                                                                              failureMechanisms,
                                                                               new[]
                                                                               {
                                                                                   CreateCombinedSectionAssembly(CreateCombinedFailureMechanismSection()),
@@ -169,7 +162,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                random.NextEnumValue<ExportableFailureMechanismType>());
         }
 
-        private static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateFailureMechanismWithoutProbability()
+        private static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateFailureMechanism()
         {
             var random = new Random(21);
             ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
