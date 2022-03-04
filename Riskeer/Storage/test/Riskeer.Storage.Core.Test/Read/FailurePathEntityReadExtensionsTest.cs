@@ -293,7 +293,8 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            entity.FailureMechanismSectionEntities.First().NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities = new List<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>
+            entity.FailureMechanismSectionEntities.First().NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities =
+                new List<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>
             {
                 sectionResultEntity
             };
@@ -305,7 +306,8 @@ namespace Riskeer.Storage.Core.Test.Read
             SpecificFailurePath specificFailurePath = entity.ReadSpecificFailurePath(collector);
 
             // Assert
-            SectionResultHelper.AssertSectionResults(entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities).Single(),
+            SectionResultHelper.AssertSectionResults(entity.FailureMechanismSectionEntities
+                                                           .SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities).Single(),
                                                      specificFailurePath.SectionResults.Single());
         }
 
