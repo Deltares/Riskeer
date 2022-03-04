@@ -148,8 +148,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                 {
                     CreateSectionResult(failureMechanismSection)
                 },
-                random.NextEnumValue<ExportableFailureMechanismType>(),
-                random.NextEnumValue<ExportableFailureMechanismGroup>());
+                random.NextEnumValue<ExportableFailureMechanismType>());
         }
 
         private static ExportableCombinedSectionAssembly CreateCombinedSectionAssembly(ExportableCombinedFailureMechanismSection section)
@@ -180,8 +179,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                 {
                     CreateSectionResult(failureMechanismSection)
                 },
-                random.NextEnumValue<ExportableFailureMechanismType>(),
-                random.NextEnumValue<ExportableFailureMechanismGroup>());
+                random.NextEnumValue<ExportableFailureMechanismType>());
         }
 
         private static ExportableAggregatedFailureMechanismSectionAssemblyResult CreateSectionResult(ExportableFailureMechanismSection section)

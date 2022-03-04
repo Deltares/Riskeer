@@ -38,16 +38,15 @@ namespace Riskeer.Integration.IO.Test.Factories
         public void CreateDefaultExportableFailureMechanismWithProbability_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             var random = new Random(21);
-            var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
             var failureMechanismCode = random.NextEnumValue<ExportableFailureMechanismType>();
             var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            TestDelegate call = () => ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(
-                null, failureMechanismCode, group, failureMechanismAssemblyMethod);
+            void Call() => ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(
+                null, failureMechanismCode, failureMechanismAssemblyMethod);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -61,7 +60,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             mocks.ReplayAll();
 
             var random = new Random(21);
-            var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
             var failureMechanismCode = random.NextEnumValue<ExportableFailureMechanismType>();
             var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
@@ -69,7 +67,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
                 ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(assessmentSection,
                                                                                                          failureMechanismCode,
-                                                                                                         group,
                                                                                                          failureMechanismAssemblyMethod);
 
             // Assert
@@ -83,14 +80,12 @@ namespace Riskeer.Integration.IO.Test.Factories
         public void CreateDefaultExportableFailureMechanismWithoutProbability_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             var random = new Random(21);
-            var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
             var failureMechanismCode = random.NextEnumValue<ExportableFailureMechanismType>();
             var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
             TestDelegate call = () => ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(null,
                                                                                                                                   failureMechanismCode,
-                                                                                                                                  group,
                                                                                                                                   failureMechanismAssemblyMethod);
 
             // Assert
@@ -108,7 +103,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             mocks.ReplayAll();
 
             var random = new Random(21);
-            var group = random.NextEnumValue<ExportableFailureMechanismGroup>();
             var failureMechanismCode = random.NextEnumValue<ExportableFailureMechanismType>();
             var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
@@ -116,7 +110,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
                 ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(assessmentSection,
                                                                                                             failureMechanismCode,
-                                                                                                            group,
                                                                                                             failureMechanismAssemblyMethod);
 
             // Assert

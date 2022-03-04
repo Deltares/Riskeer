@@ -37,7 +37,6 @@ namespace Riskeer.Integration.IO.Factories
     /// </summary>
     public static class ExportableMacroStabilityInwardsFailureMechanismFactory
     {
-        private const ExportableFailureMechanismGroup failureMechanismGroup = ExportableFailureMechanismGroup.Group2;
         private const ExportableFailureMechanismType failureMechanismCode = ExportableFailureMechanismType.STBI;
         private const ExportableAssemblyMethod failureMechanismAssemblyMethod = ExportableAssemblyMethod.WBI1B1;
 
@@ -69,7 +68,6 @@ namespace Riskeer.Integration.IO.Factories
             {
                 return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(assessmentSection,
                                                                                                                 failureMechanismCode,
-                                                                                                                failureMechanismGroup,
                                                                                                                 failureMechanismAssemblyMethod);
             }
 
@@ -80,8 +78,7 @@ namespace Riskeer.Integration.IO.Factories
                                                                             failureMechanismAssembly.Group,
                                                                             failureMechanismAssembly.Probability),
                 CreateExportableFailureMechanismSectionResults(failureMechanism),
-                failureMechanismCode,
-                failureMechanismGroup);
+                failureMechanismCode);
         }
 
         /// <summary>

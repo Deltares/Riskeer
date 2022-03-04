@@ -167,8 +167,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
                 Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
-                random.NextEnumValue<ExportableFailureMechanismType>(),
-                random.NextEnumValue<ExportableFailureMechanismGroup>());
+                random.NextEnumValue<ExportableFailureMechanismType>());
         }
 
         private static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> CreateExportableFailureMechanismWithProbability()
@@ -177,8 +176,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
                 Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
-                random.NextEnumValue<ExportableFailureMechanismType>(),
-                random.NextEnumValue<ExportableFailureMechanismGroup>());
+                random.NextEnumValue<ExportableFailureMechanismType>());
         }
 
         private static SerializableTotalAssemblyResult CreateSerializableTotalAssembly(string totalAssemblyId)

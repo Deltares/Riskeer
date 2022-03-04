@@ -38,7 +38,6 @@ namespace Riskeer.Integration.IO.Factories
     public static class ExportableWaterPressureAsphaltCoverFailureMechanismFactory
     {
         private const ExportableFailureMechanismType failureMechanismCode = ExportableFailureMechanismType.AWO;
-        private const ExportableFailureMechanismGroup failureMechanismGroup = ExportableFailureMechanismGroup.Group4;
         private const ExportableAssemblyMethod failureMechanismAssemblyMethod = ExportableAssemblyMethod.WBI1A1;
 
         /// <summary>
@@ -69,7 +68,6 @@ namespace Riskeer.Integration.IO.Factories
             {
                 return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(assessmentSection,
                                                                                                                    failureMechanismCode,
-                                                                                                                   failureMechanismGroup,
                                                                                                                    failureMechanismAssemblyMethod);
             }
 
@@ -78,8 +76,7 @@ namespace Riskeer.Integration.IO.Factories
             return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
                 CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
-                failureMechanismCode,
-                failureMechanismGroup);
+                failureMechanismCode);
         }
 
         /// <summary>

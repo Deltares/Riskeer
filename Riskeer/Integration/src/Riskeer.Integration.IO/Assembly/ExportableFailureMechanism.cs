@@ -37,13 +37,11 @@ namespace Riskeer.Integration.IO.Assembly
         /// <param name="failureMechanismAssembly">The assembly result of the failure mechanism.</param>
         /// <param name="sectionAssemblyResults">The assembly results for the failure mechanism sections.</param>
         /// <param name="code">The code of the failure mechanism.</param>
-        /// <param name="group">The group of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismAssembly"/>,
         /// or <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
         public ExportableFailureMechanism(TFailureMechanismAssemblyResult failureMechanismAssembly,
                                           IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> sectionAssemblyResults,
-                                          ExportableFailureMechanismType code,
-                                          ExportableFailureMechanismGroup group)
+                                          ExportableFailureMechanismType code)
         {
             if (failureMechanismAssembly == null)
             {
