@@ -193,7 +193,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             foreach (PreConstructionStage preConstructionStage in macroStabilityInput.PreprocessingInput.PreConstructionStages)
             {
-                Assert.AreEqual(WaternetCreationMode.FillInWaternetValues, preConstructionStage.WaternetCreationMode);
+                Assert.IsFalse(preConstructionStage.CreateWaternet);
                 Assert.AreSame(surfaceLine, preConstructionStage.SurfaceLine);
                 Assert.IsNull(preConstructionStage.WaternetCreatorInput); // Not needed as Waternet is already calculated
             }
@@ -372,7 +372,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             PreConstructionStage preConstructionStage = macroStabilityInput.PreprocessingInput.PreConstructionStages.Single();
             Assert.AreSame(surfaceLine, preConstructionStage.SurfaceLine);
-            Assert.AreEqual(WaternetCreationMode.CreateWaternet, preConstructionStage.WaternetCreationMode);
+            Assert.IsTrue(preConstructionStage.CreateWaternet);
             KernelInputAssert.AssertWaternetCreatorInput(UpliftVanWaternetCreatorInputCreator.CreateDaily(input), preConstructionStage.WaternetCreatorInput);
         }
 
@@ -450,7 +450,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             PreConstructionStage preConstructionStage = macroStabilityInput.PreprocessingInput.PreConstructionStages.Single();
             Assert.AreSame(surfaceLine, preConstructionStage.SurfaceLine);
-            Assert.AreEqual(WaternetCreationMode.CreateWaternet, preConstructionStage.WaternetCreationMode);
+            Assert.IsTrue(preConstructionStage.CreateWaternet);
             KernelInputAssert.AssertWaternetCreatorInput(UpliftVanWaternetCreatorInputCreator.CreateExtreme(input), preConstructionStage.WaternetCreatorInput);
         }
 
@@ -486,7 +486,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Test.Creators.Input
 
             PreConstructionStage preConstructionStage = macroStabilityInput.PreprocessingInput.PreConstructionStages.Single();
             KernelInputAssert.AssertSurfaceLine(SurfaceLineCreator.Create(input.SurfaceLine), preConstructionStage.SurfaceLine);
-            Assert.AreEqual(WaternetCreationMode.CreateWaternet, preConstructionStage.WaternetCreationMode);
+            Assert.IsTrue(preConstructionStage.CreateWaternet);
             KernelInputAssert.AssertWaternetCreatorInput(WaternetCreatorInputCreator.Create(input), preConstructionStage.WaternetCreatorInput);
         }
 

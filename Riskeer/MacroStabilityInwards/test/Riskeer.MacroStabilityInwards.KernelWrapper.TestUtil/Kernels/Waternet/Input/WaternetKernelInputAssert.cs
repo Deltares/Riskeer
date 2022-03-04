@@ -49,7 +49,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.Waternet.
             PreConstructionStage actualPreConstructionStage = actual.PreprocessingInput.PreConstructionStages.Single();
 
             KernelInputAssert.AssertSurfaceLine(expectedPreConstructionStage.SurfaceLine, actualPreConstructionStage.SurfaceLine);
-            Assert.AreEqual(expectedPreConstructionStage.WaternetCreationMode, actualPreConstructionStage.WaternetCreationMode);
+            Assert.AreEqual(expectedPreConstructionStage.CreateWaternet, actualPreConstructionStage.CreateWaternet);
 
             KernelInputAssert.AssertWaternetCreatorInput(expectedPreConstructionStage.WaternetCreatorInput, actualPreConstructionStage.WaternetCreatorInput);
         }

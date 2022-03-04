@@ -197,7 +197,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
                 PreConstructionStage expectedPreConstructionStage = expected.ElementAt(i);
                 PreConstructionStage actualPreConstructionStage = actual.ElementAt(i);
 
-                Assert.AreEqual(expectedPreConstructionStage.WaternetCreationMode, actualPreConstructionStage.WaternetCreationMode);
+                Assert.AreEqual(expectedPreConstructionStage.CreateWaternet, actualPreConstructionStage.CreateWaternet);
                 KernelInputAssert.AssertSurfaceLine(expectedPreConstructionStage.SurfaceLine, actualPreConstructionStage.SurfaceLine);
             }
         }

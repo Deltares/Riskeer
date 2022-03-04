@@ -264,7 +264,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
                         new PreConstructionStage
                         {
                             SurfaceLine = surfaceLine,
-                            WaternetCreationMode = WaternetCreationMode.CreateWaternet,
+                            CreateWaternet = true,
                             WaternetCreatorInput = waternetCreatorInput
                         }
                     }
@@ -299,7 +299,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.Creators.Input
         {
             return new PreConstructionStage
             {
-                WaternetCreationMode = WaternetCreationMode.FillInWaternetValues,
+                CreateWaternet = false,
                 SurfaceLine = surfaceLine
             };
         }
