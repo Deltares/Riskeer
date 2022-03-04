@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
-using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionInwards.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -40,30 +39,18 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int nPropertyIndex = 4;
         private const int applyLengthEffectInSectionPropertyIndex = 5;
 
-        private readonly IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> propertyChangeHandler;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailurePathProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="handler">Handler responsible for handling effects of a property change.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailurePathProperties(
-            GrassCoverErosionInwardsFailureMechanism data,
-            IFailureMechanismPropertyChangeHandler<GrassCoverErosionInwardsFailureMechanism> handler) :
+            GrassCoverErosionInwardsFailureMechanism data) :
             base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex
-            })
-        {
-            if (handler == null)
-            {
-                throw new ArgumentNullException(nameof(handler));
-            }
-
-            propertyChangeHandler = handler;
-        }
+            }) {}
 
         #region General
 
