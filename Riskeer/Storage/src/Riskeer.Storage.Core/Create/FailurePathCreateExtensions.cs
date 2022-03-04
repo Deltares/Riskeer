@@ -86,10 +86,10 @@ namespace Riskeer.Storage.Core.Create
             IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
-            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>();
-                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
+                var sectionResultEntity = sectionResult.Create<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>();
+                FailureMechanismSectionEntity section = registry.Get(sectionResult.Section);
                 section.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }

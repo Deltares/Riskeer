@@ -143,9 +143,9 @@ namespace Riskeer.Storage.Core.Read
                      entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult result = specificFailurePath.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult = specificFailurePath.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
-                sectionResultEntity.Read(result);
+                sectionResultEntity.Read(sectionResult);
             }
         }
     }
