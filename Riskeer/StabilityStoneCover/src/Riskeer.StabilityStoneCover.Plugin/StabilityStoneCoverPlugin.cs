@@ -123,8 +123,9 @@ namespace Riskeer.StabilityStoneCover.Plugin
                     return new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
                         context.WrappedData,
                         failureMechanism,
-                        fm => fm.GeneralInput.N,
+                        assessmentSection,
                         fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                        StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism,
                         sr => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
                 }
             };

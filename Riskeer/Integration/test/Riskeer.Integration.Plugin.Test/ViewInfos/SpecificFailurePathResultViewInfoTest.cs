@@ -105,10 +105,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new SpecificFailurePath();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
-                       failureMechanism.SectionResults, failureMechanism,
-                       fm => fm.GeneralInput.N,
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                fm => true,
+                (fm, ass) => double.NaN,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -137,10 +137,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new SpecificFailurePath();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
-                       failureMechanism.SectionResults, failureMechanism,
-                       fm => fm.GeneralInput.N,
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                fm => true,
+                (fm, ass) => double.NaN,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -167,10 +167,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
-                       failureMechanism.SectionResults, failureMechanism,
-                       fm => fm.GeneralInput.N,
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                fm => true,
+                (fm, ass) => double.NaN,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -193,10 +193,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failurePathContext = new SpecificFailurePathContext(failureMechanism, assessmentSection);
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
-                       failureMechanism.SectionResults, failureMechanism,
-                       fm => fm.GeneralInput.N,
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                fm => true,
+                (fm, ass) => double.NaN,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -219,10 +219,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failurePathContext = new SpecificFailurePathContext(new SpecificFailurePath(), assessmentSection);
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
-                       failureMechanism.SectionResults, failureMechanism,
-                       fm => fm.GeneralInput.N,
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                fm => true,
+                (fm, ass) => double.NaN,
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);

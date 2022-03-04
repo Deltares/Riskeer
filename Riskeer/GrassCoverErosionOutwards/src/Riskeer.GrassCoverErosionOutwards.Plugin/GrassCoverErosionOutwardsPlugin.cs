@@ -142,8 +142,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     return new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
                         context.WrappedData,
                         failureMechanism,
-                        fm => fm.GeneralInput.N,
+                        assessmentSection,
                         fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                        GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism,
                         sr => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
                 }
             };

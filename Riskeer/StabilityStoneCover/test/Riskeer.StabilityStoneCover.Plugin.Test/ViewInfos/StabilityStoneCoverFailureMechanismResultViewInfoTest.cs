@@ -102,9 +102,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
                 fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                (fm, ass) => double.NaN,
                 sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
@@ -132,9 +132,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
                 fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                (fm, ass) => double.NaN,
                 sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
@@ -160,9 +160,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
                 fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                (fm, ass) => double.NaN,
                 sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
@@ -179,11 +179,14 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
                 fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                (fm, ass) => double.NaN,
                 sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
@@ -192,17 +195,22 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsTrue(closeForData);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+            
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
                 fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                (fm, ass) => double.NaN,
                 sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
@@ -211,6 +219,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                 // Assert
                 Assert.IsFalse(closeForData);
             }
+
+            mocks.ReplayAll();
         }
 
         [Test]
@@ -224,9 +234,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
                 fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                (fm, ass) => double.NaN,
                 sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
@@ -250,9 +260,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
                 fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                (fm, ass) => double.NaN,
                 sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call

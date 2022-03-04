@@ -121,8 +121,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                     return new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                         context.WrappedData,
                         failureMechanism,
-                        fm => fm.GeneralWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length),
+                        assessmentSection,
                         fm => fm.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection,
+                        WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism,
                         sr => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
                 }
             };

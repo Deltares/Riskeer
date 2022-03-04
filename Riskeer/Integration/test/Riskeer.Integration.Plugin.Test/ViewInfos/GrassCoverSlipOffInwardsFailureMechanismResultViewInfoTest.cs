@@ -106,9 +106,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
                 fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                (fm, ass) => double.NaN,
                 sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
@@ -137,9 +137,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
                 fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                (fm, ass) => double.NaN,
                 sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
@@ -166,9 +166,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
                 fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                (fm, ass) => double.NaN,
                 sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
@@ -186,14 +186,16 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
             failurePathContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
                 fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                (fm, ass) => double.NaN,
                 sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
@@ -210,6 +212,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            
             var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
             failurePathContext.Expect(fm => fm.WrappedData).Return(new GrassCoverSlipOffInwardsFailureMechanism());
             mocks.ReplayAll();
@@ -217,9 +221,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism,
-                fm => fm.GeneralInput.N,
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
                 fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                (fm, ass) => double.NaN,
                 sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call

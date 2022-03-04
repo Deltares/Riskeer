@@ -25,9 +25,11 @@ using System.Linq;
 using System.Windows.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -67,65 +69,64 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_GetNFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new TestNonAdoptableWithProfileProbabilityFailureMechanism();
-            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc =
-                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
-
-            // Call
-            void Call() => new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, null, fm => false, performAssemblyFunc);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("getNFunc", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_GetUseLengthEffectFuncNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestNonAdoptableWithProfileProbabilityFailureMechanism();
-            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc =
+            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performFailureMechanismSectionAssemblyFunc =
                 sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
 
             // Call
             void Call() => new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, fm => double.NaN, null, performAssemblyFunc);
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, null, (fm, ass) => double.NaN, performFailureMechanismSectionAssemblyFunc);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("getUseLengthEffectFunc", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void Constructor_PerformAssemblyFuncNull_ThrowsArgumentNullException()
+        public void Constructor_PerformFailureMechanismSectionAssemblyFuncNull_ThrowsArgumentNullException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestNonAdoptableWithProfileProbabilityFailureMechanism();
 
             // Call
             void Call() => new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, fm => double.NaN, fm => false, null);
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => false, (fm, ass) => double.NaN, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("performAssemblyFunc", exception.ParamName);
+            Assert.AreEqual("performFailureMechanismSectionAssemblyFunc", exception.ParamName);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             var failureMechanism = new TestNonAdoptableWithProfileProbabilityFailureMechanism();
 
-            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc = sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
+            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performFailureMechanismSectionAssemblyFunc =
+                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
 
             // Call
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism>(
-                       failureMechanism.SectionResults, failureMechanism, fm => double.NaN, fm => false, performAssemblyFunc))
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, fm => false,
+                (fm, ass) => double.NaN, performFailureMechanismSectionAssemblyFunc))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult,
@@ -134,6 +135,8 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsNull(view.Data);
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
+
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -327,10 +330,12 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism> ShowFailureMechanismResultsView(
             TestNonAdoptableWithProfileProbabilityFailureMechanism failureMechanism,
-            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
+            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performFailureMechanismSectionAssemblyFunc)
         {
             var failureMechanismResultView = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, fm => 1.0, fm => fm.UseLengthEffect, performAssemblyFunc);
+                failureMechanism.SectionResults, failureMechanism, new AssessmentSectionStub(), fm => fm.UseLengthEffect,
+                (fm, ass) => double.NaN,
+                performFailureMechanismSectionAssemblyFunc);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
