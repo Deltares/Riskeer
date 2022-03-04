@@ -243,30 +243,6 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
 
         #endregion
 
-        #region SerializableFailureMechanismGroup
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group1"/>.
-        /// </summary>
-        public const string SerializableFailureMechanismGroup1 = "GEDPROB";
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group2"/>.
-        /// </summary>
-        public const string SerializableFailureMechanismGroup2 = "GEDSPROBEX";
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group3"/>.
-        /// </summary>
-        public const string SerializableFailureMechanismGroup3 = "GEDSPROB";
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismGroup.Group4"/>.
-        /// </summary>
-        public const string SerializableFailureMechanismGroup4 = "GEEN";
-
-        #endregion
-
         #region SerializableFailureMechanismType
 
         /// <summary>

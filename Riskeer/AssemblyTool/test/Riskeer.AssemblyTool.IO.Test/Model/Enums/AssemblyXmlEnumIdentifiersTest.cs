@@ -75,11 +75,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("WBI-3B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3B1);
             Assert.AreEqual("WBI-3C-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3C1);
 
-            Assert.AreEqual("GEDPROB", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup1);
-            Assert.AreEqual("GEDSPROBEX", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup2);
-            Assert.AreEqual("GEDSPROB", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup3);
-            Assert.AreEqual("GEEN", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismGroup4);
-
             Assert.AreEqual("STBI", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTBI);
             Assert.AreEqual("STPH", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTPH);
             Assert.AreEqual("STMI", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTMI);
