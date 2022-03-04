@@ -38,7 +38,6 @@ namespace Riskeer.Integration.IO.TestUtil
         /// </summary>
         /// <param name="expectedGeometry">The expected geometry of the section it contains.</param>
         /// <param name="expectedFailureMechanismCode">The expected <see cref="ExportableFailureMechanismType"/>.</param>
-        /// <param name="expectedGroup">The expected <see cref="ExportableFailureMechanismGroup"/>.</param>
         /// <param name="expectedFailureMechanismAssemblyMethod">The expected <see cref="ExportableAssemblyMethod"/> which is used
         /// to generate a failure mechanism assembly result.</param>
         /// <param name="exportableFailureMechanism">The <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> to assert.</param>
@@ -47,16 +46,13 @@ namespace Riskeer.Integration.IO.TestUtil
         /// <item>The geometry defined by <paramref name="expectedGeometry"/> does not match with the section contained in
         /// <paramref name="exportableFailureMechanism"/>.</item>
         /// <item>The values in <paramref name="exportableFailureMechanism"/> do not match with
-        /// <paramref name="expectedFailureMechanismCode"/>, <paramref name="expectedGroup"/>
-        /// or <see cref="expectedFailureMechanismAssemblyMethod"/>.</item>
+        /// <paramref name="expectedFailureMechanismCode"/> or <see cref="expectedFailureMechanismAssemblyMethod"/>.</item>
         /// </list></exception>
         public static void AssertDefaultFailureMechanismWithProbability(IEnumerable<Point2D> expectedGeometry,
                                                                         ExportableFailureMechanismType expectedFailureMechanismCode,
-                                                                        ExportableFailureMechanismGroup expectedGroup,
                                                                         ExportableAssemblyMethod expectedFailureMechanismAssemblyMethod,
                                                                         ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism)
         {
-            Assert.AreEqual(expectedGroup, exportableFailureMechanism.Group);
             Assert.AreEqual(expectedFailureMechanismCode, exportableFailureMechanism.Code);
 
             ExportableFailureMechanismAssemblyResultWithProbability failureMechanismAssemblyResult = exportableFailureMechanism.FailureMechanismAssembly;
@@ -82,7 +78,6 @@ namespace Riskeer.Integration.IO.TestUtil
         /// </summary>
         /// <param name="expectedGeometry">The expected geometry of the section it contains.</param>
         /// <param name="expectedFailureMechanismCode">The expected <see cref="ExportableFailureMechanismType"/>.</param>
-        /// <param name="expectedGroup">The expected <see cref="ExportableFailureMechanismGroup"/>.</param>
         /// <param name="expectedFailureMechanismAssemblyMethod">The expected <see cref="ExportableAssemblyMethod"/> which is used
         /// to generate a failure mechanism assembly result.</param>
         /// <param name="exportableFailureMechanism">The <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> to assert.</param>
@@ -91,16 +86,13 @@ namespace Riskeer.Integration.IO.TestUtil
         /// <item>The geometry defined by <paramref name="expectedGeometry"/> does not match with the section contained in
         /// <paramref name="exportableFailureMechanism"/>.</item>
         /// <item>The values in <paramref name="exportableFailureMechanism"/> do not match with
-        /// <paramref name="expectedFailureMechanismCode"/>, <paramref name="expectedGroup"/>
-        /// or <see cref="expectedFailureMechanismAssemblyMethod"/>.</item>
+        /// <paramref name="expectedFailureMechanismCode"/> or <see cref="expectedFailureMechanismAssemblyMethod"/>.</item>
         /// </list></exception>
         public static void AssertDefaultFailureMechanismWithoutProbability(IEnumerable<Point2D> expectedGeometry,
                                                                            ExportableFailureMechanismType expectedFailureMechanismCode,
-                                                                           ExportableFailureMechanismGroup expectedGroup,
                                                                            ExportableAssemblyMethod expectedFailureMechanismAssemblyMethod,
                                                                            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism)
         {
-            Assert.AreEqual(expectedGroup, exportableFailureMechanism.Group);
             Assert.AreEqual(expectedFailureMechanismCode, exportableFailureMechanism.Code);
 
             ExportableFailureMechanismAssemblyResult failureMechanismAssemblyResult = exportableFailureMechanism.FailureMechanismAssembly;

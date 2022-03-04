@@ -75,7 +75,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             // Assert
             ExportableFailureMechanismTestHelper.AssertDefaultFailureMechanismWithProbability(assessmentSection.ReferenceLine.Points,
                                                                                               failureMechanismCode,
-                                                                                              group,
                                                                                               failureMechanismAssemblyMethod,
                                                                                               exportableFailureMechanism);
         }
@@ -123,7 +122,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             // Assert
             ExportableFailureMechanismTestHelper.AssertDefaultFailureMechanismWithoutProbability(assessmentSection.ReferenceLine.Points,
                                                                                                  failureMechanismCode,
-                                                                                                 group,
                                                                                                  failureMechanismAssemblyMethod,
                                                                                                  exportableFailureMechanism);
         }

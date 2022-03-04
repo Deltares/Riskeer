@@ -93,7 +93,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             // Assert
             ExportableFailureMechanismTestHelper.AssertDefaultFailureMechanismWithoutProbability(assessmentSection.ReferenceLine.Points,
                                                                                                  ExportableFailureMechanismType.AWO,
-                                                                                                 ExportableFailureMechanismGroup.Group4,
                                                                                                  ExportableAssemblyMethod.WBI1A1,
                                                                                                  exportableFailureMechanism);
             mocks.VerifyAll();
@@ -117,7 +116,6 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Assert
             Assert.AreEqual(ExportableFailureMechanismType.AWO, exportableFailureMechanism.Code);
-            Assert.AreEqual(ExportableFailureMechanismGroup.Group4, exportableFailureMechanism.Group);
 
             ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.None, exportableFailureMechanismAssembly.AssemblyGroup);

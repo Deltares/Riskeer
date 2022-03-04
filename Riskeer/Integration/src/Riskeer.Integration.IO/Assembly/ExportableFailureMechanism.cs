@@ -58,7 +58,6 @@ namespace Riskeer.Integration.IO.Assembly
             FailureMechanismAssembly = failureMechanismAssembly;
             SectionAssemblyResults = sectionAssemblyResults;
             Code = code;
-            Group = group;
         }
 
         /// <summary>
@@ -75,10 +74,5 @@ namespace Riskeer.Integration.IO.Assembly
         /// Gets the code of the failure mechanism.
         /// </summary>
         public ExportableFailureMechanismType Code { get; }
-
-        /// <summary>
-        /// Gets the group of the failure mechanism.
-        /// </summary>
-        public ExportableFailureMechanismGroup Group { get; }
     }
 }

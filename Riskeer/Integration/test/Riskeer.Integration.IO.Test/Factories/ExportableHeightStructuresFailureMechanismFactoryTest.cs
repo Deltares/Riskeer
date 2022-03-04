@@ -93,7 +93,6 @@ namespace Riskeer.Integration.IO.Test.Factories
             // Assert
             ExportableFailureMechanismTestHelper.AssertDefaultFailureMechanismWithProbability(assessmentSection.ReferenceLine.Points,
                                                                                               ExportableFailureMechanismType.HTKW,
-                                                                                              ExportableFailureMechanismGroup.Group1,
                                                                                               ExportableAssemblyMethod.WBI1B1,
                                                                                               exportableFailureMechanism);
         }
@@ -114,7 +113,6 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Assert
             Assert.AreEqual(ExportableFailureMechanismType.HTKW, exportableFailureMechanism.Code);
-            Assert.AreEqual(ExportableFailureMechanismGroup.Group1, exportableFailureMechanism.Group);
 
             ExportableFailureMechanismAssemblyResultWithProbability exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.None, exportableFailureMechanismAssembly.AssemblyGroup);
