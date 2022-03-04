@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.Categories;
 using Core.Common.TestUtil;
@@ -44,25 +43,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
                                     .With.Property(nameof(ArgumentNullException.ParamName))
                                     .EqualTo("result"));
-        }
-
-        [Test]
-        public void CreateFailureMechanismSectionAssemblyResult_WithInvalidResult_ThrowsInvalidEnumArgumentException()
-        {
-            // Setup
-            var random = new Random(21);
-            double profileProbability = random.NextDouble();
-            double sectionProbability = random.NextDouble();
-
-            var result = new KernelFailureMechanismSectionAssemblyResult(
-                new Probability(profileProbability), new Probability(sectionProbability), (EInterpretationCategory) 99);
-
-            // Call
-            void Call() => FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(result);
-
-            // Assert
-            var expectedMessage = $"The value of argument 'interpretationCategory' (99) is invalid for Enum type '{nameof(EInterpretationCategory)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
         }
 
         [Test]
