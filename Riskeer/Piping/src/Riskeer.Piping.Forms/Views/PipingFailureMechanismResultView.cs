@@ -57,8 +57,6 @@ namespace Riskeer.Piping.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>, PipingScenarioConfigurationPerFailureMechanismSection> scenarioConfigurationsPerSectionObserver;
-        private readonly IAssessmentSection assessmentSection;
-
         /// <summary>
         /// Creates a new instance of <see cref="PipingFailureMechanismResultView"/>.
         /// </summary>
@@ -109,9 +107,9 @@ namespace Riskeer.Piping.Forms.Views
         {
             return new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(
                 sectionResult,
-                PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(sectionResult, FailureMechanism, assessmentSection),
+                PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(sectionResult, FailureMechanism, AssessmentSection),
                 CreateErrorProvider(sectionResult),
-                () => PipingFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, assessmentSection),
+                () => PipingFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, AssessmentSection),
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
