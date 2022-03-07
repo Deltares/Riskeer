@@ -24,11 +24,11 @@ using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
@@ -101,7 +101,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<DuneLocationCalculationProperties, NoValueRoundedDoubleConverter>(
                 nameof(DuneLocationCalculationProperties.CalculatedReliability));
 
-            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(CalculationConvergence.NotCalculated).DisplayName;
+            string convergenceValue = EnumDisplayNameHelper.GetDisplayName(CalculationConvergence.NotCalculated);
             Assert.AreEqual(convergenceValue, properties.Convergence);
         }
 
@@ -174,7 +174,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(calculatedProbability, properties.CalculatedProbability, properties.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
 
-            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
+            string convergenceValue = EnumDisplayNameHelper.GetDisplayName(convergence);
             Assert.AreEqual(convergenceValue, properties.Convergence);
         }
 

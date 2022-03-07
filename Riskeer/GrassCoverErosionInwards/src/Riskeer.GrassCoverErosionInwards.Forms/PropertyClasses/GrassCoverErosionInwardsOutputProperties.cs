@@ -201,8 +201,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.DikeHeightOutput?.CalculationConvergence
-                                                                      ?? CalculationConvergence.NotCalculated).DisplayName;
+                return EnumDisplayNameHelper.GetDisplayName(data.DikeHeightOutput?.CalculationConvergence
+                                                            ?? CalculationConvergence.NotCalculated);
             }
         }
 
@@ -294,8 +294,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.OvertoppingRateOutput?.CalculationConvergence
-                                                                      ?? CalculationConvergence.NotCalculated).DisplayName;
+                return EnumDisplayNameHelper.GetDisplayName(data.OvertoppingRateOutput?.CalculationConvergence
+                                                            ?? CalculationConvergence.NotCalculated);
             }
         }
 

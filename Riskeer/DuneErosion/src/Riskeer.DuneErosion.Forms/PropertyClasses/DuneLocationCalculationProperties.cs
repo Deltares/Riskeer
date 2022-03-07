@@ -24,10 +24,10 @@ using System.ComponentModel;
 using System.Globalization;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.Properties;
@@ -218,8 +218,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             get
             {
                 CalculationConvergence convergence = data.Output?.CalculationConvergence ?? CalculationConvergence.NotCalculated;
-
-                return new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
+                return EnumDisplayNameHelper.GetDisplayName(convergence);
             }
         }
 

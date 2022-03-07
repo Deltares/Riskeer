@@ -20,13 +20,12 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Common.Util;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Data.TestUtil;
 using Riskeer.Revetment.Forms.PropertyClasses;
@@ -84,7 +83,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedOutputProperty.TargetReliability, firstOutputProperties.TargetReliability,
                             firstOutputProperties.TargetReliability.GetAccuracy());
 
-            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(expectedOutputProperty.CalculationConvergence).DisplayName;
+            string convergenceValue = EnumDisplayNameHelper.GetDisplayName(expectedOutputProperty.CalculationConvergence);
             Assert.AreEqual(convergenceValue, firstOutputProperties.Convergence);
         }
 

@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
@@ -141,7 +140,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsOutputProperties, NoValueRoundedDoubleConverter>(
                 nameof(GrassCoverErosionInwardsOutputProperties.DikeHeightCalculatedReliability));
 
-            string dikeHeightConvergenceValue = new EnumDisplayWrapper<CalculationConvergence>(dikeHeightConvergence).DisplayName;
+            string dikeHeightConvergenceValue = EnumDisplayNameHelper.GetDisplayName(dikeHeightConvergence);
             Assert.AreEqual(dikeHeightConvergenceValue, properties.DikeHeightConvergence);
 
             Assert.AreEqual(2, properties.OvertoppingRate.NumberOfDecimalPlaces);
@@ -159,7 +158,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsOutputProperties, NoValueRoundedDoubleConverter>(
                 nameof(GrassCoverErosionInwardsOutputProperties.OvertoppingRateCalculatedReliability));
 
-            string overtoppingRateConvergenceValue = new EnumDisplayWrapper<CalculationConvergence>(overtoppingRateConvergence).DisplayName;
+            string overtoppingRateConvergenceValue = EnumDisplayNameHelper.GetDisplayName(overtoppingRateConvergence);
             Assert.AreEqual(overtoppingRateConvergenceValue, properties.OvertoppingRateConvergence);
         }
 

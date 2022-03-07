@@ -23,7 +23,6 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
@@ -32,6 +31,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -123,7 +123,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<GrassCoverErosionInwardsOutputProperties, NoValueRoundedDoubleConverter>(
                 nameof(GrassCoverErosionInwardsOutputProperties.DikeHeightCalculatedReliability));
 
-            string dikeHeightConvergenceValue = new EnumDisplayWrapper<CalculationConvergence>(dikeHeightConvergence).DisplayName;
+            string dikeHeightConvergenceValue = EnumDisplayNameHelper.GetDisplayName(dikeHeightConvergence);
             Assert.AreEqual(dikeHeightConvergenceValue, properties.DikeHeightConvergence);
             Assert.AreEqual(generalResult.GoverningWindDirection.Name, properties.WindDirection);
 

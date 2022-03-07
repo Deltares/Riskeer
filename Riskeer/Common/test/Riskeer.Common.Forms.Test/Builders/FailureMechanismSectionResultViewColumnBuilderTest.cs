@@ -30,6 +30,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Builders;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Primitives;
 
 namespace Riskeer.Common.Forms.Test.Builders
@@ -137,14 +138,6 @@ namespace Riskeer.Common.Forms.Test.Builders
             }
         }
 
-        private static IEnumerable<EnumDisplayWrapper<T>> CreateExpectedEnumDisplayWrappers<T>()
-        {
-            return Enum.GetValues(typeof(T))
-                       .OfType<T>()
-                       .Select(e => new EnumDisplayWrapper<T>(e))
-                       .ToArray();
-        }
-
         /// <summary>
         /// Method that asserts whether <paramref name="expected"/> and <paramref name="actual"/>
         /// are equal.
@@ -216,7 +209,7 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
-                IEnumerable<EnumDisplayWrapper<TestEnum>> expectedDataSource = CreateExpectedEnumDisplayWrappers<TestEnum>();
+                IEnumerable<EnumDisplayWrapper<TestEnum>> expectedDataSource = EnumDisplayWrapperHelper.GetEnumTypes<TestEnum>();
                 AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<TestEnum>[]) columnData.DataSource);
             }
         }
@@ -371,7 +364,7 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
-                IEnumerable<EnumDisplayWrapper<FailureMechanismSectionResultFurtherAnalysisType>> expectedDataSource = CreateExpectedEnumDisplayWrappers<FailureMechanismSectionResultFurtherAnalysisType>();
+                IEnumerable<EnumDisplayWrapper<FailureMechanismSectionResultFurtherAnalysisType>> expectedDataSource = EnumDisplayWrapperHelper.GetEnumTypes<FailureMechanismSectionResultFurtherAnalysisType>();
                 AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<FailureMechanismSectionResultFurtherAnalysisType>[]) columnData.DataSource);
             }
         }
@@ -424,7 +417,7 @@ namespace Riskeer.Common.Forms.Test.Builders
                 Assert.AreEqual("Value", columnData.ValueMember);
                 Assert.AreEqual("DisplayName", columnData.DisplayMember);
 
-                IEnumerable<EnumDisplayWrapper<ProbabilityRefinementType>> expectedDataSource = CreateExpectedEnumDisplayWrappers<ProbabilityRefinementType>();
+                IEnumerable<EnumDisplayWrapper<ProbabilityRefinementType>> expectedDataSource = EnumDisplayWrapperHelper.GetEnumTypes<ProbabilityRefinementType>();
                 AssertEnumDisplayWrappersAreEqual(expectedDataSource, (EnumDisplayWrapper<ProbabilityRefinementType>[]) columnData.DataSource);
             }
         }

@@ -21,10 +21,9 @@
 
 using System.ComponentModel;
 using Core.Common.Base.Data;
-using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Gui.PropertyBag;
-using Riskeer.Common.Data.Hydraulics;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Properties;
@@ -153,7 +152,7 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return new EnumDisplayWrapper<CalculationConvergence>(data.CalculationConvergence).DisplayName;
+                return EnumDisplayNameHelper.GetDisplayName(data.CalculationConvergence);
             }
         }
 

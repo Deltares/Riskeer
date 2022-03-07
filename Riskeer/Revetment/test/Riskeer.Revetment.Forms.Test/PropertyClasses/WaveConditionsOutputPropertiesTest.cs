@@ -22,12 +22,12 @@
 using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Core.Common.Util;
 using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.PropertyClasses;
@@ -109,7 +109,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<WaveConditionsOutputProperties, NoValueRoundedDoubleConverter>(
                 nameof(WaveConditionsOutputProperties.CalculatedReliability));
 
-            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
+            string convergenceValue = EnumDisplayNameHelper.GetDisplayName(convergence);
             Assert.AreEqual(convergenceValue, properties.Convergence);
         }
 
@@ -146,7 +146,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(calculatedProbability, properties.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
 
-            string convergenceValue = new EnumDisplayWrapper<CalculationConvergence>(convergence).DisplayName;
+            string convergenceValue = EnumDisplayNameHelper.GetDisplayName(convergence);
             Assert.AreEqual(convergenceValue, properties.Convergence);
         }
 
