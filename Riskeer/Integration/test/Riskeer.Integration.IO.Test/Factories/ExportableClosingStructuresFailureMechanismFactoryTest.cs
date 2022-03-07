@@ -73,34 +73,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableFailureMechanism_WithFailureMechanismInAssemblyFalse_ReturnsDefaultExportableFailureMechanism()
-        {
-            // Setup
-            var random = new Random(21);
-            var failureMechanism = new ClosingStructuresFailureMechanism
-            {
-                InAssembly = false
-            };
-            FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
-
-            var assessmentSection = new AssessmentSectionStub
-            {
-                ReferenceLine = ReferenceLineTestFactory.CreateReferenceLineWithGeometry()
-            };
-
-            // Call
-            ExportableFailureMechanism exportableFailureMechanism =
-                ExportableClosingStructuresFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
-
-            // Assert
-            ExportableFailureMechanismTestHelper.AssertDefaultFailureMechanismWithProbability(assessmentSection.ReferenceLine.Points,
-                                                                                              ExportableFailureMechanismType.BSKW,
-                                                                                              ExportableAssemblyMethod.WBI1B1,
-                                                                                              exportableFailureMechanism);
-        }
-
-        [Test]
-        public void CreateExportableFailureMechanism_WithFailureMechanismInAssemblyTrue_ReturnsExportableFailureMechanism()
+        public void CreateExportableFailureMechanism_WithValidData_ReturnsExportableFailureMechanism()
         {
             // Setup
             var random = new Random(21);

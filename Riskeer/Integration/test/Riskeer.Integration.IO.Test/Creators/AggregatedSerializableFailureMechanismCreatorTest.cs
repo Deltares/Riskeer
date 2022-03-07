@@ -91,31 +91,6 @@ namespace Riskeer.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void CreateFailureMechanismWithoutProbability_WithUnsupportedAggregatedSectionResult_ThrowsNotSupportedException()
-        {
-            // Setup
-            var random = new Random(21);
-            ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
-
-            var failureMechanism = new ExportableFailureMechanism(
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                new[]
-                {
-                    new UnsupportedExportableAggregatedFailureMechanismSectionAssemblyResult(section)
-                },
-                random.NextEnumValue<ExportableFailureMechanismType>());
-
-            // Call
-            void Call() => AggregatedSerializableFailureMechanismCreator.Create(
-                new IdentifierGenerator(), new SerializableTotalAssemblyResult(), failureMechanism);
-
-            // Assert
-            var exception = Assert.Throws<NotSupportedException>(Call);
-            Assert.AreEqual($"{nameof(UnsupportedExportableAggregatedFailureMechanismSectionAssemblyResult)} is not supported.",
-                            exception.Message);
-        }
-
-        [Test]
         [TestCaseSource(nameof(GetSectionAssemblyConfigurations))]
         public void CreateFailureMechanismWithoutProbabilityAndSectionAssemblyResultsWithProbability_WithValidArguments_ReturnsAggregatedSerializableFailureMechanism(
             IEnumerable<ExportableFailureMechanismSection> failureMechanismSections,

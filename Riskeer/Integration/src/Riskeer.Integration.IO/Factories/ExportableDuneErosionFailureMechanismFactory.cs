@@ -38,9 +38,6 @@ namespace Riskeer.Integration.IO.Factories
     /// </summary>
     public static class ExportableDuneErosionFailureMechanismFactory
     {
-        private const ExportableFailureMechanismType failureMechanismCode = ExportableFailureMechanismType.DA;
-        private const ExportableAssemblyMethod failureMechanismAssemblyMethod = ExportableAssemblyMethod.WBI1A1;
-
         /// <summary>
         /// Creates an <see cref="ExportableFailureMechanism"/>
         /// with assembly results based on the input parameters.
@@ -65,19 +62,12 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (!failureMechanism.InAssembly)
-            {
-                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(assessmentSection,
-                                                                                                                   failureMechanismCode,
-                                                                                                                   failureMechanismAssemblyMethod);
-            }
-
             return new ExportableFailureMechanism(
                 new ExportableFailureMechanismAssemblyResult(
                     DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection),
                     failureMechanism.AssemblyResult.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual),
                 CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
-                failureMechanismCode);
+                ExportableFailureMechanismType.DA);
         }
 
         /// <summary>

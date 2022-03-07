@@ -38,9 +38,6 @@ namespace Riskeer.Integration.IO.Factories
     /// </summary>
     public static class ExportableStabilityPointStructuresFailureMechanismFactory
     {
-        private const ExportableFailureMechanismType failureMechanismCode = ExportableFailureMechanismType.STKWp;
-        private const ExportableAssemblyMethod failureMechanismAssemblyMethod = ExportableAssemblyMethod.WBI1B1;
-
         /// <summary>
         /// Creates an <see cref="ExportableFailureMechanism"/>
         /// with assembly results based on the input parameters.
@@ -65,19 +62,12 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (!failureMechanism.InAssembly)
-            {
-                return ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(assessmentSection,
-                                                                                                                failureMechanismCode,
-                                                                                                                failureMechanismAssemblyMethod);
-            }
-
             return new ExportableFailureMechanism(
                 new ExportableFailureMechanismAssemblyResult(
                     StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection),
                     failureMechanism.AssemblyResult.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual),
                 CreateExportableFailureMechanismSectionResults(failureMechanism),
-                failureMechanismCode);
+                ExportableFailureMechanismType.STKWp);
         }
 
         /// <summary>
