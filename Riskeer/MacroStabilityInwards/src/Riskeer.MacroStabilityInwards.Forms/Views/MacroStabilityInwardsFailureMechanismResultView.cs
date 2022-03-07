@@ -54,7 +54,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
-        private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismResultView"/>.
@@ -67,15 +66,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
         public MacroStabilityInwardsFailureMechanismResultView(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> failureMechanismSectionResults,
                                                                MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                IAssessmentSection assessmentSection)
-            : base(failureMechanismSectionResults, failureMechanism)
+            : base(failureMechanismSectionResults, failureMechanism, assessmentSection, MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism)
         {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.assessmentSection = assessmentSection;
-
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputsObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateInternalViewData,
@@ -102,7 +94,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
                 sectionResult,
                 CreateCalculateStrategy(sectionResult, calculationScenarios),
                 CreateErrorProvider(sectionResult, calculationScenarios),
-                () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, assessmentSection),
+                () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(sectionResult, FailureMechanism, AssessmentSection),
                 new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
@@ -126,12 +118,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             base.Dispose(disposing);
         }
-
-        protected override double GetFailureMechanismAssemblyResult()
-        {
-            return MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection);
-        }
-
+        
         protected override void AddDataGridColumns()
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
