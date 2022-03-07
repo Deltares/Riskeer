@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Riskeer.AssemblyTool.Data.Old;
-
 namespace Riskeer.Integration.IO.Assembly
 {
     /// <summary>
@@ -40,35 +38,13 @@ namespace Riskeer.Integration.IO.Assembly
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="ExportableFailureMechanismAssemblyResult"/>.
-        /// </summary>
-        /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
-        /// <param name="assemblyGroup">The assembly result.</param>
-        public ExportableFailureMechanismAssemblyResult(ExportableAssemblyMethod assemblyMethod,
-                                                        FailureMechanismAssemblyCategoryGroup assemblyGroup)
-        {
-            AssemblyMethod = assemblyMethod;
-            AssemblyGroup = assemblyGroup;
-        }
-
-        /// <summary>
         /// Gets the probability of the assembly result of this failure mechanism.
         /// </summary>
         public double Probability { get; }
-        
+
         /// <summary>
         /// Gets the indicator whether the <see cref="Probability"/> is manually set.
         /// </summary>
         public bool IsManual { get; }
-
-        /// <summary>
-        /// Gets the assembly method that was used to assemble the assembly result.
-        /// </summary>
-        public ExportableAssemblyMethod AssemblyMethod { get; }
-
-        /// <summary>
-        /// Gets the assembly group result.
-        /// </summary>
-        public FailureMechanismAssemblyCategoryGroup AssemblyGroup { get; }
     }
 }
