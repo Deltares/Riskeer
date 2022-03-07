@@ -70,15 +70,8 @@ namespace Riskeer.Piping.Forms.Views
         public PipingFailureMechanismResultView(IObservableEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResult> failureMechanismSectionResults,
                                                 PipingFailureMechanism failureMechanism,
                                                 IAssessmentSection assessmentSection)
-            : base(failureMechanismSectionResults, failureMechanism)
+            : base(failureMechanismSectionResults, failureMechanism, assessmentSection, PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism)
         {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            this.assessmentSection = assessmentSection;
-
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputsObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateInternalViewData,
@@ -110,11 +103,6 @@ namespace Riskeer.Piping.Forms.Views
             scenarioConfigurationsPerSectionObserver.Dispose();
 
             base.Dispose(disposing);
-        }
-
-        protected override double GetFailureMechanismAssemblyResult()
-        {
-            return PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(FailureMechanism, assessmentSection);
         }
 
         protected override AdoptableWithProfileProbabilityFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
