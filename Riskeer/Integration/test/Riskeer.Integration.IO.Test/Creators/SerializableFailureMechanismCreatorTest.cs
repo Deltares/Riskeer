@@ -39,7 +39,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_IdGeneratorNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => SerializableFailureMechanismCreator.Create(null, CreateSerializableTotalAssembly("id"), CreateExportableFailureMechanismWithoutProbability());
+            void Call() => SerializableFailureMechanismCreator.Create(null, CreateSerializableTotalAssembly("id"), CreateExportableFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -50,7 +50,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_SerializableTotalAssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => SerializableFailureMechanismCreator.Create(new IdentifierGenerator(), null, CreateExportableFailureMechanismWithoutProbability());
+            void Call() => SerializableFailureMechanismCreator.Create(new IdentifierGenerator(), null, CreateExportableFailureMechanism());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             // Setup
             var idGenerator = new IdentifierGenerator();
-            ExportableFailureMechanism failureMechanism = CreateExportableFailureMechanismWithoutProbability();
+            ExportableFailureMechanism failureMechanism = CreateExportableFailureMechanism();
 
             const string totalAssemblyId = "totalAssemblyId";
             SerializableTotalAssemblyResult serializableTotalAssembly = CreateSerializableTotalAssembly(totalAssemblyId);
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                                                   serializableFailureMechanism.FailureMechanismAssemblyResult);
         }
 
-        private static ExportableFailureMechanism CreateExportableFailureMechanismWithoutProbability()
+        private static ExportableFailureMechanism CreateExportableFailureMechanism()
         {
             var random = new Random(21);
             return new ExportableFailureMechanism(

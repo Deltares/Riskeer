@@ -259,10 +259,10 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                               SerializableTotalAssemblyResult expectedSerializableTotalAssemblyResult,
                                                               SerializableFeatureMember[] serializableAssemblyFeatureMembers)
         {
-            var failureMechanismWithProbability = (SerializableFailureMechanism) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism];
+            var failureMechanism = (SerializableFailureMechanism) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism];
             AssertSerializableFailureMechanism($"Ts.{expectedId}",
                                                expectedSerializableTotalAssemblyResult,
-                                               failureMechanismWithProbability);
+                                               failureMechanism);
             var failureMechanismSectionCollection = (SerializableFailureMechanismSectionCollection) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 10];
             AssertSerializableFailureMechanismSectionCollection($"Vi.{expectedId}",
                                                                 failureMechanismSectionCollection);
@@ -271,7 +271,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                       failureMechanismSectionCollection,
                                                       serializableFailureMechanismSection);
             AssertSerializableFailureMechanismSectionAssembly($"T.{expectedId}",
-                                                              failureMechanismWithProbability,
+                                                              failureMechanism,
                                                               serializableFailureMechanismSection,
                                                               (SerializableFailureMechanismSectionAssembly) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 4]);
         }

@@ -41,7 +41,7 @@ namespace Riskeer.Integration.IO.Test.Creators
     public class AggregatedSerializableFailureMechanismCreatorTest
     {
         [Test]
-        public void CreateFailureMechanismWithoutProbability_IdGeneratorNull_ThrowsArgumentNullException()
+        public void Create_IdGeneratorNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -60,7 +60,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void CreateFailureMechanismWithoutProbability_TotalAssemblyResultNull_ThrowsArgumentNullException()
+        public void Create_TotalAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -79,7 +79,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void CreateFailureMechanismWithoutProbability_FailureMechanismNull_ThrowsArgumentNullException()
+        public void Create_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => AggregatedSerializableFailureMechanismCreator.Create(
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.IO.Test.Creators
 
         [Test]
         [TestCaseSource(nameof(GetSectionAssemblyConfigurations))]
-        public void CreateFailureMechanismWithoutProbabilityAndSectionAssemblyResultsWithProbability_WithValidArguments_ReturnsAggregatedSerializableFailureMechanism(
+        public void Create_WithValidArguments_ReturnsAggregatedSerializableFailureMechanism(
             IEnumerable<ExportableFailureMechanismSection> failureMechanismSections,
             IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> failureMechanismSectionAssemblyResults,
             Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase, SerializableFailureMechanismSectionAssembly> assertSectionAssemblyResultsAction)
