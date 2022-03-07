@@ -78,28 +78,6 @@ namespace Riskeer.Integration.IO.Factories
 
         /// <summary>
         /// Creates a collection of <see cref="ExportableFailureMechanism"/>
-        /// for failure mechanisms with an assembly result with a probability based on <paramref name="assessmentSection"/>.
-        /// </summary>
-        /// <param name="assessmentSection">The assessment section to create a collection of
-        /// <see cref="ExportableFailureMechanism"/> with probability for.</param>
-        /// <returns>A collection of <see cref="ExportableFailureMechanism"/> based on failure
-        /// mechanisms with assembly results with a probability.</returns>
-        /// <exception cref="AssemblyException">Thrown when assembly results cannot be created  for <paramref name="assessmentSection"/>.</exception>
-        private static IEnumerable<ExportableFailureMechanism> CreateExportableFailureMechanismsWithProbability(AssessmentSection assessmentSection)
-        {
-            return new[]
-            {
-                ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.Piping, assessmentSection),
-                ExportableMacroStabilityInwardsFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection),
-                ExportableGrassCoverErosionInwardsFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection),
-                ExportableHeightStructuresFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.HeightStructures, assessmentSection),
-                ExportableClosingStructuresFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.ClosingStructures, assessmentSection),
-                ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection)
-            };
-        }
-
-        /// <summary>
-        /// Creates a collection of <see cref="ExportableFailureMechanism"/>
         /// for failure mechanisms with an assembly result without a probability based on <paramref name="assessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to create a collection of
@@ -111,6 +89,12 @@ namespace Riskeer.Integration.IO.Factories
         {
             return new[]
             {
+                ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.Piping, assessmentSection),
+                ExportableMacroStabilityInwardsFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection),
+                ExportableGrassCoverErosionInwardsFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection),
+                ExportableHeightStructuresFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.HeightStructures, assessmentSection),
+                ExportableClosingStructuresFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.ClosingStructures, assessmentSection),
+                ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection),
                 ExportableStabilityStoneCoverFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.StabilityStoneCover, assessmentSection),
                 ExportableWaveImpactAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
                 ExportableGrassCoverErosionOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(assessmentSection.GrassCoverErosionOutwards, assessmentSection),

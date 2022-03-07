@@ -65,29 +65,29 @@ namespace Riskeer.Integration.IO.Creators
                     idGenerator, serializableAssessmentProcess,
                     SerializableAssessmentSectionAssemblyResultCreator.Create(assessmentSection.AssessmentSectionAssembly));
 
-            AggregatedSerializableFailureMechanism[] aggregatedFailureMechanismsWithoutProbability = assessmentSection.FailureMechanisms
-                                                                                                                      .Select(fm => AggregatedSerializableFailureMechanismCreator.Create(
-                                                                                                                                  idGenerator, serializableTotalAssemblyResult, fm))
-                                                                                                                      .ToArray();
+            AggregatedSerializableFailureMechanism[] aggregatedFailureMechanisms = assessmentSection.FailureMechanisms
+                                                                                                    .Select(fm => AggregatedSerializableFailureMechanismCreator.Create(
+                                                                                                                idGenerator, serializableTotalAssemblyResult, fm))
+                                                                                                    .ToArray();
 
             AggregatedSerializableCombinedFailureMechanismSectionAssemblies aggregatedSerializableCombinedFailureMechanismSectionAssemblies =
-                AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(idGenerator,
-                                                                                              serializableTotalAssemblyResult,
-                                                                                              assessmentSection.CombinedSectionAssemblies);
+                AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(
+                    idGenerator, serializableTotalAssemblyResult, assessmentSection.CombinedSectionAssemblies);
 
-            return new SerializableAssembly(serializableAssemblyId,
-                                            GetLowerCorner(assessmentSection.Geometry),
-                                            GetUpperCorner(assessmentSection.Geometry),
-                                            serializableAssessmentSection,
-                                            serializableAssessmentProcess,
-                                            serializableTotalAssemblyResult,
-                                            aggregatedFailureMechanismsWithoutProbability.Select(afm => afm.FailureMechanism),
-                                            aggregatedFailureMechanismsWithoutProbability.SelectMany(afm => afm.FailureMechanismSectionAssemblyResults),
-                                            aggregatedSerializableCombinedFailureMechanismSectionAssemblies.CombinedFailureMechanismSectionAssemblies,
-                                            GetAllSerializableFailureMechanismSectionCollections(aggregatedFailureMechanismsWithoutProbability,
-                                                                                                 aggregatedSerializableCombinedFailureMechanismSectionAssemblies),
-                                            aggregatedFailureMechanismsWithoutProbability.SelectMany(afm => afm.FailureMechanismSections)
-                                                                                         .Concat(aggregatedSerializableCombinedFailureMechanismSectionAssemblies.FailureMechanismSections));
+            return new SerializableAssembly(
+                serializableAssemblyId,
+                GetLowerCorner(assessmentSection.Geometry),
+                GetUpperCorner(assessmentSection.Geometry),
+                serializableAssessmentSection,
+                serializableAssessmentProcess,
+                serializableTotalAssemblyResult,
+                aggregatedFailureMechanisms.Select(afm => afm.FailureMechanism),
+                aggregatedFailureMechanisms.SelectMany(afm => afm.FailureMechanismSectionAssemblyResults),
+                aggregatedSerializableCombinedFailureMechanismSectionAssemblies.CombinedFailureMechanismSectionAssemblies,
+                GetAllSerializableFailureMechanismSectionCollections(
+                    aggregatedFailureMechanisms, aggregatedSerializableCombinedFailureMechanismSectionAssemblies),
+                aggregatedFailureMechanisms.SelectMany(afm => afm.FailureMechanismSections)
+                                           .Concat(aggregatedSerializableCombinedFailureMechanismSectionAssemblies.FailureMechanismSections));
         }
 
         private static IEnumerable<SerializableFailureMechanismSectionCollection> GetAllSerializableFailureMechanismSectionCollections(

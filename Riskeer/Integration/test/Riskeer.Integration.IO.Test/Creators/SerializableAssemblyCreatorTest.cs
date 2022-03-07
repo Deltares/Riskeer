@@ -64,6 +64,8 @@ namespace Riskeer.Integration.IO.Test.Creators
                 new[]
                 {
                     CreateFailureMechanism(),
+                    CreateFailureMechanism(),
+                    CreateFailureMechanism(),
                     CreateFailureMechanism()
                 };
 
