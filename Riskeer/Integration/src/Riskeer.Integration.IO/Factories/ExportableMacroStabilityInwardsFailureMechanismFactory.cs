@@ -25,6 +25,7 @@ using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.MacroStabilityInwards.Data;
@@ -71,12 +72,10 @@ namespace Riskeer.Integration.IO.Factories
                                                                                                                 failureMechanismAssemblyMethod);
             }
 
-            var failureMechanismAssembly = new FailureMechanismAssembly(0, FailureMechanismAssemblyCategoryGroup.None);
-
             return new ExportableFailureMechanism(
-                new ExportableFailureMechanismAssemblyResultWithProbability(failureMechanismAssemblyMethod,
-                                                                            failureMechanismAssembly.Group,
-                                                                            failureMechanismAssembly.Probability),
+                new ExportableFailureMechanismAssemblyResult(
+                    MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection),
+                    failureMechanism.AssemblyResult.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual),
                 CreateExportableFailureMechanismSectionResults(failureMechanism),
                 failureMechanismCode);
         }

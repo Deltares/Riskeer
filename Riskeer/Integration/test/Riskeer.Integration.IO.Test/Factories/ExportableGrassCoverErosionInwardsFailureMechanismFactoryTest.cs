@@ -25,6 +25,9 @@ using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data.Old;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -38,7 +41,7 @@ namespace Riskeer.Integration.IO.Test.Factories
     public class ExportableGrassCoverErosionInwardsFailureMechanismFactoryTest
     {
         private static readonly FailureMechanismSectionAssemblyOld expectedAssemblyResult = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
-        
+
         [Test]
         public void CreateExportableFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -107,25 +110,28 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             var assessmentSection = new AssessmentSectionStub();
 
-            // Call
-            ExportableFailureMechanism exportableFailureMechanism =
-                ExportableGrassCoverErosionInwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                ExportableFailureMechanism exportableFailureMechanism =
+                    ExportableGrassCoverErosionInwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
-            // Assert
-            Assert.AreEqual(ExportableFailureMechanismType.GEKB, exportableFailureMechanism.Code);
+                // Assert
+                Assert.AreEqual(ExportableFailureMechanismType.GEKB, exportableFailureMechanism.Code);
 
-            ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
-            Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.None, exportableFailureMechanismAssembly.AssemblyGroup);
-            Assert.AreEqual(0, exportableFailureMechanismAssembly.Probability);
-            Assert.AreEqual(ExportableAssemblyMethod.WBI1B1, exportableFailureMechanismAssembly.AssemblyMethod);
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+                ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
+                Assert.AreEqual(failureMechanismAssemblyCalculator.AssemblyResult, exportableFailureMechanismAssembly.Probability);
+                Assert.IsFalse(exportableFailureMechanismAssembly.IsManual);
 
-            IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections = exportableFailureMechanism.SectionAssemblyResults
-                                                                                                                          .Select(sar => sar.FailureMechanismSection);
-            ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanismSections);
-            AssertExportableFailureMechanismSectionResults(exportableFailureMechanismSections,
-                                                           exportableFailureMechanism.SectionAssemblyResults.Cast<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>());
+                IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections = exportableFailureMechanism.SectionAssemblyResults
+                                                                                                                              .Select(sar => sar.FailureMechanismSection);
+                ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanismSections);
+                AssertExportableFailureMechanismSectionResults(exportableFailureMechanismSections,
+                                                               exportableFailureMechanism.SectionAssemblyResults.Cast<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>());
+            }
         }
-
 
         private static void AssertExportableFailureMechanismSectionResults(IEnumerable<ExportableFailureMechanismSection> sections,
                                                                            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> results)
