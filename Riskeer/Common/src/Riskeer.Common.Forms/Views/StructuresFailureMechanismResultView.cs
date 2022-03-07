@@ -53,9 +53,6 @@ namespace Riskeer.Common.Forms.Views
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputsObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
 
-        private readonly IAssessmentSection assessmentSection;
-        private readonly Func<TFailureMechanism, IAssessmentSection, double> getFailureMechanismAssemblyResultFunc;
-
         /// <summary>
         /// Creates a new instance of <see cref="StructuresFailureMechanismResultView{TFailureMechanism,TStructuresInput}"/>.
         /// </summary>
@@ -63,27 +60,14 @@ namespace Riskeer.Common.Forms.Views
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
-        /// <param name="getFailureMechanismAssemblyResultFunc">The <see cref="Func{T1, T2, TResult}"/> to get the assembly result of the failure mechanism.</param>
+        /// <param name="performFailureMechanismAssemblyFunc">The function to perform an assembly on the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public StructuresFailureMechanismResultView(IObservableEnumerable<AdoptableFailureMechanismSectionResult> failureMechanismSectionResults,
                                                     TFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection,
-                                                    Func<TFailureMechanism, IAssessmentSection, double> getFailureMechanismAssemblyResultFunc)
-            : base(failureMechanismSectionResults, failureMechanism)
+                                                    Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
+            : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc)
         {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (getFailureMechanismAssemblyResultFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getFailureMechanismAssemblyResultFunc));
-            }
-
-            this.assessmentSection = assessmentSection;
-            this.getFailureMechanismAssemblyResultFunc = getFailureMechanismAssemblyResultFunc;
-
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputsObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateInternalViewData,
@@ -112,7 +96,7 @@ namespace Riskeer.Common.Forms.Views
                 sectionResult,
                 () => sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios),
                 CreateErrorProvider(sectionResult, calculationScenarios),
-                () => StructuresFailureMechanismAssemblyFactory.AssembleSection<TStructuresInput>(sectionResult, FailureMechanism, assessmentSection),
+                () => StructuresFailureMechanismAssemblyFactory.AssembleSection<TStructuresInput>(sectionResult, FailureMechanism, AssessmentSection),
                 new AdoptableFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
@@ -131,12 +115,7 @@ namespace Riskeer.Common.Forms.Views
 
             base.Dispose(disposing);
         }
-
-        protected override double GetFailureMechanismAssemblyResult()
-        {
-            return getFailureMechanismAssemblyResultFunc(FailureMechanism, assessmentSection);
-        }
-
+        
         protected override void AddDataGridColumns()
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(
