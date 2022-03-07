@@ -32,45 +32,6 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// </summary>
         public const string NotApplicable = "NVT";
 
-        #region SerializableFailureMechanismCategoryGroup
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismCategoryGroup.It"/>.
-        /// </summary>
-        public const string SerializableFailureMechanismCategoryGroupIt = "I-traject";
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismCategoryGroup.IIt"/>.
-        /// </summary>
-        public const string SerializableFailureMechanismCategoryGroupIIt = "II-traject";
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismCategoryGroup.IIIt"/>.
-        /// </summary>
-        public const string SerializableFailureMechanismCategoryGroupIIIt = "III-traject";
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismCategoryGroup.IVt"/>.
-        /// </summary>
-        public const string SerializableFailureMechanismCategoryGroupIVt = "IV-traject";
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismCategoryGroup.Vt"/>.
-        /// </summary>
-        public const string SerializableFailureMechanismCategoryGroupVt = "V-traject";
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismCategoryGroup.VIt"/>.
-        /// </summary>
-        public const string SerializableFailureMechanismCategoryGroupVIt = "VI-traject";
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismCategoryGroup.VIIt"/>.
-        /// </summary>
-        public const string SerializableFailureMechanismCategoryGroupVIIt = "VII-traject";
-
-        #endregion
-
         #region SerializableFailureMechanismSectionCategoryGroup
 
         /// <summary>

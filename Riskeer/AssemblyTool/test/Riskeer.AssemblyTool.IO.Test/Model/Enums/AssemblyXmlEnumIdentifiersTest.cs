@@ -32,14 +32,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
         {
             Assert.AreEqual("NVT", AssemblyXmlEnumIdentifiers.NotApplicable);
 
-            Assert.AreEqual("I-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupIt);
-            Assert.AreEqual("II-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupIIt);
-            Assert.AreEqual("III-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupIIIt);
-            Assert.AreEqual("IV-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupIVt);
-            Assert.AreEqual("V-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupVt);
-            Assert.AreEqual("VI-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupVIt);
-            Assert.AreEqual("VII-traject", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismCategoryGroupVIIt);
-
             Assert.AreEqual("I-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupIv);
             Assert.AreEqual("II-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupIIv);
             Assert.AreEqual("III-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupIIIv);

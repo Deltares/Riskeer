@@ -141,33 +141,6 @@
   <data name="AssessmentSectionAssemblyGroup_None_DisplayName" xml:space="preserve">
     <value />
   </data>
-  <data name="FailureMechanismAssemblyCategoryGroup_IIIt_DisplayName" xml:space="preserve">
-    <value>IIIt</value>
-  </data>
-  <data name="FailureMechanismAssemblyCategoryGroup_IIt_DisplayName" xml:space="preserve">
-    <value>IIt</value>
-  </data>
-  <data name="FailureMechanismAssemblyCategoryGroup_It_DisplayName" xml:space="preserve">
-    <value>It</value>
-  </data>
-  <data name="FailureMechanismAssemblyCategoryGroup_IVt_DisplayName" xml:space="preserve">
-    <value>IVt</value>
-  </data>
-  <data name="FailureMechanismAssemblyCategoryGroup_None_DisplayName" xml:space="preserve">
-    <value />
-  </data>
-  <data name="FailureMechanismAssemblyCategoryGroup_NotApplicable_DisplayName" xml:space="preserve">
-    <value>-</value>
-  </data>
-    <data name="FailureMechanismAssemblyCategoryGroup_VIIt_DisplayName" xml:space="preserve">
-    <value>VIIt</value>
-  </data>
-    <data name="FailureMechanismAssemblyCategoryGroup_VIt_DisplayName" xml:space="preserve">
-    <value>VIt</value>
-  </data>
-    <data name="FailureMechanismAssemblyCategoryGroup_Vt_DisplayName" xml:space="preserve">
-    <value>Vt</value>
-  </data>
     <data name="FailureMechanismSectionAssemblyGroup_NotDominant_DisplayName" xml:space="preserve">
     <value>ND</value>
   </data>
