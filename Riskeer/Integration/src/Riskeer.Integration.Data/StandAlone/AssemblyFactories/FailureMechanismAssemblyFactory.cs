@@ -30,9 +30,9 @@ using Riskeer.Common.Data.FailurePath;
 namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
 {
     /// <summary>
-    /// Factory for assembling assembly results for a stand alone failure mechanism.
+    /// Factory for assembling assembly results for a failure mechanism.
     /// </summary>
-    public static class StandAloneFailureMechanismAssemblyFactory
+    public static class FailureMechanismAssemblyFactory
     {
         /// <summary>
         /// Assembles the section based on the input arguments.

@@ -43,7 +43,7 @@ using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 {
     [TestFixture]
-    public class StandAloneFailureMechanismAssemblyFactoryTest
+    public class FailureMechanismAssemblyFactoryTest
     {
         private class TestFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
                                              IHasGeneralInput
@@ -71,7 +71,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            void Call() => StandAloneFailureMechanismAssemblyFactory.AssembleSection(null, failureMechanism, assessmentSection);
+            void Call() => FailureMechanismAssemblyFactory.AssembleSection(null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             var sectionResult = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             // Call
-            void Call() => StandAloneFailureMechanismAssemblyFactory.AssembleSection(sectionResult, null, assessmentSection);
+            void Call() => FailureMechanismAssemblyFactory.AssembleSection(sectionResult, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -111,7 +111,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            void Call() => StandAloneFailureMechanismAssemblyFactory.AssembleSection(sectionResult, failureMechanism, null);
+            void Call() => FailureMechanismAssemblyFactory.AssembleSection(sectionResult, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -143,7 +143,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                StandAloneFailureMechanismAssemblyFactory.AssembleSection(sectionResult, failureMechanism, assessmentSection);
+                FailureMechanismAssemblyFactory.AssembleSection(sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
                 FailureMechanismSectionAssemblyInput calculatorInput = calculator.FailureMechanismSectionAssemblyInput;
@@ -176,7 +176,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = StandAloneFailureMechanismAssemblyFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResult result = FailureMechanismAssemblyFactory.AssembleSection(
                     sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
@@ -201,7 +201,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => StandAloneFailureMechanismAssemblyFactory.AssembleSection(
+                void Call() => FailureMechanismAssemblyFactory.AssembleSection(
                     sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
@@ -225,7 +225,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             mocks.ReplayAll();
 
             // Call
-            void Call() => StandAloneFailureMechanismAssemblyFactory.AssembleFailureMechanism<TestFailureMechanism>(null, assessmentSection);
+            void Call() => FailureMechanismAssemblyFactory.AssembleFailureMechanism<TestFailureMechanism>(null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -241,7 +241,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            void Call() => StandAloneFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, null);
+            void Call() => FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -274,7 +274,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
 
                 // Call
-                StandAloneFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
+                FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
                 double expectedN = failureMechanism.GeneralInput.N;
@@ -307,7 +307,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.AssemblyResult = assemblyOutput;
 
                 // Call
-                double result = StandAloneFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
+                double result = FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
                 Assert.AreEqual(assemblyOutput, result);
@@ -335,7 +335,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => StandAloneFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
+                void Call() => FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
