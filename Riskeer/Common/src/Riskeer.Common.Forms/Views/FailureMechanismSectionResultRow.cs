@@ -84,7 +84,7 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Gets the assembly result of the failure mechanism section.
         /// </summary>
-        public FailureMechanismSectionAssemblyResult AssemblyResult { get; protected set; }
+        protected FailureMechanismSectionAssemblyResult AssemblyResult { get; set; }
         
         /// <summary>
         /// Updates all data and notifies the wrapped section result.

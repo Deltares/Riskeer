@@ -758,14 +758,11 @@ namespace Riskeer.Common.Forms.Test.Views
             var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
 
             // Assert
-            FailureMechanismSectionAssemblyResult rowAssemblyResult = row.AssemblyResult;
-            Assert.AreSame(assemblyResult, rowAssemblyResult);
-
-            Assert.AreEqual(rowAssemblyResult.ProfileProbability, row.ProfileProbability);
-            Assert.AreEqual(rowAssemblyResult.SectionProbability, row.SectionProbability);
-            Assert.AreEqual(rowAssemblyResult.N, row.SectionN, row.SectionN.GetAccuracy());
+            Assert.AreEqual(assemblyResult.ProfileProbability, row.ProfileProbability);
+            Assert.AreEqual(assemblyResult.SectionProbability, row.SectionProbability);
+            Assert.AreEqual(assemblyResult.N, row.SectionN, row.SectionN.GetAccuracy());
             Assert.AreEqual(2, row.SectionN.NumberOfDecimalPlaces);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(rowAssemblyResult.FailureMechanismSectionAssemblyGroup),
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(assemblyResult.FailureMechanismSectionAssemblyGroup),
                             row.AssemblyGroup);
 
             mocks.VerifyAll();
@@ -799,18 +796,24 @@ namespace Riskeer.Common.Forms.Test.Views
             var row = new AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, calculateStrategy, errorProvider, performAssemblyFunc, ConstructionProperties);
 
             // Precondition
-            Assert.AreSame(assemblyResult, row.AssemblyResult);
+            Assert.AreEqual(assemblyResult.ProfileProbability, row.ProfileProbability);
+            Assert.AreEqual(assemblyResult.SectionProbability, row.SectionProbability);
+            Assert.AreEqual(assemblyResult.N, row.SectionN, row.SectionN.GetAccuracy());
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(assemblyResult.FailureMechanismSectionAssemblyGroup),
+                            row.AssemblyGroup);
 
             // When
             row.InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual;
 
             // Then
             var expectedAssemblyResult = new DefaultFailureMechanismSectionAssemblyResult();
-            FailureMechanismSectionAssemblyResult actualAssemblyResult = row.AssemblyResult;
-            Assert.AreEqual(expectedAssemblyResult.N, actualAssemblyResult.N);
-            Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualAssemblyResult.SectionProbability);
-            Assert.AreEqual(expectedAssemblyResult.ProfileProbability, actualAssemblyResult.ProfileProbability);
-            Assert.AreEqual(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup, actualAssemblyResult.FailureMechanismSectionAssemblyGroup);
+
+            Assert.AreEqual(expectedAssemblyResult.ProfileProbability, row.ProfileProbability);
+            Assert.AreEqual(expectedAssemblyResult.SectionProbability, row.SectionProbability);
+            Assert.AreEqual(expectedAssemblyResult.N, row.SectionN, row.SectionN.GetAccuracy());
+            Assert.AreEqual(2, row.SectionN.NumberOfDecimalPlaces);
+            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup),
+                            row.AssemblyGroup);
 
             mocks.VerifyAll();
         }
