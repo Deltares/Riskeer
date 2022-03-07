@@ -306,9 +306,9 @@ namespace Riskeer.Storage.Core.Test.Read
             SpecificFailurePath specificFailurePath = entity.ReadSpecificFailurePath(collector);
 
             // Assert
-            SectionResultHelper.AssertSectionResults(entity.FailureMechanismSectionEntities
-                                                           .SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities).Single(),
-                                                     specificFailurePath.SectionResults.Single());
+            SectionResultHelper.AssertSectionResult(entity.FailureMechanismSectionEntities
+                                                          .SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities).Single(),
+                                                    specificFailurePath.SectionResults.Single());
         }
 
         private static void AssertCommonFailurePathProperties(IFailurePathEntity entity, IFailurePath failurePath)
