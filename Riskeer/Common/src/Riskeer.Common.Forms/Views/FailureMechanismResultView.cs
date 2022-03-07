@@ -28,6 +28,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
+using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
@@ -50,6 +51,7 @@ namespace Riskeer.Common.Forms.Views
         where TFailureMechanism : IFailurePath<TSectionResult>
     {
         private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
+        private readonly Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc;
         private readonly Observer failureMechanismObserver;
         private readonly Observer failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
@@ -64,13 +66,33 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         /// <param name="failureMechanismSectionResults">The collection of <typeparamref name="TSectionResult"/> to
         /// show in the view.</param>
-        /// <param name="failureMechanism">The failure mechanism the results belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
+        /// <param name="assessmentSection">The assessment section the results belong to.</param>
+        /// <param name="performFailureMechanismAssemblyFunc">The function to perform an assembly on the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        protected FailureMechanismResultView(IObservableEnumerable<TSectionResult> failureMechanismSectionResults, TFailureMechanism failureMechanism)
+        protected FailureMechanismResultView(IObservableEnumerable<TSectionResult> failureMechanismSectionResults,
+                                             TFailureMechanism failureMechanism,
+                                             IAssessmentSection assessmentSection,
+                                             Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
+            }
+
+            if (performFailureMechanismAssemblyFunc == null)
+            {
+                throw new ArgumentNullException(nameof(performFailureMechanismAssemblyFunc));
+            }
+
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             if (failureMechanismSectionResults == null)
@@ -81,7 +103,9 @@ namespace Riskeer.Common.Forms.Views
             InitializeComponent();
 
             FailureMechanism = failureMechanism;
+            AssessmentSection = assessmentSection;
             this.failureMechanismSectionResults = failureMechanismSectionResults;
+            this.performFailureMechanismAssemblyFunc = performFailureMechanismAssemblyFunc;
 
             failureMechanismObserver = new Observer(UpdateInternalViewData)
             {
@@ -108,6 +132,11 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         public TFailureMechanism FailureMechanism { get; }
 
+        /// <summary>
+        /// Gets the assessment section.
+        /// </summary>
+        protected IAssessmentSection AssessmentSection { get; }
+        
         public object Data { get; set; }
 
         protected override void OnLoad(EventArgs e)
@@ -129,13 +158,6 @@ namespace Riskeer.Common.Forms.Views
         /// display object.</param>
         /// <returns>A display object which can be added as a row to the <see cref="DataGridView"/>.</returns>
         protected abstract TSectionResultRow CreateFailureMechanismSectionResultRow(TSectionResult sectionResult);
-
-        /// <summary>
-        /// Gets the failure mechanism assembly result.
-        /// </summary>
-        /// <returns>A <see cref="double"/> representing the failure mechanism assembly result.</returns>
-        /// <exception cref="AssemblyException">Thrown when the failure mechanism cannot be successfully assembled.</exception>
-        protected abstract double GetFailureMechanismAssemblyResult();
 
         protected override void Dispose(bool disposing)
         {
@@ -276,7 +298,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                return GetFailureMechanismAssemblyResult();
+                return performFailureMechanismAssemblyFunc(FailureMechanism, AssessmentSection);
             }
             catch (AssemblyException e)
             {
