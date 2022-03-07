@@ -113,45 +113,39 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         WBI0A1 = 14,
 
         /// <summary>
-        /// Represents the assembly method WBI-1A-1.
-        /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI1A1)]
-        WBI1A1 = 15,
-
-        /// <summary>
         /// Represents the assembly method WBI-1B-1.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI1B1)]
-        WBI1B1 = 16,
+        WBI1B1 = 15,
 
         /// <summary>
         /// Represents the assembly method WBI-2C-1.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI2C1)]
-        WBI2C1 = 17,
+        WBI2C1 = 16,
 
         /// <summary>
         /// Represents the assembly method WBI-3A-1.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3A1)]
-        WBI3A1 = 18,
+        WBI3A1 = 17,
 
         /// <summary>
         /// Represents the assembly method WBI-3B-1.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3B1)]
-        WBI3B1 = 19,
+        WBI3B1 = 18,
 
         /// <summary>
         /// Represents the assembly method WBI-3C-1.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3C1)]
-        WBI3C1 = 20,
+        WBI3C1 = 19,
         
         /// <summary>
         /// Represents a manual assembly.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodManual)]
-        Manual = 21
+        Manual = 20
     }
 }

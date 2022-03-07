@@ -75,25 +75,22 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                     SerializableAssemblyMethod.WBI0A1, 14
                 },
                 {
-                    SerializableAssemblyMethod.WBI1A1, 15
+                    SerializableAssemblyMethod.WBI1B1, 15
                 },
                 {
-                    SerializableAssemblyMethod.WBI1B1, 16
+                    SerializableAssemblyMethod.WBI2C1, 16
                 },
                 {
-                    SerializableAssemblyMethod.WBI2C1, 17
+                    SerializableAssemblyMethod.WBI3A1, 17
                 },
                 {
-                    SerializableAssemblyMethod.WBI3A1, 18
+                    SerializableAssemblyMethod.WBI3B1, 18
                 },
                 {
-                    SerializableAssemblyMethod.WBI3B1, 19
+                    SerializableAssemblyMethod.WBI3C1, 19
                 },
                 {
-                    SerializableAssemblyMethod.WBI3C1, 20
-                },
-                {
-                    SerializableAssemblyMethod.Manual, 21
+                    SerializableAssemblyMethod.Manual, 20
                 }
             };
 
@@ -141,9 +138,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                 },
                 {
                     SerializableAssemblyMethod.WBI0A1, "WBI-0A-1"
-                },
-                {
-                    SerializableAssemblyMethod.WBI1A1, "WBI-1A-1"
                 },
                 {
                     SerializableAssemblyMethod.WBI1B1, "WBI-1B-1"

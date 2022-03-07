@@ -156,7 +156,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             var random = new Random(21);
             ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
             return new ExportableFailureMechanism(
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
+                ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
                 new[]
                 {
                     CreateSectionResult(failureMechanismSection)

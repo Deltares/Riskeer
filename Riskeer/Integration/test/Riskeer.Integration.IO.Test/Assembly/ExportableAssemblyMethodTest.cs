@@ -75,22 +75,19 @@ namespace Riskeer.Integration.IO.Test.Assembly
                     ExportableAssemblyMethod.WBI0A1, 14
                 },
                 {
-                    ExportableAssemblyMethod.WBI1A1, 15
+                    ExportableAssemblyMethod.WBI1B1, 15
                 },
                 {
-                    ExportableAssemblyMethod.WBI1B1, 16
+                    ExportableAssemblyMethod.WBI2C1, 16
                 },
                 {
-                    ExportableAssemblyMethod.WBI2C1, 17
+                    ExportableAssemblyMethod.WBI3A1, 17
                 },
                 {
-                    ExportableAssemblyMethod.WBI3A1, 18
+                    ExportableAssemblyMethod.WBI3B1, 18
                 },
                 {
-                    ExportableAssemblyMethod.WBI3B1, 19
-                },
-                {
-                    ExportableAssemblyMethod.WBI3C1, 20
+                    ExportableAssemblyMethod.WBI3C1, 19
                 }
             };
     }

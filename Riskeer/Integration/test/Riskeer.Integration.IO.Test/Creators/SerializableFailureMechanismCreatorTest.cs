@@ -96,7 +96,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             var random = new Random(21);
             return new ExportableFailureMechanism(
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
+                ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
                 Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
                 random.NextEnumValue<ExportableFailureMechanismType>());
         }

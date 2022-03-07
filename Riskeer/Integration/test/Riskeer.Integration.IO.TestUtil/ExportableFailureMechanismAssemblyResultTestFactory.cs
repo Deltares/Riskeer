@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.Integration.IO.Assembly;
 
 namespace Riskeer.Integration.IO.TestUtil
@@ -34,10 +33,9 @@ namespace Riskeer.Integration.IO.TestUtil
         /// Creates a default instance of <see cref="ExportableFailureMechanismAssemblyResult"/>.
         /// </summary>
         /// <returns>A default instance of <see cref="ExportableFailureMechanismAssemblyResult"/>.</returns>
-        public static ExportableFailureMechanismAssemblyResult CreateResultWithoutProbability()
+        public static ExportableFailureMechanismAssemblyResult CreateResult()
         {
-            return new ExportableFailureMechanismAssemblyResult(ExportableAssemblyMethod.WBI1A1,
-                                                                FailureMechanismAssemblyCategoryGroup.IVt);
+            return new ExportableFailureMechanismAssemblyResult(0.75, false);
         }
     }
 }
