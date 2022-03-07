@@ -48,10 +48,8 @@ namespace Riskeer.Common.Forms.Views
         private const int sectionProbabilityIndex = 9;
         private const int sectionNIndex = 10;
         private const int assemblyGroupIndex = 11;
-
-        private readonly IAssessmentSection assessmentSection;
+        
         private readonly Func<TFailureMechanism, bool> getUseLengthEffectFunc;
-        private readonly Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc;
         private readonly Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performFailureMechanismSectionAssemblyFunc;
 
         /// <summary>
@@ -61,17 +59,17 @@ namespace Riskeer.Common.Forms.Views
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
-        /// <param name="getUseLengthEffectFunc">The <see cref="Func{T1,TResult}"/> to get whether to use the length effect.</param>
         /// <param name="performFailureMechanismAssemblyFunc">Function to perform the assembly for a failure mechanism.</param>
+        /// <param name="getUseLengthEffectFunc">The <see cref="Func{T1,TResult}"/> to get whether to use the length effect.</param>
         /// <param name="performFailureMechanismSectionAssemblyFunc">Function to perform the assembly for a failure mechanism section result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public NonAdoptableWithProfileProbabilityFailureMechanismResultView(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> failureMechanismSectionResults,
                                                                             TFailureMechanism failureMechanism,
                                                                             IAssessmentSection assessmentSection,
-                                                                            Func<TFailureMechanism, bool> getUseLengthEffectFunc,
                                                                             Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc,
+                                                                            Func<TFailureMechanism, bool> getUseLengthEffectFunc,
                                                                             Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performFailureMechanismSectionAssemblyFunc)
-            : base(failureMechanismSectionResults, failureMechanism)
+            : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc)
         {
             if (assessmentSection == null)
             {
@@ -82,19 +80,12 @@ namespace Riskeer.Common.Forms.Views
             {
                 throw new ArgumentNullException(nameof(getUseLengthEffectFunc));
             }
-
-            if (performFailureMechanismAssemblyFunc == null)
-            {
-                throw new ArgumentNullException(nameof(performFailureMechanismAssemblyFunc));
-            }
-
+            
             if (performFailureMechanismSectionAssemblyFunc == null)
             {
                 throw new ArgumentNullException(nameof(performFailureMechanismSectionAssemblyFunc));
             }
-
-            this.assessmentSection = assessmentSection;
-            this.performFailureMechanismAssemblyFunc = performFailureMechanismAssemblyFunc;
+            
             this.getUseLengthEffectFunc = getUseLengthEffectFunc;
             this.performFailureMechanismSectionAssemblyFunc = performFailureMechanismSectionAssemblyFunc;
         }
@@ -124,11 +115,6 @@ namespace Riskeer.Common.Forms.Views
                     SectionNIndex = sectionNIndex,
                     AssemblyGroupIndex = assemblyGroupIndex
                 });
-        }
-
-        protected override double GetFailureMechanismAssemblyResult()
-        {
-            return performFailureMechanismAssemblyFunc(FailureMechanism, assessmentSection);
         }
 
         protected override void AddDataGridColumns()

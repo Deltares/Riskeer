@@ -143,9 +143,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                         context.WrappedData,
                         failureMechanism,
                         assessmentSection,
-                        fm => fm.GeneralInput.ApplyLengthEffectInSection,
                         GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism,
-                        sr => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
+                        fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
                 }
             };
 

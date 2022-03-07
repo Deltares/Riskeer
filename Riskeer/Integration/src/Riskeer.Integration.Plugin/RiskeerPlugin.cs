@@ -1113,8 +1113,8 @@ namespace Riskeer.Integration.Plugin
                     var failureMechanism = (TFailureMechanism) context.FailureMechanism;
                     IAssessmentSection assessmentSection = context.AssessmentSection;
                     return new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism>(
-                        context.WrappedData, failureMechanism, assessmentSection, getUseLengthEffectFunc, performFailureMechanismAssemblyFunc,
-                        sr => FailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
+                        context.WrappedData, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc,
+                        getUseLengthEffectFunc, sr => FailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
                 }
             };
         }
