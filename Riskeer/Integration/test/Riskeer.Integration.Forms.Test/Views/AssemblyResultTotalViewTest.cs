@@ -187,7 +187,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             using (ShowAssemblyResultTotalView())
             {
                 // Then
-                AssertAssessmentSectionAssemblyResultControl("-", "1/7");
+                AssertAssessmentSectionAssemblyResultControl("A+", "1/7");
             }
         }
 
@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 buttonTester.Properties.Enabled = true;
 
                 // Precondition
-                AssertAssessmentSectionAssemblyResultControl("-", "1/7");
+                AssertAssessmentSectionAssemblyResultControl("A+", "1/7");
 
                 // When
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -227,7 +227,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 buttonTester.Properties.Enabled = true;
 
                 // Precondition
-                AssertAssessmentSectionAssemblyResultControl("-", "1/7");
+                AssertAssessmentSectionAssemblyResultControl("A+", "1/7");
 
                 // When
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -264,7 +264,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     buttonTester.Click();
 
                     // Then
-                    AssertAssessmentSectionAssemblyResultControl("-", "1/7");
+                    AssertAssessmentSectionAssemblyResultControl("A+", "1/7");
                     Assert.IsEmpty(GetProbabilityError(GetAssessmentSectionAssemblyResultControl()));
                     Assert.IsEmpty(GetGroupError(GetAssessmentSectionAssemblyResultControl()));
                 }
