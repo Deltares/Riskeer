@@ -241,6 +241,11 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// </summary>
         public const string SerializableAssemblyMethodWBI3C1 = "WBI-3C-1";
 
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssemblyMethod.Manual"/>.
+        /// </summary>
+        public const string SerializableAssemblyMethodManual = "Handmatig";
+
         #endregion
 
         #region SerializableFailureMechanismType

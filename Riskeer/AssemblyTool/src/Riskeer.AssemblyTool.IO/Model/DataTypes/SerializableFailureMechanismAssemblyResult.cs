@@ -41,16 +41,15 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanismAssemblyResult"/>.
         /// </summary>
-        /// <param name="assemblyMethod">The method used to assemble this result.</param>
-        /// <param name="categoryGroup">The category group of this assembly result.</param>
         /// <param name="probability">The probability of this assembly result.</param>
-        public SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethod assemblyMethod,
-                                                          SerializableFailureMechanismCategoryGroup categoryGroup,
-                                                          double? probability = null) : this()
+        /// <param name="isManual">The indicator whether the <paramref name="probability"/> is manually set.</param>
+        public SerializableFailureMechanismAssemblyResult(double probability, bool isManual) : this()
         {
-            CategoryGroup = categoryGroup;
             Probability = probability;
-            AssemblyMethod = assemblyMethod;
+            
+            AssemblyMethod = isManual 
+                                 ? SerializableAssemblyMethod.Manual 
+                                 : SerializableAssemblyMethod.WBI1B1;
         }
 
         /// <summary>
@@ -60,30 +59,15 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         public SerializableAssemblyMethod AssemblyMethod { get; set; }
 
         /// <summary>
-        /// Gets or sets the category group of this assembly result.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.FailureMechanismCategoryGroup)]
-        public SerializableFailureMechanismCategoryGroup CategoryGroup { get; set; }
-
-        /// <summary>
         /// Gets or sets the probability of this assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Probability)]
-        public double? Probability { get; set; }
+        public double Probability { get; set; }
 
         /// <summary>
         /// Gets or sets the status of this assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Status)]
         public string Status { get; set; }
-
-        /// <summary>
-        /// Determines whether <see cref="Probability"/> should be serialized.
-        /// </summary>
-        /// <returns>The indicator whether <see cref="Probability"/> should be serialized.</returns>
-        public bool ShouldSerializeProbability()
-        {
-            return Probability.HasValue;
-        }
     }
 }

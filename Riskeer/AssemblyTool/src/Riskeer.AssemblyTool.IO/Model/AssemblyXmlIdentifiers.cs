@@ -153,11 +153,6 @@ namespace Riskeer.AssemblyTool.IO.Model
         public const string FailureMechanism = "Toetsspoor";
 
         /// <summary>
-        /// Identifier for a failure mechanism category group element.
-        /// </summary>
-        public const string FailureMechanismCategoryGroup = "categorieTraject";
-
-        /// <summary>
         /// Identifier for a failure mechanism assembly result element.
         /// </summary>
         public const string FailureMechanismAssemblyResult = "toetsoordeel";

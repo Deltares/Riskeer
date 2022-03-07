@@ -21,8 +21,8 @@
 
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Creators;
 
 namespace Riskeer.Integration.IO.TestUtil
 {
@@ -40,15 +40,18 @@ namespace Riskeer.Integration.IO.TestUtil
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item>The assembly methods do not match, </item>
-        /// <item>The failure mechanism category group assembly results do not match,</item>
-        /// <item>The probability of <paramref name="actualResult"/> has a value.</item>
+        /// <item>The probabilities do not match.</item>
         /// </list></exception>
         public static void AssertSerializableFailureMechanismAssemblyResult(ExportableFailureMechanismAssemblyResult expectedResult,
                                                                             SerializableFailureMechanismAssemblyResult actualResult)
         {
-            Assert.AreEqual(SerializableFailureMechanismCategoryGroupCreator.Create(expectedResult.AssemblyGroup), actualResult.CategoryGroup);
-            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedResult.AssemblyMethod), actualResult.AssemblyMethod);
-            Assert.IsNull(actualResult.Probability);
+            Assert.AreEqual(expectedResult.Probability, actualResult.Probability);
+            Assert.AreEqual(GetAssemblyMethod(expectedResult.IsManual), actualResult.AssemblyMethod);
+        }
+
+        private static SerializableAssemblyMethod GetAssemblyMethod(bool isManual)
+        {
+            return isManual ? SerializableAssemblyMethod.Manual : SerializableAssemblyMethod.WBI1B1;
         }
     }
 }

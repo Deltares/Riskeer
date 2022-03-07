@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Exceptions;
 
 namespace Riskeer.Integration.IO.Creators
 {
@@ -40,9 +38,7 @@ namespace Riskeer.Integration.IO.Creators
         /// to create a <see cref="SerializableFailureMechanismAssemblyResult"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanismAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="result"/>
-        /// is invalid to create a serializable counterpart for.</exception>
+        /// is <c>null</c>.</exception>>
         public static SerializableFailureMechanismAssemblyResult Create(ExportableFailureMechanismAssemblyResult result)
         {
             if (result == null)
@@ -50,24 +46,7 @@ namespace Riskeer.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(result));
             }
 
-            ValidateAssemblyResult(result);
-
-            return new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethodCreator.Create(result.AssemblyMethod),
-                                                                  SerializableFailureMechanismCategoryGroupCreator.Create(result.AssemblyGroup));
-        }
-
-        /// <summary>
-        /// Validates the <paramref name="result"/> to determine whether a serializable assembly result can be created.
-        /// </summary>
-        /// <param name="result">The <see cref="ExportableFailureMechanismAssemblyResult"/> to validate.</param>
-        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="result"/> is invalid
-        /// and a serializable assembly result cannot be created.</exception>
-        private static void ValidateAssemblyResult(ExportableFailureMechanismAssemblyResult result)
-        {
-            if (result.AssemblyGroup == FailureMechanismAssemblyCategoryGroup.None)
-            {
-                throw new AssemblyCreatorException(@"The assembly result is invalid and cannot be created.");
-            }
+            return new SerializableFailureMechanismAssemblyResult(result.Probability, result.IsManual);
         }
     }
 }

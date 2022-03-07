@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
@@ -39,14 +38,11 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
 
             // Assert
             Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
-            Assert.AreEqual((SerializableFailureMechanismCategoryGroup) 0, assemblyResult.CategoryGroup);
-            Assert.IsNull(assemblyResult.Probability);
+            Assert.AreEqual(0, assemblyResult.Probability);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismAssemblyResult>(
                 nameof(SerializableFailureMechanismAssemblyResult.AssemblyMethod), "assemblagemethode");
-            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismAssemblyResult>(
-                nameof(SerializableFailureMechanismAssemblyResult.CategoryGroup), "categorieTraject");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismAssemblyResult>(
                 nameof(SerializableFailureMechanismAssemblyResult.Probability), "faalkans");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismAssemblyResult>(
@@ -54,57 +50,21 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
         }
 
         [Test]
-        public void Constructor_WithValidData_ReturnsExpectedValues()
+        [TestCase(true, SerializableAssemblyMethod.Manual)]
+        [TestCase(false, SerializableAssemblyMethod.WBI1B1)]
+        public void Constructor_WithValidData_ReturnsExpectedValues(bool isManual, SerializableAssemblyMethod expectedAssemblyMethod)
         {
             // Setup
             var random = new Random(39);
-            var category = random.NextEnumValue<SerializableFailureMechanismCategoryGroup>();
-            var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
             double probability = random.NextDouble();
 
             // Call
-            var assemblyResult = new SerializableFailureMechanismAssemblyResult(assemblyMethod, category, probability);
+            var assemblyResult = new SerializableFailureMechanismAssemblyResult(probability, isManual);
 
             // Assert
-            Assert.AreEqual(category, assemblyResult.CategoryGroup);
             Assert.AreEqual(probability, assemblyResult.Probability);
-            Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
+            Assert.AreEqual(expectedAssemblyMethod, assemblyResult.AssemblyMethod);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
-        }
-
-        [Test]
-        [TestCase(0.5)]
-        [TestCase(double.NaN)]
-        public void ShouldSerializeProbability_WithProbabilityValues_ReturnsTrue(double probability)
-        {
-            // Setup
-            var random = new Random(39);
-            var assemblyResult = new SerializableFailureMechanismAssemblyResult(
-                random.NextEnumValue<SerializableAssemblyMethod>(),
-                random.NextEnumValue<SerializableFailureMechanismCategoryGroup>(),
-                probability);
-
-            // Call
-            bool shouldSerialize = assemblyResult.ShouldSerializeProbability();
-
-            // Assert
-            Assert.IsTrue(shouldSerialize);
-        }
-
-        [Test]
-        public void ShouldSerializeProbability_WithoutProbability_ReturnsFalse()
-        {
-            // Setup
-            var random = new Random(39);
-            var assemblyResult = new SerializableFailureMechanismAssemblyResult(
-                random.NextEnumValue<SerializableAssemblyMethod>(),
-                random.NextEnumValue<SerializableFailureMechanismCategoryGroup>());
-
-            // Call
-            bool shouldSerialize = assemblyResult.ShouldSerializeProbability();
-
-            // Assert
-            Assert.IsFalse(shouldSerialize);
         }
     }
 }

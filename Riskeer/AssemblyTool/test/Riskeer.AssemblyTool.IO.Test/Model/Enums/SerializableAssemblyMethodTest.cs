@@ -91,6 +91,9 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                 },
                 {
                     SerializableAssemblyMethod.WBI3C1, 20
+                },
+                {
+                    SerializableAssemblyMethod.Manual, 21
                 }
             };
 
@@ -156,6 +159,9 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                 },
                 {
                     SerializableAssemblyMethod.WBI3C1, "WBI-3C-1"
+                },
+                {
+                    SerializableAssemblyMethod.Manual, "Handmatig"
                 }
             };
     }

@@ -59,7 +59,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.AreEqual("Envelope", AssemblyXmlIdentifiers.Envelope);
 
             Assert.AreEqual("Toetsspoor", AssemblyXmlIdentifiers.FailureMechanism);
-            Assert.AreEqual("categorieTraject", AssemblyXmlIdentifiers.FailureMechanismCategoryGroup);
             Assert.AreEqual("toetsoordeel", AssemblyXmlIdentifiers.FailureMechanismAssemblyResult);
             Assert.AreEqual("ToetsspoorID", AssemblyXmlIdentifiers.FailureMechanismId);
             Assert.AreEqual("ToetsspoorIDRef", AssemblyXmlIdentifiers.FailureMechanismIdRef);

@@ -22,11 +22,9 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Creators;
-using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.TestUtil;
 
 namespace Riskeer.Integration.IO.Test.Creators
@@ -46,38 +44,11 @@ namespace Riskeer.Integration.IO.Test.Creators
         }
 
         [Test]
-        public void Create_WithExportableFailureMechanismAssemblyResultAndResultNone_ThrowsAssemblyCreatorException()
-        {
-            // Setup
-            var random = new Random(21);
-            var result = new ExportableFailureMechanismAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                      FailureMechanismAssemblyCategoryGroup.None);
-
-            // Call
-            void Call() => SerializableFailureMechanismResultCreator.Create(result);
-
-            // Assert
-            var exception = Assert.Throws<AssemblyCreatorException>(Call);
-            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
-        }
-
-        [Test]
         public void Create_WithExportableFailureMechanismAssemblyResult_ReturnsSerializableFailureMechanismAssemblyResult()
         {
             // Setup
             var random = new Random(21);
-            var result = new ExportableFailureMechanismAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                      random.NextEnumValue(new[]
-                                                                      {
-                                                                          FailureMechanismAssemblyCategoryGroup.NotApplicable,
-                                                                          FailureMechanismAssemblyCategoryGroup.It,
-                                                                          FailureMechanismAssemblyCategoryGroup.IIt,
-                                                                          FailureMechanismAssemblyCategoryGroup.IIIt,
-                                                                          FailureMechanismAssemblyCategoryGroup.IVt,
-                                                                          FailureMechanismAssemblyCategoryGroup.Vt,
-                                                                          FailureMechanismAssemblyCategoryGroup.VIt,
-                                                                          FailureMechanismAssemblyCategoryGroup.VIIt
-                                                                      }));
+            var result = new ExportableFailureMechanismAssemblyResult(random.NextDouble(), random.NextBoolean());
 
             // Call
             SerializableFailureMechanismAssemblyResult serializableAssemblyResult = SerializableFailureMechanismResultCreator.Create(result);

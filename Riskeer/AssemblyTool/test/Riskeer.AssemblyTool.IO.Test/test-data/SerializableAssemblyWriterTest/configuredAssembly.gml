@@ -33,8 +33,8 @@
       <asm:typeToetsspoor>GABI</asm:typeToetsspoor>
       <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
       <asm:toetsoordeel>
-        <asm:assemblagemethode>WBI-1A-1</asm:assemblagemethode>
-        <asm:categorieTraject>II-traject</asm:categorieTraject>
+        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:faalkans>0.08419</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:toetsoordeel>
     </asm:Toetsspoor>
