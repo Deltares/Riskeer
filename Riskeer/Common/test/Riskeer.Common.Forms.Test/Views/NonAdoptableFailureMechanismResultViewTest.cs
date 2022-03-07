@@ -61,42 +61,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             testForm.Dispose();
         }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new TestNonAdoptableFailureMechanism();
-
-            // Call
-            void Call() => new NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, null, (fm, ass) => double.NaN);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSection", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_GetFailureMechanismAssemblyResultFuncNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new TestNonAdoptableFailureMechanism();
-
-            // Call
-            void Call() => new NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("getFailureMechanismAssemblyResultFunc", exception.ParamName);
-            mocks.VerifyAll();
-        }
-
+        
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -197,28 +162,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual("+I", cells[assemblyGroupIndex].FormattedValue);
             }
         }
-
-        [Test]
-        public void FailureMechanismResultsView_AllDataSet_SetsResultOnFailurePathAssemblyProbability()
-        {
-            // Setup
-            var failureMechanism = new TestNonAdoptableFailureMechanism();
-            var assessmentSection = new AssessmentSectionStub();
-
-            // Call
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowFailureMechanismResultsView(failureMechanism, assessmentSection, (fm, ass) => 0.1))
-            {
-                // Assert
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                Assert.AreEqual("1/10", failurePathAssemblyProbabilityTextBox.Text);
-            }
-        }
-
-        private static TextBox GetFailurePathAssemblyProbabilityTextBox()
-        {
-            return (TextBox) new ControlTester("failurePathAssemblyProbabilityTextBox").TheObject;
-        }
         
         private NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism> ShowFailureMechanismResultsView(TestNonAdoptableFailureMechanism failureMechanism)
         {
@@ -233,13 +176,13 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism> ShowFailureMechanismResultsView(
             TestNonAdoptableFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
-            Func<TestNonAdoptableFailureMechanism, IAssessmentSection, double> getFailureMechanismAssemblyResultFunc)
+            Func<TestNonAdoptableFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
         {
             var failureMechanismResultView = new NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism>(
                 failureMechanism.SectionResults,
                 failureMechanism,
                 assessmentSection,
-                getFailureMechanismAssemblyResultFunc);
+                performFailureMechanismAssemblyFunc);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 

@@ -43,9 +43,6 @@ namespace Riskeer.Common.Forms.Views
         private const int sectionProbabilityIndex = 6;
         private const int assemblyGroupIndex = 7;
 
-        private readonly IAssessmentSection assessmentSection;
-        private readonly Func<TFailureMechanism, IAssessmentSection, double> getFailureMechanismAssemblyResultFunc;
-
         /// <summary>
         /// Creates a new instance of <see cref="NonAdoptableFailureMechanismResultView{TFailureMechanism}"/>.
         /// </summary>
@@ -53,35 +50,20 @@ namespace Riskeer.Common.Forms.Views
         /// show in the view.</param>
         /// <param name="failureMechanism">The failure mechanism the results belong to.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism results belong to.</param>
-        /// <param name="getFailureMechanismAssemblyResultFunc">The <see cref="Func{T1, T2, TResult}"/> to get the
-        /// assembly result of a failure mechanism.</param>
+        /// <param name="performFailureMechanismAssemblyFunc">The function to perform an assembly on the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public NonAdoptableFailureMechanismResultView(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> failureMechanismSectionResults,
                                                       TFailureMechanism failureMechanism,
                                                       IAssessmentSection assessmentSection,
-                                                      Func<TFailureMechanism, IAssessmentSection, double> getFailureMechanismAssemblyResultFunc)
-            : base(failureMechanismSectionResults, failureMechanism)
-        {
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (getFailureMechanismAssemblyResultFunc == null)
-            {
-                throw new ArgumentNullException(nameof(getFailureMechanismAssemblyResultFunc));
-            }
-
-            this.assessmentSection = assessmentSection;
-            this.getFailureMechanismAssemblyResultFunc = getFailureMechanismAssemblyResultFunc;
-        }
+                                                      Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
+            : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc) {}
 
         protected override NonAdoptableFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(NonAdoptableFailureMechanismSectionResult sectionResult)
         {
             return new NonAdoptableFailureMechanismSectionResultRow(
                 sectionResult,
                 CreateErrorProvider(),
-                assessmentSection,
+                AssessmentSection,
                 new NonAdoptableFailureMechanismSectionResultRow.ConstructionProperties
                 {
                     InitialFailureMechanismResultTypeIndex = initialFailureMechanismResultTypeIndex,
@@ -91,11 +73,6 @@ namespace Riskeer.Common.Forms.Views
                     SectionProbabilityIndex = sectionProbabilityIndex,
                     AssemblyGroupIndex = assemblyGroupIndex
                 });
-        }
-
-        protected override double GetFailureMechanismAssemblyResult()
-        {
-            return getFailureMechanismAssemblyResultFunc(FailureMechanism, assessmentSection);
         }
 
         protected override void AddDataGridColumns()
