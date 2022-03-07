@@ -32,7 +32,6 @@
     <ProjectReference Include="..\..\..\..\Core\Gui\src\Core.Gui\Core.Gui.csproj" />
     <ProjectReference Include="..\..\..\..\Core\Gui\test\Core.Gui.TestUtil\Core.Gui.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj" />
-    <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.Forms\Riskeer.AssemblyTool.Forms.csproj" />
     <ProjectReference Include="..\..\..\AssemblyTool\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj" />
     <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.Data.TestUtil\Riskeer.AssemblyTool.Data.TestUtil.csproj" />
     <ProjectReference Include="..\..\..\AssemblyTool\test\Riskeer.AssemblyTool.KernelWrapper.TestUtil\Riskeer.AssemblyTool.KernelWrapper.TestUtil.csproj" />
@@ -66,17 +65,4 @@
           <Version>1.0.109.2</Version>
       </PackageReference>
   </ItemGroup>
-    <ItemGroup>
-        <EmbeddedResource Update="Properties\Resources.resx">
-            <Generator>ResXFileCodeGenerator</Generator>
-            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="Properties\Resources.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Resources.resx</DependentUpon>
-        </Compile>
-    </ItemGroup>
 </Project>
