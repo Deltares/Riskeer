@@ -31,7 +31,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
     {
         [Test]
         [TestCase(TestEnum.NoDisplayName, "NoDisplayName")]
-        [TestCase(TestEnum.DisplayName, "Display Name")]
+        [TestCase(TestEnum.DisplayName, "Display name")]
         public void GetDisplayName_WithValidEnumWithAndWithoutDisplayNameAttribute_ReturnsExpectedDisplayName(TestEnum value, string expectedDisplayName)
         {
             // Call
