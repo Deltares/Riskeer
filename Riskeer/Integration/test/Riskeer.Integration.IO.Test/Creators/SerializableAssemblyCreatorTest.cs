@@ -60,7 +60,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             IEnumerable<Point2D> geometry = CreateGeometry();
             ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly =
                 ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult();
-            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanisms =
+            IEnumerable<ExportableFailureMechanism> failureMechanisms =
                 new[]
                 {
                     CreateFailureMechanism(),
@@ -131,19 +131,6 @@ namespace Riskeer.Integration.IO.Test.Creators
             }, random.NextDouble(), random.NextDouble(), random.NextEnumValue<ExportableAssemblyMethod>());
         }
 
-        private static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> CreateFailureMechanismWithProbability()
-        {
-            var random = new Random(21);
-            ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
-            return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
-                ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
-                new[]
-                {
-                    CreateSectionResult(failureMechanismSection)
-                },
-                random.NextEnumValue<ExportableFailureMechanismType>());
-        }
-
         private static ExportableCombinedSectionAssembly CreateCombinedSectionAssembly(ExportableCombinedFailureMechanismSection section)
         {
             return new ExportableCombinedSectionAssembly(section,
@@ -162,11 +149,11 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                random.NextEnumValue<ExportableFailureMechanismType>());
         }
 
-        private static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateFailureMechanism()
+        private static ExportableFailureMechanism CreateFailureMechanism()
         {
             var random = new Random(21);
             ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
-            return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+            return new ExportableFailureMechanism(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
                 new[]
                 {

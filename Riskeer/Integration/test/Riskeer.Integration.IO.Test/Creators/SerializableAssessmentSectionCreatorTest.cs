@@ -74,7 +74,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             return new ExportableAssessmentSection(
                 name, id, CreateGeometry(), ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
+                Enumerable.Empty<ExportableFailureMechanism>(),
                 Enumerable.Empty<ExportableCombinedSectionAssembly>());
         }
 

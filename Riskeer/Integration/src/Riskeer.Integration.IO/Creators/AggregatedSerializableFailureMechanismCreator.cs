@@ -41,17 +41,17 @@ namespace Riskeer.Integration.IO.Creators
         /// <param name="idGenerator">The generator to generate ids for the serializable components.</param>
         /// <param name="serializableTotalAssemblyResult">The <see cref="SerializableTotalAssemblyResult"/>
         /// the serializable components belong to.</param>
-        /// <param name="failureMechanism">The <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
-        /// without a probability to  create an <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
+        /// <param name="failureMechanism">The <see cref="ExportableFailureMechanism"/>
+        /// to create an <see cref="AggregatedSerializableFailureMechanism"/> for.</param>
         /// <returns>An <see cref="AggregatedSerializableFailureMechanism"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="failureMechanism"/>
         /// is invalid to create a serializable counterpart for.</exception>
-        /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
+        /// <exception cref="NotSupportedException">Thrown when the <see cref="ExportableFailureMechanism"/>
         /// contains unsupported items in the failure mechanism section assembly results.</exception>
         public static AggregatedSerializableFailureMechanism Create(IdentifierGenerator idGenerator,
                                                                     SerializableTotalAssemblyResult serializableTotalAssemblyResult,
-                                                                    ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism)
+                                                                    ExportableFailureMechanism failureMechanism)
         {
             if (idGenerator == null)
             {

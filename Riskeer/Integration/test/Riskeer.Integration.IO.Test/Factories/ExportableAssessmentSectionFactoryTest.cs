@@ -111,7 +111,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         #region TestHelpers FailureMechanismsWithProbability
 
         private static void AssertExportableFailureMechanismsWithProbability(
-            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> exportableFailureMechanisms,
+            IEnumerable<ExportableFailureMechanism> exportableFailureMechanisms,
             AssessmentSection assessmentSection)
         {
             Assert.AreEqual(6, exportableFailureMechanisms.Count());
@@ -143,11 +143,11 @@ namespace Riskeer.Integration.IO.Test.Factories
 
         private static void AssertExportableFailureMechanismWithProbability(ExportableFailureMechanismType expectedFailureMechanismCode,
                                                                             IFailurePath<FailureMechanismSectionResult> failureMechanism,
-                                                                            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> actualExportableFailureMechanism)
+                                                                            ExportableFailureMechanism actualExportableFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanismCode, actualExportableFailureMechanism.Code);
 
-            ExportableFailureMechanismAssemblyResultWithProbability exportableFailureMechanismAssemblyResult = actualExportableFailureMechanism.FailureMechanismAssembly;
+            ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssemblyResult = actualExportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(assemblyCategoryGroup, exportableFailureMechanismAssemblyResult.AssemblyGroup);
             Assert.AreEqual(0, exportableFailureMechanismAssemblyResult.Probability);
             Assert.AreEqual(ExportableAssemblyMethod.WBI1B1, exportableFailureMechanismAssemblyResult.AssemblyMethod);
@@ -160,7 +160,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         #region TestHelpers FailureMechanismsWithoutProbability
 
         private static void AssertExportableFailureMechanismsWithoutProbability(
-            IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> exportableFailureMechanisms,
+            IEnumerable<ExportableFailureMechanism> exportableFailureMechanisms,
             AssessmentSection assessmentSection)
         {
             Assert.AreEqual(9, exportableFailureMechanisms.Count());
@@ -204,7 +204,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
         private static void AssertExportableFailureMechanismWithoutProbability(ExportableFailureMechanismType expectedFailureMechanismCode,
                                                                                IFailurePath<FailureMechanismSectionResult> failureMechanism,
-                                                                               ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> actualExportableFailureMechanism)
+                                                                               ExportableFailureMechanism actualExportableFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanismCode, actualExportableFailureMechanism.Code);
 

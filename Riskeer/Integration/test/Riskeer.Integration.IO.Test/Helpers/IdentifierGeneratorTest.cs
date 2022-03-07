@@ -153,7 +153,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
                                                    id,
                                                    Enumerable.Empty<Point2D>(),
                                                    ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
-                                                   Enumerable.Empty<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>>(),
+                                                   Enumerable.Empty<ExportableFailureMechanism>(),
                                                    Enumerable.Empty<ExportableCombinedSectionAssembly>());
         }
     }

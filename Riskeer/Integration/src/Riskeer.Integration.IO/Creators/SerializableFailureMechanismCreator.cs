@@ -39,15 +39,15 @@ namespace Riskeer.Integration.IO.Creators
         /// <param name="idGenerator">The generator to generate an id for the <see cref="SerializableFailureMechanism"/>.</param>
         /// <param name="serializableTotalAssembly">The <see cref="SerializableTotalAssemblyResult"/>
         /// the <see cref="SerializableFailureMechanism"/> belongs to.</param>
-        /// <param name="failureMechanism">The <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
-        /// without a probability assembly result to create a <see cref="SerializableFailureMechanism"/> for.</param>
+        /// <param name="failureMechanism">The <see cref="ExportableFailureMechanism"/>
+        /// to create a <see cref="SerializableFailureMechanism"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanism"/></returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="failureMechanism"/> is invalid to
         /// create a serializable counterpart for.</exception>
         public static SerializableFailureMechanism Create(IdentifierGenerator idGenerator,
                                                           SerializableTotalAssemblyResult serializableTotalAssembly,
-                                                          ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism)
+                                                          ExportableFailureMechanism failureMechanism)
         {
             if (idGenerator == null)
             {

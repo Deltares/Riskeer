@@ -73,7 +73,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             // Setup
             var idGenerator = new IdentifierGenerator();
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> failureMechanism = CreateExportableFailureMechanismWithoutProbability();
+            ExportableFailureMechanism failureMechanism = CreateExportableFailureMechanismWithoutProbability();
 
             const string totalAssemblyId = "totalAssemblyId";
             SerializableTotalAssemblyResult serializableTotalAssembly = CreateSerializableTotalAssembly(totalAssemblyId);
@@ -92,10 +92,10 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                                                   serializableFailureMechanism.FailureMechanismAssemblyResult);
         }
 
-        private static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateExportableFailureMechanismWithoutProbability()
+        private static ExportableFailureMechanism CreateExportableFailureMechanismWithoutProbability()
         {
             var random = new Random(21);
-            return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+            return new ExportableFailureMechanism(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
                 Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
                 random.NextEnumValue<ExportableFailureMechanismType>());

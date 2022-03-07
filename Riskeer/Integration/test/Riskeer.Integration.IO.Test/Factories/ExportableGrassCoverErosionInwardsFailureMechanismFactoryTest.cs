@@ -87,7 +87,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             };
 
             // Call
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
+            ExportableFailureMechanism exportableFailureMechanism =
                 ExportableGrassCoverErosionInwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert
@@ -108,13 +108,13 @@ namespace Riskeer.Integration.IO.Test.Factories
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
+            ExportableFailureMechanism exportableFailureMechanism =
                 ExportableGrassCoverErosionInwardsFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(ExportableFailureMechanismType.GEKB, exportableFailureMechanism.Code);
 
-            ExportableFailureMechanismAssemblyResultWithProbability exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
+            ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.None, exportableFailureMechanismAssembly.AssemblyGroup);
             Assert.AreEqual(0, exportableFailureMechanismAssembly.Probability);
             Assert.AreEqual(ExportableAssemblyMethod.WBI1B1, exportableFailureMechanismAssembly.AssemblyMethod);

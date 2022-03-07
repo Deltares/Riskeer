@@ -47,7 +47,7 @@ namespace Riskeer.Integration.IO.Assembly
                                            string id,
                                            IEnumerable<Point2D> geometry,
                                            ExportableAssessmentSectionAssemblyResult assessmentSectionAssembly,
-                                           IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> failureMechanisms,
+                                           IEnumerable<ExportableFailureMechanism> failureMechanisms,
                                            IEnumerable<ExportableCombinedSectionAssembly> combinedSectionAssemblyResults)
         {
             if (name == null)
@@ -110,7 +110,7 @@ namespace Riskeer.Integration.IO.Assembly
         /// <summary>
         /// Gets the collection of assembly results of failure mechanisms belonging to this assessment section.
         /// </summary>
-        public IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> FailureMechanisms { get; }
+        public IEnumerable<ExportableFailureMechanism> FailureMechanisms { get; }
 
         /// <summary>
         /// Gets the collection of combined section assembly results of this assessment section.

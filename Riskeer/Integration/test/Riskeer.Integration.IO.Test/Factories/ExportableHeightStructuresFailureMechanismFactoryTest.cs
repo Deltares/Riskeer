@@ -48,11 +48,10 @@ namespace Riskeer.Integration.IO.Test.Factories
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ExportableHeightStructuresFailureMechanismFactory.CreateExportableFailureMechanism(
-                null, assessmentSection);
+            void Call() => ExportableHeightStructuresFailureMechanismFactory.CreateExportableFailureMechanism(null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
 
             mocks.VerifyAll();
@@ -62,11 +61,10 @@ namespace Riskeer.Integration.IO.Test.Factories
         public void CreateExportableFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableHeightStructuresFailureMechanismFactory.CreateExportableFailureMechanism(
-                new HeightStructuresFailureMechanism(), null);
+            void Call() => ExportableHeightStructuresFailureMechanismFactory.CreateExportableFailureMechanism(new HeightStructuresFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -87,7 +85,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             };
 
             // Call
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
+            ExportableFailureMechanism exportableFailureMechanism =
                 ExportableHeightStructuresFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert
@@ -108,13 +106,13 @@ namespace Riskeer.Integration.IO.Test.Factories
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
+            ExportableFailureMechanism exportableFailureMechanism =
                 ExportableHeightStructuresFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(ExportableFailureMechanismType.HTKW, exportableFailureMechanism.Code);
 
-            ExportableFailureMechanismAssemblyResultWithProbability exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
+            ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(FailureMechanismAssemblyCategoryGroup.None, exportableFailureMechanismAssembly.AssemblyGroup);
             Assert.AreEqual(0, exportableFailureMechanismAssembly.Probability);
             Assert.AreEqual(ExportableAssemblyMethod.WBI1B1, exportableFailureMechanismAssembly.AssemblyMethod);

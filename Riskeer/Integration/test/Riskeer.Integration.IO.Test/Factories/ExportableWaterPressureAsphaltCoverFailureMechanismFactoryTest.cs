@@ -48,11 +48,10 @@ namespace Riskeer.Integration.IO.Test.Factories
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(
-                null, assessmentSection);
+            void Call() => ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
 
             mocks.VerifyAll();
@@ -62,11 +61,10 @@ namespace Riskeer.Integration.IO.Test.Factories
         public void CreateExportableFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(
-                new WaterPressureAsphaltCoverFailureMechanism(), null);
+            void Call() => ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(new WaterPressureAsphaltCoverFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -87,7 +85,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
 
             // Call
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
+            ExportableFailureMechanism exportableFailureMechanism =
                 ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert
@@ -111,7 +109,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
 
             // Call
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
+            ExportableFailureMechanism exportableFailureMechanism =
                 ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert

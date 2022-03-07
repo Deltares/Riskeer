@@ -27,20 +27,20 @@ using Riskeer.Integration.IO.Assembly;
 namespace Riskeer.Integration.IO.Factories
 {
     /// <summary>
-    /// Factory to create instances of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>.
+    /// Factory to create instances of <see cref="ExportableFailureMechanism"/>.
     /// </summary>
     public static class ExportableFailureMechanismFactory
     {
         /// <summary>
-        /// Creates a default instance of an <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
+        /// Creates a default instance of an <see cref="ExportableFailureMechanism"/>
         /// with a probability based on its input parameters.
         /// </summary>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <param name="failureMechanismCode">The <see cref="ExportableFailureMechanismType"/> of the failure mechanism.</param>
         /// <param name="assemblyMethod">The assembly method which is used to obtain the general assembly result of the failure mechanism.</param>
-        /// <returns>An <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with default values.</returns>
+        /// <returns>An <see cref="ExportableFailureMechanism"/> with default values.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> CreateDefaultExportableFailureMechanismWithProbability(
+        public static ExportableFailureMechanism CreateDefaultExportableFailureMechanismWithProbability(
             IAssessmentSection assessmentSection,
             ExportableFailureMechanismType failureMechanismCode,
             ExportableAssemblyMethod assemblyMethod)
@@ -50,7 +50,7 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>(
+            return new ExportableFailureMechanism(
                 new ExportableFailureMechanismAssemblyResultWithProbability(assemblyMethod,
                                                                             FailureMechanismAssemblyCategoryGroup.NotApplicable,
                                                                             0),
@@ -65,15 +65,15 @@ namespace Riskeer.Integration.IO.Factories
         }
 
         /// <summary>
-        /// Creates a default instance of an <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
+        /// Creates a default instance of an <see cref="ExportableFailureMechanism"/>
         /// without a probability based on its input parameters.
         /// </summary>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <param name="failureMechanismCode">The <see cref="ExportableFailureMechanismType"/> of the failure mechanism.</param>
         /// <param name="assemblyMethod">The assembly method which is used to obtain the general assembly result of the failure mechanism.</param>
-        /// <returns>An <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with default values.</returns>
+        /// <returns>An <see cref="ExportableFailureMechanism"/> with default values.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateDefaultExportableFailureMechanismWithoutProbability(
+        public static ExportableFailureMechanism CreateDefaultExportableFailureMechanismWithoutProbability(
             IAssessmentSection assessmentSection,
             ExportableFailureMechanismType failureMechanismCode,
             ExportableAssemblyMethod assemblyMethod)
@@ -83,7 +83,7 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+            return new ExportableFailureMechanism(
                 new ExportableFailureMechanismAssemblyResult(assemblyMethod,
                                                              FailureMechanismAssemblyCategoryGroup.NotApplicable),
                 new[]

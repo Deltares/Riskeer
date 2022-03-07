@@ -64,7 +64,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability> exportableFailureMechanism =
+            ExportableFailureMechanism exportableFailureMechanism =
                 ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithProbability(assessmentSection,
                                                                                                          failureMechanismCode,
                                                                                                          failureMechanismAssemblyMethod);
@@ -84,12 +84,11 @@ namespace Riskeer.Integration.IO.Test.Factories
             var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            TestDelegate call = () => ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(null,
-                                                                                                                                  failureMechanismCode,
-                                                                                                                                  failureMechanismAssemblyMethod);
+            void Call() => ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(
+                null, failureMechanismCode, failureMechanismAssemblyMethod);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -107,7 +106,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             var failureMechanismAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
+            ExportableFailureMechanism exportableFailureMechanism =
                 ExportableFailureMechanismFactory.CreateDefaultExportableFailureMechanismWithoutProbability(assessmentSection,
                                                                                                             failureMechanismCode,
                                                                                                             failureMechanismAssemblyMethod);

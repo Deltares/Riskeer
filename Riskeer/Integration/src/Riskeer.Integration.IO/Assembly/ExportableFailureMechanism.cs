@@ -27,19 +27,17 @@ namespace Riskeer.Integration.IO.Assembly
     /// <summary>
     /// Class that holds all the information to export the assembly of a failure mechanism.
     /// </summary>
-    /// <typeparam name="TFailureMechanismAssemblyResult">The type of <see cref="ExportableFailureMechanismAssemblyResult"/>.</typeparam>
-    public class ExportableFailureMechanism<TFailureMechanismAssemblyResult>
-        where TFailureMechanismAssemblyResult : ExportableFailureMechanismAssemblyResult
+    public class ExportableFailureMechanism
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>.
+        /// Creates a new instance of <see cref="ExportableFailureMechanism"/>.
         /// </summary>
         /// <param name="failureMechanismAssembly">The assembly result of the failure mechanism.</param>
         /// <param name="sectionAssemblyResults">The assembly results for the failure mechanism sections.</param>
         /// <param name="code">The code of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismAssembly"/>,
         /// or <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
-        public ExportableFailureMechanism(TFailureMechanismAssemblyResult failureMechanismAssembly,
+        public ExportableFailureMechanism(ExportableFailureMechanismAssemblyResult failureMechanismAssembly,
                                           IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> sectionAssemblyResults,
                                           ExportableFailureMechanismType code)
         {
@@ -61,7 +59,7 @@ namespace Riskeer.Integration.IO.Assembly
         /// <summary>
         /// Gets the assembly result of the failure mechanism.
         /// </summary>
-        public TFailureMechanismAssemblyResult FailureMechanismAssembly { get; }
+        public ExportableFailureMechanismAssemblyResult FailureMechanismAssembly { get; }
 
         /// <summary>
         /// Gets the collection of assembly results.

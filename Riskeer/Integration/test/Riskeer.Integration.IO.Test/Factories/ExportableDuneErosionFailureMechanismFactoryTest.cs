@@ -48,11 +48,10 @@ namespace Riskeer.Integration.IO.Test.Factories
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => ExportableDuneErosionFailureMechanismFactory.CreateExportableFailureMechanism(
-                null, assessmentSection);
+            void Call() => ExportableDuneErosionFailureMechanismFactory.CreateExportableFailureMechanism(null, assessmentSection);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
 
             mocks.VerifyAll();
@@ -62,11 +61,10 @@ namespace Riskeer.Integration.IO.Test.Factories
         public void CreateExportableFailureMechanism_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableDuneErosionFailureMechanismFactory.CreateExportableFailureMechanism(
-                new DuneErosionFailureMechanism(), null);
+            void Call() => ExportableDuneErosionFailureMechanismFactory.CreateExportableFailureMechanism(new DuneErosionFailureMechanism(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -87,7 +85,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
 
             // Call
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
+            ExportableFailureMechanism exportableFailureMechanism =
                 ExportableDuneErosionFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert
@@ -111,7 +109,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(failureMechanism, random.Next(2, 10));
 
             // Call
-            ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> exportableFailureMechanism =
+            ExportableFailureMechanism exportableFailureMechanism =
                 ExportableDuneErosionFailureMechanismFactory.CreateExportableFailureMechanism(failureMechanism, assessmentSection);
 
             // Assert

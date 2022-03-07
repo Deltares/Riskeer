@@ -49,7 +49,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             // Call
             void Call() => AggregatedSerializableFailureMechanismCreator.Create(
                 null, new SerializableTotalAssemblyResult(),
-                new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+                new ExportableFailureMechanism(
                     ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
                     Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
                     random.NextEnumValue<ExportableFailureMechanismType>()));
@@ -68,7 +68,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             // Call
             void Call() => AggregatedSerializableFailureMechanismCreator.Create(
                 new IdentifierGenerator(), null,
-                new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+                new ExportableFailureMechanism(
                     ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
                     Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
                     random.NextEnumValue<ExportableFailureMechanismType>()));
@@ -97,7 +97,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             var random = new Random(21);
             ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
 
-            var failureMechanism = new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+            var failureMechanism = new ExportableFailureMechanism(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithProbability(),
                 new[]
                 {
@@ -124,7 +124,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             // Setup
             var random = new Random(21);
-            var failureMechanism = new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+            var failureMechanism = new ExportableFailureMechanism(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
                 failureMechanismSectionAssemblyResults,
                 random.NextEnumValue<ExportableFailureMechanismType>());
@@ -158,14 +158,13 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                     assertSectionAssemblyResultsAction);
         }
 
-        private static void AssertFailureMechanismSectionAssemblies<T>(
-            ExportableFailureMechanism<T> expectedFailureMechanism,
+        private static void AssertFailureMechanismSectionAssemblies(
+            ExportableFailureMechanism expectedFailureMechanism,
             SerializableFailureMechanismSectionCollection expectedSerializableFailureMechanismSectionCollection,
             SerializableFailureMechanism expectedSerializableFailureMechanism,
             IEnumerable<SerializableFailureMechanismSection> serializableFailureMechanismSections,
             IEnumerable<SerializableFailureMechanismSectionAssembly> serializableFailureMechanismSectionAssemblies,
             Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase, SerializableFailureMechanismSectionAssembly> assertSectionAssemblyResultAction)
-            where T : ExportableFailureMechanismAssemblyResult
         {
             IEnumerable<ExportableFailureMechanismSection> expectedSections = expectedFailureMechanism.SectionAssemblyResults.Select(sar => sar.FailureMechanismSection);
             int expectedNrOfSections = expectedSections.Count();

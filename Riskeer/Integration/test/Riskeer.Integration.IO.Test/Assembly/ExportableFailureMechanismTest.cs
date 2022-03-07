@@ -39,7 +39,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
             var random = new Random(21);
 
             // Call
-            void Call() => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+            void Call() => new ExportableFailureMechanism(
                 null, Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
                 random.NextEnumValue<ExportableFailureMechanismType>());
 
@@ -55,7 +55,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
             var random = new Random(21);
 
             // Call
-            void Call() => new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+            void Call() => new ExportableFailureMechanism(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResultWithoutProbability(),
                 null, random.NextEnumValue<ExportableFailureMechanismType>());
 
@@ -76,7 +76,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
             var code = random.NextEnumValue<ExportableFailureMechanismType>();
 
             // Call
-            var failureMechanism = new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+            var failureMechanism = new ExportableFailureMechanism(
                 failureMechanismAssembly, sectionAssemblyResults, code);
 
             // Assert

@@ -32,7 +32,7 @@ using Riskeer.DuneErosion.Data;
 namespace Riskeer.Integration.IO.Factories
 {
     /// <summary>
-    /// Factory to create instances of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
+    /// Factory to create instances of <see cref="ExportableFailureMechanism"/>
     /// with assembly results for dune erosion.
     /// </summary>
     public static class ExportableDuneErosionFailureMechanismFactory
@@ -41,16 +41,16 @@ namespace Riskeer.Integration.IO.Factories
         private const ExportableAssemblyMethod failureMechanismAssemblyMethod = ExportableAssemblyMethod.WBI1A1;
 
         /// <summary>
-        /// Creates an <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
+        /// Creates an <see cref="ExportableFailureMechanism"/>
         /// with assembly results based on the input parameters.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> to create an
-        /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> for.</param>
+        /// <see cref="ExportableFailureMechanism"/> for.</param>
         /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
-        /// <returns>An <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with assembly results.</returns>
+        /// <returns>An <see cref="ExportableFailureMechanism"/> with assembly results.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
-        public static ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult> CreateExportableFailureMechanism(
+        public static ExportableFailureMechanism CreateExportableFailureMechanism(
             DuneErosionFailureMechanism failureMechanism,
             IAssessmentSection assessmentSection)
         {
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.IO.Factories
             
             const FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = FailureMechanismAssemblyCategoryGroup.None;
 
-            return new ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>(
+            return new ExportableFailureMechanism(
                 new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
                 CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
                 failureMechanismCode);

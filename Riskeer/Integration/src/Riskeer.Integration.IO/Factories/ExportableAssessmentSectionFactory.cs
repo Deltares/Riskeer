@@ -77,15 +77,15 @@ namespace Riskeer.Integration.IO.Factories
         }
 
         /// <summary>
-        /// Creates a collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
+        /// Creates a collection of <see cref="ExportableFailureMechanism"/>
         /// for failure mechanisms with an assembly result with a probability based on <paramref name="assessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to create a collection of
-        /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with probability for.</param>
-        /// <returns>A collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> based on failure
+        /// <see cref="ExportableFailureMechanism"/> with probability for.</param>
+        /// <returns>A collection of <see cref="ExportableFailureMechanism"/> based on failure
         /// mechanisms with assembly results with a probability.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created  for <paramref name="assessmentSection"/>.</exception>
-        private static IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResultWithProbability>> CreateExportableFailureMechanismsWithProbability(AssessmentSection assessmentSection)
+        private static IEnumerable<ExportableFailureMechanism> CreateExportableFailureMechanismsWithProbability(AssessmentSection assessmentSection)
         {
             return new[]
             {
@@ -99,15 +99,15 @@ namespace Riskeer.Integration.IO.Factories
         }
 
         /// <summary>
-        /// Creates a collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/>
+        /// Creates a collection of <see cref="ExportableFailureMechanism"/>
         /// for failure mechanisms with an assembly result without a probability based on <paramref name="assessmentSection"/>.
         /// </summary>
         /// <param name="assessmentSection">The assessment section to create a collection of
-        /// <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> with probability for.</param>
-        /// <returns>A collection of <see cref="ExportableFailureMechanism{TFailureMechanismAssemblyResult}"/> based on failure
+        /// <see cref="ExportableFailureMechanism"/> with probability for.</param>
+        /// <returns>A collection of <see cref="ExportableFailureMechanism"/> based on failure
         /// mechanisms with assembly results without a probability.</returns>
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
-        private static IEnumerable<ExportableFailureMechanism<ExportableFailureMechanismAssemblyResult>> CreateExportableFailureMechanisms(AssessmentSection assessmentSection)
+        private static IEnumerable<ExportableFailureMechanism> CreateExportableFailureMechanisms(AssessmentSection assessmentSection)
         {
             return new[]
             {
