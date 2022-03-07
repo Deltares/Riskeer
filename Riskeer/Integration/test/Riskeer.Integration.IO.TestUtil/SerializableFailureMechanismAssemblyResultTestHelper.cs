@@ -46,34 +46,9 @@ namespace Riskeer.Integration.IO.TestUtil
         public static void AssertSerializableFailureMechanismAssemblyResult(ExportableFailureMechanismAssemblyResult expectedResult,
                                                                             SerializableFailureMechanismAssemblyResult actualResult)
         {
-            AssertSerializableBaseProperties(expectedResult, actualResult);
-            Assert.IsNull(actualResult.Probability);
-        }
-
-        /// <summary>
-        /// Asserts a <see cref="SerializableFailureMechanismAssemblyResult"/> against an
-        /// <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/>.
-        /// </summary>
-        /// <param name="expectedResult">The <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/> to assert against.</param>
-        /// <param name="actualResult">The <see cref="SerializableFailureMechanismAssemblyResult"/> to assert.</param>
-        /// <exception cref="AssertionException">Thrown when:
-        /// <list type="bullet">
-        /// <item>The assembly methods do not match, </item>
-        /// <item>The failure mechanism category group assembly results do not match,</item>
-        /// <item>The probabilities do not match.</item>
-        /// </list></exception>
-        public static void AssertSerializableFailureMechanismAssemblyResult(ExportableFailureMechanismAssemblyResultWithProbability expectedResult,
-                                                                            SerializableFailureMechanismAssemblyResult actualResult)
-        {
-            AssertSerializableBaseProperties(expectedResult, actualResult);
-            Assert.AreEqual(expectedResult.Probability, actualResult.Probability);
-        }
-
-        private static void AssertSerializableBaseProperties(ExportableFailureMechanismAssemblyResult expectedResult,
-                                                             SerializableFailureMechanismAssemblyResult actualResult)
-        {
             Assert.AreEqual(SerializableFailureMechanismCategoryGroupCreator.Create(expectedResult.AssemblyGroup), actualResult.CategoryGroup);
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedResult.AssemblyMethod), actualResult.AssemblyMethod);
+            Assert.IsNull(actualResult.Probability);
         }
     }
 }

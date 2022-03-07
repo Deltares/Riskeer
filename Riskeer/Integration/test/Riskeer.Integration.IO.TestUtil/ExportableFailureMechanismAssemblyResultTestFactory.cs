@@ -39,16 +39,5 @@ namespace Riskeer.Integration.IO.TestUtil
             return new ExportableFailureMechanismAssemblyResult(ExportableAssemblyMethod.WBI1A1,
                                                                 FailureMechanismAssemblyCategoryGroup.IVt);
         }
-
-        /// <summary>
-        /// Creates a default instance of <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/>.
-        /// </summary>
-        /// <returns>A default instance of <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/>.</returns>
-        public static ExportableFailureMechanismAssemblyResultWithProbability CreateResultWithProbability()
-        {
-            return new ExportableFailureMechanismAssemblyResultWithProbability(ExportableAssemblyMethod.WBI1B1,
-                                                                               FailureMechanismAssemblyCategoryGroup.IIt,
-                                                                               0.75);
-        }
     }
 }

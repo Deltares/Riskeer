@@ -35,13 +35,13 @@ namespace Riskeer.Integration.IO.Test.Creators
     public class SerializableFailureMechanismResultCreatorTest
     {
         [Test]
-        public void CreateWithFailureMechanismAssemblyResult_ResultNull_ThrowsArgumentNullException()
+        public void Create_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableFailureMechanismResultCreator.Create(null);
+            void Call() => SerializableFailureMechanismResultCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("result", exception.ParamName);
         }
 
@@ -54,10 +54,10 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                       FailureMechanismAssemblyCategoryGroup.None);
 
             // Call
-            TestDelegate call = () => SerializableFailureMechanismResultCreator.Create(result);
+            void Call() => SerializableFailureMechanismResultCreator.Create(result);
 
             // Assert
-            var exception = Assert.Throws<AssemblyCreatorException>(call);
+            var exception = Assert.Throws<AssemblyCreatorException>(Call);
             Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
@@ -78,60 +78,6 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                           FailureMechanismAssemblyCategoryGroup.VIt,
                                                                           FailureMechanismAssemblyCategoryGroup.VIIt
                                                                       }));
-
-            // Call
-            SerializableFailureMechanismAssemblyResult serializableAssemblyResult = SerializableFailureMechanismResultCreator.Create(result);
-
-            // Assert
-            SerializableFailureMechanismAssemblyResultTestHelper.AssertSerializableFailureMechanismAssemblyResult(result, serializableAssemblyResult);
-        }
-
-        [Test]
-        public void CreateWithFailureMechanismAssemblyResultWithProbability_ResultNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => SerializableFailureMechanismResultCreator.Create(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("result", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_WithExportableFailureMechanismAssemblyResultWithProbabilityAndResultNone_ThrowsAssemblyCreatorException()
-        {
-            // Setup
-            var random = new Random(21);
-            var result = new ExportableFailureMechanismAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                                     FailureMechanismAssemblyCategoryGroup.None,
-                                                                                     random.NextDouble());
-
-            // Call
-            TestDelegate call = () => SerializableFailureMechanismResultCreator.Create(result);
-
-            // Assert
-            var exception = Assert.Throws<AssemblyCreatorException>(call);
-            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
-        }
-
-        [Test]
-        public void Create_WithExportableFailureMechanismAssemblyResultWithProbability_ReturnsSerializableFailureMechanismAssemblyResult()
-        {
-            // Setup
-            var random = new Random(21);
-            var result = new ExportableFailureMechanismAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                                     random.NextEnumValue(new[]
-                                                                                     {
-                                                                                         FailureMechanismAssemblyCategoryGroup.NotApplicable,
-                                                                                         FailureMechanismAssemblyCategoryGroup.It,
-                                                                                         FailureMechanismAssemblyCategoryGroup.IIt,
-                                                                                         FailureMechanismAssemblyCategoryGroup.IIIt,
-                                                                                         FailureMechanismAssemblyCategoryGroup.IVt,
-                                                                                         FailureMechanismAssemblyCategoryGroup.Vt,
-                                                                                         FailureMechanismAssemblyCategoryGroup.VIt,
-                                                                                         FailureMechanismAssemblyCategoryGroup.VIIt
-                                                                                     }),
-                                                                                     random.NextDouble());
 
             // Call
             SerializableFailureMechanismAssemblyResult serializableAssemblyResult = SerializableFailureMechanismResultCreator.Create(result);

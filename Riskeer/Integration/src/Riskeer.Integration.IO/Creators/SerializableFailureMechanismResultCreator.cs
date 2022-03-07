@@ -57,31 +57,6 @@ namespace Riskeer.Integration.IO.Creators
         }
 
         /// <summary>
-        /// Creates an instance of <see cref="SerializableFailureMechanismAssemblyResult"/>
-        /// based on <paramref name="result"/>.
-        /// </summary>
-        /// <param name="result">The <see cref="ExportableFailureMechanismAssemblyResultWithProbability"/>
-        /// to create a <see cref="SerializableFailureMechanismAssemblyResult"/> for.</param>
-        /// <returns>A <see cref="SerializableFailureMechanismAssemblyResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/>
-        /// is <c>null</c>.</exception>
-        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="result"/>
-        /// is invalid to create a serializable counterpart for.</exception>
-        public static SerializableFailureMechanismAssemblyResult Create(ExportableFailureMechanismAssemblyResultWithProbability result)
-        {
-            if (result == null)
-            {
-                throw new ArgumentNullException(nameof(result));
-            }
-
-            ValidateAssemblyResult(result);
-
-            return new SerializableFailureMechanismAssemblyResult(SerializableAssemblyMethodCreator.Create(result.AssemblyMethod),
-                                                                  SerializableFailureMechanismCategoryGroupCreator.Create(result.AssemblyGroup),
-                                                                  result.Probability);
-        }
-
-        /// <summary>
         /// Validates the <paramref name="result"/> to determine whether a serializable assembly result can be created.
         /// </summary>
         /// <param name="result">The <see cref="ExportableFailureMechanismAssemblyResult"/> to validate.</param>
