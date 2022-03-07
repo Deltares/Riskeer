@@ -21,10 +21,8 @@
 
 using System.ComponentModel;
 using Core.Common.TestUtil;
-using Core.Common.Util.Attributes;
 using NUnit.Framework;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.Test.Properties;
 
 namespace Riskeer.Common.Forms.Test.Helpers
 {
@@ -32,9 +30,8 @@ namespace Riskeer.Common.Forms.Test.Helpers
     public class EnumDisplayNameHelperTest
     {
         [Test]
-        [TestCase(TestEnum.Type1, "Naam 1")]
-        [TestCase(TestEnum.Type2, "Type2")]
-        [TestCase(TestEnum.Type3, "Type3")]
+        [TestCase(TestEnum.NoDisplayName, "NoDisplayName")]
+        [TestCase(TestEnum.DisplayName, "Display Name")]
         public void GetDisplayName_WithValidEnumWithAndWithoutDisplayNameAttribute_ReturnsExpectedDisplayName(TestEnum value, string expectedDisplayName)
         {
             // Call
@@ -57,14 +54,6 @@ namespace Riskeer.Common.Forms.Test.Helpers
             var expectedMessage = $"The value of argument 'value' ({invalidValue}) is invalid for Enum type '{nameof(TestEnum)}'.";
             string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("value", parameterName);
-        }
-
-        public enum TestEnum
-        {
-            [ResourcesDisplayName(typeof(Resources), nameof(Resources.TestEnum_Type1_DisplayName))]
-            Type1 = 1,
-            Type2 = 2,
-            Type3 = 3
         }
     }
 }

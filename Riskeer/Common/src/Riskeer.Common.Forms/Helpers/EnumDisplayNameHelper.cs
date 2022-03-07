@@ -35,10 +35,11 @@ namespace Riskeer.Common.Forms.Helpers
         /// </summary>
         /// <param name="value">The <see cref="Enum"/> to get the display name for.</param>
         /// <typeparam name="TEnum">The type of <see cref="Enum"/> to get the display name for.</typeparam>
-        /// <returns>A string with the display name of <paramref name="value"/>.</returns>
+        /// <returns>The display name.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="value"/> is an
         /// invalid <typeparamref name="TEnum"/>.</exception>
         public static string GetDisplayName<TEnum>(TEnum value)
+            where TEnum : struct
         {
             if (!Enum.IsDefined(typeof(TEnum), value))
             {
