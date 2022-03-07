@@ -612,6 +612,36 @@ namespace Riskeer.Common.Forms.Test.Views
         # region Assembly
 
         [Test]
+        public void FailureMechanismResultsView_AllDataSet_PassesInputToPerformAssemblyFunc()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new TestFailureMechanism();
+
+            TestFailureMechanism failureMechanismInput = null;
+            IAssessmentSection assessmentSectionInput = null;
+            Func<TestFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc = (fm, ass) =>
+            {
+                failureMechanismInput = fm;
+                assessmentSectionInput = ass;
+                return double.NaN;
+            };
+
+            // Call
+            using (ShowFailureMechanismResultsView(new ObservableList<FailureMechanismSectionResult>(), failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc))
+            {
+                // Assert
+                Assert.AreSame(failureMechanism, failureMechanismInput);
+                Assert.AreSame(assessmentSection, assessmentSectionInput);
+            }
+
+            mocks.VerifyAll();
+        }
+        
+        [Test]
         [TestCase(double.NaN, "-")]
         [TestCase(double.NegativeInfinity, "-Oneindig")]
         [TestCase(double.PositiveInfinity, "Oneindig")]
