@@ -31,6 +31,17 @@ namespace Riskeer.Integration.IO.Assembly
         /// <summary>
         /// Creates a new instance of <see cref="ExportableFailureMechanismAssemblyResult"/>.
         /// </summary>
+        /// <param name="probability">The probability of the assembly result.</param>
+        /// <param name="isManual">Indicator whether <paramref name="probability"/> is manually set.</param>
+        public ExportableFailureMechanismAssemblyResult(double probability, bool isManual)
+        {
+            Probability = probability;
+            IsManual = isManual;
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="ExportableFailureMechanismAssemblyResult"/>.
+        /// </summary>
         /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
         /// <param name="assemblyGroup">The assembly result.</param>
         public ExportableFailureMechanismAssemblyResult(ExportableAssemblyMethod assemblyMethod,
@@ -39,6 +50,16 @@ namespace Riskeer.Integration.IO.Assembly
             AssemblyMethod = assemblyMethod;
             AssemblyGroup = assemblyGroup;
         }
+
+        /// <summary>
+        /// Gets the probability of the assembly result of this failure mechanism.
+        /// </summary>
+        public double Probability { get; }
+        
+        /// <summary>
+        /// Gets the indicator whether the <see cref="Probability"/> is manually set.
+        /// </summary>
+        public bool IsManual { get; }
 
         /// <summary>
         /// Gets the assembly method that was used to assemble the assembly result.

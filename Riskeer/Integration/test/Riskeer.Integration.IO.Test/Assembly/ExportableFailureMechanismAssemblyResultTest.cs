@@ -45,5 +45,21 @@ namespace Riskeer.Integration.IO.Test.Assembly
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
             Assert.AreEqual(assemblyCategory, assemblyResult.AssemblyGroup);
         }
+
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            double probability = random.NextDouble();
+            bool isManual = random.NextBoolean();
+
+            // Call
+            var assemblyResult = new ExportableFailureMechanismAssemblyResult(probability, isManual);
+
+            // Assert
+            Assert.AreEqual(probability, assemblyResult.Probability);
+            Assert.AreEqual(isManual, assemblyResult.IsManual);
+        }
     }
 }
