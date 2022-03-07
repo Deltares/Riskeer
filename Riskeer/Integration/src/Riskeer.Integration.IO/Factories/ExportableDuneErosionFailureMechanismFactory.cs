@@ -25,9 +25,10 @@ using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
+using Riskeer.DuneErosion.Data;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
-using Riskeer.DuneErosion.Data;
 
 namespace Riskeer.Integration.IO.Factories
 {
@@ -70,11 +71,11 @@ namespace Riskeer.Integration.IO.Factories
                                                                                                                    failureMechanismCode,
                                                                                                                    failureMechanismAssemblyMethod);
             }
-            
-            const FailureMechanismAssemblyCategoryGroup failureMechanismAssembly = FailureMechanismAssemblyCategoryGroup.None;
 
             return new ExportableFailureMechanism(
-                new ExportableFailureMechanismAssemblyResult(failureMechanismAssemblyMethod, failureMechanismAssembly),
+                new ExportableFailureMechanismAssemblyResult(
+                    DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection),
+                    failureMechanism.AssemblyResult.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual),
                 CreateFailureMechanismSectionResults(failureMechanism.SectionResults),
                 failureMechanismCode);
         }
