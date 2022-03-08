@@ -137,11 +137,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             {
                 if (Directory.Exists(tempFolderPath))
                 {
-                    foreach (string tempFilePath in Directory.EnumerateFiles(tempFolderPath, "*.*", SearchOption.AllDirectories))
-                    {
-                        Console.WriteLine(tempFilePath);
-                    }
-
                     Directory.Delete(tempFolderPath, true);
                 }
             }
