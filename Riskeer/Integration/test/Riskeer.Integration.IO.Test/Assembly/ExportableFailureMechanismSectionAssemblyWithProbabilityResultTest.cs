@@ -20,35 +20,34 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data.Old;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Assembly.Old;
 
 namespace Riskeer.Integration.IO.Test.Assembly
 {
     [TestFixture]
-    public class ExportableFailureMechanismSectionAssemblyResultWithProbabilityTest
+    public class ExportableFailureMechanismSectionAssemblyWithProbabilityResultTest
     {
         [Test]
-        public void Constructor_WithArguments_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
-            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
-            var assemblyCategory = random.NextEnumValue<FailureMechanismSectionAssemblyCategoryGroup>();
             double probability = random.NextDouble();
 
             // Call
-            var sectionAssembly = new ExportableSectionAssemblyResultWithProbability(assemblyMethod, assemblyCategory, probability);
+            var result = new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
+                new ExportableFailureMechanismSection(Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble()),
+                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(), probability);
 
             // Assert
-            Assert.IsInstanceOf<ExportableSectionAssemblyResult>(sectionAssembly);
-
-            Assert.AreEqual(assemblyMethod, sectionAssembly.AssemblyMethod);
-            Assert.AreEqual(assemblyCategory, sectionAssembly.AssemblyCategory);
-            Assert.AreEqual(probability, sectionAssembly.Probability);
+            Assert.IsInstanceOf<ExportableFailureMechanismSectionAssemblyResult>(result);
+            Assert.AreEqual(probability, result.Probability);
+            Assert.AreEqual(ExportableAssemblyMethod.WBI0A2, result.AssemblyMethod);
         }
     }
 }
