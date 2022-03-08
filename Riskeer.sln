@@ -3421,12 +3421,12 @@ Global
 		{073EE964-974D-442E-801F-F4FCD6D303F5}.Release|x86.Build.0 = Release|x86
 		{073EE964-974D-442E-801F-F4FCD6D303F5}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{073EE964-974D-442E-801F-F4FCD6D303F5}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.Debug|x86.Build.0 = Debug|Any CPU
-		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.Release|x86.ActiveCfg = Release|Any CPU
-		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.Release|x86.Build.0 = Release|Any CPU
-		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.ReleaseForCodeCoverage|x86.ActiveCfg = Debug|Any CPU
-		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.ReleaseForCodeCoverage|x86.Build.0 = Debug|Any CPU
+		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.Debug|x86.ActiveCfg = Debug|x86
+		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.Debug|x86.Build.0 = Debug|x86
+		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.Release|x86.ActiveCfg = Release|x86
+		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.Release|x86.Build.0 = Release|x86
+		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.ReleaseForCodeCoverage|x86.ActiveCfg = Debug|x86
+		{E3A565CE-20DC-4A4D-A0A4-EDB1853D3513}.ReleaseForCodeCoverage|x86.Build.0 = Debug|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
