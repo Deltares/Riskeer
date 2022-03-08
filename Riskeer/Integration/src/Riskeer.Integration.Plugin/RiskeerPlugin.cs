@@ -1924,7 +1924,7 @@ namespace Riskeer.Integration.Plugin
             var newFailurePath = new SpecificFailurePath
             {
                 Name = NamingHelper.GetUniqueName(failurePaths,
-                                                  RiskeerCommonDataResources.SpecificFailurePath_Name_DefaultName,
+                                                  RiskeerCommonDataResources.SpecificFailurePath_DefaultName,
                                                   fp => fp.Name)
             };
             failurePaths.Add(newFailurePath);

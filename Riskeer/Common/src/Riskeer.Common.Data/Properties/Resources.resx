@@ -132,9 +132,6 @@
   <data name="FailureMechanismSection_Section_must_have_at_least_1_geometry_point" xml:space="preserve">
     <value>Vak moet minstens uit één punt bestaan.</value>
   </data>
-  <data name="OtherFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Overig</value>
-  </data>
   <data name="ReferenceLine_DisplayName" xml:space="preserve">
     <value>Referentielijn</value>
   </data>
@@ -152,9 +149,6 @@
   </data>
   <data name="CalculationGroup_DefaultName" xml:space="preserve">
     <value>Nieuwe map</value>
-  </data>
-  <data name="OtherFailureMechanism_Code" xml:space="preserve">
-    <value>-</value>
   </data>
   <data name="FailureMechanism_Calculations_DisplayName" xml:space="preserve">
     <value>Berekeningen</value>
@@ -411,10 +405,10 @@
     <data name="FailurePathAssemblyProbabilityResultTypeManual_DisplayName" xml:space="preserve">
     <value>Handmatig invullen</value>
   </data>
-  <data name="SpecificFailurePath_Name_DefaultName" xml:space="preserve">
+  <data name="SpecificFailurePath_DefaultName" xml:space="preserve">
     <value>Nieuw faalpad</value>
   </data>
-  <data name="SpecificFailurePath_Code_DefaultName" xml:space="preserve">
+  <data name="SpecificFailurePath_DefaultCode" xml:space="preserve">
     <value>NIEUW</value>
   </data>
 </root>

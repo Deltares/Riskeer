@@ -691,24 +691,6 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -.
-        /// </summary>
-        public static string OtherFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("OtherFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Overig.
-        /// </summary>
-        public static string OtherFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("OtherFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kans moet in het bereik {0} liggen..
         /// </summary>
         public static string Probability_Must_be_in_Range_0_ {
@@ -855,18 +837,18 @@ namespace Riskeer.Common.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to NIEUW.
         /// </summary>
-        public static string SpecificFailurePath_Code_DefaultName {
+        public static string SpecificFailurePath_DefaultCode {
             get {
-                return ResourceManager.GetString("SpecificFailurePath_Code_DefaultName", resourceCulture);
+                return ResourceManager.GetString("SpecificFailurePath_DefaultCode", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Nieuw faalpad.
         /// </summary>
-        public static string SpecificFailurePath_Name_DefaultName {
+        public static string SpecificFailurePath_DefaultName {
             get {
-                return ResourceManager.GetString("SpecificFailurePath_Name_DefaultName", resourceCulture);
+                return ResourceManager.GetString("SpecificFailurePath_DefaultName", resourceCulture);
             }
         }
         
