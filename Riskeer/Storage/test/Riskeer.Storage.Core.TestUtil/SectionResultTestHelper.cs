@@ -29,9 +29,9 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.TestUtil
 {
     /// <summary>
-    /// This class is used to set and assert section results.
+    /// This class contains helper methods for testing failure mechanism section results.
     /// </summary>
-    public static class SectionResultHelper
+    public static class SectionResultTestHelper
     {
         #region Set methods
 

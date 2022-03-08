@@ -285,7 +285,7 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            SectionResultHelper.SetSectionResult(sectionResultEntity);
+            SectionResultTestHelper.SetSectionResult(sectionResultEntity);
 
             failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities = new List<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>
             {
@@ -311,7 +311,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(filePath, specificFailurePath.FailureMechanismSectionSourcePath);
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
 
-            SectionResultHelper.AssertSectionResult(entity.FailureMechanismSectionEntities
+            SectionResultTestHelper.AssertSectionResult(entity.FailureMechanismSectionEntities
                                                           .SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities).Single(),
                                                     specificFailurePath.SectionResults.Single());
         }
