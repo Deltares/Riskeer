@@ -139,6 +139,7 @@ namespace Riskeer.Storage.Core.DbContext
 
             SpecificFailurePathEntities.Include(e => e.FailureMechanismSectionEntities)
                                        .Load();
+            NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Load();
 
             LoadIllustrationPointsIntoContext();
         }
