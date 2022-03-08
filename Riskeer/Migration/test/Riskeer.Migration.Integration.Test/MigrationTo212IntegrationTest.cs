@@ -93,7 +93,9 @@ namespace Riskeer.Migration.Integration.Test
                     AssertDuneLocationCalculation(reader);
                     AssertDuneLocationCalculationOutput(reader);
 
+                    AssertMacroStabilityInwardsOutput(reader);
                     AssertMacroStabilityInwardsFailureMechanismSectionResults(reader, sourceFilePath);
+
                     AssertHeightStructuresSectionResults(reader, sourceFilePath);
                     AssertClosingStructuresSectionResults(reader, sourceFilePath);
                     AssertStabilityPointStructuresSectionResults(reader, sourceFilePath);
@@ -155,7 +157,6 @@ namespace Riskeer.Migration.Integration.Test
                 "HydraulicLocationEntity",
                 "IllustrationPointResultEntity",
                 "MacroStabilityInwardsCalculationEntity",
-                "MacroStabilityInwardsCalculationOutputEntity",
                 "MacroStabilityInwardsCharacteristicPointEntity",
                 "MacroStabilityInwardsFailureMechanismMetaEntity",
                 "MacroStabilityInwardsPreconsolidationStressEntity",
@@ -325,7 +326,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[FailurePathAssemblyProbabilityResultType] = 1 " +
                 "AND NEW.[ManualFailurePathAssemblyProbability] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
-            
+
             reader.AssertReturnedDataIsValid(validateFailureMechanism);
         }
 
@@ -375,15 +376,6 @@ namespace Riskeer.Migration.Integration.Test
 
         #endregion
 
-        #region MacroStabilityInwards
-
-        private static void AssertMacroStabilityInwardsFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
-        {
-            AssertAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "MacroStabilityInwardsSectionResultEntity", sourceFilePath);
-        }
-
-        #endregion
-
         #region HeightStructures
 
         private static void AssertHeightStructuresSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
@@ -416,6 +408,24 @@ namespace Riskeer.Migration.Integration.Test
         private static void AssertStabilityStoneCoverSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
         {
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "StabilityStoneCoverSectionResultEntity", sourceFilePath);
+        }
+
+        #endregion
+
+        #region MacroStabilityInwards
+
+        private static void AssertMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
+        {
+            const string macroStabilityInwardsCalculationOutputEntityTable =
+                "SELECT COUNT() = 0 " +
+                "FROM MacroStabilityInwardsCalculationOutputEntity;" +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(macroStabilityInwardsCalculationOutputEntityTable);
+        }
+
+        private static void AssertMacroStabilityInwardsFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            AssertAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "MacroStabilityInwardsSectionResultEntity", sourceFilePath);
         }
 
         #endregion
@@ -619,12 +629,12 @@ namespace Riskeer.Migration.Integration.Test
         {
             AssertNonAdoptableFailureMechanismSectionResults(reader, "PipingStructureSectionResultEntity", sourceFilePath);
         }
-        
+
         private static void AssertMicrostabilitySectionResults(MigratedDatabaseReader reader, string sourceFilePath)
         {
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "MicrostabilitySectionResultEntity", sourceFilePath);
         }
-        
+
         private static void AssertWaterPressureAsphaltCoverSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
         {
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "WaterPressureAsphaltCoverSectionResultEntity", sourceFilePath);
@@ -634,12 +644,12 @@ namespace Riskeer.Migration.Integration.Test
         {
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "GrassCoverSlipOffOutwardsSectionResultEntity", sourceFilePath);
         }
-        
+
         private static void AssertGrassCoverSlipOffInwardsSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
         {
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "GrassCoverSlipOffInwardsSectionResultEntity", sourceFilePath);
         }
-        
+
         #endregion
 
         #region HydraulicBoundaryLocations
@@ -1025,7 +1035,7 @@ namespace Riskeer.Migration.Integration.Test
         {
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "GrassCoverErosionOutwardsSectionResultEntity", sourceFilePath);
         }
-        
+
         #endregion
 
         #region DuneErosion
