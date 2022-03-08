@@ -280,6 +280,18 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             const string filePath = "failurePathSections/File/Path";
             FailureMechanismSectionEntity failureMechanismSectionEntity = CreateSimpleFailureMechanismSectionEntity();
+
+            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity
+            };
+            SectionResultHelper.SetSectionResult(sectionResultEntity);
+
+            failureMechanismSectionEntity.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities = new List<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>
+            {
+                sectionResultEntity
+            };
+
             var entity = new SpecificFailurePathEntity
             {
                 N = 1.1,
@@ -289,16 +301,6 @@ namespace Riskeer.Storage.Core.Test.Read
                 },
                 FailureMechanismSectionCollectionSourcePath = filePath
             };
-            var sectionResultEntity = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
-            {
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
-            entity.FailureMechanismSectionEntities.First().NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities =
-                new List<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>
-                {
-                    sectionResultEntity
-                };
-            SectionResultHelper.SetSectionResult(sectionResultEntity);
 
             var collector = new ReadConversionCollector();
 
@@ -306,6 +308,9 @@ namespace Riskeer.Storage.Core.Test.Read
             SpecificFailurePath specificFailurePath = entity.ReadSpecificFailurePath(collector);
 
             // Assert
+            Assert.AreEqual(filePath, specificFailurePath.FailureMechanismSectionSourcePath);
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
+
             SectionResultHelper.AssertSectionResult(entity.FailureMechanismSectionEntities
                                                           .SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities).Single(),
                                                     specificFailurePath.SectionResults.Single());
