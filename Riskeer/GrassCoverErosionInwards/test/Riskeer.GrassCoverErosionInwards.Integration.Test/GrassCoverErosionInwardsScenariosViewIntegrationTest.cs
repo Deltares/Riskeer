@@ -31,7 +31,6 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.Util.Helpers;
@@ -74,7 +73,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 CollectionAssert.IsEmpty(listBox.Items);
 
                 // Call
-                IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
+                GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 assessmentSection.GrassCoverErosionInwards.NotifyObservers();
 
@@ -95,7 +94,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
-                IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
+                GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
@@ -105,9 +104,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 form.Show();
 
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
-                                                                    assessmentSection.ReferenceLine,
-                                                                    filePath, new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(
-                                                                        (GrassCoverErosionInwardsFailureMechanism) failureMechanism),
+                                                                    assessmentSection.ReferenceLine, filePath,
+                                                                    new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(failureMechanism),
                                                                     messageProvider);
                 dikeProfilesImporter.Import();
 
@@ -161,7 +159,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
-                IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
+                GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 CalculationGroup calculationsGroup = assessmentSection.GrassCoverErosionInwards.CalculationsGroup;
@@ -171,10 +169,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 form.Show();
 
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
-                                                                    assessmentSection.ReferenceLine,
-                                                                    filePath,
-                                                                    new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(
-                                                                        (GrassCoverErosionInwardsFailureMechanism) failureMechanism),
+                                                                    assessmentSection.ReferenceLine, filePath,
+                                                                    new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(failureMechanism),
                                                                     messageProvider);
                 dikeProfilesImporter.Import();
 
@@ -229,7 +225,7 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
 
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 DataImportHelper.ImportReferenceLine(assessmentSection);
-                IFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
+                GrassCoverErosionInwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionInwards;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
 
                 var view = new GrassCoverErosionInwardsScenariosView(assessmentSection.GrassCoverErosionInwards.CalculationsGroup,
@@ -238,9 +234,8 @@ namespace Riskeer.GrassCoverErosionInwards.Integration.Test
                 form.Show();
 
                 var dikeProfilesImporter = new DikeProfilesImporter(assessmentSection.GrassCoverErosionInwards.DikeProfiles,
-                                                                    assessmentSection.ReferenceLine,
-                                                                    filePath, new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(
-                                                                        (GrassCoverErosionInwardsFailureMechanism) failureMechanism),
+                                                                    assessmentSection.ReferenceLine, filePath,
+                                                                    new GrassCoverErosionInwardsDikeProfileReplaceDataStrategy(failureMechanism),
                                                                     messageProvider);
                 dikeProfilesImporter.Import();
 

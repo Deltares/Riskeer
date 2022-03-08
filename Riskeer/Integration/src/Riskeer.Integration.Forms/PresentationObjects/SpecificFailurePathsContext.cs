@@ -35,7 +35,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of <see cref="SpecificFailurePathsContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The collection of <see cref="IFailurePath"/> to wrap.</param>
+        /// <param name="wrappedData">The collection of <see cref="SpecificFailurePath"/> to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         public SpecificFailurePathsContext(ObservableList<SpecificFailurePath> wrappedData, IAssessmentSection assessmentSection)

@@ -88,7 +88,7 @@ namespace Riskeer.Integration.TestUtil
         }
 
         /// <summary>
-        /// Imports the <see cref="FailureMechanismSection"/> data for a given <see cref="IFailureMechanism"/>.
+        /// Imports the <see cref="FailureMechanismSection"/> data for a given <see cref="IFailurePath{FailureMechanismSectionResult}"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
         /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to import on.</param>
@@ -97,7 +97,7 @@ namespace Riskeer.Integration.TestUtil
         /// <para>Imports using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
         /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IEnumerable{IFailureMechanism})"/>
-        public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism failureMechanism)
+        public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailurePath<FailureMechanismSectionResult> failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    true,
@@ -109,7 +109,7 @@ namespace Riskeer.Integration.TestUtil
                 string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "traject_6-3_vakken.shp");
                 var activity = new FileImportActivity(new FailureMechanismSectionsImporter(
                                                           failureMechanism, assessmentSection.ReferenceLine, filePath,
-                                                          new FailureMechanismSectionReplaceStrategy((IFailurePath<FailureMechanismSectionResult>) failureMechanism),
+                                                          new FailureMechanismSectionReplaceStrategy(failureMechanism),
                                                           new ImportMessageProvider()),
                                                       "FailureMechanismSectionsImporter");
                 activity.Run();
@@ -126,7 +126,7 @@ namespace Riskeer.Integration.TestUtil
         /// <para>This will import the same 283 failure mechanism sections on all failure mechanisms.</para>
         /// <para>Does not import using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
-        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IFailureMechanism)"/>
+        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IFailurePath{FailureMechanismSectionResult})"/>
         public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IEnumerable<IFailureMechanism> targetFailureMechanisms)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,

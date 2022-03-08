@@ -34,7 +34,6 @@ using Riskeer.ClosingStructures.IO;
 using Riskeer.ClosingStructures.Plugin.FileImporters;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.Util.Helpers;
@@ -73,7 +72,7 @@ namespace Riskeer.ClosingStructures.Integration.Test
                 CollectionAssert.IsEmpty(listBox.Items);
 
                 // Call
-                IFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
+                ClosingStructuresFailureMechanism failureMechanism = assessmentSection.ClosingStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 assessmentSection.ClosingStructures.NotifyObservers();
 

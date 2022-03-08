@@ -151,7 +151,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void SetSections_ValidSections_SectionsAndSourcePathAndSectionRestulsSet()
+        public void SetSections_ValidSections_SectionsAndSourcePathAndSectionResultsSet()
         {
             // Setup
             string sourcePath = TestHelper.GetScratchPadPath();

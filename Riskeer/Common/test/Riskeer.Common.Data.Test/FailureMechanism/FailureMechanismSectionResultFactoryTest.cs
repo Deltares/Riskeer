@@ -93,7 +93,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void Create_InvalidType_ThrowsNotSupportedException()
+        public void Create_InvalidSectionResultType_ThrowsNotSupportedException()
         {
             // Setup
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();

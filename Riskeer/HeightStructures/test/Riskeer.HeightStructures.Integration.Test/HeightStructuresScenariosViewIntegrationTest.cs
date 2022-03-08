@@ -30,7 +30,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.IO.FileImporters.MessageProviders;
 using Riskeer.Common.Util.Helpers;
@@ -73,7 +72,7 @@ namespace Riskeer.HeightStructures.Integration.Test
                 CollectionAssert.IsEmpty(listBox.Items);
 
                 // Call
-                IFailureMechanism failureMechanism = assessmentSection.HeightStructures;
+                HeightStructuresFailureMechanism failureMechanism = assessmentSection.HeightStructures;
                 DataImportHelper.ImportFailureMechanismSections(assessmentSection, failureMechanism);
                 assessmentSection.HeightStructures.NotifyObservers();
 

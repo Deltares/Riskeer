@@ -39,7 +39,7 @@ namespace Riskeer.Common.IO.FileImporters
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionReplaceStrategy"/>.
         /// </summary>
-        /// <param name="failurePath">The <see cref="IFailurePath"/> to set the sections to.</param>
+        /// <param name="failurePath">The failure path to set the sections to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/>
         /// is <c>null</c>.</exception>
         public FailureMechanismSectionReplaceStrategy(IFailurePath<FailureMechanismSectionResult> failurePath)
