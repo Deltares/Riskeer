@@ -302,8 +302,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.StabilityPointStructures.SectionResults,
                 actualAssessmentSection.StabilityPointStructures.SectionResults);
 
-            AssertCollectionAndItems(expectedAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
-                                     actualAssessmentSection.SpecificFailurePaths.Cast<SpecificFailurePath>(),
+            AssertCollectionAndItems(expectedAssessmentSection.SpecificFailurePaths,
+                                     actualAssessmentSection.SpecificFailurePaths,
                                      AssertSpecificFailurePath);
         }
 

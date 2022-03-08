@@ -35,7 +35,7 @@ namespace Riskeer.Storage.Core.Create
     internal static class FailurePathCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="FailureMechanismBase"/>.
+        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="IFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The failure mechanism to create a database entity for.</param>
         /// <param name="type">The type of the failure mechanism that is being created.</param>
