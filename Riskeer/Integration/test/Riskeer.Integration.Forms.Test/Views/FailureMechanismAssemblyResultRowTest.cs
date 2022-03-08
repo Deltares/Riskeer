@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Integration.Forms.Views;
@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             // Call
@@ -77,7 +77,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             double assemblyResult = random.NextDouble();
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
             mocks.ReplayAll();
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             double afterUpdateProbability = random.NextDouble();
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             int i = 0;
@@ -149,7 +149,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             double initialProbability = random.NextDouble();
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             int i = 0;
@@ -188,7 +188,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             double probability = random.NextDouble();
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             int i = 0;
