@@ -585,7 +585,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             Assert.AreEqual("Message", GetProbabilityError(GetAssessmentSectionAssemblyResultControl()));
             Assert.AreEqual("Message", GetGroupError(GetAssessmentSectionAssemblyResultControl()));
-            AssertAssessmentSectionAssemblyResultControl(string.Empty, "-");
+            AssertAssessmentSectionAssemblyResultControl("-", "-");
         }
 
         private static void AssertAssessmentSectionAssemblyResultControl(string expectedGroup, string expectedProbability)
