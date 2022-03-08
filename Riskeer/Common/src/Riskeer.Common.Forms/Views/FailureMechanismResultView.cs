@@ -34,7 +34,6 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Exceptions;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -222,8 +221,9 @@ namespace Riskeer.Common.Forms.Views
         {
             ClearErrorMessage();
 
-            double failurePathAssemblyProbability = IsManualAssembly()
-                                                        ? FailureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability
+            FailurePathAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
+            double failurePathAssemblyProbability = assemblyResult.IsManualProbability()
+                                                        ? assemblyResult.ManualFailurePathAssemblyProbability
                                                         : TryGetFailurePathAssemblyProbability();
             SetTextBoxValue(failurePathAssemblyProbability);
         }
@@ -367,9 +367,11 @@ namespace Riskeer.Common.Forms.Views
         private void SetTextBoxValue(double probability)
         {
             failurePathAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
-            if (IsManualAssembly() && double.IsNaN(probability))
+
+            FailurePathAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
+            if (assemblyResult.IsManualProbability())
             {
-                SetErrorMessage(Resources.FailureProbability_must_not_be_NaN);
+                SetErrorMessage(FailurePathAssemblyResultValidationHelper.GetValidationError(assemblyResult));
             }
         }
 
