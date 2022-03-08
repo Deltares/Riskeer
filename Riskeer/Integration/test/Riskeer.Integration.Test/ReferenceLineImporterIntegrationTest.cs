@@ -31,6 +31,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.ReferenceLines;
 using Riskeer.Integration.Data;
@@ -103,7 +104,8 @@ namespace Riskeer.Integration.Test
             mocks.ReplayAll();
 
             DataImportHelper.ImportReferenceLine(assessmentSection);
-            DataImportHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.GetFailureMechanisms());
+            DataImportHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.GetFailureMechanisms()
+                                                                                                .Cast<IFailurePath<FailureMechanismSectionResult>>());
             DataImportHelper.ImportPipingSurfaceLines(assessmentSection);
             DataImportHelper.ImportPipingStochasticSoilModels(assessmentSection);
 
