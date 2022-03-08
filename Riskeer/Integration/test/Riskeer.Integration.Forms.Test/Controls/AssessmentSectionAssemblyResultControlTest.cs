@@ -147,7 +147,7 @@ namespace Riskeer.Integration.Forms.Test.Controls
                 resultControl.ClearAssemblyResult();
 
                 // Assert
-                Assert.IsEmpty(groupLabel.Text);
+                Assert.AreEqual("-", groupLabel.Text);
                 Assert.AreEqual(Color.White, groupLabel.BackColor);
 
                 Assert.AreEqual("-", probabilityLabel.Text);

@@ -25,7 +25,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.Helpers;
-using Riskeer.Common.Forms.Properties;
+using Riskeer.Integration.Forms.Properties;
+using CommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Controls
 {
@@ -95,9 +96,9 @@ namespace Riskeer.Integration.Forms.Controls
         /// </summary>
         public void ClearAssemblyResult()
         {
-            groupLabel.Text = string.Empty;
+            groupLabel.Text = Resources.AssessmentSectionAssemblyResultControl_AssemblyGroup_No_result_dash;
             groupLabel.BackColor = Color.White;
-            probabilityLabel.Text = Resources.RoundedDouble_No_result_dash;
+            probabilityLabel.Text = CommonFormsResources.RoundedDouble_No_result_dash;
         }
 
         private void SetErrorProviderMessage(string errorMessage)
