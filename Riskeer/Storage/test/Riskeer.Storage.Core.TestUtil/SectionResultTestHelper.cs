@@ -38,7 +38,7 @@ namespace Riskeer.Storage.Core.TestUtil
         /// <summary>
         /// Sets random section results for a <see cref="IAdoptableFailureMechanismSectionResultEntity"/>. 
         /// </summary>
-        /// <param name="sectionResult">The <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.</param>
+        /// <param name="sectionResult">The failure mechanism section result to set.</param>
         public static void SetSectionResult(IAdoptableFailureMechanismSectionResultEntity sectionResult)
         {
             var random = new Random(21);
@@ -53,7 +53,7 @@ namespace Riskeer.Storage.Core.TestUtil
         /// <summary>
         /// Sets random section results for a <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>. 
         /// </summary>
-        /// <param name="sectionResult">The <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.</param>
+        /// <param name="sectionResult">The failure mechanism section result to set.</param>
         public static void SetSectionResult(IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
         {
             var random = new Random(21);
@@ -67,7 +67,7 @@ namespace Riskeer.Storage.Core.TestUtil
         /// <summary>
         /// Sets random section results for a <see cref="INonAdoptableFailureMechanismSectionResultEntity"/>. 
         /// </summary>
-        /// <param name="sectionResult">The <see cref="INonAdoptableFailureMechanismSectionResultEntity"/>.</param>
+        /// <param name="sectionResult">The failure mechanism section result to set.</param>
         public static void SetSectionResult(INonAdoptableFailureMechanismSectionResultEntity sectionResult)
         {
             var random = new Random(21);
@@ -82,7 +82,7 @@ namespace Riskeer.Storage.Core.TestUtil
         /// <summary>
         /// Sets random section results for a <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>. 
         /// </summary>
-        /// <param name="sectionResult">The <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.</param>
+        /// <param name="sectionResult">The failure mechanism section result to set.</param>
         public static void SetSectionResult(INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResult)
         {
             var random = new Random(21);
@@ -98,7 +98,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
         /// <summary>
         /// Asserts whether the data of the <see cref="IAdoptableFailureMechanismSectionResultEntity"/> and
-        /// <see cref="AdoptableFailureMechanismSectionResult"/> are equal.
+        /// <see cref="AdoptableFailureMechanismSectionResult"/> have equal values.
         /// </summary>
         /// <param name="sectionResultEntity">The <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.</param>
         /// <param name="sectionResult">The <see cref="AdoptableFailureMechanismSectionResult"/>.</param>
@@ -113,7 +113,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
         /// <summary>
         /// Asserts whether the data of the <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> and
-        /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> are equal.
+        /// <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/> have equal values.
         /// </summary>
         /// <param name="sectionResultEntity">The <see cref="IAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.</param>
         /// <param name="sectionResult">The <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.</param>
@@ -128,7 +128,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
         /// <summary>
         /// Asserts whether the data of the <see cref="INonAdoptableFailureMechanismSectionResultEntity"/> and
-        /// <see cref="NonAdoptableFailureMechanismSectionResult"/> are equal.
+        /// <see cref="NonAdoptableFailureMechanismSectionResult"/> have equal values.
         /// </summary>
         /// <param name="sectionResultEntity">The <see cref="INonAdoptableFailureMechanismSectionResultEntity"/>.</param>
         /// <param name="sectionResult">The <see cref="NonAdoptableFailureMechanismSectionResult"/>.</param>
@@ -143,7 +143,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
         /// <summary>
         /// Asserts whether the data of the <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> and
-        /// <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/> are equal.
+        /// <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/> have equal values.
         /// </summary>
         /// <param name="sectionResultEntity">The <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.</param>
         /// <param name="sectionResult">The <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.</param>
