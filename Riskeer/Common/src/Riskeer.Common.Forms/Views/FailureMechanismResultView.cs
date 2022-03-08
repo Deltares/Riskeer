@@ -75,6 +75,11 @@ namespace Riskeer.Common.Forms.Views
                                              IAssessmentSection assessmentSection,
                                              Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
         {
+            if (failureMechanismSectionResults == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismSectionResults));
+            }
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));
@@ -88,16 +93,6 @@ namespace Riskeer.Common.Forms.Views
             if (performFailureMechanismAssemblyFunc == null)
             {
                 throw new ArgumentNullException(nameof(performFailureMechanismAssemblyFunc));
-            }
-
-            if (assessmentSection == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSection));
-            }
-
-            if (failureMechanismSectionResults == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanismSectionResults));
             }
 
             InitializeComponent();
