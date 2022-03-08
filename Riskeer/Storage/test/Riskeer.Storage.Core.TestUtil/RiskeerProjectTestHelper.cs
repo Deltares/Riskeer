@@ -551,6 +551,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 failurePath.NotInAssemblyComments.Body = $"NotInAssembly comment path: {i}";
 
                 SetSections(failurePath);
+                SetSectionResults(failurePath.SectionResults);
                 SetFailurePathAssemblyResults(failurePath, i);
                 i++;
             }
@@ -1350,7 +1351,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
             SetDuneLocations(failureMechanism);
         }
-        
+
         private static void SetDuneLocations(DuneErosionFailureMechanism failureMechanism)
         {
             var locationOne = new DuneLocation(12, "DuneLocation", new Point2D(790, 456),
