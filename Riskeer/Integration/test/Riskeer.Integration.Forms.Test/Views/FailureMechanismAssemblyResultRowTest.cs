@@ -80,6 +80,10 @@ namespace Riskeer.Integration.Forms.Test.Views
             var failureMechanism = mocks.Stub<IFailurePath>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
+            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult
+            {
+                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+            });
             mocks.ReplayAll();
 
             // Call
@@ -104,7 +108,122 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenRow_WhenUpdating_ThenAssemblyFuncExecuted()
+        [TestCase(FailurePathAssemblyProbabilityResultType.Automatic, FailurePathAssemblyProbabilityResultType.Manual)]
+        [TestCase(FailurePathAssemblyProbabilityResultType.Manual, FailurePathAssemblyProbabilityResultType.Automatic)]
+        public void GivenRow_WhenChangingProbabilityResultTypeAndRowUpdated_ThenProbabilityUpdated(
+            FailurePathAssemblyProbabilityResultType initialResultType,
+            FailurePathAssemblyProbabilityResultType newResultType)
+        {
+            // Given
+            var random = new Random(21);
+            double manualAssemblyResult = random.NextDouble();
+            double automaticAssemblyResult = random.NextDouble();
+
+            var assemblyResult = new FailurePathAssemblyResult
+            {
+                ProbabilityResultType = initialResultType,
+                ManualFailurePathAssemblyProbability = manualAssemblyResult
+            };
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailurePath>();
+            failureMechanism.Stub(fm => fm.AssemblyResult).Return(assemblyResult);
+            mocks.ReplayAll();
+
+            var row = new FailureMechanismAssemblyResultRow(failureMechanism, () => automaticAssemblyResult);
+
+            // Precondition
+            double expectedProbability = assemblyResult.IsManualProbability()
+                                             ? manualAssemblyResult
+                                             : automaticAssemblyResult;
+            Assert.AreEqual(expectedProbability, row.Probability);
+
+            // When
+            assemblyResult.ProbabilityResultType = newResultType;
+            row.Update();
+
+            // Then
+            expectedProbability = assemblyResult.IsManualProbability()
+                                      ? manualAssemblyResult
+                                      : automaticAssemblyResult;
+            Assert.AreEqual(expectedProbability, row.Probability);
+            mocks.VerifyAll();
+        }
+
+        #region ManualAssembly
+
+        [Test]
+        public void GivenRowWithManualAssemblyResultAndWithoutError_WhenUpdatingAndInvalidAssemblyResult_ThenDefaultValueAndErrorSet()
+        {
+            // Given
+            var random = new Random(21);
+            double initialProbability = random.NextDouble();
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailurePath>();
+            var assemblyResult = new FailurePathAssemblyResult
+            {
+                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
+                ManualFailurePathAssemblyProbability = initialProbability
+            };
+            failureMechanism.Stub(fm => fm.AssemblyResult).Return(assemblyResult);
+            mocks.ReplayAll();
+
+            var row = new FailureMechanismAssemblyResultRow(failureMechanism, () => random.NextDouble());
+
+            // Precondition 
+            Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
+            Assert.AreEqual(initialProbability, row.Probability);
+
+            // When
+            assemblyResult.ManualFailurePathAssemblyProbability = double.NaN;
+            row.Update();
+
+            // Then
+            Assert.AreEqual("Er moet een waarde worden ingevuld voor de faalkans.", row.ColumnStateDefinitions[probabilityIndex].ErrorText);
+            Assert.IsNaN(row.Probability);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GivenRowWithManualAssemblyResultAndWithError_WhenUpdatingAndValidAssemblyResult_ThenValueSetAndErrorCleared()
+        {
+            // Given
+            var random = new Random(21);
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailurePath>();
+            var assemblyResult = new FailurePathAssemblyResult
+            {
+                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
+                ManualFailurePathAssemblyProbability = double.NaN
+            };
+            failureMechanism.Stub(fm => fm.AssemblyResult).Return(assemblyResult);
+            mocks.ReplayAll();
+
+            var row = new FailureMechanismAssemblyResultRow(failureMechanism, () => random.NextDouble());
+
+            // Precondition 
+            Assert.IsNotEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
+            Assert.IsNaN(row.Probability);
+
+            // When
+            double validProbability = random.NextDouble();
+            assemblyResult.ManualFailurePathAssemblyProbability = validProbability;
+            row.Update();
+
+            // Then
+            Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
+            Assert.AreEqual(validProbability, row.Probability);
+            mocks.VerifyAll();
+        }
+
+        #endregion
+
+        #region AutomaticAssembly
+
+        [Test]
+        public void GivenRowWithAutomaticAssemblyResult_WhenUpdating_ThenAssemblyFuncExecuted()
         {
             // Given
             var random = new Random(21);
@@ -113,6 +232,10 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailurePath>();
+            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult
+            {
+                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+            });
             mocks.ReplayAll();
 
             int i = 0;
@@ -137,10 +260,11 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             // Then
             Assert.AreEqual(afterUpdateProbability, row.Probability);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenRowWithoutError_WhenUpdatingAndAssemblyThrowsAssemblyException_ThenDefaultValueAndErrorSet()
+        public void GivenRowWithAutomaticAssemblyResultAndWithoutError_WhenUpdatingAndAssemblyThrowsAssemblyException_ThenDefaultValueAndErrorSet()
         {
             // Given
             const string exceptionMessage = "Something went wrong";
@@ -150,6 +274,10 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailurePath>();
+            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult
+            {
+                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+            });
             mocks.ReplayAll();
 
             int i = 0;
@@ -176,10 +304,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Then
             Assert.IsNaN(row.Probability);
             Assert.AreEqual(exceptionMessage, row.ColumnStateDefinitions[probabilityIndex].ErrorText);
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenRowWithError_WhenUpdatingAndAssemblyRuns_ThenValueSetAndErrorCleared()
+        public void GivenRowWithAutomaticAssemblyResultAndWithError_WhenUpdatingAndAssemblyRuns_ThenValueSetAndErrorCleared()
         {
             // Given
             const string exceptionMessage = "Something went wrong";
@@ -189,6 +318,10 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailurePath>();
+            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult
+            {
+                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+            });
             mocks.ReplayAll();
 
             int i = 0;
@@ -215,6 +348,10 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Then
             Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
             Assert.AreEqual(probability, row.Probability);
+
+            mocks.VerifyAll();
         }
+
+        #endregion
     }
 }

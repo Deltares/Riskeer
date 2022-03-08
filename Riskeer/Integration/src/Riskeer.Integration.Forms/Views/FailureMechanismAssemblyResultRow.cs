@@ -26,6 +26,7 @@ using Core.Common.Controls.DataGrid;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Integration.Forms.Views
@@ -92,7 +93,34 @@ namespace Riskeer.Integration.Forms.Views
         public void Update()
         {
             ResetErrorTexts();
-            TryGetAssemblyData();
+            UpdateAssemblyData();
+        }
+
+        private void UpdateAssemblyData()
+        {
+            FailurePathAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
+            if (assemblyResult.IsManualProbability())
+            {
+                TryGetManualAssemblyData(assemblyResult);
+            }
+            else
+            {
+                TryGetAssemblyData();
+            }
+        }
+
+        private void TryGetManualAssemblyData(FailurePathAssemblyResult assemblyResult)
+        {
+            string validationError = FailurePathAssemblyResultValidationHelper.GetValidationError(assemblyResult);
+            if (!string.IsNullOrEmpty(validationError))
+            {
+                Probability = double.NaN;
+                ColumnStateDefinitions[probabilityIndex].ErrorText = validationError;
+            }
+            else
+            {
+                Probability = assemblyResult.ManualFailurePathAssemblyProbability;
+            }
         }
 
         private void TryGetAssemblyData()
