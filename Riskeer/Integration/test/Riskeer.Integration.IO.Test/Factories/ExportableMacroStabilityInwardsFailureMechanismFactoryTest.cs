@@ -31,6 +31,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.Factories;
 using Riskeer.Integration.IO.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;

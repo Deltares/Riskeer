@@ -22,6 +22,7 @@
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Assembly.Old;
 
 namespace Riskeer.Integration.IO.TestUtil
 {

@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Riskeer.Integration.IO.Assembly
+namespace Riskeer.Integration.IO.Assembly.Old
 {
     /// <summary>
     /// Base implementation to hold all information for exporting assembly results of a failure mechanism section.

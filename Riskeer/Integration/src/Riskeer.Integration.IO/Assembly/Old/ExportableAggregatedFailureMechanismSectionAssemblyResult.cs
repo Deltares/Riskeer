@@ -21,16 +21,16 @@
 
 using System;
 
-namespace Riskeer.Integration.IO.Assembly
+namespace Riskeer.Integration.IO.Assembly.Old
 {
     /// <summary>
-    /// Class that holds all the information to export a failure mechanism section assembly result with probability.
+    /// Class that holds all the information to export the assembly result of a failure mechanism section.
     /// </summary>
-    public class ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability
+    public class ExportableAggregatedFailureMechanismSectionAssemblyResult
         : ExportableAggregatedFailureMechanismSectionAssemblyResultBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/>.
+        /// Creates a new instance of <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="failureMechanismSection">The failure mechanism section.</param>
         /// <param name="simpleAssembly">The simple assembly result of the failure mechanism section.</param>
@@ -38,11 +38,11 @@ namespace Riskeer.Integration.IO.Assembly
         /// <param name="tailorMadeAssembly">The tailor made assembly result of the failure mechanism section.</param>
         /// <param name="combinedAssembly">The combined assembly result of the failure mechanism section.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(ExportableFailureMechanismSection failureMechanismSection,
-                                                                                        ExportableSectionAssemblyResultWithProbability simpleAssembly,
-                                                                                        ExportableSectionAssemblyResultWithProbability detailedAssembly,
-                                                                                        ExportableSectionAssemblyResultWithProbability tailorMadeAssembly,
-                                                                                        ExportableSectionAssemblyResultWithProbability combinedAssembly)
+        public ExportableAggregatedFailureMechanismSectionAssemblyResult(ExportableFailureMechanismSection failureMechanismSection,
+                                                                         ExportableSectionAssemblyResult simpleAssembly,
+                                                                         ExportableSectionAssemblyResult detailedAssembly,
+                                                                         ExportableSectionAssemblyResult tailorMadeAssembly,
+                                                                         ExportableSectionAssemblyResult combinedAssembly)
             : base(failureMechanismSection)
         {
             if (simpleAssembly == null)
@@ -74,21 +74,21 @@ namespace Riskeer.Integration.IO.Assembly
         /// <summary>
         /// Gets the simple assembly result.
         /// </summary>
-        public ExportableSectionAssemblyResultWithProbability SimpleAssembly { get; }
+        public ExportableSectionAssemblyResult SimpleAssembly { get; }
 
         /// <summary>
         /// Gets the detailed assembly result.
         /// </summary>
-        public ExportableSectionAssemblyResultWithProbability DetailedAssembly { get; }
+        public ExportableSectionAssemblyResult DetailedAssembly { get; }
 
         /// <summary>
         /// Gets the tailor made assembly result.
         /// </summary>
-        public ExportableSectionAssemblyResultWithProbability TailorMadeAssembly { get; }
+        public ExportableSectionAssemblyResult TailorMadeAssembly { get; }
 
         /// <summary>
         /// Gets the combined assembly result.
         /// </summary>
-        public ExportableSectionAssemblyResultWithProbability CombinedAssembly { get; }
+        public ExportableSectionAssemblyResult CombinedAssembly { get; }
     }
 }

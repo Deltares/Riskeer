@@ -25,6 +25,7 @@ using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.Util;
 
 namespace Riskeer.Integration.IO.Factories

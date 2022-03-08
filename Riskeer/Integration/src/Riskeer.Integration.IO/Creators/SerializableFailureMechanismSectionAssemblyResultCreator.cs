@@ -23,7 +23,7 @@ using System;
 using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
-using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.Exceptions;
 
 namespace Riskeer.Integration.IO.Creators

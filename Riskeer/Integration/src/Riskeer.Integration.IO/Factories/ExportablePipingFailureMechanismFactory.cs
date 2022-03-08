@@ -27,6 +27,8 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Assembly.Old;
+using Riskeer.Integration.IO.Factories.Old;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Piping.Data;
 

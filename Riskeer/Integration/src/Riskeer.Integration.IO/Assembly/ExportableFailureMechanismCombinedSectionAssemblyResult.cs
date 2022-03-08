@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.Integration.IO.Assembly.Old;
 
 namespace Riskeer.Integration.IO.Assembly
 {

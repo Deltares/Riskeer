@@ -21,7 +21,7 @@
 
 using Riskeer.AssemblyTool.Data.Old;
 
-namespace Riskeer.Integration.IO.Assembly
+namespace Riskeer.Integration.IO.Assembly.Old
 {
     /// <summary>
     /// Class that holds all the information to export an assembly result with a probability for a failure mechanism section.

@@ -24,9 +24,10 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Factories;
+using Riskeer.Integration.IO.Assembly.Old;
+using Riskeer.Integration.IO.Factories.Old;
 
-namespace Riskeer.Integration.IO.Test.Factories
+namespace Riskeer.Integration.IO.Test.Factories.Old
 {
     [TestFixture]
     public class ExportableSectionAssemblyResultFactoryTest

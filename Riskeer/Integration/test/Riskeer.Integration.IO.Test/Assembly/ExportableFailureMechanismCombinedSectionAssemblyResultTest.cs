@@ -23,6 +23,7 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.TestUtil;
 
 namespace Riskeer.Integration.IO.Test.Assembly

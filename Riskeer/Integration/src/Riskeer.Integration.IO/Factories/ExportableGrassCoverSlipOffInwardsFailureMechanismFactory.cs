@@ -30,6 +30,8 @@ using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
+using Riskeer.Integration.IO.Assembly.Old;
+using Riskeer.Integration.IO.Factories.Old;
 
 namespace Riskeer.Integration.IO.Factories
 {

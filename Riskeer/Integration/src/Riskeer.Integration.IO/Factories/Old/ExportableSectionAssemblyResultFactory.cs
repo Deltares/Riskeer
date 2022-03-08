@@ -22,8 +22,9 @@
 using System;
 using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Assembly.Old;
 
-namespace Riskeer.Integration.IO.Factories
+namespace Riskeer.Integration.IO.Factories.Old
 {
     /// <summary>
     /// Factory to create instances of <see cref="ExportableSectionAssemblyResult"/>.

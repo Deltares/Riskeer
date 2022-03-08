@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
-using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.Creators;
 
 namespace Riskeer.Integration.IO.TestUtil

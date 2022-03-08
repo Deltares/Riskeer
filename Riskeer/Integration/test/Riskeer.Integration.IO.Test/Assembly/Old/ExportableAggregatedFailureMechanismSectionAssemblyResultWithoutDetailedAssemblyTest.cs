@@ -22,21 +22,21 @@
 using System;
 using NUnit.Framework;
 using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.TestUtil;
 
-namespace Riskeer.Integration.IO.Test.Assembly
+namespace Riskeer.Integration.IO.Test.Assembly.Old
 {
     [TestFixture]
-    public class ExportableAggregatedFailureMechanismSectionAssemblyResultTest
+    public class ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssemblyTest
     {
         [Test]
         public void Constructor_SimpleAssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResult(
+            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
                 ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
                 null,
-                ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult());
 
@@ -46,28 +46,11 @@ namespace Riskeer.Integration.IO.Test.Assembly
         }
 
         [Test]
-        public void Constructor_DetailedAssemblyNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResult(
-                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
-                null,
-                ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
-                ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("detailedAssembly", exception.ParamName);
-        }
-
-        [Test]
         public void Constructor_TailorMadeAssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResult(
+            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
                 ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 null,
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult());
@@ -81,9 +64,8 @@ namespace Riskeer.Integration.IO.Test.Assembly
         public void Constructor_CombinedAssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResult(
+            TestDelegate call = () => new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(
                 ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
                 null);
@@ -99,23 +81,20 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Setup
             ExportableFailureMechanismSection failureMechanismSection = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
             ExportableSectionAssemblyResult simpleAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
-            ExportableSectionAssemblyResult detailedAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
             ExportableSectionAssemblyResult tailorMadeAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
             ExportableSectionAssemblyResult combinedAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
 
             // Call
-            var assemblyResult = new ExportableAggregatedFailureMechanismSectionAssemblyResult(failureMechanismSection,
-                                                                                               simpleAssembly,
-                                                                                               detailedAssembly,
-                                                                                               tailorMadeAssembly,
-                                                                                               combinedAssembly);
+            var assemblyResult = new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(failureMechanismSection,
+                                                                                                                      simpleAssembly,
+                                                                                                                      tailorMadeAssembly,
+                                                                                                                      combinedAssembly);
 
             // Assert
             Assert.IsInstanceOf<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(assemblyResult);
 
             Assert.AreSame(failureMechanismSection, assemblyResult.FailureMechanismSection);
             Assert.AreSame(simpleAssembly, assemblyResult.SimpleAssembly);
-            Assert.AreSame(detailedAssembly, assemblyResult.DetailedAssembly);
             Assert.AreSame(tailorMadeAssembly, assemblyResult.TailorMadeAssembly);
             Assert.AreSame(combinedAssembly, assemblyResult.CombinedAssembly);
         }

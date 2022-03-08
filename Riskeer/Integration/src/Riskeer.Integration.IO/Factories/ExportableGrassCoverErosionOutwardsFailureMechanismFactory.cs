@@ -28,6 +28,8 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Assembly.Old;
+using Riskeer.Integration.IO.Factories.Old;
 using Riskeer.Integration.IO.Helpers;
 
 namespace Riskeer.Integration.IO.Factories

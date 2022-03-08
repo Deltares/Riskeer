@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Riskeer.Integration.IO.Assembly.Old;
 
 namespace Riskeer.Integration.IO.Assembly
 {
