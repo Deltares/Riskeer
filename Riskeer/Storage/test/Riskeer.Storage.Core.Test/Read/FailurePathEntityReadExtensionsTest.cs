@@ -312,8 +312,9 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
 
             SectionResultTestHelper.AssertSectionResult(entity.FailureMechanismSectionEntities
-                                                          .SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities).Single(),
-                                                    specificFailurePath.SectionResults.Single());
+                                                              .SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities)
+                                                              .Single(),
+                                                        specificFailurePath.SectionResults.Single());
         }
 
         private static void AssertCommonFailurePathProperties(IFailurePathEntity entity, IFailurePath failurePath)
