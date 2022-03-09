@@ -24,14 +24,12 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.Factories;
 using Riskeer.Integration.IO.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
@@ -41,8 +39,6 @@ namespace Riskeer.Integration.IO.Test.Factories
     [TestFixture]
     public class ExportableStabilityPointStructuresFailureMechanismFactoryTest
     {
-        private static readonly FailureMechanismSectionAssemblyOld expectedAssemblyResult = new FailureMechanismSectionAssemblyOld(0, FailureMechanismSectionAssemblyCategoryGroup.None);
-
         [Test]
         public void CreateExportableFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
         {
@@ -100,47 +96,12 @@ namespace Riskeer.Integration.IO.Test.Factories
                 IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections = exportableFailureMechanism.SectionAssemblyResults
                                                                                                                               .Select(sar => sar.FailureMechanismSection);
                 ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanismSections);
-                AssertExportableFailureMechanismSectionResults(exportableFailureMechanismSections,
-                                                               exportableFailureMechanism.SectionAssemblyResults.Cast<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability>());
+
+                FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                ExportableSectionAssemblyResultTestHelper.AssertExportableFailureMechanismSectionResults(
+                    failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput,
+                    exportableFailureMechanismSections, exportableFailureMechanism.SectionAssemblyResults);
             }
-        }
-
-        private static void AssertExportableFailureMechanismSectionResults(IEnumerable<ExportableFailureMechanismSection> sections,
-                                                                           IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability> results)
-        {
-            int expectedNrOfResults = sections.Count();
-            Assert.AreEqual(expectedNrOfResults, results.Count());
-
-            for (var i = 0; i < expectedNrOfResults; i++)
-            {
-                ExportableFailureMechanismSection section = sections.ElementAt(i);
-                ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability result = results.ElementAt(i);
-
-                AssertExportableFailureMechanismSectionResult(section,
-                                                              result);
-            }
-        }
-
-        private static void AssertExportableFailureMechanismSectionResult(ExportableFailureMechanismSection expectedSection,
-                                                                          ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability actualResult)
-        {
-            Assert.AreSame(expectedSection, actualResult.FailureMechanismSection);
-
-            ExportableSectionAssemblyResultTestHelper.AssertExportableSectionAssemblyResult(expectedAssemblyResult,
-                                                                                            ExportableAssemblyMethod.WBI0E3,
-                                                                                            actualResult.SimpleAssembly);
-
-            ExportableSectionAssemblyResultTestHelper.AssertExportableSectionAssemblyResult(expectedAssemblyResult,
-                                                                                            ExportableAssemblyMethod.WBI0G3,
-                                                                                            actualResult.DetailedAssembly);
-
-            ExportableSectionAssemblyResultTestHelper.AssertExportableSectionAssemblyResult(expectedAssemblyResult,
-                                                                                            ExportableAssemblyMethod.WBI0T3,
-                                                                                            actualResult.TailorMadeAssembly);
-
-            ExportableSectionAssemblyResultTestHelper.AssertExportableSectionAssemblyResult(expectedAssemblyResult,
-                                                                                            ExportableAssemblyMethod.WBI0A1,
-                                                                                            actualResult.CombinedAssembly);
         }
     }
 }

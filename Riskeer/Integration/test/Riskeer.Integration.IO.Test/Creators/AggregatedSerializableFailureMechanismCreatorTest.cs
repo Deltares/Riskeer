@@ -52,7 +52,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                 null, new SerializableTotalAssemblyResult(),
                 new ExportableFailureMechanism(
                     ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
-                    Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
+                    Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
                     random.NextEnumValue<ExportableFailureMechanismType>()));
 
             // Assert
@@ -71,7 +71,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                 new IdentifierGenerator(), null,
                 new ExportableFailureMechanism(
                     ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
-                    Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
+                    Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
                     random.NextEnumValue<ExportableFailureMechanismType>()));
 
             // Assert

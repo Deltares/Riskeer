@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.TestUtil;
 
 namespace Riskeer.Integration.IO.Test.Assembly
@@ -34,14 +33,14 @@ namespace Riskeer.Integration.IO.Test.Assembly
     public class ExportableFailureMechanismTest
     {
         [Test]
-        public void ConstructorWithSectionAssemblyResults_FailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
 
             // Call
             void Call() => new ExportableFailureMechanism(
-                null, Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
+                null, Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
                 random.NextEnumValue<ExportableFailureMechanismType>());
 
             // Assert
@@ -50,7 +49,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
         }
 
         [Test]
-        public void ConstructorWithSectionAssemblyResults_SectionAssemblyResultsNull_ThrowsArgumentNullException()
+        public void Constructor_SectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Setup
             var random = new Random(21);
@@ -66,14 +65,14 @@ namespace Riskeer.Integration.IO.Test.Assembly
         }
 
         [Test]
-        public void ConstructorWithSectionAssemblyResults_WithValidArguments_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
             ExportableFailureMechanismAssemblyResult failureMechanismAssembly =
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult();
-            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> sectionAssemblyResults =
-                Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>();
+            IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> sectionAssemblyResults =
+                Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>();
             var code = random.NextEnumValue<ExportableFailureMechanismType>();
 
             // Call

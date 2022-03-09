@@ -19,7 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Assembly.Old;
@@ -73,6 +76,52 @@ namespace Riskeer.Integration.IO.TestUtil
         {
             Assert.AreEqual(assemblyMethod, exportableSectionAssemblyResult.AssemblyMethod);
             Assert.AreEqual(assemblyResult, exportableSectionAssemblyResult.AssemblyCategory);
+        }
+
+        /// <summary>
+        /// Asserts an <see cref="ExportableSectionAssemblyResult"/>
+        /// against the assembly result and the method which was used to generate the result.
+        /// </summary>
+        /// <param name="expectedAssemblyResult">The expected <see cref="FailureMechanismSectionAssemblyResult"/>.</param>
+        /// <param name="actualAssemblyResult">The <see cref="ExportableFailureMechanismSectionAssemblyWithProbabilityResult"/> to assert.</param>
+        /// <exception cref="AssertionException">Thrown when the values between <paramref name="expectedAssemblyResult"/>
+        /// and <paramref name="actualAssemblyResult"/> do not match.</exception>
+        public static void AssertExportableSectionAssemblyResult(FailureMechanismSectionAssemblyResult expectedAssemblyResult,
+                                                                 ExportableFailureMechanismSectionAssemblyWithProbabilityResult actualAssemblyResult)
+        {
+            Assert.AreEqual(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup, actualAssemblyResult.AssemblyGroup);
+            Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualAssemblyResult.Probability);
+        }
+
+        /// <summary>
+        /// Asserts a collection of <see cref="ExportableSectionAssemblyResult"/>
+        /// against the assembly result.
+        /// </summary>
+        /// <param name="expectedAssemblyResult">The expected <see cref="FailureMechanismSectionAssemblyResult"/>.</param>
+        /// <param name="sections">The actual exportable sections.</param>
+        /// <param name="results">The actual exportable assembly results.</param>
+        /// <exception cref="AssertionException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The number of <paramref name="sections"/> and number of <paramref name="results"/> do not match.</item>
+        /// <item>The values between <paramref name="expectedAssemblyResult"/> and <paramref name="results"/>
+        /// do not match.</item>
+        /// </list></exception>
+        public static void AssertExportableFailureMechanismSectionResults(FailureMechanismSectionAssemblyResult expectedAssemblyResult,
+                                                                          IEnumerable<ExportableFailureMechanismSection> sections,
+                                                                          IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> results)
+        {
+            int expectedNrOfResults = sections.Count();
+            Assert.AreEqual(expectedNrOfResults, results.Count());
+
+            for (var i = 0; i < expectedNrOfResults; i++)
+            {
+                ExportableFailureMechanismSection section = sections.ElementAt(i);
+                ExportableFailureMechanismSectionAssemblyWithProbabilityResult actualExportableAssemblyResult = results.ElementAt(i);
+
+                Assert.AreSame(section, actualExportableAssemblyResult.FailureMechanismSection);
+                Assert.AreEqual(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup, actualExportableAssemblyResult.AssemblyGroup);
+                Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualExportableAssemblyResult.Probability);
+            }
         }
     }
 }
