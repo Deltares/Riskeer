@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.Calculation;
@@ -48,6 +50,8 @@ namespace Riskeer.Integration.Forms.Observers
     /// </summary>
     public class AssessmentSectionResultObserver : Observable, IDisposable
     {
+        private readonly AssessmentSection assessmentSection;
+        
         private readonly Observer assessmentSectionObserver;
         private readonly Observer referenceLineObserver;
         private readonly Observer closingStructuresObserver;
@@ -66,6 +70,9 @@ namespace Riskeer.Integration.Forms.Observers
         private readonly Observer pipingStructureObserver;
         private readonly Observer waterPressureAsphaltCoverObserver;
 
+        private readonly Observer specificFailurePathsObserver;
+        private readonly List<Observer> specificFailurePathObservers;
+
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionResultObserver"/>.
         /// </summary>
@@ -77,6 +84,8 @@ namespace Riskeer.Integration.Forms.Observers
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
+
+            this.assessmentSection = assessmentSection;
 
             assessmentSectionObserver = new Observer(() =>
             {
@@ -91,6 +100,18 @@ namespace Riskeer.Integration.Forms.Observers
             {
                 Observable = assessmentSection.ReferenceLine
             };
+
+            specificFailurePathsObserver = new Observer(() =>
+            {
+                ClearFailurePathObservers();
+                CreateFailurePathObservers();
+                NotifyObservers();
+            })
+            {
+                Observable = assessmentSection.SpecificFailurePaths
+            };
+            specificFailurePathObservers = new List<Observer>();
+            CreateFailurePathObservers();
 
             closingStructuresObserver = CreateCalculatableFailureMechanismObserver<ClosingStructuresFailureMechanism,
                 AdoptableFailureMechanismSectionResult, StructuresCalculation<ClosingStructuresInput>>(assessmentSection.ClosingStructures);
@@ -167,6 +188,9 @@ namespace Riskeer.Integration.Forms.Observers
             microstabilityObserver.Dispose();
             pipingStructureObserver.Dispose();
             waterPressureAsphaltCoverObserver.Dispose();
+            specificFailurePathsObserver.Dispose();
+
+            ClearFailurePathObservers();
         }
 
         private void ResubscribeFailureMechanismObservers(AssessmentSection assessmentSection)
@@ -201,13 +225,30 @@ namespace Riskeer.Integration.Forms.Observers
         }
 
         private Observer CreateFailureMechanismObserver<TFailureMechanism, TSectionResult>(TFailureMechanism failureMechanism)
-            where TFailureMechanism : IFailureMechanism, IFailurePath<TSectionResult>
+            where TFailureMechanism : IFailurePath<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             return new Observer(NotifyObservers)
             {
                 Observable = new FailureMechanismResultObserver<TFailureMechanism, TSectionResult>(failureMechanism)
             };
+        }
+
+        private void CreateFailurePathObservers()
+        {
+            IEnumerable<Observer> observers = assessmentSection.SpecificFailurePaths.Select(CreateFailureMechanismObserver<SpecificFailurePath,
+                                                                                                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>);
+            specificFailurePathObservers.AddRange(observers);
+        }
+
+        private void ClearFailurePathObservers()
+        {
+            foreach (Observer failurePathObserver in specificFailurePathObservers)
+            {
+                failurePathObserver.Dispose();
+            }
+
+            specificFailurePathObservers.Clear();
         }
     }
 }

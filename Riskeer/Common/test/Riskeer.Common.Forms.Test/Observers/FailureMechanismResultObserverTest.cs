@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Test.Observers
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(null);
+            void Call() => new FailureMechanismResultObserver<TestFailurePath, FailureMechanismSectionResult>(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.Test.Observers
         public void Constructor_WithFailureMechanism_ExpectedProperties()
         {
             // Call
-            using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(new TestFailureMechanism()))
+            using (var resultObserver = new FailureMechanismResultObserver<TestFailurePath, FailureMechanismSectionResult>(new TestFailurePath()))
             {
                 // Assert
                 Assert.IsInstanceOf<Observable>(resultObserver);
@@ -65,8 +65,8 @@ namespace Riskeer.Common.Forms.Test.Observers
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
-            using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism))
+            var failureMechanism = new TestFailurePath();
+            using (var resultObserver = new FailureMechanismResultObserver<TestFailurePath, FailureMechanismSectionResult>(failureMechanism))
             {
                 resultObserver.Attach(observer);
 
@@ -87,13 +87,13 @@ namespace Riskeer.Common.Forms.Test.Observers
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestFailurePath();
             FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             });
 
-            using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism))
+            using (var resultObserver = new FailureMechanismResultObserver<TestFailurePath, FailureMechanismSectionResult>(failureMechanism))
             {
                 resultObserver.Attach(observer);
 
@@ -114,8 +114,8 @@ namespace Riskeer.Common.Forms.Test.Observers
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
-            using (var resultObserver = new FailureMechanismResultObserver<TestFailureMechanism, FailureMechanismSectionResult>(failureMechanism))
+            var failureMechanism = new TestFailurePath();
+            using (var resultObserver = new FailureMechanismResultObserver<TestFailurePath, FailureMechanismSectionResult>(failureMechanism))
             {
                 resultObserver.Attach(observer);
 

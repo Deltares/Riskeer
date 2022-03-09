@@ -30,9 +30,10 @@ namespace Riskeer.Common.Data.TestUtil
     /// <summary>
     /// An implementation of <see cref="IFailurePath"/> that can be used for testing.
     /// </summary>
-    public class TestFailurePath : Observable, IFailurePath<FailureMechanismSectionResult>
+    public class TestFailurePath : Observable, IFailurePath<TestFailureMechanismSectionResult>
     {
         private readonly FailureMechanismSectionCollection sectionCollection;
+        private readonly ObservableList<TestFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
         /// Creates a new instance of the <see cref="TestFailurePath"/> class.
@@ -49,31 +50,20 @@ namespace Riskeer.Common.Data.TestUtil
             InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
             AssemblyResult = new FailurePathAssemblyResult();
+            sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
         }
 
         public GeneralInput GeneralInput { get; }
 
         public string Name { get; }
-        
+
         public string Code { get; }
 
-        public IEnumerable<FailureMechanismSection> Sections
-        {
-            get
-            {
-                return sectionCollection;
-            }
-        }
+        public IEnumerable<FailureMechanismSection> Sections => sectionCollection;
 
         public FailurePathAssemblyResult AssemblyResult { get; }
 
-        public string FailureMechanismSectionSourcePath
-        {
-            get
-            {
-                return sectionCollection.SourcePath;
-            }
-        }
+        public string FailureMechanismSectionSourcePath => sectionCollection.SourcePath;
 
         public Comment InAssemblyInputComments { get; }
 
@@ -82,6 +72,8 @@ namespace Riskeer.Common.Data.TestUtil
         public Comment NotInAssemblyComments { get; }
 
         public bool InAssembly { get; set; }
+
+        public IObservableEnumerable<TestFailureMechanismSectionResult> SectionResults => sectionResults;
 
         public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {
@@ -96,13 +88,15 @@ namespace Riskeer.Common.Data.TestUtil
             }
 
             sectionCollection.SetSections(sections, sourcePath);
+            foreach (FailureMechanismSection section in sections)
+            {
+                sectionResults.Add(new TestFailureMechanismSectionResult(section));
+            }
         }
 
         public void ClearAllSections()
         {
             sectionCollection.Clear();
         }
-
-        public IObservableEnumerable<FailureMechanismSectionResult> SectionResults { get; }
     }
 }

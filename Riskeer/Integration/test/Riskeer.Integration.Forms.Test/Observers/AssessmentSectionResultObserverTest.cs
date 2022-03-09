@@ -29,6 +29,7 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -99,6 +100,136 @@ namespace Riskeer.Integration.Forms.Test.Observers
         }
 
         [Test]
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenReferenceLineNotified_ThenAttachedObserverNotified()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                resultObserver.Attach(observer);
+
+                // When
+                assessmentSection.ReferenceLine.NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenSpecificFailurePathCollectionNotified_ThenAttachedObserverNotified()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                resultObserver.Attach(observer);
+
+                // When
+                assessmentSection.SpecificFailurePaths.NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenSpecificFailurePathInCollectionNotified_ThenAttachedObserverNotified()
+        {
+            // Given
+            var specificFailurePath = new SpecificFailurePath();
+
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.SpecificFailurePaths.Add(specificFailurePath);
+
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                resultObserver.Attach(observer);
+
+                // When
+                specificFailurePath.NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenSpecificFailurePathAddedAndNotified_ThenAttachedObserverNotified()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                var specificFailurePath = new SpecificFailurePath();
+                assessmentSection.SpecificFailurePaths.Add(specificFailurePath);
+                assessmentSection.SpecificFailurePaths.NotifyObservers();
+                resultObserver.Attach(observer);
+
+                // When
+
+                specificFailurePath.NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenSpecificFailurePathRemovedAndNotified_ThenAttachedObserverNotNotified()
+        {
+            // Given
+            var failurePathToRemove = new SpecificFailurePath();
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+            assessmentSection.SpecificFailurePaths.AddRange(new[]
+            {
+                failurePathToRemove,
+                new SpecificFailurePath()
+            });
+
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                mocks.ReplayAll();
+
+                assessmentSection.SpecificFailurePaths.Remove(failurePathToRemove);
+                assessmentSection.SpecificFailurePaths.NotifyObservers();
+
+                resultObserver.Attach(observer);
+
+                // When
+                failurePathToRemove.NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         [TestCaseSource(nameof(GetFailureMechanismReplaceData))]
         public void GivenAssessmentSectionWithFailureMechanismsReplaced_WhenOldFailureMechanismNotified_ThenAssessmentSectionResultObserverNotNotified<TFailureMechanism>(
             AssessmentSection assessmentSection, Func<AssessmentSection, TFailureMechanism> getFailureMechanismFunc, Action setNewFailureMechanismAction)
@@ -149,29 +280,6 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
                 // When
                 newFailureMechanism.NotifyObservers();
-
-                // Then
-                mocks.VerifyAll();
-            }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenReferenceLineNotified_ThenAttachedObserverNotified()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-
-            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
-            {
-                var mocks = new MockRepository();
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                mocks.ReplayAll();
-
-                resultObserver.Attach(observer);
-
-                // When
-                assessmentSection.ReferenceLine.NotifyObservers();
 
                 // Then
                 mocks.VerifyAll();
