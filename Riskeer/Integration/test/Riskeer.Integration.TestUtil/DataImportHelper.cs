@@ -88,15 +88,14 @@ namespace Riskeer.Integration.TestUtil
         }
 
         /// <summary>
-        /// Imports the <see cref="FailureMechanismSection"/> data for a given <see cref="IFailurePath{FailureMechanismSectionResult}"/>.
+        /// Imports <see cref="FailureMechanismSection"/> data for a given <see cref="IFailurePath{FailureMechanismSectionResult}"/>.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to import on.</param>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> that contains the <see cref="IFailurePath{FailureMechanismSectionResult}"/> instance.</param>
+        /// <param name="failureMechanism">The <see cref="IFailurePath{FailureMechanismSectionResult}"/> instance to import on.</param>
         /// <remarks>
         /// <para>This will import 283 failure mechanism sections.</para>
         /// <para>Imports using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
-        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IEnumerable{IFailurePath{FailureMechanismSectionResult}})"/>
         public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailurePath<FailureMechanismSectionResult> failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
@@ -118,15 +117,14 @@ namespace Riskeer.Integration.TestUtil
         }
 
         /// <summary>
-        /// Imports the <see cref="FailureMechanismSection"/> data for a given <see cref="IFailureMechanism"/>.
+        /// Imports <see cref="FailureMechanismSection"/> data for a given enumeration of <see cref="IFailurePath{FailureMechanismSectionResult}"/>.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> to import on.</param>
-        /// <param name="targetFailureMechanisms">The <see cref="IFailureMechanism"/> to import on.</param>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> that contains the <see cref="IFailurePath{FailureMechanismSectionResult}"/> instances.</param>
+        /// <param name="targetFailureMechanisms">The <see cref="IFailurePath{FailureMechanismSectionResult}"/> instances to import on.</param>
         /// <remarks>
         /// <para>This will import the same 283 failure mechanism sections on all failure mechanisms.</para>
         /// <para>Does not import using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
-        /// <seealso cref="ImportFailureMechanismSections(AssessmentSection, IFailurePath{FailureMechanismSectionResult})"/>
         public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IEnumerable<IFailurePath<FailureMechanismSectionResult>> targetFailureMechanisms)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
