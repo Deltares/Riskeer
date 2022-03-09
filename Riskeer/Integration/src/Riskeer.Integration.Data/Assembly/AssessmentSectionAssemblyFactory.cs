@@ -30,6 +30,7 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -69,9 +70,9 @@ namespace Riskeer.Integration.Data.Assembly
                 IAssessmentSectionAssemblyCalculator calculator =
                     calculatorFactory.CreateAssessmentSectionAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
-                IEnumerable<double> failureMechanismAssemblyResult = GetFailureMechanismAssemblyResults(assessmentSection);
+                IEnumerable<double> assemblyResults = GetFailureMechanismAssemblyResults(assessmentSection).ToArray();
                 FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
-                return calculator.AssembleAssessmentSection(failureMechanismAssemblyResult, contribution.LowerLimitNorm, contribution.SignalingNorm);
+                return calculator.AssembleAssessmentSection(assemblyResults, contribution.LowerLimitNorm, contribution.SignalingNorm);
             }
             catch (AssessmentSectionAssemblyCalculatorException e)
             {
@@ -141,24 +142,26 @@ namespace Riskeer.Integration.Data.Assembly
         /// <exception cref="AssemblyException">Thrown when the results could not be assembled.</exception>
         private static IEnumerable<double> GetFailureMechanismAssemblyResults(AssessmentSection assessmentSection)
         {
-            return new[]
+            yield return PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Piping, assessmentSection);
+            yield return MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection);
+            yield return GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            yield return ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.ClosingStructures, assessmentSection);
+            yield return HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.HeightStructures, assessmentSection);
+            yield return StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection);
+            yield return GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionOutwards, assessmentSection);
+            yield return StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityStoneCover, assessmentSection);
+            yield return WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaveImpactAsphaltCover, assessmentSection);
+            yield return DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.DuneErosion, assessmentSection);
+            yield return PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.PipingStructure, assessmentSection);
+            yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, assessmentSection);
+            yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection);
+            yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Microstability, assessmentSection);
+            yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaterPressureAsphaltCover, assessmentSection);
+
+            foreach (SpecificFailurePath failurePath in assessmentSection.SpecificFailurePaths)
             {
-                PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Piping, assessmentSection),
-                MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection),
-                GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection),
-                ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.ClosingStructures, assessmentSection),
-                HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.HeightStructures, assessmentSection),
-                StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection),
-                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
-                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityStoneCover, assessmentSection),
-                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
-                DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.DuneErosion, assessmentSection),
-                PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.PipingStructure, assessmentSection),
-                FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, assessmentSection),
-                FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection),
-                FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Microstability, assessmentSection),
-                FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaterPressureAsphaltCover, assessmentSection)
-            };
+                yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(failurePath, assessmentSection);
+            }
         }
     }
 }

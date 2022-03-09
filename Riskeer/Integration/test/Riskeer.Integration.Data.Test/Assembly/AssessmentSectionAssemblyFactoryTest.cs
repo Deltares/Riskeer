@@ -33,6 +33,7 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Data.TestUtil;
 using Riskeer.Integration.TestUtil;
@@ -75,7 +76,13 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(contribution.SignalingNorm, assessmentSectionAssemblyCalculator.SignalingNormInput);
                 Assert.AreEqual(contribution.LowerLimitNorm, assessmentSectionAssemblyCalculator.LowerLimitNormInput);
 
-                foreach (double failureMechanismProbability in assessmentSectionAssemblyCalculator.FailureMechanismProbabilitiesInput)
+                int expectedNrOfProbabilities = assessmentSection.GetFailureMechanisms()
+                                                                 .Cast<IFailurePath>()
+                                                                 .Concat(assessmentSection.SpecificFailurePaths)
+                                                                 .Count();
+                IEnumerable<double> calculatorInput = assessmentSectionAssemblyCalculator.FailureMechanismProbabilitiesInput;
+                Assert.AreEqual(expectedNrOfProbabilities, calculatorInput.Count());
+                foreach (double failureMechanismProbability in calculatorInput)
                 {
                     Assert.AreEqual(failureMechanismAssemblyCalculator.AssemblyResult, failureMechanismProbability);
                 }
@@ -290,7 +297,12 @@ namespace Riskeer.Integration.Data.Test.Assembly
         private static AssessmentSection CreateAssessmentSection()
         {
             var random = new Random(21);
-            return new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
+
+            IEnumerable<SpecificFailurePath> failurePaths = Enumerable.Repeat(new SpecificFailurePath(), random.Next(1, 10))
+                                                                      .ToArray();
+            assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
+            return assessmentSection;
         }
 
         #endregion
