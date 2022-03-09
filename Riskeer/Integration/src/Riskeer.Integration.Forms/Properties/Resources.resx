@@ -368,19 +368,19 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="AssemblyGroup_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
-  <data name="AssemblyGroup_Name_Description" xml:space="preserve">
+  <data name="FailureMechanismSectionAssemblyGroup_Name_Description" xml:space="preserve">
     <value>Naam van de duidingsklasse.</value>
   </data>
   <data name="AssemblyGroup_LowerBoundary_DisplayName" xml:space="preserve">
     <value>Ondergrens [1/jaar]</value>
   </data>
-  <data name="AssemblyGroup_LowerBoundary_Description" xml:space="preserve">
+  <data name="FailureMechanismSectionAssemblyGroup_LowerBoundary_Description" xml:space="preserve">
     <value>Ondergrens van de duidingsklasse.</value>
   </data>
   <data name="AssemblyGroup_UpperBoundary_DisplayName" xml:space="preserve">
     <value>Bovengrens [1/jaar]</value>
   </data>
-  <data name="AssemblyGroup_UpperBoundary_Description" xml:space="preserve">
+  <data name="FailureMechanismSectionAssemblyGroup_UpperBoundary_Description" xml:space="preserve">
     <value>Bovengrens van de duidingsklasse.</value>
   </data>
     <data name="AssessmentSectionAssemblyGroups_Description" xml:space="preserve">
@@ -392,7 +392,16 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
     <data name="FailureMechanismSectionAssemblyGroups_Description" xml:space="preserve">
     <value>De duidingsklassen voor het traject.</value>
   </data>
-    <data name="AssessmentSectionAssemblyResultControl_AssemblyGroup_No_result_dash" xml:space="preserve">
+  <data name="AssessmentSectionAssemblyResultControl_AssemblyGroup_No_result_dash" xml:space="preserve">
     <value>-</value>
+  </data>
+  <data name="AssessmentSectionAssemblyGroup_Name_Description" xml:space="preserve">
+    <value>Naam van de normklasse.</value>
+  </data>
+  <data name="AssessmentSectionAssemblyGroup_LowerBoundary_Description" xml:space="preserve">
+    <value>Ondergrens van de normklasse.</value>
+  </data>
+  <data name="AssessmentSectionAssemblyGroup_UpperBoundary_Description" xml:space="preserve">
+    <value>Bovengrens van de normklasse.</value>
   </data>
 </root>

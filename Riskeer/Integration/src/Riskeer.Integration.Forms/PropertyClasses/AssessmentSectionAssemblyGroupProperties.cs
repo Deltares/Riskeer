@@ -60,21 +60,21 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [PropertyOrder(groupPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_Name_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_Name_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_Name_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
         public AssessmentSectionAssemblyGroup Group => data.AssessmentSectionAssemblyGroup;
 
         [PropertyOrder(lowerBoundaryPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_LowerBoundary_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_LowerBoundary_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_LowerBoundary_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double LowerBoundary => data.LowerBoundary;
 
         [PropertyOrder(upperBoundaryPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_UpperBoundary_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_UpperBoundary_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_UpperBoundary_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double UpperBoundary => data.UpperBoundary;
 

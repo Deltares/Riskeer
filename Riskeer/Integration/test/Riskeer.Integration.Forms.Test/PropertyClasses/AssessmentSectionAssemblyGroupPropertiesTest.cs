@@ -89,21 +89,21 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategoryName,
                                                                             "Naam",
-                                                                            "Naam van de duidingsklasse.",
+                                                                            "Naam van de normklasse.",
                                                                             true);
 
             PropertyDescriptor lowerBoundaryProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerBoundaryProperty,
                                                                             generalCategoryName,
                                                                             "Ondergrens [1/jaar]",
-                                                                            "Ondergrens van de duidingsklasse.",
+                                                                            "Ondergrens van de normklasse.",
                                                                             true);
 
             PropertyDescriptor upperBoundaryProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryProperty,
                                                                             generalCategoryName,
                                                                             "Bovengrens [1/jaar]",
-                                                                            "Bovengrens van de duidingsklasse.",
+                                                                            "Bovengrens van de normklasse.",
                                                                             true);
         }
 

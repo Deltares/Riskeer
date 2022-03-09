@@ -59,31 +59,13 @@ namespace Riskeer.Integration.Forms.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ondergrens van de duidingsklasse..
-        /// </summary>
-        public static string AssemblyGroup_LowerBoundary_Description {
-            get {
-                return ResourceManager.GetString("AssemblyGroup_LowerBoundary_Description", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Ondergrens [1/jaar].
         /// </summary>
         public static string AssemblyGroup_LowerBoundary_DisplayName {
             get {
                 return ResourceManager.GetString("AssemblyGroup_LowerBoundary_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam van de duidingsklasse..
-        /// </summary>
-        public static string AssemblyGroup_Name_Description {
-            get {
-                return ResourceManager.GetString("AssemblyGroup_Name_Description", resourceCulture);
             }
         }
         
@@ -95,16 +77,7 @@ namespace Riskeer.Integration.Forms.Properties {
                 return ResourceManager.GetString("AssemblyGroup_Name_DisplayName", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bovengrens van de duidingsklasse..
-        /// </summary>
-        public static string AssemblyGroup_UpperBoundary_Description {
-            get {
-                return ResourceManager.GetString("AssemblyGroup_UpperBoundary_Description", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Bovengrens [1/jaar].
         /// </summary>
@@ -184,6 +157,33 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string AssessmentSection_Name_DisplayName {
             get {
                 return ResourceManager.GetString("AssessmentSection_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ondergrens van de normklasse..
+        /// </summary>
+        public static string AssessmentSectionAssemblyGroup_LowerBoundary_Description {
+            get {
+                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_LowerBoundary_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van de normklasse..
+        /// </summary>
+        public static string AssessmentSectionAssemblyGroup_Name_Description {
+            get {
+                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bovengrens van de normklasse..
+        /// </summary>
+        public static string AssessmentSectionAssemblyGroup_UpperBoundary_Description {
+            get {
+                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_UpperBoundary_Description", resourceCulture);
             }
         }
         
@@ -448,6 +448,33 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string FailureMechanismMergeDataRow_NumberOfCalculations_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismMergeDataRow_NumberOfCalculations_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ondergrens van de duidingsklasse..
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyGroup_LowerBoundary_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyGroup_LowerBoundary_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam van de duidingsklasse..
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyGroup_Name_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyGroup_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bovengrens van de duidingsklasse..
+        /// </summary>
+        public static string FailureMechanismSectionAssemblyGroup_UpperBoundary_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyGroup_UpperBoundary_Description", resourceCulture);
             }
         }
         

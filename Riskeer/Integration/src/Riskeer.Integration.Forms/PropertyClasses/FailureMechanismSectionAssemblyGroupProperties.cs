@@ -60,7 +60,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [PropertyOrder(groupPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_Name_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_Name_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_Name_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
         public FailureMechanismSectionAssemblyGroup Group
         {
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [PropertyOrder(lowerBoundaryPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_LowerBoundary_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_LowerBoundary_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_LowerBoundary_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double LowerBoundary
         {
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [PropertyOrder(upperBoundaryPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssemblyGroup_UpperBoundary_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.AssemblyGroup_UpperBoundary_Description))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_UpperBoundary_Description))]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         public double UpperBoundary
         {
