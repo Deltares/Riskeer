@@ -74,10 +74,8 @@ namespace Riskeer.Integration.IO.Creators
 
             AggregatedSerializableFailureMechanismSectionAssembly[] serializableFailureMechanismSectionAssemblyResults =
                 failureMechanism.SectionAssemblyResults
-                                .Select(sectionAssemblyResult => CreateFailureMechanismSectionAssembly(idGenerator,
-                                                                                                       serializableFailureMechanism,
-                                                                                                       serializableCollection,
-                                                                                                       sectionAssemblyResult))
+                                .Select(sectionAssemblyResult => CreateFailureMechanismSectionAssembly(
+                                            idGenerator, serializableFailureMechanism, serializableCollection, sectionAssemblyResult))
                                 .ToArray();
 
             return new AggregatedSerializableFailureMechanism(serializableFailureMechanism,

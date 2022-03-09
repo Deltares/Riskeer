@@ -298,21 +298,10 @@ namespace Riskeer.AssemblyTool.IO.Test
                 SerializableFailureMechanismSectionType.FailureMechanism);
 
             var result = new SerializableFailureMechanismSectionAssembly(
-                "resultaat_GABI_1",
-                failureMechanism,
-                section1,
-                new[]
-                {
-                    new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0E1,
-                                                                          SerializableAssessmentType.SimpleAssessment,
-                                                                          SerializableFailureMechanismSectionCategoryGroup.IIv, 0.5),
-                    new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0T5,
-                                                                          SerializableAssessmentType.TailorMadeAssessment,
-                                                                          SerializableFailureMechanismSectionCategoryGroup.IIIv)
-                },
-                new SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI0A1,
-                                                                      SerializableAssessmentType.CombinedAssessment,
-                                                                      SerializableFailureMechanismSectionCategoryGroup.IIIv));
+                "resultaat_GABI_1", failureMechanism, section1,
+                new SerializableFailureMechanismSectionAssemblyResult(
+                    SerializableAssemblyMethod.WBI0A1, SerializableAssessmentType.CombinedAssessment,
+                    SerializableFailureMechanismSectionCategoryGroup.IIIv));
 
             var sections2 = new SerializableFailureMechanismSectionCollection("vakindeling_gecombineerd");
             var section2 = new SerializableFailureMechanismSection(

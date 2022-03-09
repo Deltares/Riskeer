@@ -90,7 +90,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             Assert.AreEqual("faalkans", AssemblyXmlIdentifiers.Probability);
 
-            Assert.AreEqual("toetsoordeelVak", AssemblyXmlIdentifiers.SectionResults);
             Assert.AreEqual("afstandBegin", AssemblyXmlIdentifiers.StartDistance);
             Assert.AreEqual("beginJaarBeoordelingsronde", AssemblyXmlIdentifiers.StartYear);
             Assert.AreEqual("status", AssemblyXmlIdentifiers.Status);

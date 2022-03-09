@@ -143,7 +143,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                              serializedSectionResults[2]);
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
-                                                                                             failureMechanismSectionAssembly.CombinedSectionResult);
+                                                                                             failureMechanismSectionAssembly.SectionResult);
 
             SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(sectionResult.FailureMechanismSection,
                                                                                         serializableCollection,
@@ -213,7 +213,7 @@ namespace Riskeer.Integration.IO.Test.Creators
 
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
-                                                                                             failureMechanismSectionAssembly.CombinedSectionResult);
+                                                                                             failureMechanismSectionAssembly.SectionResult);
 
             SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(sectionResult.FailureMechanismSection,
                                                                                         serializableCollection,
@@ -325,7 +325,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                              serializedSectionResults[2]);
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
-                                                                                             failureMechanismSectionAssembly.CombinedSectionResult);
+                                                                                             failureMechanismSectionAssembly.SectionResult);
 
             SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(sectionResult.FailureMechanismSection,
                                                                                         serializableCollection,
@@ -395,7 +395,7 @@ namespace Riskeer.Integration.IO.Test.Creators
 
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
-                                                                                             failureMechanismSectionAssembly.CombinedSectionResult);
+                                                                                             failureMechanismSectionAssembly.SectionResult);
 
             SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(sectionResult.FailureMechanismSection,
                                                                                         serializableCollection,
@@ -503,7 +503,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                              serializedSectionResults[1]);
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
-                                                                                             failureMechanismSectionAssembly.CombinedSectionResult);
+                                                                                             failureMechanismSectionAssembly.SectionResult);
 
             SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(sectionResult.FailureMechanismSection,
                                                                                         serializableCollection,
@@ -563,7 +563,7 @@ namespace Riskeer.Integration.IO.Test.Creators
 
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
-                                                                                             failureMechanismSectionAssembly.CombinedSectionResult);
+                                                                                             failureMechanismSectionAssembly.SectionResult);
 
             SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(sectionResult.FailureMechanismSection,
                                                                                         serializableCollection,
@@ -752,7 +752,7 @@ namespace Riskeer.Integration.IO.Test.Creators
 
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(sectionResult.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
-                                                                                             failureMechanismSectionAssembly.CombinedSectionResult);
+                                                                                             failureMechanismSectionAssembly.SectionResult);
 
             SerializableFailureMechanismSectionTestHelper.AssertFailureMechanismSection(sectionResult.FailureMechanismSection,
                                                                                         serializableCollection,

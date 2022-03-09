@@ -20,10 +20,7 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.AggregatedSerializable;
 using Riskeer.Integration.IO.Assembly.Old;
@@ -81,9 +78,9 @@ namespace Riskeer.Integration.IO.Creators
             var failureMechanismSectionAssembly = new SerializableFailureMechanismSectionAssembly(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionAssembly_IdPrefix),
                                                                                                   serializableFailureMechanism,
                                                                                                   failureMechanismSection,
-                                                                                                  CreateAssemblySectionResults(sectionResult),
-                                                                                                  SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.CombinedAssessment,
-                                                                                                                                                                  sectionResult.CombinedAssembly));
+                                                                                                  SerializableFailureMechanismSectionAssemblyResultCreator.Create(
+                                                                                                      SerializableAssessmentType.CombinedAssessment,
+                                                                                                      sectionResult.CombinedAssembly));
             return new AggregatedSerializableFailureMechanismSectionAssembly(failureMechanismSection,
                                                                              failureMechanismSectionAssembly);
         }
@@ -131,9 +128,9 @@ namespace Riskeer.Integration.IO.Creators
             var failureMechanismSectionAssembly = new SerializableFailureMechanismSectionAssembly(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionAssembly_IdPrefix),
                                                                                                   serializableFailureMechanism,
                                                                                                   failureMechanismSection,
-                                                                                                  CreateAssemblySectionResults(sectionResult),
-                                                                                                  SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.CombinedAssessment,
-                                                                                                                                                                  sectionResult.CombinedAssembly));
+                                                                                                  SerializableFailureMechanismSectionAssemblyResultCreator.Create(
+                                                                                                      SerializableAssessmentType.CombinedAssessment,
+                                                                                                      sectionResult.CombinedAssembly));
             return new AggregatedSerializableFailureMechanismSectionAssembly(failureMechanismSection,
                                                                              failureMechanismSectionAssembly);
         }
@@ -181,9 +178,9 @@ namespace Riskeer.Integration.IO.Creators
             var failureMechanismSectionAssembly = new SerializableFailureMechanismSectionAssembly(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionAssembly_IdPrefix),
                                                                                                   serializableFailureMechanism,
                                                                                                   failureMechanismSection,
-                                                                                                  CreateAssemblySectionResults(sectionResult),
-                                                                                                  SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.CombinedAssessment,
-                                                                                                                                                                  sectionResult.CombinedAssembly));
+                                                                                                  SerializableFailureMechanismSectionAssemblyResultCreator.Create(
+                                                                                                      SerializableAssessmentType.CombinedAssessment,
+                                                                                                      sectionResult.CombinedAssembly));
             return new AggregatedSerializableFailureMechanismSectionAssembly(failureMechanismSection,
                                                                              failureMechanismSectionAssembly);
         }
@@ -231,9 +228,9 @@ namespace Riskeer.Integration.IO.Creators
             var failureMechanismSectionAssembly = new SerializableFailureMechanismSectionAssembly(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionAssembly_IdPrefix),
                                                                                                   serializableFailureMechanism,
                                                                                                   failureMechanismSection,
-                                                                                                  new SerializableFailureMechanismSectionAssemblyResult[0],
-                                                                                                  SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.CombinedAssessment,
-                                                                                                                                                                  sectionResult.CombinedAssembly));
+                                                                                                  SerializableFailureMechanismSectionAssemblyResultCreator.Create(
+                                                                                                      SerializableAssessmentType.CombinedAssessment,
+                                                                                                      sectionResult.CombinedAssembly));
             return new AggregatedSerializableFailureMechanismSectionAssembly(failureMechanismSection,
                                                                              failureMechanismSectionAssembly);
         }
@@ -281,100 +278,11 @@ namespace Riskeer.Integration.IO.Creators
             var failureMechanismSectionAssembly = new SerializableFailureMechanismSectionAssembly(idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionAssembly_IdPrefix),
                                                                                                   serializableFailureMechanism,
                                                                                                   failureMechanismSection,
-                                                                                                  new SerializableFailureMechanismSectionAssemblyResult[0],
-                                                                                                  SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.CombinedAssessment,
-                                                                                                                                                                  sectionResult.CombinedAssembly));
+                                                                                                  SerializableFailureMechanismSectionAssemblyResultCreator.Create(
+                                                                                                      SerializableAssessmentType.CombinedAssessment,
+                                                                                                      sectionResult.CombinedAssembly));
             return new AggregatedSerializableFailureMechanismSectionAssembly(failureMechanismSection,
                                                                              failureMechanismSectionAssembly);
-        }
-
-        /// <summary>
-        /// Creates a collection of <see cref="SerializableFailureMechanismSectionAssemblyResult"/> based on <paramref name="sectionResult"/>.
-        /// </summary>
-        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResult"/> to create a collection of
-        /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> for.</param>
-        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to create a serializable counterpart for.</exception>
-        private static SerializableFailureMechanismSectionAssemblyResult[] CreateAssemblySectionResults(ExportableAggregatedFailureMechanismSectionAssemblyResult sectionResult)
-        {
-            var serializableSectionAssemblyResults = new List<SerializableFailureMechanismSectionAssemblyResult>();
-
-            if (sectionResult.SimpleAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.SimpleAssessment,
-                                                                                                                       sectionResult.SimpleAssembly));
-            }
-
-            if (sectionResult.DetailedAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.DetailedAssessment,
-                                                                                                                       sectionResult.DetailedAssembly));
-            }
-
-            if (sectionResult.TailorMadeAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.TailorMadeAssessment,
-                                                                                                                       sectionResult.TailorMadeAssembly));
-            }
-
-            return serializableSectionAssemblyResults.ToArray();
-        }
-
-        /// <summary>
-        /// Creates a collection of <see cref="SerializableFailureMechanismSectionAssemblyResult"/> based on <paramref name="sectionResult"/>.
-        /// </summary>
-        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability"/> to create a collection of
-        /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> for.</param>
-        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to create a serializable counterpart for.</exception>
-        private static SerializableFailureMechanismSectionAssemblyResult[] CreateAssemblySectionResults(
-            ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability sectionResult)
-        {
-            var serializableSectionAssemblyResults = new List<SerializableFailureMechanismSectionAssemblyResult>();
-
-            if (sectionResult.SimpleAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.SimpleAssessment,
-                                                                                                                       sectionResult.SimpleAssembly));
-            }
-
-            if (sectionResult.DetailedAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.DetailedAssessment,
-                                                                                                                       sectionResult.DetailedAssembly));
-            }
-
-            if (sectionResult.TailorMadeAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.TailorMadeAssessment,
-                                                                                                                       sectionResult.TailorMadeAssembly));
-            }
-
-            return serializableSectionAssemblyResults.ToArray();
-        }
-
-        /// <summary>
-        /// Creates a collection of <see cref="SerializableFailureMechanismSectionAssemblyResult"/> based on <paramref name="sectionResult"/>.
-        /// </summary>
-        /// <param name="sectionResult">The <see cref="ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly"/> to create a collection of
-        /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> for.</param>
-        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to create a serializable counterpart for.</exception>
-        private static SerializableFailureMechanismSectionAssemblyResult[] CreateAssemblySectionResults(
-            ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly sectionResult)
-        {
-            var serializableSectionAssemblyResults = new List<SerializableFailureMechanismSectionAssemblyResult>();
-
-            if (sectionResult.SimpleAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.SimpleAssessment,
-                                                                                                                       sectionResult.SimpleAssembly));
-            }
-
-            if (sectionResult.TailorMadeAssembly.AssemblyCategory != FailureMechanismSectionAssemblyCategoryGroup.None)
-            {
-                serializableSectionAssemblyResults.Add(SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.TailorMadeAssessment,
-                                                                                                                       sectionResult.TailorMadeAssembly));
-            }
-
-            return serializableSectionAssemblyResults.ToArray();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
     public class SerializableFailureMechanismSectionAssemblyTest
     {
         [Test]
-        public void DefaultConstructor_ReturnsDefaultValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
             var sectionAssembly = new SerializableFailureMechanismSectionAssembly();
@@ -44,8 +44,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.IsNull(sectionAssembly.Id);
             Assert.IsNull(sectionAssembly.FailureMechanismId);
             Assert.IsNull(sectionAssembly.FailureMechanismSectionId);
-            Assert.IsNull(sectionAssembly.CombinedSectionResult);
-            Assert.IsNull(sectionAssembly.SectionResults);
+            Assert.IsNull(sectionAssembly.SectionResult);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanismSectionAssembly), "Toets");
 
@@ -57,9 +56,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
                 nameof(SerializableFailureMechanismSectionAssembly.FailureMechanismSectionId), "WaterkeringsectieIDRef");
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssembly>(
-                nameof(SerializableFailureMechanismSectionAssembly.CombinedSectionResult), "eindtoetsoordeel");
-            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssembly>(
-                nameof(SerializableFailureMechanismSectionAssembly.SectionResults), "toetsoordeelVak");
+                nameof(SerializableFailureMechanismSectionAssembly.SectionResult), "eindtoetsoordeel");
         }
 
         [Test]
@@ -69,7 +66,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             // Call
             void Call() => new SerializableFailureMechanismSectionAssembly(invalidId, new SerializableFailureMechanism(),
                                                                            new SerializableFailureMechanismSection(),
-                                                                           Array.Empty<SerializableFailureMechanismSectionAssemblyResult>(),
                                                                            new SerializableFailureMechanismSectionAssemblyResult());
 
             // Assert
@@ -82,7 +78,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         {
             // Call
             void Call() => new SerializableFailureMechanismSectionAssembly("id", null, new SerializableFailureMechanismSection(),
-                                                                           Array.Empty<SerializableFailureMechanismSectionAssemblyResult>(),
                                                                            new SerializableFailureMechanismSectionAssemblyResult());
 
             // Assert
@@ -95,8 +90,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         {
             // Call
             void Call() => new SerializableFailureMechanismSectionAssembly("id", new SerializableFailureMechanism(),
-                                                                           null, Array.Empty<SerializableFailureMechanismSectionAssemblyResult>(),
-                                                                           new SerializableFailureMechanismSectionAssemblyResult());
+                                                                           null, new SerializableFailureMechanismSectionAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -104,30 +98,16 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        public void Constructor_SectionResultsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new SerializableFailureMechanismSectionAssembly("id", new SerializableFailureMechanism(),
-                                                                           new SerializableFailureMechanismSection(), null,
-                                                                           new SerializableFailureMechanismSectionAssemblyResult());
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("sectionResults", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_CombinedSectionResultNull_ThrowsArgumentNullException()
+        public void Constructor_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new SerializableFailureMechanismSectionAssembly("id", new SerializableFailureMechanism(),
                                                                            new SerializableFailureMechanismSection(),
-                                                                           Array.Empty<SerializableFailureMechanismSectionAssemblyResult>(),
                                                                            null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("combinedSectionResult", exception.ParamName);
+            Assert.AreEqual("sectionResult", exception.ParamName);
         }
 
         [Test]
@@ -150,22 +130,17 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
                                                                       new Point2D(random.NextDouble(), random.NextDouble())
                                                                   },
                                                                   SerializableFailureMechanismSectionType.FailureMechanism);
-            SerializableFailureMechanismSectionAssemblyResult[] sectionResults = Array.Empty<SerializableFailureMechanismSectionAssemblyResult>();
-            var combinedSectionResult = new SerializableFailureMechanismSectionAssemblyResult();
+            var sectionResult = new SerializableFailureMechanismSectionAssemblyResult();
 
             // Call
-            var sectionAssembly = new SerializableFailureMechanismSectionAssembly(id,
-                                                                                  failureMechanism,
-                                                                                  section,
-                                                                                  sectionResults,
-                                                                                  combinedSectionResult);
+            var sectionAssembly = new SerializableFailureMechanismSectionAssembly(
+                id, failureMechanism, section, sectionResult);
 
             // Assert
             Assert.AreEqual(id, sectionAssembly.Id);
             Assert.AreEqual(failureMechanism.Id, sectionAssembly.FailureMechanismId);
             Assert.AreEqual(section.Id, sectionAssembly.FailureMechanismSectionId);
-            Assert.AreSame(sectionResults, sectionAssembly.SectionResults);
-            Assert.AreSame(combinedSectionResult, sectionAssembly.CombinedSectionResult);
+            Assert.AreSame(sectionResult, sectionAssembly.SectionResult);
         }
     }
 }

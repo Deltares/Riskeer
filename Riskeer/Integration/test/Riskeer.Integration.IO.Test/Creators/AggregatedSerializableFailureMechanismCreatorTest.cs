@@ -188,7 +188,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                              serializedSectionResults[2]);
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithProbability.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
-                                                                                             actualSectionAssemblyResult.CombinedSectionResult);
+                                                                                             actualSectionAssemblyResult.SectionResult);
         }
 
         private static void AssertSectionAssemblyResultsWithoutProbability(ExportableAggregatedFailureMechanismSectionAssemblyResultBase expectedSectionAssemblyResult,
@@ -209,7 +209,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                              serializedSectionResults[2]);
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
-                                                                                             actualSectionAssemblyResult.CombinedSectionResult);
+                                                                                             actualSectionAssemblyResult.SectionResult);
         }
 
         private static void AssertSectionAssemblyResultsWithoutDetailedAssembly(ExportableAggregatedFailureMechanismSectionAssemblyResultBase expectedSectionAssemblyResult,
@@ -227,7 +227,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                              serializedSectionResults[1]);
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
-                                                                                             actualSectionAssemblyResult.CombinedSectionResult);
+                                                                                             actualSectionAssemblyResult.SectionResult);
         }
 
         private static void AssertSectionAssemblyWithCombinedResult(ExportableAggregatedFailureMechanismSectionAssemblyResultBase expectedSectionAssemblyResult,
@@ -238,7 +238,7 @@ namespace Riskeer.Integration.IO.Test.Creators
 
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
-                                                                                             actualSectionAssemblyResult.CombinedSectionResult);
+                                                                                             actualSectionAssemblyResult.SectionResult);
         }
 
         private static void AssertSectionAssemblyWithCombinedProbabilityResult(ExportableAggregatedFailureMechanismSectionAssemblyResultBase expectedSectionAssemblyResult,
@@ -249,7 +249,7 @@ namespace Riskeer.Integration.IO.Test.Creators
 
             SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.CombinedAssembly,
                                                                                              SerializableAssessmentType.CombinedAssessment,
-                                                                                             actualSectionAssemblyResult.CombinedSectionResult);
+                                                                                             actualSectionAssemblyResult.SectionResult);
         }
 
         private static SerializableTotalAssemblyResult CreateSerializableTotalAssembly(string totalAssemblyId)

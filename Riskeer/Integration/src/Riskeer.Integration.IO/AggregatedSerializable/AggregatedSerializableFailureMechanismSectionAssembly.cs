@@ -30,7 +30,7 @@ namespace Riskeer.Integration.IO.AggregatedSerializable
     internal class AggregatedSerializableFailureMechanismSectionAssembly
     {
         /// <summary>
-        /// Creates a new instance of see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.
+        /// Creates a new instance of <see cref="AggregatedSerializableFailureMechanismSectionAssembly"/>.
         /// </summary>
         /// <param name="failureMechanismSection">The <see cref="SerializableFailureMechanismSection"/>.</param>
         /// <param name="failureMechanismSectionAssembly">The <see cref="SerializableFailureMechanismSectionAssembly"/>

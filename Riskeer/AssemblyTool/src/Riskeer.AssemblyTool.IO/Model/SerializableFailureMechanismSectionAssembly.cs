@@ -43,15 +43,14 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <param name="id">The unique ID of the assembly.</param>
         /// <param name="failureMechanism">The failure mechanism this assembly belongs to.</param>
         /// <param name="section">The section this assembly belongs to.</param>
-        /// <param name="sectionResults">The collection of assembly results for this section assembly.</param>
-        /// <param name="combinedSectionResult">The combined assembly result for this section assembly.</param>
+        /// <param name="sectionResult">The assembly result for this section assembly.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public SerializableFailureMechanismSectionAssembly(string id,
                                                            SerializableFailureMechanism failureMechanism,
                                                            SerializableFailureMechanismSection section,
-                                                           SerializableFailureMechanismSectionAssemblyResult[] sectionResults,
-                                                           SerializableFailureMechanismSectionAssemblyResult combinedSectionResult) : this()
+                                                           SerializableFailureMechanismSectionAssemblyResult sectionResult) 
+            : this()
         {
             if (!SerializableIdValidator.Validate(id))
             {
@@ -68,21 +67,15 @@ namespace Riskeer.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(section));
             }
 
-            if (sectionResults == null)
+            if (sectionResult == null)
             {
-                throw new ArgumentNullException(nameof(sectionResults));
-            }
-
-            if (combinedSectionResult == null)
-            {
-                throw new ArgumentNullException(nameof(combinedSectionResult));
+                throw new ArgumentNullException(nameof(sectionResult));
             }
 
             Id = id;
             FailureMechanismId = failureMechanism.Id;
             FailureMechanismSectionId = section.Id;
-            SectionResults = sectionResults;
-            CombinedSectionResult = combinedSectionResult;
+            SectionResult = sectionResult;
         }
 
         /// <summary>
@@ -104,15 +97,9 @@ namespace Riskeer.AssemblyTool.IO.Model
         public string FailureMechanismSectionId { get; set; }
 
         /// <summary>
-        /// Gets or sets the combined assembly result.
+        /// Gets or sets the assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.CombinedSectionResult)]
-        public SerializableFailureMechanismSectionAssemblyResult CombinedSectionResult { get; set; }
-
-        /// <summary>
-        /// Gets or sets the array of results for this section.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.SectionResults)]
-        public SerializableFailureMechanismSectionAssemblyResult[] SectionResults { get; set; }
+        public SerializableFailureMechanismSectionAssemblyResult SectionResult { get; set; }
     }
 }

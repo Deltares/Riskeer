@@ -278,11 +278,6 @@ namespace Riskeer.AssemblyTool.IO.Model
         public const string Probability = "faalkans";
 
         /// <summary>
-        /// Identifier for section result elements.
-        /// </summary>
-        public const string SectionResults = "toetsoordeelVak";
-
-        /// <summary>
         /// Identifier for a start distance element.
         /// </summary>
         public const string StartDistance = "afstandBegin";
