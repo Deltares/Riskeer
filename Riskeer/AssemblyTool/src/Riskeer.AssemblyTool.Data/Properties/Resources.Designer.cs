@@ -127,33 +127,6 @@ namespace Riskeer.AssemblyTool.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to -.
-        /// </summary>
-        internal static string AssessmentSectionAssemblyGroup_Empty_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_Empty_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string AssessmentSectionAssemblyGroup_None_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_None_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NGO.
-        /// </summary>
-        internal static string AssessmentSectionAssemblyGroup_NotAssessed_DisplayName {
-            get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyGroup_NotAssessed_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to D.
         /// </summary>
         internal static string FailureMechanismSectionAssemblyGroup_Dominant_DisplayName {

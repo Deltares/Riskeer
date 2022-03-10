@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -44,18 +43,6 @@ namespace Riskeer.Integration.IO.Test.Creators
             // Assert
             var message = $"The value of argument 'group' ({group}) is invalid for Enum type '{nameof(AssessmentSectionAssemblyGroup)}'.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, message);
-        }
-
-        [Test]
-        [TestCase(AssessmentSectionAssemblyGroup.None)]
-        [TestCase(AssessmentSectionAssemblyGroup.NotApplicable)]
-        public void Create_WithNotSupportedAssessmentSectionAssemblyGroup_ThrowsNotSupportedException(AssessmentSectionAssemblyGroup notSupportedGroup)
-        {
-            // Call
-            void Call() => SerializableAssessmentSectionAssemblyGroupCreator.Create(notSupportedGroup);
-
-            // Assert
-            Assert.Throws<NotSupportedException>(Call);
         }
 
         [Test]

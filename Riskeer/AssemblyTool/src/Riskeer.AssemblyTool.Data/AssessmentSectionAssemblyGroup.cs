@@ -30,51 +30,33 @@ namespace Riskeer.AssemblyTool.Data
     public enum AssessmentSectionAssemblyGroup
     {
         /// <summary>
-        /// Represents group GR (No result).
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_None_DisplayName))]
-        None = 1,
-
-        /// <summary>
-        /// Represents group NVT (Not applicable).
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_Empty_DisplayName))]
-        NotApplicable = 2,
-
-        /// <summary>
-        /// Represents group NGO (Not assessed).
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_NotAssessed_DisplayName))]
-        NotAssessed = 3,
-
-        /// <summary>
         /// Represents group A+.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_APlus_DisplayName))]
-        APlus = 4,
+        APlus = 1,
 
         /// <summary>
         /// Represents group A.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_A_DisplayName))]
-        A = 5,
+        A = 2,
 
         /// <summary>
         /// Represents group B.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_B_DisplayName))]
-        B = 6,
+        B = 3,
 
         /// <summary>
         /// Represents group C.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_C_DisplayName))]
-        C = 7,
+        C = 4,
 
         /// <summary>
         /// Represents group D.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionAssemblyGroup_D_DisplayName))]
-        D = 8
+        D = 5
     }
 }

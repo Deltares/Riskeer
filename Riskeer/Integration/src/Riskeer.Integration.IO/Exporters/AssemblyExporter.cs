@@ -24,7 +24,6 @@ using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
-using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Integration.Data;
@@ -107,9 +106,7 @@ namespace Riskeer.Integration.IO.Exporters
 
         private static bool ValidateExportableAssessmentSection(ExportableAssessmentSection exportableAssessmentSection)
         {
-            return exportableAssessmentSection != null
-                   && exportableAssessmentSection.AssessmentSectionAssembly.AssemblyGroup != AssessmentSectionAssemblyGroup.None
-                   && exportableAssessmentSection.AssessmentSectionAssembly.AssemblyGroup != AssessmentSectionAssemblyGroup.NotApplicable;
+            return exportableAssessmentSection != null;
         }
 
         private static void LogErrorMessage()

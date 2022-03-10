@@ -28,72 +28,44 @@ namespace Riskeer.AssemblyTool.Data.Test
     [TestFixture]
     public class AssessmentSectionAssemblyGroupTest : EnumWithResourcesDisplayNameTestFixture<AssessmentSectionAssemblyGroup>
     {
-        protected override IDictionary<AssessmentSectionAssemblyGroup, int> ExpectedValueForEnumValues
-        {
-            get
+        protected override IDictionary<AssessmentSectionAssemblyGroup, int> ExpectedValueForEnumValues =>
+            new Dictionary<AssessmentSectionAssemblyGroup, int>
             {
-                return new Dictionary<AssessmentSectionAssemblyGroup, int>
                 {
-                    {
-                        AssessmentSectionAssemblyGroup.None, 1
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.NotApplicable, 2
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.NotAssessed, 3
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.APlus, 4
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.A, 5
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.B, 6
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.C, 7
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.D, 8
-                    }
-                };
-            }
-        }
+                    AssessmentSectionAssemblyGroup.APlus, 1
+                },
+                {
+                    AssessmentSectionAssemblyGroup.A, 2
+                },
+                {
+                    AssessmentSectionAssemblyGroup.B, 3
+                },
+                {
+                    AssessmentSectionAssemblyGroup.C, 4
+                },
+                {
+                    AssessmentSectionAssemblyGroup.D, 5
+                }
+            };
 
-        protected override IDictionary<AssessmentSectionAssemblyGroup, string> ExpectedDisplayNameForEnumValues
-        {
-            get
+        protected override IDictionary<AssessmentSectionAssemblyGroup, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<AssessmentSectionAssemblyGroup, string>
             {
-                return new Dictionary<AssessmentSectionAssemblyGroup, string>
                 {
-                    {
-                        AssessmentSectionAssemblyGroup.None, ""
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.APlus, "A+"
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.A, "A"
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.B, "B"
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.C, "C"
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.D, "D"
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.NotApplicable, "-"
-                    },
-                    {
-                        AssessmentSectionAssemblyGroup.NotAssessed, "NGO"
-                    }
-                };
-            }
-        }
+                    AssessmentSectionAssemblyGroup.APlus, "A+"
+                },
+                {
+                    AssessmentSectionAssemblyGroup.A, "A"
+                },
+                {
+                    AssessmentSectionAssemblyGroup.B, "B"
+                },
+                {
+                    AssessmentSectionAssemblyGroup.C, "C"
+                },
+                {
+                    AssessmentSectionAssemblyGroup.D, "D"
+                }
+            };
     }
 }

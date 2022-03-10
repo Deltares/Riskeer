@@ -61,10 +61,6 @@ namespace Riskeer.Common.Forms.Helpers
                     return Color.FromArgb(255, 153, 0);
                 case AssessmentSectionAssemblyGroup.D:
                     return Color.FromArgb(255, 0, 0);
-                case AssessmentSectionAssemblyGroup.None:
-                case AssessmentSectionAssemblyGroup.NotApplicable:
-                case AssessmentSectionAssemblyGroup.NotAssessed:
-                    return Color.White;
                 default:
                     throw new NotSupportedException();
             }

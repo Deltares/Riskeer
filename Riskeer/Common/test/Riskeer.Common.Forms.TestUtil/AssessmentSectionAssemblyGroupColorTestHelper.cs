@@ -44,9 +44,6 @@ namespace Riskeer.Common.Forms.TestUtil
                 yield return new TestCaseData(AssessmentSectionAssemblyGroup.B, Color.FromArgb(255, 255, 0));
                 yield return new TestCaseData(AssessmentSectionAssemblyGroup.C, Color.FromArgb(255, 153, 0));
                 yield return new TestCaseData(AssessmentSectionAssemblyGroup.D, Color.FromArgb(255, 0, 0));
-                yield return new TestCaseData(AssessmentSectionAssemblyGroup.None, Color.White);
-                yield return new TestCaseData(AssessmentSectionAssemblyGroup.NotAssessed, Color.White);
-                yield return new TestCaseData(AssessmentSectionAssemblyGroup.NotApplicable, Color.White);
             }
         }
     }
