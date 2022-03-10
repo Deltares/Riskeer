@@ -47,7 +47,7 @@ namespace Riskeer.Integration.IO.Test.Creators
 
         [Test]
         [TestCase(ExportableAssemblyMethod.WBI1B1, SerializableAssemblyMethod.WBI1B1)]
-        [TestCase(ExportableAssemblyMethod.WBI2C1, SerializableAssemblyMethod.WBI2C1)]
+        [TestCase(ExportableAssemblyMethod.WBI2B1, SerializableAssemblyMethod.WBI2B1)]
         [TestCase(ExportableAssemblyMethod.WBI3A1, SerializableAssemblyMethod.WBI3A1)]
         [TestCase(ExportableAssemblyMethod.WBI3B1, SerializableAssemblyMethod.WBI3B1)]
         [TestCase(ExportableAssemblyMethod.WBI3C1, SerializableAssemblyMethod.WBI3C1)]

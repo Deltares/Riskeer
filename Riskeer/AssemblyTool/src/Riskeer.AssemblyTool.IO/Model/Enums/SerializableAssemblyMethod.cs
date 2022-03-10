@@ -41,10 +41,10 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         WBI1B1 = 2,
 
         /// <summary>
-        /// Represents the assembly method WBI-2C-1.
+        /// Represents the assembly method WBI-2B-1.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI2C1)]
-        WBI2C1 = 3,
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI2B1)]
+        WBI2B1 = 3,
 
         /// <summary>
         /// Represents the assembly method WBI-3A-1.

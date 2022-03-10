@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -279,7 +279,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             var totalAssemblyResult = new SerializableTotalAssemblyResult(
                 "veiligheidsoordeel_1",
                 assessmentProcess,
-                new SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethod.WBI2C1, SerializableAssessmentSectionAssemblyGroup.B, 0.00068354));
+                new SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethod.WBI2B1, SerializableAssessmentSectionAssemblyGroup.B, 0.00068354));
 
             var failureMechanism = new SerializableFailureMechanism(
                 "toetsspoorGABI",

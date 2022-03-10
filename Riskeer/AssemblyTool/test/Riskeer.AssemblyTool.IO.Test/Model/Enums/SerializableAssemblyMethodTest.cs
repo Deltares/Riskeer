@@ -39,7 +39,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                     SerializableAssemblyMethod.WBI1B1, 2
                 },
                 {
-                    SerializableAssemblyMethod.WBI2C1, 3
+                    SerializableAssemblyMethod.WBI2B1, 3
                 },
                 {
                     SerializableAssemblyMethod.WBI3A1, 4
@@ -65,7 +65,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                     SerializableAssemblyMethod.WBI1B1, "WBI-1B-1"
                 },
                 {
-                    SerializableAssemblyMethod.WBI2C1, "WBI-2C-1"
+                    SerializableAssemblyMethod.WBI2B1, "WBI-2B-1"
                 },
                 {
                     SerializableAssemblyMethod.WBI3A1, "WBI-3A-1"

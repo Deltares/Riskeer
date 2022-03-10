@@ -94,7 +94,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, exportableAssessmentSection.Geometry);
 
                 ExportableAssessmentSectionAssemblyResult exportableAssessmentSectionAssemblyResult = exportableAssessmentSection.AssessmentSectionAssembly;
-                Assert.AreEqual(ExportableAssemblyMethod.WBI2C1, exportableAssessmentSectionAssemblyResult.AssemblyMethod);
+                Assert.AreEqual(ExportableAssemblyMethod.WBI2B1, exportableAssessmentSectionAssemblyResult.AssemblyMethod);
                 Assert.AreEqual(AssessmentSectionAssemblyGroup.APlus, exportableAssessmentSectionAssemblyResult.AssemblyGroup);
                 Assert.AreEqual(0.14, exportableAssessmentSectionAssemblyResult.Probability);
 

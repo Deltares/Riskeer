@@ -55,8 +55,8 @@ namespace Riskeer.Integration.IO.Creators
             {
                 case ExportableAssemblyMethod.WBI1B1:
                     return SerializableAssemblyMethod.WBI1B1;
-                case ExportableAssemblyMethod.WBI2C1:
-                    return SerializableAssemblyMethod.WBI2C1;
+                case ExportableAssemblyMethod.WBI2B1:
+                    return SerializableAssemblyMethod.WBI2B1;
                 case ExportableAssemblyMethod.WBI3A1:
                     return SerializableAssemblyMethod.WBI3A1;
                 case ExportableAssemblyMethod.WBI3B1:

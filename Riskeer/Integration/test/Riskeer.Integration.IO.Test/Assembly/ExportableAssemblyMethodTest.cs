@@ -39,7 +39,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
                     ExportableAssemblyMethod.WBI1B1, 2
                 },
                 {
-                    ExportableAssemblyMethod.WBI2C1, 3
+                    ExportableAssemblyMethod.WBI2B1, 3
                 },
                 {
                     ExportableAssemblyMethod.WBI3A1, 4
