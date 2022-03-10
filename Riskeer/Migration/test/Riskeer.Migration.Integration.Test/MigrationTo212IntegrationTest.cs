@@ -219,7 +219,7 @@ namespace Riskeer.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(7, messages.Count);
+                Assert.AreEqual(8, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("21.1", newVersion, "Gevolgen van de migratie van versie 21.1 naar versie 21.2:"),
@@ -241,6 +241,9 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("21.1", newVersion, "    - De waarden van de doelkans voor HBN en overslagdebiet zijn veranderd naar de trajectnorm."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("21.1", newVersion, "* De oorspronkelijke toetssporen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd."),
                     messages[i]);
             }
         }

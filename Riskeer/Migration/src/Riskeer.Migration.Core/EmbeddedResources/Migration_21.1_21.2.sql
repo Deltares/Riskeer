@@ -1320,6 +1320,15 @@ SELECT "21.1",
         WHERE [FromVersion] = "21.1"
     ) IS 1;
 
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+    [FromVersion],
+    [ToVersion],
+    [LogMessage])
+SELECT "21.1",
+       "21.2",
+       "* De oorspronkelijke toetssporen zijn omgezet naar het nieuwe formaat.
+* Alle toetsoordelen zijn verwijderd.";
+
 DETACH LOGDATABASE;
 
 DETACH SOURCEPROJECT;
