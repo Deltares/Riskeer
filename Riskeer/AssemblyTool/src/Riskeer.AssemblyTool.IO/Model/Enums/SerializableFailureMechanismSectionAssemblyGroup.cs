@@ -19,74 +19,61 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Util.Attributes;
-using Riskeer.AssemblyTool.Data.Properties;
+using System.Xml.Serialization;
 
-namespace Riskeer.AssemblyTool.Data
+namespace Riskeer.AssemblyTool.IO.Model.Enums
 {
     /// <summary>
-    /// Enum defining the assembly groups for a failure mechanism section.
+    /// Serializable enum defining the assembly groups for a failure mechanism section.
     /// </summary>
-    public enum FailureMechanismSectionAssemblyGroup
+    public enum SerializableFailureMechanismSectionAssemblyGroup
     {
         /// <summary>
         /// Represents group Not Dominant.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_NotDominant_DisplayName))]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupNotDominant)]
         NotDominant = 1,
 
         /// <summary>
         /// Represents group +III.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_III_DisplayName))]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupIII)]
         III = 2,
 
         /// <summary>
         /// Represents group +II.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_II_DisplayName))]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupII)]
         II = 3,
 
         /// <summary>
         /// Represents group +I.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_I_DisplayName))]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupI)]
         I = 4,
 
         /// <summary>
         /// Represents group 0.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_Zero_DisplayName))]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupZero)]
         Zero = 5,
 
         /// <summary>
         /// Represents group -I.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_IMin_DisplayName))]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupIMin)]
         IMin = 6,
 
         /// <summary>
         /// Represents group -II.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_IIMin_DisplayName))]
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupIIMin)]
         IIMin = 7,
 
         /// <summary>
         /// Represents group -III.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_IIIMin_DisplayName))]
-        IIIMin = 8,
-
-        /// <summary>
-        /// Represents group Dominant.
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_Dominant_DisplayName))]
-        Dominant = 9,
-
-        /// <summary>
-        /// Represents group GR.
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_Gr_DisplayName))]
-        Gr = 10
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupIIIMin)]
+        IIIMin = 8
     }
 }

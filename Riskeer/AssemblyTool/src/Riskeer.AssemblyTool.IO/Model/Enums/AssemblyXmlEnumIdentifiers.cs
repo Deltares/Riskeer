@@ -32,6 +32,50 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// </summary>
         public const string NotApplicable = "NVT";
 
+        #region SerializableFailureMechanismSectionAssemblyGroup
+        
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionAssemblyGroup.NotDominant"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionAssemblyGroupNotDominant = "NDo";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionAssemblyGroup.III"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionAssemblyGroupIII = "+III";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionAssemblyGroup.II"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionAssemblyGroupII = "+II";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionAssemblyGroup.I"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionAssemblyGroupI = "+I";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionAssemblyGroup.Zero"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionAssemblyGroupZero = "0";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionAssemblyGroup.IMin"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionAssemblyGroupIMin = "-I";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionAssemblyGroup.IIMin"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionAssemblyGroupIIMin = "-II";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismSectionAssemblyGroup.IIIMin"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismSectionAssemblyGroupIIIMin = "-III";
+        
+        #endregion
+        
         #region SerializableFailureMechanismSectionCategoryGroup
 
         /// <summary>
