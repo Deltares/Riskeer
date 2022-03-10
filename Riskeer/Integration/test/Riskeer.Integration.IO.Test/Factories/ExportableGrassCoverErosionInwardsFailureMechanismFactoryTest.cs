@@ -100,7 +100,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 ExportableFailureMechanismSectionTestHelper.AssertExportableFailureMechanismSections(failureMechanism.Sections, exportableFailureMechanismSections);
 
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                ExportableSectionAssemblyResultTestHelper.AssertExportableFailureMechanismSectionResults(
+                ExportableFailureMechanismSectionAssemblyResultTestHelper.AssertExportableFailureMechanismSectionResults(
                     failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput,
                     exportableFailureMechanismSections, exportableFailureMechanism.SectionAssemblyResults);
             }

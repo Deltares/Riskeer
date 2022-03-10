@@ -167,7 +167,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         }
 
         [Test]
-        [TestCase(SerializableAssemblyMethod.WBI0A1, true)]
+        [TestCase(SerializableAssemblyMethod.WBI0A2, true)]
         [TestCase(null, false)]
         public void ShouldSerializeAssemblyMethod_WithAssemblyMethodValues_ReturnsExpectedValue(SerializableAssemblyMethod? assemblyMethod, bool expectedShouldSerialize)
         {

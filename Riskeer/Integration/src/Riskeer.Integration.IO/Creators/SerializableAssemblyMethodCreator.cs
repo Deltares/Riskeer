@@ -53,34 +53,6 @@ namespace Riskeer.Integration.IO.Creators
 
             switch (assemblyMethod)
             {
-                case ExportableAssemblyMethod.WBI0E1:
-                    return SerializableAssemblyMethod.WBI0E1;
-                case ExportableAssemblyMethod.WBI0E3:
-                    return SerializableAssemblyMethod.WBI0E3;
-                case ExportableAssemblyMethod.WBI0G1:
-                    return SerializableAssemblyMethod.WBI0G1;
-                case ExportableAssemblyMethod.WBI0G3:
-                    return SerializableAssemblyMethod.WBI0G3;
-                case ExportableAssemblyMethod.WBI0G4:
-                    return SerializableAssemblyMethod.WBI0G4;
-                case ExportableAssemblyMethod.WBI0G5:
-                    return SerializableAssemblyMethod.WBI0G5;
-                case ExportableAssemblyMethod.WBI0G6:
-                    return SerializableAssemblyMethod.WBI0G6;
-                case ExportableAssemblyMethod.WBI0T1:
-                    return SerializableAssemblyMethod.WBI0T1;
-                case ExportableAssemblyMethod.WBI0T3:
-                    return SerializableAssemblyMethod.WBI0T3;
-                case ExportableAssemblyMethod.WBI0T4:
-                    return SerializableAssemblyMethod.WBI0T4;
-                case ExportableAssemblyMethod.WBI0T5:
-                    return SerializableAssemblyMethod.WBI0T5;
-                case ExportableAssemblyMethod.WBI0T6:
-                    return SerializableAssemblyMethod.WBI0T6;
-                case ExportableAssemblyMethod.WBI0T7:
-                    return SerializableAssemblyMethod.WBI0T7;
-                case ExportableAssemblyMethod.WBI0A1:
-                    return SerializableAssemblyMethod.WBI0A1;
                 case ExportableAssemblyMethod.WBI1B1:
                     return SerializableAssemblyMethod.WBI1B1;
                 case ExportableAssemblyMethod.WBI2C1:

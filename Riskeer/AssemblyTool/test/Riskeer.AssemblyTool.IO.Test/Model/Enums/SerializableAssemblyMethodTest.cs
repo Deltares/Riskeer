@@ -33,115 +33,31 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             new Dictionary<SerializableAssemblyMethod, int>
             {
                 {
-                    SerializableAssemblyMethod.WBI0E1, 1
+                    SerializableAssemblyMethod.WBI0A2, 1
                 },
                 {
-                    SerializableAssemblyMethod.WBI0E3, 2
+                    SerializableAssemblyMethod.WBI1B1, 2
                 },
                 {
-                    SerializableAssemblyMethod.WBI0G1, 3
+                    SerializableAssemblyMethod.WBI2C1, 3
                 },
                 {
-                    SerializableAssemblyMethod.WBI0G3, 4
+                    SerializableAssemblyMethod.WBI3A1, 4
                 },
                 {
-                    SerializableAssemblyMethod.WBI0G4, 5
+                    SerializableAssemblyMethod.WBI3B1, 5
                 },
                 {
-                    SerializableAssemblyMethod.WBI0G5, 6
+                    SerializableAssemblyMethod.WBI3C1, 6
                 },
                 {
-                    SerializableAssemblyMethod.WBI0G6, 7
-                },
-                {
-                    SerializableAssemblyMethod.WBI0T1, 8
-                },
-                {
-                    SerializableAssemblyMethod.WBI0T3, 9
-                },
-                {
-                    SerializableAssemblyMethod.WBI0T4, 10
-                },
-                {
-                    SerializableAssemblyMethod.WBI0T5, 11
-                },
-                {
-                    SerializableAssemblyMethod.WBI0T6, 12
-                },
-                {
-                    SerializableAssemblyMethod.WBI0T7, 13
-                },
-                {
-                    SerializableAssemblyMethod.WBI0A1, 14
-                },
-                {
-                    SerializableAssemblyMethod.WBI0A2, 15
-                },
-                {
-                    SerializableAssemblyMethod.WBI1B1, 16
-                },
-                {
-                    SerializableAssemblyMethod.WBI2C1, 17
-                },
-                {
-                    SerializableAssemblyMethod.WBI3A1, 18
-                },
-                {
-                    SerializableAssemblyMethod.WBI3B1, 19
-                },
-                {
-                    SerializableAssemblyMethod.WBI3C1, 20
-                },
-                {
-                    SerializableAssemblyMethod.Manual, 21
+                    SerializableAssemblyMethod.Manual, 7
                 }
             };
 
         protected override IDictionary<SerializableAssemblyMethod, string> ExpectedDisplayNameForEnumValues =>
             new Dictionary<SerializableAssemblyMethod, string>
             {
-                {
-                    SerializableAssemblyMethod.WBI0E1, "WBI-0E-1"
-                },
-                {
-                    SerializableAssemblyMethod.WBI0E3, "WBI-0E-3"
-                },
-                {
-                    SerializableAssemblyMethod.WBI0G1, "WBI-0G-1"
-                },
-                {
-                    SerializableAssemblyMethod.WBI0G3, "WBI-0G-3"
-                },
-                {
-                    SerializableAssemblyMethod.WBI0G4, "WBI-0G-4"
-                },
-                {
-                    SerializableAssemblyMethod.WBI0G5, "WBI-0G-5"
-                },
-                {
-                    SerializableAssemblyMethod.WBI0G6, "WBI-0G-6"
-                },
-                {
-                    SerializableAssemblyMethod.WBI0T1, "WBI-0T-1"
-                },
-                {
-                    SerializableAssemblyMethod.WBI0T3, "WBI-0T-3"
-                },
-                {
-                    SerializableAssemblyMethod.WBI0T4, "WBI-0T-4"
-                },
-                {
-                    SerializableAssemblyMethod.WBI0T5, "WBI-0T-5"
-                },
-                {
-                    SerializableAssemblyMethod.WBI0T6, "WBI-0T-6"
-                },
-                {
-                    SerializableAssemblyMethod.WBI0T7, "WBI-0T-7"
-                },
-                {
-                    SerializableAssemblyMethod.WBI0A1, "WBI-0A-1"
-                },
                 {
                     SerializableAssemblyMethod.WBI0A2, "WBI-0A-2"
                 },
