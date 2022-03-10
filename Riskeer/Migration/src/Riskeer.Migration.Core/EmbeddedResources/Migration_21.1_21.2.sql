@@ -882,6 +882,8 @@ SELECT
 FROM TempSpecificFailurePathMapping
 JOIN [SOURCEPROJECT].FailureMechanismSectionEntity USING(FailureMechanismEntityId);
 
+DROP TABLE TempSpecificFailurePathMapping;
+
 /*
  Map all calculation groups to failure mechanism ids.
  */
