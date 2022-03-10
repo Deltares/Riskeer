@@ -816,9 +816,94 @@ INSERT INTO SpecificFailurePathEntity (
 )
 SELECT
     [AssessmentSectionEntityId],
+    "Sterkte en stabiliteit langsconstructies",
+    "STKWl",
+    2,
+    [IsRelevant],
+    [FailureMechanismSectionCollectionSourcePath],
+    [InputComments],
+    [OutputComments],
+    [NotRelevantComments],
+    1,
+    1,
+    NULL,
+    0
+FROM [SOURCEPROJECT].FailureMechanismEntity
+WHERE FailureMechanismType = 17;
+
+CREATE TEMP TABLE TempSpecificFailurePathMapping
+(
+    'FailureMechanismEntityId' INTEGER NOT NULL,
+    'SpecificFailurePathEntityId' INTEGER NOT NULL,
+CONSTRAINT 'PK_SpecificFailurePathFailureMechanismSectionEntity' PRIMARY KEY ('FailureMechanismEntityId','SpecificFailurePathEntityId')
+);
+
+INSERT INTO TempSpecificFailurePathMapping
+(
+    [FailureMechanismEntityId],
+    [SpecificFailurePathEntityId]
+)
+SELECT
+    [FailureMechanismEntityId],
+    [SpecificFailurePathEntityId]
+FROM [SOURCEPROJECT].FailureMechanismEntity
+    JOIN SpecificFailurePathEntity USING (AssessmentSectionEntityId)
+WHERE FailureMechanismType = 17
+  AND [Name] = "Sterkte en stabiliteit langsconstructies";
+
+INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [ManualInitialFailureMechanismResultProfileProbability],
+    [FurtherAnalysisType],
+    [RefinedSectionProbability],
+    [RefinedProfileProbability]
+)
+SELECT
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    NULL,
+    1,
+    NULL,
+    NULL
+FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
+
+INSERT INTO SpecificFailurePathFailureMechanismSectionEntity (
+    [SpecificFailurePathEntityId],
+    [FailureMechanismSectionEntityId]
+)
+SELECT
+    [SpecificFailurePathEntityId],
+    [FailureMechanismSectionEntityId]
+FROM TempSpecificFailurePathMapping
+    JOIN [SOURCEPROJECT].FailureMechanismSectionEntity USING(FailureMechanismEntityId);
+
+DROP TABLE TempSpecificFailurePathMapping;
+
+INSERT INTO SpecificFailurePathEntity (
+    [AssessmentSectionEntityId],
+    [Name],
+    [Code],
+    [Order],
+    [InAssembly],
+    [FailureMechanismSectionCollectionSourcePath],
+    [InAssemblyInputComments],
+    [InAssemblyOutputComments],
+    [NotInAssemblyComments],
+    [N],
+    [FailurePathAssemblyProbabilityResultType],
+    [ManualFailurePathAssemblyProbability],
+    [ApplyLengthEffectInSection]
+)
+SELECT
+    [AssessmentSectionEntityId],
     "Technische innovaties",
     "INN",
-    1,
+    3,
     [IsRelevant],
     [FailureMechanismSectionCollectionSourcePath],
     [InputComments],

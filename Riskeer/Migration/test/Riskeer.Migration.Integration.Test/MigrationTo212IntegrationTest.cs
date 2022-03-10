@@ -370,7 +370,7 @@ namespace Riskeer.Migration.Integration.Test
                 "(" +
                 "SELECT COUNT() " +
                 "FROM SOURCEPROJECT.FailureMechanismEntity " +
-                "WHERE FailureMechanismType = 18 " +
+                "WHERE FailureMechanismType = {0} " +
                 ") " +
                 "FROM SpecificFailurePathEntity NEW " +
                 "JOIN (" +
@@ -382,11 +382,11 @@ namespace Riskeer.Migration.Integration.Test
                 "[OutputComments], " +
                 "[NotRelevantComments] " +
                 "FROM SOURCEPROJECT.FailureMechanismEntity " +
-                "WHERE FailureMechanismType = 18 " +
+                "WHERE FailureMechanismType = {0} " +
                 ") OLD USING (AssessmentSectionEntityId) " +
-                "WHERE NEW.[Name] IS \"Technische innovaties\" " +
-                "AND NEW.[Code] IS \"INN\" " +
-                "AND NEW.[Order] = 1 " +
+                "WHERE NEW.[Name] IS \"{1}\" " +
+                "AND NEW.[Code] IS \"{2}\" " +
+                "AND NEW.[Order] = {3} " +
                 "AND NEW.[InAssembly] = OLD.[IsRelevant] " +
                 "AND NEW.[FailureMechanismSectionCollectionSourcePath] IS OLD.[FailureMechanismSectionCollectionSourcePath] " +
                 "AND NEW.[InAssemblyInputComments] IS OLD.[InputComments] " +
@@ -398,17 +398,18 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[ApplyLengthEffectInSection] = 0; " +
                 "DETACH SOURCEPROJECT;";
 
-            reader.AssertReturnedDataIsValid(validateSpecificFailurePathEntity);
+            reader.AssertReturnedDataIsValid(string.Format(validateSpecificFailurePathEntity, "17", "Sterkte en stabiliteit langsconstructies","STKWl", 2));
+            reader.AssertReturnedDataIsValid(string.Format(validateSpecificFailurePathEntity, "18", "Technische innovaties","INN", 3));
             
             string validateNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
                 "SELECT COUNT() " +
-                "FROM SOURCEPROJECT.TechnicalInnovationSectionResultEntity " +
+                "FROM SOURCEPROJECT.{0} " +
                 ") " +
                 "FROM NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity NEW " +
-                "JOIN SOURCEPROJECT.TechnicalInnovationSectionResultEntity OLD USING(FailureMechanismSectionEntityId) " +
+                "JOIN SOURCEPROJECT.{0} OLD USING(FailureMechanismSectionEntityId) " +
                 "WHERE NEW.[IsRelevant] = 1 " +
                 "AND NEW.[InitialFailureMechanismResultType] = 1 " +
                 "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
@@ -418,7 +419,8 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[RefinedProfileProbability] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
 
-            reader.AssertReturnedDataIsValid(validateNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity);
+            reader.AssertReturnedDataIsValid(string.Format(validateNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity, "StrengthStabilityLengthwiseConstructionSectionResultEntity"));
+            reader.AssertReturnedDataIsValid(string.Format(validateNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity, "TechnicalInnovationSectionResultEntity"));
             
             string validateSpecificFailurePathFailureMechanismSectionEntity =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
@@ -440,13 +442,14 @@ namespace Riskeer.Migration.Integration.Test
                 "[FailureMechanismSectionEntityId] " +
                 "FROM SOURCEPROJECT.FailureMechanismEntity " +
                 "JOIN SOURCEPROJECT.FailureMechanismSectionEntity USING(FailureMechanismEntityId) " +
-                "WHERE FailureMechanismType = 18 " +
+                "WHERE FailureMechanismType = {0} " +
                 ") OLD USING (FailureMechanismSectionEntityId) " +
-                "WHERE NEW.[Name] = \"Technische innovaties\" " +
+                "WHERE NEW.[Name] = \"{1}\" " +
                 "AND NEW.AssessmentSectionEntityId = OLD.AssessmentSectionEntityId; " +
                 "DETACH SOURCEPROJECT;";
             
-            reader.AssertReturnedDataIsValid(validateSpecificFailurePathFailureMechanismSectionEntity);
+            reader.AssertReturnedDataIsValid(string.Format(validateSpecificFailurePathFailureMechanismSectionEntity, "17", "Sterkte en stabiliteit langsconstructies"));
+            reader.AssertReturnedDataIsValid(string.Format(validateSpecificFailurePathFailureMechanismSectionEntity, "18", "Technische innovaties"));
         }
         
         #region WaveConditions
