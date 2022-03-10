@@ -37,6 +37,19 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
+        /// <param name="assemblyGroup">The assembly group of this assembly result.</param>
+        /// <param name="probability">The probability of this assembly result.</param>
+        public SerializableFailureMechanismSectionAssemblyResult(SerializableFailureMechanismSectionAssemblyGroup assemblyGroup,
+                                                                 double probability)
+            : this()
+        {
+            AssemblyGroup = assemblyGroup;
+            Probability = probability;
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="SerializableFailureMechanismSectionAssemblyResult"/>.
+        /// </summary>
         /// <param name="assemblyMethod">The method used to assemble this result.</param>
         /// <param name="assessmentType">The assessment type of this assembly result.</param>
         /// <param name="categoryGroup">The category group of this assembly result.</param>
@@ -65,13 +78,19 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         public SerializableAssessmentType AssessmentType { get; set; }
 
         /// <summary>
-        /// Gets or sets the category group of this assembly result.
+        /// Gets or sets the category group of this result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismSectionCategoryGroup)]
         public SerializableFailureMechanismSectionCategoryGroup CategoryGroup { get; set; }
 
         /// <summary>
-        /// Gets or sets the probability of this assembly result.
+        /// Gets or sets the assembly group of this result.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.FailureMechanismSectionCategoryGroup)]
+        public SerializableFailureMechanismSectionAssemblyGroup AssemblyGroup { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the probability of this result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Probability)]
         public double? Probability { get; set; }

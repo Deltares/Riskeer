@@ -54,6 +54,22 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
         }
 
         [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            var assemblyGroup = random.NextEnumValue<SerializableFailureMechanismSectionAssemblyGroup>();
+            double probability = random.NextDouble();
+
+            // Call
+            var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(assemblyGroup, probability);
+
+            // Assert
+            Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
+            Assert.AreEqual(probability, assemblyResult.Probability);
+        }
+
+        [Test]
         public void Constructor_WithValidData_ReturnsExpectedValues()
         {
             // Setup
