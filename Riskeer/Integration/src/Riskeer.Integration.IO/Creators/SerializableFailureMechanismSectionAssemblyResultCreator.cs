@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
+using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.Exceptions;
 
@@ -89,6 +91,33 @@ namespace Riskeer.Integration.IO.Creators
         }
 
         /// <summary>
+        /// Creates an instance of <see cref="SerializableFailureMechanismSectionAssemblyResult"/>
+        /// based on its input parameters.
+        /// </summary>
+        /// <param name="assessmentType">The type of assessment the
+        /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> represents.</param>
+        /// <param name="sectionResult">The <see cref="ExportableFailureMechanismSectionAssemblyWithProbabilityResult"/> to create a
+        /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> for.</param>
+        /// <returns>A <see cref="SerializableFailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
+        /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to
+        /// create a serializable counterpart for.</exception>
+        public static SerializableFailureMechanismSectionAssemblyResult Create(SerializableAssessmentType assessmentType,
+                                                                               ExportableFailureMechanismSectionAssemblyWithProbabilityResult sectionResult)
+        {
+            if (sectionResult == null)
+            {
+                throw new ArgumentNullException(nameof(sectionResult));
+            }
+
+            ValidateAssemblyResult(sectionResult);
+
+            return new SerializableFailureMechanismSectionAssemblyResult(
+                SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod),
+                assessmentType, SerializableFailureMechanismSectionCategoryGroup.Iv, sectionResult.Probability);
+        }
+
+        /// <summary>
         /// Validates the <paramref name="sectionResult"/> to determine whether a serializable section assembly result can be created.
         /// </summary>
         /// <param name="sectionResult">The <see cref="ExportableSectionAssemblyResult"/> to validate.</param>
@@ -97,6 +126,15 @@ namespace Riskeer.Integration.IO.Creators
         private static void ValidateAssemblyResult(ExportableSectionAssemblyResult sectionResult)
         {
             if (sectionResult.AssemblyCategory == FailureMechanismSectionAssemblyCategoryGroup.None)
+            {
+                throw new AssemblyCreatorException(@"The assembly result is invalid and cannot be created.");
+            }
+        }
+
+        private static void ValidateAssemblyResult(ExportableFailureMechanismSectionAssemblyResult sectionResult)
+        {
+            if (sectionResult.AssemblyGroup == FailureMechanismSectionAssemblyGroup.Gr
+                || sectionResult.AssemblyGroup == FailureMechanismSectionAssemblyGroup.Dominant)
             {
                 throw new AssemblyCreatorException(@"The assembly result is invalid and cannot be created.");
             }

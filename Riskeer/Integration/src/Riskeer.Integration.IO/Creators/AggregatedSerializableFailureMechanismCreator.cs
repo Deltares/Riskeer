@@ -22,9 +22,9 @@
 using System;
 using System.Linq;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.AggregatedSerializable;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.Properties;
@@ -100,39 +100,18 @@ namespace Riskeer.Integration.IO.Creators
             IdentifierGenerator idGenerator,
             SerializableFailureMechanism serializableFailureMechanism,
             SerializableFailureMechanismSectionCollection serializableCollection,
-            ExportableAggregatedFailureMechanismSectionAssemblyResultBase failureMechanismSectionAssemblyResult)
+            ExportableFailureMechanismSectionAssemblyWithProbabilityResult failureMechanismSectionAssemblyResult)
         {
-            var resultWithProbability = failureMechanismSectionAssemblyResult as ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability;
-            if (resultWithProbability != null)
-            {
-                return AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, resultWithProbability);
-            }
-
-            var resultWithoutProbability = failureMechanismSectionAssemblyResult as ExportableAggregatedFailureMechanismSectionAssemblyResult;
-            if (resultWithoutProbability != null)
-            {
-                return AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, resultWithoutProbability);
-            }
-
-            var resultWithoutDetailedAssembly = failureMechanismSectionAssemblyResult as ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly;
-            if (resultWithoutDetailedAssembly != null)
-            {
-                return AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, resultWithoutDetailedAssembly);
-            }
-
-            var resultWithCombinedAssembly = failureMechanismSectionAssemblyResult as ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult;
-            if (resultWithCombinedAssembly != null)
-            {
-                return AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, resultWithCombinedAssembly);
-            }
-
-            var resultWithCombinedProbabilityAssembly = failureMechanismSectionAssemblyResult as ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult;
-            if (resultWithCombinedProbabilityAssembly != null)
-            {
-                return AggregatedSerializableFailureMechanismSectionAssemblyCreator.Create(idGenerator, serializableCollection, serializableFailureMechanism, resultWithCombinedProbabilityAssembly);
-            }
-
-            throw new NotSupportedException($"{failureMechanismSectionAssemblyResult.GetType().Name} is not supported.");
+            SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(
+                idGenerator, serializableCollection, failureMechanismSectionAssemblyResult.FailureMechanismSection);
+            
+            var failureMechanismSectionAssembly = new SerializableFailureMechanismSectionAssembly(
+                idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionAssembly_IdPrefix),
+                serializableFailureMechanism, failureMechanismSection,
+                SerializableFailureMechanismSectionAssemblyResultCreator.Create(
+                    SerializableAssessmentType.CombinedAssessment, failureMechanismSectionAssemblyResult));
+            
+            return new AggregatedSerializableFailureMechanismSectionAssembly(failureMechanismSection, failureMechanismSectionAssembly);
         }
     }
 }

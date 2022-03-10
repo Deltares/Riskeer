@@ -95,7 +95,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         [TestCaseSource(nameof(GetSectionAssemblyConfigurations))]
         public void Create_WithValidArguments_ReturnsAggregatedSerializableFailureMechanism(
             IEnumerable<ExportableFailureMechanismSection> failureMechanismSections,
-            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> failureMechanismSectionAssemblyResults,
+            IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> failureMechanismSectionAssemblyResults,
             Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase, SerializableFailureMechanismSectionAssembly> assertSectionAssemblyResultsAction)
         {
             // Setup
@@ -146,7 +146,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             int expectedNrOfSections = expectedSections.Count();
             Assert.AreEqual(expectedNrOfSections, serializableFailureMechanismSections.Count());
 
-            IEnumerable<ExportableAggregatedFailureMechanismSectionAssemblyResultBase> expectedSectionAssemblyResults = expectedFailureMechanism.SectionAssemblyResults;
+            IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> expectedSectionAssemblyResults = expectedFailureMechanism.SectionAssemblyResults;
             Assert.AreEqual(expectedSectionAssemblyResults.Count(), serializableFailureMechanismSectionAssemblies.Count());
 
             var sectionId = 0;
