@@ -401,6 +401,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[ApplyLengthEffectInSection] = 0; " +
                 "DETACH SOURCEPROJECT;";
 
+            reader.AssertReturnedDataIsValid(string.Format(validateSpecificFailurePathEntity, "13", "Macrostabiliteit buitenwaarts","STBU", 1));
             reader.AssertReturnedDataIsValid(string.Format(validateSpecificFailurePathEntity, "17", "Sterkte en stabiliteit langsconstructies","STKWl", 2));
             reader.AssertReturnedDataIsValid(string.Format(validateSpecificFailurePathEntity, "18", "Technische innovaties","INN", 3));
             
@@ -422,6 +423,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[RefinedProfileProbability] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
 
+            reader.AssertReturnedDataIsValid(string.Format(validateNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity, "MacroStabilityOutwardsSectionResultEntity"));
             reader.AssertReturnedDataIsValid(string.Format(validateNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity, "StrengthStabilityLengthwiseConstructionSectionResultEntity"));
             reader.AssertReturnedDataIsValid(string.Format(validateNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity, "TechnicalInnovationSectionResultEntity"));
             
@@ -451,6 +453,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.AssessmentSectionEntityId = OLD.AssessmentSectionEntityId; " +
                 "DETACH SOURCEPROJECT;";
             
+            reader.AssertReturnedDataIsValid(string.Format(validateSpecificFailurePathFailureMechanismSectionEntity, "13", "Macrostabiliteit buitenwaarts"));
             reader.AssertReturnedDataIsValid(string.Format(validateSpecificFailurePathFailureMechanismSectionEntity, "17", "Sterkte en stabiliteit langsconstructies"));
             reader.AssertReturnedDataIsValid(string.Format(validateSpecificFailurePathFailureMechanismSectionEntity, "18", "Technische innovaties"));
         }

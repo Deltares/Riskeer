@@ -800,6 +800,91 @@ SELECT
 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 
 INSERT INTO SpecificFailurePathEntity (
+[AssessmentSectionEntityId],
+    [Name],
+    [Code],
+    [Order],
+    [InAssembly],
+    [FailureMechanismSectionCollectionSourcePath],
+    [InAssemblyInputComments],
+    [InAssemblyOutputComments],
+    [NotInAssemblyComments],
+    [N],
+    [FailurePathAssemblyProbabilityResultType],
+    [ManualFailurePathAssemblyProbability],
+    [ApplyLengthEffectInSection]
+)
+SELECT
+    [AssessmentSectionEntityId],
+    "Macrostabiliteit buitenwaarts",
+    "STBU",
+    1,
+    [IsRelevant],
+    [FailureMechanismSectionCollectionSourcePath],
+    [InputComments],
+    [OutputComments],
+    [NotRelevantComments],
+    1,
+    1,
+    NULL,
+    0
+FROM [SOURCEPROJECT].FailureMechanismEntity
+WHERE FailureMechanismType = 13;
+
+CREATE TEMP TABLE TempSpecificFailurePathMapping
+(
+    'FailureMechanismEntityId' INTEGER NOT NULL,
+    'SpecificFailurePathEntityId' INTEGER NOT NULL,
+CONSTRAINT 'PK_SpecificFailurePathFailureMechanismSectionEntity' PRIMARY KEY ('FailureMechanismEntityId','SpecificFailurePathEntityId')
+);
+
+INSERT INTO TempSpecificFailurePathMapping
+(
+    [FailureMechanismEntityId],
+    [SpecificFailurePathEntityId]
+)
+SELECT
+    [FailureMechanismEntityId],
+    [SpecificFailurePathEntityId]
+FROM [SOURCEPROJECT].FailureMechanismEntity
+    JOIN SpecificFailurePathEntity USING (AssessmentSectionEntityId)
+WHERE FailureMechanismType = 13
+  AND [Name] = "Macrostabiliteit buitenwaarts";
+
+INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
+    [FailureMechanismSectionEntityId],
+    [IsRelevant],
+    [InitialFailureMechanismResultType],
+    [ManualInitialFailureMechanismResultSectionProbability],
+    [ManualInitialFailureMechanismResultProfileProbability],
+    [FurtherAnalysisType],
+    [RefinedSectionProbability],
+    [RefinedProfileProbability]
+)
+SELECT
+    [FailureMechanismSectionEntityId],
+    1,
+    1,
+    NULL,
+    NULL,
+    1,
+    NULL,
+    NULL
+FROM [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity;
+
+INSERT INTO SpecificFailurePathFailureMechanismSectionEntity (
+[SpecificFailurePathEntityId],
+    [FailureMechanismSectionEntityId]
+)
+SELECT
+    [SpecificFailurePathEntityId],
+    [FailureMechanismSectionEntityId]
+FROM TempSpecificFailurePathMapping
+    JOIN [SOURCEPROJECT].FailureMechanismSectionEntity USING(FailureMechanismEntityId);
+
+DROP TABLE TempSpecificFailurePathMapping;
+
+INSERT INTO SpecificFailurePathEntity (
     [AssessmentSectionEntityId],
     [Name],
     [Code],
