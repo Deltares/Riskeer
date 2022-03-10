@@ -30,8 +30,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
         [Test]
         public void AssemblyXmlEnumIdentifiers_ExpectedValues()
         {
-            Assert.AreEqual("NVT", AssemblyXmlEnumIdentifiers.NotApplicable);
-
             Assert.AreEqual("NDo", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupNotDominant);
             Assert.AreEqual("+III", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupIII);
             Assert.AreEqual("+II", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupII);
@@ -40,14 +38,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("-I", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupIMin);
             Assert.AreEqual("-II", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupIIMin);
             Assert.AreEqual("-III", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupIIIMin);
-
-            Assert.AreEqual("I-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupIv);
-            Assert.AreEqual("II-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupIIv);
-            Assert.AreEqual("III-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupIIIv);
-            Assert.AreEqual("IV-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupIVv);
-            Assert.AreEqual("V-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupVv);
-            Assert.AreEqual("VI-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupVIv);
-            Assert.AreEqual("VII-vak", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionCategoryGroupVIIv);
 
             Assert.AreEqual("A+", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupAPlus);
             Assert.AreEqual("A", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupA);

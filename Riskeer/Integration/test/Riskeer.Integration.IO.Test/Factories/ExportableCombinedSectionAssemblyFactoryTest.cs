@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.IO.Assembly;
@@ -151,7 +150,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                                   ExportableCombinedSectionAssembly actualSectionResult)
         {
             Assert.AreSame(actualSection, actualSectionResult.Section);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, actualSectionResult.CombinedSectionAssemblyResult.AssemblyGroup);
+            Assert.AreEqual(expectedSection.TotalResult, actualSectionResult.CombinedSectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableAssemblyMethod.WBI3C1, actualSectionResult.CombinedSectionAssemblyResult.AssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismCombinedSectionResults = actualSectionResult.FailureMechanismResults;

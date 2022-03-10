@@ -163,7 +163,8 @@ namespace Riskeer.Integration.IO.Test.Creators
                 Assert.AreEqual(expectedSerializableFailureMechanism.Id, actualSectionAssemblyResult.FailureMechanismId);
 
                 Assert.AreEqual(actualSection.Id, actualSectionAssemblyResult.FailureMechanismSectionId);
-                Assert.AreEqual(expectedSectionAssemblyResult.AssemblyGroup, actualSectionAssemblyResult.SectionResult.AssemblyGroup);
+                Assert.AreEqual(SerializableFailureMechanismSectionAssemblyGroupCreator.Create(
+                                    expectedSectionAssemblyResult.AssemblyGroup), actualSectionAssemblyResult.SectionResult.AssemblyGroup);
                 Assert.AreEqual(expectedSectionAssemblyResult.Probability, actualSectionAssemblyResult.SectionResult.Probability);
             }
         }
