@@ -18,8 +18,8 @@
       <asm:typeWaterkeringstelsel>DKTRJCT</asm:typeWaterkeringstelsel>
     </asm:Waterkeringstelsel>
     <asm:Beoordelingsproces BeoordelingsprocesID="beoordelingsproces1" WaterkeringstelselIDRef="section1">
-      <asm:beginJaarBeoordelingsronde>2017</asm:beginJaarBeoordelingsronde>
-      <asm:eindJaarBeoordelingsronde>2023</asm:eindJaarBeoordelingsronde>
+      <asm:beginJaarBeoordelingsronde>2023</asm:beginJaarBeoordelingsronde>
+      <asm:eindJaarBeoordelingsronde>2035</asm:eindJaarBeoordelingsronde>
     </asm:Beoordelingsproces>
     <asm:Veiligheidsoordeel VeiligheidsoordeelID="veiligheidsoordeel_1" BeoordelingsprocesIDRef="beoordelingsproces1">
       <asm:veiligheidsoordeel>
@@ -29,23 +29,22 @@
         <asm:status>VOLLDG</asm:status>
       </asm:veiligheidsoordeel>
     </asm:Veiligheidsoordeel>
-    <asm:Toetsspoor ToetsspoorID="toetsspoorGABI" VeiligheidsoordeelIDRef="veiligheidsoordeel_1">
-      <asm:typeToetsspoor>GABI</asm:typeToetsspoor>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
+    <asm:Faalmechanisme FaalmechanismeID="toetsspoorGABI" VeiligheidsoordeelIDRef="veiligheidsoordeel_1">
+      <asm:typeFaalmechanisme>GABI</asm:typeFaalmechanisme>
+      <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
         <asm:faalkans>0.08419</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toets ToetsID="resultaat_GABI_1" ToetsspoorIDRef="toetsspoorGABI" WaterkeringsectieIDRef="vak_GABI_1">
-      <asm:eindtoetsoordeel>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalanalyse FaalanalyseID="resultaat_GABI_1" FaalmechanismeIDRef="toetsspoorGABI" WaterkeringsectieIDRef="vak_GABI_1">
+      <asm:analyseVak>
         <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
-        <asm:categorieVak>+III</asm:categorieVak>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
         <asm:faalkans>0.00073</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeel>
-    </asm:Toets>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
     <asm:GecombineerdToetsoordeel GecombineerdToetsoordeelID="resultaat_gecombineerd_1" VeiligheidsoordeelIDRef="veiligheidsoordeel_1" WaterkeringsectieIDRef="vak_gecombineerd_1">
       <asm:toetsoordeelGecombineerd>
         <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>

@@ -115,7 +115,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Identifier for a combined section result element.
         /// </summary>
-        public const string CombinedSectionResult = "eindtoetsoordeel";
+        public const string SectionResult = "analyseVak";
 
         /// <summary>
         /// Identifier for a combined section failure mechanism result element.
@@ -126,11 +126,6 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// Identifier for a coordinate system type attribute.
         /// </summary>
         public const string CoordinateSystem = "srsName";
-
-        /// <summary>
-        /// Identifier for a direct failure mechanism element.
-        /// </summary>
-        public const string DirectFailureMechanism = "typeFaalmechanisme";
 
         /// <summary>
         /// Identifier for an end distance element.
@@ -150,22 +145,22 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Identifier for a failure mechanism element.
         /// </summary>
-        public const string FailureMechanism = "Toetsspoor";
+        public const string FailureMechanism = "Faalmechanisme";
 
         /// <summary>
         /// Identifier for a failure mechanism assembly result element.
         /// </summary>
-        public const string FailureMechanismAssemblyResult = "toetsoordeel";
+        public const string FailureMechanismAssemblyResult = "analyseFaalmechanisme";
 
         /// <summary>
         /// Identifier for a failure mechanism ID attribute.
         /// </summary>
-        public const string FailureMechanismId = "ToetsspoorID";
+        public const string FailureMechanismId = "FaalmechanismeID";
 
         /// <summary>
         /// Identifier for a failure mechanism ID reference attribute.
         /// </summary>
-        public const string FailureMechanismIdRef = "ToetsspoorIDRef";
+        public const string FailureMechanismIdRef = "FaalmechanismeIDRef";
 
         /// <summary>
         /// Identifier for a failure mechanism section element.
@@ -180,17 +175,17 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Identifier for a failure mechanism section assembly element.
         /// </summary>
-        public const string FailureMechanismSectionAssembly = "Toets";
+        public const string FailureMechanismSectionAssembly = "Faalanalyse";
 
         /// <summary>
         /// Identifier for a failure mechanism section assembly element.
         /// </summary>
-        public const string FailureMechanismSectionAssemblyId = "ToetsID";
+        public const string FailureMechanismSectionAssemblyId = "FaalanalyseID";
 
         /// <summary>
-        /// Identifier for a failure mechanism section category group element.
+        /// Identifier for a failure mechanism section assembly group element.
         /// </summary>
-        public const string FailureMechanismSectionCategoryGroup = "categorieVak";
+        public const string FailureMechanismSectionAssemblyGroup = "duidingsklasse";
 
         /// <summary>
         /// Identifier for a failure mechanism section collection element.
@@ -215,7 +210,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Identifier for a failure mechanism group element.
         /// </summary>
-        public const string FailureMechanismType = "typeToetsspoor";
+        public const string FailureMechanismType = "typeFaalmechanisme";
 
         /// <summary>
         /// Identifier for a feature member element.

@@ -36,8 +36,8 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// </summary>
         public SerializableAssessmentProcess()
         {
-            StartYear = 2017;
-            EndYear = 2023;
+            StartYear = 2023;
+            EndYear = 2035;
         }
 
         /// <summary>

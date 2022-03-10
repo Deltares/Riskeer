@@ -70,7 +70,7 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// <summary>
         /// Gets or sets the category group of this assembly result.
         /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.FailureMechanismSectionCategoryGroup)]
+        [XmlElement(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup)]
         public SerializableFailureMechanismSectionAssemblyGroup AssemblyGroup { get; set; }
 
         /// <summary>

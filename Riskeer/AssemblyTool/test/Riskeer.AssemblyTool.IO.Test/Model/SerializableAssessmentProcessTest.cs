@@ -41,8 +41,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.IsInstanceOf<SerializableFeatureMember>(assessmentProcess);
             Assert.IsNull(assessmentProcess.Id);
             Assert.IsNull(assessmentProcess.AssessmentSectionId);
-            Assert.AreEqual(2017, assessmentProcess.StartYear);
-            Assert.AreEqual(2023, assessmentProcess.EndYear);
+            Assert.AreEqual(2023, assessmentProcess.StartYear);
+            Assert.AreEqual(2035, assessmentProcess.EndYear);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableAssessmentProcess), "Beoordelingsproces");
 
@@ -62,23 +62,21 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
         {
             // Call
-            TestDelegate call = () => new SerializableAssessmentProcess(invalidId,
-                                                                        new SerializableAssessmentSection());
+            void Call() => new SerializableAssessmentProcess(invalidId, new SerializableAssessmentSection());
 
             // Assert
             const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new SerializableAssessmentProcess("id",
-                                                                        null);
+            void Call() => new SerializableAssessmentProcess("id", null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 

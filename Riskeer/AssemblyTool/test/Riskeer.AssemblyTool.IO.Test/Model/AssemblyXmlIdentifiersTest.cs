@@ -48,30 +48,28 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.AreEqual("GecombineerdToetsoordeel", AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssembly);
             Assert.AreEqual("GecombineerdToetsoordeelID", AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssemblyId);
             Assert.AreEqual("toetsoordeelGecombineerd", AssemblyXmlIdentifiers.CombinedCombinedSectionResult);
-            Assert.AreEqual("eindtoetsoordeel", AssemblyXmlIdentifiers.CombinedSectionResult);
+            Assert.AreEqual("analyseVak", AssemblyXmlIdentifiers.SectionResult);
             Assert.AreEqual("eindtoetsoordeelToetsspoor", AssemblyXmlIdentifiers.CombinedSectionFailureMechanismResult);
             Assert.AreEqual("srsName", AssemblyXmlIdentifiers.CoordinateSystem);
-
-            Assert.AreEqual("typeFaalmechanisme", AssemblyXmlIdentifiers.DirectFailureMechanism);
 
             Assert.AreEqual("afstandEinde", AssemblyXmlIdentifiers.EndDistance);
             Assert.AreEqual("eindJaarBeoordelingsronde", AssemblyXmlIdentifiers.EndYear);
             Assert.AreEqual("Envelope", AssemblyXmlIdentifiers.Envelope);
 
-            Assert.AreEqual("Toetsspoor", AssemblyXmlIdentifiers.FailureMechanism);
-            Assert.AreEqual("toetsoordeel", AssemblyXmlIdentifiers.FailureMechanismAssemblyResult);
-            Assert.AreEqual("ToetsspoorID", AssemblyXmlIdentifiers.FailureMechanismId);
-            Assert.AreEqual("ToetsspoorIDRef", AssemblyXmlIdentifiers.FailureMechanismIdRef);
+            Assert.AreEqual("Faalmechanisme", AssemblyXmlIdentifiers.FailureMechanism);
+            Assert.AreEqual("analyseFaalmechanisme", AssemblyXmlIdentifiers.FailureMechanismAssemblyResult);
+            Assert.AreEqual("FaalmechanismeID", AssemblyXmlIdentifiers.FailureMechanismId);
+            Assert.AreEqual("FaalmechanismeIDRef", AssemblyXmlIdentifiers.FailureMechanismIdRef);
             Assert.AreEqual("ToetsVak", AssemblyXmlIdentifiers.FailureMechanismSection);
             Assert.AreEqual("WaterkeringsectieIDRef", AssemblyXmlIdentifiers.FailureMechanismSectionIdRef);
-            Assert.AreEqual("Toets", AssemblyXmlIdentifiers.FailureMechanismSectionAssembly);
-            Assert.AreEqual("ToetsID", AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyId);
-            Assert.AreEqual("categorieVak", AssemblyXmlIdentifiers.FailureMechanismSectionCategoryGroup);
+            Assert.AreEqual("Faalanalyse", AssemblyXmlIdentifiers.FailureMechanismSectionAssembly);
+            Assert.AreEqual("FaalanalyseID", AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyId);
+            Assert.AreEqual("duidingsklasse", AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup);
             Assert.AreEqual("Vakindeling", AssemblyXmlIdentifiers.FailureMechanismSectionCollection);
             Assert.AreEqual("VakindelingID", AssemblyXmlIdentifiers.FailureMechanismSectionCollectionId);
             Assert.AreEqual("VakindelingIDRef", AssemblyXmlIdentifiers.FailureMechanismSectionCollectionIdRef);
             Assert.AreEqual("typeWaterkeringsectie", AssemblyXmlIdentifiers.FailureMechanismSectionType);
-            Assert.AreEqual("typeToetsspoor", AssemblyXmlIdentifiers.FailureMechanismType);
+            Assert.AreEqual("typeFaalmechanisme", AssemblyXmlIdentifiers.FailureMechanismType);
             Assert.AreEqual("featureMember", AssemblyXmlIdentifiers.FeatureMember);
 
             Assert.AreEqual("posList", AssemblyXmlIdentifiers.Geometry);

@@ -24,7 +24,6 @@ using System.Xml.Serialization;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
-using Riskeer.AssemblyTool.IO.Properties;
 
 namespace Riskeer.AssemblyTool.IO.Model
 {
@@ -37,10 +36,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanism"/>.
         /// </summary>
-        public SerializableFailureMechanism()
-        {
-            DirectFailureMechanism = Resources.DirectFailureMechanism;
-        }
+        public SerializableFailureMechanism() {}
 
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanism"/>.
@@ -51,10 +47,10 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <param name="failureMechanismAssemblyResult">The total failure mechanism assembly result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
-        public SerializableFailureMechanism(string id,
-                                            SerializableTotalAssemblyResult totalAssemblyResult,
+        public SerializableFailureMechanism(string id, SerializableTotalAssemblyResult totalAssemblyResult,
                                             SerializableFailureMechanismType failureMechanismType,
-                                            SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResult) : this()
+                                            SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResult)
+            : this()
         {
             if (!SerializableIdValidator.Validate(id))
             {
@@ -94,12 +90,6 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismType)]
         public SerializableFailureMechanismType FailureMechanismType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the direct failure mechanism indicator.
-        /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.DirectFailureMechanism)]
-        public string DirectFailureMechanism { get; set; }
 
         /// <summary>
         /// Gets or sets the total failure mechanism assembly result.

@@ -40,7 +40,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             // Assert
             Assert.IsInstanceOf<SerializableFeatureMember>(failureMechanism);
-            Assert.AreEqual("DIRECT", failureMechanism.DirectFailureMechanism);
             Assert.IsNull(failureMechanism.Id);
             Assert.IsNull(failureMechanism.TotalAssemblyResultId);
             Assert.IsNull(failureMechanism.FailureMechanismAssemblyResult);
@@ -55,8 +54,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
                 nameof(SerializableFailureMechanism.FailureMechanismType), "typeToetsspoor");
-            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
-                nameof(SerializableFailureMechanism.DirectFailureMechanism), "typeFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
                 nameof(SerializableFailureMechanism.FailureMechanismAssemblyResult), "toetsoordeel");
         }
@@ -131,7 +128,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.AreEqual(id, failureMechanism.Id);
             Assert.AreEqual(totalResultId, failureMechanism.TotalAssemblyResultId);
             Assert.AreEqual(type, failureMechanism.FailureMechanismType);
-            Assert.AreEqual("DIRECT", failureMechanism.DirectFailureMechanism);
             Assert.AreSame(assemblyResult, failureMechanism.FailureMechanismAssemblyResult);
         }
     }

@@ -99,7 +99,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Gets or sets the assembly result.
         /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.CombinedSectionResult)]
+        [XmlElement(AssemblyXmlIdentifiers.SectionResult)]
         public SerializableFailureMechanismSectionAssemblyResult SectionResult { get; set; }
     }
 }
