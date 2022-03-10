@@ -47,7 +47,6 @@ namespace Riskeer.Integration.IO.Assembly
 
             FailureMechanismSection = failureMechanismSection;
             AssemblyGroup = assemblyGroup;
-
             AssemblyMethod = assemblyMethod;
         }
 
