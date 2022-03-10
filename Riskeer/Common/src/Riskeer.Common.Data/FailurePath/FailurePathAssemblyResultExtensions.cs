@@ -29,10 +29,11 @@ namespace Riskeer.Common.Data.FailurePath
     public static class FailurePathAssemblyResultExtensions
     {
         /// <summary>
-        /// Gets whether the result consists of a manual probability.
+        /// Gets whether the <see cref="FailurePathAssemblyResult"/> is a manual probability.
         /// </summary>
         /// <param name="result">The <see cref="FailurePathAssemblyResult"/> to determine.</param>
-        /// <returns>An indicator whether the <see cref="FailurePathAssemblyResult"/> is a manual failure probability.</returns>
+        /// <returns>An indicator whether the <see cref="FailurePathAssemblyResult"/> is a manual probability.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         public static bool IsManualProbability(this FailurePathAssemblyResult result)
         {
             if (result == null)

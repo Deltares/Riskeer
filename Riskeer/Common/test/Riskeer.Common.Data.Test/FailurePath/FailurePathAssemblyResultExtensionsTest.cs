@@ -42,7 +42,7 @@ namespace Riskeer.Common.Data.Test.FailurePath
         [Test]
         [TestCase(FailurePathAssemblyProbabilityResultType.Automatic, false)]
         [TestCase(FailurePathAssemblyProbabilityResultType.Manual, true)]
-        public void IsManualProbability_WithVariousProbabilityTypes_ReturnsExpectedResult(
+        public void IsManualProbability_WithFailurePathAssemblyProbabilityResultType_ReturnsExpectedResult(
             FailurePathAssemblyProbabilityResultType resultType, bool expectedResult)
         {
             // Setup

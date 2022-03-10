@@ -76,13 +76,12 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        public void GetValidationError_WithResultAutomaticAndValidProbability_ReturnsEmptyMessage()
+        public void GetValidationError_WithResultAutomatic_ReturnsEmptyMessage()
         {
             // Setup
             var result = new FailurePathAssemblyResult
             {
-                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic,
-                ManualFailurePathAssemblyProbability = double.NaN
+                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
             };
 
             // Call

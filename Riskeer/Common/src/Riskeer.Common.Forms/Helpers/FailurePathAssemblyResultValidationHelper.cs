@@ -35,7 +35,7 @@ namespace Riskeer.Common.Forms.Helpers
         /// </summary>
         /// <param name="result">The <see cref="FailurePathAssemblyResult"/> to get the validation messages for.</param>
         /// <returns>An error message when the validation fails or <see cref="string.Empty"/> when there are no errors.</returns>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         public static string GetValidationError(FailurePathAssemblyResult result)
         {
             if (result == null)
@@ -43,12 +43,9 @@ namespace Riskeer.Common.Forms.Helpers
                 throw new ArgumentNullException(nameof(result));
             }
 
-            if (result.IsManualProbability() && double.IsNaN(result.ManualFailurePathAssemblyProbability))
-            {
-                return Resources.FailureProbability_must_not_be_NaN;
-            }
-
-            return string.Empty;
+            return result.IsManualProbability() && double.IsNaN(result.ManualFailurePathAssemblyProbability)
+                       ? Resources.FailureProbability_must_not_be_NaN
+                       : string.Empty;
         }
     }
 }
