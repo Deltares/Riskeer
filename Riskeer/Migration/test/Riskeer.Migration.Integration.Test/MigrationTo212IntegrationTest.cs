@@ -374,7 +374,13 @@ namespace Riskeer.Migration.Integration.Test
                 ") " +
                 "FROM SpecificFailurePathEntity NEW " +
                 "JOIN (" +
-                "SELECT *" +
+                "SELECT " +
+                "[AssessmentSectionEntityId], " +
+                "[IsRelevant], " +
+                "[FailureMechanismSectionCollectionSourcePath], " +
+                "[InputComments], " +
+                "[OutputComments], " +
+                "[NotRelevantComments] " +
                 "FROM SOURCEPROJECT.FailureMechanismEntity " +
                 "WHERE FailureMechanismType = 18 " +
                 ") OLD USING (AssessmentSectionEntityId) " +
