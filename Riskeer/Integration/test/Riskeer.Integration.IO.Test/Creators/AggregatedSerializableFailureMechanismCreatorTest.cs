@@ -96,9 +96,9 @@ namespace Riskeer.Integration.IO.Test.Creators
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
                 new[]
                 {
-                    ExportableFailureMechanismSectionAssemblyWithProbabilityResultTestFactory.Create(
+                    ExportableFailureMechanismSectionAssemblyResultTestFactory.CreateWithProbability(
                         ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(random.Next()), random.Next()),
-                    ExportableFailureMechanismSectionAssemblyWithProbabilityResultTestFactory.Create(
+                    ExportableFailureMechanismSectionAssemblyResultTestFactory.CreateWithProbability(
                         ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(random.Next()), random.Next())
                 },
                 random.NextEnumValue<ExportableFailureMechanismType>());

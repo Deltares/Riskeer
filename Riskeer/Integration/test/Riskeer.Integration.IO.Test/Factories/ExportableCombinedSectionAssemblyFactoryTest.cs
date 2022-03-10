@@ -42,11 +42,11 @@ namespace Riskeer.Integration.IO.Test.Factories
         public void CreateExportableCombinedSectionAssemblyCollection_CombinedSectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+            void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
                 null, new ReferenceLine());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("combinedSectionAssemblyResults", exception.ParamName);
         }
 
@@ -54,11 +54,11 @@ namespace Riskeer.Integration.IO.Test.Factories
         public void CreateExportableCombinedSectionAssemblyCollection_ReferenceLineNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+            void Call() => ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
                 Enumerable.Empty<CombinedFailureMechanismSectionAssemblyResult>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("referenceLine", exception.ParamName);
         }
 
@@ -151,56 +151,56 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                                   ExportableCombinedSectionAssembly actualSectionResult)
         {
             Assert.AreSame(actualSection, actualSectionResult.Section);
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, actualSectionResult.CombinedSectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, actualSectionResult.CombinedSectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableAssemblyMethod.WBI3C1, actualSectionResult.CombinedSectionAssemblyResult.AssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismCombinedSectionResults = actualSectionResult.FailureMechanismResults;
             Assert.AreEqual(15, failureMechanismCombinedSectionResults.Count());
             Assert.IsTrue(failureMechanismCombinedSectionResults.All(result => result.SectionAssemblyResult.AssemblyMethod == ExportableAssemblyMethod.WBI3B1));
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(0).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.Piping, failureMechanismCombinedSectionResults.ElementAt(0).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.STPH, failureMechanismCombinedSectionResults.ElementAt(0).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(1).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.GrassCoverErosionInwards, failureMechanismCombinedSectionResults.ElementAt(1).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.GEKB, failureMechanismCombinedSectionResults.ElementAt(1).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(2).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.MacroStabilityInwards, failureMechanismCombinedSectionResults.ElementAt(2).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.STBI, failureMechanismCombinedSectionResults.ElementAt(2).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(3).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.Microstability, failureMechanismCombinedSectionResults.ElementAt(3).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.STMI, failureMechanismCombinedSectionResults.ElementAt(3).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(4).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.StabilityStoneCover, failureMechanismCombinedSectionResults.ElementAt(4).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.ZST, failureMechanismCombinedSectionResults.ElementAt(4).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(5).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.WaveImpactAsphaltCover, failureMechanismCombinedSectionResults.ElementAt(5).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.AGK, failureMechanismCombinedSectionResults.ElementAt(5).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(6).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.WaterPressureAsphaltCover, failureMechanismCombinedSectionResults.ElementAt(6).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.AWO, failureMechanismCombinedSectionResults.ElementAt(6).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(7).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.GrassCoverErosionOutwards, failureMechanismCombinedSectionResults.ElementAt(7).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.GEBU, failureMechanismCombinedSectionResults.ElementAt(7).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(8).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.GrassCoverSlipOffOutwards, failureMechanismCombinedSectionResults.ElementAt(8).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.GABU, failureMechanismCombinedSectionResults.ElementAt(8).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(9).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.GrassCoverSlipOffInwards, failureMechanismCombinedSectionResults.ElementAt(9).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.GABI, failureMechanismCombinedSectionResults.ElementAt(9).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(10).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.HeightStructures, failureMechanismCombinedSectionResults.ElementAt(10).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.HTKW, failureMechanismCombinedSectionResults.ElementAt(10).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(11).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.ClosingStructures, failureMechanismCombinedSectionResults.ElementAt(11).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.BSKW, failureMechanismCombinedSectionResults.ElementAt(11).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(12).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.PipingStructure, failureMechanismCombinedSectionResults.ElementAt(12).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.PKW, failureMechanismCombinedSectionResults.ElementAt(12).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(13).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.StabilityPointStructures, failureMechanismCombinedSectionResults.ElementAt(13).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.STKWp, failureMechanismCombinedSectionResults.ElementAt(13).Code);
 
-            Assert.AreEqual(FailureMechanismSectionAssemblyCategoryGroup.None, failureMechanismCombinedSectionResults.ElementAt(14).SectionAssemblyResult.AssemblyCategory);
+            Assert.AreEqual(expectedSection.DuneErosion, failureMechanismCombinedSectionResults.ElementAt(14).SectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableFailureMechanismType.DA, failureMechanismCombinedSectionResults.ElementAt(14).Code);
         }
     }

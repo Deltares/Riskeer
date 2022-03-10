@@ -25,13 +25,11 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Gml;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.TestUtil;
 
@@ -136,20 +134,22 @@ namespace Riskeer.Integration.IO.Test.Creators
 
         private static ExportableCombinedSectionAssembly CreateCombinedSectionAssembly(ExportableCombinedFailureMechanismSection section)
         {
-            return new ExportableCombinedSectionAssembly(section,
-                                                         ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
-                                                         new[]
-                                                         {
-                                                             CreateCombinedSectionAssemblyResult(1),
-                                                             CreateCombinedSectionAssemblyResult(2)
-                                                         });
+            return new ExportableCombinedSectionAssembly(
+                section,
+                ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(section, 21),
+                new[]
+                {
+                    CreateCombinedSectionAssemblyResult(1),
+                    CreateCombinedSectionAssemblyResult(2)
+                });
         }
 
         private static ExportableFailureMechanismCombinedSectionAssemblyResult CreateCombinedSectionAssemblyResult(int seed)
         {
             var random = new Random(seed);
-            return new ExportableFailureMechanismCombinedSectionAssemblyResult(CreateCombinedSectionAssemblyResult(),
-                                                                               random.NextEnumValue<ExportableFailureMechanismType>());
+            return new ExportableFailureMechanismCombinedSectionAssemblyResult(
+                ExportableFailureMechanismSubSectionAssemblyResultTestFactory.Create(),
+                random.NextEnumValue<ExportableFailureMechanismType>());
         }
 
         private static ExportableFailureMechanism CreateFailureMechanism()
@@ -160,26 +160,9 @@ namespace Riskeer.Integration.IO.Test.Creators
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
                 new[]
                 {
-                    ExportableFailureMechanismSectionAssemblyWithProbabilityResultTestFactory.Create(failureMechanismSection, random.Next())
+                    ExportableFailureMechanismSectionAssemblyResultTestFactory.CreateWithProbability(failureMechanismSection, random.Next())
                 },
                 random.NextEnumValue<ExportableFailureMechanismType>());
-        }
-
-        private static ExportableSectionAssemblyResult CreateCombinedSectionAssemblyResult()
-        {
-            var random = new Random(30);
-            return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                       random.NextEnumValue(new[]
-                                                       {
-                                                           FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.Iv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.IIv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.IIIv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.IVv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.Vv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.VIv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.VIIv
-                                                       }));
         }
 
         #endregion

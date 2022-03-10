@@ -22,9 +22,8 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Assembly.Old;
-using Riskeer.Integration.IO.TestUtil;
 
 namespace Riskeer.Integration.IO.Test.Assembly
 {
@@ -39,10 +38,10 @@ namespace Riskeer.Integration.IO.Test.Assembly
             var code = random.NextEnumValue<ExportableFailureMechanismType>();
 
             // Call
-            TestDelegate call = () => new ExportableFailureMechanismCombinedSectionAssemblyResult(null, code);
+            void Call() => new ExportableFailureMechanismCombinedSectionAssemblyResult(null, code);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionAssemblyResult", exception.ParamName);
         }
 
@@ -52,7 +51,8 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Setup
             var random = new Random(21);
             var code = random.NextEnumValue<ExportableFailureMechanismType>();
-            ExportableSectionAssemblyResult combinedSectionAssembly = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
+            var combinedSectionAssembly = new ExportableFailureMechanismSubSectionAssemblyResult(
+                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(), random.NextEnumValue<ExportableAssemblyMethod>());
 
             // Call
             var assemblyResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(combinedSectionAssembly, code);

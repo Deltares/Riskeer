@@ -22,10 +22,9 @@
 using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data.Old;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Exceptions;
 
@@ -38,11 +37,30 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => SerializableCombinedFailureMechanismSectionAssemblyResultCreator.Create(null);
+            void Call() => SerializableCombinedFailureMechanismSectionAssemblyResultCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
+        }
+
+        [Test]
+        [TestCase(FailureMechanismSectionAssemblyGroup.Gr)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.Dominant)]
+        public void Create_SectionResultWithInvalidAssemblyGroup_ThrowsAssemblyCreatorException(FailureMechanismSectionAssemblyGroup assemblyGroup)
+        {
+            // Setup
+            var random = new Random(21);
+            var sectionResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(
+                new ExportableFailureMechanismSubSectionAssemblyResult(assemblyGroup, random.NextEnumValue<ExportableAssemblyMethod>()),
+                random.NextEnumValue<ExportableFailureMechanismType>());
+
+            // Call
+            void Call() => SerializableCombinedFailureMechanismSectionAssemblyResultCreator.Create(sectionResult);
+
+            // Assert
+            var exception = Assert.Throws<AssemblyCreatorException>(Call);
+            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         [Test]
@@ -60,45 +78,28 @@ namespace Riskeer.Integration.IO.Test.Creators
             // Assert
             Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(sectionResult.Code),
                             serializableResult.FailureMechanismType);
-            ExportableSectionAssemblyResult expectedSectionAssemblyResult = sectionResult.SectionAssemblyResult;
+            ExportableFailureMechanismSubSectionAssemblyResult expectedSectionAssemblyResult = sectionResult.SectionAssemblyResult;
+            Assert.AreEqual(SerializableFailureMechanismSectionAssemblyGroupCreator.Create(expectedSectionAssemblyResult.AssemblyGroup),
+                            serializableResult.AssemblyGroup);
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedSectionAssemblyResult.AssemblyMethod),
                             serializableResult.AssemblyMethod);
-            Assert.AreEqual(SerializableFailureMechanismSectionCategoryGroupCreator.Create(expectedSectionAssemblyResult.AssemblyCategory),
-                            serializableResult.CategoryGroup);
         }
 
-        [Test]
-        public void Create_WithExportableFailureMechanismCombinedSectionAssemblyResultAndResultNone_ThrowsAssemblyCreatorException()
-        {
-            // Setup
-            var random = new Random(21);
-            var sectionResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                                                                                FailureMechanismSectionAssemblyCategoryGroup.None),
-                                                                                            random.NextEnumValue<ExportableFailureMechanismType>());
-
-            // Call
-            TestDelegate call = () => SerializableCombinedFailureMechanismSectionAssemblyResultCreator.Create(sectionResult);
-
-            // Assert
-            var exception = Assert.Throws<AssemblyCreatorException>(call);
-            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
-        }
-
-        private static ExportableSectionAssemblyResult CreateSectionAssemblyResult()
+        private static ExportableFailureMechanismSubSectionAssemblyResult CreateSectionAssemblyResult()
         {
             var random = new Random(21);
-            return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                       random.NextEnumValue(new[]
-                                                       {
-                                                           FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.Iv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.IIv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.IIIv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.IVv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.Vv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.VIv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.VIIv
-                                                       }));
+            return new ExportableFailureMechanismSubSectionAssemblyResult(
+                random.NextEnumValue(new[]
+                {
+                    FailureMechanismSectionAssemblyGroup.NotDominant,
+                    FailureMechanismSectionAssemblyGroup.III,
+                    FailureMechanismSectionAssemblyGroup.II,
+                    FailureMechanismSectionAssemblyGroup.I,
+                    FailureMechanismSectionAssemblyGroup.Zero,
+                    FailureMechanismSectionAssemblyGroup.IIIMin,
+                    FailureMechanismSectionAssemblyGroup.IIMin,
+                    FailureMechanismSectionAssemblyGroup.IMin
+                }), random.NextEnumValue<ExportableAssemblyMethod>());
         }
     }
 }

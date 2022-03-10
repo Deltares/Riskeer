@@ -67,7 +67,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_ValidData_ReturnsSerializableFailureMechanismAssemblyResult()
         {
             // Setup
-            ExportableFailureMechanismSectionAssemblyWithProbabilityResult sectionResult = ExportableFailureMechanismSectionAssemblyWithProbabilityResultTestFactory.Create(
+            ExportableFailureMechanismSectionAssemblyWithProbabilityResult sectionResult = ExportableFailureMechanismSectionAssemblyResultTestFactory.CreateWithProbability(
                 ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(), 21);
 
             // Call

@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.TestUtil;
 
 namespace Riskeer.Integration.IO.Test.Assembly
@@ -38,15 +37,15 @@ namespace Riskeer.Integration.IO.Test.Assembly
         public void Constructor_SectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            ExportableSectionAssemblyResult combinedAssemblyResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
-            IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults =
-                Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
+            ExportableFailureMechanismSection section = ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection();
+            ExportableFailureMechanismSectionAssemblyResult combinedAssemblyResult = ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(section, 21);
 
             // Call
-            TestDelegate call = () => new ExportableCombinedSectionAssembly(null, combinedAssemblyResult, failureMechanismResults);
+            void Call() => new ExportableCombinedSectionAssembly(
+                null, combinedAssemblyResult, Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("section", exception.ParamName);
         }
 
@@ -55,18 +54,16 @@ namespace Riskeer.Integration.IO.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            var section = new ExportableCombinedFailureMechanismSection(Enumerable.Empty<Point2D>(),
-                                                                        random.NextDouble(),
-                                                                        random.NextDouble(),
-                                                                        random.NextEnumValue<ExportableAssemblyMethod>());
-            IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults =
-                Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
+            var section = new ExportableCombinedFailureMechanismSection(
+                Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble(),
+                random.NextEnumValue<ExportableAssemblyMethod>());
 
             // Call
-            TestDelegate call = () => new ExportableCombinedSectionAssembly(section, null, failureMechanismResults);
+            void Call() => new ExportableCombinedSectionAssembly(
+                section, null, Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("combinedSectionAssemblyResult", exception.ParamName);
         }
 
@@ -75,17 +72,18 @@ namespace Riskeer.Integration.IO.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            var section = new ExportableCombinedFailureMechanismSection(Enumerable.Empty<Point2D>(),
-                                                                        random.NextDouble(),
-                                                                        random.NextDouble(),
-                                                                        random.NextEnumValue<ExportableAssemblyMethod>());
-            ExportableSectionAssemblyResult combinedAssemblyResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
+            var section = new ExportableCombinedFailureMechanismSection(
+                Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble(),
+                random.NextEnumValue<ExportableAssemblyMethod>());
+
+            ExportableFailureMechanismSectionAssemblyResult combinedAssemblyResult = ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(
+                section, random.Next());
 
             // Call
-            TestDelegate call = () => new ExportableCombinedSectionAssembly(section, combinedAssemblyResult, null);
+            void Call() => new ExportableCombinedSectionAssembly(section, combinedAssemblyResult, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanismResults", exception.ParamName);
         }
 
@@ -94,11 +92,13 @@ namespace Riskeer.Integration.IO.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            var section = new ExportableCombinedFailureMechanismSection(Enumerable.Empty<Point2D>(),
-                                                                        random.NextDouble(),
-                                                                        random.NextDouble(),
-                                                                        random.NextEnumValue<ExportableAssemblyMethod>());
-            ExportableSectionAssemblyResult combinedAssemblyResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
+            var section = new ExportableCombinedFailureMechanismSection(
+                Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble(),
+                random.NextEnumValue<ExportableAssemblyMethod>());
+
+            ExportableFailureMechanismSectionAssemblyResult combinedAssemblyResult = ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(
+                section, random.Next());
+
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults =
                 Enumerable.Empty<ExportableFailureMechanismCombinedSectionAssemblyResult>();
 

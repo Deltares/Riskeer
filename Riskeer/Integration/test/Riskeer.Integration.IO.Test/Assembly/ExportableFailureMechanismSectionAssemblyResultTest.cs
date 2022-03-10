@@ -39,7 +39,9 @@ namespace Riskeer.Integration.IO.Test.Assembly
             var random = new Random(21);
 
             // Call
-            void Call() => new ExportableFailureMechanismSectionAssemblyResult(null, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            void Call() => new ExportableFailureMechanismSectionAssemblyResult(
+                null, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                random.NextEnumValue<ExportableAssemblyMethod>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -53,14 +55,15 @@ namespace Riskeer.Integration.IO.Test.Assembly
             var random = new Random(21);
             var section = new ExportableFailureMechanismSection(Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble());
             var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            var result = new ExportableFailureMechanismSectionAssemblyResult(section, assemblyGroup);
+            var result = new ExportableFailureMechanismSectionAssemblyResult(section, assemblyGroup, assemblyMethod);
 
             // Assert
             Assert.AreSame(section, result.FailureMechanismSection);
             Assert.AreEqual(assemblyGroup, result.AssemblyGroup);
-            Assert.AreEqual(ExportableAssemblyMethod.WBI3A1, result.AssemblyMethod);
+            Assert.AreEqual(assemblyMethod, result.AssemblyMethod);
         }
     }
 }

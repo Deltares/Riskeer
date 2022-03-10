@@ -39,10 +39,9 @@ namespace Riskeer.Integration.IO.Assembly
         public ExportableFailureMechanismSectionAssemblyWithProbabilityResult(ExportableFailureMechanismSection failureMechanismSection,
                                                                               FailureMechanismSectionAssemblyGroup assemblyGroup,
                                                                               double probability)
-            : base(failureMechanismSection, assemblyGroup)
+            : base(failureMechanismSection, assemblyGroup, ExportableAssemblyMethod.WBI0A2)
         {
             Probability = probability;
-            AssemblyMethod = ExportableAssemblyMethod.WBI0A2;
         }
 
         /// <summary>

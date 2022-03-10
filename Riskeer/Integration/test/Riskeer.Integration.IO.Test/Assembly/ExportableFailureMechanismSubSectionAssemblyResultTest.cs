@@ -21,32 +21,29 @@
 
 using System;
 using Core.Common.TestUtil;
+using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.IO.Assembly;
 
-namespace Riskeer.Integration.IO.TestUtil
+namespace Riskeer.Integration.IO.Test.Assembly
 {
-    public class ExportableFailureMechanismSectionAssemblyWithProbabilityResultTestFactory
+    [TestFixture]
+    public class ExportableFailureMechanismSubSectionAssemblyResultTest
     {
-        public static ExportableFailureMechanismSectionAssemblyWithProbabilityResult Create(
-            ExportableFailureMechanismSection section, int seed)
+        [Test]
+        public void Constructor_ExpectedValues()
         {
-            var random = new Random(seed);
+            // Setup
+            var random = new Random(21);
+            var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
-            return new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
-                section,
-                random.NextEnumValue(new[]
-                {
-                    FailureMechanismSectionAssemblyGroup.NotDominant,
-                    FailureMechanismSectionAssemblyGroup.III,
-                    FailureMechanismSectionAssemblyGroup.II,
-                    FailureMechanismSectionAssemblyGroup.I,
-                    FailureMechanismSectionAssemblyGroup.Zero,
-                    FailureMechanismSectionAssemblyGroup.IMin,
-                    FailureMechanismSectionAssemblyGroup.IIMin,
-                    FailureMechanismSectionAssemblyGroup.IIIMin
-                }),
-                random.NextDouble());
+            // Call
+            var assemblyResult = new ExportableFailureMechanismSubSectionAssemblyResult(assemblyGroup, assemblyMethod);
+
+            // Assert
+            Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
+            Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
         }
     }
 }

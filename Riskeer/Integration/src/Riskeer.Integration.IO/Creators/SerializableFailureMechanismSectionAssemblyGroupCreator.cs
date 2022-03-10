@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 
 namespace Riskeer.Integration.IO.Creators
@@ -44,11 +43,11 @@ namespace Riskeer.Integration.IO.Creators
         /// is a valid value, but unsupported.</exception>
         public static SerializableFailureMechanismSectionAssemblyGroup Create(FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
-            if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyCategoryGroup), assemblyGroup))
+            if (!Enum.IsDefined(typeof(FailureMechanismSectionAssemblyGroup), assemblyGroup))
             {
                 throw new InvalidEnumArgumentException(nameof(assemblyGroup),
                                                        (int) assemblyGroup,
-                                                       typeof(FailureMechanismSectionAssemblyCategoryGroup));
+                                                       typeof(FailureMechanismSectionAssemblyGroup));
             }
 
             switch (assemblyGroup)

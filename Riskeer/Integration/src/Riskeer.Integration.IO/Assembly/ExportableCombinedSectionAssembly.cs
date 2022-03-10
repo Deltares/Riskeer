@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.Integration.IO.Assembly.Old;
 
 namespace Riskeer.Integration.IO.Assembly
 {
@@ -38,7 +37,7 @@ namespace Riskeer.Integration.IO.Assembly
         /// <param name="failureMechanismResults">The assembly results per failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public ExportableCombinedSectionAssembly(ExportableCombinedFailureMechanismSection section,
-                                                 ExportableSectionAssemblyResult combinedSectionAssemblyResult,
+                                                 ExportableFailureMechanismSectionAssemblyResult combinedSectionAssemblyResult,
                                                  IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismResults)
         {
             if (section == null)
@@ -69,7 +68,7 @@ namespace Riskeer.Integration.IO.Assembly
         /// <summary>
         /// Gets the combined assembly result of this section.
         /// </summary>
-        public ExportableSectionAssemblyResult CombinedSectionAssemblyResult { get; }
+        public ExportableFailureMechanismSectionAssemblyResult CombinedSectionAssemblyResult { get; }
 
         /// <summary>
         /// Gets the assembly results per failure mechanism.

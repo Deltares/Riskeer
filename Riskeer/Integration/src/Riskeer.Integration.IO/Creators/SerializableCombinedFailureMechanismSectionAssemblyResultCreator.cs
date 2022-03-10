@@ -20,10 +20,9 @@
 // All rights reserved.
 
 using System;
-using Riskeer.AssemblyTool.Data.Old;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.Exceptions;
 
 namespace Riskeer.Integration.IO.Creators
@@ -50,15 +49,17 @@ namespace Riskeer.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            ExportableSectionAssemblyResult sectionResultSectionAssemblyResult = sectionResult.SectionAssemblyResult;
-            if (sectionResultSectionAssemblyResult.AssemblyCategory == FailureMechanismSectionAssemblyCategoryGroup.None)
+            ExportableFailureMechanismSubSectionAssemblyResult sectionResultSectionAssemblyResult = sectionResult.SectionAssemblyResult;
+            if (sectionResultSectionAssemblyResult.AssemblyGroup == FailureMechanismSectionAssemblyGroup.Gr
+                || sectionResultSectionAssemblyResult.AssemblyGroup == FailureMechanismSectionAssemblyGroup.Dominant)
             {
                 throw new AssemblyCreatorException("The assembly result is invalid and cannot be created.");
             }
 
-            return new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethodCreator.Create(sectionResultSectionAssemblyResult.AssemblyMethod),
-                                                                                 SerializableFailureMechanismTypeCreator.Create(sectionResult.Code),
-                                                                                 SerializableFailureMechanismSectionCategoryGroupCreator.Create(sectionResultSectionAssemblyResult.AssemblyCategory));
+            return new SerializableCombinedFailureMechanismSectionAssemblyResult(
+                SerializableAssemblyMethodCreator.Create(sectionResultSectionAssemblyResult.AssemblyMethod),
+                SerializableFailureMechanismTypeCreator.Create(sectionResult.Code),
+                SerializableFailureMechanismSectionAssemblyGroupCreator.Create(sectionResultSectionAssemblyResult.AssemblyGroup));
         }
     }
 }

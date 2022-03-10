@@ -321,8 +321,12 @@ namespace Riskeer.AssemblyTool.IO.Test
                 section2,
                 new[]
                 {
-                    new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.HTKW, SerializableFailureMechanismSectionCategoryGroup.IIIv),
-                    new SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.STPH, SerializableFailureMechanismSectionCategoryGroup.IVv)
+                    new SerializableCombinedFailureMechanismSectionAssemblyResult(
+                        SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.HTKW,
+                        SerializableFailureMechanismSectionAssemblyGroup.III),
+                    new SerializableCombinedFailureMechanismSectionAssemblyResult(
+                        SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismType.STPH,
+                        SerializableFailureMechanismSectionAssemblyGroup.II)
                 },
                 new SerializableFailureMechanismSectionAssemblyResult(SerializableFailureMechanismSectionAssemblyGroup.I, 0.017));
 

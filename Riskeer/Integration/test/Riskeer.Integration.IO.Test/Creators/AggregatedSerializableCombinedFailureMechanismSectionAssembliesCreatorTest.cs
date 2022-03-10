@@ -25,12 +25,11 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data.Old;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.Integration.IO.AggregatedSerializable;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.TestUtil;
@@ -169,13 +168,13 @@ namespace Riskeer.Integration.IO.Test.Creators
         private static ExportableCombinedSectionAssembly CreateCombinedSectionAssembly(ExportableCombinedFailureMechanismSection section,
                                                                                        int seed)
         {
-            return new ExportableCombinedSectionAssembly(section,
-                                                         ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult(),
-                                                         new[]
-                                                         {
-                                                             CreateCombinedSectionAssemblyResult(seed++),
-                                                             CreateCombinedSectionAssemblyResult(seed)
-                                                         });
+            return new ExportableCombinedSectionAssembly(
+                section, ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(section, seed),
+                new[]
+                {
+                    CreateCombinedSectionAssemblyResult(seed++),
+                    CreateCombinedSectionAssemblyResult(seed)
+                });
         }
 
         private static ExportableFailureMechanismCombinedSectionAssemblyResult CreateCombinedSectionAssemblyResult(int seed)
@@ -185,21 +184,21 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                random.NextEnumValue<ExportableFailureMechanismType>());
         }
 
-        private static ExportableSectionAssemblyResult CreateSectionAssemblyResult(int seed)
+        private static ExportableFailureMechanismSubSectionAssemblyResult CreateSectionAssemblyResult(int seed)
         {
             var random = new Random(seed);
-            return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                       random.NextEnumValue(new[]
-                                                       {
-                                                           FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.Iv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.IIv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.IIIv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.IVv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.Vv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.VIv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.VIIv
-                                                       }));
+            return new ExportableFailureMechanismSubSectionAssemblyResult(
+                random.NextEnumValue(new[]
+                {
+                    FailureMechanismSectionAssemblyGroup.NotDominant,
+                    FailureMechanismSectionAssemblyGroup.III,
+                    FailureMechanismSectionAssemblyGroup.II,
+                    FailureMechanismSectionAssemblyGroup.I,
+                    FailureMechanismSectionAssemblyGroup.Zero,
+                    FailureMechanismSectionAssemblyGroup.IMin,
+                    FailureMechanismSectionAssemblyGroup.IIMin,
+                    FailureMechanismSectionAssemblyGroup.IIIMin
+                }), random.NextEnumValue<ExportableAssemblyMethod>());
         }
 
         private static void AssertCombinedFailureMechanismSectionResults(IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> expectedCombinedSectionAssemblyResults,
@@ -224,11 +223,11 @@ namespace Riskeer.Integration.IO.Test.Creators
             Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(expectedSectionResult.Code),
                             actualSectionResult.FailureMechanismType);
 
-            ExportableSectionAssemblyResult expectedSectionAssemblyResult = expectedSectionResult.SectionAssemblyResult;
+            ExportableFailureMechanismSubSectionAssemblyResult expectedSectionAssemblyResult = expectedSectionResult.SectionAssemblyResult;
+            Assert.AreEqual(SerializableFailureMechanismSectionAssemblyGroupCreator.Create(expectedSectionAssemblyResult.AssemblyGroup),
+                            actualSectionResult.AssemblyGroup);
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedSectionAssemblyResult.AssemblyMethod),
                             actualSectionResult.AssemblyMethod);
-            Assert.AreEqual(SerializableFailureMechanismSectionCategoryGroupCreator.Create(expectedSectionAssemblyResult.AssemblyCategory),
-                            actualSectionResult.CategoryGroup);
         }
     }
 }

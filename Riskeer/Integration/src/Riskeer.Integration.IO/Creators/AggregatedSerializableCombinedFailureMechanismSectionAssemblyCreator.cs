@@ -77,9 +77,8 @@ namespace Riskeer.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(combinedSectionAssembly));
             }
 
-            SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(idGenerator,
-                                                                                                                            serializableFailureMechanismSectionCollection,
-                                                                                                                            combinedSectionAssembly.Section);
+            SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(
+                idGenerator, serializableFailureMechanismSectionCollection, combinedSectionAssembly.Section);
 
             return new AggregatedSerializableCombinedFailureMechanismSectionAssembly(
                 failureMechanismSection,

@@ -43,12 +43,14 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// </summary>
         /// <param name="assemblyMethod">The method used to assemble this result.</param>
         /// <param name="failureMechanismType">The failure mechanism type this result is assembled for.</param>
-        /// <param name="categoryGroup">The category group of this assembly result.</param>
-        public SerializableCombinedFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod assemblyMethod,
-                                                                         SerializableFailureMechanismType failureMechanismType,
-                                                                         SerializableFailureMechanismSectionCategoryGroup categoryGroup) : this()
+        /// <param name="assemblyGroup">The category group of this assembly result.</param>
+        public SerializableCombinedFailureMechanismSectionAssemblyResult(
+            SerializableAssemblyMethod assemblyMethod,
+            SerializableFailureMechanismType failureMechanismType,
+            SerializableFailureMechanismSectionAssemblyGroup assemblyGroup) 
+            : this()
         {
-            CategoryGroup = categoryGroup;
+            AssemblyGroup = assemblyGroup;
             AssemblyMethod = assemblyMethod;
             FailureMechanismType = failureMechanismType;
         }
@@ -69,7 +71,7 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// Gets or sets the category group of this assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismSectionCategoryGroup)]
-        public SerializableFailureMechanismSectionCategoryGroup CategoryGroup { get; set; }
+        public SerializableFailureMechanismSectionAssemblyGroup AssemblyGroup { get; set; }
 
         /// <summary>
         /// Gets or sets the status of this assembly result.

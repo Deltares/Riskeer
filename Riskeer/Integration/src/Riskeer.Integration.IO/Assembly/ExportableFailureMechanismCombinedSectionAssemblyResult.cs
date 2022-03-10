@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Integration.IO.Assembly.Old;
 
 namespace Riskeer.Integration.IO.Assembly
 {
@@ -35,7 +34,7 @@ namespace Riskeer.Integration.IO.Assembly
         /// <param name="sectionAssemblyResult">The assembly result of the combined section.</param>
         /// <param name="code">The code of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionAssemblyResult"/> is <c>null</c>.</exception>
-        public ExportableFailureMechanismCombinedSectionAssemblyResult(ExportableSectionAssemblyResult sectionAssemblyResult,
+        public ExportableFailureMechanismCombinedSectionAssemblyResult(ExportableFailureMechanismSubSectionAssemblyResult sectionAssemblyResult,
                                                                        ExportableFailureMechanismType code)
         {
             if (sectionAssemblyResult == null)
@@ -50,7 +49,7 @@ namespace Riskeer.Integration.IO.Assembly
         /// <summary>
         /// Gets the assembly result of this combined section.
         /// </summary>
-        public ExportableSectionAssemblyResult SectionAssemblyResult { get; }
+        public ExportableFailureMechanismSubSectionAssemblyResult SectionAssemblyResult { get; }
 
         /// <summary>
         /// Gets the code of the failure mechanism.
