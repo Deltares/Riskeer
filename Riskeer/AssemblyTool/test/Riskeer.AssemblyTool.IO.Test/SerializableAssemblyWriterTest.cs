@@ -201,8 +201,11 @@ namespace Riskeer.AssemblyTool.IO.Test
         public void WriteAssembly_FullyConfiguredAssembly_ReturnsExpectedFile()
         {
             // Setup
+            string folderPath = TestHelper.GetScratchPadPath(nameof(WriteAssembly_FullyConfiguredAssembly_ReturnsExpectedFile));
+            Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "actualAssembly.gml");
+
             SerializableAssembly assembly = CreateSerializableAssembly();
-            string filePath = TestHelper.GetScratchPadPath(nameof(WriteAssembly_FullyConfiguredAssembly_ReturnsExpectedFile));
 
             try
             {
@@ -219,7 +222,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             }
             finally
             {
-                File.Delete(filePath);
+                Directory.Delete(folderPath, true);
             }
         }
 
