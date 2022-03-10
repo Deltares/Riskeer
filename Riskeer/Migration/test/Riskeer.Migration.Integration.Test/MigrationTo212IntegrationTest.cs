@@ -422,22 +422,33 @@ namespace Riskeer.Migration.Integration.Test
             
             string validateSpecificFailurePathFailureMechanismSectionEntity =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = " +
-                "(" +
+                "SELECT " +
+                "( " +
+                "COUNT() = " +
+                "( " + 
                 "SELECT COUNT() " +
-                "FROM SOURCEPROJECT.FailureMechanismSectionEntity " +
-                "JOIN SOURCEPROJECT.FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                "FROM SOURCEPROJECT.FailureMechanismEntity " +
+                "JOIN SOURCEPROJECT.FailureMechanismSectionEntity USING(FailureMechanismEntityId) " +
                 "WHERE FailureMechanismType = 18 " +
                 ") " +
-                "FROM SpecificFailurePathFailureMechanismSectionEntity NEW " +
-                "JOIN SpecificFailurePathEntity SFP USING(SpecificFailurePathEntityId) " +
-                "WHERE SFP.[Name] = \"Technische innovaties\"; " +
+                ") " +
+                "FROM SpecificFailurePathEntity NEW " +
+                "JOIN SpecificFailurePathFailureMechanismSectionEntity USING(SpecificFailurePathEntityId) " +
+                "JOIN ( " +
+                "SELECT " +
+                "[AssessmentSectionEntityId], " +
+                "[FailureMechanismSectionEntityId] " +
+                "FROM SOURCEPROJECT.FailureMechanismEntity " +
+                "JOIN SOURCEPROJECT.FailureMechanismSectionEntity USING(FailureMechanismEntityId) " +
+                "WHERE FailureMechanismType = 18 " +
+                ") OLD USING (FailureMechanismSectionEntityId) " +
+                "WHERE NEW.[Name] = \"Technische innovaties\" " +
+                "AND NEW.AssessmentSectionEntityId = OLD.AssessmentSectionEntityId; " +
                 "DETACH SOURCEPROJECT;";
             
             reader.AssertReturnedDataIsValid(validateSpecificFailurePathFailureMechanismSectionEntity);
         }
         
-
         #region WaveConditions
 
         private static void AssertWaveConditionCalculationOutputs(MigratedDatabaseReader reader)
