@@ -26,7 +26,6 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.TestUtil;
@@ -98,7 +97,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             var random = new Random(21);
             return new ExportableFailureMechanism(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
-                Enumerable.Empty<ExportableAggregatedFailureMechanismSectionAssemblyResultBase>(),
+                Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
                 random.NextEnumValue<ExportableFailureMechanismType>());
         }
 

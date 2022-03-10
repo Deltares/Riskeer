@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.AggregatedSerializable;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Exceptions;
@@ -104,13 +103,12 @@ namespace Riskeer.Integration.IO.Creators
         {
             SerializableFailureMechanismSection failureMechanismSection = SerializableFailureMechanismSectionCreator.Create(
                 idGenerator, serializableCollection, failureMechanismSectionAssemblyResult.FailureMechanismSection);
-            
+
             var failureMechanismSectionAssembly = new SerializableFailureMechanismSectionAssembly(
                 idGenerator.GetNewId(Resources.SerializableFailureMechanismSectionAssembly_IdPrefix),
                 serializableFailureMechanism, failureMechanismSection,
-                SerializableFailureMechanismSectionAssemblyResultCreator.Create(
-                    SerializableAssessmentType.CombinedAssessment, failureMechanismSectionAssemblyResult));
-            
+                SerializableFailureMechanismSectionAssemblyResultCreator.Create(failureMechanismSectionAssemblyResult));
+
             return new AggregatedSerializableFailureMechanismSectionAssembly(failureMechanismSection, failureMechanismSectionAssembly);
         }
     }

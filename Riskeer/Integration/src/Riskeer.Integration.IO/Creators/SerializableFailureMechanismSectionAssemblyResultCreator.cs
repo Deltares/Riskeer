@@ -94,16 +94,13 @@ namespace Riskeer.Integration.IO.Creators
         /// Creates an instance of <see cref="SerializableFailureMechanismSectionAssemblyResult"/>
         /// based on its input parameters.
         /// </summary>
-        /// <param name="assessmentType">The type of assessment the
-        /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> represents.</param>
         /// <param name="sectionResult">The <see cref="ExportableFailureMechanismSectionAssemblyWithProbabilityResult"/> to create a
         /// <see cref="SerializableFailureMechanismSectionAssemblyResult"/> for.</param>
         /// <returns>A <see cref="SerializableFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyCreatorException">Thrown when <paramref name="sectionResult"/> is invalid to
         /// create a serializable counterpart for.</exception>
-        public static SerializableFailureMechanismSectionAssemblyResult Create(SerializableAssessmentType assessmentType,
-                                                                               ExportableFailureMechanismSectionAssemblyWithProbabilityResult sectionResult)
+        public static SerializableFailureMechanismSectionAssemblyResult Create(ExportableFailureMechanismSectionAssemblyWithProbabilityResult sectionResult)
         {
             if (sectionResult == null)
             {
@@ -113,8 +110,8 @@ namespace Riskeer.Integration.IO.Creators
             ValidateAssemblyResult(sectionResult);
 
             return new SerializableFailureMechanismSectionAssemblyResult(
-                SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod),
-                assessmentType, SerializableFailureMechanismSectionCategoryGroup.Iv, sectionResult.Probability);
+                SerializableFailureMechanismSectionAssemblyGroupCreator.Create(sectionResult.AssemblyGroup),
+                sectionResult.Probability);
         }
 
         /// <summary>

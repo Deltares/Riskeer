@@ -148,7 +148,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         private static ExportableFailureMechanismCombinedSectionAssemblyResult CreateCombinedSectionAssemblyResult(int seed)
         {
             var random = new Random(seed);
-            return new ExportableFailureMechanismCombinedSectionAssemblyResult(CreateSectionAssemblyResult(),
+            return new ExportableFailureMechanismCombinedSectionAssemblyResult(CreateCombinedSectionAssemblyResult(),
                                                                                random.NextEnumValue<ExportableFailureMechanismType>());
         }
 
@@ -160,21 +160,12 @@ namespace Riskeer.Integration.IO.Test.Creators
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
                 new[]
                 {
-                    CreateSectionResult(failureMechanismSection)
+                    ExportableFailureMechanismSectionAssemblyWithProbabilityResultTestFactory.Create(failureMechanismSection, random.Next())
                 },
                 random.NextEnumValue<ExportableFailureMechanismType>());
         }
 
-        private static ExportableAggregatedFailureMechanismSectionAssemblyResult CreateSectionResult(ExportableFailureMechanismSection section)
-        {
-            return new ExportableAggregatedFailureMechanismSectionAssemblyResult(section,
-                                                                                 CreateSectionAssemblyResult(),
-                                                                                 CreateSectionAssemblyResult(),
-                                                                                 CreateSectionAssemblyResult(),
-                                                                                 CreateSectionAssemblyResult());
-        }
-
-        private static ExportableSectionAssemblyResult CreateSectionAssemblyResult()
+        private static ExportableSectionAssemblyResult CreateCombinedSectionAssemblyResult()
         {
             var random = new Random(30);
             return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),

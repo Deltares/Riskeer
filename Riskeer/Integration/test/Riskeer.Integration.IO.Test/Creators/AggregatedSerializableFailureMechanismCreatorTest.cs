@@ -22,16 +22,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data.Old;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
-using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.AggregatedSerializable;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Helpers;
 using Riskeer.Integration.IO.TestUtil;
@@ -92,17 +88,19 @@ namespace Riskeer.Integration.IO.Test.Creators
         }
 
         [Test]
-        [TestCaseSource(nameof(GetSectionAssemblyConfigurations))]
-        public void Create_WithValidArguments_ReturnsAggregatedSerializableFailureMechanism(
-            IEnumerable<ExportableFailureMechanismSection> failureMechanismSections,
-            IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> failureMechanismSectionAssemblyResults,
-            Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase, SerializableFailureMechanismSectionAssembly> assertSectionAssemblyResultsAction)
+        public void Create_WithValidArguments_ReturnsAggregatedSerializableFailureMechanism()
         {
             // Setup
             var random = new Random(21);
             var failureMechanism = new ExportableFailureMechanism(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
-                failureMechanismSectionAssemblyResults,
+                new[]
+                {
+                    ExportableFailureMechanismSectionAssemblyWithProbabilityResultTestFactory.Create(
+                        ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(random.Next()), random.Next()),
+                    ExportableFailureMechanismSectionAssemblyWithProbabilityResultTestFactory.Create(
+                        ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(random.Next()), random.Next())
+                },
                 random.NextEnumValue<ExportableFailureMechanismType>());
 
             var idGenerator = new IdentifierGenerator();
@@ -130,8 +128,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                     serializableFailureMechanismSectionCollection,
                                                     serializableFailureMechanism,
                                                     aggregatedFailureMechanism.FailureMechanismSections,
-                                                    aggregatedFailureMechanism.FailureMechanismSectionAssemblyResults,
-                                                    assertSectionAssemblyResultsAction);
+                                                    aggregatedFailureMechanism.FailureMechanismSectionAssemblyResults);
         }
 
         private static void AssertFailureMechanismSectionAssemblies(
@@ -139,8 +136,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             SerializableFailureMechanismSectionCollection expectedSerializableFailureMechanismSectionCollection,
             SerializableFailureMechanism expectedSerializableFailureMechanism,
             IEnumerable<SerializableFailureMechanismSection> serializableFailureMechanismSections,
-            IEnumerable<SerializableFailureMechanismSectionAssembly> serializableFailureMechanismSectionAssemblies,
-            Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase, SerializableFailureMechanismSectionAssembly> assertSectionAssemblyResultAction)
+            IEnumerable<SerializableFailureMechanismSectionAssembly> serializableFailureMechanismSectionAssemblies)
         {
             IEnumerable<ExportableFailureMechanismSection> expectedSections = expectedFailureMechanism.SectionAssemblyResults.Select(sar => sar.FailureMechanismSection);
             int expectedNrOfSections = expectedSections.Count();
@@ -161,95 +157,15 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                             actualSection,
                                                                                             sectionId++);
 
+                ExportableFailureMechanismSectionAssemblyWithProbabilityResult expectedSectionAssemblyResult = expectedSectionAssemblyResults.ElementAt(i);
                 SerializableFailureMechanismSectionAssembly actualSectionAssemblyResult = serializableFailureMechanismSectionAssemblies.ElementAt(i);
                 Assert.AreEqual($"T.{sectionAssemblyId++}", actualSectionAssemblyResult.Id);
                 Assert.AreEqual(expectedSerializableFailureMechanism.Id, actualSectionAssemblyResult.FailureMechanismId);
+
                 Assert.AreEqual(actualSection.Id, actualSectionAssemblyResult.FailureMechanismSectionId);
-
-                assertSectionAssemblyResultAction(expectedSectionAssemblyResults.ElementAt(i), actualSectionAssemblyResult);
+                Assert.AreEqual(expectedSectionAssemblyResult.AssemblyGroup, actualSectionAssemblyResult.SectionResult.AssemblyGroup);
+                Assert.AreEqual(expectedSectionAssemblyResult.Probability, actualSectionAssemblyResult.SectionResult.Probability);
             }
-        }
-
-        private static void AssertSectionAssemblyResultsWithProbability(ExportableAggregatedFailureMechanismSectionAssemblyResultBase expectedSectionAssemblyResult,
-                                                                        SerializableFailureMechanismSectionAssembly actualSectionAssemblyResult)
-        {
-            var expectedSectionAssemblyResultWithProbability = (ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability) expectedSectionAssemblyResult;
-
-            SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = actualSectionAssemblyResult.SectionResults;
-            Assert.AreEqual(3, serializedSectionResults.Length);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithProbability.SimpleAssembly,
-                                                                                             SerializableAssessmentType.SimpleAssessment,
-                                                                                             serializedSectionResults[0]);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithProbability.DetailedAssembly,
-                                                                                             SerializableAssessmentType.DetailedAssessment,
-                                                                                             serializedSectionResults[1]);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithProbability.TailorMadeAssembly,
-                                                                                             SerializableAssessmentType.TailorMadeAssessment,
-                                                                                             serializedSectionResults[2]);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithProbability.CombinedAssembly,
-                                                                                             SerializableAssessmentType.CombinedAssessment,
-                                                                                             actualSectionAssemblyResult.SectionResult);
-        }
-
-        private static void AssertSectionAssemblyResultsWithoutProbability(ExportableAggregatedFailureMechanismSectionAssemblyResultBase expectedSectionAssemblyResult,
-                                                                           SerializableFailureMechanismSectionAssembly actualSectionAssemblyResult)
-        {
-            var expectedSectionAssemblyResultWithoutProbability = (ExportableAggregatedFailureMechanismSectionAssemblyResult) expectedSectionAssemblyResult;
-
-            SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = actualSectionAssemblyResult.SectionResults;
-            Assert.AreEqual(3, serializedSectionResults.Length);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.SimpleAssembly,
-                                                                                             SerializableAssessmentType.SimpleAssessment,
-                                                                                             serializedSectionResults[0]);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.DetailedAssembly,
-                                                                                             SerializableAssessmentType.DetailedAssessment,
-                                                                                             serializedSectionResults[1]);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.TailorMadeAssembly,
-                                                                                             SerializableAssessmentType.TailorMadeAssessment,
-                                                                                             serializedSectionResults[2]);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.CombinedAssembly,
-                                                                                             SerializableAssessmentType.CombinedAssessment,
-                                                                                             actualSectionAssemblyResult.SectionResult);
-        }
-
-        private static void AssertSectionAssemblyResultsWithoutDetailedAssembly(ExportableAggregatedFailureMechanismSectionAssemblyResultBase expectedSectionAssemblyResult,
-                                                                                SerializableFailureMechanismSectionAssembly actualSectionAssemblyResult)
-        {
-            var expectedSectionAssemblyResultWithoutProbability = (ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly) expectedSectionAssemblyResult;
-
-            SerializableFailureMechanismSectionAssemblyResult[] serializedSectionResults = actualSectionAssemblyResult.SectionResults;
-            Assert.AreEqual(2, serializedSectionResults.Length);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.SimpleAssembly,
-                                                                                             SerializableAssessmentType.SimpleAssessment,
-                                                                                             serializedSectionResults[0]);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.TailorMadeAssembly,
-                                                                                             SerializableAssessmentType.TailorMadeAssessment,
-                                                                                             serializedSectionResults[1]);
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.CombinedAssembly,
-                                                                                             SerializableAssessmentType.CombinedAssessment,
-                                                                                             actualSectionAssemblyResult.SectionResult);
-        }
-
-        private static void AssertSectionAssemblyWithCombinedResult(ExportableAggregatedFailureMechanismSectionAssemblyResultBase expectedSectionAssemblyResult,
-                                                                    SerializableFailureMechanismSectionAssembly actualSectionAssemblyResult)
-        {
-            var expectedSectionAssemblyResultWithoutProbability = (ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult) expectedSectionAssemblyResult;
-            CollectionAssert.IsEmpty(actualSectionAssemblyResult.SectionResults);
-
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.CombinedAssembly,
-                                                                                             SerializableAssessmentType.CombinedAssessment,
-                                                                                             actualSectionAssemblyResult.SectionResult);
-        }
-
-        private static void AssertSectionAssemblyWithCombinedProbabilityResult(ExportableAggregatedFailureMechanismSectionAssemblyResultBase expectedSectionAssemblyResult,
-                                                                               SerializableFailureMechanismSectionAssembly actualSectionAssemblyResult)
-        {
-            var expectedSectionAssemblyResultWithoutProbability = (ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult) expectedSectionAssemblyResult;
-            CollectionAssert.IsEmpty(actualSectionAssemblyResult.SectionResults);
-
-            SerializableFailureMechanismSectionAssemblyResultTestHelper.AssertAssemblyResult(expectedSectionAssemblyResultWithoutProbability.CombinedAssembly,
-                                                                                             SerializableAssessmentType.CombinedAssessment,
-                                                                                             actualSectionAssemblyResult.SectionResult);
         }
 
         private static SerializableTotalAssemblyResult CreateSerializableTotalAssembly(string totalAssemblyId)
@@ -257,151 +173,6 @@ namespace Riskeer.Integration.IO.Test.Creators
             return new SerializableTotalAssemblyResult(totalAssemblyId,
                                                        new SerializableAssessmentProcess(),
                                                        new SerializableAssessmentSectionAssemblyResult());
-        }
-
-        private static IEnumerable<TestCaseData> GetSectionAssemblyConfigurations()
-        {
-            ExportableFailureMechanismSection[] failureMechanismSections =
-            {
-                CreateSection(21),
-                CreateSection(22)
-            };
-
-            ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability[] failureMechanismSectionResultsWithProbability =
-            {
-                CreateSectionResultWithProbability(failureMechanismSections[0]),
-                CreateSectionResultWithProbability(failureMechanismSections[1])
-            };
-            yield return new TestCaseData(failureMechanismSections,
-                                          failureMechanismSectionResultsWithProbability,
-                                          new Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase,
-                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyResultsWithProbability));
-
-            ExportableAggregatedFailureMechanismSectionAssemblyResult[] failureMechanismSectionResultsWithoutProbability =
-            {
-                CreateSectionResultWithoutProbability(failureMechanismSections[0]),
-                CreateSectionResultWithoutProbability(failureMechanismSections[1])
-            };
-            yield return new TestCaseData(failureMechanismSections,
-                                          failureMechanismSectionResultsWithoutProbability,
-                                          new Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase,
-                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyResultsWithoutProbability));
-
-            ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly[] failureMechanismSectionResultsWithoutDetailedAssembly =
-            {
-                CreateSectionResultWithoutDetailedAssembly(failureMechanismSections[0]),
-                CreateSectionResultWithoutDetailedAssembly(failureMechanismSections[1])
-            };
-            yield return new TestCaseData(failureMechanismSections,
-                                          failureMechanismSectionResultsWithoutDetailedAssembly,
-                                          new Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase,
-                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyResultsWithoutDetailedAssembly));
-
-            ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult[] failureMechanismSectionResultsWithCombinedAssembly =
-            {
-                CreateSectionResultWithCombinedAssembly(failureMechanismSections[0]),
-                CreateSectionResultWithCombinedAssembly(failureMechanismSections[1])
-            };
-            yield return new TestCaseData(failureMechanismSections,
-                                          failureMechanismSectionResultsWithCombinedAssembly,
-                                          new Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase,
-                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyWithCombinedResult));
-
-            ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult[] failureMechanismSectionResultsWithCombinedProbabilityAssembly =
-            {
-                CreateSectionResultWithCombinedProbabilityAssembly(failureMechanismSections[0]),
-                CreateSectionResultWithCombinedProbabilityAssembly(failureMechanismSections[1])
-            };
-            yield return new TestCaseData(failureMechanismSections,
-                                          failureMechanismSectionResultsWithCombinedProbabilityAssembly,
-                                          new Action<ExportableAggregatedFailureMechanismSectionAssemblyResultBase,
-                                              SerializableFailureMechanismSectionAssembly>(AssertSectionAssemblyWithCombinedProbabilityResult));
-        }
-
-        private static ExportableFailureMechanismSection CreateSection(int seed)
-        {
-            var random = new Random(seed);
-            return new ExportableFailureMechanismSection(new[]
-            {
-                new Point2D(random.NextDouble(), random.NextDouble()),
-                new Point2D(random.NextDouble(), random.NextDouble())
-            }, random.NextDouble(), random.NextDouble());
-        }
-
-        private static ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability CreateSectionResultWithProbability(ExportableFailureMechanismSection section)
-        {
-            return new ExportableAggregatedFailureMechanismSectionAssemblyResultWithProbability(section,
-                                                                                                CreateSectionAssemblyResultWithProbability(10),
-                                                                                                CreateSectionAssemblyResultWithProbability(11),
-                                                                                                CreateSectionAssemblyResultWithProbability(12),
-                                                                                                CreateSectionAssemblyResultWithProbability(13));
-        }
-
-        private static ExportableAggregatedFailureMechanismSectionAssemblyResult CreateSectionResultWithoutProbability(ExportableFailureMechanismSection section)
-        {
-            return new ExportableAggregatedFailureMechanismSectionAssemblyResult(section,
-                                                                                 CreateSectionAssemblyResult(10),
-                                                                                 CreateSectionAssemblyResult(11),
-                                                                                 CreateSectionAssemblyResult(12),
-                                                                                 CreateSectionAssemblyResult(13));
-        }
-
-        private static ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly CreateSectionResultWithoutDetailedAssembly(ExportableFailureMechanismSection section)
-        {
-            return new ExportableAggregatedFailureMechanismSectionAssemblyResultWithoutDetailedAssembly(section,
-                                                                                                        CreateSectionAssemblyResult(10),
-                                                                                                        CreateSectionAssemblyResult(11),
-                                                                                                        CreateSectionAssemblyResult(12));
-        }
-
-        private static ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult CreateSectionResultWithCombinedAssembly(ExportableFailureMechanismSection section)
-        {
-            return new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedResult(section, CreateSectionAssemblyResult(10));
-        }
-
-        private static ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult CreateSectionResultWithCombinedProbabilityAssembly(ExportableFailureMechanismSection section)
-        {
-            return new ExportableAggregatedFailureMechanismSectionAssemblyWithCombinedProbabilityResult(section, CreateSectionAssemblyResultWithProbability(10));
-        }
-
-        private static ExportableSectionAssemblyResult CreateSectionAssemblyResult(int seed)
-        {
-            var random = new Random(seed);
-            return new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                       random.NextEnumValue(new[]
-                                                       {
-                                                           FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.Iv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.IIv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.IIIv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.IVv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.Vv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.VIv,
-                                                           FailureMechanismSectionAssemblyCategoryGroup.VIIv
-                                                       }));
-        }
-
-        private static ExportableSectionAssemblyResultWithProbability CreateSectionAssemblyResultWithProbability(int seed)
-        {
-            var random = new Random(seed);
-            return new ExportableSectionAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                      random.NextEnumValue(new[]
-                                                                      {
-                                                                          FailureMechanismSectionAssemblyCategoryGroup.NotApplicable,
-                                                                          FailureMechanismSectionAssemblyCategoryGroup.Iv,
-                                                                          FailureMechanismSectionAssemblyCategoryGroup.IIv,
-                                                                          FailureMechanismSectionAssemblyCategoryGroup.IIIv,
-                                                                          FailureMechanismSectionAssemblyCategoryGroup.IVv,
-                                                                          FailureMechanismSectionAssemblyCategoryGroup.Vv,
-                                                                          FailureMechanismSectionAssemblyCategoryGroup.VIv,
-                                                                          FailureMechanismSectionAssemblyCategoryGroup.VIIv
-                                                                      }),
-                                                                      random.NextDouble());
-        }
-
-        private class UnsupportedExportableAggregatedFailureMechanismSectionAssemblyResult : ExportableAggregatedFailureMechanismSectionAssemblyResultBase
-        {
-            public UnsupportedExportableAggregatedFailureMechanismSectionAssemblyResult(ExportableFailureMechanismSection failureMechanismSection) : base(failureMechanismSection) {}
         }
     }
 }
