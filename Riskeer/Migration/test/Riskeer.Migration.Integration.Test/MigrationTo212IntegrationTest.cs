@@ -63,6 +63,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertAssessmentSection(reader, sourceFilePath);
                     AssertFailureMechanism(reader, sourceFilePath);
                     AssertFailureMechanismSection(reader, sourceFilePath);
+                    AssertTechnicalInnovation(reader, sourceFilePath);
 
                     AssertHydraulicBoundaryLocationCalculation(reader, sourceFilePath);
                     AssertHydraulicLocationOutput(reader);
@@ -361,6 +362,75 @@ namespace Riskeer.Migration.Integration.Test
 
             reader.AssertReturnedDataIsValid(validateFailureMechanismSectionEntity);
         }
+        private static void AssertTechnicalInnovation(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateSpecificFailurePathEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.FailureMechanismEntity " +
+                "WHERE FailureMechanismType = 18 " +
+                ") " +
+                "FROM SpecificFailurePathEntity NEW " +
+                "JOIN (" +
+                "SELECT *" +
+                "FROM SOURCEPROJECT.FailureMechanismEntity " +
+                "WHERE FailureMechanismType = 18 " +
+                ") OLD USING (AssessmentSectionEntityId) " +
+                "WHERE NEW.[Name] IS \"Technische innovaties\" " +
+                "AND NEW.[Code] IS \"INN\" " +
+                "AND NEW.[Order] = 1 " +
+                "AND NEW.[InAssembly] = OLD.[IsRelevant] " +
+                "AND NEW.[FailureMechanismSectionCollectionSourcePath] IS OLD.[FailureMechanismSectionCollectionSourcePath] " +
+                "AND NEW.[InAssemblyInputComments] IS OLD.[InputComments] " +
+                "AND NEW.[InAssemblyOutputComments] IS OLD.[OutputComments] " +
+                "AND NEW.[NotInAssemblyComments] IS OLD.[NotRelevantComments] " +
+                "AND NEW.[N] = 1 " +
+                "AND NEW.[FailurePathAssemblyProbabilityResultType] = 1 " +
+                "AND NEW.[ManualFailurePathAssemblyProbability] IS NULL " +
+                "AND NEW.[ApplyLengthEffectInSection] = 0; " +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateSpecificFailurePathEntity);
+            
+            string validateTechnicalInnovationSectionResultEntity =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.TechnicalInnovationSectionResultEntity " +
+                ") " +
+                "FROM NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity NEW " +
+                "JOIN SOURCEPROJECT.TechnicalInnovationSectionResultEntity OLD USING(FailureMechanismSectionEntityId) " +
+                "WHERE NEW.[IsRelevant] = 1 " +
+                "AND NEW.[InitialFailureMechanismResultType] = 1 " +
+                "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
+                "AND NEW.[ManualInitialFailureMechanismResultProfileProbability] IS NULL " +
+                "AND NEW.[FurtherAnalysisType] = 1 " +
+                "AND NEW.[RefinedSectionProbability] IS NULL " +
+                "AND NEW.[RefinedProfileProbability] IS NULL; " +
+                "DETACH SOURCEPROJECT;";
+
+            reader.AssertReturnedDataIsValid(validateTechnicalInnovationSectionResultEntity);
+            
+            string validateFailureMechanismSectionMapping =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.FailureMechanismSectionEntity " +
+                "JOIN SOURCEPROJECT.FailureMechanismEntity USING(FailureMechanismEntityId) " +
+                "WHERE FailureMechanismType = 18 " +
+                ") " +
+                "FROM SpecificFailurePathFailureMechanismSectionEntity NEW " +
+                "JOIN SpecificFailurePathEntity SFP USING(SpecificFailurePathEntityId) " +
+                "WHERE SFP.[Name] = \"Technische innovaties\"; " +
+                "DETACH SOURCEPROJECT;";
+            
+            reader.AssertReturnedDataIsValid(validateFailureMechanismSectionMapping);
+        }
+        
 
         #region WaveConditions
 
