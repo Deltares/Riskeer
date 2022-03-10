@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.AssemblyTool.Data.Old;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
-using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.Assembly;
-using Riskeer.Integration.IO.Assembly.Old;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Exceptions;
 using Riskeer.Integration.IO.TestUtil;
@@ -37,102 +34,49 @@ namespace Riskeer.Integration.IO.Test.Creators
     public class SerializableFailureMechanismSectionAssemblyResultCreatorTest
     {
         [Test]
-        public void CreateWithExportableSectionAssemblyResult_SectionResultNull_ThrowsArgumentNullException()
+        public void Create_SectionResultNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var assessmentType = new Random(21).NextEnumValue<SerializableAssessmentType>();
-
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyResultCreator.Create(assessmentType, null);
+            void Call() => SerializableFailureMechanismSectionAssemblyResultCreator.Create(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sectionResult", exception.ParamName);
         }
 
         [Test]
-        public void Create_WithExportableSectionAssemblyResultAndResultNone_ReturnsSerializableFailureMechanismAssemblyResult()
+        [TestCase(FailureMechanismSectionAssemblyGroup.Dominant)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.Gr)]
+        public void Create_SectionResultHasInvalidAssemblyGroup_ThrowsAssemblyCreatorException(FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             // Setup
             var random = new Random(21);
-            var assessmentType = random.NextEnumValue<SerializableAssessmentType>();
-            var sectionResult = new ExportableSectionAssemblyResult(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                    FailureMechanismSectionAssemblyCategoryGroup.None);
+            var sectionResult = new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
+                assemblyGroup, random.NextDouble());
 
             // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyResultCreator.Create(assessmentType, sectionResult);
+            void Call() => SerializableFailureMechanismSectionAssemblyResultCreator.Create(sectionResult);
 
             // Assert
-            var exception = Assert.Throws<AssemblyCreatorException>(call);
+            var exception = Assert.Throws<AssemblyCreatorException>(Call);
             Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
         }
 
         [Test]
-        public void Create_WithExportableSectionAssemblyResult_ReturnsSerializableFailureMechanismAssemblyResult()
+        public void Create_ValidData_ReturnsSerializableFailureMechanismAssemblyResult()
         {
             // Setup
-            var assessmentType = new Random(21).NextEnumValue<SerializableAssessmentType>();
-            ExportableSectionAssemblyResult sectionResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResult();
+            ExportableFailureMechanismSectionAssemblyWithProbabilityResult sectionResult = ExportableFailureMechanismSectionAssemblyWithProbabilityResultTestFactory.Create(
+                ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(), 21);
 
             // Call
-            SerializableFailureMechanismSectionAssemblyResult serializableResult =
-                SerializableFailureMechanismSectionAssemblyResultCreator.Create(assessmentType, sectionResult);
+            SerializableFailureMechanismSectionAssemblyResult serializableAssemblyResult = SerializableFailureMechanismSectionAssemblyResultCreator.Create(sectionResult);
 
             // Assert
-            Assert.AreEqual(assessmentType, serializableResult.AssessmentType);
-            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod), serializableResult.AssemblyMethod);
-            Assert.AreEqual(SerializableFailureMechanismSectionCategoryGroupCreator.Create(sectionResult.AssemblyCategory), serializableResult.CategoryGroup);
-            Assert.IsNull(serializableResult.Probability);
-        }
-
-        [Test]
-        public void CreateWithExportableSectionAssemblyResultWithProbability_SectionResultNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var assessmentType = new Random(21).NextEnumValue<SerializableAssessmentType>();
-
-            // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyResultCreator.Create(assessmentType, null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("sectionResult", exception.ParamName);
-        }
-
-        [Test]
-        public void Create_WithExportableSectionAssemblyResultWithProbabilityAndResultNone_ReturnsSerializableFailureMechanismAssemblyResult()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentType = random.NextEnumValue<SerializableAssessmentType>();
-            var sectionResult = new ExportableSectionAssemblyResultWithProbability(random.NextEnumValue<ExportableAssemblyMethod>(),
-                                                                                   FailureMechanismSectionAssemblyCategoryGroup.None,
-                                                                                   random.NextDouble());
-
-            // Call
-            TestDelegate call = () => SerializableFailureMechanismSectionAssemblyResultCreator.Create(assessmentType, sectionResult);
-
-            // Assert
-            var exception = Assert.Throws<AssemblyCreatorException>(call);
-            Assert.AreEqual("The assembly result is invalid and cannot be created.", exception.Message);
-        }
-
-        [Test]
-        public void Create_WithExportableSectionAssemblyResultWithProbability_ReturnsSerializableFailureMechanismAssemblyResult()
-        {
-            // Setup
-            var assessmentType = new Random(21).NextEnumValue<SerializableAssessmentType>();
-            ExportableSectionAssemblyResultWithProbability sectionResult = ExportableSectionAssemblyResultTestFactory.CreateSectionAssemblyResultWithProbability();
-
-            // Call
-            SerializableFailureMechanismSectionAssemblyResult serializableResult =
-                SerializableFailureMechanismSectionAssemblyResultCreator.Create(assessmentType, sectionResult);
-
-            // Assert
-            Assert.AreEqual(assessmentType, serializableResult.AssessmentType);
-            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyMethod), serializableResult.AssemblyMethod);
-            Assert.AreEqual(SerializableFailureMechanismSectionCategoryGroupCreator.Create(sectionResult.AssemblyCategory), serializableResult.CategoryGroup);
-            Assert.AreEqual(sectionResult.Probability, serializableResult.Probability);
+            Assert.AreEqual(SerializableFailureMechanismSectionAssemblyGroupCreator.Create(
+                                sectionResult.AssemblyGroup), serializableAssemblyResult.AssemblyGroup);
+            Assert.AreEqual(sectionResult.Probability, serializableAssemblyResult.Probability);
         }
     }
 }

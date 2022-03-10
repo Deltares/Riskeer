@@ -217,6 +217,11 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         public const string SerializableAssemblyMethodWBI0A1 = "WBI-0A-1";
 
         /// <summary>
+        /// Identifier for <see cref="SerializableAssemblyMethod.WBI0A2"/>.
+        /// </summary>
+        public const string SerializableAssemblyMethodWBI0A2 = "WBI-0A-2";
+
+        /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.WBI1B1"/>.
         /// </summary>
         public const string SerializableAssemblyMethodWBI1B1 = "WBI-1B-1";

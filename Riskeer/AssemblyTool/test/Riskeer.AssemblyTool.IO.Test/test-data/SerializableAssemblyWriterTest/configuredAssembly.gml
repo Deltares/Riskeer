@@ -40,21 +40,11 @@
     </asm:Toetsspoor>
     <asm:Toets ToetsID="resultaat_GABI_1" ToetsspoorIDRef="toetsspoorGABI" WaterkeringsectieIDRef="vak_GABI_1">
       <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>III-vak</asm:categorieVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:categorieVak>+III</asm:categorieVak>
+        <asm:faalkans>0.00073</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
       </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-        <asm:faalkans>0.5</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-5</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>III-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
     </asm:Toets>
     <asm:GecombineerdToetsoordeel GecombineerdToetsoordeelID="resultaat_gecombineerd_1" VeiligheidsoordeelIDRef="veiligheidsoordeel_1" WaterkeringsectieIDRef="vak_gecombineerd_1">
       <asm:toetsoordeelGecombineerd>

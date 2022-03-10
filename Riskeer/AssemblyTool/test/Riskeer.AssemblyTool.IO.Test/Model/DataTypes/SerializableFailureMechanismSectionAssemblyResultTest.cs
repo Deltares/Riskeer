@@ -38,19 +38,19 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult();
 
             // Assert
-            Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
-            Assert.AreEqual((SerializableAssessmentType) 0, assemblyResult.AssessmentType);
-            Assert.AreEqual((SerializableFailureMechanismSectionCategoryGroup) 0, assemblyResult.CategoryGroup);
-            Assert.IsNull(assemblyResult.Probability);
+            Assert.AreEqual(SerializableAssemblyMethod.WBI0A2, assemblyResult.AssemblyMethod);
+            Assert.AreEqual((SerializableFailureMechanismSectionAssemblyGroup) 0, assemblyResult.AssemblyGroup);
+            Assert.AreEqual(0, assemblyResult.Probability);
+            Assert.AreEqual("VOLLDG", assemblyResult.Status);
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableFailureMechanismSectionAssemblyResult.AssemblyMethod), "assemblagemethode");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
-                nameof(SerializableFailureMechanismSectionAssemblyResult.CategoryGroup), "categorieVak");
+                nameof(SerializableFailureMechanismSectionAssemblyResult.AssemblyGroup), "categorieVak");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableFailureMechanismSectionAssemblyResult.Probability), "faalkans");
-            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
-                nameof(SerializableFailureMechanismSectionAssemblyResult.AssessmentType), "toets");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismAssemblyResult>(
+                nameof(SerializableFailureMechanismAssemblyResult.Status), "status");
         }
 
         [Test]
@@ -67,63 +67,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             // Assert
             Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
             Assert.AreEqual(probability, assemblyResult.Probability);
-        }
-
-        [Test]
-        public void Constructor_WithValidData_ReturnsExpectedValues()
-        {
-            // Setup
-            var random = new Random(39);
-            var category = random.NextEnumValue<SerializableFailureMechanismSectionCategoryGroup>();
-            var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
-            var assessmentLevel = random.NextEnumValue<SerializableAssessmentType>();
-            double probability = random.NextDouble();
-
-            // Call
-            var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(assemblyMethod, assessmentLevel, category, probability);
-
-            // Assert
-            Assert.AreEqual(category, assemblyResult.CategoryGroup);
-            Assert.AreEqual(assessmentLevel, assemblyResult.AssessmentType);
-            Assert.AreEqual(probability, assemblyResult.Probability);
-            Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
-        }
-
-        [Test]
-        [TestCase(0.5)]
-        [TestCase(double.NaN)]
-        public void ShouldSerializeProbability_WithProbabilityValues_ReturnsTrue(double probability)
-        {
-            // Setup
-            var random = new Random(39);
-            var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(
-                random.NextEnumValue<SerializableAssemblyMethod>(),
-                random.NextEnumValue<SerializableAssessmentType>(),
-                random.NextEnumValue<SerializableFailureMechanismSectionCategoryGroup>(),
-                probability);
-
-            // Call
-            bool shouldSerialize = assemblyResult.ShouldSerializeProbability();
-
-            // Assert
-            Assert.IsTrue(shouldSerialize);
-        }
-
-        [Test]
-        public void ShouldSerializeProbability_WithoutProbabilityValues_ReturnsFalse()
-        {
-            // Setup
-            var random = new Random(39);
-            var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(
-                random.NextEnumValue<SerializableAssemblyMethod>(),
-                random.NextEnumValue<SerializableAssessmentType>(),
-                random.NextEnumValue<SerializableFailureMechanismSectionCategoryGroup>());
-
-            // Call
-            bool shouldSerialize = assemblyResult.ShouldSerializeProbability();
-
-            // Assert
-            Assert.IsFalse(shouldSerialize);
+            Assert.AreEqual(SerializableAssemblyMethod.WBI0A2, assemblyResult.AssemblyMethod);
+            Assert.AreEqual("VOLLDG", assemblyResult.Status);
         }
     }
 }

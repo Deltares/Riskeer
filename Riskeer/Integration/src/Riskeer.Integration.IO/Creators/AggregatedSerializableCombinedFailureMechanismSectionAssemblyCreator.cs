@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Riskeer.AssemblyTool.IO.Model;
+using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.AggregatedSerializable;
 using Riskeer.Integration.IO.Assembly;
@@ -89,8 +90,7 @@ namespace Riskeer.Integration.IO.Creators
                     combinedSectionAssembly.FailureMechanismResults
                                            .Select(SerializableCombinedFailureMechanismSectionAssemblyResultCreator.Create)
                                            .ToArray(),
-                    SerializableFailureMechanismSectionAssemblyResultCreator.Create(SerializableAssessmentType.CombinedSectionAssessment,
-                                                                                    combinedSectionAssembly.CombinedSectionAssemblyResult)));
+                    new SerializableFailureMechanismSectionAssemblyResult(SerializableFailureMechanismSectionAssemblyGroup.I, 0)));
         }
     }
 }
