@@ -45,17 +45,17 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.IsNull(failureMechanism.FailureMechanismAssemblyResult);
             Assert.AreEqual((SerializableFailureMechanismType) 0, failureMechanism.FailureMechanismType);
 
-            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanism), "Toetsspoor");
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanism), "Faalmechanisme");
 
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanism>(
-                nameof(SerializableFailureMechanism.Id), "ToetsspoorID");
+                nameof(SerializableFailureMechanism.Id), "FaalmechanismeID");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanism>(
                 nameof(SerializableFailureMechanism.TotalAssemblyResultId), "VeiligheidsoordeelIDRef");
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
-                nameof(SerializableFailureMechanism.FailureMechanismType), "typeToetsspoor");
+                nameof(SerializableFailureMechanism.FailureMechanismType), "typeFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
-                nameof(SerializableFailureMechanism.FailureMechanismAssemblyResult), "toetsoordeel");
+                nameof(SerializableFailureMechanism.FailureMechanismAssemblyResult), "analyseFaalmechanisme");
         }
 
         [Test]

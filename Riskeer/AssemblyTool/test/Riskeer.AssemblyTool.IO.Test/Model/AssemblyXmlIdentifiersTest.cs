@@ -45,8 +45,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             Assert.AreEqual("boundedBy", AssemblyXmlIdentifiers.BoundedBy);
 
-            Assert.AreEqual("GecombineerdToetsoordeel", AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssembly);
-            Assert.AreEqual("GecombineerdToetsoordeelID", AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssemblyId);
+            Assert.AreEqual("GecombineerdFaalanalyse", AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssembly);
+            Assert.AreEqual("GecombineerdFaalanalyseID", AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssemblyId);
             Assert.AreEqual("toetsoordeelGecombineerd", AssemblyXmlIdentifiers.CombinedCombinedSectionResult);
             Assert.AreEqual("analyseVak", AssemblyXmlIdentifiers.SectionResult);
             Assert.AreEqual("eindtoetsoordeelToetsspoor", AssemblyXmlIdentifiers.CombinedSectionFailureMechanismResult);

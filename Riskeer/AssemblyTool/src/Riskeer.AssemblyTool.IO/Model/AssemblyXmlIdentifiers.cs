@@ -100,12 +100,12 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Identifier for a combined failure mechanism section assembly element.
         /// </summary>
-        public const string CombinedFailureMechanismSectionAssembly = "GecombineerdToetsoordeel";
+        public const string CombinedFailureMechanismSectionAssembly = "GecombineerdFaalanalyse";
 
         /// <summary>
         /// Identifier for a combined failure mechanism section assembly ID attribute.
         /// </summary>
-        public const string CombinedFailureMechanismSectionAssemblyId = "GecombineerdToetsoordeelID";
+        public const string CombinedFailureMechanismSectionAssemblyId = "GecombineerdFaalanalyseID";
 
         /// <summary>
         /// Identifier for a combined section result element.

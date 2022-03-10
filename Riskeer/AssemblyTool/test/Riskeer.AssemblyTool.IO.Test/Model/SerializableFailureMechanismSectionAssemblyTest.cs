@@ -46,17 +46,17 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.IsNull(sectionAssembly.FailureMechanismSectionId);
             Assert.IsNull(sectionAssembly.SectionResult);
 
-            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanismSectionAssembly), "Toets");
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanismSectionAssembly), "Faalanalyse");
 
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionAssembly>(
-                nameof(SerializableFailureMechanismSectionAssembly.Id), "ToetsID");
+                nameof(SerializableFailureMechanismSectionAssembly.Id), "FaalanalyseID");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionAssembly>(
-                nameof(SerializableFailureMechanismSectionAssembly.FailureMechanismId), "ToetsspoorIDRef");
+                nameof(SerializableFailureMechanismSectionAssembly.FailureMechanismId), "FaalmechanismeIDRef");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSectionAssembly>(
                 nameof(SerializableFailureMechanismSectionAssembly.FailureMechanismSectionId), "WaterkeringsectieIDRef");
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssembly>(
-                nameof(SerializableFailureMechanismSectionAssembly.SectionResult), "eindtoetsoordeel");
+                nameof(SerializableFailureMechanismSectionAssembly.SectionResult), "analyseVak");
         }
 
         [Test]

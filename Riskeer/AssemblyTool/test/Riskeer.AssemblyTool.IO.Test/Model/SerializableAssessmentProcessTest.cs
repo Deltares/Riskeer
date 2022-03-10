@@ -103,8 +103,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             // Assert
             Assert.AreEqual(id, assessmentProcess.Id);
             Assert.AreEqual(assessmentSection.Id, assessmentProcess.AssessmentSectionId);
-            Assert.AreEqual(2017, assessmentProcess.StartYear);
-            Assert.AreEqual(2023, assessmentProcess.EndYear);
+            Assert.AreEqual(2023, assessmentProcess.StartYear);
+            Assert.AreEqual(2035, assessmentProcess.EndYear);
         }
     }
 }

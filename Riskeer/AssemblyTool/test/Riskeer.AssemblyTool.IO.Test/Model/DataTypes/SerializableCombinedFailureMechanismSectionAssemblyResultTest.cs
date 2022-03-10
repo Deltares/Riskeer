@@ -46,9 +46,9 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.AssemblyMethod), "assemblagemethode");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
-                nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.AssemblyGroup), "categorieVak");
+                nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.AssemblyGroup), "duidingsklasse");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
-                nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.FailureMechanismType), "typeToetsspoor");
+                nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.FailureMechanismType), "typeFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.Status), "status");
         }

@@ -47,10 +47,10 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.IsNull(combinedSectionAssembly.CombinedSectionResult);
             Assert.IsNull(combinedSectionAssembly.FailureMechanismResults);
 
-            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableCombinedFailureMechanismSectionAssembly), "GecombineerdToetsoordeel");
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableCombinedFailureMechanismSectionAssembly), "GecombineerdFaalanalyse");
 
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableCombinedFailureMechanismSectionAssembly>(
-                nameof(SerializableCombinedFailureMechanismSectionAssembly.Id), "GecombineerdToetsoordeelID");
+                nameof(SerializableCombinedFailureMechanismSectionAssembly.Id), "GecombineerdFaalanalyseID");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableCombinedFailureMechanismSectionAssembly>(
                 nameof(SerializableCombinedFailureMechanismSectionAssembly.TotalAssemblyResultId), "VeiligheidsoordeelIDRef");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableCombinedFailureMechanismSectionAssembly>(

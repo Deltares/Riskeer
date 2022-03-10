@@ -45,7 +45,7 @@
         <asm:status>VOLLDG</asm:status>
       </asm:analyseVak>
     </asm:Faalanalyse>
-    <asm:GecombineerdToetsoordeel GecombineerdToetsoordeelID="resultaat_gecombineerd_1" VeiligheidsoordeelIDRef="veiligheidsoordeel_1" WaterkeringsectieIDRef="vak_gecombineerd_1">
+    <asm:GecombineerdFaalanalyse GecombineerdFaalanalyseID="resultaat_gecombineerd_1" VeiligheidsoordeelIDRef="veiligheidsoordeel_1" WaterkeringsectieIDRef="vak_gecombineerd_1">
       <asm:toetsoordeelGecombineerd>
         <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
         <asm:toets>GECBNTRDV</asm:toets>
@@ -63,7 +63,7 @@
         <asm:categorieVak>IV-vak</asm:categorieVak>
         <asm:status>VOLLDG</asm:status>
       </asm:eindtoetsoordeelToetsspoor>
-    </asm:GecombineerdToetsoordeel>
+    </asm:GecombineerdFaalanalyse>
     <asm:Vakindeling VakindelingID="vakindelingGABI" />
     <asm:Vakindeling VakindelingID="vakindeling_gecombineerd" />
     <asm:ToetsVak gml:id="vak_GABI_1" VakindelingIDRef="vakindelingGABI">

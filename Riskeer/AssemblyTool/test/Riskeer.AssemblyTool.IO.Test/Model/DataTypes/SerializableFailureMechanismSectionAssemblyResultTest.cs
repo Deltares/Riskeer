@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -46,7 +46,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableFailureMechanismSectionAssemblyResult.AssemblyMethod), "assemblagemethode");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
-                nameof(SerializableFailureMechanismSectionAssemblyResult.AssemblyGroup), "categorieVak");
+                nameof(SerializableFailureMechanismSectionAssemblyResult.AssemblyGroup), "duidingsklasse");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableFailureMechanismSectionAssemblyResult.Probability), "faalkans");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismAssemblyResult>(
