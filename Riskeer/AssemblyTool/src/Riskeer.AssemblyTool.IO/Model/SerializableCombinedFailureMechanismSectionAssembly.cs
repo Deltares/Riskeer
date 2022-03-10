@@ -51,7 +51,8 @@ namespace Riskeer.AssemblyTool.IO.Model
                                                                    SerializableTotalAssemblyResult totalAssemblyResult,
                                                                    SerializableFailureMechanismSection section,
                                                                    SerializableCombinedFailureMechanismSectionAssemblyResult[] failureMechanismResults,
-                                                                   SerializableFailureMechanismSectionAssemblyResult combinedSectionResult) : this()
+                                                                   SerializableFailureMechanismSectionAssemblyResult combinedSectionResult)
+            : this()
         {
             if (!SerializableIdValidator.Validate(id))
             {

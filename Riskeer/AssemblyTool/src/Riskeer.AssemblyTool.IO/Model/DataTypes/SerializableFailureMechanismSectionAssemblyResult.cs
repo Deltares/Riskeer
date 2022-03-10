@@ -35,19 +35,21 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// </summary>
         public SerializableFailureMechanismSectionAssemblyResult()
         {
-            AssemblyMethod = SerializableAssemblyMethod.WBI0A2;
             Status = Resources.FullAssembly;
         }
 
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
+        /// <param name="assemblyMethod">The method used for this assembly result.</param>
         /// <param name="assemblyGroup">The assembly group of this assembly result.</param>
         /// <param name="probability">The probability of this assembly result.</param>
-        public SerializableFailureMechanismSectionAssemblyResult(SerializableFailureMechanismSectionAssemblyGroup assemblyGroup,
-                                                                 double probability)
+        public SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod assemblyMethod,
+                                                                 SerializableFailureMechanismSectionAssemblyGroup assemblyGroup,
+                                                                 double? probability = null)
             : this()
         {
+            AssemblyMethod = assemblyMethod;
             AssemblyGroup = assemblyGroup;
             Probability = probability;
         }
@@ -68,12 +70,22 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// Gets or sets the probability of this result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Probability)]
-        public double Probability { get; set; }
+        public double? Probability { get; set; }
 
         /// <summary>
         /// Gets or sets the status of this assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Status)]
         public string Status { get; set; }
+        
+        /// <summary>
+        /// Determines whether <see cref="Probability"/> should be serialized.
+        /// Gets or sets the status of this assembly result.
+        /// </summary>
+        /// <returns>The indicator whether <see cref="Probability"/> should be serialized.</returns>
+        public bool ShouldSerializeProbability()
+        {
+            return Probability.HasValue;
+        }
     }
 }

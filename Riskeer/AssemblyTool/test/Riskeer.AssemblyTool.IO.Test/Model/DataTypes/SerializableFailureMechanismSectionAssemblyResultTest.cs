@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -38,9 +38,9 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult();
 
             // Assert
-            Assert.AreEqual(SerializableAssemblyMethod.WBI0A2, assemblyResult.AssemblyMethod);
+            Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
             Assert.AreEqual((SerializableFailureMechanismSectionAssemblyGroup) 0, assemblyResult.AssemblyGroup);
-            Assert.AreEqual(0, assemblyResult.Probability);
+            Assert.IsNull(assemblyResult.Probability);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
@@ -58,17 +58,53 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
         {
             // Setup
             var random = new Random(21);
+            var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
             var assemblyGroup = random.NextEnumValue<SerializableFailureMechanismSectionAssemblyGroup>();
             double probability = random.NextDouble();
 
             // Call
-            var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(assemblyGroup, probability);
+            var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(assemblyMethod, assemblyGroup, probability);
 
             // Assert
             Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
             Assert.AreEqual(probability, assemblyResult.Probability);
-            Assert.AreEqual(SerializableAssemblyMethod.WBI0A2, assemblyResult.AssemblyMethod);
+            Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
+        }
+        
+        [Test]
+        [TestCase(0.5)]
+        [TestCase(double.NaN)]
+        public void ShouldSerializeProbability_WithProbabilityValues_ReturnsTrue(double probability)
+        {
+            // Setup
+            var random = new Random(39);
+            var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(
+                random.NextEnumValue<SerializableAssemblyMethod>(),
+                random.NextEnumValue<SerializableFailureMechanismSectionAssemblyGroup>(),
+                probability);
+
+            // Call
+            bool shouldSerialize = assemblyResult.ShouldSerializeProbability();
+
+            // Assert
+            Assert.IsTrue(shouldSerialize);
+        }
+
+        [Test]
+        public void ShouldSerializeProbability_WithoutProbabilityValues_ReturnsFalse()
+        {
+            // Setup
+            var random = new Random(39);
+            var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(
+                random.NextEnumValue<SerializableAssemblyMethod>(),
+                random.NextEnumValue<SerializableFailureMechanismSectionAssemblyGroup>());
+
+            // Call
+            bool shouldSerialize = assemblyResult.ShouldSerializeProbability();
+
+            // Assert
+            Assert.IsFalse(shouldSerialize);
         }
     }
 }
