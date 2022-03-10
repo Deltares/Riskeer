@@ -849,7 +849,7 @@ SELECT
 FROM [SOURCEPROJECT].FailureMechanismEntity
     JOIN SpecificFailurePathEntity USING (AssessmentSectionEntityId)
 WHERE FailureMechanismType = 18
-  AND [Name] = "Technische innovaties";
+    AND [Name] = "Technische innovaties";
 
 INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],

@@ -400,7 +400,7 @@ namespace Riskeer.Migration.Integration.Test
 
             reader.AssertReturnedDataIsValid(validateSpecificFailurePathEntity);
             
-            string validateTechnicalInnovationSectionResultEntity =
+            string validateNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
@@ -418,9 +418,9 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[RefinedProfileProbability] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
 
-            reader.AssertReturnedDataIsValid(validateTechnicalInnovationSectionResultEntity);
+            reader.AssertReturnedDataIsValid(validateNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity);
             
-            string validateFailureMechanismSectionMapping =
+            string validateSpecificFailurePathFailureMechanismSectionEntity =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
@@ -434,7 +434,7 @@ namespace Riskeer.Migration.Integration.Test
                 "WHERE SFP.[Name] = \"Technische innovaties\"; " +
                 "DETACH SOURCEPROJECT;";
             
-            reader.AssertReturnedDataIsValid(validateFailureMechanismSectionMapping);
+            reader.AssertReturnedDataIsValid(validateSpecificFailurePathFailureMechanismSectionEntity);
         }
         
 
