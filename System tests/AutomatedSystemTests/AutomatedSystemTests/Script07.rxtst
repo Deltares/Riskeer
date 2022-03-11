@@ -2,47 +2,21 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
-			<testmodule
-			id="07d4ea74-b0db-4804-a2fc-0c0a97a6e938"
-			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
-			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="TypeParameter"
-					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
-					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
-					variablename="typeParameter">
-					</var>
-					<var
-					dataname="PathLowerLimitValueInPropertiesPanel"
-					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
-					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="LowLimitValue"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
-					variablename="newValueForParameter">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
 			name="ChangeBoundaries">
 				<parameters>
 					<param
 					name="PathToNormsInPE"
-					value="Traject>Normen">
+					value="Normen">
 					</param>
 					<param
 					name="PathSignallingValueInPropertiesPanel"
-					value="Algemeen>Signal">
+					value="Signaleringswaarde [1/jaar]">
 					</param>
 					<param
 					name="PathLowerLimitValueInPropertiesPanel"
-					value="Algemeen>Ondergrens">
+					value="Ondergrens [1/jaar]">
 					</param>
 					<param
 					name="stateName"
@@ -54,58 +28,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="0fb45640-01f5-4926-bd21-bd3fe86ce507"
-			name="SetValueWithKeyPressParameterForItemInTraject"
-			ref="e550d732-7780-4b40-a989-f787f458a7c7"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="PathToNormsInPE"
-					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="LowLimitValue"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
-					variablename="valueToSetParameterForItemInTraject">
-					</var>
-					<var
-					dataname="PathLowerLimitValueInPropertiesPanel"
-					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="TrajectName"
-					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="ItemInTraject"
-					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="Parameter"
-					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="Value"
-					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
-					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
-					variablename="valueToSetParameterForItemInTraject">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="14244c29-e010-456a-8332-42fce0e2ae6f"
 			name="SetNewLowLimit">
@@ -307,58 +229,6 @@
 			id="5b32098b-d373-4db4-9f3c-28b0214798d9"
 			name="setup">
 			</setup>
-			<testmodule
-			id="5bebffad-b7c8-4e8c-a795-cce7cb697e44"
-			name="SetValueWithKeyPressParameterForItemInTraject"
-			ref="e550d732-7780-4b40-a989-f787f458a7c7"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="PathToNormsInPE"
-					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="SignallingValue"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
-					variablename="valueToSetParameterForItemInTraject">
-					</var>
-					<var
-					dataname="PathSignallingValueInPropertiesPanel"
-					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="TrajectName"
-					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-					<var
-					dataname="ItemInTraject"
-					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="Parameter"
-					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="Value"
-					datasourceid="f3332522-21a5-4685-b856-9b552b60b138"
-					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
-					variablename="valueToSetParameterForItemInTraject">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -378,6 +248,32 @@
 			reporttemplatefolder="ReportDeltaresStyle"
 			reportwriteinterval="30000ms">
 			</testsuite>
+			<testmodule
+			id="62ec44c8-b03f-46ba-8e51-308425e02675"
+			name="SetValueWithKeyPressParameterForItemInTraject"
+			ref="e550d732-7780-4b40-a989-f787f458a7c7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="PathToNormsInPE"
+					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="PathLowerLimitValueInPropertiesPanel"
+					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="LowLimitValue"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
+					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
+					variablename="valueToSetParameterForItemInTraject">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="79012b9c-1ddd-4fe9-9900-254363b3238c"
 			name="CalculateTrajectCategoryBoundary"
@@ -442,28 +338,6 @@
 			id="81ba8163-5d1c-4705-a2b5-c334c3ff30e7"
 			name="teardown">
 			</teardown>
-			<testmodule
-			id="8594b82c-ef8b-4874-8f34-e7dd491a4c91"
-			name="SelectGenericItemInProjectExplorer"
-			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="PathToNormsInPE"
-					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="pathToNormTreeItem"
-					datasourceid="2fc53948-30d7-4767-83cc-f75854b101b8"
-					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
-					variablename="pathToItemInProjectExplorer">
-					</var>
-				</missingdatabinding>
-			</testmodule>
 			<smartfoldernode
 			id="8b4dbfaa-75bf-477e-865a-8c4755146402"
 			name="ValidateCategoryBoundaries">
@@ -471,10 +345,6 @@
 			<smartfoldernode
 			id="99f9e021-75ef-465d-b319-a13561f0545b"
 			name="SetNewSignallingValue">
-			</smartfoldernode>
-			<smartfoldernode
-			id="9d25fe23-c561-4a72-baec-61c9157be07a"
-			name="old">
 			</smartfoldernode>
 			<testmodule
 			id="9ec04dce-fe54-4a06-96e4-3b651d02d543"
@@ -516,41 +386,37 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="b1ed9fa1-b810-4227-8704-85fbf4258151"
-			name="old">
-			</smartfoldernode>
+			<testmodule
+			id="a1688ad4-bcd2-476d-ad4b-273913269c9e"
+			name="SetValueWithKeyPressParameterForItemInTraject"
+			ref="e550d732-7780-4b40-a989-f787f458a7c7"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="PathToNormsInPE"
+					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
+					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
+					variablename="substringNameItemInTraject">
+					</var>
+					<var
+					dataname="PathSignallingValueInPropertiesPanel"
+					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
+					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
+					variablename="nameOfParameterInPropertiesPanel">
+					</var>
+					<var
+					dataname="SignallingValue"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
+					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
+					variablename="valueToSetParameterForItemInTraject">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script07_TrajectCategories"
 			id="be6dd32c-6203-4cca-9ca6-598435a19bdf"
 			name="LoopCategories(A+_D)">
 			</smartfoldernode>
-			<testmodule
-			id="cb562732-eae8-4e71-be04-e5b5c7a7a1d1"
-			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
-			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="TypeParameter"
-					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
-					variableid="f6cc0a7d-f65c-4a45-8975-405678527d6a"
-					variablename="typeParameter">
-					</var>
-					<var
-					dataname="PathSignallingValueInPropertiesPanel"
-					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
-					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
-					variablename="pathToElementInPropertiesPanel">
-					</var>
-					<var
-					dataname="SignallingValue"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
-					variableid="57b81fcc-fdb5-4138-9a1d-0f85b3b8c8b6"
-					variablename="newValueForParameter">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="ce42b750-1aeb-4470-a2f5-b28263d3260c"
 			name="ValidateTrajectCategoryBoundaryInDocumentView"
@@ -784,47 +650,27 @@
 							id="5403d494-1561-4387-a3cd-67a66c9c7c4a"
 							name="GetRandomNorm">
 							</testmodule>
-							<testmodule
-							id="8594b82c-ef8b-4874-8f34-e7dd491a4c91"
-							name="SelectGenericItemInProjectExplorer">
-							</testmodule>
 							<smartfoldernode
-							id="14244c29-e010-456a-8332-42fce0e2ae6f"
-							name="SetNewLowLimit">
-								<smartfoldernode
-								id="b1ed9fa1-b810-4227-8704-85fbf4258151"
-								name="old">
-									<testmodule
-									id="0fb45640-01f5-4926-bd21-bd3fe86ce507"
-									name="SetValueWithKeyPressParameterForItemInTraject">
-									</testmodule>
-								</smartfoldernode>
+							id="99f9e021-75ef-465d-b319-a13561f0545b"
+							name="SetNewSignallingValue">
 								<testmodule
-								id="07d4ea74-b0db-4804-a2fc-0c0a97a6e938"
-								name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+								id="a1688ad4-bcd2-476d-ad4b-273913269c9e"
+								name="SetValueWithKeyPressParameterForItemInTraject">
 								</testmodule>
 								<testmodule
-								id="f21a3a7f-e2a9-4815-bad3-579ed03cac59"
+								id="f0222475-623d-4436-b922-a48786642542"
 								name="ConfirmActionInDialog">
 								</testmodule>
 							</smartfoldernode>
 							<smartfoldernode
-							id="99f9e021-75ef-465d-b319-a13561f0545b"
-							name="SetNewSignallingValue">
-								<smartfoldernode
-								id="9d25fe23-c561-4a72-baec-61c9157be07a"
-								name="old">
-									<testmodule
-									id="5bebffad-b7c8-4e8c-a795-cce7cb697e44"
-									name="SetValueWithKeyPressParameterForItemInTraject">
-									</testmodule>
-								</smartfoldernode>
+							id="14244c29-e010-456a-8332-42fce0e2ae6f"
+							name="SetNewLowLimit">
 								<testmodule
-								id="cb562732-eae8-4e71-be04-e5b5c7a7a1d1"
-								name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+								id="62ec44c8-b03f-46ba-8e51-308425e02675"
+								name="SetValueWithKeyPressParameterForItemInTraject">
 								</testmodule>
 								<testmodule
-								id="f0222475-623d-4436-b922-a48786642542"
+								id="f21a3a7f-e2a9-4815-bad3-579ed03cac59"
 								name="ConfirmActionInDialog">
 								</testmodule>
 							</smartfoldernode>

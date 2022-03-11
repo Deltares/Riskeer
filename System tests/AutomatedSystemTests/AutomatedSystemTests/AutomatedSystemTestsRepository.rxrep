@@ -494,7 +494,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 						name="IsRelevant"
 						refimgid="b10e19f9-7815-4f72-bde5-ded05eaaa1a8"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename='Is relevant']
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table/row[@accessiblename='Is relevant']
 						</item>
 						<item
 						addcaps="row,accessible"
@@ -503,7 +503,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 						name="GenericParameterVisibleInPropertiesPanel"
 						refimgid="b10e19f9-7815-4f72-bde5-ded05eaaa1a8"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table/row[@accessiblename&gt;$nameOfParameterInPropertiesPanel]
 						</item>
 						<item
 						addcaps="row,accessible"
@@ -512,7 +512,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 						name="SourcePath"
 						refimgid="69ee7df9-acc8-40f8-9b15-90ebe83bc0a3"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename='Bronlocatie']
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table/row[@accessiblename='Bronlocatie']
 						</item>
 						<item
 						addcaps="row,accessible"
@@ -521,7 +521,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 						name="Name"
 						refimgid="0d93e35c-ce0b-48d6-afb4-ecc5194f06a5"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename='Naam']
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table/row[@accessiblename='Naam']
 						</item>
 						<item
 						addcaps="row,accessible"
@@ -530,7 +530,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 						name="ContributionPercentage"
 						refimgid="d00ebfaf-bc2a-4b01-ac54-55ac34c77a8b"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;'Aandeel']
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table/row[@accessiblename&gt;'Aandeel']
 						</item>
 						<item
 						addcaps="row,accessible"
@@ -539,7 +539,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 						name="Trajecttype"
 						refimgid="72b27128-9391-49ea-9f8f-530b0f9c0f75"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename='Trajecttype']
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table/row[@accessiblename='Trajecttype']
 						</item>
 						<item
 						addcaps="row,accessible"
@@ -548,7 +548,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 						name="FaalkansbijdragePercent"
 						refimgid="93ebf753-d410-46f2-b2d8-b7629262075a"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename='Faalkansbijdrage [%]']
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table/row[@accessiblename='Faalkansbijdrage [%]']
 						</item>
 						<item
 						addcaps="row,accessible"
@@ -557,10 +557,10 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 						name="HydraulischeBelastingenlocatie"
 						refimgid="40b1645c-24f9-4c53-b26c-440534e0f238"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']/row[@accessiblename&gt;'Hydraulische belastingenl']
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table/row[@accessiblename&gt;'Hydraulische belastingenl']
 						</item>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table[@accessiblename='Properties Window']
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@controltypename='WinFormsAdapter']/container[@controlname='PropertiesPanelGridView']//table
 						</basepath>
 					</folder>
 					<basepath>
