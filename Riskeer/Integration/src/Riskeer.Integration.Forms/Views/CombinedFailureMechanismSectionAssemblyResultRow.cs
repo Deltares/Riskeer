@@ -27,6 +27,7 @@ using Core.Common.Controls.DataGrid;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Data.Assembly;
+using Resources = Riskeer.Integration.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Views
 {
@@ -101,77 +102,77 @@ namespace Riskeer.Integration.Forms.Views
         /// <summary>
         /// Gets the assembly result for piping.
         /// </summary>
-        public string Piping => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.Piping);
-
+        public string Piping => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.Piping);
+        
         /// <summary>
         /// Gets the assembly result for grass cover erosion inwards.
         /// </summary>
-        public string GrassCoverErosionInwards => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
+        public string GrassCoverErosionInwards => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
 
         /// <summary>
         /// Gets the assembly result for macro stability inwards.
         /// </summary>
-        public string MacroStabilityInwards => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
+        public string MacroStabilityInwards => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
 
         /// <summary>
         /// Gets the assembly result for microstability.
         /// </summary>
-        public string Microstability => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.Microstability);
+        public string Microstability => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.Microstability);
 
         /// <summary>
         /// Gets the assembly result for stability stone cover.
         /// </summary>
-        public string StabilityStoneCover => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
+        public string StabilityStoneCover => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
 
         /// <summary>
         /// Gets the assembly result for wave impact asphalt cover.
         /// </summary>
-        public string WaveImpactAsphaltCover => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
+        public string WaveImpactAsphaltCover => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
 
         /// <summary>
         /// Gets the assembly result for water pressure asphalt cover.
         /// </summary>
-        public string WaterPressureAsphaltCover => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
+        public string WaterPressureAsphaltCover => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
 
         /// <summary>
         /// Gets the assembly result for grass cover erosion outwards.
         /// </summary>
-        public string GrassCoverErosionOutwards => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
+        public string GrassCoverErosionOutwards => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
 
         /// <summary>
         /// Gets the assembly result for grass cover slip off outwards.
         /// </summary>
-        public string GrassCoverSlipOffOutwards => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
+        public string GrassCoverSlipOffOutwards => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
 
         /// <summary>
         /// Gets the assembly result for grass cover slip off inwards.
         /// </summary>
-        public string GrassCoverSlipOffInwards => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
+        public string GrassCoverSlipOffInwards => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
 
         /// <summary>
         /// Gets the assembly result for height structures.
         /// </summary>
-        public string HeightStructures => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
+        public string HeightStructures => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
 
         /// <summary>
         /// Gets the assembly result for closing structures.
         /// </summary>
-        public string ClosingStructures => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
+        public string ClosingStructures => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
 
         /// <summary>
         /// Gets the assembly result for piping structure.
         /// </summary>
-        public string PipingStructure => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
+        public string PipingStructure => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
 
         /// <summary>
         /// Gets the assembly result for stability point structures.
         /// </summary>
-        public string StabilityPointStructures => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
+        public string StabilityPointStructures => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
 
         /// <summary>
         /// Gets the assembly result for dune erosion.
         /// </summary>
-        public string DuneErosion => EnumDisplayNameHelper.GetDisplayName(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
+        public string DuneErosion => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
 
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
 
@@ -213,6 +214,13 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions[pipingStructureIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
             ColumnStateDefinitions[stabilityPointStructuresIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
             ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
+        }
+
+        private static string GetFailureMechanismSectionAssemblyGroupDisplayName(FailureMechanismSectionAssemblyGroup? failureMechanismSectionAssemblyGroup)
+        {
+            return failureMechanismSectionAssemblyGroup.HasValue
+                       ? EnumDisplayNameHelper.GetDisplayName(failureMechanismSectionAssemblyGroup.Value)
+                       : Resources.CombinedFailureMechanismSectionAssemblyResultRow_Not_in_assembly_dash;
         }
 
         private static CellStyle CreateCellStyle(FailureMechanismSectionAssemblyGroup assemblyGroup)
