@@ -436,7 +436,7 @@ namespace Riskeer.Migration.Integration.Test
                 "SELECT COUNT() " +
                 "FROM SOURCEPROJECT.FailureMechanismEntity " +
                 "JOIN SOURCEPROJECT.FailureMechanismSectionEntity USING(FailureMechanismEntityId) " +
-                "WHERE FailureMechanismType = 18 " +
+                "WHERE FailureMechanismType = {0} " +
                 ") " +
                 ") " +
                 "FROM SpecificFailurePathEntity NEW " +
