@@ -123,7 +123,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
         [Test]
         [TestCaseSource(typeof(FailureMechanismSectionAssemblyGroupColorTestHelper), nameof(FailureMechanismSectionAssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
-        public void Constructor_WithCombinedFailureMechanismAssemblyResult_ExpectedColumnStates(
+        public void Constructor_WithCombinedFailureMechanismAssemblyResultContainingOnlyFailureMechanismsInAssembly_ExpectedColumnStates(
             FailureMechanismSectionAssemblyGroup assemblyGroup,
             Color expectedBackgroundColor)
         {
@@ -158,6 +158,61 @@ namespace Riskeer.Integration.Forms.Test.Views
             var row = new CombinedFailureMechanismSectionAssemblyResultRow(result);
 
             // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[totalResultIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[pipingIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[grassCoverErosionInwardsIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[macroStabilityInwardsIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[microstabililityIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityStoneCoverIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[waveImpactAsphaltCoverIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[waterPressureAsphaltCoverIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[grassCoverErosionOutwardsIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[grassCoverSlipOffOutwardsIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[grassCoverSlipOffInwardsIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[heightStructuresIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[closingStructuresIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[pipingStructureIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityPointStructuresIndex], expectedBackgroundColor);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex], expectedBackgroundColor);
+        }
+
+        [Test]
+        public void Constructor_WithCombinedFailureMechanismAssemblyResultContainingOnlyFailureMechanismsNotInAssembly_ExpectedColumnStates()
+        {
+            // Setup
+            var random = new Random(21);
+
+            var result = new CombinedFailureMechanismSectionAssemblyResult(
+                random.Next(),
+                random.NextDouble(),
+                random.NextDouble(),
+                FailureMechanismSectionAssemblyGroup.Gr,
+                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
+                {
+                    Piping = null,
+                    GrassCoverErosionInwards = null,
+                    MacroStabilityInwards = null,
+                    Microstability = null,
+                    StabilityStoneCover = null,
+                    WaveImpactAsphaltCover = null,
+                    WaterPressureAsphaltCover = null,
+                    GrassCoverErosionOutwards = null,
+                    GrassCoverSlipOffOutwards = null,
+                    GrassCoverSlipOffInwards = null,
+                    HeightStructures = null,
+                    ClosingStructures = null,
+                    PipingStructure = null,
+                    StabilityPointStructures = null,
+                    DuneErosion = null
+                });
+
+            // Call
+            var row = new CombinedFailureMechanismSectionAssemblyResultRow(result);
+
+            // Assert
+            Color expectedBackgroundColor = Color.FromArgb(255, 255, 255);
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
 
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[totalResultIndex], expectedBackgroundColor);
