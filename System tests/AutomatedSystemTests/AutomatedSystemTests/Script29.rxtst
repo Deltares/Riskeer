@@ -5131,7 +5131,7 @@
 						script20cd_STPH.risk
 					</td>
 					<td>
-						3,4,6-16
+						3,4,6-13
 					</td>
 					<td>
 						@STPH
@@ -5145,7 +5145,7 @@
 						script20cd_STBI.risk
 					</td>
 					<td>
-						5-16
+						5-13
 					</td>
 					<td>
 						@STBI
@@ -5159,7 +5159,7 @@
 						script20cd_GEKB.risk
 					</td>
 					<td>
-						17-28
+						14-22
 					</td>
 					<td>
 						@GEKB
@@ -5173,7 +5173,7 @@
 						script20cd_BSKW.risk
 					</td>
 					<td>
-						29-40
+						23-31
 					</td>
 					<td>
 						@BSKW
@@ -5187,7 +5187,7 @@
 						script20cd_HTKW.risk
 					</td>
 					<td>
-						29-40
+						23-31
 					</td>
 					<td>
 						@HTKW
@@ -5201,7 +5201,7 @@
 						script20cd_STKWp.risk
 					</td>
 					<td>
-						29-40
+						23-31
 					</td>
 					<td>
 						@STKWp
@@ -5215,7 +5215,7 @@
 						script15abc_ZST.risk
 					</td>
 					<td>
-						41-51
+						32-39
 					</td>
 					<td>
 						@ZST
@@ -5229,7 +5229,7 @@
 						script15abc_AGK.risk
 					</td>
 					<td>
-						41-51
+						32-39
 					</td>
 					<td>
 						@AGK
@@ -5243,7 +5243,7 @@
 						script15abc_GEBU.risk
 					</td>
 					<td>
-						41-51
+						32-39
 					</td>
 					<td>
 						@GEBU
@@ -5257,7 +5257,7 @@
 						script15abc_DA.risk
 					</td>
 					<td>
-						52-60
+						40-45
 					</td>
 					<td>
 						@DA
@@ -5271,7 +5271,7 @@
 						Project_andere.risk
 					</td>
 					<td>
-						52-60
+						40-45
 					</td>
 					<td>
 						@STMI
@@ -5285,7 +5285,7 @@
 						Project_andere.risk
 					</td>
 					<td>
-						52-54,56-60
+						40-45
 					</td>
 					<td>
 						@AWO
@@ -5299,7 +5299,7 @@
 						Project_andere.risk
 					</td>
 					<td>
-						52-60
+						40-45
 					</td>
 					<td>
 						@GABU
@@ -5313,7 +5313,7 @@
 						Project_andere.risk
 					</td>
 					<td>
-						52-60
+						40-45
 					</td>
 					<td>
 						@GABI
@@ -5327,7 +5327,7 @@
 						Project_andere.risk
 					</td>
 					<td>
-						52-60
+						40-45
 					</td>
 					<td>
 						@PKW
