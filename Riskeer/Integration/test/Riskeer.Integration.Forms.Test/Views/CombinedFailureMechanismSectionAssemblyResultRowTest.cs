@@ -66,10 +66,12 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithCombinedFailureMechanismAssemblyResult_ExpectedValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Constructor_WithCombinedFailureMechanismAssemblyResult_ExpectedValues(bool failureMechanismsInAssembly)
         {
             // Setup
-            CombinedFailureMechanismSectionAssemblyResult result = GetCombinedFailureMechanismSectionAssemblyResult();
+            CombinedFailureMechanismSectionAssemblyResult result = GetCombinedFailureMechanismSectionAssemblyResult(failureMechanismsInAssembly);
 
             // Call
             var row = new CombinedFailureMechanismSectionAssemblyResultRow(result);
@@ -102,21 +104,21 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(2, row.SectionStart.NumberOfDecimalPlaces);
             Assert.AreEqual(result.SectionEnd, row.SectionEnd, row.SectionEnd.GetAccuracy());
             Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.TotalResult), row.TotalResult);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.Piping), row.Piping);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.GrassCoverErosionInwards), row.GrassCoverErosionInwards);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.MacroStabilityInwards), row.MacroStabilityInwards);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.Microstability), row.Microstability);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.StabilityStoneCover), row.StabilityStoneCover);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.WaveImpactAsphaltCover), row.WaveImpactAsphaltCover);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.WaterPressureAsphaltCover), row.WaterPressureAsphaltCover);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.GrassCoverErosionOutwards), row.GrassCoverErosionOutwards);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.GrassCoverSlipOffOutwards), row.GrassCoverSlipOffOutwards);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.GrassCoverSlipOffInwards), row.GrassCoverSlipOffInwards);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.HeightStructures), row.HeightStructures);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.ClosingStructures), row.ClosingStructures);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.PipingStructure), row.PipingStructure);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.StabilityPointStructures), row.StabilityPointStructures);
-            Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.DuneErosion), row.DuneErosion);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.Piping), row.Piping);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.GrassCoverErosionInwards), row.GrassCoverErosionInwards);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.MacroStabilityInwards), row.MacroStabilityInwards);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.Microstability), row.Microstability);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.StabilityStoneCover), row.StabilityStoneCover);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.WaveImpactAsphaltCover), row.WaveImpactAsphaltCover);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.WaterPressureAsphaltCover), row.WaterPressureAsphaltCover);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.GrassCoverErosionOutwards), row.GrassCoverErosionOutwards);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.GrassCoverSlipOffOutwards), row.GrassCoverSlipOffOutwards);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.GrassCoverSlipOffInwards), row.GrassCoverSlipOffInwards);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.HeightStructures), row.HeightStructures);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.ClosingStructures), row.ClosingStructures);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.PipingStructure), row.PipingStructure);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.StabilityPointStructures), row.StabilityPointStructures);
+            Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.DuneErosion), row.DuneErosion);
         }
 
         [Test]
@@ -176,7 +178,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex], expectedBackgroundColor);
         }
 
-        private static CombinedFailureMechanismSectionAssemblyResult GetCombinedFailureMechanismSectionAssemblyResult()
+        private static CombinedFailureMechanismSectionAssemblyResult GetCombinedFailureMechanismSectionAssemblyResult(bool failureMechanismsInAssembly)
         {
             var random = new Random(21);
             return new CombinedFailureMechanismSectionAssemblyResult(
@@ -186,22 +188,36 @@ namespace Riskeer.Integration.Forms.Test.Views
                 random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
                 new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
                 {
-                    Piping = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    GrassCoverErosionInwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    MacroStabilityInwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    Microstability = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    StabilityStoneCover = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    WaveImpactAsphaltCover = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    WaterPressureAsphaltCover = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    GrassCoverErosionOutwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    GrassCoverSlipOffOutwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    GrassCoverSlipOffInwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    HeightStructures = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    ClosingStructures = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    PipingStructure = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    StabilityPointStructures = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    DuneErosion = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()
+                    Piping = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    GrassCoverErosionInwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    MacroStabilityInwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    Microstability = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    StabilityStoneCover = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    WaveImpactAsphaltCover = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    WaterPressureAsphaltCover = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    GrassCoverErosionOutwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    GrassCoverSlipOffOutwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    GrassCoverSlipOffInwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    HeightStructures = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    ClosingStructures = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    PipingStructure = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    StabilityPointStructures = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    DuneErosion = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random)
                 });
+        }
+
+        private static FailureMechanismSectionAssemblyGroup? GetFailureMechanismSectionAssemblyGroup(bool failureMechanismInAssembly, Random random)
+        {
+            return failureMechanismInAssembly
+                       ? random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()
+                       : (FailureMechanismSectionAssemblyGroup?) null;
+        }
+
+        private static string GetExpectedDisplayNameForFailureMechanism(FailureMechanismSectionAssemblyGroup? failureMechanismSectionAssemblyGroup)
+        {
+            return failureMechanismSectionAssemblyGroup.HasValue
+                       ? EnumDisplayNameHelper.GetDisplayName(failureMechanismSectionAssemblyGroup.Value)
+                       : "-";
         }
     }
 }
