@@ -48,34 +48,34 @@ namespace AutomatedSystemTests.Modules.Calculation
         			calculatedCategoryBoundary = "1/Oneindig";
         			Report.Log(ReportLevel.Info, "", categoryName+boundaryType+ " : " + calculatedCategoryBoundary);
         			return calculatedCategoryBoundary;
-        		case "DBoven":
-        			calculatedCategoryBoundary = "1/1";
-        			Report.Log(ReportLevel.Info, "", categoryName+boundaryType+ " : " + calculatedCategoryBoundary);
-        			return calculatedCategoryBoundary;
-        		case "AOnder":
-        			boundaryValue = (1.0/30.0)*signalingValueD;
-        			break;
         		case "A+Boven":
         			boundaryValue = (1.0/30.0)*signalingValueD;
         			break;
-        		case "BOnder":
-        			boundaryValue = signalingValueD;
+        		case "AOnder":
+        			boundaryValue = (1.0/30.0)*signalingValueD;
         			break;
         		case "ABoven":
         			boundaryValue = signalingValueD;
         			break;
-        		case "COnder":
-        			boundaryValue = lowerLimitD;
+        		case "BOnder":
+        			boundaryValue = signalingValueD;
         			break;
         		case "BBoven":
         			boundaryValue = lowerLimitD;
         			break;
-        		case "DOnder":
-        			boundaryValue = 30.0*lowerLimitD;
+        		case "COnder":
+        			boundaryValue = lowerLimitD;
         			break;
         		case "CBoven":
         			boundaryValue = 30.0*lowerLimitD;
         			break;
+        		case "DOnder":
+        			boundaryValue = 30.0*lowerLimitD;
+        			break;
+        		case "DBoven":
+        			calculatedCategoryBoundary = "1/1";
+        			Report.Log(ReportLevel.Info, "", categoryName+boundaryType+ " : " + calculatedCategoryBoundary);
+        			return calculatedCategoryBoundary;
         		default:
         			Report.Log(ReportLevel.Info,"", "case : " + boundaryToEvaluate + "error!");
         			throw new Exception();

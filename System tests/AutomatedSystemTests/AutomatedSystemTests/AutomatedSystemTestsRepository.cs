@@ -4012,7 +4012,7 @@ namespace AutomatedSystemTests
             /// Creates a new AssessmentSectionAssemblyCategoriesView  folder.
             /// </summary>
             public AssessmentSectionAssemblyCategoriesViewFolder(RepoGenBaseFolder parentFolder) :
-                    base("AssessmentSectionAssemblyCategoriesView", "container[@controlname='AssessmentSectionAssemblyCategoriesView']", parentFolder, 30000, null, false, "592474ad-6103-4044-845a-0e701c44d692", "")
+                    base("AssessmentSectionAssemblyCategoriesView", "container[@controlname='AssessmentSectionAssemblyGroupsView']", parentFolder, 30000, null, false, "592474ad-6103-4044-845a-0e701c44d692", "")
             {
                 _tabledatagridview = new AutomatedSystemTestsRepositoryFolders.TableDataGridViewFolder(this);
             }
@@ -4066,7 +4066,7 @@ namespace AutomatedSystemTests
             /// Creates a new TableDataGridView  folder.
             /// </summary>
             public TableDataGridViewFolder(RepoGenBaseFolder parentFolder) :
-                    base("TableDataGridView", "container[@controlname='assemblyCategoriesTable']/table[@controlname='dataGridView']", parentFolder, 30000, null, false, "a6881d13-2ec6-4bb8-9ef5-8fc9405d5a4c", "")
+                    base("TableDataGridView", "container[@controlname='assemblyGroupsTable']/table[@controlname='dataGridView']", parentFolder, 30000, null, false, "a6881d13-2ec6-4bb8-9ef5-8fc9405d5a4c", "")
             {
                 _boundarycategorycellInfo = new RepoItemInfo(this, "BoundaryCategoryCell", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Categorie Row ']", 10000, null, "78d26b31-7a0a-44c1-aee6-b2a166dade1f");
                 _genericassessmentsectionboundarycellInfo = new RepoItemInfo(this, "GenericAssessmentSectionBoundaryCell", "row[@accessiblevalue>$categoryName+';']/cell[@accessiblename>$boundaryTypeSubstring]", 10000, null, "2a83bf46-5edd-4e88-9563-1ac9454c5af8");
