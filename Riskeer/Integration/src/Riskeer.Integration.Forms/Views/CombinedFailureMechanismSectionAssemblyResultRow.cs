@@ -102,77 +102,77 @@ namespace Riskeer.Integration.Forms.Views
         /// <summary>
         /// Gets the assembly result for piping.
         /// </summary>
-        public string Piping => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.Piping);
+        public string Piping => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.Piping);
 
         /// <summary>
         /// Gets the assembly result for grass cover erosion inwards.
         /// </summary>
-        public string GrassCoverErosionInwards => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
+        public string GrassCoverErosionInwards => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
 
         /// <summary>
         /// Gets the assembly result for macro stability inwards.
         /// </summary>
-        public string MacroStabilityInwards => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
+        public string MacroStabilityInwards => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
 
         /// <summary>
         /// Gets the assembly result for microstability.
         /// </summary>
-        public string Microstability => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.Microstability);
+        public string Microstability => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.Microstability);
 
         /// <summary>
         /// Gets the assembly result for stability stone cover.
         /// </summary>
-        public string StabilityStoneCover => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
+        public string StabilityStoneCover => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
 
         /// <summary>
         /// Gets the assembly result for wave impact asphalt cover.
         /// </summary>
-        public string WaveImpactAsphaltCover => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
+        public string WaveImpactAsphaltCover => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
 
         /// <summary>
         /// Gets the assembly result for water pressure asphalt cover.
         /// </summary>
-        public string WaterPressureAsphaltCover => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
+        public string WaterPressureAsphaltCover => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
 
         /// <summary>
         /// Gets the assembly result for grass cover erosion outwards.
         /// </summary>
-        public string GrassCoverErosionOutwards => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
+        public string GrassCoverErosionOutwards => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
 
         /// <summary>
         /// Gets the assembly result for grass cover slip off outwards.
         /// </summary>
-        public string GrassCoverSlipOffOutwards => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
+        public string GrassCoverSlipOffOutwards => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
 
         /// <summary>
         /// Gets the assembly result for grass cover slip off inwards.
         /// </summary>
-        public string GrassCoverSlipOffInwards => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
+        public string GrassCoverSlipOffInwards => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
 
         /// <summary>
         /// Gets the assembly result for height structures.
         /// </summary>
-        public string HeightStructures => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
+        public string HeightStructures => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
 
         /// <summary>
         /// Gets the assembly result for closing structures.
         /// </summary>
-        public string ClosingStructures => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
+        public string ClosingStructures => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
 
         /// <summary>
         /// Gets the assembly result for piping structure.
         /// </summary>
-        public string PipingStructure => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
+        public string PipingStructure => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
 
         /// <summary>
         /// Gets the assembly result for stability point structures.
         /// </summary>
-        public string StabilityPointStructures => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
+        public string StabilityPointStructures => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
 
         /// <summary>
         /// Gets the assembly result for dune erosion.
         /// </summary>
-        public string DuneErosion => GetFailureMechanismSectionAssemblyGroupDisplayName(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
+        public string DuneErosion => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
 
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
 
@@ -199,24 +199,24 @@ namespace Riskeer.Integration.Forms.Views
         private void SetColumnStateDefinitionColors()
         {
             ColumnStateDefinitions[totalResultIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.TotalResult);
-            ColumnStateDefinitions[pipingIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.Piping);
-            ColumnStateDefinitions[grassCoverErosionInwardsIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
-            ColumnStateDefinitions[macroStabilityInwardsIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
-            ColumnStateDefinitions[microstabililityIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.Microstability);
-            ColumnStateDefinitions[stabilityStoneCoverIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
-            ColumnStateDefinitions[waveImpactAsphaltCoverIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
-            ColumnStateDefinitions[waterPressureAsphaltCoverIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
-            ColumnStateDefinitions[grassCoverErosionOutwardsIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
-            ColumnStateDefinitions[grassCoverSlipOffOutwardsIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
-            ColumnStateDefinitions[grassCoverSlipOffInwardsIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
-            ColumnStateDefinitions[heightStructuresIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
-            ColumnStateDefinitions[closingStructuresIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
-            ColumnStateDefinitions[pipingStructureIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
-            ColumnStateDefinitions[stabilityPointStructuresIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
-            ColumnStateDefinitions[duneErosionIndex].Style = CreateGetFailureMechanismSectionAssemblyGroupCellStyle(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
+            ColumnStateDefinitions[pipingIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.Piping);
+            ColumnStateDefinitions[grassCoverErosionInwardsIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
+            ColumnStateDefinitions[macroStabilityInwardsIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
+            ColumnStateDefinitions[microstabililityIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.Microstability);
+            ColumnStateDefinitions[stabilityStoneCoverIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.StabilityStoneCover);
+            ColumnStateDefinitions[waveImpactAsphaltCoverIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.WaveImpactAsphaltCover);
+            ColumnStateDefinitions[waterPressureAsphaltCoverIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.WaterPressureAsphaltCover);
+            ColumnStateDefinitions[grassCoverErosionOutwardsIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionOutwards);
+            ColumnStateDefinitions[grassCoverSlipOffOutwardsIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffOutwards);
+            ColumnStateDefinitions[grassCoverSlipOffInwardsIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverSlipOffInwards);
+            ColumnStateDefinitions[heightStructuresIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.HeightStructures);
+            ColumnStateDefinitions[closingStructuresIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.ClosingStructures);
+            ColumnStateDefinitions[pipingStructureIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
+            ColumnStateDefinitions[stabilityPointStructuresIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
+            ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
         }
 
-        private static string GetFailureMechanismSectionAssemblyGroupDisplayName(FailureMechanismSectionAssemblyGroup? failureMechanismSectionAssemblyGroup)
+        private static string GetDisplayNameForFailureMechanism(FailureMechanismSectionAssemblyGroup? failureMechanismSectionAssemblyGroup)
         {
             return failureMechanismSectionAssemblyGroup.HasValue
                        ? EnumDisplayNameHelper.GetDisplayName(failureMechanismSectionAssemblyGroup.Value)
@@ -229,7 +229,7 @@ namespace Riskeer.Integration.Forms.Views
                                  AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(failureMechanismSectionAssemblyGroup));
         }
 
-        private static CellStyle CreateGetFailureMechanismSectionAssemblyGroupCellStyle(FailureMechanismSectionAssemblyGroup? failureMechanismSectionAssemblyGroup)
+        private static CellStyle CreateCellStyleForFailureMechanism(FailureMechanismSectionAssemblyGroup? failureMechanismSectionAssemblyGroup)
         {
             return failureMechanismSectionAssemblyGroup.HasValue
                        ? CreateCellStyle(failureMechanismSectionAssemblyGroup.Value)
