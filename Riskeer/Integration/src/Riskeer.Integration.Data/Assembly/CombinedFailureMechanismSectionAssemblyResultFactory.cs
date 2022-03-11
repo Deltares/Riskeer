@@ -97,13 +97,13 @@ namespace Riskeer.Integration.Data.Assembly
             return constructionProperties;
         }
 
-        private static FailureMechanismSectionAssemblyGroup GetAssemblyGroup(IFailureMechanism failureMechanism,
-                                                                             IDictionary<IFailureMechanism, int> failureMechanisms,
-                                                                             IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismResults)
+        private static FailureMechanismSectionAssemblyGroup? GetAssemblyGroup(IFailureMechanism failureMechanism,
+                                                                              IDictionary<IFailureMechanism, int> failureMechanisms,
+                                                                              IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismResults)
         {
             return failureMechanisms.ContainsKey(failureMechanism)
                        ? failureMechanismResults.ElementAt(failureMechanisms[failureMechanism])
-                       : FailureMechanismSectionAssemblyGroup.Gr;
+                       : (FailureMechanismSectionAssemblyGroup?) null;
         }
     }
 }
