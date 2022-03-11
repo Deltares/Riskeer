@@ -84,7 +84,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void Constructor_WithConstructionProperties_ExpectedValues()
+        public void Constructor_WithConstructionPropertiesRepresentingAllFailureMechanismsInAssembly_ExpectedValues()
         {
             // Setup
             var random = new Random(21);
@@ -150,6 +150,60 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.AreEqual(pipingStructureResult, result.PipingStructure);
             Assert.AreEqual(stabilityPointStructuresResult, result.StabilityPointStructures);
             Assert.AreEqual(duneErosionResult, result.DuneErosion);
+        }
+
+        [Test]
+        public void Constructor_WithConstructionPropertiesRepresentingAllFailureMechanismsNotInAssembly_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(21);
+            int sectionNumber = random.Next();
+            double sectionStart = random.NextDouble();
+            double sectionEnd = random.NextDouble();
+            var totalResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+
+            // Call
+            var result = new CombinedFailureMechanismSectionAssemblyResult(
+                sectionNumber, sectionStart, sectionEnd, totalResult,
+                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
+                {
+                    Piping = null,
+                    GrassCoverErosionInwards = null,
+                    MacroStabilityInwards = null,
+                    Microstability = null,
+                    StabilityStoneCover = null,
+                    WaveImpactAsphaltCover = null,
+                    WaterPressureAsphaltCover = null,
+                    GrassCoverErosionOutwards = null,
+                    GrassCoverSlipOffOutwards = null,
+                    GrassCoverSlipOffInwards = null,
+                    HeightStructures = null,
+                    ClosingStructures = null,
+                    PipingStructure = null,
+                    StabilityPointStructures = null,
+                    DuneErosion = null
+                });
+
+            // Assert
+            Assert.AreEqual(sectionNumber, result.SectionNumber);
+            Assert.AreEqual(sectionStart, result.SectionStart);
+            Assert.AreEqual(sectionEnd, result.SectionEnd);
+            Assert.AreEqual(totalResult, result.TotalResult);
+            Assert.IsNull(result.Piping);
+            Assert.IsNull(result.GrassCoverErosionInwards);
+            Assert.IsNull(result.MacroStabilityInwards);
+            Assert.IsNull(result.Microstability);
+            Assert.IsNull(result.StabilityStoneCover);
+            Assert.IsNull(result.WaveImpactAsphaltCover);
+            Assert.IsNull(result.WaterPressureAsphaltCover);
+            Assert.IsNull(result.GrassCoverErosionOutwards);
+            Assert.IsNull(result.GrassCoverSlipOffOutwards);
+            Assert.IsNull(result.GrassCoverSlipOffInwards);
+            Assert.IsNull(result.HeightStructures);
+            Assert.IsNull(result.ClosingStructures);
+            Assert.IsNull(result.PipingStructure);
+            Assert.IsNull(result.StabilityPointStructures);
+            Assert.IsNull(result.DuneErosion);
         }
     }
 }
