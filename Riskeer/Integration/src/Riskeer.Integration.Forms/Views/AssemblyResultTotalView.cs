@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
@@ -87,7 +88,11 @@ namespace Riskeer.Integration.Forms.Views
                 Observable = assessmentSection
             };
 
-            assessmentSectionResultObserver = new Observer(EnableRefreshButton)
+            assessmentSectionResultObserver = new Observer(() =>
+            {
+                updateDataSource = true;
+                EnableRefreshButton();
+            })
             {
                 Observable = new AssessmentSectionResultObserver(assessmentSection)
             };
@@ -151,24 +156,11 @@ namespace Riskeer.Integration.Forms.Views
 
         private void SetDataSource()
         {
-            assemblyResultRows = new List<FailureMechanismAssemblyResultRow>
-            {
-                CreatePipingFailureMechanismAssemblyResultRow(),
-                CreateGrassCoverErosionInwardsFailureMechanismAssemblyResultRow(),
-                CreateMacroStabilityInwardsFailureMechanismAssemblyResultRow(),
-                CreateMicrostabilityFailureMechanismAssemblyResultRow(),
-                CreateStabilityStoneCoverFailureMechanismAssemblyResultRow(),
-                CreateWaveImpactFailureMechanismAssemblyResultRow(),
-                CreateWaterPressureAsphaltCoverFailureMechanismAssemblyResultRow(),
-                CreateGrassCoverErosionOutwardsFailureMechanismAssemblyResultRow(),
-                CreateGrassCoverSlipOffOutwardsFailureMechanismAssemblyResultRow(),
-                CreateGrassCoverSlipOffInwardsFailureMechanismAssemblyResultRow(),
-                CreateHeightStructuresFailureMechanismAssemblyResultRow(),
-                CreateClosingStructuresFailureMechanismAssemblyResultRow(),
-                CreatePipingStructureFailureMechanismAssemblyResultRow(),
-                CreateStabilityPointsStructuresFailureMechanismAssemblyResultRow(),
-                CreateDuneErosionFailureMechanismAssemblyResultRow()
-            };
+            var failureMechanismAssemblyResultRows = new List<FailureMechanismAssemblyResultRow>();
+            failureMechanismAssemblyResultRows.AddRange(CreateFailureMechanismResultRows());
+            failureMechanismAssemblyResultRows.AddRange(CreateFailurePathResultRows());
+
+            assemblyResultRows = failureMechanismAssemblyResultRows;
 
             dataGridViewControl.SetDataSource(assemblyResultRows);
             updateDataSource = false;
@@ -190,7 +182,7 @@ namespace Riskeer.Integration.Forms.Views
 
             UpdateAssemblyResultControls();
         }
-        
+
         private void ResetRefreshAssemblyResultsButton()
         {
             refreshAssemblyResultsButton.Enabled = false;
@@ -201,7 +193,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             UpdateTotalAssemblyGroupControl();
         }
-        
+
         private void UpdateTotalAssemblyGroupControl()
         {
             assessmentSectionAssemblyControl.ClearAssemblyResult();
@@ -223,7 +215,41 @@ namespace Riskeer.Integration.Forms.Views
             dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
         }
 
+        #region Failure path assembly result rows
+
+        private IEnumerable<FailureMechanismAssemblyResultRow> CreateFailurePathResultRows()
+        {
+            return AssessmentSection.SpecificFailurePaths
+                                    .Select(fp => new FailureMechanismAssemblyResultRow(fp,
+                                                                                        () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(fp, AssessmentSection)))
+                                    .ToArray();
+        }
+
+        #endregion
+
         #region Failure mechanism assembly result rows
+
+        private IEnumerable<FailureMechanismAssemblyResultRow> CreateFailureMechanismResultRows()
+        {
+            return new[]
+            {
+                CreatePipingFailureMechanismAssemblyResultRow(),
+                CreateGrassCoverErosionInwardsFailureMechanismAssemblyResultRow(),
+                CreateMacroStabilityInwardsFailureMechanismAssemblyResultRow(),
+                CreateMicrostabilityFailureMechanismAssemblyResultRow(),
+                CreateStabilityStoneCoverFailureMechanismAssemblyResultRow(),
+                CreateWaveImpactFailureMechanismAssemblyResultRow(),
+                CreateWaterPressureAsphaltCoverFailureMechanismAssemblyResultRow(),
+                CreateGrassCoverErosionOutwardsFailureMechanismAssemblyResultRow(),
+                CreateGrassCoverSlipOffOutwardsFailureMechanismAssemblyResultRow(),
+                CreateGrassCoverSlipOffInwardsFailureMechanismAssemblyResultRow(),
+                CreateHeightStructuresFailureMechanismAssemblyResultRow(),
+                CreateClosingStructuresFailureMechanismAssemblyResultRow(),
+                CreatePipingStructureFailureMechanismAssemblyResultRow(),
+                CreateStabilityPointsStructuresFailureMechanismAssemblyResultRow(),
+                CreateDuneErosionFailureMechanismAssemblyResultRow()
+            };
+        }
 
         private FailureMechanismAssemblyResultRow CreateClosingStructuresFailureMechanismAssemblyResultRow()
         {
@@ -323,7 +349,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             return new FailureMechanismAssemblyResultRow(failureMechanism, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, AssessmentSection));
         }
-        
+
         #endregion
     }
 }
