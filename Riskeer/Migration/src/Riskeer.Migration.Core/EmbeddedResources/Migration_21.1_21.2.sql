@@ -1278,6 +1278,15 @@ VALUES (
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
+[LogMessage])
+VALUES ("21.1",
+    "21.2",
+    "* De oorspronkelijke toetssporen zijn omgezet naar het nieuwe formaat.
+* Alle toetsoordelen zijn verwijderd.");
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+    [FromVersion],
+    [ToVersion],
     [LogMessage])
     WITH RECURSIVE
     FailureMechanismMessages
@@ -1404,15 +1413,6 @@ SELECT "21.1",
         SELECT COUNT() FROM [LOGDATABASE].MigrationLogEntity
         WHERE [FromVersion] = "21.1"
     ) IS 1;
-
-INSERT INTO [LOGDATABASE].MigrationLogEntity (
-    [FromVersion],
-    [ToVersion],
-    [LogMessage])
-SELECT "21.1",
-       "21.2",
-       "* De oorspronkelijke toetssporen zijn omgezet naar het nieuwe formaat.
-* Alle toetsoordelen zijn verwijderd.";
 
 DETACH LOGDATABASE;
 

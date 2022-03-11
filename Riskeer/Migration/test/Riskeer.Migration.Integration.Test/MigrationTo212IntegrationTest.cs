@@ -225,6 +225,9 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("21.1", newVersion, "Gevolgen van de migratie van versie 21.1 naar versie 21.2:"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("21.1", newVersion, "* De oorspronkelijke toetssporen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("21.1", newVersion, "* Traject: 'Traject 12-2 GEKB signaleringswaarde'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
@@ -241,9 +244,6 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("21.1", newVersion, "    - De waarden van de doelkans voor HBN en overslagdebiet zijn veranderd naar de trajectnorm."),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("21.1", newVersion, "* De oorspronkelijke toetssporen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd."),
                     messages[i]);
             }
         }

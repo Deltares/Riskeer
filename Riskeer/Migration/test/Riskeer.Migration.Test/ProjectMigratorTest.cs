@@ -523,6 +523,7 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("Gevolgen van de migratie van versie 19.1 naar versie 21.1:");
                 migrationLog.AppendLine("* Geen aanpassingen.");
                 migrationLog.AppendLine("Gevolgen van de migratie van versie 21.1 naar versie 21.2:");
+                migrationLog.AppendLine("* De oorspronkelijke toetssporen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd.");
                 migrationLog.AppendLine("* Traject: 'assessmentSection'");
                 migrationLog.AppendLine("  + Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'");
                 migrationLog.AppendLine("    - De waarden van de doelkans voor HBN en overslagdebiet zijn veranderd naar de trajectnorm.");
