@@ -3210,9 +3210,8 @@ FjcAAAAASUVORK5CYII=
 			id="d0b3af51-09f6-49fb-89b1-52aafe114381"
 			name="Row0"
 			refimgid="d45de4fe-b912-4673-9742-101cc0021c88"
-			refpath="/form[@controlname='BackgroundMapDataSelectionDialog']/container/container[@controlname='propertiesGroupBox']/container/container/container[@controlname='dataGridViewControl']/table/row[@accessiblename='Row 0']/cell[@accessiblename='Row 0']"
 			searchtimeout="30000ms">
-				/form[@controlname='BackgroundMapDataSelectionDialog']/?/?/container[@controlname='propertiesGroupBox']//table[@controlname='dataGridView']/row[@accessiblename='Row 0']/cell[@accessiblename='Row 0']
+				/form[@controlname='BackgroundMapDataSelectionDialog']/?/?/container[@controlname='propertiesGroupBox']//table[@controlname='dataGridView']/row[2]/cell[1]
 			</item>
 			<folder
 			addcaps="container,control,nativewindow"

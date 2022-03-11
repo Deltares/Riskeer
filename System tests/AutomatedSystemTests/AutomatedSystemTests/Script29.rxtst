@@ -1804,7 +1804,7 @@
 			ref="d035a6b8-ea2d-4376-8933-25d2336cd530"
 			type="Recording">
 				<description>
-					<![CDATA[Add control so that if no connection is possible, it fails f=gracefully]]>
+					<![CDATA[Add control so that if no connection is possible, it fails gracefully]]>
 				</description>
 			</testmodule>
 			<smartfoldernode
@@ -4703,7 +4703,7 @@
 		</DataSource>
 		<DataSource
 		id="9d2df0f0-220c-4783-8aea-8e4eb9843abd"
-		lastknownrowcount="60"
+		lastknownrowcount="45"
 		name="script29b_LayersInMapViewForTrajectAndFailureMechanisms"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4775,31 +4775,7 @@
 				</tr>
 				<tr>
 					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						STPH, STBI
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
+						Duidingsklasse per vak
 					</td>
 					<td>
 						STPH, STBI
@@ -4887,31 +4863,7 @@
 				</tr>
 				<tr>
 					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						GEKB
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
+						Duidingsklasse per vak
 					</td>
 					<td>
 						GEKB
@@ -4983,31 +4935,7 @@
 				</tr>
 				<tr>
 					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						HTKW, BSKW, STKWp
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
+						Duidingsklasse per vak
 					</td>
 					<td>
 						HTKW, BSKW, STKWp
@@ -5071,31 +4999,7 @@
 				</tr>
 				<tr>
 					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						ZST, AGK, GEBU
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
+						Duidingsklasse per vak
 					</td>
 					<td>
 						ZST, AGK, GEBU
@@ -5143,31 +5047,7 @@
 				</tr>
 				<tr>
 					<td>
-						Toetsoordeel&gt;Gecombineerd toetsoordeel
-					</td>
-					<td>
-						STMI, AWO, GABU, GABI, PKW, DA
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel eenvoudige toets
-					</td>
-					<td>
-						STMI, AWO, GABU, GABI, PKW, DA
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel gedetailleerde toets
-					</td>
-					<td>
-						STMI, GABU, GABI, PKW, DA
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Toetsoordeel&gt;Toetsoordeel toets op maat
+						Duidingsklasse per vak
 					</td>
 					<td>
 						STMI, AWO, GABU, GABI, PKW, DA
