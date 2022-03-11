@@ -62,7 +62,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [TestCaseSource(typeof(AssemblyGroupColorTestHelper), nameof(AssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
+        [TestCaseSource(typeof(FailureMechanismSectionAssemblyGroupColorTestHelper), nameof(FailureMechanismSectionAssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
         public void SetAssemblyGroupStyle_ValidFailureMechanismSectionAssemblyGroup_UpdatesColumnStyle(
             FailureMechanismSectionAssemblyGroup assemblyGroup, Color expectedColor)
         {

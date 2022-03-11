@@ -56,7 +56,7 @@ namespace Riskeer.Common.Forms.Helpers
 
             columnStateDefinition.Style = new CellStyle(
                 Color.FromKnownColor(KnownColor.ControlText),
-                AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroup));
+                FailureMechanismSectionAssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroup));
         }
     }
 }

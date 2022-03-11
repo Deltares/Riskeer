@@ -27,9 +27,9 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
-    /// Helper class for determining the colors belonging to various assembly groups.
+    /// Helper class for determining the colors belonging to various failure mechanism section assembly groups.
     /// </summary>
-    public static class AssemblyGroupColorHelper
+    public static class FailureMechanismSectionAssemblyGroupColorHelper
     {
         /// <summary>
         /// Gets the color for a failure mechanism section assembly group.

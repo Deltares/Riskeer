@@ -226,7 +226,7 @@ namespace Riskeer.Integration.Forms.Views
         private static CellStyle CreateCellStyle(FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup)
         {
             return new CellStyle(Color.FromKnownColor(KnownColor.ControlText),
-                                 AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(failureMechanismSectionAssemblyGroup));
+                                 FailureMechanismSectionAssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(failureMechanismSectionAssemblyGroup));
         }
 
         private static CellStyle CreateCellStyleForFailureMechanism(FailureMechanismSectionAssemblyGroup? failureMechanismSectionAssemblyGroup)

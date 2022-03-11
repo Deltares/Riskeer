@@ -87,7 +87,7 @@ namespace Riskeer.Integration.Forms.Views
                 FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(AssessmentSection).Select(
                     assemblyGroupBoundaries => new Tuple<AssemblyGroupBoundaries, Color, FailureMechanismSectionAssemblyGroup>(
                     assemblyGroupBoundaries,
-                    AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup),
+                    FailureMechanismSectionAssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup),
                     assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup)).ToArray();
 
             assemblyGroupsTable.SetData(dataToSet);

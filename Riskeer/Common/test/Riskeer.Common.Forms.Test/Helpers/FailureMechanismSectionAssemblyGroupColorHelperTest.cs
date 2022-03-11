@@ -30,7 +30,7 @@ using Riskeer.Common.Forms.TestUtil;
 namespace Riskeer.Common.Forms.Test.Helpers
 {
     [TestFixture]
-    public class AssemblyGroupColorHelperTest
+    public class FailureMechanismSectionAssemblyGroupColorHelperTest
     {
         [Test]
         public void GetFailureMechanismSectionAssemblyGroupColor_InvalidFailureMechanismSectionAssemblyGroup_ThrowsInvalidEnumArgumentException()
@@ -39,7 +39,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             const FailureMechanismSectionAssemblyGroup assemblyGroup = (FailureMechanismSectionAssemblyGroup) 99;
 
             // Call
-            void Call() => AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroup);
+            void Call() => FailureMechanismSectionAssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroup);
 
             // Assert
             var expectedMessage = $"The value of argument 'assemblyGroup' ({assemblyGroup}) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyGroup)}'.";
@@ -47,12 +47,12 @@ namespace Riskeer.Common.Forms.Test.Helpers
         }
 
         [Test]
-        [TestCaseSource(typeof(AssemblyGroupColorTestHelper), nameof(AssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
+        [TestCaseSource(typeof(FailureMechanismSectionAssemblyGroupColorTestHelper), nameof(FailureMechanismSectionAssemblyGroupColorTestHelper.FailureMechanismSectionAssemblyGroupColorCases))]
         public void GetFailureMechanismSectionAssemblyGroupColor_ValidFailureMechanismSectionAssemblyGroup_ReturnsExpectedColor(
             FailureMechanismSectionAssemblyGroup assemblyGroup, Color expectedColor)
         {
             // Call
-            Color color = AssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroup);
+            Color color = FailureMechanismSectionAssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroup);
 
             // Assert
             Assert.AreEqual(expectedColor, color);

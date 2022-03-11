@@ -27,9 +27,9 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.Common.Forms.TestUtil
 {
     /// <summary>
-    /// Class that can be used to assert the color corresponding to assembly groups.
+    /// Class that can be used to assert the color corresponding to failure mechanism section assembly groups.
     /// </summary>
-    public static class AssemblyGroupColorTestHelper
+    public static class FailureMechanismSectionAssemblyGroupColorTestHelper
     {
         /// <summary>
         /// Gets a collection of test cases to test the colors belonging to various
