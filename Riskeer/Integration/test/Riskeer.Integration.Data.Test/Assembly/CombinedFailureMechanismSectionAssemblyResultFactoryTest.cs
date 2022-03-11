@@ -166,21 +166,21 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(output[i].Section.SectionEnd, results[i].SectionEnd);
                 Assert.AreEqual(output[i].Section.FailureMechanismSectionAssemblyGroup, results[i].TotalResult);
 
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].Piping);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].GrassCoverErosionInwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].MacroStabilityInwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].Microstability);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].StabilityStoneCover);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].WaveImpactAsphaltCover);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].WaterPressureAsphaltCover);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].GrassCoverErosionOutwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].GrassCoverSlipOffOutwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].GrassCoverSlipOffInwards);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].HeightStructures);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].ClosingStructures);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].PipingStructure);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].StabilityPointStructures);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, results[i].DuneErosion);
+                Assert.IsNull(results[i].Piping);
+                Assert.IsNull(results[i].GrassCoverErosionInwards);
+                Assert.IsNull(results[i].MacroStabilityInwards);
+                Assert.IsNull(results[i].Microstability);
+                Assert.IsNull(results[i].StabilityStoneCover);
+                Assert.IsNull(results[i].WaveImpactAsphaltCover);
+                Assert.IsNull(results[i].WaterPressureAsphaltCover);
+                Assert.IsNull(results[i].GrassCoverErosionOutwards);
+                Assert.IsNull(results[i].GrassCoverSlipOffOutwards);
+                Assert.IsNull(results[i].GrassCoverSlipOffInwards);
+                Assert.IsNull(results[i].HeightStructures);
+                Assert.IsNull(results[i].ClosingStructures);
+                Assert.IsNull(results[i].PipingStructure);
+                Assert.IsNull(results[i].StabilityPointStructures);
+                Assert.IsNull(results[i].DuneErosion);
             }
         }
 
