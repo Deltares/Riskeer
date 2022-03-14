@@ -23,10 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
-using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
-using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Integration.Forms.Views
@@ -39,35 +37,6 @@ namespace Riskeer.Integration.Forms.Views
     {
         private const int probabilityIndex = 2;
         private readonly IFailurePath failureMechanism;
-        private readonly Func<double> performAssemblyFunc;
-
-        /// <summary>
-        /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailurePath"/> to wrap so that it can be displayed as a row.</param>
-        /// <param name="performAssemblyFunc">The <see cref="Func{T,T2}"/> used to assemble the result of a failure mechanism.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameters is <c>null</c>.</exception>
-        public FailureMechanismAssemblyResultRow(IFailurePath failureMechanism,
-                                                 Func<double> performAssemblyFunc)
-        {
-            if (failureMechanism == null)
-            {
-                throw new ArgumentNullException(nameof(failureMechanism));
-            }
-
-            if (performAssemblyFunc == null)
-            {
-                throw new ArgumentNullException(nameof(performAssemblyFunc));
-            }
-
-            this.failureMechanism = failureMechanism;
-            this.performAssemblyFunc = performAssemblyFunc;
-
-            ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
-            CreateColumnStateDefinitions();
-
-            Update();
-        }
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/> with a default probability and an error message.
@@ -125,67 +94,13 @@ namespace Riskeer.Integration.Forms.Views
         /// Gets the probability of the failure mechanism assembly.
         /// </summary>
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double Probability { get; private set; }
+        public double Probability { get; }
 
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
-
-        /// <summary>
-        /// Updates all data and states in the row.
-        /// </summary>
-        public void Update()
-        {
-            ResetErrorTexts();
-            UpdateAssemblyData();
-        }
-
-        private void UpdateAssemblyData()
-        {
-            FailurePathAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
-            if (assemblyResult.IsManualProbability())
-            {
-                TryGetManualAssemblyData(assemblyResult);
-            }
-            else
-            {
-                TryGetAssemblyData();
-            }
-        }
-
-        private void TryGetManualAssemblyData(FailurePathAssemblyResult assemblyResult)
-        {
-            string validationError = FailurePathAssemblyResultValidationHelper.GetValidationError(assemblyResult);
-            if (!string.IsNullOrEmpty(validationError))
-            {
-                Probability = double.NaN;
-                ColumnStateDefinitions[probabilityIndex].ErrorText = validationError;
-            }
-            else
-            {
-                Probability = assemblyResult.ManualFailurePathAssemblyProbability;
-            }
-        }
-
-        private void TryGetAssemblyData()
-        {
-            try
-            {
-                Probability = performAssemblyFunc();
-            }
-            catch (AssemblyException e)
-            {
-                Probability = double.NaN;
-                ColumnStateDefinitions[probabilityIndex].ErrorText = e.Message;
-            }
-        }
 
         private void CreateColumnStateDefinitions()
         {
             ColumnStateDefinitions.Add(probabilityIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
-        }
-
-        private void ResetErrorTexts()
-        {
-            ColumnStateDefinitions[probabilityIndex].ErrorText = string.Empty;
         }
     }
 }

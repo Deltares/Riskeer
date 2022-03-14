@@ -26,11 +26,11 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
-using Core.Common.Util.Extensions;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Forms.Helpers;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -60,8 +60,6 @@ namespace Riskeer.Integration.Forms.Views
         private readonly Observer assessmentSectionResultObserver;
         private IEnumerable<FailureMechanismAssemblyResultRow> assemblyResultRows;
 
-        private bool updateDataSource;
-
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultTotalView"/>.
         /// </summary>
@@ -79,20 +77,12 @@ namespace Riskeer.Integration.Forms.Views
 
             InitializeComponent();
 
-            assessmentSectionObserver = new Observer(() =>
-            {
-                updateDataSource = true;
-                EnableRefreshButton();
-            })
+            assessmentSectionObserver = new Observer(EnableRefreshButton)
             {
                 Observable = assessmentSection
             };
 
-            assessmentSectionResultObserver = new Observer(() =>
-            {
-                updateDataSource = true;
-                EnableRefreshButton();
-            })
+            assessmentSectionResultObserver = new Observer(EnableRefreshButton)
             {
                 Observable = new AssessmentSectionResultObserver(assessmentSection)
             };
@@ -163,22 +153,13 @@ namespace Riskeer.Integration.Forms.Views
             assemblyResultRows = failureMechanismAssemblyResultRows;
 
             dataGridViewControl.SetDataSource(assemblyResultRows);
-            updateDataSource = false;
         }
 
         private void RefreshAssemblyResults_Click(object sender, EventArgs e)
         {
             ResetRefreshAssemblyResultsButton();
 
-            if (updateDataSource)
-            {
-                SetDataSource();
-            }
-            else
-            {
-                assemblyResultRows.ForEachElementDo(row => row.Update());
-                dataGridViewControl.RefreshDataGridView();
-            }
+            SetDataSource();
 
             UpdateAssemblyResultControls();
         }
@@ -220,8 +201,7 @@ namespace Riskeer.Integration.Forms.Views
         private IEnumerable<FailureMechanismAssemblyResultRow> CreateFailurePathResultRows()
         {
             return AssessmentSection.SpecificFailurePaths
-                                    .Select(fp => new FailureMechanismAssemblyResultRow(fp,
-                                                                                        () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(fp, AssessmentSection)))
+                                    .Select(fp => CreateRow(fp, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(fp, AssessmentSection)))
                                     .ToArray();
         }
 
@@ -251,70 +231,96 @@ namespace Riskeer.Integration.Forms.Views
             };
         }
 
+        private static FailureMechanismAssemblyResultRow CreateRow(IFailurePath failureMechanism,
+                                                                   Func<double> performAssemblyFunc)
+        {
+            return failureMechanism.AssemblyResult.IsManualProbability()
+                       ? CreateManualAssemblyRow(failureMechanism)
+                       : CreateAutomaticAssemblyRow(failureMechanism, performAssemblyFunc);
+        }
+
+        private static FailureMechanismAssemblyResultRow CreateManualAssemblyRow(IFailurePath failureMechanism)
+        {
+            FailurePathAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
+
+            string validationError = FailurePathAssemblyResultValidationHelper.GetValidationError(assemblyResult);
+            return !string.IsNullOrEmpty(validationError)
+                       ? new FailureMechanismAssemblyResultRow(failureMechanism, validationError)
+                       : new FailureMechanismAssemblyResultRow(failureMechanism, assemblyResult.ManualFailurePathAssemblyProbability);
+        }
+
+        private static FailureMechanismAssemblyResultRow CreateAutomaticAssemblyRow(IFailurePath failureMechanism,
+                                                                                    Func<double> performAssemblyFunc)
+        {
+            try
+            {
+                double assemblyResult = performAssemblyFunc();
+                return new FailureMechanismAssemblyResultRow(failureMechanism, assemblyResult);
+            }
+            catch (AssemblyException e)
+            {
+                return new FailureMechanismAssemblyResultRow(failureMechanism, e.Message);
+            }
+        }
+
         private FailureMechanismAssemblyResultRow CreateClosingStructuresFailureMechanismAssemblyResultRow()
         {
             ClosingStructuresFailureMechanism closingStructures = AssessmentSection.ClosingStructures;
-            return new FailureMechanismAssemblyResultRow(closingStructures,
-                                                         () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(closingStructures, AssessmentSection));
+            return CreateRow(closingStructures, () => ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(closingStructures, AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateHeightStructuresFailureMechanismAssemblyResultRow()
         {
             HeightStructuresFailureMechanism heightStructures = AssessmentSection.HeightStructures;
-            return new FailureMechanismAssemblyResultRow(heightStructures,
-                                                         () => HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(heightStructures, AssessmentSection));
+            return CreateRow(heightStructures, () => HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(heightStructures, AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateStabilityPointsStructuresFailureMechanismAssemblyResultRow()
         {
             StabilityPointStructuresFailureMechanism stabilityPointStructures = AssessmentSection.StabilityPointStructures;
-            return new FailureMechanismAssemblyResultRow(stabilityPointStructures,
-                                                         () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(stabilityPointStructures, AssessmentSection));
+            return CreateRow(stabilityPointStructures, () => StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(stabilityPointStructures, AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateGrassCoverErosionInwardsFailureMechanismAssemblyResultRow()
         {
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwards = AssessmentSection.GrassCoverErosionInwards;
-            return new FailureMechanismAssemblyResultRow(grassCoverErosionInwards,
-                                                         () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverErosionInwards, AssessmentSection));
+            return CreateRow(grassCoverErosionInwards, () => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverErosionInwards, AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreatePipingFailureMechanismAssemblyResultRow()
         {
             PipingFailureMechanism piping = AssessmentSection.Piping;
-            return new FailureMechanismAssemblyResultRow(piping,
-                                                         () => PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(piping, AssessmentSection));
+            return CreateRow(piping, () => PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(piping, AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateMacroStabilityInwardsFailureMechanismAssemblyResultRow()
         {
             MacroStabilityInwardsFailureMechanism macroStabilityInwards = AssessmentSection.MacroStabilityInwards;
-            return new FailureMechanismAssemblyResultRow(macroStabilityInwards,
-                                                         () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(macroStabilityInwards, AssessmentSection));
+            return CreateRow(macroStabilityInwards, () => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(macroStabilityInwards, AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateStabilityStoneCoverFailureMechanismAssemblyResultRow()
         {
             StabilityStoneCoverFailureMechanism stabilityStoneCover = AssessmentSection.StabilityStoneCover;
-            return new FailureMechanismAssemblyResultRow(stabilityStoneCover, () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(stabilityStoneCover, AssessmentSection));
+            return CreateRow(stabilityStoneCover, () => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(stabilityStoneCover, AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateWaveImpactFailureMechanismAssemblyResultRow()
         {
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCover = AssessmentSection.WaveImpactAsphaltCover;
-            return new FailureMechanismAssemblyResultRow(waveImpactAsphaltCover, () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(waveImpactAsphaltCover, AssessmentSection));
+            return CreateRow(waveImpactAsphaltCover, () => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(waveImpactAsphaltCover, AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateGrassCoverErosionOutwardsFailureMechanismAssemblyResultRow()
         {
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwards = AssessmentSection.GrassCoverErosionOutwards;
-            return new FailureMechanismAssemblyResultRow(grassCoverErosionOutwards, () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverErosionOutwards, AssessmentSection));
+            return CreateRow(grassCoverErosionOutwards, () => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(grassCoverErosionOutwards, AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateDuneErosionFailureMechanismAssemblyResultRow()
         {
             DuneErosionFailureMechanism duneErosion = AssessmentSection.DuneErosion;
-            return new FailureMechanismAssemblyResultRow(duneErosion, () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(duneErosion, AssessmentSection));
+            return CreateRow(duneErosion, () => DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(duneErosion, AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateMicrostabilityFailureMechanismAssemblyResultRow()
@@ -340,14 +346,13 @@ namespace Riskeer.Integration.Forms.Views
         private FailureMechanismAssemblyResultRow CreatePipingStructureFailureMechanismAssemblyResultRow()
         {
             PipingStructureFailureMechanism pipingStructure = AssessmentSection.PipingStructure;
-            return new FailureMechanismAssemblyResultRow(pipingStructure,
-                                                         () => PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(pipingStructure, AssessmentSection));
+            return CreateRow(pipingStructure, () => PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(pipingStructure, AssessmentSection));
         }
 
         private FailureMechanismAssemblyResultRow CreateStandAloneFailureMechanismAssemblyResultRow<TFailureMechanism>(TFailureMechanism failureMechanism)
             where TFailureMechanism : IHasGeneralInput, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
-            return new FailureMechanismAssemblyResultRow(failureMechanism, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, AssessmentSection));
+            return CreateRow(failureMechanism, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, AssessmentSection));
         }
 
         #endregion
