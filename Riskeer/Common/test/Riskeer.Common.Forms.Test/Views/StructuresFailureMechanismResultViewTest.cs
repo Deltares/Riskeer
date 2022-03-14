@@ -63,7 +63,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             testForm.Dispose();
         }
-        
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -76,7 +76,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             using (var view = new StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, section) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, section) => double.NaN))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<AdoptableFailureMechanismSectionResult,
@@ -318,7 +318,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsTrue(rowsChanged);
             }
         }
-        
 
         private StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> ShowFailureMechanismResultsView(
             TestStructuresFailureMechanism failureMechanism)

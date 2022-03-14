@@ -571,7 +571,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Then
                 const string expectedErrorText = "Message";
-
                 Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
                 Assert.AreEqual(expectedErrorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
             }

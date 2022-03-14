@@ -126,12 +126,12 @@ namespace Riskeer.Common.Forms.Views
         /// </summary>
         public TFailureMechanism FailureMechanism { get; }
 
+        public object Data { get; set; }
+
         /// <summary>
         /// Gets the assessment section.
         /// </summary>
         protected IAssessmentSection AssessmentSection { get; }
-        
-        public object Data { get; set; }
 
         protected override void OnLoad(EventArgs e)
         {

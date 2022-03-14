@@ -106,9 +106,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -136,9 +137,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -164,9 +166,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -190,9 +193,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -209,7 +213,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            
+
             var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
             failurePathContext.Expect(fm => fm.WrappedData).Return(new GrassCoverSlipOffInwardsFailureMechanism());
             mocks.ReplayAll();
@@ -217,9 +221,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffInwardsFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);

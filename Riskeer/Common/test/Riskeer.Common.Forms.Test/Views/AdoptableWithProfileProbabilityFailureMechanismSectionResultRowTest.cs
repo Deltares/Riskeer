@@ -807,7 +807,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Then
             var expectedAssemblyResult = new DefaultFailureMechanismSectionAssemblyResult();
-
             Assert.AreEqual(expectedAssemblyResult.ProfileProbability, row.ProfileProbability);
             Assert.AreEqual(expectedAssemblyResult.SectionProbability, row.SectionProbability);
             Assert.AreEqual(expectedAssemblyResult.N, row.SectionN, row.SectionN.GetAccuracy());

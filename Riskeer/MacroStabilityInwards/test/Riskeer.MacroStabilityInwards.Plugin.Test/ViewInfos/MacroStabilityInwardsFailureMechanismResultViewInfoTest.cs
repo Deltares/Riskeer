@@ -156,8 +156,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection)
-            )
+            using (var view = new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);

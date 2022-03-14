@@ -583,7 +583,7 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.AreEqual(expectedAssemblyResult.SectionProbability, row.SectionProbability);
             Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup),
                             row.AssemblyGroup);
-            
+
             mocks.VerifyAll();
         }
 
@@ -623,7 +623,6 @@ namespace Riskeer.Common.Forms.Test.Views
             row.InitialFailureMechanismResultType = AdoptableInitialFailureMechanismResultType.Manual;
 
             // Then
-
             Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.SectionProbabilityIndex].ErrorText);
             Assert.AreEqual(errorText, columnStateDefinitions[ConstructionProperties.AssemblyGroupIndex].ErrorText);
 

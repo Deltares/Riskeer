@@ -105,9 +105,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new MicrostabilityFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<MicrostabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -135,9 +136,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new MicrostabilityFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<MicrostabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -163,9 +165,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<MicrostabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -189,9 +192,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<MicrostabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -215,9 +219,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new MicrostabilityFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<MicrostabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);

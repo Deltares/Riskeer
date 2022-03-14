@@ -102,9 +102,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -131,9 +132,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -158,9 +160,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -178,12 +181,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -201,12 +205,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new StabilityStoneCoverFailureMechanism());
@@ -229,9 +234,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -254,9 +260,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<StabilityStoneCoverFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN,
-                fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN,
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);

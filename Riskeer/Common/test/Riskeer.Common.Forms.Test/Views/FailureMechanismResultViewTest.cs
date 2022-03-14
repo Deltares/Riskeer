@@ -139,7 +139,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism.SectionResults, failureMechanism))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Assert
                 Assert.AreEqual(2, view.Controls.Count);
@@ -181,7 +181,7 @@ namespace Riskeer.Common.Forms.Test.Views
             const int stringColumnIndex = 1;
 
             // Call
-            using (ShowFailureMechanismResultsView(new ObservableList<FailureMechanismSectionResult>()))
+            using (ShowFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>()))
             {
                 // Assert
                 DataGridView dataGridView = GetDataGridView();
@@ -204,7 +204,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            using (ShowFailureMechanismResultsView(failureMechanism.SectionResults))
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults))
             {
                 // Assert
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
@@ -238,7 +238,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 return double.NaN;
             };
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults, performFailureMechanismAssemblyFunc))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(sectionResults, performFailureMechanismAssemblyFunc))
             {
                 var rowsChanged = false;
                 DataGridView dataGridView = GetDataGridView();
@@ -270,7 +270,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 return double.NaN;
             };
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults, performFailureMechanismAssemblyFunc))
+            using (ShowFailureMechanismResultView(sectionResults, performFailureMechanismAssemblyFunc))
             {
                 DataGridView dataGridView = GetDataGridView();
 
@@ -305,7 +305,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 return double.NaN;
             };
 
-            using (ShowFailureMechanismResultsView(sectionResults, performFailureMechanismAssemblyFunc))
+            using (ShowFailureMechanismResultView(sectionResults, performFailureMechanismAssemblyFunc))
             {
                 var invalidated = false;
                 DataGridView dataGridView = GetDataGridView();
@@ -337,7 +337,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult
             };
 
-            using (ShowFailureMechanismResultsView(sectionResults))
+            using (ShowFailureMechanismResultView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
@@ -368,7 +368,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult
             };
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(sectionResults))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
@@ -401,7 +401,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult2
             };
 
-            using (ShowFailureMechanismResultsView(sectionResults))
+            using (ShowFailureMechanismResultView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
                 var row1 = (TestRow) dataGridView.Rows[0].DataBoundItem;
@@ -433,7 +433,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 FailureMechanismSectionResultTestFactory.CreateFailureMechanismSectionResult()
             };
 
-            using (ShowFailureMechanismResultsView(sectionResults))
+            using (ShowFailureMechanismResultView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
@@ -461,7 +461,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult
             };
 
-            using (ShowFailureMechanismResultsView(sectionResults))
+            using (ShowFailureMechanismResultView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
@@ -490,7 +490,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 sectionResult
             };
 
-            using (ShowFailureMechanismResultsView(sectionResults))
+            using (ShowFailureMechanismResultView(sectionResults))
             {
                 DataGridView dataGridView = GetDataGridView();
                 var row = (TestRow) dataGridView.Rows[0].DataBoundItem;
@@ -530,27 +530,27 @@ namespace Riskeer.Common.Forms.Test.Views
             return TypeUtils.GetField<ErrorProvider>(view, "errorProvider");
         }
 
-        private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
+        private TestFailureMechanismResultView ShowFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults)
         {
-            return ShowFailureMechanismResultsView(sectionResults, new TestFailureMechanism());
+            return ShowFailureMechanismResultView(sectionResults, new TestFailureMechanism());
         }
 
-        private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
-                                                                               Func<TestFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
+        private TestFailureMechanismResultView ShowFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
+                                                                              Func<TestFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
         {
-            return ShowFailureMechanismResultsView(sectionResults, new TestFailureMechanism(), new AssessmentSectionStub(), performFailureMechanismAssemblyFunc);
+            return ShowFailureMechanismResultView(sectionResults, new TestFailureMechanism(), new AssessmentSectionStub(), performFailureMechanismAssemblyFunc);
         }
 
-        private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
-                                                                               TestFailureMechanism failureMechanism)
+        private TestFailureMechanismResultView ShowFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
+                                                                              TestFailureMechanism failureMechanism)
         {
-            return ShowFailureMechanismResultsView(sectionResults, failureMechanism, new AssessmentSectionStub(), (fm, ass) => double.NaN);
+            return ShowFailureMechanismResultView(sectionResults, failureMechanism, new AssessmentSectionStub(), (fm, ass) => double.NaN);
         }
 
-        private TestFailureMechanismResultView ShowFailureMechanismResultsView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
-                                                                               TestFailureMechanism failureMechanism,
-                                                                               IAssessmentSection assessmentSection,
-                                                                               Func<TestFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
+        private TestFailureMechanismResultView ShowFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
+                                                                              TestFailureMechanism failureMechanism,
+                                                                              IAssessmentSection assessmentSection,
+                                                                              Func<TestFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
         {
             var failureMechanismResultView = new TestFailureMechanismResultView(sectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc);
             testForm.Controls.Add(failureMechanismResultView);
@@ -612,7 +612,7 @@ namespace Riskeer.Common.Forms.Test.Views
         # region Assembly
 
         [Test]
-        public void FailureMechanismResultsView_AllDataSet_PassesInputToPerformAssemblyFunc()
+        public void FailureMechanismResultView_AllDataSet_PassesInputToPerformAssemblyFunc()
         {
             // Setup
             var mocks = new MockRepository();
@@ -631,7 +631,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // Call
-            using (ShowFailureMechanismResultsView(new ObservableList<FailureMechanismSectionResult>(), failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc))
+            using (ShowFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(), failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc))
             {
                 // Assert
                 Assert.AreSame(failureMechanism, failureMechanismInput);
@@ -640,7 +640,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         [TestCase(double.NaN, "-")]
         [TestCase(double.NegativeInfinity, "-Oneindig")]
@@ -654,7 +654,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
@@ -664,7 +664,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // When
-            using (ShowFailureMechanismResultsView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => assemblyResult))
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => assemblyResult))
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
@@ -698,7 +698,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // When
             using (TestFailureMechanismResultView view =
-                ShowFailureMechanismResultsView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => throw new AssemblyException(exceptionMessage)))
+                   ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => throw new AssemblyException(exceptionMessage)))
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
@@ -747,7 +747,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 return double.NaN;
             };
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism.SectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc))
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
@@ -778,7 +778,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
@@ -788,7 +788,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 }
             };
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => throw new AssemblyException(exceptionMessage)))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => throw new AssemblyException(exceptionMessage)))
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
@@ -828,7 +828,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
             failureMechanism.AssemblyResult.Attach(observer);
 
-            using (ShowFailureMechanismResultsView(failureMechanism.SectionResults, failureMechanism))
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
 
@@ -878,7 +878,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 }
             };
 
-            using (ShowFailureMechanismResultsView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => assemblyResult))
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => assemblyResult))
             {
                 // Precondition
                 TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
@@ -928,7 +928,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
             failureMechanism.AssemblyResult.Attach(observer);
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism.SectionResults, failureMechanism))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Precondition
                 TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
@@ -974,7 +974,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
             failureMechanism.AssemblyResult.Attach(observer);
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism.SectionResults, failureMechanism))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Precondition
                 TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
@@ -1022,7 +1022,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 }
             };
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism.SectionResults, failureMechanism))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Precondition
                 var textBoxTester = new TextBoxTester("failurePathAssemblyProbabilityTextBox");
@@ -1060,7 +1060,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 }
             };
 
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultsView(failureMechanism.SectionResults, failureMechanism))
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Precondition
                 var textBoxTester = new TextBoxTester("failurePathAssemblyProbabilityTextBox");
@@ -1100,7 +1100,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 }
             };
 
-            using (ShowFailureMechanismResultsView(failureMechanism.SectionResults, failureMechanism))
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 var textBoxTester = new ControlTester("failurePathAssemblyProbabilityTextBox");
                 const Keys keyData = Keys.Escape;

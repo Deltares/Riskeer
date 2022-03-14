@@ -104,7 +104,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingStructureFailureMechanism();
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -131,7 +131,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingStructureFailureMechanism();
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -157,7 +157,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -181,7 +181,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -205,7 +205,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new PipingStructureFailureMechanism();
 
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);

@@ -104,7 +104,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -132,7 +132,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -159,7 +159,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -182,7 +182,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -205,7 +205,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new StabilityPointStructuresFailureMechanism());
@@ -229,7 +229,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var context = new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -253,7 +253,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var context = new StabilityPointStructuresFailurePathContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
