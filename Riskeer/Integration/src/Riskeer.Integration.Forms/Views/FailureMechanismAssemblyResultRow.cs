@@ -70,6 +70,48 @@ namespace Riskeer.Integration.Forms.Views
         }
 
         /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/> with a default probability and an error message.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="IFailurePath"/> to wrap so that it can be displayed as a row.</param>
+        /// <param name="errorMessage">The error message to display.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameters is <c>null</c>.</exception>
+        public FailureMechanismAssemblyResultRow(IFailurePath failureMechanism,
+                                                 string errorMessage)
+            : this(failureMechanism, double.NaN, errorMessage) {}
+
+        /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/> with a specified probability.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="IFailurePath"/> to wrap so that it can be displayed as a row.</param>
+        /// <param name="failureMechanismAssemblyResult">The assembly result of the failure mechanism.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="failureMechanism"/> is <c>null</c>.</exception>
+        public FailureMechanismAssemblyResultRow(IFailurePath failureMechanism,
+                                                 double failureMechanismAssemblyResult)
+            : this(failureMechanism, failureMechanismAssemblyResult, string.Empty) {}
+
+        private FailureMechanismAssemblyResultRow(IFailurePath failureMechanism,
+                                                  double failureMechanismAssemblyResult,
+                                                  string errorMessage)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanism));
+            }
+
+            if (errorMessage == null)
+            {
+                throw new ArgumentNullException(nameof(errorMessage));
+            }
+
+            this.failureMechanism = failureMechanism;
+            Probability = failureMechanismAssemblyResult;
+
+            ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
+            CreateColumnStateDefinitions();
+            ColumnStateDefinitions[probabilityIndex].ErrorText = errorMessage;
+        }
+
+        /// <summary>
         /// Gets the name of the failure mechanism.
         /// </summary>
         public string Name => failureMechanism.Name;

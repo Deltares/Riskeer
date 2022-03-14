@@ -39,7 +39,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int probabilityIndex = 2;
 
         [Test]
-        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ConstructorWithErrorMessage_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new FailureMechanismAssemblyResultRow(null, () => double.NaN);
@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_PerformAssemblyFuncNull_ThrowsArgumentNullException()
+        public void ConstructorWithErrorMessage_ErrorMessageNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -62,7 +62,91 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("performAssemblyFunc", exception.ParamName);
+            Assert.AreEqual("errorMessage", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("")]
+        [TestCase("   ")]
+        [TestCase("I am an errorMessage")]
+        public void ConstructorWithErrorMessage_WithArguments_ExpectedProperties(string errorMessage)
+        {
+            // Setup
+            const string failureMechanismName = "Failure Mechanism Name";
+            const string failureMechanismCode = "Code";
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailurePath>();
+            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
+            failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
+            mocks.ReplayAll();
+
+            // Call
+            var row = new FailureMechanismAssemblyResultRow(failureMechanism, errorMessage);
+
+            // Assert
+            Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
+
+            TestHelper.AssertTypeConverter<FailureMechanismAssemblyResultRow,
+                NoProbabilityValueDoubleConverter>(
+                nameof(FailureMechanismAssemblyResultRow.Probability));
+
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(1, columnStateDefinitions.Count);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, probabilityIndex);
+            Assert.AreEqual(errorMessage, row.ColumnStateDefinitions[probabilityIndex].ErrorText);
+
+            Assert.AreEqual(failureMechanismName, row.Name);
+            Assert.AreEqual(failureMechanismCode, row.Code);
+            Assert.IsNaN(row.Probability);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ConstructorWithFailureMechanismAssemblyResult_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+
+            // Call
+            void Call() => new FailureMechanismAssemblyResultRow(null, random.NextDouble());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ConstructorWithFailureMechanismAssemblyResult_WithArguments_ExpectedProperties()
+        {
+            // Setup
+            const string failureMechanismName = "Failure Mechanism Name";
+            const string failureMechanismCode = "Code";
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailurePath>();
+            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
+            failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
+            mocks.ReplayAll();
+
+            var random = new Random(21);
+            double assemblyResult = random.NextDouble();
+
+            // Call
+            var row = new FailureMechanismAssemblyResultRow(failureMechanism, assemblyResult);
+
+            // Assert
+            IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
+            Assert.AreEqual(1, columnStateDefinitions.Count);
+            DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, probabilityIndex);
+            Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
+
+            Assert.AreEqual(failureMechanismName, row.Name);
+            Assert.AreEqual(failureMechanismCode, row.Code);
+            Assert.AreEqual(assemblyResult, row.Probability);
+
             mocks.VerifyAll();
         }
 
