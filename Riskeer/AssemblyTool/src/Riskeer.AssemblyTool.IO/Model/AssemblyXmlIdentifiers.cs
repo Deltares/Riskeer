@@ -208,9 +208,14 @@ namespace Riskeer.AssemblyTool.IO.Model
         public const string FailureMechanismSectionType = "typeWaterkeringsectie";
 
         /// <summary>
-        /// Identifier for a failure mechanism group element.
+        /// Identifier for a failure mechanism type element.
         /// </summary>
         public const string FailureMechanismType = "typeFaalmechanisme";
+
+        /// <summary>
+        /// Identifier for a generic failure mechanism element.
+        /// </summary>
+        public const string GenericFailureMechanism = "generiekFaalmechanisme";
 
         /// <summary>
         /// Identifier for a feature member element.

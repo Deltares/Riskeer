@@ -23,14 +23,15 @@
     </asm:Beoordelingsproces>
     <asm:Veiligheidsoordeel VeiligheidsoordeelID="veiligheidsoordeel_1" BeoordelingsprocesIDRef="beoordelingsproces1">
       <asm:veiligheidsoordeel>
-        <asm:assemblagemethode>WBI-2C-1</asm:assemblagemethode>
+        <asm:assemblagemethode>WBI-2B-1</asm:assemblagemethode>
         <asm:categorie>B</asm:categorie>
         <asm:faalkans>0.00068354</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:veiligheidsoordeel>
     </asm:Veiligheidsoordeel>
     <asm:Faalmechanisme FaalmechanismeID="toetsspoorGABI" VeiligheidsoordeelIDRef="veiligheidsoordeel_1">
-      <asm:typeFaalmechanisme>GABI</asm:typeFaalmechanisme>
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>GABI</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
         <asm:faalkans>0.08419</asm:faalkans>

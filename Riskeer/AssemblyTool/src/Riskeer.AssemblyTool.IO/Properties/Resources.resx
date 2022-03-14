@@ -132,4 +132,7 @@
   <data name="CoordinateSystemName" xml:space="preserve">
     <value>EPSG:28992</value>
   </data>
+  <data name="FailureMechanismType_Generic_DisplayName" xml:space="preserve">
+    <value>GENRK</value>
+  </data>
 </root>

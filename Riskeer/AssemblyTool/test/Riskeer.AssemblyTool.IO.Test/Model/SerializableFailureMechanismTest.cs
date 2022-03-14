@@ -43,7 +43,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.IsNull(failureMechanism.Id);
             Assert.IsNull(failureMechanism.TotalAssemblyResultId);
             Assert.IsNull(failureMechanism.FailureMechanismAssemblyResult);
-            Assert.AreEqual((SerializableFailureMechanismType) 0, failureMechanism.FailureMechanismType);
+            Assert.AreEqual((SerializableFailureMechanismType) 0, failureMechanism.GenericFailureMechanism);
+            Assert.AreEqual("GENRK", failureMechanism.FailureMechanismType);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanism), "Faalmechanisme");
 
@@ -52,6 +53,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanism>(
                 nameof(SerializableFailureMechanism.TotalAssemblyResultId), "VeiligheidsoordeelIDRef");
 
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
+                nameof(SerializableFailureMechanism.GenericFailureMechanism), "generiekFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
                 nameof(SerializableFailureMechanism.FailureMechanismType), "typeFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
@@ -127,7 +130,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             // Assert
             Assert.AreEqual(id, failureMechanism.Id);
             Assert.AreEqual(totalResultId, failureMechanism.TotalAssemblyResultId);
-            Assert.AreEqual(type, failureMechanism.FailureMechanismType);
+            Assert.AreEqual(type, failureMechanism.GenericFailureMechanism);
             Assert.AreSame(assemblyResult, failureMechanism.FailureMechanismAssemblyResult);
         }
     }

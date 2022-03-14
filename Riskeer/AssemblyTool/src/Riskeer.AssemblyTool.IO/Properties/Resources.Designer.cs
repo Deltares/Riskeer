@@ -109,6 +109,15 @@ namespace Riskeer.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GENRK.
+        /// </summary>
+        internal static string FailureMechanismType_Generic_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismType_Generic_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to VOLLDG.
         /// </summary>
         internal static string FullAssembly {

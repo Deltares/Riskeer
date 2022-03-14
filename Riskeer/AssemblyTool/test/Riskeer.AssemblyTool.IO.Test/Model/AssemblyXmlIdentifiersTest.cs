@@ -70,6 +70,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.AreEqual("VakindelingIDRef", AssemblyXmlIdentifiers.FailureMechanismSectionCollectionIdRef);
             Assert.AreEqual("typeWaterkeringsectie", AssemblyXmlIdentifiers.FailureMechanismSectionType);
             Assert.AreEqual("typeFaalmechanisme", AssemblyXmlIdentifiers.FailureMechanismType);
+            Assert.AreEqual("generiekFaalmechanisme", AssemblyXmlIdentifiers.GenericFailureMechanism);
             Assert.AreEqual("featureMember", AssemblyXmlIdentifiers.FeatureMember);
 
             Assert.AreEqual("posList", AssemblyXmlIdentifiers.Geometry);

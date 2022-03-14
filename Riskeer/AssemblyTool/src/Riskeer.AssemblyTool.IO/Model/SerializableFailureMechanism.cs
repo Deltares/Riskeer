@@ -24,6 +24,7 @@ using System.Xml.Serialization;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
+using Riskeer.AssemblyTool.IO.Properties;
 
 namespace Riskeer.AssemblyTool.IO.Model
 {
@@ -36,7 +37,10 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanism"/>.
         /// </summary>
-        public SerializableFailureMechanism() {}
+        public SerializableFailureMechanism()
+        {
+            FailureMechanismType = Resources.FailureMechanismType_Generic_DisplayName;
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanism"/>.
@@ -69,7 +73,7 @@ namespace Riskeer.AssemblyTool.IO.Model
 
             Id = id;
             TotalAssemblyResultId = totalAssemblyResult.Id;
-            FailureMechanismType = failureMechanismType;
+            GenericFailureMechanism = failureMechanismType;
             FailureMechanismAssemblyResult = failureMechanismAssemblyResult;
         }
 
@@ -89,7 +93,13 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// Gets or sets the failure mechanism type.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismType)]
-        public SerializableFailureMechanismType FailureMechanismType { get; set; }
+        public string FailureMechanismType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the failure mechanism type.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.GenericFailureMechanism)]
+        public SerializableFailureMechanismType GenericFailureMechanism { get; set; }
 
         /// <summary>
         /// Gets or sets the total failure mechanism assembly result.
