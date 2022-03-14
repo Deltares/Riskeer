@@ -137,6 +137,8 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             {
                 if (Directory.Exists(tempFolderPath))
                 {
+                    ForceZipFileToReleaseAllFileHandles();
+
                     Directory.Delete(tempFolderPath, true);
                 }
             }
@@ -227,6 +229,12 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         {
             var fileNameWithExtension = $"{fileName}.{fileExtension}";
             return Path.Combine(currentFolderPath, fileNameWithExtension);
+        }
+
+        private static void ForceZipFileToReleaseAllFileHandles()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
     }
 }
