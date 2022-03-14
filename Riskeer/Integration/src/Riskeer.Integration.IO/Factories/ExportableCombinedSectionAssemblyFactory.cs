@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data.Assembly;
@@ -81,24 +82,34 @@ namespace Riskeer.Integration.IO.Factories
         private static IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> CreateFailureMechanismCombinedSectionAssemblyResults(
             CombinedFailureMechanismSectionAssemblyResult assemblyResult)
         {
-            return new[]
+            Tuple<FailureMechanismSectionAssemblyGroup?, ExportableFailureMechanismType>[] failureMechanisms =
             {
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.Piping, ExportableFailureMechanismType.STPH),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.GrassCoverErosionInwards, ExportableFailureMechanismType.GEKB),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.MacroStabilityInwards, ExportableFailureMechanismType.STBI),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.Microstability, ExportableFailureMechanismType.STMI),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.StabilityStoneCover, ExportableFailureMechanismType.ZST),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.WaveImpactAsphaltCover, ExportableFailureMechanismType.AGK),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.WaterPressureAsphaltCover, ExportableFailureMechanismType.AWO),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.GrassCoverErosionOutwards, ExportableFailureMechanismType.GEBU),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.GrassCoverSlipOffOutwards, ExportableFailureMechanismType.GABU),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.GrassCoverSlipOffInwards, ExportableFailureMechanismType.GABI),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.HeightStructures, ExportableFailureMechanismType.HTKW),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.ClosingStructures, ExportableFailureMechanismType.BSKW),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.PipingStructure, ExportableFailureMechanismType.PKW),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.StabilityPointStructures, ExportableFailureMechanismType.STKWp),
-                CreateExportableFailureMechanismCombinedSectionAssemblyResult(assemblyResult.DuneErosion, ExportableFailureMechanismType.DA)
+                CreateTuple(assemblyResult.Piping, ExportableFailureMechanismType.STPH),
+                CreateTuple(assemblyResult.GrassCoverErosionInwards, ExportableFailureMechanismType.GEKB),
+                CreateTuple(assemblyResult.MacroStabilityInwards, ExportableFailureMechanismType.STBI),
+                CreateTuple(assemblyResult.Microstability, ExportableFailureMechanismType.STMI),
+                CreateTuple(assemblyResult.StabilityStoneCover, ExportableFailureMechanismType.ZST),
+                CreateTuple(assemblyResult.WaveImpactAsphaltCover, ExportableFailureMechanismType.AGK),
+                CreateTuple(assemblyResult.WaterPressureAsphaltCover, ExportableFailureMechanismType.AWO),
+                CreateTuple(assemblyResult.GrassCoverErosionOutwards, ExportableFailureMechanismType.GEBU),
+                CreateTuple(assemblyResult.GrassCoverSlipOffOutwards, ExportableFailureMechanismType.GABU),
+                CreateTuple(assemblyResult.GrassCoverSlipOffInwards, ExportableFailureMechanismType.GABI),
+                CreateTuple(assemblyResult.HeightStructures, ExportableFailureMechanismType.HTKW),
+                CreateTuple(assemblyResult.ClosingStructures, ExportableFailureMechanismType.BSKW),
+                CreateTuple(assemblyResult.PipingStructure, ExportableFailureMechanismType.PKW),
+                CreateTuple(assemblyResult.StabilityPointStructures, ExportableFailureMechanismType.STKWp),
+                CreateTuple(assemblyResult.DuneErosion, ExportableFailureMechanismType.DA)
             };
+
+            return failureMechanisms.Where(fm => fm.Item1.HasValue)
+                                    .Select(fm => CreateExportableFailureMechanismCombinedSectionAssemblyResult(fm.Item1.Value, fm.Item2))
+                                    .ToArray();
+        }
+
+        private static Tuple<FailureMechanismSectionAssemblyGroup?, ExportableFailureMechanismType> CreateTuple(
+            FailureMechanismSectionAssemblyGroup? assemblyResultGroup, ExportableFailureMechanismType exportableFailureMechanismType)
+        {
+            return new Tuple<FailureMechanismSectionAssemblyGroup?, ExportableFailureMechanismType>(assemblyResultGroup, exportableFailureMechanismType);
         }
 
         private static ExportableFailureMechanismCombinedSectionAssemblyResult CreateExportableFailureMechanismCombinedSectionAssemblyResult(

@@ -62,7 +62,9 @@ namespace Riskeer.Integration.IO.Test.Factories
         }
 
         [Test]
-        public void CreateExportableCombinedSectionAssemblyCollection_WithAssemblyResults_ReturnsExportableCombinedSectionAssemblyCollection()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void CreateExportableCombinedSectionAssemblyCollection_WithAssemblyResults_ReturnsExportableCombinedSectionAssemblyCollection(bool hasAssemblyGroupResults)
         {
             // Setup
             var referenceLine = new ReferenceLine();
@@ -73,8 +75,8 @@ namespace Riskeer.Integration.IO.Test.Factories
             });
             CombinedFailureMechanismSectionAssemblyResult[] assemblyResults =
             {
-                CreateCombinedFailureMechanismSectionAssemblyResult(21),
-                CreateCombinedFailureMechanismSectionAssemblyResult(22)
+                CreateCombinedFailureMechanismSectionAssemblyResult(21, hasAssemblyGroupResults),
+                CreateCombinedFailureMechanismSectionAssemblyResult(22, hasAssemblyGroupResults)
             };
 
             // Call
@@ -82,10 +84,10 @@ namespace Riskeer.Integration.IO.Test.Factories
                 ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, referenceLine);
 
             // Assert
-            AssertCombinedFailureMechanismSectionAssemblyResults(assemblyResults, exportableCombinedSectionAssemblies, referenceLine);
+            AssertCombinedFailureMechanismSectionAssemblyResults(assemblyResults, exportableCombinedSectionAssemblies, referenceLine, hasAssemblyGroupResults);
         }
 
-        private static CombinedFailureMechanismSectionAssemblyResult CreateCombinedFailureMechanismSectionAssemblyResult(int seed)
+        private static CombinedFailureMechanismSectionAssemblyResult CreateCombinedFailureMechanismSectionAssemblyResult(int seed, bool hasAssemblyGroupResults)
         {
             var random = new Random(seed);
 
@@ -94,27 +96,34 @@ namespace Riskeer.Integration.IO.Test.Factories
                 random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
                 new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
                 {
-                    Piping = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    GrassCoverErosionInwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    MacroStabilityInwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    Microstability = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    StabilityStoneCover = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    WaveImpactAsphaltCover = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    WaterPressureAsphaltCover = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    GrassCoverErosionOutwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    GrassCoverSlipOffOutwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    GrassCoverSlipOffInwards = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    HeightStructures = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    ClosingStructures = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    PipingStructure = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    StabilityPointStructures = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                    DuneErosion = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()
+                    Piping = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    GrassCoverErosionInwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    MacroStabilityInwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    Microstability = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    StabilityStoneCover = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    WaveImpactAsphaltCover = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    WaterPressureAsphaltCover = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    GrassCoverErosionOutwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    GrassCoverSlipOffOutwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    GrassCoverSlipOffInwards = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    HeightStructures = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    ClosingStructures = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    PipingStructure = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    StabilityPointStructures = GetAssemblyGroup(random, hasAssemblyGroupResults),
+                    DuneErosion = GetAssemblyGroup(random, hasAssemblyGroupResults)
                 });
+        }
+
+        private static FailureMechanismSectionAssemblyGroup? GetAssemblyGroup(Random random, bool hasAssemblyGroupResults)
+        {
+            return hasAssemblyGroupResults
+                       ? random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()
+                       : (FailureMechanismSectionAssemblyGroup?) null;
         }
 
         private static void AssertCombinedFailureMechanismSectionAssemblyResults(IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults,
                                                                                  IEnumerable<ExportableCombinedSectionAssembly> exportableCombinedSectionAssemblies,
-                                                                                 ReferenceLine referenceLine)
+                                                                                 ReferenceLine referenceLine, bool hasAssemblyGroupResults)
         {
             int expectedNrOfSections = assemblyResults.Count();
             Assert.AreEqual(expectedNrOfSections, exportableCombinedSectionAssemblies.Count());
@@ -125,7 +134,9 @@ namespace Riskeer.Integration.IO.Test.Factories
                 ExportableCombinedSectionAssembly exportableCombinedSectionAssembly = exportableCombinedSectionAssemblies.ElementAt(i);
 
                 AssertExportableCombinedFailureMechanismSection(combinedFailureMechanismSectionAssemblyResult, exportableCombinedSectionAssembly.Section, referenceLine);
-                AssertExportableCombinedFailureMechanismSectionResult(combinedFailureMechanismSectionAssemblyResult, exportableCombinedSectionAssembly.Section, exportableCombinedSectionAssembly);
+                AssertExportableCombinedFailureMechanismSectionResult(
+                    combinedFailureMechanismSectionAssemblyResult, exportableCombinedSectionAssembly.Section, exportableCombinedSectionAssembly,
+                    hasAssemblyGroupResults);
             }
         }
 
@@ -147,13 +158,21 @@ namespace Riskeer.Integration.IO.Test.Factories
 
         private static void AssertExportableCombinedFailureMechanismSectionResult(CombinedFailureMechanismSectionAssemblyResult expectedSection,
                                                                                   ExportableCombinedFailureMechanismSection actualSection,
-                                                                                  ExportableCombinedSectionAssembly actualSectionResult)
+                                                                                  ExportableCombinedSectionAssembly actualSectionResult,
+                                                                                  bool hasAssemblyGroupResults)
         {
             Assert.AreSame(actualSection, actualSectionResult.Section);
             Assert.AreEqual(expectedSection.TotalResult, actualSectionResult.CombinedSectionAssemblyResult.AssemblyGroup);
             Assert.AreEqual(ExportableAssemblyMethod.WBI3C1, actualSectionResult.CombinedSectionAssemblyResult.AssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismCombinedSectionResults = actualSectionResult.FailureMechanismResults;
+
+            if (!hasAssemblyGroupResults)
+            {
+                CollectionAssert.IsEmpty(failureMechanismCombinedSectionResults);
+                return;
+            }
+
             Assert.AreEqual(15, failureMechanismCombinedSectionResults.Count());
             Assert.IsTrue(failureMechanismCombinedSectionResults.All(result => result.SectionAssemblyResult.AssemblyMethod == ExportableAssemblyMethod.WBI3B1));
 
