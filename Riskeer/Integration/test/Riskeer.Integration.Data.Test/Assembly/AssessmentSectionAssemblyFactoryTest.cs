@@ -58,7 +58,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSection_WithAssessmentSectionContainingFailurePathsWithRandomInAssemblyState_SetsInputOnCalculator()
+        public void AssembleAssessmentSection_AssessmentSectionContainingFailurePathsWithRandomInAssemblyState_SetsInputOnCalculator()
         {
             // Setup
             AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailurePathsWithRandomInAssemblyState();
@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void AssembleAssessmentSection_AssemblyRan_ReturnsOutput()
         {
             // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
+            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailurePathsWithInAssemblyTrue();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -120,7 +120,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSection());
+                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSectionContainingFailurePathsWithInAssemblyTrue());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
@@ -141,7 +141,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSection());
+                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSectionContainingFailurePathsWithInAssemblyTrue());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
@@ -295,7 +295,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
         #region Helpers
 
-        private static AssessmentSection CreateAssessmentSection()
+        private static AssessmentSection CreateAssessmentSectionContainingFailurePathsWithInAssemblyTrue()
         {
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
@@ -309,11 +309,12 @@ namespace Riskeer.Integration.Data.Test.Assembly
         {
             var random = new Random(21);
 
-            AssessmentSection assessmentSection = CreateAssessmentSection();
+            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailurePathsWithInAssemblyTrue();
 
-            IEnumerable<IFailurePath> failurePaths = assessmentSection.GetFailureMechanisms();
-            failurePaths = failurePaths.Concat(assessmentSection.SpecificFailurePaths);
-            failurePaths.ForEachElementDo(fp => fp.InAssembly = random.NextBoolean());
+            assessmentSection.GetFailureMechanisms()
+                             .Cast<IFailurePath>()
+                             .Concat(assessmentSection.SpecificFailurePaths)
+                             .ForEachElementDo(fp => fp.InAssembly = random.NextBoolean());
 
             return assessmentSection;
         }
