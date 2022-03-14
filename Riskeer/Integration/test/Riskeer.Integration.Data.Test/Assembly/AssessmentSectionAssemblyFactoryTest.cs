@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
+using Core.Common.Util.Extensions;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
@@ -57,10 +58,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSection_WithAssessmentSection_SetsInputOnCalculator()
+        public void AssembleAssessmentSection_WithAssessmentSectionContainingFailurePathsWithRandomInAssemblyState_SetsInputOnCalculator()
         {
             // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSection();
+            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailurePathsWithRandomInAssemblyState();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -79,7 +80,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 int expectedNrOfProbabilities = assessmentSection.GetFailureMechanisms()
                                                                  .Cast<IFailurePath>()
                                                                  .Concat(assessmentSection.SpecificFailurePaths)
-                                                                 .Count();
+                                                                 .Count(fp => fp.InAssembly);
                 IEnumerable<double> calculatorInput = assessmentSectionAssemblyCalculator.FailureMechanismProbabilitiesInput;
                 Assert.AreEqual(expectedNrOfProbabilities, calculatorInput.Count());
                 foreach (double failureMechanismProbability in calculatorInput)
@@ -119,10 +120,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSection());
+                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSection());
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<AssessmentSectionAssemblyCalculatorException>(innerException);
                 Assert.AreEqual(innerException.Message, exception.Message);
@@ -140,10 +141,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                TestDelegate call = () => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSection());
+                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSection());
 
                 // Assert
-                var exception = Assert.Throws<AssemblyException>(call);
+                var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<AssemblyException>(innerException);
                 Assert.AreEqual("Voor een of meerdere toetssporen kan geen oordeel worden bepaald.", exception.Message);
@@ -298,10 +299,22 @@ namespace Riskeer.Integration.Data.Test.Assembly
         {
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-
             IEnumerable<SpecificFailurePath> failurePaths = Enumerable.Repeat(new SpecificFailurePath(), random.Next(1, 10))
                                                                       .ToArray();
             assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
+            return assessmentSection;
+        }
+
+        private static AssessmentSection CreateAssessmentSectionContainingFailurePathsWithRandomInAssemblyState()
+        {
+            var random = new Random(21);
+
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            IEnumerable<IFailurePath> failurePaths = assessmentSection.GetFailureMechanisms();
+            failurePaths = failurePaths.Concat(assessmentSection.SpecificFailurePaths);
+            failurePaths.ForEachElementDo(fp => fp.InAssembly = random.NextBoolean());
+
             return assessmentSection;
         }
 

@@ -142,23 +142,82 @@ namespace Riskeer.Integration.Data.Assembly
         /// <exception cref="AssemblyException">Thrown when the results could not be assembled.</exception>
         private static IEnumerable<double> GetFailureMechanismAssemblyResults(AssessmentSection assessmentSection)
         {
-            yield return PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Piping, assessmentSection);
-            yield return MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection);
-            yield return GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection);
-            yield return ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.ClosingStructures, assessmentSection);
-            yield return HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.HeightStructures, assessmentSection);
-            yield return StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection);
-            yield return GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionOutwards, assessmentSection);
-            yield return StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityStoneCover, assessmentSection);
-            yield return WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaveImpactAsphaltCover, assessmentSection);
-            yield return DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.DuneErosion, assessmentSection);
-            yield return PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.PipingStructure, assessmentSection);
-            yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, assessmentSection);
-            yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection);
-            yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Microstability, assessmentSection);
-            yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaterPressureAsphaltCover, assessmentSection);
+            if (assessmentSection.Piping.InAssembly)
+            {
+                yield return PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Piping, assessmentSection);
+            }
 
-            foreach (SpecificFailurePath failurePath in assessmentSection.SpecificFailurePaths)
+            if (assessmentSection.MacroStabilityInwards.InAssembly)
+            {
+                yield return MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.MacroStabilityInwards, assessmentSection);
+            }
+
+            if (assessmentSection.GrassCoverErosionInwards.InAssembly)
+            {
+                yield return GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            }
+
+            if (assessmentSection.ClosingStructures.InAssembly)
+            {
+                yield return ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.ClosingStructures, assessmentSection);
+            }
+
+            if (assessmentSection.HeightStructures.InAssembly)
+            {
+                yield return HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.HeightStructures, assessmentSection);
+            }
+
+            if (assessmentSection.StabilityPointStructures.InAssembly)
+            {
+                yield return StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityPointStructures, assessmentSection);
+            }
+
+            if (assessmentSection.GrassCoverErosionOutwards.InAssembly)
+            {
+                yield return GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverErosionOutwards, assessmentSection);
+            }
+
+            if (assessmentSection.StabilityStoneCover.InAssembly)
+            {
+                yield return StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.StabilityStoneCover, assessmentSection);
+            }
+
+            if (assessmentSection.WaveImpactAsphaltCover.InAssembly)
+            {
+                yield return WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaveImpactAsphaltCover, assessmentSection);
+            }
+
+            if (assessmentSection.DuneErosion.InAssembly)
+            {
+                yield return DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.DuneErosion, assessmentSection);
+            }
+
+            if (assessmentSection.PipingStructure.InAssembly)
+            {
+                yield return PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.PipingStructure, assessmentSection);
+            }
+
+            if (assessmentSection.GrassCoverSlipOffInwards.InAssembly)
+            {
+                yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffInwards, assessmentSection);
+            }
+
+            if (assessmentSection.GrassCoverSlipOffOutwards.InAssembly)
+            {
+                yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection);
+            }
+
+            if (assessmentSection.Microstability.InAssembly)
+            {
+                yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.Microstability, assessmentSection);
+            }
+
+            if (assessmentSection.WaterPressureAsphaltCover.InAssembly)
+            {
+                yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(assessmentSection.WaterPressureAsphaltCover, assessmentSection);
+            }
+
+            foreach (SpecificFailurePath failurePath in assessmentSection.SpecificFailurePaths.Where(fp => fp.InAssembly))
             {
                 yield return FailureMechanismAssemblyFactory.AssembleFailureMechanism(failurePath, assessmentSection);
             }
