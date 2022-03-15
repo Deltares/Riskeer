@@ -73,7 +73,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("GEDTETS", AssemblyXmlEnumIdentifiers.SerializableAssessmentTypeDetailedAssessment);
             Assert.AreEqual("TOETSOPMT", AssemblyXmlEnumIdentifiers.SerializableAssessmentTypeTailorMadeAssessment);
             Assert.AreEqual("GECBNTR", AssemblyXmlEnumIdentifiers.SerializableAssessmentTypeCombinedAssessment);
-            Assert.AreEqual("GECBNTRDV", AssemblyXmlEnumIdentifiers.SerializableAssessmentTypeCombinedSectionAssessment);
 
             Assert.AreEqual("TOETSSSTE", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionTypeFailureMechanism);
             Assert.AreEqual("GECBNETSSTE", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionTypeCombined);

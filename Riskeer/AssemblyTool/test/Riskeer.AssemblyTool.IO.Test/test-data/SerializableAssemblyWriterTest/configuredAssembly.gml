@@ -46,25 +46,25 @@
         <asm:status>VOLLDG</asm:status>
       </asm:analyseVak>
     </asm:Faalanalyse>
-    <asm:GecombineerdFaalanalyse GecombineerdFaalanalyseID="resultaat_gecombineerd_1" VeiligheidsoordeelIDRef="veiligheidsoordeel_1" WaterkeringsectieIDRef="vak_gecombineerd_1">
-      <asm:toetsoordeelGecombineerd>
+    <asm:FaalanalyseGecombineerd FaalanalyseGecombineerdID="resultaat_gecombineerd_1" VeiligheidsoordeelIDRef="veiligheidsoordeel_1" WaterkeringsectieIDRef="vak_gecombineerd_1">
+      <asm:analyseGecombineerdDeelvak>
+        <asm:assemblagemethode>WBI-3C-1</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseGecombineerdDeelvak>
+      <asm:analyseDeelvak>
         <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:toets>GECBNTRDV</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-      </asm:toetsoordeelGecombineerd>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3C-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>HTKW</asm:typeToetsspoor>
-        <asm:categorieVak>III-vak</asm:categorieVak>
+        <asm:typeFaalmechanisme>HTKW</asm:typeFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3C-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>STPH</asm:typeToetsspoor>
-        <asm:categorieVak>IV-vak</asm:categorieVak>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>STPH</asm:typeFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-    </asm:GecombineerdFaalanalyse>
+      </asm:analyseDeelvak>
+    </asm:FaalanalyseGecombineerd>
     <asm:Vakindeling VakindelingID="vakindelingGABI" />
     <asm:Vakindeling VakindelingID="vakindeling_gecombineerd" />
     <asm:ToetsVak gml:id="vak_GABI_1" VakindelingIDRef="vakindelingGABI">
@@ -88,7 +88,7 @@
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">14.142135623730951</asm:lengte>
       <asm:typeWaterkeringsectie>GECBNETSSTE</asm:typeWaterkeringsectie>
-      <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+      <asm:assemblagemethode>WBI-3A-1</asm:assemblagemethode>
     </asm:ToetsVak>
   </asm:featureMember>
 </asm:Assemblage>

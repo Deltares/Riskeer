@@ -47,19 +47,19 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.IsNull(combinedSectionAssembly.CombinedSectionResult);
             Assert.IsNull(combinedSectionAssembly.FailureMechanismResults);
 
-            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableCombinedFailureMechanismSectionAssembly), "GecombineerdFaalanalyse");
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableCombinedFailureMechanismSectionAssembly), "FaalanalyseGecombineerd");
 
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableCombinedFailureMechanismSectionAssembly>(
-                nameof(SerializableCombinedFailureMechanismSectionAssembly.Id), "GecombineerdFaalanalyseID");
+                nameof(SerializableCombinedFailureMechanismSectionAssembly.Id), "FaalanalyseGecombineerdID");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableCombinedFailureMechanismSectionAssembly>(
                 nameof(SerializableCombinedFailureMechanismSectionAssembly.TotalAssemblyResultId), "VeiligheidsoordeelIDRef");
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableCombinedFailureMechanismSectionAssembly>(
                 nameof(SerializableCombinedFailureMechanismSectionAssembly.FailureMechanismSectionId), "WaterkeringsectieIDRef");
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssembly>(
-                nameof(SerializableCombinedFailureMechanismSectionAssembly.CombinedSectionResult), "toetsoordeelGecombineerd");
+                nameof(SerializableCombinedFailureMechanismSectionAssembly.CombinedSectionResult), "analyseGecombineerdDeelvak");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssembly>(
-                nameof(SerializableCombinedFailureMechanismSectionAssembly.FailureMechanismResults), "eindtoetsoordeelToetsspoor");
+                nameof(SerializableCombinedFailureMechanismSectionAssembly.FailureMechanismResults), "analyseDeelvak");
         }
 
         [Test]

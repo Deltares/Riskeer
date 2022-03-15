@@ -240,11 +240,6 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// </summary>
         public const string SerializableAssessmentTypeCombinedAssessment = "GECBNTR";
 
-        /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentType.CombinedSectionAssessment"/>.
-        /// </summary>
-        public const string SerializableAssessmentTypeCombinedSectionAssessment = "GECBNTRDV";
-
         #endregion
 
         #region SerializableFailureMechanismSectionType

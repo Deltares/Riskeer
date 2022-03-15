@@ -45,11 +45,11 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             Assert.AreEqual("boundedBy", AssemblyXmlIdentifiers.BoundedBy);
 
-            Assert.AreEqual("GecombineerdFaalanalyse", AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssembly);
-            Assert.AreEqual("GecombineerdFaalanalyseID", AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssemblyId);
-            Assert.AreEqual("toetsoordeelGecombineerd", AssemblyXmlIdentifiers.CombinedCombinedSectionResult);
+            Assert.AreEqual("FaalanalyseGecombineerd", AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssembly);
+            Assert.AreEqual("FaalanalyseGecombineerdID", AssemblyXmlIdentifiers.CombinedFailureMechanismSectionAssemblyId);
+            Assert.AreEqual("analyseGecombineerdDeelvak", AssemblyXmlIdentifiers.CombinedCombinedSectionResult);
             Assert.AreEqual("analyseVak", AssemblyXmlIdentifiers.SectionResult);
-            Assert.AreEqual("eindtoetsoordeelToetsspoor", AssemblyXmlIdentifiers.CombinedSectionFailureMechanismResult);
+            Assert.AreEqual("analyseDeelvak", AssemblyXmlIdentifiers.CombinedSectionFailureMechanismResult);
             Assert.AreEqual("srsName", AssemblyXmlIdentifiers.CoordinateSystem);
 
             Assert.AreEqual("afstandEinde", AssemblyXmlIdentifiers.EndDistance);

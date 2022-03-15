@@ -100,17 +100,17 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Identifier for a combined failure mechanism section assembly element.
         /// </summary>
-        public const string CombinedFailureMechanismSectionAssembly = "GecombineerdFaalanalyse";
+        public const string CombinedFailureMechanismSectionAssembly = "FaalanalyseGecombineerd";
 
         /// <summary>
         /// Identifier for a combined failure mechanism section assembly ID attribute.
         /// </summary>
-        public const string CombinedFailureMechanismSectionAssemblyId = "GecombineerdFaalanalyseID";
+        public const string CombinedFailureMechanismSectionAssemblyId = "FaalanalyseGecombineerdID";
 
         /// <summary>
         /// Identifier for a combined section result element.
         /// </summary>
-        public const string CombinedCombinedSectionResult = "toetsoordeelGecombineerd";
+        public const string CombinedCombinedSectionResult = "analyseGecombineerdDeelvak";
 
         /// <summary>
         /// Identifier for a combined section result element.
@@ -120,7 +120,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Identifier for a combined section failure mechanism result element.
         /// </summary>
-        public const string CombinedSectionFailureMechanismResult = "eindtoetsoordeelToetsspoor";
+        public const string CombinedSectionFailureMechanismResult = "analyseDeelvak";
 
         /// <summary>
         /// Identifier for a coordinate system type attribute.
