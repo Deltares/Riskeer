@@ -122,7 +122,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
 
-            if (e.ColumnIndex > numberOfFixedColumns)
+            if (e.ColumnIndex >= numberOfFixedColumns)
             {
                 var dataRow = (CombinedFailureMechanismSectionAssemblyResultRow) dataGridViewControl.GetRowFromIndex(e.RowIndex).DataBoundItem;
                 DataGridViewCell cell = dataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
