@@ -43,14 +43,11 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_IdGeneratorNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
-                AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(
-                    null,
-                    new SerializableTotalAssemblyResult(),
-                    Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            void Call() => AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(
+                null, new SerializableTotalAssemblyResult(), Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("idGenerator", exception.ParamName);
         }
 
@@ -58,14 +55,11 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_TotalAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
-                AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(
-                    new IdentifierGenerator(),
-                    null,
-                    Enumerable.Empty<ExportableCombinedSectionAssembly>());
+            void Call() => AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(
+                new IdentifierGenerator(), null, Enumerable.Empty<ExportableCombinedSectionAssembly>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("totalAssemblyResult", exception.ParamName);
         }
 
@@ -73,14 +67,11 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_CombinedSectionAssembliesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () =>
-                AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(
-                    new IdentifierGenerator(),
-                    new SerializableTotalAssemblyResult(),
-                    null);
+            void Call() => AggregatedSerializableCombinedFailureMechanismSectionAssembliesCreator.Create(
+                new IdentifierGenerator(), new SerializableTotalAssemblyResult(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("combinedSectionAssemblies", exception.ParamName);
         }
 
@@ -221,7 +212,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                 SerializableCombinedFailureMechanismSectionAssemblyResult actualSectionResult)
         {
             Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(expectedSectionResult.Code),
-                            actualSectionResult.FailureMechanismType);
+                            actualSectionResult.GenericFailureMechanism);
 
             ExportableFailureMechanismSubSectionAssemblyResult expectedSectionAssemblyResult = expectedSectionResult.SectionAssemblyResult;
             Assert.AreEqual(SerializableFailureMechanismSectionAssemblyGroupCreator.Create(expectedSectionAssemblyResult.AssemblyGroup),

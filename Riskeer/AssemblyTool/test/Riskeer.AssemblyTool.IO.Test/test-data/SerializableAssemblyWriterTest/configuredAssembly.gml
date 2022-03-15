@@ -54,13 +54,15 @@
       </asm:analyseGecombineerdDeelvak>
       <asm:analyseDeelvak>
         <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>HTKW</asm:typeFaalmechanisme>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>HTKW</asm:generiekFaalmechanisme>
         <asm:duidingsklasse>+III</asm:duidingsklasse>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseDeelvak>
       <asm:analyseDeelvak>
         <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeFaalmechanisme>STPH</asm:typeFaalmechanisme>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>STPH</asm:generiekFaalmechanisme>
         <asm:duidingsklasse>+II</asm:duidingsklasse>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseDeelvak>

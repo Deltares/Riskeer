@@ -77,7 +77,7 @@ namespace Riskeer.Integration.IO.Test.Creators
 
             // Assert
             Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(sectionResult.Code),
-                            serializableResult.FailureMechanismType);
+                            serializableResult.GenericFailureMechanism);
             ExportableFailureMechanismSubSectionAssemblyResult expectedSectionAssemblyResult = sectionResult.SectionAssemblyResult;
             Assert.AreEqual(SerializableFailureMechanismSectionAssemblyGroupCreator.Create(expectedSectionAssemblyResult.AssemblyGroup),
                             serializableResult.AssemblyGroup);

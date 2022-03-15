@@ -96,7 +96,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         public string FailureMechanismType { get; set; }
 
         /// <summary>
-        /// Gets or sets the failure mechanism type.
+        /// Gets or sets the generic failure mechanism type.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.GenericFailureMechanism)]
         public SerializableFailureMechanismType GenericFailureMechanism { get; set; }

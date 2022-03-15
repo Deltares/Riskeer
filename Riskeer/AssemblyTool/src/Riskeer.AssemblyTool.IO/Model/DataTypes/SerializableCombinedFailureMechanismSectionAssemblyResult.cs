@@ -36,23 +36,24 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         public SerializableCombinedFailureMechanismSectionAssemblyResult()
         {
             Status = Resources.FullAssembly;
+            FailureMechanismType = Resources.FailureMechanismType_Generic_DisplayName;
         }
 
         /// <summary>
         /// Creates a new instance of <see cref="SerializableCombinedFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="assemblyMethod">The method used to assemble this result.</param>
-        /// <param name="failureMechanismType">The failure mechanism type this result is assembled for.</param>
+        /// <param name="genericFailureMechanismType">The generic failure mechanism type this result is assembled for.</param>
         /// <param name="assemblyGroup">The category group of this assembly result.</param>
         public SerializableCombinedFailureMechanismSectionAssemblyResult(
             SerializableAssemblyMethod assemblyMethod,
-            SerializableFailureMechanismType failureMechanismType,
+            SerializableFailureMechanismType genericFailureMechanismType,
             SerializableFailureMechanismSectionAssemblyGroup assemblyGroup) 
             : this()
         {
             AssemblyGroup = assemblyGroup;
             AssemblyMethod = assemblyMethod;
-            FailureMechanismType = failureMechanismType;
+            GenericFailureMechanism = genericFailureMechanismType;
         }
 
         /// <summary>
@@ -65,7 +66,13 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// Gets or sets the failure mechanism type of this assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismType)]
-        public SerializableFailureMechanismType FailureMechanismType { get; set; }
+        public string FailureMechanismType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the generic failure mechanism type of this assembly result.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.GenericFailureMechanism)]
+        public SerializableFailureMechanismType GenericFailureMechanism { get; set; }
 
         /// <summary>
         /// Gets or sets the category group of this assembly result.
