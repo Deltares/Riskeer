@@ -66,8 +66,7 @@ namespace Riskeer.Integration.Data.Assembly
                                      assembly.Section.SectionEnd,
                                      assembly.Section.FailureMechanismSectionAssemblyGroup,
                                      CreateFailureMechanismResults(assembly.FailureMechanismSectionAssemblyGroupResults,
-                                                                   failureMechanisms, assessmentSection)))
-                         .ToArray();
+                                                                   failureMechanisms, assessmentSection))).ToArray();
         }
 
         private static CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties CreateFailureMechanismResults(
