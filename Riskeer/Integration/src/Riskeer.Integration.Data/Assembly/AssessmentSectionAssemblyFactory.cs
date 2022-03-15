@@ -108,14 +108,14 @@ namespace Riskeer.Integration.Data.Assembly
                     AssemblyToolKernelFactory.Instance);
 
                 Dictionary<IFailurePath, int> failureMechanismsToAssemble = assessmentSection.GetFailureMechanisms()
-                                                                                                  .Concat<IFailurePath>(assessmentSection.SpecificFailurePaths)
-                                                                                                  .Where(fm => fm.InAssembly)
-                                                                                                  .Select((fm, i) => new
-                                                                                                  {
-                                                                                                      FailureMechanism = fm,
-                                                                                                      Index = i
-                                                                                                  })
-                                                                                                  .ToDictionary(x => x.FailureMechanism, x => x.Index);
+                                                                                             .Concat<IFailurePath>(assessmentSection.SpecificFailurePaths)
+                                                                                             .Where(fm => fm.InAssembly)
+                                                                                             .Select((fm, i) => new
+                                                                                             {
+                                                                                                 FailureMechanism = fm,
+                                                                                                 Index = i
+                                                                                             })
+                                                                                             .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
                 IEnumerable<CombinedFailureMechanismSectionAssembly> output = calculator.AssembleCombinedFailureMechanismSections(
                     CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, failureMechanismsToAssemble.Keys),
