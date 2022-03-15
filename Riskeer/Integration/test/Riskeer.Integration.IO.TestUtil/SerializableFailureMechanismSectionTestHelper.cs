@@ -55,7 +55,7 @@ namespace Riskeer.Integration.IO.TestUtil
                                                          SerializableFailureMechanismSection actualSerializableSection,
                                                          int expectedId = 0)
         {
-            Assert.AreEqual($"Tv.{expectedId}", actualSerializableSection.Id);
+            Assert.AreEqual($"Bv.{expectedId}", actualSerializableSection.Id);
             Assert.AreEqual(expectedCollection.Id, actualSerializableSection.FailureMechanismSectionCollectionId);
 
             Assert.AreEqual(GeometrySerializationFormatter.Format(expectedSection.Geometry),
@@ -89,7 +89,7 @@ namespace Riskeer.Integration.IO.TestUtil
                                                          SerializableFailureMechanismSection actualSerializableSection,
                                                          int expectedId = 0)
         {
-            Assert.AreEqual($"Tv.{expectedId}", actualSerializableSection.Id);
+            Assert.AreEqual($"Bv.{expectedId}", actualSerializableSection.Id);
             Assert.AreEqual(expectedCollection.Id, actualSerializableSection.FailureMechanismSectionCollectionId);
 
             Assert.AreEqual(GeometrySerializationFormatter.Format(expectedSection.Geometry),

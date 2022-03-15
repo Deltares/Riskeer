@@ -130,7 +130,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                             sectionId++);
 
                 SerializableCombinedFailureMechanismSectionAssembly actualSectionAssemblyResult = serializableFailureMechanismSectionAssemblies.ElementAt(i);
-                Assert.AreEqual($"Gto.{combinedSectionId++}", actualSectionAssemblyResult.Id);
+                Assert.AreEqual($"Gf.{combinedSectionId++}", actualSectionAssemblyResult.Id);
                 Assert.AreEqual(actualSection.Id, actualSectionAssemblyResult.FailureMechanismSectionId);
                 Assert.AreEqual(expectedSerializableTotalAssemblyResult.Id, actualSectionAssemblyResult.TotalAssemblyResultId);
 

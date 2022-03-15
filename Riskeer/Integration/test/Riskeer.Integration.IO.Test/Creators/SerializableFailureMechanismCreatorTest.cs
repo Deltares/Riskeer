@@ -84,7 +84,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                                                    failureMechanism);
 
             // Assert
-            Assert.AreEqual("Ts.0", serializableFailureMechanism.Id);
+            Assert.AreEqual("Fm.0", serializableFailureMechanism.Id);
             Assert.AreEqual(serializableTotalAssembly.Id, serializableFailureMechanism.TotalAssemblyResultId);
             Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(failureMechanism.Code), serializableFailureMechanism.GenericFailureMechanism);
 

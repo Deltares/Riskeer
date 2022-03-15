@@ -235,17 +235,17 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                               SerializableFeatureMember[] serializableAssemblyFeatureMembers)
         {
             var failureMechanism = (SerializableFailureMechanism) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism];
-            AssertSerializableFailureMechanism($"Ts.{expectedId}",
+            AssertSerializableFailureMechanism($"Fm.{expectedId}",
                                                expectedSerializableTotalAssemblyResult,
                                                failureMechanism);
             var failureMechanismSectionCollection = (SerializableFailureMechanismSectionCollection) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 10];
             AssertSerializableFailureMechanismSectionCollection($"Vi.{expectedId}",
                                                                 failureMechanismSectionCollection);
             var serializableFailureMechanismSection = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 15];
-            AssertSerializableFailureMechanismSection($"Tv.{expectedId}",
+            AssertSerializableFailureMechanismSection($"Bv.{expectedId}",
                                                       failureMechanismSectionCollection,
                                                       serializableFailureMechanismSection);
-            AssertSerializableFailureMechanismSectionAssembly($"T.{expectedId}",
+            AssertSerializableFailureMechanismSectionAssembly($"F.{expectedId}",
                                                               failureMechanism,
                                                               serializableFailureMechanismSection,
                                                               (SerializableFailureMechanismSectionAssembly) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 4]);
@@ -287,10 +287,10 @@ namespace Riskeer.Integration.IO.Test.Creators
                                                                                      SerializableFeatureMember[] serializableAssemblyFeatureMembers)
         {
             var combinedFailureMechanismSection = (SerializableFailureMechanismSection) serializableAssemblyFeatureMembers[indexSerializableCombinedSectionAssembly + 11];
-            AssertSerializableFailureMechanismSection($"Tv.{expectedSectionId}",
+            AssertSerializableFailureMechanismSection($"Bv.{expectedSectionId}",
                                                       expectedCombinedFailureMechanismSectionCollection,
                                                       combinedFailureMechanismSection);
-            AssertSerializableCombinedFailureMechanismSectionAssembly($"Gto.{expectedCombinedSectionAssemblyId}",
+            AssertSerializableCombinedFailureMechanismSectionAssembly($"Gf.{expectedCombinedSectionAssemblyId}",
                                                                       expectedSerializableTotalAssemblyResult,
                                                                       combinedFailureMechanismSection,
                                                                       (SerializableCombinedFailureMechanismSectionAssembly) serializableAssemblyFeatureMembers[indexSerializableCombinedSectionAssembly]);

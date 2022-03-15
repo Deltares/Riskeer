@@ -114,7 +114,7 @@ namespace Riskeer.Integration.IO.Test.Creators
 
             // Assert
             SerializableFailureMechanism serializableFailureMechanism = aggregatedFailureMechanism.FailureMechanism;
-            Assert.AreEqual("Ts.0", serializableFailureMechanism.Id);
+            Assert.AreEqual("Fm.0", serializableFailureMechanism.Id);
             Assert.AreEqual(serializableTotalAssembly.Id, serializableFailureMechanism.TotalAssemblyResultId);
             Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(failureMechanism.Code), serializableFailureMechanism.GenericFailureMechanism);
 
@@ -159,7 +159,7 @@ namespace Riskeer.Integration.IO.Test.Creators
 
                 ExportableFailureMechanismSectionAssemblyWithProbabilityResult expectedSectionAssemblyResult = expectedSectionAssemblyResults.ElementAt(i);
                 SerializableFailureMechanismSectionAssembly actualSectionAssemblyResult = serializableFailureMechanismSectionAssemblies.ElementAt(i);
-                Assert.AreEqual($"T.{sectionAssemblyId++}", actualSectionAssemblyResult.Id);
+                Assert.AreEqual($"F.{sectionAssemblyId++}", actualSectionAssemblyResult.Id);
                 Assert.AreEqual(expectedSerializableFailureMechanism.Id, actualSectionAssemblyResult.FailureMechanismId);
 
                 Assert.AreEqual(actualSection.Id, actualSectionAssemblyResult.FailureMechanismSectionId);

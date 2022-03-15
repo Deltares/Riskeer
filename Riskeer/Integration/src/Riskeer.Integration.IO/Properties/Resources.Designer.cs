@@ -282,7 +282,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gto.
+        ///   Looks up a localized string similar to Gf.
         /// </summary>
         public static string SerializableCombinedFailureMechanismSectionAssembly_IdPrefix {
             get {
@@ -291,7 +291,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ts.
+        ///   Looks up a localized string similar to Fm.
         /// </summary>
         public static string SerializableFailureMechanismCreator_IdPrefix {
             get {
@@ -300,7 +300,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tv.
+        ///   Looks up a localized string similar to Bv.
         /// </summary>
         public static string SerializableFailureMechanismSection_IdPrefix {
             get {
@@ -309,7 +309,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to T.
+        ///   Looks up a localized string similar to F.
         /// </summary>
         public static string SerializableFailureMechanismSectionAssembly_IdPrefix {
             get {

@@ -130,19 +130,19 @@
     <value>Bp</value>
   </data>
   <data name="SerializableFailureMechanismCreator_IdPrefix" xml:space="preserve">
-    <value>Ts</value>
+    <value>Fm</value>
   </data>
   <data name="SerializableFailureMechanismSection_IdPrefix" xml:space="preserve">
-    <value>Tv</value>
+    <value>Bv</value>
   </data>
   <data name="SerializableFailureMechanismSectionAssembly_IdPrefix" xml:space="preserve">
-    <value>T</value>
+    <value>F</value>
   </data>
   <data name="SerializableFailureMechanismSectionCollection_IdPrefix" xml:space="preserve">
     <value>Vi</value>
   </data>
   <data name="SerializableCombinedFailureMechanismSectionAssembly_IdPrefix" xml:space="preserve">
-    <value>Gto</value>
+    <value>Gf</value>
   </data>
   <data name="AssemblyExporter_Error_Exception_0_no_AssemblyResult_exported" xml:space="preserve">
     <value>{0} Er is geen toetsoordeel geëxporteerd.</value>
