@@ -163,10 +163,11 @@ namespace Riskeer.Integration.Data.Assembly
             {
                 if (failureMechanisms.Contains(specificFailurePath))
                 {
-                    inputs.Add(CreateCombinedSections(specificFailurePath.SectionResults, assessmentSection, SpecificFailurePathAssemblyFunc));
+                    inputs.Add(CreateCombinedSections(specificFailurePath.SectionResults, assessmentSection,
+                                                      (sectionResult, section) => FailureMechanismAssemblyFactory.AssembleSection(sectionResult, specificFailurePath, section)));
                 }
             }
-            
+
             return inputs;
         }
 
@@ -258,10 +259,6 @@ namespace Riskeer.Integration.Data.Assembly
         private static Func<NonAdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> DuneErosionAssemblyFunc =>
             FailureMechanismSectionAssemblyResultFactory.AssembleSection;
 
-        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> SpecificFailurePathAssemblyFunc =>
-            (sectionResult, assessmentSection) => FailureMechanismAssemblyFactory.AssembleSection(
-                sectionResult, assessmentSection.GrassCoverSlipOffInwards, assessmentSection);
-        
         #endregion
     }
 }

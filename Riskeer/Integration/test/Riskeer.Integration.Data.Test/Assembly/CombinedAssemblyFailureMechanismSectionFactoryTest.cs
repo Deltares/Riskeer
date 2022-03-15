@@ -101,7 +101,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 AssertSectionsWithResult(assessmentSection.PipingStructure.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(12));
                 AssertSectionsWithResult(assessmentSection.StabilityPointStructures.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(13));
                 AssertSectionsWithResult(assessmentSection.DuneErosion.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(14));
-                AssertSectionsWithResult(assessmentSection.SpecificFailurePaths.Single().SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(15));
+                for (var i = 1; i < assessmentSection.SpecificFailurePaths.Count; i++)
+                {
+                    AssertSectionsWithResult(assessmentSection.SpecificFailurePaths[i--].SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(14 + i));
+                }
             }
         }
 
@@ -164,7 +167,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 AssertSectionsWithResult(assessmentSection.PipingStructure.SectionResults, FailureMechanismSectionAssemblyGroup.Gr, inputs.ElementAt(12));
                 AssertSectionsWithResult(assessmentSection.StabilityPointStructures.SectionResults, FailureMechanismSectionAssemblyGroup.Gr, inputs.ElementAt(13));
                 AssertSectionsWithResult(assessmentSection.DuneErosion.SectionResults, FailureMechanismSectionAssemblyGroup.Gr, inputs.ElementAt(14));
-                AssertSectionsWithResult(assessmentSection.SpecificFailurePaths.Single().SectionResults, FailureMechanismSectionAssemblyGroup.Gr, inputs.ElementAt(15));
+                for (var i = 1; i < assessmentSection.SpecificFailurePaths.Count; i++)
+                {
+                    AssertSectionsWithResult(assessmentSection.SpecificFailurePaths[i--].SectionResults, FailureMechanismSectionAssemblyGroup.Gr, inputs.ElementAt(14 + i));
+                }
             }
         }
 
