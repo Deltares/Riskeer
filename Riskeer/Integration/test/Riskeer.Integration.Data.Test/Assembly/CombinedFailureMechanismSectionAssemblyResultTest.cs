@@ -194,7 +194,12 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     PipingStructure = null,
                     StabilityPointStructures = null,
                     DuneErosion = null,
-                    SpecificFailurePaths = null
+                    SpecificFailurePaths = new FailureMechanismSectionAssemblyGroup?[]
+                    {
+                        null,
+                        null,
+                        null
+                    }
                 });
 
             // Assert
@@ -217,7 +222,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.IsNull(result.PipingStructure);
             Assert.IsNull(result.StabilityPointStructures);
             Assert.IsNull(result.DuneErosion);
-            Assert.IsNull(result.SpecificFailurePaths);
+            foreach (FailureMechanismSectionAssemblyGroup? specificFailurePathResult in result.SpecificFailurePaths)
+            {
+                Assert.IsNull(specificFailurePathResult);
+            }
         }
     }
 }
