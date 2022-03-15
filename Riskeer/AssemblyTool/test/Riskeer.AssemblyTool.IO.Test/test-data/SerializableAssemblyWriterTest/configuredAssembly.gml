@@ -67,7 +67,7 @@
     </asm:FaalanalyseGecombineerd>
     <asm:Vakindeling VakindelingID="vakindelingGABI" />
     <asm:Vakindeling VakindelingID="vakindeling_gecombineerd" />
-    <asm:ToetsVak gml:id="vak_GABI_1" VakindelingIDRef="vakindelingGABI">
+    <asm:Deelvak gml:id="vak_GABI_1" VakindelingIDRef="vakindelingGABI">
       <asm:afstandBegin uom="m">0.12</asm:afstandBegin>
       <asm:afstandEinde uom="m">10.23</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -76,9 +76,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">14.142135623730951</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="vak_gecombineerd_1" VakindelingIDRef="vakindeling_gecombineerd">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="vak_gecombineerd_1" VakindelingIDRef="vakindeling_gecombineerd">
       <asm:afstandBegin uom="m">0.12</asm:afstandBegin>
       <asm:afstandEinde uom="m">10.23</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -87,8 +87,8 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">14.142135623730951</asm:lengte>
-      <asm:typeWaterkeringsectie>GECBNETSSTE</asm:typeWaterkeringsectie>
+      <asm:typeWaterkeringsectie>DEELVK</asm:typeWaterkeringsectie>
       <asm:assemblagemethode>WBI-3A-1</asm:assemblagemethode>
-    </asm:ToetsVak>
+    </asm:Deelvak>
   </asm:featureMember>
 </asm:Assemblage>

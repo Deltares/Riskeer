@@ -165,7 +165,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Identifier for a failure mechanism section element.
         /// </summary>
-        public const string FailureMechanismSection = "ToetsVak";
+        public const string FailureMechanismSection = "Deelvak";
 
         /// <summary>
         /// Identifier for a failure mechanism section ID reference attribute.

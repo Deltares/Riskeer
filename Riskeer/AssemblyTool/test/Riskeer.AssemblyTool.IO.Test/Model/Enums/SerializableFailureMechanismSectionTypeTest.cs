@@ -29,36 +29,26 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
     [TestFixture]
     public class SerializableFailureMechanismSectionTypeTest : EnumWithXmlEnumNameTestFixture<SerializableFailureMechanismSectionType>
     {
-        protected override IDictionary<SerializableFailureMechanismSectionType, int> ExpectedValueForEnumValues
-        {
-            get
+        protected override IDictionary<SerializableFailureMechanismSectionType, int> ExpectedValueForEnumValues =>
+            new Dictionary<SerializableFailureMechanismSectionType, int>
             {
-                return new Dictionary<SerializableFailureMechanismSectionType, int>
                 {
-                    {
-                        SerializableFailureMechanismSectionType.FailureMechanism, 1
-                    },
-                    {
-                        SerializableFailureMechanismSectionType.Combined, 2
-                    }
-                };
-            }
-        }
+                    SerializableFailureMechanismSectionType.FailureMechanism, 1
+                },
+                {
+                    SerializableFailureMechanismSectionType.Combined, 2
+                }
+            };
 
-        protected override IDictionary<SerializableFailureMechanismSectionType, string> ExpectedDisplayNameForEnumValues
-        {
-            get
+        protected override IDictionary<SerializableFailureMechanismSectionType, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<SerializableFailureMechanismSectionType, string>
             {
-                return new Dictionary<SerializableFailureMechanismSectionType, string>
                 {
-                    {
-                        SerializableFailureMechanismSectionType.FailureMechanism, "TOETSSSTE"
-                    },
-                    {
-                        SerializableFailureMechanismSectionType.Combined, "GECBNETSSTE"
-                    }
-                };
-            }
-        }
+                    SerializableFailureMechanismSectionType.FailureMechanism, "FAALMVK"
+                },
+                {
+                    SerializableFailureMechanismSectionType.Combined, "DEELVK"
+                }
+            };
     }
 }

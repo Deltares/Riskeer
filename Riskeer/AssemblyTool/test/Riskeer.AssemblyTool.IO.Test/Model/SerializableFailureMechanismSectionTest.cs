@@ -49,7 +49,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.IsNull(section.Geometry);
             Assert.AreEqual((SerializableFailureMechanismSectionType) 0, section.FailureMechanismSectionType);
 
-            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanismSection), "ToetsVak");
+            SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanismSection), "Deelvak");
 
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableFailureMechanismSection>(
                 nameof(SerializableFailureMechanismSection.Id), "id", "http://www.opengis.net/gml/3.2");

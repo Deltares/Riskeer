@@ -60,7 +60,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.AreEqual("analyseFaalmechanisme", AssemblyXmlIdentifiers.FailureMechanismAssemblyResult);
             Assert.AreEqual("FaalmechanismeID", AssemblyXmlIdentifiers.FailureMechanismId);
             Assert.AreEqual("FaalmechanismeIDRef", AssemblyXmlIdentifiers.FailureMechanismIdRef);
-            Assert.AreEqual("ToetsVak", AssemblyXmlIdentifiers.FailureMechanismSection);
+            Assert.AreEqual("Deelvak", AssemblyXmlIdentifiers.FailureMechanismSection);
             Assert.AreEqual("WaterkeringsectieIDRef", AssemblyXmlIdentifiers.FailureMechanismSectionIdRef);
             Assert.AreEqual("Faalanalyse", AssemblyXmlIdentifiers.FailureMechanismSectionAssembly);
             Assert.AreEqual("FaalanalyseID", AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyId);

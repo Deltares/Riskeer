@@ -247,12 +247,12 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// <summary>
         /// Identifier for <see cref="SerializableFailureMechanismSectionType.FailureMechanism"/>.
         /// </summary>
-        public const string SerializableFailureMechanismSectionTypeFailureMechanism = "TOETSSSTE";
+        public const string SerializableFailureMechanismSectionTypeFailureMechanism = "FAALMVK";
 
         /// <summary>
         /// Identifier for <see cref="SerializableFailureMechanismSectionType.Combined"/>.
         /// </summary>
-        public const string SerializableFailureMechanismSectionTypeCombined = "GECBNETSSTE";
+        public const string SerializableFailureMechanismSectionTypeCombined = "DEELVK";
 
         #endregion
     }
