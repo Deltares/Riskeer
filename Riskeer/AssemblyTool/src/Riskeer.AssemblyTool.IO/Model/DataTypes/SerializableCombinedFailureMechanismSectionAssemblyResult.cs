@@ -44,7 +44,7 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// </summary>
         /// <param name="assemblyMethod">The method used to assemble this result.</param>
         /// <param name="genericFailureMechanismType">The generic failure mechanism type this result is assembled for.</param>
-        /// <param name="assemblyGroup">The category group of this assembly result.</param>
+        /// <param name="assemblyGroup">The group of this assembly result.</param>
         public SerializableCombinedFailureMechanismSectionAssemblyResult(
             SerializableAssemblyMethod assemblyMethod,
             SerializableFailureMechanismType genericFailureMechanismType,
@@ -75,7 +75,7 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         public SerializableFailureMechanismType GenericFailureMechanism { get; set; }
 
         /// <summary>
-        /// Gets or sets the category group of this assembly result.
+        /// Gets or sets the group of this assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup)]
         public SerializableFailureMechanismSectionAssemblyGroup AssemblyGroup { get; set; }
