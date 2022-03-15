@@ -218,30 +218,6 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
 
         #endregion
 
-        #region SerializableAssessmentType
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentType.SimpleAssessment"/>.
-        /// </summary>
-        public const string SerializableAssessmentTypeSimpleAssessment = "EENVDGETS";
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentType.DetailedAssessment"/>.
-        /// </summary>
-        public const string SerializableAssessmentTypeDetailedAssessment = "GEDTETS";
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentType.TailorMadeAssessment"/>.
-        /// </summary>
-        public const string SerializableAssessmentTypeTailorMadeAssessment = "TOETSOPMT";
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableAssessmentType.CombinedAssessment"/>.
-        /// </summary>
-        public const string SerializableAssessmentTypeCombinedAssessment = "GECBNTR";
-
-        #endregion
-
         #region SerializableFailureMechanismSectionType
 
         /// <summary>
