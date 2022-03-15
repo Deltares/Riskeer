@@ -274,109 +274,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        public void GivenFormWithAssemblyResultTotalView_WhenRefreshingAssemblyResults_ThenDataGridViewInvalidatedAndCellsUpdatedToNewValues()
-        {
-            // Given
-            var random = new Random(21);
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView())
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
-                buttonTester.Properties.Enabled = true;
-
-                var invalidated = false;
-                DataGridView dataGridView = GetDataGridView();
-                dataGridView.Invalidated += (sender, args) => invalidated = true;
-
-                // Precondition
-                Assert.IsFalse(invalidated);
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                AssertFailureMechanismRows(view.AssessmentSection,
-                                           calculator.AssemblyResult,
-                                           rows);
-
-                // When
-                double newAssemblyResult = random.NextDouble();
-                calculator.AssemblyResult = newAssemblyResult;
-                buttonTester.Click();
-
-                // Then
-                Assert.IsTrue(invalidated);
-                AssertFailureMechanismRows(view.AssessmentSection, newAssemblyResult, rows);
-            }
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailurePathAddedAndRefreshingAssemblyResults_ThenDataGridViewRowsUpdated()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                DataGridView dataGridView = GetDataGridView();
-
-                // Precondition
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
-
-                // When
-                ObservableList<SpecificFailurePath> specificFailurePaths = assessmentSection.SpecificFailurePaths;
-                specificFailurePaths.Add(new SpecificFailurePath());
-                specificFailurePaths.NotifyObservers();
-
-                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
-                buttonTester.Click();
-
-                // Then
-                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
-            }
-        }
-
-        [Test]
-        [SetCulture("nl-NL")]
-        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailurePathRemovedAndRefreshingAssemblyResults_ThenDataGridViewRowsUpdated()
-        {
-            // Given
-            AssessmentSection assessmentSection = CreateAssessmentSection();
-
-            using (new AssemblyToolCalculatorFactoryConfig())
-            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
-            {
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-
-                DataGridView dataGridView = GetDataGridView();
-
-                // Precondition
-                DataGridViewRowCollection rows = dataGridView.Rows;
-                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
-
-                // When
-                ObservableList<SpecificFailurePath> specificFailurePaths = assessmentSection.SpecificFailurePaths;
-                SpecificFailurePath failurePathToRemove = specificFailurePaths.Last();
-                specificFailurePaths.Remove(failurePathToRemove);
-                specificFailurePaths.NotifyObservers();
-
-                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
-                buttonTester.Click();
-
-                // Then
-                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
-            }
-        }
-        
-        [Test]
         public void GivenFormWithAssemblyResultTotalViewWithOutdatedContent_WhenRefreshingAssemblyResults_ThenRefreshButtonDisabledAndWarningCleared()
         {
             // Given
@@ -528,17 +425,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             }
         }
 
-        private static AssessmentSection CreateAssessmentSection()
-        {
-            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.SpecificFailurePaths.AddRange(new[]
-            {
-                new SpecificFailurePath(),
-                new SpecificFailurePath()
-            });
-            return assessmentSection;
-        }
-
         [Test]
         [SetCulture("nl-NL")]
         public void GivenAssessmentSectionObserversNotified_WhenRefreshingAssemblyResults_ThenDataGridViewDataSourceUpdated()
@@ -571,6 +457,86 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.AreEqual(view.AssessmentSection.GetFailureMechanisms().Count(), rows.Count);
                 AssertAssemblyCells(view.AssessmentSection.Piping, double.NaN, rows[0].Cells);
             }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailurePathAddedAndRefreshingAssemblyResults_ThenDataGridViewDataSourceAndRowsUpdated()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                DataGridView dataGridView = GetDataGridView();
+                object dataSource = dataGridView.DataSource;
+
+                // Precondition
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
+
+                // When
+                ObservableList<SpecificFailurePath> specificFailurePaths = assessmentSection.SpecificFailurePaths;
+                specificFailurePaths.Add(new SpecificFailurePath());
+                specificFailurePaths.NotifyObservers();
+
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                buttonTester.Click();
+
+                // Then
+                Assert.AreNotSame(dataSource, dataGridView.DataSource);
+                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
+            }
+        }
+
+        [Test]
+        [SetCulture("nl-NL")]
+        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailurePathRemovedAndRefreshingAssemblyResults_ThenDataGridViewDataSourceAndRowsUpdated()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
+
+                DataGridView dataGridView = GetDataGridView();
+                object dataSource = dataGridView.DataSource;
+
+                // Precondition
+                DataGridViewRowCollection rows = dataGridView.Rows;
+                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
+
+                // When
+                ObservableList<SpecificFailurePath> specificFailurePaths = assessmentSection.SpecificFailurePaths;
+                SpecificFailurePath failurePathToRemove = specificFailurePaths.Last();
+                specificFailurePaths.Remove(failurePathToRemove);
+                specificFailurePaths.NotifyObservers();
+
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+                buttonTester.Click();
+
+                // Then
+                Assert.AreNotSame(dataSource, dataGridView.DataSource);
+                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
+            }
+        }
+
+        private static AssessmentSection CreateAssessmentSection()
+        {
+            var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
+            assessmentSection.SpecificFailurePaths.AddRange(new[]
+            {
+                new SpecificFailurePath(),
+                new SpecificFailurePath()
+            });
+            return assessmentSection;
         }
 
         #region View test helpers
