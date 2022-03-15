@@ -186,7 +186,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.IsNull(results[i].PipingStructure);
                 Assert.IsNull(results[i].StabilityPointStructures);
                 Assert.IsNull(results[i].DuneErosion);
-                Assert.IsNull(results[i].SpecificFailurePaths);
+                CollectionAssert.IsEmpty(results[i].SpecificFailurePaths);
             }
         }
 
