@@ -58,6 +58,14 @@ namespace Riskeer.Integration.Forms.Views
                                                  double failureMechanismAssemblyResult)
             : this(failureMechanism, failureMechanismAssemblyResult, string.Empty) {}
 
+        /// <summary>
+        /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/> with a specified probability.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="IFailurePath"/> to wrap so that it can be displayed as a row.</param>
+        /// <param name="failureMechanismAssemblyResult">The assembly result of the failure mechanism.</param>
+        /// <param name="errorMessage">The error message to display.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="failureMechanism"/> or <paramref name="errorMessage"/>
+        /// is <c>null</c>.</exception>
         private FailureMechanismAssemblyResultRow(IFailurePath failureMechanism,
                                                   double failureMechanismAssemblyResult,
                                                   string errorMessage)
