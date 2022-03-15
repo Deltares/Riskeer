@@ -137,11 +137,13 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
-        [Explicit("Fix this test in WTI-2681")]
         public void Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile));
+            string folderPath = TestHelper.GetScratchPadPath(nameof(Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile));
+            Directory.CreateDirectory(folderPath);
+            string filePath = Path.Combine(folderPath, "actualAssembly.gml");
+            
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
@@ -151,25 +153,31 @@ namespace Riskeer.Integration.IO.Test.Exporters
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssembly[0]; 
+                assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssembly[0];
 
-                // Call
-                bool isExported = exporter.Export();
+                try
+                {
+                    // Call
+                    bool isExported = exporter.Export();
 
-                // Assert
-                Assert.IsTrue(File.Exists(filePath));
-                Assert.IsTrue(isExported);
+                    // Assert
+                    Assert.IsTrue(File.Exists(filePath));
+                    Assert.IsTrue(isExported);
 
-                string expectedGmlFilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
-                                                          nameof(AssemblyExporter), "ExpectedGml.gml");
-                string expectedGml = File.ReadAllText(expectedGmlFilePath);
-                string actualGml = File.ReadAllText(filePath);
-                Assert.AreEqual(expectedGml, actualGml);
+                    string expectedGmlFilePath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Riskeer.Integration.IO),
+                                                              nameof(AssemblyExporter), "ExpectedGml.gml");
+                    string expectedGml = File.ReadAllText(expectedGmlFilePath);
+                    string actualGml = File.ReadAllText(filePath);
+                    Assert.AreEqual(expectedGml, actualGml);
+                }
+                finally
+                {
+                    Directory.Delete(folderPath, true);
+                }
             }
         }
 
         [Test]
-        [Explicit("Fix this test in WTI-2681")]
         public void Export_InvalidDirectoryRights_LogsErrorAndReturnsFalse()
         {
             // Setup

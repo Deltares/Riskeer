@@ -18,941 +18,367 @@
       <asm:typeWaterkeringstelsel>DKTRJCT</asm:typeWaterkeringstelsel>
     </asm:Waterkeringstelsel>
     <asm:Beoordelingsproces BeoordelingsprocesID="Bp.0" WaterkeringstelselIDRef="Wks.assessmentSectionId">
-      <asm:beginJaarBeoordelingsronde>2017</asm:beginJaarBeoordelingsronde>
-      <asm:eindJaarBeoordelingsronde>2023</asm:eindJaarBeoordelingsronde>
+      <asm:beginJaarBeoordelingsronde>2023</asm:beginJaarBeoordelingsronde>
+      <asm:eindJaarBeoordelingsronde>2035</asm:eindJaarBeoordelingsronde>
     </asm:Beoordelingsproces>
     <asm:Veiligheidsoordeel VeiligheidsoordeelID="Vo.0" BeoordelingsprocesIDRef="Bp.0">
       <asm:veiligheidsoordeel>
-        <asm:assemblagemethode>WBI-2C-1</asm:assemblagemethode>
-        <asm:categorie>A</asm:categorie>
+        <asm:assemblagemethode>WBI-2B-1</asm:assemblagemethode>
+        <asm:categorie>A+</asm:categorie>
+        <asm:faalkans>0.14</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:veiligheidsoordeel>
-      <asm:toetsoordeelMetKansschatting>
-        <asm:assemblagemethode>WBI-2B-1</asm:assemblagemethode>
-        <asm:categorieTraject>III-traject</asm:categorieTraject>
-        <asm:faalkans>0.75</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeelMetKansschatting>
-      <asm:toetsoordeelZonderKansschatting>
-        <asm:assemblagemethode>WBI-2A-1</asm:assemblagemethode>
-        <asm:categorieTraject>III-traject</asm:categorieTraject>
-        <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeelZonderKansschatting>
     </asm:Veiligheidsoordeel>
-    <asm:Toetsspoor ToetsspoorID="Ts.0" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>STPH</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEDSPROBEX</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.0" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>STPH</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:categorieTraject>III-traject</asm:categorieTraject>
-        <asm:faalkans>1</asm:faalkans>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.1" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>STBI</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEDSPROBEX</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.1" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>STBI</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:categorieTraject>III-traject</asm:categorieTraject>
-        <asm:faalkans>1</asm:faalkans>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.2" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>GEKB</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEDPROB</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.2" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>GEKB</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:categorieTraject>III-traject</asm:categorieTraject>
-        <asm:faalkans>1</asm:faalkans>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.3" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>HTKW</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEDPROB</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.3" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>HTKW</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:categorieTraject>III-traject</asm:categorieTraject>
-        <asm:faalkans>1</asm:faalkans>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.4" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>BSKW</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEDPROB</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.4" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>BSKW</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:categorieTraject>III-traject</asm:categorieTraject>
-        <asm:faalkans>1</asm:faalkans>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.5" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>STKWp</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEDPROB</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.5" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>STKWp</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:categorieTraject>III-traject</asm:categorieTraject>
-        <asm:faalkans>1</asm:faalkans>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.6" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>ZST</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEDSPROB</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
-        <asm:assemblagemethode>WBI-1A-1</asm:assemblagemethode>
-        <asm:categorieTraject>II-traject</asm:categorieTraject>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.6" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>ZST</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
+        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.7" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>AGK</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEDSPROB</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
-        <asm:assemblagemethode>WBI-1A-1</asm:assemblagemethode>
-        <asm:categorieTraject>II-traject</asm:categorieTraject>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.7" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>AGK</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
+        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.8" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>GEBU</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEDSPROB</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
-        <asm:assemblagemethode>WBI-1A-1</asm:assemblagemethode>
-        <asm:categorieTraject>II-traject</asm:categorieTraject>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.8" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>GEBU</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
+        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.9" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>DA</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEDSPROB</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
-        <asm:assemblagemethode>WBI-1A-1</asm:assemblagemethode>
-        <asm:categorieTraject>NVT</asm:categorieTraject>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.9" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>STMI</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
+        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.10" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>STMI</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEEN</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
-        <asm:assemblagemethode>WBI-1A-1</asm:assemblagemethode>
-        <asm:categorieTraject>II-traject</asm:categorieTraject>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.10" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>GABU</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
+        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.11" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>GABU</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEEN</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
-        <asm:assemblagemethode>WBI-1A-1</asm:assemblagemethode>
-        <asm:categorieTraject>II-traject</asm:categorieTraject>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.11" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>GABI</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
+        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.12" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>GABI</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEEN</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
-        <asm:assemblagemethode>WBI-1A-1</asm:assemblagemethode>
-        <asm:categorieTraject>II-traject</asm:categorieTraject>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.12" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>PKW</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
+        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.13" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>PKW</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEEN</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
-        <asm:assemblagemethode>WBI-1A-1</asm:assemblagemethode>
-        <asm:categorieTraject>II-traject</asm:categorieTraject>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.13" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+      <asm:generiekFaalmechanisme>AWO</asm:generiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
+        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:faalkans>0</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toetsspoor ToetsspoorID="Ts.14" VeiligheidsoordeelIDRef="Vo.0">
-      <asm:typeToetsspoor>AWO</asm:typeToetsspoor>
-      <asm:toetsspoorGroep>GEEN</asm:toetsspoorGroep>
-      <asm:typeFaalmechanisme>DIRECT</asm:typeFaalmechanisme>
-      <asm:toetsoordeel>
-        <asm:assemblagemethode>WBI-1A-1</asm:assemblagemethode>
-        <asm:categorieTraject>II-traject</asm:categorieTraject>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalanalyse FaalanalyseID="F.0" FaalmechanismeIDRef="Fm.0" WaterkeringsectieIDRef="Bv.0">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:toetsoordeel>
-    </asm:Toetsspoor>
-    <asm:Toets ToetsID="T.0" ToetsspoorIDRef="Ts.0" WaterkeringsectieIDRef="Tv.0">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-5</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-5</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.1" ToetsspoorIDRef="Ts.0" WaterkeringsectieIDRef="Tv.1">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-5</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-5</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.2" ToetsspoorIDRef="Ts.1" WaterkeringsectieIDRef="Tv.2">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-5</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-5</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.3" ToetsspoorIDRef="Ts.1" WaterkeringsectieIDRef="Tv.3">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-5</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-5</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.4" ToetsspoorIDRef="Ts.2" WaterkeringsectieIDRef="Tv.4">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-3</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.5" ToetsspoorIDRef="Ts.2" WaterkeringsectieIDRef="Tv.5">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-3</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.6" ToetsspoorIDRef="Ts.3" WaterkeringsectieIDRef="Tv.6">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.7" ToetsspoorIDRef="Ts.3" WaterkeringsectieIDRef="Tv.7">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.8" ToetsspoorIDRef="Ts.4" WaterkeringsectieIDRef="Tv.8">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.9" ToetsspoorIDRef="Ts.4" WaterkeringsectieIDRef="Tv.9">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.10" ToetsspoorIDRef="Ts.5" WaterkeringsectieIDRef="Tv.10">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-3</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.11" ToetsspoorIDRef="Ts.5" WaterkeringsectieIDRef="Tv.11">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-3</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-3</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-3</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
-        <asm:faalkans>1</asm:faalkans>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.12" ToetsspoorIDRef="Ts.6" WaterkeringsectieIDRef="Tv.12">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-3</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-6</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-4</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.13" ToetsspoorIDRef="Ts.6" WaterkeringsectieIDRef="Tv.13">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-3</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-6</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-4</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.14" ToetsspoorIDRef="Ts.7" WaterkeringsectieIDRef="Tv.14">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-6</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-4</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.15" ToetsspoorIDRef="Ts.7" WaterkeringsectieIDRef="Tv.15">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-6</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-4</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.16" ToetsspoorIDRef="Ts.8" WaterkeringsectieIDRef="Tv.16">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-6</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-4</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.17" ToetsspoorIDRef="Ts.8" WaterkeringsectieIDRef="Tv.17">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-6</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-4</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.18" ToetsspoorIDRef="Ts.9" WaterkeringsectieIDRef="Tv.18">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>NVT</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.19" ToetsspoorIDRef="Ts.10" WaterkeringsectieIDRef="Tv.19">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-1</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-1</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.20" ToetsspoorIDRef="Ts.10" WaterkeringsectieIDRef="Tv.20">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-1</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-1</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.21" ToetsspoorIDRef="Ts.11" WaterkeringsectieIDRef="Tv.21">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-1</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-1</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.22" ToetsspoorIDRef="Ts.11" WaterkeringsectieIDRef="Tv.22">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-1</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-1</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.23" ToetsspoorIDRef="Ts.12" WaterkeringsectieIDRef="Tv.23">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-1</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-1</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.24" ToetsspoorIDRef="Ts.12" WaterkeringsectieIDRef="Tv.24">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-1</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-1</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.25" ToetsspoorIDRef="Ts.13" WaterkeringsectieIDRef="Tv.25">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-1</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-1</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.26" ToetsspoorIDRef="Ts.13" WaterkeringsectieIDRef="Tv.26">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0G-1</asm:assemblagemethode>
-        <asm:toets>GEDTETS</asm:toets>
-        <asm:categorieVak>II-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-1</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.27" ToetsspoorIDRef="Ts.14" WaterkeringsectieIDRef="Tv.27">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-1</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:Toets ToetsID="T.28" ToetsspoorIDRef="Ts.14" WaterkeringsectieIDRef="Tv.28">
-      <asm:eindtoetsoordeel>
-        <asm:assemblagemethode>WBI-0A-1</asm:assemblagemethode>
-        <asm:toets>GECBNTR</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:eindtoetsoordeel>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0E-1</asm:assemblagemethode>
-        <asm:toets>EENVDGETS</asm:toets>
-        <asm:categorieVak>VII-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-      <asm:toetsoordeelVak>
-        <asm:assemblagemethode>WBI-0T-1</asm:assemblagemethode>
-        <asm:toets>TOETSOPMT</asm:toets>
-        <asm:categorieVak>I-vak</asm:categorieVak>
-      </asm:toetsoordeelVak>
-    </asm:Toets>
-    <asm:GecombineerdToetsoordeel GecombineerdToetsoordeelID="Gto.0" VeiligheidsoordeelIDRef="Vo.0" WaterkeringsectieIDRef="Tv.29">
-      <asm:toetsoordeelGecombineerd>
-        <asm:assemblagemethode>WBI-3C-1</asm:assemblagemethode>
-        <asm:toets>GECBNTRDV</asm:toets>
-        <asm:categorieVak>III-vak</asm:categorieVak>
-      </asm:toetsoordeelGecombineerd>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>STPH</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.1" FaalmechanismeIDRef="Fm.0" WaterkeringsectieIDRef="Bv.1">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>GEKB</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.2" FaalmechanismeIDRef="Fm.1" WaterkeringsectieIDRef="Bv.2">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>STBI</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.3" FaalmechanismeIDRef="Fm.1" WaterkeringsectieIDRef="Bv.3">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>STMI</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.4" FaalmechanismeIDRef="Fm.2" WaterkeringsectieIDRef="Bv.4">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>ZST</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.5" FaalmechanismeIDRef="Fm.2" WaterkeringsectieIDRef="Bv.5">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>AGK</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.6" FaalmechanismeIDRef="Fm.3" WaterkeringsectieIDRef="Bv.6">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>AWO</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.7" FaalmechanismeIDRef="Fm.3" WaterkeringsectieIDRef="Bv.7">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>GEBU</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.8" FaalmechanismeIDRef="Fm.4" WaterkeringsectieIDRef="Bv.8">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>GABU</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.9" FaalmechanismeIDRef="Fm.4" WaterkeringsectieIDRef="Bv.9">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>GABI</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.10" FaalmechanismeIDRef="Fm.5" WaterkeringsectieIDRef="Bv.10">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>HTKW</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.11" FaalmechanismeIDRef="Fm.5" WaterkeringsectieIDRef="Bv.11">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>BSKW</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.12" FaalmechanismeIDRef="Fm.6" WaterkeringsectieIDRef="Bv.12">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>PKW</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.13" FaalmechanismeIDRef="Fm.6" WaterkeringsectieIDRef="Bv.13">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>STKWp</asm:typeToetsspoor>
-        <asm:categorieVak>VI-vak</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.14" FaalmechanismeIDRef="Fm.7" WaterkeringsectieIDRef="Bv.14">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-      <asm:eindtoetsoordeelToetsspoor>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
-        <asm:typeToetsspoor>DA</asm:typeToetsspoor>
-        <asm:categorieVak>NVT</asm:categorieVak>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.15" FaalmechanismeIDRef="Fm.7" WaterkeringsectieIDRef="Bv.15">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
-      </asm:eindtoetsoordeelToetsspoor>
-    </asm:GecombineerdToetsoordeel>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.16" FaalmechanismeIDRef="Fm.8" WaterkeringsectieIDRef="Bv.16">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.17" FaalmechanismeIDRef="Fm.8" WaterkeringsectieIDRef="Bv.17">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.18" FaalmechanismeIDRef="Fm.9" WaterkeringsectieIDRef="Bv.18">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.19" FaalmechanismeIDRef="Fm.9" WaterkeringsectieIDRef="Bv.19">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.20" FaalmechanismeIDRef="Fm.10" WaterkeringsectieIDRef="Bv.20">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.21" FaalmechanismeIDRef="Fm.10" WaterkeringsectieIDRef="Bv.21">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.22" FaalmechanismeIDRef="Fm.11" WaterkeringsectieIDRef="Bv.22">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.23" FaalmechanismeIDRef="Fm.11" WaterkeringsectieIDRef="Bv.23">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.24" FaalmechanismeIDRef="Fm.12" WaterkeringsectieIDRef="Bv.24">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.25" FaalmechanismeIDRef="Fm.12" WaterkeringsectieIDRef="Bv.25">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.26" FaalmechanismeIDRef="Fm.13" WaterkeringsectieIDRef="Bv.26">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.27" FaalmechanismeIDRef="Fm.13" WaterkeringsectieIDRef="Bv.27">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
     <asm:Vakindeling VakindelingID="Vi.0" />
     <asm:Vakindeling VakindelingID="Vi.1" />
     <asm:Vakindeling VakindelingID="Vi.2" />
@@ -968,8 +394,7 @@
     <asm:Vakindeling VakindelingID="Vi.12" />
     <asm:Vakindeling VakindelingID="Vi.13" />
     <asm:Vakindeling VakindelingID="Vi.14" />
-    <asm:Vakindeling VakindelingID="Vi.15" />
-    <asm:ToetsVak gml:id="Tv.0" VakindelingIDRef="Vi.0">
+    <asm:Deelvak gml:id="Bv.0" VakindelingIDRef="Vi.0">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -978,9 +403,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.1" VakindelingIDRef="Vi.0">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.1" VakindelingIDRef="Vi.0">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -989,9 +414,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.2" VakindelingIDRef="Vi.1">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.2" VakindelingIDRef="Vi.1">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1000,9 +425,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.3" VakindelingIDRef="Vi.1">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.3" VakindelingIDRef="Vi.1">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1011,9 +436,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.4" VakindelingIDRef="Vi.2">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.4" VakindelingIDRef="Vi.2">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1022,9 +447,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.5" VakindelingIDRef="Vi.2">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.5" VakindelingIDRef="Vi.2">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1033,9 +458,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.6" VakindelingIDRef="Vi.3">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.6" VakindelingIDRef="Vi.3">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1044,9 +469,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.7" VakindelingIDRef="Vi.3">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.7" VakindelingIDRef="Vi.3">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1055,9 +480,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.8" VakindelingIDRef="Vi.4">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.8" VakindelingIDRef="Vi.4">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1066,9 +491,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.9" VakindelingIDRef="Vi.4">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.9" VakindelingIDRef="Vi.4">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1077,9 +502,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.10" VakindelingIDRef="Vi.5">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.10" VakindelingIDRef="Vi.5">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1088,9 +513,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.11" VakindelingIDRef="Vi.5">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.11" VakindelingIDRef="Vi.5">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1099,9 +524,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.12" VakindelingIDRef="Vi.6">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.12" VakindelingIDRef="Vi.6">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1110,9 +535,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.13" VakindelingIDRef="Vi.6">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.13" VakindelingIDRef="Vi.6">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1121,9 +546,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.14" VakindelingIDRef="Vi.7">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.14" VakindelingIDRef="Vi.7">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1132,9 +557,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.15" VakindelingIDRef="Vi.7">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.15" VakindelingIDRef="Vi.7">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1143,9 +568,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.16" VakindelingIDRef="Vi.8">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.16" VakindelingIDRef="Vi.8">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1154,9 +579,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.17" VakindelingIDRef="Vi.8">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.17" VakindelingIDRef="Vi.8">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1165,20 +590,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.18" VakindelingIDRef="Vi.9">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">1.4142135623730952</asm:afstandEinde>
-      <asm:geometrieLijn2D>
-        <gml:LineString srsName="EPSG:28992">
-          <gml:posList>1 1 2 2</gml:posList>
-        </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">1.4142135623730952</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.19" VakindelingIDRef="Vi.10">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.18" VakindelingIDRef="Vi.9">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1187,9 +601,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.20" VakindelingIDRef="Vi.10">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.19" VakindelingIDRef="Vi.9">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1198,9 +612,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.21" VakindelingIDRef="Vi.11">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.20" VakindelingIDRef="Vi.10">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1209,9 +623,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.22" VakindelingIDRef="Vi.11">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.21" VakindelingIDRef="Vi.10">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1220,9 +634,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.23" VakindelingIDRef="Vi.12">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.22" VakindelingIDRef="Vi.11">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1231,9 +645,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.24" VakindelingIDRef="Vi.12">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.23" VakindelingIDRef="Vi.11">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1242,9 +656,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.25" VakindelingIDRef="Vi.13">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.24" VakindelingIDRef="Vi.12">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1253,9 +667,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.26" VakindelingIDRef="Vi.13">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.25" VakindelingIDRef="Vi.12">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1264,9 +678,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.27" VakindelingIDRef="Vi.14">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.26" VakindelingIDRef="Vi.13">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1275,9 +689,9 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.28" VakindelingIDRef="Vi.14">
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.27" VakindelingIDRef="Vi.13">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>
@@ -1286,19 +700,7 @@
         </gml:LineString>
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
-      <asm:typeWaterkeringsectie>TOETSSSTE</asm:typeWaterkeringsectie>
-    </asm:ToetsVak>
-    <asm:ToetsVak gml:id="Tv.29" VakindelingIDRef="Vi.15">
-      <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">1</asm:afstandEinde>
-      <asm:geometrieLijn2D>
-        <gml:LineString srsName="EPSG:28992">
-          <gml:posList>1 1 1.70710678118655 1.70710678118655</gml:posList>
-        </gml:LineString>
-      </asm:geometrieLijn2D>
-      <asm:lengte uom="m">0.99999999999999989</asm:lengte>
-      <asm:typeWaterkeringsectie>GECBNETSSTE</asm:typeWaterkeringsectie>
-      <asm:assemblagemethode>WBI-3A-1</asm:assemblagemethode>
-    </asm:ToetsVak>
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
   </asm:featureMember>
 </asm:Assemblage>
