@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Integration.Data.Assembly
 {
@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Data.Assembly
         /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> Create(IEnumerable<CombinedFailureMechanismSectionAssembly> output,
-                                                                                        IDictionary<IFailureMechanism, int> failureMechanisms,
+                                                                                        IDictionary<IFailurePath, int> failureMechanisms,
                                                                                         AssessmentSection assessmentSection)
         {
             if (output == null)
@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Data.Assembly
 
         private static CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties CreateFailureMechanismResults(
             IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismResults,
-            IDictionary<IFailureMechanism, int> failureMechanisms,
+            IDictionary<IFailurePath, int> failureMechanisms,
             AssessmentSection assessmentSection)
         {
             var constructionProperties = new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
@@ -91,14 +91,15 @@ namespace Riskeer.Integration.Data.Assembly
                 ClosingStructures = GetAssemblyGroup(assessmentSection.ClosingStructures, failureMechanisms, failureMechanismResults),
                 PipingStructure = GetAssemblyGroup(assessmentSection.PipingStructure, failureMechanisms, failureMechanismResults),
                 StabilityPointStructures = GetAssemblyGroup(assessmentSection.StabilityPointStructures, failureMechanisms, failureMechanismResults),
-                DuneErosion = GetAssemblyGroup(assessmentSection.DuneErosion, failureMechanisms, failureMechanismResults)
+                DuneErosion = GetAssemblyGroup(assessmentSection.DuneErosion, failureMechanisms, failureMechanismResults),
+                SpecificFailurePaths =  assessmentSection.SpecificFailurePaths.Select(sfp => GetAssemblyGroup(sfp, failureMechanisms , failureMechanismResults)).ToArray()
             };
 
             return constructionProperties;
         }
 
-        private static FailureMechanismSectionAssemblyGroup? GetAssemblyGroup(IFailureMechanism failureMechanism,
-                                                                              IDictionary<IFailureMechanism, int> failureMechanisms,
+        private static FailureMechanismSectionAssemblyGroup? GetAssemblyGroup(IFailurePath failureMechanism,
+                                                                              IDictionary<IFailurePath, int> failureMechanisms,
                                                                               IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismResults)
         {
             return failureMechanisms.ContainsKey(failureMechanism)

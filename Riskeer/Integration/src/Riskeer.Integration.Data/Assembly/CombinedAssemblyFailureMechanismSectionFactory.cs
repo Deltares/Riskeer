@@ -26,6 +26,7 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -54,7 +55,7 @@ namespace Riskeer.Integration.Data.Assembly
         /// <returns>A collection of <see cref="CombinedAssemblyFailureMechanismSection"/> collections.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> CreateInput(
-            AssessmentSection assessmentSection, IEnumerable<IFailureMechanism> failureMechanisms)
+            AssessmentSection assessmentSection, IEnumerable<IFailurePath> failureMechanisms)
         {
             if (assessmentSection == null)
             {
@@ -158,6 +159,14 @@ namespace Riskeer.Integration.Data.Assembly
                 inputs.Add(CreateCombinedSections(duneErosionFailureMechanism.SectionResults, assessmentSection, DuneErosionAssemblyFunc));
             }
 
+            foreach (SpecificFailurePath specificFailurePath in assessmentSection.SpecificFailurePaths)
+            {
+                if (failureMechanisms.Contains(specificFailurePath))
+                {
+                    inputs.Add(CreateCombinedSections(specificFailurePath.SectionResults, assessmentSection, SpecificFailurePathAssemblyFunc));
+                }
+            }
+            
             return inputs;
         }
 
@@ -249,6 +258,10 @@ namespace Riskeer.Integration.Data.Assembly
         private static Func<NonAdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> DuneErosionAssemblyFunc =>
             FailureMechanismSectionAssemblyResultFactory.AssembleSection;
 
+        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> SpecificFailurePathAssemblyFunc =>
+            (sectionResult, assessmentSection) => FailureMechanismAssemblyFactory.AssembleSection(
+                sectionResult, assessmentSection.GrassCoverSlipOffInwards, assessmentSection);
+        
         #endregion
     }
 }

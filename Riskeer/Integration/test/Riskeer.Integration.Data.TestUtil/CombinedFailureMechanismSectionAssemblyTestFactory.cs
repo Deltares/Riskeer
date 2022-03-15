@@ -24,6 +24,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Integration.Data.TestUtil
 {
@@ -45,6 +46,7 @@ namespace Riskeer.Integration.Data.TestUtil
             return new CombinedFailureMechanismSectionAssembly(
                 new CombinedAssemblyFailureMechanismSection(random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()),
                 assessmentSection.GetFailureMechanisms()
+                                 .Concat<IFailurePath>(assessmentSection.SpecificFailurePaths)
                                  .Where(fm => fm.InAssembly)
                                  .Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
                                  .ToArray());

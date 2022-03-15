@@ -306,6 +306,8 @@ namespace Riskeer.Integration.TestUtil
             {
                 AddFailureMechanismSections(failureMechanisms.ElementAt(i), i);
             }
+            
+            assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
 
             return assessmentSection;
         }

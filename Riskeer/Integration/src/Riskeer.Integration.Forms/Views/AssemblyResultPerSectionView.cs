@@ -26,6 +26,7 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Forms.Observers;
@@ -52,7 +53,8 @@ namespace Riskeer.Integration.Forms.Views
     public partial class AssemblyResultPerSectionView : UserControl, IView
     {
         private readonly Observer assessmentSectionResultObserver;
-
+        private const int numberOfFixedColumns = 19;
+        
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultPerSectionView"/>.
         /// </summary>
@@ -119,6 +121,13 @@ namespace Riskeer.Integration.Forms.Views
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
         {
             dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
+
+            if (e.ColumnIndex > numberOfFixedColumns)
+            {
+                var dataRow = (CombinedFailureMechanismSectionAssemblyResultRow) dataGridViewControl.GetRowFromIndex(e.RowIndex).DataBoundItem;
+                DataGridViewCell cell = dataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
+                cell.Value = dataRow.SpecificFailurePaths[e.ColumnIndex - numberOfFixedColumns];
+            }
         }
 
         private void InitializeDataGridView()
@@ -180,6 +189,13 @@ namespace Riskeer.Integration.Forms.Views
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.DuneErosion),
                                                  DuneErosionDataResources.DuneErosionFailureMechanism_Code,
                                                  true);
+            
+            foreach (SpecificFailurePath specificFailurePath in AssessmentSection.SpecificFailurePaths)
+            {
+                dataGridViewControl.AddTextBoxColumn(string.Empty, 
+                                                     specificFailurePath.Code,
+                                                     true);
+            }
 
             SetDataSource();
         }

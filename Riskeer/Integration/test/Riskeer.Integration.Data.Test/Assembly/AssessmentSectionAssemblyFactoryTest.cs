@@ -33,7 +33,6 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Data.TestUtil;
@@ -188,7 +187,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 IEnumerable<CombinedAssemblyFailureMechanismSection>[] actualInput = assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionsInput.ToArray();
                 IEnumerable<CombinedAssemblyFailureMechanismSection>[] expectedInput = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, assessmentSection.GetFailureMechanisms()).ToArray();
+                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailurePath>(assessmentSection.SpecificFailurePaths)).ToArray();
                 Assert.AreEqual(expectedInput.Length, actualInput.Length);
 
                 for (var i = 0; i < expectedInput.Length; i++)
@@ -230,14 +229,15 @@ namespace Riskeer.Integration.Data.Test.Assembly
                                                                                                          .ToArray();
 
                 // Assert
-                Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                        .Where(fm => fm.InAssembly)
-                                                                                        .Select((fm, i) => new
-                                                                                        {
-                                                                                            FailureMechanism = fm,
-                                                                                            Index = i
-                                                                                        })
-                                                                                        .ToDictionary(x => x.FailureMechanism, x => x.Index);
+                Dictionary<IFailurePath, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
+                                                                                             .Concat<IFailurePath>(assessmentSection.SpecificFailurePaths)
+                                                                                             .Where(fm => fm.InAssembly)
+                                                                                             .Select((fm, i) => new
+                                                                                             {
+                                                                                                 FailureMechanism = fm,
+                                                                                                 Index = i
+                                                                                             })
+                                                                                             .ToDictionary(x => x.FailureMechanism, x => x.Index);
                 CombinedFailureMechanismSectionAssemblyResult[] expectedOutput = CombinedFailureMechanismSectionAssemblyResultFactory.Create(
                     calculator.CombinedFailureMechanismSectionAssemblyOutput, failureMechanisms, assessmentSection).ToArray();
 
@@ -262,6 +262,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     Assert.AreEqual(expectedOutput[i].PipingStructure, output[i].PipingStructure);
                     Assert.AreEqual(expectedOutput[i].StabilityPointStructures, output[i].StabilityPointStructures);
                     Assert.AreEqual(expectedOutput[i].DuneErosion, output[i].DuneErosion);
+                    CollectionAssert.AreEqual(expectedOutput[i].SpecificFailurePaths, output[i].SpecificFailurePaths);
                 }
             }
         }

@@ -29,7 +29,6 @@ using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -108,7 +107,8 @@ namespace Riskeer.Integration.Data.Assembly
                 IAssessmentSectionAssemblyCalculator calculator = calculatorFactory.CreateAssessmentSectionAssemblyCalculator(
                     AssemblyToolKernelFactory.Instance);
 
-                Dictionary<IFailureMechanism, int> failureMechanismsToAssemble = assessmentSection.GetFailureMechanisms()
+                Dictionary<IFailurePath, int> failureMechanismsToAssemble = assessmentSection.GetFailureMechanisms()
+                                                                                                  .Concat<IFailurePath>(assessmentSection.SpecificFailurePaths)
                                                                                                   .Where(fm => fm.InAssembly)
                                                                                                   .Select((fm, i) => new
                                                                                                   {

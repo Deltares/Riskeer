@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            Assert.AreEqual(16, columnStateDefinitions.Count);
+            Assert.AreEqual(19, columnStateDefinitions.Count);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, totalResultIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, pipingIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, grassCoverErosionInwardsIndex);
@@ -97,6 +97,10 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, pipingStructureIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, stabilityPointStructuresIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, duneErosionIndex);
+            for (var i = 1; i < result.SpecificFailurePaths.Length; i++)
+            {
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, duneErosionIndex + i);
+            }
 
             Assert.AreEqual(result.SectionNumber, row.SectionNumber);
             Assert.AreEqual(2, row.SectionStart.NumberOfDecimalPlaces);
@@ -119,6 +123,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.PipingStructure), row.PipingStructure);
             Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.StabilityPointStructures), row.StabilityPointStructures);
             Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.DuneErosion), row.DuneErosion);
+            for (var i = 0; i < result.SpecificFailurePaths.Length; i++)
+            {
+                FailureMechanismSectionAssemblyGroup? specificFailurePath = result.SpecificFailurePaths[i];
+                Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(specificFailurePath), row.SpecificFailurePaths[i]);
+            }
         }
 
         [Test]
@@ -151,7 +160,12 @@ namespace Riskeer.Integration.Forms.Test.Views
                     ClosingStructures = assemblyGroup,
                     PipingStructure = assemblyGroup,
                     StabilityPointStructures = assemblyGroup,
-                    DuneErosion = assemblyGroup
+                    DuneErosion = assemblyGroup,
+                    SpecificFailurePaths = new FailureMechanismSectionAssemblyGroup?[]
+                    {
+                        assemblyGroup,
+                        assemblyGroup
+                    }
                 });
 
             // Call
@@ -176,6 +190,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[pipingStructureIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityPointStructuresIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex], expectedBackgroundColor);
+
+            for (var i = 1; i <= result.SpecificFailurePaths.Length; i++)
+            {
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex + i], expectedBackgroundColor);
+            }
         }
 
         [Test]
@@ -231,6 +250,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[pipingStructureIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityPointStructuresIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex], expectedBackgroundColor);
+            
+            for (var i = 1; i <= result.SpecificFailurePaths.Length; i++)
+            {
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex + i], expectedBackgroundColor);
+            }
         }
 
         private static CombinedFailureMechanismSectionAssemblyResult GetCombinedFailureMechanismSectionAssemblyResult(bool failureMechanismsInAssembly)
@@ -257,7 +281,13 @@ namespace Riskeer.Integration.Forms.Test.Views
                     ClosingStructures = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
                     PipingStructure = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
                     StabilityPointStructures = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    DuneErosion = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random)
+                    DuneErosion = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                    SpecificFailurePaths = new[]
+                    {
+                        GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                        GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                        GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random)
+                    }
                 });
         }
 

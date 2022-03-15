@@ -66,7 +66,8 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int pipingStructures = 16;
         private const int stabilityPointStructuresColumnIndex = 17;
         private const int duneErosionColumnIndex = 18;
-        private const int expectedColumnCount = 19;
+        private const int specificFailurePathColumnIndex = 19;
+        private const int expectedColumnCount = 20;
         private const string assemblyResultOutdatedWarning = "De resultaten zijn verouderd. Druk op de \"Resultaten verversen\" knop om opnieuw te berekenen.";
 
         private Form testForm;
@@ -176,6 +177,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssertColumn(dataGridViewColumns[pipingStructures], "PKW");
                 AssertColumn(dataGridViewColumns[stabilityPointStructuresColumnIndex], "STKWp");
                 AssertColumn(dataGridViewColumns[duneErosionColumnIndex], "DA");
+                AssertColumn(dataGridViewColumns[specificFailurePathColumnIndex], "NIEUW");
             }
         }
 
