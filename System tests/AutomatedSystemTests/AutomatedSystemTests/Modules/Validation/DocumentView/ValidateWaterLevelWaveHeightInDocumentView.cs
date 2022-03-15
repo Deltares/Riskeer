@@ -102,9 +102,9 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            Validate_WaterLevelOrWaveHeightNthRow(repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRowInfo);
+            Validate_WaterLevelOrWaveHeightNthRow(repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.WaterLevelOrWaveHeightNthRowInfo);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRow, false, new RecordItemIndex(1));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.GenericRowInDV.WaterLevelOrWaveHeightNthRow, false, new RecordItemIndex(1));
             
         }
 

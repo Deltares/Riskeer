@@ -93,7 +93,7 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
             
             Ranorex.Table table = myRepository.RiskeerMainWindow.ContainerMultipleViews.MessagesDataGridView.Self;
             if (labelFM=="GEBU") {
-                table = myRepository.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.Self;
+                table = myRepository.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.DesignWaterLevelWaveHeightCalculationsView.LeftSide.Table.Self;
             }
             else if (labelFM=="DA") {
                 table = myRepository.RiskeerMainWindow.ContainerMultipleViews.DocumentViewContainerUncached.HydraulicBCDunes.Table.Self;

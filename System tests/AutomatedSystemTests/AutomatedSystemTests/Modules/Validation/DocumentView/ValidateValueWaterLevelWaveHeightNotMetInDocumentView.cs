@@ -102,11 +102,11 @@ namespace AutomatedSystemTests.Modules.Validation.DocumentView
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeNotEqual (Text!=$notExpectedValue) on item 'RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRow'.", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRowInfo, new RecordItemIndex(0));
-            Validate.AttributeNotEqual(repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRowInfo, "Text", notExpectedValue);
+            Report.Log(ReportLevel.Info, "Validation", "Validating AttributeNotEqual (Text!=$notExpectedValue) on item 'RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow.WaterLevelOrWaveHeightNthRow'.", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow.WaterLevelOrWaveHeightNthRowInfo, new RecordItemIndex(0));
+            Validate.AttributeNotEqual(repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow.WaterLevelOrWaveHeightNthRowInfo, "Text", notExpectedValue);
             Delay.Milliseconds(0);
             
-            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.WaterLevelOrWaveHeightNthRow, false, new RecordItemIndex(1));
+            Report.Screenshot(ReportLevel.Info, "User", "", repo.RiskeerMainWindow.DocumentViewContainer.DesignWaterLevelCalculationsViewCached.LeftSide.Table.GenericRow.WaterLevelOrWaveHeightNthRow, false, new RecordItemIndex(1));
             
         }
 

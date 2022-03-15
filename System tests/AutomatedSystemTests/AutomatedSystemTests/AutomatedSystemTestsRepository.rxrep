@@ -395,7 +395,7 @@ name="AutomatedSystemTestsRepository">
 						name="GenericCellMessage"
 						refimgid="85d13c99-8b90-49f2-b235-29cc95822cea"
 						searchtimeout="30000ms">
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' '+$indexRowMessage]/cell[@accessiblename&gt;'Bericht']
 						</item>
 						<item
 						addcaps="cell,accessible"
@@ -419,10 +419,10 @@ h2w43PvQ+hgzZRcwWo36wPa8zQVP066PNZJvg+w96kM2LPd6j1fUg2AHbRLVTte/wQf2vetu3tWY
 Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 0v+F8V1TqnoOxOXBfwwHqGMAAAAASUVORK5CYII=
 							</image>
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' '+$indexRowMessage]/cell[@accessiblename&gt;' Row']
 						</item>
 						<basepath>
-							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename='Row '+$indexRowMessage]
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container/container[@controlname='MessageWindow']/table[@controlname='messagesDataGridView']/row[@accessiblename&lt;' '+$indexRowMessage]
 						</basepath>
 					</folder>
 					<folder
@@ -1047,24 +1047,38 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 								searchtimeout="30000ms">
 									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Waterstand']
 								</item>
-								<item
-								addcaps="cell,accessible"
-								capname="cell"
-								id="dc9f3394-2ea9-44e2-8321-91f323325fff"
-								name="BerekenenRow2"
-								refimgid="0a89cd19-9c91-4412-8110-aa3fe174d58a"
-								searchtimeout="30000ms">
-									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row 2']/cell[@accessiblename='Berekenen Row 2']
-								</item>
-								<item
-								addcaps="cell,accessible"
-								capname="cell"
-								id="c086cd80-cceb-4d4c-aa4e-a036576a28f2"
-								name="WaterstandMPlusNAPRow2"
-								refimgid="40331b78-82f8-4b00-a47f-c1552c3fba07"
-								searchtimeout="30000ms">
-									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row 2']/cell[@accessiblename='Waterstand [m+NAP] Row 2']
-								</item>
+								<folder
+								capname="row"
+								id="096ce337-4db1-4319-ad18-58102ed16cb0"
+								isrooted="True"
+								name="GenericRowInDV"
+								searchtimeout="30000ms"
+								usecache="False">
+									<item
+									capname="cell"
+									id="546b3be4-b5f3-4f4d-9f22-a5149fc0752e"
+									name="checkBoxCalculateNthRow"
+									searchtimeout="30000ms">
+										/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Berekenen']
+									</item>
+									<item
+									capname="cell"
+									id="e5c00e9d-dbea-4d19-aa17-1984c458f621"
+									name="checkBoxreadIllustrationPointsNthRow"
+									searchtimeout="30000ms">
+										/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Illustratie']
+									</item>
+									<item
+									capname="cell"
+									id="e735dd8e-d20c-4c5b-ab38-5962b37b89cc"
+									name="WaterLevelOrWaveHeightNthRow"
+									searchtimeout="30000ms">
+										/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Waterstand' or @accessiblename&gt;'Golfhoogte']
+									</item>
+									<basepath>
+										/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
+									</basepath>
+								</folder>
 								<basepath>
 									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table
 								</basepath>
@@ -1191,14 +1205,14 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 							id="c8521886-54a9-407d-94d4-a646a9c0f68e"
 							name="GenericRowHydraulicBCDunes"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$indexRow]
+								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename&lt;' '+$indexRow]
 							</item>
 							<item
 							capname="cell"
 							id="f7409335-be4e-4a2b-a1e6-498adf52b16a"
 							name="CellCalculatedWaterLevelDA"
 							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarde waterstand']
+								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Rekenwaarde waterstand']
 							</item>
 							<basepath>
 								/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname&gt;'Dune']/container/table
@@ -1852,34 +1866,38 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 						refimgid="23190340-8af0-4944-9d16-2a3ec2c5b794"
 						searchtimeout="30000ms"
 						usecache="False">
-							<item
+							<folder
 							capname="row"
 							id="8d26c2ea-9826-475b-ba13-7a87660216ce"
+							isrooted="True"
 							name="GenericRow"
-							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]
-							</item>
-							<item
-							capname="cell"
-							id="4b247c1d-9839-4696-ae92-cb7f86e1c5d1"
-							name="checkBoxCalculateNthRow"
-							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Berekenen']
-							</item>
-							<item
-							capname="cell"
-							id="5823ab24-e87f-4cea-8490-6d081f7dc01d"
-							name="checkBoxreadIllustrationPointsNthRow"
-							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Illustratie']
-							</item>
-							<item
-							capname="cell"
-							id="2ab47373-3c5c-4a4d-a609-50beef2a4dbd"
-							name="WaterLevelOrWaveHeightNthRow"
-							searchtimeout="30000ms">
-								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Waterstand' or @accessiblename&gt;'Golfhoogte']
-							</item>
+							searchtimeout="30000ms"
+							usecache="False">
+								<item
+								capname="cell"
+								id="4b247c1d-9839-4696-ae92-cb7f86e1c5d1"
+								name="checkBoxCalculateNthRow"
+								searchtimeout="30000ms">
+									/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Berekenen']
+								</item>
+								<item
+								capname="cell"
+								id="5823ab24-e87f-4cea-8490-6d081f7dc01d"
+								name="checkBoxreadIllustrationPointsNthRow"
+								searchtimeout="30000ms">
+									/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Illustratie']
+								</item>
+								<item
+								capname="cell"
+								id="2ab47373-3c5c-4a4d-a609-50beef2a4dbd"
+								name="WaterLevelOrWaveHeightNthRow"
+								searchtimeout="30000ms">
+									/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Waterstand' or @accessiblename&gt;'Golfhoogte']
+								</item>
+								<basepath>
+									/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]
+								</basepath>
+							</folder>
 							<basepath>
 								/form[@automationid='RiskeerMainWindow']/?/container[10]/container[@controltypename='WinFormsAdapter']/container[@controlname&lt;'CalculationsView']/container/container[@controlname='panel1']/container/table
 							</basepath>

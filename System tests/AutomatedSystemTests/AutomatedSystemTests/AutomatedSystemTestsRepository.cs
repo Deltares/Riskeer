@@ -2312,7 +2312,7 @@ namespace AutomatedSystemTests
             /// Creates a new GenericRowMessage  folder.
             /// </summary>
             public GenericRowMessageFolder(RepoGenBaseFolder parentFolder) :
-                    base("GenericRowMessage", "row[@accessiblename='Row '+$indexRowMessage]", parentFolder, 30000, null, false, "43bcbd48-5fca-439f-aa46-2e7f8b5fc251", "")
+                    base("GenericRowMessage", "row[@accessiblename<' '+$indexRowMessage]", parentFolder, 30000, null, false, "43bcbd48-5fca-439f-aa46-2e7f8b5fc251", "")
             {
                 _genericcellmessageInfo = new RepoItemInfo(this, "GenericCellMessage", "cell[@accessiblename>'Bericht']", 30000, null, "4f6147c7-b35a-42d1-8fdd-175372b09979");
                 _genericcelliconInfo = new GenericCellIconInfoClass(this);
@@ -4596,11 +4596,10 @@ namespace AutomatedSystemTests
         [RepositoryFolder("847ec7b3-da1c-4be8-9dd4-a6d20db9310e")]
         public partial class TableFolder3 : RepoGenBaseFolder
         {
+            AutomatedSystemTestsRepositoryFolders.GenericRowInDVFolder _genericrowindv;
             RepoItemInfo _checkboxcalculatenthrowInfo;
             RepoItemInfo _checkboxreadillustrationpointsnthrowInfo;
             RepoItemInfo _waterlevelnthrowInfo;
-            RepoItemInfo _berekenenrow2Info;
-            RepoItemInfo _waterstandmplusnaprow2Info;
 
             /// <summary>
             /// Creates a new Table  folder.
@@ -4608,11 +4607,10 @@ namespace AutomatedSystemTests
             public TableFolder3(RepoGenBaseFolder parentFolder) :
                     base("Table", "container/table", parentFolder, 30000, null, false, "847ec7b3-da1c-4be8-9dd4-a6d20db9310e", "")
             {
+                _genericrowindv = new AutomatedSystemTestsRepositoryFolders.GenericRowInDVFolder(this);
                 _checkboxcalculatenthrowInfo = new RepoItemInfo(this, "checkBoxCalculateNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Berekenen']", 30000, null, "b23f96f2-3091-4bfa-b2b3-ced15cdca711");
                 _checkboxreadillustrationpointsnthrowInfo = new RepoItemInfo(this, "checkBoxreadIllustrationPointsNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Illustratie']", 30000, null, "7ab8bbc2-89dd-4d11-bfe9-16f1853cd19c");
                 _waterlevelnthrowInfo = new RepoItemInfo(this, "WaterLevelNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Waterstand']", 30000, null, "4d5dcf27-80bb-4eb2-8ac6-e585fceac838");
-                _berekenenrow2Info = new RepoItemInfo(this, "BerekenenRow2", "row[@accessiblename='Row 2']/cell[@accessiblename='Berekenen Row 2']", 30000, null, "dc9f3394-2ea9-44e2-8321-91f323325fff");
-                _waterstandmplusnaprow2Info = new RepoItemInfo(this, "WaterstandMPlusNAPRow2", "row[@accessiblename='Row 2']/cell[@accessiblename='Waterstand [m+NAP] Row 2']", 30000, null, "c086cd80-cceb-4d4c-aa4e-a036576a28f2");
             }
 
             /// <summary>
@@ -4712,50 +4710,129 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The BerekenenRow2 item.
+            /// The GenericRowInDV folder.
             /// </summary>
-            [RepositoryItem("dc9f3394-2ea9-44e2-8321-91f323325fff")]
-            public virtual Ranorex.Cell BerekenenRow2
+            [RepositoryFolder("096ce337-4db1-4319-ad18-58102ed16cb0")]
+            public virtual AutomatedSystemTestsRepositoryFolders.GenericRowInDVFolder GenericRowInDV
+            {
+                get { return _genericrowindv; }
+            }
+        }
+
+        /// <summary>
+        /// The GenericRowInDVFolder folder.
+        /// </summary>
+        [RepositoryFolder("096ce337-4db1-4319-ad18-58102ed16cb0")]
+        public partial class GenericRowInDVFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _checkboxcalculatenthrowInfo;
+            RepoItemInfo _checkboxreadillustrationpointsnthrowInfo;
+            RepoItemInfo _waterlevelorwaveheightnthrowInfo;
+
+            /// <summary>
+            /// Creates a new GenericRowInDV  folder.
+            /// </summary>
+            public GenericRowInDVFolder(RepoGenBaseFolder parentFolder) :
+                    base("GenericRowInDV", "row[@accessiblename<' '+$rowIndex]", parentFolder, 30000, null, false, "096ce337-4db1-4319-ad18-58102ed16cb0", "")
+            {
+                _checkboxcalculatenthrowInfo = new RepoItemInfo(this, "checkBoxCalculateNthRow", "cell[@accessiblename>'Berekenen']", 30000, null, "546b3be4-b5f3-4f4d-9f22-a5149fc0752e");
+                _checkboxreadillustrationpointsnthrowInfo = new RepoItemInfo(this, "checkBoxreadIllustrationPointsNthRow", "cell[@accessiblename>'Illustratie']", 30000, null, "e5c00e9d-dbea-4d19-aa17-1984c458f621");
+                _waterlevelorwaveheightnthrowInfo = new RepoItemInfo(this, "WaterLevelOrWaveHeightNthRow", "cell[@accessiblename>'Waterstand' or @accessiblename>'Golfhoogte']", 30000, null, "e735dd8e-d20c-4c5b-ab38-5962b37b89cc");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("096ce337-4db1-4319-ad18-58102ed16cb0")]
+            public virtual Ranorex.Row Self
             {
                 get
                 {
-                    return _berekenenrow2Info.CreateAdapter<Ranorex.Cell>(true);
+                    return _selfInfo.CreateAdapter<Ranorex.Row>(true);
                 }
             }
 
             /// <summary>
-            /// The BerekenenRow2 item info.
+            /// The Self item info.
             /// </summary>
-            [RepositoryItemInfo("dc9f3394-2ea9-44e2-8321-91f323325fff")]
-            public virtual RepoItemInfo BerekenenRow2Info
+            [RepositoryItemInfo("096ce337-4db1-4319-ad18-58102ed16cb0")]
+            public virtual RepoItemInfo SelfInfo
             {
                 get
                 {
-                    return _berekenenrow2Info;
+                    return _selfInfo;
                 }
             }
 
             /// <summary>
-            /// The WaterstandMPlusNAPRow2 item.
+            /// The checkBoxCalculateNthRow item.
             /// </summary>
-            [RepositoryItem("c086cd80-cceb-4d4c-aa4e-a036576a28f2")]
-            public virtual Ranorex.Cell WaterstandMPlusNAPRow2
+            [RepositoryItem("546b3be4-b5f3-4f4d-9f22-a5149fc0752e")]
+            public virtual Ranorex.Cell checkBoxCalculateNthRow
             {
                 get
                 {
-                    return _waterstandmplusnaprow2Info.CreateAdapter<Ranorex.Cell>(true);
+                    return _checkboxcalculatenthrowInfo.CreateAdapter<Ranorex.Cell>(true);
                 }
             }
 
             /// <summary>
-            /// The WaterstandMPlusNAPRow2 item info.
+            /// The checkBoxCalculateNthRow item info.
             /// </summary>
-            [RepositoryItemInfo("c086cd80-cceb-4d4c-aa4e-a036576a28f2")]
-            public virtual RepoItemInfo WaterstandMPlusNAPRow2Info
+            [RepositoryItemInfo("546b3be4-b5f3-4f4d-9f22-a5149fc0752e")]
+            public virtual RepoItemInfo checkBoxCalculateNthRowInfo
             {
                 get
                 {
-                    return _waterstandmplusnaprow2Info;
+                    return _checkboxcalculatenthrowInfo;
+                }
+            }
+
+            /// <summary>
+            /// The checkBoxreadIllustrationPointsNthRow item.
+            /// </summary>
+            [RepositoryItem("e5c00e9d-dbea-4d19-aa17-1984c458f621")]
+            public virtual Ranorex.Cell checkBoxreadIllustrationPointsNthRow
+            {
+                get
+                {
+                    return _checkboxreadillustrationpointsnthrowInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The checkBoxreadIllustrationPointsNthRow item info.
+            /// </summary>
+            [RepositoryItemInfo("e5c00e9d-dbea-4d19-aa17-1984c458f621")]
+            public virtual RepoItemInfo checkBoxreadIllustrationPointsNthRowInfo
+            {
+                get
+                {
+                    return _checkboxreadillustrationpointsnthrowInfo;
+                }
+            }
+
+            /// <summary>
+            /// The WaterLevelOrWaveHeightNthRow item.
+            /// </summary>
+            [RepositoryItem("e735dd8e-d20c-4c5b-ab38-5962b37b89cc")]
+            public virtual Ranorex.Cell WaterLevelOrWaveHeightNthRow
+            {
+                get
+                {
+                    return _waterlevelorwaveheightnthrowInfo.CreateAdapter<Ranorex.Cell>(true);
+                }
+            }
+
+            /// <summary>
+            /// The WaterLevelOrWaveHeightNthRow item info.
+            /// </summary>
+            [RepositoryItemInfo("e735dd8e-d20c-4c5b-ab38-5962b37b89cc")]
+            public virtual RepoItemInfo WaterLevelOrWaveHeightNthRowInfo
+            {
+                get
+                {
+                    return _waterlevelorwaveheightnthrowInfo;
                 }
             }
         }
@@ -5188,8 +5265,8 @@ namespace AutomatedSystemTests
             public TableFolder5(RepoGenBaseFolder parentFolder) :
                     base("Table", "container/table", parentFolder, 30000, null, false, "b032b126-789d-46aa-b7ab-ab1c08998b17", "")
             {
-                _genericrowhydraulicbcdunesInfo = new RepoItemInfo(this, "GenericRowHydraulicBCDunes", "row[@accessiblename='Row '+$indexRow]", 30000, null, "c8521886-54a9-407d-94d4-a646a9c0f68e");
-                _cellcalculatedwaterleveldaInfo = new RepoItemInfo(this, "CellCalculatedWaterLevelDA", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Rekenwaarde waterstand']", 30000, null, "f7409335-be4e-4a2b-a1e6-498adf52b16a");
+                _genericrowhydraulicbcdunesInfo = new RepoItemInfo(this, "GenericRowHydraulicBCDunes", "row[@accessiblename<' '+$indexRow]", 30000, null, "c8521886-54a9-407d-94d4-a646a9c0f68e");
+                _cellcalculatedwaterleveldaInfo = new RepoItemInfo(this, "CellCalculatedWaterLevelDA", "row[@accessiblename<' '+$rowIndex]/cell[@accessiblename>'Rekenwaarde waterstand']", 30000, null, "f7409335-be4e-4a2b-a1e6-498adf52b16a");
             }
 
             /// <summary>
@@ -7378,10 +7455,7 @@ namespace AutomatedSystemTests
         [RepositoryFolder("ca96439e-ba37-4ebe-aa7b-19515fb51914")]
         public partial class TableFolder9 : RepoGenBaseFolder
         {
-            RepoItemInfo _genericrowInfo;
-            RepoItemInfo _checkboxcalculatenthrowInfo;
-            RepoItemInfo _checkboxreadillustrationpointsnthrowInfo;
-            RepoItemInfo _waterlevelorwaveheightnthrowInfo;
+            AutomatedSystemTestsRepositoryFolders.GenericRowFolder1 _genericrow;
 
             /// <summary>
             /// Creates a new Table  folder.
@@ -7389,10 +7463,7 @@ namespace AutomatedSystemTests
             public TableFolder9(RepoGenBaseFolder parentFolder) :
                     base("Table", "container/table", parentFolder, 30000, null, false, "ca96439e-ba37-4ebe-aa7b-19515fb51914", "")
             {
-                _genericrowInfo = new RepoItemInfo(this, "GenericRow", "row[@accessiblename='Row '+$rowIndex]", 30000, null, "8d26c2ea-9826-475b-ba13-7a87660216ce");
-                _checkboxcalculatenthrowInfo = new RepoItemInfo(this, "checkBoxCalculateNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Berekenen']", 30000, null, "4b247c1d-9839-4696-ae92-cb7f86e1c5d1");
-                _checkboxreadillustrationpointsnthrowInfo = new RepoItemInfo(this, "checkBoxreadIllustrationPointsNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Illustratie']", 30000, null, "5823ab24-e87f-4cea-8490-6d081f7dc01d");
-                _waterlevelorwaveheightnthrowInfo = new RepoItemInfo(this, "WaterLevelOrWaveHeightNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Waterstand' or @accessiblename>'Golfhoogte']", 30000, null, "2ab47373-3c5c-4a4d-a609-50beef2a4dbd");
+                _genericrow = new AutomatedSystemTestsRepositoryFolders.GenericRowFolder1(this);
             }
 
             /// <summary>
@@ -7420,26 +7491,57 @@ namespace AutomatedSystemTests
             }
 
             /// <summary>
-            /// The GenericRow item.
+            /// The GenericRow folder.
+            /// </summary>
+            [RepositoryFolder("8d26c2ea-9826-475b-ba13-7a87660216ce")]
+            public virtual AutomatedSystemTestsRepositoryFolders.GenericRowFolder1 GenericRow
+            {
+                get { return _genericrow; }
+            }
+        }
+
+        /// <summary>
+        /// The GenericRowFolder1 folder.
+        /// </summary>
+        [RepositoryFolder("8d26c2ea-9826-475b-ba13-7a87660216ce")]
+        public partial class GenericRowFolder1 : RepoGenBaseFolder
+        {
+            RepoItemInfo _checkboxcalculatenthrowInfo;
+            RepoItemInfo _checkboxreadillustrationpointsnthrowInfo;
+            RepoItemInfo _waterlevelorwaveheightnthrowInfo;
+
+            /// <summary>
+            /// Creates a new GenericRow  folder.
+            /// </summary>
+            public GenericRowFolder1(RepoGenBaseFolder parentFolder) :
+                    base("GenericRow", "row[@accessiblename<' '+$rowIndex]", parentFolder, 30000, null, false, "8d26c2ea-9826-475b-ba13-7a87660216ce", "")
+            {
+                _checkboxcalculatenthrowInfo = new RepoItemInfo(this, "checkBoxCalculateNthRow", "cell[@accessiblename>'Berekenen']", 30000, null, "4b247c1d-9839-4696-ae92-cb7f86e1c5d1");
+                _checkboxreadillustrationpointsnthrowInfo = new RepoItemInfo(this, "checkBoxreadIllustrationPointsNthRow", "cell[@accessiblename>'Illustratie']", 30000, null, "5823ab24-e87f-4cea-8490-6d081f7dc01d");
+                _waterlevelorwaveheightnthrowInfo = new RepoItemInfo(this, "WaterLevelOrWaveHeightNthRow", "cell[@accessiblename>'Waterstand' or @accessiblename>'Golfhoogte']", 30000, null, "2ab47373-3c5c-4a4d-a609-50beef2a4dbd");
+            }
+
+            /// <summary>
+            /// The Self item.
             /// </summary>
             [RepositoryItem("8d26c2ea-9826-475b-ba13-7a87660216ce")]
-            public virtual Ranorex.Row GenericRow
+            public virtual Ranorex.Row Self
             {
                 get
                 {
-                    return _genericrowInfo.CreateAdapter<Ranorex.Row>(true);
+                    return _selfInfo.CreateAdapter<Ranorex.Row>(true);
                 }
             }
 
             /// <summary>
-            /// The GenericRow item info.
+            /// The Self item info.
             /// </summary>
             [RepositoryItemInfo("8d26c2ea-9826-475b-ba13-7a87660216ce")]
-            public virtual RepoItemInfo GenericRowInfo
+            public virtual RepoItemInfo SelfInfo
             {
                 get
                 {
-                    return _genericrowInfo;
+                    return _selfInfo;
                 }
             }
 
