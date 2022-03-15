@@ -151,9 +151,9 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void SetSections_ValidSections_SectionsAndSourcePathAndSectionResultsSet()
+        public void GivenFailureMechanismWithoutSections_WhenSettingValidSections_ThenExpectedSectionsAndSourcePathAndSectionResultsSet()
         {
-            // Setup
+            // Given
             string sourcePath = TestHelper.GetScratchPadPath();
             var failureMechanism = new SimpleFailureMechanismBase();
 
@@ -177,10 +177,56 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                 section2
             };
 
-            // Call
+            // When
             failureMechanism.SetSections(sections, sourcePath);
 
-            // Assert
+            // Then
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+            CollectionAssert.AreEqual(sections, failureMechanism.Sections);
+            Assert.AreEqual(sections.Length, failureMechanism.SectionResults.Count());
+            CollectionAssert.AreEqual(sections, failureMechanism.SectionResults.Select(sr => sr.Section));
+        }
+
+        [Test]
+        public void GivenFailureMechanismWithSections_WhenSettingValidSections_ThenExpectedSectionsAndSourcePathAndSectionResultsSet()
+        {
+            // Given
+            string sourcePath = TestHelper.GetScratchPadPath();
+            var failureMechanism = new SimpleFailureMechanismBase();
+
+            const int matchingX = 1;
+            const int matchingY = 2;
+
+            var section1 = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(3, 4),
+                new Point2D(matchingX, matchingY)
+            });
+            var section2 = new FailureMechanismSection("B", new[]
+            {
+                new Point2D(matchingX, matchingY),
+                new Point2D(-2, -1)
+            });
+
+            FailureMechanismSection[] sections =
+            {
+                section1,
+                section2
+            };
+
+            failureMechanism.SetSections(new []
+            {
+                new FailureMechanismSection("X", new[]
+                {
+                    new Point2D(matchingX, matchingY),
+                    new Point2D(0, 0)
+                })
+            }, sourcePath);
+            
+            // When
+            failureMechanism.SetSections(sections, sourcePath);
+
+            // Then
             Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
             CollectionAssert.AreEqual(sections, failureMechanism.Sections);
             Assert.AreEqual(sections.Length, failureMechanism.SectionResults.Count());
