@@ -80,12 +80,13 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         
         /// <summary>
         /// Determines whether <see cref="Probability"/> should be serialized.
-        /// Gets or sets the status of this assembly result.
         /// </summary>
-        /// <returns>The indicator whether <see cref="Probability"/> should be serialized.</returns>
+        /// <returns><c>false</c> when <see cref="Probability"/> is <c>null</c>
+        /// or <see cref="AssemblyGroup"/> is <see cref="SerializableFailureMechanismSectionAssemblyGroup.NotDominant"/>;
+        /// <c>true</c> otherwise.</returns>
         public bool ShouldSerializeProbability()
         {
-            return Probability.HasValue;
+            return Probability.HasValue && AssemblyGroup != SerializableFailureMechanismSectionAssemblyGroup.NotDominant;
         }
     }
 }

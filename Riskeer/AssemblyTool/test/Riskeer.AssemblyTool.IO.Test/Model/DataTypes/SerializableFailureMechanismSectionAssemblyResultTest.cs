@@ -73,9 +73,17 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
         }
         
         [Test]
-        [TestCase(0.5)]
-        [TestCase(double.NaN)]
-        public void ShouldSerializeProbability_WithProbabilityValues_ReturnsTrue(double probability)
+        [Combinatorial]
+        public void ShouldSerializeProbability_WithProbabilityAndAssemblyGroupOtherThanNotDominant_ReturnsTrue(
+            [Values(0.5, double.NaN)] double probability,
+            [Values(SerializableFailureMechanismSectionAssemblyGroup.III,
+                    SerializableFailureMechanismSectionAssemblyGroup.II,
+                    SerializableFailureMechanismSectionAssemblyGroup.I,
+                    SerializableFailureMechanismSectionAssemblyGroup.Zero,
+                    SerializableFailureMechanismSectionAssemblyGroup.IMin,
+                    SerializableFailureMechanismSectionAssemblyGroup.IIMin,
+                    SerializableFailureMechanismSectionAssemblyGroup.IIIMin)] 
+            SerializableFailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             // Setup
             var random = new Random(39);
@@ -92,7 +100,24 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
         }
 
         [Test]
-        public void ShouldSerializeProbability_WithoutProbabilityValues_ReturnsFalse()
+        public void ShouldSerializeProbability_WithProbabilityAndAssemblyGroupNotDominant_ReturnsFalse()
+        {
+            // Setup
+            var random = new Random(39);
+            var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(
+                random.NextEnumValue<SerializableAssemblyMethod>(),
+                SerializableFailureMechanismSectionAssemblyGroup.NotDominant,
+                random.NextDouble());
+
+            // Call
+            bool shouldSerialize = assemblyResult.ShouldSerializeProbability();
+
+            // Assert
+            Assert.IsFalse(shouldSerialize);
+        }
+
+        [Test]
+        public void ShouldSerializeProbability_WithoutProbability_ReturnsFalse()
         {
             // Setup
             var random = new Random(39);
