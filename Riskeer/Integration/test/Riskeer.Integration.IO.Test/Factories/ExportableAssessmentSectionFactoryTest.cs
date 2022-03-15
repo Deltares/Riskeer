@@ -101,7 +101,65 @@ namespace Riskeer.Integration.IO.Test.Factories
                 AssertExportableFailureMechanismsWithoutProbability(exportableAssessmentSection.FailureMechanisms,
                                                                     assessmentSection);
 
-                Assert.AreEqual(0, exportableAssessmentSection.CombinedSectionAssemblies.Count());
+                CollectionAssert.IsEmpty(exportableAssessmentSection.CombinedSectionAssemblies);
+            }
+        }
+
+        [Test]
+        public void CreateExportableAssessmentSection_AllFailureMechanismNotInAssembly_ReturnsExpectedValues()
+        {
+            // Setup
+            const string name = "assessmentSectionName";
+            const string id = "assessmentSectionId";
+
+            var random = new Random(21);
+            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>())
+            {
+                Name = name,
+                Id = id
+            };
+            ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
+
+            FailureMechanismTestHelper.AddSections(assessmentSection.Piping, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionInwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.HeightStructures, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.ClosingStructures, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.StabilityPointStructures, random.Next(1, 10));
+
+            FailureMechanismTestHelper.AddSections(assessmentSection.StabilityStoneCover, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.WaveImpactAsphaltCover, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionOutwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.DuneErosion, random.Next(1, 10));
+
+            FailureMechanismTestHelper.AddSections(assessmentSection.Microstability, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffOutwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffInwards, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.PipingStructure, random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.WaterPressureAsphaltCover, random.Next(1, 10));
+            
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            {
+                failureMechanism.InAssembly = false;
+            }
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                ExportableAssessmentSection exportableAssessmentSection = ExportableAssessmentSectionFactory.CreateExportableAssessmentSection(assessmentSection);
+
+                // Assert
+                Assert.AreEqual(name, exportableAssessmentSection.Name);
+                Assert.AreEqual(id, exportableAssessmentSection.Id);
+                CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, exportableAssessmentSection.Geometry);
+
+                ExportableAssessmentSectionAssemblyResult exportableAssessmentSectionAssemblyResult = exportableAssessmentSection.AssessmentSectionAssembly;
+                Assert.AreEqual(ExportableAssemblyMethod.WBI2B1, exportableAssessmentSectionAssemblyResult.AssemblyMethod);
+                Assert.AreEqual(AssessmentSectionAssemblyGroup.APlus, exportableAssessmentSectionAssemblyResult.AssemblyGroup);
+                Assert.AreEqual(0.14, exportableAssessmentSectionAssemblyResult.Probability);
+
+                CollectionAssert.IsEmpty(exportableAssessmentSection.FailureMechanisms);
+                CollectionAssert.IsEmpty(exportableAssessmentSection.CombinedSectionAssemblies);
             }
         }
 

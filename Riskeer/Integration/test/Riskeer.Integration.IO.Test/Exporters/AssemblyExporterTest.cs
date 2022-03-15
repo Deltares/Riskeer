@@ -47,10 +47,10 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string filePath = TestHelper.GetScratchPadPath(Path.Combine("export", "test.gml"));
 
             // Call
-            TestDelegate call = () => new AssemblyExporter(null, filePath);
+            void Call() => new AssemblyExporter(null, filePath);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -62,10 +62,10 @@ namespace Riskeer.Integration.IO.Test.Exporters
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Call
-            TestDelegate call = () => new AssemblyExporter(assessmentSection, null);
+            void Call() => new AssemblyExporter(assessmentSection, null);
 
             // Assert
-            Assert.Throws<ArgumentException>(call);
+            Assert.Throws<ArgumentException>(Call);
         }
 
         [Test]
