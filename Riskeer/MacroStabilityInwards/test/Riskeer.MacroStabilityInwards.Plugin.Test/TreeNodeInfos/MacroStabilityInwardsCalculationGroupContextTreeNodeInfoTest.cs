@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -192,7 +191,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             });
 
-            var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                             parentGroup,
@@ -323,7 +322,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
             });
 
-            var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                             null,
@@ -566,7 +565,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
@@ -765,7 +764,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 group.Children.Add(emptyChildGroup);
                 group.Children.Add(invalidCalculation);
 
-                var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 parentGroup,
@@ -792,10 +791,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 using (new MacroStabilityInwardsCalculatorFactoryConfig())
                 {
                     // Call
-                    Action call = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(call, messages =>
+                    TestHelper.AssertLogMessages(Call, messages =>
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(9, msgs.Length);
@@ -841,7 +840,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 group.Children.Add(emptyChildGroup);
                 group.Children.Add(calculationB);
 
-                var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var nodeData = new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                 parentGroup,
                                                                                 Enumerable.Empty<MacroStabilityInwardsSurfaceLine>(),
@@ -875,10 +874,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     };
 
                     // Call
-                    Action call = () => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(call, messages =>
+                    TestHelper.AssertLogMessages(Call, messages =>
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(16, msgs.Length);

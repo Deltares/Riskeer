@@ -598,7 +598,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.FileImporters
                     Structure = structure
                 }
             };
-            var failureMechanism = new TestStabilityPointStructuresFailureMechanism
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
                 CalculationsGroup =
                 {

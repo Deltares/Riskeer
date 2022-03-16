@@ -152,7 +152,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var calculation = new MacroStabilityInwardsCalculationScenario();
-                var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new MacroStabilityInwardsCalculationScenarioContext(calculation,
                                                                                    new CalculationGroup(),
@@ -191,7 +191,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 {
                     Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
                 };
-                var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new MacroStabilityInwardsCalculationScenarioContext(calculation,
                                                                                    new CalculationGroup(),
@@ -226,7 +226,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var calculation = new MacroStabilityInwardsCalculationScenario();
-                var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new MacroStabilityInwardsCalculationScenarioContext(calculation,
                                                                                    new CalculationGroup(),
@@ -367,7 +367,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var calculation = new MacroStabilityInwardsCalculationScenario();
-                var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
                 var calculationContext = new MacroStabilityInwardsCalculationScenarioContext(calculation,
                                                                                              new CalculationGroup(),
@@ -399,11 +399,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
                 {
                     // When
-                    Action action = () => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
+                    void Action() => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
 
                     // Then
                     const int expectedValidationMessageCount = 3;
-                    TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(action, messages =>
+                    TestHelper.AssertLogMessagesWithLevelAndLoggedExceptions(Action, messages =>
                     {
                         Tuple<string, Level, Exception>[] tupleArray = messages.ToArray();
                         string[] msgs = tupleArray.Select(tuple => tuple.Item1).ToArray();
@@ -430,7 +430,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var calculation = new MacroStabilityInwardsCalculationScenario();
-                var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
 
                 var calculationContext = new MacroStabilityInwardsCalculationScenarioContext(calculation,
@@ -456,13 +456,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 using (new MacroStabilityInwardsCalculatorFactoryConfig())
                 {
                     // When
-                    Action action = () => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
+                    void Action() => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
 
                     // Then
                     const int expectedValidationMessageCount = 3;
                     const int expectedStatusMessageCount = 2;
                     const int expectedLogMessageCount = expectedValidationMessageCount + expectedStatusMessageCount;
-                    TestHelper.AssertLogMessagesCount(action, expectedLogMessageCount);
+                    TestHelper.AssertLogMessagesCount(Action, expectedLogMessageCount);
                 }
             }
         }
@@ -473,7 +473,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Given
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
@@ -514,10 +514,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(calculationContext, null, treeViewControl))
                 {
                     // When
-                    Action action = () => contextMenuAdapter.Items[contextMenuCalculateIndex].PerformClick();
+                    void Action() => contextMenuAdapter.Items[contextMenuCalculateIndex].PerformClick();
 
                     // Then
-                    TestHelper.AssertLogMessages(action, messages =>
+                    TestHelper.AssertLogMessages(Action, messages =>
                     {
                         using (IEnumerator<string> msgs = messages.GetEnumerator())
                         {

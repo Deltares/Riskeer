@@ -413,10 +413,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                                                                                                    string detailedReport)
         {
             // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                Contribution = 20
-            };
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
                 EndInFailure = endInFailure,
@@ -501,10 +498,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                                                                                        string detailedReport)
         {
             // Setup
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
-            {
-                Contribution = 20
-            };
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
                 EndInFailure = endInFailure,

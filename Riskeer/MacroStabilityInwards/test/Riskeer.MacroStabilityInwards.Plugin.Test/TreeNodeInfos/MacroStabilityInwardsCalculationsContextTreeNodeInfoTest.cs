@@ -243,7 +243,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_HasCalculationWithOutput_ReturnsContextMenuWithCommonItems()
         {
             // Setup
-            var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
                 Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
@@ -341,7 +341,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var data = mocks.StrictMock<MacroStabilityInwardsFailureMechanism>();
-                data.Stub(dm => dm.Calculations).Return(new ICalculation[0]);
+                data.Stub(dm => dm.Calculations).Return(Array.Empty<ICalculation>());
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var context = new MacroStabilityInwardsCalculationsContext(data, assessmentSection);
@@ -415,7 +415,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     hydraulicBoundaryLocation
                 }, true);
 
-                var failureMechanism = new TestMacroStabilityInwardsFailureMechanism
+                var failureMechanism = new MacroStabilityInwardsFailureMechanism
                 {
                     CalculationsGroup =
                     {
@@ -508,7 +508,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     hydraulicBoundaryLocation
                 }, true);
 
-                var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 MacroStabilityInwardsCalculationScenario validCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithValidInput(hydraulicBoundaryLocation);
                 validCalculation.Name = "A";
                 MacroStabilityInwardsCalculationScenario invalidCalculation = MacroStabilityInwardsCalculationScenarioTestFactory.CreateMacroStabilityInwardsCalculationScenarioWithInvalidInput();
@@ -531,10 +531,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 using (new MacroStabilityInwardsCalculatorFactoryConfig())
                 {
                     // Call
-                    Action call = () => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(call, messages =>
+                    TestHelper.AssertLogMessages(Call, messages =>
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(9, msgs.Length);
@@ -555,7 +555,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeViewControl = new TreeViewControl())
             {
-                var failureMechanism = new TestMacroStabilityInwardsFailureMechanism();
+                var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = new AssessmentSectionStub();
                 var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
@@ -594,10 +594,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Call
-                    Action call = () => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
+                    void Call() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick();
 
                     // Assert
-                    TestHelper.AssertLogMessages(call, messages =>
+                    TestHelper.AssertLogMessages(Call, messages =>
                     {
                         string[] msgs = messages.ToArray();
                         Assert.AreEqual(16, msgs.Length);

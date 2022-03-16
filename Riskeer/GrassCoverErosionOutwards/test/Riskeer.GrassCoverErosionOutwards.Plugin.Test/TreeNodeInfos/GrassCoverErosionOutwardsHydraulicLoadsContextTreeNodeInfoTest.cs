@@ -313,10 +313,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             });
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 5
-            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output =
                 new TestHydraulicBoundaryLocationCalculationOutput(2.0);
