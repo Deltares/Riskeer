@@ -26,22 +26,11 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
-using Riskeer.DuneErosion.Data;
-using Riskeer.GrassCoverErosionInwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.HeightStructures.Data;
-using Riskeer.Integration.Data.StandAlone;
-using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.Piping.Data;
-using Riskeer.StabilityPointStructures.Data;
-using Riskeer.StabilityStoneCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Integration.Data.Test
 {
@@ -78,7 +67,7 @@ namespace Riskeer.Integration.Data.Test
             Assert.IsFalse(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor);
 
             Assert.IsEmpty(assessmentSection.SpecificFailurePaths);
-            
+
             Assert.IsEmpty(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities);
             Assert.IsEmpty(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities);
 
@@ -100,8 +89,6 @@ namespace Riskeer.Integration.Data.Test
             Assert.NotNull(assessmentSection.PipingStructure);
             Assert.NotNull(assessmentSection.StabilityPointStructures);
             Assert.NotNull(assessmentSection.DuneErosion);
-
-            AssertExpectedContributions(composition, assessmentSection);
 
             BackgroundData backgroundData = assessmentSection.BackgroundData;
             Assert.IsTrue(backgroundData.IsVisible);
@@ -305,8 +292,8 @@ namespace Riskeer.Integration.Data.Test
 
         [Test]
         [TestCaseSource(nameof(GetFailureMechanismInAssemblyStates))]
-        public void ChangeComposition_ToTargetValue_UpdateContributionsAndFailureMechanismRelevancies(AssessmentSectionComposition composition,
-                                                                                                      bool[] inAssemblyStates)
+        public void ChangeComposition_ToTargetValue_UpdateFailureMechanismInAssemblyStates(AssessmentSectionComposition composition,
+                                                                                           bool[] inAssemblyStates)
         {
             // Setup
             AssessmentSectionComposition initialComposition = composition == AssessmentSectionComposition.Dike
@@ -321,7 +308,6 @@ namespace Riskeer.Integration.Data.Test
             assessmentSection.ChangeComposition(composition);
 
             // Assert
-            AssertExpectedContributions(composition, assessmentSection);
             Assert.AreEqual(inAssemblyStates[0], assessmentSection.Piping.InAssembly);
             Assert.AreEqual(inAssemblyStates[1], assessmentSection.GrassCoverErosionInwards.InAssembly);
             Assert.AreEqual(inAssemblyStates[2], assessmentSection.MacroStabilityInwards.InAssembly);
@@ -412,41 +398,6 @@ namespace Riskeer.Integration.Data.Test
             AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 1, hydraulicBoundaryLocation2);
         }
 
-        [Test]
-        [TestCaseSource(nameof(GetNewFailureMechanismsWithGetPropertyFunc))]
-        public void GivenAssessmentSection_WhenSettingFailureMechanismWithSameContribution_ThenNewFailureMechanismSet(
-            Action<AssessmentSection, IFailureMechanism> setNewFailureMechanismAction, IFailureMechanism newFailureMechanism,
-            Func<AssessmentSection, IFailureMechanism> getFailureMechanismFunc)
-        {
-            // Given
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            newFailureMechanism.Contribution = getFailureMechanismFunc(assessmentSection).Contribution;
-
-            // When
-            setNewFailureMechanismAction(assessmentSection, newFailureMechanism);
-
-            // Then
-            Assert.AreSame(getFailureMechanismFunc(assessmentSection), newFailureMechanism);
-        }
-
-        [Test]
-        [TestCaseSource(nameof(GetNewFailureMechanisms))]
-        public void GivenAssessmentSection_WhenSettingFailureMechanismWithOtherContribution_ThenThrowsArgumentException(
-            Action<AssessmentSection, IFailureMechanism> setNewFailureMechanismAction, IFailureMechanism newFailureMechanism)
-        {
-            // Given
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            newFailureMechanism.Contribution = random.Next(0, 100);
-
-            // When
-            void Call() => setNewFailureMechanismAction(assessmentSection, newFailureMechanism);
-
-            // Then
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "De contributie van het nieuwe toetsspoor moet gelijk zijn aan het oude toetsspoor.");
-        }
-
         private static void AssertFailureProbabilityMarginFactor(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
         {
             Assert.AreEqual(2, assessmentSection.FailureProbabilityMarginFactor.NumberOfDecimalPlaces);
@@ -459,84 +410,6 @@ namespace Riskeer.Integration.Data.Test
             {
                 Assert.AreEqual(0.58, assessmentSection.FailureProbabilityMarginFactor.Value);
             }
-        }
-
-        private static void AssertExpectedContributions(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
-        {
-            double[] contributions = GetContributions(composition).ToArray();
-
-            Assert.AreEqual(contributions[0], assessmentSection.Piping.Contribution);
-            Assert.AreEqual(contributions[1], assessmentSection.GrassCoverErosionInwards.Contribution);
-            Assert.AreEqual(contributions[2], assessmentSection.MacroStabilityInwards.Contribution);
-            Assert.AreEqual(contributions[3], assessmentSection.StabilityStoneCover.Contribution);
-            Assert.AreEqual(contributions[4], assessmentSection.WaveImpactAsphaltCover.Contribution);
-            Assert.AreEqual(contributions[5], assessmentSection.GrassCoverErosionOutwards.Contribution);
-            Assert.AreEqual(contributions[6], assessmentSection.HeightStructures.Contribution);
-            Assert.AreEqual(contributions[7], assessmentSection.ClosingStructures.Contribution);
-            Assert.AreEqual(contributions[8], assessmentSection.PipingStructure.Contribution);
-            Assert.AreEqual(contributions[9], assessmentSection.StabilityPointStructures.Contribution);
-            Assert.AreEqual(contributions[10], assessmentSection.DuneErosion.Contribution);
-        }
-
-        private static IEnumerable<double> GetContributions(AssessmentSectionComposition composition)
-        {
-            double[] contributions = null;
-            switch (composition)
-            {
-                case AssessmentSectionComposition.Dike:
-                    contributions = new double[]
-                    {
-                        24,
-                        24,
-                        4,
-                        5,
-                        5,
-                        5,
-                        24,
-                        4,
-                        2,
-                        2,
-                        0
-                    };
-                    break;
-                case AssessmentSectionComposition.Dune:
-                    contributions = new double[]
-                    {
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        70
-                    };
-                    break;
-                case AssessmentSectionComposition.DikeAndDune:
-                    contributions = new double[]
-                    {
-                        24,
-                        24,
-                        4,
-                        5,
-                        5,
-                        5,
-                        24,
-                        4,
-                        2,
-                        2,
-                        10
-                    };
-                    break;
-                default:
-                    Assert.Fail("{0} does not have expectancy implemented!", composition);
-                    break;
-            }
-
-            return contributions;
         }
 
         private static IEnumerable<TestCaseData> GetFailureMechanismInAssemblyStates()
@@ -627,96 +500,6 @@ namespace Riskeer.Integration.Data.Test
             Assert.AreSame(hydraulicBoundaryLocation, hydraulicBoundaryLocationCalculation.HydraulicBoundaryLocation);
             Assert.IsNull(hydraulicBoundaryLocationCalculation.Output);
             Assert.IsFalse(hydraulicBoundaryLocationCalculation.InputParameters.ShouldIllustrationPointsBeCalculated);
-        }
-
-        private static IEnumerable<TestCaseData> GetNewFailureMechanismsWithGetPropertyFunc()
-        {
-            IEnumerable<FailureMechanismTestData> testData = GetFailureMechanismTestData();
-
-            foreach (FailureMechanismTestData failureMechanismTestData in testData)
-            {
-                yield return new TestCaseData(failureMechanismTestData.SetNewFailureMechanismAction,
-                                              failureMechanismTestData.NewFailureMechanism,
-                                              failureMechanismTestData.GetFailureMechanismFunc);
-            }
-        }
-
-        private static IEnumerable<TestCaseData> GetNewFailureMechanisms()
-        {
-            IEnumerable<FailureMechanismTestData> testData = GetFailureMechanismTestData();
-
-            foreach (FailureMechanismTestData failureMechanismTestData in testData)
-            {
-                yield return new TestCaseData(failureMechanismTestData.SetNewFailureMechanismAction,
-                                              failureMechanismTestData.NewFailureMechanism);
-            }
-        }
-
-        private static IEnumerable<FailureMechanismTestData> GetFailureMechanismTestData()
-        {
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.Piping = (PipingFailureMechanism) failureMechanism,
-                                                      new PipingFailureMechanism(),
-                                                      section => section.Piping);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.GrassCoverErosionInwards = (GrassCoverErosionInwardsFailureMechanism) failureMechanism,
-                                                      new GrassCoverErosionInwardsFailureMechanism(),
-                                                      section => section.GrassCoverErosionInwards);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.MacroStabilityInwards = (MacroStabilityInwardsFailureMechanism) failureMechanism,
-                                                      new MacroStabilityInwardsFailureMechanism(),
-                                                      section => section.MacroStabilityInwards);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.Microstability = (MicrostabilityFailureMechanism) failureMechanism,
-                                                      new MicrostabilityFailureMechanism(),
-                                                      section => section.Microstability);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.StabilityStoneCover = (StabilityStoneCoverFailureMechanism) failureMechanism,
-                                                      new StabilityStoneCoverFailureMechanism(),
-                                                      section => section.StabilityStoneCover);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.WaveImpactAsphaltCover = (WaveImpactAsphaltCoverFailureMechanism) failureMechanism,
-                                                      new WaveImpactAsphaltCoverFailureMechanism(),
-                                                      section => section.WaveImpactAsphaltCover);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.WaterPressureAsphaltCover = (WaterPressureAsphaltCoverFailureMechanism) failureMechanism,
-                                                      new WaterPressureAsphaltCoverFailureMechanism(),
-                                                      section => section.WaterPressureAsphaltCover);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.GrassCoverErosionOutwards = (GrassCoverErosionOutwardsFailureMechanism) failureMechanism,
-                                                      new GrassCoverErosionOutwardsFailureMechanism(),
-                                                      section => section.GrassCoverErosionOutwards);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.GrassCoverSlipOffOutwards = (GrassCoverSlipOffOutwardsFailureMechanism) failureMechanism,
-                                                      new GrassCoverSlipOffOutwardsFailureMechanism(),
-                                                      section => section.GrassCoverSlipOffOutwards);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.GrassCoverSlipOffInwards = (GrassCoverSlipOffInwardsFailureMechanism) failureMechanism,
-                                                      new GrassCoverSlipOffInwardsFailureMechanism(),
-                                                      section => section.GrassCoverSlipOffInwards);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.HeightStructures = (HeightStructuresFailureMechanism) failureMechanism,
-                                                      new HeightStructuresFailureMechanism(),
-                                                      section => section.HeightStructures);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.ClosingStructures = (ClosingStructuresFailureMechanism) failureMechanism,
-                                                      new ClosingStructuresFailureMechanism(),
-                                                      section => section.ClosingStructures);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.PipingStructure = (PipingStructureFailureMechanism) failureMechanism,
-                                                      new PipingStructureFailureMechanism(),
-                                                      section => section.PipingStructure);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.StabilityPointStructures = (StabilityPointStructuresFailureMechanism) failureMechanism,
-                                                      new StabilityPointStructuresFailureMechanism(),
-                                                      section => section.StabilityPointStructures);
-            yield return new FailureMechanismTestData((section, failureMechanism) => section.DuneErosion = (DuneErosionFailureMechanism) failureMechanism,
-                                                      new DuneErosionFailureMechanism(),
-                                                      section => section.DuneErosion);
-        }
-
-        private class FailureMechanismTestData
-        {
-            public FailureMechanismTestData(Action<AssessmentSection, IFailureMechanism> setNewFailureMechanismAction,
-                                            IFailureMechanism newFailureMechanism,
-                                            Func<AssessmentSection, IFailureMechanism> getFailureMechanismFunc)
-            {
-                SetNewFailureMechanismAction = setNewFailureMechanismAction;
-                NewFailureMechanism = newFailureMechanism;
-                GetFailureMechanismFunc = getFailureMechanismFunc;
-            }
-
-            public Action<AssessmentSection, IFailureMechanism> SetNewFailureMechanismAction { get; }
-
-            public IFailureMechanism NewFailureMechanism { get; }
-
-            public Func<AssessmentSection, IFailureMechanism> GetFailureMechanismFunc { get; }
         }
     }
 }
