@@ -1344,11 +1344,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void GivenHydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_WhenValidatingCalculation_ThenNoValidationErrorsLogged()
         {
             // Given
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 5
-            };
-
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             var parent = new CalculationGroup();
@@ -1402,11 +1398,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void GivenHydraulicBoundaryDatabaseWithUsePreprocessorFalse_WhenValidatingCalculation_ThenNoValidationErrorsLogged()
         {
             // Given
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 5
-            };
-
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
@@ -1464,11 +1456,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void GivenHydraulicBoundaryDatabaseWithUsePreprocessorTrue_WhenValidatingCalculation_ThenNoValidationErrorsLogged()
         {
             // Given
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 5
-            };
-
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
@@ -1526,11 +1514,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void GivenHydraulicBoundaryDatabaseWithUsePreprocessorTrue_WhenValidatingCalculation_ThenValidationErrorsLogged()
         {
             // Given
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 5
-            };
-
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;

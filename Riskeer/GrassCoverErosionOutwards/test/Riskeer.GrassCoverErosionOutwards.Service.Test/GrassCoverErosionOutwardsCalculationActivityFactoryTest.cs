@@ -106,7 +106,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         public void CreateCalculationActivity_WithValidCalculation_ReturnsGrassCoverErosionOutwardsWaveConditionsCalculationActivityWithParametersSet()
         {
             // Setup
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanism();
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             hydraulicBoundaryDatabase.FilePath = validFilePath;
@@ -184,7 +184,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
         public void CreateWaveConditionsCalculationActivitiesForCalculationGroup_WithValidCalculations_ReturnsGrassCoverErosionOutwardsWaveConditionsCalculationActivitiesWithParametersSet()
         {
             // Setup
-            GrassCoverErosionOutwardsFailureMechanism failureMechanism = CreateFailureMechanism();
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             hydraulicBoundaryDatabase.FilePath = validFilePath;
@@ -218,14 +218,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output.Result;
             AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
             AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
-        }
-
-        private static GrassCoverErosionOutwardsFailureMechanism CreateFailureMechanism()
-        {
-            return new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 10
-            };
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation CreateValidCalculation(HydraulicBoundaryLocation hydraulicBoundaryLocation)

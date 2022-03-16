@@ -31,14 +31,6 @@ namespace Riskeer.Piping.Data.TestUtil
     public class TestPipingFailureMechanism : PipingFailureMechanism
     {
         /// <summary>
-        /// Creates a new instance of a <see cref="TestPipingFailureMechanism"/> with a non-zero contribution.
-        /// </summary>
-        public TestPipingFailureMechanism()
-        {
-            Contribution = 24;
-        }
-
-        /// <summary>
         /// Creates a new instance of a <see cref="TestPipingFailureMechanism"/> with sections and a surface line.
         /// </summary>
         /// <returns>A new instance of <see cref="TestPipingFailureMechanism"/>.</returns>

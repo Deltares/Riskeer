@@ -711,10 +711,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
                 group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
 
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    Contribution = 5
-                };
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
@@ -756,10 +753,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
                 group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
 
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    Contribution = 5
-                };
+                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
                 failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
@@ -804,10 +798,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
-            {
-                Contribution = 5
-            };
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -1632,7 +1623,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
-                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(new ImportInfo[0]);
+                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(Array.Empty<ImportInfo>());
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
@@ -1683,7 +1674,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
-                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(new ImportInfo[0]);
+                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(Array.Empty<ImportInfo>());
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
