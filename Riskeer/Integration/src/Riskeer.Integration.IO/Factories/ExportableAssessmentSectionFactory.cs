@@ -22,12 +22,27 @@
 using System;
 using System.Collections.Generic;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.ClosingStructures.Data;
+using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.Structures;
+using Riskeer.DuneErosion.Data;
+using Riskeer.GrassCoverErosionInwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.HeightStructures.Data;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
+using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 using Riskeer.Integration.IO.Assembly;
+using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.Piping.Data;
+using Riskeer.StabilityPointStructures.Data;
+using Riskeer.StabilityStoneCover.Data;
+using Riskeer.WaveImpactAsphaltCover.Data;
 
 namespace Riskeer.Integration.IO.Factories
 {
@@ -88,35 +103,84 @@ namespace Riskeer.Integration.IO.Factories
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static IEnumerable<ExportableFailureMechanism> CreateExportableFailureMechanisms(AssessmentSection assessmentSection)
         {
-            var failureMechanisms = new List<ExportableFailureMechanism>();
+            var exportableFailureMechanisms = new List<ExportableFailureMechanism>();
 
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.Piping, fm => ExportablePipingFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.MacroStabilityInwards, fm => ExportableMacroStabilityInwardsFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.GrassCoverErosionInwards, fm => ExportableGrassCoverErosionInwardsFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.HeightStructures, fm => ExportableHeightStructuresFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.ClosingStructures, fm => ExportableClosingStructuresFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.StabilityPointStructures, fm => ExportableStabilityPointStructuresFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.StabilityStoneCover, fm => ExportableStabilityStoneCoverFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.WaveImpactAsphaltCover, fm => ExportableWaveImpactAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.GrassCoverErosionOutwards, fm => ExportableGrassCoverErosionOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.DuneErosion, fm => ExportableDuneErosionFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.Microstability, fm => ExportableMicrostabilityFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.GrassCoverSlipOffOutwards, fm => ExportableGrassCoverSlipOffOutwardsFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.GrassCoverSlipOffInwards, fm => ExportableGrassCoverSlipOffInwardsFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.PipingStructure, fm => ExportablePipingStructureFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
-            AddFailureMechanismWhenInAssembly(failureMechanisms, assessmentSection.WaterPressureAsphaltCover, fm => ExportableWaterPressureAsphaltCoverFailureMechanismFactory.CreateExportableFailureMechanism(fm, assessmentSection));
+            AddFailureMechanismWhenInAssembly<PipingFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.Piping, assessmentSection, PipingFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                PipingFailureMechanismAssemblyFactory.AssembleSection, ExportableFailureMechanismType.STPH);
 
-            return failureMechanisms;
+            AddFailureMechanismWhenInAssembly<MacroStabilityInwardsFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.MacroStabilityInwards, assessmentSection, MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection, ExportableFailureMechanismType.STBI);
+
+            AddFailureMechanismWhenInAssembly<GrassCoverErosionInwardsFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.GrassCoverErosionInwards, assessmentSection, GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection, ExportableFailureMechanismType.GEKB);
+
+            AddFailureMechanismWhenInAssembly<HeightStructuresFailureMechanism, AdoptableFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.HeightStructures, assessmentSection, HeightStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                StructuresFailureMechanismAssemblyFactory.AssembleSection<HeightStructuresInput>, ExportableFailureMechanismType.HTKW);
+
+            AddFailureMechanismWhenInAssembly<ClosingStructuresFailureMechanism, AdoptableFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.ClosingStructures, assessmentSection, ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                StructuresFailureMechanismAssemblyFactory.AssembleSection<ClosingStructuresInput>, ExportableFailureMechanismType.BSKW);
+
+            AddFailureMechanismWhenInAssembly<StabilityPointStructuresFailureMechanism, AdoptableFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.StabilityPointStructures, assessmentSection, StabilityPointStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                StructuresFailureMechanismAssemblyFactory.AssembleSection<StabilityPointStructuresInput>, ExportableFailureMechanismType.STKWp);
+
+            AddFailureMechanismWhenInAssembly<StabilityStoneCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.StabilityStoneCover, assessmentSection, StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSection, ExportableFailureMechanismType.ZST);
+
+            AddFailureMechanismWhenInAssembly<WaveImpactAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.WaveImpactAsphaltCover, assessmentSection, WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSection, ExportableFailureMechanismType.AGK);
+
+            AddFailureMechanismWhenInAssembly<GrassCoverErosionOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.GrassCoverErosionOutwards, assessmentSection, GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection, ExportableFailureMechanismType.GEBU);
+
+            AddFailureMechanismWhenInAssembly<DuneErosionFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.DuneErosion, assessmentSection, DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                (sr, fm, ass) => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, ass), ExportableFailureMechanismType.DA);
+
+            AddFailureMechanismWhenInAssembly<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.Microstability, assessmentSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                FailureMechanismAssemblyFactory.AssembleSection, ExportableFailureMechanismType.STMI);
+
+            AddFailureMechanismWhenInAssembly<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.GrassCoverSlipOffOutwards, assessmentSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                FailureMechanismAssemblyFactory.AssembleSection, ExportableFailureMechanismType.GABU);
+
+            AddFailureMechanismWhenInAssembly<GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.GrassCoverSlipOffInwards, assessmentSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                FailureMechanismAssemblyFactory.AssembleSection, ExportableFailureMechanismType.GABI);
+
+            AddFailureMechanismWhenInAssembly<PipingStructureFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.PipingStructure, assessmentSection, PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                (sr, fm, ass) => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, ass), ExportableFailureMechanismType.PKW);
+
+            AddFailureMechanismWhenInAssembly<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                exportableFailureMechanisms, assessmentSection.WaterPressureAsphaltCover, assessmentSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                FailureMechanismAssemblyFactory.AssembleSection, ExportableFailureMechanismType.AWO);
+
+            return exportableFailureMechanisms;
         }
 
-        private static void AddFailureMechanismWhenInAssembly<TFailureMechanism>(List<ExportableFailureMechanism> exportableFailureMechanisms,
-                                                                                 TFailureMechanism failureMechanism,
-                                                                                 Func<TFailureMechanism, ExportableFailureMechanism> createExportableFailureMechanismFunc)
-            where TFailureMechanism : IFailurePath
+        private static void AddFailureMechanismWhenInAssembly<TFailureMechanism, TSectionResult>(
+            List<ExportableFailureMechanism> exportableFailureMechanisms, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
+            Func<TFailureMechanism, IAssessmentSection, double> assembleFailureMechanismFunc,
+            Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResult> assembleFailureMechanismSectionFunc,
+            ExportableFailureMechanismType failureMechanismType)
+            where TFailureMechanism : IFailurePath<TSectionResult>
+            where TSectionResult : FailureMechanismSectionResult
         {
             if (failureMechanism.InAssembly)
             {
-                exportableFailureMechanisms.Add(createExportableFailureMechanismFunc(failureMechanism));
+                exportableFailureMechanisms.Add(
+                    ExportableFailureMechanismFactory.CreateExportableFailureMechanism(
+                        failureMechanism, assessmentSection, assembleFailureMechanismFunc, assembleFailureMechanismSectionFunc, failureMechanismType));
             }
         }
 
