@@ -35,11 +35,13 @@ namespace Riskeer.Integration.IO.Assembly
         /// <param name="failureMechanismSection">The failure mechanism section.</param>
         /// <param name="assemblyGroup">The assembly group of this section.</param>
         /// <param name="probability">The probability of this section.</param>
+        /// <param name="assemblyMethod">The assembly method used for this section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSection"/> is <c>null</c>.</exception>
         public ExportableFailureMechanismSectionAssemblyWithProbabilityResult(ExportableFailureMechanismSection failureMechanismSection,
                                                                               FailureMechanismSectionAssemblyGroup assemblyGroup,
-                                                                              double probability)
-            : base(failureMechanismSection, assemblyGroup, ExportableAssemblyMethod.WBI0A2)
+                                                                              double probability,
+                                                                              ExportableAssemblyMethod assemblyMethod)
+            : base(failureMechanismSection, assemblyGroup, assemblyMethod)
         {
             Probability = probability;
         }

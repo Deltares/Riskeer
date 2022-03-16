@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
@@ -53,7 +54,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             var random = new Random(21);
             var sectionResult = new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
                 ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                assemblyGroup, random.NextDouble());
+                assemblyGroup, random.NextDouble(), random.NextEnumValue<ExportableAssemblyMethod>());
 
             // Call
             void Call() => SerializableFailureMechanismSectionAssemblyResultCreator.Create(sectionResult);

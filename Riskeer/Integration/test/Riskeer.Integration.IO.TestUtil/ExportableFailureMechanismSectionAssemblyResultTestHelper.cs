@@ -60,6 +60,7 @@ namespace Riskeer.Integration.IO.TestUtil
                 Assert.AreSame(section, actualExportableAssemblyResult.FailureMechanismSection);
                 Assert.AreEqual(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup, actualExportableAssemblyResult.AssemblyGroup);
                 Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualExportableAssemblyResult.Probability);
+                Assert.AreEqual(ExportableAssemblyMethod.WBI0A2, actualExportableAssemblyResult.AssemblyMethod);
             }
         }
     }

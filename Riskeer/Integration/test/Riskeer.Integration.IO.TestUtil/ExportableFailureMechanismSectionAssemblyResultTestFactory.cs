@@ -83,7 +83,8 @@ namespace Riskeer.Integration.IO.TestUtil
                     FailureMechanismSectionAssemblyGroup.IIMin,
                     FailureMechanismSectionAssemblyGroup.IIIMin
                 }),
-                random.NextDouble());
+                random.NextDouble(),
+                random.NextEnumValue<ExportableAssemblyMethod>());
         }
     }
 }
