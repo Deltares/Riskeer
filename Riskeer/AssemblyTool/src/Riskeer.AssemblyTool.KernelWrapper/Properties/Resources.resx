@@ -157,10 +157,10 @@
     <value>Ieder toetsspoor in de assemblage moet een vakindeling geïmporteerd hebben.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_SectionsWithoutCategory" xml:space="preserve">
-    <value>Er zijn een of meerdere vakindelingen gevonden die geen categorie hebben.</value>
+    <value>Er zijn een of meerdere vakken gevonden die geen duidingsklasse hebben.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_GetErrorMessage_InvalidCategoryLimits" xml:space="preserve">
-    <value>De categoriegrenzen zijn niet aaneengesloten en spannen niet de volledige faalkansruimte.</value>
+    <value>De klassengrenzen zijn niet aaneengesloten of dekken niet de volledige faalkansruimte af.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_EmptyResultsList" xml:space="preserve">
     <value>Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden.</value>

@@ -172,7 +172,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De categoriegrenzen zijn niet aaneengesloten en spannen niet de volledige faalkansruimte..
+        ///   Looks up a localized string similar to De klassengrenzen zijn niet aaneengesloten of dekken niet de volledige faalkansruimte af..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_GetErrorMessage_InvalidCategoryLimits {
             get {
@@ -244,7 +244,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn een of meerdere vakindelingen gevonden die geen categorie hebben..
+        ///   Looks up a localized string similar to Er zijn een of meerdere vakken gevonden die geen duidingsklasse hebben..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_SectionsWithoutCategory {
             get {
