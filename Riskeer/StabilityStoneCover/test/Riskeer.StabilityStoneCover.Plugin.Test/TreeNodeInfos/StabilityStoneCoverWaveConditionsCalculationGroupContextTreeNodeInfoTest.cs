@@ -884,11 +884,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_NoValidationErrorsLogged()
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 5
-            };
-
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
@@ -936,11 +932,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_NoValidationErrorsLogged()
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 5
-            };
-
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
@@ -992,11 +984,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_NoValidationErrorsLogged()
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 5
-            };
-
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection.HydraulicBoundaryDatabase.Locations.First());
@@ -1048,11 +1036,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void ValidateAllViaContextMenuStrip_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_ValidationErrorsLogged()
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 5
-            };
-
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = CreateAssessmentSectionWithHydraulicBoundaryOutput();
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
@@ -1678,7 +1662,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
-                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(new ImportInfo[0]);
+                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(Array.Empty<ImportInfo>());
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();
@@ -1727,7 +1711,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
                 var importHandler = mocks.Stub<IImportCommandHandler>();
-                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(new ImportInfo[0]);
+                importHandler.Stub(ih => ih.GetSupportedImportInfos(context)).Return(Array.Empty<ImportInfo>());
                 var exportHandler = mocks.Stub<IExportCommandHandler>();
                 var updateHandler = mocks.Stub<IUpdateCommandHandler>();
                 var viewCommands = mocks.Stub<IViewCommands>();

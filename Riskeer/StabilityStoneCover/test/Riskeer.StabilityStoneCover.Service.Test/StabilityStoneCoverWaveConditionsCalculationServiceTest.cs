@@ -569,10 +569,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                                                                                                    string detailedReport)
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 20
-            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
                 EndInFailure = endInFailure,
@@ -658,10 +655,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                                                                                              string detailedReport)
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 20
-            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
                 EndInFailure = endInFailure,
@@ -756,10 +750,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                                                                                               string detailedReport)
         {
             // Setup
-            var failureMechanism = new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 20
-            };
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculatorThatFails = new TestWaveConditionsCosineCalculator
             {
                 EndInFailure = endInFailure,

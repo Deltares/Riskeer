@@ -82,7 +82,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            StabilityStoneCoverFailureMechanism failureMechanism = CreateFailureMechanism();
+            StabilityStoneCoverFailureMechanism failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
             SetHydraulicBoundaryLocationToAssessmentSection(assessmentSection, hydraulicBoundaryLocation);
@@ -168,7 +168,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         public void CreateCalculationActivity_WithValidCalculation_ReturnsStabilityStoneCoverWaveConditionsCalculationActivityWithParametersSet()
         {
             // Setup
-            StabilityStoneCoverFailureMechanism failureMechanism = CreateFailureMechanism();
+            StabilityStoneCoverFailureMechanism failureMechanism = new StabilityStoneCoverFailureMechanism();
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -244,7 +244,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_WithValidCalculations_ReturnsStabilityStoneCoverWaveConditionsCalculationActivitiesWithParametersSet()
         {
             // Setup
-            StabilityStoneCoverFailureMechanism failureMechanism = CreateFailureMechanism();
+            StabilityStoneCoverFailureMechanism failureMechanism = new StabilityStoneCoverFailureMechanism();
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -283,14 +283,6 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             });
 
             assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
-        }
-
-        private static StabilityStoneCoverFailureMechanism CreateFailureMechanism()
-        {
-            return new StabilityStoneCoverFailureMechanism
-            {
-                Contribution = 10
-            };
         }
 
         private static AssessmentSectionStub CreateAssessmentSection()

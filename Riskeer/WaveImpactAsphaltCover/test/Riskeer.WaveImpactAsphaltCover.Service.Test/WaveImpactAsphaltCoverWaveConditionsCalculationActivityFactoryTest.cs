@@ -82,7 +82,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         {
             // Setup
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = CreateFailureMechanism();
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation("locationName 1");
             SetHydraulicBoundaryLocationToAssessmentSection(assessmentSection, hydraulicBoundaryLocation);
@@ -168,7 +168,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         public void CreateCalculationActivity_WithValidCalculation_ReturnsWaveImpactAsphaltCoverWaveConditionsCalculationActivityWithParametersSet()
         {
             // Setup
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = CreateFailureMechanism();
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -244,7 +244,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
         public void CreateCalculationActivitiesForCalculationGroup_WithValidCalculations_ReturnsWaveImpactAsphaltCoverWaveConditionsCalculationActivitiesWithParametersSet()
         {
             // Setup
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism = CreateFailureMechanism();
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             AssessmentSectionStub assessmentSection = CreateAssessmentSection();
 
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
@@ -283,14 +283,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             });
 
             assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
-        }
-
-        private static WaveImpactAsphaltCoverFailureMechanism CreateFailureMechanism()
-        {
-            return new WaveImpactAsphaltCoverFailureMechanism
-            {
-                Contribution = 10
-            };
         }
 
         private static AssessmentSectionStub CreateAssessmentSection()
