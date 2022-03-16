@@ -1069,6 +1069,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script15_ac_LoopFMs"
+			errorbehavior="ContinueNextIteration"
 			id="4f95265d-8bea-4348-97b9-151ec19e126c"
 			maxrange="1"
 			minrange="1"
