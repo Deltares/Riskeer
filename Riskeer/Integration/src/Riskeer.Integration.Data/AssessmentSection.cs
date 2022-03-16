@@ -527,45 +527,12 @@ namespace Riskeer.Integration.Data
             switch (newComposition)
             {
                 case AssessmentSectionComposition.Dike:
-                    Piping.Contribution = 24;
-                    GrassCoverErosionInwards.Contribution = 24;
-                    MacroStabilityInwards.Contribution = 4;
-                    StabilityStoneCover.Contribution = 5;
-                    WaveImpactAsphaltCover.Contribution = 5;
-                    GrassCoverErosionOutwards.Contribution = 5;
-                    HeightStructures.Contribution = 24;
-                    ClosingStructures.Contribution = 4;
-                    PipingStructure.Contribution = 2;
-                    StabilityPointStructures.Contribution = 2;
-                    DuneErosion.Contribution = 0;
                     FailureProbabilityMarginFactor = (RoundedDouble) 0.58;
                     break;
                 case AssessmentSectionComposition.Dune:
-                    Piping.Contribution = 0;
-                    GrassCoverErosionInwards.Contribution = 0;
-                    MacroStabilityInwards.Contribution = 0;
-                    StabilityStoneCover.Contribution = 0;
-                    WaveImpactAsphaltCover.Contribution = 0;
-                    GrassCoverErosionOutwards.Contribution = 0;
-                    HeightStructures.Contribution = 0;
-                    ClosingStructures.Contribution = 0;
-                    PipingStructure.Contribution = 0;
-                    StabilityPointStructures.Contribution = 0;
-                    DuneErosion.Contribution = 70;
                     FailureProbabilityMarginFactor = (RoundedDouble) 0;
                     break;
                 case AssessmentSectionComposition.DikeAndDune:
-                    Piping.Contribution = 24;
-                    GrassCoverErosionInwards.Contribution = 24;
-                    MacroStabilityInwards.Contribution = 4;
-                    StabilityStoneCover.Contribution = 5;
-                    WaveImpactAsphaltCover.Contribution = 5;
-                    GrassCoverErosionOutwards.Contribution = 5;
-                    HeightStructures.Contribution = 24;
-                    ClosingStructures.Contribution = 4;
-                    PipingStructure.Contribution = 2;
-                    StabilityPointStructures.Contribution = 2;
-                    DuneErosion.Contribution = 10;
                     FailureProbabilityMarginFactor = (RoundedDouble) 0.58;
                     break;
                 default:
