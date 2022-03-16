@@ -99,8 +99,6 @@ namespace Riskeer.Integration.Data.Test
 
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
             CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
-
-            AssertFailureProbabilityMarginFactor(composition, assessmentSection);
         }
 
         [Test]
@@ -319,7 +317,6 @@ namespace Riskeer.Integration.Data.Test
             Assert.AreEqual(inAssemblyStates[8], assessmentSection.StabilityPointStructures.InAssembly);
             Assert.AreEqual(inAssemblyStates[9], assessmentSection.PipingStructure.InAssembly);
             Assert.AreEqual(inAssemblyStates[10], assessmentSection.DuneErosion.InAssembly);
-            AssertFailureProbabilityMarginFactor(composition, assessmentSection);
         }
 
         [Test]
@@ -396,20 +393,6 @@ namespace Riskeer.Integration.Data.Test
             AssertNumberOfHydraulicBoundaryLocationCalculations(assessmentSection, 2);
             AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 0, hydraulicBoundaryLocation1);
             AssertDefaultHydraulicBoundaryLocationCalculations(assessmentSection, 1, hydraulicBoundaryLocation2);
-        }
-
-        private static void AssertFailureProbabilityMarginFactor(AssessmentSectionComposition composition, AssessmentSection assessmentSection)
-        {
-            Assert.AreEqual(2, assessmentSection.FailureProbabilityMarginFactor.NumberOfDecimalPlaces);
-
-            if (composition == AssessmentSectionComposition.Dune)
-            {
-                Assert.AreEqual(0, assessmentSection.FailureProbabilityMarginFactor.Value);
-            }
-            else
-            {
-                Assert.AreEqual(0.58, assessmentSection.FailureProbabilityMarginFactor.Value);
-            }
         }
 
         private static IEnumerable<TestCaseData> GetFailureMechanismInAssemblyStates()
