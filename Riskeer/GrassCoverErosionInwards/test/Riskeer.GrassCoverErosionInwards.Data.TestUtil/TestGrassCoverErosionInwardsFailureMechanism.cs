@@ -24,14 +24,5 @@ namespace Riskeer.GrassCoverErosionInwards.Data.TestUtil
     /// <summary>
     /// <see cref="GrassCoverErosionInwardsFailureMechanism"/> for testing purposes.
     /// </summary>
-    public class TestGrassCoverErosionInwardsFailureMechanism : GrassCoverErosionInwardsFailureMechanism
-    {
-        /// <summary>
-        /// Creates a new instance of <see cref="TestGrassCoverErosionInwardsFailureMechanism"/>.
-        /// </summary>
-        public TestGrassCoverErosionInwardsFailureMechanism()
-        {
-            Contribution = 24;
-        }
-    }
+    public class TestGrassCoverErosionInwardsFailureMechanism : GrassCoverErosionInwardsFailureMechanism {}
 }
