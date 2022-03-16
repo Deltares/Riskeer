@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
@@ -55,8 +54,6 @@ namespace Riskeer.Integration.Data
 
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-
-        private RoundedDouble failureProbabilityMarginFactor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AssessmentSection"/> class.
@@ -111,8 +108,6 @@ namespace Riskeer.Integration.Data
             StabilityPointStructures = new StabilityPointStructuresFailureMechanism();
             PipingStructure = new PipingStructureFailureMechanism();
             DuneErosion = new DuneErosionFailureMechanism();
-
-            failureProbabilityMarginFactor = new RoundedDouble(2);
 
             FailureMechanismContribution = new FailureMechanismContribution(lowerLimitNorm, signalingNorm);
             ChangeComposition(composition);
@@ -193,36 +188,9 @@ namespace Riskeer.Integration.Data
         /// </summary>
         public DuneErosionFailureMechanism DuneErosion { get; set; }
 
-        /// <summary>
-        /// Gets the failure probability margin factor.
-        /// </summary>
-        public RoundedDouble FailureProbabilityMarginFactor
-        {
-            get
-            {
-                return failureProbabilityMarginFactor;
-            }
-            private set
-            {
-                failureProbabilityMarginFactor = value.ToPrecision(failureProbabilityMarginFactor.NumberOfDecimalPlaces);
-            }
-        }
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm => waterLevelCalculationsForSignalingNorm;
 
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm
-        {
-            get
-            {
-                return waterLevelCalculationsForSignalingNorm;
-            }
-        }
-
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForLowerLimitNorm
-        {
-            get
-            {
-                return waterLevelCalculationsForLowerLimitNorm;
-            }
-        }
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForLowerLimitNorm => waterLevelCalculationsForLowerLimitNorm;
 
         public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaterLevelCalculationsForUserDefinedTargetProbabilities { get; }
 
@@ -303,8 +271,6 @@ namespace Riskeer.Integration.Data
         /// <inheritdoc />
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="newComposition"/> 
         /// is not a valid enum value of <see cref="AssessmentSectionComposition"/>.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="newComposition"/>
-        /// is not supported.</exception>
         public void ChangeComposition(AssessmentSectionComposition newComposition)
         {
             if (!Enum.IsDefined(typeof(AssessmentSectionComposition), newComposition))
@@ -312,21 +278,6 @@ namespace Riskeer.Integration.Data
                 throw new InvalidEnumArgumentException(nameof(newComposition),
                                                        (int) newComposition,
                                                        typeof(AssessmentSectionComposition));
-            }
-
-            switch (newComposition)
-            {
-                case AssessmentSectionComposition.Dike:
-                    FailureProbabilityMarginFactor = (RoundedDouble) 0.58;
-                    break;
-                case AssessmentSectionComposition.Dune:
-                    FailureProbabilityMarginFactor = (RoundedDouble) 0;
-                    break;
-                case AssessmentSectionComposition.DikeAndDune:
-                    FailureProbabilityMarginFactor = (RoundedDouble) 0.58;
-                    break;
-                default:
-                    throw new NotSupportedException();
             }
 
             Composition = newComposition;
