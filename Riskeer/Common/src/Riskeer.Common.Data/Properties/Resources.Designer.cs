@@ -325,15 +325,6 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik {0} liggen..
-        /// </summary>
-        public static string Contribution_Value_should_be_in_Range_0_ {
-            get {
-                return ResourceManager.GetString("Contribution_Value_should_be_in_Range_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen..
         /// </summary>
         public static string DesignVariable_Distribution_must_be_set {

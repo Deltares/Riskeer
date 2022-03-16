@@ -21,12 +21,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailurePath;
-using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.FailureMechanism
 {
@@ -39,10 +36,8 @@ namespace Riskeer.Common.Data.FailureMechanism
     public abstract class FailureMechanismBase<T> : Observable, IFailureMechanism, IFailurePath<T>
         where T : FailureMechanismSectionResult
     {
-        private readonly Range<double> contributionValidityRange = new Range<double>(0, 100);
         private readonly FailureMechanismSectionCollection sectionCollection;
         private readonly ObservableList<T> sectionResults;
-        private double contribution;
 
         /// <summary>
         /// Creates a new instance of the <see cref="FailureMechanismBase{T}"/> class.
@@ -71,22 +66,6 @@ namespace Riskeer.Common.Data.FailureMechanism
 
             AssemblyResult = new FailurePathAssemblyResult();
             sectionResults = new ObservableList<T>();
-        }
-
-        public double Contribution
-        {
-            get => contribution;
-            set
-            {
-                if (!contributionValidityRange.InRange(value))
-                {
-                    string message = string.Format(Resources.Contribution_Value_should_be_in_Range_0_,
-                                                   contributionValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));
-                    throw new ArgumentOutOfRangeException(nameof(value), message);
-                }
-
-                contribution = value;
-            }
         }
 
         public string Name { get; }
