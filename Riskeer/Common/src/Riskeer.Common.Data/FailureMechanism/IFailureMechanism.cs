@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailurePath;
@@ -31,13 +30,6 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// </summary>
     public interface IFailureMechanism : IFailurePath
     {
-        /// <summary>
-        /// Gets or sets the amount of contribution as a percentage [0, 100] for the <see cref="IFailureMechanism"/>
-        /// as part of the overall verdict.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the <paramref name="value"/> is not in the interval [0, 100].</exception>
-        double Contribution { get; set; }
-
         /// <summary>
         /// Gets an <see cref="IEnumerable{T}"/> of all the <see cref="ICalculation"/> instances added to
         /// the failure mechanism.
