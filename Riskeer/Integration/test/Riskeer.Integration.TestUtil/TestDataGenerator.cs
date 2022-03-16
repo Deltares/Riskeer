@@ -161,7 +161,7 @@ namespace Riskeer.Integration.TestUtil
             {
                 AddFailureMechanismSections(failurePaths[i], i);
             }
-            
+
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
             assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
             return assessmentSection;
@@ -306,7 +306,8 @@ namespace Riskeer.Integration.TestUtil
             {
                 AddFailureMechanismSections(failureMechanisms.ElementAt(i), i);
             }
-            
+
+            assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
             assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
 
             return assessmentSection;
