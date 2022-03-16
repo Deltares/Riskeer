@@ -73,7 +73,6 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Assert
             Assert.IsInstanceOf<Observable>(failureMechanism);
             Assert.IsInstanceOf<IFailureMechanism>(failureMechanism);
-            Assert.AreEqual(0, failureMechanism.Contribution);
             Assert.AreEqual(name, failureMechanism.Name);
             Assert.AreEqual(code, failureMechanism.Code);
             Assert.IsNotNull(failureMechanism.InAssemblyInputComments);
@@ -87,52 +86,16 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        [SetCulture("nl-NL")]
-        [TestCase(double.NaN)]
-        [TestCase(101)]
-        [TestCase(-1e-6)]
-        [TestCase(-1)]
-        [TestCase(100 + 1e-6)]
-        public void Contribution_ValueOutsideValidRegionOrNaN_ThrowsArgumentException(double value)
-        {
-            // Setup
-            var failureMechanism = new SimpleFailureMechanismBase();
-
-            // Call
-            TestDelegate test = () => failureMechanism.Contribution = value;
-
-            // Assert
-            const string expectedMessage = "De waarde voor de toegestane bijdrage aan de faalkans moet in het bereik [0,0, 100,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
-        }
-
-        [Test]
-        [TestCase(100)]
-        [TestCase(50)]
-        [TestCase(0)]
-        public void Contribution_ValueInsideValidRegion_DoesNotThrow(double value)
-        {
-            // Setup
-            var failureMechanism = new SimpleFailureMechanismBase();
-
-            // Call
-            TestDelegate test = () => failureMechanism.Contribution = value;
-
-            // Assert
-            Assert.DoesNotThrow(test);
-        }
-
-        [Test]
         public void SetSections_SectionsNull_ThrowArgumentNullException()
         {
             // Setup
             var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call 
-            TestDelegate call = () => failureMechanism.SetSections(null, string.Empty);
+            void Call() => failureMechanism.SetSections(null, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sections", exception.ParamName);
         }
 
@@ -143,10 +106,10 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var failureMechanism = new SimpleFailureMechanismBase();
 
             // Call 
-            TestDelegate call = () => failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
+            void Call() => failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sourcePath", exception.ParamName);
         }
 
@@ -214,7 +177,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                 section2
             };
 
-            failureMechanism.SetSections(new []
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("X", new[]
                 {
@@ -222,7 +185,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                     new Point2D(0, 0)
                 })
             }, sourcePath);
-            
+
             // When
             failureMechanism.SetSections(sections, sourcePath);
 
@@ -254,7 +217,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            TestDelegate call = () => failureMechanism.SetSections(new[]
+            void Call() => failureMechanism.SetSections(new[]
             {
                 section1,
                 section2
@@ -262,7 +225,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
 
             // Assert
             const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -283,7 +246,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            TestDelegate call = () => failureMechanism.SetSections(new[]
+            void Call() => failureMechanism.SetSections(new[]
             {
                 section1,
                 section2
@@ -291,7 +254,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
 
             // Assert
             const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
