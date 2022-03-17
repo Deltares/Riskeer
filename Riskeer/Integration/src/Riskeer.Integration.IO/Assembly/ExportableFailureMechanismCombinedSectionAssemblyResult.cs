@@ -35,7 +35,7 @@ namespace Riskeer.Integration.IO.Assembly
         /// <param name="code">The code of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionAssemblyResult"/> is <c>null</c>.</exception>
         public ExportableFailureMechanismCombinedSectionAssemblyResult(ExportableFailureMechanismSubSectionAssemblyResult sectionAssemblyResult,
-                                                                       ExportableFailureMechanismType code)
+                                                                       string code)
         {
             if (sectionAssemblyResult == null)
             {
@@ -54,6 +54,6 @@ namespace Riskeer.Integration.IO.Assembly
         /// <summary>
         /// Gets the code of the failure mechanism.
         /// </summary>
-        public ExportableFailureMechanismType Code { get; }
+        public string Code { get; }
     }
 }

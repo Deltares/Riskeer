@@ -33,12 +33,8 @@ namespace Riskeer.Integration.IO.Test.Assembly
         [Test]
         public void Constructor_SectionAssemblyResultNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var random = new Random(21);
-            var code = random.NextEnumValue<ExportableFailureMechanismType>();
-
             // Call
-            void Call() => new ExportableFailureMechanismCombinedSectionAssemblyResult(null, code);
+            void Call() => new ExportableFailureMechanismCombinedSectionAssemblyResult(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -49,8 +45,8 @@ namespace Riskeer.Integration.IO.Test.Assembly
         public void Constructor_WithArguments_ExpectedValues()
         {
             // Setup
+            const string code = "code";
             var random = new Random(21);
-            var code = random.NextEnumValue<ExportableFailureMechanismType>();
             var combinedSectionAssembly = new ExportableFailureMechanismSubSectionAssemblyResult(
                 random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(), random.NextEnumValue<ExportableAssemblyMethod>());
 

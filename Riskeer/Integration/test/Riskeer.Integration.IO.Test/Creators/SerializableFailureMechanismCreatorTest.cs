@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
@@ -86,7 +85,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             // Assert
             Assert.AreEqual("Fm.0", serializableFailureMechanism.Id);
             Assert.AreEqual(serializableTotalAssembly.Id, serializableFailureMechanism.TotalAssemblyResultId);
-            Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(failureMechanism.Code), serializableFailureMechanism.GenericFailureMechanism);
+            Assert.AreEqual(failureMechanism.Code, serializableFailureMechanism.GenericFailureMechanismCode);
 
             SerializableFailureMechanismAssemblyResultTestHelper.AssertSerializableFailureMechanismAssemblyResult(failureMechanism.FailureMechanismAssembly,
                                                                                                                   serializableFailureMechanism.FailureMechanismAssemblyResult);
@@ -94,11 +93,10 @@ namespace Riskeer.Integration.IO.Test.Creators
 
         private static ExportableFailureMechanism CreateExportableFailureMechanism()
         {
-            var random = new Random(21);
             return new ExportableFailureMechanism(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
                 Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
-                random.NextEnumValue<ExportableFailureMechanismType>());
+                "code");
         }
 
         private static SerializableTotalAssemblyResult CreateSerializableTotalAssembly(string totalAssemblyId)

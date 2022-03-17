@@ -39,7 +39,7 @@ namespace Riskeer.Integration.IO.Assembly
         /// or <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
         public ExportableFailureMechanism(ExportableFailureMechanismAssemblyResult failureMechanismAssembly,
                                           IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> sectionAssemblyResults,
-                                          ExportableFailureMechanismType code)
+                                          string code)
         {
             if (failureMechanismAssembly == null)
             {
@@ -69,6 +69,6 @@ namespace Riskeer.Integration.IO.Assembly
         /// <summary>
         /// Gets the code of the failure mechanism.
         /// </summary>
-        public ExportableFailureMechanismType Code { get; }
+        public string Code { get; }
     }
 }

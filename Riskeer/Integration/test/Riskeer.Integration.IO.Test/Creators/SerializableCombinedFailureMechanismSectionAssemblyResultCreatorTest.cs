@@ -53,7 +53,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             var random = new Random(21);
             var sectionResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(
                 new ExportableFailureMechanismSubSectionAssemblyResult(assemblyGroup, random.NextEnumValue<ExportableAssemblyMethod>()),
-                random.NextEnumValue<ExportableFailureMechanismType>());
+                "code");
 
             // Call
             void Call() => SerializableCombinedFailureMechanismSectionAssemblyResultCreator.Create(sectionResult);
@@ -67,17 +67,15 @@ namespace Riskeer.Integration.IO.Test.Creators
         public void Create_WithExportableFailureMechanismCombinedSectionAssemblyResult_ReturnsSerializableCombinedFailureMechanismSectionAssemblyResult()
         {
             // Setup
-            var random = new Random(21);
-            var sectionResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(CreateSectionAssemblyResult(),
-                                                                                            random.NextEnumValue<ExportableFailureMechanismType>());
+            var sectionResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(
+                CreateSectionAssemblyResult(), "code");
 
             // Call
             SerializableCombinedFailureMechanismSectionAssemblyResult serializableResult =
                 SerializableCombinedFailureMechanismSectionAssemblyResultCreator.Create(sectionResult);
 
             // Assert
-            Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(sectionResult.Code),
-                            serializableResult.GenericFailureMechanism);
+            Assert.AreEqual(sectionResult.Code, serializableResult.GenericFailureMechanismCode);
             ExportableFailureMechanismSubSectionAssemblyResult expectedSectionAssemblyResult = sectionResult.SectionAssemblyResult;
             Assert.AreEqual(SerializableFailureMechanismSectionAssemblyGroupCreator.Create(expectedSectionAssemblyResult.AssemblyGroup),
                             serializableResult.AssemblyGroup);

@@ -58,8 +58,7 @@ namespace Riskeer.Integration.IO.Creators
 
             return new SerializableCombinedFailureMechanismSectionAssemblyResult(
                 SerializableAssemblyMethodCreator.Create(sectionResultSectionAssemblyResult.AssemblyMethod),
-                SerializableFailureMechanismTypeCreator.Create(sectionResult.Code),
-                SerializableFailureMechanismSectionAssemblyGroupCreator.Create(sectionResultSectionAssemblyResult.AssemblyGroup));
+                sectionResult.Code, SerializableFailureMechanismSectionAssemblyGroupCreator.Create(sectionResultSectionAssemblyResult.AssemblyGroup));
         }
     }
 }

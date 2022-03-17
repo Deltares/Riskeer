@@ -172,7 +172,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             var random = new Random(seed);
             return new ExportableFailureMechanismCombinedSectionAssemblyResult(CreateSectionAssemblyResult(random.Next()),
-                                                                               random.NextEnumValue<ExportableFailureMechanismType>());
+                                                                               "code");
         }
 
         private static ExportableFailureMechanismSubSectionAssemblyResult CreateSectionAssemblyResult(int seed)
@@ -211,8 +211,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         private static void AssertCombinedFailureMechanismSectionAssemblyResult(ExportableFailureMechanismCombinedSectionAssemblyResult expectedSectionResult,
                                                                                 SerializableCombinedFailureMechanismSectionAssemblyResult actualSectionResult)
         {
-            Assert.AreEqual(SerializableFailureMechanismTypeCreator.Create(expectedSectionResult.Code),
-                            actualSectionResult.GenericFailureMechanism);
+            Assert.AreEqual(expectedSectionResult.Code, actualSectionResult.GenericFailureMechanismCode);
 
             ExportableFailureMechanismSubSectionAssemblyResult expectedSectionAssemblyResult = expectedSectionResult.SectionAssemblyResult;
             Assert.AreEqual(SerializableFailureMechanismSectionAssemblyGroupCreator.Create(expectedSectionAssemblyResult.AssemblyGroup),
