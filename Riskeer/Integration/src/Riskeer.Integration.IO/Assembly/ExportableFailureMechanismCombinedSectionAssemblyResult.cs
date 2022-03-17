@@ -32,9 +32,11 @@ namespace Riskeer.Integration.IO.Assembly
         /// Creates a new instance of <see cref="ExportableFailureMechanismCombinedSectionAssemblyResult"/>
         /// </summary>
         /// <param name="sectionAssemblyResult">The assembly result of the combined section.</param>
+        /// <param name="failureMechanismType">The type of the failure mechanism.</param>
         /// <param name="code">The code of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionAssemblyResult"/> is <c>null</c>.</exception>
         public ExportableFailureMechanismCombinedSectionAssemblyResult(ExportableFailureMechanismSubSectionAssemblyResult sectionAssemblyResult,
+                                                                       ExportableFailureMechanismType failureMechanismType,
                                                                        string code)
         {
             if (sectionAssemblyResult == null)
@@ -43,6 +45,7 @@ namespace Riskeer.Integration.IO.Assembly
             }
 
             SectionAssemblyResult = sectionAssemblyResult;
+            FailureMechanismType = failureMechanismType;
             Code = code;
         }
 
@@ -50,6 +53,11 @@ namespace Riskeer.Integration.IO.Assembly
         /// Gets the assembly result of this combined section.
         /// </summary>
         public ExportableFailureMechanismSubSectionAssemblyResult SectionAssemblyResult { get; }
+
+        /// <summary>
+        /// Gets the failure mechanism type.
+        /// </summary>
+        public ExportableFailureMechanismType FailureMechanismType { get; }
 
         /// <summary>
         /// Gets the code of the failure mechanism.

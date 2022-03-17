@@ -119,7 +119,7 @@ namespace Riskeer.Integration.IO.Factories
         {
             return new ExportableFailureMechanismCombinedSectionAssemblyResult(
                 new ExportableFailureMechanismSubSectionAssemblyResult(sectionAssemblyGroup, ExportableAssemblyMethod.WBI3B1),
-                failureMechanismCode);
+                ExportableFailureMechanismType.Generic, failureMechanismCode);
         }
     }
 }

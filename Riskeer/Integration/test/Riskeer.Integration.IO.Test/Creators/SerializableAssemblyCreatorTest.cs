@@ -139,15 +139,17 @@ namespace Riskeer.Integration.IO.Test.Creators
                 ExportableFailureMechanismSectionAssemblyResultTestFactory.Create(section, 21),
                 new[]
                 {
-                    CreateCombinedSectionAssemblyResult(),
-                    CreateCombinedSectionAssemblyResult()
+                    CreateCombinedSectionAssemblyResult(21),
+                    CreateCombinedSectionAssemblyResult(22)
                 });
         }
 
-        private static ExportableFailureMechanismCombinedSectionAssemblyResult CreateCombinedSectionAssemblyResult()
+        private static ExportableFailureMechanismCombinedSectionAssemblyResult CreateCombinedSectionAssemblyResult(int seed)
         {
+            var random = new Random(seed);
             return new ExportableFailureMechanismCombinedSectionAssemblyResult(
                 ExportableFailureMechanismSubSectionAssemblyResultTestFactory.Create(),
+                random.NextEnumValue<ExportableFailureMechanismType>(),
                 "code");
         }
 

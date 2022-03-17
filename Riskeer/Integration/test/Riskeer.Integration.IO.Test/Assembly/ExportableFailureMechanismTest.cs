@@ -84,7 +84,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Assert
             Assert.AreSame(failureMechanismAssembly, failureMechanism.FailureMechanismAssembly);
             Assert.AreSame(sectionAssemblyResults, failureMechanism.SectionAssemblyResults);
-            Assert.AreSame(failureMechanismType, failureMechanism.FailureMechanismType);
+            Assert.AreEqual(failureMechanismType, failureMechanism.FailureMechanismType);
             Assert.AreEqual(code, failureMechanism.Code);
         }
     }
