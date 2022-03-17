@@ -257,6 +257,28 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="0c2fad60-bd4d-42d2-892e-6415ad658b66"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateWithCalculations"
+					datasourceid="e3bfbfc0-3e28-4673-a704-6693ceefa9ec"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="StateWithCalculations"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="0caaacfb-8725-483f-8225-5222d1723fdf"
 			name="StartCalculationsForFM">
@@ -545,6 +567,37 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="1d78e5d0-ebdf-4449-ba17-fa5a555dbff1"
+			name="OpenProject"
+			ref="3f746bb2-6845-45b4-9b28-b7fd605378f3"
+			type="Recording">
+				<description>
+					<![CDATA[Open project Project_15a_15b_15c]]>
+				</description>
+				<databinding>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="b7b39e3c-a1f6-46e4-bf70-84c02fc78fd6"
+					variablename="scriptOutputPath">
+					</var>
+					<var
+					dataname="fileToOpen"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="fileToOpen"
+					datasourceid="2d553e9c-1b87-46c6-9a96-1bfce2ce98ec"
+					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
+					variablename="fileName">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="1e2e252e-f985-4501-b5ab-b479b7c1b6c8"
 			name="StartCalculationsForFM">
@@ -767,6 +820,27 @@
 					value="Doelkans toevoegen">
 					</param>
 				</parameters>
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="labelFM"
+								id="fc233194-0355-4420-a7b7-92a3a77c0eb0">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="GEBU">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<smartfoldernode
 			id="394ebd4a-a478-4652-a62c-20fa2acf9739"
@@ -1071,9 +1145,9 @@
 			datasource="script15_ac_LoopFMs"
 			errorbehavior="ContinueNextIteration"
 			id="4f95265d-8bea-4348-97b9-151ec19e126c"
-			maxrange="1"
-			minrange="1"
-			name="a)_c)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU_DA)">
+			maxrange="0"
+			minrange="0"
+			name="a)_c)TargetProbsAndHBCCalculations(GEBU_DA)">
 			</smartfoldernode>
 			<testmodule
 			id="505c11ac-775d-4928-8d35-b8dc0cfb401e"
@@ -1537,6 +1611,12 @@
 					variablename="pathToRowInPropertiesPanel">
 					</var>
 				</databinding>
+			</testmodule>
+			<testmodule
+			id="725d13d6-bdec-4489-8ca2-872aa465de39"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
 			</testmodule>
 			<smartfoldernode
 			id="73c515ab-e4a1-49d5-9431-333bfe397aef"
@@ -2784,6 +2864,12 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="b8366dfe-0f39-4ac9-bcfe-833d6269789f"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="b8644a7f-796f-4e8d-b031-dfabfc503239"
 			name="ConcatenateStrings"
 			ref="b15958cf-4342-4eef-a2a3-0ec6ec4be6da"
@@ -3738,6 +3824,17 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			errorbehavior="ContinueParent"
+			id="dea3a23b-ebf0-4a4d-946d-2e204d545fb0"
+			name="OpenProject">
+				<parameters>
+					<param
+					name="fielNameToOpen"
+					value="Project_15a_15b_15c_zonder_resultaten.risk">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="deb11140-64b4-49c9-93da-79665192bfca"
 			name="PressCancelDialogAtStepText"
@@ -3956,6 +4053,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="e3bfbfc0-3e28-4673-a704-6693ceefa9ec"
+			name="SelectStateHBC">
+				<parameters>
+					<param
+					name="stateWithCalculations"
+					value="Hydraulische">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="e67bd927-35e5-4e2d-9227-ed2812bc01a9"
 			name="PrependString"
@@ -4409,7 +4516,7 @@
 						</setup>
 						<smartfoldernode
 						id="4f95265d-8bea-4348-97b9-151ec19e126c"
-						name="a)_c)WaterLevelsAndWaveConditionsTrajectAndFM(GEBU_DA)">
+						name="a)_c)TargetProbsAndHBCCalculations(GEBU_DA)">
 							<smartfoldernode
 							id="0e18d60e-93a2-4e17-bd6e-d9789ae914d1"
 							name="OpenProject">
@@ -4862,6 +4969,26 @@
 							id="850dbcd4-4339-42fa-8eae-18973ae2fb83"
 							name="LoopFMs">
 								<smartfoldernode
+								id="dea3a23b-ebf0-4a4d-946d-2e204d545fb0"
+								name="OpenProject">
+									<testmodule
+									id="1d78e5d0-ebdf-4449-ba17-fa5a555dbff1"
+									name="OpenProject">
+									</testmodule>
+									<testmodule
+									id="b8366dfe-0f39-4ac9-bcfe-833d6269789f"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="e3bfbfc0-3e28-4673-a704-6693ceefa9ec"
+								name="SelectStateHBC">
+									<testmodule
+									id="0c2fad60-bd4d-42d2-892e-6415ad658b66"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
 								id="6859a38d-9137-4b54-924a-f4abe85d4f1c"
 								name="InspectInputOfSomeCalculations">
 									<smartfoldernode
@@ -4899,6 +5026,10 @@
 									<testmodule
 									id="9a84add1-d5a9-4bb0-a4e4-c3dcccde323d"
 									name="CreateScreenShotPropertiesPanel">
+									</testmodule>
+									<testmodule
+									id="725d13d6-bdec-4489-8ca2-872aa465de39"
+									name="CloseViewCentralPanelWithFocus">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -9713,7 +9844,7 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/1000
+						Traject&gt;@HB&gt;Waterstanden bij doelkans&gt;1/10000
 					</td>
 					<td>
 						GEBU
@@ -9731,7 +9862,7 @@
 						Waterstand [m+NAP]
 					</td>
 					<td>
-						4.93
+						5.49
 					</td>
 					<td>
 						Maatgevende windrichting
@@ -9742,7 +9873,7 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/3000
+						Traject&gt;@HB&gt;Golfhoogten bij doelkans&gt;1/1000
 					</td>
 					<td>
 						GEBU
@@ -9757,16 +9888,16 @@
 						16-30
 					</td>
 					<td>
-						Waterstand [m+NAP]
+						Golfhoogte [m]
 					</td>
 					<td>
-						5.20
+						1.77
 					</td>
 					<td>
 						Maatgevende windrichting
 					</td>
 					<td>
-						300.0
+						330.0
 					</td>
 				</tr>
 				<tr>
@@ -10321,6 +10452,9 @@
 					fmLabel
 				</column>
 				<column>
+					fileToOpen
+				</column>
+				<column>
 					pathToAllCalculationsItem
 				</column>
 				<column>
@@ -10359,6 +10493,9 @@
 						fmLabel
 					</th>
 					<th>
+						fileToOpen
+					</th>
+					<th>
 						pathToAllCalculationsItem
 					</th>
 					<th>
@@ -10394,7 +10531,10 @@
 						ZST
 					</td>
 					<td>
-						28-1&gt;Dijken en dammen - Stabiliteit steenzetting&gt;Hydraulische belastingen
+						input_Project_15b_ZST.risk
+					</td>
+					<td>
+						Traject&gt;@ZST&gt;@HB
 					</td>
 					<td>
 						&gt;blokken en zuilen
@@ -10429,7 +10569,10 @@
 						AGK
 					</td>
 					<td>
-						8-3&gt;Dijken en dammen - Golfklappen op asfaltbekleding&gt;Hydraulische belastingen
+						input_Project_15b_AGK.risk
+					</td>
+					<td>
+						Traject&gt;@AGK&gt;@HB
 					</td>
 					<td>
 					</td>
@@ -10463,7 +10606,10 @@
 						GEBU
 					</td>
 					<td>
-						6-6&gt;Dijken en dammen - Grasbekleding erosie buitentalud&gt;Hydraulische belastingen&gt;Berekeningen
+						input_Project_15ab_GEBU.risk
+					</td>
+					<td>
+						Traject&gt;@GEBU&gt;@HB&gt;Berekeningen
 					</td>
 					<td>
 						&gt;golfklap

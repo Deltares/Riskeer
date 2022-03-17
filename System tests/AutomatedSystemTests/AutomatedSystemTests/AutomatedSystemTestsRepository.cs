@@ -4608,9 +4608,9 @@ namespace AutomatedSystemTests
                     base("Table", "container/table", parentFolder, 30000, null, false, "847ec7b3-da1c-4be8-9dd4-a6d20db9310e", "")
             {
                 _genericrowindv = new AutomatedSystemTestsRepositoryFolders.GenericRowInDVFolder(this);
-                _checkboxcalculatenthrowInfo = new RepoItemInfo(this, "checkBoxCalculateNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Berekenen']", 30000, null, "b23f96f2-3091-4bfa-b2b3-ced15cdca711");
-                _checkboxreadillustrationpointsnthrowInfo = new RepoItemInfo(this, "checkBoxreadIllustrationPointsNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Illustratie']", 30000, null, "7ab8bbc2-89dd-4d11-bfe9-16f1853cd19c");
-                _waterlevelnthrowInfo = new RepoItemInfo(this, "WaterLevelNthRow", "row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename>'Waterstand']", 30000, null, "4d5dcf27-80bb-4eb2-8ac6-e585fceac838");
+                _checkboxcalculatenthrowInfo = new RepoItemInfo(this, "checkBoxCalculateNthRow", "row[@accessiblename<' '+$rowIndex]/cell[@accessiblename>'Berekenen']", 30000, null, "b23f96f2-3091-4bfa-b2b3-ced15cdca711");
+                _checkboxreadillustrationpointsnthrowInfo = new RepoItemInfo(this, "checkBoxreadIllustrationPointsNthRow", "row[@accessiblename<' '+$rowIndex]/cell[@accessiblename>'Illustratie']", 30000, null, "7ab8bbc2-89dd-4d11-bfe9-16f1853cd19c");
+                _waterlevelnthrowInfo = new RepoItemInfo(this, "WaterLevelNthRow", "row[@accessiblename<' '+$rowIndex]/cell[@accessiblename>'Waterstand']", 30000, null, "4d5dcf27-80bb-4eb2-8ac6-e585fceac838");
             }
 
             /// <summary>

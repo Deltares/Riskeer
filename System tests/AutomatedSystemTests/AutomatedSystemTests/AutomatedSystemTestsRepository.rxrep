@@ -1031,21 +1031,21 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 								id="b23f96f2-3091-4bfa-b2b3-ced15cdca711"
 								name="checkBoxCalculateNthRow"
 								searchtimeout="30000ms">
-									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Berekenen']
+									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Berekenen']
 								</item>
 								<item
 								capname="cell"
 								id="7ab8bbc2-89dd-4d11-bfe9-16f1853cd19c"
 								name="checkBoxreadIllustrationPointsNthRow"
 								searchtimeout="30000ms">
-									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Illustratie']
+									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Illustratie']
 								</item>
 								<item
 								capname="cell"
 								id="4d5dcf27-80bb-4eb2-8ac6-e585fceac838"
 								name="WaterLevelNthRow"
 								searchtimeout="30000ms">
-									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename='Row '+$rowIndex]/cell[@accessiblename&gt;'Waterstand']
+									/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname~'CalculationsView']/container/container[@controlname='panel1']/container/table/row[@accessiblename&lt;' '+$rowIndex]/cell[@accessiblename&gt;'Waterstand']
 								</item>
 								<folder
 								capname="row"
