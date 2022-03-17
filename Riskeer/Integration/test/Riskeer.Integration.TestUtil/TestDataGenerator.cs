@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
@@ -309,6 +310,12 @@ namespace Riskeer.Integration.TestUtil
 
             assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
             assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
+
+            ObservableList<SpecificFailurePath> specificFailurePaths = assessmentSection.SpecificFailurePaths;
+            for (var i = 0; i < specificFailurePaths.Count; i++)
+            {
+                AddFailureMechanismSections(specificFailurePaths.ElementAt(i), i);
+            }
 
             return assessmentSection;
         }

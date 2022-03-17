@@ -53,6 +53,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int pipingStructureIndex = 16;
         private const int stabilityPointStructuresIndex = 17;
         private const int duneErosionIndex = 18;
+        private const int specificFailurePathStartIndex = 19;
 
         [Test]
         public void Constructor_CombinedFailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
@@ -191,9 +192,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityPointStructuresIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex], expectedBackgroundColor);
 
-            for (var i = 1; i <= result.SpecificFailurePaths.Length; i++)
+            for (var i = 0; i <= result.SpecificFailurePaths.Length; i++)
             {
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex + i], expectedBackgroundColor);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailurePathStartIndex], expectedBackgroundColor);
             }
         }
 
