@@ -111,11 +111,11 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var pipingStructureResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
             var stabilityPointStructuresResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
             var duneErosionResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
-            var specificFailurePathsResult = new  FailureMechanismSectionAssemblyGroup?[]
+            var specificFailurePathsResult = new FailureMechanismSectionAssemblyGroup?[]
             {
-                 random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                 random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                 random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()
+                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()
             };
 
             // Call
@@ -173,6 +173,12 @@ namespace Riskeer.Integration.Data.Test.Assembly
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
             var totalResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var specificFailurePathResults = new FailureMechanismSectionAssemblyGroup?[]
+            {
+                null,
+                null,
+                null
+            };
 
             // Call
             var result = new CombinedFailureMechanismSectionAssemblyResult(
@@ -194,12 +200,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     PipingStructure = null,
                     StabilityPointStructures = null,
                     DuneErosion = null,
-                    SpecificFailurePaths = new FailureMechanismSectionAssemblyGroup?[]
-                    {
-                        null,
-                        null,
-                        null
-                    }
+                    SpecificFailurePaths = specificFailurePathResults
                 });
 
             // Assert
@@ -222,6 +223,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.IsNull(result.PipingStructure);
             Assert.IsNull(result.StabilityPointStructures);
             Assert.IsNull(result.DuneErosion);
+            Assert.AreEqual(specificFailurePathResults.Length, result.SpecificFailurePaths.Length);
             foreach (FailureMechanismSectionAssemblyGroup? specificFailurePathResult in result.SpecificFailurePaths)
             {
                 Assert.IsNull(specificFailurePathResult);
