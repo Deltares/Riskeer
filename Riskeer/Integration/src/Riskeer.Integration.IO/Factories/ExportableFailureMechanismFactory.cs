@@ -47,6 +47,7 @@ namespace Riskeer.Integration.IO.Factories
         /// the failure mechanism assembly.</param>
         /// <param name="assembleFailureMechanismSectionFunc">The <see cref="Func{T1,T2,T3,TResult}"/>
         /// to perform the failure mechanism section assembly.</param>
+        /// <param name="failureMechanismType">The type of the failure mechanism.</param>
         /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
         /// <typeparam name="TSectionResult">The type of the section result.</typeparam>
         /// <returns>An <see cref="ExportableFailureMechanism"/> with assembly results.</returns>
@@ -57,7 +58,8 @@ namespace Riskeer.Integration.IO.Factories
         public static ExportableFailureMechanism CreateExportableFailureMechanism<TFailureMechanism, TSectionResult>(
             TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
             Func<TFailureMechanism, IAssessmentSection, double> assembleFailureMechanismFunc,
-            Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResult> assembleFailureMechanismSectionFunc)
+            Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResult> assembleFailureMechanismSectionFunc,
+            ExportableFailureMechanismType failureMechanismType)
             where TFailureMechanism : IFailurePath<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
@@ -87,7 +89,7 @@ namespace Riskeer.Integration.IO.Factories
                     failureMechanism.AssemblyResult.IsManualProbability()),
                 CreateExportableFailureMechanismSectionResults(
                     failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
-                ExportableFailureMechanismType.Generic, failureMechanism.Code);
+                failureMechanismType, failureMechanism.Code);
         }
 
         /// <summary>
