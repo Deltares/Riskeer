@@ -22,7 +22,6 @@
 using System;
 using System.Xml.Serialization;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
-using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
 using Riskeer.AssemblyTool.IO.Properties;
 
@@ -47,12 +46,12 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The unique ID of the assembly result.</param>
         /// <param name="totalAssemblyResult">The total assembly result the failure mechanism belongs to.</param>
-        /// <param name="failureMechanismType">The type of the failure mechanism.</param>
+        /// <param name="code">The code of the failure mechanism.</param>
         /// <param name="failureMechanismAssemblyResult">The total failure mechanism assembly result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public SerializableFailureMechanism(string id, SerializableTotalAssemblyResult totalAssemblyResult,
-                                            SerializableFailureMechanismType failureMechanismType,
+                                            string code,
                                             SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResult)
             : this()
         {
@@ -73,7 +72,7 @@ namespace Riskeer.AssemblyTool.IO.Model
 
             Id = id;
             TotalAssemblyResultId = totalAssemblyResult.Id;
-            GenericFailureMechanism = failureMechanismType;
+            GenericFailureMechanismCode = code;
             FailureMechanismAssemblyResult = failureMechanismAssemblyResult;
         }
 
@@ -96,10 +95,10 @@ namespace Riskeer.AssemblyTool.IO.Model
         public string FailureMechanismType { get; set; }
 
         /// <summary>
-        /// Gets or sets the generic failure mechanism type.
+        /// Gets or sets the generic failure mechanism code.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.GenericFailureMechanism)]
-        public SerializableFailureMechanismType GenericFailureMechanism { get; set; }
+        public string GenericFailureMechanismCode { get; set; }
 
         /// <summary>
         /// Gets or sets the total failure mechanism assembly result.

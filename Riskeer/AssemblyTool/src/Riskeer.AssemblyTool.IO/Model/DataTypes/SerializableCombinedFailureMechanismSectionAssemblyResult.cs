@@ -43,17 +43,17 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// Creates a new instance of <see cref="SerializableCombinedFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
         /// <param name="assemblyMethod">The method used to assemble this result.</param>
-        /// <param name="genericFailureMechanismType">The generic failure mechanism type this result is assembled for.</param>
+        /// <param name="code">The generic failure mechanism code this result is assembled for.</param>
         /// <param name="assemblyGroup">The group of this assembly result.</param>
         public SerializableCombinedFailureMechanismSectionAssemblyResult(
             SerializableAssemblyMethod assemblyMethod,
-            SerializableFailureMechanismType genericFailureMechanismType,
+            string code,
             SerializableFailureMechanismSectionAssemblyGroup assemblyGroup) 
             : this()
         {
             AssemblyGroup = assemblyGroup;
             AssemblyMethod = assemblyMethod;
-            GenericFailureMechanism = genericFailureMechanismType;
+            GenericFailureMechanismCode = code;
         }
 
         /// <summary>
@@ -69,10 +69,10 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         public string FailureMechanismType { get; set; }
 
         /// <summary>
-        /// Gets or sets the generic failure mechanism type of this assembly result.
+        /// Gets or sets the generic failure mechanism code of this assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.GenericFailureMechanism)]
-        public SerializableFailureMechanismType GenericFailureMechanism { get; set; }
+        public string GenericFailureMechanismCode { get; set; }
 
         /// <summary>
         /// Gets or sets the group of this assembly result.

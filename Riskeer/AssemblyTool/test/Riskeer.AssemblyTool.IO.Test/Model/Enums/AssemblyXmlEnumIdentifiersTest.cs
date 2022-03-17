@@ -53,22 +53,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("WBI-3C-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3C1);
             Assert.AreEqual("Handmatig", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodManual);
 
-            Assert.AreEqual("STBI", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTBI);
-            Assert.AreEqual("STPH", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTPH);
-            Assert.AreEqual("STMI", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTMI);
-            Assert.AreEqual("AGK", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeAGK);
-            Assert.AreEqual("AWO", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeAWO);
-            Assert.AreEqual("GEBU", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGEBU);
-            Assert.AreEqual("GABU", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGABU);
-            Assert.AreEqual("GEKB", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGEKB);
-            Assert.AreEqual("GABI", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGABI);
-            Assert.AreEqual("ZST", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeZST);
-            Assert.AreEqual("DA", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeDA);
-            Assert.AreEqual("HTKW", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeHTKW);
-            Assert.AreEqual("BSKW", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeBSKW);
-            Assert.AreEqual("PKW", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypePKW);
-            Assert.AreEqual("STKWp", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSTKWp);
-
             Assert.AreEqual("FAALMVK", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionTypeFailureMechanism);
             Assert.AreEqual("DEELVK", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionTypeCombined);
         }

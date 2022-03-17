@@ -39,7 +39,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
 
             // Assert
             Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
-            Assert.AreEqual((SerializableFailureMechanismType) 0, assemblyResult.GenericFailureMechanism);
+            Assert.IsNull( assemblyResult.GenericFailureMechanismCode);
             Assert.AreEqual((SerializableFailureMechanismSectionAssemblyGroup) 0, assemblyResult.AssemblyGroup);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
             Assert.AreEqual("GENRK", assemblyResult.FailureMechanismType);
@@ -49,7 +49,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.AssemblyGroup), "duidingsklasse");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
-                nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.GenericFailureMechanism), "generiekFaalmechanisme");
+                nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.GenericFailureMechanismCode), "generiekFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.FailureMechanismType), "typeFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
@@ -62,16 +62,16 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             // Setup
             var random = new Random(39);
             var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
-            var genericFailureMechanism = random.NextEnumValue<SerializableFailureMechanismType>();
+            const string code = "code";
             var assemblyGroup = random.NextEnumValue<SerializableFailureMechanismSectionAssemblyGroup>();
 
             // Call
-            var assemblyResult = new SerializableCombinedFailureMechanismSectionAssemblyResult(assemblyMethod, genericFailureMechanism, assemblyGroup);
+            var assemblyResult = new SerializableCombinedFailureMechanismSectionAssemblyResult(assemblyMethod, code, assemblyGroup);
 
             // Assert
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
             Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
-            Assert.AreEqual(genericFailureMechanism, assemblyResult.GenericFailureMechanism);
+            Assert.AreEqual(code, assemblyResult.GenericFailureMechanismCode);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
             Assert.AreEqual("GENRK", assemblyResult.FailureMechanismType);
         }
