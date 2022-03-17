@@ -66,7 +66,8 @@ namespace Riskeer.Integration.Data.Assembly
                                      assembly.Section.SectionEnd,
                                      assembly.Section.FailureMechanismSectionAssemblyGroup,
                                      CreateFailureMechanismResults(assembly.FailureMechanismSectionAssemblyGroupResults,
-                                                                   failureMechanisms, assessmentSection))).ToArray();
+                                                                   failureMechanisms, assessmentSection)))
+                         .ToArray();
         }
 
         private static CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties CreateFailureMechanismResults(
@@ -91,7 +92,7 @@ namespace Riskeer.Integration.Data.Assembly
                 PipingStructure = GetAssemblyGroup(assessmentSection.PipingStructure, failureMechanisms, failureMechanismResults),
                 StabilityPointStructures = GetAssemblyGroup(assessmentSection.StabilityPointStructures, failureMechanisms, failureMechanismResults),
                 DuneErosion = GetAssemblyGroup(assessmentSection.DuneErosion, failureMechanisms, failureMechanismResults),
-                SpecificFailurePaths =  assessmentSection.SpecificFailurePaths.Select(sfp => GetAssemblyGroup(sfp, failureMechanisms , failureMechanismResults)).ToArray()
+                SpecificFailurePaths = assessmentSection.SpecificFailurePaths.Select(sfp => GetAssemblyGroup(sfp, failureMechanisms, failureMechanismResults)).ToArray()
             };
 
             return constructionProperties;
