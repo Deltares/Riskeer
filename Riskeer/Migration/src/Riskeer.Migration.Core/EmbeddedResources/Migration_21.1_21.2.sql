@@ -967,7 +967,7 @@ CONSTRAINT 'PK_SpecificFailurePathFailureMechanismSectionEntity' PRIMARY KEY ('F
 
 INSERT INTO TempSpecificFailurePathMapping
 (
-[FailureMechanismEntityId],
+    [FailureMechanismEntityId],
     [SpecificFailurePathEntityId]
 )
 SELECT
