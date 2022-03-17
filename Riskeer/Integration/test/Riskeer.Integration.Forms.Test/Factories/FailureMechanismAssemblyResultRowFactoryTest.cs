@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Exceptions;
@@ -76,10 +75,6 @@ namespace Riskeer.Integration.Forms.Test.Factories
             var failureMechanism = mocks.Stub<IFailurePath>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
-            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult
-            {
-                ProbabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>()
-            });
             mocks.ReplayAll();
 
             failureMechanism.InAssembly = false;
