@@ -117,9 +117,9 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             const string id = "id";
 
             var random = new Random(39);
-            var failureMechanism = new SerializableFailureMechanism("failureMechanismID",
-                                                                    "code",
-                                                                    new SerializableTotalAssemblyResult(), new SerializableFailureMechanismAssemblyResult());
+            var failureMechanism = new SerializableFailureMechanism(
+                "failureMechanismID", random.NextEnumValue<SerializableFailureMechanismType>(),
+                "code", new SerializableTotalAssemblyResult(), new SerializableFailureMechanismAssemblyResult());
             var section = new SerializableFailureMechanismSection("sectionID",
                                                                   new SerializableFailureMechanismSectionCollection(),
                                                                   random.NextDouble(),

@@ -22,8 +22,8 @@
 using System;
 using System.Xml.Serialization;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
-using Riskeer.AssemblyTool.IO.Properties;
 
 namespace Riskeer.AssemblyTool.IO.Model
 {
@@ -36,21 +36,19 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanism"/>.
         /// </summary>
-        public SerializableFailureMechanism()
-        {
-            FailureMechanismType = Resources.FailureMechanismType_Generic_DisplayName;
-        }
+        public SerializableFailureMechanism() {}
 
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanism"/>.
         /// </summary>
         /// <param name="id">The unique ID of the assembly result.</param>
+        /// <param name="failureMechanismType">The type of the failure mechanism.</param>
         /// <param name="code">The code of the failure mechanism.</param>
         /// <param name="totalAssemblyResult">The total assembly result the failure mechanism belongs to.</param>
         /// <param name="failureMechanismAssemblyResult">The total failure mechanism assembly result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
-        public SerializableFailureMechanism(string id, string code,
+        public SerializableFailureMechanism(string id, SerializableFailureMechanismType failureMechanismType, string code,
                                             SerializableTotalAssemblyResult totalAssemblyResult,
                                             SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResult)
             : this()
@@ -71,6 +69,7 @@ namespace Riskeer.AssemblyTool.IO.Model
             }
 
             Id = id;
+            FailureMechanismType = failureMechanismType;
             TotalAssemblyResultId = totalAssemblyResult.Id;
             GenericFailureMechanismCode = code;
             FailureMechanismAssemblyResult = failureMechanismAssemblyResult;
@@ -92,7 +91,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// Gets or sets the failure mechanism type.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismType)]
-        public string FailureMechanismType { get; set; }
+        public SerializableFailureMechanismType FailureMechanismType { get; set; }
 
         /// <summary>
         /// Gets or sets the generic failure mechanism code.

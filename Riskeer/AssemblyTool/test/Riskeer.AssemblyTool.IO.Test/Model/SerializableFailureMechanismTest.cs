@@ -24,6 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.TestUtil;
 
 namespace Riskeer.AssemblyTool.IO.Test.Model
@@ -43,7 +44,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.IsNull(failureMechanism.TotalAssemblyResultId);
             Assert.IsNull(failureMechanism.FailureMechanismAssemblyResult);
             Assert.IsNull(failureMechanism.GenericFailureMechanismCode);
-            Assert.AreEqual("GENRK", failureMechanism.FailureMechanismType);
+            Assert.AreEqual((SerializableFailureMechanismType) 0, failureMechanism.FailureMechanismType);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanism), "Faalmechanisme");
 
@@ -64,8 +65,14 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
         public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
         {
+            // Setup
+            var random = new Random(21);
+
             // Call
-            void Call() => new SerializableFailureMechanism(invalidId, "code", new SerializableTotalAssemblyResult(),
+            void Call() => new SerializableFailureMechanism(invalidId,
+                                                            random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                            "code",
+                                                            new SerializableTotalAssemblyResult(),
                                                             new SerializableFailureMechanismAssemblyResult());
 
             // Assert
@@ -76,8 +83,12 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         [Test]
         public void Constructor_TotalAssemblyResultNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random(21);
+
             // Call
-            void Call() => new SerializableFailureMechanism("id", "code", null, new SerializableFailureMechanismAssemblyResult());
+            void Call() => new SerializableFailureMechanism("id", random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                            "code", null, new SerializableFailureMechanismAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -87,8 +98,12 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         [Test]
         public void Constructor_FailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random(21);
+
             // Call
-            void Call() => new SerializableFailureMechanism("id", "code", new SerializableTotalAssemblyResult(), null);
+            void Call() => new SerializableFailureMechanism("id", random.NextEnumValue<SerializableFailureMechanismType>(),
+                                                            "code", new SerializableTotalAssemblyResult(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -99,22 +114,26 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_WithValidData_ReturnsExpectedValues()
         {
             // Setup
-            const string id = "sectionId";
-            const string totalResultId = "totalResultId";
+            var random = new Random(21);
 
+            const string id = "sectionId";
+            var failureMechanismType = random.NextEnumValue<SerializableFailureMechanismType>();
             const string code = "code";
+            const string totalResultId = "totalResultId";
             var assemblyResult = new SerializableFailureMechanismAssemblyResult();
 
             // Call
             var failureMechanism = new SerializableFailureMechanism(
-                id, code, new SerializableTotalAssemblyResult(totalResultId, new SerializableAssessmentProcess(),
-                                                              new SerializableAssessmentSectionAssemblyResult()),
+                id, failureMechanismType, code, new SerializableTotalAssemblyResult(
+                    totalResultId, new SerializableAssessmentProcess(),
+                    new SerializableAssessmentSectionAssemblyResult()),
                 assemblyResult);
 
             // Assert
             Assert.AreEqual(id, failureMechanism.Id);
-            Assert.AreEqual(totalResultId, failureMechanism.TotalAssemblyResultId);
+            Assert.AreEqual(failureMechanismType, failureMechanism.FailureMechanismType);
             Assert.AreEqual(code, failureMechanism.GenericFailureMechanismCode);
+            Assert.AreEqual(totalResultId, failureMechanism.TotalAssemblyResultId);
             Assert.AreSame(assemblyResult, failureMechanism.FailureMechanismAssemblyResult);
         }
     }

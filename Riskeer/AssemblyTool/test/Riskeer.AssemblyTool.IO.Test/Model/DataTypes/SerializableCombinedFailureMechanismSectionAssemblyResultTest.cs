@@ -39,10 +39,10 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
 
             // Assert
             Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
+            Assert.AreEqual((SerializableFailureMechanismType) 0, assemblyResult.FailureMechanismType);
             Assert.IsNull( assemblyResult.GenericFailureMechanismCode);
             Assert.AreEqual((SerializableFailureMechanismSectionAssemblyGroup) 0, assemblyResult.AssemblyGroup);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
-            Assert.AreEqual("GENRK", assemblyResult.FailureMechanismType);
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.AssemblyMethod), "assemblagemethode");
@@ -62,18 +62,20 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             // Setup
             var random = new Random(39);
             var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
+            var failureMechanismType = random.NextEnumValue<SerializableFailureMechanismType>();
             const string code = "code";
             var assemblyGroup = random.NextEnumValue<SerializableFailureMechanismSectionAssemblyGroup>();
 
             // Call
-            var assemblyResult = new SerializableCombinedFailureMechanismSectionAssemblyResult(assemblyMethod, code, assemblyGroup);
+            var assemblyResult = new SerializableCombinedFailureMechanismSectionAssemblyResult(
+                assemblyMethod, failureMechanismType, code, assemblyGroup);
 
             // Assert
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
-            Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
+            Assert.AreEqual(failureMechanismType, assemblyResult.FailureMechanismType);
             Assert.AreEqual(code, assemblyResult.GenericFailureMechanismCode);
+            Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
-            Assert.AreEqual("GENRK", assemblyResult.FailureMechanismType);
         }
     }
 }
