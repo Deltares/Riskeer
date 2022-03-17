@@ -82,7 +82,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Er is geen toetsoordeel geëxporteerd..
+        ///   Looks up a localized string similar to {0} Er is geen oordeel geëxporteerd..
         /// </summary>
         public static string AssemblyExporter_Error_Exception_0_no_AssemblyResult_exported {
             get {
@@ -91,12 +91,12 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd..
+        ///   Looks up a localized string similar to Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen voor meer details..
         /// </summary>
-        public static string AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResult {
+        public static string AssemblyExporter_LogErrorMessage_No_AssemblyResult_exported_Check_FailureMechanism_results_for_details {
             get {
-                return ResourceManager.GetString("AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResul" +
-                        "t", resourceCulture);
+                return ResourceManager.GetString("AssemblyExporter_LogErrorMessage_No_AssemblyResult_exported_Check_FailureMechanis" +
+                        "m_results_for_details", resourceCulture);
             }
         }
         

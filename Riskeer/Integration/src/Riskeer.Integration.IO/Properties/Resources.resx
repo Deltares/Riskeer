@@ -145,10 +145,10 @@
     <value>Gf</value>
   </data>
   <data name="AssemblyExporter_Error_Exception_0_no_AssemblyResult_exported" xml:space="preserve">
-    <value>{0} Er is geen toetsoordeel geëxporteerd.</value>
+    <value>{0} Er is geen oordeel geëxporteerd.</value>
   </data>
-  <data name="AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResult" xml:space="preserve">
-    <value>Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd.</value>
+  <data name="AssemblyExporter_LogErrorMessage_No_AssemblyResult_exported_Check_FailureMechanism_results_for_details" xml:space="preserve">
+    <value>Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen voor meer details.</value>
   </data>
   <data name="HydraulicBoundaryDatabaseImporter_ProgressText_Reading_HRD_file" xml:space="preserve">
     <value>Inlezen van het hydraulische belastingen bestand.</value>

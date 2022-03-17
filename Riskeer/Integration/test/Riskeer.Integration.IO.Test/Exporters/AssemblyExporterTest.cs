@@ -101,11 +101,11 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
                 // Call
                 var isExported = true;
-                Action call = () => isExported = exporter.Export();
+                void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                const string expectedMessage = "Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen voor meer details.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
         }
@@ -127,11 +127,11 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
                 // Call
                 var isExported = true;
-                Action call = () => isExported = exporter.Export();
+                void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "Om een toetsoordeel te kunnen exporteren moet voor alle vakken een resultaat zijn gespecificeerd.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                const string expectedMessage = "Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen voor meer details.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
         }
@@ -193,12 +193,12 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
                 // Call
                 var isExported = true;
-                Action call = () => isExported = exporter.Export();
+                void Call() => isExported = exporter.Export();
 
                 // Assert
                 string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
-                                         "Er is geen toetsoordeel geëxporteerd.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                                         "Er is geen oordeel geëxporteerd.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
         }

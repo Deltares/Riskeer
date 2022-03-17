@@ -111,7 +111,7 @@ namespace Riskeer.Integration.IO.Exporters
 
         private static void LogErrorMessage()
         {
-            log.Error(Resources.AssemblyExporter_LogErrorMessage_Only_possible_to_export_a_complete_AssemblyResult);
+            log.Error(Resources.AssemblyExporter_LogErrorMessage_No_AssemblyResult_exported_Check_FailureMechanism_results_for_details);
         }
     }
 }
