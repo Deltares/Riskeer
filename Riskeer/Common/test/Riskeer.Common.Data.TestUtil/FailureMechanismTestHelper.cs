@@ -52,12 +52,12 @@ namespace Riskeer.Common.Data.TestUtil
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to add sections to.</param>
         /// <param name="numberOfSections">The number of sections to add to the <paramref name="failureMechanism"/>.</param>
-        public static void AddSections(IFailureMechanism failureMechanism, int numberOfSections)
+        public static void AddSections(IFailurePath failureMechanism, int numberOfSections)
         {
             AddSections(failureMechanism, numberOfSections, new Point2D(-1, -1), new Point2D(15, 15));
         }
 
-        private static void AddSections(IFailureMechanism failureMechanism, int numberOfSections, Point2D startPoint, Point2D endPoint)
+        private static void AddSections(IFailurePath failureMechanism, int numberOfSections, Point2D startPoint, Point2D endPoint)
         {
             double endPointStepsX = (endPoint.X - startPoint.X) / numberOfSections;
             double endPointStepsY = (endPoint.Y - startPoint.Y) / numberOfSections;
