@@ -47,10 +47,10 @@ namespace Riskeer.AssemblyTool.IO.Test
         public void WriteAssembly_SerializableAssemblyNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => SerializableAssemblyWriter.WriteAssembly(null, string.Empty);
+            void Call() => SerializableAssemblyWriter.WriteAssembly(null, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("serializableAssembly", exception.ParamName);
         }
 
@@ -58,10 +58,10 @@ namespace Riskeer.AssemblyTool.IO.Test
         public void WriteAssembly_FilePathNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => SerializableAssemblyWriter.WriteAssembly(new SerializableAssembly(), null);
+            void Call() => SerializableAssemblyWriter.WriteAssembly(new SerializableAssembly(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("filePath", exception.ParamName);
         }
 
@@ -90,10 +90,10 @@ namespace Riskeer.AssemblyTool.IO.Test
             try
             {
                 // Call
-                TestDelegate call = () => SerializableAssemblyWriter.WriteAssembly(assembly, filePath);
+                void Call() => SerializableAssemblyWriter.WriteAssembly(assembly, filePath);
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileWriteException>(call);
+                var exception = Assert.Throws<CriticalFileWriteException>(Call);
                 Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
                 Assert.IsInstanceOf<InvalidOperationException>(exception.InnerException);
             }
@@ -110,10 +110,10 @@ namespace Riskeer.AssemblyTool.IO.Test
         public void WriteAssembly_FilePathInvalid_ThrowsCriticalFileWriteException(string filePath)
         {
             // Call
-            TestDelegate call = () => SerializableAssemblyWriter.WriteAssembly(new SerializableAssembly(), filePath);
+            void Call() => SerializableAssemblyWriter.WriteAssembly(new SerializableAssembly(), filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(Call);
             Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
@@ -125,10 +125,10 @@ namespace Riskeer.AssemblyTool.IO.Test
             var filePath = new string('a', 249);
 
             // Call
-            TestDelegate call = () => SerializableAssemblyWriter.WriteAssembly(new SerializableAssembly(), filePath);
+            void Call() => SerializableAssemblyWriter.WriteAssembly(new SerializableAssembly(), filePath);
 
             // Assert
-            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            var exception = Assert.Throws<CriticalFileWriteException>(Call);
             Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
             Assert.IsInstanceOf<PathTooLongException>(exception.InnerException);
         }
@@ -145,10 +145,10 @@ namespace Riskeer.AssemblyTool.IO.Test
                 disposeHelper.LockDirectory(FileSystemRights.Write);
 
                 // Call
-                TestDelegate call = () => SerializableAssemblyWriter.WriteAssembly(new SerializableAssembly(), filePath);
+                void Call() => SerializableAssemblyWriter.WriteAssembly(new SerializableAssembly(), filePath);
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileWriteException>(call);
+                var exception = Assert.Throws<CriticalFileWriteException>(Call);
                 Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
                 Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
             }
@@ -165,10 +165,10 @@ namespace Riskeer.AssemblyTool.IO.Test
                 fileDisposeHelper.LockFiles();
 
                 // Call
-                TestDelegate call = () => SerializableAssemblyWriter.WriteAssembly(new SerializableAssembly(), filePath);
+                void Call() => SerializableAssemblyWriter.WriteAssembly(new SerializableAssembly(), filePath);
 
                 // Assert
-                var exception = Assert.Throws<CriticalFileWriteException>(call);
+                var exception = Assert.Throws<CriticalFileWriteException>(Call);
                 Assert.AreEqual($"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'.", exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);
             }

@@ -23,7 +23,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Riskeer.AssemblyTool.Data;
-using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailurePath;
+using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.Util;
@@ -41,21 +42,21 @@ namespace Riskeer.Integration.IO.Factories
         /// </summary>
         /// <param name="combinedSectionAssemblyResults">A collection of combined section results to
         /// create a collection of <see cref="ExportableCombinedSectionAssembly"/> for.</param>
-        /// <param name="referenceLine">The reference line to map the sections to.</param>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> the section results belong to.</param>
         /// <returns>A collection of <see cref="ExportableCombinedSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<ExportableCombinedSectionAssembly> CreateExportableCombinedSectionAssemblyCollection(
             IEnumerable<CombinedFailureMechanismSectionAssemblyResult> combinedSectionAssemblyResults,
-            ReferenceLine referenceLine)
+            AssessmentSection assessmentSection)
         {
             if (combinedSectionAssemblyResults == null)
             {
                 throw new ArgumentNullException(nameof(combinedSectionAssemblyResults));
             }
 
-            if (referenceLine == null)
+            if (assessmentSection == null)
             {
-                throw new ArgumentNullException(nameof(referenceLine));
+                throw new ArgumentNullException(nameof(assessmentSection));
             }
 
             var sectionResults = new List<ExportableCombinedSectionAssembly>();
@@ -63,7 +64,7 @@ namespace Riskeer.Integration.IO.Factories
             {
                 var exportableSection = new ExportableCombinedFailureMechanismSection(
                     FailureMechanismSectionHelper.GetFailureMechanismSectionGeometry(
-                        referenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
+                        assessmentSection.ReferenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
                     assemblyResult.SectionStart,
                     assemblyResult.SectionEnd,
                     ExportableAssemblyMethod.WBI3A1);
@@ -71,7 +72,7 @@ namespace Riskeer.Integration.IO.Factories
                 var exportableSectionResult = new ExportableCombinedSectionAssembly(
                     exportableSection, new ExportableFailureMechanismSectionAssemblyResult(
                         exportableSection, assemblyResult.TotalResult, ExportableAssemblyMethod.WBI3C1),
-                    CreateFailureMechanismCombinedSectionAssemblyResults(assemblyResult));
+                    CreateFailureMechanismCombinedSectionAssemblyResults(assemblyResult, assessmentSection));
 
                 sectionResults.Add(exportableSectionResult);
             }
@@ -80,25 +81,25 @@ namespace Riskeer.Integration.IO.Factories
         }
 
         private static IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> CreateFailureMechanismCombinedSectionAssemblyResults(
-            CombinedFailureMechanismSectionAssemblyResult assemblyResult)
+            CombinedFailureMechanismSectionAssemblyResult assemblyResult, AssessmentSection assessmentSection)
         {
-            Tuple<FailureMechanismSectionAssemblyGroup?, ExportableFailureMechanismType>[] failureMechanisms =
+            Tuple<FailureMechanismSectionAssemblyGroup?, string>[] failureMechanisms =
             {
-                CreateTuple(assemblyResult.Piping, ExportableFailureMechanismType.STPH),
-                CreateTuple(assemblyResult.GrassCoverErosionInwards, ExportableFailureMechanismType.GEKB),
-                CreateTuple(assemblyResult.MacroStabilityInwards, ExportableFailureMechanismType.STBI),
-                CreateTuple(assemblyResult.Microstability, ExportableFailureMechanismType.STMI),
-                CreateTuple(assemblyResult.StabilityStoneCover, ExportableFailureMechanismType.ZST),
-                CreateTuple(assemblyResult.WaveImpactAsphaltCover, ExportableFailureMechanismType.AGK),
-                CreateTuple(assemblyResult.WaterPressureAsphaltCover, ExportableFailureMechanismType.AWO),
-                CreateTuple(assemblyResult.GrassCoverErosionOutwards, ExportableFailureMechanismType.GEBU),
-                CreateTuple(assemblyResult.GrassCoverSlipOffOutwards, ExportableFailureMechanismType.GABU),
-                CreateTuple(assemblyResult.GrassCoverSlipOffInwards, ExportableFailureMechanismType.GABI),
-                CreateTuple(assemblyResult.HeightStructures, ExportableFailureMechanismType.HTKW),
-                CreateTuple(assemblyResult.ClosingStructures, ExportableFailureMechanismType.BSKW),
-                CreateTuple(assemblyResult.PipingStructure, ExportableFailureMechanismType.PKW),
-                CreateTuple(assemblyResult.StabilityPointStructures, ExportableFailureMechanismType.STKWp),
-                CreateTuple(assemblyResult.DuneErosion, ExportableFailureMechanismType.DA)
+                CreateTuple(assemblyResult.Piping, assessmentSection.Piping),
+                CreateTuple(assemblyResult.GrassCoverErosionInwards, assessmentSection.GrassCoverErosionInwards),
+                CreateTuple(assemblyResult.MacroStabilityInwards, assessmentSection.MacroStabilityInwards),
+                CreateTuple(assemblyResult.Microstability, assessmentSection.Microstability),
+                CreateTuple(assemblyResult.StabilityStoneCover, assessmentSection.StabilityStoneCover),
+                CreateTuple(assemblyResult.WaveImpactAsphaltCover, assessmentSection.WaveImpactAsphaltCover),
+                CreateTuple(assemblyResult.WaterPressureAsphaltCover, assessmentSection.WaterPressureAsphaltCover),
+                CreateTuple(assemblyResult.GrassCoverErosionOutwards, assessmentSection.GrassCoverErosionOutwards),
+                CreateTuple(assemblyResult.GrassCoverSlipOffOutwards, assessmentSection.GrassCoverSlipOffOutwards),
+                CreateTuple(assemblyResult.GrassCoverSlipOffInwards, assessmentSection.GrassCoverSlipOffInwards),
+                CreateTuple(assemblyResult.HeightStructures, assessmentSection.HeightStructures),
+                CreateTuple(assemblyResult.ClosingStructures, assessmentSection.ClosingStructures),
+                CreateTuple(assemblyResult.PipingStructure, assessmentSection.PipingStructure),
+                CreateTuple(assemblyResult.StabilityPointStructures, assessmentSection.StabilityPointStructures),
+                CreateTuple(assemblyResult.DuneErosion, assessmentSection.DuneErosion)
             };
 
             return failureMechanisms.Where(fm => fm.Item1.HasValue)
@@ -106,15 +107,15 @@ namespace Riskeer.Integration.IO.Factories
                                     .ToArray();
         }
 
-        private static Tuple<FailureMechanismSectionAssemblyGroup?, ExportableFailureMechanismType> CreateTuple(
-            FailureMechanismSectionAssemblyGroup? assemblyResultGroup, ExportableFailureMechanismType exportableFailureMechanismType)
+        private static Tuple<FailureMechanismSectionAssemblyGroup?, string> CreateTuple(
+            FailureMechanismSectionAssemblyGroup? assemblyResultGroup, IFailurePath failureMechanism)
         {
-            return new Tuple<FailureMechanismSectionAssemblyGroup?, ExportableFailureMechanismType>(assemblyResultGroup, exportableFailureMechanismType);
+            return new Tuple<FailureMechanismSectionAssemblyGroup?, string>(assemblyResultGroup, failureMechanism.Code);
         }
 
         private static ExportableFailureMechanismCombinedSectionAssemblyResult CreateExportableFailureMechanismCombinedSectionAssemblyResult(
             FailureMechanismSectionAssemblyGroup sectionAssemblyGroup,
-            ExportableFailureMechanismType failureMechanismCode)
+            string failureMechanismCode)
         {
             return new ExportableFailureMechanismCombinedSectionAssemblyResult(
                 new ExportableFailureMechanismSubSectionAssemblyResult(sectionAssemblyGroup, ExportableAssemblyMethod.WBI3B1),
