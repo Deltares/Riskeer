@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.IsInstanceOf<IHasColumnStateDefinitions>(row);
 
             IDictionary<int, DataGridViewColumnStateDefinition> columnStateDefinitions = row.ColumnStateDefinitions;
-            Assert.AreEqual(19, columnStateDefinitions.Count);
+            Assert.AreEqual(20, columnStateDefinitions.Count);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, totalResultIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, pipingIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, grassCoverErosionInwardsIndex);

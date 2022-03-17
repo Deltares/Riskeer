@@ -53,6 +53,7 @@ namespace Riskeer.Integration.Forms.Views
         private const int pipingStructureIndex = 16;
         private const int stabilityPointStructuresIndex = 17;
         private const int duneErosionIndex = 18;
+        private const int specificFailurePathStartIndex = 19;
 
         private readonly CombinedFailureMechanismSectionAssemblyResult combinedFailureMechanismSectionAssemblyResult;
 
@@ -203,9 +204,9 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions.Add(stabilityPointStructuresIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(duneErosionIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
 
-            for (var i = 1; i <= SpecificFailurePaths.Length; i++)
+            for (var i = 0; i <= SpecificFailurePaths.Length; i++)
             {
-                ColumnStateDefinitions.Add(duneErosionIndex + i, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+                ColumnStateDefinitions.Add(specificFailurePathStartIndex + i, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             }
         }
 
@@ -228,9 +229,11 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions[stabilityPointStructuresIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
             ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
             
-            for (var i = 1; i <= SpecificFailurePaths.Length; i++)
+            FailureMechanismSectionAssemblyGroup?[] specificFailurePathAssemblyResults = combinedFailureMechanismSectionAssemblyResult.SpecificFailurePaths;
+            int nrOfSpecificFailurePaths = specificFailurePathAssemblyResults.Length;
+            for (var i = 0; i < nrOfSpecificFailurePaths; i++)
             {
-                ColumnStateDefinitions[duneErosionIndex + i].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.SpecificFailurePaths.First());
+                ColumnStateDefinitions[specificFailurePathStartIndex + i].Style = CreateCellStyleForFailureMechanism(specificFailurePathAssemblyResults[i]);
             }
         }
 
