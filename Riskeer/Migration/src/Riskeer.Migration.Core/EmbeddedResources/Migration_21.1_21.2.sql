@@ -873,14 +873,14 @@ SELECT
 FROM [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity;
 
 INSERT INTO SpecificFailurePathFailureMechanismSectionEntity (
-[SpecificFailurePathEntityId],
+    [SpecificFailurePathEntityId],
     [FailureMechanismSectionEntityId]
 )
 SELECT
     [SpecificFailurePathEntityId],
     [FailureMechanismSectionEntityId]
 FROM TempSpecificFailurePathMapping
-    JOIN [SOURCEPROJECT].FailureMechanismSectionEntity USING(FailureMechanismEntityId);
+JOIN [SOURCEPROJECT].FailureMechanismSectionEntity USING(FailureMechanismEntityId);
 
 DROP TABLE TempSpecificFailurePathMapping;
 
