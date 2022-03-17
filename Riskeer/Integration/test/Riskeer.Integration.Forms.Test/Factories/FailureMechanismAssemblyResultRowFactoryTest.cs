@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Exceptions;
@@ -63,7 +64,43 @@ namespace Riskeer.Integration.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateRow_FailurePathWithPerformAssemblyFuncReturningResult_ReturnsExpectedRow()
+        public void CreateRow_FailureMechanismNotInAssembly_ReturnsExpectedRow()
+        {
+            // Setup
+            const string failureMechanismName = "Failure Mechanism Name";
+            const string failureMechanismCode = "Code";
+
+            var random = new Random(21);
+
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailurePath>();
+            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
+            failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
+            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult
+            {
+                ProbabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>()
+            });
+            mocks.ReplayAll();
+
+            failureMechanism.InAssembly = false;
+
+            double assemblyResult = random.NextDouble();
+
+            // Call
+            FailureMechanismAssemblyResultRow row = FailureMechanismAssemblyResultRowFactory.CreateRow(failureMechanism, () => assemblyResult);
+
+            // Assert
+            Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
+
+            Assert.AreEqual(failureMechanismName, row.Name);
+            Assert.AreEqual(failureMechanismCode, row.Code);
+            Assert.IsNaN(row.Probability);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateRow_FailureMechanismInAssemblyWithPerformAssemblyFuncReturningResult_ReturnsExpectedRow()
         {
             // Setup
             const string failureMechanismName = "Failure Mechanism Name";
@@ -78,6 +115,8 @@ namespace Riskeer.Integration.Forms.Test.Factories
                 ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
             });
             mocks.ReplayAll();
+
+            failureMechanism.InAssembly = true;
 
             var random = new Random(21);
             double assemblyResult = random.NextDouble();
@@ -96,7 +135,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateRow_FailurePathWithPerformAssemblyFuncThrowingAssemblyException_ReturnsExpectedRow()
+        public void CreateRow_FailureMechanismInAssemblyWithPerformAssemblyFuncThrowingAssemblyException_ReturnsExpectedRow()
         {
             // Setup
             const string failureMechanismName = "Failure Mechanism Name";
@@ -113,6 +152,8 @@ namespace Riskeer.Integration.Forms.Test.Factories
             });
             mocks.ReplayAll();
 
+            failureMechanism.InAssembly = true;
+
             // Call
             FailureMechanismAssemblyResultRow row = FailureMechanismAssemblyResultRowFactory.CreateRow(
                 failureMechanism, () => throw new AssemblyException(errorMessage));
@@ -128,7 +169,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateRow_FailurePathWithValidManualAssembly_ReturnsExpectedRow()
+        public void CreateRow_FailureMechanismInAssemblyWithValidManualAssembly_ReturnsExpectedRow()
         {
             // Setup
             const string failureMechanismName = "Failure Mechanism Name";
@@ -148,8 +189,10 @@ namespace Riskeer.Integration.Forms.Test.Factories
             });
             mocks.ReplayAll();
 
+            failureMechanism.InAssembly = true;
+
             // Call
-            FailureMechanismAssemblyResultRow row = FailureMechanismAssemblyResultRowFactory.CreateRow(failureMechanism, () => double.NaN);
+            FailureMechanismAssemblyResultRow row = FailureMechanismAssemblyResultRowFactory.CreateRow(failureMechanism, () => assemblyResult);
 
             // Assert
             Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
@@ -162,7 +205,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
         }
 
         [Test]
-        public void CreateRow_FailurePathWithInvalidManualAssembly_ReturnsExpectedRow()
+        public void CreateRow_FailureMechanismInAssemblyWithInvalidManualAssembly_ReturnsExpectedRow()
         {
             // Setup
             const string failureMechanismName = "Failure Mechanism Name";
@@ -178,6 +221,8 @@ namespace Riskeer.Integration.Forms.Test.Factories
                 ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual
             });
             mocks.ReplayAll();
+
+            failureMechanism.InAssembly = true;
 
             var random = new Random(21);
 

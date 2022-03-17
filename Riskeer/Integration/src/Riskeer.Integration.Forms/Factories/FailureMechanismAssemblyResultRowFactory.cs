@@ -52,6 +52,11 @@ namespace Riskeer.Integration.Forms.Factories
                 throw new ArgumentNullException(nameof(performAssemblyFunc));
             }
 
+            if (!failureMechanism.InAssembly)
+            {
+                return new FailureMechanismAssemblyResultRow(failureMechanism, double.NaN);
+            }
+
             return failureMechanism.AssemblyResult.IsManualProbability()
                        ? CreateManualAssemblyRow(failureMechanism)
                        : CreateAutomaticAssemblyRow(failureMechanism, performAssemblyFunc);
