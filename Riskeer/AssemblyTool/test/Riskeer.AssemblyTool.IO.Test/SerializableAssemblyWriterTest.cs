@@ -277,15 +277,13 @@ namespace Riskeer.AssemblyTool.IO.Test
                                                                       assessmentSection);
 
             var totalAssemblyResult = new SerializableTotalAssemblyResult(
-                "veiligheidsoordeel_1",
-                assessmentProcess,
-                new SerializableAssessmentSectionAssemblyResult(SerializableAssemblyMethod.WBI2B1, SerializableAssessmentSectionAssemblyGroup.B, 0.00068354));
+                "veiligheidsoordeel_1", assessmentProcess,
+                new SerializableAssessmentSectionAssemblyResult(
+                    SerializableAssemblyMethod.WBI2B1, SerializableAssessmentSectionAssemblyGroup.B, 0.00068354));
 
             var failureMechanism = new SerializableFailureMechanism(
-                "toetsspoorGABI",
-                totalAssemblyResult,
-                "GABI",
-            new SerializableFailureMechanismAssemblyResult(0.08419, false));
+                "toetsspoorGABI", "GABI", totalAssemblyResult,
+                new SerializableFailureMechanismAssemblyResult(0.08419, false));
 
             var sections1 = new SerializableFailureMechanismSectionCollection("vakindelingGABI");
             var section1 = new SerializableFailureMechanismSection(

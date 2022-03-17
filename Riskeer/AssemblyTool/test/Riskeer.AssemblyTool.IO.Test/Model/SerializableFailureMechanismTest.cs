@@ -65,8 +65,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
         {
             // Call
-            void Call() => new SerializableFailureMechanism(invalidId, new SerializableTotalAssemblyResult(),
-                                                            "code", new SerializableFailureMechanismAssemblyResult());
+            void Call() => new SerializableFailureMechanism(invalidId, "code", new SerializableTotalAssemblyResult(),
+                                                            new SerializableFailureMechanismAssemblyResult());
 
             // Assert
             const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
@@ -77,8 +77,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_TotalAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new SerializableFailureMechanism("id", null, "code",
-                                                            new SerializableFailureMechanismAssemblyResult());
+            void Call() => new SerializableFailureMechanism("id", "code", null, new SerializableFailureMechanismAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -89,8 +88,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         public void Constructor_FailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new SerializableFailureMechanism("id", new SerializableTotalAssemblyResult(),
-                                                            "code", null);
+            void Call() => new SerializableFailureMechanism("id", "code", new SerializableTotalAssemblyResult(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -109,9 +107,9 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             // Call
             var failureMechanism = new SerializableFailureMechanism(
-                id, new SerializableTotalAssemblyResult(
-                    totalResultId, new SerializableAssessmentProcess(), new SerializableAssessmentSectionAssemblyResult()),
-                code, assemblyResult);
+                id, code, new SerializableTotalAssemblyResult(totalResultId, new SerializableAssessmentProcess(),
+                                                              new SerializableAssessmentSectionAssemblyResult()),
+                assemblyResult);
 
             // Assert
             Assert.AreEqual(id, failureMechanism.Id);

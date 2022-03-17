@@ -45,13 +45,13 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// Creates a new instance of <see cref="SerializableFailureMechanism"/>.
         /// </summary>
         /// <param name="id">The unique ID of the assembly result.</param>
-        /// <param name="totalAssemblyResult">The total assembly result the failure mechanism belongs to.</param>
         /// <param name="code">The code of the failure mechanism.</param>
+        /// <param name="totalAssemblyResult">The total assembly result the failure mechanism belongs to.</param>
         /// <param name="failureMechanismAssemblyResult">The total failure mechanism assembly result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
-        public SerializableFailureMechanism(string id, SerializableTotalAssemblyResult totalAssemblyResult,
-                                            string code,
+        public SerializableFailureMechanism(string id, string code,
+                                            SerializableTotalAssemblyResult totalAssemblyResult,
                                             SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResult)
             : this()
         {
