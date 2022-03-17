@@ -847,9 +847,10 @@ SELECT
     [FailureMechanismEntityId],
     [SpecificFailurePathEntityId]
 FROM [SOURCEPROJECT].FailureMechanismEntity
-    JOIN SpecificFailurePathEntity USING (AssessmentSectionEntityId)
-WHERE FailureMechanismType = 13
-  AND [Name] = "Macrostabiliteit buitenwaarts";
+JOIN SpecificFailurePathEntity USING (AssessmentSectionEntityId)
+WHERE FailureMechanismType = 13 AND [Name] = "Macrostabiliteit buitenwaards" OR
+(FailureMechanismType = 17 AND [Name] = "Sterkte en stabiliteit langsconstructies") OR
+(FailureMechanismType = 18 AND [Name] = "Technische innovaties");
 
 INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
@@ -881,8 +882,6 @@ SELECT
     [FailureMechanismSectionEntityId]
 FROM TempSpecificFailurePathMapping
 JOIN [SOURCEPROJECT].FailureMechanismSectionEntity USING(FailureMechanismEntityId);
-
-DROP TABLE TempSpecificFailurePathMapping;
 
 INSERT INTO SpecificFailurePathEntity (
     [AssessmentSectionEntityId],
@@ -916,26 +915,6 @@ SELECT
 FROM [SOURCEPROJECT].FailureMechanismEntity
 WHERE FailureMechanismType = 17;
 
-CREATE TEMP TABLE TempSpecificFailurePathMapping
-(
-    'FailureMechanismEntityId' INTEGER NOT NULL,
-    'SpecificFailurePathEntityId' INTEGER NOT NULL,
-CONSTRAINT 'PK_SpecificFailurePathFailureMechanismSectionEntity' PRIMARY KEY ('FailureMechanismEntityId','SpecificFailurePathEntityId')
-);
-
-INSERT INTO TempSpecificFailurePathMapping
-(
-    [FailureMechanismEntityId],
-    [SpecificFailurePathEntityId]
-)
-SELECT
-    [FailureMechanismEntityId],
-    [SpecificFailurePathEntityId]
-FROM [SOURCEPROJECT].FailureMechanismEntity
-    JOIN SpecificFailurePathEntity USING (AssessmentSectionEntityId)
-WHERE FailureMechanismType = 17
-  AND [Name] = "Sterkte en stabiliteit langsconstructies";
-
 INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
     [IsRelevant],
@@ -966,8 +945,6 @@ SELECT
     [FailureMechanismSectionEntityId]
 FROM TempSpecificFailurePathMapping
     JOIN [SOURCEPROJECT].FailureMechanismSectionEntity USING(FailureMechanismEntityId);
-
-DROP TABLE TempSpecificFailurePathMapping;
 
 INSERT INTO SpecificFailurePathEntity (
     [AssessmentSectionEntityId],
@@ -1000,26 +977,6 @@ SELECT
     0
 FROM [SOURCEPROJECT].FailureMechanismEntity
 WHERE FailureMechanismType = 18;
-
-CREATE TEMP TABLE TempSpecificFailurePathMapping
-(
-    'FailureMechanismEntityId' INTEGER NOT NULL,
-    'SpecificFailurePathEntityId' INTEGER NOT NULL,
-CONSTRAINT 'PK_SpecificFailurePathFailureMechanismSectionEntity' PRIMARY KEY ('FailureMechanismEntityId','SpecificFailurePathEntityId')
-);
-
-INSERT INTO TempSpecificFailurePathMapping
-(
-    [FailureMechanismEntityId],
-    [SpecificFailurePathEntityId]
-)
-SELECT
-    [FailureMechanismEntityId],
-    [SpecificFailurePathEntityId]
-FROM [SOURCEPROJECT].FailureMechanismEntity
-    JOIN SpecificFailurePathEntity USING (AssessmentSectionEntityId)
-WHERE FailureMechanismType = 18
-    AND [Name] = "Technische innovaties";
 
 INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
