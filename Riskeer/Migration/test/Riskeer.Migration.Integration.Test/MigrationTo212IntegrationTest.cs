@@ -63,9 +63,12 @@ namespace Riskeer.Migration.Integration.Test
                     AssertAssessmentSection(reader, sourceFilePath);
                     AssertFailureMechanism(reader, sourceFilePath);
                     AssertFailureMechanismSection(reader, sourceFilePath);
-                    AssertMacroStabilityOutwards(reader, sourceFilePath);
-                    AssertStrengthStabilityLengthwiseConstruction(reader, sourceFilePath);
-                    AssertTechnicalInnovation(reader, sourceFilePath);
+                    AssertMacroStabilityOutwardsFailurePath(reader, sourceFilePath);
+                    AssertMacroStabilityOutwardsSections(reader, sourceFilePath);
+                    AssertStrengthStabilityLengthwiseConstructionFailurePath(reader, sourceFilePath);
+                    AssertStrengthStabilityLengthwiseConstructionSections(reader, sourceFilePath);
+                    AssertTechnicalInnovationFailurePath(reader, sourceFilePath);
+                    AssertTechnicalInnovationSections(reader, sourceFilePath);
 
                     AssertHydraulicBoundaryLocationCalculation(reader, sourceFilePath);
                     AssertHydraulicLocationOutput(reader);
@@ -368,28 +371,37 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateFailureMechanismSectionEntity);
         }
 
-        private static void AssertMacroStabilityOutwards(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertMacroStabilityOutwardsFailurePath(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            const string macroStabilityOutwards = "Macrostabiliteit buitenwaarts";
-            AssertMigratedSpecificFailurePath(reader, sourceFilePath, 13, macroStabilityOutwards, "STBU", 1);
+            AssertMigratedSpecificFailurePath(reader, sourceFilePath, 13, "Macrostabiliteit buitenwaarts", "STBU", 1);
+        }
+        
+        private static void AssertMacroStabilityOutwardsSections(MigratedDatabaseReader reader, string sourceFilePath)
+        {
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity(reader, "MacroStabilityOutwardsSectionResultEntity", sourceFilePath);
-            AssertSpecificFailurePathFailureMechanismSectionEntity(reader, 13, macroStabilityOutwards, sourceFilePath);
+            AssertSpecificFailurePathFailureMechanismSectionEntity(reader, 13, "Macrostabiliteit buitenwaarts", sourceFilePath);
         }
 
-        private static void AssertStrengthStabilityLengthwiseConstruction(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertStrengthStabilityLengthwiseConstructionFailurePath(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            const string strengthStabilityLengthwiseConstruction = "Sterkte en stabiliteit langsconstructies";
-            AssertMigratedSpecificFailurePath(reader, sourceFilePath, 17, strengthStabilityLengthwiseConstruction, "STKWl", 2);
+            AssertMigratedSpecificFailurePath(reader, sourceFilePath, 17, "Sterkte en stabiliteit langsconstructies", "STKWl", 2);
+        }
+        
+        private static void AssertStrengthStabilityLengthwiseConstructionSections(MigratedDatabaseReader reader, string sourceFilePath)
+        {
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity(reader, "StrengthStabilityLengthwiseConstructionSectionResultEntity", sourceFilePath);
-            AssertSpecificFailurePathFailureMechanismSectionEntity(reader, 17, strengthStabilityLengthwiseConstruction, sourceFilePath);
+            AssertSpecificFailurePathFailureMechanismSectionEntity(reader, 17, "Sterkte en stabiliteit langsconstructies", sourceFilePath);
         }
 
-        private static void AssertTechnicalInnovation(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertTechnicalInnovationFailurePath(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            const string technicalInnovation = "Technische innovaties";
-            AssertMigratedSpecificFailurePath(reader, sourceFilePath, 18, technicalInnovation, "INN", 3);
+            AssertMigratedSpecificFailurePath(reader, sourceFilePath, 18, "Technische innovaties", "INN", 3);
+        }
+        
+        private static void AssertTechnicalInnovationSections(MigratedDatabaseReader reader, string sourceFilePath)
+        {
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity(reader, "TechnicalInnovationSectionResultEntity", sourceFilePath);
-            AssertSpecificFailurePathFailureMechanismSectionEntity(reader, 18, technicalInnovation, sourceFilePath);
+            AssertSpecificFailurePathFailureMechanismSectionEntity(reader, 18, "Technische innovaties", sourceFilePath);
         }
 
         private static void AssertSpecificFailurePathFailureMechanismSectionEntity(MigratedDatabaseReader reader, int failureMechanismType, string failureMechanismName, string sourceFilePath)
