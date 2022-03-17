@@ -34,12 +34,13 @@ namespace Riskeer.Integration.IO.Assembly
         /// </summary>
         /// <param name="failureMechanismAssembly">The assembly result of the failure mechanism.</param>
         /// <param name="sectionAssemblyResults">The assembly results for the failure mechanism sections.</param>
+        /// <param name="failureMechanismType">The type of the failure mechanism.</param>
         /// <param name="code">The code of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismAssembly"/>,
         /// or <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
         public ExportableFailureMechanism(ExportableFailureMechanismAssemblyResult failureMechanismAssembly,
                                           IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> sectionAssemblyResults,
-                                          string code)
+                                          ExportableFailureMechanismType failureMechanismType, string code)
         {
             if (failureMechanismAssembly == null)
             {
@@ -53,6 +54,7 @@ namespace Riskeer.Integration.IO.Assembly
 
             FailureMechanismAssembly = failureMechanismAssembly;
             SectionAssemblyResults = sectionAssemblyResults;
+            FailureMechanismType = failureMechanismType;
             Code = code;
         }
 
@@ -65,6 +67,11 @@ namespace Riskeer.Integration.IO.Assembly
         /// Gets the collection of assembly results.
         /// </summary>
         public IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> SectionAssemblyResults { get; }
+
+        /// <summary>
+        /// Gets the type of the failure mechanism.
+        /// </summary>
+        public ExportableFailureMechanismType FailureMechanismType { get; }
 
         /// <summary>
         /// Gets the code of the failure mechanism.

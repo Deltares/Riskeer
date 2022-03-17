@@ -124,6 +124,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                     (sr, fm, section) => expectedSectionOutput);
 
             // Assert
+            Assert.AreEqual(ExportableFailureMechanismType.Generic, exportableFailureMechanism.FailureMechanismType);
             Assert.AreEqual(failureMechanism.Code, exportableFailureMechanism.Code);
 
             ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;

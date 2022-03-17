@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.TestUtil;
@@ -34,10 +35,13 @@ namespace Riskeer.Integration.IO.Test.Assembly
         [Test]
         public void Constructor_FailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random(21);
+
             // Call
             void Call() => new ExportableFailureMechanism(
                 null, Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
-                string.Empty);
+                random.NextEnumValue<ExportableFailureMechanismType>(), string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -47,10 +51,13 @@ namespace Riskeer.Integration.IO.Test.Assembly
         [Test]
         public void Constructor_SectionAssemblyResultsNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random(21);
+
             // Call
             void Call() => new ExportableFailureMechanism(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
-                null, string.Empty);
+                null, random.NextEnumValue<ExportableFailureMechanismType>(), string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -61,19 +68,23 @@ namespace Riskeer.Integration.IO.Test.Assembly
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var random = new Random(21);
+            
             ExportableFailureMechanismAssemblyResult failureMechanismAssembly =
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult();
             IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> sectionAssemblyResults =
                 Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>();
+            var failureMechanismType = random.NextEnumValue<ExportableFailureMechanismType>();
             const string code = "code";
 
             // Call
             var failureMechanism = new ExportableFailureMechanism(
-                failureMechanismAssembly, sectionAssemblyResults, code);
+                failureMechanismAssembly, sectionAssemblyResults, failureMechanismType, code);
 
             // Assert
             Assert.AreSame(failureMechanismAssembly, failureMechanism.FailureMechanismAssembly);
             Assert.AreSame(sectionAssemblyResults, failureMechanism.SectionAssemblyResults);
+            Assert.AreSame(failureMechanismType, failureMechanism.FailureMechanismType);
             Assert.AreEqual(code, failureMechanism.Code);
         }
     }

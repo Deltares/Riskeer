@@ -87,7 +87,7 @@ namespace Riskeer.Integration.IO.Factories
                     failureMechanism.AssemblyResult.IsManualProbability()),
                 CreateExportableFailureMechanismSectionResults(
                     failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
-                failureMechanism.Code);
+                ExportableFailureMechanismType.Generic, failureMechanism.Code);
         }
 
         /// <summary>

@@ -65,7 +65,7 @@ namespace Riskeer.Integration.IO.Creators
             }
 
             return new SerializableFailureMechanism(idGenerator.GetNewId(Resources.SerializableFailureMechanismCreator_IdPrefix),
-                                                    SerializableFailureMechanismTypeCreator.Create(failureMechanism.Type),
+                                                    SerializableFailureMechanismTypeCreator.Create(failureMechanism.FailureMechanismType),
                                                     failureMechanism.Code, serializableTotalAssembly,
                                                     SerializableFailureMechanismResultCreator.Create(failureMechanism.FailureMechanismAssembly));
         }

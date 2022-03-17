@@ -161,6 +161,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                 {
                     ExportableFailureMechanismSectionAssemblyResultTestFactory.CreateWithProbability(failureMechanismSection, random.Next())
                 },
+                random.NextEnumValue<ExportableFailureMechanismType>(),
                 "code");
         }
 
