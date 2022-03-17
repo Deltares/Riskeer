@@ -87,7 +87,7 @@ namespace Riskeer.Common.Data.Test.FailurePath
         public void GivenSpecificFailurePathWithoutSections_WhenSettingValidSections_ThenExpectedSectionsAndSourcePathAndSectionResultsSet()
         {
             // Given
-            string sourcePath = TestHelper.GetScratchPadPath();
+            const string sourcePath = "some/Path";
             var failurePath = new SpecificFailurePath();
 
             const int matchingX = 1;
@@ -124,7 +124,7 @@ namespace Riskeer.Common.Data.Test.FailurePath
         public void GivenSpecificFailurePathWithSections_WhenSettingValidSections_ThenExpectedSectionsAndSourcePathAndSectionResultsSet()
         {
             // Given
-            string sourcePath = TestHelper.GetScratchPadPath();
+            const string sourcePath = "some/Path";
             var failurePath = new SpecificFailurePath();
 
             const int matchingX = 1;
@@ -147,15 +147,15 @@ namespace Riskeer.Common.Data.Test.FailurePath
                 section2
             };
 
-            failurePath.SetSections(new []
+            failurePath.SetSections(new[]
             {
                 new FailureMechanismSection("X", new[]
                 {
                     new Point2D(matchingX, matchingY),
                     new Point2D(0, 0)
                 })
-            }, sourcePath);
-            
+            }, "");
+
             // When
             failurePath.SetSections(sections, sourcePath);
 
@@ -238,7 +238,7 @@ namespace Riskeer.Common.Data.Test.FailurePath
             });
 
             var failurePath = new SpecificFailurePath();
-            string sourcePath = TestHelper.GetScratchPadPath();
+            const string sourcePath = "some/Path";
             failurePath.SetSections(new[]
             {
                 section
