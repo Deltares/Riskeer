@@ -53,6 +53,9 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("WBI-3C-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3C1);
             Assert.AreEqual("Handmatig", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodManual);
 
+            Assert.AreEqual("GENRK", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGeneric);
+            Assert.AreEqual("SPECFK", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeSpecific);
+
             Assert.AreEqual("FAALMVK", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionTypeFailureMechanism);
             Assert.AreEqual("DEELVK", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionTypeCombined);
         }

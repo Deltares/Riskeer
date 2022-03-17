@@ -28,7 +28,7 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
     public static class AssemblyXmlEnumIdentifiers
     {
         #region SerializableFailureMechanismSectionAssemblyGroup
-        
+
         /// <summary>
         /// Identifier for <see cref="SerializableFailureMechanismSectionAssemblyGroup.NotDominant"/>.
         /// </summary>
@@ -68,7 +68,7 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// Identifier for <see cref="SerializableFailureMechanismSectionAssemblyGroup.IIIMin"/>.
         /// </summary>
         public const string SerializableFailureMechanismSectionAssemblyGroupIIIMin = "-III";
-        
+
         #endregion
 
         #region SerializableAssessmentSectionAssemblyGroup
@@ -136,6 +136,20 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// Identifier for <see cref="SerializableAssemblyMethod.Manual"/>.
         /// </summary>
         public const string SerializableAssemblyMethodManual = "Handmatig";
+
+        #endregion
+
+        #region SerializableFailureMechanismType
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismType.Generic"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismTypeGeneric = "GENRK";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableFailureMechanismType.Specific"/>.
+        /// </summary>
+        public const string SerializableFailureMechanismTypeSpecific = "SPECFK";
 
         #endregion
 
