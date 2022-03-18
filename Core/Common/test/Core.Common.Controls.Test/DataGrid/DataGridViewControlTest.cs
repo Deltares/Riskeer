@@ -719,6 +719,7 @@ namespace Core.Common.Controls.Test.DataGrid
         [Test]
         public void RefreshDataGridView_ShouldAutoResizeFalseAndShorterText_SameColumnWidth()
         {
+            // Setup
             using (var form = new Form())
             using (var control = new DataGridViewControl())
             {
@@ -744,6 +745,32 @@ namespace Core.Common.Controls.Test.DataGrid
                 // Assert
                 int newTextWidth = dataGridViewCell.OwningColumn.Width;
                 Assert.AreEqual(newTextWidth, initialWidth);
+            }
+        }
+        
+        [Test]
+        public void DataGridView_ClearColumns_ClearsAllColumns()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                control.AddTextBoxColumn("Test property", "Test header");
+                control.AddTextBoxColumn("Test property2", "Test header2");
+
+                // Precondition
+                Assert.AreEqual(2, dataGridView.Columns.Count);
+                
+                // Call
+                control.ClearColumns();
+
+                // Assert
+                Assert.AreEqual(0, dataGridView.Columns.Count);
             }
         }
 

@@ -448,7 +448,7 @@ namespace Core.Common.Controls.DataGrid
         }
 
         /// <summary>
-        /// 
+        /// Clears the column collection.
         /// </summary>
         public void ClearColumns()
         {
