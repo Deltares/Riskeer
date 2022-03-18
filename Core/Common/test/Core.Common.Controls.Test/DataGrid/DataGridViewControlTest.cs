@@ -761,7 +761,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 control.AddTextBoxColumn("Test property", "Test header");
-                control.AddTextBoxColumn("Test property2", "Test header2");
+                control.AddCheckBoxColumn("Test property2", "Test header2");
 
                 // Precondition
                 Assert.AreEqual(2, dataGridView.Columns.Count);
