@@ -75,6 +75,13 @@
         <asm:duidingsklasse>+II</asm:duidingsklasse>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
+        <asm:specifiekFaalmechanisme>NIEUW</asm:specifiekFaalmechanisme>
+        <asm:duidingsklasse>0</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
     </asm:FaalanalyseGecombineerd>
     <asm:Vakindeling VakindelingID="vakindelingGABI" />
     <asm:Vakindeling VakindelingID="vakindeling_gecombineerd" />

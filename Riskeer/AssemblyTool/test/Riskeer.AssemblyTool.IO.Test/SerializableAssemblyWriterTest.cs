@@ -333,7 +333,11 @@ namespace Riskeer.AssemblyTool.IO.Test
                     new SerializableCombinedFailureMechanismSectionAssemblyResult(
                         SerializableAssemblyMethod.WBI3B1,
                         SerializableFailureMechanismType.Generic, "STPH",
-                        SerializableFailureMechanismSectionAssemblyGroup.II)
+                        SerializableFailureMechanismSectionAssemblyGroup.II),
+                    new SerializableCombinedFailureMechanismSectionAssemblyResult(
+                        SerializableAssemblyMethod.WBI3B1,
+                        SerializableFailureMechanismType.Specific, "NIEUW",
+                        SerializableFailureMechanismSectionAssemblyGroup.Zero)
                 },
                 new SerializableFailureMechanismSectionAssemblyResult(
                     SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismSectionAssemblyGroup.I));
