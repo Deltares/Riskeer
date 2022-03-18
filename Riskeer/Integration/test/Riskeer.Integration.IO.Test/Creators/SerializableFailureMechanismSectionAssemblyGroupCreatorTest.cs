@@ -68,6 +68,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyGroup.IMin, SerializableFailureMechanismSectionAssemblyGroup.IMin)]
         [TestCase(FailureMechanismSectionAssemblyGroup.IIMin, SerializableFailureMechanismSectionAssemblyGroup.IIMin)]
         [TestCase(FailureMechanismSectionAssemblyGroup.IIIMin, SerializableFailureMechanismSectionAssemblyGroup.IIIMin)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.Nr, SerializableFailureMechanismSectionAssemblyGroup.Nr)]
         public void Create_WithFailureMechanismSectionCategoryGroup_ReturnsExpectedValues(
             FailureMechanismSectionAssemblyGroup assemblyGroup, SerializableFailureMechanismSectionAssemblyGroup expectedSerializableAssemblyGroup)
         {
