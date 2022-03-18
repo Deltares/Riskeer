@@ -72,6 +72,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return FailureMechanismSectionAssemblyGroup.Dominant;
                 case EInterpretationCategory.Gr:
                     return FailureMechanismSectionAssemblyGroup.Gr;
+                case EInterpretationCategory.NotRelevant:
+                    return FailureMechanismSectionAssemblyGroup.Nr;
                 default:
                     throw new NotSupportedException();
             }
@@ -117,6 +119,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return EInterpretationCategory.Dominant;
                 case FailureMechanismSectionAssemblyGroup.Gr:
                     return EInterpretationCategory.Gr;
+                case FailureMechanismSectionAssemblyGroup.Nr:
+                    return EInterpretationCategory.NotRelevant;
                 default:
                     throw new NotSupportedException();
             }
