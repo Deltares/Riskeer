@@ -52,9 +52,9 @@ namespace Riskeer.Integration.Forms.Views
     /// </summary>
     public partial class AssemblyResultPerSectionView : UserControl, IView
     {
-        private readonly Observer assessmentSectionResultObserver;
         private const int numberOfFixedColumns = 19;
-        
+        private readonly Observer assessmentSectionResultObserver;
+
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultPerSectionView"/>.
         /// </summary>
@@ -89,8 +89,6 @@ namespace Riskeer.Integration.Forms.Views
             base.OnLoad(e);
 
             InitializeDataGridView();
-
-            dataGridViewControl.CellFormatting += HandleCellStyling;
         }
 
         protected override void Dispose(bool disposing)
@@ -189,21 +187,31 @@ namespace Riskeer.Integration.Forms.Views
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.DuneErosion),
                                                  DuneErosionDataResources.DuneErosionFailureMechanism_Code,
                                                  true);
-            
-            foreach (SpecificFailurePath specificFailurePath in AssessmentSection.SpecificFailurePaths)
-            {
-                dataGridViewControl.AddTextBoxColumn(string.Empty, 
-                                                     specificFailurePath.Code,
-                                                     true);
-            }
+
+            SetSpecificFailurePathTextBoxColumns();
 
             SetDataSource();
+
+            dataGridViewControl.CellFormatting += HandleCellStyling;
         }
 
         private void RefreshAssemblyResults_Click(object sender, EventArgs e)
         {
+            dataGridViewControl.CellFormatting -= HandleCellStyling;
+
             refreshAssemblyResultsButton.Enabled = false;
-            SetDataSource();
+            dataGridViewControl.ClearColumns();
+            InitializeDataGridView();
+        }
+
+        private void SetSpecificFailurePathTextBoxColumns()
+        {
+            foreach (SpecificFailurePath specificFailurePath in AssessmentSection.SpecificFailurePaths)
+            {
+                dataGridViewControl.AddTextBoxColumn(string.Empty,
+                                                     specificFailurePath.Code,
+                                                     true);
+            }
         }
 
         private void SetDataSource()

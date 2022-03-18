@@ -447,6 +447,14 @@ namespace Core.Common.Controls.DataGrid
             return dataGridView.Columns[columnIndex];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public void ClearColumns()
+        {
+            dataGridView.Columns.Clear();
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;

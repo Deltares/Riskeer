@@ -35,6 +35,8 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Views;
@@ -180,6 +182,68 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssertColumn(dataGridViewColumns[duneErosionColumnIndex], "DA");
                 AssertColumn(dataGridViewColumns[specificFailurePath1ColumnIndex], "NIEUW");
                 AssertColumn(dataGridViewColumns[specificFailurePath2ColumnIndex], "NIEUW");
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultPerSectionView_WhenSpecificFailurePathAdded_ThenAdditionalColumnAdded()
+        {
+            // Given
+            var random = new Random(21);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
+                random.NextEnumValue<AssessmentSectionComposition>());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowAssemblyResultPerSectionView(assessmentSection))
+            {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+
+                // Precondition
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                Assert.AreEqual(expectedColumnCount, dataGridView.ColumnCount);
+
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+
+                // When
+                var specificFailurePath = new SpecificFailurePath();
+                specificFailurePath.SetSections(new[]
+                {
+                    FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+                }, "test");
+
+                assessmentSection.SpecificFailurePaths.Add(specificFailurePath);
+                assessmentSection.SpecificFailurePaths.NotifyObservers();
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = null;
+                buttonTester.Click();
+
+                Assert.AreEqual(expectedColumnCount + 1, dataGridView.ColumnCount);
+            }
+        }
+
+        [Test]
+        public void GivenFormWithAssemblyResultPerSectionView_WhenSpecificFailurePathRemoved_ThenAdditionalColumnRemoved()
+        {
+            // Given
+            var random = new Random(21);
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
+                random.NextEnumValue<AssessmentSectionComposition>());
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowAssemblyResultPerSectionView(assessmentSection))
+            {
+                // Precondition
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                Assert.AreEqual(expectedColumnCount, dataGridView.ColumnCount);
+
+                ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
+
+                // When
+                assessmentSection.SpecificFailurePaths.RemoveAt(0);
+                assessmentSection.NotifyObservers();
+                buttonTester.Click();
+
+                Assert.AreEqual(expectedColumnCount - 1, dataGridView.ColumnCount);
             }
         }
 
