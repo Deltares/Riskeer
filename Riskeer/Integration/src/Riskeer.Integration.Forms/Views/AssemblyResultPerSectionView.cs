@@ -54,6 +54,7 @@ namespace Riskeer.Integration.Forms.Views
     {
         private const int numberOfFixedColumns = 19;
         private readonly Observer assessmentSectionResultObserver;
+        private bool suspendDueToAddingColumns;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssemblyResultPerSectionView"/>.
@@ -89,6 +90,8 @@ namespace Riskeer.Integration.Forms.Views
             base.OnLoad(e);
 
             InitializeDataGridView();
+            
+            dataGridViewControl.CellFormatting += HandleCellStyling;
         }
 
         protected override void Dispose(bool disposing)
@@ -118,6 +121,11 @@ namespace Riskeer.Integration.Forms.Views
 
         private void HandleCellStyling(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            if (suspendDueToAddingColumns)
+            {
+                return;
+            }
+            
             dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
 
             if (e.ColumnIndex >= numberOfFixedColumns)
@@ -130,6 +138,8 @@ namespace Riskeer.Integration.Forms.Views
 
         private void InitializeDataGridView()
         {
+            suspendDueToAddingColumns = true;
+            
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionNumber),
                                                  Resources.SectionNumber_DisplayName,
                                                  true);
@@ -190,15 +200,13 @@ namespace Riskeer.Integration.Forms.Views
 
             SetSpecificFailurePathTextBoxColumns();
 
+            suspendDueToAddingColumns = false;
+
             SetDataSource();
-            
-            dataGridViewControl.CellFormatting += HandleCellStyling;
         }
 
         private void RefreshAssemblyResults_Click(object sender, EventArgs e)
         {
-            dataGridViewControl.CellFormatting -= HandleCellStyling;
-            
             refreshAssemblyResultsButton.Enabled = false;
             dataGridViewControl.ClearColumns();
             InitializeDataGridView();
