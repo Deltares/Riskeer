@@ -82,6 +82,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
                     return FailureMechanismSectionAssemblyGroup.Dominant;
                 case EInterpretationCategory.Gr:
                     return FailureMechanismSectionAssemblyGroup.Gr;
+                case EInterpretationCategory.NotRelevant:
+                    return FailureMechanismSectionAssemblyGroup.Nr;
                 default:
                     throw new NotSupportedException();
             }
