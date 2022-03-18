@@ -517,6 +517,18 @@ namespace AutomatedSystemTests
             set { _substringName = value; }
         }
 
+        string _stateName = "";
+
+        /// <summary>
+        /// Gets or sets the value of variable stateName.
+        /// </summary>
+        [TestVariable("968707f6-e0d0-4792-970c-cf0b3fc67bc8")]
+        public string stateName
+        {
+            get { return _stateName; }
+            set { _stateName = value; }
+        }
+
 #endregion
 
         /// <summary>
@@ -8086,7 +8098,7 @@ namespace AutomatedSystemTests
                 _hydraulicloadsInfo = new RepoItemInfo(this, "HydraulicLoads", "button/text[@caption>'Hydraulische']/parent::button", 30000, null, "b1cf1423-a508-4c59-a4c5-107d6f6c3e8d");
                 _calculationsInfo = new RepoItemInfo(this, "Calculations", "button/text[@caption>'Sterkte']/parent::button", 30000, null, "79e70cd3-243c-4924-a9a3-342ff576a983");
                 _failurepathsInfo = new RepoItemInfo(this, "FailurePaths", "button/text[@caption>'Faalpaden']/parent::button", 30000, null, "406ca44b-f09e-4622-922c-11a65846e348");
-                _genericribbonbuttonInfo = new RepoItemInfo(this, "GenericRibbonButton", "button/text[@caption>$StateToSelect]/parent::button", 30000, null, "10758b46-d10f-46af-883e-9629a38c517a");
+                _genericribbonbuttonInfo = new RepoItemInfo(this, "GenericRibbonButton", "button/text[@caption~$stateName]/parent::button", 30000, null, "10758b46-d10f-46af-883e-9629a38c517a");
             }
 
             /// <summary>

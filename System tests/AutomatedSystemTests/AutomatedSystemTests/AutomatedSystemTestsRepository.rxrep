@@ -2111,7 +2111,7 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 				name="GenericRibbonButton"
 				refimgid="b966d0a7-39df-499c-845c-63269d637e35"
 				searchtimeout="30000ms">
-					/form[@automationid='RiskeerMainWindow']/?/?/container[@automationid='MainButtonStackPanel']/button/text[@caption&gt;$StateToSelect]/parent::button
+					/form[@automationid='RiskeerMainWindow']/?/?/container[@automationid='MainButtonStackPanel']/button/text[@caption~$stateName]/parent::button
 				</item>
 				<basepath>
 					/form[@automationid='RiskeerMainWindow']/?/?/container[@automationid='MainButtonStackPanel']
@@ -3566,6 +3566,10 @@ gZlyIMICo2CnvxF7EpBHxeUwaeMLu3LXSHrIMIoAAAAASUVORK5CYII=
 		<var
 		id="c8f26984-6161-4190-9006-d6b627a1bf14"
 		name="substringName">
+		</var>
+		<var
+		id="968707f6-e0d0-4792-970c-cf0b3fc67bc8"
+		name="stateName">
 		</var>
 	</variables>
 </repository>

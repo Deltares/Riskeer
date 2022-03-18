@@ -41,6 +41,8 @@ namespace AutomatedSystemTests.Modules.ActionsRibbon
         /// </summary>
         public SelectState()
         {
+            aliasState = "";
+            stateName = "";
         }
 
         /// <summary>
@@ -53,14 +55,26 @@ namespace AutomatedSystemTests.Modules.ActionsRibbon
 
 #region Variables
 
+        string _aliasState;
+
         /// <summary>
-        /// Gets or sets the value of variable StateToSelect.
+        /// Gets or sets the value of variable aliasState.
         /// </summary>
-        [TestVariable("dd230550-3763-4882-aad6-2c842903d448")]
-        public string StateToSelect
+        [TestVariable("68865ee7-33ba-43a8-8921-d189e77dd216")]
+        public string aliasState
         {
-            get { return repo.StateToSelect; }
-            set { repo.StateToSelect = value; }
+            get { return _aliasState; }
+            set { _aliasState = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value of variable stateName.
+        /// </summary>
+        [TestVariable("b3e82724-3cc6-4007-932a-4693bb8aaeec")]
+        public string stateName
+        {
+            get { return repo.stateName; }
+            set { repo.stateName = value; }
         }
 
 #endregion
@@ -89,10 +103,12 @@ namespace AutomatedSystemTests.Modules.ActionsRibbon
 
             Init();
 
-            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.RibbonButtons.GenericRibbonButton' at Center.", repo.RiskeerMainWindow.RibbonButtons.GenericRibbonButtonInfo, new RecordItemIndex(0));
+            stateName = ConvertAliasToFullName(aliasState);
+            
+            Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.RibbonButtons.GenericRibbonButton' at Center.", repo.RiskeerMainWindow.RibbonButtons.GenericRibbonButtonInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.RibbonButtons.GenericRibbonButton.Click();
             
-            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(1));
+            Report.Log(ReportLevel.Info, "Delay", "Waiting for 300ms.", new RecordItemIndex(2));
             Delay.Duration(300, false);
             
         }

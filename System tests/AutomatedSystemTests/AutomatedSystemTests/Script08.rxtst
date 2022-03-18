@@ -394,12 +394,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="24981097-75b0-4ba1-ace3-3bb19305614f"
-			name="CloseViewCentralPanelWithFocus"
-			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="24f4c358-0239-4641-a8fe-2f985ff3ef80"
 			name="OpenViewForCategoryBoundaries"
 			ref="ed363a67-11ee-4f0d-b3b8-1920b8a08550"
@@ -1225,8 +1219,26 @@
 			name="SetN">
 			</smartfoldernode>
 			<smartfoldernode
+			id="5b137145-6eda-48d5-a9ff-43ed887b7674"
+			name="SetStateRA">
+				<parameters>
+					<param
+					name="StateToSelect"
+					value="@RA">
+					</param>
+					<param
+					name="placeHolder"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="5b570fe7-4ac1-497e-bd4c-b7f997e9ee8b"
 			name="ValidateNewValue">
+			</smartfoldernode>
+			<smartfoldernode
+			id="5e014e82-4d1b-4476-b7c5-87e11105ee75"
+			name="OpenViewCategoryClasses">
 			</smartfoldernode>
 			<testmodule
 			id="5eb1fc3a-25f1-4b05-b99e-6be502db17c0"
@@ -1352,17 +1364,6 @@
 			id="69ec974a-8f83-4841-8dd0-71db94b678e1"
 			name="SetToNewValue">
 			</smartfoldernode>
-			<smartfoldernode
-			errorbehavior="ContinueParent"
-			id="70ab6d23-6aa6-45ed-bbe6-deee64dfe401"
-			name="AddNewTraject">
-				<parameters>
-					<param
-					name="trajectLabel"
-					value="12-2">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testmodule
 			id="70f20574-eb42-4c9c-b0c2-365bb63f45c4"
 			name="GetValueParameterForItemInTraject"
@@ -1433,12 +1434,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="72f0d062-de4d-4c4b-bc56-8ae5bd1ad26d"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
 			<testmodule
 			id="768cf0b8-e4e9-44b4-b79f-7d849139360d"
 			name="GetValueParameterForItemInTraject"
@@ -1828,6 +1823,42 @@
 			name="b)LengthEffectParameters">
 			</smartfoldernode>
 			<testmodule
+			id="80ec3043-34c3-4136-96ce-17c7339f2655"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="StateToSelect"
+					datasourceid="5b137145-6eda-48d5-a9ff-43ed887b7674"
+					variableid="68865ee7-33ba-43a8-8921-d189e77dd216"
+					variablename="aliasState">
+					</var>
+					<var
+					dataname="placeHolder"
+					datasourceid="5b137145-6eda-48d5-a9ff-43ed887b7674"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="stateName"
+					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="StateToSelect"
+					datasourceid="5b137145-6eda-48d5-a9ff-43ed887b7674"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatavariablesbinding>
+			</testmodule>
+			<testmodule
 			id="82c4bcda-36d6-4bb7-9c61-2aadcc1849b1"
 			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
 			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
@@ -2176,10 +2207,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testcase
-			id="959bef95-b6b9-41e2-b3ae-9567484a6709"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<smartfoldernode
 			id="963c282c-c528-443b-82d8-14e9d5e98bdc"
 			name="ControlFailureMechanismContributions">
@@ -2410,6 +2437,10 @@
 					value="">
 					</param>
 				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
+			id="a42ea627-0e94-475a-ab47-26af7e16caeb"
+			name="SelectTraject">
 			</smartfoldernode>
 			<smartfoldernode
 			id="a5841966-9b7d-465a-8963-98b79f40df82"
@@ -2876,11 +2907,17 @@
 			name="SignallingValue">
 			</smartfoldernode>
 			<testmodule
-			id="d94fb663-a3f3-4d2f-9cbb-3030a372148d"
-			name="AddNewTrajectUsingContextMenu"
-			ref="2f5dc792-0805-4c80-8900-c03885f8e020"
+			id="d8de7f95-a908-4c53-8f6e-6d24e710c32f"
+			name="NewProjectUsingKeyboard"
+			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
 			type="Recording">
 				<databinding>
+					<var
+					dataname="hardCodedTrajectToAdd"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="171a542e-eb85-404b-a2fe-920346f601f6"
+					variablename="trajectID">
+					</var>
 					<var
 					dataname="normType"
 					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
@@ -2888,42 +2925,42 @@
 					variablename="normType">
 					</var>
 					<var
-					dataname="lowLimitValue"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
-					variablename="lowLimitValue">
-					</var>
-					<var
 					dataname="signallingValue"
 					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
+					variableid="5cbfe7da-3ce3-4a31-baa8-dcc95a2c80d7"
 					variablename="signallingValue">
+					</var>
+					<var
+					dataname="lowLimitValue"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="3624ac3a-3bbc-43cf-8c5b-c6a96b97116f"
+					variablename="lowLimitValue">
 					</var>
 				</databinding>
 				<missingdatabinding>
 					<var
-					dataname="normType"
-					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
+					dataname="NormType"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
 					variableid="929a9a29-2c5b-41dc-93ed-daff0f25d734"
 					variablename="normType">
 					</var>
 					<var
-					dataname="signallingValue"
-					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
-					variableid="ccc21d7e-0554-4ccb-8297-bc7211dc82b3"
+					dataname="SignallingValue"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
+					variableid="5cbfe7da-3ce3-4a31-baa8-dcc95a2c80d7"
 					variablename="signallingValue">
 					</var>
 					<var
-					dataname="lowLimitValue"
-					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
-					variableid="f6ff8bf4-da2c-4b7e-846a-9405d66c354d"
+					dataname="LowLimitValue"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
+					variableid="3624ac3a-3bbc-43cf-8c5b-c6a96b97116f"
 					variablename="lowLimitValue">
 					</var>
 					<var
-					dataname="trajectID"
-					datasourceid="f4955a2d-d976-4dab-9a66-884a462172a4"
-					variableid="4ea4fb61-50c3-4243-9a99-25901a404ce2"
-					variablename="trajectToAdd">
+					dataname="TrajectName"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
+					variableid="171a542e-eb85-404b-a2fe-920346f601f6"
+					variablename="trajectID">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -2975,7 +3012,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="d9d678b3-6afe-4095-b6b6-3ce733e4f829"
-			name="a)_Failure_probability_and_space">
+			name="a)_Classes_Failure_probability_space">
 			</smartfoldernode>
 			<testmodule
 			id="de5206b0-5aed-4c3f-ae4b-e1bf40ef4e8e"
@@ -3096,6 +3133,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="e796e0d7-0d00-4f73-9272-beb4369e7f8a"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<teardown
 			id="e87f41bd-72f5-4337-a46e-fdeb50c9c39e"
 			name="teardown">
@@ -3176,14 +3219,6 @@
 				id="b468605b-ee5e-43c5-bc4e-88df820c5e8d"
 				name="Script08">
 					<testcase
-					id="959bef95-b6b9-41e2-b3ae-9567484a6709"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="72f0d062-de4d-4c4b-bc56-8ae5bd1ad26d"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
-					<testcase
 					id="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
 					name="script08_Bepalen_categorieën_faalkans_per_vak_en_lengte-effect_parameters">
 						<setup
@@ -3199,20 +3234,32 @@
 							</testmodule>
 						</setup>
 						<smartfoldernode
-						id="70ab6d23-6aa6-45ed-bbe6-deee64dfe401"
-						name="AddNewTraject">
+						id="a42ea627-0e94-475a-ab47-26af7e16caeb"
+						name="SelectTraject">
 							<testmodule
-							id="d94fb663-a3f3-4d2f-9cbb-3030a372148d"
-							name="AddNewTrajectUsingContextMenu">
+							id="d8de7f95-a908-4c53-8f6e-6d24e710c32f"
+							name="NewProjectUsingKeyboard">
 							</testmodule>
 							<testmodule
-							id="24981097-75b0-4ba1-ace3-3bb19305614f"
+							id="e796e0d7-0d00-4f73-9272-beb4369e7f8a"
 							name="CloseViewCentralPanelWithFocus">
 							</testmodule>
 						</smartfoldernode>
 						<smartfoldernode
 						id="d9d678b3-6afe-4095-b6b6-3ce733e4f829"
-						name="a)_Failure_probability_and_space">
+						name="a)_Classes_Failure_probability_space">
+							<smartfoldernode
+							id="5e014e82-4d1b-4476-b7c5-87e11105ee75"
+							name="OpenViewCategoryClasses">
+								<smartfoldernode
+								id="5b137145-6eda-48d5-a9ff-43ed887b7674"
+								name="SetStateRA">
+									<testmodule
+									id="80ec3043-34c3-4136-96ce-17c7339f2655"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
 							<smartfoldernode
 							id="963c282c-c528-443b-82d8-14e9d5e98bdc"
 							name="ControlFailureMechanismContributions">
@@ -5334,7 +5381,13 @@
 			id="5a97e740-ae47-4f81-a055-2b61b54b490f">
 			</testcontainer>
 			<testcontainer
+			id="5b137145-6eda-48d5-a9ff-43ed887b7674">
+			</testcontainer>
+			<testcontainer
 			id="5b570fe7-4ac1-497e-bd4c-b7f997e9ee8b">
+			</testcontainer>
+			<testcontainer
+			id="5e014e82-4d1b-4476-b7c5-87e11105ee75">
 			</testcontainer>
 			<testcontainer
 			id="63c12419-02aa-4ec0-a910-4ad1214f588a">
@@ -5347,9 +5400,6 @@
 			</testcontainer>
 			<testcontainer
 			id="69ec974a-8f83-4841-8dd0-71db94b678e1">
-			</testcontainer>
-			<testcontainer
-			id="70ab6d23-6aa6-45ed-bbe6-deee64dfe401">
 			</testcontainer>
 			<testcontainer
 			id="71c7456e-a188-4d98-98c2-89d17065c55b">
@@ -5370,9 +5420,6 @@
 			id="955eb10b-59ab-43b5-8fe4-fd5dfac15588">
 			</testcontainer>
 			<testcontainer
-			id="959bef95-b6b9-41e2-b3ae-9567484a6709">
-			</testcontainer>
-			<testcontainer
 			id="963c282c-c528-443b-82d8-14e9d5e98bdc">
 			</testcontainer>
 			<testcontainer
@@ -5386,6 +5433,9 @@
 			</testcontainer>
 			<testcontainer
 			id="a3bc2d09-8f7c-4458-9a42-44e8a79da688">
+			</testcontainer>
+			<testcontainer
+			id="a42ea627-0e94-475a-ab47-26af7e16caeb">
 			</testcontainer>
 			<testcontainer
 			id="a5841966-9b7d-465a-8963-98b79f40df82">

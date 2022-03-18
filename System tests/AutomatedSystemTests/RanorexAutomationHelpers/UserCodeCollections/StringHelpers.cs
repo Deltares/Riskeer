@@ -133,7 +133,11 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                 {"@GABU",  "Dijken en dammen - Grasbekleding afschuiven buitentalud"},
                 {"@GABI",  "Dijken en dammen - Grasbekleding afschuiven binnentalud"},
                 {"@PKW",   "Kunstwerken - Piping bij kunstwerk"},
-                {"@HB",    "Hydraulische belastingen"}
+                {"@HB",    "Hydraulische belastingen"},
+                {"@HyB",   "Hydraulische"},
+                {"@SB",    "Sterkte"},
+                {"@TR",    "Traject"},
+                {"@RA",    "assemblage"}
             };
             foreach (var item in replacementsPath) {
                 path = path.Replace(item.Key, item.Value);

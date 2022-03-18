@@ -23,8 +23,45 @@ mode="Global">
 	namespace="AutomatedSystemTests.Modules.ActionsRibbon">
 	</codegen>
 	<variables>
+		<var
+		id="68865ee7-33ba-43a8-8921-d189e77dd216"
+		name="aliasState">
+		</var>
+		<var
+		id="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+		name="stateName">
+		</var>
 	</variables>
 	<recorditems>
+		<userrecorditem
+		classname="SelectState"
+		enabled="True"
+		isexternaltestmethod="False"
+		methodname="ConvertAliasToFullName"
+		namespace="AutomatedSystemTests.Modules.ActionsRibbon"
+		optional="False">
+			<comment>
+			</comment>
+			<bindings>
+				<binding
+				target="ReturnVariable"
+				variable="stateName">
+				</binding>
+			</bindings>
+			<arguments
+			id="03f20235-b95c-4dd5-a622-19f5c87787fa">
+				<argument
+				argname="StateAlias"
+				id="06b7afb3-ee1c-42e6-8f1a-396c6430f752"
+				variable="aliasState">
+					<argvaluetype>
+						System.String
+					</argvaluetype>
+					<argvalue>
+					</argvalue>
+				</argument>
+			</arguments>
+		</userrecorditem>
 		<mouseitem
 		action="Click"
 		button="Left"

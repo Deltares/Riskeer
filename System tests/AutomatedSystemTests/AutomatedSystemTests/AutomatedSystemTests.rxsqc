@@ -1,32 +1,7 @@
 [
   {
     "Enabled": "True",
-    "TestSuite": "NormalSystemTests",
-    "RunConfig": "TestRun"
-  },
-  {
-    "Enabled": "True",
-    "TestSuite": "SlowTestCases",
-    "RunConfig": "TestRun"
-  },
-  {
-    "Enabled": "True",
     "TestSuite": "WorkInProgressDavid",
-    "RunConfig": "TestRun"
-  },
-  {
-    "Enabled": "False",
-    "TestSuite": "WorkInProgressCarlos",
-    "RunConfig": "TestRun"
-  },
-  {
-    "Enabled": "False",
-    "TestSuite": "WorkInProgressSylvia",
-    "RunConfig": "TestRun"
-  },
-  {
-    "Enabled": "True",
-    "TestSuite": "VerySlowTestCases",
     "RunConfig": "TestRun"
   },
   {

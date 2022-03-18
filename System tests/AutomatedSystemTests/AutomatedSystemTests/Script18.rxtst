@@ -59,14 +59,6 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="nameStateWithCalculations"
-					datasourceid="de0beddb-9560-411b-96af-6520defb9990"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateWithCalculations"
@@ -75,6 +67,14 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameStateWithCalculations"
+					datasourceid="de0beddb-9560-411b-96af-6520defb9990"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="5d928c6a-1cee-4ec4-a5f4-dd1428d62f55"

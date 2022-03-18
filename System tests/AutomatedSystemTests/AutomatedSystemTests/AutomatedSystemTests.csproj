@@ -2558,10 +2558,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>faacac5c-bf04-4ace-bbc3-437ef50a7a13</id>
     </Content>
-    <Content Include="SlowTestCases.rxtst">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <id>74642f17-dc74-44b4-ab64-77817f28b05e</id>
-    </Content>
     <Content Include="Script06.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>017681e7-a1cd-435c-97f3-c3e53f0103c5</id>
@@ -2621,18 +2617,6 @@
     <Content Include="Script29.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>46c334e2-d9b9-44a3-aab0-9dc46cc81b6e</id>
-    </Content>
-    <Content Include="VerySlowTestCases.rxtst">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <id>f71d81ee-36f5-47c6-9e30-90d6eca704b7</id>
-    </Content>
-    <Content Include="WorkInProgressCarlos.rxtst">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <id>2e98b015-ed94-4385-aa49-4cb36d7f2c62</id>
-    </Content>
-    <Content Include="WorkInProgressSylvia.rxtst">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <id>55f842ba-2cc9-4ba2-b80f-75e4bdbb75e7</id>
     </Content>
     <Content Include="WorkInProgressDavid.rxtst">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -3616,10 +3600,6 @@
     <Content Include="AutomatedSystemTests.rxtmg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <id>86dea715-1b95-4048-874c-00fcbd024d15</id>
-    </Content>
-    <Content Include="NormalSystemTests.rxtst">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <id>3253c1bd-a517-45e9-96ad-e70b88e902c5</id>
     </Content>
   </ItemGroup>
   <ItemGroup>

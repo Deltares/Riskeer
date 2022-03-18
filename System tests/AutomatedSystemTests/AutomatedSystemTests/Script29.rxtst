@@ -101,14 +101,6 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="nameStateFA"
-					datasourceid="92d15ab5-01db-4817-81c6-28cfb61a0057"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="stateCalculations"
@@ -117,6 +109,14 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameStateFA"
+					datasourceid="92d15ab5-01db-4817-81c6-28cfb61a0057"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="05ef89cd-ada2-4f40-a763-9e0cfd1c9e35"
@@ -153,14 +153,6 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="nameStateTR"
-					datasourceid="451c2b85-8ed2-4788-ad44-81c3482d2750"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="stateCalculations"
@@ -169,6 +161,14 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameStateTR"
+					datasourceid="451c2b85-8ed2-4788-ad44-81c3482d2750"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="0aeeb249-886d-4346-aad5-593e19dee32b"
@@ -2247,14 +2247,6 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="nameStateFA"
-					datasourceid="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="stateCalculations"
@@ -2263,6 +2255,14 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameStateFA"
+					datasourceid="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="a7ac2e20-3b99-4b19-b40e-b243cd793b2d"
@@ -2565,14 +2565,6 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="nameStateFA"
-					datasourceid="a567a181-7393-443c-9396-c15f458fad26"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="stateCalculations"
@@ -2581,6 +2573,14 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameStateFA"
+					datasourceid="a567a181-7393-443c-9396-c15f458fad26"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script29b_LoopHideAllLayers"
@@ -3014,14 +3014,6 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="nameStateFA"
-					datasourceid="3789e403-9ec5-4959-8ef7-03c7af296b21"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="stateCalculations"
@@ -3030,6 +3022,14 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameStateFA"
+					datasourceid="3789e403-9ec5-4959-8ef7-03c7af296b21"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="ed5b6e4a-db7c-4f4f-b2ea-cf6208bb2256"
@@ -3153,14 +3153,6 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="nameStateFA"
-					datasourceid="19ed3775-279e-4955-97b2-3dc0b5408c33"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="stateCalculations"
@@ -3169,6 +3161,14 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="nameStateFA"
+					datasourceid="19ed3775-279e-4955-97b2-3dc0b5408c33"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="fe5937d2-4f4b-4f48-96ca-c5579492e67c"

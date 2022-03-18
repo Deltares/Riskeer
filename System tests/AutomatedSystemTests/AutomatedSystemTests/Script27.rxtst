@@ -3026,14 +3026,6 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="stateWithCalculations"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateWithCalculations"
@@ -3042,6 +3034,14 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="stateWithCalculations"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
@@ -5503,14 +5503,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<databinding>
+				<missingdatavariablesbinding>
 					<var
 					dataname="StateWithCalculations"
 					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
 					variableid="dd230550-3763-4882-aad6-2c842903d448"
 					variablename="StateToSelect">
 					</var>
-				</databinding>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="ff073895-6a94-444e-8434-eb9e684bc5e7"

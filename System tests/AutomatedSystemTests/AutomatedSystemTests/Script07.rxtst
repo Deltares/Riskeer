@@ -144,14 +144,6 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="stateName"
-					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateToSet"
@@ -160,6 +152,14 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="stateName"
+					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="527a42ff-6fde-4f62-9fc6-95bb1500ccb0"
@@ -475,14 +475,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<databinding>
+				<missingdatavariablesbinding>
 					<var
 					dataname="StateToSet"
 					datasourceid="2fc53948-30d7-4767-83cc-f75854b101b8"
 					variableid="dd230550-3763-4882-aad6-2c842903d448"
 					variablename="StateToSelect">
 					</var>
-				</databinding>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="f0222475-623d-4436-b922-a48786642542"

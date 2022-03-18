@@ -268,14 +268,6 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="stateWithCalculations"
-					datasourceid="e3bfbfc0-3e28-4673-a704-6693ceefa9ec"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateWithCalculations"
@@ -284,6 +276,14 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="stateWithCalculations"
+					datasourceid="e3bfbfc0-3e28-4673-a704-6693ceefa9ec"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="0caaacfb-8725-483f-8225-5222d1723fdf"
@@ -1909,14 +1909,6 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="stateWithCalculations"
-					datasourceid="18455637-0838-4b15-bd6b-f6d6bc24f402"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateWithCalculations"
@@ -1925,6 +1917,14 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
+				<missingdatavariablesbinding>
+					<var
+					dataname="stateWithCalculations"
+					datasourceid="18455637-0838-4b15-bd6b-f6d6bc24f402"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="8281eb1b-b02e-4c95-8ac7-b325b83b4c3e"

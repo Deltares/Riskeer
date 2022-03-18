@@ -14,6 +14,8 @@ using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
+using Ranorex_Automation_Helpers.UserCodeCollections;
+
 
 using Ranorex;
 using Ranorex.Core;
@@ -31,6 +33,12 @@ namespace AutomatedSystemTests.Modules.ActionsRibbon
         private void Init()
         {
             // Your recording specific initialization code goes here.
+        }
+
+        public string ConvertAliasToFullName(string StateAlias)
+        {
+            stateName = StateAlias.ReplacePathAliases();
+            return stateName;
         }
 
     }
