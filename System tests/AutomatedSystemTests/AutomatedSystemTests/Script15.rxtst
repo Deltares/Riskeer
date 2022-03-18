@@ -564,12 +564,6 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="relativePathToCalculationsToInspect"
-					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
 					dataname="fullPathToCalculationItem"
 					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
@@ -623,7 +617,21 @@
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
 					</var>
+					<var
+					dataname="relativePathToCalculationsToInspect"
+					datasourceid="4617c4ae-1af4-4500-b0fc-5d12dccf5e02"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="relativePathToCalculationsToInspect"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			id="1bbac447-1dc3-4458-8022-22d8aa46d453"
@@ -728,6 +736,7 @@
 			</testmodule>
 			<smartfoldernode
 			datasource="script15b_pathCalculationsToInspectChart"
+			errorbehavior="ContinueNextIteration"
 			id="276025e1-84cc-4480-82dd-e8515eb34125"
 			name="ValidateNoCalculationHasResults">
 				<parameters>
@@ -4516,12 +4525,6 @@
 					variablename="string1">
 					</var>
 					<var
-					dataname="relativePathToCalculationsToInspect"
-					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
-					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
-					variablename="string2">
-					</var>
-					<var
 					dataname="fullPathToCalculationItem"
 					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
 					variableid="4296aff0-7ef3-4132-ab64-c24e27efab2e"
@@ -4576,6 +4579,14 @@
 					variablename="string10">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="relativePathToCalculationsToInspect"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script15_a_ExpectedResultsCalculations"
@@ -10731,9 +10742,6 @@
 					rangeLoopInputViews
 				</column>
 				<column>
-					relativePathToCalculationsToInspect
-				</column>
-				<column>
 					pathReferenceResultsCSVFile
 				</column>
 				<column>
@@ -10781,9 +10789,6 @@
 						rangeLoopInputViews
 					</th>
 					<th>
-						relativePathToCalculationsToInspect
-					</th>
-					<th>
 						pathReferenceResultsCSVFile
 					</th>
 					<th>
@@ -10826,9 +10831,6 @@
 					</td>
 					<td>
 						1-4
-					</td>
-					<td>
-						&gt;blokken en zuilen
 					</td>
 					<td>
 						X:\script15\referenceResultsZST.csv
@@ -10875,8 +10877,6 @@
 						5-8
 					</td>
 					<td>
-					</td>
-					<td>
 						X:\script15\referenceResultsAGK.csv
 					</td>
 					<td>
@@ -10919,9 +10919,6 @@
 					</td>
 					<td>
 						9-12
-					</td>
-					<td>
-						&gt;golfklap
 					</td>
 					<td>
 						X:\script15\referenceResultsGEBU.csv

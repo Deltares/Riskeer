@@ -946,7 +946,7 @@
 			</testmodule>
 			<testcase
 			id="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-			name="script08_Toetseis_op_toetsspoorniveau_per_traject_en_per_vak_bepalen">
+			name="script08_Bepalen_categorieën_faalkans_per_vak_en_lengte-effect_parameters">
 				<parameters>
 					<param
 					name="caseNumber"
@@ -3185,7 +3185,7 @@
 					</testcase>
 					<testcase
 					id="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					name="script08_Toetseis_op_toetsspoorniveau_per_traject_en_per_vak_bepalen">
+					name="script08_Bepalen_categorieën_faalkans_per_vak_en_lengte-effect_parameters">
 						<setup
 						id="7d9745bb-c43c-4f21-8864-1eff4f432867"
 						name="setup">
