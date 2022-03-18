@@ -102,9 +102,25 @@ namespace Riskeer.Integration.IO.Factories
                 CreateTuple(assemblyResult.DuneErosion, assessmentSection.DuneErosion)
             };
 
-            return failureMechanisms.Where(fm => fm.Item1.HasValue)
-                                    .Select(fm => CreateExportableFailureMechanismCombinedSectionAssemblyResult(fm.Item1.Value, fm.Item2))
-                                    .ToArray();
+            List<ExportableFailureMechanismCombinedSectionAssemblyResult> exportableAssemblyResults =
+                failureMechanisms.Where(fm => fm.Item1.HasValue)
+                                 .Select(fm => CreateExportableFailureMechanismCombinedSectionAssemblyResult(fm.Item1.Value, ExportableFailureMechanismType.Generic, fm.Item2))
+                                 .ToList();
+
+            for (var i = 0; i < assessmentSection.SpecificFailurePaths.Count; i++)
+            {
+                FailureMechanismSectionAssemblyGroup? specificFailurePathAssemblyResult = assemblyResult.SpecificFailurePaths[i];
+
+                if (specificFailurePathAssemblyResult.HasValue)
+                {
+                    SpecificFailurePath specificFailurePath = assessmentSection.SpecificFailurePaths.ElementAt(i);
+                    exportableAssemblyResults.Add(CreateExportableFailureMechanismCombinedSectionAssemblyResult(
+                                                      specificFailurePathAssemblyResult.Value, ExportableFailureMechanismType.Specific,
+                                                      specificFailurePath.Code));
+                }
+            }
+
+            return exportableAssemblyResults;
         }
 
         private static Tuple<FailureMechanismSectionAssemblyGroup?, string> CreateTuple(
@@ -114,12 +130,12 @@ namespace Riskeer.Integration.IO.Factories
         }
 
         private static ExportableFailureMechanismCombinedSectionAssemblyResult CreateExportableFailureMechanismCombinedSectionAssemblyResult(
-            FailureMechanismSectionAssemblyGroup sectionAssemblyGroup,
+            FailureMechanismSectionAssemblyGroup sectionAssemblyGroup, ExportableFailureMechanismType failureMechanismType,
             string failureMechanismCode)
         {
             return new ExportableFailureMechanismCombinedSectionAssemblyResult(
                 new ExportableFailureMechanismSubSectionAssemblyResult(sectionAssemblyGroup, ExportableAssemblyMethod.WBI3B1),
-                ExportableFailureMechanismType.Generic, failureMechanismCode);
+                failureMechanismType, failureMechanismCode);
         }
     }
 }
