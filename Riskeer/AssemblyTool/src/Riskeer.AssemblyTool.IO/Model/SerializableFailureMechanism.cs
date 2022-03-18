@@ -72,6 +72,7 @@ namespace Riskeer.AssemblyTool.IO.Model
             FailureMechanismType = failureMechanismType;
             TotalAssemblyResultId = totalAssemblyResult.Id;
             GenericFailureMechanismCode = code;
+            SpecificFailureMechanismCode = code;
             FailureMechanismAssemblyResult = failureMechanismAssemblyResult;
         }
 
@@ -100,9 +101,35 @@ namespace Riskeer.AssemblyTool.IO.Model
         public string GenericFailureMechanismCode { get; set; }
 
         /// <summary>
+        /// Gets or sets the specific failure mechanism code.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.SpecificFailureMechanism)]
+        public string SpecificFailureMechanismCode { get; set; }
+
+        /// <summary>
         /// Gets or sets the total failure mechanism assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismAssemblyResult)]
         public SerializableFailureMechanismAssemblyResult FailureMechanismAssemblyResult { get; set; }
+
+        /// <summary>
+        /// Determines whether <see cref="GenericFailureMechanismCode"/> should be serialized.
+        /// </summary>
+        /// <returns><c>true</c> if <see cref="FailureMechanismType"/> is <see cref="SerializableFailureMechanismType.Generic"/>;
+        /// <c>false</c> otherwise.</returns>
+        public bool ShouldSerializeGenericFailureMechanismCode()
+        {
+            return FailureMechanismType == SerializableFailureMechanismType.Generic;
+        }
+
+        /// <summary>
+        /// Determines whether <see cref="SpecificFailureMechanismCode"/> should be serialized.
+        /// </summary>
+        /// <returns><c>true</c> if <see cref="FailureMechanismType"/> is <see cref="SerializableFailureMechanismType.Specific"/>;
+        /// <c>false</c> otherwise.</returns>
+        public bool ShouldSerializeSpecificFailureMechanismCode()
+        {
+            return FailureMechanismType == SerializableFailureMechanismType.Specific;
+        }
     }
 }

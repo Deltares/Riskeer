@@ -218,6 +218,11 @@ namespace Riskeer.AssemblyTool.IO.Model
         public const string GenericFailureMechanism = "generiekFaalmechanisme";
 
         /// <summary>
+        /// Identifier for a specific failure mechanism element.
+        /// </summary>
+        public const string SpecificFailureMechanism = "specifiekFaalmechanisme";
+
+        /// <summary>
         /// Identifier for a feature member element.
         /// </summary>
         public const string FeatureMember = "featureMember";

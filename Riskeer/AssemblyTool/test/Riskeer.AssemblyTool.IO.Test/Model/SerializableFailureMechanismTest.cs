@@ -42,9 +42,10 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.IsInstanceOf<SerializableFeatureMember>(failureMechanism);
             Assert.IsNull(failureMechanism.Id);
             Assert.IsNull(failureMechanism.TotalAssemblyResultId);
-            Assert.IsNull(failureMechanism.FailureMechanismAssemblyResult);
-            Assert.IsNull(failureMechanism.GenericFailureMechanismCode);
             Assert.AreEqual((SerializableFailureMechanismType) 0, failureMechanism.FailureMechanismType);
+            Assert.IsNull(failureMechanism.GenericFailureMechanismCode);
+            Assert.IsNull(failureMechanism.SpecificFailureMechanismCode);
+            Assert.IsNull(failureMechanism.FailureMechanismAssemblyResult);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanism), "Faalmechanisme");
 
@@ -54,9 +55,11 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
                 nameof(SerializableFailureMechanism.TotalAssemblyResultId), "VeiligheidsoordeelIDRef");
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
+                nameof(SerializableFailureMechanism.FailureMechanismType), "typeFaalmechanisme");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
                 nameof(SerializableFailureMechanism.GenericFailureMechanismCode), "generiekFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
-                nameof(SerializableFailureMechanism.FailureMechanismType), "typeFaalmechanisme");
+                nameof(SerializableFailureMechanism.SpecificFailureMechanismCode), "specifiekFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
                 nameof(SerializableFailureMechanism.FailureMechanismAssemblyResult), "analyseFaalmechanisme");
         }
@@ -131,10 +134,31 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             // Assert
             Assert.AreEqual(id, failureMechanism.Id);
+            Assert.AreEqual(totalResultId, failureMechanism.TotalAssemblyResultId);
             Assert.AreEqual(failureMechanismType, failureMechanism.FailureMechanismType);
             Assert.AreEqual(code, failureMechanism.GenericFailureMechanismCode);
-            Assert.AreEqual(totalResultId, failureMechanism.TotalAssemblyResultId);
+            Assert.AreEqual(code, failureMechanism.SpecificFailureMechanismCode);
             Assert.AreSame(assemblyResult, failureMechanism.FailureMechanismAssemblyResult);
+        }
+
+        [Test]
+        [TestCase(SerializableFailureMechanismType.Generic, true, false)]
+        [TestCase(SerializableFailureMechanismType.Specific, false, true)]
+        public void GivenSerializableFailureMechanismWithFailureMechanismType_WhenShouldSerializeProperties_ThenReturnsExpectedValues(
+            SerializableFailureMechanismType failureMechanismType, bool expectedShouldSerializeGeneric, bool expectedShouldSerializeSpecific)
+        {
+            // Given
+            var failureMechanism = new SerializableFailureMechanism(
+                "id", failureMechanismType, "code", new SerializableTotalAssemblyResult(),
+                new SerializableFailureMechanismAssemblyResult());
+
+            // When
+            bool shouldSerializeGeneric = failureMechanism.ShouldSerializeGenericFailureMechanismCode();
+            bool shouldSerializeSpecific = failureMechanism.ShouldSerializeSpecificFailureMechanismCode();
+
+            // Then
+            Assert.AreEqual(expectedShouldSerializeGeneric, shouldSerializeGeneric);
+            Assert.AreEqual(expectedShouldSerializeSpecific, shouldSerializeSpecific);
         }
     }
 }
