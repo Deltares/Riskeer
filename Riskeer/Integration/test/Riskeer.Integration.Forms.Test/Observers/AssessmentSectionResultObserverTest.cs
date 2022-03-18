@@ -190,7 +190,6 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 resultObserver.Attach(observer);
 
                 // When
-
                 specificFailurePath.NotifyObservers();
 
                 // Then

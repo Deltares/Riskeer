@@ -66,14 +66,12 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        [TestCase("")]
-        [TestCase("   ")]
-        [TestCase("I am an errorMessage")]
-        public void ConstructorWithErrorMessage_WithArguments_ExpectedProperties(string errorMessage)
+        public void ConstructorWithErrorMessage_WithArguments_ExpectedProperties()
         {
             // Setup
             const string failureMechanismName = "Failure Mechanism Name";
             const string failureMechanismCode = "Code";
+            const string errorMessage = "Error";
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailurePath>();
