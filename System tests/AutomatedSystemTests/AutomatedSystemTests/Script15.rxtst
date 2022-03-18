@@ -634,9 +634,47 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="1b807291-6298-4090-b767-122535e24b0e"
+			name="SetRangeForInputInspection">
+				<parameters>
+					<param
+					name="nameOfFolderToSetRange"
+					value="ValidateNoCalculationHasResults">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="1bbac447-1dc3-4458-8022-22d8aa46d453"
 			name="ClickOnStartSelectedCalculations">
 			</smartfoldernode>
+			<testmodule
+			id="1d3b14dd-623d-4da6-98f2-689ae3cdb150"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameOfFolderToSetRange"
+					datasourceid="1b807291-6298-4090-b767-122535e24b0e"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeLoopInputViews"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rangeInHydraulicBoundaryConditionCases"
+					datasourceid="2d553e9c-1b87-46c6-9a96-1bfce2ce98ec"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="1d78e5d0-ebdf-4449-ba17-fa5a555dbff1"
 			name="OpenProject"
@@ -4531,14 +4569,14 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="relativePathToSingleCalculationToFullyValidate"
-					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					dataname="relativePathToResultsItemFromCalculation"
+					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
 					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
 					variablename="string3">
 					</var>
 					<var
-					dataname="relativePathToResultsItemFromCalculation"
-					datasourceid="850dbcd4-4339-42fa-8eae-18973ae2fb83"
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
@@ -4577,6 +4615,12 @@
 					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
+					</var>
+					<var
+					dataname="relativePathToSingleCalculationToFullyValidate"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
+					variablename="string2">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -5352,6 +5396,14 @@
 										<testmodule
 										id="d7cf34ee-33c9-4cc8-b23e-ed4c30b40656"
 										name="ValidateTextMesage">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="1b807291-6298-4090-b767-122535e24b0e"
+									name="SetRangeForInputInspection">
+										<testmodule
+										id="1d3b14dd-623d-4da6-98f2-689ae3cdb150"
+										name="SetRangeInSmartFolder">
 										</testmodule>
 									</smartfoldernode>
 									<smartfoldernode
@@ -11359,6 +11411,9 @@
 			</testcontainer>
 			<testcontainer
 			id="19d56aff-3e6d-4b7a-9a77-ed2fa3be50d1">
+			</testcontainer>
+			<testcontainer
+			id="1b807291-6298-4090-b767-122535e24b0e">
 			</testcontainer>
 			<testcontainer
 			id="1bbac447-1dc3-4458-8022-22d8aa46d453">
