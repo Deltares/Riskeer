@@ -46,15 +46,14 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// <param name="code">The generic failure mechanism code this result is assembled for.</param>
         /// <param name="assemblyGroup">The group of this assembly result.</param>
         public SerializableCombinedFailureMechanismSectionAssemblyResult(
-            SerializableAssemblyMethod assemblyMethod,
-            SerializableFailureMechanismType failureMechanismType,
-            string code,
-            SerializableFailureMechanismSectionAssemblyGroup assemblyGroup) 
+            SerializableAssemblyMethod assemblyMethod, SerializableFailureMechanismType failureMechanismType,
+            string code, SerializableFailureMechanismSectionAssemblyGroup assemblyGroup)
             : this()
         {
             AssemblyMethod = assemblyMethod;
             FailureMechanismType = failureMechanismType;
             GenericFailureMechanismCode = code;
+            SpecificFailureMechanismCode = code;
             AssemblyGroup = assemblyGroup;
         }
 
@@ -77,6 +76,12 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         public string GenericFailureMechanismCode { get; set; }
 
         /// <summary>
+        /// Gets or sets the specific failure mechanism code of this assembly result.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.SpecificFailureMechanism)]
+        public string SpecificFailureMechanismCode { get; set; }
+
+        /// <summary>
         /// Gets or sets the group of this assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.FailureMechanismSectionAssemblyGroup)]
@@ -87,5 +92,25 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Status)]
         public string Status { get; set; }
+
+        /// <summary>
+        /// Determines whether <see cref="GenericFailureMechanismCode"/> should be serialized.
+        /// </summary>
+        /// <returns><c>true</c> if <see cref="FailureMechanismType"/> is <see cref="SerializableFailureMechanismType.Generic"/>;
+        /// <c>false</c> otherwise.</returns>
+        public bool ShouldSerializeGenericFailureMechanismCode()
+        {
+            return FailureMechanismType == SerializableFailureMechanismType.Generic;
+        }
+
+        /// <summary>
+        /// Determines whether <see cref="SpecificFailureMechanismCode"/> should be serialized.
+        /// </summary>
+        /// <returns><c>true</c> if <see cref="FailureMechanismType"/> is <see cref="SerializableFailureMechanismType.Specific"/>;
+        /// <c>false</c> otherwise.</returns>
+        public bool ShouldSerializeSpecificFailureMechanismCode()
+        {
+            return FailureMechanismType == SerializableFailureMechanismType.Specific;
+        }
     }
 }

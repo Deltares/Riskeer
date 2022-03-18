@@ -40,18 +40,19 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             // Assert
             Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
             Assert.AreEqual((SerializableFailureMechanismType) 0, assemblyResult.FailureMechanismType);
-            Assert.IsNull( assemblyResult.GenericFailureMechanismCode);
+            Assert.IsNull(assemblyResult.GenericFailureMechanismCode);
+            Assert.IsNull(assemblyResult.SpecificFailureMechanismCode);
             Assert.AreEqual((SerializableFailureMechanismSectionAssemblyGroup) 0, assemblyResult.AssemblyGroup);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.AssemblyMethod), "assemblagemethode");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
-                nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.AssemblyGroup), "duidingsklasse");
+                nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.FailureMechanismType), "typeFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.GenericFailureMechanismCode), "generiekFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
-                nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.FailureMechanismType), "typeFaalmechanisme");
+                nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.AssemblyGroup), "duidingsklasse");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableCombinedFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableCombinedFailureMechanismSectionAssemblyResult.Status), "status");
         }
@@ -74,8 +75,30 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
             Assert.AreEqual(failureMechanismType, assemblyResult.FailureMechanismType);
             Assert.AreEqual(code, assemblyResult.GenericFailureMechanismCode);
+            Assert.AreEqual(code, assemblyResult.SpecificFailureMechanismCode);
             Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
+        }
+        
+        [Test]
+        [TestCase(SerializableFailureMechanismType.Generic, true, false)]
+        [TestCase(SerializableFailureMechanismType.Specific, false, true)]
+        public void GivenSerializableFailureMechanismWithFailureMechanismType_WhenShouldSerializeProperties_ThenReturnsExpectedValues(
+            SerializableFailureMechanismType failureMechanismType, bool expectedShouldSerializeGeneric, bool expectedShouldSerializeSpecific)
+        {
+            // Given
+            var random = new Random(39);
+            var assemblyResult = new SerializableCombinedFailureMechanismSectionAssemblyResult(
+                random.NextEnumValue<SerializableAssemblyMethod>(), failureMechanismType, "code",
+                random.NextEnumValue<SerializableFailureMechanismSectionAssemblyGroup>());
+
+            // When
+            bool shouldSerializeGeneric = assemblyResult.ShouldSerializeGenericFailureMechanismCode();
+            bool shouldSerializeSpecific = assemblyResult.ShouldSerializeSpecificFailureMechanismCode();
+
+            // Then
+            Assert.AreEqual(expectedShouldSerializeGeneric, shouldSerializeGeneric);
+            Assert.AreEqual(expectedShouldSerializeSpecific, shouldSerializeSpecific);
         }
     }
 }
