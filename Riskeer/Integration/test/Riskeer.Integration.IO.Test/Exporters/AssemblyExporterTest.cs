@@ -87,6 +87,29 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
+        public void Export_SpecificFailurePathsWithSameCodes_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_SpecificFailurePathsWithSameCodes_LogsErrorAndReturnsFalse));
+            AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
+            assessmentSection.SpecificFailurePaths.Last().Code = assessmentSection.SpecificFailurePaths.First().Code;
+
+            var exporter = new AssemblyExporter(assessmentSection, filePath);
+
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                var isExported = true;
+                void Call() => isExported = exporter.Export();
+
+                // Assert
+                const string expectedMessage = "Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen voor meer details.";
+                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+                Assert.IsFalse(isExported);
+            }
+        }
+
+        [Test]
         public void Export_CalculatorThrowsAssemblyException_LogsErrorAndReturnsFalse()
         {
             // Setup

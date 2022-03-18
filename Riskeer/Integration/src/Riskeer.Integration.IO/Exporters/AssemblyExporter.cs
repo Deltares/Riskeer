@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
@@ -66,6 +67,12 @@ namespace Riskeer.Integration.IO.Exporters
 
         public bool Export()
         {
+            if (!ValidateSpecificFailurePaths())
+            {
+                LogErrorMessage();
+                return false;
+            }
+
             ExportableAssessmentSection exportableAssessmentSection = CreateExportableAssessmentSection();
             if (!ValidateExportableAssessmentSection(exportableAssessmentSection))
             {
@@ -90,6 +97,14 @@ namespace Riskeer.Integration.IO.Exporters
             }
 
             return true;
+        }
+
+        private bool ValidateSpecificFailurePaths()
+        {
+            return assessmentSection.SpecificFailurePaths
+                                    .Select(fp => fp.Code)
+                                    .GroupBy(x => x)
+                                    .All(g => g.Count() == 1);
         }
 
         private ExportableAssessmentSection CreateExportableAssessmentSection()
