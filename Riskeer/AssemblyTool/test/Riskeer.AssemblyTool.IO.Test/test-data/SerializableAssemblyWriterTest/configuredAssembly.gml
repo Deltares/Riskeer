@@ -38,6 +38,15 @@
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="specifiekFaalmechanisme" VeiligheidsoordeelIDRef="veiligheidsoordeel_1">
+      <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
+      <asm:specifiekFaalmechanisme>NIEUW</asm:specifiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
+        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:faalkans>0.002834</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
     <asm:Faalanalyse FaalanalyseID="resultaat_GABI_1" FaalmechanismeIDRef="toetsspoorGABI" WaterkeringsectieIDRef="vak_GABI_1">
       <asm:analyseVak>
         <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
