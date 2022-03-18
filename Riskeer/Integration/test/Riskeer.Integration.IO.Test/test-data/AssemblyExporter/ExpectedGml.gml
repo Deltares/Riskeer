@@ -155,6 +155,24 @@
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.14" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
+      <asm:specifiekFaalmechanisme>NIEUW1</asm:specifiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
+        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:faalkans>0</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
+    <asm:Faalmechanisme FaalmechanismeID="Fm.15" VeiligheidsoordeelIDRef="Vo.0">
+      <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
+      <asm:specifiekFaalmechanisme>NIEUW2</asm:specifiekFaalmechanisme>
+      <asm:analyseFaalmechanisme>
+        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:faalkans>0</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseFaalmechanisme>
+    </asm:Faalmechanisme>
     <asm:Faalanalyse FaalanalyseID="F.0" FaalmechanismeIDRef="Fm.0" WaterkeringsectieIDRef="Bv.0">
       <asm:analyseVak>
         <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
@@ -379,6 +397,38 @@
         <asm:status>VOLLDG</asm:status>
       </asm:analyseVak>
     </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.28" FaalmechanismeIDRef="Fm.14" WaterkeringsectieIDRef="Bv.28">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.29" FaalmechanismeIDRef="Fm.14" WaterkeringsectieIDRef="Bv.29">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.30" FaalmechanismeIDRef="Fm.15" WaterkeringsectieIDRef="Bv.30">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
+    <asm:Faalanalyse FaalanalyseID="F.31" FaalmechanismeIDRef="Fm.15" WaterkeringsectieIDRef="Bv.31">
+      <asm:analyseVak>
+        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:duidingsklasse>+I</asm:duidingsklasse>
+        <asm:faalkans>0.1</asm:faalkans>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseVak>
+    </asm:Faalanalyse>
     <asm:Vakindeling VakindelingID="Vi.0" />
     <asm:Vakindeling VakindelingID="Vi.1" />
     <asm:Vakindeling VakindelingID="Vi.2" />
@@ -394,6 +444,8 @@
     <asm:Vakindeling VakindelingID="Vi.12" />
     <asm:Vakindeling VakindelingID="Vi.13" />
     <asm:Vakindeling VakindelingID="Vi.14" />
+    <asm:Vakindeling VakindelingID="Vi.15" />
+    <asm:Vakindeling VakindelingID="Vi.16" />
     <asm:Deelvak gml:id="Bv.0" VakindelingIDRef="Vi.0">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
       <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
@@ -692,6 +744,50 @@
       <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
     </asm:Deelvak>
     <asm:Deelvak gml:id="Bv.27" VakindelingIDRef="Vi.13">
+      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
+      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
+      <asm:geometrieLijn2D>
+        <gml:LineString srsName="EPSG:28992">
+          <gml:posList>7 7 15 15</gml:posList>
+        </gml:LineString>
+      </asm:geometrieLijn2D>
+      <asm:lengte uom="m">11.313708498984761</asm:lengte>
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.28" VakindelingIDRef="Vi.14">
+      <asm:afstandBegin uom="m">0</asm:afstandBegin>
+      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
+      <asm:geometrieLijn2D>
+        <gml:LineString srsName="EPSG:28992">
+          <gml:posList>-1 -1 7 7</gml:posList>
+        </gml:LineString>
+      </asm:geometrieLijn2D>
+      <asm:lengte uom="m">11.313708498984761</asm:lengte>
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.29" VakindelingIDRef="Vi.14">
+      <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
+      <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
+      <asm:geometrieLijn2D>
+        <gml:LineString srsName="EPSG:28992">
+          <gml:posList>7 7 15 15</gml:posList>
+        </gml:LineString>
+      </asm:geometrieLijn2D>
+      <asm:lengte uom="m">11.313708498984761</asm:lengte>
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.30" VakindelingIDRef="Vi.15">
+      <asm:afstandBegin uom="m">0</asm:afstandBegin>
+      <asm:afstandEinde uom="m">11.313708498984761</asm:afstandEinde>
+      <asm:geometrieLijn2D>
+        <gml:LineString srsName="EPSG:28992">
+          <gml:posList>-1 -1 7 7</gml:posList>
+        </gml:LineString>
+      </asm:geometrieLijn2D>
+      <asm:lengte uom="m">11.313708498984761</asm:lengte>
+      <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.31" VakindelingIDRef="Vi.15">
       <asm:afstandBegin uom="m">11.313708498984761</asm:afstandBegin>
       <asm:afstandEinde uom="m">22.627416997969522</asm:afstandEinde>
       <asm:geometrieLijn2D>

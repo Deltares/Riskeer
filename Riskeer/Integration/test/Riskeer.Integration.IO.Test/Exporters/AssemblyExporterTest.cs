@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
@@ -31,6 +32,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Exporters;
@@ -143,7 +145,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             string folderPath = TestHelper.GetScratchPadPath(nameof(Export_FullyConfiguredAssessmentSectionAndValidAssemblyResults_ReturnsTrueAndCreatesFile));
             Directory.CreateDirectory(folderPath);
             string filePath = Path.Combine(folderPath, "actualAssembly.gml");
-            
+
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
@@ -153,7 +155,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssembly[0];
+                assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = Array.Empty<CombinedFailureMechanismSectionAssembly>();
 
                 try
                 {
@@ -216,6 +218,18 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 new Point2D(2, 2)
             });
 
+            assessmentSection.SpecificFailurePaths.AddRange(new[]
+            {
+                new SpecificFailurePath
+                {
+                    Code = "NIEUW1"
+                },
+                new SpecificFailurePath
+                {
+                    Code = "NIEUW2"
+                }
+            });
+
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, 2);
             FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, 2);
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverErosionInwards, 2);
@@ -233,6 +247,9 @@ namespace Riskeer.Integration.IO.Test.Exporters
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffInwards, 2);
             FailureMechanismTestHelper.AddSections(assessmentSection.PipingStructure, 2);
             FailureMechanismTestHelper.AddSections(assessmentSection.WaterPressureAsphaltCover, 2);
+
+            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailurePaths.First(), 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailurePaths.Last(), 2);
 
             return assessmentSection;
         }
