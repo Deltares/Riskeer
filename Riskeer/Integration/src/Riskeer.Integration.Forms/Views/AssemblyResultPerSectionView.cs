@@ -191,14 +191,14 @@ namespace Riskeer.Integration.Forms.Views
             SetSpecificFailurePathTextBoxColumns();
 
             SetDataSource();
-
+            
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
 
         private void RefreshAssemblyResults_Click(object sender, EventArgs e)
         {
             dataGridViewControl.CellFormatting -= HandleCellStyling;
-
+            
             refreshAssemblyResultsButton.Enabled = false;
             dataGridViewControl.ClearColumns();
             InitializeDataGridView();

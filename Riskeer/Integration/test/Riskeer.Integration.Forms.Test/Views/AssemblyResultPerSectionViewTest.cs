@@ -184,9 +184,26 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssertColumn(dataGridViewColumns[specificFailurePath2ColumnIndex], "NIEUW");
             }
         }
+        
+        [Test]
+        public void GivenFormWithAssemblyResultPerSectionView_ThenExpectedFailurePathCellData()
+        {
+            // Given
+            using (new AssemblyToolCalculatorFactoryConfig())
+            using (ShowAssemblyResultPerSectionView())
+            {
+                DataGridView dataGridView = GetDataGridView();
+                object actualFirstFailurePathValue = dataGridView.Rows[0].Cells[specificFailurePath1ColumnIndex].FormattedValue;
+                object actualSecondFailurePathValue = dataGridView.Rows[0].Cells[specificFailurePath2ColumnIndex].FormattedValue;
+                
+                // Then
+                Assert.AreEqual("D", actualFirstFailurePathValue);
+                Assert.AreEqual("D", actualSecondFailurePathValue);
+            }
+        }
 
         [Test]
-        public void GivenFormWithAssemblyResultPerSectionView_WhenSpecificFailurePathAdded_ThenAdditionalColumnAdded()
+        public void GivenFormWithAssemblyResultPerSectionView_WhenSpecificFailurePathAdded_ThenColumnAdded()
         {
             // Given
             var random = new Random(21);
@@ -200,7 +217,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
 
                 // Precondition
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridView dataGridView = GetDataGridView();
                 Assert.AreEqual(expectedColumnCount, dataGridView.ColumnCount);
 
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
@@ -222,7 +239,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithAssemblyResultPerSectionView_WhenSpecificFailurePathRemoved_ThenAdditionalColumnRemoved()
+        public void GivenFormWithAssemblyResultPerSectionView_WhenSpecificFailurePathRemoved_ThenColumnRemoved()
         {
             // Given
             var random = new Random(21);
@@ -233,7 +250,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             using (ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Precondition
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                DataGridView dataGridView = GetDataGridView();
                 Assert.AreEqual(expectedColumnCount, dataGridView.ColumnCount);
 
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
