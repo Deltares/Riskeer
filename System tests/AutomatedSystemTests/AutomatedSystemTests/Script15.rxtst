@@ -10884,7 +10884,7 @@
 						1-4
 					</td>
 					<td>
-						X:\script15\referenceResultsZST.csv
+						X:\script15\reference\referenceResultsZST.csv
 					</td>
 					<td>
 						currentResultsZST.csv
@@ -10928,7 +10928,7 @@
 						5-8
 					</td>
 					<td>
-						X:\script15\referenceResultsAGK.csv
+						X:\script15\reference\referenceResultsAGK.csv
 					</td>
 					<td>
 						currentResultsAGK.csv
@@ -10972,7 +10972,7 @@
 						9-12
 					</td>
 					<td>
-						X:\script15\referenceResultsGEBU.csv
+						X:\script15\reference\referenceResultsGEBU.csv
 					</td>
 					<td>
 						currentResultsGEBU.csv
@@ -10981,19 +10981,19 @@
 						&gt;golfklap&gt;dam1voorland1
 					</td>
 					<td>
-						6.85
+						5.30
 					</td>
 					<td>
-						0.80
+						0.77
 					</td>
 					<td>
-						4.47
+						3.88
 					</td>
 					<td>
-						29.79
+						31.30
 					</td>
 					<td>
-						-78.21
+						-76.70
 					</td>
 				</tr>
 			</table>
