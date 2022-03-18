@@ -57,34 +57,39 @@ namespace Riskeer.Integration.Util.Test
                 FailureMechanismSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyGroupBoundariesCalculator;
 
                 // Call
-                IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> assemblyGroupBoundaries =
-                    FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(assessmentSection);
+                FailureMechanismSectionAssemblyGroupBoundaries[] assemblyGroupBoundaries =
+                    FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(assessmentSection).ToArray();
 
                 // Assert
-                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count() + 2, assemblyGroupBoundaries.Count());
+                Assert.AreEqual(calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count() + 3, assemblyGroupBoundaries.Length);
 
-                for (int i = 0; i < calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count(); i++)
+                for (var i = 0; i < calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.Count(); i++)
                 {
                     FailureMechanismSectionAssemblyGroupBoundaries expectedBoundary = calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.ElementAt(i);
-                    FailureMechanismSectionAssemblyGroupBoundaries actualBoundary = assemblyGroupBoundaries.ElementAt(i);
-                    
+                    FailureMechanismSectionAssemblyGroupBoundaries actualBoundary = assemblyGroupBoundaries[i];
+
                     Assert.AreEqual(expectedBoundary.FailureMechanismSectionAssemblyGroup, actualBoundary.FailureMechanismSectionAssemblyGroup);
                     Assert.AreEqual(expectedBoundary.LowerBoundary, actualBoundary.LowerBoundary);
                     Assert.AreEqual(expectedBoundary.UpperBoundary, actualBoundary.UpperBoundary);
                 }
 
-                FailureMechanismSectionAssemblyGroupBoundaries lastAssemblyGroupBoundaries = assemblyGroupBoundaries.Last();
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NotDominant, lastAssemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup);
-                Assert.AreEqual(double.NaN, lastAssemblyGroupBoundaries.UpperBoundary);
-                Assert.AreEqual(double.NaN, lastAssemblyGroupBoundaries.LowerBoundary);
+                FailureMechanismSectionAssemblyGroupBoundaries dominantGroupBoundaries = assemblyGroupBoundaries[assemblyGroupBoundaries.Length - 3];
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Dominant, dominantGroupBoundaries.FailureMechanismSectionAssemblyGroup);
+                Assert.AreEqual(double.NaN, dominantGroupBoundaries.UpperBoundary);
+                Assert.AreEqual(double.NaN, dominantGroupBoundaries.LowerBoundary);
 
-                FailureMechanismSectionAssemblyGroupBoundaries secondLastAssemblyGroupBoundaries = assemblyGroupBoundaries.ElementAt(assemblyGroupBoundaries.Count() - 2);
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Dominant, secondLastAssemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup);
-                Assert.AreEqual(double.NaN, secondLastAssemblyGroupBoundaries.UpperBoundary);
-                Assert.AreEqual(double.NaN, secondLastAssemblyGroupBoundaries.LowerBoundary);
+                FailureMechanismSectionAssemblyGroupBoundaries notDominantGroupBoundaries = assemblyGroupBoundaries[assemblyGroupBoundaries.Length - 2];
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NotDominant, notDominantGroupBoundaries.FailureMechanismSectionAssemblyGroup);
+                Assert.AreEqual(double.NaN, notDominantGroupBoundaries.UpperBoundary);
+                Assert.AreEqual(double.NaN, notDominantGroupBoundaries.LowerBoundary);
+
+                FailureMechanismSectionAssemblyGroupBoundaries notRelevantGroupBoundaries = assemblyGroupBoundaries[assemblyGroupBoundaries.Length - 1];
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Nr, notRelevantGroupBoundaries.FailureMechanismSectionAssemblyGroup);
+                Assert.AreEqual(double.NaN, notRelevantGroupBoundaries.UpperBoundary);
+                Assert.AreEqual(double.NaN, notRelevantGroupBoundaries.LowerBoundary);
             }
         }
-        
+
         [Test]
         public void CreateAssemblyGroupsView_CalculatorThrowsException_ReturnsEmptyCollectionOfAssemblyGroupBoundaries()
         {

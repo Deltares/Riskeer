@@ -59,7 +59,8 @@ namespace Riskeer.Integration.Util
                        .Concat(new[]
                        {
                            new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Dominant),
-                           new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.NotDominant)
+                           new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.NotDominant),
+                           new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Nr)
                        })
                        .ToArray();
             }
