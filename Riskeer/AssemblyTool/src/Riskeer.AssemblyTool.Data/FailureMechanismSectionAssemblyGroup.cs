@@ -87,6 +87,12 @@ namespace Riskeer.AssemblyTool.Data
         /// Represents group GR.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_Gr_DisplayName))]
-        Gr = 10
+        Gr = 10,
+
+        /// <summary>
+        /// Represents group NR.
+        /// </summary>
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_Nr_DisplayName))]
+        Nr = 11
     }
 }
