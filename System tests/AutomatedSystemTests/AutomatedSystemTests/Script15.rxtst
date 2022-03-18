@@ -1128,6 +1128,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="48034436-92e0-490f-8de2-4c589678e899"
+			name="SetRangeForInputInspection">
+				<parameters>
+					<param
+					name="nameOfFolderToSetRange"
+					value="InspectInputOfSomeCalculations">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="48898fb1-2673-475e-8910-956412a4c5c6"
 			name="CloseViewCentralPanelWithFocus"
@@ -1281,6 +1291,34 @@
 			id="570d8bbf-7357-4f63-bd9f-40e1421600b6"
 			name="CalculateFullPathToCalculationItem">
 			</smartfoldernode>
+			<testmodule
+			id="57313155-422e-4025-92f0-63d605b1d8dd"
+			name="SetRangeInSmartFolder"
+			ref="3b9354d6-0537-452c-9857-667f5c0e7124"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="nameOfFolderToSetRange"
+					datasourceid="48034436-92e0-490f-8de2-4c589678e899"
+					variableid="e27c2717-8089-484f-8051-57077da63c0b"
+					variablename="nameOfSmartFolder">
+					</var>
+					<var
+					dataname="rangeLoopInputViews"
+					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="rangeInHydraulicBoundaryConditionCases"
+					datasourceid="2d553e9c-1b87-46c6-9a96-1bfce2ce98ec"
+					variableid="cd1da467-8e84-488e-b503-621bd966f7be"
+					variablename="rangeToBeSetInSmartFolder">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="57c0813e-ccc9-428a-8ff2-2e57d32bbe74"
 			name="ValidateResultInDocumentViewHasBeenDeleted">
@@ -1316,6 +1354,7 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="599f8f71-b9b7-4a75-8c36-411c10502a9b"
 			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
@@ -4020,7 +4059,7 @@
 					</var>
 					<var
 					dataname="relativePathToCalculationsToInspect"
-					datasourceid="e66dd6d3-0a18-41b0-a3be-cac4cd389930"
+					datasourceid="4617c4ae-1af4-4500-b0fc-5d12dccf5e02"
 					variableid="5bab9acc-5817-4baf-921f-3345ba8f8ec3"
 					variablename="string2">
 					</var>
@@ -5162,39 +5201,11 @@
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
-								id="6859a38d-9137-4b54-924a-f4abe85d4f1c"
-								name="InspectInputOfSomeCalculations">
-									<smartfoldernode
-									id="25938c33-b517-428c-a3aa-e12337ea0104"
-									name="CalculateFullPathToCalculationItem">
-										<testmodule
-										id="e0241af8-9a94-4e8c-94df-9ccdcb71bb6e"
-										name="ConcatenateStrings">
-										</testmodule>
-									</smartfoldernode>
+								id="48034436-92e0-490f-8de2-4c589678e899"
+								name="SetRangeForInputInspection">
 									<testmodule
-									id="935bb552-aa3f-45df-aee0-fef3cee37bcd"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="5955a746-aa55-4d7e-8b67-f89a8bbb2270"
-									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="35dae353-d5cf-4b90-82ad-0ab995e714de"
-									name="CreateScreenshotDocumentView">
-									</testmodule>
-									<testmodule
-									id="49023242-313e-4171-89f0-a645c7efd717"
-									name="ExpandDamInPropertiesPanel">
-									</testmodule>
-									<testmodule
-									id="9a84add1-d5a9-4bb0-a4e4-c3dcccde323d"
-									name="CreateScreenShotPropertiesPanel">
-									</testmodule>
-									<testmodule
-									id="725d13d6-bdec-4489-8ca2-872aa465de39"
-									name="CloseViewCentralPanelWithFocus">
+									id="57313155-422e-4025-92f0-63d605b1d8dd"
+									name="SetRangeInSmartFolder">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -5264,6 +5275,42 @@
 										name="CloseViewCentralPanelWithFocus">
 										</testmodule>
 									</smartfoldernode>
+								</smartfoldernode>
+								<smartfoldernode
+								id="6859a38d-9137-4b54-924a-f4abe85d4f1c"
+								name="InspectInputOfSomeCalculations">
+									<smartfoldernode
+									id="25938c33-b517-428c-a3aa-e12337ea0104"
+									name="CalculateFullPathToCalculationItem">
+										<testmodule
+										id="e0241af8-9a94-4e8c-94df-9ccdcb71bb6e"
+										name="ConcatenateStrings">
+										</testmodule>
+									</smartfoldernode>
+									<testmodule
+									id="935bb552-aa3f-45df-aee0-fef3cee37bcd"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="5955a746-aa55-4d7e-8b67-f89a8bbb2270"
+									name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="35dae353-d5cf-4b90-82ad-0ab995e714de"
+									name="CreateScreenshotDocumentView">
+									</testmodule>
+									<testmodule
+									id="49023242-313e-4171-89f0-a645c7efd717"
+									name="ExpandDamInPropertiesPanel">
+									</testmodule>
+									<testmodule
+									id="9a84add1-d5a9-4bb0-a4e4-c3dcccde323d"
+									name="CreateScreenShotPropertiesPanel">
+									</testmodule>
+									<testmodule
+									id="725d13d6-bdec-4489-8ca2-872aa465de39"
+									name="CloseViewCentralPanelWithFocus">
+									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
 								id="0caaacfb-8725-483f-8225-5222d1723fdf"
@@ -10681,6 +10728,9 @@
 					pathToAllCalculationsItem
 				</column>
 				<column>
+					rangeLoopInputViews
+				</column>
+				<column>
 					relativePathToCalculationsToInspect
 				</column>
 				<column>
@@ -10728,6 +10778,9 @@
 						pathToAllCalculationsItem
 					</th>
 					<th>
+						rangeLoopInputViews
+					</th>
+					<th>
 						relativePathToCalculationsToInspect
 					</th>
 					<th>
@@ -10772,6 +10825,9 @@
 						Traject&gt;@ZST&gt;@HB
 					</td>
 					<td>
+						1-4
+					</td>
+					<td>
 						&gt;blokken en zuilen
 					</td>
 					<td>
@@ -10807,11 +10863,16 @@
 						input_Project_15b_AGK.risk
 					</td>
 					<td>
+						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/30000
 					</td>
 					<td>
+						5
 					</td>
 					<td>
 						Traject&gt;@AGK&gt;@HB
+					</td>
+					<td>
+						5-8
 					</td>
 					<td>
 					</td>
@@ -10848,11 +10909,16 @@
 						input_Project_15ab_GEBU.risk
 					</td>
 					<td>
+						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/1000
 					</td>
 					<td>
+						164
 					</td>
 					<td>
-						Traject&gt;@GEBU&gt;@HB&gt;Berekeningen
+						Traject&gt;@GEBU&gt;@HB
+					</td>
+					<td>
+						9-12
 					</td>
 					<td>
 						&gt;golfklap
@@ -10886,12 +10952,18 @@
 		</DataSource>
 		<DataSource
 		id="4617c4ae-1af4-4500-b0fc-5d12dccf5e02"
-		lastknownrowcount="4"
+		lastknownrowcount="12"
 		name="script15b_pathCalculationsToInspectChart"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
+					relativePathToCalculationsToInspect
+				</column>
+				<column>
 					relativePathToCalculationFromFolder
+				</column>
+				<column>
+					labelFM
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -10899,27 +10971,141 @@
 			<table>
 				<tr>
 					<th>
+						relativePathToCalculationsToInspect
+					</th>
+					<th>
 						relativePathToCalculationFromFolder
+					</th>
+					<th>
+						labelFM
 					</th>
 				</tr>
 				<tr>
 					<td>
+						&gt;blokken
+					</td>
+					<td>
 						&gt;dam0voorland0
+					</td>
+					<td>
+						ZST
 					</td>
 				</tr>
 				<tr>
 					<td>
-						&gt;dam0voorland1
+						&gt;zuilen
 					</td>
-				</tr>
-				<tr>
 					<td>
 						&gt;dam1voorland0
 					</td>
+					<td>
+						ZST
+					</td>
 				</tr>
 				<tr>
 					<td>
+						&gt;zuilen
+					</td>
+					<td>
 						&gt;dam1voorland1
+					</td>
+					<td>
+						ZST
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;blokken en zuilen
+					</td>
+					<td>
+						&gt;dam0voorland1
+					</td>
+					<td>
+						ZST
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+					<td>
+						&gt;dam0voorland0
+					</td>
+					<td>
+						AGK
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+					<td>
+						&gt;dam0voorland1
+					</td>
+					<td>
+						AGK
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+					<td>
+						&gt;dam1voorland0
+					</td>
+					<td>
+						AGK
+					</td>
+				</tr>
+				<tr>
+					<td>
+					</td>
+					<td>
+						&gt;dam1voorland1
+					</td>
+					<td>
+						AGK
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;golfoploop en golfklap
+					</td>
+					<td>
+						&gt;dam0voorland0
+					</td>
+					<td>
+						GEBU
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;golfoploop en golfklap
+					</td>
+					<td>
+						&gt;dam0voorland1
+					</td>
+					<td>
+						GEBU
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;golfoploop
+					</td>
+					<td>
+						&gt;dam1voorland0
+					</td>
+					<td>
+						GEBU
+					</td>
+				</tr>
+				<tr>
+					<td>
+						&gt;golfklap
+					</td>
+					<td>
+						&gt;dam1voorland1
+					</td>
+					<td>
+						GEBU
 					</td>
 				</tr>
 			</table>
@@ -11209,6 +11395,9 @@
 			</testcontainer>
 			<testcontainer
 			id="4772b159-5cec-455b-8c2d-94caad63edd8">
+			</testcontainer>
+			<testcontainer
+			id="48034436-92e0-490f-8de2-4c589678e899">
 			</testcontainer>
 			<testcontainer
 			id="4a167f05-22e5-4f0b-ad15-18adadddabf6">
