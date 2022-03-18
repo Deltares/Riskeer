@@ -55,6 +55,9 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                 },
                 {
                     SerializableFailureMechanismSectionAssemblyGroup.IIIMin, 8
+                },
+                {
+                    SerializableFailureMechanismSectionAssemblyGroup.Nr, 9
                 }
             };
 
@@ -84,6 +87,9 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                 },
                 {
                     SerializableFailureMechanismSectionAssemblyGroup.IIIMin, "-III"
+                },
+                {
+                    SerializableFailureMechanismSectionAssemblyGroup.Nr, "NR"
                 }
             };
     }

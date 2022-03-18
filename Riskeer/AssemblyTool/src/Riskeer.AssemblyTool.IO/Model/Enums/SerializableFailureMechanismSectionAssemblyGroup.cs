@@ -74,6 +74,12 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// Represents group -III.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupIIIMin)]
-        IIIMin = 8
+        IIIMin = 8,
+
+        /// <summary>
+        /// Represents group NR.
+        /// </summary>
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupNr)]
+        Nr = 9
     }
 }
