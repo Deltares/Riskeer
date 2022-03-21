@@ -29,9 +29,9 @@ using Riskeer.AssemblyTool.Data;
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
 {
     /// <summary>
-    /// Class for asserting failure mechanism section assembly groups.
+    /// Class for asserting failure mechanism section assembly groups boundaries.
     /// </summary>
-    public static class FailureMechanismSectionAssemblyGroupAssert
+    public static class FailureMechanismSectionAssemblyGroupBoundariesAssert
     {
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.

@@ -65,7 +65,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                 AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroupBoundaries(groups);
 
             // Assert
-            AssessmentSectionAssemblyGroupAssert.AssertAssessmentSectionAssemblyGroups(groups, assemblyGroups);
+            AssessmentSectionAssemblyGroupBoundariesAssert.AssertAssessmentSectionAssemblyGroupBoundaries(groups, assemblyGroups);
         }
 
         [Test]

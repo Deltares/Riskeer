@@ -116,7 +116,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
                 // Assert
                 Assert.IsTrue(categoryLimitsKernel.Calculated);
 
-                FailureMechanismSectionAssemblyGroupAssert.AssertFailureMechanismSectionAssemblyGroupBoundaries(interpretationCategories, result);
+                FailureMechanismSectionAssemblyGroupBoundariesAssert.AssertFailureMechanismSectionAssemblyGroupBoundaries(interpretationCategories, result);
             }
         }
 

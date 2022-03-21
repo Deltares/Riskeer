@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="$(SolutionDir)build\TestUtil.targets"/>
+    <Import Project="$(SolutionDir)build\TestUtil.targets" />
     <ItemGroup>
         <Reference Include="Assembly.Kernel">
             <HintPath>..\..\..\..\lib\Plugins\AssemblyTool\Assembly.Kernel.dll</HintPath>
         </Reference>
-        <Reference Include="System"/>
-        <Reference Include="System.Core"/>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
     </ItemGroup>
     <ItemGroup>
         <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -13,10 +13,10 @@
         </None>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj"/>
-        <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj"/>
-        <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj"/>
-        <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj"/>
+        <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj" />
+        <ProjectReference Include="..\..\..\Common\src\Riskeer.Common.Primitives\Riskeer.Common.Primitives.csproj" />
+        <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.Data\Riskeer.AssemblyTool.Data.csproj" />
+        <ProjectReference Include="..\..\src\Riskeer.AssemblyTool.KernelWrapper\Riskeer.AssemblyTool.KernelWrapper.csproj" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="NUnit">
