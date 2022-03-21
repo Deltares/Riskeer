@@ -339,9 +339,9 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             void Call() => assessmentSectionFromFileHandler.GetAssessmentSectionFromFile();
 
             // Assert
-            const string expectedMessage = "Het traject kan niet aangemaakt worden met een ondergrens van 1/9.999.999 en een signaleringswaarde van 1/8.888.888. " +
-                                           "De waarde van de ondergrens en signaleringswaarde moet in het bereik [0,000001, 0,1] liggen en " +
-                                           "de ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.";
+            const string expectedMessage = "Het traject kan niet aangemaakt worden met een omgevingswaarde van 1/9.999.999 en een signaleringsparameter van 1/8.888.888. " +
+                                           "De waarde van de omgevingswaarde en signaleringsparameter moet in het bereik [0,000001, 0,1] liggen en " +
+                                           "de omgevingswaarde moet gelijk zijn aan of groter zijn dan de signaleringsparameter.";
             var exception = Assert.Throws<CriticalFileValidationException>(Call);
             Assert.AreEqual(expectedMessage, exception.Message);
             Assert.IsInstanceOf<ArgumentOutOfRangeException>(exception.InnerException);

@@ -286,7 +286,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             catch (ArgumentOutOfRangeException exception)
             {
                 var normValidityRange = new Range<double>(1.0 / 1000000, 1.0 / 10);
-                string message = string.Format(Resources.AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_LowerLimitNorm_0_and_SignalingNorm_1_Norms_should_be_in_Range_2_,
+                string message = string.Format(Resources.AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_MaximumAllowableFloodingProbability_0_and_SignalFloodingProbability_1_Probabilities_should_be_in_Range_2_,
                                                ProbabilityFormattingHelper.Format(lowerLimitNorm),
                                                ProbabilityFormattingHelper.Format(signalingNorm),
                                                normValidityRange.ToString(FormattableConstants.ShowAtLeastOneDecimal, CultureInfo.CurrentCulture));

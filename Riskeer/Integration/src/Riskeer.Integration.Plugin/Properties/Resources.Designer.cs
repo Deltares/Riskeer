@@ -168,12 +168,13 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het traject kan niet aangemaakt worden met een ondergrens van {0} en een signaleringswaarde van {1}. De waarde van de ondergrens en signaleringswaarde moet in het bereik {2} liggen en de ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde..
+        ///   Looks up a localized string similar to Het traject kan niet aangemaakt worden met een omgevingswaarde van {0} en een signaleringsparameter van {1}. De waarde van de omgevingswaarde en signaleringsparameter moet in het bereik {2} liggen en de omgevingswaarde moet gelijk zijn aan of groter zijn dan de signaleringsparameter..
         /// </summary>
-        public static string AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_LowerLimitNorm_0_and_SignalingNorm_1_Norms_should_be_in_Range_2_ {
+        public static string AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_MaximumAllowableFloodingProbability_0_and_SignalFloodingProbability_1_Probabilities_should_be_in_Range_2_ {
             get {
-                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_L" +
-                        "owerLimitNorm_0_and_SignalingNorm_1_Norms_should_be_in_Range_2_", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionFromFileCommandHandler_Unable_to_create_assessmentSection_with_M" +
+                        "aximumAllowableFloodingProbability_0_and_SignalFloodingProbability_1_Probabiliti" +
+                        "es_should_be_in_Range_2_", resourceCulture);
             }
         }
         
