@@ -65,8 +65,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [PropertyOrder(1)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.LowerLimitNorm_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.LowerLimitNorm_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.MaximumAllowableFloodingProbability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.MaximumAllowableFloodingProbability_Description))]
         public double LowerLimitNorm
         {
             get => data.LowerLimitNorm;
@@ -79,8 +79,8 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [PropertyOrder(2)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SignalingNorm_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.SignalingNorm_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.SignalFloodingProbability_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.SignalFloodingProbability_Description))]
         public double SignalingNorm
         {
             get => data.SignalingNorm;

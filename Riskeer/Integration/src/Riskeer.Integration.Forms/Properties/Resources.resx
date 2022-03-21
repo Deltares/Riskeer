@@ -217,10 +217,10 @@
   <data name="BackgroundDataProperties_Wmts_Category" xml:space="preserve">
     <value>WMTS</value>
   </data>
-  <data name="LowerLimitNorm_Description" xml:space="preserve">
+  <data name="MaximumAllowableFloodingProbability_Description" xml:space="preserve">
     <value>De maximale toelaatbare overstromingskans van het dijktraject.</value>
   </data>
-  <data name="LowerLimitNorm_DisplayName" xml:space="preserve">
+  <data name="MaximumAllowableFloodingProbability_DisplayName" xml:space="preserve">
     <value>Omgevingswaarde [1/jaar]</value>
   </data>
   <data name="NormType_Description" xml:space="preserve">
@@ -229,10 +229,10 @@
   <data name="NormType_DisplayName" xml:space="preserve">
     <value>Rekenwaarde voor waterstanden</value>
   </data>
-  <data name="SignalingNorm_Description" xml:space="preserve">
+  <data name="SignalFloodingProbability_Description" xml:space="preserve">
     <value>De overstromingskans voor de signalering over de veiligheid van het dijktraject.</value>
   </data>
-  <data name="SignalingNorm_DisplayName" xml:space="preserve">
+  <data name="SignalFloodingProbability_DisplayName" xml:space="preserve">
     <value>Signaleringsparameter [1/jaar]</value>
   </data>
   <data name="HydraulicBoundaryDatabase_PreprocessorDirectory_Description" xml:space="preserve">

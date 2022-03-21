@@ -824,30 +824,30 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De maximale toelaatbare overstromingskans van het dijktraject..
-        /// </summary>
-        public static string LowerLimitNorm_Description {
-            get {
-                return ResourceManager.GetString("LowerLimitNorm_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Omgevingswaarde [1/jaar].
-        /// </summary>
-        public static string LowerLimitNorm_DisplayName {
-            get {
-                return ResourceManager.GetString("LowerLimitNorm_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Map {
             get {
                 object obj = ResourceManager.GetObject("Map", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De maximale toelaatbare overstromingskans van het dijktraject..
+        /// </summary>
+        public static string MaximumAllowableFloodingProbability_Description {
+            get {
+                return ResourceManager.GetString("MaximumAllowableFloodingProbability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Omgevingswaarde [1/jaar].
+        /// </summary>
+        public static string MaximumAllowableFloodingProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("MaximumAllowableFloodingProbability_DisplayName", resourceCulture);
             }
         }
         
@@ -935,18 +935,18 @@ namespace Riskeer.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De overstromingskans voor de signalering over de veiligheid van het dijktraject..
         /// </summary>
-        public static string SignalingNorm_Description {
+        public static string SignalFloodingProbability_Description {
             get {
-                return ResourceManager.GetString("SignalingNorm_Description", resourceCulture);
+                return ResourceManager.GetString("SignalFloodingProbability_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Signaleringsparameter [1/jaar].
         /// </summary>
-        public static string SignalingNorm_DisplayName {
+        public static string SignalFloodingProbability_DisplayName {
             get {
-                return ResourceManager.GetString("SignalingNorm_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SignalFloodingProbability_DisplayName", resourceCulture);
             }
         }
     }
