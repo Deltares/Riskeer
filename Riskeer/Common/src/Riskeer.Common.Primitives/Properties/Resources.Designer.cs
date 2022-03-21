@@ -107,14 +107,5 @@ namespace Riskeer.Common.Primitives.Properties {
                 return ResourceManager.GetString("FailureMechanismSectionResultFurtherAnalysisType_NotNecessary_DisplayName", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to VIIv (NGO).
-        /// </summary>
-        public static string TailorMadeAssessmentCategoryGroupResultType_VIIv_NGO_DisplayName {
-            get {
-                return ResourceManager.GetString("TailorMadeAssessmentCategoryGroupResultType_VIIv_NGO_DisplayName", resourceCulture);
-            }
-        }
     }
 }
