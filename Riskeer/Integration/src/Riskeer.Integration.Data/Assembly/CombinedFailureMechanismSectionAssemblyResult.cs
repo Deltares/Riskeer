@@ -169,7 +169,7 @@ namespace Riskeer.Integration.Data.Assembly
         /// Gets the assembly result for dune erosion or <c>null</c> (which indicates this failure mechanism is not part of the assembly).
         /// </summary>
         public FailureMechanismSectionAssemblyGroup? DuneErosion { get; }
-        
+
         /// <summary>
         /// Gets the collection of assembly results for specific failure paths or <c>null</c> (which indicates this failure mechanism is not part of the assembly).
         /// </summary>
@@ -200,7 +200,7 @@ namespace Riskeer.Integration.Data.Assembly
                 PipingStructure = FailureMechanismSectionAssemblyGroup.Gr;
                 StabilityPointStructures = FailureMechanismSectionAssemblyGroup.Gr;
                 DuneErosion = FailureMechanismSectionAssemblyGroup.Gr;
-                SpecificFailurePaths = new FailureMechanismSectionAssemblyGroup?[]{};
+                SpecificFailurePaths = Array.Empty<FailureMechanismSectionAssemblyGroup?>();
             }
 
             /// <summary>

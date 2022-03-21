@@ -81,10 +81,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.PipingStructure);
             Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.StabilityPointStructures);
             Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.DuneErosion);
-            foreach (FailureMechanismSectionAssemblyGroup? specificFailurePath in result.SpecificFailurePaths)
-            {
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, specificFailurePath);
-            }
+            Assert.IsEmpty(result.SpecificFailurePaths);
         }
 
         [Test]

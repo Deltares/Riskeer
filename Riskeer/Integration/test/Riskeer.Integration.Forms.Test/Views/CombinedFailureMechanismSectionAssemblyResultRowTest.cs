@@ -192,9 +192,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityPointStructuresIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex], expectedBackgroundColor);
 
-            for (var i = 0; i <= result.SpecificFailurePaths.Length; i++)
+            for (var i = 0; i < result.SpecificFailurePaths.Length; i++)
             {
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailurePathStartIndex], expectedBackgroundColor);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailurePathStartIndex + i], expectedBackgroundColor);
             }
         }
 
@@ -225,7 +225,12 @@ namespace Riskeer.Integration.Forms.Test.Views
                     ClosingStructures = null,
                     PipingStructure = null,
                     StabilityPointStructures = null,
-                    DuneErosion = null
+                    DuneErosion = null,
+                    SpecificFailurePaths = new FailureMechanismSectionAssemblyGroup?[]
+                    {
+                        null,
+                        null
+                    }
                 });
 
             // Call
@@ -251,10 +256,10 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[pipingStructureIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityPointStructuresIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex], expectedBackgroundColor);
-            
-            for (var i = 1; i <= result.SpecificFailurePaths.Length; i++)
+
+            for (var i = 0; i < result.SpecificFailurePaths.Length; i++)
             {
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex + i], expectedBackgroundColor);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailurePathStartIndex + i], expectedBackgroundColor);
             }
         }
 

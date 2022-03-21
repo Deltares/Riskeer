@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(assessmentSection.SpecificFailurePaths.Count, results[i].SpecificFailurePaths.Length);
                 foreach (SpecificFailurePath specificFailurePath in assessmentSection.SpecificFailurePaths)
                 {
-                    Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[specificFailurePath]), results[i].SpecificFailurePaths.First());
+                    Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[specificFailurePath]), results[i].SpecificFailurePaths.Single());
                 }
             }
         }
@@ -188,8 +188,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.IsNull(results[i].ClosingStructures);
                 Assert.IsNull(results[i].PipingStructure);
                 Assert.IsNull(results[i].StabilityPointStructures);
-                Assert.AreEqual(assessmentSection.SpecificFailurePaths.Count, results[i].SpecificFailurePaths.Length);
                 Assert.IsNull(results[i].DuneErosion);
+                Assert.AreEqual(assessmentSection.SpecificFailurePaths.Count, results[i].SpecificFailurePaths.Length);
                 foreach (FailureMechanismSectionAssemblyGroup? specificFailurePath in results[i].SpecificFailurePaths)
                 {
                     Assert.IsNull(specificFailurePath);

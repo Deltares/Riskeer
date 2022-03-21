@@ -36,7 +36,6 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Views;
@@ -161,27 +160,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 DataGridViewColumnCollection dataGridViewColumns = dataGridView.Columns;
 
-                AssertColumn(dataGridViewColumns[sectionNumberColumnIndex], "Vaknummer");
-                AssertColumn(dataGridViewColumns[sectionStartColumnIndex], "Metrering van* [m]");
-                AssertColumn(dataGridViewColumns[sectionEndColumnIndex], "Metrering tot* [m]");
-                AssertColumn(dataGridViewColumns[sectionTotalAssemblyResultColumnIndex], "Duidingsklasse");
-                AssertColumn(dataGridViewColumns[pipingColumnIndex], "STPH");
-                AssertColumn(dataGridViewColumns[grassCoverErosionInwardsColumnIndex], "GEKB");
-                AssertColumn(dataGridViewColumns[macroStabilityInwardsColumnIndex], "STBI");
-                AssertColumn(dataGridViewColumns[microStabilityColumnIndex], "STMI");
-                AssertColumn(dataGridViewColumns[stabilityStoneCoverColumnIndex], "ZST");
-                AssertColumn(dataGridViewColumns[waveImpactAsphaltCoverColumnIndex], "AGK");
-                AssertColumn(dataGridViewColumns[waterPressureAsphaltCoverColumnIndex], "AWO");
-                AssertColumn(dataGridViewColumns[grassCoverErosionOutwardsColumnIndex], "GEBU");
-                AssertColumn(dataGridViewColumns[grassCoverSlipOffOutwardsColumnIndex], "GABU");
-                AssertColumn(dataGridViewColumns[grassCoverSlipOffInwardsColumnIndex], "GABI");
-                AssertColumn(dataGridViewColumns[heightStructuresColumnIndex], "HTKW");
-                AssertColumn(dataGridViewColumns[closingStructures], "BSKW");
-                AssertColumn(dataGridViewColumns[pipingStructures], "PKW");
-                AssertColumn(dataGridViewColumns[stabilityPointStructuresColumnIndex], "STKWp");
-                AssertColumn(dataGridViewColumns[duneErosionColumnIndex], "DA");
-                AssertColumn(dataGridViewColumns[specificFailurePath1ColumnIndex], "NIEUW");
-                AssertColumn(dataGridViewColumns[specificFailurePath2ColumnIndex], "NIEUW");
+                AssertDefaultColumns(dataGridViewColumns);
             }
         }
 
@@ -223,18 +202,22 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
 
                 // When
-                var specificFailurePath = new SpecificFailurePath();
-                specificFailurePath.SetSections(new[]
+                const string testCode = "TestCode";
+                var specificFailurePath = new SpecificFailurePath
                 {
-                    FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-                }, "test");
+                    Code = testCode
+                };
 
                 assessmentSection.SpecificFailurePaths.Add(specificFailurePath);
                 assessmentSection.SpecificFailurePaths.NotifyObservers();
                 calculator.CombinedFailureMechanismSectionAssemblyOutput = null;
                 buttonTester.Click();
 
-                Assert.AreEqual(expectedColumnCount + 1, dataGridView.ColumnCount);
+                // Then
+                AssertDefaultColumns(dataGridView.Columns);
+                const int nrOfExpectedColumns = expectedColumnCount + 1;
+                Assert.AreEqual(nrOfExpectedColumns, dataGridView.ColumnCount);
+                AssertColumn(dataGridView.Columns[expectedColumnCount], testCode);
             }
         }
 
@@ -243,24 +226,37 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
+            const string code = "TestCode";
+            var failureMechanismToRemove = new SpecificFailurePath
+            {
+                Code = code
+            };
+
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
+            assessmentSection.SpecificFailurePaths.Add(failureMechanismToRemove);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Precondition
                 DataGridView dataGridView = GetDataGridView();
-                Assert.AreEqual(expectedColumnCount, dataGridView.ColumnCount);
+                Assert.AreEqual(expectedColumnCount + 1, dataGridView.ColumnCount);
+
+                DataGridViewColumnCollection dataGridViewColumns = dataGridView.Columns;
+                AssertDefaultColumns(dataGridViewColumns);
+                AssertColumn(dataGridViewColumns[expectedColumnCount], code);
 
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
 
                 // When
-                assessmentSection.SpecificFailurePaths.RemoveAt(0);
+                assessmentSection.SpecificFailurePaths.Remove(failureMechanismToRemove);
                 assessmentSection.NotifyObservers();
                 buttonTester.Click();
 
-                Assert.AreEqual(expectedColumnCount - 1, dataGridView.ColumnCount);
+                // Then
+                Assert.AreEqual(expectedColumnCount, dataGridView.ColumnCount);
+                AssertDefaultColumns(dataGridViewColumns);
             }
         }
 
@@ -516,6 +512,31 @@ namespace Riskeer.Integration.Forms.Test.Views
             testForm.Show();
 
             return view;
+        }
+
+        private static void AssertDefaultColumns(DataGridViewColumnCollection dataGridViewColumns)
+        {
+            AssertColumn(dataGridViewColumns[sectionNumberColumnIndex], "Vaknummer");
+            AssertColumn(dataGridViewColumns[sectionStartColumnIndex], "Metrering van* [m]");
+            AssertColumn(dataGridViewColumns[sectionEndColumnIndex], "Metrering tot* [m]");
+            AssertColumn(dataGridViewColumns[sectionTotalAssemblyResultColumnIndex], "Duidingsklasse");
+            AssertColumn(dataGridViewColumns[pipingColumnIndex], "STPH");
+            AssertColumn(dataGridViewColumns[grassCoverErosionInwardsColumnIndex], "GEKB");
+            AssertColumn(dataGridViewColumns[macroStabilityInwardsColumnIndex], "STBI");
+            AssertColumn(dataGridViewColumns[microStabilityColumnIndex], "STMI");
+            AssertColumn(dataGridViewColumns[stabilityStoneCoverColumnIndex], "ZST");
+            AssertColumn(dataGridViewColumns[waveImpactAsphaltCoverColumnIndex], "AGK");
+            AssertColumn(dataGridViewColumns[waterPressureAsphaltCoverColumnIndex], "AWO");
+            AssertColumn(dataGridViewColumns[grassCoverErosionOutwardsColumnIndex], "GEBU");
+            AssertColumn(dataGridViewColumns[grassCoverSlipOffOutwardsColumnIndex], "GABU");
+            AssertColumn(dataGridViewColumns[grassCoverSlipOffInwardsColumnIndex], "GABI");
+            AssertColumn(dataGridViewColumns[heightStructuresColumnIndex], "HTKW");
+            AssertColumn(dataGridViewColumns[closingStructures], "BSKW");
+            AssertColumn(dataGridViewColumns[pipingStructures], "PKW");
+            AssertColumn(dataGridViewColumns[stabilityPointStructuresColumnIndex], "STKWp");
+            AssertColumn(dataGridViewColumns[duneErosionColumnIndex], "DA");
+            AssertColumn(dataGridViewColumns[specificFailurePath1ColumnIndex], "NIEUW");
+            AssertColumn(dataGridViewColumns[specificFailurePath2ColumnIndex], "NIEUW");
         }
     }
 }
