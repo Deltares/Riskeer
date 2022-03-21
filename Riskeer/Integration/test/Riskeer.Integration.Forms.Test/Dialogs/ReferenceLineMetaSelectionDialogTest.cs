@@ -38,8 +38,8 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
     public class ReferenceLineMetaSelectionDialogTest : NUnitFormTest
     {
         private const int assessmentSectionIdColumn = 0;
-        private const int signalingValueColumn = 1;
-        private const int lowerLimitValueColumn = 2;
+        private const int signalFloodingProbabilityColumn = 1;
+        private const int maximumAllowableFloodingProbabilityColumn = 2;
 
         [Test]
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
@@ -194,14 +194,14 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                     Assert.IsNotNull(currentIdValue);
                     Assert.AreEqual(assessmentSectionId, currentIdValue.ToString());
 
-                    object currentSignalingValue = dataGridView[signalingValueColumn, 0].FormattedValue;
+                    object currentSignalingValue = dataGridView[signalFloodingProbabilityColumn, 0].FormattedValue;
                     Assert.IsNotNull(currentSignalingValue);
                     string expectedSignalingValue = signalingValue.HasValue && signalingValue.Value > 0
                                                         ? ProbabilityFormattingHelper.FormatFromReturnPeriod(signalingValue.Value)
                                                         : string.Empty;
                     Assert.AreEqual(expectedSignalingValue, currentSignalingValue.ToString());
 
-                    object currentLowerLimitValue = dataGridView[lowerLimitValueColumn, 0].FormattedValue;
+                    object currentLowerLimitValue = dataGridView[maximumAllowableFloodingProbabilityColumn, 0].FormattedValue;
                     Assert.IsNotNull(currentLowerLimitValue);
                     string expectedLowerLimitValue = lowerLimitValue > 0
                                                          ? ProbabilityFormattingHelper.FormatFromReturnPeriod(lowerLimitValue)

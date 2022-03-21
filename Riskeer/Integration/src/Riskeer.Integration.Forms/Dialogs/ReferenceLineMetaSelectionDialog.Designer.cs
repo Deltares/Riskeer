@@ -57,8 +57,8 @@ namespace Riskeer.Integration.Forms.Dialogs
             this.SelectAssessmentSectionLabel = new System.Windows.Forms.Label();
             this.ReferenceLineMetaDataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.SignalingValueRadioButton = new System.Windows.Forms.RadioButton();
-            this.LowLimitValueRadioButton = new System.Windows.Forms.RadioButton();
+            this.SignalFloodingProbabilityRadioButton = new System.Windows.Forms.RadioButton();
+            this.MaximumAllowableFloodingProbabilityRadioButton = new System.Windows.Forms.RadioButton();
             this.flowLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -111,24 +111,24 @@ namespace Riskeer.Integration.Forms.Dialogs
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Controls.Add(this.SignalingValueRadioButton);
-            this.groupBox1.Controls.Add(this.LowLimitValueRadioButton);
+            this.groupBox1.Controls.Add(this.SignalFloodingProbabilityRadioButton);
+            this.groupBox1.Controls.Add(this.MaximumAllowableFloodingProbabilityRadioButton);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
-            // SignalingValueRadioButton
+            // SignalFloodingProbabilityRadioButton
             // 
-            resources.ApplyResources(this.SignalingValueRadioButton, "SignalingValueRadioButton");
-            this.SignalingValueRadioButton.Checked = true;
-            this.SignalingValueRadioButton.Name = "SignalingValueRadioButton";
-            this.SignalingValueRadioButton.TabStop = true;
-            this.SignalingValueRadioButton.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.SignalFloodingProbabilityRadioButton, "SignalFloodingProbabilityRadioButton");
+            this.SignalFloodingProbabilityRadioButton.Checked = true;
+            this.SignalFloodingProbabilityRadioButton.Name = "SignalFloodingProbabilityRadioButton";
+            this.SignalFloodingProbabilityRadioButton.TabStop = true;
+            this.SignalFloodingProbabilityRadioButton.UseVisualStyleBackColor = true;
             // 
-            // LowLimitValueRadioButton
+            // MaximumAllowableFloodingProbabilityRadioButton
             // 
-            resources.ApplyResources(this.LowLimitValueRadioButton, "LowLimitValueRadioButton");
-            this.LowLimitValueRadioButton.Name = "LowLimitValueRadioButton";
-            this.LowLimitValueRadioButton.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.MaximumAllowableFloodingProbabilityRadioButton, "MaximumAllowableFloodingProbabilityRadioButton");
+            this.MaximumAllowableFloodingProbabilityRadioButton.Name = "MaximumAllowableFloodingProbabilityRadioButton";
+            this.MaximumAllowableFloodingProbabilityRadioButton.UseVisualStyleBackColor = true;
             // 
             // ReferenceLineMetaSelectionDialog
             // 
@@ -152,8 +152,8 @@ namespace Riskeer.Integration.Forms.Dialogs
         private System.Windows.Forms.Button Cancel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private Core.Common.Controls.DataGrid.DataGridViewControl ReferenceLineMetaDataGridViewControl;
-        private System.Windows.Forms.RadioButton LowLimitValueRadioButton;
-        private System.Windows.Forms.RadioButton SignalingValueRadioButton;
+        private System.Windows.Forms.RadioButton MaximumAllowableFloodingProbabilityRadioButton;
+        private System.Windows.Forms.RadioButton SignalFloodingProbabilityRadioButton;
         private System.Windows.Forms.Label SelectAssessmentSectionLabel;
         private System.Windows.Forms.GroupBox groupBox1;
     }

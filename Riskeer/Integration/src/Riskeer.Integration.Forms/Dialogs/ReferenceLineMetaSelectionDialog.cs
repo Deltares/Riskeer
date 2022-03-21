@@ -107,7 +107,7 @@ namespace Riskeer.Integration.Forms.Dialogs
             {
                 SelectedReferenceLineMeta = referenceLineMetaSelectionRow.ReferenceLineMeta;
 
-                SelectedNormativeNorm = SignalingValueRadioButton.Checked
+                SelectedNormativeNorm = SignalFloodingProbabilityRadioButton.Checked
                                             ? NormType.SignalFloodingProbability
                                             : NormType.MaximumAllowableFloodingProbability;
 
