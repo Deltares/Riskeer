@@ -223,10 +223,10 @@
   <data name="MaximumAllowableFloodingProbability_DisplayName" xml:space="preserve">
     <value>Omgevingswaarde [1/jaar]</value>
   </data>
-  <data name="NormType_Description" xml:space="preserve">
+  <data name="NormativeNorm_Description" xml:space="preserve">
     <value>De doelkans die wordt gebruikt om de lokale waterstand te bepalen voor de semi-probabilistische toets voor 'Piping' en 'Macrostabiliteit binnenwaarts'.</value>
   </data>
-  <data name="NormType_DisplayName" xml:space="preserve">
+  <data name="NormativeNorm_DisplayName" xml:space="preserve">
     <value>Rekenwaarde voor waterstanden</value>
   </data>
   <data name="SignalFloodingProbability_Description" xml:space="preserve">

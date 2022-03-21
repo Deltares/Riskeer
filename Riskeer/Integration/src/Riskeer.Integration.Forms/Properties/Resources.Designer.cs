@@ -854,18 +854,18 @@ namespace Riskeer.Integration.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De doelkans die wordt gebruikt om de lokale waterstand te bepalen voor de semi-probabilistische toets voor &apos;Piping&apos; en &apos;Macrostabiliteit binnenwaarts&apos;..
         /// </summary>
-        public static string NormType_Description {
+        public static string NormativeNorm_Description {
             get {
-                return ResourceManager.GetString("NormType_Description", resourceCulture);
+                return ResourceManager.GetString("NormativeNorm_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Rekenwaarde voor waterstanden.
         /// </summary>
-        public static string NormType_DisplayName {
+        public static string NormativeNorm_DisplayName {
             get {
-                return ResourceManager.GetString("NormType_DisplayName", resourceCulture);
+                return ResourceManager.GetString("NormativeNorm_DisplayName", resourceCulture);
             }
         }
         
