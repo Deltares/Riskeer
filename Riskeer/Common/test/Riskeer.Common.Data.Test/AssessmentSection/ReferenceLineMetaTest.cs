@@ -61,10 +61,10 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             var referenceLine = new ReferenceLineMeta();
 
             // Call
-            referenceLine.SignalingValue = signalingValue;
+            referenceLine.SignalFloodingProbability = signalingValue;
 
             // Assert
-            Assert.AreEqual(signalingValue, referenceLine.SignalingValue);
+            Assert.AreEqual(signalingValue, referenceLine.SignalFloodingProbability);
         }
 
         [Test]
@@ -75,10 +75,10 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             const int lowerLimitValue = 1234;
 
             // Call
-            referenceLine.LowerLimitValue = lowerLimitValue;
+            referenceLine.MaximumAllowableFloodingProbability = lowerLimitValue;
 
             // Assert
-            Assert.AreEqual(lowerLimitValue, referenceLine.LowerLimitValue);
+            Assert.AreEqual(lowerLimitValue, referenceLine.MaximumAllowableFloodingProbability);
         }
     }
 }

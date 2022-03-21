@@ -42,12 +42,12 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// <summary>
         /// Gets or sets the signaling value for the assessment section.
         /// </summary>
-        public int? SignalingValue { get; set; }
+        public int? SignalFloodingProbability { get; set; }
 
         /// <summary>
-        /// Gets or sets the lower limit of the assessment section.
+        /// Gets or sets the maximum allowable flooding probability of the assessment section.
         /// </summary>
-        public int LowerLimitValue { get; set; }
+        public int MaximumAllowableFloodingProbability { get; set; }
 
         /// <summary>
         /// Gets the reference line.

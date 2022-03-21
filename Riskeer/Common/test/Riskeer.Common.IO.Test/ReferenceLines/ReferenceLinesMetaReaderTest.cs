@@ -184,8 +184,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var expectedReferenceLineMeta1 = new ReferenceLineMeta
             {
                 AssessmentSectionId = "1-1",
-                LowerLimitValue = 1000,
-                SignalingValue = 3000
+                MaximumAllowableFloodingProbability = 1000,
+                SignalFloodingProbability = 3000
             };
             expectedReferenceLineMeta1.ReferenceLine.SetGeometry(new[]
             {
@@ -197,8 +197,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var expectedReferenceLineMeta2 = new ReferenceLineMeta
             {
                 AssessmentSectionId = "2-2",
-                LowerLimitValue = 100,
-                SignalingValue = 300
+                MaximumAllowableFloodingProbability = 100,
+                SignalFloodingProbability = 300
             };
             expectedReferenceLineMeta2.ReferenceLine.SetGeometry(new[]
             {
@@ -210,8 +210,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             var expectedReferenceLineMeta3 = new ReferenceLineMeta
             {
                 AssessmentSectionId = "3-3",
-                LowerLimitValue = 100,
-                SignalingValue = 300
+                MaximumAllowableFloodingProbability = 100,
+                SignalFloodingProbability = 300
             };
             expectedReferenceLineMeta3.ReferenceLine.SetGeometry(new[]
             {
@@ -233,8 +233,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
             // Assert
             ReferenceLineMeta referenceLineMeta = referenceLineMetas.Single();
             Assert.AreEqual("46-1", referenceLineMeta.AssessmentSectionId);
-            Assert.IsNull(referenceLineMeta.SignalingValue);
-            Assert.AreEqual(0, referenceLineMeta.LowerLimitValue);
+            Assert.IsNull(referenceLineMeta.SignalFloodingProbability);
+            Assert.AreEqual(0, referenceLineMeta.MaximumAllowableFloodingProbability);
         }
 
         [Test]
@@ -254,8 +254,8 @@ namespace Riskeer.Common.IO.Test.ReferenceLines
         private static void AssertReferenceLineMetas(ReferenceLineMeta expectedReferenceLineMeta, ReferenceLineMeta actualReferenceLineMeta)
         {
             Assert.AreEqual(expectedReferenceLineMeta.AssessmentSectionId, actualReferenceLineMeta.AssessmentSectionId);
-            Assert.AreEqual(expectedReferenceLineMeta.SignalingValue, actualReferenceLineMeta.SignalingValue);
-            Assert.AreEqual(expectedReferenceLineMeta.LowerLimitValue, actualReferenceLineMeta.LowerLimitValue);
+            Assert.AreEqual(expectedReferenceLineMeta.SignalFloodingProbability, actualReferenceLineMeta.SignalFloodingProbability);
+            Assert.AreEqual(expectedReferenceLineMeta.MaximumAllowableFloodingProbability, actualReferenceLineMeta.MaximumAllowableFloodingProbability);
 
             Point2D[] expectedPoints = expectedReferenceLineMeta.ReferenceLine.Points.ToArray();
             Point2D[] actualPoints = actualReferenceLineMeta.ReferenceLine.Points.ToArray();

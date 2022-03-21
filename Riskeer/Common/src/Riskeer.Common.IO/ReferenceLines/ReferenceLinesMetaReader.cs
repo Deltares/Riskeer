@@ -187,12 +187,12 @@ namespace Riskeer.Common.IO.ReferenceLines
             };
             if (lowerLimitValue != null)
             {
-                referenceLineMeta.LowerLimitValue = lowerLimitValue.Value;
+                referenceLineMeta.MaximumAllowableFloodingProbability = lowerLimitValue.Value;
             }
 
             if (signalingValue != null)
             {
-                referenceLineMeta.SignalingValue = signalingValue.Value;
+                referenceLineMeta.SignalFloodingProbability = signalingValue.Value;
             }
 
             referenceLineMeta.ReferenceLine.SetGeometry(geometryPoints);

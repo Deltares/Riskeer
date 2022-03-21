@@ -67,12 +67,12 @@ namespace Riskeer.Integration.Forms.Dialogs
         /// <summary>
         /// Gets the lower limit norm value from the selected row in the <see cref="DataGridViewControl"/>.
         /// </summary>
-        public double SelectedLowerLimitNorm { get; private set; }
+        public double SelectedMaximumAllowableFloodingProbability { get; private set; }
 
         /// <summary>
         /// Gets the signaling norm value from the selected row in the <see cref="DataGridViewControl"/>.
         /// </summary>
-        public double SelectedSignalingNorm { get; private set; }
+        public double SelectedSignalFloodingProbability { get; private set; }
 
         /// <summary>
         /// Gets the norm type from the selected <see cref="RadioButton"/> in the dialog.
@@ -87,8 +87,8 @@ namespace Riskeer.Integration.Forms.Dialogs
         private void InitializeReferenceLineMetaDataGridViewControl(IEnumerable<ReferenceLineMeta> referenceLineMetas)
         {
             ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("AssessmentSectionId", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_AssessmentSectionId);
-            ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("SignalingValue", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_SignalingValue);
-            ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("LowerLimitValue", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_LowerLimitValue);
+            ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("SignalFloodingProbability", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_SignalFloodingProbability);
+            ReferenceLineMetaDataGridViewControl.AddTextBoxColumn("MaximumAllowableFloodingProbability", Resources.ReferenceLineMetaSelectionDialog_ColumnHeader_MaximumAllowableFloodingProbability);
 
             IOrderedEnumerable<ReferenceLineMetaSelectionRow> dataSource = referenceLineMetas.Select(rlm => new ReferenceLineMetaSelectionRow(rlm)).OrderBy(row => row.AssessmentSectionId, new AssessmentSectionIdComparer());
             ReferenceLineMetaDataGridViewControl.SetDataSource(dataSource.ToArray());
@@ -111,11 +111,11 @@ namespace Riskeer.Integration.Forms.Dialogs
                                             ? NormType.SignalFloodingProbability
                                             : NormType.MaximumAllowableFloodingProbability;
 
-                double lowerLimitNormValue = GetNormValue(referenceLineMetaSelectionRow.LowerLimitValueReturnPeriod);
+                double lowerLimitNormValue = GetNormValue(referenceLineMetaSelectionRow.MaximumAllowableFloodingProbabilityReturnPeriod);
 
-                SelectedLowerLimitNorm = lowerLimitNormValue;
-                SelectedSignalingNorm = referenceLineMetaSelectionRow.SignalingReturnPeriod.HasValue
-                                            ? GetNormValue(referenceLineMetaSelectionRow.SignalingReturnPeriod.Value)
+                SelectedMaximumAllowableFloodingProbability = lowerLimitNormValue;
+                SelectedSignalFloodingProbability = referenceLineMetaSelectionRow.SignalFloodingProbabilityReturnPeriod.HasValue
+                                            ? GetNormValue(referenceLineMetaSelectionRow.SignalFloodingProbabilityReturnPeriod.Value)
                                             : lowerLimitNormValue;
             }
         }
@@ -210,24 +210,24 @@ namespace Riskeer.Integration.Forms.Dialogs
                 AssessmentSectionId = referenceLineMeta.AssessmentSectionId;
                 ReferenceLineMeta = referenceLineMeta;
 
-                SignalingValue = TryGetNormValue(referenceLineMeta.SignalingValue);
-                if (SignalingValue != string.Empty)
+                SignalFloodingProbability = TryGetNormValue(referenceLineMeta.SignalFloodingProbability);
+                if (SignalFloodingProbability != string.Empty)
                 {
-                    SignalingReturnPeriod = referenceLineMeta.SignalingValue;
+                    SignalFloodingProbabilityReturnPeriod = referenceLineMeta.SignalFloodingProbability;
                 }
 
-                LowerLimitValue = TryGetNormValue(referenceLineMeta.LowerLimitValue);
-                if (LowerLimitValue != string.Empty)
+                MaximumAllowableFloodingProbability = TryGetNormValue(referenceLineMeta.MaximumAllowableFloodingProbability);
+                if (MaximumAllowableFloodingProbability != string.Empty)
                 {
-                    LowerLimitValueReturnPeriod = referenceLineMeta.LowerLimitValue;
+                    MaximumAllowableFloodingProbabilityReturnPeriod = referenceLineMeta.MaximumAllowableFloodingProbability;
                 }
             }
 
             public string AssessmentSectionId { get; }
-            public string SignalingValue { get; }
-            public int? SignalingReturnPeriod { get; }
-            public string LowerLimitValue { get; }
-            public int LowerLimitValueReturnPeriod { get; }
+            public string SignalFloodingProbability { get; }
+            public int? SignalFloodingProbabilityReturnPeriod { get; }
+            public string MaximumAllowableFloodingProbability { get; }
+            public int MaximumAllowableFloodingProbabilityReturnPeriod { get; }
             public ReferenceLineMeta ReferenceLineMeta { get; }
 
             private static string TryGetNormValue(int? returnPeriod)

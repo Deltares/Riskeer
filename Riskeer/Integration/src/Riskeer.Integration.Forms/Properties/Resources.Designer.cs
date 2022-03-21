@@ -879,20 +879,21 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ondergrens.
+        ///   Looks up a localized string similar to Omgevingswaarde.
         /// </summary>
-        public static string ReferenceLineMetaSelectionDialog_ColumnHeader_LowerLimitValue {
+        public static string ReferenceLineMetaSelectionDialog_ColumnHeader_MaximumAllowableFloodingProbability {
             get {
-                return ResourceManager.GetString("ReferenceLineMetaSelectionDialog_ColumnHeader_LowerLimitValue", resourceCulture);
+                return ResourceManager.GetString("ReferenceLineMetaSelectionDialog_ColumnHeader_MaximumAllowableFloodingProbability" +
+                        "", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Signaleringswaarde.
+        ///   Looks up a localized string similar to Signaleringsparameter.
         /// </summary>
-        public static string ReferenceLineMetaSelectionDialog_ColumnHeader_SignalingValue {
+        public static string ReferenceLineMetaSelectionDialog_ColumnHeader_SignalFloodingProbability {
             get {
-                return ResourceManager.GetString("ReferenceLineMetaSelectionDialog_ColumnHeader_SignalingValue", resourceCulture);
+                return ResourceManager.GetString("ReferenceLineMetaSelectionDialog_ColumnHeader_SignalFloodingProbability", resourceCulture);
             }
         }
         

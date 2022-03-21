@@ -165,9 +165,9 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
         public void Constructor_WithParentAndReferenceLineMetas_ShowsExpectedGrid(
             [Values("", "10")] string assessmentSectionId,
             [Values(null, int.MinValue, -1, 0, 1, int.MaxValue)]
-            int? signalingValue,
+            int? signalFloodingProbability,
             [Values(int.MinValue, -1, 0, 1, int.MaxValue)]
-            int lowerLimitValue)
+            int maximumAllowableFloodingProbability)
         {
             // Setup
             var referenceLineMetas = new[]
@@ -175,8 +175,8 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                 new ReferenceLineMeta
                 {
                     AssessmentSectionId = assessmentSectionId,
-                    SignalingValue = signalingValue,
-                    LowerLimitValue = lowerLimitValue
+                    SignalFloodingProbability = signalFloodingProbability,
+                    MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability
                 }
             };
 
@@ -194,19 +194,19 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                     Assert.IsNotNull(currentIdValue);
                     Assert.AreEqual(assessmentSectionId, currentIdValue.ToString());
 
-                    object currentSignalingValue = dataGridView[signalFloodingProbabilityColumn, 0].FormattedValue;
-                    Assert.IsNotNull(currentSignalingValue);
-                    string expectedSignalingValue = signalingValue.HasValue && signalingValue.Value > 0
-                                                        ? ProbabilityFormattingHelper.FormatFromReturnPeriod(signalingValue.Value)
+                    object currentSignalFloodingProbability = dataGridView[signalFloodingProbabilityColumn, 0].FormattedValue;
+                    Assert.IsNotNull(currentSignalFloodingProbability);
+                    string expectedSignalFloodingProbability = signalFloodingProbability.HasValue && signalFloodingProbability.Value > 0
+                                                        ? ProbabilityFormattingHelper.FormatFromReturnPeriod(signalFloodingProbability.Value)
                                                         : string.Empty;
-                    Assert.AreEqual(expectedSignalingValue, currentSignalingValue.ToString());
+                    Assert.AreEqual(expectedSignalFloodingProbability, currentSignalFloodingProbability.ToString());
 
-                    object currentLowerLimitValue = dataGridView[maximumAllowableFloodingProbabilityColumn, 0].FormattedValue;
-                    Assert.IsNotNull(currentLowerLimitValue);
-                    string expectedLowerLimitValue = lowerLimitValue > 0
-                                                         ? ProbabilityFormattingHelper.FormatFromReturnPeriod(lowerLimitValue)
+                    object currentMaximumAllowableFloodingProbability = dataGridView[maximumAllowableFloodingProbabilityColumn, 0].FormattedValue;
+                    Assert.IsNotNull(currentMaximumAllowableFloodingProbability);
+                    string expectedMaximumAllowableFloodingProbability = maximumAllowableFloodingProbability > 0
+                                                         ? ProbabilityFormattingHelper.FormatFromReturnPeriod(maximumAllowableFloodingProbability)
                                                          : string.Empty;
-                    Assert.AreEqual(expectedLowerLimitValue, currentLowerLimitValue.ToString());
+                    Assert.AreEqual(expectedMaximumAllowableFloodingProbability, currentMaximumAllowableFloodingProbability.ToString());
                 }
             }
         }

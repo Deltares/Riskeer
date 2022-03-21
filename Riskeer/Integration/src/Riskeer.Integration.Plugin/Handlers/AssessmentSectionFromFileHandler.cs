@@ -121,8 +121,8 @@ namespace Riskeer.Integration.Plugin.Handlers
                 return selectedItem == null
                            ? null
                            : TryCreateAssessmentSection(selectedItem,
-                                                        dialog.SelectedLowerLimitNorm,
-                                                        dialog.SelectedSignalingNorm,
+                                                        dialog.SelectedMaximumAllowableFloodingProbability,
+                                                        dialog.SelectedSignalFloodingProbability,
                                                         dialog.SelectedNormativeNorm);
             }
         }
