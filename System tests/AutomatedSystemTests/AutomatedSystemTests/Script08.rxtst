@@ -1226,10 +1226,6 @@
 					name="StateToSelect"
 					value="@RA">
 					</param>
-					<param
-					name="placeHolder"
-					value="">
-					</param>
 				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
@@ -1830,12 +1826,6 @@
 				<databinding>
 					<var
 					dataname="StateToSelect"
-					datasourceid="5b137145-6eda-48d5-a9ff-43ed887b7674"
-					variableid="68865ee7-33ba-43a8-8921-d189e77dd216"
-					variablename="aliasState">
-					</var>
-					<var
-					dataname="placeHolder"
 					datasourceid="5b137145-6eda-48d5-a9ff-43ed887b7674"
 					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
 					variablename="stateName">

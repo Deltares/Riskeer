@@ -148,12 +148,6 @@
 					<var
 					dataname="stateName"
 					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
-					variableid="68865ee7-33ba-43a8-8921-d189e77dd216"
-					variablename="aliasState">
-					</var>
-					<var
-					dataname="dummyString"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
 					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
 					variablename="stateName">
 					</var>
@@ -479,12 +473,6 @@
 					<var
 					dataname="stateName"
 					datasourceid="2fc53948-30d7-4767-83cc-f75854b101b8"
-					variableid="68865ee7-33ba-43a8-8921-d189e77dd216"
-					variablename="aliasState">
-					</var>
-					<var
-					dataname="dummyString"
-					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
 					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
 					variablename="stateName">
 					</var>

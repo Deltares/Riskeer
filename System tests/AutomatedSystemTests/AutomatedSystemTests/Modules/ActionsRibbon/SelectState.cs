@@ -41,7 +41,6 @@ namespace AutomatedSystemTests.Modules.ActionsRibbon
         /// </summary>
         public SelectState()
         {
-            aliasState = "";
             stateName = "";
         }
 
@@ -54,18 +53,6 @@ namespace AutomatedSystemTests.Modules.ActionsRibbon
         }
 
 #region Variables
-
-        string _aliasState;
-
-        /// <summary>
-        /// Gets or sets the value of variable aliasState.
-        /// </summary>
-        [TestVariable("68865ee7-33ba-43a8-8921-d189e77dd216")]
-        public string aliasState
-        {
-            get { return _aliasState; }
-            set { _aliasState = value; }
-        }
 
         /// <summary>
         /// Gets or sets the value of variable stateName.
@@ -103,7 +90,7 @@ namespace AutomatedSystemTests.Modules.ActionsRibbon
 
             Init();
 
-            stateName = ConvertAliasToFullName(aliasState);
+            stateName = ConvertAliasToFullName(stateName);
             
             Report.Log(ReportLevel.Info, "Mouse", "Mouse Left Click item 'RiskeerMainWindow.RibbonButtons.GenericRibbonButton' at Center.", repo.RiskeerMainWindow.RibbonButtons.GenericRibbonButtonInfo, new RecordItemIndex(1));
             repo.RiskeerMainWindow.RibbonButtons.GenericRibbonButton.Click();

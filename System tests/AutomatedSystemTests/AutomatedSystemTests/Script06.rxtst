@@ -82,37 +82,37 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -278,43 +278,43 @@
 					variablename="concatenatedString">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -352,43 +352,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -470,49 +470,49 @@
 					variablename="string2">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -991,43 +991,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -1138,7 +1138,7 @@
 					value="06">
 					</param>
 					<param
-					name="dummyString"
+					name="emptyString"
 					value="">
 					</param>
 					<param
@@ -1156,6 +1156,10 @@
 					<param
 					name="SuffixScenarios"
 					value=">Oordeel>Scenario's">
+					</param>
+					<param
+					name="dummyVariable"
+					value="">
 					</param>
 				</parameters>
 			</testcase>
@@ -1216,43 +1220,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -1461,37 +1465,37 @@
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -1675,43 +1679,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -1825,12 +1829,6 @@
 					<var
 					dataname="stateToSelect"
 					datasourceid="f31ff3a7-414d-4b51-8475-a3f9057175f6"
-					variableid="68865ee7-33ba-43a8-8921-d189e77dd216"
-					variablename="aliasState">
-					</var>
-					<var
-					dataname="dummyString"
-					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
 					variablename="stateName">
 					</var>
@@ -1901,12 +1899,6 @@
 					<var
 					dataname="StateToSelect"
 					datasourceid="0c65adee-1bc9-442c-bf71-46e0dbbb73a4"
-					variableid="68865ee7-33ba-43a8-8921-d189e77dd216"
-					variablename="aliasState">
-					</var>
-					<var
-					dataname="dummyString"
-					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
 					variablename="stateName">
 					</var>
@@ -1924,10 +1916,6 @@
 			id="7db15ab3-c87d-43b7-ba6c-5ad95dc78d3e"
 			name="AddBackgroundLayerExportedShapeFile">
 			</smartfoldernode>
-			<testcase
-			id="7ec7fa27-1f51-45db-ae12-c33cd7f27254"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<testmodule
 			id="7f34797f-c389-4d6b-b5e0-452c234a5215"
 			name="SelectState"
@@ -1937,12 +1925,6 @@
 					<var
 					dataname="StateToSelect"
 					datasourceid="a3c4d35e-14be-4fc8-8022-aed9e087b9c1"
-					variableid="68865ee7-33ba-43a8-8921-d189e77dd216"
-					variablename="aliasState">
-					</var>
-					<var
-					dataname="dummyString"
-					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
 					variablename="stateName">
 					</var>
@@ -2045,43 +2027,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -2252,12 +2234,6 @@
 			id="8c3b9c0d-d973-451c-a475-51fee2ca109a"
 			name="Sections(Vakindeling)">
 			</smartfoldernode>
-			<testmodule
-			id="8d69101c-e66c-420c-9f61-9e9854ea028a"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			id="8f7180bd-2e81-4f44-bd9a-456384929862"
 			name="CloseSectionsView">
@@ -2788,12 +2764,6 @@
 					<var
 					dataname="StateToSelect"
 					datasourceid="c800e352-a06c-42bc-8ff8-f17338fcbc2e"
-					variableid="68865ee7-33ba-43a8-8921-d189e77dd216"
-					variablename="aliasState">
-					</var>
-					<var
-					dataname="caseNumber"
-					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
 					variablename="stateName">
 					</var>
@@ -2988,12 +2958,6 @@
 					<var
 					dataname="stateToSelect"
 					datasourceid="d6e2bc96-d867-4535-a18f-c1bdde9770b4"
-					variableid="68865ee7-33ba-43a8-8921-d189e77dd216"
-					variablename="aliasState">
-					</var>
-					<var
-					dataname="dummyString"
-					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
 					variablename="stateName">
 					</var>
@@ -3131,43 +3095,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -3223,49 +3187,49 @@
 					variablename="string2">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="22c872ab-6375-41c9-b6a0-aafb1460c90f"
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -3509,43 +3473,43 @@
 					variablename="string3">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="58f41f8d-e2cb-4ebe-9653-958a0586c5a5"
 					variablename="string4">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="3e20cd2e-b0b9-4552-aa14-212a8c9693dc"
 					variablename="string5">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="aef0abd0-9b13-4f16-a245-f7f7be97b0d2"
 					variablename="string6">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ef20b2eb-ff3a-4087-9fbe-116461e1fd42"
 					variablename="string7">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="654df330-d33d-4ec2-ace8-87d684f928fc"
 					variablename="string8">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="ee7be37b-8468-4cd6-9f9e-b1c3da26aed7"
 					variablename="string9">
 					</var>
 					<var
-					dataname="dummyString"
+					dataname="emptyString"
 					datasourceid="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					variableid="8062f433-11a0-400c-be02-f4508d8b0956"
 					variablename="string10">
@@ -3706,14 +3670,6 @@
 				<testcase
 				id="ee30e871-8c8b-4bfb-88c7-e87ad28524aa"
 				name="Script06">
-					<testcase
-					id="7ec7fa27-1f51-45db-ae12-c33cd7f27254"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="8d69101c-e66c-420c-9f61-9e9854ea028a"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
 					<testcase
 					id="4a6f931e-2d36-4689-8557-fbd507efe5b6"
 					name="script06_Vakindeling_maken_of_aanpassen">
@@ -5609,9 +5565,6 @@
 			</testcontainer>
 			<testcontainer
 			id="7db15ab3-c87d-43b7-ba6c-5ad95dc78d3e">
-			</testcontainer>
-			<testcontainer
-			id="7ec7fa27-1f51-45db-ae12-c33cd7f27254">
 			</testcontainer>
 			<testcontainer
 			id="830552eb-aecf-4e03-b88d-f3caadce0247">

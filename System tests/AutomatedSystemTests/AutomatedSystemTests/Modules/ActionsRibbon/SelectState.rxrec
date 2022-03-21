@@ -24,10 +24,6 @@ mode="Global">
 	</codegen>
 	<variables>
 		<var
-		id="68865ee7-33ba-43a8-8921-d189e77dd216"
-		name="aliasState">
-		</var>
-		<var
 		id="b3e82724-3cc6-4007-932a-4693bb8aaeec"
 		name="stateName">
 		</var>
@@ -53,7 +49,7 @@ mode="Global">
 				<argument
 				argname="StateAlias"
 				id="06b7afb3-ee1c-42e6-8f1a-396c6430f752"
-				variable="aliasState">
+				variable="stateName">
 					<argvaluetype>
 						System.String
 					</argvaluetype>
