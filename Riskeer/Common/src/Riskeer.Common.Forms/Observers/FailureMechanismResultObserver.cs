@@ -38,6 +38,7 @@ namespace Riskeer.Common.Forms.Observers
     {
         private readonly Observer failureMechanismObserver;
         private readonly Observer failureMechanismAssemblyResultObserver;
+        private readonly Observer failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
 
         /// <summary>
@@ -61,6 +62,11 @@ namespace Riskeer.Common.Forms.Observers
             {
                 Observable = failureMechanism.AssemblyResult
             };
+
+            failureMechanismSectionResultObserver = new Observer(NotifyObservers)
+            {
+                Observable = failureMechanism.SectionResults
+            };
             
             failureMechanismSectionResultsObserver = new RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult>(
                 NotifyObservers,
@@ -82,6 +88,7 @@ namespace Riskeer.Common.Forms.Observers
             {
                 failureMechanismObserver.Dispose();
                 failureMechanismAssemblyResultObserver.Dispose();
+                failureMechanismSectionResultObserver.Dispose();
                 failureMechanismSectionResultsObserver.Dispose();
             }
         }
