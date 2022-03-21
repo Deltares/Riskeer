@@ -29,20 +29,20 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// <summary>
     /// Action in which a property of the <paramref name="failureMechanism"/> is set to the given <paramref name="value"/>.
     /// </summary>
-    /// <typeparam name="TFailureMechanism">The type of the failure mechanism that is passed as argument.</typeparam>
+    /// <typeparam name="TFailureMechanism">The type of the calculatable failure mechanism that is passed as argument.</typeparam>
     /// <typeparam name="TValue">The type of the value that is set on a property of the failure mechanism.</typeparam>
     /// <param name="failureMechanism">The failure mechanism for which the property will be set.</param>
     /// <param name="value">The new value of the failure mechanism property.</param>
     /// <exception cref="Exception">Thrown when setting the property value results in an exception being thrown.</exception>
     public delegate void SetFailureMechanismPropertyValueDelegate<in TFailureMechanism, in TValue>(TFailureMechanism failureMechanism, TValue value)
-        where TFailureMechanism : IFailureMechanism;
+        where TFailureMechanism : ICalculatableFailureMechanism;
 
     /// <summary>
     /// Interface for an object that can properly handle data model changes due to a change of a
     /// failure mechanism property.
     /// </summary>
-    /// <typeparam name="T">The type of the failure mechanism.</typeparam>
-    public interface IFailureMechanismPropertyChangeHandler<T> where T : IFailureMechanism
+    /// <typeparam name="T">The type of the calculatable failure mechanism.</typeparam>
+    public interface IFailureMechanismPropertyChangeHandler<T> where T : ICalculatableFailureMechanism
     {
         /// <summary>
         /// Find out whether the property can be updated with or without confirmation. If confirmation is required, 

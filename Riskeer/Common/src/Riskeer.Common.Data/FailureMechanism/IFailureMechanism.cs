@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.FailureMechanism
@@ -30,12 +28,6 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// </summary>
     public interface IFailureMechanism : IFailurePath
     {
-        /// <summary>
-        /// Gets an <see cref="IEnumerable{T}"/> of all the <see cref="ICalculation"/> instances added to
-        /// the failure mechanism.
-        /// </summary>
-        IEnumerable<ICalculation> Calculations { get; }
-        
         /// <summary>
         /// Gets the input comments associated with the calculations of the data object.
         /// </summary>

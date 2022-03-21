@@ -45,7 +45,7 @@ namespace Riskeer.Common.Data.Structures
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the section could not be assembled.</exception>
         public static FailureMechanismSectionAssemblyResult AssembleSection<TStructuresInput>(AdoptableFailureMechanismSectionResult sectionResult,
-                                                                                              IFailureMechanism failureMechanism,
+                                                                                              ICalculatableFailureMechanism failureMechanism,
                                                                                               IAssessmentSection assessmentSection)
             where TStructuresInput : IStructuresCalculationInput<StructureBase>, new()
         {

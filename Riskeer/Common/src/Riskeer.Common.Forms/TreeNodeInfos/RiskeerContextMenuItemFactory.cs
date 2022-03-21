@@ -298,7 +298,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to clear the output for.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateClearAllCalculationOutputInFailureMechanismItem(IFailureMechanism failureMechanism)
+        public static StrictContextMenuItem CreateClearAllCalculationOutputInFailureMechanismItem(ICalculatableFailureMechanism failureMechanism)
         {
             var clearAllItem = new StrictContextMenuItem(
                 Resources.Clear_all_output,
@@ -330,7 +330,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TFailureMechanismContext failureMechanismContext,
             Action<TFailureMechanismContext> calculateAllAction,
             Func<TFailureMechanismContext, string> enableMenuItemFunction)
-            where TFailureMechanismContext : IFailurePathContext<IFailureMechanism>
+            where TFailureMechanismContext : IFailurePathContext<ICalculatableFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Calculate_All,
@@ -365,7 +365,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TFailureMechanismContext failureMechanism,
             Action<TFailureMechanismContext> validateAllAction,
             Func<TFailureMechanismContext, string> enableMenuItemFunction)
-            where TFailureMechanismContext : IFailurePathContext<IFailureMechanism>
+            where TFailureMechanismContext : IFailurePathContext<ICalculatableFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Validate_All,
@@ -643,7 +643,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             }
         }
 
-        private static void ClearAllCalculationOutputInFailureMechanism(IFailureMechanism failureMechanism)
+        private static void ClearAllCalculationOutputInFailureMechanism(ICalculatableFailureMechanism failureMechanism)
         {
             if (MessageBox.Show(Resources.FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {

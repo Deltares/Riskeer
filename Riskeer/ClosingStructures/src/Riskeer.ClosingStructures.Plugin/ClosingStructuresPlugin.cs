@@ -923,7 +923,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 RiskeerCommonIOResources.Shape_file_filter_Description);
         }
 
-        private bool VerifyStructuresShouldUpdate(IFailureMechanism failureMechanism, string query)
+        private bool VerifyStructuresShouldUpdate(ClosingStructuresFailureMechanism failureMechanism, string query)
         {
             var changeHandler = new FailureMechanismCalculationChangeHandler(failureMechanism, query, GetInquiryHelper());
             return !changeHandler.RequireConfirmation() || changeHandler.InquireConfirmation();
