@@ -108,7 +108,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingWithRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            IFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
+            ICalculatableFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
             using (IView view = GetView(failureMechanism.Calculations.First()))
             {
                 // Call
@@ -141,7 +141,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            IFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
+            ICalculatableFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -237,7 +237,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// Gets a failure mechanism for testing purposes.
         /// </summary>
         /// <returns>A failure mechanism object.</returns>
-        protected virtual IFailureMechanism GetFailureMechanismWithCalculation()
+        protected virtual ICalculatableFailureMechanism GetFailureMechanismWithCalculation()
         {
             return new TestFailureMechanism(new[]
             {

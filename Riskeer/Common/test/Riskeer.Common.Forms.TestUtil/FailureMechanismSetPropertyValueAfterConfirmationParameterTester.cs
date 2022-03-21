@@ -31,10 +31,10 @@ namespace Riskeer.Common.Forms.TestUtil
     /// This class can be used in tests to verify that the correct arguments are passed to the <see cref="IFailureMechanismPropertyChangeHandler{T}.SetPropertyValueAfterConfirmation{TValue}"/>
     /// method.
     /// </summary>
-    /// <typeparam name="TFailureMechanism">The type of the failure mechanism that is expected to be passed to the method.</typeparam>
+    /// <typeparam name="TFailureMechanism">The type of the calculatable failure mechanism that is expected to be passed to the method.</typeparam>
     /// <typeparam name="TExpectedValue">The type of the value that is expected to be passed to the method.</typeparam>
     public class FailureMechanismSetPropertyValueAfterConfirmationParameterTester<TFailureMechanism, TExpectedValue> : IFailureMechanismPropertyChangeHandler<TFailureMechanism>
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : ICalculatableFailureMechanism
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSetPropertyValueAfterConfirmationParameterTester{TFailureMechanism,TExpectedValue}"/>.

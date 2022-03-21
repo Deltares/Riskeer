@@ -124,16 +124,15 @@ namespace Riskeer.Common.Plugin
 
         private static IEnumerable<ICalculation> GetCalculationsFromFailureMechanisms(object o)
         {
-            var failureMechanism = o as IFailureMechanism;
-            if (failureMechanism != null)
+            if (o is ICalculatableFailureMechanism failureMechanism)
             {
                 return failureMechanism.Calculations;
             }
 
-            var assessmentSection = o as IAssessmentSection;
-            if (assessmentSection != null)
+            if (o is IAssessmentSection assessmentSection)
             {
                 return assessmentSection.GetFailureMechanisms()
+                                        .OfType<ICalculatableFailureMechanism>()
                                         .SelectMany(fm => fm.Calculations);
             }
 

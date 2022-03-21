@@ -315,7 +315,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var calculationWithOutput = mocks.StrictMock<ICalculation>();
             calculationWithOutput.Expect(c => c.HasOutput).Return(true);
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             failureMechanism.Expect(fm => fm.Calculations).Return(new[]
             {
                 calculationWithOutput
@@ -342,7 +342,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var calculationWithoutOutput = mocks.StrictMock<ICalculation>();
             calculationWithoutOutput.Expect(c => c.HasOutput).Return(false);
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             failureMechanism.Expect(fm => fm.Calculations).Return(new[]
             {
                 calculationWithoutOutput
@@ -417,7 +417,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             calculationWithOutputMock2.Stub(c => c.HasOutput).Return(true);
             calculationWithoutOutput.Stub(c => c.HasOutput).Return(false);
 
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             failureMechanism.Expect(fm => fm.Calculations).Return(new[]
             {
                 calculationWithOutputMock1,
@@ -685,10 +685,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => RiskeerContextMenuItemFactory.CreateDuplicateCalculationItem(calculationItem, calculationItemContext);
+            void Call() => RiskeerContextMenuItemFactory.CreateDuplicateCalculationItem(calculationItem, calculationItemContext);
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(call);
+            var exception = Assert.Throws<ArgumentException>(Call);
             Assert.AreEqual($"{nameof(calculationItemContext.Parent)} should be set.", exception.Message);
 
             mocks.VerifyAll();
@@ -2093,9 +2093,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #region Nested types
 
-        private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
+        private class TestFailureMechanismContext : FailureMechanismContext<ICalculatableFailureMechanism>
         {
-            public TestFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
+            public TestFailureMechanismContext(ICalculatableFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) :
                 base(wrappedFailureMechanism, parent) {}
         }
 
