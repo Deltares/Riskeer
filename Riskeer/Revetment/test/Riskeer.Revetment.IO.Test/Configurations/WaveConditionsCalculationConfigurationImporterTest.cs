@@ -291,7 +291,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                     UseForeshore = false,
                     Orientation = (RoundedDouble) 0,
                     ForeshoreProfile = foreshoreProfile,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability
                 }
             };
 
@@ -300,8 +300,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.LowerLimit)]
-        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.Signaling)]
+        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
         public void Import_TargetProbabilityNull_DataAddedToModel(NormType normType, WaveConditionsInputWaterLevelType expectedWaterLevelType)
         {
             // Setup
@@ -504,11 +504,11 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             yield return new TestCaseData(
                 new FailureMechanismContribution(0.01, 0.005),
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(0.05),
-                WaveConditionsInputWaterLevelType.LowerLimit);
+                WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability);
             yield return new TestCaseData(
                 new FailureMechanismContribution(0.02, 0.01),
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(0.05),
-                WaveConditionsInputWaterLevelType.Signaling);
+                WaveConditionsInputWaterLevelType.SignalFloodingProbability);
             yield return new TestCaseData(
                 new FailureMechanismContribution(0.02, 0.005),
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(0.01),

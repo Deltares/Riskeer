@@ -82,8 +82,8 @@ namespace Riskeer.Revetment.Data.Test
         }
 
         [Test]
-        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.LowerLimit)]
-        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.Signaling)]
+        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
         public void SetWaterLevelType_WithWaveConditionsInputAndVariousNormTypes_SetsWaterLevelType(
             NormType normType,
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
@@ -274,8 +274,8 @@ namespace Riskeer.Revetment.Data.Test
 
         [Test]
         [TestCase(WaveConditionsInputWaterLevelType.None)]
-        [TestCase(WaveConditionsInputWaterLevelType.LowerLimit)]
-        [TestCase(WaveConditionsInputWaterLevelType.Signaling)]
+        [TestCase(WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
         [TestCase(WaveConditionsInputWaterLevelType.UserDefinedTargetProbability)]
         public void GetAssessmentLevel_ValidInputWithoutHydraulicBoundaryLocation_ReturnsNaN(WaveConditionsInputWaterLevelType waterLevelType)
         {
@@ -335,10 +335,10 @@ namespace Riskeer.Revetment.Data.Test
                 WaveConditionsInputWaterLevelType.None,
                 (Func<WaveConditionsInput, IAssessmentSection, HydraulicBoundaryLocationCalculation>) ((input, assessmentSection) => null));
             yield return new TestCaseData(
-                WaveConditionsInputWaterLevelType.LowerLimit,
+                WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                 (Func<WaveConditionsInput, IAssessmentSection, HydraulicBoundaryLocationCalculation>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First()));
             yield return new TestCaseData(
-                WaveConditionsInputWaterLevelType.Signaling,
+                WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                 (Func<WaveConditionsInput, IAssessmentSection, HydraulicBoundaryLocationCalculation>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForSignalingNorm.First()));
             yield return new TestCaseData(
                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
@@ -351,10 +351,10 @@ namespace Riskeer.Revetment.Data.Test
                 WaveConditionsInputWaterLevelType.None,
                 (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => double.NaN));
             yield return new TestCaseData(
-                WaveConditionsInputWaterLevelType.LowerLimit,
+                WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                 (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => assessmentSection.FailureMechanismContribution.LowerLimitNorm));
             yield return new TestCaseData(
-                WaveConditionsInputWaterLevelType.Signaling,
+                WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                 (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => assessmentSection.FailureMechanismContribution.SignalingNorm));
             yield return new TestCaseData(
                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
@@ -367,10 +367,10 @@ namespace Riskeer.Revetment.Data.Test
                 WaveConditionsInputWaterLevelType.None,
                 (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => double.NaN));
             yield return new TestCaseData(
-                WaveConditionsInputWaterLevelType.LowerLimit,
+                WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                 (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output.Result));
             yield return new TestCaseData(
-                WaveConditionsInputWaterLevelType.Signaling,
+                WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                 (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForSignalingNorm.First().Output.Result));
             yield return new TestCaseData(
                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,

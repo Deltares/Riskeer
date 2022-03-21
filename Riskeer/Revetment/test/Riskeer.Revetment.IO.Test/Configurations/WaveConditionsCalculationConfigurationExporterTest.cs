@@ -64,7 +64,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 Name = "Calculation 1 (lower limit)",
                 InputParameters =
                 {
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability
                 }
             };
 
@@ -73,7 +73,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
                 Name = "Calculation 2 (signaling)",
                 InputParameters =
                 {
-                    WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
+                    WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability
                 }
             };
 

@@ -1007,7 +1007,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,

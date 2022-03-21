@@ -76,10 +76,10 @@ namespace Riskeer.Revetment.Data
             switch (normType)
             {
                 case NormType.MaximumAllowableFloodingProbability:
-                    waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
+                    waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;
                     break;
                 case NormType.SignalFloodingProbability:
-                    waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.Signaling;
+                    waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability;
                     break;
                 default:
                     throw new NotSupportedException();
@@ -130,9 +130,9 @@ namespace Riskeer.Revetment.Data
             {
                 case WaveConditionsInputWaterLevelType.None:
                     return null;
-                case WaveConditionsInputWaterLevelType.LowerLimit:
+                case WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability:
                     return GetRelatedHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, input);
-                case WaveConditionsInputWaterLevelType.Signaling:
+                case WaveConditionsInputWaterLevelType.SignalFloodingProbability:
                     return GetRelatedHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForSignalingNorm, input);
                 case WaveConditionsInputWaterLevelType.UserDefinedTargetProbability:
                     return GetRelatedHydraulicBoundaryLocationCalculation(input.CalculationsTargetProbability.HydraulicBoundaryLocationCalculations, input);
@@ -176,9 +176,9 @@ namespace Riskeer.Revetment.Data
             {
                 case WaveConditionsInputWaterLevelType.None:
                     return double.NaN;
-                case WaveConditionsInputWaterLevelType.LowerLimit:
+                case WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability:
                     return assessmentSection.FailureMechanismContribution.LowerLimitNorm;
-                case WaveConditionsInputWaterLevelType.Signaling:
+                case WaveConditionsInputWaterLevelType.SignalFloodingProbability:
                     return assessmentSection.FailureMechanismContribution.SignalingNorm;
                 case WaveConditionsInputWaterLevelType.UserDefinedTargetProbability:
                     return input.CalculationsTargetProbability.TargetProbability;
@@ -232,9 +232,9 @@ namespace Riskeer.Revetment.Data
             {
                 case WaveConditionsInputWaterLevelType.None:
                     return RoundedDouble.NaN;
-                case WaveConditionsInputWaterLevelType.LowerLimit:
+                case WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability:
                     return GetAssessmentLevelFromHydraulicBoundaryLocationCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, input);
-                case WaveConditionsInputWaterLevelType.Signaling:
+                case WaveConditionsInputWaterLevelType.SignalFloodingProbability:
                     return GetAssessmentLevelFromHydraulicBoundaryLocationCalculations(assessmentSection.WaterLevelCalculationsForSignalingNorm, input);
                 case WaveConditionsInputWaterLevelType.UserDefinedTargetProbability:
                     return GetAssessmentLevelFromHydraulicBoundaryLocationCalculations(input.CalculationsTargetProbability.HydraulicBoundaryLocationCalculations, input);

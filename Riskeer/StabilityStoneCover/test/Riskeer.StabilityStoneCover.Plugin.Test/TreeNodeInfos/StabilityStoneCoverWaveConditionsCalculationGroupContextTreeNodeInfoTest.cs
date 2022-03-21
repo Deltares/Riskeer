@@ -1895,7 +1895,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -1913,9 +1913,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             switch (normType)
             {
                 case NormType.MaximumAllowableFloodingProbability:
-                    return WaveConditionsInputWaterLevelType.LowerLimit;
+                    return WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;
                 case NormType.SignalFloodingProbability:
-                    return WaveConditionsInputWaterLevelType.Signaling;
+                    return WaveConditionsInputWaterLevelType.SignalFloodingProbability;
                 default:
                     throw new NotSupportedException();
             }

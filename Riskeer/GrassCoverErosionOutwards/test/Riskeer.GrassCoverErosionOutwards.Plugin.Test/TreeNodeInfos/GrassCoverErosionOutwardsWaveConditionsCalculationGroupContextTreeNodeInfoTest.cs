@@ -1929,7 +1929,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = location,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
@@ -1947,9 +1947,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             switch (normType)
             {
                 case NormType.MaximumAllowableFloodingProbability:
-                    return WaveConditionsInputWaterLevelType.LowerLimit;
+                    return WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;
                 case NormType.SignalFloodingProbability:
-                    return WaveConditionsInputWaterLevelType.Signaling;
+                    return WaveConditionsInputWaterLevelType.SignalFloodingProbability;
                 default:
                     throw new NotSupportedException();
             }

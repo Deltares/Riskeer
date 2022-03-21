@@ -604,11 +604,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             yield return new TestCaseData(
                 NormType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForLowerLimitNorm),
-                WaveConditionsInputWaterLevelType.LowerLimit);
+                WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability);
             yield return new TestCaseData(
                 NormType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForSignalingNorm),
-                WaveConditionsInputWaterLevelType.Signaling);
+                WaveConditionsInputWaterLevelType.SignalFloodingProbability);
         }
 
         private static IEnumerable<TestCaseData> GetChangeNormCases()
@@ -616,11 +616,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             yield return new TestCaseData(
                 NormType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForSignalingNorm),
-                WaveConditionsInputWaterLevelType.Signaling);
+                WaveConditionsInputWaterLevelType.SignalFloodingProbability);
             yield return new TestCaseData(
                 NormType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForLowerLimitNorm),
-                WaveConditionsInputWaterLevelType.LowerLimit);
+                WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability);
         }
     }
 }

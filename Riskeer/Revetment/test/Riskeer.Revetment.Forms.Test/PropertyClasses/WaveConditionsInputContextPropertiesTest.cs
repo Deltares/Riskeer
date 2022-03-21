@@ -415,8 +415,8 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
 
         [Test]
         [TestCase(WaveConditionsInputWaterLevelType.None)]
-        [TestCase(WaveConditionsInputWaterLevelType.LowerLimit)]
-        [TestCase(WaveConditionsInputWaterLevelType.Signaling)]
+        [TestCase(WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
         public void SelectedTargetProbability_WaterLevelTypeNotUserDefinedTargetProbability_InputChangedAndObservablesNotified(WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Setup
@@ -971,9 +971,9 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                 new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations,
                                                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                                                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().TargetProbability),
-                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit,
+                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                                                 assessmentSection.FailureMechanismContribution.LowerLimitNorm),
-                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.Signaling,
+                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                                                 assessmentSection.FailureMechanismContribution.SignalingNorm),
                 new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last().HydraulicBoundaryLocationCalculations,
                                                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
@@ -1024,13 +1024,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
         private static IEnumerable<TestCaseData> GetSelectableTargetProbabilities()
         {
             yield return new TestCaseData(
-                WaveConditionsInputWaterLevelType.Signaling,
+                WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                 new Func<IAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForSignalingNorm),
                 new Func<IAssessmentSection, double>(
                     section => section.FailureMechanismContribution.SignalingNorm));
             yield return new TestCaseData(
-                WaveConditionsInputWaterLevelType.LowerLimit,
+                WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                 new Func<IAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForLowerLimitNorm),
                 new Func<IAssessmentSection, double>(

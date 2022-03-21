@@ -79,7 +79,7 @@ namespace Riskeer.Revetment.Data.TestUtil
                 new Action<WaveConditionsInput>(input =>
                 {
                     input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-                    input.WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
+                    input.WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;
                 }),
                 assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output.Result);
 
@@ -88,7 +88,7 @@ namespace Riskeer.Revetment.Data.TestUtil
                 new Action<WaveConditionsInput>(input =>
                 {
                     input.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
-                    input.WaterLevelType = WaveConditionsInputWaterLevelType.Signaling;
+                    input.WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability;
                 }),
                 assessmentSection.WaterLevelCalculationsForSignalingNorm.First().Output.Result);
 

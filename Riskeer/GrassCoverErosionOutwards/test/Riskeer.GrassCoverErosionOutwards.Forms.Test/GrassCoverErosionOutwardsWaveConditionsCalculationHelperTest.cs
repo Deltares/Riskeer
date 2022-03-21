@@ -81,8 +81,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
         }
 
         [Test]
-        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.LowerLimit)]
-        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.Signaling)]
+        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
         public void AddCalculationsFromLocations_MultipleLocationsEmptyCalculationBase_ReturnsUniquelyNamedCalculationsWithCorrectInputSet(
             NormType normType,
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
@@ -115,8 +115,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test
         }
 
         [Test]
-        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.LowerLimit)]
-        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.Signaling)]
+        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
         public void AddCalculationsFromLocations_MultipleLocationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculationsWithCorrectInputSet(
             NormType normType,
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)

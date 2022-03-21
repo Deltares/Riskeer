@@ -87,7 +87,7 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
             // Setup
             IAssessmentSection assessmentSection = new AssessmentSectionStub();
 
-            const WaveConditionsInputWaterLevelType waterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
+            const WaveConditionsInputWaterLevelType waterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;
             const double targetProbability = 0.1;
 
             var selectableTargetProbability = new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, waterLevelType, targetProbability);

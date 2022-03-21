@@ -49,7 +49,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
                 InputParameters =
                 {
                     ForeshoreProfile = new TestForeshoreProfile("ForeshoreA"),
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability
                 }
             };
 

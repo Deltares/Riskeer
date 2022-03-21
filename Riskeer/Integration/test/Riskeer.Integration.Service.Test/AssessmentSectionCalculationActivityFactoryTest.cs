@@ -364,7 +364,7 @@ namespace Riskeer.Integration.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                     UseForeshore = true,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
@@ -384,7 +384,7 @@ namespace Riskeer.Integration.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                     UseForeshore = true,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
@@ -404,7 +404,7 @@ namespace Riskeer.Integration.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                     UseBreakWater = true,
                     LowerBoundaryRevetment = (RoundedDouble) 1,
                     UpperBoundaryRevetment = (RoundedDouble) 3,

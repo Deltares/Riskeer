@@ -104,7 +104,7 @@ namespace Riskeer.WaveImpactAsphaltCover.IO.Test.Configurations
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                     UpperBoundaryRevetment = (RoundedDouble) 10,
                     LowerBoundaryRevetment = (RoundedDouble) 2,
                     UpperBoundaryWaterLevels = (RoundedDouble) 9,

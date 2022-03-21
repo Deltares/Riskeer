@@ -76,11 +76,11 @@ namespace Riskeer.Revetment.Service.Test
             // Setup
             var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
-                WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
+                WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability
             }, true);
             var calculation2 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
-                WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability
             }, true);
             var calculation3 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
@@ -153,12 +153,12 @@ namespace Riskeer.Revetment.Service.Test
 
             var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
-                WaterLevelType = WaveConditionsInputWaterLevelType.Signaling,
+                WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                 CalculationsTargetProbability = calculationsForTargetProbabilityToClear
             }, true);
             var calculation2 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
-                WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                 CalculationsTargetProbability = calculationsForTargetProbabilityToClear
             }, true);
             var calculation3 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
@@ -238,11 +238,11 @@ namespace Riskeer.Revetment.Service.Test
 
             var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
-                WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
+                WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability
             }, true);
             var calculation2 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {
-                WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability
             }, true);
             var calculation3 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
             {

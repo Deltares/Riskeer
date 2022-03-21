@@ -171,9 +171,9 @@ namespace Riskeer.Revetment.Service
             switch (normType)
             {
                 case NormType.MaximumAllowableFloodingProbability:
-                    return WaveConditionsInputWaterLevelType.LowerLimit;
+                    return WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;
                 case NormType.SignalFloodingProbability:
-                    return WaveConditionsInputWaterLevelType.Signaling;
+                    return WaveConditionsInputWaterLevelType.SignalFloodingProbability;
                 default:
                     throw new NotSupportedException();
             }

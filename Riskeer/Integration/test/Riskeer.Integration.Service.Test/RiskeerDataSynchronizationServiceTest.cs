@@ -567,7 +567,7 @@ namespace Riskeer.Integration.Service.Test
             waveConditionsCalculations.AddRange(assessmentSection.WaveImpactAsphaltCover.Calculations
                                                                  .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>());
 
-            waveConditionsCalculations.ForEachElementDo(c => c.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit);
+            waveConditionsCalculations.ForEachElementDo(c => c.InputParameters.WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability);
 
             IEnumerable<ICalculation<WaveConditionsInput>> expectedAffectedItems = waveConditionsCalculations.Where(c => c.HasOutput)
                                                                                                              .ToArray();

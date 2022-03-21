@@ -51,7 +51,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                 InputParameters =
                 {
                     ForeshoreProfile = new TestForeshoreProfile("ForeshoreA"),
-                    WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
+                    WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability
                 }
             };
 

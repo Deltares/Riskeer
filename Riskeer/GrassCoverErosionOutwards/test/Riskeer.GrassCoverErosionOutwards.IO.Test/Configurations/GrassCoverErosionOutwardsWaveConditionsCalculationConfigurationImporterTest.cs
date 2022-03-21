@@ -106,7 +106,7 @@ namespace Riskeer.GrassCoverErosionOutwards.IO.Test.Configurations
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.Signaling,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                     UpperBoundaryRevetment = (RoundedDouble) 10,
                     LowerBoundaryRevetment = (RoundedDouble) 2,
                     UpperBoundaryWaterLevels = (RoundedDouble) 9,

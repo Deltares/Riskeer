@@ -1082,7 +1082,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
                         CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.WaveRunUpAndWaveImpact,
-                        WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
+                        WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability
                     },
                     Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create(
                         new[]
@@ -1207,7 +1207,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
-                        WaterLevelType = WaveConditionsInputWaterLevelType.Signaling
+                        WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability
                     },
                     Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create(new[]
                     {
@@ -1323,7 +1323,7 @@ namespace Riskeer.Storage.Core.TestUtil
                         UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One,
-                        WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit
+                        WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability
                     },
                     Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
                     {

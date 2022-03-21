@@ -406,7 +406,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.Signaling,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                     ForeshoreProfile = new TestForeshoreProfile(true)
                     {
                         BreakWater =

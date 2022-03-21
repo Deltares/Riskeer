@@ -232,9 +232,9 @@ namespace Riskeer.Revetment.IO.Configurations
             switch (failureMechanismContribution.NormativeNorm)
             {
                 case NormType.MaximumAllowableFloodingProbability:
-                    return WaveConditionsInputWaterLevelType.LowerLimit;
+                    return WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;
                 case NormType.SignalFloodingProbability:
-                    return WaveConditionsInputWaterLevelType.Signaling;
+                    return WaveConditionsInputWaterLevelType.SignalFloodingProbability;
                 default:
                     throw new NotSupportedException();
             }
@@ -249,9 +249,9 @@ namespace Riskeer.Revetment.IO.Configurations
                                                               c.TargetProbability, WaveConditionsInputWaterLevelType.UserDefinedTargetProbability, c)))
             {
                 new Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability>(
-                    failureMechanismContribution.LowerLimitNorm, WaveConditionsInputWaterLevelType.LowerLimit, null),
+                    failureMechanismContribution.LowerLimitNorm, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability, null),
                 new Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability>(
-                    failureMechanismContribution.SignalingNorm, WaveConditionsInputWaterLevelType.Signaling, null)
+                    failureMechanismContribution.SignalingNorm, WaveConditionsInputWaterLevelType.SignalFloodingProbability, null)
             };
 
             Tuple<double, WaveConditionsInputWaterLevelType, HydraulicBoundaryLocationCalculationsForTargetProbability>[] matchedTargetProbabilities = availableTargetProbabilities.Where(

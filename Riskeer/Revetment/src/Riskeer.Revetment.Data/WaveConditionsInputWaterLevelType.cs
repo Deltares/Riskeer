@@ -32,14 +32,14 @@ namespace Riskeer.Revetment.Data
         None = 1,
         
         /// <summary>
-        /// The water level corresponding to the lower limit norm.
+        /// The water level corresponding to the maximum allowable flooding probability.
         /// </summary>
-        LowerLimit = 2,
+        MaximumAllowableFloodingProbability = 2,
         
         /// <summary>
-        /// The water level corresponding to the signaling norm.
+        /// The water level corresponding to the signal flooding probability.
         /// </summary>
-        Signaling = 3,
+        SignalFloodingProbability = 3,
         
         /// <summary>
         /// The water level corresponding to a user defined target probability.

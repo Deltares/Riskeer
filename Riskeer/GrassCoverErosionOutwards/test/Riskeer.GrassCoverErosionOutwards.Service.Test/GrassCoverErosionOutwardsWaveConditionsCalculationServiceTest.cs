@@ -1043,7 +1043,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = location,
-                    WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit,
+                    WaterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                     CalculationType = GrassCoverErosionOutwardsWaveConditionsCalculationType.All,
                     ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,

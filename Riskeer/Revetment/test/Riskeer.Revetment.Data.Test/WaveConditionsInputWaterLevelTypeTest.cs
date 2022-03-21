@@ -35,10 +35,10 @@ namespace Riskeer.Revetment.Data.Test
                     WaveConditionsInputWaterLevelType.None, 1
                 },
                 {
-                    WaveConditionsInputWaterLevelType.LowerLimit, 2
+                    WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability, 2
                 },
                 {
-                    WaveConditionsInputWaterLevelType.Signaling, 3
+                    WaveConditionsInputWaterLevelType.SignalFloodingProbability, 3
                 },
                 {
                     WaveConditionsInputWaterLevelType.UserDefinedTargetProbability, 4
