@@ -257,7 +257,7 @@
     <value>Faalkans [1/jaar]</value>
   </data>
   <data name="FailureMechanism_Name_DisplayName" xml:space="preserve">
-    <value>Toetsspoor</value>
+    <value>Faalmechanisme</value>
   </data>
   <data name="RefreshAssemblyResultsButton_Text" xml:space="preserve">
     <value>Resultaten verversen</value>

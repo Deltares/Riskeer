@@ -108,7 +108,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
 
                 var panelForLabels = (Panel) tableLayoutPanel.GetControlFromPosition(0, 1);
                 var failureMechanismSelectionLabel = (Label) panelForLabels.Controls[0];
-                Assert.AreEqual("Selecteer toetssporen:", failureMechanismSelectionLabel.Text);
+                Assert.AreEqual("Selecteer faalmechanismen:", failureMechanismSelectionLabel.Text);
 
                 Assert.IsInstanceOf<DataGridViewControl>(tableLayoutPanel.GetControlFromPosition(0, 2));
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -121,7 +121,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[numberOfCalculationsIndex]);
 
                 Assert.AreEqual("Selecteer", dataGridView.Columns[isSelectedIndex].HeaderText);
-                Assert.AreEqual("Toetsspoor", dataGridView.Columns[failurePathNameIndex].HeaderText);
+                Assert.AreEqual("Faalmechanisme", dataGridView.Columns[failurePathNameIndex].HeaderText);
                 Assert.AreEqual("In assemblage", dataGridView.Columns[inAssemblyIndex].HeaderText);
                 Assert.AreEqual("Heeft vakindeling", dataGridView.Columns[hasSectionsIndex].HeaderText);
                 Assert.AreEqual("Aantal berekeningen", dataGridView.Columns[numberOfCalculationsIndex].HeaderText);

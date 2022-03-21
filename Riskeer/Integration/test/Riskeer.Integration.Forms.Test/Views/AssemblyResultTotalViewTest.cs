@@ -150,7 +150,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridViewColumns[failureMechanismCodeColumnIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridViewColumns[failureMechanismProbabilityColumnIndex]);
 
-                Assert.AreEqual("Toetsspoor", dataGridViewColumns[failureMechanismNameColumnIndex].HeaderText);
+                Assert.AreEqual("Faalmechanisme", dataGridViewColumns[failureMechanismNameColumnIndex].HeaderText);
                 Assert.AreEqual("Label", dataGridViewColumns[failureMechanismCodeColumnIndex].HeaderText);
                 Assert.AreEqual("Faalkans [1/jaar]", dataGridViewColumns[failureMechanismProbabilityColumnIndex].HeaderText);
 

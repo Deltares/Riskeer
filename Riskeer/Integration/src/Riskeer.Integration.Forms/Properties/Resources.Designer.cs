@@ -446,7 +446,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetsspoor.
+        ///   Looks up a localized string similar to Faalmechanisme.
         /// </summary>
         public static string FailureMechanism_Name_DisplayName {
             get {
