@@ -543,7 +543,7 @@
 				<parameters>
 					<param
 					name="stateWithCalculations"
-					value="Hydraulische">
+					value="@HyB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1909,6 +1909,20 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="stateWithCalculations"
+					datasourceid="18455637-0838-4b15-bd6b-f6d6bc24f402"
+					variableid="68865ee7-33ba-43a8-8921-d189e77dd216"
+					variablename="aliasState">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateWithCalculations"

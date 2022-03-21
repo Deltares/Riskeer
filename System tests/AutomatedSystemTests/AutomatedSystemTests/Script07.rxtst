@@ -20,7 +20,7 @@
 					</param>
 					<param
 					name="stateName"
-					value="Traject">
+					value="@TR">
 					</param>
 					<param
 					name="TypeParameter"
@@ -50,10 +50,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testcase
-			id="2c71bb16-56d6-4df9-9fed-e397aa568fc0"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<smartfoldernode
 			datasource="boundaryTypesNames"
 			errorbehavior="ContinueNextIteration"
@@ -75,8 +71,8 @@
 					value="Traject>Assemblage>Normklassen">
 					</param>
 					<param
-					name="StateToSet"
-					value="Faalpaden">
+					name="stateName"
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -106,6 +102,10 @@
 					</param>
 					<param
 					name="LowLimitValue"
+					value="">
+					</param>
+					<param
+					name="dummyString"
 					value="">
 					</param>
 				</parameters>
@@ -144,6 +144,20 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="stateName"
+					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
+					variableid="68865ee7-33ba-43a8-8921-d189e77dd216"
+					variablename="aliasState">
+					</var>
+					<var
+					dataname="dummyString"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateToSet"
@@ -152,14 +166,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="stateName"
-					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="527a42ff-6fde-4f62-9fc6-95bb1500ccb0"
@@ -212,12 +218,6 @@
 					variablename="signallingValue">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="59465873-51c9-4d42-9a89-31d5580dffed"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
 			</testmodule>
 			<testmodule
 			id="59c1a0f9-68c8-46b4-b48f-d67e70ea2bd7"
@@ -475,14 +475,20 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<missingdatavariablesbinding>
+				<databinding>
 					<var
-					dataname="StateToSet"
+					dataname="stateName"
 					datasourceid="2fc53948-30d7-4767-83cc-f75854b101b8"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="68865ee7-33ba-43a8-8921-d189e77dd216"
+					variablename="aliasState">
 					</var>
-				</missingdatavariablesbinding>
+					<var
+					dataname="dummyString"
+					datasourceid="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="f0222475-623d-4436-b922-a48786642542"
@@ -568,14 +574,6 @@
 				<testcase
 				id="dba441a6-0552-4228-823c-eda631abaa89"
 				name="Script07">
-					<testcase
-					id="2c71bb16-56d6-4df9-9fed-e397aa568fc0"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="59465873-51c9-4d42-9a89-31d5580dffed"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
 					<testcase
 					id="34002ae7-b33b-4a66-a6a3-a7e4e9c8be57"
 					name="script07_Toetseis_op_trajectniveau_bepalen">
@@ -797,9 +795,6 @@
 			</testcontainer>
 			<testcontainer
 			id="192e6baa-4a40-46e8-8772-533d4387f8c7">
-			</testcontainer>
-			<testcontainer
-			id="2c71bb16-56d6-4df9-9fed-e397aa568fc0">
 			</testcontainer>
 			<testcontainer
 			id="2e238d39-748e-4738-97ce-088ab7ca65de">
