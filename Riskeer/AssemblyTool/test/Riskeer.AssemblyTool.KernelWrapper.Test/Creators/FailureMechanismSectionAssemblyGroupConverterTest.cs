@@ -56,7 +56,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EInterpretationCategory.IIIMin, FailureMechanismSectionAssemblyGroup.IIIMin)]
         [TestCase(EInterpretationCategory.Dominant, FailureMechanismSectionAssemblyGroup.Dominant)]
         [TestCase(EInterpretationCategory.Gr, FailureMechanismSectionAssemblyGroup.Gr)]
-        [TestCase(EInterpretationCategory.NotRelevant, FailureMechanismSectionAssemblyGroup.Nr)]
+        [TestCase(EInterpretationCategory.NotRelevant, FailureMechanismSectionAssemblyGroup.NotRelevant)]
         public void ConvertTo_ValidInterpretationCategory_ReturnsExpectedValue(EInterpretationCategory interpretationCategory, FailureMechanismSectionAssemblyGroup expectedAssemblyGroup)
         {
             // Call
@@ -91,7 +91,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(FailureMechanismSectionAssemblyGroup.IIIMin, EInterpretationCategory.IIIMin)]
         [TestCase(FailureMechanismSectionAssemblyGroup.Dominant, EInterpretationCategory.Dominant)]
         [TestCase(FailureMechanismSectionAssemblyGroup.Gr, EInterpretationCategory.Gr)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.Nr, EInterpretationCategory.NotRelevant)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.NotRelevant, EInterpretationCategory.NotRelevant)]
         public void ConvertFrom_ValidAssemblyGroup_ReturnsExpectedValue(FailureMechanismSectionAssemblyGroup assemblyGroup, EInterpretationCategory expectedInterpretationCategory)
         {
             // Call

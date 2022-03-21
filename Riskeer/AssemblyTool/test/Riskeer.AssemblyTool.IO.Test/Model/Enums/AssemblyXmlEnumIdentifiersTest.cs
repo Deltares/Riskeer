@@ -38,7 +38,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("-I", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupIMin);
             Assert.AreEqual("-II", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupIIMin);
             Assert.AreEqual("-III", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupIIIMin);
-            Assert.AreEqual("NR", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupNr);
+            Assert.AreEqual("NR", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupNotRelevant);
 
             Assert.AreEqual("A+", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupAPlus);
             Assert.AreEqual("A", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupA);

@@ -210,9 +210,9 @@ namespace Riskeer.AssemblyTool.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to NR.
         /// </summary>
-        internal static string FailureMechanismSectionAssemblyGroup_Nr_DisplayName {
+        internal static string FailureMechanismSectionAssemblyGroup_NotRelevant_DisplayName {
             get {
-                return ResourceManager.GetString("FailureMechanismSectionAssemblyGroup_Nr_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyGroup_NotRelevant_DisplayName", resourceCulture);
             }
         }
         

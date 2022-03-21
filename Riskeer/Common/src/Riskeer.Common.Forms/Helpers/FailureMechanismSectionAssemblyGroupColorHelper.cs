@@ -71,7 +71,7 @@ namespace Riskeer.Common.Forms.Helpers
                     return Color.FromArgb(255, 90, 172);
                 case FailureMechanismSectionAssemblyGroup.Gr:
                     return Color.FromArgb(255, 255, 255);
-                case FailureMechanismSectionAssemblyGroup.Nr:
+                case FailureMechanismSectionAssemblyGroup.NotRelevant:
                     return Color.FromArgb(38, 245, 245);
                 default:
                     throw new NotSupportedException();

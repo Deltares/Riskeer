@@ -68,8 +68,8 @@ namespace Riskeer.Integration.IO.Creators
                     return SerializableFailureMechanismSectionAssemblyGroup.IIMin;
                 case FailureMechanismSectionAssemblyGroup.IIIMin:
                     return SerializableFailureMechanismSectionAssemblyGroup.IIIMin;
-                case FailureMechanismSectionAssemblyGroup.Nr:
-                    return SerializableFailureMechanismSectionAssemblyGroup.Nr;
+                case FailureMechanismSectionAssemblyGroup.NotRelevant:
+                    return SerializableFailureMechanismSectionAssemblyGroup.NotRelevant;
                 default:
                     throw new NotSupportedException();
             }

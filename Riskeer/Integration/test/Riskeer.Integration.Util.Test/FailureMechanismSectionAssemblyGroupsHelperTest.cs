@@ -84,7 +84,7 @@ namespace Riskeer.Integration.Util.Test
                 Assert.AreEqual(double.NaN, notDominantGroupBoundaries.LowerBoundary);
 
                 FailureMechanismSectionAssemblyGroupBoundaries notRelevantGroupBoundaries = assemblyGroupBoundaries[assemblyGroupBoundaries.Length - 1];
-                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Nr, notRelevantGroupBoundaries.FailureMechanismSectionAssemblyGroup);
+                Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NotRelevant, notRelevantGroupBoundaries.FailureMechanismSectionAssemblyGroup);
                 Assert.AreEqual(double.NaN, notRelevantGroupBoundaries.UpperBoundary);
                 Assert.AreEqual(double.NaN, notRelevantGroupBoundaries.LowerBoundary);
             }

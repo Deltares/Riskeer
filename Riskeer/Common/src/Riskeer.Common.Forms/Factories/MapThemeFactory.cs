@@ -54,7 +54,7 @@ namespace Riskeer.Common.Forms.Factories
                 CreateAssemblyGroupTheme(Color.FromArgb(255, 255, 90, 172), FailureMechanismSectionAssemblyGroup.Dominant),
                 CreateAssemblyGroupTheme(Color.FromArgb(255, 192, 192, 192), FailureMechanismSectionAssemblyGroup.NotDominant),
                 CreateAssemblyGroupTheme(Color.FromArgb(0, 0, 0, 0), FailureMechanismSectionAssemblyGroup.Gr),
-                CreateAssemblyGroupTheme(Color.FromArgb(255, 38, 245, 245), FailureMechanismSectionAssemblyGroup.Nr)
+                CreateAssemblyGroupTheme(Color.FromArgb(255, 38, 245, 245), FailureMechanismSectionAssemblyGroup.NotRelevant)
             });
         }
 

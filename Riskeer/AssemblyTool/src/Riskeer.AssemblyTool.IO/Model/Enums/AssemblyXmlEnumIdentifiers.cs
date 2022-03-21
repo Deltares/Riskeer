@@ -70,9 +70,9 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         public const string SerializableFailureMechanismSectionAssemblyGroupIIIMin = "-III";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableFailureMechanismSectionAssemblyGroup.Nr"/>.
+        /// Identifier for <see cref="SerializableFailureMechanismSectionAssemblyGroup.NotRelevant"/>.
         /// </summary>
-        public const string SerializableFailureMechanismSectionAssemblyGroupNr = "NR";
+        public const string SerializableFailureMechanismSectionAssemblyGroupNotRelevant = "NR";
 
         #endregion
 

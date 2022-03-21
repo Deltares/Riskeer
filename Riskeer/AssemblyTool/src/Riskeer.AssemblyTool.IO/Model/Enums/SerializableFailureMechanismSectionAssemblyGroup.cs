@@ -77,9 +77,9 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         IIIMin = 8,
 
         /// <summary>
-        /// Represents group NR.
+        /// Represents group Not Relevant.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupNr)]
-        Nr = 9
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableFailureMechanismSectionAssemblyGroupNotRelevant)]
+        NotRelevant = 9
     }
 }

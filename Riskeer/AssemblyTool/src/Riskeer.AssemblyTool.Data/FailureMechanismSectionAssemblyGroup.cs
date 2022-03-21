@@ -90,9 +90,9 @@ namespace Riskeer.AssemblyTool.Data
         Gr = 10,
 
         /// <summary>
-        /// Represents group NR.
+        /// Represents group Not Relevant.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_Nr_DisplayName))]
-        Nr = 11
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionAssemblyGroup_NotRelevant_DisplayName))]
+        NotRelevant = 11
     }
 }

@@ -60,7 +60,7 @@ namespace Riskeer.Integration.Util
                        {
                            new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Dominant),
                            new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.NotDominant),
-                           new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Nr)
+                           new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.NotRelevant)
                        })
                        .ToArray();
             }

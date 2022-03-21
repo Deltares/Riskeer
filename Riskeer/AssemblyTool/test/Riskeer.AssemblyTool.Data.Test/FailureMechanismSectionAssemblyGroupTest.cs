@@ -62,7 +62,7 @@ namespace Riskeer.AssemblyTool.Data.Test
                     FailureMechanismSectionAssemblyGroup.Gr, 10
                 },
                 {
-                    FailureMechanismSectionAssemblyGroup.Nr, 11
+                    FailureMechanismSectionAssemblyGroup.NotRelevant, 11
                 }
             };
 
@@ -100,7 +100,7 @@ namespace Riskeer.AssemblyTool.Data.Test
                     FailureMechanismSectionAssemblyGroup.Gr, ""
                 },
                 {
-                    FailureMechanismSectionAssemblyGroup.Nr, "NR"
+                    FailureMechanismSectionAssemblyGroup.NotRelevant, "NR"
                 }
             };
     }
