@@ -12,11 +12,11 @@
 					</param>
 					<param
 					name="PathSignallingValueInPropertiesPanel"
-					value="Signaleringswaarde [1/jaar]">
+					value="Signaleringsparameter [1/jaar]">
 					</param>
 					<param
 					name="PathLowerLimitValueInPropertiesPanel"
-					value="Ondergrens [1/jaar]">
+					value="Omgevingswaarde [1/jaar]">
 					</param>
 					<param
 					name="stateName"
