@@ -103,6 +103,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.IIIMin, EInterpretationCategory.IIIMin, profileProbability, sectionProbability);
             yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.Dominant, EInterpretationCategory.Dominant, double.NaN, double.NaN);
             yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.Gr, EInterpretationCategory.Gr, double.NaN, double.NaN);
+            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.NotRelevant, EInterpretationCategory.NotRelevant, double.NaN, double.NaN);
         }
     }
 }

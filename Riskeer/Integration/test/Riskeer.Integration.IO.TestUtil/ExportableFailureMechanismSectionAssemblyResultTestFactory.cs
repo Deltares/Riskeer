@@ -54,7 +54,8 @@ namespace Riskeer.Integration.IO.TestUtil
                     FailureMechanismSectionAssemblyGroup.Zero,
                     FailureMechanismSectionAssemblyGroup.IMin,
                     FailureMechanismSectionAssemblyGroup.IIMin,
-                    FailureMechanismSectionAssemblyGroup.IIIMin
+                    FailureMechanismSectionAssemblyGroup.IIIMin,
+                    FailureMechanismSectionAssemblyGroup.NotRelevant
                 }),
                 random.NextEnumValue<ExportableAssemblyMethod>());
         }
@@ -81,7 +82,8 @@ namespace Riskeer.Integration.IO.TestUtil
                     FailureMechanismSectionAssemblyGroup.Zero,
                     FailureMechanismSectionAssemblyGroup.IMin,
                     FailureMechanismSectionAssemblyGroup.IIMin,
-                    FailureMechanismSectionAssemblyGroup.IIIMin
+                    FailureMechanismSectionAssemblyGroup.IIIMin,
+                    FailureMechanismSectionAssemblyGroup.NotRelevant
                 }),
                 random.NextDouble(),
                 random.NextEnumValue<ExportableAssemblyMethod>());

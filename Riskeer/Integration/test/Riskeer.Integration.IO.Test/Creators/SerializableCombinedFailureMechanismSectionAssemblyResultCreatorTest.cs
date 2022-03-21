@@ -100,7 +100,8 @@ namespace Riskeer.Integration.IO.Test.Creators
                     FailureMechanismSectionAssemblyGroup.Zero,
                     FailureMechanismSectionAssemblyGroup.IIIMin,
                     FailureMechanismSectionAssemblyGroup.IIMin,
-                    FailureMechanismSectionAssemblyGroup.IMin
+                    FailureMechanismSectionAssemblyGroup.IMin,
+                    FailureMechanismSectionAssemblyGroup.NotRelevant
                 }), random.NextEnumValue<ExportableAssemblyMethod>());
         }
     }
