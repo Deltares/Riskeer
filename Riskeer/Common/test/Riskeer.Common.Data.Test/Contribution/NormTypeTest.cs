@@ -36,10 +36,10 @@ namespace Riskeer.Common.Data.Test.Contribution
                 return new Dictionary<NormType, string>
                 {
                     {
-                        NormType.LowerLimit, "Ondergrens"
+                        NormType.MaximumAllowableFloodingProbability, "Omgevingswaarde"
                     },
                     {
-                        NormType.Signaling, "Signaleringswaarde"
+                        NormType.SignalFloodingProbability, "Signaleringsparameter"
                     }
                 };
             }
@@ -52,10 +52,10 @@ namespace Riskeer.Common.Data.Test.Contribution
                 return new Dictionary<NormType, int>
                 {
                     {
-                        NormType.LowerLimit, 1
+                        NormType.MaximumAllowableFloodingProbability, 1
                     },
                     {
-                        NormType.Signaling, 2
+                        NormType.SignalFloodingProbability, 2
                     }
                 };
             }

@@ -123,10 +123,10 @@ namespace Riskeer.Common.Data.AssessmentSection
 
             switch (normType)
             {
-                case NormType.Signaling:
+                case NormType.SignalFloodingProbability:
                     calculations = assessmentSection.WaterLevelCalculationsForSignalingNorm;
                     break;
-                case NormType.LowerLimit:
+                case NormType.MaximumAllowableFloodingProbability:
                     calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
                     break;
                 default:

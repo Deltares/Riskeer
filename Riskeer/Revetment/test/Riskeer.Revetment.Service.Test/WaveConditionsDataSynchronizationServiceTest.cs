@@ -45,7 +45,7 @@ namespace Riskeer.Revetment.Service.Test
         {
             // Call
             void Call() => WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<IFailureMechanism, ICalculation<WaveConditionsInput>>(
-                null, NormType.Signaling);
+                null, NormType.SignalFloodingProbability);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -69,8 +69,8 @@ namespace Riskeer.Revetment.Service.Test
         }
 
         [Test]
-        [TestCase(NormType.LowerLimit)]
-        [TestCase(NormType.Signaling)]
+        [TestCase(NormType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormType.SignalFloodingProbability)]
         public void ClearAllWaveConditionsCalculationOutputWithNormType_WithAllData_ClearsOutputAndReturnsAffectedObjects(NormType normType)
         {
             // Setup
@@ -104,7 +104,7 @@ namespace Riskeer.Revetment.Service.Test
 
             TestWaveConditionsCalculation<WaveConditionsInput>[] expectedAffectedCalculations =
             {
-                normType == NormType.LowerLimit
+                normType == NormType.MaximumAllowableFloodingProbability
                     ? calculation2
                     : calculation1
             };

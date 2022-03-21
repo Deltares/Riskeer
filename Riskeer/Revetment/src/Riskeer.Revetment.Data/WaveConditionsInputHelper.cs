@@ -75,10 +75,10 @@ namespace Riskeer.Revetment.Data
 
             switch (normType)
             {
-                case NormType.LowerLimit:
+                case NormType.MaximumAllowableFloodingProbability:
                     waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.LowerLimit;
                     break;
-                case NormType.Signaling:
+                case NormType.SignalFloodingProbability:
                     waveConditionsInput.WaterLevelType = WaveConditionsInputWaterLevelType.Signaling;
                     break;
                 default:

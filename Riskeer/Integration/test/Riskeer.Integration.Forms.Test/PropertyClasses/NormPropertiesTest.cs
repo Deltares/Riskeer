@@ -190,7 +190,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
-            failureMechanismContribution.NormativeNorm = NormType.Signaling;
+            failureMechanismContribution.NormativeNorm = NormType.SignalFloodingProbability;
 
             var mocks = new MockRepository();
             var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
-            failureMechanismContribution.NormativeNorm = NormType.Signaling;
+            failureMechanismContribution.NormativeNorm = NormType.SignalFloodingProbability;
 
             var mocks = new MockRepository();
             var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
@@ -293,7 +293,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
 
-            const NormType newValue = NormType.Signaling;
+            const NormType newValue = NormType.SignalFloodingProbability;
 
             // Call
             properties.NormativeNorm = newValue;

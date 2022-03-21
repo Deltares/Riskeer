@@ -83,8 +83,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
         }
 
         [Test]
-        [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
-        [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
+        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.LowerLimit)]
+        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.Signaling)]
         public void AddCalculationsFromLocations_MultipleCalculationsEmptyCalculationBase_ReturnsUniquelyNamedCalculationsWithCorrectInputSet(
             NormType normType,
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
@@ -119,8 +119,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
         }
 
         [Test]
-        [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
-        [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
+        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.LowerLimit)]
+        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.Signaling)]
         public void AddCalculationsFromLocations_MultipleCalculationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculationsWithCorrectInputSet(
             NormType normType,
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)

@@ -138,7 +138,7 @@ namespace Riskeer.Migration.Integration.Test
                 {
                     databaseFile.OpenDatabaseConnection();
 
-                    double originalNorm = 1.0 / (setNormType == NormType.Signaling
+                    double originalNorm = 1.0 / (setNormType == NormType.SignalFloodingProbability
                                                      ? signalingReturnPeriod
                                                      : lowerLimitReturnPeriod);
                     databaseFile.ExecuteQuery("INSERT INTO ProjectEntity ([ProjectEntityId]) VALUES (1);");
@@ -151,7 +151,7 @@ namespace Riskeer.Migration.Integration.Test
 
                 // Then
                 NormType expectedNormType = lowerLimitReturnPeriod == signalingReturnPeriod
-                                                ? NormType.Signaling
+                                                ? NormType.SignalFloodingProbability
                                                 : setNormType;
 
                 string expectedAssessmentSectionQuery = GetExpectedAssessmentSectionQuery(trajectId,
@@ -189,8 +189,8 @@ namespace Riskeer.Migration.Integration.Test
 
         [Test]
         [SetCulture("en-US")]
-        [TestCase(2, NormType.LowerLimit, TestName = "Given171ProjectWithNormLargerThenLowerLimit_WhenMigrated_ThenLowerLimitNormSetToNormAndExpectedLogDatabase")]
-        [TestCase(600, NormType.Signaling, TestName = "Given171ProjectWithNormLessThenLowerLimit_WhenMigrated_ThenSignalingNormSetToNormAndExpectedLogDatabase")]
+        [TestCase(2, NormType.MaximumAllowableFloodingProbability, TestName = "Given171ProjectWithNormLargerThenLowerLimit_WhenMigrated_ThenLowerLimitNormSetToNormAndExpectedLogDatabase")]
+        [TestCase(600, NormType.SignalFloodingProbability, TestName = "Given171ProjectWithNormLessThenLowerLimit_WhenMigrated_ThenSignalingNormSetToNormAndExpectedLogDatabase")]
         public void Given171ProjectWithNormNotInList_WhenMigrated_ThenDatabaseUpdatedAndExpectedLogDatabase(int originalReturnPeriod,
                                                                                                             NormType expectedNormType)
         {
@@ -233,11 +233,11 @@ namespace Riskeer.Migration.Integration.Test
                 migrator.Migrate(fromVersionedFile, newVersion, targetFilePath);
 
                 // Then
-                int expectedLowerLimitReturnPeriod = expectedNormType == NormType.LowerLimit
+                int expectedLowerLimitReturnPeriod = expectedNormType == NormType.MaximumAllowableFloodingProbability
                                                          ? originalReturnPeriod
                                                          : lowerLimitReturnPeriod;
 
-                int expectedSignalingReturnPeriod = expectedNormType == NormType.Signaling
+                int expectedSignalingReturnPeriod = expectedNormType == NormType.SignalFloodingProbability
                                                         ? originalReturnPeriod
                                                         : signalingReturnPeriod;
 
@@ -289,7 +289,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static string GetNormTypeString(NormType normType)
         {
-            return normType == NormType.LowerLimit
+            return normType == NormType.MaximumAllowableFloodingProbability
                        ? "ondergrens"
                        : "signaleringswaarde";
         }
@@ -313,7 +313,7 @@ namespace Riskeer.Migration.Integration.Test
                 }
             }
 
-            yield return new TestCaseData(NormType.Signaling,
+            yield return new TestCaseData(NormType.SignalFloodingProbability,
                                           "NoValidTrajectId",
                                           30000,
                                           30000)
@@ -386,7 +386,7 @@ namespace Riskeer.Migration.Integration.Test
             yield return new AssessmentSectionReturnPeriod("16-2", 30000, 10000);
             yield return new AssessmentSectionReturnPeriod("16-3", 30000, 10000);
             yield return new AssessmentSectionReturnPeriod("16-4", 30000, 10000);
-            yield return new AssessmentSectionReturnPeriod("16-5", 10, 10); // Signaling norm set to LowerLimit
+            yield return new AssessmentSectionReturnPeriod("16-5", 10, 10); // SignalFloodingProbability norm set to MaximumAllowableFloodingProbability
             yield return new AssessmentSectionReturnPeriod("17-1", 3000, 1000);
             yield return new AssessmentSectionReturnPeriod("17-2", 3000, 1000);
             yield return new AssessmentSectionReturnPeriod("17-3", 100000, 30000);
@@ -1027,13 +1027,13 @@ namespace Riskeer.Migration.Integration.Test
         {
             Assert.AreEqual(3, messages.Length);
 
-            string lowerLimitLogSuffix = normType == NormType.LowerLimit
+            string lowerLimitLogSuffix = normType == NormType.MaximumAllowableFloodingProbability
                                              ? " (voorheen de waarde van de norm)"
                                              : "";
             MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                 new MigrationLogMessage("17.1", newVersion, $"  + De ondergrens is gelijk gesteld aan 1/{lowerLimitReturnPeriod}{lowerLimitLogSuffix}."),
                 messages[0]);
-            string signalingLogSuffix = normType == NormType.Signaling
+            string signalingLogSuffix = normType == NormType.SignalFloodingProbability
                                             ? " (voorheen de waarde van de norm)"
                                             : "";
             MigrationLogTestHelper.AssertMigrationLogMessageEqual(
@@ -1089,7 +1089,7 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++],
                     messages[i++],
                     messages[i++]
-                }, 30000, 30000, NormType.Signaling);
+                }, 30000, 30000, NormType.SignalFloodingProbability);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
                     messages[i++]);
@@ -1129,7 +1129,7 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++],
                     messages[i++],
                     messages[i++]
-                }, 1000, 30000, NormType.Signaling);
+                }, 1000, 30000, NormType.SignalFloodingProbability);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
                     messages[i++]);
@@ -1151,7 +1151,7 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++],
                     messages[i++],
                     messages[i++]
-                }, 1000, 1000, NormType.Signaling);
+                }, 1000, 1000, NormType.SignalFloodingProbability);
 
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "* Traject: 'assessmentSectionResults'"),
@@ -1161,7 +1161,7 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++],
                     messages[i++],
                     messages[i++]
-                }, 1000, 3000, NormType.Signaling);
+                }, 1000, 3000, NormType.SignalFloodingProbability);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Piping'"),
                     messages[i++]);

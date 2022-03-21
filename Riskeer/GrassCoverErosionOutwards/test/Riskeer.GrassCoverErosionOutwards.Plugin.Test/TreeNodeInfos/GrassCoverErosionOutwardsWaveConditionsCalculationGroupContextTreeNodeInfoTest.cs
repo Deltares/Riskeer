@@ -1451,8 +1451,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(NormType.Signaling)]
-        [TestCase(NormType.LowerLimit)]
+        [TestCase(NormType.SignalFloodingProbability)]
+        [TestCase(NormType.MaximumAllowableFloodingProbability)]
         public void ContextMenuStrip_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers(
             NormType normType)
         {
@@ -1946,9 +1946,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             switch (normType)
             {
-                case NormType.LowerLimit:
+                case NormType.MaximumAllowableFloodingProbability:
                     return WaveConditionsInputWaterLevelType.LowerLimit;
-                case NormType.Signaling:
+                case NormType.SignalFloodingProbability:
                     return WaveConditionsInputWaterLevelType.Signaling;
                 default:
                     throw new NotSupportedException();

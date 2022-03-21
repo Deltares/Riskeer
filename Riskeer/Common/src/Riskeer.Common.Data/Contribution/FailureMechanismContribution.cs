@@ -55,7 +55,7 @@ namespace Riskeer.Common.Data.Contribution
 
             this.lowerLimitNorm = lowerLimitNorm;
             this.signalingNorm = signalingNorm;
-            NormativeNorm = NormType.LowerLimit;
+            NormativeNorm = NormType.MaximumAllowableFloodingProbability;
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Riskeer.Common.Data.Contribution
         {
             get
             {
-                return NormativeNorm == NormType.LowerLimit
+                return NormativeNorm == NormType.MaximumAllowableFloodingProbability
                            ? LowerLimitNorm
                            : SignalingNorm;
             }

@@ -602,11 +602,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         private static IEnumerable<TestCaseData> GetChangeNormativeNormCases()
         {
             yield return new TestCaseData(
-                NormType.LowerLimit, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                NormType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForLowerLimitNorm),
                 WaveConditionsInputWaterLevelType.LowerLimit);
             yield return new TestCaseData(
-                NormType.Signaling, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                NormType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForSignalingNorm),
                 WaveConditionsInputWaterLevelType.Signaling);
         }
@@ -614,11 +614,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         private static IEnumerable<TestCaseData> GetChangeNormCases()
         {
             yield return new TestCaseData(
-                NormType.LowerLimit, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                NormType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForSignalingNorm),
                 WaveConditionsInputWaterLevelType.Signaling);
             yield return new TestCaseData(
-                NormType.Signaling, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                NormType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForLowerLimitNorm),
                 WaveConditionsInputWaterLevelType.LowerLimit);
         }

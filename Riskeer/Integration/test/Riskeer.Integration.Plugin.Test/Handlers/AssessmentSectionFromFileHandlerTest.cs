@@ -375,7 +375,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 Name = "Traject 1-2",
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = useSignalingValue ? NormType.Signaling : NormType.LowerLimit
+                    NormativeNorm = useSignalingValue ? NormType.SignalFloodingProbability : NormType.MaximumAllowableFloodingProbability
                 }
             };
             assessmentSection.GrassCoverErosionInwards.GeneralInput.N = (RoundedDouble) 2.0;
@@ -400,7 +400,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 Name = "Traject 2-1",
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormType.Signaling
+                    NormativeNorm = NormType.SignalFloodingProbability
                 },
                 GrassCoverErosionInwards =
                 {
@@ -444,7 +444,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 Name = "Traject 3-3",
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormType.Signaling
+                    NormativeNorm = NormType.SignalFloodingProbability
                 }
             };
             assessmentSection.ReferenceLine.SetGeometry(new[]

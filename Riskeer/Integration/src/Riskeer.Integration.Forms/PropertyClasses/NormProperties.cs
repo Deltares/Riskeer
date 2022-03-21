@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             get => data.LowerLimitNorm;
             set
             {
-                ChangeNorm(() => data.LowerLimitNorm = value, NormType.LowerLimit);
+                ChangeNorm(() => data.LowerLimitNorm = value, NormType.MaximumAllowableFloodingProbability);
             }
         }
 
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             get => data.SignalingNorm;
             set
             {
-                ChangeNorm(() => data.SignalingNorm = value, NormType.Signaling);
+                ChangeNorm(() => data.SignalingNorm = value, NormType.SignalFloodingProbability);
             }
         }
 

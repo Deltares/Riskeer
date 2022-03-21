@@ -169,14 +169,14 @@ namespace Riskeer.Integration.Plugin.Handlers
                 return normativeNormType;
             }
 
-            return normativeNormType == NormType.LowerLimit
-                       ? NormType.Signaling
-                       : NormType.LowerLimit;
+            return normativeNormType == NormType.MaximumAllowableFloodingProbability
+                       ? NormType.SignalFloodingProbability
+                       : NormType.MaximumAllowableFloodingProbability;
         }
 
         private IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculationsToClear(NormType normToClearFor)
         {
-            return normToClearFor == NormType.LowerLimit
+            return normToClearFor == NormType.MaximumAllowableFloodingProbability
                        ? assessmentSection.WaterLevelCalculationsForLowerLimitNorm
                        : assessmentSection.WaterLevelCalculationsForSignalingNorm;
         }

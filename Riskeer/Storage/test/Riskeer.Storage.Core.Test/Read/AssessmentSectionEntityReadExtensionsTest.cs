@@ -1182,7 +1182,7 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 LowerLimitNorm = 1.0 / 30000,
                 SignalingNorm = 1.0 / 300000,
-                NormativeNormType = Convert.ToByte(NormType.Signaling),
+                NormativeNormType = Convert.ToByte(NormType.SignalFloodingProbability),
                 Composition = Convert.ToByte(AssessmentSectionComposition.Dike)
             };
         }

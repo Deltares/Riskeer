@@ -300,8 +300,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase(NormType.LowerLimit, WaveConditionsInputWaterLevelType.LowerLimit)]
-        [TestCase(NormType.Signaling, WaveConditionsInputWaterLevelType.Signaling)]
+        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.LowerLimit)]
+        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.Signaling)]
         public void Import_TargetProbabilityNull_DataAddedToModel(NormType normType, WaveConditionsInputWaterLevelType expectedWaterLevelType)
         {
             // Setup

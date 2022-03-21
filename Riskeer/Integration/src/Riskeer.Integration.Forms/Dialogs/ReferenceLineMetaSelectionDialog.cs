@@ -108,8 +108,8 @@ namespace Riskeer.Integration.Forms.Dialogs
                 SelectedReferenceLineMeta = referenceLineMetaSelectionRow.ReferenceLineMeta;
 
                 SelectedNormativeNorm = SignalingValueRadioButton.Checked
-                                            ? NormType.Signaling
-                                            : NormType.LowerLimit;
+                                            ? NormType.SignalFloodingProbability
+                                            : NormType.MaximumAllowableFloodingProbability;
 
                 double lowerLimitNormValue = GetNormValue(referenceLineMetaSelectionRow.LowerLimitValueReturnPeriod);
 

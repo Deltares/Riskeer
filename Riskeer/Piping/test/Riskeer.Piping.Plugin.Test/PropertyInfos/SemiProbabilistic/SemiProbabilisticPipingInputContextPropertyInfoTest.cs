@@ -69,7 +69,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormType.Signaling
+                    NormativeNorm = NormType.SignalFloodingProbability
                 }
             };
 
@@ -115,7 +115,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormType.LowerLimit
+                    NormativeNorm = NormType.MaximumAllowableFloodingProbability
                 }
             };
 

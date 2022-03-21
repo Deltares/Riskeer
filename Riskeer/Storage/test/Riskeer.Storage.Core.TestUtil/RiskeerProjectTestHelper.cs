@@ -94,7 +94,7 @@ namespace Riskeer.Storage.Core.TestUtil
                 {
                     LowerLimitNorm = 1.0 / 10,
                     SignalingNorm = 1.0 / 1000000,
-                    NormativeNorm = NormType.Signaling
+                    NormativeNorm = NormType.SignalFloodingProbability
                 }
             };
             SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);

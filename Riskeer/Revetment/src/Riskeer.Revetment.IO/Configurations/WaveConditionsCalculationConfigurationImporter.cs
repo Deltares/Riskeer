@@ -231,9 +231,9 @@ namespace Riskeer.Revetment.IO.Configurations
         {
             switch (failureMechanismContribution.NormativeNorm)
             {
-                case NormType.LowerLimit:
+                case NormType.MaximumAllowableFloodingProbability:
                     return WaveConditionsInputWaterLevelType.LowerLimit;
-                case NormType.Signaling:
+                case NormType.SignalFloodingProbability:
                     return WaveConditionsInputWaterLevelType.Signaling;
                 default:
                     throw new NotSupportedException();

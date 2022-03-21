@@ -30,15 +30,15 @@ namespace Riskeer.Common.Data.Contribution
     public enum NormType
     {
         /// <summary>
-        /// The lower limit norm type.
+        /// The maximum allowable flooding probability norm type.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormType_LowerLimit_DisplayName))]
-        LowerLimit = 1,
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormType_MaximumAllowableFloodingProbability_DisplayName))]
+        MaximumAllowableFloodingProbability = 1,
 
         /// <summary>
-        /// The signaling norm type.
+        /// The signal flooding probability norm type.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormType_Signaling_DisplayName))]
-        Signaling = 2
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormType_SignalFloodingProbability_DisplayName))]
+        SignalFloodingProbability = 2
     }
 }

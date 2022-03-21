@@ -530,7 +530,7 @@ namespace Riskeer.Integration.Service.Test
         public void ClearAllWaveConditionsCalculationOutputWithNormType_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(null, NormType.LowerLimit);
+            void Call() => RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(null, NormType.MaximumAllowableFloodingProbability);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -556,7 +556,7 @@ namespace Riskeer.Integration.Service.Test
         public void ClearAllWaveConditionsCalculationOutputWithNormType_WithData_ClearsOutputAndReturnsAffectedObjects()
         {
             // Setup
-            const NormType normType = NormType.LowerLimit;
+            const NormType normType = NormType.MaximumAllowableFloodingProbability;
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             var waveConditionsCalculations = new List<ICalculation<WaveConditionsInput>>();
