@@ -188,7 +188,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             DialogBoxHandler = (name, wnd) =>
             {
                 var selectionDialog = (ReferenceLineMetaSelectionDialog) new FormTester(name).TheObject;
-                var lowLimitValueRadioButton = (RadioButton) new RadioButtonTester("LowLimitValueRadioButton", selectionDialog).TheObject;
+                var lowLimitValueRadioButton = (RadioButton) new RadioButtonTester("MaximumAllowableFloodingProbabilityRadioButton", selectionDialog).TheObject;
                 lowLimitValueRadioButton.Checked = true;
                 new ButtonTester("Ok", selectionDialog).Click();
             };
