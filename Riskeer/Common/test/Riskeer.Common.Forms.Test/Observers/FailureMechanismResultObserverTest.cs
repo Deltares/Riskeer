@@ -88,11 +88,6 @@ namespace Riskeer.Common.Forms.Test.Observers
             mocks.ReplayAll();
 
             var failureMechanism = new TestFailurePath();
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
-            });
-
             using (var resultObserver = new FailureMechanismResultObserver<TestFailurePath, FailureMechanismSectionResult>(failureMechanism))
             {
                 resultObserver.Attach(observer);
