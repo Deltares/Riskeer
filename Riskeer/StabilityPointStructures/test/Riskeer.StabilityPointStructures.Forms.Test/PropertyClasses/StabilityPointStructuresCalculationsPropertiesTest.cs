@@ -98,14 +98,14 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategory,
                                                                             "Naam",
-                                                                            "De naam van het toetsspoor.",
+                                                                            "De naam van het faalmechanisme.",
                                                                             true);
 
             PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
                                                                             generalCategory,
                                                                             "Label",
-                                                                            "Het label van het toetsspoor.",
+                                                                            "Het label van het faalmechanisme.",
                                                                             true);
 
             PropertyDescriptor gravitationalAccelerationProperty = dynamicProperties[gravitationalAccelerationPropertyIndex];

@@ -95,14 +95,14 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategory,
                                                                             "Naam",
-                                                                            "De naam van het toetsspoor.",
+                                                                            "De naam van het faalmechanisme.",
                                                                             true);
 
             PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
                                                                             generalCategory,
                                                                             "Label",
-                                                                            "Het label van het toetsspoor.",
+                                                                            "Het label van het faalmechanisme.",
                                                                             true);
         }
     }

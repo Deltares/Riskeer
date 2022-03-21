@@ -1398,7 +1398,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het label van het toetsspoor..
+        ///   Looks up a localized string similar to Het label van het faalmechanisme..
         /// </summary>
         public static string FailureMechanism_Code_Description {
             get {
@@ -1488,7 +1488,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De naam van het toetsspoor..
+        ///   Looks up a localized string similar to De naam van het faalmechanisme..
         /// </summary>
         public static string FailureMechanism_Name_Description {
             get {

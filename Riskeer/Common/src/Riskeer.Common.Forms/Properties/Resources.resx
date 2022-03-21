@@ -460,13 +460,13 @@
     <value>Resultaat</value>
   </data>
     <data name="FailureMechanism_Code_Description" xml:space="preserve">
-    <value>Het label van het toetsspoor.</value>
+    <value>Het label van het faalmechanisme.</value>
   </data>
     <data name="FailureMechanism_Code_DisplayName" xml:space="preserve">
     <value>Label</value>
   </data>
     <data name="FailureMechanism_Name_Description" xml:space="preserve">
-    <value>De naam van het toetsspoor.</value>
+    <value>De naam van het faalmechanisme.</value>
   </data>
     <data name="FailureMechanism_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
