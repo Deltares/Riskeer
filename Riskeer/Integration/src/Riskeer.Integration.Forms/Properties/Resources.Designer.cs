@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Forms.Properties {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Ondergrens [1/jaar].
         /// </summary>
@@ -98,7 +98,7 @@ namespace Riskeer.Integration.Forms.Properties {
                 return ResourceManager.GetString("AssemblyGroup_Name_DisplayName", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Bovengrens [1/jaar].
         /// </summary>
@@ -824,7 +824,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overstromingskans van het dijktraject die hoort bij het minimale beschermingsniveau dat de kering moet bieden..
+        ///   Looks up a localized string similar to De maximale toelaatbare overstromingskans van het dijktraject..
         /// </summary>
         public static string LowerLimitNorm_Description {
             get {
@@ -833,7 +833,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ondergrens [1/jaar].
+        ///   Looks up a localized string similar to Omgevingswaarde [1/jaar].
         /// </summary>
         public static string LowerLimitNorm_DisplayName {
             get {
@@ -852,7 +852,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kans die wordt gebruikt als de norm van het dijktraject..
+        ///   Looks up a localized string similar to De doelkans die wordt gebruikt om de lokale waterstand te bepalen voor de semi-probabilistische toets voor &apos;Piping&apos; en &apos;Macrostabiliteit binnenwaarts&apos;..
         /// </summary>
         public static string NormType_Description {
             get {
@@ -861,7 +861,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Norm van het dijktraject.
+        ///   Looks up a localized string similar to Rekenwaarde voor waterstanden.
         /// </summary>
         public static string NormType_DisplayName {
             get {
@@ -933,7 +933,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M..
+        ///   Looks up a localized string similar to De overstromingskans voor de signalering over de veiligheid van het dijktraject..
         /// </summary>
         public static string SignalingNorm_Description {
             get {
@@ -942,7 +942,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Signaleringswaarde [1/jaar].
+        ///   Looks up a localized string similar to Signaleringsparameter [1/jaar].
         /// </summary>
         public static string SignalingNorm_DisplayName {
             get {

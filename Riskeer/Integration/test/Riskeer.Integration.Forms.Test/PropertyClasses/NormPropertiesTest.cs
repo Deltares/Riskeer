@@ -118,20 +118,20 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor lowerLevelNormProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerLevelNormProperty,
                                                                             expectedCategory,
-                                                                            "Ondergrens [1/jaar]",
-                                                                            "Overstromingskans van het dijktraject die hoort bij het minimale beschermingsniveau dat de kering moet bieden.");
+                                                                            "Omgevingswaarde [1/jaar]",
+                                                                            "De maximale toelaatbare overstromingskans van het dijktraject.");
 
             PropertyDescriptor signalingNormProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(signalingNormProperty,
                                                                             expectedCategory,
-                                                                            "Signaleringswaarde [1/jaar]",
-                                                                            "Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M.");
+                                                                            "Signaleringsparameter [1/jaar]",
+                                                                            "De overstromingskans voor de signalering over de veiligheid van het dijktraject.");
 
             PropertyDescriptor normativeNormProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(normativeNormProperty,
                                                                             expectedCategory,
-                                                                            "Norm van het dijktraject",
-                                                                            "De kans die wordt gebruikt als de norm van het dijktraject.");
+                                                                            "Rekenwaarde voor waterstanden",
+                                                                            "De doelkans die wordt gebruikt om de lokale waterstand te bepalen voor de semi-probabilistische toets voor 'Piping' en 'Macrostabiliteit binnenwaarts'.");
 
             mocks.VerifyAll();
         }

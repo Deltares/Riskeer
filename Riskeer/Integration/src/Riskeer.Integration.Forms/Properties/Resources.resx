@@ -218,22 +218,22 @@
     <value>WMTS</value>
   </data>
   <data name="LowerLimitNorm_Description" xml:space="preserve">
-    <value>Overstromingskans van het dijktraject die hoort bij het minimale beschermingsniveau dat de kering moet bieden.</value>
+    <value>De maximale toelaatbare overstromingskans van het dijktraject.</value>
   </data>
   <data name="LowerLimitNorm_DisplayName" xml:space="preserve">
-    <value>Ondergrens [1/jaar]</value>
+    <value>Omgevingswaarde [1/jaar]</value>
   </data>
   <data name="NormType_Description" xml:space="preserve">
-    <value>De kans die wordt gebruikt als de norm van het dijktraject.</value>
+    <value>De doelkans die wordt gebruikt om de lokale waterstand te bepalen voor de semi-probabilistische toets voor 'Piping' en 'Macrostabiliteit binnenwaarts'.</value>
   </data>
   <data name="NormType_DisplayName" xml:space="preserve">
-    <value>Norm van het dijktraject</value>
+    <value>Rekenwaarde voor waterstanden</value>
   </data>
   <data name="SignalingNorm_Description" xml:space="preserve">
-    <value>Overstromingskans van het dijktraject waarvan overschrijding gemeld moet worden aan de Minister van I en M.</value>
+    <value>De overstromingskans voor de signalering over de veiligheid van het dijktraject.</value>
   </data>
   <data name="SignalingNorm_DisplayName" xml:space="preserve">
-    <value>Signaleringswaarde [1/jaar]</value>
+    <value>Signaleringsparameter [1/jaar]</value>
   </data>
   <data name="HydraulicBoundaryDatabase_PreprocessorDirectory_Description" xml:space="preserve">
     <value>Locatie waar de preprocessor bestanden opslaat.</value>
