@@ -70,7 +70,7 @@ namespace Riskeer.AssemblyTool.Data.Test
             new Dictionary<FailureMechanismSectionAssemblyGroup, string>
             {
                 {
-                    FailureMechanismSectionAssemblyGroup.NotDominant, "ND"
+                    FailureMechanismSectionAssemblyGroup.NotDominant, "NDo"
                 },
                 {
                     FailureMechanismSectionAssemblyGroup.III, "+III"
@@ -94,7 +94,7 @@ namespace Riskeer.AssemblyTool.Data.Test
                     FailureMechanismSectionAssemblyGroup.IIIMin, "-III"
                 },
                 {
-                    FailureMechanismSectionAssemblyGroup.Dominant, "D"
+                    FailureMechanismSectionAssemblyGroup.Dominant, "Do"
                 },
                 {
                     FailureMechanismSectionAssemblyGroup.Gr, ""

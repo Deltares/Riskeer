@@ -127,7 +127,7 @@ namespace Riskeer.AssemblyTool.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to D.
+        ///   Looks up a localized string similar to Do.
         /// </summary>
         internal static string FailureMechanismSectionAssemblyGroup_Dominant_DisplayName {
             get {
@@ -199,7 +199,7 @@ namespace Riskeer.AssemblyTool.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ND.
+        ///   Looks up a localized string similar to NDo.
         /// </summary>
         internal static string FailureMechanismSectionAssemblyGroup_NotDominant_DisplayName {
             get {

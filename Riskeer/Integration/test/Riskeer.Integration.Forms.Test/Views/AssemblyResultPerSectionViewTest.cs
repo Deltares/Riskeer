@@ -184,7 +184,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssertColumn(dataGridViewColumns[specificFailurePath2ColumnIndex], "NIEUW");
             }
         }
-        
+
         [Test]
         public void GivenFormWithAssemblyResultPerSectionView_ThenExpectedFailurePathCellData()
         {
@@ -193,12 +193,12 @@ namespace Riskeer.Integration.Forms.Test.Views
             using (ShowAssemblyResultPerSectionView())
             {
                 DataGridView dataGridView = GetDataGridView();
-                object actualFirstFailurePathValue = dataGridView.Rows[0].Cells[specificFailurePath1ColumnIndex].FormattedValue;
-                object actualSecondFailurePathValue = dataGridView.Rows[0].Cells[specificFailurePath2ColumnIndex].FormattedValue;
-                
+                object actualFirstFailurePathValue = dataGridView.Rows[0].Cells[specificFailurePath1ColumnIndex].Value;
+                object actualSecondFailurePathValue = dataGridView.Rows[0].Cells[specificFailurePath2ColumnIndex].Value;
+
                 // Then
-                Assert.AreEqual("D", actualFirstFailurePathValue);
-                Assert.AreEqual("D", actualSecondFailurePathValue);
+                Assert.AreEqual("Do", actualFirstFailurePathValue);
+                Assert.AreEqual("Do", actualSecondFailurePathValue);
             }
         }
 
