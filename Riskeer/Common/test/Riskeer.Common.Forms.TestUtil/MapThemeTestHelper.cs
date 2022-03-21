@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.TestUtil
         public static void AssertFailureMechanismSectionAssemblyGroupMapTheme(MapTheme<LineCategoryTheme> theme)
         {
             Assert.AreEqual("Duidingsklasse", theme.AttributeName);
-            Assert.AreEqual(10, theme.CategoryThemes.Count());
+            Assert.AreEqual(11, theme.CategoryThemes.Count());
             AssertCategoryTheme("+III", Color.FromArgb(255, 34, 139, 34), theme.CategoryThemes.ElementAt(0));
             AssertCategoryTheme("+II", Color.FromArgb(255, 146, 208, 80), theme.CategoryThemes.ElementAt(1));
             AssertCategoryTheme("+I", Color.FromArgb(255, 198, 224, 180), theme.CategoryThemes.ElementAt(2));
@@ -58,6 +58,7 @@ namespace Riskeer.Common.Forms.TestUtil
             AssertCategoryTheme("Do", Color.FromArgb(255, 255, 90, 172), theme.CategoryThemes.ElementAt(7));
             AssertCategoryTheme("NDo", Color.FromArgb(255, 192, 192, 192), theme.CategoryThemes.ElementAt(8));
             AssertCategoryTheme(string.Empty, Color.FromArgb(0, 0, 0, 0), theme.CategoryThemes.ElementAt(9));
+            AssertCategoryTheme("NR", Color.FromArgb(255, 38, 245, 245), theme.CategoryThemes.ElementAt(10));
         }
 
         private static void AssertCategoryTheme(string expectedValue, Color expectedColor, LineCategoryTheme categoryTheme)
