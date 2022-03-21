@@ -388,22 +388,22 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde..
+        ///   Looks up a localized string similar to De omgevingswaarde moet gelijk zijn aan of groter zijn dan de signaleringsparameter..
         /// </summary>
-        public static string FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm {
+        public static string FailureMechanismContribution_MaximumAllowableFloodingProbability_should_be_same_or_greater_than_SignalFloodingProbability {
             get {
-                return ResourceManager.GetString("FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_Signal" +
-                        "ingNorm", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismContribution_MaximumAllowableFloodingProbability_should_be_same_o" +
+                        "r_greater_than_SignalFloodingProbability", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De signaleringswaarde moet gelijk zijn aan of kleiner zijn dan de ondergrens..
+        ///   Looks up a localized string similar to De signaleringsparameter moet gelijk zijn aan of kleiner zijn dan de omgevingswaarde..
         /// </summary>
-        public static string FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm {
+        public static string FailureMechanismContribution_SignalFloodingProbability_should_be_same_or_smaller_than_MaximumAllowableFloodingProbability {
             get {
-                return ResourceManager.GetString("FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLi" +
-                        "mitNorm", resourceCulture);
+                return ResourceManager.GetString("FailureMechanismContribution_SignalFloodingProbability_should_be_same_or_smaller_" +
+                        "than_MaximumAllowableFloodingProbability", resourceCulture);
             }
         }
         

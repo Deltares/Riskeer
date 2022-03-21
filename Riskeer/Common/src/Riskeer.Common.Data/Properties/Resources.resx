@@ -327,14 +327,14 @@
   <data name="Norm_should_be_in_Range_0_" xml:space="preserve">
     <value>De waarde van de norm moet in het bereik {0} liggen.</value>
   </data>
-  <data name="FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm" xml:space="preserve">
-    <value>De signaleringswaarde moet gelijk zijn aan of kleiner zijn dan de ondergrens.</value>
+  <data name="FailureMechanismContribution_SignalFloodingProbability_should_be_same_or_smaller_than_MaximumAllowableFloodingProbability" xml:space="preserve">
+    <value>De signaleringsparameter moet gelijk zijn aan of kleiner zijn dan de omgevingswaarde.</value>
   </data>
   <data name="StochasticSoilModelCollection_TypeDescriptor" xml:space="preserve">
     <value>Stochastische ondergrondmodellen</value>
   </data>
-  <data name="FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm" xml:space="preserve">
-    <value>De ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.</value>
+  <data name="FailureMechanismContribution_MaximumAllowableFloodingProbability_should_be_same_or_greater_than_SignalFloodingProbability" xml:space="preserve">
+    <value>De omgevingswaarde moet gelijk zijn aan of groter zijn dan de signaleringsparameter.</value>
   </data>
   <data name="CharacteristicPoint_DikeTopAtRiver" xml:space="preserve">
     <value>Kruin buitentalud</value>

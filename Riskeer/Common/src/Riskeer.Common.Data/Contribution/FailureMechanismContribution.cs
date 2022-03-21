@@ -102,7 +102,7 @@ namespace Riskeer.Common.Data.Contribution
                 {
                     throw new ArgumentOutOfRangeException(nameof(value),
                                                           value,
-                                                          Resources.FailureMechanismContribution_LowerLimitNorm_should_be_same_or_greater_than_SignalingNorm);
+                                                          Resources.FailureMechanismContribution_MaximumAllowableFloodingProbability_should_be_same_or_greater_than_SignalFloodingProbability);
                 }
 
                 lowerLimitNorm = value;
@@ -167,7 +167,7 @@ namespace Riskeer.Common.Data.Contribution
             {
                 throw new ArgumentOutOfRangeException(nameof(signalingNormValue),
                                                       signalingNormValue,
-                                                      Resources.FailureMechanismContribution_SignalingNorm_should_be_same_or_smaller_than_LowerLimitNorm);
+                                                      Resources.FailureMechanismContribution_SignalFloodingProbability_should_be_same_or_smaller_than_MaximumAllowableFloodingProbability);
             }
         }
     }

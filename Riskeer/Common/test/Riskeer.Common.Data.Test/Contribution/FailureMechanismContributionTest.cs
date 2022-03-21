@@ -32,7 +32,7 @@ namespace Riskeer.Common.Data.Test.Contribution
         [Test]
         [TestCaseSource(nameof(GetInvalidNormValues))]
         [SetCulture("nl-NL")]
-        public void Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
+        public void Constructor_InvalidMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Call
             TestDelegate test = () => new FailureMechanismContribution(invalidNorm, 0.000001);
@@ -47,7 +47,7 @@ namespace Riskeer.Common.Data.Test.Contribution
         [Test]
         [TestCaseSource(nameof(GetInvalidNormValues))]
         [SetCulture("nl-NL")]
-        public void Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
+        public void Constructor_InvalidSignalFloodingProbability_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Call
             TestDelegate test = () => new FailureMechanismContribution(0.1, invalidNorm);
@@ -60,20 +60,20 @@ namespace Riskeer.Common.Data.Test.Contribution
         }
 
         [Test]
-        public void Constructor_SignalingNormLargerThanLowerLimitNorm_ThrowsArgumentOutOfRangeException()
+        public void Constructor_SignalFloodingProbabilityLargerThanMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException()
         {
             // Setup
-            const double signalingNorm = 0.1;
+            const double signalFloodingProbability = 0.1;
 
             // Call
             TestDelegate test = () => new FailureMechanismContribution(0.01,
-                                                                       signalingNorm);
+                                                                       signalFloodingProbability);
 
             // Assert
-            const string expectedMessage = "De signaleringswaarde moet gelijk zijn aan of kleiner zijn dan de ondergrens.";
+            const string expectedMessage = "De signaleringsparameter moet gelijk zijn aan of kleiner zijn dan de omgevingswaarde.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
             StringAssert.StartsWith(expectedMessage, exception.Message);
-            Assert.AreEqual(signalingNorm, exception.ActualValue);
+            Assert.AreEqual(signalFloodingProbability, exception.ActualValue);
         }
 
         [Test]
@@ -93,7 +93,7 @@ namespace Riskeer.Common.Data.Test.Contribution
         [Test]
         [TestCaseSource(nameof(GetInvalidNormValues))]
         [SetCulture("nl-NL")]
-        public void LowerLimitNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
+        public void MaximumAllowableFloodingProbability_InvalidNewProbability_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Setup
             const double norm = 1.0 / 30000;
@@ -113,7 +113,7 @@ namespace Riskeer.Common.Data.Test.Contribution
         [Test]
         [TestCaseSource(nameof(GetInvalidNormValues))]
         [SetCulture("nl-NL")]
-        public void SignalingNorm_InvalidNewNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
+        public void SignalFloodingProbability_InvalidNewProbability_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Setup
             const double norm = 1.0 / 30000;
@@ -131,7 +131,7 @@ namespace Riskeer.Common.Data.Test.Contribution
         }
 
         [Test]
-        public void SignalingNorm_SignalingNormBiggerThanLowerLimitNorm_ThrowsArgumentOutOfRangeException()
+        public void SignalFloodingProbability_SignalFloodingProbabilityBiggerThanMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException()
         {
             // Setup
             const double norm = 1.0 / 30000;
@@ -143,14 +143,14 @@ namespace Riskeer.Common.Data.Test.Contribution
             TestDelegate test = () => failureMechanismContribution.SignalingNorm = newNorm;
 
             // Assert
-            const string expectedMessage = "De signaleringswaarde moet gelijk zijn aan of kleiner zijn dan de ondergrens.";
+            const string expectedMessage = "De signaleringsparameter moet gelijk zijn aan of kleiner zijn dan de omgevingswaarde.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
             StringAssert.StartsWith(expectedMessage, exception.Message);
             Assert.AreEqual(newNorm, exception.ActualValue);
         }
 
         [Test]
-        public void LowerLimitNorm_SignalingNormBiggerThanLowerLimitNorm_ThrowsArgumentOutOfRangeException()
+        public void MaximumAllowableFloodingProbability_SignalFloodingProbabilityBiggerThanMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException()
         {
             // Setup
             const double norm = 1.0 / 30000;
@@ -162,40 +162,40 @@ namespace Riskeer.Common.Data.Test.Contribution
             TestDelegate test = () => failureMechanismContribution.LowerLimitNorm = newNorm;
 
             // Assert
-            const string expectedMessage = "De ondergrens moet gelijk zijn aan of groter zijn dan de signaleringswaarde.";
+            const string expectedMessage = "De omgevingswaarde moet gelijk zijn aan of groter zijn dan de signaleringsparameter.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
             StringAssert.StartsWith(expectedMessage, exception.Message);
             Assert.AreEqual(newNorm, exception.ActualValue);
         }
 
         [Test]
-        public void LowerLimitNorm_ValidValue_SetsNewValue()
+        public void MaximumAllowableFloodingProbability_ValidValue_SetsNewValue()
         {
             // Setup
             const double norm = 1.0 / 30000;
-            const double newLowerLimitNorm = 1.0 / 20000;
+            const double newMaximumAllowableFloodingProbability = 1.0 / 20000;
             var failureMechanismContribution = new FailureMechanismContribution(norm, norm);
 
             // Call
-            failureMechanismContribution.LowerLimitNorm = newLowerLimitNorm;
+            failureMechanismContribution.LowerLimitNorm = newMaximumAllowableFloodingProbability;
 
             // Assert
-            Assert.AreEqual(newLowerLimitNorm, failureMechanismContribution.LowerLimitNorm);
+            Assert.AreEqual(newMaximumAllowableFloodingProbability, failureMechanismContribution.LowerLimitNorm);
         }
 
         [Test]
-        public void SignalingNorm_ValidValue_SetsNewValue()
+        public void SignalFloodingProbability_ValidValue_SetsNewValue()
         {
             // Setup
             const double norm = 1.0 / 30000;
-            const double newSignalingNorm = 1.0 / 40000;
+            const double newSignalFloodingProbability = 1.0 / 40000;
             var failureMechanismContribution = new FailureMechanismContribution(norm, norm);
 
             // Call
-            failureMechanismContribution.SignalingNorm = newSignalingNorm;
+            failureMechanismContribution.SignalingNorm = newSignalFloodingProbability;
 
             // Assert
-            Assert.AreEqual(newSignalingNorm, failureMechanismContribution.SignalingNorm);
+            Assert.AreEqual(newSignalFloodingProbability, failureMechanismContribution.SignalingNorm);
         }
 
         [Test]
