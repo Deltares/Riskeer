@@ -161,7 +161,7 @@ namespace Riskeer.Integration.Data.Test
         }
 
         [Test]
-        public void Constructor_SignalingNormLargerThanLowerLimitNorm_ThrowsArgumentOutOfRangeException()
+        public void Constructor_SignalFloodingProbabilityLargerThanMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException()
         {
             // Setup
             var random = new Random(21);
@@ -171,7 +171,7 @@ namespace Riskeer.Integration.Data.Test
             void Call() => new AssessmentSection(composition, 0.01, 0.1);
 
             // Assert
-            const string expectedMessage = "De signaleringswaarde moet gelijk zijn aan of kleiner zijn dan de ondergrens.";
+            const string expectedMessage = "De signaleringsparameter moet gelijk zijn aan of kleiner zijn dan de omgevingswaarde.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
         }
