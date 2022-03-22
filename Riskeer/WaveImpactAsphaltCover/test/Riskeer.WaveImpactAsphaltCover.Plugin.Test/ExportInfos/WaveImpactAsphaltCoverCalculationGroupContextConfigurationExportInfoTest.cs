@@ -38,7 +38,7 @@ using CoreGuiResources = Core.Gui.Properties.Resources;
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextConfigurationExportInfoTest
+    public class WaveImpactAsphaltCoverCalculationGroupContextConfigurationExportInfoTest
     {
         private WaveImpactAsphaltCoverPlugin plugin;
         private ExportInfo info;
@@ -60,7 +60,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             };
 
             info = plugin.GetExportInfos()
-                         .Single(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)
+                         .Single(ei => ei.DataType == typeof(WaveImpactAsphaltCoverCalculationGroupContext)
                                        && ei.Name(null).Equals("Riskeer berekeningenconfiguratie"));
         }
 
@@ -91,10 +91,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 0.1));
             mocks.ReplayAll();
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                          null,
-                                                                                          new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                          assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationGroupContext(new CalculationGroup(),
+                                                                            null,
+                                                                            new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                            assessmentSection);
 
             // Call
             IFileExporter fileExporter = info.CreateFileExporter(context, "test");
@@ -110,10 +110,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                          null,
-                                                                                          new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                          assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationGroupContext(new CalculationGroup(),
+                                                                            null,
+                                                                            new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                            assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);
@@ -143,10 +143,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
                 calculationGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
             }
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup,
-                                                                                          null,
-                                                                                          new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                          assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationGroupContext(calculationGroup,
+                                                                            null,
+                                                                            new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                            assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);

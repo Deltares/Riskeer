@@ -183,7 +183,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
         protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
         {
-            return new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(
+            return new WaveImpactAsphaltCoverCalculationGroupContext(
                 new CalculationGroup
                 {
                     Children =

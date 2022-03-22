@@ -40,7 +40,7 @@ using Riskeer.WaveImpactAsphaltCover.IO.Configurations;
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextImportInfoTest
+    public class WaveImpactAsphaltCoverCalculationGroupContextImportInfoTest
     {
         private ImportInfo importInfo;
         private WaveImpactAsphaltCoverPlugin plugin;
@@ -49,7 +49,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
         public void SetUp()
         {
             plugin = new WaveImpactAsphaltCoverPlugin();
-            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext));
+            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(WaveImpactAsphaltCoverCalculationGroupContext));
         }
 
         [TearDown]
@@ -120,10 +120,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ImportInfos
                              .Return(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>());
             mocks.ReplayAll();
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                          null,
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationGroupContext(new CalculationGroup(),
+                                                                            null,
+                                                                            failureMechanism,
+                                                                            assessmentSection);
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(context, "");

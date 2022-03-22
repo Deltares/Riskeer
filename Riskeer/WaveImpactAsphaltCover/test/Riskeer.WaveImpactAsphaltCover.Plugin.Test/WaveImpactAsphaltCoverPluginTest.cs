@@ -103,9 +103,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
             mockRepository.ReplayAll();
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin
-            {
-                Gui = gui
-            })
+                   {
+                       Gui = gui
+                   })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -159,7 +159,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverHydraulicLoadsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailurePathContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailureMechanismSectionResultContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyWaveImpactAsphaltCoverOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsOutput)));
@@ -178,16 +178,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
             mocks.ReplayAll();
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin
-            {
-                Gui = gui
-            })
+                   {
+                       Gui = gui
+                   })
             {
                 // Call
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();
 
                 // Assert
                 Assert.AreEqual(4, exportInfos.Length);
-                Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)));
+                Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(WaveImpactAsphaltCoverCalculationGroupContext)));
                 Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext)));
             }
 
@@ -205,7 +205,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(1, importInfos.Length);
-                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(WaveImpactAsphaltCoverCalculationGroupContext)));
             }
         }
 

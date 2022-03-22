@@ -38,7 +38,7 @@ using CoreGuiResources = Core.Gui.Properties.Resources;
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextWaveConditionsExportInfoTest
+    public class WaveImpactAsphaltCoverCalculationGroupContextWaveConditionsExportInfoTest
     {
         private WaveImpactAsphaltCoverPlugin plugin;
         private ExportInfo info;
@@ -60,7 +60,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             };
 
             info = plugin.GetExportInfos()
-                         .Single(ei => ei.DataType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)
+                         .Single(ei => ei.DataType == typeof(WaveImpactAsphaltCoverCalculationGroupContext)
                                        && ei.Name(null).Equals("Berekende belastingen bij verschillende waterstanden"));
         }
 
@@ -93,7 +93,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             IFileExporter fileExporter = info.CreateFileExporter(context, "test");
@@ -112,7 +112,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);
@@ -146,7 +146,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
 
             calculationGroup.Children.Add(calculation);
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);
@@ -189,7 +189,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ExportInfos
                     }
                 });
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);

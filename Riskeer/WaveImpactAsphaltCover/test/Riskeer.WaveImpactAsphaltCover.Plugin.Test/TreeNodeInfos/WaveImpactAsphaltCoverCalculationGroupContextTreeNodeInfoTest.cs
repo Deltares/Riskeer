@@ -58,7 +58,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
+    public class WaveImpactAsphaltCoverCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuImportConfigurationIndex = 0;
         private const int contextMenuExportConfigurationIndex = 1;
@@ -125,10 +125,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                          null,
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                            null,
+                                                                            failureMechanism,
+                                                                            assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -145,10 +145,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                          null,
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                            null,
+                                                                            failureMechanism,
+                                                                            assessmentSection);
 
             // Call
             Image icon = info.Image(context);
@@ -166,10 +166,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                               null,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
+            var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                 null,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(groupContext);
@@ -192,10 +192,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(calculationItem);
             failureMechanism.CalculationsGroup.Children.Add(childGroup);
 
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                           null,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                             null,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(nodeData).ToArray();
@@ -209,7 +209,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, returnedCalculationContext.FailureMechanism);
             Assert.AreSame(assessmentSection, returnedCalculationContext.AssessmentSection);
 
-            var returnedCalculationGroupContext = (WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext) children[1];
+            var returnedCalculationGroupContext = (WaveImpactAsphaltCoverCalculationGroupContext) children[1];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             Assert.AreSame(failureMechanism.CalculationsGroup, returnedCalculationGroupContext.Parent);
             Assert.AreSame(failureMechanism, returnedCalculationGroupContext.FailureMechanism);
@@ -223,10 +223,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                               null,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
+            var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                                 null,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -276,10 +276,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                               null,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
+            var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                                 null,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -341,14 +341,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var parentGroup = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                               parentGroup,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
-            var parentGroupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(parentGroup,
-                                                                                                     null,
-                                                                                                     failureMechanism,
-                                                                                                     assessmentSection);
+            var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                                 parentGroup,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+            var parentGroupContext = new WaveImpactAsphaltCoverCalculationGroupContext(parentGroup,
+                                                                                       null,
+                                                                                       failureMechanism,
+                                                                                       assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -399,14 +399,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var parentGroup = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-            var groupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                               parentGroup,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
-            var parentGroupContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(parentGroup,
-                                                                                                     null,
-                                                                                                     failureMechanism,
-                                                                                                     assessmentSection);
+            var groupContext = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                                 parentGroup,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+            var parentGroupContext = new WaveImpactAsphaltCoverCalculationGroupContext(parentGroup,
+                                                                                       null,
+                                                                                       failureMechanism,
+                                                                                       assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -466,10 +466,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                           null,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                             null,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
@@ -575,10 +575,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                           null,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                             null,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
@@ -680,14 +680,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
                 failureMechanism.CalculationsGroup.Children.Add(group);
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                               failureMechanism.CalculationsGroup,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
-                var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                     null,
-                                                                                                     failureMechanism,
-                                                                                                     assessmentSection);
+                var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                                 failureMechanism.CalculationsGroup,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+                var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                       null,
+                                                                                       failureMechanism,
+                                                                                       assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -720,14 +720,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 group.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
                 failureMechanism.CalculationsGroup.Children.Add(group);
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                               failureMechanism.CalculationsGroup,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
-                var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                     null,
-                                                                                                     failureMechanism,
-                                                                                                     assessmentSection);
+                var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                                 failureMechanism.CalculationsGroup,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+                var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                       null,
+                                                                                       failureMechanism,
+                                                                                       assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -762,14 +762,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
-                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                               failureMechanism.CalculationsGroup,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
-                var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                     null,
-                                                                                                     failureMechanism,
-                                                                                                     assessmentSection);
+                var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                                 failureMechanism.CalculationsGroup,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+                var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                       null,
+                                                                                       failureMechanism,
+                                                                                       assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -813,14 +813,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             group.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
             failureMechanism.CalculationsGroup.Children.Add(group);
 
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                           failureMechanism.CalculationsGroup,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
-            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                 null,
-                                                                                                 failureMechanism,
-                                                                                                 assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                             failureMechanism.CalculationsGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                   null,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -858,14 +858,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             group.Children.Add(calculationB);
 
             failureMechanism.CalculationsGroup.Children.Add(group);
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                           failureMechanism.CalculationsGroup,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
-            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                 null,
-                                                                                                 failureMechanism,
-                                                                                                 assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                             failureMechanism.CalculationsGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                   null,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -908,14 +908,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
             failureMechanism.CalculationsGroup.Children.Add(group);
 
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                           failureMechanism.CalculationsGroup,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
-            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                 null,
-                                                                                                 failureMechanism,
-                                                                                                 assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                             failureMechanism.CalculationsGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                   null,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -960,14 +960,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = false;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                           failureMechanism.CalculationsGroup,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
-            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                 null,
-                                                                                                 failureMechanism,
-                                                                                                 assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                             failureMechanism.CalculationsGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                   null,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1012,14 +1012,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = TestHelper.GetScratchPadPath();
 
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                           failureMechanism.CalculationsGroup,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
-            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                 null,
-                                                                                                 failureMechanism,
-                                                                                                 assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                             failureMechanism.CalculationsGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                   null,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1077,14 +1077,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                           failureMechanism.CalculationsGroup,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
-            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                 null,
-                                                                                                 failureMechanism,
-                                                                                                 assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                             failureMechanism.CalculationsGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                   null,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1137,14 +1137,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             group.Children.Add(calculationB);
 
             failureMechanism.CalculationsGroup.Children.Add(group);
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                           failureMechanism.CalculationsGroup,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
-            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                 null,
-                                                                                                 failureMechanism,
-                                                                                                 assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                             failureMechanism.CalculationsGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                   null,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1214,14 +1214,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
 
             failureMechanism.CalculationsGroup.Children.Add(group);
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                           failureMechanism.CalculationsGroup,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
-            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                 null,
-                                                                                                 failureMechanism,
-                                                                                                 assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                             failureMechanism.CalculationsGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                   null,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1262,14 +1262,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             group.Children.Add(calculationB);
 
             failureMechanism.CalculationsGroup.Children.Add(group);
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                           failureMechanism.CalculationsGroup,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
-            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                 null,
-                                                                                                 failureMechanism,
-                                                                                                 assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                             failureMechanism.CalculationsGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                   null,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1324,14 +1324,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             calculationB.Attach(observerB);
 
             failureMechanism.CalculationsGroup.Children.Add(group);
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                           failureMechanism.CalculationsGroup,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
-            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                 null,
-                                                                                                 failureMechanism,
-                                                                                                 assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                             failureMechanism.CalculationsGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                   null,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1384,14 +1384,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 failureMechanism.CalculationsGroup.Children.Add(group);
 
-                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                               failureMechanism.CalculationsGroup,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
-                var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                     null,
-                                                                                                     failureMechanism,
-                                                                                                     assessmentSection);
+                var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                                 failureMechanism.CalculationsGroup,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
+                var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                       null,
+                                                                                       failureMechanism,
+                                                                                       assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1445,10 +1445,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     NormativeNorm = normType
                 }
             };
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                           null,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                             null,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
             var calculationItem = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = "Nieuwe berekening"
@@ -1525,10 +1525,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
-                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                               null,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
+                var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                                 null,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var viewCommands = mocks.StrictMock<IViewCommands>();
@@ -1597,10 +1597,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 });
 
                 var observer = mocks.StrictMock<IObserver>();
-                var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                               null,
-                                                                                               failureMechanism,
-                                                                                               assessmentSection);
+                var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                                 null,
+                                                                                 failureMechanism,
+                                                                                 assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var viewCommands = mocks.StrictMock<IViewCommands>();
@@ -1635,7 +1635,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRemoved_ParentIsWaveConditionsCalculationGroupContainingGroup_RemoveGroupAndNotifyObservers()
+        public void OnNodeRemoved_ParentIsCalculationGroupContainingGroup_RemoveGroupAndNotifyObservers()
         {
             // Setup
             var observer = mocks.StrictMock<IObserver>();
@@ -1647,16 +1647,16 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(group,
-                                                                                           failureMechanism.CalculationsGroup,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
+                                                                             failureMechanism.CalculationsGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
 
             failureMechanism.CalculationsGroup.Children.Add(group);
-            var parentNodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                 null,
-                                                                                                 failureMechanism,
-                                                                                                 assessmentSection);
+            var parentNodeData = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                   null,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
             parentNodeData.Attach(observer);
 
             // Precondition
@@ -1676,10 +1676,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                          null,
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
+            var context = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                            null,
+                                                                            failureMechanism,
+                                                                            assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1725,10 +1725,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.CalculationsGroup.Attach(observer);
 
-            var context = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                          null,
-                                                                                          failureMechanism,
-                                                                                          new AssessmentSectionStub());
+            var context = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                            null,
+                                                                            failureMechanism,
+                                                                            new AssessmentSectionStub());
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1779,7 +1779,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(
                 new CalculationGroup
                 {
                     Children =
@@ -1831,7 +1831,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 }
             };
 
-            var nodeData = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(
+            var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(
                 new CalculationGroup
                 {
                     Children =
@@ -1873,7 +1873,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 Gui = gui
             };
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverCalculationGroupContext));
         }
 
         public override void TearDown()

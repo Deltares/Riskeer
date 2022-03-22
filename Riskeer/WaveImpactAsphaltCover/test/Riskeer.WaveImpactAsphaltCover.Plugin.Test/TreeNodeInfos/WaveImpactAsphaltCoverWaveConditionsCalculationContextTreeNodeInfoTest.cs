@@ -330,10 +330,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                                      failureMechanism,
                                                                                      assessmentSection);
 
-            var parentContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                null,
-                                                                                                failureMechanism,
-                                                                                                assessmentSection);
+            var parentContext = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                  null,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
 
             // Call
             bool canRemoveCalculation = info.CanRemove(context, parentContext);
@@ -360,10 +360,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                                      failureMechanism,
                                                                                      assessmentSection);
 
-            var parentContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                null,
-                                                                                                failureMechanism,
-                                                                                                assessmentSection);
+            var parentContext = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                  null,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
 
             // Call
             bool canRemoveCalculation = info.CanRemove(context, parentContext);
@@ -394,10 +394,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                                      failureMechanism,
                                                                                      assessmentSection);
 
-            var parentContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                null,
-                                                                                                failureMechanism,
-                                                                                                assessmentSection);
+            var parentContext = new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                                  null,
+                                                                                  failureMechanism,
+                                                                                  assessmentSection);
 
             // Call
             info.OnNodeRemoved(context, parentContext);
