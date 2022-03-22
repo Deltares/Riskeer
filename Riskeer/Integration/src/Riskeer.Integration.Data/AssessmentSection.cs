@@ -129,7 +129,7 @@ namespace Riskeer.Integration.Data
         public MacroStabilityInwardsFailureMechanism MacroStabilityInwards { get; set; }
 
         /// <summary>
-        /// Gets or sets the "Dijken en dammen - Microstabiliteit" failure mechanism.
+        /// Gets or sets the "Microstabiliteit" failure mechanism.
         /// </summary>
         public MicrostabilityFailureMechanism Microstability { get; set; }
 
