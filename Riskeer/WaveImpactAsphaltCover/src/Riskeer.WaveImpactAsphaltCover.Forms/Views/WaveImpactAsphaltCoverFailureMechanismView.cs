@@ -179,15 +179,15 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
                 UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>()
                                                                                  .Select(pc => pc.InputParameters)))
             {
-                Observable = FailureMechanism.WaveConditionsCalculationGroup
+                Observable = FailureMechanism.CalculationsGroup
             };
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children)
             {
-                Observable = FailureMechanism.WaveConditionsCalculationGroup
+                Observable = FailureMechanism.CalculationsGroup
             };
             calculationObserver = new RecursiveObserver<CalculationGroup, WaveImpactAsphaltCoverWaveConditionsCalculation>(UpdateCalculationsMapData, pcg => pcg.Children)
             {
-                Observable = FailureMechanism.WaveConditionsCalculationGroup
+                Observable = FailureMechanism.CalculationsGroup
             };
             foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateForeshoreProfilesMapData, coll => coll)
             {
@@ -216,7 +216,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
         private void SetCalculationsMapData()
         {
             IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations =
-                FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>();
+                FailureMechanism.CalculationsGroup.GetCalculations().Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>();
             calculationsMapData.Features = WaveImpactAsphaltCoverMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
         }
 

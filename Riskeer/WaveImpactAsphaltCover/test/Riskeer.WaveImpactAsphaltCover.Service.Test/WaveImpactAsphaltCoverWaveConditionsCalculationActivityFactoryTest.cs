@@ -90,7 +90,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.AddRange(new[]
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
                 calculation1,
                 calculation2

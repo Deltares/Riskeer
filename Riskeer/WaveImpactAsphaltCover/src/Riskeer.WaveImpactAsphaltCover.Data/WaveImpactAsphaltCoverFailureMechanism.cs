@@ -34,7 +34,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Wave Impact on Asphalt failure mechanism.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class WaveImpactAsphaltCoverFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                                                          ICalculatableFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WaveImpactAsphaltCoverFailureMechanism"/> class.
@@ -42,7 +43,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         public WaveImpactAsphaltCoverFailureMechanism()
             : base(Resources.WaveImpactAsphaltCoverFailureMechanism_DisplayName, Resources.WaveImpactAsphaltCoverFailureMechanism_Code)
         {
-            WaveConditionsCalculationGroup = new CalculationGroup
+            CalculationsGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
             };
@@ -50,8 +51,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
             GeneralInput = new GeneralWaveConditionsInput(1.0, 0.0, 0.0);
             GeneralWaveImpactAsphaltCoverInput = new GeneralWaveImpactAsphaltCoverInput();
         }
-
-        public override IEnumerable<ICalculation> Calculations => WaveConditionsCalculationGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
 
         /// <summary>
         /// Gets the available foreshore profiles for this instance.
@@ -68,9 +67,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// </summary>
         public GeneralWaveImpactAsphaltCoverInput GeneralWaveImpactAsphaltCoverInput { get; }
 
-        /// <summary>
-        /// Gets the container of all wave conditions calculations.
-        /// </summary>
-        public CalculationGroup WaveConditionsCalculationGroup { get; }
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
+        
+        public CalculationGroup CalculationsGroup { get; }
     }
 }

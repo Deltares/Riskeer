@@ -191,8 +191,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 profile2
             }, "path");
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
@@ -414,7 +414,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 }
             };
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
             WaveImpactAsphaltCoverFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
@@ -440,8 +440,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             };
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
-            failureMechanism.WaveConditionsCalculationGroup.NotifyObservers();
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
+            failureMechanism.CalculationsGroup.NotifyObservers();
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>(), calculationMapData);
@@ -462,7 +462,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 }
             };
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
             WaveImpactAsphaltCoverFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
@@ -502,7 +502,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
                 }
             };
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
             WaveImpactAsphaltCoverFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 

@@ -39,13 +39,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
             Assert.AreEqual("Golfklappen op asfaltbekleding", failureMechanism.Name);
             Assert.AreEqual("AGK", failureMechanism.Code);
             Assert.IsNotNull(failureMechanism.GeneralWaveImpactAsphaltCoverInput);
             Assert.IsNotNull(failureMechanism.GeneralInput);
 
-            Assert.AreEqual("Hydraulische belastingen", failureMechanism.WaveConditionsCalculationGroup.Name);
-            CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
+            Assert.AreEqual("Hydraulische belastingen", failureMechanism.CalculationsGroup.Name);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
 
@@ -60,7 +61,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
             var mocks = new MockRepository();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
-                WaveConditionsCalculationGroup =
+                CalculationsGroup =
                 {
                     Children =
                     {

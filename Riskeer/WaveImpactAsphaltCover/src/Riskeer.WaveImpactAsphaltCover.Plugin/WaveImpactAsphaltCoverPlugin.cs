@@ -322,7 +322,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetHydraulicLoadsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
-                new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup, null,
+                new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup, null,
                                                                                 failureMechanism, assessmentSection)
             };
         }

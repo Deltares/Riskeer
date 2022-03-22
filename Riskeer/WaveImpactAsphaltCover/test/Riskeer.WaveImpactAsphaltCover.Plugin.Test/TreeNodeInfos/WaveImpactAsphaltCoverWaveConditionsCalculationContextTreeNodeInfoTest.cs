@@ -324,13 +324,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                      parent,
                                                                                      failureMechanism,
                                                                                      assessmentSection);
 
-            var parentContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                 null,
                                                                                                 failureMechanism,
                                                                                                 assessmentSection);
@@ -360,7 +360,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                                                                                      failureMechanism,
                                                                                      assessmentSection);
 
-            var parentContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                 null,
                                                                                                 failureMechanism,
                                                                                                 assessmentSection);
@@ -387,14 +387,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Attach(observer);
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                      parent,
                                                                                      failureMechanism,
                                                                                      assessmentSection);
 
-            var parentContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentContext = new WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                 null,
                                                                                                 failureMechanism,
                                                                                                 assessmentSection);
@@ -403,7 +403,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             info.OnNodeRemoved(context, parentContext);
 
             // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.WaveConditionsCalculationGroup.Children, calculation);
+            CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, calculation);
         }
 
         [Test]

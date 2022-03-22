@@ -526,7 +526,7 @@ namespace Riskeer.Storage.Core.Read
             WaveImpactAsphaltCoverFailureMechanismMetaEntity metaEntity = entity.WaveImpactAsphaltCoverFailureMechanismMetaEntities.Single();
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
 
-            ReadWaveImpactAsphaltCoverRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
+            ReadWaveImpactAsphaltCoverRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
             entity.ReadWaveImpactAsphaltCoverGeneralInput(failureMechanism.GeneralWaveImpactAsphaltCoverInput);
         }
 
