@@ -279,7 +279,7 @@
 Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau niet verloren.</value>
   </data>
   <data name="AssemblyResultPerSection_DisplayName" xml:space="preserve">
-    <value>Gecombineerd vakoordeel</value>
+    <value>Duiding bijdrage per deelvak</value>
   </data>
   <data name="SectionNumber_DisplayName" xml:space="preserve">
     <value>Vaknummer</value>

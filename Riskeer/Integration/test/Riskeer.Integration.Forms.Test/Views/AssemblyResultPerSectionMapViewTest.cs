@@ -108,7 +108,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
                 CollectionAssert.IsEmpty(referenceLineMapData.Features);
 
-                Assert.AreEqual("Gecombineerd vakoordeel", assemblyResultsLineMapData.Name);
+                Assert.AreEqual("Duiding bijdrage per deelvak", assemblyResultsLineMapData.Name);
                 Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
                 Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             }

@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Gecombineerd vakoordeel", text);
+                Assert.AreEqual("Duiding bijdrage per deelvak", text);
             }
         }
 

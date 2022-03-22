@@ -118,7 +118,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gecombineerd vakoordeel.
+        ///   Looks up a localized string similar to Duiding bijdrage per deelvak.
         /// </summary>
         public static string AssemblyResultPerSection_DisplayName {
             get {
