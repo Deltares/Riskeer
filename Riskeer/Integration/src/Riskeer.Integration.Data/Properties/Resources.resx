@@ -142,7 +142,7 @@
     <value>STMI</value>
   </data>
   <data name="MicrostabilityFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Microstabiliteit</value>
+    <value>Microstabiliteit</value>
   </data>
   <data name="WaterPressureAsphaltCoverFailureMechanism_Code" xml:space="preserve">
     <value>AWO</value>

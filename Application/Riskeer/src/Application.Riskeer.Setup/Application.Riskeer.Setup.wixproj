@@ -192,12 +192,12 @@
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Stabiliteit steenzetting\vakindeling ZST traject 50-1.qpj" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Stabiliteit steenzetting\vakindeling ZST traject 50-1.shp" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Stabiliteit steenzetting\vakindeling ZST traject 50-1.shx" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.cpg" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.dbf" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.prj" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.qpj" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.shp" />
-    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\vakindeling STMI traject 50-1.shx" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Microstabiliteit\vakindeling STMI traject 50-1.cpg" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Microstabiliteit\vakindeling STMI traject 50-1.dbf" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Microstabiliteit\vakindeling STMI traject 50-1.prj" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Microstabiliteit\vakindeling STMI traject 50-1.qpj" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Microstabiliteit\vakindeling STMI traject 50-1.shp" />
+    <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Microstabiliteit\vakindeling STMI traject 50-1.shx" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\Disclaimer.txt" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\hlcd.sqlite" />
     <Content Include="Examples\Voorbeeld Traject 50-1 - Assembleren\WBI2017_Bovenrijn_50-1_v04.config.sqlite" />
@@ -295,7 +295,7 @@
     <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\02. Gegevens - Grasbekleding erosie kuin en binnentalud\" />
     <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\03. Gegevens - Betrouwbaarheid sluiting kunstwerk\" />
     <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\04. Gegevens - Stabiliteit steenzetting\" />
-    <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Dijken en dammen - Microstabiliteit\" />
+    <Folder Include="Examples\Voorbeeld Traject 50-1 - Assembleren\05. Gegevens - Microstabiliteit\" />
     <Folder Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\" />
     <Folder Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Betrouwbaarheid sluiting kunstwerk\" />
     <Folder Include="Examples\Voorbeeld Traject 52-2 - Kunstwerken - Coupure worp\Hoogte\" />
