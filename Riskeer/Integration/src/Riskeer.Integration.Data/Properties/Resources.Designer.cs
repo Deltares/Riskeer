@@ -169,7 +169,7 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Wateroverdruk bij asfaltbekleding.
+        ///   Looks up a localized string similar to Wateroverdruk bij asfaltbekleding.
         /// </summary>
         public static string WaterPressureAsphaltCoverFailureMechanism_DisplayName {
             get {
