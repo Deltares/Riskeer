@@ -1557,12 +1557,15 @@ namespace Riskeer.Integration.Plugin
                 yield return comment;
             }
 
-            foreach (ICalculation calculation in failureMechanism.Calculations)
+            if (failureMechanism is ICalculatableFailureMechanism calculatableFailureMechanism)
             {
-                yield return calculation.Comments;
-            }
+                foreach (ICalculation calculation in calculatableFailureMechanism.Calculations)
+                {
+                    yield return calculation.Comments;
+                }
 
-            yield return failureMechanism.CalculationsInputComments;
+                yield return calculatableFailureMechanism.CalculationsInputComments;
+            }
         }
 
         #endregion

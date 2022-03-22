@@ -51,8 +51,8 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
@@ -127,9 +127,9 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
@@ -155,9 +155,9 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var foreshoreProfiles = new ForeshoreProfileCollection();
@@ -208,7 +208,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             var calculationWithoutOutput = mocks.Stub<ICalculation>();
             calculationWithoutOutput.Stub(calc => calc.HasOutput).Return(false);
 
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculationWithoutOutput
@@ -251,7 +251,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             var calculationWithoutOutput = mocks.Stub<ICalculation>();
             calculationWithoutOutput.Stub(calc => calc.HasOutput).Return(true);
 
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculationWithoutOutput
