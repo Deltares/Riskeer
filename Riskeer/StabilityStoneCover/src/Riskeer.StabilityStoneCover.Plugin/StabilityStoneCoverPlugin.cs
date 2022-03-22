@@ -321,7 +321,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetHydraulicLoadsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
-                new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup, null,
+                new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup, null,
                                                                              failureMechanism, assessmentSection)
             };
         }

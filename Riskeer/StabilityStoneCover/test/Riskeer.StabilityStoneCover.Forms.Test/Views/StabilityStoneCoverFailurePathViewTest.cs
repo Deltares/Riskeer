@@ -153,8 +153,8 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
                 profile2
             }, "path");
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]

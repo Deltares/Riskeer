@@ -215,11 +215,11 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "A"
             });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "B"
             });
@@ -231,7 +231,7 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual(failureMechanism.WaveConditionsCalculationGroup.Name, entity.CalculationGroupEntity.Name);
+            Assert.AreEqual(failureMechanism.CalculationsGroup.Name, entity.CalculationGroupEntity.Name);
             Assert.AreEqual(0, entity.CalculationGroupEntity.Order);
 
             CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity.CalculationGroupEntity1

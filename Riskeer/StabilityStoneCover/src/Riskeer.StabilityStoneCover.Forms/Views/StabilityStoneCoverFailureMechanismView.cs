@@ -180,15 +180,15 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
                 UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<StabilityStoneCoverWaveConditionsCalculation>()
                                                                                  .Select(pc => pc.InputParameters)))
             {
-                Observable = FailureMechanism.WaveConditionsCalculationGroup
+                Observable = FailureMechanism.CalculationsGroup
             };
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children)
             {
-                Observable = FailureMechanism.WaveConditionsCalculationGroup
+                Observable = FailureMechanism.CalculationsGroup
             };
             calculationObserver = new RecursiveObserver<CalculationGroup, StabilityStoneCoverWaveConditionsCalculation>(UpdateCalculationsMapData, pcg => pcg.Children)
             {
-                Observable = FailureMechanism.WaveConditionsCalculationGroup
+                Observable = FailureMechanism.CalculationsGroup
             };
             foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateForeshoreProfilesMapData, coll => coll)
             {
@@ -217,7 +217,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
         private void SetCalculationsMapData()
         {
             IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations =
-                FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>();
+                FailureMechanism.CalculationsGroup.GetCalculations().Cast<StabilityStoneCoverWaveConditionsCalculation>();
             calculationsMapData.Features = StabilityStoneCoverMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
         }
 

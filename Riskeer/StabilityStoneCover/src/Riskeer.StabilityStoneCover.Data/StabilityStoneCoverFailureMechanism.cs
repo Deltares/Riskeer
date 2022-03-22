@@ -33,7 +33,8 @@ namespace Riskeer.StabilityStoneCover.Data
     /// Model containing input and output needed to perform different levels of the
     /// Stability of Stone Cover failure mechanism.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class StabilityStoneCoverFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                                                       ICalculatableFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StabilityStoneCoverFailureMechanism"/> class.
@@ -41,7 +42,7 @@ namespace Riskeer.StabilityStoneCover.Data
         public StabilityStoneCoverFailureMechanism()
             : base(Resources.StabilityStoneCoverFailureMechanism_DisplayName, Resources.StabilityStoneCoverFailureMechanism_Code)
         {
-            WaveConditionsCalculationGroup = new CalculationGroup
+            CalculationsGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
             };
@@ -49,21 +50,18 @@ namespace Riskeer.StabilityStoneCover.Data
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
-        public override IEnumerable<ICalculation> Calculations => WaveConditionsCalculationGroup.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>();
-
         /// <summary>
         /// Gets the general stability stone cover wave conditions input parameters that apply to each calculation.
         /// </summary>
         public GeneralStabilityStoneCoverWaveConditionsInput GeneralInput { get; }
 
         /// <summary>
-        /// Gets the container of all wave conditions calculations.
-        /// </summary>
-        public CalculationGroup WaveConditionsCalculationGroup { get; }
-
-        /// <summary>
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
+
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>();
+
+        public CalculationGroup CalculationsGroup { get; }
     }
 }

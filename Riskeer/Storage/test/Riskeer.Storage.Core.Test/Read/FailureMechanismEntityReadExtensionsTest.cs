@@ -1899,12 +1899,12 @@ namespace Riskeer.Storage.Core.Test.Read
             entity.ReadAsStabilityStoneCoverFailureMechanism(failureMechanism, collector);
 
             // Assert
-            Assert.AreEqual(2, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
+            Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
 
-            ICalculationBase child1 = failureMechanism.WaveConditionsCalculationGroup.Children[0];
+            ICalculationBase child1 = failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual("Child2", child1.Name);
 
-            ICalculationBase child2 = failureMechanism.WaveConditionsCalculationGroup.Children[1];
+            ICalculationBase child2 = failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual("Child1", child2.Name);
         }
 

@@ -57,7 +57,7 @@ namespace Riskeer.StabilityStoneCover.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return CreateCalculationActivities(failureMechanism.WaveConditionsCalculationGroup, failureMechanism, assessmentSection);
+            return CreateCalculationActivities(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection);
         }
 
         /// <summary>

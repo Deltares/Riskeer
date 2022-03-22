@@ -90,7 +90,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             StabilityStoneCoverWaveConditionsCalculation calculation1 = CreateValidCalculation(hydraulicBoundaryLocation);
             StabilityStoneCoverWaveConditionsCalculation calculation2 = CreateValidCalculation(hydraulicBoundaryLocation);
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.AddRange(new[]
+            failureMechanism.CalculationsGroup.Children.AddRange(new[]
             {
                 calculation1,
                 calculation2

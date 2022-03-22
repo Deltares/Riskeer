@@ -113,7 +113,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
 
             // Call
             IEnumerable<IObservable> affectedItems =
@@ -142,7 +142,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
             object[] expectedRemovedObjects = failureMechanism.Sections.OfType<object>()
                                                               .Concat(failureMechanism.SectionResults)
-                                                              .Concat(failureMechanism.WaveConditionsCalculationGroup.GetAllChildrenRecursive())
+                                                              .Concat(failureMechanism.CalculationsGroup.GetAllChildrenRecursive())
                                                               .Concat(failureMechanism.ForeshoreProfiles)
                                                               .ToArray();
 
@@ -154,14 +154,14 @@ namespace Riskeer.StabilityStoneCover.Service.Test
             // the return result, no ToArray() should be called before these assertions:
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
 
             IObservable[] array = results.ChangedObjects.ToArray();
             Assert.AreEqual(4, array.Length);
             CollectionAssert.Contains(array, failureMechanism);
             CollectionAssert.Contains(array, failureMechanism.SectionResults);
-            CollectionAssert.Contains(array, failureMechanism.WaveConditionsCalculationGroup);
+            CollectionAssert.Contains(array, failureMechanism.CalculationsGroup);
             CollectionAssert.Contains(array, failureMechanism.ForeshoreProfiles);
 
             CollectionAssert.AreEquivalent(expectedRemovedObjects, results.RemovedObjects);
@@ -231,11 +231,11 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 }
             };
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutput);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutput);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Children =
                 {

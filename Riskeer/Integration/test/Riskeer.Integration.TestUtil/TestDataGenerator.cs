@@ -700,12 +700,12 @@ namespace Riskeer.Integration.TestUtil
                 }
             };
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithForeshoreProfile);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Children =
                 {
@@ -948,12 +948,12 @@ namespace Riskeer.Integration.TestUtil
                 }
             };
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocationAndForeshoreProfile);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocationAndForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithOutputAndHydraulicBoundaryLocationAndForeshoreProfile);
+            failureMechanism.CalculationsGroup.Children.Add(calculationWithHydraulicBoundaryLocation);
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Children =
                 {

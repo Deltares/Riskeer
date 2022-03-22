@@ -123,7 +123,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                        null,
                                                                                        failureMechanism,
                                                                                        assessmentSection);
@@ -143,7 +143,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                        null,
                                                                                        failureMechanism,
                                                                                        assessmentSection);
@@ -163,7 +163,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var groupContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var groupContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                             null,
                                                                                             failureMechanism,
                                                                                             assessmentSection);
@@ -186,10 +186,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var calculationItem = new StabilityStoneCoverWaveConditionsCalculation();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationItem);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(childGroup);
+            failureMechanism.CalculationsGroup.Children.Add(calculationItem);
+            failureMechanism.CalculationsGroup.Children.Add(childGroup);
 
-            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                         null,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
@@ -198,17 +198,17 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             object[] children = info.ChildNodeObjects(nodeData).ToArray();
 
             // Assert
-            Assert.AreEqual(failureMechanism.WaveConditionsCalculationGroup.Children.Count, children.Length);
+            Assert.AreEqual(failureMechanism.CalculationsGroup.Children.Count, children.Length);
 
             var returnedCalculationContext = (StabilityStoneCoverWaveConditionsCalculationContext) children[0];
             Assert.AreSame(calculationItem, returnedCalculationContext.WrappedData);
-            Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, returnedCalculationContext.Parent);
+            Assert.AreSame(failureMechanism.CalculationsGroup, returnedCalculationContext.Parent);
             Assert.AreSame(failureMechanism, returnedCalculationContext.FailureMechanism);
             Assert.AreSame(assessmentSection, returnedCalculationContext.AssessmentSection);
 
             var returnedCalculationGroupContext = (StabilityStoneCoverWaveConditionsCalculationGroupContext) children[1];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
-            Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, returnedCalculationGroupContext.Parent);
+            Assert.AreSame(failureMechanism.CalculationsGroup, returnedCalculationGroupContext.Parent);
             Assert.AreSame(failureMechanism, returnedCalculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, returnedCalculationGroupContext.AssessmentSection);
         }
@@ -464,7 +464,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                         null,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
@@ -564,7 +564,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                         null,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
@@ -658,14 +658,14 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var group = new CalculationGroup();
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                failureMechanism.CalculationsGroup.Children.Add(group);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                            failureMechanism.WaveConditionsCalculationGroup,
+                                                                                            failureMechanism.CalculationsGroup,
                                                                                             failureMechanism,
                                                                                             assessmentSection);
-                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                   null,
                                                                                                   failureMechanism,
                                                                                                   assessmentSection);
@@ -700,14 +700,14 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                failureMechanism.CalculationsGroup.Children.Add(group);
 
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                            failureMechanism.WaveConditionsCalculationGroup,
+                                                                                            failureMechanism.CalculationsGroup,
                                                                                             failureMechanism,
                                                                                             assessmentSection);
-                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                   null,
                                                                                                   failureMechanism,
                                                                                                   assessmentSection);
@@ -742,15 +742,15 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                failureMechanism.CalculationsGroup.Children.Add(group);
 
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                            failureMechanism.WaveConditionsCalculationGroup,
+                                                                                            failureMechanism.CalculationsGroup,
                                                                                             failureMechanism,
                                                                                             assessmentSection);
-                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                   null,
                                                                                                   failureMechanism,
                                                                                                   assessmentSection);
@@ -789,7 +789,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 group.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                failureMechanism.CalculationsGroup.Children.Add(group);
 
                 var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
                 {
@@ -801,10 +801,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                            failureMechanism.WaveConditionsCalculationGroup,
+                                                                                            failureMechanism.CalculationsGroup,
                                                                                             failureMechanism,
                                                                                             assessmentSection);
-                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                   null,
                                                                                                   failureMechanism,
                                                                                                   assessmentSection);
@@ -843,12 +843,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            failureMechanism.CalculationsGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism.WaveConditionsCalculationGroup,
+                                                                                        failureMechanism.CalculationsGroup,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
-            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                               null,
                                                                                               failureMechanism,
                                                                                               assessmentSection);
@@ -892,13 +892,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            failureMechanism.CalculationsGroup.Children.Add(group);
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism.WaveConditionsCalculationGroup,
+                                                                                        failureMechanism.CalculationsGroup,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
-            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                               null,
                                                                                               failureMechanism,
                                                                                               assessmentSection);
@@ -940,17 +940,17 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            failureMechanism.CalculationsGroup.Children.Add(group);
 
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = false;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism.WaveConditionsCalculationGroup,
+                                                                                        failureMechanism.CalculationsGroup,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
-            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                               null,
                                                                                               failureMechanism,
                                                                                               assessmentSection);
@@ -992,17 +992,17 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            failureMechanism.CalculationsGroup.Children.Add(group);
 
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = TestHelper.GetScratchPadPath();
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism.WaveConditionsCalculationGroup,
+                                                                                        failureMechanism.CalculationsGroup,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
-            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                               null,
                                                                                               failureMechanism,
                                                                                               assessmentSection);
@@ -1057,17 +1057,17 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
             group.Children.Add(calculation);
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            failureMechanism.CalculationsGroup.Children.Add(group);
 
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.UsePreprocessor = true;
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism.WaveConditionsCalculationGroup,
+                                                                                        failureMechanism.CalculationsGroup,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
-            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                               null,
                                                                                               failureMechanism,
                                                                                               assessmentSection);
@@ -1113,12 +1113,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            failureMechanism.CalculationsGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism.WaveConditionsCalculationGroup,
+                                                                                        failureMechanism.CalculationsGroup,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
-            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                               null,
                                                                                               failureMechanism,
                                                                                               assessmentSection);
@@ -1184,16 +1184,16 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var group = new CalculationGroup();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            failureMechanism.CalculationsGroup.Children.Add(group);
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(
                 failureMechanism, mocks, validFilePath);
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism.WaveConditionsCalculationGroup,
+                                                                                        failureMechanism.CalculationsGroup,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
-            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                               null,
                                                                                               failureMechanism,
                                                                                               assessmentSection);
@@ -1237,12 +1237,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             group.Children.Add(calculationA);
             group.Children.Add(calculationB);
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            failureMechanism.CalculationsGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism.WaveConditionsCalculationGroup,
+                                                                                        failureMechanism.CalculationsGroup,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
-            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                               null,
                                                                                               failureMechanism,
                                                                                               assessmentSection);
@@ -1296,12 +1296,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             calculationA.Attach(observerA);
             calculationB.Attach(observerB);
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+            failureMechanism.CalculationsGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism.WaveConditionsCalculationGroup,
+                                                                                        failureMechanism.CalculationsGroup,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
-            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                               null,
                                                                                               failureMechanism,
                                                                                               assessmentSection);
@@ -1357,13 +1357,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var group = new CalculationGroup();
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
+                failureMechanism.CalculationsGroup.Children.Add(group);
 
                 var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                            failureMechanism.WaveConditionsCalculationGroup,
+                                                                                            failureMechanism.CalculationsGroup,
                                                                                             failureMechanism,
                                                                                             assessmentSection);
-                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                   null,
                                                                                                   failureMechanism,
                                                                                                   assessmentSection);
@@ -1625,12 +1625,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var nodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(group,
-                                                                                        failureMechanism.WaveConditionsCalculationGroup,
+                                                                                        failureMechanism.CalculationsGroup,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(group);
-            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            failureMechanism.CalculationsGroup.Children.Add(group);
+            var parentNodeData = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                               null,
                                                                                               failureMechanism,
                                                                                               assessmentSection);
@@ -1643,7 +1643,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             info.OnNodeRemoved(nodeData, parentNodeData);
 
             // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.WaveConditionsCalculationGroup.Children, group);
+            CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, group);
         }
 
         [Test]
@@ -1653,7 +1653,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                        null,
                                                                                        failureMechanism,
                                                                                        assessmentSection);
@@ -1700,9 +1700,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             observer.Expect(o => o.UpdateObserver());
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
+            failureMechanism.CalculationsGroup.Attach(observer);
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                        null,
                                                                                        failureMechanism,
                                                                                        new AssessmentSectionStub());
@@ -1735,8 +1735,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     validateMenuItem.PerformClick();
 
                     // Then
-                    Assert.AreEqual(1, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
-                    Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculation>(failureMechanism.WaveConditionsCalculationGroup.Children[0]);
+                    Assert.AreEqual(1, failureMechanism.CalculationsGroup.Children.Count);
+                    Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculation>(failureMechanism.CalculationsGroup.Children[0]);
                     // Check expectancies in TearDown()
                 }
             }

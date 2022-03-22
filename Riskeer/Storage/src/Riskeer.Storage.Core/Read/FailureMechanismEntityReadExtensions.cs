@@ -874,7 +874,7 @@ namespace Riskeer.Storage.Core.Read
                                   collector);
 
             ReadStabilityStoneCoverWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity,
-                                                                      failureMechanism.WaveConditionsCalculationGroup,
+                                                                      failureMechanism.CalculationsGroup,
                                                                       collector);
             entity.ReadStabilityStoneCoverGeneralInput(failureMechanism.GeneralInput);
         }

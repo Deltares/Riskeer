@@ -328,13 +328,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
-            var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                              null,
                                                                                              failureMechanism,
                                                                                              assessmentSection);
@@ -364,7 +364,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
-            var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                              null,
                                                                                              failureMechanism,
                                                                                              assessmentSection);
@@ -391,14 +391,14 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Attach(observer);
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   parent,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
-            var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                              null,
                                                                                              failureMechanism,
                                                                                              assessmentSection);
@@ -407,7 +407,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             info.OnNodeRemoved(context, parentContext);
 
             // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.WaveConditionsCalculationGroup.Children, calculation);
+            CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, calculation);
         }
 
         [Test]

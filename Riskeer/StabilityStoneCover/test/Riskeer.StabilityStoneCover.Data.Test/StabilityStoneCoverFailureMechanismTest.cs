@@ -39,12 +39,13 @@ namespace Riskeer.StabilityStoneCover.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
             Assert.AreEqual("Stabiliteit steenzetting", failureMechanism.Name);
             Assert.AreEqual("ZST", failureMechanism.Code);
             Assert.IsInstanceOf<GeneralStabilityStoneCoverWaveConditionsInput>(failureMechanism.GeneralInput);
 
-            Assert.AreEqual("Hydraulische belastingen", failureMechanism.WaveConditionsCalculationGroup.Name);
-            CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
+            Assert.AreEqual("Hydraulische belastingen", failureMechanism.CalculationsGroup.Name);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
@@ -59,7 +60,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             var mocks = new MockRepository();
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
-                WaveConditionsCalculationGroup =
+                CalculationsGroup =
                 {
                     Children =
                     {

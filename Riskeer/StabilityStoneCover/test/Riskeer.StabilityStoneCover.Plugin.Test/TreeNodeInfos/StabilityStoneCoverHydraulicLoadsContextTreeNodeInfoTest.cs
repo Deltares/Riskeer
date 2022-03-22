@@ -179,7 +179,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.CalculationsInputComments, calculationsInputComments);
 
             var hydraulicBoundariesCalculationGroup = (StabilityStoneCoverWaveConditionsCalculationGroupContext) children[1];
-            Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, hydraulicBoundariesCalculationGroup.WrappedData);
+            Assert.AreSame(failureMechanism.CalculationsGroup, hydraulicBoundariesCalculationGroup.WrappedData);
             Assert.IsNull(hydraulicBoundariesCalculationGroup.Parent);
             Assert.AreSame(failureMechanism, hydraulicBoundariesCalculationGroup.FailureMechanism);
             Assert.AreSame(assessmentSection, hydraulicBoundariesCalculationGroup.AssessmentSection);
@@ -264,7 +264,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
+                failureMechanism.CalculationsGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
 
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
                 var nodeData = new StabilityStoneCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
@@ -298,7 +298,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First();
             StabilityStoneCoverWaveConditionsCalculation calculationA = GetValidCalculation(hydraulicBoundaryLocation);
             StabilityStoneCoverWaveConditionsCalculation calculationB = GetValidCalculation(hydraulicBoundaryLocation);
-            List<ICalculationBase> calculations = failureMechanism.WaveConditionsCalculationGroup.Children;
+            List<ICalculationBase> calculations = failureMechanism.CalculationsGroup.Children;
             calculations.AddRange(new[]
             {
                 calculationA,

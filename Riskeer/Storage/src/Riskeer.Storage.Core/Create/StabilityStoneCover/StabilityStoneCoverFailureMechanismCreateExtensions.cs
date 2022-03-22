@@ -49,7 +49,7 @@ namespace Riskeer.Storage.Core.Create.StabilityStoneCover
             AddEntitiesForFailureMechanismMeta(mechanism, entity);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
 
-            entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
+            entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
 
             return entity;
         }

@@ -1114,7 +1114,7 @@ namespace Riskeer.Storage.Core.TestUtil
 
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             HydraulicBoundaryLocation hydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "SSC A",
                 Children =
@@ -1178,11 +1178,11 @@ namespace Riskeer.Storage.Core.TestUtil
                     }
                 }
             });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
             {
                 Name = "SSC B"
             });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(
+            failureMechanism.CalculationsGroup.Children.Add(
                 new StabilityStoneCoverWaveConditionsCalculation
                 {
                     Name = "Calculation 3",
