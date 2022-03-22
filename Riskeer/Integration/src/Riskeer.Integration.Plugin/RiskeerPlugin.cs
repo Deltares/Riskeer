@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Plugin
                 return null;
             });
 
-            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_FailurePaths, "\uE903", fontFamily, project =>
+            yield return new StateInfo(Resources.RiskeerPlugin_GetStateInfos_Registration, "\uE903", fontFamily, project =>
             {
                 if (project is RiskeerProject riskeerProject)
                 {

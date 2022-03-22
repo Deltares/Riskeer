@@ -503,22 +503,22 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalpaden /
-        ///assemblage.
-        /// </summary>
-        public static string RiskeerPlugin_GetStateInfos_FailurePaths {
-            get {
-                return ResourceManager.GetString("RiskeerPlugin_GetStateInfos_FailurePaths", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hydraulische
         ///belastingen.
         /// </summary>
         public static string RiskeerPlugin_GetStateInfos_HydraulicLoads {
             get {
                 return ResourceManager.GetString("RiskeerPlugin_GetStateInfos_HydraulicLoads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registratie
+        ///en assemblage.
+        /// </summary>
+        public static string RiskeerPlugin_GetStateInfos_Registration {
+            get {
+                return ResourceManager.GetString("RiskeerPlugin_GetStateInfos_Registration", resourceCulture);
             }
         }
         

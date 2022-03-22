@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetStateInfos().First(si => si.Name == "Faalpaden /\r\nassemblage");
+            info = plugin.GetStateInfos().First(si => si.Name == "Registratie\r\nen assemblage");
         }
 
         [TearDown]

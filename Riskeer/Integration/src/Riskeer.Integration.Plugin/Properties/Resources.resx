@@ -253,9 +253,9 @@ Wilt u doorgaan?</value>
     <data name="RiskeerPlugin_GetStateInfos_AssessmentSection" xml:space="preserve">
     <value>Traject</value>
   </data>
-    <data name="RiskeerPlugin_GetStateInfos_FailurePaths" xml:space="preserve">
-    <value>Faalpaden /
-assemblage</value>
+    <data name="RiskeerPlugin_GetStateInfos_Registration" xml:space="preserve">
+    <value>Registratie
+en assemblage</value>
   </data>
     <data name="RiskeerPlugin_GetStateInfos_Calculations" xml:space="preserve">
     <value>Sterkte-
