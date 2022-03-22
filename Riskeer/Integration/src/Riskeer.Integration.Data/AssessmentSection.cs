@@ -159,7 +159,7 @@ namespace Riskeer.Integration.Data
         public GrassCoverSlipOffOutwardsFailureMechanism GrassCoverSlipOffOutwards { get; set; }
 
         /// <summary>
-        /// Gets or sets the "Dijken en dammen - Grasbekleding afschuiven binnentalud" failure mechanism.
+        /// Gets or sets the "Grasbekleding afschuiven binnentalud" failure mechanism.
         /// </summary>
         public GrassCoverSlipOffInwardsFailureMechanism GrassCoverSlipOffInwards { get; set; }
 

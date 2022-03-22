@@ -118,7 +118,7 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dijken en dammen - Grasbekleding afschuiven binnentalud.
+        ///   Looks up a localized string similar to Grasbekleding afschuiven binnentalud.
         /// </summary>
         public static string GrassCoverSlipOffInwardsFailureMechanism_DisplayName {
             get {

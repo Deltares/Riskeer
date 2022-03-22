@@ -136,7 +136,7 @@
     <value>GABI</value>
   </data>
   <data name="GrassCoverSlipOffInwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Grasbekleding afschuiven binnentalud</value>
+    <value>Grasbekleding afschuiven binnentalud</value>
   </data>
   <data name="MicrostabilityFailureMechanism_Code" xml:space="preserve">
     <value>STMI</value>
