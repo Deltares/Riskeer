@@ -203,21 +203,21 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             {
                 string[] msgs = messages.ToArray();
                 Assert.AreEqual(16, msgs.Length);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Piping' zijn vervangen.", msgs[1]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Grasbekleding erosie kruin en binnentalud' zijn vervangen.", msgs[2]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Macrostabiliteit binnenwaarts' zijn vervangen.", msgs[3]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Microstabiliteit' zijn vervangen.", msgs[4]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Stabiliteit steenzetting' zijn vervangen.", msgs[5]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Golfklappen op asfaltbekleding' zijn vervangen.", msgs[6]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Wateroverdruk bij asfaltbekleding' zijn vervangen.", msgs[7]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Grasbekleding erosie buitentalud' zijn vervangen.", msgs[8]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Grasbekleding afschuiven buitentalud' zijn vervangen.", msgs[9]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Grasbekleding afschuiven binnentalud' zijn vervangen.", msgs[10]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Hoogte kunstwerk' zijn vervangen.", msgs[11]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Betrouwbaarheid sluiting kunstwerk' zijn vervangen.", msgs[12]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Piping bij kunstwerk' zijn vervangen.", msgs[13]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Sterkte en stabiliteit puntconstructies' zijn vervangen.", msgs[14]);
-                Assert.AreEqual("Gegevens van het generieke faalpad 'Duinafslag' zijn vervangen.", msgs[15]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Piping' zijn vervangen.", msgs[1]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Grasbekleding erosie kruin en binnentalud' zijn vervangen.", msgs[2]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Macrostabiliteit binnenwaarts' zijn vervangen.", msgs[3]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Microstabiliteit' zijn vervangen.", msgs[4]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Stabiliteit steenzetting' zijn vervangen.", msgs[5]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Golfklappen op asfaltbekleding' zijn vervangen.", msgs[6]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Wateroverdruk bij asfaltbekleding' zijn vervangen.", msgs[7]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Grasbekleding erosie buitentalud' zijn vervangen.", msgs[8]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Grasbekleding afschuiven buitentalud' zijn vervangen.", msgs[9]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Grasbekleding afschuiven binnentalud' zijn vervangen.", msgs[10]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Hoogte kunstwerk' zijn vervangen.", msgs[11]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Betrouwbaarheid sluiting kunstwerk' zijn vervangen.", msgs[12]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Piping bij kunstwerk' zijn vervangen.", msgs[13]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Sterkte en stabiliteit puntconstructies' zijn vervangen.", msgs[14]);
+                Assert.AreEqual("Gegevens van het generieke faalmechanisme 'Duinafslag' zijn vervangen.", msgs[15]);
             });
         }
 

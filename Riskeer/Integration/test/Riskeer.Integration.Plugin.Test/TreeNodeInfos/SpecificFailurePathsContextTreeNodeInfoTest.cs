@@ -191,8 +191,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(6, menu.Items.Count);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCreateFailurePathIndex,
-                                                                  "Faalpad toevoegen",
-                                                                  "Voeg een nieuw faalpad toe aan deze map.",
+                                                                  "Faalmechanisme toevoegen",
+                                                                  "Voeg een nieuw faalmechanisme toe aan deze map.",
                                                                   RiskeerCommonFormsResources.FailureMechanismIcon);
                 }
             }
@@ -229,7 +229,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(1, failurePaths.Count);
                     IFailurePath addedItem = failurePaths.Single();
                     Assert.IsInstanceOf<SpecificFailurePath>(addedItem);
-                    Assert.AreEqual("Nieuw faalpad", addedItem.Name);
+                    Assert.AreEqual("Nieuw faalmechanisme", addedItem.Name);
                 }
             }
         }
@@ -245,7 +245,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 new SpecificFailurePath
                 {
-                    Name = "Nieuw faalpad"
+                    Name = "Nieuw faalmechanisme"
                 }
             };
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -271,7 +271,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     Assert.AreEqual(2, failurePaths.Count);
                     IFailurePath addedItem = failurePaths.Last();
                     Assert.IsInstanceOf<SpecificFailurePath>(addedItem);
-                    Assert.AreEqual("Nieuw faalpad (1)", addedItem.Name);
+                    Assert.AreEqual("Nieuw faalmechanisme (1)", addedItem.Name);
                 }
             }
         }

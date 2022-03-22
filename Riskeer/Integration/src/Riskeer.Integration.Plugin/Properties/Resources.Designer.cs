@@ -218,7 +218,7 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gegevens van het generieke faalpad &apos;{0}&apos; zijn vervangen..
+        ///   Looks up a localized string similar to Gegevens van het generieke faalmechanisme &apos;{0}&apos; zijn vervangen..
         /// </summary>
         public static string AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced {
             get {
@@ -466,20 +466,20 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalpad toevoegen.
+        ///   Looks up a localized string similar to Faalmechanisme toevoegen.
         /// </summary>
-        public static string RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath {
+        public static string RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism {
             get {
-                return ResourceManager.GetString("RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath", resourceCulture);
+                return ResourceManager.GetString("RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voeg een nieuw faalpad toe aan deze map..
+        ///   Looks up a localized string similar to Voeg een nieuw faalmechanisme toe aan deze map..
         /// </summary>
-        public static string RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath_Tooltip {
+        public static string RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism_Tooltip {
             get {
-                return ResourceManager.GetString("RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath_Tooltip", resourceCulture);
+                return ResourceManager.GetString("RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism_Tooltip", resourceCulture);
             }
         }
         
