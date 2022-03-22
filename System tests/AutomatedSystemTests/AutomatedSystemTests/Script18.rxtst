@@ -59,6 +59,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="nameState"
+					datasourceid="de0beddb-9560-411b-96af-6520defb9990"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateWithCalculations"
@@ -67,14 +75,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameStateWithCalculations"
-					datasourceid="de0beddb-9560-411b-96af-6520defb9990"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="5d928c6a-1cee-4ec4-a5f4-dd1428d62f55"
@@ -374,12 +374,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="aaa46e98-3ee7-4c23-bb40-daeb2a6cbf17"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueParent"
 			id="ac46696e-02c7-477f-b922-a2e5b1422738"
@@ -547,8 +541,8 @@
 			name="SelectStateWithCalculations">
 				<parameters>
 					<param
-					name="nameStateWithCalculations"
-					value="Sterkte">
+					name="nameState"
+					value="@SB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -606,10 +600,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testcase
-			id="f45c4bf6-373c-4112-a462-25cec8493068"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<testmodule
 			id="f49c461c-ee31-4f83-8910-2bcbaa338619"
 			name="SelectGenericItemInProjectExplorer"
@@ -664,14 +654,6 @@
 				<testcase
 				id="7adf30d3-323a-47b1-94b5-9ca73d55f448"
 				name="Script18">
-					<testcase
-					id="f45c4bf6-373c-4112-a462-25cec8493068"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="aaa46e98-3ee7-4c23-bb40-daeb2a6cbf17"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
 					<testcase
 					id="d1f455d9-5741-41e6-983e-8e71f91f7a54"
 					name="script18_Overige_(sterkte)parameters_specificeren">
@@ -4319,9 +4301,6 @@
 			</testcontainer>
 			<testcontainer
 			id="eb0c788d-748a-4568-b11b-8fdb9cc04a8b">
-			</testcontainer>
-			<testcontainer
-			id="f45c4bf6-373c-4112-a462-25cec8493068">
 			</testcontainer>
 			<testcontainer
 			id="f74440b5-100e-4202-8e7f-4c4ef2a4e1ac">
