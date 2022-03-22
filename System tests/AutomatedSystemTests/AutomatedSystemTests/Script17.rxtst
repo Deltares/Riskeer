@@ -2,19 +2,13 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
-			<testmodule
-			id="007d6dd7-8d36-4f01-9e73-9aa9a9db103c"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			id="01914755-74e5-4730-b5ee-3e28a289ffe6"
 			name="SelectStateFailurePathsAssembly">
 				<parameters>
 					<param
 					name="StateToSelect"
-					value="Faalpaden">
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -169,14 +163,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<missingdatavariablesbinding>
+				<databinding>
 					<var
 					dataname="StateToSelect"
 					datasourceid="1ff34405-1dab-414f-8332-d7c8cfaac1e0"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
-				</missingdatavariablesbinding>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="1c3a1372-3a8c-416d-bfed-95b1fb6a9ae0"
@@ -234,7 +228,7 @@
 				<parameters>
 					<param
 					name="StateToSelect"
-					value="Sterkte">
+					value="@SB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -247,14 +241,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<missingdatavariablesbinding>
+				<databinding>
 					<var
 					dataname="StateToSelect"
 					datasourceid="40f0e7da-8e25-416a-bb72-2172bbbe94d2"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
-				</missingdatavariablesbinding>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="2a16ca1d-a897-4ab4-a33e-884726b1de02"
@@ -525,7 +519,7 @@
 				<parameters>
 					<param
 					name="StateToSelect"
-					value="Faalpaden">
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1179,7 +1173,7 @@
 				<parameters>
 					<param
 					name="StateHBC"
-					value="Hydraulische">
+					value="@HyB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1647,10 +1641,6 @@
 			id="9b312e6a-119e-4785-afd9-f99fb449b3aa"
 			name="ValidateStructureOfCalculationsFolder">
 			</smartfoldernode>
-			<testcase
-			id="9b7d059e-5f61-4598-8d88-9409bf8cf932"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<smartfoldernode
 			id="9fd7570f-bade-4ac5-8477-91abca7dfe49"
 			name="AddTraject">
@@ -1797,14 +1787,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<missingdatavariablesbinding>
+				<databinding>
 					<var
 					dataname="StateHBC"
 					datasourceid="76ade4c8-14ce-4983-9111-1e8d5ba15a9f"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
-				</missingdatavariablesbinding>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="b9c93e9f-855a-4859-8928-2bf1e678b15c"
@@ -2000,14 +1990,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<missingdatavariablesbinding>
+				<databinding>
 					<var
 					dataname="StateToSelect"
 					datasourceid="01914755-74e5-4730-b5ee-3e28a289ffe6"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
-				</missingdatavariablesbinding>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="d70792a6-3a58-4b30-a98e-81b3bfa64d39"
@@ -2423,14 +2413,6 @@
 				<testcase
 				id="37adadfe-740c-4d17-b1f0-8610ec657a81"
 				name="Script17">
-					<testcase
-					id="9b7d059e-5f61-4598-8d88-9409bf8cf932"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="007d6dd7-8d36-4f01-9e73-9aa9a9db103c"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
 					<testcase
 					id="f0863890-96dc-43bc-b908-6af2669f44ba"
 					name="script17_Scenario’s_opstellen">
@@ -5860,9 +5842,6 @@
 			</testcontainer>
 			<testcontainer
 			id="9b312e6a-119e-4785-afd9-f99fb449b3aa">
-			</testcontainer>
-			<testcontainer
-			id="9b7d059e-5f61-4598-8d88-9409bf8cf932">
 			</testcontainer>
 			<testcontainer
 			id="9fd7570f-bade-4ac5-8477-91abca7dfe49">
