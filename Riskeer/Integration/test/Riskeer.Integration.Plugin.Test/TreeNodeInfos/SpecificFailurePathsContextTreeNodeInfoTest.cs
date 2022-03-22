@@ -103,7 +103,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             string text = info.Text(failureMechanismContext);
 
             // Assert
-            Assert.AreEqual("Specifieke faalpaden", text);
+            Assert.AreEqual("Specifieke faalmechanismen", text);
         }
 
         [Test]

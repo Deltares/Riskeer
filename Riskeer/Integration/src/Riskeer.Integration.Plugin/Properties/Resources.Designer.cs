@@ -569,11 +569,11 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specifieke faalpaden.
+        ///   Looks up a localized string similar to Specifieke faalmechanismen.
         /// </summary>
-        public static string SpecificFailurePaths_DisplayName {
+        public static string SpecificFailureMechanisms_DisplayName {
             get {
-                return ResourceManager.GetString("SpecificFailurePaths_DisplayName", resourceCulture);
+                return ResourceManager.GetString("SpecificFailureMechanisms_DisplayName", resourceCulture);
             }
         }
     }

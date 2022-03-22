@@ -312,8 +312,8 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
     </data>
-    <data name="SpecificFailurePaths_DisplayName" xml:space="preserve">
-        <value>Specifieke faalpaden</value>
+    <data name="SpecificFailureMechanisms_DisplayName" xml:space="preserve">
+        <value>Specifieke faalmechanismen</value>
     </data>
     <data name="RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath" xml:space="preserve">
         <value>Faalpad toevoegen</value>

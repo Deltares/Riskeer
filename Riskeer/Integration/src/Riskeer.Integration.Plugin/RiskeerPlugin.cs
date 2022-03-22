@@ -815,7 +815,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<SpecificFailurePathsContext>
             {
-                Text = context => Resources.SpecificFailurePaths_DisplayName,
+                Text = context => Resources.SpecificFailureMechanisms_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = SpecificFailurePathsChildNodeObjects,
                 ContextMenuStrip = SpecificFailurePathsContextMenuStrip,
