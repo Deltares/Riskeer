@@ -62,13 +62,13 @@ All rights reserved.
     </xs:complexType>
   </xs:redefine>
 
-  <!--Generieke definitie voor de geselecteerde HB locatie voor alle toetssporen.-->
+  <!--Generieke definitie voor de geselecteerde HB locatie voor alle faalmechanismen.-->
   <xs:include schemaLocation="HbLocatieSchema.xsd"/>
 
-  <!--Generieke definitie voor de orientatie voor alle toetssporen.-->
+  <!--Generieke definitie voor de orientatie voor alle faalmechanismen.-->
   <xs:include schemaLocation="OrientatieSchema.xsd"/>
 
-  <!--Generieke definitie voor golfreducerende parameters voor alle toetssporen.-->
+  <!--Generieke definitie voor golfreducerende parameters voor alle faalmechanismen.-->
   <xs:include schemaLocation="GolfReductieSchema.xsd"/>
 
   <!--Herdefinieer stochastnamen. Voor dit faalmechanisme zijn alleen de onderstaande

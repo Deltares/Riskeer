@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(clickOk, result);
 
             Assert.AreEqual("Bevestigen", dialogTitle);
-            Assert.AreEqual("Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist." + Environment.NewLine +
+            Assert.AreEqual("Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle faalmechanismen worden gewist." + Environment.NewLine +
                             Environment.NewLine +
                             "Wilt u doorgaan?",
                             dialogMessage);

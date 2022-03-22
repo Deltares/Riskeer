@@ -143,7 +143,7 @@ namespace Riskeer.Migration.Integration.Test
                         new MigrationLogMessage("21.1", $"{latestVersion}", $"Gevolgen van de migratie van versie 21.1 naar versie {latestVersion}:"),
                         messages[12]);
                     MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                        new MigrationLogMessage("21.1", $"{latestVersion}", "* De oorspronkelijke toetssporen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd."),
+                        new MigrationLogMessage("21.1", $"{latestVersion}", "* De oorspronkelijke faalmechanismen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd."),
                         messages[13]);
                 }
             }

@@ -137,7 +137,7 @@
         </value>
     </data>
     <data name="ReferenceLineUpdateHandler_Confirm_clear_referenceLine_dependent_data" xml:space="preserve">
-    <value>Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle toetssporen worden gewist.
+    <value>Na het importeren van een aangepaste ligging van de referentielijn zullen alle geïmporteerde en berekende gegevens van alle faalmechanismen worden gewist.
 
 Wilt u doorgaan?</value>
   </data>

@@ -154,6 +154,6 @@
     <value>Traject {0}</value>
   </data>
   <data name="AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims" xml:space="preserve">
-    <value>Voor een of meerdere toetssporen kan geen oordeel worden bepaald.</value>
+    <value>Voor een of meerdere faalmechanismen kan geen oordeel worden bepaald.</value>
   </data>
 </root>

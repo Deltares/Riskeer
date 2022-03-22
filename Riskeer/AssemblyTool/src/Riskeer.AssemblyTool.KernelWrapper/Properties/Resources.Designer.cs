@@ -226,7 +226,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De gespecificeerde resultaten voor een of meerdere toetssporen dekken niet de volledige lengte van het traject..
+        ///   Looks up a localized string similar to De gespecificeerde resultaten voor een of meerdere faalmechanismen dekken niet de volledige lengte van het traject..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_RequestedPointOutOfRange {
             get {

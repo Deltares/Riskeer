@@ -148,7 +148,7 @@
     <value>Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m].</value>
   </data>
   <data name="AssemblyErrorMessageCreator_RequestedPointOutOfRange" xml:space="preserve">
-    <value>De gespecificeerde resultaten voor een of meerdere toetssporen dekken niet de volledige lengte van het traject.</value>
+    <value>De gespecificeerde resultaten voor een of meerdere faalmechanismen dekken niet de volledige lengte van het traject.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_GenericErrorMessage" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden tijdens het assembleren.</value>

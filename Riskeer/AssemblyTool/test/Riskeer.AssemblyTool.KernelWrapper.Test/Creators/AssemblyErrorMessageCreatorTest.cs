@@ -69,7 +69,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EAssemblyErrors.InputNotTheSameType, "De resultaten voor alle vakken moeten allen wel of geen kansspecificatie bevatten.")]
         [TestCase(EAssemblyErrors.CommonFailureMechanismSectionsInvalid, "Ieder faalmechanisme in de assemblage moet een vakindeling geïmporteerd hebben.")]
         [TestCase(EAssemblyErrors.CommonFailureMechanismSectionsNotConsecutive, "Alle (deel)vakken moeten minimaal een lengte hebben van 0.01 [m].")]
-        [TestCase(EAssemblyErrors.RequestedPointOutOfRange, "De gespecificeerde resultaten voor een of meerdere toetssporen dekken niet de volledige lengte van het traject.")]
+        [TestCase(EAssemblyErrors.RequestedPointOutOfRange, "De gespecificeerde resultaten voor een of meerdere faalmechanismen dekken niet de volledige lengte van het traject.")]
         [TestCase(EAssemblyErrors.SectionsWithoutCategory, "Er zijn een of meerdere vakken gevonden die geen duidingsklasse hebben.")]
         [TestCase(EAssemblyErrors.InvalidCategoryLimits, "De klassengrenzen zijn niet aaneengesloten of dekken niet de volledige faalkansruimte af.")]
         [TestCase(EAssemblyErrors.EmptyResultsList, "Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden.")]

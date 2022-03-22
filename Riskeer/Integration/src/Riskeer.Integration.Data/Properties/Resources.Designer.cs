@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -100,7 +100,7 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voor een of meerdere toetssporen kan geen oordeel worden bepaald..
+        ///   Looks up a localized string similar to Voor een of meerdere faalmechanismen kan geen oordeel worden bepaald..
         /// </summary>
         public static string AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims {
             get {

@@ -230,7 +230,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("21.1", newVersion, "Gevolgen van de migratie van versie 21.1 naar versie 21.2:"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("21.1", newVersion, "* De oorspronkelijke toetssporen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd."),
+                    new MigrationLogMessage("21.1", newVersion, "* De oorspronkelijke faalmechanismen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("21.1", newVersion, "* Traject: 'Traject 12-2 GEKB signaleringswaarde'"),

@@ -1218,7 +1218,7 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 [LogMessage])
 VALUES ("21.1",
     "21.2",
-    "* De oorspronkelijke toetssporen zijn omgezet naar het nieuwe formaat.
+    "* De oorspronkelijke faalmechanismen zijn omgezet naar het nieuwe formaat.
 * Alle toetsoordelen zijn verwijderd.");
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
