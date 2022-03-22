@@ -268,6 +268,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="stateName"
+					datasourceid="e3bfbfc0-3e28-4673-a704-6693ceefa9ec"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateWithCalculations"
@@ -276,14 +284,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="stateWithCalculations"
-					datasourceid="e3bfbfc0-3e28-4673-a704-6693ceefa9ec"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="0caaacfb-8725-483f-8225-5222d1723fdf"
@@ -1911,8 +1911,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="dummyString"
-					datasourceid="08adf017-662c-43fb-a395-1601a27769e5"
+					dataname="stateWithCalculations"
+					datasourceid="18455637-0838-4b15-bd6b-f6d6bc24f402"
 					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
 					variablename="stateName">
 					</var>
@@ -1925,20 +1925,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="stateWithCalculations"
-					datasourceid="18455637-0838-4b15-bd6b-f6d6bc24f402"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-					<var
-					dataname="stateWithCalculations"
-					datasourceid="18455637-0838-4b15-bd6b-f6d6bc24f402"
-					variableid="68865ee7-33ba-43a8-8921-d189e77dd216"
-					variablename="aliasState">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="8281eb1b-b02e-4c95-8ac7-b325b83b4c3e"
@@ -4324,8 +4310,8 @@
 			name="SelectStateHBC">
 				<parameters>
 					<param
-					name="stateWithCalculations"
-					value="Hydraulische">
+					name="stateName"
+					value="@HyB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -11384,16 +11370,7 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="0436f3cb-d85c-41d9-80ef-c80ca62925e9">
-			</testcontainer>
-			<testcontainer
-			id="06e7a2b3-ba04-4fc3-ad59-68d4051de8a7">
-			</testcontainer>
-			<testcontainer
 			id="08adf017-662c-43fb-a395-1601a27769e5">
-			</testcontainer>
-			<testcontainer
-			id="0909da98-b3a7-4b30-8207-cdb76c08c92e">
 			</testcontainer>
 			<testcontainer
 			id="0bbd3232-7af5-42b4-b849-73a61bcb8af4">
@@ -11405,19 +11382,10 @@
 			id="0e18d60e-93a2-4e17-bd6e-d9789ae914d1">
 			</testcontainer>
 			<testcontainer
-			id="0f46eca1-215b-474c-ae7f-d3b7718d04b4">
-			</testcontainer>
-			<testcontainer
 			id="1131491f-9504-499e-bdbe-7e45b136735d">
 			</testcontainer>
 			<testcontainer
-			id="12b252ba-1c1a-4d8c-9423-82175dacbb27">
-			</testcontainer>
-			<testcontainer
 			id="15848e5c-5bc9-4589-ba34-db4bdadc8277">
-			</testcontainer>
-			<testcontainer
-			id="1723cbbd-3943-4428-bcb1-ff81c264e994">
 			</testcontainer>
 			<testcontainer
 			id="18455637-0838-4b15-bd6b-f6d6bc24f402">
@@ -11432,9 +11400,6 @@
 			id="1bbac447-1dc3-4458-8022-22d8aa46d453">
 			</testcontainer>
 			<testcontainer
-			id="1e2e252e-f985-4501-b5ab-b479b7c1b6c8">
-			</testcontainer>
-			<testcontainer
 			id="2294af5d-3e49-4ecc-8c1d-6526306f8cf5">
 			</testcontainer>
 			<testcontainer
@@ -11444,19 +11409,7 @@
 			id="276025e1-84cc-4480-82dd-e8515eb34125">
 			</testcontainer>
 			<testcontainer
-			id="34654bfe-ef73-4a94-953b-f59a2f3cf462">
-			</testcontainer>
-			<testcontainer
 			id="37bfa9ed-411e-418c-93cd-e94e465cf897">
-			</testcontainer>
-			<testcontainer
-			id="3ddaa28c-f676-402b-854a-be31193e26de">
-			</testcontainer>
-			<testcontainer
-			id="42b532c6-a867-4098-95f2-6a075ad741e4">
-			</testcontainer>
-			<testcontainer
-			id="44c6c909-2abe-420b-ac95-a4aadd7b75ca">
 			</testcontainer>
 			<testcontainer
 			id="4772b159-5cec-455b-8c2d-94caad63edd8">
@@ -11465,22 +11418,7 @@
 			id="48034436-92e0-490f-8de2-4c589678e899">
 			</testcontainer>
 			<testcontainer
-			id="4a167f05-22e5-4f0b-ad15-18adadddabf6">
-			</testcontainer>
-			<testcontainer
-			id="4a92e55c-263a-4f0f-9289-34ea54a78c6e">
-			</testcontainer>
-			<testcontainer
 			id="4f95265d-8bea-4348-97b9-151ec19e126c">
-			</testcontainer>
-			<testcontainer
-			id="50877073-64bb-4989-a6c0-052362cfdd13">
-			</testcontainer>
-			<testcontainer
-			id="51e41a2c-1f0a-4d5c-9eb6-e997300ae3f5">
-			</testcontainer>
-			<testcontainer
-			id="570d8bbf-7357-4f63-bd9f-40e1421600b6">
 			</testcontainer>
 			<testcontainer
 			id="59d658ef-baaf-4629-aea2-261b8a98b24e">
@@ -11489,37 +11427,16 @@
 			id="5f26ad9f-2ad5-4637-8d9c-99e6b5b47b7f">
 			</testcontainer>
 			<testcontainer
-			id="5f60f9a9-969b-41af-9a43-9f85c1b79061">
-			</testcontainer>
-			<testcontainer
-			id="62cc4aba-157c-484c-9867-2b73599e391c">
-			</testcontainer>
-			<testcontainer
 			id="65d35fbd-a017-4be6-93af-4ce3ba52e314">
 			</testcontainer>
 			<testcontainer
 			id="6859a38d-9137-4b54-924a-f4abe85d4f1c">
 			</testcontainer>
 			<testcontainer
-			id="689e6e69-8446-4594-aae4-af2cecb1a87d">
-			</testcontainer>
-			<testcontainer
-			id="695146a6-53dc-40e5-bdec-f87137957877">
-			</testcontainer>
-			<testcontainer
 			id="6cef0a4b-2a4b-4bdb-a644-50bc5e4dad17">
 			</testcontainer>
 			<testcontainer
-			id="6f07d318-9293-4e1b-84fa-b1b56d1efd3e">
-			</testcontainer>
-			<testcontainer
-			id="756e4451-4389-4c7f-944a-d8c60a1eed9b">
-			</testcontainer>
-			<testcontainer
 			id="79152a3b-29b1-4f88-9fd3-8d577eb67d3b">
-			</testcontainer>
-			<testcontainer
-			id="813f9d5e-3122-4eff-9467-87cf8a5491b8">
 			</testcontainer>
 			<testcontainer
 			id="850dbcd4-4339-42fa-8eae-18973ae2fb83">
@@ -11528,25 +11445,10 @@
 			id="8935242f-e11a-474f-a005-b5e99813a720">
 			</testcontainer>
 			<testcontainer
-			id="89e46680-aac8-4eb0-b81f-c7e364ddd4d0">
-			</testcontainer>
-			<testcontainer
-			id="8df05726-7bd6-44eb-86e8-fefc1d9cc88b">
-			</testcontainer>
-			<testcontainer
-			id="900b704e-770b-4187-9dea-07e27f4cbb24">
-			</testcontainer>
-			<testcontainer
 			id="91e04eeb-cc8b-4ac3-8cc9-37bf29718a9a">
 			</testcontainer>
 			<testcontainer
 			id="95e899b2-c82b-4d38-af22-a050c545c6ec">
-			</testcontainer>
-			<testcontainer
-			id="98dc9686-98c4-484a-836c-1ab771730111">
-			</testcontainer>
-			<testcontainer
-			id="9d0d9f40-d938-4a73-8d9f-57f314f4fea9">
 			</testcontainer>
 			<testcontainer
 			id="a37b0061-3a37-479a-99c4-d58f6d25dbf0">
@@ -11555,31 +11457,16 @@
 			id="a38b84dc-9266-49d9-9457-9740092668f1">
 			</testcontainer>
 			<testcontainer
-			id="ab3b3ff4-f40b-4a05-83f5-d4d6437bbbed">
-			</testcontainer>
-			<testcontainer
-			id="ab99dfa5-90d0-437e-98e9-89e9a88af1c5">
-			</testcontainer>
-			<testcontainer
 			id="ad9b73b0-e562-47e6-bf3f-383ac988ef38">
 			</testcontainer>
 			<testcontainer
 			id="aecf18cb-584c-4769-bba1-7b14b027a5f6">
 			</testcontainer>
 			<testcontainer
-			id="af08c04f-f40c-44f2-b830-918b3ed7479c">
-			</testcontainer>
-			<testcontainer
-			id="b77e5876-576e-4d86-b05d-baa2430224bd">
-			</testcontainer>
-			<testcontainer
 			id="b90504ff-0735-4284-bafe-cecf4f223312">
 			</testcontainer>
 			<testcontainer
 			id="b94d20bf-4d0b-4056-ae2c-7dea46c7c177">
-			</testcontainer>
-			<testcontainer
-			id="bda37355-29ee-4c32-b5be-0e9c44137624">
 			</testcontainer>
 			<testcontainer
 			id="be110e48-01d9-44a3-b623-31412fba1729">
@@ -11591,37 +11478,10 @@
 			id="c4e4215d-8510-4c46-9141-f9123e8f0280">
 			</testcontainer>
 			<testcontainer
-			id="c667e5a4-a335-4576-a1c4-6b68821e9fd0">
-			</testcontainer>
-			<testcontainer
-			id="cf8eeaba-f8d2-4e2d-96c9-b897fd8c4654">
-			</testcontainer>
-			<testcontainer
-			id="d1ac0764-0f41-40c7-bb02-ac97d6ea4c7c">
-			</testcontainer>
-			<testcontainer
-			id="d1d8d24b-9d2c-4c1e-80f4-0410b69cbcc4">
-			</testcontainer>
-			<testcontainer
-			id="d204466f-92af-4534-8c3a-46a4a962d735">
-			</testcontainer>
-			<testcontainer
-			id="d48ecd42-a06f-4750-bcd6-23b636ceda4b">
-			</testcontainer>
-			<testcontainer
 			id="d853804b-0b45-4a3a-a474-443dd27d734c">
 			</testcontainer>
 			<testcontainer
-			id="dc41187a-b4fd-4c84-8a13-bf6daf533744">
-			</testcontainer>
-			<testcontainer
 			id="dca088ce-ce35-41a2-a66b-d53bec05c9e9">
-			</testcontainer>
-			<testcontainer
-			id="dd32358d-df2e-4482-a637-adbb285da1a1">
-			</testcontainer>
-			<testcontainer
-			id="dd81f597-2874-4906-9cd5-9112d223eb9e">
 			</testcontainer>
 			<testcontainer
 			id="dea3a23b-ebf0-4a4d-946d-2e204d545fb0">
@@ -11637,15 +11497,6 @@
 			</testcontainer>
 			<testcontainer
 			id="f439c70d-b78e-4927-af51-08e1f2ab0e05">
-			</testcontainer>
-			<testcontainer
-			id="f8d4be1d-73a2-4043-ab1f-30788c9b0e11">
-			</testcontainer>
-			<testcontainer
-			id="fe69f44f-870d-45af-aaed-6672764eb387">
-			</testcontainer>
-			<testcontainer
-			id="ff1a53ba-7ad3-4964-9372-7eb5540edc4d">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

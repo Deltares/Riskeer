@@ -70,9 +70,6 @@ namespace AutomatedSystemTests.Modules.IO
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
-            Mouse.DefaultMoveTime = 0;
-            Keyboard.DefaultKeyPressTime = 0;
-            Delay.SpeedFactor = 0.0;
             foreach (var sourceFilePath in Directory.GetFiles(sourcePath, searchPattern))
                 {
                 string fileName = Path.GetFileName(sourceFilePath);
