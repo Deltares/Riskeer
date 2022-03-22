@@ -313,7 +313,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var failurePath = new SpecificFailurePath
             {
                 Name = "Just a Name",
-                Code = "FAALPAD",
+                Code = "FAALMECHANISME",
                 InAssemblyInputComments =
                 {
                     Body = "Some input text"

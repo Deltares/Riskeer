@@ -40,7 +40,7 @@ namespace Riskeer.Common.Data.TestUtil
         /// </summary>
         public TestFailurePath()
         {
-            Name = "Faalpad";
+            Name = "Faalmechanisme";
             Code = "NIEUW";
 
             sectionCollection = new FailureMechanismSectionCollection();
