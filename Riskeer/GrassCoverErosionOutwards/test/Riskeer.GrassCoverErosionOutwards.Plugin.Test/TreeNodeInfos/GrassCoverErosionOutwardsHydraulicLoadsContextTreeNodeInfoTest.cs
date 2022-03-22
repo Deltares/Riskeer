@@ -178,7 +178,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var calculationsInputComments = (Comment) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.CalculationsInputComments, calculationsInputComments);
 
-            var calculationGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) children[1];
+            var calculationGroupContext = (GrassCoverErosionOutwardsCalculationGroupContext) children[1];
             Assert.AreSame(failureMechanism.CalculationsGroup, calculationGroupContext.WrappedData);
             Assert.IsNull(calculationGroupContext.Parent);
             Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);

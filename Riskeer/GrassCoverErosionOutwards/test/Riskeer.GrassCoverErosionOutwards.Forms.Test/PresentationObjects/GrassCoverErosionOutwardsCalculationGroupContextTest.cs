@@ -32,7 +32,7 @@ using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextTest
+    public class GrassCoverErosionOutwardsCalculationGroupContextTest
     {
         [Test]
         [TestCase(true)]
@@ -50,7 +50,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             CalculationGroup parent = hasParent ? new CalculationGroup() : null;
 
             // Call
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionOutwardsContext<CalculationGroup>>(context);
@@ -64,9 +64,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 
         [TestFixture(true)]
         [TestFixture(false)]
-        private class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextEqualsTest
-            : EqualsTestFixture<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext,
-                DerivedGrassCoverErosionOutwardsWaveConditionsCalculationsGroupContext>
+        private class GrassCoverErosionOutwardsCalculationGroupContextEqualsTest
+            : EqualsTestFixture<GrassCoverErosionOutwardsCalculationGroupContext,
+                DerivedGrassCoverErosionOutwardsCalculationGroupContext>
         {
             private static readonly MockRepository mocks = new MockRepository();
 
@@ -88,48 +88,48 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
                 mocks.VerifyAll();
             }
 
-            public GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextEqualsTest(bool hasParent)
+            public GrassCoverErosionOutwardsCalculationGroupContextEqualsTest(bool hasParent)
             {
                 parent = hasParent ? new CalculationGroup() : null;
             }
 
-            protected override GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext CreateObject()
+            protected override GrassCoverErosionOutwardsCalculationGroupContext CreateObject()
             {
-                return new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup,
-                                                                                          parent,
-                                                                                          failureMechanism,
-                                                                                          assessmentSection);
+                return new GrassCoverErosionOutwardsCalculationGroupContext(calculationGroup,
+                                                                            parent,
+                                                                            failureMechanism,
+                                                                            assessmentSection);
             }
 
-            protected override DerivedGrassCoverErosionOutwardsWaveConditionsCalculationsGroupContext CreateDerivedObject()
+            protected override DerivedGrassCoverErosionOutwardsCalculationGroupContext CreateDerivedObject()
             {
-                return new DerivedGrassCoverErosionOutwardsWaveConditionsCalculationsGroupContext(calculationGroup,
-                                                                                                  parent,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                return new DerivedGrassCoverErosionOutwardsCalculationGroupContext(calculationGroup,
+                                                                                   parent,
+                                                                                   failureMechanism,
+                                                                                   assessmentSection);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
-                                                                                                                 parent,
-                                                                                                                 failureMechanism,
-                                                                                                                 assessmentSection))
+                yield return new TestCaseData(new GrassCoverErosionOutwardsCalculationGroupContext(new CalculationGroup(),
+                                                                                                   parent,
+                                                                                                   failureMechanism,
+                                                                                                   assessmentSection))
                     .SetName("Wrapped Calculation Group");
-                yield return new TestCaseData(new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(calculationGroup,
-                                                                                                                 new CalculationGroup(),
-                                                                                                                 failureMechanism,
-                                                                                                                 assessmentSection))
+                yield return new TestCaseData(new GrassCoverErosionOutwardsCalculationGroupContext(calculationGroup,
+                                                                                                   new CalculationGroup(),
+                                                                                                   failureMechanism,
+                                                                                                   assessmentSection))
                     .SetName("Parent");
             }
         }
 
-        private class DerivedGrassCoverErosionOutwardsWaveConditionsCalculationsGroupContext : GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext
+        private class DerivedGrassCoverErosionOutwardsCalculationGroupContext : GrassCoverErosionOutwardsCalculationGroupContext
         {
-            public DerivedGrassCoverErosionOutwardsWaveConditionsCalculationsGroupContext(CalculationGroup calculationGroup,
-                                                                                          CalculationGroup parent,
-                                                                                          GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                                          IAssessmentSection assessmentSection)
+            public DerivedGrassCoverErosionOutwardsCalculationGroupContext(CalculationGroup calculationGroup,
+                                                                           CalculationGroup parent,
+                                                                           GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                           IAssessmentSection assessmentSection)
                 : base(calculationGroup, parent, failureMechanism, assessmentSection) {}
         }
     }

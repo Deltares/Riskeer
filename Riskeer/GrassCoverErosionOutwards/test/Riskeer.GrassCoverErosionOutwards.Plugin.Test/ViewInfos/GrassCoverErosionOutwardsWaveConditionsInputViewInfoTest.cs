@@ -183,7 +183,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
         protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
         {
-            return new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(
+            return new GrassCoverErosionOutwardsCalculationGroupContext(
                 new CalculationGroup
                 {
                     Children =

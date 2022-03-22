@@ -220,7 +220,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         failureMechanism,
                                                                                         assessmentSection);
 
-            var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
+            var parentContext = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                    null,
                                                                                                    failureMechanism,
                                                                                                    assessmentSection);
@@ -250,7 +250,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         failureMechanism,
                                                                                         assessmentSection);
 
-            var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
+            var parentContext = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                    null,
                                                                                                    failureMechanism,
                                                                                                    assessmentSection);
@@ -284,7 +284,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         failureMechanism,
                                                                                         assessmentSection);
 
-            var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
+            var parentContext = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                    null,
                                                                                                    failureMechanism,
                                                                                                    assessmentSection);

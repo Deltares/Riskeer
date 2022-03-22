@@ -32,21 +32,21 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
     /// in order be able to create configurable grass cover erosion outwards calculations.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext : GrassCoverErosionOutwardsContext<CalculationGroup>,
-                                                                                  ICalculationContext<CalculationGroup, GrassCoverErosionOutwardsFailureMechanism>
+    public class GrassCoverErosionOutwardsCalculationGroupContext : GrassCoverErosionOutwardsContext<CalculationGroup>,
+                                                                    ICalculationContext<CalculationGroup, GrassCoverErosionOutwardsFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext"/> class.
+        /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsCalculationGroupContext"/> class.
         /// </summary>
         /// <param name="calculationGroup">The wrapped <see cref="CalculationGroup"/>.</param>
         /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation group.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation group belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation group belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>, except for <paramref name="parent"/>.</exception>
-        public GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(CalculationGroup calculationGroup,
-                                                                              CalculationGroup parent,
-                                                                              GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                              IAssessmentSection assessmentSection)
+        public GrassCoverErosionOutwardsCalculationGroupContext(CalculationGroup calculationGroup,
+                                                                CalculationGroup parent,
+                                                                GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                IAssessmentSection assessmentSection)
             : base(calculationGroup, failureMechanism, assessmentSection)
         {
             Parent = parent;
@@ -57,13 +57,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
         public override bool Equals(WrappedObjectContextBase<CalculationGroup> other)
         {
             return base.Equals(other)
-                   && other is GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext
-                   && ReferenceEquals(Parent, ((GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) other).Parent);
+                   && other is GrassCoverErosionOutwardsCalculationGroupContext
+                   && ReferenceEquals(Parent, ((GrassCoverErosionOutwardsCalculationGroupContext) other).Parent);
         }
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext);
+            return Equals(obj as GrassCoverErosionOutwardsCalculationGroupContext);
         }
 
         public override int GetHashCode()

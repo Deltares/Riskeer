@@ -99,7 +99,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
+            yield return RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo<GrassCoverErosionOutwardsCalculationGroupContext>(
                 (context, filePath) =>
                     new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationImporter(
                         filePath,
@@ -173,10 +173,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 FailurePathEnabledContextMenuStrip,
                 FailurePathDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
-                WaveConditionsCalculationGroupChildrenNodeObjects,
-                WaveConditionsCalculationGroupContextMenuStrip,
-                WaveConditionsCalculationGroupContextOnNodeRemoved);
+            yield return RiskeerTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<GrassCoverErosionOutwardsCalculationGroupContext>(
+                CalculationGroupChildrenNodeObjects,
+                CalculationGroupContextMenuStrip,
+                CalculationGroupContextOnNodeRemoved);
 
             yield return RiskeerTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsCalculationContext>(
                 WaveConditionsCalculationContextChildNodeObjects,
@@ -226,7 +226,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         public override IEnumerable<ExportInfo> GetExportInfos()
         {
-            yield return new ExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>
+            yield return new ExportInfo<GrassCoverErosionOutwardsCalculationGroupContext>
             {
                 Name = context => RiskeerCommonFormsResources.WaveConditionsExporter_DisplayName,
                 Extension = RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Extension,
@@ -257,7 +257,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                                                                                                            RiskeerCommonFormsResources.DataTypeDisplayName_csv_file_filter_Description))
             };
 
-            yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext>(
+            yield return RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo<GrassCoverErosionOutwardsCalculationGroupContext>(
                 (context, filePath) => new GrassCoverErosionOutwardsWaveConditionsCalculationConfigurationExporter(
                     context.WrappedData.Children, filePath, context.AssessmentSection),
                 context => context.WrappedData.Children.Any(),
@@ -325,8 +325,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetHydraulicLoadsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
-                new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                   null, failureMechanism, assessmentSection)
+                new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                     null, failureMechanism, assessmentSection)
             };
         }
 
@@ -457,9 +457,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         #endregion
 
-        #region GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext TreeNodeInfo
+        #region GrassCoverErosionOutwardsCalculationGroupContext TreeNodeInfo
 
-        private static object[] WaveConditionsCalculationGroupChildrenNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
+        private static object[] CalculationGroupChildrenNodeObjects(GrassCoverErosionOutwardsCalculationGroupContext nodeData)
         {
             var childNodeObjects = new List<object>();
 
@@ -474,10 +474,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 }
                 else if (item is CalculationGroup group)
                 {
-                    childNodeObjects.Add(new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(group,
-                                                                                                            nodeData.WrappedData,
-                                                                                                            nodeData.FailureMechanism,
-                                                                                                            nodeData.AssessmentSection));
+                    childNodeObjects.Add(new GrassCoverErosionOutwardsCalculationGroupContext(group,
+                                                                                              nodeData.WrappedData,
+                                                                                              nodeData.FailureMechanism,
+                                                                                              nodeData.AssessmentSection));
                 }
                 else
                 {
@@ -488,14 +488,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip WaveConditionsCalculationGroupContextMenuStrip(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData,
-                                                                                object parentData,
-                                                                                TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationGroupContextMenuStrip(GrassCoverErosionOutwardsCalculationGroupContext nodeData,
+                                                                  object parentData,
+                                                                  TreeViewControl treeViewControl)
         {
             CalculationGroup group = nodeData.WrappedData;
             IInquiryHelper inquiryHelper = GetInquiryHelper();
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
-            bool isNestedGroup = parentData is GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
+            bool isNestedGroup = parentData is GrassCoverErosionOutwardsCalculationGroupContext;
 
             GrassCoverErosionOutwardsWaveConditionsCalculation[] calculations = group
                                                                                 .GetCalculations()
@@ -559,16 +559,16 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
+        private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(GrassCoverErosionOutwardsCalculationGroupContext nodeData)
         {
             bool locationsAvailable = nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations.Any();
 
-            string grassCoverErosionOutwardsWaveConditionsCalculationGroupContextToolTip = locationsAvailable
-                                                                                               ? RiskeerCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
-                                                                                               : RiskeerCommonFormsResources.CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip;
+            string calculationGroupContextToolTip = locationsAvailable
+                                                        ? RiskeerCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
+                                                        : RiskeerCommonFormsResources.CalculationGroup_No_HydraulicBoundaryDatabase_To_Generate_ToolTip;
 
             return new StrictContextMenuItem(RiskeerCommonFormsResources.CalculationGroup_Generate_calculations,
-                                             grassCoverErosionOutwardsWaveConditionsCalculationGroupContextToolTip,
+                                             calculationGroupContextToolTip,
                                              RiskeerCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) => ShowHydraulicBoundaryLocationSelectionDialog(nodeData))
             {
@@ -576,7 +576,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             };
         }
 
-        private void ShowHydraulicBoundaryLocationSelectionDialog(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
+        private void ShowHydraulicBoundaryLocationSelectionDialog(GrassCoverErosionOutwardsCalculationGroupContext nodeData)
         {
             using (var dialog = new HydraulicBoundaryLocationSelectionDialog(Gui.MainWindow, nodeData.AssessmentSection.HydraulicBoundaryDatabase.Locations))
             {
@@ -602,7 +602,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                 normType);
         }
 
-        private static void AddWaveConditionsCalculation(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
+        private static void AddWaveConditionsCalculation(GrassCoverErosionOutwardsCalculationGroupContext nodeData)
         {
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -616,22 +616,22 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             nodeData.WrappedData.NotifyObservers();
         }
 
-        private static void WaveConditionsCalculationGroupContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData,
-                                                                               object parentNodeData)
+        private static void CalculationGroupContextOnNodeRemoved(GrassCoverErosionOutwardsCalculationGroupContext nodeData,
+                                                                 object parentNodeData)
         {
-            var parentGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) parentNodeData;
+            var parentGroupContext = (GrassCoverErosionOutwardsCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
 
             parentGroupContext.NotifyObservers();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
+        private static string EnableValidateAndCalculateMenuItemForCalculationGroup(GrassCoverErosionOutwardsCalculationGroupContext context)
         {
             return EnableValidateAndCalculateMenuItem(context.AssessmentSection);
         }
 
-        private static void ValidateAllInCalculationGroup(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
+        private static void ValidateAllInCalculationGroup(GrassCoverErosionOutwardsCalculationGroupContext context)
         {
             CalculationGroup calculationGroup = context.WrappedData;
 
@@ -644,7 +644,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             }
         }
 
-        private void CalculateAllInCalculationGroup(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
+        private void CalculateAllInCalculationGroup(GrassCoverErosionOutwardsCalculationGroupContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
@@ -745,7 +745,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
         private static void WaveConditionsCalculationContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationContext nodeData,
                                                                           object parentNodeData)
         {
-            if (parentNodeData is GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext calculationGroupContext)
+            if (parentNodeData is GrassCoverErosionOutwardsCalculationGroupContext calculationGroupContext)
             {
                 bool successfullyRemovedData = calculationGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
                 if (successfullyRemovedData)

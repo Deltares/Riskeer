@@ -40,7 +40,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextImportInfoTest
+    public class GrassCoverErosionOutwardsCalculationGroupContextImportInfoTest
     {
         private ImportInfo importInfo;
         private GrassCoverErosionOutwardsPlugin plugin;
@@ -49,7 +49,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ImportInfos
         public void SetUp()
         {
             plugin = new GrassCoverErosionOutwardsPlugin();
-            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext));
+            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(GrassCoverErosionOutwardsCalculationGroupContext));
         }
 
         [TearDown]
@@ -120,7 +120,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ImportInfos
                              .Return(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>());
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(new CalculationGroup(),
+            var context = new GrassCoverErosionOutwardsCalculationGroupContext(new CalculationGroup(),
                                                                                              null,
                                                                                              failureMechanism,
                                                                                              assessmentSection);
