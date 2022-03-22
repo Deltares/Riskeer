@@ -461,7 +461,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("I&n assemblage", toolStripItem.Text);
-            Assert.AreEqual("Geeft aan of dit faalpad wordt meegenomen in de assemblage.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.", toolStripItem.ToolTipText);
             Bitmap checkboxIcon = inAssembly ? RiskeerFormsResources.Checkbox_ticked : RiskeerFormsResources.Checkbox_empty;
             TestHelper.AssertImagesAreEqual(checkboxIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);

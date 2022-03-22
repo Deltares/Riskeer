@@ -107,19 +107,19 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategory,
                                                                             "Naam",
-                                                                            "De naam van het faalpad.");
+                                                                            "De naam van het faalmechanisme.");
             
             PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
                                                                             generalCategory,
                                                                             "Label",
-                                                                            "Het label van het faalpad.");
+                                                                            "Het label van het faalmechanisme.");
 
             PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
                                                                             generalCategory,
                                                                             "In assemblage",
-                                                                            "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
+                                                                            "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                                             true);
 
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
@@ -157,19 +157,19 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategory,
                                                                             "Naam",
-                                                                            "De naam van het faalpad.");
+                                                                            "De naam van het faalmechanisme.");
             
             PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
                                                                             generalCategory,
                                                                             "Label",
-                                                                            "Het label van het faalpad.");
+                                                                            "Het label van het faalmechanisme.");
 
             PropertyDescriptor inAssemblyProperty = dynamicProperties[inAssemblyPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
                                                                             generalCategory,
                                                                             "In assemblage",
-                                                                            "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
+                                                                            "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                                             true);
         }
 
@@ -196,7 +196,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             // Call
             const string newName = "Some new cool pretty name";
-            const string newCode = "Nieuw Faalpad";
+            const string newCode = "Nieuw Faalmechanisme";
             RoundedDouble newN = random.NextRoundedDouble(1.0, 20.0);
             properties.Name = newName;
             properties.Code = newCode;

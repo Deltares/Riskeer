@@ -129,7 +129,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
                                                                             generalCategory,
                                                                             "In assemblage",
-                                                                            "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
+                                                                            "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                                             true);
 
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
@@ -181,7 +181,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
                                                                             generalCategory,
                                                                             "In assemblage",
-                                                                            "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
+                                                                            "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                                             true);
         }
 

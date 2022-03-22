@@ -762,7 +762,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, failurePath.Name));
 
                 // When
-                const string newName = "Awesome faalpad";
+                const string newName = "Awesome faalmechanisme";
                 failurePath.Name = newName;
                 failurePath.NotifyObservers();
 

@@ -1917,7 +1917,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of dit faalpad wordt meegenomen in de assemblage..
+        ///   Looks up a localized string similar to Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage..
         /// </summary>
         public static string FailurePath_InAssembly_Description {
             get {

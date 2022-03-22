@@ -101,7 +101,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
                                                                             generalCategory,
                                                                             "In assemblage",
-                                                                            "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
+                                                                            "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                                             true);
 
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
@@ -154,7 +154,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inAssemblyProperty,
                                                                             generalCategory,
                                                                             "In assemblage",
-                                                                            "Geeft aan of dit faalpad wordt meegenomen in de assemblage.",
+                                                                            "Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.",
                                                                             true);
         }
 

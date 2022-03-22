@@ -835,7 +835,7 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuw faalpad.
+        ///   Looks up a localized string similar to Nieuw faalmechanisme.
         /// </summary>
         public static string SpecificFailurePath_DefaultName {
             get {

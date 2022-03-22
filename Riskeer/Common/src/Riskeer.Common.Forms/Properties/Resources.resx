@@ -317,7 +317,7 @@
     <value>I&amp;n assemblage</value>
   </data>
     <data name="FailurePath_InAssembly_Description" xml:space="preserve">
-    <value>Geeft aan of dit faalpad wordt meegenomen in de assemblage.</value>
+    <value>Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.</value>
   </data>
     <data name="CalculationGroup_Add_Calculation_Tooltip" xml:space="preserve">
     <value>Voeg een nieuwe berekening toe aan deze map met berekeningen.</value>

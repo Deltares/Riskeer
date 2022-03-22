@@ -527,7 +527,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het label van het faalpad..
+        ///   Looks up a localized string similar to Het label van het faalmechanisme..
         /// </summary>
         public static string FailurePath_Code_Description {
             get {
@@ -536,7 +536,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De naam van het faalpad..
+        ///   Looks up a localized string similar to De naam van het faalmechanisme..
         /// </summary>
         public static string FailurePath_Name_Description {
             get {

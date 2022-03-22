@@ -357,10 +357,10 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
     <value>Gebruik preprocessor sluitregime database</value>
   </data>
   <data name="FailurePath_Name_Description" xml:space="preserve">
-    <value>De naam van het faalpad.</value>
+    <value>De naam van het faalmechanisme.</value>
   </data>
   <data name="FailurePath_Code_Description" xml:space="preserve">
-    <value>Het label van het faalpad.</value>
+    <value>Het label van het faalmechanisme.</value>
   </data>
   <data name="AssessmentSectionAssemblyResultControl_AssemblyGroup_DisplayName" xml:space="preserve">
     <value>Veiligheidsoordeel</value>

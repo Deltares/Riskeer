@@ -403,7 +403,7 @@
     <value>Handmatig invullen</value>
   </data>
   <data name="SpecificFailurePath_DefaultName" xml:space="preserve">
-    <value>Nieuw faalpad</value>
+    <value>Nieuw faalmechanisme</value>
   </data>
   <data name="SpecificFailurePath_DefaultCode" xml:space="preserve">
     <value>NIEUW</value>
