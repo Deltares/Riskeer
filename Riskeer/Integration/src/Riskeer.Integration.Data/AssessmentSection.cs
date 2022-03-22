@@ -154,7 +154,7 @@ namespace Riskeer.Integration.Data
         public GrassCoverErosionOutwardsFailureMechanism GrassCoverErosionOutwards { get; set; }
 
         /// <summary>
-        /// Gets or sets the "Dijken en dammen - Grasbekleding afschuiven buitentalud" failure mechanism.
+        /// Gets or sets the "Grasbekleding afschuiven buitentalud" failure mechanism.
         /// </summary>
         public GrassCoverSlipOffOutwardsFailureMechanism GrassCoverSlipOffOutwards { get; set; }
 

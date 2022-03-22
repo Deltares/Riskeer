@@ -121,7 +121,7 @@
     <value>Traject</value>
   </data>
   <data name="GrassCoverSlipOffOutwardsFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Dijken en dammen - Grasbekleding afschuiven buitentalud</value>
+    <value>Grasbekleding afschuiven buitentalud</value>
   </data>
   <data name="PipingStructureFailureMechanism_DisplayName" xml:space="preserve">
     <value>Kunstwerken - Piping bij kunstwerk</value>
