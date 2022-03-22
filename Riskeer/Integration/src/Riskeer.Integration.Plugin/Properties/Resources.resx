@@ -204,7 +204,7 @@ Weet u zeker dat u wilt doorgaan?</value>
   </data>
     <data name="AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced"
           xml:space="preserve">
-        <value>Gegevens van het generieke faalpad '{0}' zijn vervangen.</value>
+        <value>Gegevens van het generieke faalmechanisme '{0}' zijn vervangen.</value>
     </data>
     <data name="AssessmentSectionMergeHandler_MergeHydraulicBoundaryLocations_HydraulicBoundaryLocations_not_merged"
           xml:space="preserve">
@@ -312,16 +312,16 @@ Weet u zeker dat u wilt doorgaan?</value>
 
 Weet u zeker dat u wilt doorgaan?</value>
     </data>
-    <data name="SpecificFailurePaths_DisplayName" xml:space="preserve">
-        <value>Specifieke faalpaden</value>
+    <data name="SpecificFailureMechanisms_DisplayName" xml:space="preserve">
+        <value>Specifieke faalmechanismen</value>
     </data>
-    <data name="RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath" xml:space="preserve">
-        <value>Faalpad toevoegen</value>
+    <data name="RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism" xml:space="preserve">
+        <value>Faalmechanisme toevoegen</value>
     </data>
-    <data name="RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath_Tooltip" xml:space="preserve">
-        <value>Voeg een nieuw faalpad toe aan deze map.</value>
+    <data name="RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism_Tooltip" xml:space="preserve">
+        <value>Voeg een nieuw faalmechanisme toe aan deze map.</value>
     </data>
-    <data name="AssessmentSectionMergeHandler_TryMergeFailurePath_FailurePath_0_added" xml:space="preserve">
-        <value>Faalpad '{0}' en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalpaden.</value>
+    <data name="AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_added" xml:space="preserve">
+        <value>Faalmechanisme '{0}' en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalmechanismen.</value>
     </data>
 </root>

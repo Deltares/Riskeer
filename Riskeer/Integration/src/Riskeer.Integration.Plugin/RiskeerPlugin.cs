@@ -815,7 +815,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<SpecificFailurePathsContext>
             {
-                Text = context => Resources.SpecificFailurePaths_DisplayName,
+                Text = context => Resources.SpecificFailureMechanisms_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = SpecificFailurePathsChildNodeObjects,
                 ContextMenuStrip = SpecificFailurePathsContextMenuStrip,
@@ -1901,7 +1901,7 @@ namespace Riskeer.Integration.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddCustomItem(CreateAddSpecificFailurePathItem(nodeData))
+            return builder.AddCustomItem(CreateAddSpecificFailureMechanismItem(nodeData))
                           .AddSeparator()
                           .AddRemoveAllChildrenItem()
                           .AddSeparator()
@@ -1910,10 +1910,10 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private static StrictContextMenuItem CreateAddSpecificFailurePathItem(SpecificFailurePathsContext nodeData)
+        private static StrictContextMenuItem CreateAddSpecificFailureMechanismItem(SpecificFailurePathsContext nodeData)
         {
-            return new StrictContextMenuItem(Resources.RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath,
-                                             Resources.RiskeerPlugin_ContextMenuStrip_Add_SpecificFailurePath_Tooltip,
+            return new StrictContextMenuItem(Resources.RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism,
+                                             Resources.RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism_Tooltip,
                                              RiskeerCommonFormsResources.FailureMechanismIcon,
                                              (sender, args) => AddSpecificFailurePath(nodeData));
         }

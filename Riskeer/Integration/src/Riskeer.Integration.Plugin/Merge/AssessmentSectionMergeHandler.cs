@@ -108,7 +108,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
         private static void LogMergeMessage(IFailurePath failurePath)
         {
-            log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailurePath_FailurePath_0_added, failurePath.Name);
+            log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_added, failurePath.Name);
         }
 
         #region FailurePaths
