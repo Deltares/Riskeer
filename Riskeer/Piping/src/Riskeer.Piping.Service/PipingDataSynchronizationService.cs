@@ -25,7 +25,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.SoilProfile;
 using Riskeer.Common.Service;
@@ -370,7 +369,7 @@ namespace Riskeer.Piping.Service
             return changedObservables;
         }
 
-        private static IEnumerable<IPipingCalculationScenario<PipingInput>> GetCalculationsWithSoilProfileAssigned(IFailureMechanism failureMechanism,
+        private static IEnumerable<IPipingCalculationScenario<PipingInput>> GetCalculationsWithSoilProfileAssigned(PipingFailureMechanism failureMechanism,
                                                                                                                    PipingStochasticSoilProfile soilProfile)
         {
             return failureMechanism.Calculations

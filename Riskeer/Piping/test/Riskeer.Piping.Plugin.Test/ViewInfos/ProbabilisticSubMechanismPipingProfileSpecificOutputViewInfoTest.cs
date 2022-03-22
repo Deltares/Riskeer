@@ -210,7 +210,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                     new AssessmentSectionStub());
             }
 
-            protected override IFailureMechanism GetFailureMechanismWithCalculation()
+            protected override ICalculatableFailureMechanism GetFailureMechanismWithCalculation()
             {
                 return new PipingFailureMechanism
                 {
