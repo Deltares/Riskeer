@@ -118,6 +118,15 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faalkans van het traject [1/jaar].
+        /// </summary>
+        public static string AssemblyResult_TotalAssemblyProbability_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResult_TotalAssemblyProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duiding bijdrage per deelvak.
         /// </summary>
         public static string AssemblyResultPerSection_DisplayName {

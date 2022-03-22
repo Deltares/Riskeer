@@ -253,6 +253,9 @@
   <data name="ReferenceLineProperties_Geometry_Description" xml:space="preserve">
     <value>Lijst van alle coördinaten (X-coördinaat, Y-coördinaat) die samen de referentielijn vormen.</value>
   </data>
+  <data name="AssemblyResult_TotalAssemblyProbability_DisplayName" xml:space="preserve">
+    <value>Faalkans van het traject [1/jaar]</value>
+  </data>
   <data name="AssemblyResult_Probability_DisplayName" xml:space="preserve">
     <value>Faalkans [1/jaar]</value>
   </data>

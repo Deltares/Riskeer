@@ -115,7 +115,7 @@ namespace Riskeer.Integration.Forms.Controls
             this.assemblyProbabilityDisplayNameLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.assemblyProbabilityDisplayNameLabel.Margin = new System.Windows.Forms.Padding(3);
             this.assemblyProbabilityDisplayNameLabel.TabIndex = 1;
-            this.assemblyProbabilityDisplayNameLabel.Text = Resources.AssemblyResult_Probability_DisplayName;
+            this.assemblyProbabilityDisplayNameLabel.Text = Resources.AssemblyResult_TotalAssemblyProbability_DisplayName;
             // 
             // groupLabel
             // 
