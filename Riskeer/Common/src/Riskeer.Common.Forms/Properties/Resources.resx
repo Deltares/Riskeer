@@ -176,7 +176,7 @@
         </value>
     </data>
     <data name="Calculate_All_ToolTip" xml:space="preserve">
-    <value>Voer alle berekeningen binnen dit toetsspoor uit.</value>
+    <value>Voer alle berekeningen binnen dit faalmechanisme uit.</value>
   </data>
     <data name="WaterLevel_Calculate_All_ToolTip" xml:space="preserve">
     <value>Alle waterstanden berekenen.</value>
@@ -185,7 +185,7 @@
     <value>Alle golfhoogten berekenen.</value>
   </data>
     <data name="Clear_all_output_ToolTip" xml:space="preserve">
-    <value>Wis de uitvoer van alle berekeningen binnen dit toetsspoor.</value>
+    <value>Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.</value>
   </data>
     <data name="ClearIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
         <value>..\resources\table_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral,
@@ -220,7 +220,7 @@
     <value>Alles &amp;valideren</value>
   </data>
     <data name="FailureMechanism_Validate_All_ToolTip" xml:space="preserve">
-    <value>Valideer alle berekeningen binnen dit toetsspoor.</value>
+    <value>Valideer alle berekeningen binnen dit faalmechanisme.</value>
   </data>
     <data name="Validate_ToolTip" xml:space="preserve">
     <value>Valideer de invoer voor deze berekening.</value>
@@ -382,7 +382,7 @@
     <value>Resultaat</value>
   </data>
     <data name="ProbabilityAssessmentOutput_Probability_Description" xml:space="preserve">
-    <value>De kans dat het toetsspoor optreedt voor deze berekening.</value>
+    <value>De kans dat het faalmechanisme optreedt voor deze berekening.</value>
   </data>
     <data name="ProbabilityAssessmentOutput_Probability_Displayname" xml:space="preserve">
     <value>Faalkans [1/jaar]</value>
@@ -903,7 +903,7 @@
   </data>
     <data name="FailureMechanismPropertyChangeHandler_Confirm_change_composition_and_clear_dependent_data"
           xml:space="preserve">
-    <value>Als u deze parameter wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden.
+    <value>Als u deze parameter wijzigt, zal de uitvoer van alle berekeningen in dit faalmechanisme verwijderd worden.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>
@@ -1269,7 +1269,7 @@ Betrouwbaarheidsindex = {1}</value>
     <value>Waarden in het illustratiepunt</value>
   </data>
     <data name="FailureMechanismSections_Description" xml:space="preserve">
-    <value>Vakindeling waarmee de waterkering voor dit toetsspoor is geschematiseerd ten behoeve van de beoordeling.</value>
+    <value>Vakindeling waarmee de waterkering voor dit faalmechanisme is geschematiseerd ten behoeve van de beoordeling.</value>
   </data>
     <data name="FailureMechanismSection_EndPoint_Description" xml:space="preserve">
     <value>Eindpunt van het vak (X-coördinaat, Y-coördinaat).</value>
@@ -1414,7 +1414,7 @@ berekende kans
   </data>
     <data name="CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_FailureMechanism"
           xml:space="preserve">
-    <value>Wis alle berekende illustratiepunten binnen dit toetsspoor.</value>
+    <value>Wis alle berekende illustratiepunten binnen dit faalmechanisme.</value>
   </data>
     <data name="ClearHydraulicBoundaryLocationCalculationsIllustrationPointsChangeHandler_ClearIllustrationPoints_Remove_calculated_IllustrationPoints_for_collection_0_"
           xml:space="preserve">

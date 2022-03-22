@@ -328,7 +328,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("&Wis alle uitvoer...", toolStripItem.Text);
-            Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit toetsspoor.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ClearIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
 
@@ -1455,7 +1455,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("Alles be&rekenen", toolStripItem.Text);
-            Assert.AreEqual("Voer alle berekeningen binnen dit toetsspoor uit.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Voer alle berekeningen binnen dit faalmechanisme uit.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.CalculateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -1589,7 +1589,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual("Alles &valideren", toolStripItem.Text);
-            Assert.AreEqual("Valideer alle berekeningen binnen dit toetsspoor.", toolStripItem.ToolTipText);
+            Assert.AreEqual("Valideer alle berekeningen binnen dit faalmechanisme.", toolStripItem.ToolTipText);
             TestHelper.AssertImagesAreEqual(RiskeerFormsResources.ValidateAllIcon, toolStripItem.Image);
             Assert.IsTrue(toolStripItem.Enabled);
             mocks.VerifyAll();
@@ -1931,7 +1931,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             Assert.AreEqual(isEnabled, toolStripItem.Enabled);
 
             string expectedToolTipMessage = isEnabled
-                                                ? "Wis alle berekende illustratiepunten binnen dit toetsspoor."
+                                                ? "Wis alle berekende illustratiepunten binnen dit faalmechanisme."
                                                 : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
             Assert.AreEqual(expectedToolTipMessage, toolStripItem.ToolTipText);
             mocks.VerifyAll();

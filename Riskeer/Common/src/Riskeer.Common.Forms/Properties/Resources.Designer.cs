@@ -317,7 +317,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voer alle berekeningen binnen dit toetsspoor uit..
+        ///   Looks up a localized string similar to Voer alle berekeningen binnen dit faalmechanisme uit..
         /// </summary>
         public static string Calculate_All_ToolTip {
             get {
@@ -934,7 +934,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis de uitvoer van alle berekeningen binnen dit toetsspoor..
+        ///   Looks up a localized string similar to Wis de uitvoer van alle berekeningen binnen dit faalmechanisme..
         /// </summary>
         public static string Clear_all_output_ToolTip {
             get {
@@ -1074,7 +1074,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wis alle berekende illustratiepunten binnen dit toetsspoor..
+        ///   Looks up a localized string similar to Wis alle berekende illustratiepunten binnen dit faalmechanisme..
         /// </summary>
         public static string CreateClearIllustrationPointsOfCalculationsItem_Clear_IllustrationPoints_In_FailureMechanism {
             get {
@@ -1551,7 +1551,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valideer alle berekeningen binnen dit toetsspoor..
+        ///   Looks up a localized string similar to Valideer alle berekeningen binnen dit faalmechanisme..
         /// </summary>
         public static string FailureMechanism_Validate_All_ToolTip {
             get {
@@ -1570,7 +1570,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u deze parameter wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden.
+        ///   Looks up a localized string similar to Als u deze parameter wijzigt, zal de uitvoer van alle berekeningen in dit faalmechanisme verwijderd worden.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
@@ -1854,7 +1854,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vakindeling waarmee de waterkering voor dit toetsspoor is geschematiseerd ten behoeve van de beoordeling..
+        ///   Looks up a localized string similar to Vakindeling waarmee de waterkering voor dit faalmechanisme is geschematiseerd ten behoeve van de beoordeling..
         /// </summary>
         public static string FailureMechanismSections_Description {
             get {
@@ -2764,7 +2764,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kans dat het toetsspoor optreedt voor deze berekening..
+        ///   Looks up a localized string similar to De kans dat het faalmechanisme optreedt voor deze berekening..
         /// </summary>
         public static string ProbabilityAssessmentOutput_Probability_Description {
             get {
