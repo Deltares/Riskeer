@@ -265,8 +265,8 @@ berekeningen</value>
     <value>Hydraulische
 belastingen</value>
   </data>
-    <data name="GenericFailurePaths_DisplayName" xml:space="preserve">
-        <value>Generieke faalpaden</value>
+    <data name="GenericFailureMechanisms_DisplayName" xml:space="preserve">
+        <value>Generieke faalmechanismen</value>
     </data>
     <data name="AssessmentSectionFromFileCommandHandler_CreateAssessmentSection_No_settings_found_for_AssessmentSection"
           xml:space="preserve">

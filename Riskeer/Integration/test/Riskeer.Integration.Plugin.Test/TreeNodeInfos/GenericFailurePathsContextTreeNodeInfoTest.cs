@@ -91,7 +91,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Generieke faalpaden", text);
+                Assert.AreEqual("Generieke faalmechanismen", text);
             }
         }
 

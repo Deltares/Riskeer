@@ -375,11 +375,11 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generieke faalpaden.
+        ///   Looks up a localized string similar to Generieke faalmechanismen.
         /// </summary>
-        public static string GenericFailurePaths_DisplayName {
+        public static string GenericFailureMechanisms_DisplayName {
             get {
-                return ResourceManager.GetString("GenericFailurePaths_DisplayName", resourceCulture);
+                return ResourceManager.GetString("GenericFailureMechanisms_DisplayName", resourceCulture);
             }
         }
         
