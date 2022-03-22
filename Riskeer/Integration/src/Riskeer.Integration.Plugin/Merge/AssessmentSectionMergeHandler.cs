@@ -375,7 +375,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
         private static void UpdateCalculationHydraulicBoundaryLocationReferences<TFailureMechanism, TCalculation, TCalculationInput>(
             TFailureMechanism failureMechanism, IEnumerable<HydraulicBoundaryLocation> locations)
-            where TFailureMechanism : IFailureMechanism
+            where TFailureMechanism : ICalculatableFailureMechanism
             where TCalculation : ICalculation<TCalculationInput>
             where TCalculationInput : class, ICalculationInputWithHydraulicBoundaryLocation
         {
