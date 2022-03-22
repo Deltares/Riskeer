@@ -36,7 +36,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
     /// An <see cref="UpdateDataStrategyBase{TTargetData,TFailureMechanism}"/> for 
     /// updating surface lines based on imported data.
     /// </summary>
-    public class ForeshoreProfileUpdateDataStrategy : UpdateDataStrategyBase<ForeshoreProfile, IFailureMechanism>,
+    public class ForeshoreProfileUpdateDataStrategy : UpdateDataStrategyBase<ForeshoreProfile, ICalculatableFailureMechanism>,
                                                       IForeshoreProfileUpdateDataStrategy
     {
         /// <summary>
@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Plugin.FileImporters
         /// are updated.</param>
         /// <param name="foreshoreProfiles">The foreshore profiles which will be updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public ForeshoreProfileUpdateDataStrategy(IFailureMechanism failureMechanism, ForeshoreProfileCollection foreshoreProfiles)
+        public ForeshoreProfileUpdateDataStrategy(ICalculatableFailureMechanism failureMechanism, ForeshoreProfileCollection foreshoreProfiles)
             : base(failureMechanism, foreshoreProfiles, new ForeshoreProfileEqualityComparer()) {}
 
         public IEnumerable<IObservable> UpdateForeshoreProfilesWithImportedData(IEnumerable<ForeshoreProfile> importedDataCollection, string sourceFilePath)

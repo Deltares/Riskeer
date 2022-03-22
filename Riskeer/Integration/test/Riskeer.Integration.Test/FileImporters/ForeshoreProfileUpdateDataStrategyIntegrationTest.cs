@@ -56,7 +56,7 @@ namespace Riskeer.Integration.Test.FileImporters
         [Test]
         [TestCaseSource(nameof(GetSupportedFailureMechanisms))]
         public void UpdateForeshoreProfilesWithImportedData_SupportedFailureMechanisms_UpdatesAffectedCalculationAndReturnsAffectedData(
-            IFailureMechanism failureMechanism,
+            ICalculatableFailureMechanism failureMechanism,
             ForeshoreProfileCollection foreshoreProfiles,
             ForeshoreProfile unaffectedForeshoreProfile)
         {
