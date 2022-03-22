@@ -391,10 +391,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testcase
-			id="2beb87ae-bf92-41c9-accd-2db47b0702e2"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<testmodule
 			id="2dc7cd41-ffd9-4362-af4c-3f6c6c8a9a2b"
 			name="ConcatenateStrings"
@@ -1580,6 +1576,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="stateName"
+					datasourceid="7d3ea903-a12a-421a-a602-b73b49a91613"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateCalculations"
@@ -1588,14 +1592,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="stateCalculations"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="7cf7ad1f-edf1-46f4-bd42-481fa8ace8e8"
@@ -1634,6 +1630,12 @@
 			<smartfoldernode
 			id="7d3ea903-a12a-421a-a602-b73b49a91613"
 			name="SetState">
+				<parameters>
+					<param
+					name="stateName"
+					value="@SB">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="7fb379e2-722a-42ab-a6ed-d117c7703252"
@@ -2326,6 +2328,12 @@
 			<smartfoldernode
 			id="ac8d0587-1b15-4124-8e28-dfff2aecad08"
 			name="SetState">
+				<parameters>
+					<param
+					name="stateName"
+					value="@SB">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="aceaa14f-86ed-49b9-9167-e8bc308f5c5a"
@@ -2784,12 +2792,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="c6e51862-ab26-43cf-921b-b34e394f9b36"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="ca206463-423f-4fb2-943b-8dcb0e8f4639"
 			name="CopyAllSearchFilteredFilesFromSourceToTarget"
 			ref="a6cea8b4-3109-4085-b6f6-8002979365e3"
@@ -2828,6 +2830,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="stateName"
+					datasourceid="ac8d0587-1b15-4124-8e28-dfff2aecad08"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateCalculations"
@@ -2836,14 +2846,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="stateCalculations"
-					datasourceid="5a6ec20d-3177-4636-b682-724e13a26235"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="cc1dcaab-4baa-4b34-906f-d2eaac3f3893"
@@ -3343,14 +3345,6 @@
 				<testcase
 				id="ce5009df-5c78-4a39-8abc-3f2f561797c6"
 				name="Script12">
-					<testcase
-					id="2beb87ae-bf92-41c9-accd-2db47b0702e2"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="c6e51862-ab26-43cf-921b-b34e394f9b36"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
 					<testcase
 					id="aff63240-5ef8-40dd-921e-4b9e7a92d94b"
 					name="script12_Kunstwerkgegevens_importeren">
@@ -4450,9 +4444,6 @@
 			</testcontainer>
 			<testcontainer
 			id="27e1ee28-73c5-43ba-a0b3-dd131f17dcaa">
-			</testcontainer>
-			<testcontainer
-			id="2beb87ae-bf92-41c9-accd-2db47b0702e2">
 			</testcontainer>
 			<testcontainer
 			id="3040d16e-1e31-40ef-adef-e63ff976614f">
