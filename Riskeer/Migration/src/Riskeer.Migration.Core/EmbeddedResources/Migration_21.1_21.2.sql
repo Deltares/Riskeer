@@ -1326,7 +1326,7 @@ SELECT
         ELSE
             CASE
                 WHEN [FailureMechanismName] IS NOT NULL
-                    THEN "  + Toetsspoor: '" || [FailureMechanismName] || "'"
+                    THEN "  + Faalmechanisme: '" || [FailureMechanismName] || "'"
                 ELSE
                     "    - " || [msg]
             END

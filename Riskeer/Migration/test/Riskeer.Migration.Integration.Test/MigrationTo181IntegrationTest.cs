@@ -499,32 +499,21 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("17.3", newVersion, "* Traject: 'assessmentSectionResults'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Piping'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Piping'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
                                                                 "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Hoogte kunstwerk'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
                                                                 "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit langsconstructies'"),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
-                                                                "naar een geldig resultaat en zijn verwijderd."),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Technische innovaties'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Sterkte en stabiliteit langsconstructies'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
@@ -535,7 +524,7 @@ namespace Riskeer.Migration.Integration.Test
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Wateroverdruk bij asfaltbekleding'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Technische innovaties'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
@@ -546,21 +535,7 @@ namespace Riskeer.Migration.Integration.Test
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Macrostabiliteit binnenwaarts'"),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Macrostabiliteit buitenwaarts'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Wateroverdruk bij asfaltbekleding'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
@@ -571,7 +546,32 @@ namespace Riskeer.Migration.Integration.Test
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Golfklappen op asfaltbekleding'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Betrouwbaarheid sluiting kunstwerk'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Macrostabiliteit binnenwaarts'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Macrostabiliteit buitenwaarts'"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
+                                                                "naar een geldig resultaat en zijn verwijderd."),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Golfklappen op asfaltbekleding'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
@@ -586,7 +586,7 @@ namespace Riskeer.Migration.Integration.Test
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Grasbekleding erosie buitentalud'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Grasbekleding erosie buitentalud'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
@@ -601,7 +601,7 @@ namespace Riskeer.Migration.Integration.Test
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Grasbekleding afschuiven binnentalud'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Grasbekleding afschuiven binnentalud'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
@@ -616,7 +616,7 @@ namespace Riskeer.Migration.Integration.Test
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Grasbekleding afschuiven buitentalud'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Grasbekleding afschuiven buitentalud'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
@@ -631,7 +631,7 @@ namespace Riskeer.Migration.Integration.Test
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Microstabiliteit'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Microstabiliteit'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
@@ -646,7 +646,7 @@ namespace Riskeer.Migration.Integration.Test
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Piping bij kunstwerk'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Piping bij kunstwerk'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
@@ -661,7 +661,7 @@ namespace Riskeer.Migration.Integration.Test
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Stabiliteit steenzetting'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Stabiliteit steenzetting'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden " +
@@ -672,7 +672,7 @@ namespace Riskeer.Migration.Integration.Test
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Duinafslag'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Duinafslag'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden " +
@@ -687,7 +687,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("17.3", newVersion, "* Traject: 'PipingSoilLayer'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Piping'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Piping'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - De waarde '-0.125' voor de variatiecoëfficiënt van parameter 'd70' van ondergrondlaag 'DiameterD70Variation' is ongeldig en is veranderd naar NaN."),
@@ -715,7 +715,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("17.3", newVersion, "* Traject: 'Closing Structures Invalid Data'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Betrouwbaarheid sluiting kunstwerk'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - De waarde van '-11' van parameter 'Aantal identieke doorstroomopeningen' van berekening 'Invalid Identical Apertures - Negative Value' is ongeldig en is veranderd naar 1."),
@@ -737,7 +737,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("17.3", newVersion, "* Traject: 'Stability Point Structures Data'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
+                    new MigrationLogMessage("17.3", newVersion, "  + Faalmechanisme: 'Sterkte en stabiliteit puntconstructies'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - De waarde van '-0.11' van parameter 'Afstand onderkant wand en teen van de dijk/berm' van berekening 'Invalid Vertical Distance' is ongeldig en is veranderd naar NaN."),

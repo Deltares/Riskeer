@@ -1091,31 +1091,31 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]
                 }, 30000, 30000, NormType.SignalFloodingProbability);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Faalmechanisme: 'Hoogte kunstwerk'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '10' is veranderd naar '104'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Faalmechanisme: 'Betrouwbaarheid sluiting kunstwerk'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '1' is veranderd naar '102'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Golfklappen op asfaltbekleding'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Faalmechanisme: 'Golfklappen op asfaltbekleding'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '10' is veranderd naar '10000000000000000000004'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Stabiliteit steenzetting'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Faalmechanisme: 'Stabiliteit steenzetting'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van voorlandprofiel '100' is veranderd naar '10000000000000000000006'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Faalmechanisme: 'Sterkte en stabiliteit puntconstructies'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '1' is veranderd naar '103'."),
@@ -1131,13 +1131,13 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]
                 }, 1000, 30000, NormType.SignalFloodingProbability);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Faalmechanisme: 'Betrouwbaarheid sluiting kunstwerk'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '10' is veranderd naar '104'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Faalmechanisme: 'Sterkte en stabiliteit puntconstructies'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.1", newVersion, "    - Het ID van kunstwerk '10' is veranderd naar '104'."),
@@ -1163,7 +1163,7 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]
                 }, 1000, 3000, NormType.SignalFloodingProbability);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Piping'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Faalmechanisme: 'Piping'"),
                     messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
                 {
@@ -1171,7 +1171,7 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]
                 });
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Grasbekleding erosie kruin en binnentalud'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Faalmechanisme: 'Grasbekleding erosie kruin en binnentalud'"),
                     messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
                 {
@@ -1179,7 +1179,7 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]
                 });
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Faalmechanisme: 'Hoogte kunstwerk'"),
                     messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
                 {
@@ -1187,7 +1187,7 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]
                 });
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Betrouwbaarheid sluiting kunstwerk'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Faalmechanisme: 'Betrouwbaarheid sluiting kunstwerk'"),
                     messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
                 {
@@ -1195,7 +1195,7 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]
                 });
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Macrostabiliteit binnenwaarts'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Faalmechanisme: 'Macrostabiliteit binnenwaarts'"),
                     messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
                 {
@@ -1203,7 +1203,7 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]
                 });
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit puntconstructies'"),
+                    new MigrationLogMessage("17.1", newVersion, "  + Faalmechanisme: 'Sterkte en stabiliteit puntconstructies'"),
                     messages[i++]);
                 AssertLayerThreeMigrationMessage(new[]
                 {
