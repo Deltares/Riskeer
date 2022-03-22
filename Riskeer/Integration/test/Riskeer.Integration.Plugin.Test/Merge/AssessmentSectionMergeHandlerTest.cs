@@ -422,21 +422,21 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                     HydraulicBoundaryLocation = sourceLocations[1]
                 }
             });
-            sourceAssessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation
+            sourceAssessmentSection.StabilityStoneCover.CalculationsGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = sourceLocations[0]
                 }
             });
-            sourceAssessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation
+            sourceAssessmentSection.WaveImpactAsphaltCover.CalculationsGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = sourceLocations[1]
                 }
             });
-            sourceAssessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation
+            sourceAssessmentSection.GrassCoverErosionOutwards.CalculationsGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
                 {

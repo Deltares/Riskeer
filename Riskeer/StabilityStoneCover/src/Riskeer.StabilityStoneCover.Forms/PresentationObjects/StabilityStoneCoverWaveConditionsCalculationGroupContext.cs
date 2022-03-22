@@ -29,7 +29,8 @@ using Riskeer.StabilityStoneCover.Data;
 namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for <see cref="StabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup"/>.
+    /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
+    /// in order be able to create configurable stability stone cover calculations.
     /// </summary>
     public class StabilityStoneCoverWaveConditionsCalculationGroupContext : StabilityStoneCoverContext<CalculationGroup>,
                                                                             ICalculationContext<CalculationGroup, StabilityStoneCoverFailureMechanism>

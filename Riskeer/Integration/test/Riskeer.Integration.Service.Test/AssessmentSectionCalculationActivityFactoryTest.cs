@@ -359,7 +359,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AddStabilityStoneCoverCalculation(AssessmentSection assessmentSection,
                                                               HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation
+            assessmentSection.StabilityStoneCover.CalculationsGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
@@ -379,7 +379,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AddWaveImpactAsphaltCoverCalculation(AssessmentSection assessmentSection,
                                                                  HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation
+            assessmentSection.WaveImpactAsphaltCover.CalculationsGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
@@ -399,7 +399,7 @@ namespace Riskeer.Integration.Service.Test
         private static void AddGrassCoverErosionOutwardsCalculation(AssessmentSection assessmentSection,
                                                                     HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation
+            assessmentSection.GrassCoverErosionOutwards.CalculationsGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 InputParameters =
                 {

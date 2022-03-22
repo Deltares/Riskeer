@@ -238,8 +238,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children);
-            CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup);
+            CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(observables, grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
 
@@ -248,8 +248,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
-            CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup);
+            CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(observables, waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
 
@@ -258,8 +258,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.SectionResults);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.SectionResults);
-            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children);
-            CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup);
+            CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.CalculationsGroup.Children);
+            CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.CalculationsGroup);
             CollectionAssert.IsEmpty(stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
             CollectionAssert.Contains(observables, stabilityStoneCoverFailureMechanism.ForeshoreProfiles);
 

@@ -257,7 +257,7 @@ namespace Riskeer.Integration.Test.FileImporters
                     new TestWaveConditionsOutput()
                 })
             };
-            waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
+            waveImpactAsphaltCoverFailureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
             return waveImpactAsphaltCoverFailureMechanism;
         }
 
@@ -278,7 +278,7 @@ namespace Riskeer.Integration.Test.FileImporters
                 },
                 Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
-            grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
+            grassCoverErosionOutwardsFailureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
             return grassCoverErosionOutwardsFailureMechanism;
         }
 
@@ -299,7 +299,7 @@ namespace Riskeer.Integration.Test.FileImporters
                 },
                 Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             };
-            stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Add(unaffectedCalculation);
+            stabilityStoneCoverFailureMechanism.CalculationsGroup.Children.Add(unaffectedCalculation);
             return stabilityStoneCoverFailureMechanism;
         }
 

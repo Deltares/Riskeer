@@ -66,7 +66,7 @@ namespace Riskeer.Integration.Service
                                     assessmentSection.WaveImpactAsphaltCover,
                                     assessmentSection));
             activities.AddRange(GrassCoverErosionOutwardsCalculationActivityFactory.CreateWaveConditionsCalculationActivities(
-                                    assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup,
+                                    assessmentSection.GrassCoverErosionOutwards.CalculationsGroup,
                                     assessmentSection.GrassCoverErosionOutwards,
                                     assessmentSection));
             activities.AddRange(DuneLocationCalculationActivityFactory.CreateCalculationActivities(

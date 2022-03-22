@@ -29,7 +29,8 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for <see cref="GrassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup"/>.
+    /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
+    /// in order be able to create configurable grass cover erosion outwards calculations.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext : GrassCoverErosionOutwardsContext<CalculationGroup>,
                                                                                   ICalculationContext<CalculationGroup, GrassCoverErosionOutwardsFailureMechanism>
