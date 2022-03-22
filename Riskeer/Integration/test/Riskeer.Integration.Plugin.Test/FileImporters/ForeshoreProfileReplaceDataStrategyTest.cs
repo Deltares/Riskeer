@@ -43,10 +43,10 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call 
-            TestDelegate call = () => new ForeshoreProfileReplaceDataStrategy(null, new ForeshoreProfileCollection());
+            void Call() => new ForeshoreProfileReplaceDataStrategy(null, new ForeshoreProfileCollection());
 
             // Assert 
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -54,10 +54,10 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void Constructor_ForeshoreProfileCollectionNull_ThrowsArgumentNullException()
         {
             // Call 
-            TestDelegate call = () => new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), null);
+            void Call() => new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), null);
 
             // Assert 
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("targetCollection", exception.ParamName);
         }
 
@@ -80,11 +80,10 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfileCollection);
 
             // Call 
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(null,
-                                                                                       "path");
+            void Call() => strategy.UpdateForeshoreProfilesWithImportedData(null, "path");
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("importedDataCollection", exception.ParamName);
         }
 
@@ -96,11 +95,10 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), foreshoreProfileCollection);
 
             // Call 
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(Enumerable.Empty<ForeshoreProfile>(),
-                                                                                       null);
+            void Call() => strategy.UpdateForeshoreProfilesWithImportedData(Enumerable.Empty<ForeshoreProfile>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("sourceFilePath", exception.ParamName);
         }
 
@@ -119,11 +117,10 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             };
 
             // Call 
-            TestDelegate call = () => strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles,
-                                                                                       sourceFilePath);
+            void Call() => strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles, sourceFilePath);
 
             // Assert
-            var exception = Assert.Throws<UpdateDataException>(call);
+            var exception = Assert.Throws<UpdateDataException>(Call);
             string expectedMessage = $"Voorlandprofielen moeten een unieke id hebben. Gevonden dubbele elementen: {duplicateId}.";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
