@@ -1143,7 +1143,7 @@
 					</param>
 					<param
 					name="PrefixFMInStateFA"
-					value="Traject>Generieke faalpaden>">
+					value="Traject>@GF>">
 					</param>
 					<param
 					name="SuffixSections"

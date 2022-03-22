@@ -350,8 +350,8 @@
 			name="SelectStateWithHBC">
 				<parameters>
 					<param
-					name="stateWithHBC"
-					value="Hydraulische">
+					name="stateNameWithHBC"
+					value="@HyB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -466,6 +466,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="stateName"
+					datasourceid="554a176c-4fac-4683-a23a-7bc9d17c822f"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateWithCalculations"
@@ -474,20 +482,20 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="stateWithCalculations"
-					datasourceid="554a176c-4fac-4683-a23a-7bc9d17c822f"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="4328510d-6fcf-464c-a832-f74124cceaba"
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="stateName"
+					datasourceid="4c6c6a01-b1b1-4e90-af7d-f7b026dcc54d"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateWithCalculations"
@@ -496,14 +504,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="stateWithCalculations"
-					datasourceid="4c6c6a01-b1b1-4e90-af7d-f7b026dcc54d"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			id="4369cb7f-b6d3-4757-a40f-8a68494a29da"
@@ -687,8 +687,8 @@
 			name="SelectStateWithCalculations">
 				<parameters>
 					<param
-					name="stateWithCalculations"
-					value="Sterkte">
+					name="stateName"
+					value="@SB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -845,8 +845,8 @@
 			name="SelectStateWithCalculations">
 				<parameters>
 					<param
-					name="stateWithCalculations"
-					value="Sterkte">
+					name="stateName"
+					value="@SB">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1043,6 +1043,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="stateName"
+					datasourceid="ff975747-306b-4cfe-8fd4-eb3fb0de1826"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateWithCalculations"
@@ -1051,14 +1059,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="stateWithCalculations"
-					datasourceid="ff975747-306b-4cfe-8fd4-eb3fb0de1826"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="6d553bd3-8128-4897-b71b-d3967ebc9f1c"
@@ -1199,6 +1199,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="stateNameWithHBC"
+					datasourceid="2fc008ea-b0a3-4264-b074-d3051786566c"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateWithCalculations"
@@ -1207,14 +1215,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="stateWithHBC"
-					datasourceid="2fc008ea-b0a3-4264-b074-d3051786566c"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="8cd7ede6-b322-41ef-b90b-d46b2020d79b"
@@ -2390,8 +2390,8 @@
 			name="SelectStateWithCalculations">
 				<parameters>
 					<param
-					name="stateWithCalculations"
-					value="Sterkte">
+					name="stateName"
+					value="@SB">
 					</param>
 				</parameters>
 			</smartfoldernode>

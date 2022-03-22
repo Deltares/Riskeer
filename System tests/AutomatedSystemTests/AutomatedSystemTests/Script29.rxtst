@@ -101,6 +101,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="nameState"
+					datasourceid="92d15ab5-01db-4817-81c6-28cfb61a0057"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="stateCalculations"
@@ -109,14 +117,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameStateFA"
-					datasourceid="92d15ab5-01db-4817-81c6-28cfb61a0057"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="05ef89cd-ada2-4f40-a763-9e0cfd1c9e35"
@@ -153,6 +153,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="nameState"
+					datasourceid="451c2b85-8ed2-4788-ad44-81c3482d2750"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="stateCalculations"
@@ -161,14 +169,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameStateTR"
-					datasourceid="451c2b85-8ed2-4788-ad44-81c3482d2750"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="0aeeb249-886d-4346-aad5-593e19dee32b"
@@ -369,11 +369,11 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="19ed3775-279e-4955-97b2-3dc0b5408c33"
-			name="SetStateFailurePathsAssembly">
+			name="SetStateResultsAssembly">
 				<parameters>
 					<param
-					name="nameStateFA"
-					value="Faalpaden">
+					name="nameState"
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -489,7 +489,7 @@
 					</param>
 					<param
 					name="SubstringGenericFailurePaths"
-					value="Generieke faalpaden">
+					value="@GF">
 					</param>
 					<param
 					name="wildcardCharacter"
@@ -767,11 +767,11 @@
 			</testmodule>
 			<smartfoldernode
 			id="3789e403-9ec5-4959-8ef7-03c7af296b21"
-			name="SetStateFailurePathsAssembly">
+			name="SetStateResultsAssembly">
 				<parameters>
 					<param
-					name="nameStateFA"
-					value="Faalpaden">
+					name="nameState"
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1039,8 +1039,8 @@
 			name="SetStateTraject">
 				<parameters>
 					<param
-					name="nameStateTR"
-					value="Traject">
+					name="nameState"
+					value="@TR">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1147,12 +1147,6 @@
 			id="4d9c591a-21eb-4d26-be1e-378fdc973a04"
 			name="a)BackgroundMap">
 			</smartfoldernode>
-			<testmodule
-			id="4dd8e7e7-5aa8-4657-964e-5a1204700ecd"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
 			<testmodule
 			id="4e0209f2-4974-409f-859c-a96c00c8dd6f"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
@@ -1348,11 +1342,11 @@
 			</testmodule>
 			<smartfoldernode
 			id="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f"
-			name="SetStateFailurePathsAssembly">
+			name="SetStateResultsAssembly">
 				<parameters>
 					<param
-					name="nameStateFA"
-					value="Faalpaden">
+					name="nameState"
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1767,10 +1761,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testcase
-			id="85a3c9f1-960b-4f4d-b379-d5c05acbe835"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<smartfoldernode
 			id="85c80477-b489-48ce-858b-44638a9a14a5"
 			name="ReportScreenShotOfApplication">
@@ -1851,11 +1841,11 @@
 			</smartfoldernode>
 			<smartfoldernode
 			id="92d15ab5-01db-4817-81c6-28cfb61a0057"
-			name="SetStateFailurePathsAssembly">
+			name="SetStateResultsAssembly">
 				<parameters>
 					<param
-					name="nameStateFA"
-					value="Faalpaden">
+					name="nameState"
+					value="@RA">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2237,8 +2227,8 @@
 			name="SetStateTraject">
 				<parameters>
 					<param
-					name="nameStateFA"
-					value="Traject">
+					name="nameState"
+					value="@TR">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2247,6 +2237,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="nameState"
+					datasourceid="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="stateCalculations"
@@ -2255,14 +2253,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameStateFA"
-					datasourceid="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="a7ac2e20-3b99-4b19-b40e-b243cd793b2d"
@@ -2565,6 +2555,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="nameState"
+					datasourceid="a567a181-7393-443c-9396-c15f458fad26"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="stateCalculations"
@@ -2573,14 +2571,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameStateFA"
-					datasourceid="a567a181-7393-443c-9396-c15f458fad26"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			datasource="script29b_LoopHideAllLayers"
@@ -3014,6 +3004,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="nameState"
+					datasourceid="3789e403-9ec5-4959-8ef7-03c7af296b21"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="stateCalculations"
@@ -3022,14 +3020,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameStateFA"
-					datasourceid="3789e403-9ec5-4959-8ef7-03c7af296b21"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="ed5b6e4a-db7c-4f4f-b2ea-cf6208bb2256"
@@ -3153,6 +3143,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="nameState"
+					datasourceid="19ed3775-279e-4955-97b2-3dc0b5408c33"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="stateCalculations"
@@ -3161,14 +3159,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="nameStateFA"
-					datasourceid="19ed3775-279e-4955-97b2-3dc0b5408c33"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<testmodule
 			id="fe5937d2-4f4b-4f48-96ca-c5579492e67c"
@@ -3184,14 +3174,6 @@
 				<testcase
 				id="d9f46e49-056c-4e8b-a453-306c17602806"
 				name="Script29">
-					<testcase
-					id="85a3c9f1-960b-4f4d-b379-d5c05acbe835"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="4dd8e7e7-5aa8-4657-964e-5a1204700ecd"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
 					<testcase
 					id="21114deb-06e3-49f6-85ff-11b20b73d8e5"
 					name="script29_Gegevens_tonen_op_kaart">
@@ -3240,7 +3222,7 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="66985f9c-b944-45ea-9b6d-d3c1e4b1de0f"
-							name="SetStateFailurePathsAssembly">
+							name="SetStateResultsAssembly">
 								<testmodule
 								id="a7a1ebd5-c3d2-4b74-8613-82b450d167c4"
 								name="SelectState">
@@ -3519,7 +3501,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="19ed3775-279e-4955-97b2-3dc0b5408c33"
-								name="SetStateFailurePathsAssembly">
+								name="SetStateResultsAssembly">
 									<testmodule
 									id="fd9810a9-5a92-4a03-a363-cdd0a496815e"
 									name="SelectState">
@@ -3715,7 +3697,7 @@
 								</smartfoldernode>
 								<smartfoldernode
 								id="3789e403-9ec5-4959-8ef7-03c7af296b21"
-								name="SetStateFailurePathsAssembly">
+								name="SetStateResultsAssembly">
 									<testmodule
 									id="e9602b84-a632-4951-959e-0913e3e40972"
 									name="SelectState">
@@ -3916,7 +3898,7 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="92d15ab5-01db-4817-81c6-28cfb61a0057"
-							name="SetStateFailurePathsAssembly">
+							name="SetStateResultsAssembly">
 								<testmodule
 								id="05753ec9-a56b-4945-a9a0-8f1c33a495bf"
 								name="SelectState">
@@ -5615,9 +5597,6 @@
 			</testcontainer>
 			<testcontainer
 			id="8443b3bb-b263-4823-ac47-9fb80d61b0fa">
-			</testcontainer>
-			<testcontainer
-			id="85a3c9f1-960b-4f4d-b379-d5c05acbe835">
 			</testcontainer>
 			<testcontainer
 			id="85c80477-b489-48ce-858b-44638a9a14a5">

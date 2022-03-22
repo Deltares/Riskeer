@@ -3026,6 +3026,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="stateWithCalculations"
+					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
 				<missingdatabinding>
 					<var
 					dataname="StateWithCalculations"
@@ -3034,14 +3042,6 @@
 					variablename="StateToSelect">
 					</var>
 				</missingdatabinding>
-				<missingdatavariablesbinding>
-					<var
-					dataname="stateWithCalculations"
-					datasourceid="9a85db2e-f039-49e7-bed7-f36c802ad6c2"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatavariablesbinding>
 			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
@@ -5503,14 +5503,14 @@
 			name="SelectState"
 			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
-				<missingdatavariablesbinding>
+				<databinding>
 					<var
 					dataname="StateWithCalculations"
 					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
-				</missingdatavariablesbinding>
+				</databinding>
 			</testmodule>
 			<smartfoldernode
 			id="ff073895-6a94-444e-8434-eb9e684bc5e7"
@@ -7109,7 +7109,7 @@
 						STPH
 					</td>
 					<td>
-						Sterkte
+						@SB
 					</td>
 					<td>
 						Traject&gt;@STPH&gt;Berekeningen&gt;12_2_02500
@@ -7129,7 +7129,7 @@
 						GEKB
 					</td>
 					<td>
-						Sterkte
+						@SB
 					</td>
 					<td>
 						Traject&gt;@GEKB&gt;Berekeningen
@@ -7149,7 +7149,7 @@
 						STBI
 					</td>
 					<td>
-						Sterkte
+						@SB
 					</td>
 					<td>
 						Traject&gt;@STBI&gt;Berekeningen&gt;Vak_41-123
@@ -7169,7 +7169,7 @@
 						HTKW
 					</td>
 					<td>
-						Sterkte
+						@SB
 					</td>
 					<td>
 						Traject&gt;@HTKW&gt;Berekeningen
@@ -7189,7 +7189,7 @@
 						BSKW
 					</td>
 					<td>
-						Sterkte
+						@SB
 					</td>
 					<td>
 						Traject&gt;@BSKW&gt;Berekeningen
@@ -7209,7 +7209,7 @@
 						STKWp
 					</td>
 					<td>
-						Sterkte
+						@SB
 					</td>
 					<td>
 						Traject&gt;@STKWp&gt;Berekeningen
@@ -7229,7 +7229,7 @@
 						ZST
 					</td>
 					<td>
-						Hydraulische
+						@HyB
 					</td>
 					<td>
 						Traject&gt;@ZST&gt;Hydraulische belastingen&gt;blokken en zuilen
@@ -7249,7 +7249,7 @@
 						AGK
 					</td>
 					<td>
-						Hydraulische
+						@HyB
 					</td>
 					<td>
 						Traject&gt;@AGK&gt;Hydraulische belastingen
@@ -7269,7 +7269,7 @@
 						GEBU
 					</td>
 					<td>
-						Hydraulische
+						@HyB
 					</td>
 					<td>
 						Traject&gt;@GEBU&gt;Hydraulische belastingen&gt;golfoploop en golfklap
@@ -7425,7 +7425,7 @@
 						STPH
 					</td>
 					<td>
-						Sterkte
+						@SB
 					</td>
 					<td>
 						input27_B_STPH.risk
@@ -7463,7 +7463,7 @@
 						STBI
 					</td>
 					<td>
-						Sterkte
+						@SB
 					</td>
 					<td>
 						input27_B_STBI.risk
@@ -7501,7 +7501,7 @@
 						GEKB
 					</td>
 					<td>
-						Sterkte
+						@SB
 					</td>
 					<td>
 						input27_B_GEKB.risk
@@ -7539,7 +7539,7 @@
 						BSKW
 					</td>
 					<td>
-						Sterkte
+						@SB
 					</td>
 					<td>
 						input27_B_BSKW.risk
@@ -7577,7 +7577,7 @@
 						HTKW
 					</td>
 					<td>
-						Sterkte
+						@SB
 					</td>
 					<td>
 						input27_B_HTKW.risk
@@ -7615,7 +7615,7 @@
 						STKWp
 					</td>
 					<td>
-						Sterkte
+						@SB
 					</td>
 					<td>
 						input27_B_STKWp.risk
@@ -7653,7 +7653,7 @@
 						ZST
 					</td>
 					<td>
-						Hydraulische
+						@HyB
 					</td>
 					<td>
 						input27_B_ZST.risk
@@ -7691,7 +7691,7 @@
 						AGK
 					</td>
 					<td>
-						Hydraulische
+						@HyB
 					</td>
 					<td>
 						input27_B_AGK.risk
@@ -7729,7 +7729,7 @@
 						GEBU
 					</td>
 					<td>
-						Hydraulische
+						@HyB
 					</td>
 					<td>
 						input27_B_GEBU.risk

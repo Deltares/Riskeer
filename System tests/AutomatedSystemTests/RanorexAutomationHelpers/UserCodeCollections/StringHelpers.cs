@@ -137,6 +137,8 @@ namespace Ranorex_Automation_Helpers.UserCodeCollections
                 {"@HyB",   "Hydraulische"},
                 {"@SB",    "Sterkte"},
                 {"@TR",    "Traject"},
+                {"@SF",    "Specifieke faalmechanismen"},
+                {"@GF",    "Generieke faalmechanismen"},
                 {"@RA",    "assemblage"}
             };
             foreach (var item in replacementsPath) {
