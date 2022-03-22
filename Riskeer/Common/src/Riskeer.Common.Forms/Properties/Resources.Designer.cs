@@ -1614,7 +1614,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gecombineerde faalkans [1/jaar].
+        ///   Looks up a localized string similar to Faalkans van dit faalmechanisme [1/jaar].
         /// </summary>
         public static string FailureMechanismResultView_FailureMechanismAssemblyLabel {
             get {
