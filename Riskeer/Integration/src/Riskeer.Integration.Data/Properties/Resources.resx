@@ -124,7 +124,7 @@
     <value>Grasbekleding afschuiven buitentalud</value>
   </data>
   <data name="PipingStructureFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Kunstwerken - Piping bij kunstwerk</value>
+    <value>Piping bij kunstwerk</value>
   </data>
   <data name="GrassCoverSlipOffOutwardsFailureMechanism_Code" xml:space="preserve">
     <value>GABU</value>

@@ -174,7 +174,7 @@ namespace Riskeer.Integration.Data
         public ClosingStructuresFailureMechanism ClosingStructures { get; set; }
 
         /// <summary>
-        /// Gets or sets the "Kunstwerken - Piping bij kunstwerk" failure mechanism.
+        /// Gets or sets the "Piping bij kunstwerk" failure mechanism.
         /// </summary>
         public PipingStructureFailureMechanism PipingStructure { get; set; }
 

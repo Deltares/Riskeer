@@ -37,7 +37,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>>(failureMechanism);
             Assert.IsInstanceOf<IHasGeneralInput>(failureMechanism);
-            Assert.AreEqual("Kunstwerken - Piping bij kunstwerk", failureMechanism.Name);
+            Assert.AreEqual("Piping bij kunstwerk", failureMechanism.Name);
             Assert.AreEqual("PKW", failureMechanism.Code);
             Assert.IsFalse(failureMechanism.GeneralInput.ApplyLengthEffectInSection);
 

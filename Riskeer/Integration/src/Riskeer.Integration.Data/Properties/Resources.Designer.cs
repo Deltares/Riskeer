@@ -172,7 +172,7 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken - Piping bij kunstwerk.
+        ///   Looks up a localized string similar to Piping bij kunstwerk.
         /// </summary>
         public static string PipingStructureFailureMechanism_DisplayName {
             get {
