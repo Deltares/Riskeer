@@ -68,7 +68,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             var strategy = new ForeshoreProfileReplaceDataStrategy(new TestFailureMechanism(), new ForeshoreProfileCollection());
 
             // Assert
-            Assert.IsInstanceOf<ReplaceDataStrategyBase<ForeshoreProfile, IFailureMechanism>>(strategy);
+            Assert.IsInstanceOf<ReplaceDataStrategyBase<ForeshoreProfile, ICalculatableFailureMechanism>>(strategy);
             Assert.IsInstanceOf<IForeshoreProfileUpdateDataStrategy>(strategy);
         }
 

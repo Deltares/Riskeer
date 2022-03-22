@@ -123,7 +123,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
 
             // Assert
             Assert.IsInstanceOf<IForeshoreProfileUpdateDataStrategy>(strategy);
-            Assert.IsInstanceOf<UpdateDataStrategyBase<ForeshoreProfile, IFailureMechanism>>(strategy);
+            Assert.IsInstanceOf<UpdateDataStrategyBase<ForeshoreProfile, ICalculatableFailureMechanism>>(strategy);
         }
 
         [Test]
