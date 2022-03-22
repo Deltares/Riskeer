@@ -266,7 +266,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "&Wis alle uitvoer...",
-                                                              "Wis de uitvoer van alle berekeningen binnen dit toetsspoor.",
+                                                              "Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.",
                                                               RiskeerFormsResources.ClearIcon);
             }
 
@@ -1007,7 +1007,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             string expectedToolTipMessage = isEnabled
-                                                ? "Wis alle berekende illustratiepunten binnen dit toetsspoor."
+                                                ? "Wis alle berekende illustratiepunten binnen dit faalmechanisme."
                                                 : "Er zijn geen berekeningen met illustratiepunten om te wissen.";
 
             var mocks = new MockRepository();
@@ -1733,7 +1733,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles be&rekenen",
-                                                              "Voer alle berekeningen binnen dit toetsspoor uit.",
+                                                              "Voer alle berekeningen binnen dit faalmechanisme uit.",
                                                               RiskeerFormsResources.CalculateAllIcon);
             }
 
@@ -1922,7 +1922,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(1, result.Items.Count);
                 TestHelper.AssertContextMenuStripContainsItem(result, 0,
                                                               "Alles &valideren",
-                                                              "Valideer alle berekeningen binnen dit toetsspoor.",
+                                                              "Valideer alle berekeningen binnen dit faalmechanisme.",
                                                               RiskeerFormsResources.ValidateAllIcon);
             }
 

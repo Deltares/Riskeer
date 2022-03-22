@@ -154,7 +154,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sectionsProperty,
                                                                                 generalCategoryName,
                                                                                 "Vakindeling",
-                                                                                "Vakindeling waarmee de waterkering voor dit toetsspoor is " +
+                                                                                "Vakindeling waarmee de waterkering voor dit faalmechanisme is " +
                                                                                 "geschematiseerd ten behoeve van de beoordeling.",
                                                                                 true);
                 mocks.VerifyAll();

@@ -290,17 +290,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   2,
                                                                   "Alles &valideren",
-                                                                  "Valideer alle berekeningen binnen dit toetsspoor.",
+                                                                  "Valideer alle berekeningen binnen dit faalmechanisme.",
                                                                   RiskeerCommonFormsResources.ValidateAllIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   3,
                                                                   "Alles be&rekenen",
-                                                                  "Voer alle berekeningen binnen dit toetsspoor uit.",
+                                                                  "Voer alle berekeningen binnen dit faalmechanisme uit.",
                                                                   RiskeerCommonFormsResources.CalculateAllIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   5,
                                                                   "&Wis alle uitvoer...",
-                                                                  "Wis de uitvoer van alle berekeningen binnen dit toetsspoor.",
+                                                                  "Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.",
                                                                   RiskeerCommonFormsResources.ClearIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu,
                                                                   7,
@@ -396,7 +396,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     // Assert
                     ToolStripItem clearOutputItem = contextMenu.Items[contextMenuClearIndex];
                     Assert.IsTrue(clearOutputItem.Enabled);
-                    Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit toetsspoor.", clearOutputItem.ToolTipText);
+                    Assert.AreEqual("Wis de uitvoer van alle berekeningen binnen dit faalmechanisme.", clearOutputItem.ToolTipText);
                 }
             }
         }
@@ -442,12 +442,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
                                                                   "Alles be&rekenen",
-                                                                  "Voer alle berekeningen binnen dit toetsspoor uit.",
+                                                                  "Voer alle berekeningen binnen dit faalmechanisme uit.",
                                                                   RiskeerCommonFormsResources.CalculateAllIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
                                                                   "Alles &valideren",
-                                                                  "Valideer alle berekeningen binnen dit toetsspoor.",
+                                                                  "Valideer alle berekeningen binnen dit faalmechanisme.",
                                                                   RiskeerCommonFormsResources.ValidateAllIcon);
                 }
             }

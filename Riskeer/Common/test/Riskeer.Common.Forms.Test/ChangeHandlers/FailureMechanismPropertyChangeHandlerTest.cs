@@ -137,7 +137,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             if (dialogBoxWillBeShown)
             {
                 Assert.AreEqual("Bevestigen", title);
-                string expectedMessage = "Als u deze parameter wijzigt, zal de uitvoer van alle berekeningen in dit toetsspoor verwijderd worden."
+                string expectedMessage = "Als u deze parameter wijzigt, zal de uitvoer van alle berekeningen in dit faalmechanisme verwijderd worden."
                                          + Environment.NewLine + Environment.NewLine +
                                          "Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedMessage, message);
