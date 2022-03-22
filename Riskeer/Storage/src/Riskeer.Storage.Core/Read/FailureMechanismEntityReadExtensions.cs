@@ -547,7 +547,7 @@ namespace Riskeer.Storage.Core.Read
                                                                            CalculationGroup targetRootCalculationGroup,
                                                                            ReadConversionCollector collector)
         {
-            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsWaveImpactAsphaltCoverCalculationGroup(collector);
             foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
             {
                 targetRootCalculationGroup.Children.Add(calculationBase);
@@ -585,7 +585,7 @@ namespace Riskeer.Storage.Core.Read
                                   metaEntity.ForeshoreProfileCollectionSourcePath,
                                   collector);
 
-            ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
+            ReadGrassCoverErosionOutwardsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
 
         private static void ReadGeneralGrassCoverErosionOutwardsCalculationInput(this FailureMechanismEntity entity,
@@ -607,10 +607,10 @@ namespace Riskeer.Storage.Core.Read
             }
         }
 
-        private static void ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
-                                                                                            CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
+        private static void ReadGrassCoverErosionOutwardsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+                                                                              CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
         {
-            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsGrassCoverErosionOutwardsCalculationGroup(collector);
             foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
             {
                 targetRootCalculationGroup.Children.Add(calculationBase);
@@ -873,9 +873,9 @@ namespace Riskeer.Storage.Core.Read
                                   metaEntity.ForeshoreProfileCollectionSourcePath,
                                   collector);
 
-            ReadStabilityStoneCoverWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity,
-                                                                      failureMechanism.CalculationsGroup,
-                                                                      collector);
+            ReadStabilityStoneCoverRootCalculationGroup(entity.CalculationGroupEntity,
+                                                        failureMechanism.CalculationsGroup,
+                                                        collector);
             entity.ReadStabilityStoneCoverGeneralInput(failureMechanism.GeneralInput);
         }
 
@@ -892,11 +892,11 @@ namespace Riskeer.Storage.Core.Read
             }
         }
 
-        private static void ReadStabilityStoneCoverWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
-                                                                                      CalculationGroup targetRootCalculationGroup,
-                                                                                      ReadConversionCollector collector)
+        private static void ReadStabilityStoneCoverRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+                                                                        CalculationGroup targetRootCalculationGroup,
+                                                                        ReadConversionCollector collector)
         {
-            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsStabilityStoneCoverCalculationGroup(collector);
             foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
             {
                 targetRootCalculationGroup.Children.Add(calculationBase);

@@ -725,13 +725,13 @@ namespace Riskeer.Storage.Core.Test.Read
         #region Grass Cover Erosion Outwards
 
         [Test]
-        public void ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup_CollectorIsNull_ThrowArgumentNullException()
+        public void ReadAsGrassCoverErosionOutwardsCalculationsGroup_CollectorIsNull_ThrowArgumentNullException()
         {
             // Setup
             var entity = new CalculationGroupEntity();
 
             // Call
-            void Call() => entity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(null);
+            void Call() => entity.ReadAsGrassCoverErosionOutwardsCalculationGroup(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -739,7 +739,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
+        public void ReadAsGrassCoverErosionOutwardsCalculationsGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
         {
             // Setup
             var entity = new CalculationGroupEntity
@@ -750,7 +750,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            CalculationGroup group = entity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
+            CalculationGroup group = entity.ReadAsGrassCoverErosionOutwardsCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual(entity.Name, group.Name);
@@ -758,7 +758,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup_EntityWithChildGroups_CreateCalculationGroupWithChildGroups()
+        public void ReadAsGrassCoverErosionOutwardsCalculationsGroup_EntityWithChildGroups_CreateCalculationGroupWithChildGroups()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
@@ -795,7 +795,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
@@ -817,7 +817,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup_EntityWithChildGrassCoverErosionOutwardsWaveConditionsCalculations_CreateCalculationGroupWithChildCalculations()
+        public void ReadAsGrassCoverErosionOutwardsCalculationsGroup_EntityWithChildGrassCoverErosionOutwardsWaveConditionsCalculations_CreateCalculationGroupWithChildCalculations()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
@@ -841,7 +841,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsCalculationGroup(collector);
 
             // Assert
             List<ICalculationBase> rootChildren = rootGroup.Children;
@@ -855,7 +855,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup_EntityWithChildGrassCoverErosionOutwardsWaveConditionsCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
+        public void ReadAsGrassCoverErosionOutwardsCalculationsGroup_EntityWithChildGrassCoverErosionOutwardsWaveConditionsCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
@@ -892,7 +892,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsCalculationGroup(collector);
 
             // Assert
             List<ICalculationBase> rootChildren = rootGroup.Children;
@@ -1505,13 +1505,13 @@ namespace Riskeer.Storage.Core.Test.Read
         #region Stability Stone Cover
 
         [Test]
-        public void ReadAsStabilityStoneCoverWaveConditionsCalculationGroup_CollectorIsNull_ThrowArgumentNullException()
+        public void ReadAsStabilityStoneCoverCalculationsGroup_CollectorIsNull_ThrowArgumentNullException()
         {
             // Setup
             var entity = new CalculationGroupEntity();
 
             // Call
-            void Call() => entity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(null);
+            void Call() => entity.ReadAsStabilityStoneCoverCalculationGroup(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -1519,7 +1519,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsStabilityStoneCoverWaveConditionsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
+        public void ReadAsStabilityStoneCoverCalculationsGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
         {
             // Setup
             var entity = new CalculationGroupEntity
@@ -1530,7 +1530,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            CalculationGroup group = entity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup group = entity.ReadAsStabilityStoneCoverCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual(entity.Name, group.Name);
@@ -1538,7 +1538,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsStabilityStoneCoverWaveConditionsCalculationGroup_EntityWithChildGroups_CreateCalculationGroupWithChildGroups()
+        public void ReadAsStabilityStoneCoverCalculationsGroup_EntityWithChildGroups_CreateCalculationGroupWithChildGroups()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
@@ -1575,7 +1575,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
@@ -1597,7 +1597,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsStabilityStoneCoverWaveConditionsCalculationGroup_EntityWithChildStabilityStoneCoverWaveConditionsCalculations_CreateCalculationGroupWithChildCalculations()
+        public void ReadAsStabilityStoneCoverCalculationsGroup_EntityWithChildStabilityStoneCoverWaveConditionsCalculations_CreateCalculationGroupWithChildCalculations()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
@@ -1621,7 +1621,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverCalculationGroup(collector);
 
             // Assert
             List<ICalculationBase> rootChildren = rootGroup.Children;
@@ -1635,7 +1635,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsStabilityStoneCoverWaveConditionsCalculationGroup_EntityWithChildStabilityStoneCoverWaveConditionsCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
+        public void ReadAsStabilityStoneCoverCalculationsGroup_EntityWithChildStabilityStoneCoverWaveConditionsCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
@@ -1672,7 +1672,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsStabilityStoneCoverCalculationGroup(collector);
 
             // Assert
             List<ICalculationBase> rootChildren = rootGroup.Children;
@@ -1696,13 +1696,13 @@ namespace Riskeer.Storage.Core.Test.Read
         #region Wave Impact Asphalt Cover
 
         [Test]
-        public void ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup_CollectorIsNull_ThrowArgumentNullException()
+        public void ReadAsWaveImpactAsphaltCoverCalculationsGroup_CollectorIsNull_ThrowArgumentNullException()
         {
             // Setup
             var entity = new CalculationGroupEntity();
 
             // Call
-            void Call() => entity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(null);
+            void Call() => entity.ReadAsWaveImpactAsphaltCoverCalculationGroup(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -1710,7 +1710,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
+        public void ReadAsWaveImpactAsphaltCoverCalculationsGroup_EntityWithoutChildren_CreateCalculationGroupWithoutChildren()
         {
             // Setup
             var entity = new CalculationGroupEntity
@@ -1721,7 +1721,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            CalculationGroup group = entity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup group = entity.ReadAsWaveImpactAsphaltCoverCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual(entity.Name, group.Name);
@@ -1729,7 +1729,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup_EntityWithChildGroups_CreateCalculationGroupWithChildGroups()
+        public void ReadAsWaveImpactAsphaltCoverCalculationsGroup_EntityWithChildGroups_CreateCalculationGroupWithChildGroups()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
@@ -1766,7 +1766,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverCalculationGroup(collector);
 
             // Assert
             Assert.AreEqual("A", rootGroup.Name);
@@ -1788,7 +1788,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup_EntityWithChildWaveImpactAsphaltCoverWaveConditionsCalculations_CreateCalculationGroupWithChildCalculations()
+        public void ReadAsWaveImpactAsphaltCoverCalculationsGroup_EntityWithChildWaveImpactAsphaltCoverWaveConditionsCalculations_CreateCalculationGroupWithChildCalculations()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
@@ -1812,7 +1812,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverCalculationGroup(collector);
 
             // Assert
             List<ICalculationBase> rootChildren = rootGroup.Children;
@@ -1826,7 +1826,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup_EntityWithChildWaveImpactAsphaltCoverWaveConditionsCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
+        public void ReadAsWaveImpactAsphaltCoverCalculationsGroup_EntityWithChildWaveImpactAsphaltCoverWaveConditionsCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
         {
             // Setup
             var rootGroupEntity = new CalculationGroupEntity
@@ -1863,7 +1863,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            CalculationGroup rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
+            CalculationGroup rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverCalculationGroup(collector);
 
             // Assert
             List<ICalculationBase> rootChildren = rootGroup.Children;

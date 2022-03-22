@@ -1766,7 +1766,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithWaveConditionsCalculationGroup_ReturnsNewGrassCoverErosionOutwardsFailureMechanismWithCalculationGroupSet()
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithCalculationsGroup_ReturnsNewGrassCoverErosionOutwardsFailureMechanismWithCalculationGroupSet()
         {
             // Setup
             var entity = new FailureMechanismEntity
@@ -1861,7 +1861,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsStabilityStoneCoverFailureMechanism_WithWaveConditionsCalculationGroup_ReturnsNewStabilityStoneCoverFailureMechanismWithCalculationGroupSet()
+        public void ReadAsStabilityStoneCoverFailureMechanism_WithCalculationsGroup_ReturnsNewStabilityStoneCoverFailureMechanismWithCalculationGroupSet()
         {
             // Setup
             var entity = new FailureMechanismEntity
@@ -2081,7 +2081,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithWaveConditionsCalculationGroup_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithCalculationGroupSet()
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithCalculationsGroup_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithCalculationGroupSet()
         {
             // Setup
             var entity = new FailureMechanismEntity

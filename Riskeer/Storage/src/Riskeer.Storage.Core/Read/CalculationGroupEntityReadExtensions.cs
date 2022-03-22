@@ -169,8 +169,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="CalculationGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static CalculationGroup ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(this CalculationGroupEntity entity,
-                                                                                                       ReadConversionCollector collector)
+        internal static CalculationGroup ReadAsGrassCoverErosionOutwardsCalculationGroup(this CalculationGroupEntity entity,
+                                                                                         ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -186,7 +186,7 @@ namespace Riskeer.Storage.Core.Read
             {
                 if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
-                    group.Children.Add(childCalculationGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector));
+                    group.Children.Add(childCalculationGroupEntity.ReadAsGrassCoverErosionOutwardsCalculationGroup(collector));
                 }
 
                 if (childEntity is GrassCoverErosionOutwardsWaveConditionsCalculationEntity childCalculationEntity)
@@ -321,8 +321,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="CalculationGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static CalculationGroup ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(this CalculationGroupEntity entity,
-                                                                                                 ReadConversionCollector collector)
+        internal static CalculationGroup ReadAsStabilityStoneCoverCalculationGroup(this CalculationGroupEntity entity,
+                                                                                   ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -338,7 +338,7 @@ namespace Riskeer.Storage.Core.Read
             {
                 if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
-                    group.Children.Add(childCalculationGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector));
+                    group.Children.Add(childCalculationGroupEntity.ReadAsStabilityStoneCoverCalculationGroup(collector));
                 }
 
                 if (childEntity is StabilityStoneCoverWaveConditionsCalculationEntity childCalculationEntity)
@@ -359,8 +359,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="CalculationGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static CalculationGroup ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(this CalculationGroupEntity entity,
-                                                                                                    ReadConversionCollector collector)
+        internal static CalculationGroup ReadAsWaveImpactAsphaltCoverCalculationGroup(this CalculationGroupEntity entity,
+                                                                                      ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -376,7 +376,7 @@ namespace Riskeer.Storage.Core.Read
             {
                 if (childEntity is CalculationGroupEntity childCalculationGroupEntity)
                 {
-                    group.Children.Add(childCalculationGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector));
+                    group.Children.Add(childCalculationGroupEntity.ReadAsWaveImpactAsphaltCoverCalculationGroup(collector));
                 }
 
                 if (childEntity is WaveImpactAsphaltCoverWaveConditionsCalculationEntity childCalculationEntity)
