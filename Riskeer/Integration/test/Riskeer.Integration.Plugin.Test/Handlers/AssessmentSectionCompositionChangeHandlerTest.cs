@@ -99,6 +99,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
             AssessmentSectionComposition originalComposition = assessmentSection.Composition;
             ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
+                                                                     .OfType<ICalculatableFailureMechanism>()
                                                                      .SelectMany(fm => fm.Calculations)
                                                                      .Where(c => c.HasOutput)
                                                                      .ToArray();

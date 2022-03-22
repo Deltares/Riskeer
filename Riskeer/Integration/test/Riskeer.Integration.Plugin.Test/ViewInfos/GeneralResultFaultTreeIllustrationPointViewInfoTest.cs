@@ -164,7 +164,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
 
-            protected override IFailureMechanism GetFailureMechanismWithCalculation()
+            protected override ICalculatableFailureMechanism GetFailureMechanismWithCalculation()
             {
                 return new HeightStructuresFailureMechanism
                 {
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
 
-            protected override IFailureMechanism GetFailureMechanismWithCalculation()
+            protected override ICalculatableFailureMechanism GetFailureMechanismWithCalculation()
             {
                 return
                     new ClosingStructuresFailureMechanism
@@ -259,7 +259,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
 
-            protected override IFailureMechanism GetFailureMechanismWithCalculation()
+            protected override ICalculatableFailureMechanism GetFailureMechanismWithCalculation()
             {
                 return new StabilityPointStructuresFailureMechanism
                 {

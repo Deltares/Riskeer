@@ -44,7 +44,7 @@ namespace Riskeer.Revetment.Service.Test
         public void ClearAllWaveConditionsCalculationOutputWithNormType_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<IFailureMechanism, ICalculation<WaveConditionsInput>>(
+            void Call() => WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<ICalculatableFailureMechanism, ICalculation<WaveConditionsInput>>(
                 null, NormType.SignalFloodingProbability);
 
             // Assert
@@ -59,7 +59,7 @@ namespace Riskeer.Revetment.Service.Test
             const NormType normType = (NormType) 99;
 
             // Call
-            void Call() => WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<IFailureMechanism, ICalculation<WaveConditionsInput>>(
+            void Call() => WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<ICalculatableFailureMechanism, ICalculation<WaveConditionsInput>>(
                 new TestFailureMechanism(), normType);
 
             // Assert
@@ -92,7 +92,7 @@ namespace Riskeer.Revetment.Service.Test
             }, true);
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation1,
@@ -110,7 +110,7 @@ namespace Riskeer.Revetment.Service.Test
             };
 
             // Call
-            IEnumerable<IObservable> affectedCalculations = WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<IFailureMechanism, TestWaveConditionsCalculation<WaveConditionsInput>>(
+            IEnumerable<IObservable> affectedCalculations = WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<ICalculatableFailureMechanism, TestWaveConditionsCalculation<WaveConditionsInput>>(
                 failureMechanism, normType);
 
             // Assert
@@ -124,7 +124,7 @@ namespace Riskeer.Revetment.Service.Test
         public void ClearAllWaveConditionsCalculationsOutputWithUserDefinedTargetProbability_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<IFailureMechanism, ICalculation<WaveConditionsInput>>(
+            void Call() => WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<ICalculatableFailureMechanism, ICalculation<WaveConditionsInput>>(
                 null, new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
 
             // Assert
@@ -136,7 +136,7 @@ namespace Riskeer.Revetment.Service.Test
         public void ClearAllWaveConditionsCalculationsOutputWithUserDefinedTargetProbability_CalculationsForTargetProbabilityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<IFailureMechanism, ICalculation<WaveConditionsInput>>(
+            void Call() => WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<ICalculatableFailureMechanism, ICalculation<WaveConditionsInput>>(
                 new TestFailureMechanism(), null);
 
             // Assert
@@ -178,7 +178,7 @@ namespace Riskeer.Revetment.Service.Test
             }, true);
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation1,
@@ -195,7 +195,7 @@ namespace Riskeer.Revetment.Service.Test
             };
 
             // Call
-            IEnumerable<IObservable> affectedCalculations = WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<IFailureMechanism, TestWaveConditionsCalculation<WaveConditionsInput>>(
+            IEnumerable<IObservable> affectedCalculations = WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<ICalculatableFailureMechanism, TestWaveConditionsCalculation<WaveConditionsInput>>(
                 failureMechanism, calculationsForTargetProbabilityToClear);
 
             // Assert
@@ -209,7 +209,7 @@ namespace Riskeer.Revetment.Service.Test
         public void ClearWaveConditionsCalculationOutputAndRemoveTargetProbability_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => WaveConditionsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<IFailureMechanism, ICalculation<WaveConditionsInput>>(
+            void Call() => WaveConditionsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<ICalculatableFailureMechanism, ICalculation<WaveConditionsInput>>(
                 null, new HydraulicBoundaryLocationCalculationsForTargetProbability(0.1));
 
             // Assert
@@ -221,7 +221,7 @@ namespace Riskeer.Revetment.Service.Test
         public void ClearWaveConditionsCalculationOutputAndRemoveTargetProbability_CalculationsForTargetProbabilityNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => WaveConditionsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<IFailureMechanism, ICalculation<WaveConditionsInput>>(
+            void Call() => WaveConditionsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<ICalculatableFailureMechanism, ICalculation<WaveConditionsInput>>(
                 new TestFailureMechanism(), null);
 
             // Assert
@@ -260,7 +260,7 @@ namespace Riskeer.Revetment.Service.Test
             }, true);
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation1,
@@ -281,9 +281,9 @@ namespace Riskeer.Revetment.Service.Test
                 calculation4,
                 calculation4.InputParameters
             };
-            
+
             // Call
-            IEnumerable<IObservable> affectedObjects = WaveConditionsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<IFailureMechanism, TestWaveConditionsCalculation<WaveConditionsInput>>(
+            IEnumerable<IObservable> affectedObjects = WaveConditionsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<ICalculatableFailureMechanism, TestWaveConditionsCalculation<WaveConditionsInput>>(
                 failureMechanism, calculationsForTargetProbabilityToClear);
 
             // Assert
@@ -292,7 +292,7 @@ namespace Riskeer.Revetment.Service.Test
                               c => !c.HasOutput
                                    && c.InputParameters.WaterLevelType == WaveConditionsInputWaterLevelType.None));
             Assert.IsTrue(expectedAffectedCalculations.All(c => c.InputParameters.CalculationsTargetProbability == null));
-            
+
             Assert.IsTrue(failureMechanism.Calculations.Except(expectedAffectedCalculations).All(c => c.HasOutput));
             Assert.IsNotNull(calculation5.InputParameters.CalculationsTargetProbability);
             mocks.VerifyAll();

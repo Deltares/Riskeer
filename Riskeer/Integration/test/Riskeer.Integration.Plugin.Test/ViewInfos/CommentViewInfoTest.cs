@@ -96,9 +96,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = comment
-            })
+                   {
+                       Data = comment
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new object());
@@ -120,9 +120,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = assessmentSection.Comments
-            })
+                   {
+                       Data = assessmentSection.Comments
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -149,9 +149,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = viewDataAssessmentSection.Comments
-            })
+                   {
+                       Data = viewDataAssessmentSection.Comments
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, deletedAssessmentSection);
@@ -170,7 +170,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var calculation = mocks.Stub<ICalculation>();
             calculation.Stub(s => s.Comments).Return(new Comment());
 
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(new[]
             {
                 calculation
@@ -189,9 +189,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = calculation.Comments
-            })
+                   {
+                       Data = calculation.Comments
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -209,7 +209,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var viewDataComment = new Comment();
 
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
             failureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
             failureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
@@ -226,9 +226,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = viewDataComment
-            })
+                   {
+                       Data = viewDataComment
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -249,7 +249,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var deletedCalculation = mocks.Stub<ICalculation>();
 
-            var deletedFailureMechanism = mocks.Stub<IFailureMechanism>();
+            var deletedFailureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             deletedFailureMechanism.Stub(fm => fm.Calculations).Return(new[]
             {
                 deletedCalculation
@@ -269,9 +269,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = viewDataCalculation.Comments
-            })
+                   {
+                       Data = viewDataCalculation.Comments
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, deletedAssessmentSection);
@@ -289,7 +289,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var comment = new Comment();
 
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
             failureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(comment);
             failureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
@@ -304,9 +304,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = comment
-            })
+                   {
+                       Data = comment
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -324,7 +324,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var comment = new Comment();
 
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
             failureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
             failureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(comment);
@@ -339,9 +339,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = comment
-            })
+                   {
+                       Data = comment
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -359,7 +359,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var comment = new Comment();
 
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
             failureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
             failureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
@@ -374,9 +374,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = comment
-            })
+                   {
+                       Data = comment
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -394,7 +394,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var comment = new Comment();
 
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
             failureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
             failureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
@@ -410,9 +410,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = comment
-            })
+                   {
+                       Data = comment
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -423,14 +423,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             mocks.VerifyAll();
         }
-        
+
         [Test]
         public void CloseForData_ViewDataIsCommentButNotOfDeletedFailureMechanism_ReturnFalse()
         {
             // Setup
             var viewDataComment = new Comment();
 
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             failureMechanism.Stub(fm => fm.Calculations).Return(Enumerable.Empty<ICalculation>());
             failureMechanism.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
             failureMechanism.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
@@ -440,9 +440,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = viewDataComment
-            })
+                   {
+                       Data = viewDataComment
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -471,9 +471,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = viewDataComment.InAssemblyInputComments
-            })
+                   {
+                       Data = viewDataComment.InAssemblyInputComments
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, deletedAssessmentSection);
@@ -502,9 +502,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = getCommentFunc(failurePath)
-            })
+                   {
+                       Data = getCommentFunc(failurePath)
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -531,9 +531,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = affectedComment
-            })
+                   {
+                       Data = affectedComment
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -561,9 +561,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = unaffectedComment
-            })
+                   {
+                       Data = unaffectedComment
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failurePathContext);
@@ -587,9 +587,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = viewDataCalculation.Comments
-            })
+                   {
+                       Data = viewDataCalculation.Comments
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, deletedCalculationContext);
@@ -616,9 +616,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = viewDataCalculation.Comments
-            })
+                   {
+                       Data = viewDataCalculation.Comments
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, deletedCalculationContext);
@@ -650,9 +650,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = viewDataCalculation.Comments
-            })
+                   {
+                       Data = viewDataCalculation.Comments
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, deletedGroupContext);
@@ -686,9 +686,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new CommentView
-            {
-                Data = viewDataCalculation.Comments
-            })
+                   {
+                       Data = viewDataCalculation.Comments
+                   })
             {
                 // Call
                 bool closeForData = info.CloseForData(view, deletedGroupContext);

@@ -44,7 +44,7 @@ namespace Riskeer.Revetment.Service
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism which contains the calculations.</param>
         /// <param name="normType">The <see cref="NormType"/> to clear for.</param>
-        /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+        /// <typeparam name="TFailureMechanism">The type of the calculatable failure mechanism.</typeparam>
         /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
@@ -52,7 +52,7 @@ namespace Riskeer.Revetment.Service
         /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is not supported.</exception>
         public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutput<TFailureMechanism, TCalculation>(
             TFailureMechanism failureMechanism, NormType normType)
-            where TFailureMechanism : IFailureMechanism
+            where TFailureMechanism : ICalculatableFailureMechanism
             where TCalculation : ICalculation<WaveConditionsInput>
         {
             if (failureMechanism == null)
@@ -80,13 +80,13 @@ namespace Riskeer.Revetment.Service
         /// <param name="failureMechanism">The failure mechanism which contains the calculations.</param>
         /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>
         /// to clear for.</param>
-        /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+        /// <typeparam name="TFailureMechanism">The type of the calculatable failure mechanism.</typeparam>
         /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutput<TFailureMechanism, TCalculation>(
             TFailureMechanism failureMechanism, HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
-            where TFailureMechanism : IFailureMechanism
+            where TFailureMechanism : ICalculatableFailureMechanism
             where TCalculation : ICalculation<WaveConditionsInput>
         {
             if (failureMechanism == null)
@@ -118,13 +118,13 @@ namespace Riskeer.Revetment.Service
         /// <param name="failureMechanism">The failure mechanism which contains the calculations.</param>
         /// <param name="calculationsForTargetProbability">The <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/>
         /// to clear for.</param>
-        /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+        /// <typeparam name="TFailureMechanism">The type of the calculatable failure mechanism.</typeparam>
         /// <typeparam name="TCalculation">The type of the calculation.</typeparam>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<IObservable> ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<TFailureMechanism, TCalculation>(
             TFailureMechanism failureMechanism, HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability)
-            where TFailureMechanism : IFailureMechanism
+            where TFailureMechanism : ICalculatableFailureMechanism
             where TCalculation : ICalculation<WaveConditionsInput>
         {
             if (failureMechanism == null)

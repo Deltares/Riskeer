@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Plugin.Handlers;
@@ -821,6 +822,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
 
             ICalculation[] calculationsWithOutput = assessmentSection.GetFailureMechanisms()
+                                                                     .OfType<ICalculatableFailureMechanism>()
                                                                      .SelectMany(fm => fm.Calculations)
                                                                      .Where(c => c.HasOutput)
                                                                      .ToArray();
