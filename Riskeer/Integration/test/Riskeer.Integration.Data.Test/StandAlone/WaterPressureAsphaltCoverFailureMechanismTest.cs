@@ -37,7 +37,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
             Assert.IsInstanceOf<IHasGeneralInput>(failureMechanism);
-            Assert.AreEqual("Dijken en dammen - Wateroverdruk bij asfaltbekleding", failureMechanism.Name);
+            Assert.AreEqual("Wateroverdruk bij asfaltbekleding", failureMechanism.Name);
             Assert.AreEqual("AWO", failureMechanism.Code);
             Assert.IsNotNull(failureMechanism.GeneralInput);
 

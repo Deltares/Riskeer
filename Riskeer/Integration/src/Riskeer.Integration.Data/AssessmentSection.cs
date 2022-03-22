@@ -144,7 +144,7 @@ namespace Riskeer.Integration.Data
         public WaveImpactAsphaltCoverFailureMechanism WaveImpactAsphaltCover { get; set; }
 
         /// <summary>
-        /// Gets or sets the "Dijken en dammen - Wateroverdruk bij asfaltbekleding" failure mechanism.
+        /// Gets or sets the "Wateroverdruk bij asfaltbekleding" failure mechanism.
         /// </summary>
         public WaterPressureAsphaltCoverFailureMechanism WaterPressureAsphaltCover { get; set; }
 
