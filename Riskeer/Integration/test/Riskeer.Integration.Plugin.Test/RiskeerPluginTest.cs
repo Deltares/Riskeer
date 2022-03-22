@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(stateInfos.Any(si => si.Name == "Traject"));
                 Assert.IsTrue(stateInfos.Any(si => si.Name == "Hydraulische\r\nbelastingen"));
                 Assert.IsTrue(stateInfos.Any(si => si.Name == "Sterkte-\r\nberekeningen"));
-                Assert.IsTrue(stateInfos.Any(si => si.Name == "Faalpaden /\r\nassemblage"));
+                Assert.IsTrue(stateInfos.Any(si => si.Name == "Registratie\r\nen assemblage"));
             }
         }
 
