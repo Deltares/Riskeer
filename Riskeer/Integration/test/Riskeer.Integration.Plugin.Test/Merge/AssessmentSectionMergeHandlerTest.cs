@@ -355,7 +355,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 for (int i = 0; i < nrOfFailurePaths; i++)
                 {
                     string failurePathName = failurePathsToMerge[i].Name;
-                    Assert.AreEqual($"Faalpad '{failurePathName}' en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalpaden.", msgs[i + 1]);
+                    Assert.AreEqual($"Faalmechanisme '{failurePathName}' en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalmechanismen.", msgs[i + 1]);
                 }
             });
         }

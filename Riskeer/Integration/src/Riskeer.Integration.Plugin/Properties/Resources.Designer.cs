@@ -209,21 +209,21 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Faalmechanisme &apos;{0}&apos; en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalmechanismen..
+        /// </summary>
+        public static string AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_added {
+            get {
+                return ResourceManager.GetString("AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_added", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gegevens van het generieke faalpad &apos;{0}&apos; zijn vervangen..
         /// </summary>
         public static string AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced {
             get {
                 return ResourceManager.GetString("AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replace" +
                         "d", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faalpad &apos;{0}&apos; en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalpaden..
-        /// </summary>
-        public static string AssessmentSectionMergeHandler_TryMergeFailurePath_FailurePath_0_added {
-            get {
-                return ResourceManager.GetString("AssessmentSectionMergeHandler_TryMergeFailurePath_FailurePath_0_added", resourceCulture);
             }
         }
         
