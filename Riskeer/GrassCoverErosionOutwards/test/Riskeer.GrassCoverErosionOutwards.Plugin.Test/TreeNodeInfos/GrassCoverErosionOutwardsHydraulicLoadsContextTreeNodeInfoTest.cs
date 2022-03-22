@@ -179,7 +179,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.CalculationsInputComments, calculationsInputComments);
 
             var calculationGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) children[1];
-            Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, calculationGroupContext.WrappedData);
+            Assert.AreSame(failureMechanism.CalculationsGroup, calculationGroupContext.WrappedData);
             Assert.IsNull(calculationGroupContext.Parent);
             Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSection, calculationGroupContext.AssessmentSection);
@@ -228,7 +228,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
 
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -319,7 +319,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 new TestHydraulicBoundaryLocationCalculationOutput(2.0);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var context = new GrassCoverErosionOutwardsHydraulicLoadsContext(failureMechanism, assessmentSection);
 

@@ -214,13 +214,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         parent,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
 
-            var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                    null,
                                                                                                    failureMechanism,
                                                                                                    assessmentSection);
@@ -250,7 +250,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         failureMechanism,
                                                                                         assessmentSection);
 
-            var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                    null,
                                                                                                    failureMechanism,
                                                                                                    assessmentSection);
@@ -277,14 +277,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Output = GrassCoverErosionOutwardsWaveConditionsOutputTestFactory.Create()
             };
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-            failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            failureMechanism.CalculationsGroup.Attach(observer);
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(calculation,
                                                                                         parent,
                                                                                         failureMechanism,
                                                                                         assessmentSection);
 
-            var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+            var parentContext = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                                    null,
                                                                                                    failureMechanism,
                                                                                                    assessmentSection);
@@ -293,7 +293,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             info.OnNodeRemoved(context, parentContext);
 
             // Assert
-            CollectionAssert.DoesNotContain(failureMechanism.WaveConditionsCalculationGroup.Children, calculation);
+            CollectionAssert.DoesNotContain(failureMechanism.CalculationsGroup.Children, calculation);
         }
 
         [Test]

@@ -33,7 +33,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
     /// Model containing input and output needed to perform different levels of the
     /// Grass Cover Erosion Outwards failure mechanism.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+    public class GrassCoverErosionOutwardsFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                                                             ICalculatableFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> class.
@@ -42,14 +43,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
             : base(Resources.GrassCoverErosionOutwardsFailureMechanism_DisplayName, Resources.GrassCoverErosionOutwardsFailureMechanism_Code)
         {
             GeneralInput = new GeneralGrassCoverErosionOutwardsInput();
-            WaveConditionsCalculationGroup = new CalculationGroup
+            CalculationsGroup = new CalculationGroup
             {
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
             };
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
-
-        public override IEnumerable<ICalculation> Calculations => WaveConditionsCalculationGroup.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>();
 
         /// <summary>
         /// Gets the general grass cover erosion outwards calculation input parameters that apply to each calculation.
@@ -57,13 +56,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         public GeneralGrassCoverErosionOutwardsInput GeneralInput { get; }
 
         /// <summary>
-        /// Gets the container of all wave conditions calculations.
-        /// </summary>
-        public CalculationGroup WaveConditionsCalculationGroup { get; }
-
-        /// <summary>
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
+
+        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>();
+
+        public CalculationGroup CalculationsGroup { get; }
     }
 }

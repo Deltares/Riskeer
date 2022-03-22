@@ -181,15 +181,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
                 UpdateCalculationsMapData, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
                                                                                  .Select(pc => pc.InputParameters)))
             {
-                Observable = FailureMechanism.WaveConditionsCalculationGroup
+                Observable = FailureMechanism.CalculationsGroup
             };
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, CalculationGroup>(UpdateCalculationsMapData, pcg => pcg.Children)
             {
-                Observable = FailureMechanism.WaveConditionsCalculationGroup
+                Observable = FailureMechanism.CalculationsGroup
             };
             calculationObserver = new RecursiveObserver<CalculationGroup, GrassCoverErosionOutwardsWaveConditionsCalculation>(UpdateCalculationsMapData, pcg => pcg.Children)
             {
-                Observable = FailureMechanism.WaveConditionsCalculationGroup
+                Observable = FailureMechanism.CalculationsGroup
             };
             foreshoreProfileObserver = new RecursiveObserver<ForeshoreProfileCollection, ForeshoreProfile>(UpdateForeshoreProfilesMapData, coll => coll)
             {
@@ -218,7 +218,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         private void SetCalculationsMapData()
         {
             IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations =
-                FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
+                FailureMechanism.CalculationsGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
             calculationsMapData.Features = GrassCoverErosionOutwardsMapDataFeaturesFactory.CreateCalculationFeatures(calculations);
         }
 

@@ -190,8 +190,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                 profile2
             }, "path");
 
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
@@ -409,7 +409,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                 }
             };
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
             GrassCoverErosionOutwardsFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
@@ -435,8 +435,8 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                     HydraulicBoundaryLocation = new TestHydraulicBoundaryLocation()
                 }
             };
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationB);
-            failureMechanism.WaveConditionsCalculationGroup.NotifyObservers();
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
+            failureMechanism.CalculationsGroup.NotifyObservers();
 
             // Then
             AssertCalculationsMapData(failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>(), calculationMapData);
@@ -457,7 +457,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                 }
             };
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
             GrassCoverErosionOutwardsFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
@@ -497,7 +497,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
                 }
             };
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
 
             GrassCoverErosionOutwardsFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 

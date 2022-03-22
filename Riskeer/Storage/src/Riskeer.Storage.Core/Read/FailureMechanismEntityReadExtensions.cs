@@ -585,7 +585,7 @@ namespace Riskeer.Storage.Core.Read
                                   metaEntity.ForeshoreProfileCollectionSourcePath,
                                   collector);
 
-            ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
+            ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
 
         private static void ReadGeneralGrassCoverErosionOutwardsCalculationInput(this FailureMechanismEntity entity,

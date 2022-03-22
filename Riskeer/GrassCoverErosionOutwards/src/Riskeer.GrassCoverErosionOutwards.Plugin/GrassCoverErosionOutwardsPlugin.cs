@@ -325,7 +325,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                                        GetHydraulicLoadsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
-                new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
+                new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                    null, failureMechanism, assessmentSection)
             };
         }
@@ -355,7 +355,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
                     ActivityProgressDialogRunner.Run(
                         Gui.MainWindow,
                         GrassCoverErosionOutwardsCalculationActivityFactory
-                            .CreateWaveConditionsCalculationActivities(context.WrappedData.WaveConditionsCalculationGroup,
+                            .CreateWaveConditionsCalculationActivities(context.WrappedData.CalculationsGroup,
                                                                        context.WrappedData,
                                                                        assessmentSection));
                 });

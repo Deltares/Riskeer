@@ -39,12 +39,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
             Assert.AreEqual("Grasbekleding erosie buitentalud", failureMechanism.Name);
             Assert.AreEqual("GEBU", failureMechanism.Code);
             Assert.IsInstanceOf<GeneralGrassCoverErosionOutwardsInput>(failureMechanism.GeneralInput);
 
-            Assert.AreEqual("Hydraulische belastingen", failureMechanism.WaveConditionsCalculationGroup.Name);
-            CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
+            Assert.AreEqual("Hydraulische belastingen", failureMechanism.CalculationsGroup.Name);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
@@ -59,7 +60,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             var mocks = new MockRepository();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
-                WaveConditionsCalculationGroup =
+                CalculationsGroup =
                 {
                     Children =
                     {
