@@ -10121,7 +10121,7 @@ namespace AutomatedSystemTests
             public TableFolder11(RepoGenBaseFolder parentFolder) :
                     base("Table", "container[@controlname='ButtonGroupBox']/container//table", parentFolder, 30000, null, false, "4cff6d90-7520-4ee7-a00a-538e505578e2", "")
             {
-                _usecellrowindexthInfo = new RepoItemInfo(this, "UseCellRowIndexth", "row[@accessiblename=' '+$indexRow]/cell[@accessiblename>'Gebruik']", 30000, null, "407fae09-698f-4177-8f27-47a238018ac5");
+                _usecellrowindexthInfo = new RepoItemInfo(this, "UseCellRowIndexth", "row[@accessiblename~' '+$indexRow]/cell[@accessiblename>'Gebruik']", 30000, null, "407fae09-698f-4177-8f27-47a238018ac5");
             }
 
             /// <summary>
