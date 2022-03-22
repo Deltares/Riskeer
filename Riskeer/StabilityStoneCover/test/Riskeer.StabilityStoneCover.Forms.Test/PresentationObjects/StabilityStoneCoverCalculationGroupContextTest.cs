@@ -96,30 +96,30 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             protected override StabilityStoneCoverCalculationGroupContext CreateObject()
             {
                 return new StabilityStoneCoverCalculationGroupContext(calculationGroup,
-                                                                                    parent,
-                                                                                    failureMechanism,
-                                                                                    assessmentSection);
+                                                                      parent,
+                                                                      failureMechanism,
+                                                                      assessmentSection);
             }
 
             protected override DerivedStabilityStoneCoverCalculationGroupContext CreateDerivedObject()
             {
                 return new DerivedStabilityStoneCoverCalculationGroupContext(calculationGroup,
-                                                                                           parent,
-                                                                                           failureMechanism,
-                                                                                           assessmentSection);
+                                                                             parent,
+                                                                             failureMechanism,
+                                                                             assessmentSection);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
                 yield return new TestCaseData(new StabilityStoneCoverCalculationGroupContext(new CalculationGroup(),
-                                                                                                           parent,
-                                                                                                           failureMechanism,
-                                                                                                           assessmentSection))
+                                                                                             parent,
+                                                                                             failureMechanism,
+                                                                                             assessmentSection))
                     .SetName("Wrapped Calculation Group");
                 yield return new TestCaseData(new StabilityStoneCoverCalculationGroupContext(calculationGroup,
-                                                                                                           new CalculationGroup(),
-                                                                                                           failureMechanism,
-                                                                                                           assessmentSection))
+                                                                                             new CalculationGroup(),
+                                                                                             failureMechanism,
+                                                                                             assessmentSection))
                     .SetName("Parent");
             }
         }
@@ -127,9 +127,9 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
         private class DerivedStabilityStoneCoverCalculationGroupContext : StabilityStoneCoverCalculationGroupContext
         {
             public DerivedStabilityStoneCoverCalculationGroupContext(CalculationGroup calculationGroup,
-                                                                                   CalculationGroup parent,
-                                                                                   StabilityStoneCoverFailureMechanism failureMechanism,
-                                                                                   IAssessmentSection assessmentSection)
+                                                                     CalculationGroup parent,
+                                                                     StabilityStoneCoverFailureMechanism failureMechanism,
+                                                                     IAssessmentSection assessmentSection)
                 : base(calculationGroup, parent, failureMechanism, assessmentSection) {}
         }
     }

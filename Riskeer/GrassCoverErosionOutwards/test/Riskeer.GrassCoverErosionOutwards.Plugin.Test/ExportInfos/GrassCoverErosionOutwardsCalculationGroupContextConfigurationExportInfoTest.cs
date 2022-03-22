@@ -92,9 +92,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionOutwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                             null,
-                                                                                             new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                             assessmentSection);
+                                                                               null,
+                                                                               new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                               assessmentSection);
 
             // Call
             IFileExporter fileExporter = info.CreateFileExporter(context, "test");
@@ -111,9 +111,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionOutwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                             null,
-                                                                                             new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                             assessmentSection);
+                                                                               null,
+                                                                               new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                               assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);
@@ -144,9 +144,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ExportInfos
             }
 
             var context = new GrassCoverErosionOutwardsCalculationGroupContext(calculationGroup,
-                                                                                             null,
-                                                                                             new GrassCoverErosionOutwardsFailureMechanism(),
-                                                                                             assessmentSection);
+                                                                               null,
+                                                                               new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                               assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);

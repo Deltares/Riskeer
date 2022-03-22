@@ -92,9 +92,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new StabilityStoneCoverCalculationGroupContext(new CalculationGroup(),
-                                                                                       null,
-                                                                                       new StabilityStoneCoverFailureMechanism(),
-                                                                                       assessmentSection);
+                                                                         null,
+                                                                         new StabilityStoneCoverFailureMechanism(),
+                                                                         assessmentSection);
 
             // Call
             IFileExporter fileExporter = info.CreateFileExporter(context, "test");
@@ -111,9 +111,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             mocks.ReplayAll();
 
             var context = new StabilityStoneCoverCalculationGroupContext(new CalculationGroup(),
-                                                                                       null,
-                                                                                       new StabilityStoneCoverFailureMechanism(),
-                                                                                       assessmentSection);
+                                                                         null,
+                                                                         new StabilityStoneCoverFailureMechanism(),
+                                                                         assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);
@@ -144,9 +144,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             }
 
             var context = new StabilityStoneCoverCalculationGroupContext(calculationGroup,
-                                                                                       null,
-                                                                                       new StabilityStoneCoverFailureMechanism(),
-                                                                                       assessmentSection);
+                                                                         null,
+                                                                         new StabilityStoneCoverFailureMechanism(),
+                                                                         assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);

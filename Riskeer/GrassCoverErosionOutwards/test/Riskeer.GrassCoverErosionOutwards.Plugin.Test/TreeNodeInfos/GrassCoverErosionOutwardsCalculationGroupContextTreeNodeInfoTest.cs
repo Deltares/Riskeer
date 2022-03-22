@@ -131,9 +131,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                             null,
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                               null,
+                                                                               failureMechanism,
+                                                                               assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -151,9 +151,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var context = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                             null,
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                               null,
+                                                                               failureMechanism,
+                                                                               assessmentSection);
 
             // Call
             Image icon = info.Image(context);
@@ -171,9 +171,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var groupContext = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                  null,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    null,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(groupContext);
@@ -197,9 +197,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(childGroup);
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(nodeData).ToArray();
@@ -228,9 +228,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                                  null,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    null,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -281,9 +281,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                                  null,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    null,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -346,13 +346,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                                  parentGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    parentGroup,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
             var parentGroupContext = new GrassCoverErosionOutwardsCalculationGroupContext(parentGroup,
-                                                                                                        null,
-                                                                                                        failureMechanism,
-                                                                                                        assessmentSection);
+                                                                                          null,
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -404,13 +404,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                                  parentGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    parentGroup,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
             var parentGroupContext = new GrassCoverErosionOutwardsCalculationGroupContext(parentGroup,
-                                                                                                        null,
-                                                                                                        failureMechanism,
-                                                                                                        assessmentSection);
+                                                                                          null,
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             using (var treeViewControl = new TreeViewControl())
@@ -471,9 +471,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
@@ -577,9 +577,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
@@ -674,13 +674,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
                 var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                                  failureMechanism.CalculationsGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    failureMechanism.CalculationsGroup,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
                 var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                        null,
-                                                                                                        failureMechanism,
-                                                                                                        assessmentSection);
+                                                                                          null,
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -716,13 +716,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
                 var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                                  failureMechanism.CalculationsGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    failureMechanism.CalculationsGroup,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
                 var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                        null,
-                                                                                                        failureMechanism,
-                                                                                                        assessmentSection);
+                                                                                          null,
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -759,13 +759,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
                 var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                                  failureMechanism.CalculationsGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    failureMechanism.CalculationsGroup,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
                 var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                        null,
-                                                                                                        failureMechanism,
-                                                                                                        assessmentSection);
+                                                                                          null,
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -811,13 +811,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                              failureMechanism.CalculationsGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                failureMechanism.CalculationsGroup,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
             var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+                                                                                      null,
+                                                                                      failureMechanism,
+                                                                                      assessmentSection);
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -862,13 +862,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(group);
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                              failureMechanism.CalculationsGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                failureMechanism.CalculationsGroup,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
             var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+                                                                                      null,
+                                                                                      failureMechanism,
+                                                                                      assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -916,13 +916,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(group);
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                              failureMechanism.CalculationsGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                failureMechanism.CalculationsGroup,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
             var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+                                                                                      null,
+                                                                                      failureMechanism,
+                                                                                      assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -973,13 +973,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(group);
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                              failureMechanism.CalculationsGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                failureMechanism.CalculationsGroup,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
             var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+                                                                                      null,
+                                                                                      failureMechanism,
+                                                                                      assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1030,13 +1030,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(group);
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                              failureMechanism.CalculationsGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                failureMechanism.CalculationsGroup,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
             var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+                                                                                      null,
+                                                                                      failureMechanism,
+                                                                                      assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1100,13 +1100,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                              failureMechanism.CalculationsGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                failureMechanism.CalculationsGroup,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
             var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+                                                                                      null,
+                                                                                      failureMechanism,
+                                                                                      assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1157,13 +1157,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(group);
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                              failureMechanism.CalculationsGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                failureMechanism.CalculationsGroup,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
             var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+                                                                                      null,
+                                                                                      failureMechanism,
+                                                                                      assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1231,13 +1231,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 failureMechanism, mocks, validFilePath);
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                              failureMechanism.CalculationsGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                failureMechanism.CalculationsGroup,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
             var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+                                                                                      null,
+                                                                                      failureMechanism,
+                                                                                      assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1281,13 +1281,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(group);
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                              failureMechanism.CalculationsGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                failureMechanism.CalculationsGroup,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
             var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+                                                                                      null,
+                                                                                      failureMechanism,
+                                                                                      assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1344,13 +1344,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(group);
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                              failureMechanism.CalculationsGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                failureMechanism.CalculationsGroup,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
             var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+                                                                                      null,
+                                                                                      failureMechanism,
+                                                                                      assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1407,13 +1407,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(group);
 
                 var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                                  failureMechanism.CalculationsGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    failureMechanism.CalculationsGroup,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
                 var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                        null,
-                                                                                                        failureMechanism,
-                                                                                                        assessmentSection);
+                                                                                          null,
+                                                                                          failureMechanism,
+                                                                                          assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1468,9 +1468,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 }
             };
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
             var calculationItem = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = "Nieuwe berekening"
@@ -1615,9 +1615,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var context = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                             null,
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                               null,
+                                                                               failureMechanism,
+                                                                               assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1666,9 +1666,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
             var assessmentSection = new AssessmentSectionStub();
             var context = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                             null,
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                               null,
+                                                                               failureMechanism,
+                                                                               assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1720,15 +1720,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                              failureMechanism.CalculationsGroup,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                failureMechanism.CalculationsGroup,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             failureMechanism.CalculationsGroup.Children.Add(group);
             var parentNodeData = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                    null,
-                                                                                                    failureMechanism,
-                                                                                                    assessmentSection);
+                                                                                      null,
+                                                                                      failureMechanism,
+                                                                                      assessmentSection);
             parentNodeData.Attach(observer);
 
             // Precondition
@@ -1779,9 +1779,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
                 var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                                  null,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    null,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
@@ -1850,9 +1850,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 });
 
                 var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
-                                                                                                  null,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    null,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();

@@ -121,9 +121,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ImportInfos
             mocks.ReplayAll();
 
             var context = new GrassCoverErosionOutwardsCalculationGroupContext(new CalculationGroup(),
-                                                                                             null,
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                               null,
+                                                                               failureMechanism,
+                                                                               assessmentSection);
 
             // Call
             IFileImporter importer = importInfo.CreateFileImporter(context, "");

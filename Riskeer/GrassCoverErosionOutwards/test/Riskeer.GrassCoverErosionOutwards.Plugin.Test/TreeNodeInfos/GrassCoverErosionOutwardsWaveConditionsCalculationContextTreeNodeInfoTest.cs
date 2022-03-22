@@ -221,9 +221,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         assessmentSection);
 
             var parentContext = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                   null,
-                                                                                                   failureMechanism,
-                                                                                                   assessmentSection);
+                                                                                     null,
+                                                                                     failureMechanism,
+                                                                                     assessmentSection);
 
             // Call
             bool canRemoveCalculation = info.CanRemove(context, parentContext);
@@ -251,9 +251,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         assessmentSection);
 
             var parentContext = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                   null,
-                                                                                                   failureMechanism,
-                                                                                                   assessmentSection);
+                                                                                     null,
+                                                                                     failureMechanism,
+                                                                                     assessmentSection);
 
             // Call
             bool canRemoveCalculation = info.CanRemove(context, parentContext);
@@ -285,9 +285,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                                                                                         assessmentSection);
 
             var parentContext = new GrassCoverErosionOutwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                   null,
-                                                                                                   failureMechanism,
-                                                                                                   assessmentSection);
+                                                                                     null,
+                                                                                     failureMechanism,
+                                                                                     assessmentSection);
 
             // Call
             info.OnNodeRemoved(context, parentContext);

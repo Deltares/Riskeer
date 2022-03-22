@@ -335,9 +335,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                   assessmentSection);
 
             var parentContext = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                             null,
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                               null,
+                                                                               failureMechanism,
+                                                                               assessmentSection);
 
             // Call
             bool canRemoveCalculation = info.CanRemove(context, parentContext);
@@ -365,9 +365,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                   assessmentSection);
 
             var parentContext = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                             null,
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                               null,
+                                                                               failureMechanism,
+                                                                               assessmentSection);
 
             // Call
             bool canRemoveCalculation = info.CanRemove(context, parentContext);
@@ -399,9 +399,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                   assessmentSection);
 
             var parentContext = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                             null,
-                                                                                             failureMechanism,
-                                                                                             assessmentSection);
+                                                                               null,
+                                                                               failureMechanism,
+                                                                               assessmentSection);
 
             // Call
             info.OnNodeRemoved(context, parentContext);

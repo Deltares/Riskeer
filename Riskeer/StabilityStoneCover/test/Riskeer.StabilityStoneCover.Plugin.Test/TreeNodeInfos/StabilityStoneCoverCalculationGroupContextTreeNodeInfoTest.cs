@@ -124,9 +124,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                       null,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection);
+                                                                         null,
+                                                                         failureMechanism,
+                                                                         assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -144,9 +144,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var context = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                       null,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection);
+                                                                         null,
+                                                                         failureMechanism,
+                                                                         assessmentSection);
 
             // Call
             Image icon = info.Image(context);
@@ -164,9 +164,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var groupContext = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                            null,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                              null,
+                                                                              failureMechanism,
+                                                                              assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(groupContext);
@@ -190,9 +190,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(childGroup);
 
             var nodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                        null,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          null,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(nodeData).ToArray();
@@ -221,9 +221,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                            null,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                              null,
+                                                                              failureMechanism,
+                                                                              assessmentSection);
 
             var orderedMocks = new MockRepository();
             var menuBuilder = orderedMocks.StrictMock<IContextMenuBuilder>();
@@ -276,9 +276,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
             var groupContext = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                            null,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                              null,
+                                                                              failureMechanism,
+                                                                              assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -341,13 +341,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var groupContext = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                            parentGroup,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                              parentGroup,
+                                                                              failureMechanism,
+                                                                              assessmentSection);
             var parentGroupContext = new StabilityStoneCoverCalculationGroupContext(parentGroup,
-                                                                                                  null,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    null,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -399,13 +399,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var groupContext = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                            parentGroup,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                              parentGroup,
+                                                                              failureMechanism,
+                                                                              assessmentSection);
             var parentGroupContext = new StabilityStoneCoverCalculationGroupContext(parentGroup,
-                                                                                                  null,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    null,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             using (var treeViewControl = new TreeViewControl())
@@ -465,9 +465,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var nodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                        null,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          null,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
@@ -565,9 +565,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var nodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                        null,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          null,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.StrictMock<IImportCommandHandler>();
@@ -662,13 +662,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                            failureMechanism.CalculationsGroup,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                              failureMechanism.CalculationsGroup,
+                                                                              failureMechanism,
+                                                                              assessmentSection);
                 var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                  null,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    null,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -704,13 +704,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
                 var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                            failureMechanism.CalculationsGroup,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                              failureMechanism.CalculationsGroup,
+                                                                              failureMechanism,
+                                                                              assessmentSection);
                 var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                  null,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    null,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -747,13 +747,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocks, "invalidFilePath");
 
                 var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                            failureMechanism.CalculationsGroup,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                              failureMechanism.CalculationsGroup,
+                                                                              failureMechanism,
+                                                                              assessmentSection);
                 var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                  null,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    null,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -801,13 +801,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
                 var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                            failureMechanism.CalculationsGroup,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                              failureMechanism.CalculationsGroup,
+                                                                              failureMechanism,
+                                                                              assessmentSection);
                 var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                  null,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    null,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -845,13 +845,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             failureMechanism.CalculationsGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                        failureMechanism.CalculationsGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          failureMechanism.CalculationsGroup,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
             var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -895,13 +895,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(group);
 
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                        failureMechanism.CalculationsGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          failureMechanism.CalculationsGroup,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
             var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -947,13 +947,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                        failureMechanism.CalculationsGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          failureMechanism.CalculationsGroup,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
             var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -999,13 +999,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = TestHelper.GetScratchPadPath();
 
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                        failureMechanism.CalculationsGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          failureMechanism.CalculationsGroup,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
             var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1064,13 +1064,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             assessmentSection.HydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.PreprocessorDirectory = "InvalidPreprocessorDirectory";
 
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                        failureMechanism.CalculationsGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          failureMechanism.CalculationsGroup,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
             var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1115,13 +1115,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             failureMechanism.CalculationsGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                        failureMechanism.CalculationsGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          failureMechanism.CalculationsGroup,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
             var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1190,13 +1190,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 failureMechanism, mocks, validFilePath);
 
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                        failureMechanism.CalculationsGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          failureMechanism.CalculationsGroup,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
             var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1239,13 +1239,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             failureMechanism.CalculationsGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                        failureMechanism.CalculationsGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          failureMechanism.CalculationsGroup,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
             var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1298,13 +1298,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
             failureMechanism.CalculationsGroup.Children.Add(group);
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                        failureMechanism.CalculationsGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          failureMechanism.CalculationsGroup,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
             var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1360,13 +1360,13 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(group);
 
                 var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                            failureMechanism.CalculationsGroup,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                              failureMechanism.CalculationsGroup,
+                                                                              failureMechanism,
+                                                                              assessmentSection);
                 var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                                  null,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
+                                                                                    null,
+                                                                                    failureMechanism,
+                                                                                    assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -1421,9 +1421,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 }
             };
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                        null,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          null,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
             var calculationItem = new StabilityStoneCoverWaveConditionsCalculation
             {
                 Name = "Nieuwe berekening"
@@ -1501,9 +1501,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 var observer = mocks.StrictMock<IObserver>();
                 observer.Expect(o => o.UpdateObserver());
                 var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                            null,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                              null,
+                                                                              failureMechanism,
+                                                                              assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
@@ -1574,9 +1574,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
                 var observer = mocks.StrictMock<IObserver>();
                 var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                            null,
-                                                                                            failureMechanism,
-                                                                                            assessmentSection);
+                                                                              null,
+                                                                              failureMechanism,
+                                                                              assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var mainWindow = mocks.Stub<IMainWindow>();
@@ -1625,15 +1625,15 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
-                                                                                        failureMechanism.CalculationsGroup,
-                                                                                        failureMechanism,
-                                                                                        assessmentSection);
+                                                                          failureMechanism.CalculationsGroup,
+                                                                          failureMechanism,
+                                                                          assessmentSection);
 
             failureMechanism.CalculationsGroup.Children.Add(group);
             var parentNodeData = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                              null,
-                                                                                              failureMechanism,
-                                                                                              assessmentSection);
+                                                                                null,
+                                                                                failureMechanism,
+                                                                                assessmentSection);
             parentNodeData.Attach(observer);
 
             // Precondition
@@ -1654,9 +1654,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
 
             var context = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                       null,
-                                                                                       failureMechanism,
-                                                                                       assessmentSection);
+                                                                         null,
+                                                                         failureMechanism,
+                                                                         assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1703,9 +1703,9 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Attach(observer);
 
             var context = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
-                                                                                       null,
-                                                                                       failureMechanism,
-                                                                                       new AssessmentSectionStub());
+                                                                         null,
+                                                                         failureMechanism,
+                                                                         new AssessmentSectionStub());
 
             using (var treeViewControl = new TreeViewControl())
             {
