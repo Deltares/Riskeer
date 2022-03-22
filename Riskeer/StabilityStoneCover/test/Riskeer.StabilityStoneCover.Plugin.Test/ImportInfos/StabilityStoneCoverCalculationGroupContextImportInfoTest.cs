@@ -40,7 +40,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityStoneCover.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsCalculationGroupContextImportInfoTest
+    public class StabilityStoneCoverCalculationGroupContextImportInfoTest
     {
         private ImportInfo importInfo;
         private StabilityStoneCoverPlugin plugin;
@@ -49,7 +49,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ImportInfos
         public void SetUp()
         {
             plugin = new StabilityStoneCoverPlugin();
-            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext));
+            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(StabilityStoneCoverCalculationGroupContext));
         }
 
         [TearDown]
@@ -120,7 +120,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ImportInfos
                              .Return(new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>());
             mocks.ReplayAll();
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
+            var context = new StabilityStoneCoverCalculationGroupContext(new CalculationGroup(),
                                                                                        null,
                                                                                        failureMechanism,
                                                                                        assessmentSection);

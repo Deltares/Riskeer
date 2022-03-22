@@ -178,7 +178,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var calculationsInputComments = (Comment) inputsFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.CalculationsInputComments, calculationsInputComments);
 
-            var hydraulicBoundariesCalculationGroup = (StabilityStoneCoverWaveConditionsCalculationGroupContext) children[1];
+            var hydraulicBoundariesCalculationGroup = (StabilityStoneCoverCalculationGroupContext) children[1];
             Assert.AreSame(failureMechanism.CalculationsGroup, hydraulicBoundariesCalculationGroup.WrappedData);
             Assert.IsNull(hydraulicBoundariesCalculationGroup.Parent);
             Assert.AreSame(failureMechanism, hydraulicBoundariesCalculationGroup.FailureMechanism);

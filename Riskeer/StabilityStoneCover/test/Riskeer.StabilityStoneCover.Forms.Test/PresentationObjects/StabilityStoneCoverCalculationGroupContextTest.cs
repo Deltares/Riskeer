@@ -32,7 +32,7 @@ using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsCalculationGroupContextTest
+    public class StabilityStoneCoverCalculationGroupContextTest
     {
         [Test]
         [TestCase(true)]
@@ -50,7 +50,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             CalculationGroup parent = hasParent ? new CalculationGroup() : null;
 
             // Call
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverCalculationGroupContext(calculationGroup, parent, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<StabilityStoneCoverContext<CalculationGroup>>(context);
@@ -64,9 +64,9 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
 
         [TestFixture(true)]
         [TestFixture(false)]
-        private class StabilityStoneCoverWaveConditionsCalculationGroupContextEqualsTest
-            : EqualsTestFixture<StabilityStoneCoverWaveConditionsCalculationGroupContext,
-                DerivedStabilityStoneCoverWaveConditionsCalculationGroupContext>
+        private class StabilityStoneCoverCalculationGroupContextEqualsTest
+            : EqualsTestFixture<StabilityStoneCoverCalculationGroupContext,
+                DerivedStabilityStoneCoverCalculationGroupContext>
         {
             private static readonly MockRepository mocks = new MockRepository();
 
@@ -88,22 +88,22 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
                 mocks.VerifyAll();
             }
 
-            public StabilityStoneCoverWaveConditionsCalculationGroupContextEqualsTest(bool hasParent)
+            public StabilityStoneCoverCalculationGroupContextEqualsTest(bool hasParent)
             {
                 parent = hasParent ? new CalculationGroup() : null;
             }
 
-            protected override StabilityStoneCoverWaveConditionsCalculationGroupContext CreateObject()
+            protected override StabilityStoneCoverCalculationGroupContext CreateObject()
             {
-                return new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup,
+                return new StabilityStoneCoverCalculationGroupContext(calculationGroup,
                                                                                     parent,
                                                                                     failureMechanism,
                                                                                     assessmentSection);
             }
 
-            protected override DerivedStabilityStoneCoverWaveConditionsCalculationGroupContext CreateDerivedObject()
+            protected override DerivedStabilityStoneCoverCalculationGroupContext CreateDerivedObject()
             {
-                return new DerivedStabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup,
+                return new DerivedStabilityStoneCoverCalculationGroupContext(calculationGroup,
                                                                                            parent,
                                                                                            failureMechanism,
                                                                                            assessmentSection);
@@ -111,12 +111,12 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
-                yield return new TestCaseData(new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
+                yield return new TestCaseData(new StabilityStoneCoverCalculationGroupContext(new CalculationGroup(),
                                                                                                            parent,
                                                                                                            failureMechanism,
                                                                                                            assessmentSection))
                     .SetName("Wrapped Calculation Group");
-                yield return new TestCaseData(new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup,
+                yield return new TestCaseData(new StabilityStoneCoverCalculationGroupContext(calculationGroup,
                                                                                                            new CalculationGroup(),
                                                                                                            failureMechanism,
                                                                                                            assessmentSection))
@@ -124,9 +124,9 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
             }
         }
 
-        private class DerivedStabilityStoneCoverWaveConditionsCalculationGroupContext : StabilityStoneCoverWaveConditionsCalculationGroupContext
+        private class DerivedStabilityStoneCoverCalculationGroupContext : StabilityStoneCoverCalculationGroupContext
         {
-            public DerivedStabilityStoneCoverWaveConditionsCalculationGroupContext(CalculationGroup calculationGroup,
+            public DerivedStabilityStoneCoverCalculationGroupContext(CalculationGroup calculationGroup,
                                                                                    CalculationGroup parent,
                                                                                    StabilityStoneCoverFailureMechanism failureMechanism,
                                                                                    IAssessmentSection assessmentSection)

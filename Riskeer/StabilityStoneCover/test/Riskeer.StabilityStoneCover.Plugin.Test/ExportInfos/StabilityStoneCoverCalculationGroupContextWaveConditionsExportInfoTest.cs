@@ -38,7 +38,7 @@ using CoreGuiResources = Core.Gui.Properties.Resources;
 namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsCalculationGroupContextWaveConditionsExportInfoTest
+    public class StabilityStoneCoverCalculationGroupContextWaveConditionsExportInfoTest
     {
         private StabilityStoneCoverPlugin plugin;
         private ExportInfo info;
@@ -60,7 +60,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             };
 
             info = plugin.GetExportInfos()
-                         .Single(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)
+                         .Single(ei => ei.DataType == typeof(StabilityStoneCoverCalculationGroupContext)
                                        && ei.Name(null).Equals("Berekende belastingen bij verschillende waterstanden"));
         }
 
@@ -93,7 +93,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             IFileExporter fileExporter = info.CreateFileExporter(context, "test");
@@ -112,7 +112,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var calculationGroup = new CalculationGroup();
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);
@@ -132,7 +132,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             var calculationGroup = new CalculationGroup();
             calculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);
@@ -155,7 +155,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
                 Output = StabilityStoneCoverWaveConditionsOutputTestFactory.Create()
             });
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);
@@ -194,7 +194,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
                     }
                 });
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverCalculationGroupContext(calculationGroup, null, failureMechanism, assessmentSection);
 
             // Call
             bool isEnabled = info.IsEnabled(context);

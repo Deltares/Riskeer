@@ -334,7 +334,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
-            var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
+            var parentContext = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                              null,
                                                                                              failureMechanism,
                                                                                              assessmentSection);
@@ -364,7 +364,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
-            var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
+            var parentContext = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                              null,
                                                                                              failureMechanism,
                                                                                              assessmentSection);
@@ -398,7 +398,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                                                                                   failureMechanism,
                                                                                   assessmentSection);
 
-            var parentContext = new StabilityStoneCoverWaveConditionsCalculationGroupContext(failureMechanism.CalculationsGroup,
+            var parentContext = new StabilityStoneCoverCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                              null,
                                                                                              failureMechanism,
                                                                                              assessmentSection);

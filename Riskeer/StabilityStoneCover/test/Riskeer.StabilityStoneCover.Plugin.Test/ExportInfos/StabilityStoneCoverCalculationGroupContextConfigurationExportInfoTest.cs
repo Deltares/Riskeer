@@ -38,7 +38,7 @@ using CoreGuiResources = Core.Gui.Properties.Resources;
 namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsCalculationGroupContextConfigurationExportInfoTest
+    public class StabilityStoneCoverCalculationGroupContextConfigurationExportInfoTest
     {
         private StabilityStoneCoverPlugin plugin;
         private ExportInfo info;
@@ -60,7 +60,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             };
 
             info = plugin.GetExportInfos()
-                         .Single(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)
+                         .Single(ei => ei.DataType == typeof(StabilityStoneCoverCalculationGroupContext)
                                        && ei.Name(null).Equals("Riskeer berekeningenconfiguratie"));
         }
 
@@ -91,7 +91,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             assessmentSection.Stub(section => section.FailureMechanismContribution).Return(new FailureMechanismContribution(0.1, 0.1));
             mocks.ReplayAll();
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
+            var context = new StabilityStoneCoverCalculationGroupContext(new CalculationGroup(),
                                                                                        null,
                                                                                        new StabilityStoneCoverFailureMechanism(),
                                                                                        assessmentSection);
@@ -110,7 +110,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(new CalculationGroup(),
+            var context = new StabilityStoneCoverCalculationGroupContext(new CalculationGroup(),
                                                                                        null,
                                                                                        new StabilityStoneCoverFailureMechanism(),
                                                                                        assessmentSection);
@@ -143,7 +143,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ExportInfos
                 calculationGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
             }
 
-            var context = new StabilityStoneCoverWaveConditionsCalculationGroupContext(calculationGroup,
+            var context = new StabilityStoneCoverCalculationGroupContext(calculationGroup,
                                                                                        null,
                                                                                        new StabilityStoneCoverFailureMechanism(),
                                                                                        assessmentSection);

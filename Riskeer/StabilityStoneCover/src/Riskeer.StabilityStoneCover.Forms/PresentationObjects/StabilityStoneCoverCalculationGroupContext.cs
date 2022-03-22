@@ -32,21 +32,21 @@ namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
     /// in order be able to create configurable stability stone cover calculations.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculationGroupContext : StabilityStoneCoverContext<CalculationGroup>,
-                                                                            ICalculationContext<CalculationGroup, StabilityStoneCoverFailureMechanism>
+    public class StabilityStoneCoverCalculationGroupContext : StabilityStoneCoverContext<CalculationGroup>,
+                                                              ICalculationContext<CalculationGroup, StabilityStoneCoverFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StabilityStoneCoverWaveConditionsCalculationGroupContext"/> class.
+        /// Initializes a new instance of the <see cref="StabilityStoneCoverCalculationGroupContext"/> class.
         /// </summary>
         /// <param name="calculationGroup">The wrapped <see cref="CalculationGroup"/>.</param>
         /// <param name="parent">The <see cref="CalculationGroup"/> that owns the wrapped calculation group.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation group belongs to.</param>
         /// <param name="assessmentSection">The assessment section  the calculation group belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>, except for <paramref name="parent"/>.</exception>
-        public StabilityStoneCoverWaveConditionsCalculationGroupContext(CalculationGroup calculationGroup,
-                                                                        CalculationGroup parent,
-                                                                        StabilityStoneCoverFailureMechanism failureMechanism,
-                                                                        IAssessmentSection assessmentSection)
+        public StabilityStoneCoverCalculationGroupContext(CalculationGroup calculationGroup,
+                                                          CalculationGroup parent,
+                                                          StabilityStoneCoverFailureMechanism failureMechanism,
+                                                          IAssessmentSection assessmentSection)
             : base(calculationGroup, failureMechanism, assessmentSection)
         {
             Parent = parent;
@@ -57,13 +57,13 @@ namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects
         public override bool Equals(WrappedObjectContextBase<CalculationGroup> other)
         {
             return base.Equals(other)
-                   && other is StabilityStoneCoverWaveConditionsCalculationGroupContext
-                   && ReferenceEquals(Parent, ((StabilityStoneCoverWaveConditionsCalculationGroupContext) other).Parent);
+                   && other is StabilityStoneCoverCalculationGroupContext
+                   && ReferenceEquals(Parent, ((StabilityStoneCoverCalculationGroupContext) other).Parent);
         }
 
         public override bool Equals(object obj)
         {
-            return Equals(obj as StabilityStoneCoverWaveConditionsCalculationGroupContext);
+            return Equals(obj as StabilityStoneCoverCalculationGroupContext);
         }
 
         public override int GetHashCode()

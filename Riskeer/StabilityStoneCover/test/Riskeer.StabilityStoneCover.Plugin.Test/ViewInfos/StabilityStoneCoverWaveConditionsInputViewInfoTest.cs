@@ -183,7 +183,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
         protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
         {
-            return new StabilityStoneCoverWaveConditionsCalculationGroupContext(
+            return new StabilityStoneCoverCalculationGroupContext(
                 new CalculationGroup
                 {
                     Children =

@@ -142,7 +142,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
                 Assert.AreEqual(8, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverHydraulicLoadsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyStabilityStoneCoverOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityStoneCoverFailureMechanismSectionResultContext)));
@@ -171,7 +171,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(4, exportInfos.Length);
-                Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)));
+                Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(StabilityStoneCoverCalculationGroupContext)));
                 Assert.AreEqual(2, exportInfos.Count(ei => ei.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationContext)));
             }
 
@@ -189,7 +189,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(1, importInfos.Length);
-                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(StabilityStoneCoverWaveConditionsCalculationGroupContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(StabilityStoneCoverCalculationGroupContext)));
             }
         }
 
