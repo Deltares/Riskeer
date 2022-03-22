@@ -74,6 +74,7 @@ namespace AutomatedSystemTests.Modules.IO
                 {
                 string fileName = Path.GetFileName(sourceFilePath);
                 string destinationFilePath = Path.Combine(targetPath, fileName);
+                Report.Info("source: " + sourceFilePath + "; target: " + destinationFilePath);
                 System.IO.File.Copy(sourceFilePath, destinationFilePath , true);
                 }
         }
