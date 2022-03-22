@@ -233,28 +233,28 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waterLevelProperty,
                                                                             "Resultaat",
                                                                             "Rekenwaarde waterstand [m+NAP]",
-                                                                            "Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.",
+                                                                            "Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.",
                                                                             true);
 
             PropertyDescriptor waveHeightProperty = dynamicProperties[requiredWaveHeightPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
                                                                             "Resultaat",
                                                                             "Rekenwaarde Hs [m]",
-                                                                            "Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.",
+                                                                            "Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.",
                                                                             true);
 
             PropertyDescriptor wavePeriodProperty = dynamicProperties[requiredWavePeriodPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(wavePeriodProperty,
                                                                             "Resultaat",
                                                                             "Rekenwaarde Tp [s]",
-                                                                            "Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.",
+                                                                            "Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.",
                                                                             true);
 
             PropertyDescriptor d50Property = dynamicProperties[requiredD50PropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(d50Property,
                                                                             "Resultaat",
                                                                             "Rekenwaarde d50 [m]",
-                                                                            "Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.",
+                                                                            "Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.",
                                                                             true);
 
             PropertyDescriptor targetProbabilityProperty = dynamicProperties[requiredTargetProbabilityPropertyIndex];

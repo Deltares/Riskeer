@@ -208,7 +208,7 @@ namespace Riskeer.Piping.Plugin.Test.ImportInfos
 
             // Assert
             string expectedInquiryMessage = "Als u profielschematisaties importeert, " +
-                                            "dan worden alle rekenresultaten van dit toetsspoor verwijderd." +
+                                            "dan worden alle rekenresultaten van dit faalmechanisme verwijderd." +
                                             $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
             Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
             Assert.AreEqual(isActionConfirmed, updatesVerified);

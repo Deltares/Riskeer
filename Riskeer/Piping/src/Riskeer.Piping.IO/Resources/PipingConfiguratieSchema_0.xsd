@@ -63,7 +63,7 @@ All rights reserved.
   <!--Generieke definitie voor de standaardafwijking van een stochast.-->
   <xs:include schemaLocation="StochastStandaardafwijkingSchema.xsd"/>
 
-  <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
+  <!--Elementen die specifiek voor dit faalmechanisme nodig zijn.-->
   
   <!--Specificeert de keuze van een HB locatie of een waterstand.-->
   <xs:element name="hblocatie-of-waterstand" abstract="true" />

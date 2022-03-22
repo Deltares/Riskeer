@@ -154,7 +154,7 @@ INSERT INTO [LOGDATABASE].MigrationLogEntity (
 	[LogMessage])
 SELECT "17.2",
 	"17.3",
-	"* Alle berekende resultaten van het toetsspoor 'Macrostabiliteit binnenwaarts' zijn verwijderd."
+	"* Alle berekende resultaten van het faalmechanisme 'Macrostabiliteit binnenwaarts' zijn verwijderd."
 	FROM TempLogOutputDeleted
 	WHERE [NrDeleted] > 0
 	LIMIT 1;

@@ -190,7 +190,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("17.2", newVersion, "Gevolgen van de migratie van versie 17.2 naar versie 17.3:"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.2", newVersion, "* Alle berekende resultaten van het toetsspoor 'Macrostabiliteit binnenwaarts' zijn verwijderd."),
+                    new MigrationLogMessage("17.2", newVersion, "* Alle berekende resultaten van het faalmechanisme 'Macrostabiliteit binnenwaarts' zijn verwijderd."),
                     messages[i]);
             }
         }

@@ -69,7 +69,7 @@ All rights reserved.
     </xs:complexType>
   </xs:redefine>
 
-  <!--Herdefinieer stochastnamen. Voor dit toetsspoor zijn alleen de onderstaande
+  <!--Herdefinieer stochastnamen. Voor dit faalmechanisme zijn alleen de onderstaande
   namen voor stochasten toegestaan (en ze mogen ook maar maximaal 1 keer voorkomen).-->
   <xs:redefine schemaLocation="StochastSchema.xsd">
     <xs:simpleType name="nameType">
@@ -100,7 +100,7 @@ All rights reserved.
     </xs:simpleType>
   </xs:redefine>
 
-  <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
+  <!--Elementen die specifiek voor dit faalmechanisme nodig zijn.-->
   
   <!--Specificeert het gebruikte volumiek gewicht van water.-->
   <xs:element name="volumiekgewichtwater">

@@ -1078,7 +1078,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("17.1", newVersion, "Gevolgen van de migratie van versie 17.1 naar versie 17.2:"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.1", newVersion, "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' waarbij de waterstand handmatig is ingevuld."),
+                    new MigrationLogMessage("17.1", newVersion, "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' waarbij de waterstand handmatig is ingevuld."),
                     messages[i++]);
 
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(

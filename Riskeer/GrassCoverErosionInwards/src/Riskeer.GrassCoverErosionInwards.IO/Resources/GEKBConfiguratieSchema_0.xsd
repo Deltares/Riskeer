@@ -60,7 +60,7 @@ All rights reserved.
   <!--Generieke definitie voor golfreducerende parameters voor alle toetssporen.-->
   <xs:include schemaLocation="GolfReductieSchema.xsd"/>
 
-  <!--Herdefinieer stochastnamen. Voor dit toetsspoor zijn alleen de onderstaande
+  <!--Herdefinieer stochastnamen. Voor dit faalmechanisme zijn alleen de onderstaande
   namen voor stochasten toegestaan (en ze mogen ook maar maximaal 1 keer voorkomen).-->
   <xs:redefine schemaLocation="StochastSchema.xsd">
     <xs:simpleType name="nameType">
@@ -73,7 +73,7 @@ All rights reserved.
   <!--Generieke definitie voor de standaardafwijking van een stochast.-->
   <xs:include schemaLocation="StochastStandaardafwijkingSchema.xsd"/>
 
-  <!--Volgende elementen zijn specifiek voor dit toetsspoor.-->
+  <!--Volgende elementen zijn specifiek voor dit faalmechanisme.-->
   
   <!--Specificeert het geselecteerde dijkprofiel. In dit element moet de naam van
   het dijkprofiel zoals ook zichtbaar in Riskeer worden opgenomen.-->

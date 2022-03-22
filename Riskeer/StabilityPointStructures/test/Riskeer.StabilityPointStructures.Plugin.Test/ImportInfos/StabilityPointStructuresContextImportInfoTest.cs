@@ -275,7 +275,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ImportInfos
                 bool updatesVerified = importInfo.VerifyUpdates(context);
 
                 // Assert
-                string expectedInquiryMessage = "Als u kunstwerken importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd." +
+                string expectedInquiryMessage = "Als u kunstwerken importeert, dan worden alle rekenresultaten van dit faalmechanisme verwijderd." +
                                                 $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
                 Assert.AreEqual(isActionConfirmed, updatesVerified);

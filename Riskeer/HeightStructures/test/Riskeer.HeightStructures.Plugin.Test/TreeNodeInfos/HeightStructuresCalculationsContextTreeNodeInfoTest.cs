@@ -362,7 +362,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                   "Alles be&rekenen",
-                                                                  "Voer alle berekeningen binnen dit toetsspoor uit.",
+                                                                  "Voer alle berekeningen binnen dit faalmechanisme uit.",
                                                                   RiskeerCommonFormsResources.CalculateAllIcon);
                 }
             }
@@ -474,7 +474,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
                                                                   "Alles &valideren",
-                                                                  "Valideer alle berekeningen binnen dit toetsspoor.",
+                                                                  "Valideer alle berekeningen binnen dit faalmechanisme.",
                                                                   RiskeerCommonFormsResources.ValidateAllIcon);
                 }
             }

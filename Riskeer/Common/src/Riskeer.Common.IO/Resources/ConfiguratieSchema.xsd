@@ -51,12 +51,12 @@ All rights reserved.
   </xs:element>
 
   <!--Basisdefinitie van een berekening. De berekening maakt gebruik van het 
-  berekeningType. Bij definitie van een toetsspoor specifieke berekening 
+  berekeningType. Bij definitie van een faalmechanisme specifieke berekening 
   behoeft alleen het berekeningType te worden uitgebreid, niet deze berekening zelf.-->
   <xs:element name="berekening" type="berekeningType" />
 
   <!--Generieke definitie van een berekening, waarin het naam attribuut is opgenomen. 
-  Bij opname van een berekening in een toetsspoor specifieke xsd moet dit type 
+  Bij opname van een berekening in een faalmechanisme specifieke xsd moet dit type 
   worden uitgebreid met alle elementen die een berekening kan bevatten. Daarbij 
   is uitbreiding met de geselecteerde HB locatie niet nodig.-->
   <xs:complexType name="berekeningType">

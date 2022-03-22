@@ -127,7 +127,7 @@
     <value>Is convergentie bereikt in de berekening van de hydraulische belastingen voor de duinlocatie?</value>
   </data>
   <data name="DuneLocation_D50_Description" xml:space="preserve">
-    <value>Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>
+    <value>Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.</value>
   </data>
   <data name="DuneLocation_D50_DisplayName" xml:space="preserve">
     <value>Rekenwaarde d50 [m]</value>
@@ -139,19 +139,19 @@
     <value>Metrering [dam]</value>
   </data>
   <data name="DuneLocationCalculationOutput_WaterLevel_Description" xml:space="preserve">
-    <value>Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>
+    <value>Berekende rekenwaarde voor de waterstand voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.</value>
   </data>
   <data name="DuneLocationCalculationOutput_WaterLevel_DisplayName" xml:space="preserve">
     <value>Rekenwaarde waterstand [m+NAP]</value>
   </data>
   <data name="DuneLocationCalculationOutput_WaveHeight_Description" xml:space="preserve">
-    <value>Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>
+    <value>Berekende rekenwaarde voor de significante golfhoogte voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.</value>
   </data>
   <data name="DuneLocationCalculationOutput_WaveHeight_DisplayName" xml:space="preserve">
     <value>Rekenwaarde Hs [m]</value>
   </data>
   <data name="DuneLocationCalculationOutput_WavePeriod_Description" xml:space="preserve">
-    <value>Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het toetsspoor duinen.</value>
+    <value>Berekende rekenwaarde voor de piekperiode van de golven voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.</value>
   </data>
   <data name="DuneLocationCalculationOutput_WavePeriod_DisplayName" xml:space="preserve">
     <value>Rekenwaarde Tp [s]</value>

@@ -492,7 +492,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("17.3", newVersion, "Gevolgen van de migratie van versie 17.3 naar versie 18.1:"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "* Alle berekende resultaten zijn verwijderd, behalve die van het toetsspoor 'Piping' en 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."),
+                    new MigrationLogMessage("17.3", newVersion, "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' en 'Macrostabiliteit binnenwaarts' waarbij de waterstand handmatig is ingevuld."),
                     messages[i++]);
 
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
@@ -503,24 +503,24 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Hoogte kunstwerk'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Sterkte en stabiliteit langsconstructies'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
@@ -528,10 +528,10 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
@@ -539,10 +539,10 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
@@ -550,24 +550,24 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Macrostabiliteit binnenwaarts'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Macrostabiliteit buitenwaarts'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
@@ -575,14 +575,14 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden " +
                                                                 "omgezet naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
@@ -590,14 +590,14 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden " +
                                                                 "omgezet naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
@@ -605,14 +605,14 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden " +
                                                                 "omgezet naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
@@ -620,14 +620,14 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden " +
                                                                 "omgezet naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
@@ -635,14 +635,14 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden " +
                                                                 "omgezet naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
@@ -650,36 +650,36 @@ namespace Riskeer.Migration.Integration.Test
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten met de waarde 'Voldoende / Niet relevant' voor de eenvoudige toets " +
-                                                                "van dit toetsspoor zijn omgezet naar 'NVT'."),
+                                                                "van dit faalmechanisme zijn omgezet naar 'NVT'."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden " +
                                                                 "omgezet naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Stabiliteit steenzetting'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden " +
                                                                 "omgezet naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("17.3", newVersion, "  + Toetsspoor: 'Duinafslag'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit toetsspoor konden niet worden " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de gedetailleerde toets van dit faalmechanisme konden niet worden " +
                                                                 "omgezet naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit toetsspoor konden niet worden omgezet " +
+                    new MigrationLogMessage("17.3", newVersion, "    - Alle resultaten voor de toets op maat van dit faalmechanisme konden niet worden omgezet " +
                                                                 "naar een geldig resultaat en zijn verwijderd."),
                     messages[i++]);
 

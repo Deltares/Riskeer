@@ -68,10 +68,10 @@ All rights reserved.
   <!--Generieke definitie voor golfreducerende parameters voor alle toetssporen.-->
   <xs:include schemaLocation="GolfReductieSchema.xsd"/>
 
-  <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
+  <!--Elementen die specifiek voor dit faalmechanisme nodig zijn.-->
   
   <!--Specificeert de bovengrens van de bekleding (of maximale berekeningsrange 
-  voor het toetsen van de bekleding voor het specifieke toetsspoor).-->
+  voor het toetsen van de bekleding voor het specifieke faalmechanisme).-->
   <xs:element name="bovengrensbekleding">
     <xs:simpleType>
       <xs:restriction base="xs:double"/>
@@ -79,7 +79,7 @@ All rights reserved.
   </xs:element>
 
   <!--Specificeert de ondergrens van de bekleding (of maximale berekeningsrange 
-  voor het toetsen van de bekleding voor het specifieke toetsspoor).-->
+  voor het toetsen van de bekleding voor het specifieke faalmechanisme).-->
   <xs:element name="ondergrensbekleding">
     <xs:simpleType>
       <xs:restriction base="xs:double"/>

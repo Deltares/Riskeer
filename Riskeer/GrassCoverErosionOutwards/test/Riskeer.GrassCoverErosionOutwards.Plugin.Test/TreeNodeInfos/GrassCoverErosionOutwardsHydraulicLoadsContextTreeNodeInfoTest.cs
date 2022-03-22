@@ -256,7 +256,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
                                                                   "Alles be&rekenen",
-                                                                  "Voer alle berekeningen binnen dit toetsspoor uit.",
+                                                                  "Voer alle berekeningen binnen dit faalmechanisme uit.",
                                                                   RiskeerCommonFormsResources.CalculateAllIcon);
                 }
             }

@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -1146,7 +1146,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het toetsspoor..
+        ///   Looks up a localized string similar to Geïmporteerde data toevoegen aan het faalmechanisme..
         /// </summary>
         public static string Importer_ProgressText_Adding_imported_data_to_FailureMechanism {
             get {
@@ -1155,7 +1155,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bijwerken data in het toetsspoor..
+        ///   Looks up a localized string similar to Bijwerken data in het faalmechanisme..
         /// </summary>
         public static string Importer_ProgressText_Updating_data_in_data_model {
             get {
@@ -1487,7 +1487,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wissen rekenresultaten en vakindelingen van toetsspoor..
+        ///   Looks up a localized string similar to Wissen rekenresultaten en vakindelingen van faalmechanisme..
         /// </summary>
         public static string ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections {
             get {
@@ -2648,7 +2648,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u kunstwerken importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+        ///   Looks up a localized string similar to Als u kunstwerken importeert, dan worden alle rekenresultaten van dit faalmechanisme verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>

@@ -82,7 +82,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lengte van onafhankelijke dijkstrekkingen voor dit toetsspoor..
+        ///   Looks up a localized string similar to Lengte van onafhankelijke dijkstrekkingen voor dit faalmechanisme..
         /// </summary>
         public static string WaveImpactAsphaltCoverFailureMechanismProperties_DeltaL_Description {
             get {

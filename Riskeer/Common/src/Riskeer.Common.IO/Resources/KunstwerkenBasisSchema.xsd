@@ -42,11 +42,11 @@ All rights reserved.
   <!--Generieke definitie voor de variatiecoefficient van een stochast.-->
   <xs:include schemaLocation="StochastVariatiecoefficientSchema.xsd"/>
 
-  <!--Elementen die specifiek voor dit toetsspoor nodig zijn.-->
+  <!--Elementen die specifiek voor dit faalmechanisme nodig zijn.-->
   
   <!--Specificeert het geselecteerde kunstwerk. De inhoud van dit element moet
   gelijk zijn aan een van de namen van de geïmporteerde kunstwerken voor 
-  het betreffende toetsspoor.-->
+  het betreffende faalmechanisme.-->
   <xs:element name="kunstwerk">
     <xs:simpleType>
       <xs:restriction base="xs:string">

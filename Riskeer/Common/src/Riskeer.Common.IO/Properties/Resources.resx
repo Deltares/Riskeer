@@ -137,7 +137,7 @@ Er is geen referentielijn geïmporteerd.</value>
     <value>Inlezen referentielijn.</value>
   </data>
   <data name="ReferenceLineImporter_ProgressText_Removing_calculation_output_and_failure_mechanism_sections" xml:space="preserve">
-    <value>Wissen rekenresultaten en vakindelingen van toetsspoor.</value>
+    <value>Wissen rekenresultaten en vakindelingen van faalmechanisme.</value>
   </data>
   <data name="Shape_file_filter_Description" xml:space="preserve">
     <value>Shapebestand</value>
@@ -465,7 +465,7 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
     <value>De opgetelde lengte van de vakken moet overeenkomen met de trajectlengte</value>
   </data>
   <data name="Importer_ProgressText_Adding_imported_data_to_FailureMechanism" xml:space="preserve">
-    <value>Geïmporteerde data toevoegen aan het toetsspoor.</value>
+    <value>Geïmporteerde data toevoegen aan het faalmechanisme.</value>
   </data>
   <data name="Importer_ProgressText_Adding_imported_data_to_AssessmentSection" xml:space="preserve">
     <value>Geïmporteerde data toevoegen aan het traject.</value>
@@ -477,7 +477,7 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
     <value>Het XML-document dat de configuratie voor de berekeningen beschrijft, moet mappen en/of berekeningen bevatten.</value>
   </data>
   <data name="Importer_ProgressText_Updating_data_in_data_model" xml:space="preserve">
-    <value>Bijwerken data in het toetsspoor.</value>
+    <value>Bijwerken data in het faalmechanisme.</value>
   </data>
   <data name="Importer_ProgressText_Validating_imported_data" xml:space="preserve">
     <value>Valideren van ingelezen data.</value>
@@ -619,7 +619,7 @@ Er is geen berekeningenconfiguratie geïmporteerd.</value>
     <value>Het importeren van de {0} is mislukt: {{0}}. Geen gegevens gewijzigd.</value>
   </data>
   <data name="VerifyStructuresShouldUpdate_When_importing_Calculation_with_Structure_data_output_will_be_cleared_confirm" xml:space="preserve">
-    <value>Als u kunstwerken importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+    <value>Als u kunstwerken importeert, dan worden alle rekenresultaten van dit faalmechanisme verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
   </data>

@@ -289,7 +289,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
                 // Assert
                 Assert.AreEqual(isActionConfirmed, updatesVerified);
                 string expectedInquiryMessage = "Als u voorlandprofielen importeert, " +
-                                                "dan worden de  resultaten van alle berekeningen in dit toetsspoor " +
+                                                "dan worden de  resultaten van alle berekeningen in dit faalmechanisme " +
                                                 "die voorlandprofielen gebruiken verwijderd." +
                                                 $"{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedInquiryMessage, textBoxMessage);

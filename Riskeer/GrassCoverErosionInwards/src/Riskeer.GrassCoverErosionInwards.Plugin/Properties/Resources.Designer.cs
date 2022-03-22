@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -151,7 +151,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u dijkprofielen importeert, dan worden alle rekenresultaten van dit toetsspoor verwijderd.
+        ///   Looks up a localized string similar to Als u dijkprofielen importeert, dan worden alle rekenresultaten van dit faalmechanisme verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>

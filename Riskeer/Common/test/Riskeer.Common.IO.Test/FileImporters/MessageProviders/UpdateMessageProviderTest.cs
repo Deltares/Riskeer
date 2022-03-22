@@ -48,7 +48,7 @@ namespace Riskeer.Common.IO.Test.FileImporters.MessageProviders
             string message = messageProvider.GetAddDataToModelProgressText();
 
             // Assert
-            const string expectedMessage = "Bijwerken data in het toetsspoor.";
+            const string expectedMessage = "Bijwerken data in het faalmechanisme.";
             Assert.AreEqual(expectedMessage, message);
         }
 

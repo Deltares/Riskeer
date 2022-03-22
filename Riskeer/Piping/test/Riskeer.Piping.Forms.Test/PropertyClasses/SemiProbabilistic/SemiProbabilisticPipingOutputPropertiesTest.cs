@@ -229,7 +229,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses.SemiProbabilistic
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(pipingProbabilityProperty,
                                                                             pipingCategory,
                                                                             "Benaderde faalkans [1/jaar]",
-                                                                            "De benaderde kans dat het toetsspoor piping optreedt voor deze berekening.",
+                                                                            "De benaderde kans dat het faalmechanisme piping optreedt voor deze berekening.",
                                                                             true);
 
             PropertyDescriptor pipingReliabilityProperty = dynamicProperties[15];

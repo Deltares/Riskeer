@@ -100,7 +100,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ieder toetsspoor in de assemblage moet een vakindeling geïmporteerd hebben..
+        ///   Looks up a localized string similar to Ieder faalmechanisme in de assemblage moet een vakindeling geïmporteerd hebben..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_CommonFailureMechanismSectionsInvalid {
             get {

@@ -246,7 +246,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ImportInfos
 
                 // Assert
                 string expectedInquiryMessage = "Als u dijkprofielen importeert, " +
-                                                "dan worden alle rekenresultaten van dit toetsspoor " +
+                                                "dan worden alle rekenresultaten van dit faalmechanisme " +
                                                 $"verwijderd.{Environment.NewLine}{Environment.NewLine}Weet u zeker dat u wilt doorgaan?";
                 Assert.AreEqual(expectedInquiryMessage, textBoxMessage);
                 Assert.AreEqual(isActionConfirmed, updatesVerified);

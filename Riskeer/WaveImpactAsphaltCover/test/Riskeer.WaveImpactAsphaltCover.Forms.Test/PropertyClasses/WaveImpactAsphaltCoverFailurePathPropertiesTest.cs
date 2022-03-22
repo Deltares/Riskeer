@@ -155,7 +155,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(deltaLProperty,
                                                                             lengthEffectCategory,
                                                                             "ΔL [m]",
-                                                                            "Lengte van onafhankelijke dijkstrekkingen voor dit toetsspoor.");
+                                                                            "Lengte van onafhankelijke dijkstrekkingen voor dit faalmechanisme.");
 
             PropertyDescriptor nProperty = dynamicProperties[nPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nProperty,

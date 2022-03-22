@@ -134,7 +134,7 @@
     <value>Macrostabiliteit binnenwaarts</value>
   </data>
   <data name="MacroStabilityInwardsOutput_MacroStabilityInwardsProbability_Description" xml:space="preserve">
-    <value>De benaderde kans dat het toetsspoor macrostabiliteit binnenwaarts optreedt voor deze berekening.</value>
+    <value>De benaderde kans dat het faalmechanisme macrostabiliteit binnenwaarts optreedt voor deze berekening.</value>
   </data>
   <data name="MacroStabilityInwardsOutput_MacroStabilityInwardsProbability_DisplayName" xml:space="preserve">
     <value>Benaderde faalkans [1/jaar]</value>

@@ -545,7 +545,7 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u voorlandprofielen importeert, dan worden de  resultaten van alle berekeningen in dit toetsspoor die voorlandprofielen gebruiken verwijderd.
+        ///   Looks up a localized string similar to Als u voorlandprofielen importeert, dan worden de  resultaten van alle berekeningen in dit faalmechanisme die voorlandprofielen gebruiken verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
