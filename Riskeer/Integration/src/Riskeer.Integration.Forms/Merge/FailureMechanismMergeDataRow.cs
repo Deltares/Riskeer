@@ -21,35 +21,60 @@
 
 using System;
 using System.Linq;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Integration.Forms.Merge
 {
     /// <summary>
-    /// Row representing the information of a <see cref="IFailureMechanism"/> to be
+    /// Row representing the information of a <see cref="IFailurePath"/> to be
     /// used for merging.
     /// </summary>
-    internal class FailureMechanismMergeDataRow : FailurePathMergeDataRow
+    internal class FailureMechanismMergeDataRow
     {
-        private readonly IFailureMechanism failureMechanism;
-
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismMergeDataRow"/>.
         /// </summary>
-        /// <param name="failureMechanism">The wrapped <see cref="IFailureMechanism"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// <param name="failurePath">The wrapped <see cref="IFailurePath"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/>
         /// is <c>null</c>.</exception>
-        public FailureMechanismMergeDataRow(IFailureMechanism failureMechanism) : base(failureMechanism)
+        public FailureMechanismMergeDataRow(IFailurePath failurePath)
         {
-            this.failureMechanism = failureMechanism;
+            if (failurePath == null)
+            {
+                throw new ArgumentNullException(nameof(failurePath));
+            }
+
+            FailurePath = failurePath;
         }
 
-        public override int NumberOfCalculations
-        {
-            get
-            {
-                return failureMechanism.Calculations.Count();
-            }
-        }
+        /// <summary>
+        /// Gets the wrapped <see cref="IFailurePath"/> of the row.
+        /// </summary>
+        public IFailurePath FailurePath { get; }
+
+        /// <summary>
+        /// Gets and sets whether the failure path is selected to be merged.
+        /// </summary>
+        public bool IsSelected { get; set; }
+
+        /// <summary>
+        /// Gets the name of the failure path.
+        /// </summary>
+        public string Name => FailurePath.Name;
+
+        /// <summary>
+        /// Gets indicator whether the failure path is marked as part of the assembly.
+        /// </summary>
+        public bool InAssembly => FailurePath.InAssembly;
+
+        /// <summary>
+        /// Gets indicator whether the failure path has sections.
+        /// </summary>
+        public bool HasSections => FailurePath.Sections.Any();
+
+        /// <summary>
+        /// Gets the amount of calculations that are contained by the failure path.
+        /// </summary>
+        public virtual int NumberOfCalculations => 0;
     }
 }

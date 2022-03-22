@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Merge
     /// </summary>
     public partial class AssessmentSectionMergeDataProviderDialog : DialogBase, IAssessmentSectionMergeDataProvider
     {
-        private FailurePathMergeDataRow[] failurePathMergeDataRows;
+        private FailureMechanismMergeDataRow[] failurePathMergeDataRows;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionMergeDataProviderDialog"/>.
@@ -110,18 +110,18 @@ namespace Riskeer.Integration.Forms.Merge
 
         private void InitializeDataGridView()
         {
-            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.IsSelected),
+            dataGridViewControl.AddCheckBoxColumn(nameof(CalculatableFailureMechanismMergeDataRow.IsSelected),
                                                   Resources.FailureMechanismMergeDataRow_IsSelected_DisplayName);
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.Name),
+            dataGridViewControl.AddTextBoxColumn(nameof(CalculatableFailureMechanismMergeDataRow.Name),
                                                  Resources.FailureMechanism_Name_DisplayName,
                                                  true);
-            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.InAssembly),
+            dataGridViewControl.AddCheckBoxColumn(nameof(CalculatableFailureMechanismMergeDataRow.InAssembly),
                                                   RiskeerCommonFormsResources.FailurePath_InAssembly_DisplayName,
                                                   true);
-            dataGridViewControl.AddCheckBoxColumn(nameof(FailureMechanismMergeDataRow.HasSections),
+            dataGridViewControl.AddCheckBoxColumn(nameof(CalculatableFailureMechanismMergeDataRow.HasSections),
                                                   Resources.FailureMechanismMergeDataRow_HasSections_DisplayName,
                                                   true);
-            dataGridViewControl.AddTextBoxColumn(nameof(FailureMechanismMergeDataRow.NumberOfCalculations),
+            dataGridViewControl.AddTextBoxColumn(nameof(CalculatableFailureMechanismMergeDataRow.NumberOfCalculations),
                                                  Resources.FailureMechanismMergeDataRow_NumberOfCalculations_DisplayName,
                                                  true);
         }
@@ -152,23 +152,23 @@ namespace Riskeer.Integration.Forms.Merge
         {
             failurePathMergeDataRows = new[]
                                        {
-                                           new FailureMechanismMergeDataRow(assessmentSection.Piping),
-                                           new FailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionInwards),
-                                           new FailureMechanismMergeDataRow(assessmentSection.MacroStabilityInwards),
+                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.Piping),
+                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionInwards),
+                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.MacroStabilityInwards),
                                            new FailureMechanismMergeDataRow(assessmentSection.Microstability),
-                                           new FailureMechanismMergeDataRow(assessmentSection.StabilityStoneCover),
-                                           new FailureMechanismMergeDataRow(assessmentSection.WaveImpactAsphaltCover),
+                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.StabilityStoneCover),
+                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.WaveImpactAsphaltCover),
                                            new FailureMechanismMergeDataRow(assessmentSection.WaterPressureAsphaltCover),
-                                           new FailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionOutwards),
+                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionOutwards),
                                            new FailureMechanismMergeDataRow(assessmentSection.GrassCoverSlipOffOutwards),
                                            new FailureMechanismMergeDataRow(assessmentSection.GrassCoverSlipOffInwards),
-                                           new FailureMechanismMergeDataRow(assessmentSection.HeightStructures),
-                                           new FailureMechanismMergeDataRow(assessmentSection.ClosingStructures),
+                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.HeightStructures),
+                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.ClosingStructures),
                                            new FailureMechanismMergeDataRow(assessmentSection.PipingStructure),
-                                           new FailureMechanismMergeDataRow(assessmentSection.StabilityPointStructures),
+                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.StabilityPointStructures),
                                            new FailureMechanismMergeDataRow(assessmentSection.DuneErosion)
                                        }
-                                       .Concat(assessmentSection.SpecificFailurePaths.Select(fp => new FailurePathMergeDataRow(fp)))
+                                       .Concat(assessmentSection.SpecificFailurePaths.Select(fp => new FailureMechanismMergeDataRow(fp)))
                                        .ToArray();
 
             dataGridViewControl.SetDataSource(failurePathMergeDataRows);
