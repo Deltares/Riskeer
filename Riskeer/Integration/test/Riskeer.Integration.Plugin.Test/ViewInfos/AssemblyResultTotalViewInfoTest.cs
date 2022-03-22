@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             string viewName = info.GetViewName(null, null);
 
             // Assert
-            Assert.AreEqual("Gecombineerd toetsoordeel", viewName);
+            Assert.AreEqual("Gecombineerde faalkans", viewName);
         }
 
         [Test]

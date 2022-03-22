@@ -1018,11 +1018,11 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gecombineerd toetsoordeel.
+        ///   Looks up a localized string similar to Gecombineerde faalkans.
         /// </summary>
-        public static string CombinedAssembly_DisplayName {
+        public static string CombinedFailureProbability_DisplayName {
             get {
-                return ResourceManager.GetString("CombinedAssembly_DisplayName", resourceCulture);
+                return ResourceManager.GetString("CombinedFailureProbability_DisplayName", resourceCulture);
             }
         }
         

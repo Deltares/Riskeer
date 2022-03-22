@@ -1399,8 +1399,8 @@ berekende kans
     <data name="AssessmentSectionAssemblyGroups_DisplayName" xml:space="preserve">
     <value>Normklassen</value>
   </data>
-    <data name="CombinedAssembly_DisplayName" xml:space="preserve">
-    <value>Gecombineerd toetsoordeel</value>
+    <data name="CombinedFailureProbability_DisplayName" xml:space="preserve">
+    <value>Gecombineerde faalkans</value>
   </data>
     <data name="CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayName"
           xml:space="preserve">
