@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.MacroStabilityInwards.Data.Properties;
@@ -48,6 +49,7 @@ namespace Riskeer.MacroStabilityInwards.Data
             {
                 Name = RiskeerCommonDataResources.FailureMechanism_Calculations_DisplayName
             };
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -74,5 +76,7 @@ namespace Riskeer.MacroStabilityInwards.Data
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
         public CalculationGroup CalculationsGroup { get; }
+
+        public Comment CalculationsInputComments { get; }
     }
 }

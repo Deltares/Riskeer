@@ -50,6 +50,7 @@ namespace Riskeer.HeightStructures.Data
             GeneralInput = new GeneralHeightStructuresInput();
             HeightStructures = new StructureCollection<HeightStructure>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -73,5 +74,7 @@ namespace Riskeer.HeightStructures.Data
         /// Gets the container of all calculations.
         /// </summary>
         public CalculationGroup CalculationsGroup { get; }
+
+        public Comment CalculationsInputComments { get; }
     }
 }

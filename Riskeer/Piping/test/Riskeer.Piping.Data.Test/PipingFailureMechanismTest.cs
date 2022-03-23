@@ -57,6 +57,8 @@ namespace Riskeer.Piping.Data.Test
 
             Assert.AreEqual(PipingScenarioConfigurationType.SemiProbabilistic, failureMechanism.ScenarioConfigurationType);
             CollectionAssert.IsEmpty(failureMechanism.ScenarioConfigurationsPerFailureMechanismSection);
+
+            Assert.IsNotNull(failureMechanism.CalculationsInputComments);
         }
 
         [Test]

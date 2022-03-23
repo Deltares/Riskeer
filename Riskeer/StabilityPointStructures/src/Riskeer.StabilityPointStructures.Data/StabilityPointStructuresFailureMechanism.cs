@@ -51,6 +51,7 @@ namespace Riskeer.StabilityPointStructures.Data
             GeneralInput = new GeneralStabilityPointStructuresInput();
             StabilityPointStructures = new StructureCollection<StabilityPointStructure>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -71,5 +72,7 @@ namespace Riskeer.StabilityPointStructures.Data
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>();
 
         public CalculationGroup CalculationsGroup { get; }
+
+        public Comment CalculationsInputComments { get; }
     }
 }

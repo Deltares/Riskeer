@@ -52,6 +52,8 @@ namespace Riskeer.ClosingStructures.Data
             GeneralInput = new GeneralClosingStructuresInput();
             ClosingStructures = new StructureCollection<ClosingStructure>();
             ForeshoreProfiles = new ForeshoreProfileCollection();
+
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -72,5 +74,7 @@ namespace Riskeer.ClosingStructures.Data
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
 
         public CalculationGroup CalculationsGroup { get; }
+
+        public Comment CalculationsInputComments { get; }
     }
 }

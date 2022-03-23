@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
+using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.DuneErosion.Data;
 using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
@@ -44,6 +45,8 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
         internal static FailureMechanismEntity Create(this DuneErosionFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.DuneErosion, registry);
+            entity.CalculationsInputComments = mechanism.CalculationsInputComments.Body.DeepClone();
+
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForDuneLocations(mechanism.DuneLocations, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism, entity, registry);

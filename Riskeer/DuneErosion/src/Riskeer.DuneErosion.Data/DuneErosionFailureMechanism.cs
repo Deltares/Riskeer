@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Riskeer.Common.Data;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.DuneErosion.Data.Properties;
 
@@ -44,6 +45,7 @@ namespace Riskeer.DuneErosion.Data
         {
             GeneralInput = new GeneralDuneErosionInput();
             DuneLocationCalculationsForUserDefinedTargetProbabilities = new ObservableList<DuneLocationCalculationsForTargetProbability>();
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -60,6 +62,11 @@ namespace Riskeer.DuneErosion.Data
         /// Gets the dune location calculations corresponding to the user defined target probabilities.
         /// </summary>
         public ObservableList<DuneLocationCalculationsForTargetProbability> DuneLocationCalculationsForUserDefinedTargetProbabilities { get; }
+
+        /// <summary>
+        /// Gets the input comments associated with the calculations of the data object.
+        /// </summary>
+        public Comment CalculationsInputComments { get; }
 
         /// <summary>
         /// Sets dune locations and calculations for the failure mechanism.

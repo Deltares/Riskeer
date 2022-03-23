@@ -61,8 +61,6 @@ namespace Riskeer.Common.Data.FailureMechanism
             InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
 
-            CalculationsInputComments = new Comment();
-
             AssemblyResult = new FailurePathAssemblyResult();
             sectionResults = new ObservableList<T>();
         }
@@ -70,8 +68,6 @@ namespace Riskeer.Common.Data.FailureMechanism
         public string Name { get; }
 
         public string Code { get; }
-
-        public Comment CalculationsInputComments { get; }
 
         public IEnumerable<FailureMechanismSection> Sections => sectionCollection;
 

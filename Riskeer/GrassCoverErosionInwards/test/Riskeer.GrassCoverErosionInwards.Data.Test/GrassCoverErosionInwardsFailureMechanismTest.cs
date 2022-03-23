@@ -56,6 +56,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.DikeProfiles);
 
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+
+            Assert.IsNotNull(failureMechanism.CalculationsInputComments);
         }
 
         [Test]

@@ -46,6 +46,8 @@ namespace Riskeer.DuneErosion.Data.Test
             Assert.IsNotNull(failureMechanism.GeneralInput);
 
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+
+            Assert.IsNotNull(failureMechanism.CalculationsInputComments);
         }
 
         [Test]

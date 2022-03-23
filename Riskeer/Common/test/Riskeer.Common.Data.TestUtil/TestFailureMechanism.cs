@@ -69,9 +69,12 @@ namespace Riskeer.Common.Data.TestUtil
             CalculationsGroup = new CalculationGroup();
             CalculationsGroup.Children.AddRange(calculations);
             GeneralInput = new GeneralInput();
+            CalculationsInputComments = new Comment();
         }
 
         public CalculationGroup CalculationsGroup { get; }
+
+        public Comment CalculationsInputComments { get; }
 
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 

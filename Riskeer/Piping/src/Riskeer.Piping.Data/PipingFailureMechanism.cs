@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.Base;
+using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Piping.Data.SoilProfile;
@@ -53,6 +54,7 @@ namespace Riskeer.Piping.Data
 
             ScenarioConfigurationType = PipingScenarioConfigurationType.SemiProbabilistic;
             scenarioConfigurationsPerFailureMechanismSection = new ObservableList<PipingScenarioConfigurationPerFailureMechanismSection>();
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -90,6 +92,8 @@ namespace Riskeer.Piping.Data
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
         public CalculationGroup CalculationsGroup { get; }
+
+        public Comment CalculationsInputComments { get; }
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {

@@ -27,6 +27,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
@@ -368,6 +369,8 @@ namespace Riskeer.Common.Forms.Test.Views
             public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
             public CalculationGroup CalculationsGroup { get; }
+
+            public Comment CalculationsInputComments { get; }
         }
     }
 }

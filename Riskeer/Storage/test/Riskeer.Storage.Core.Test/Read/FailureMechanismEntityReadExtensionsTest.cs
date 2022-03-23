@@ -431,14 +431,20 @@ namespace Riskeer.Storage.Core.Test.Read
         #region Dune Erosion
 
         [Test]
-        public void ReadAsDuneErosionFailureMechanism_WithMeta_ReturnFailureMechanismWithGeneralInputSet()
+        public void ReadAsDuneErosionFailureMechanism_WithProperties_SetsFailureMechanismWithProperties()
         {
             // Setup
             const int generalInputN = 3;
 
+            var random = new Random(31);
+            bool inAssembly = random.NextBoolean();
             var entity = new FailureMechanismEntity
             {
-                CalculationGroupEntity = new CalculationGroupEntity(),
+                InAssembly = Convert.ToByte(inAssembly),
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
+                NotInAssemblyComments = "Really not in assembly",
+                CalculationsInputComments = "Some calculation text",
                 DuneErosionFailureMechanismMetaEntities =
                 {
                     new DuneErosionFailureMechanismMetaEntity
@@ -454,6 +460,13 @@ namespace Riskeer.Storage.Core.Test.Read
             entity.ReadAsDuneErosionFailureMechanism(failureMechanism, collector);
 
             // Assert
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(entity.CalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+
             Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.N.GetAccuracy());
         }
 

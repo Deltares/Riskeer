@@ -797,6 +797,8 @@ namespace Riskeer.Storage.Core.Read
                                                                ReadConversionCollector collector)
         {
             entity.ReadCommonFailurePathProperties(failureMechanism, collector);
+            failureMechanism.CalculationsInputComments.Body = entity.CalculationsInputComments;
+
             entity.ReadDuneErosionMechanismSectionResults(failureMechanism, collector);
             entity.ReadGeneralDuneErosionInput(failureMechanism.GeneralInput);
             entity.ReadDuneLocations(failureMechanism, collector);

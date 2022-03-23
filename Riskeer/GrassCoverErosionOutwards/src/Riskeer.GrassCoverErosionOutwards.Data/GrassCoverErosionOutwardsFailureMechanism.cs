@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -48,6 +49,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
                 Name = RiskeerCommonDataResources.HydraulicBoundaryConditions_DisplayName
             };
             ForeshoreProfiles = new ForeshoreProfileCollection();
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -63,5 +65,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>();
 
         public CalculationGroup CalculationsGroup { get; }
+
+        public Comment CalculationsInputComments { get; }
     }
 }

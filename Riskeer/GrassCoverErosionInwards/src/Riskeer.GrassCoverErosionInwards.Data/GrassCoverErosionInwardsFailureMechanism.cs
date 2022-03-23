@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
@@ -47,6 +48,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             };
             GeneralInput = new GeneralGrassCoverErosionInwardsInput();
             DikeProfiles = new DikeProfileCollection();
+            CalculationsInputComments = new Comment();
         }
 
         /// <summary>
@@ -62,5 +64,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
 
         public CalculationGroup CalculationsGroup { get; }
+
+        public Comment CalculationsInputComments { get; }
     }
 }

@@ -50,6 +50,8 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             Assert.IsNotNull(failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput);
 
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+
+            Assert.IsNotNull(failureMechanism.CalculationsInputComments);
         }
 
         [Test]

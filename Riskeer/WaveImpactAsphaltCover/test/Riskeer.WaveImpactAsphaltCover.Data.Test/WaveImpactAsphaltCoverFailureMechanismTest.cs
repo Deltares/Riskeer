@@ -52,6 +52,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
 
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+
+            Assert.IsNotNull(failureMechanism.CalculationsInputComments);
         }
 
         [Test]
