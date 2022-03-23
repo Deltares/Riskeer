@@ -2320,6 +2320,7 @@
 			</smartfoldernode>
 			<smartfoldernode
 			datasource="script29c_LayersInMapViewForAssemblyCombinedAssessmentSection"
+			errorbehavior="ContinueNextIteration"
 			id="ad657d77-3a36-4994-929f-4320b7dd154f"
 			name="LoopValidateThatEachLayerExists">
 				<parameters>
@@ -5437,7 +5438,7 @@
 				</tr>
 				<tr>
 					<td>
-						Assemblagekaart&gt;Gecombineerd vakoordeel
+						Assemblagekaart&gt;Duiding bijdrage per deelvak
 					</td>
 				</tr>
 				<tr>
