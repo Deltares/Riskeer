@@ -286,13 +286,13 @@ belastingen</value>
   </data>
     <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_semi_probabilistic_data"
           xml:space="preserve">
-        <value>Als u de norm aanpast, dan worden de rekenresultaten van semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd.
+        <value>Als u de norm aanpast, dan worden de rekenresultaten van semi-probabilistische berekeningen zonder handmatige waterstand verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
     </data>
     <data name="FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_hydraulic_calculations_data_and_semi_probabilistic_data"
           xml:space="preserve">
-        <value>Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm en semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd.
+        <value>Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm en semi-probabilistische berekeningen zonder handmatige waterstand verwijderd.
 
 Weet u zeker dat u wilt doorgaan?</value>
     </data>

@@ -332,7 +332,7 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm en semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd.
+        ///   Looks up a localized string similar to Als u de norm aanpast, dan worden de rekenresultaten van alle hydraulische belastingenlocaties behorende bij deze norm en semi-probabilistische berekeningen zonder handmatige waterstand verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
@@ -344,7 +344,7 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Als u de norm aanpast, dan worden de rekenresultaten van semi-probabilistische berekeningen zonder handmatig toetspeil verwijderd.
+        ///   Looks up a localized string similar to Als u de norm aanpast, dan worden de rekenresultaten van semi-probabilistische berekeningen zonder handmatige waterstand verwijderd.
         ///
         ///Weet u zeker dat u wilt doorgaan?.
         /// </summary>
