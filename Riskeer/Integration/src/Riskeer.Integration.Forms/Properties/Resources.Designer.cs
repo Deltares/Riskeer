@@ -934,7 +934,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vaknummer.
+        ///   Looks up a localized string similar to Deelvaknummer.
         /// </summary>
         public static string SectionNumber_DisplayName {
             get {

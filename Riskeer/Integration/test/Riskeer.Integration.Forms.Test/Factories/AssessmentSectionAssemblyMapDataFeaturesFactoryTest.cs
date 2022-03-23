@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
                                                 mapGeometry);
 
                     Assert.AreEqual(2, actualFeature.MetaData.Keys.Count);
-                    Assert.AreEqual(expectedAssemblyResult.SectionNumber, actualFeature.MetaData["Vaknummer"]);
+                    Assert.AreEqual(expectedAssemblyResult.SectionNumber, actualFeature.MetaData["Deelvaknummer"]);
                     Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(expectedAssemblyResult.TotalResult),
                                     features.ElementAt(i).MetaData["Duidingsklasse"]);
                 }

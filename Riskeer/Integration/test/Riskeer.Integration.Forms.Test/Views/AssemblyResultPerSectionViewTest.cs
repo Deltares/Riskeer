@@ -516,7 +516,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
         private static void AssertDefaultColumns(DataGridViewColumnCollection dataGridViewColumns)
         {
-            AssertColumn(dataGridViewColumns[sectionNumberColumnIndex], "Vaknummer");
+            AssertColumn(dataGridViewColumns[sectionNumberColumnIndex], "Deelvaknummer");
             AssertColumn(dataGridViewColumns[sectionStartColumnIndex], "Metrering van* [m]");
             AssertColumn(dataGridViewColumns[sectionEndColumnIndex], "Metrering tot* [m]");
             AssertColumn(dataGridViewColumns[sectionTotalAssemblyResultColumnIndex], "Duidingsklasse");
