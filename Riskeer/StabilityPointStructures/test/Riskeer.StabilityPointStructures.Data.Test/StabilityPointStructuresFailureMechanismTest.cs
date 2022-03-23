@@ -54,6 +54,8 @@ namespace Riskeer.StabilityPointStructures.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
 
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+
+            Assert.IsNotNull(failureMechanism.CalculationsInputComments);
         }
 
         [Test]

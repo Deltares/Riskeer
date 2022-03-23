@@ -130,7 +130,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadCommonFailurePathProperties(failureMechanism, collector);
 
             // Assert
             Assert.IsNull(failureMechanism.InAssemblyInputComments.Body);
@@ -160,7 +160,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            entity.ReadCommonFailurePathProperties(failureMechanism, collector);
 
             // Assert
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
@@ -172,11 +172,11 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
-            void Call() => ((FailureMechanismEntity) null).ReadCommonFailurePathProperties(failureMechanism, new ReadConversionCollector());
+            void Call() => ((FailureMechanismEntity) null).ReadCommonFailureMechanismProperties(failureMechanism, new ReadConversionCollector());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -203,13 +203,13 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var entity = new FailureMechanismEntity();
 
             // Call
-            void Call() => entity.ReadCommonFailurePathProperties(failureMechanism, null);
+            void Call() => entity.ReadCommonFailureMechanismProperties(failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
