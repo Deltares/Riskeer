@@ -277,7 +277,7 @@
     <value>Waterstand bij doelkans</value>
   </data>
   <data name="WaveConditionsInput_SelectedTargetProbability_DisplayName" xml:space="preserve">
-    <value>Doelkans (1/jaar)</value>
+    <value>Doelkans [1/jaar]</value>
   </data>
   <data name="WaveConditionsInput_SelectedTargetProbability_Description" xml:space="preserve">
     <value>Overschrijdingskans waarvoor de berekening moet worden uitgevoerd.</value>

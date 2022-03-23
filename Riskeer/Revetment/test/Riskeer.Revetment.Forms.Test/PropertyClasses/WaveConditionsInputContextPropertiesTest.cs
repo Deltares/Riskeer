@@ -267,7 +267,7 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             PropertyDescriptor selectedTargetProbabilityProperty = dynamicProperties[selectedTargetProbabilityPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(selectedTargetProbabilityProperty,
                                                                             hydraulicParametersCategory,
-                                                                            "Doelkans (1/jaar)",
+                                                                            "Doelkans [1/jaar]",
                                                                             "Overschrijdingskans waarvoor de berekening moet worden uitgevoerd.");
 
             PropertyDescriptor assessmentLevelProperty = dynamicProperties[assessmentLevelPropertyIndex];
