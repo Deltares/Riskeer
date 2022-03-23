@@ -1399,7 +1399,7 @@
 				<parameters>
 					<param
 					name="pathInputFiles"
-					value="X:\script09\input\">
+					value="X:\script09\source\">
 					</param>
 					<param
 					name="searchFilterAllFiles"
@@ -5089,9 +5089,6 @@
 					filesRemovedElements
 				</column>
 				<column>
-					StateCalculations
-				</column>
-				<column>
 					pathToSchematizationsFolderItemInProjectExplorer
 				</column>
 				<column>
@@ -5151,9 +5148,6 @@
 						filesRemovedElements
 					</th>
 					<th>
-						StateCalculations
-					</th>
-					<th>
 						pathToSchematizationsFolderItemInProjectExplorer
 					</th>
 					<th>
@@ -5210,9 +5204,6 @@
 						X:\script09\01_GEKB_12-2\removed
 					</td>
 					<td>
-						Sterkte
-					</td>
-					<td>
 						12-2&gt;@GEKB&gt;Invoer&gt;Dijkprofielen
 					</td>
 					<td>
@@ -5264,9 +5255,6 @@
 					</td>
 					<td>
 						X:\script09\02_ZST_28-1\removed
-					</td>
-					<td>
-						Hydraulische
 					</td>
 					<td>
 						28-1&gt;@ZST&gt;Invoer&gt;Voorlandprofielen
@@ -5324,9 +5312,6 @@
 						X:\script09\03_AGK_8-3\removed
 					</td>
 					<td>
-						Hydraulische
-					</td>
-					<td>
 						8-3&gt;@AGK&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
@@ -5380,9 +5365,6 @@
 					</td>
 					<td>
 						X:\script09\04_GEBU_6-6\removed
-					</td>
-					<td>
-						Hydraulische
 					</td>
 					<td>
 						6-6&gt;@GEBU&gt;Invoer&gt;Voorlandprofielen
@@ -5440,9 +5422,6 @@
 						X:\script09\05_HTKW_36-2\removed
 					</td>
 					<td>
-						Sterkte
-					</td>
-					<td>
 						36-2&gt;@HTKW&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
@@ -5496,9 +5475,6 @@
 						X:\script09\06_BSKW_34-1\removed
 					</td>
 					<td>
-						Sterkte
-					</td>
-					<td>
 						34-1&gt;@BSKW&gt;Invoer&gt;Voorlandprofielen
 					</td>
 					<td>
@@ -5550,9 +5526,6 @@
 					</td>
 					<td>
 						X:\script09\07_STKWp_44-2\removed
-					</td>
-					<td>
-						Sterkte
 					</td>
 					<td>
 						44-2&gt;@STKWp&gt;Invoer&gt;Voorlandprofielen
