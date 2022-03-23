@@ -119,13 +119,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerLevelNormProperty,
                                                                             expectedCategory,
                                                                             "Omgevingswaarde [1/jaar]",
-                                                                            "De maximale toelaatbare overstromingskans van het dijktraject.");
+                                                                            "De maximale toelaatbare overstromingskans van het traject.");
 
             PropertyDescriptor signalingNormProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(signalingNormProperty,
                                                                             expectedCategory,
                                                                             "Signaleringsparameter [1/jaar]",
-                                                                            "De overstromingskans voor de signalering over de veiligheid van het dijktraject.");
+                                                                            "De overstromingskans voor de signalering over de veiligheid van het traject.");
 
             PropertyDescriptor normativeNormProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(normativeNormProperty,

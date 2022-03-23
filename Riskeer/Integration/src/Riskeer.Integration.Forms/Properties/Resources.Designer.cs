@@ -843,7 +843,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De maximale toelaatbare overstromingskans van het dijktraject..
+        ///   Looks up a localized string similar to De maximale toelaatbare overstromingskans van het traject..
         /// </summary>
         public static string MaximumAllowableFloodingProbability_Description {
             get {
@@ -943,7 +943,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De overstromingskans voor de signalering over de veiligheid van het dijktraject..
+        ///   Looks up a localized string similar to De overstromingskans voor de signalering over de veiligheid van het traject..
         /// </summary>
         public static string SignalFloodingProbability_Description {
             get {

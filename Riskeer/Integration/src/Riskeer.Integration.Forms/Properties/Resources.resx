@@ -218,7 +218,7 @@
     <value>WMTS</value>
   </data>
   <data name="MaximumAllowableFloodingProbability_Description" xml:space="preserve">
-    <value>De maximale toelaatbare overstromingskans van het dijktraject.</value>
+    <value>De maximale toelaatbare overstromingskans van het traject.</value>
   </data>
   <data name="MaximumAllowableFloodingProbability_DisplayName" xml:space="preserve">
     <value>Omgevingswaarde [1/jaar]</value>
@@ -230,7 +230,7 @@
     <value>Rekenwaarde voor waterstanden</value>
   </data>
   <data name="SignalFloodingProbability_Description" xml:space="preserve">
-    <value>De overstromingskans voor de signalering over de veiligheid van het dijktraject.</value>
+    <value>De overstromingskans voor de signalering over de veiligheid van het traject.</value>
   </data>
   <data name="SignalFloodingProbability_DisplayName" xml:space="preserve">
     <value>Signaleringsparameter [1/jaar]</value>
