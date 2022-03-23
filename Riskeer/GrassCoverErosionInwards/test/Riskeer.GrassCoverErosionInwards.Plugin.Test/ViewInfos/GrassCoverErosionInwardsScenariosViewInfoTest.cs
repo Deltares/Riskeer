@@ -27,7 +27,6 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionInwards.Forms.Views;

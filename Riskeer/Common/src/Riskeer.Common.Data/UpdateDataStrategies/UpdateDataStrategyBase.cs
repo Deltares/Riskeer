@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Core.Common.Util;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Properties;
 
 namespace Riskeer.Common.Data.UpdateDataStrategies

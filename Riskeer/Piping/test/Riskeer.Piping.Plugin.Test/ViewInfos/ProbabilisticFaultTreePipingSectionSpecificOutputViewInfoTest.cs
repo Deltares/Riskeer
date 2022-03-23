@@ -26,7 +26,6 @@ using Core.Gui.Plugin;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;

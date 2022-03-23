@@ -8,7 +8,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.IO.FileImporters;
 using Riskeer.Integration.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -168,7 +167,6 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-
 
             const string expectedFilePath = "path";
             var failurePath = new SpecificFailurePath();

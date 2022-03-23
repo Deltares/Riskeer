@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;

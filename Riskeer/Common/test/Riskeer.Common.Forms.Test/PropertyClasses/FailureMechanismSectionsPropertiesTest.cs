@@ -30,7 +30,6 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PropertyClasses;
 

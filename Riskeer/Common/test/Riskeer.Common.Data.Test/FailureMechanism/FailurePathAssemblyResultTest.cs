@@ -23,9 +23,9 @@ using System;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.FailureMechanism;
 
-namespace Riskeer.Common.Data.Test.FailurePath
+namespace Riskeer.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
     public class FailurePathAssemblyResultTest
@@ -38,7 +38,7 @@ namespace Riskeer.Common.Data.Test.FailurePath
 
             // Assert
             Assert.IsInstanceOf<Observable>(result);
-            
+
             Assert.AreEqual(FailurePathAssemblyProbabilityResultType.Automatic, result.ProbabilityResultType);
             Assert.IsNaN(result.ManualFailurePathAssemblyProbability);
         }

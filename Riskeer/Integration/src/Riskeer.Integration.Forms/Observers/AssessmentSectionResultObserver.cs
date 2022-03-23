@@ -26,7 +26,6 @@ using Core.Common.Base;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.Observers;
 using Riskeer.DuneErosion.Data;

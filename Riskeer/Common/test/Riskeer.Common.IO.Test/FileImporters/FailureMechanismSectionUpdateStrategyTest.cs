@@ -29,7 +29,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.IO.FileImporters;
 

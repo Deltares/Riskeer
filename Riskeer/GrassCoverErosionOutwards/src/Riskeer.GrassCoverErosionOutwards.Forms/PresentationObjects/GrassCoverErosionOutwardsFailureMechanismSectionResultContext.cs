@@ -23,7 +23,6 @@ using System;
 using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Data;
 

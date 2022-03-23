@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Integration.Data;
 using Riskeer.Storage.Core.Create.ClosingStructures;

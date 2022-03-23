@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Helpers

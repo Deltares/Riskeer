@@ -21,7 +21,7 @@
 
 using System;
 using System.Collections.Generic;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Integration.Data.Merge
 {

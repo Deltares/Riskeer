@@ -25,7 +25,6 @@ using Core.Common.Base;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.MapLayers
 {

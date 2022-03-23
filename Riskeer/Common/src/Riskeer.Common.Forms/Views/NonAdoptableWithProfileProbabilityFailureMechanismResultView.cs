@@ -24,7 +24,6 @@ using Core.Common.Base;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Builders;
 using Riskeer.Common.Forms.Providers;
 

@@ -31,7 +31,6 @@ using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Exceptions;
 using Riskeer.Common.Forms.Helpers;
 

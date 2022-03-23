@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.TestUtil
 {

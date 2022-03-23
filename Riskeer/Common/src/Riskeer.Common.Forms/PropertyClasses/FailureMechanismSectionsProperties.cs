@@ -27,7 +27,6 @@ using Core.Gui.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 

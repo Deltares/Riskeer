@@ -24,7 +24,6 @@ using System.Linq;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.AssemblyTool
 {

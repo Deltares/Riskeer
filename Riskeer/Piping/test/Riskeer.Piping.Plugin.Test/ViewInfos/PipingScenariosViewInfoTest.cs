@@ -27,7 +27,6 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.Piping.Forms.Views;

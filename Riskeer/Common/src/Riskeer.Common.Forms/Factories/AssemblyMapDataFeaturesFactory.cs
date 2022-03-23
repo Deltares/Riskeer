@@ -26,7 +26,6 @@ using Core.Components.Gis.Features;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
 

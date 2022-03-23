@@ -30,7 +30,6 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;

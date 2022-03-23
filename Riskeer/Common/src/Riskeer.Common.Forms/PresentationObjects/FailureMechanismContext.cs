@@ -23,7 +23,6 @@ using System;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.PresentationObjects
 {

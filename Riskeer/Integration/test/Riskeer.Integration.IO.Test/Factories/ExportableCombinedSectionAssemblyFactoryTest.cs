@@ -27,7 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.IO.Assembly;

@@ -23,7 +23,6 @@ using System.Linq;
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.Observers
 {

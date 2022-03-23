@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.Integration.Forms.Views;

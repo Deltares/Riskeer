@@ -27,7 +27,6 @@ using Core.Common.Util;
 using Core.Gui.Commands;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.Forms.PropertyClasses;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 

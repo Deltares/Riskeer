@@ -21,7 +21,7 @@
 
 using System;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Integration.Forms.PresentationObjects

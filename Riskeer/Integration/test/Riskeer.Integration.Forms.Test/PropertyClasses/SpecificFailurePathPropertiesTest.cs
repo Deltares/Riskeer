@@ -29,7 +29,6 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.PropertyClasses;
 
@@ -108,7 +107,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Naam",
                                                                             "De naam van het faalmechanisme.");
-            
+
             PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
                                                                             generalCategory,
@@ -158,7 +157,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Naam",
                                                                             "De naam van het faalmechanisme.");
-            
+
             PropertyDescriptor labelProperty = dynamicProperties[codePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(labelProperty,
                                                                             generalCategory,

@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
 using Riskeer.Integration.Forms.Observers;
@@ -90,7 +90,7 @@ namespace Riskeer.Integration.Forms.Views
             base.OnLoad(e);
 
             InitializeDataGridView();
-            
+
             dataGridViewControl.CellFormatting += HandleCellStyling;
         }
 
@@ -125,7 +125,7 @@ namespace Riskeer.Integration.Forms.Views
             {
                 return;
             }
-            
+
             dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
 
             if (e.ColumnIndex >= numberOfFixedColumns)
@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Forms.Views
         private void InitializeDataGridView()
         {
             suspendDueToAddingColumns = true;
-            
+
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionNumber),
                                                  Resources.SectionNumber_DisplayName,
                                                  true);

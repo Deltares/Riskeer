@@ -21,7 +21,7 @@
 
 using System;
 
-namespace Riskeer.Common.Data.FailurePath
+namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// Extension methods for <see cref="FailurePathAssemblyResult"/>.

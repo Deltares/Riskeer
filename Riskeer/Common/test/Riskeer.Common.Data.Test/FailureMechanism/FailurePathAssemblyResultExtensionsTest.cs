@@ -21,9 +21,9 @@
 
 using System;
 using NUnit.Framework;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.FailureMechanism;
 
-namespace Riskeer.Common.Data.Test.FailurePath
+namespace Riskeer.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
     public class FailurePathAssemblyResultExtensionsTest

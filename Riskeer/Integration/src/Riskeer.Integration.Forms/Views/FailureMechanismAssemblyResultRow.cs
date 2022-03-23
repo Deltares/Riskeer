@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Integration.Forms.Views

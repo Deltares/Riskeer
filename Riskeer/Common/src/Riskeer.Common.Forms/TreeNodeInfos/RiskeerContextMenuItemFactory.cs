@@ -31,7 +31,6 @@ using Core.Gui.Helpers;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;

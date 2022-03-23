@@ -26,9 +26,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 
-namespace Riskeer.Common.Data.Test.FailurePath
+namespace Riskeer.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
     public class SpecificFailurePathTest

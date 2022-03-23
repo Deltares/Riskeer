@@ -22,7 +22,7 @@
 using Core.Common.Util.Attributes;
 using Riskeer.Common.Data.Properties;
 
-namespace Riskeer.Common.Data.FailurePath
+namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// Specifies the type of probability for a failure path assembly result.

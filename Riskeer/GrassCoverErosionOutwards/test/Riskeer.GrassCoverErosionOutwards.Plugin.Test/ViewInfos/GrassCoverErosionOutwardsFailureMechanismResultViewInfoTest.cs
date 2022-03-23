@@ -28,7 +28,6 @@ using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;

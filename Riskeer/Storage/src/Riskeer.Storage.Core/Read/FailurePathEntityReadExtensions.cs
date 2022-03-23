@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using Core.Common.Base.Data;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.FailureMechanismSectionResults;
 

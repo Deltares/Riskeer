@@ -29,7 +29,6 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;

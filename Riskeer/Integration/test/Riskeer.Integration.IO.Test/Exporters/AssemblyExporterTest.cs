@@ -32,7 +32,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.IO.Exporters;

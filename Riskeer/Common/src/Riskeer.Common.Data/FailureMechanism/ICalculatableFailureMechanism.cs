@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.FailureMechanism
 {

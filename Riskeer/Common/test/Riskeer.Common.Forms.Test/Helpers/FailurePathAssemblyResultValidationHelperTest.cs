@@ -21,7 +21,7 @@
 
 using System;
 using NUnit.Framework;
-using Riskeer.Common.Data.FailurePath;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
 
 namespace Riskeer.Common.Forms.Test.Helpers

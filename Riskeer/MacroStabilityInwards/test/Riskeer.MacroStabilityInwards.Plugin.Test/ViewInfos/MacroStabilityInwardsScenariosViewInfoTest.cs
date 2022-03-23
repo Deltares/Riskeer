@@ -27,7 +27,6 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.Views;

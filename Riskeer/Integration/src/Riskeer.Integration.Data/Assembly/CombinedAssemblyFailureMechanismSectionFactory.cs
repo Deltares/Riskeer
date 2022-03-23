@@ -26,7 +26,6 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssemblyTool;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
