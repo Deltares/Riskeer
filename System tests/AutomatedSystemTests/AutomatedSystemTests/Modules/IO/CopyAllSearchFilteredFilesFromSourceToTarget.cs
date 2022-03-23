@@ -71,10 +71,14 @@ namespace AutomatedSystemTests.Modules.IO
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
+            if (!Directory.Exists("X:\\script09\\input_2\\"))
+            {
+                Directory.CreateDirectory("X:\\script09\\input_2\\");
+            }
             foreach (var sourceFilePath in Directory.GetFiles(sourcePath, searchPattern).ToList())
                 {
                 string fileName = Path.GetFileName(sourceFilePath);
-                string destinationFilePath = Path.Combine("X:\\", fileName);
+                string destinationFilePath = Path.Combine("X:\\script09\\input_2\\", fileName);
                 //string destinationFilePath = Path.Combine(targetPath, fileName);
                 Report.Info("source: " + sourceFilePath + "; target: " + destinationFilePath);
                 System.IO.File.Copy(sourceFilePath, destinationFilePath , true);
