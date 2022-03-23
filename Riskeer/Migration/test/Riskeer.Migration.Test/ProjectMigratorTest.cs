@@ -453,7 +453,7 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("* Traject: 'assessmentSection'");
                 migrationLog.AppendLine("  + De omgevingswaarde is gelijk gesteld aan 1/30000.");
                 migrationLog.AppendLine("  + De signaleringsparameter is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).");
-                migrationLog.AppendLine("  + De norm van het dijktraject is gelijk gesteld aan de signaleringsparameter.");
+                migrationLog.AppendLine("  + De norm van het traject is gelijk gesteld aan de signaleringsparameter.");
                 migrationLog.AppendLine("  + Faalmechanisme: 'Hoogte kunstwerk'");
                 migrationLog.AppendLine("    - Het ID van kunstwerk 'Id' is veranderd naar 'Id00003'.");
                 migrationLog.AppendLine("    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP7'.");
@@ -472,7 +472,7 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("* Traject: 'Demo traject'");
                 migrationLog.AppendLine("  + De omgevingswaarde is gelijk gesteld aan 1/1000.");
                 migrationLog.AppendLine("  + De signaleringsparameter is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).");
-                migrationLog.AppendLine("  + De norm van het dijktraject is gelijk gesteld aan de signaleringsparameter.");
+                migrationLog.AppendLine("  + De norm van het traject is gelijk gesteld aan de signaleringsparameter.");
                 migrationLog.AppendLine("Gevolgen van de migratie van versie 17.2 naar versie 17.3:");
                 migrationLog.AppendLine("* Geen aanpassingen.");
                 migrationLog.AppendLine("Gevolgen van de migratie van versie 17.3 naar versie 18.1:");

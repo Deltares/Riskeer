@@ -1683,7 +1683,7 @@ SELECT
 	[AssessmentSectionEntityId],
 	[Name],
 	2,
-	"De norm van het dijktraject is gelijk gesteld aan de " ||
+	"De norm van het traject is gelijk gesteld aan de " ||
 	CASE 
 		WHEN [NormativeNormType] IS 1
 			THEN "omgevingswaarde"

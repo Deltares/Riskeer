@@ -1040,7 +1040,7 @@ namespace Riskeer.Migration.Integration.Test
                 new MigrationLogMessage("17.1", newVersion, $"  + De signaleringsparameter is gelijk gesteld aan 1/{signalingReturnPeriod}{signalingLogSuffix}."),
                 messages[1]);
             MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(normType)}."),
+                new MigrationLogMessage("17.1", newVersion, $"  + De norm van het traject is gelijk gesteld aan de {GetNormTypeString(normType)}."),
                 messages[2]);
         }
 
