@@ -233,7 +233,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("21.1", newVersion, "* De oorspronkelijke faalmechanismen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("21.1", newVersion, "* Traject: 'Traject 12-2 GEKB signaleringswaarde'"),
+                    new MigrationLogMessage("21.1", newVersion, "* Traject: 'Traject 12-2 GEKB signaleringsparameter'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("21.1", newVersion, "  + Faalmechanisme: 'Grasbekleding erosie kruin en binnentalud'"),

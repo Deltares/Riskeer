@@ -452,8 +452,8 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("Gevolgen van de migratie van versie 17.1 naar versie 17.2:");
                 migrationLog.AppendLine("* Traject: 'assessmentSection'");
                 migrationLog.AppendLine("  + De ondergrens is gelijk gesteld aan 1/30000.");
-                migrationLog.AppendLine("  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).");
-                migrationLog.AppendLine("  + De norm van het dijktraject is gelijk gesteld aan de signaleringswaarde.");
+                migrationLog.AppendLine("  + De signaleringsparameter is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).");
+                migrationLog.AppendLine("  + De norm van het dijktraject is gelijk gesteld aan de signaleringsparameter.");
                 migrationLog.AppendLine("  + Faalmechanisme: 'Hoogte kunstwerk'");
                 migrationLog.AppendLine("    - Het ID van kunstwerk 'Id' is veranderd naar 'Id00003'.");
                 migrationLog.AppendLine("    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP7'.");
@@ -471,8 +471,8 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("    - Het ID van voorlandprofiel 'FP' is veranderd naar 'FP12'.");
                 migrationLog.AppendLine("* Traject: 'Demo traject'");
                 migrationLog.AppendLine("  + De ondergrens is gelijk gesteld aan 1/1000.");
-                migrationLog.AppendLine("  + De signaleringswaarde is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).");
-                migrationLog.AppendLine("  + De norm van het dijktraject is gelijk gesteld aan de signaleringswaarde.");
+                migrationLog.AppendLine("  + De signaleringsparameter is gelijk gesteld aan 1/30000 (voorheen de waarde van de norm).");
+                migrationLog.AppendLine("  + De norm van het dijktraject is gelijk gesteld aan de signaleringsparameter.");
                 migrationLog.AppendLine("Gevolgen van de migratie van versie 17.2 naar versie 17.3:");
                 migrationLog.AppendLine("* Geen aanpassingen.");
                 migrationLog.AppendLine("Gevolgen van de migratie van versie 17.3 naar versie 18.1:");

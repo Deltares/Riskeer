@@ -291,7 +291,7 @@ namespace Riskeer.Migration.Integration.Test
         {
             return normType == NormType.MaximumAllowableFloodingProbability
                        ? "ondergrens"
-                       : "signaleringswaarde";
+                       : "signaleringsparameter";
         }
 
         private static IEnumerable<TestCaseData> GetTrajectCombinations()
@@ -1037,7 +1037,7 @@ namespace Riskeer.Migration.Integration.Test
                                             ? " (voorheen de waarde van de norm)"
                                             : "";
             MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                new MigrationLogMessage("17.1", newVersion, $"  + De signaleringswaarde is gelijk gesteld aan 1/{signalingReturnPeriod}{signalingLogSuffix}."),
+                new MigrationLogMessage("17.1", newVersion, $"  + De signaleringsparameter is gelijk gesteld aan 1/{signalingReturnPeriod}{signalingLogSuffix}."),
                 messages[1]);
             MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                 new MigrationLogMessage("17.1", newVersion, $"  + De norm van het dijktraject is gelijk gesteld aan de {GetNormTypeString(normType)}."),

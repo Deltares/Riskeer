@@ -1669,7 +1669,7 @@ SELECT
 	[AssessmentSectionEntityId],
 	[Name],
 	1,
-	"De signaleringswaarde is gelijk gesteld aan 1/" || CAST(ROUND(CAST(1.0 / [SignalingNorm] AS FLOAT)) AS INT) ||
+	"De signaleringsparameter is gelijk gesteld aan 1/" || CAST(ROUND(CAST(1.0 / [SignalingNorm] AS FLOAT)) AS INT) ||
 	CASE 
 		WHEN [NormativeNormType] IS 2
 			THEN " (voorheen de waarde van de norm)"
@@ -1687,7 +1687,7 @@ SELECT
 	CASE 
 		WHEN [NormativeNormType] IS 1
 			THEN "ondergrens"
-		ELSE "signaleringswaarde"
+		ELSE "signaleringsparameter"
 	END || "."
 	FROM AssessmentSectionEntity;
 
