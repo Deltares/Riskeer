@@ -3049,7 +3049,7 @@ gg==
 			name="ButtonOpen"
 			refimgid="2cf87765-e788-495e-aebd-595b6f4af89b"
 			searchtimeout="30000ms">
-				/form[@title='Bestand openen']/button[@text='&amp;Open']
+				/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file']/button[@text='&amp;Open']
 			</item>
 			<item
 			addcaps="text,nativewindow"
@@ -3058,10 +3058,10 @@ gg==
 			name="FileNameField"
 			refimgid="8e14b8b6-d6b8-473f-9a59-4ff87f2bbf41"
 			searchtimeout="30000ms">
-				/form[@title='Bestand openen']/?/combobox/text
+				/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file']/?/combobox/text
 			</item>
 			<basepath>
-				/form[@title='Bestand openen']
+				/form[@title='Bestand openen' or @title='Bestand Openen' or @title='Open File' or @title='Open file']
 			</basepath>
 			<icon>
 				iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
