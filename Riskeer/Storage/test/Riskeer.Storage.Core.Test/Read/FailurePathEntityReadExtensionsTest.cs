@@ -444,7 +444,7 @@ namespace Riskeer.Storage.Core.Test.Read
                                                         specificFailurePath.SectionResults.Single());
         }
 
-        private static void AssertCommonFailurePathProperties(IFailurePathEntity entity, IFailureMechanism failurePath)
+        private static void AssertCommonFailurePathProperties(IFailureMechanismEntity entity, IFailureMechanism failurePath)
         {
             var inAssembly = Convert.ToBoolean(entity.InAssembly);
 

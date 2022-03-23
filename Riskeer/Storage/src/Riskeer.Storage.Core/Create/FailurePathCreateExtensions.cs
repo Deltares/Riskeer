@@ -29,7 +29,7 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="IFailureMechanism"/> related to creating a <see cref="IFailurePathEntity"/>.
+    /// Extension methods for <see cref="IFailureMechanism"/> related to creating a <see cref="IFailureMechanismEntity"/>.
     /// </summary>
     internal static class FailurePathCreateExtensions
     {
@@ -114,7 +114,7 @@ namespace Riskeer.Storage.Core.Create
         }
 
         private static T Create<T>(this IFailureMechanism failurePath, PersistenceRegistry registry)
-            where T : IFailurePathEntity, new()
+            where T : IFailureMechanismEntity, new()
         {
             FailurePathAssemblyResult assemblyResult = failurePath.AssemblyResult;
             var entity = new T
@@ -135,7 +135,7 @@ namespace Riskeer.Storage.Core.Create
 
         private static void AddEntitiesForFailureMechanismSections(this IFailureMechanism specificFailurePath,
                                                                    PersistenceRegistry registry,
-                                                                   IFailurePathEntity entity)
+                                                                   IFailureMechanismEntity entity)
         {
             foreach (FailureMechanismSection failureMechanismSection in specificFailurePath.Sections)
             {

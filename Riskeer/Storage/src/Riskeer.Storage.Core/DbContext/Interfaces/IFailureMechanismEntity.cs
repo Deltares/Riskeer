@@ -24,9 +24,9 @@ using System.Collections.Generic;
 namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
-    /// Interface for an entity that contains failure path information.
+    /// Interface for an entity that contains failure mechanism information.
     /// </summary>
-    public interface IFailurePathEntity
+    public interface IFailureMechanismEntity
     {
         /// <summary>
         /// Gets or sets an indicator whether the failure path is part of the assembly.
@@ -49,7 +49,7 @@ namespace Riskeer.Storage.Core.DbContext
         string InAssemblyOutputComments { get; set; }
 
         /// <summary>
-        /// Gets or sets the comments associated when the failure path is set to not be part of the assembly.
+        /// Gets or sets the comments associated when the failure mechanism is set to not be part of the assembly.
         /// </summary>
         string NotInAssemblyComments { get; set; }
 
@@ -59,12 +59,12 @@ namespace Riskeer.Storage.Core.DbContext
         ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
 
         /// <summary>
-        /// Gets or sets the failure path assembly probability result type.
+        /// Gets or sets the failure mechanism assembly probability result type.
         /// </summary>
         byte FailurePathAssemblyProbabilityResultType { get; set; }
 
         /// <summary>
-        /// Gets or sets the manual failure path assembly probability.
+        /// Gets or sets the manual failure mechanism assembly probability.
         /// </summary>
         double? ManualFailurePathAssemblyProbability { get; set; }
     }
