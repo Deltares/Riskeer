@@ -445,16 +445,11 @@ namespace Riskeer.Storage.Core.TestUtil
             );
         }
 
-        private static void SetComments(IFailurePath failurePath)
-        {
-            failurePath.InAssemblyInputComments.Body = $"Input comment {failurePath.Name}";
-            failurePath.InAssemblyOutputComments.Body = $"Output comment {failurePath.Name}";
-            failurePath.NotInAssemblyComments.Body = $"Not in assembly comment {failurePath.Name}";
-        }
-
         private static void SetComments(IFailurePath failureMechanism)
         {
-            SetComments((IFailurePath) failureMechanism);
+            failureMechanism.InAssemblyInputComments.Body = $"Input comment {failureMechanism.Name}";
+            failureMechanism.InAssemblyOutputComments.Body = $"Output comment {failureMechanism.Name}";
+            failureMechanism.NotInAssemblyComments.Body = $"Not in assembly comment {failureMechanism.Name}";
 
             if (failureMechanism is ICalculatableFailureMechanism calculatableFailureMechanism)
             {

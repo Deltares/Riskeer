@@ -1543,19 +1543,11 @@ namespace Riskeer.Integration.Plugin
             }
         }
 
-        private static IEnumerable<Comment> GetCommentElements(IFailurePath failurePath)
-        {
-            yield return failurePath.InAssemblyInputComments;
-            yield return failurePath.InAssemblyOutputComments;
-            yield return failurePath.NotInAssemblyComments;
-        }
-
         private static IEnumerable<Comment> GetCommentElements(IFailurePath failureMechanism)
         {
-            foreach (Comment comment in GetCommentElements((IFailurePath) failureMechanism))
-            {
-                yield return comment;
-            }
+            yield return failureMechanism.InAssemblyInputComments;
+            yield return failureMechanism.InAssemblyOutputComments;
+            yield return failureMechanism.NotInAssemblyComments;
 
             if (failureMechanism is ICalculatableFailureMechanism calculatableFailureMechanism)
             {
