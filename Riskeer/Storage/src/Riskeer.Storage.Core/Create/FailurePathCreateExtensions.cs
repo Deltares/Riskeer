@@ -51,6 +51,26 @@ namespace Riskeer.Storage.Core.Create
 
             var entity = Create<FailureMechanismEntity>(mechanism, registry);
             entity.FailureMechanismType = (short) type;
+            return entity;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="ICalculatableFailureMechanism"/>.
+        /// </summary>
+        /// <param name="mechanism">The failure mechanism to create a database entity for.</param>
+        /// <param name="type">The type of the failure mechanism that is being created.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
+        /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static FailureMechanismEntity Create(this ICalculatableFailureMechanism mechanism, FailureMechanismType type, PersistenceRegistry registry)
+        {
+            if (registry == null)
+            {
+                throw new ArgumentNullException(nameof(registry));
+            }
+
+            var entity = Create<FailureMechanismEntity>(mechanism, registry);
+            entity.FailureMechanismType = (short) type;
             entity.CalculationsInputComments = mechanism.CalculationsInputComments.Body.DeepClone();
 
             return entity;

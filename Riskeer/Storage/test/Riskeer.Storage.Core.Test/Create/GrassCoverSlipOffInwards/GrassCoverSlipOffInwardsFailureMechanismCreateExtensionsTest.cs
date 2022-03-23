@@ -90,7 +90,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverSlipOffInwards
             Assert.AreEqual(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
             Assert.AreEqual(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             Assert.AreEqual(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
-            Assert.AreEqual(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
+            Assert.IsNull(entity.CalculationsInputComments);
 
             GrassCoverSlipOffInwardsFailureMechanismMetaEntity metaEntity = entity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single();
             Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
@@ -128,7 +128,7 @@ namespace Riskeer.Storage.Core.Test.Create.GrassCoverSlipOffInwards
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
-            TestHelper.AssertAreEqualButNotSame(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
+            Assert.IsNull(entity.CalculationsInputComments);
         }
 
         [Test]

@@ -187,6 +187,163 @@ namespace Riskeer.Storage.Core.Test.Create
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
+            Assert.IsNull(entity.CalculationsInputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
+        }
+
+        #endregion
+
+        # region CalculatableFailureMechanism
+
+        [Test]
+        public void CreateForCalculatableFailureMechanism_RegistryNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var random = new Random(21);
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
+            var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
+
+            // Call
+            void Call() => failureMechanism.Create(failureMechanismType, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("registry", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateForCalculatableFailureMechanism_PropertiesSet_ReturnExpectedEntity()
+        {
+            // Setup
+            var random = new Random(21);
+            var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
+
+            var failureMechanism = new TestFailureMechanism
+            {
+                InAssembly = random.NextBoolean(),
+                AssemblyResult =
+                {
+                    ProbabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>(),
+                    ManualFailurePathAssemblyProbability = random.NextDouble()
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(failureMechanismType, registry);
+
+            // Assert
+            Assert.AreEqual(Convert.ToByte(failureMechanismType), entity.FailureMechanismType);
+
+            Assert.IsNull(entity.FailureMechanismSectionCollectionSourcePath);
+            CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
+
+            Assert.AreEqual(Convert.ToByte(failureMechanism.InAssembly), entity.InAssembly);
+
+            Assert.IsNull(entity.InAssemblyInputComments);
+            Assert.IsNull(entity.InAssemblyOutputComments);
+            Assert.IsNull(entity.NotInAssemblyComments);
+
+            FailurePathAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
+            Assert.AreEqual(Convert.ToByte(assemblyResult.ProbabilityResultType), entity.FailurePathAssemblyProbabilityResultType);
+            Assert.AreEqual(assemblyResult.ManualFailurePathAssemblyProbability, entity.ManualFailurePathAssemblyProbability);
+        }
+
+        [Test]
+        public void CreateForCalculatableFailureMechanism_WithNaNValues_ReturnExpectedEntity()
+        {
+            // Setup
+            var random = new Random(21);
+            var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
+
+            var failureMechanism = new TestFailureMechanism();
+            var registry = new PersistenceRegistry();
+
+            // Precondition
+            FailurePathAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
+            Assert.IsNaN(assemblyResult.ManualFailurePathAssemblyProbability);
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(failureMechanismType, registry);
+
+            // Assert
+            Assert.IsNull(entity.ManualFailurePathAssemblyProbability);
+        }
+
+        [Test]
+        public void CreateForCalculatableFailureMechanism_WithSections_ReturnsExpectedEntity()
+        {
+            // Setup
+            var random = new Random(21);
+            var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
+
+            const string specificFailurePathSectionsSourcePath = "File\\Path";
+            var failureMechanism = new TestFailureMechanism();
+
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(1, 0)
+                }),
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
+                {
+                    new Point2D(1, 0),
+                    new Point2D(2, 0)
+                })
+            }, specificFailurePathSectionsSourcePath);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(failureMechanismType, registry);
+
+            // Assert
+            Assert.AreEqual(failureMechanism.Sections.Count(), entity.FailureMechanismSectionEntities.Count);
+        }
+
+        [Test]
+        public void CreateForCalculatableFailureMechanism_StringPropertiesDoNotShareReference()
+        {
+            // Setup
+            var random = new Random(21);
+            var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
+            var failureMechanism = new TestFailureMechanism("a", "cool")
+            {
+                InAssemblyInputComments =
+                {
+                    Body = "Some input text"
+                },
+                InAssemblyOutputComments =
+                {
+                    Body = "Some output text"
+                },
+                NotInAssemblyComments =
+                {
+                    Body = "Really not in assembly"
+                },
+                CalculationsInputComments =
+                {
+                    Body = "Some calculation text"
+                }
+            };
+            failureMechanism.SetSections(new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
+            }, "File\\Path");
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(failureMechanismType, registry);
+
+            // Assert
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.CalculationsInputComments.Body, entity.CalculationsInputComments);
             TestHelper.AssertAreEqualButNotSame(failureMechanism.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }

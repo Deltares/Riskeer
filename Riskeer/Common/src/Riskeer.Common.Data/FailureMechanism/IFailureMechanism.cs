@@ -26,11 +26,5 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// <summary>
     /// Defines a failure mechanism.
     /// </summary>
-    public interface IFailureMechanism : IFailurePath
-    {
-        /// <summary>
-        /// Gets the input comments associated with the calculations of the data object.
-        /// </summary>
-        Comment CalculationsInputComments { get; }
-    }
+    public interface IFailureMechanism : IFailurePath {}
 }

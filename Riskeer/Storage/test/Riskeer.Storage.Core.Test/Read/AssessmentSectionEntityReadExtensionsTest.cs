@@ -918,14 +918,14 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
 
             bool microstabilityInAssembly = random.NextBoolean();
-            bool waterOverpressureAsphaltRevetmentInAssembly = random.NextBoolean();
-            bool grassRevetmentSlidingOutwardsInAssembly = random.NextBoolean();
-            bool grassRevetmentSlidingInwardsInAssembly = random.NextBoolean();
+            bool waterPressureAsphaltCoverInAssembly = random.NextBoolean();
+            bool grassCoverSlipOffOutwardsInAssembly = random.NextBoolean();
+            bool grassCoverSlipOffInwardsInAssembly = random.NextBoolean();
 
-            FailureMechanismEntity microstability = CreateFailureMechanismEntity(
+            FailureMechanismEntity microstabilityEntity = CreateFailureMechanismEntity(
                 microstabilityInAssembly,
                 FailureMechanismType.Microstability);
-            microstability.MicrostabilityFailureMechanismMetaEntities = new List<MicrostabilityFailureMechanismMetaEntity>
+            microstabilityEntity.MicrostabilityFailureMechanismMetaEntities = new List<MicrostabilityFailureMechanismMetaEntity>
             {
                 new MicrostabilityFailureMechanismMetaEntity
                 {
@@ -933,10 +933,10 @@ namespace Riskeer.Storage.Core.Test.Read
                 }
             };
 
-            FailureMechanismEntity waterOverpressureAsphaltRevetment = CreateFailureMechanismEntity(
-                waterOverpressureAsphaltRevetmentInAssembly,
+            FailureMechanismEntity waterPressureAsphaltCoverEntity = CreateFailureMechanismEntity(
+                waterPressureAsphaltCoverInAssembly,
                 FailureMechanismType.WaterOverpressureAsphaltRevetment);
-            waterOverpressureAsphaltRevetment.WaterPressureAsphaltCoverFailureMechanismMetaEntities = new List<WaterPressureAsphaltCoverFailureMechanismMetaEntity>
+            waterPressureAsphaltCoverEntity.WaterPressureAsphaltCoverFailureMechanismMetaEntities = new List<WaterPressureAsphaltCoverFailureMechanismMetaEntity>
             {
                 new WaterPressureAsphaltCoverFailureMechanismMetaEntity
                 {
@@ -944,10 +944,10 @@ namespace Riskeer.Storage.Core.Test.Read
                 }
             };
 
-            FailureMechanismEntity grassRevetmentSlidingOutwards = CreateFailureMechanismEntity(
-                grassRevetmentSlidingOutwardsInAssembly,
+            FailureMechanismEntity grassRevetmentSlidingOutwardsEntity = CreateFailureMechanismEntity(
+                grassCoverSlipOffOutwardsInAssembly,
                 FailureMechanismType.GrassRevetmentSlidingOutwards);
-            grassRevetmentSlidingOutwards.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities = new List<GrassCoverSlipOffOutwardsFailureMechanismMetaEntity>
+            grassRevetmentSlidingOutwardsEntity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities = new List<GrassCoverSlipOffOutwardsFailureMechanismMetaEntity>
             {
                 new GrassCoverSlipOffOutwardsFailureMechanismMetaEntity
                 {
@@ -955,10 +955,10 @@ namespace Riskeer.Storage.Core.Test.Read
                 }
             };
 
-            FailureMechanismEntity grassRevetmentSlidingInwards = CreateFailureMechanismEntity(
-                grassRevetmentSlidingInwardsInAssembly,
+            FailureMechanismEntity grassRevetmentSlidingInwardsEntity = CreateFailureMechanismEntity(
+                grassCoverSlipOffInwardsInAssembly,
                 FailureMechanismType.GrassRevetmentSlidingInwards);
-            grassRevetmentSlidingInwards.GrassCoverSlipOffInwardsFailureMechanismMetaEntities = new List<GrassCoverSlipOffInwardsFailureMechanismMetaEntity>
+            grassRevetmentSlidingInwardsEntity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities = new List<GrassCoverSlipOffInwardsFailureMechanismMetaEntity>
             {
                 new GrassCoverSlipOffInwardsFailureMechanismMetaEntity
                 {
@@ -966,10 +966,10 @@ namespace Riskeer.Storage.Core.Test.Read
                 }
             };
 
-            entity.FailureMechanismEntities.Add(microstability);
-            entity.FailureMechanismEntities.Add(waterOverpressureAsphaltRevetment);
-            entity.FailureMechanismEntities.Add(grassRevetmentSlidingOutwards);
-            entity.FailureMechanismEntities.Add(grassRevetmentSlidingInwards);
+            entity.FailureMechanismEntities.Add(microstabilityEntity);
+            entity.FailureMechanismEntities.Add(waterPressureAsphaltCoverEntity);
+            entity.FailureMechanismEntities.Add(grassRevetmentSlidingOutwardsEntity);
+            entity.FailureMechanismEntities.Add(grassRevetmentSlidingInwardsEntity);
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
@@ -979,36 +979,24 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             AssertFailureMechanismEqual(microstabilityInAssembly,
-                                        microstability.InAssemblyInputComments,
-                                        microstability.InAssemblyOutputComments,
-                                        microstability.NotInAssemblyComments,
-                                        microstability.CalculationsInputComments,
+                                        microstabilityEntity,
                                         section.Microstability,
-                                        microstability.MicrostabilityFailureMechanismMetaEntities.Single().N);
+                                        microstabilityEntity.MicrostabilityFailureMechanismMetaEntities.Single().N);
 
-            AssertFailureMechanismEqual(waterOverpressureAsphaltRevetmentInAssembly,
-                                        waterOverpressureAsphaltRevetment.InAssemblyInputComments,
-                                        waterOverpressureAsphaltRevetment.InAssemblyOutputComments,
-                                        waterOverpressureAsphaltRevetment.NotInAssemblyComments,
-                                        waterOverpressureAsphaltRevetment.CalculationsInputComments,
+            AssertFailureMechanismEqual(waterPressureAsphaltCoverInAssembly,
+                                        waterPressureAsphaltCoverEntity,
                                         section.WaterPressureAsphaltCover,
-                                        waterOverpressureAsphaltRevetment.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single().N);
+                                        waterPressureAsphaltCoverEntity.WaterPressureAsphaltCoverFailureMechanismMetaEntities.Single().N);
 
-            AssertFailureMechanismEqual(grassRevetmentSlidingOutwardsInAssembly,
-                                        grassRevetmentSlidingOutwards.InAssemblyInputComments,
-                                        grassRevetmentSlidingOutwards.InAssemblyOutputComments,
-                                        grassRevetmentSlidingOutwards.NotInAssemblyComments,
-                                        grassRevetmentSlidingOutwards.CalculationsInputComments,
+            AssertFailureMechanismEqual(grassCoverSlipOffOutwardsInAssembly,
+                                        grassRevetmentSlidingOutwardsEntity,
                                         section.GrassCoverSlipOffOutwards,
-                                        grassRevetmentSlidingOutwards.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single().N);
+                                        grassRevetmentSlidingOutwardsEntity.GrassCoverSlipOffOutwardsFailureMechanismMetaEntities.Single().N);
 
-            AssertFailureMechanismEqual(grassRevetmentSlidingInwardsInAssembly,
-                                        grassRevetmentSlidingInwards.InAssemblyInputComments,
-                                        grassRevetmentSlidingInwards.InAssemblyOutputComments,
-                                        grassRevetmentSlidingInwards.NotInAssemblyComments,
-                                        grassRevetmentSlidingInwards.CalculationsInputComments,
+            AssertFailureMechanismEqual(grassCoverSlipOffInwardsInAssembly,
+                                        grassRevetmentSlidingInwardsEntity,
                                         section.GrassCoverSlipOffInwards,
-                                        grassRevetmentSlidingInwards.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single().N);
+                                        grassRevetmentSlidingInwardsEntity.GrassCoverSlipOffInwardsFailureMechanismMetaEntities.Single().N);
         }
 
         [Test]
@@ -1234,16 +1222,14 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         private static void AssertFailureMechanismEqual<T>(bool expectedInAssembly,
-                                                           string expectedInAssemblyInputComments, string expectedInAssemblyOutputComments,
-                                                           string expectedNotInAssemblyComments, string expectedCalculationsInputComments,
+                                                           FailureMechanismEntity entity,
                                                            T failureMechanism, double n)
             where T : IFailureMechanism, IHasGeneralInput
         {
             Assert.AreEqual(expectedInAssembly, failureMechanism.InAssembly);
-            Assert.AreEqual(expectedInAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
-            Assert.AreEqual(expectedInAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
-            Assert.AreEqual(expectedNotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
-            Assert.AreEqual(expectedCalculationsInputComments, failureMechanism.CalculationsInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyInputComments, failureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(entity.InAssemblyOutputComments, failureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(entity.NotInAssemblyComments, failureMechanism.NotInAssemblyComments.Body);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
             Assert.AreEqual(failureMechanism.GeneralInput.N, n, failureMechanism.GeneralInput.N.GetAccuracy());
         }

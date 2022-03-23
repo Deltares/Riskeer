@@ -36,14 +36,48 @@ namespace Riskeer.Storage.Core.Read
     internal static class FailurePathEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="IFailureMechanism"/>.
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="IFailurePath"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="IFailureMechanism"/>.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="IFailurePath"/>.</param>
+        /// <param name="failurePath">The target of the read operation.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        internal static void ReadCommonFailurePathProperties<T>(this T entity, IFailurePath failurePath, ReadConversionCollector collector)
+            where T : IFailurePathEntity
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException(nameof(entity));
+            }
+
+            if (failurePath == null)
+            {
+                throw new ArgumentNullException(nameof(failurePath));
+            }
+
+            if (collector == null)
+            {
+                throw new ArgumentNullException(nameof(collector));
+            }
+
+            failurePath.InAssembly = Convert.ToBoolean(entity.InAssembly);
+            failurePath.InAssemblyInputComments.Body = entity.InAssemblyInputComments;
+            failurePath.InAssemblyOutputComments.Body = entity.InAssemblyOutputComments;
+            failurePath.NotInAssemblyComments.Body = entity.NotInAssemblyComments;
+
+            entity.ReadFailureMechanismSections(failurePath, collector);
+            ReadAssemblyResult(entity, failurePath);
+        }
+
+        /// <summary>
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="ICalculatableFailureMechanism"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="ICalculatableFailureMechanism"/>.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         internal static void ReadCommonFailureMechanismProperties(this FailureMechanismEntity entity,
-                                                                  IFailureMechanism failureMechanism,
+                                                                  ICalculatableFailureMechanism failureMechanism,
                                                                   ReadConversionCollector collector)
         {
             if (entity == null)
@@ -61,7 +95,7 @@ namespace Riskeer.Storage.Core.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            entity.ReadCommonFailurePathProperties(failureMechanism, collector);
+            ReadCommonFailurePathProperties(entity, failureMechanism, collector);
             failureMechanism.CalculationsInputComments.Body = entity.CalculationsInputComments;
         }
 
@@ -97,18 +131,6 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadCommonFailurePathProperties(specificFailurePath, collector);
             ReadNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(entity, specificFailurePath, collector);
             return specificFailurePath;
-        }
-
-        private static void ReadCommonFailurePathProperties<T>(this T entity, IFailurePath failurePath, ReadConversionCollector collector)
-            where T : IFailurePathEntity
-        {
-            failurePath.InAssembly = Convert.ToBoolean(entity.InAssembly);
-            failurePath.InAssemblyInputComments.Body = entity.InAssemblyInputComments;
-            failurePath.InAssemblyOutputComments.Body = entity.InAssemblyOutputComments;
-            failurePath.NotInAssemblyComments.Body = entity.NotInAssemblyComments;
-
-            entity.ReadFailureMechanismSections(failurePath, collector);
-            ReadAssemblyResult(entity, failurePath);
         }
 
         private static void ReadAssemblyResult(IFailurePathEntity entity, IFailurePath failurePath)

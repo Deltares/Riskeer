@@ -34,10 +34,15 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// the failure mechanism.
         /// </summary>
         IEnumerable<ICalculation> Calculations { get; }
-        
+
         /// <summary>
         /// Gets all available calculation groups.
         /// </summary>
         CalculationGroup CalculationsGroup { get; }
+
+        /// <summary>
+        /// Gets the input comments associated with the calculations of the data object.
+        /// </summary>
+        Comment CalculationsInputComments { get; }
     }
 }
