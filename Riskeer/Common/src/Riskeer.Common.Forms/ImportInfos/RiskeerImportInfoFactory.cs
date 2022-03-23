@@ -24,7 +24,7 @@ using Core.Common.Base.IO;
 using Core.Common.Util;
 using Core.Gui.Plugin;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
 
@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.ImportInfos
         /// <returns>An <see cref="ImportInfo"/> object.</returns>
         public static ImportInfo<TCalculationGroupContext> CreateCalculationConfigurationImportInfo<TCalculationGroupContext>(
             Func<TCalculationGroupContext, string, IFileImporter> createFileImporter)
-            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailurePath>
         {
             return new ImportInfo<TCalculationGroupContext>
             {

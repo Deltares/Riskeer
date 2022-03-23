@@ -34,7 +34,7 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="IFailureMechanism"/> for the properties panel
+    /// ViewModel of <see cref="IFailurePath"/> for the properties panel
     /// to show a collection of <see cref="FailureMechanismSection"/>.
     /// </summary>
     public class FailureMechanismSectionsProperties : ObjectProperties<IFailurePath>, IDisposable

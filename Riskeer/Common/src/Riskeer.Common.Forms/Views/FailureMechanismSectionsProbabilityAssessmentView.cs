@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
@@ -48,7 +49,7 @@ namespace Riskeer.Common.Forms.Views
         /// failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public FailureMechanismSectionsProbabilityAssessmentView(IEnumerable<FailureMechanismSection> sections,
-                                                                 IFailureMechanism failureMechanism,
+                                                                 IFailurePath failureMechanism,
                                                                  ProbabilityAssessmentInput probabilityAssessmentInput)
             : base(sections, failureMechanism)
         {

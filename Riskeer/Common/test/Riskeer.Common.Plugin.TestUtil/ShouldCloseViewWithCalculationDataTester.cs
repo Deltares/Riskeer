@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 
@@ -44,7 +45,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingToRemovedCalculationContext_ReturnsTrue()
         {
             // Setup
-            ICalculationContext<ICalculation, IFailureMechanism> calculationContext = GetCalculationContextWithCalculation();
+            ICalculationContext<ICalculation, IFailurePath> calculationContext = GetCalculationContextWithCalculation();
 
             using (IView view = GetView(calculationContext.WrappedData))
             {
@@ -60,7 +61,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewNotCorrespondingToRemovedCalculationContext_ReturnsFalse()
         {
             // Setup
-            ICalculationContext<ICalculation, IFailureMechanism> calculationContext = GetCalculationContextWithCalculation();
+            ICalculationContext<ICalculation, IFailurePath> calculationContext = GetCalculationContextWithCalculation();
 
             using (IView view = GetView(GetCalculation()))
             {
@@ -76,7 +77,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingWithRemovedCalculationGroupContext_ReturnsTrue()
         {
             // Setup
-            ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext = GetCalculationGroupContextWithCalculation();
+            ICalculationContext<CalculationGroup, IFailurePath> calculationGroupContext = GetCalculationGroupContextWithCalculation();
 
             using (IView view = GetView(calculationGroupContext.WrappedData.GetCalculations().First()))
             {
@@ -92,7 +93,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewNotCorrespondingWithRemovedCalculationGroupContext_ReturnsFalse()
         {
             // Setup
-            ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext = GetCalculationGroupContextWithCalculation();
+            ICalculationContext<CalculationGroup, IFailurePath> calculationGroupContext = GetCalculationGroupContextWithCalculation();
 
             using (IView view = GetView(GetCalculation()))
             {
@@ -123,7 +124,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewNotCorrespondingWithRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            IFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
+            IFailurePath failureMechanism = GetFailureMechanismWithCalculation();
             using (IView view = GetView(GetCalculation()))
             {
                 // Call
@@ -168,7 +169,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            IFailureMechanism failureMechanism = GetFailureMechanismWithCalculation();
+            IFailurePath failureMechanism = GetFailureMechanismWithCalculation();
             assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -218,7 +219,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// </summary>
         /// <returns>A calculation context object.</returns>
         /// <remarks>A default implementation is added for creating a <see cref="TestCalculationContext"/>.</remarks>
-        protected virtual ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+        protected virtual ICalculationContext<ICalculation, IFailurePath> GetCalculationContextWithCalculation()
         {
             return new TestCalculationContext();
         }
@@ -228,7 +229,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// </summary>
         /// <returns>A calculation group context object.</returns>
         /// <remarks>A default implementation is added for creating a <see cref="TestCalculationGroupContext"/>.</remarks>
-        protected virtual ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+        protected virtual ICalculationContext<CalculationGroup, IFailurePath> GetCalculationGroupContextWithCalculation()
         {
             return new TestCalculationGroupContext();
         }

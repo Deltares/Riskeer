@@ -24,7 +24,7 @@ using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -35,13 +35,13 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// Object properties class for <see cref="CalculationGroup"/>.
     /// </summary>
     [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationGroupContextProperties_DisplayName))]
-    public class CalculationGroupContextProperties : ObjectProperties<ICalculationContext<CalculationGroup, IFailureMechanism>>
+    public class CalculationGroupContextProperties : ObjectProperties<ICalculationContext<CalculationGroup, IFailurePath>>
     {
         /// <summary>
         /// Creates a new instance of the <see cref="CalculationGroupContextProperties"/> class.
         /// </summary>
         /// <param name="calculationContext">The calculation context to use for the properties.</param>
-        public CalculationGroupContextProperties(ICalculationContext<CalculationGroup, IFailureMechanism> calculationContext)
+        public CalculationGroupContextProperties(ICalculationContext<CalculationGroup, IFailurePath> calculationContext)
         {
             if (calculationContext == null)
             {

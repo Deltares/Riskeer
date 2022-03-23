@@ -22,7 +22,6 @@
 using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 
@@ -102,13 +101,13 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.
         /// </summary>
-        IEnumerable<IFailureMechanism> GetFailureMechanisms();
+        IEnumerable<IFailurePath> GetFailureMechanisms();
 
         /// <summary>
         /// Gets the contributing failure mechanisms of the assessment section.
         /// </summary>
         /// <returns>A collection of failure mechanisms.</returns>
-        IEnumerable<IFailureMechanism> GetContributingFailureMechanisms();
+        IEnumerable<IFailurePath> GetContributingFailureMechanisms();
 
         /// <summary>
         /// Changes <see cref="Composition"/> and reconfigures <see cref="FailureMechanismContribution"/>

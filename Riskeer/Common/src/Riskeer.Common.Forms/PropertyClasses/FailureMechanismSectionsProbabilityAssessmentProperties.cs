@@ -27,6 +27,7 @@ using Core.Gui.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.Properties;
@@ -34,10 +35,10 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="IFailureMechanism"/> for the properties panel to show
+    /// ViewModel of <see cref="IFailurePath"/> for the properties panel to show
     /// a collection of <see cref="FailureMechanismSection"/> with a section specific N.
     /// </summary>
-    public class FailureMechanismSectionsProbabilityAssessmentProperties : ObjectProperties<IFailureMechanism>, IDisposable
+    public class FailureMechanismSectionsProbabilityAssessmentProperties : ObjectProperties<IFailurePath>, IDisposable
     {
         private readonly Observer failureMechanismObserver;
         private readonly ProbabilityAssessmentInput probabilityAssessmentInput;
@@ -49,7 +50,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// <param name="probabilityAssessmentInput">The probability assessment input belonging to the
         /// failure mechanism of the properties.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionsProbabilityAssessmentProperties(IFailureMechanism failureMechanism,
+        public FailureMechanismSectionsProbabilityAssessmentProperties(IFailurePath failureMechanism,
                                                                        ProbabilityAssessmentInput probabilityAssessmentInput)
         {
             if (failureMechanism == null)

@@ -26,7 +26,7 @@ using Core.Common.TestUtil;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 
 namespace Riskeer.Common.Data.TestUtil
@@ -62,11 +62,11 @@ namespace Riskeer.Common.Data.TestUtil
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
         /// <remarks>Whether <paramref name="filePath"/> is provided or not, a dummy location with id 1300001 is added to the
         /// hydraulic boundary database.</remarks>
-        public static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism,
+        public static IAssessmentSection CreateAssessmentSectionStub(IFailurePath failureMechanism,
                                                                      MockRepository mockRepository,
                                                                      string filePath = null)
         {
-            IFailureMechanism[] failureMechanisms = GetFailureMechanisms(failureMechanism);
+            IFailurePath[] failureMechanisms = GetFailureMechanisms(failureMechanism);
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("21");
@@ -89,10 +89,10 @@ namespace Riskeer.Common.Data.TestUtil
             return testAssessmentLevel;
         }
 
-        private static IFailureMechanism[] GetFailureMechanisms(IFailureMechanism failureMechanism)
+        private static IFailurePath[] GetFailureMechanisms(IFailurePath failureMechanism)
         {
             return failureMechanism == null
-                       ? Enumerable.Empty<IFailureMechanism>().ToArray()
+                       ? Enumerable.Empty<IFailurePath>().ToArray()
                        : new[]
                        {
                            failureMechanism

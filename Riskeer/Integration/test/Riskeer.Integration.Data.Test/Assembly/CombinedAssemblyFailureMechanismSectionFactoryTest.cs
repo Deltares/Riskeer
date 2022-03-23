@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void CreateInput_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => CombinedAssemblyFailureMechanismSectionFactory.CreateInput(null, Enumerable.Empty<IFailureMechanism>());
+            void Call() => CombinedAssemblyFailureMechanismSectionFactory.CreateInput(null, Enumerable.Empty<IFailurePath>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

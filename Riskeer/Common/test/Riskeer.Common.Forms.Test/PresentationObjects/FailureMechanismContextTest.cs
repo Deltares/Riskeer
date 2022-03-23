@@ -24,7 +24,7 @@ using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.Test.PresentationObjects
@@ -38,15 +38,15 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             // Call
             var context = new SimpleFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IFailureMechanism>>(context);
-            Assert.IsInstanceOf<IFailurePathContext<IFailureMechanism>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IFailurePath>>(context);
+            Assert.IsInstanceOf<IFailurePathContext<IFailurePath>>(context);
             Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
             mocks.VerifyAll();
@@ -57,7 +57,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             // Call
@@ -69,9 +69,9 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             mocks.VerifyAll();
         }
 
-        private class SimpleFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
+        private class SimpleFailureMechanismContext : FailureMechanismContext<IFailurePath>
         {
-            public SimpleFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent) : base(wrappedFailureMechanism, parent) {}
+            public SimpleFailureMechanismContext(IFailurePath wrappedFailureMechanism, IAssessmentSection parent) : base(wrappedFailureMechanism, parent) {}
         }
     }
 }

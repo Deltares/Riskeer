@@ -452,7 +452,7 @@ namespace Riskeer.Storage.Core.TestUtil
             failurePath.NotInAssemblyComments.Body = $"Not in assembly comment {failurePath.Name}";
         }
 
-        private static void SetComments(IFailureMechanism failureMechanism)
+        private static void SetComments(IFailurePath failureMechanism)
         {
             SetComments((IFailurePath) failureMechanism);
 

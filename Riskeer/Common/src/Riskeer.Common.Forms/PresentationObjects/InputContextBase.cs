@@ -22,7 +22,7 @@
 using System;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.PresentationObjects
 {
@@ -35,7 +35,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     public abstract class InputContextBase<TInput, TCalculation, TFailureMechanism> : FailureMechanismItemContextBase<TInput, TFailureMechanism>
         where TInput : ICalculationInput
         where TCalculation : ICalculation
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : IFailurePath
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InputContextBase{TData,TCalculation,TFailureMechanism}"/> class.

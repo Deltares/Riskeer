@@ -302,7 +302,7 @@ namespace Riskeer.Integration.TestUtil
                 new Point2D(-3, 2)
             });
 
-            IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
+            IEnumerable<IFailurePath> failureMechanisms = assessmentSection.GetFailureMechanisms();
             for (var i = 0; i < failureMechanisms.Count(); i++)
             {
                 AddFailureMechanismSections(failureMechanisms.ElementAt(i), i);

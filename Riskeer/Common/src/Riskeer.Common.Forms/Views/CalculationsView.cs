@@ -30,7 +30,7 @@ using Core.Common.Controls.Views;
 using Core.Common.Util.Extensions;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Forms.Properties;
@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.Views
         where TCalculation : class, ICalculation<TCalculationInput>
         where TCalculationRow : CalculationRow<TCalculation>
         where TCalculationInput : class, ICalculationInput
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : IFailurePath
     {
         private int nameColumnIndex = -1;
         private int selectableHydraulicBoundaryLocationColumnIndex = -1;
@@ -68,7 +68,7 @@ namespace Riskeer.Common.Forms.Views
         /// Creates a new instance of <see cref="CalculationsView{TCalculation, TCalculationInput, TCalculationRow, TFailureMechanism}"/>.
         /// </summary>
         /// <param name="calculationGroup">All the calculations of the failure mechanism.</param>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the calculations belongs to.</param>
+        /// <param name="failureMechanism">The <see cref="IFailurePath"/> the calculations belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the calculations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected CalculationsView(CalculationGroup calculationGroup, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)

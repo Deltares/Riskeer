@@ -249,11 +249,11 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new PipingStructureFailurePathProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>
+            yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailurePath>, CalculationGroupContextProperties>
             {
                 CreateInstance = context => new CalculationGroupContextProperties(context)
             };
-            yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
+            yield return new PropertyInfo<ICalculationContext<ICalculation, IFailurePath>, CalculationContextProperties>();
             yield return new PropertyInfo<WaterLevelCalculationsForNormTargetProbabilityContext, WaterLevelCalculationsForNormTargetProbabilityProperties>
             {
                 CreateInstance = context => new WaterLevelCalculationsForNormTargetProbabilityProperties(context.WrappedData, context.GetNormFunc())
@@ -1497,13 +1497,13 @@ namespace Riskeer.Integration.Plugin
 
         private static bool CloseCommentViewForData(CommentView commentView, object dataToCloseFor)
         {
-            if (dataToCloseFor is ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext)
+            if (dataToCloseFor is ICalculationContext<CalculationGroup, IFailurePath> calculationGroupContext)
             {
                 return GetCommentElements(calculationGroupContext.WrappedData)
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
             }
 
-            var calculationContext = dataToCloseFor as ICalculationContext<ICalculationBase, IFailureMechanism>;
+            var calculationContext = dataToCloseFor as ICalculationContext<ICalculationBase, IFailurePath>;
             if (calculationContext?.WrappedData is ICalculation calculation)
             {
                 return ReferenceEquals(commentView.Data, calculation.Comments);
@@ -1550,7 +1550,7 @@ namespace Riskeer.Integration.Plugin
             yield return failurePath.NotInAssemblyComments;
         }
 
-        private static IEnumerable<Comment> GetCommentElements(IFailureMechanism failureMechanism)
+        private static IEnumerable<Comment> GetCommentElements(IFailurePath failureMechanism)
         {
             foreach (Comment comment in GetCommentElements((IFailurePath) failureMechanism))
             {
@@ -2078,7 +2078,7 @@ namespace Riskeer.Integration.Plugin
 
         #region StandAloneFailurePath TreeNodeInfo
 
-        private static object[] StandAloneFailurePathDisabledChildNodeObjects(IFailurePathContext<IFailureMechanism> nodeData)
+        private static object[] StandAloneFailurePathDisabledChildNodeObjects(IFailurePathContext<IFailurePath> nodeData)
         {
             return new object[]
             {
@@ -2086,7 +2086,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip StandAloneFailurePathEnabledContextMenuStrip(IFailurePathContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StandAloneFailurePathEnabledContextMenuStrip(IFailurePathContext<IFailurePath> nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -2101,12 +2101,12 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForFailureMechanismContext(IFailurePathContext<IFailureMechanism> failureMechanismContext)
+        private void RemoveAllViewsForFailureMechanismContext(IFailurePathContext<IFailurePath> failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip StandAloneFailurePathDisabledContextMenuStrip(IFailurePathContext<IFailureMechanism> nodeData,
+        private ContextMenuStrip StandAloneFailurePathDisabledContextMenuStrip(IFailurePathContext<IFailurePath> nodeData,
                                                                                object parentData,
                                                                                TreeViewControl treeViewControl)
         {

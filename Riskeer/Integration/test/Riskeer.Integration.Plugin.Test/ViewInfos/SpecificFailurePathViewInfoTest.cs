@@ -27,7 +27,6 @@ using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.PresentationObjects;
@@ -129,7 +128,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             otherAssessmentSection.Stub(ass => ass.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
-            otherAssessmentSection.Stub(ass => ass.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
+            otherAssessmentSection.Stub(ass => ass.GetFailureMechanisms()).Return(Enumerable.Empty<IFailurePath>());
             mocks.ReplayAll();
 
             var failurePath = new SpecificFailurePath();

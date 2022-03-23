@@ -35,6 +35,7 @@ using Core.Gui.Plugin;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.ExportInfos;
 using Riskeer.Common.Forms.ImportInfos;
@@ -126,7 +127,7 @@ namespace Riskeer.Piping.Plugin
             yield return new PropertyInfo<PipingFailureMechanismSectionsContext, FailureMechanismSectionsProbabilityAssessmentProperties>
             {
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentProperties(
-                    (IFailureMechanism) context.WrappedData, ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
+                    (IFailurePath) context.WrappedData, ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
             };
             yield return new PropertyInfo<ProbabilisticPipingProfileSpecificOutputContext, ProbabilisticPipingOutputProperties>
             {
@@ -307,7 +308,7 @@ namespace Riskeer.Piping.Plugin
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
-                                                                                                  (IFailureMechanism) context.WrappedData,
+                                                                                                  (IFailurePath) context.WrappedData,
                                                                                                   ((PipingFailureMechanism) context.WrappedData).PipingProbabilityAssessmentInput)
             };
 
@@ -1146,10 +1147,10 @@ namespace Riskeer.Piping.Plugin
                 if (dialog.SelectedItems.Any())
                 {
                     foreach (ICalculationBase group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(
-                        dialog.SelectedItems,
-                        dialog.GenerateSemiProbabilistic,
-                        dialog.GenerateProbabilistic,
-                        nodeData.AvailableStochasticSoilModels))
+                                 dialog.SelectedItems,
+                                 dialog.GenerateSemiProbabilistic,
+                                 dialog.GenerateProbabilistic,
+                                 nodeData.AvailableStochasticSoilModels))
                     {
                         nodeData.WrappedData.Children.Add(group);
                     }
@@ -1405,9 +1406,9 @@ namespace Riskeer.Piping.Plugin
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (VerifyEntryAndExitPointUpdates(new[]
-            {
-                calculation
-            }, message))
+                {
+                    calculation
+                }, message))
             {
                 UpdateSurfaceLineDependentData(calculation);
             }

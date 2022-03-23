@@ -21,13 +21,14 @@
 
 using System.Collections.Generic;
 using Riskeer.Common.Data.Calculation;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// Interface describing a failure mechanism that contains calculation groups that contains calculations.
     /// </summary>
-    public interface ICalculatableFailureMechanism : IFailureMechanism
+    public interface ICalculatableFailureMechanism : IFailurePath
     {
         /// <summary>
         /// Gets an <see cref="IEnumerable{T}"/> of all the <see cref="ICalculation"/> instances added to

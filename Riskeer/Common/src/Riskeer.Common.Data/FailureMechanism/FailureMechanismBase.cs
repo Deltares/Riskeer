@@ -28,12 +28,11 @@ namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
     /// This class is the base implementation for a specific failure mechanism. Classes which want
-    /// to implement <see cref="IFailureMechanism"/> can and should most likely inherit
+    /// to implement <see cref="IFailurePath"/> can and should most likely inherit
     /// from this class.
     /// </summary>
     /// <typeparam name="T">The type of section results.</typeparam>
-    public abstract class FailureMechanismBase<T> : Observable, IFailureMechanism, IFailurePath<T>
-        where T : FailureMechanismSectionResult
+    public abstract class FailureMechanismBase<T> : Observable, IFailurePath<T>, IFailurePath where T : FailureMechanismSectionResult
     {
         private readonly FailureMechanismSectionCollection sectionCollection;
         private readonly ObservableList<T> sectionResults;

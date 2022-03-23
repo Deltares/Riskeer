@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Views
     /// <typeparam name="TFailureMechanism">The type of failure mechanism.</typeparam>
     /// <typeparam name="TStructuresInput">The type of input.</typeparam>
     public class StructuresFailureMechanismResultView<TFailureMechanism, TStructuresInput> : FailureMechanismResultView<AdoptableFailureMechanismSectionResult, AdoptableFailureMechanismSectionResultRow, TFailureMechanism>
-        where TFailureMechanism : IFailurePath<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism, IFailureMechanism
+        where TFailureMechanism : IFailurePath<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism, IFailurePath
         where TStructuresInput : IStructuresCalculationInput<StructureBase>, new()
     {
         private const int initialFailureMechanismResultTypeIndex = 2;
@@ -115,7 +115,7 @@ namespace Riskeer.Common.Forms.Views
 
             base.Dispose(disposing);
         }
-        
+
         protected override void AddDataGridColumns()
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(

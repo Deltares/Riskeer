@@ -28,7 +28,7 @@ using Riskeer.Common.Data.FailurePath;
 namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
-    /// Class that contains helper methods for an <see cref="IFailureMechanism"/>.
+    /// Class that contains helper methods for an <see cref="IFailurePath"/>.
     /// </summary>
     public static class FailureMechanismTestHelper
     {

@@ -21,7 +21,7 @@
 
 using Core.Common.Base;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.PresentationObjects
 {
@@ -32,7 +32,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism the wrapped calculation item belongs to.</typeparam>
     public interface ICalculationContext<out TCalculationBase, out TFailureMechanism> : IObservable
         where TCalculationBase : ICalculationBase
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : IFailurePath
     {
         /// <summary>
         /// Gets the wrapped calculation item.

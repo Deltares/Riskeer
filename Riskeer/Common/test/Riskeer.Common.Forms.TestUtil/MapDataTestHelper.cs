@@ -286,7 +286,7 @@ namespace Riskeer.Common.Forms.TestUtil
         /// Asserts whether the <see cref="MapData"/> contains the data that is representative 
         /// for the <paramref name="expectedAssemblyResult"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the that contains the original data.</param>
+        /// <param name="failureMechanism">The <see cref="IFailurePath"/> the that contains the original data.</param>
         /// <param name="expectedAssemblyResult">The expected <see cref="FailureMechanismSectionAssemblyResult"/> that contains the original data.</param>
         /// <param name="mapData">The <see cref="MapDataCollection"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
@@ -299,7 +299,7 @@ namespace Riskeer.Common.Forms.TestUtil
         /// <item>the meta data does not contain the <see cref="FailureMechanismSectionAssemblyGroup"/>.</item>
         /// </list>
         /// </exception>
-        public static void AssertAssemblyMapData(IFailureMechanism failureMechanism,
+        public static void AssertAssemblyMapData(IFailurePath failureMechanism,
                                                  FailureMechanismSectionAssemblyResult expectedAssemblyResult,
                                                  MapData mapData)
         {

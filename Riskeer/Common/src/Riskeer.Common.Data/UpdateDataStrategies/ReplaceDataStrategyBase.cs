@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.Exceptions;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.UpdateDataStrategies
 {
@@ -35,7 +35,7 @@ namespace Riskeer.Common.Data.UpdateDataStrategies
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism in which the target collection should be updated.</typeparam>
     public abstract class ReplaceDataStrategyBase<TTargetData, TFailureMechanism>
         where TTargetData : class
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : IFailurePath
     {
         private readonly ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetCollection;
 

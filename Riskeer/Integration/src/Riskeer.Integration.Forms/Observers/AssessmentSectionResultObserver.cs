@@ -51,7 +51,7 @@ namespace Riskeer.Integration.Forms.Observers
     public class AssessmentSectionResultObserver : Observable, IDisposable
     {
         private readonly AssessmentSection assessmentSection;
-        
+
         private readonly Observer assessmentSectionObserver;
         private readonly Observer referenceLineObserver;
         private readonly Observer closingStructuresObserver;
@@ -213,7 +213,7 @@ namespace Riskeer.Integration.Forms.Observers
         }
 
         private Observer CreateCalculatableFailureMechanismObserver<TFailureMechanism, TSectionResult, TCalculation>(TFailureMechanism failureMechanism)
-            where TFailureMechanism : IFailureMechanism, IFailurePath<TSectionResult>, ICalculatableFailureMechanism
+            where TFailureMechanism : IFailurePath, IFailurePath<TSectionResult>, ICalculatableFailureMechanism
             where TSectionResult : FailureMechanismSectionResult
             where TCalculation : ICalculation<ICalculationInput>
         {

@@ -34,7 +34,6 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.Integration.Data;
@@ -399,7 +398,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsEmpty(warningProvider.GetError(button));
 
                 // When
-                IFailureMechanism[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+                IFailurePath[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
                 failureMechanisms[random.Next(failureMechanisms.Length)].NotifyObservers();
 
                 // Then 

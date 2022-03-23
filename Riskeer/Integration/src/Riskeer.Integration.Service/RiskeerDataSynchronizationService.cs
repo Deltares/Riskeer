@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 switch (failureMechanism)
                 {
@@ -131,7 +131,7 @@ namespace Riskeer.Integration.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 switch (failureMechanism)
                 {
@@ -182,7 +182,7 @@ namespace Riskeer.Integration.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
+            IEnumerable<IFailurePath> failureMechanisms = assessmentSection.GetFailureMechanisms();
 
             var changedObservables = new List<IObservable>();
             changedObservables.AddRange(PipingDataSynchronizationService.ClearAllSemiProbabilisticCalculationOutputWithoutManualAssessmentLevel(
@@ -278,7 +278,7 @@ namespace Riskeer.Integration.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 switch (failureMechanism)
                 {
@@ -323,7 +323,7 @@ namespace Riskeer.Integration.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 switch (failureMechanism)
                 {
@@ -368,7 +368,7 @@ namespace Riskeer.Integration.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 switch (failureMechanism)
                 {

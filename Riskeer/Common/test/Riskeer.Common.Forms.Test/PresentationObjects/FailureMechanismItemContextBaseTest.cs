@@ -25,7 +25,7 @@ using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.Test.PresentationObjects
@@ -40,11 +40,11 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var observable = mockRepository.Stub<IObservable>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mockRepository.Stub<IFailurePath>();
             mockRepository.ReplayAll();
 
             // Call
-            var context = new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observable, failureMechanism, assessmentSection);
+            var context = new SimpleFailureMechanismItemContext<IObservable, IFailurePath>(observable, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservable>>(context);
@@ -64,7 +64,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observable, null, assessmentSection);
+            TestDelegate call = () => new SimpleFailureMechanismItemContext<IObservable, IFailurePath>(observable, null, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -78,11 +78,11 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Setup
             var mockRepository = new MockRepository();
             var observable = mockRepository.Stub<IObservable>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mockRepository.Stub<IFailurePath>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observable, failureMechanism, null);
+            TestDelegate call = () => new SimpleFailureMechanismItemContext<IObservable, IFailurePath>(observable, failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -92,7 +92,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
 
         private class SimpleFailureMechanismItemContext<TData, TFailureMechanism> : FailureMechanismItemContextBase<TData, TFailureMechanism>
             where TData : IObservable
-            where TFailureMechanism : IFailureMechanism
+            where TFailureMechanism : IFailurePath
         {
             public SimpleFailureMechanismItemContext(TData target, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(target, failureMechanism, assessmentSection) {}

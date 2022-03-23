@@ -28,7 +28,6 @@ using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -232,7 +231,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         [TestCaseSource(nameof(GetFailureMechanismReplaceData))]
         public void GivenAssessmentSectionWithFailureMechanismsReplaced_WhenOldFailureMechanismNotified_ThenAssessmentSectionResultObserverNotNotified<TFailureMechanism>(
             AssessmentSection assessmentSection, Func<AssessmentSection, TFailureMechanism> getFailureMechanismFunc, Action setNewFailureMechanismAction)
-            where TFailureMechanism : IFailureMechanism
+            where TFailureMechanism : IFailurePath
         {
             // Given
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
@@ -260,7 +259,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         [TestCaseSource(nameof(GetFailureMechanismReplaceData))]
         public void GivenAssessmentSectionWithFailureMechanismsReplaced_WhenNewFailureMechanismNotified_ThenAssessmentSectionResultObserverNotified<TFailureMechanism>(
             AssessmentSection assessmentSection, Func<AssessmentSection, TFailureMechanism> getFailureMechanismFunc, Action setNewFailureMechanismAction)
-            where TFailureMechanism : IFailureMechanism
+            where TFailureMechanism : IFailurePath
         {
             // Given
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))

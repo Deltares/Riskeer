@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 
@@ -71,7 +72,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetContributingFailureMechanisms()).Return(new IFailureMechanism[]
+            assessmentSection.Stub(section => section.GetContributingFailureMechanisms()).Return(new IFailurePath[]
             {
                 failureMechanism
             });

@@ -30,6 +30,7 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.Probability;
 using Riskeer.Common.Forms.PropertyClasses;
@@ -44,7 +45,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             // Call
@@ -94,7 +95,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                                                 probabilityAssessmentInput))
             {
                 // Assert
-                Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
+                Assert.IsInstanceOf<ObjectProperties<IFailurePath>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
                 Assert.AreSame(failureMechanism, properties.Data);
 
@@ -128,7 +129,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             var random = new Random(39);

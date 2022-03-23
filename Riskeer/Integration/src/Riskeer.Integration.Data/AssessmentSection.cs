@@ -27,7 +27,6 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
@@ -234,7 +233,7 @@ namespace Riskeer.Integration.Data
             }
         }
 
-        public IEnumerable<IFailureMechanism> GetFailureMechanisms()
+        public IEnumerable<IFailurePath> GetFailureMechanisms()
         {
             yield return Piping;
             yield return GrassCoverErosionInwards;
@@ -253,7 +252,7 @@ namespace Riskeer.Integration.Data
             yield return DuneErosion;
         }
 
-        public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
+        public IEnumerable<IFailurePath> GetContributingFailureMechanisms()
         {
             yield return Piping;
             yield return GrassCoverErosionInwards;

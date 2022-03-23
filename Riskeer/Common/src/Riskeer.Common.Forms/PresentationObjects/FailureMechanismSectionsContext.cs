@@ -28,7 +28,7 @@ using Riskeer.Common.Data.FailurePath;
 namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is a presentation object for <see cref="IFailureMechanism.Sections"/>.
+    /// This class is a presentation object for <see cref="IFailurePath.Sections"/>.
     /// </summary>
     public class FailureMechanismSectionsContext : ObservableWrappedObjectContextBase<IFailurePath<FailureMechanismSectionResult>>
     {

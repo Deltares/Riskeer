@@ -44,7 +44,7 @@ namespace Riskeer.Storage.Core.Test.Create
             // Setup
             var random = new Random(21);
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
 
             // Call
@@ -154,7 +154,7 @@ namespace Riskeer.Storage.Core.Test.Create
             // Setup
             var random = new Random(21);
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
-            IFailureMechanism failureMechanism = new TestFailureMechanism("a", "cool")
+            IFailurePath failureMechanism = new TestFailureMechanism("a", "cool")
             {
                 InAssemblyInputComments =
                 {

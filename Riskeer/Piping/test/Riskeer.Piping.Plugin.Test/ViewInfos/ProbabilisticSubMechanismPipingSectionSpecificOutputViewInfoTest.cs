@@ -26,6 +26,7 @@ using Core.Gui.Plugin;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.IllustrationPoints;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -183,7 +184,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 return new ProbabilisticPipingCalculationScenario();
             }
 
-            protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+            protected override ICalculationContext<ICalculation, IFailurePath> GetCalculationContextWithCalculation()
             {
                 return new ProbabilisticPipingCalculationScenarioContext(
                     new ProbabilisticPipingCalculationScenario(),
@@ -194,7 +195,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                     new AssessmentSectionStub());
             }
 
-            protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+            protected override ICalculationContext<CalculationGroup, IFailurePath> GetCalculationGroupContextWithCalculation()
             {
                 return new PipingCalculationGroupContext(
                     new CalculationGroup

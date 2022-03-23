@@ -23,7 +23,7 @@ using System;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 
 namespace Riskeer.Common.Forms.PresentationObjects
@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     public class StructuresCalculationScenarioContext<TInput, TFailureMechanism> : FailureMechanismItemContextBase<StructuresCalculationScenario<TInput>, TFailureMechanism>,
                                                                                    ICalculationContext<StructuresCalculationScenario<TInput>, TFailureMechanism>
         where TInput : IStructuresCalculationInput, new()
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : IFailurePath
     {
         /// <summary>
         /// Creates a new instance of <see cref="StructuresCalculationScenarioContext{TInput, TFailureMechanism}"/>.

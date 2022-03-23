@@ -24,7 +24,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.PresentationObjects;
 
 namespace Riskeer.Common.Forms.Test.PresentationObjects
@@ -40,14 +40,14 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var input = mockRepository.Stub<ICalculationInput>();
             var calculation = mockRepository.Stub<ICalculation>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mockRepository.Stub<IFailurePath>();
             mockRepository.ReplayAll();
 
             // Call
-            var context = new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(input, calculation, failureMechanism, assessmentSection);
+            var context = new SimpleInputContext<ICalculationInput, ICalculation, IFailurePath>(input, calculation, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismItemContextBase<ICalculationInput, IFailureMechanism>>(context);
+            Assert.IsInstanceOf<FailureMechanismItemContextBase<ICalculationInput, IFailurePath>>(context);
             Assert.AreSame(input, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
@@ -62,11 +62,11 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             var mockRepository = new MockRepository();
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             var input = mockRepository.Stub<ICalculationInput>();
-            var failureMechanism = mockRepository.Stub<IFailureMechanism>();
+            var failureMechanism = mockRepository.Stub<IFailurePath>();
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(input, null, failureMechanism, assessmentSection);
+            TestDelegate call = () => new SimpleInputContext<ICalculationInput, ICalculation, IFailurePath>(input, null, failureMechanism, assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -77,7 +77,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         private class SimpleInputContext<TInput, TCalculation, TFailureMechanism> : InputContextBase<TInput, TCalculation, TFailureMechanism>
             where TInput : ICalculationInput
             where TCalculation : ICalculation
-            where TFailureMechanism : IFailureMechanism
+            where TFailureMechanism : IFailurePath
         {
             public SimpleInputContext(TInput input, TCalculation calculation, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(input, calculation, failureMechanism, assessmentSection) {}

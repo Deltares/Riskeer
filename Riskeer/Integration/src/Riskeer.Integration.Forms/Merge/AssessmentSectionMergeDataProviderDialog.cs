@@ -25,7 +25,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
@@ -133,14 +132,14 @@ namespace Riskeer.Integration.Forms.Merge
         }
 
         private bool FailureMechanismIsSelectedToMerge<TFailureMechanism>()
-            where TFailureMechanism : IFailureMechanism
+            where TFailureMechanism : IFailurePath
         {
             return failurePathMergeDataRows.Any(row => row.FailurePath is TFailureMechanism && row.IsSelected);
         }
 
         private IEnumerable<SpecificFailurePath> GetSelectedSpecificFailurePathsToMerge()
         {
-            return failurePathMergeDataRows.Where(row => row.IsSelected && !(row.FailurePath is IFailureMechanism))
+            return failurePathMergeDataRows.Where(row => row.IsSelected && !(row.FailurePath is IFailurePath))
                                            .Select(row => row.FailurePath)
                                            .Cast<SpecificFailurePath>()
                                            .ToArray();

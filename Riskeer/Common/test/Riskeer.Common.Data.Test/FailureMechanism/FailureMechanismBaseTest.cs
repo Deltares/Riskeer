@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.Test.FailureMechanism
 {
@@ -70,7 +71,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
 
             // Assert
             Assert.IsInstanceOf<Observable>(failureMechanism);
-            Assert.IsInstanceOf<IFailureMechanism>(failureMechanism);
+            Assert.IsInstanceOf<IFailurePath>(failureMechanism);
             Assert.AreEqual(name, failureMechanism.Name);
             Assert.AreEqual(code, failureMechanism.Code);
             Assert.IsNotNull(failureMechanism.InAssemblyInputComments);

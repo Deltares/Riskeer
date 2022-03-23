@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 
@@ -36,13 +35,13 @@ namespace Riskeer.Common.Data.TestUtil
     public class AssessmentSectionStub : Observable, IAssessmentSection
     {
         private static readonly Random random = new Random(21);
-        private readonly IEnumerable<IFailureMechanism> failureMechanisms;
+        private readonly IEnumerable<IFailurePath> failureMechanisms;
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNorm;
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNorm;
 
-        public AssessmentSectionStub() : this(new IFailureMechanism[0]) {}
+        public AssessmentSectionStub() : this(new IFailurePath[0]) {}
 
-        public AssessmentSectionStub(IEnumerable<IFailureMechanism> failureMechanisms)
+        public AssessmentSectionStub(IEnumerable<IFailurePath> failureMechanisms)
         {
             this.failureMechanisms = failureMechanisms;
             FailureMechanismContribution = new FailureMechanismContribution(1.0 / 30000,
@@ -109,7 +108,7 @@ namespace Riskeer.Common.Data.TestUtil
         public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaterLevelCalculationsForUserDefinedTargetProbabilities { get; }
 
         public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaveHeightCalculationsForUserDefinedTargetProbabilities { get; }
-        
+
         public ObservableList<SpecificFailurePath> SpecificFailurePaths { get; }
 
         /// <summary>
@@ -140,12 +139,12 @@ namespace Riskeer.Common.Data.TestUtil
             }
         }
 
-        public IEnumerable<IFailureMechanism> GetFailureMechanisms()
+        public IEnumerable<IFailurePath> GetFailureMechanisms()
         {
             yield break;
         }
 
-        public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
+        public IEnumerable<IFailurePath> GetContributingFailureMechanisms()
         {
             return failureMechanisms;
         }

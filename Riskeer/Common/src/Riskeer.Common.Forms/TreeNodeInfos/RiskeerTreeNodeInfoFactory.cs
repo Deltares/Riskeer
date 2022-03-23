@@ -25,7 +25,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -50,13 +49,13 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             Func<TCalculationGroupContext, object[]> childNodeObjects,
             Func<TCalculationGroupContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
             Action<TCalculationGroupContext, object> onNodeRemoved)
-            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailurePath>
         {
             return new TreeNodeInfo<TCalculationGroupContext>
             {
                 Text = context => context.WrappedData.Name,
                 Image = context => Resources.GeneralFolderIcon,
-                EnsureVisibleOnCreate = (context, parent) => parent is ICalculationContext<CalculationGroup, IFailureMechanism>,
+                EnsureVisibleOnCreate = (context, parent) => parent is ICalculationContext<CalculationGroup, IFailurePath>,
                 ChildNodeObjects = childNodeObjects,
                 ContextMenuStrip = contextMenuStrip,
                 CanRename = (context, parentData) => IsNestedGroup(parentData),
@@ -88,7 +87,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             Func<TCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
             Action<TCalculationContext, object> onNodeRemoved,
             CalculationType calculationType)
-            where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
+            where TCalculationContext : ICalculationContext<ICalculation, IFailurePath>
         {
             return new TreeNodeInfo<TCalculationContext>
             {
@@ -151,7 +150,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public static TreeNodeInfo<TFailureMechanismContext> CreateFailureMechanismStateContextTreeNodeInfo<TFailureMechanismContext>(
             Func<TFailureMechanismContext, object[]> childNodeObjects,
             Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
-            where TFailureMechanismContext : IFailurePathContext<IFailureMechanism>
+            where TFailureMechanismContext : IFailurePathContext<IFailurePath>
         {
             return new TreeNodeInfo<TFailureMechanismContext>
             {
@@ -165,9 +164,9 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
 
         #region Helper methods for CreateCalculationContextTreeNodeInfo
 
-        private static bool CalculationContextCanRemove(ICalculationContext<ICalculation, IFailureMechanism> calculationContext, object parentNodeData)
+        private static bool CalculationContextCanRemove(ICalculationContext<ICalculation, IFailurePath> calculationContext, object parentNodeData)
         {
-            var calculationGroupContext = parentNodeData as ICalculationContext<CalculationGroup, IFailureMechanism>;
+            var calculationGroupContext = parentNodeData as ICalculationContext<CalculationGroup, IFailurePath>;
             return calculationGroupContext != null && calculationGroupContext.WrappedData.Children.Contains(calculationContext.WrappedData);
         }
 
@@ -177,20 +176,20 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
 
         private static bool IsNestedGroup(object parentData)
         {
-            return parentData is ICalculationContext<CalculationGroup, IFailureMechanism>;
+            return parentData is ICalculationContext<CalculationGroup, IFailurePath>;
         }
 
         private static bool CalculationGroupCanDropOrInsert(object draggedData, object targetData)
         {
-            var calculationContext = draggedData as ICalculationContext<ICalculationBase, IFailureMechanism>;
-            return calculationContext != null && ReferenceEquals(calculationContext.FailureMechanism, ((ICalculationContext<CalculationGroup, IFailureMechanism>) targetData).FailureMechanism);
+            var calculationContext = draggedData as ICalculationContext<ICalculationBase, IFailurePath>;
+            return calculationContext != null && ReferenceEquals(calculationContext.FailureMechanism, ((ICalculationContext<CalculationGroup, IFailurePath>) targetData).FailureMechanism);
         }
 
         private static void CalculationGroupOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
         {
-            ICalculationBase calculationItem = ((ICalculationContext<ICalculationBase, IFailureMechanism>) droppedData).WrappedData;
-            var originalOwnerContext = oldParentData as ICalculationContext<CalculationGroup, IFailureMechanism>;
-            var targetContext = newParentData as ICalculationContext<CalculationGroup, IFailureMechanism>;
+            ICalculationBase calculationItem = ((ICalculationContext<ICalculationBase, IFailurePath>) droppedData).WrappedData;
+            var originalOwnerContext = oldParentData as ICalculationContext<CalculationGroup, IFailurePath>;
+            var targetContext = newParentData as ICalculationContext<CalculationGroup, IFailurePath>;
 
             if (calculationItem != null && originalOwnerContext != null && targetContext != null)
             {
@@ -312,9 +311,9 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
 
                 // Try to start a name edit action when an item with the same name was already present
                 if (TargetCalculationGroup.Children.Except(new[]
-                {
-                    calculationBase
-                }).Any(c => c.Name.Equals(calculationBase.Name)))
+                    {
+                        calculationBase
+                    }).Any(c => c.Name.Equals(calculationBase.Name)))
                 {
                     treeViewControl.TryRenameNodeForData(draggedData);
                 }

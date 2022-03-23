@@ -30,6 +30,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
 using Riskeer.Integration.Data;
@@ -176,7 +177,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<IFailureMechanism>.Matches(fm => !fm.InAssembly)))
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<IFailurePath>.Matches(fm => !fm.InAssembly)))
                         .Repeat.Times(expectedNumberOfCalls);
             mocks.ReplayAll();
 

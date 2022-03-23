@@ -37,7 +37,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Common.Forms.TestUtil;
@@ -281,7 +281,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     {
                         CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 20)
                     };
-                    IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
+                    IEnumerable<IFailurePath> failureMechanisms = assessmentSection.GetFailureMechanisms();
                     failureMechanisms.ElementAt(random.Next(failureMechanisms.Count())).NotifyObservers();
 
                     // Then

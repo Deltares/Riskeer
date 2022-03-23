@@ -27,7 +27,7 @@ using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.ExportInfos;
 using Riskeer.Common.Forms.PresentationObjects;
 using CoreGuiResources = Core.Gui.Properties.Resources;
@@ -46,10 +46,10 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            Func<ICalculationContext<ICalculation, IFailureMechanism>, string, IFileExporter> createFileExporter = (context, s) => fileImporter;
+            Func<ICalculationContext<ICalculation, IFailurePath>, string, IFileExporter> createFileExporter = (context, s) => fileImporter;
 
             // Call
-            ExportInfo<ICalculationContext<ICalculation, IFailureMechanism>> exportInfo =
+            ExportInfo<ICalculationContext<ICalculation, IFailurePath>> exportInfo =
                 RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo(createFileExporter, inquiryHelper);
 
             // Assert
@@ -75,11 +75,11 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            Func<ICalculationContext<CalculationGroup, IFailureMechanism>, bool> isEnabled = context => false;
-            Func<ICalculationContext<CalculationGroup, IFailureMechanism>, string, IFileExporter> createFileExporter = (context, s) => fileImporter;
+            Func<ICalculationContext<CalculationGroup, IFailurePath>, bool> isEnabled = context => false;
+            Func<ICalculationContext<CalculationGroup, IFailurePath>, string, IFileExporter> createFileExporter = (context, s) => fileImporter;
 
             // Call
-            ExportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> exportInfo =
+            ExportInfo<ICalculationContext<CalculationGroup, IFailurePath>> exportInfo =
                 RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo(createFileExporter, isEnabled, inquiryHelper);
 
             // Assert

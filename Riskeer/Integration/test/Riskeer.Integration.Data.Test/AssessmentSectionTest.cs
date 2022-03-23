@@ -28,7 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Contribution;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.Data.TestUtil;
 
@@ -216,11 +216,11 @@ namespace Riskeer.Integration.Data.Test
             var assessmentSection = new AssessmentSection(composition);
 
             // Call
-            IFailureMechanism[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+            IFailurePath[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
 
             // Assert
             Assert.AreEqual(15, failureMechanisms.Length);
-            CollectionAssert.AreEqual(new IFailureMechanism[]
+            CollectionAssert.AreEqual(new IFailurePath[]
             {
                 assessmentSection.Piping,
                 assessmentSection.GrassCoverErosionInwards,
@@ -250,12 +250,12 @@ namespace Riskeer.Integration.Data.Test
             var assessmentSection = new AssessmentSection(composition);
 
             // Call
-            IFailureMechanism[] failureMechanisms = assessmentSection.GetContributingFailureMechanisms()
-                                                                     .ToArray();
+            IFailurePath[] failureMechanisms = assessmentSection.GetContributingFailureMechanisms()
+                                                                .ToArray();
 
             // Assert
             Assert.AreEqual(11, failureMechanisms.Length);
-            CollectionAssert.AreEqual(new IFailureMechanism[]
+            CollectionAssert.AreEqual(new IFailurePath[]
             {
                 assessmentSection.Piping,
                 assessmentSection.GrassCoverErosionInwards,

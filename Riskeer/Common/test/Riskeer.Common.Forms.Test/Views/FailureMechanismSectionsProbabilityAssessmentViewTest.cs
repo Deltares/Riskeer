@@ -29,6 +29,7 @@ using Core.Common.Controls.DataGrid;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Data.TestUtil.Probability;
@@ -66,7 +67,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             // Call
@@ -89,7 +90,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
@@ -128,7 +129,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
@@ -151,7 +152,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             FailureMechanismSection[] sections =
@@ -230,7 +231,10 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 var dataSourceChanged = false;
 
-                sectionsDataGridView.DataSourceChanged += (s, e) => { dataSourceChanged = true; };
+                sectionsDataGridView.DataSourceChanged += (s, e) =>
+                {
+                    dataSourceChanged = true;
+                };
 
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);
 
@@ -267,7 +271,10 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 var invalidated = false;
 
-                sectionsDataGridView.Invalidated += (s, e) => { invalidated = true; };
+                sectionsDataGridView.Invalidated += (s, e) =>
+                {
+                    invalidated = true;
+                };
 
                 // When
                 failureMechanism.NotifyObservers();
@@ -335,7 +342,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         private FailureMechanismSectionsProbabilityAssessmentView ShowFailureMechanismSectionsProbabilityAssessmentView(IEnumerable<FailureMechanismSection> sections,
-                                                                                                                        IFailureMechanism failureMechanism,
+                                                                                                                        IFailurePath failureMechanism,
                                                                                                                         ProbabilityAssessmentInput probabilityAssessmentInput)
         {
             var view = new FailureMechanismSectionsProbabilityAssessmentView(sections, failureMechanism, probabilityAssessmentInput);

@@ -26,7 +26,7 @@ using Core.Common.Base;
 using Core.Common.Util;
 using Core.Gui.Commands;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Integration.Forms.PropertyClasses;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
@@ -63,7 +63,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Dictionary<IFailureMechanism, bool> oldFailureMechanismsInAssembly = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.InAssembly, new ReferenceEqualityComparer<IFailureMechanism>());
+            Dictionary<IFailurePath, bool> oldFailureMechanismsInAssembly = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.InAssembly, new ReferenceEqualityComparer<IFailurePath>());
 
             var affectedObjects = new List<IObservable>();
             if (assessmentSection.Composition != newComposition)
@@ -80,15 +80,15 @@ namespace Riskeer.Integration.Plugin.Handlers
             return affectedObjects;
         }
 
-        private void CloseViewsForFailureMechanismsNotPartOfAssembly(IEnumerable<IFailureMechanism> failureMechanisms)
+        private void CloseViewsForFailureMechanismsNotPartOfAssembly(IEnumerable<IFailurePath> failureMechanisms)
         {
-            foreach (IFailureMechanism failureMechanism in failureMechanisms.Where(fm => !fm.InAssembly))
+            foreach (IFailurePath failureMechanism in failureMechanisms.Where(fm => !fm.InAssembly))
             {
                 viewCommands.RemoveAllViewsForItem(failureMechanism);
             }
         }
 
-        private static IEnumerable<IFailureMechanism> GetFailureMechanismsWithInAssemblyUpdated(IDictionary<IFailureMechanism, bool> oldFailureMechanismInAssembly)
+        private static IEnumerable<IFailurePath> GetFailureMechanismsWithInAssemblyUpdated(IDictionary<IFailurePath, bool> oldFailureMechanismInAssembly)
         {
             return oldFailureMechanismInAssembly.Where(fmr => fmr.Value != fmr.Key.InAssembly).Select(fmr => fmr.Key);
         }

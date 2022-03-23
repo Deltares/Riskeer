@@ -23,7 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Forms.PresentationObjects
 {
@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism which the context belongs to.</typeparam>
     public abstract class FailureMechanismItemContextBase<TData, TFailureMechanism> : ObservableWrappedObjectContextBase<TData>
         where TData : IObservable
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : IFailurePath
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismItemContextBase{TData,TFailureMechanism}"/> class.

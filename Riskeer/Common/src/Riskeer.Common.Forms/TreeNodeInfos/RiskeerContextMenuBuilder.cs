@@ -74,7 +74,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationContext calculationGroupContext,
             Action<TCalculationContext> addCalculationAction,
             CalculationType calculationType)
-            where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+            where TCalculationContext : ICalculationContext<CalculationGroup, IFailurePath>
         {
             contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateAddCalculationItem(calculationGroupContext, addCalculationAction, calculationType));
             return this;
@@ -105,7 +105,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationContext calculationGroupContext,
             Action<TCalculationContext> calculateAllAction,
             Func<TCalculationContext, string> enableMenuItemFunction = null)
-            where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+            where TCalculationContext : ICalculationContext<CalculationGroup, IFailurePath>
         {
             contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInGroupItem(calculationGroupContext, calculateAllAction, enableMenuItemFunction));
             return this;
@@ -124,7 +124,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public RiskeerContextMenuBuilder AddValidateAllCalculationsInGroupItem<TCalculationContext>(TCalculationContext calculationGroupContext,
                                                                                                     Action<TCalculationContext> validateAllAction,
                                                                                                     Func<TCalculationContext, string> enableMenuItemFunction = null)
-            where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+            where TCalculationContext : ICalculationContext<CalculationGroup, IFailurePath>
         {
             contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateValidateAllCalculationsInGroupItem(calculationGroupContext, validateAllAction, enableMenuItemFunction));
             return this;
@@ -143,7 +143,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public RiskeerContextMenuBuilder AddDuplicateCalculationItem<TCalculationItem, TCalculationItemContext>(
             TCalculationItem calculationItem,
             TCalculationItemContext calculationItemContext)
-            where TCalculationItemContext : ICalculationContext<TCalculationItem, IFailureMechanism>
+            where TCalculationItemContext : ICalculationContext<TCalculationItem, IFailurePath>
             where TCalculationItem : ICalculationBase
         {
             contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateDuplicateCalculationItem(calculationItem, calculationItemContext));
@@ -165,7 +165,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationContext calculationContext,
             Action<TCalculationContext> calculateAction,
             Func<TCalculationContext, string> enableMenuItemFunction = null)
-            where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
+            where TCalculationContext : ICalculationContext<TCalculation, IFailurePath>
             where TCalculation : ICalculation
         {
             contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformCalculationItem<TCalculation, TCalculationContext>(
@@ -187,7 +187,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationContext calculationContext,
             Action<TCalculationContext> validateAction,
             Func<TCalculationContext, string> enableMenuItemFunction = null)
-            where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
+            where TCalculationContext : ICalculationContext<ICalculation, IFailurePath>
         {
             contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateValidateCalculationItem(calculationContext, validateAction, enableMenuItemFunction));
             return this;

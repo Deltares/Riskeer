@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Service.Test
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[]
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailurePath[]
             {
                 pipingFailureMechanism,
                 macroStabilityInwardsFailureMechanism

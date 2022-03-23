@@ -47,14 +47,14 @@ namespace Riskeer.Common.Plugin
         /// <returns>Whether the view should be closed.</returns>
         public static bool ShouldCloseViewWithCalculationData(IView view, object removedObject)
         {
-            var context = removedObject as ICalculationContext<ICalculation, IFailureMechanism>;
+            var context = removedObject as ICalculationContext<ICalculation, IFailurePath>;
             if (context != null)
             {
                 return ReferenceEquals(view.Data, context.WrappedData);
             }
 
             IEnumerable<ICalculation> calculations;
-            var calculationGroupContext = removedObject as ICalculationContext<CalculationGroup, IFailureMechanism>;
+            var calculationGroupContext = removedObject as ICalculationContext<CalculationGroup, IFailurePath>;
             if (calculationGroupContext != null)
             {
                 calculations = calculationGroupContext.WrappedData
@@ -78,8 +78,8 @@ namespace Riskeer.Common.Plugin
         public static bool ShouldCloseForFailureMechanismView(CloseForFailurePathView view, object removedObject)
         {
             var assessmentSection = removedObject as IAssessmentSection;
-            var failurePathContext = removedObject as IFailurePathContext<IFailureMechanism>;
-            var failureMechanism = removedObject as IFailureMechanism;
+            var failurePathContext = removedObject as IFailurePathContext<IFailurePath>;
+            var failureMechanism = removedObject as IFailurePath;
 
             if (failurePathContext != null)
             {

@@ -23,14 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Controls.DataGrid;
-using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Forms.TypeConverters;
 
 namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
-    /// This class represents a row displaying the properties of a <see cref="IFailureMechanism"/>
+    /// This class represents a row displaying the properties of a <see cref="IFailurePath"/>
     /// and its assembly result.
     /// </summary>
     internal class FailureMechanismAssemblyResultRow : IHasColumnStateDefinitions

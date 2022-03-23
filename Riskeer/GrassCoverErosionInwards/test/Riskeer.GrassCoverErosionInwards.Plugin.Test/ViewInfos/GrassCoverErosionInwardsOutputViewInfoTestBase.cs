@@ -26,6 +26,7 @@ using Core.Gui.Plugin;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
@@ -127,7 +128,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             return new GrassCoverErosionInwardsCalculation();
         }
 
-        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+        protected override ICalculationContext<ICalculation, IFailurePath> GetCalculationContextWithCalculation()
         {
             return new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(),
                                                                           new CalculationGroup(),
@@ -135,7 +136,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                           new AssessmentSectionStub());
         }
 
-        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+        protected override ICalculationContext<CalculationGroup, IFailurePath> GetCalculationGroupContextWithCalculation()
         {
             return new GrassCoverErosionInwardsCalculationGroupContext(
                 new CalculationGroup

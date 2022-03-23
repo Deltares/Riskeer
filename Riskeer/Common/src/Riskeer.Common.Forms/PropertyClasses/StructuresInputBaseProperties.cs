@@ -31,7 +31,7 @@ using Core.Gui.PropertyBag;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
-using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.FailurePath;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Forms.ChangeHandlers;
 using Riskeer.Common.Forms.Helpers;
@@ -57,7 +57,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         where TStructure : StructureBase
         where TStructureInput : StructuresInputBase<TStructure>
         where TCalculation : ICalculation
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : IFailurePath
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 

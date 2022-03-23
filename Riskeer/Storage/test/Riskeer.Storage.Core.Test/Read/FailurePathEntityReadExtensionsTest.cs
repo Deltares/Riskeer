@@ -75,7 +75,7 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailurePath>();
             mocks.ReplayAll();
 
             var entity = new FailureMechanismEntity();
