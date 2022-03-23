@@ -41,13 +41,13 @@ namespace Riskeer.Common.Plugin.TestUtil
     /// Test fixture for verifying the InAssembly behavior of a TreeNodeInfo.
     /// </summary>
     /// <typeparam name="TPlugin">The type of plugin to create the tests for.</typeparam>
-    /// <typeparam name="TFailurePath">The type of <see cref="IFailureMechanism"/> to create the tests for.</typeparam>
-    /// <typeparam name="TFailurePathContext">The type of <see cref="IFailurePathContext{T}"/> to create the tests for.</typeparam>
+    /// <typeparam name="TFailureMechanism">The type of <see cref="IFailureMechanism"/> to create the tests for.</typeparam>
+    /// <typeparam name="TContext">The type of <see cref="IFailureMechanismContext{T}"/> to create the tests for.</typeparam>
     [TestFixture]
-    public abstract class FailurePathInAssemblyTreeNodeInfoTestFixtureBase<TPlugin, TFailurePath, TFailurePathContext>
+    public abstract class FailurePathInAssemblyTreeNodeInfoTestFixtureBase<TPlugin, TFailureMechanism, TContext>
         where TPlugin : PluginBase, new()
-        where TFailurePath : IFailureMechanism, new()
-        where TFailurePathContext : IFailurePathContext<TFailurePath>
+        where TFailureMechanism : IFailureMechanism, new()
+        where TContext : IFailureMechanismContext<TFailureMechanism>
     {
         private readonly int contextMenuIndexWhenInAssemblyFalse;
         private readonly int contextMenuIndexWhenInAssemblyTrue;
@@ -58,9 +58,9 @@ namespace Riskeer.Common.Plugin.TestUtil
             // Setup
             var mocks = new MockRepository();
 
-            var failureMechanism = new TFailurePath();
+            var failureMechanism = new TFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            TFailurePathContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
+            TContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -101,13 +101,13 @@ namespace Riskeer.Common.Plugin.TestUtil
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = new TFailurePath
+            var failureMechanism = new TFailureMechanism
             {
                 InAssembly = false
             };
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            TFailurePathContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
+            TContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -151,8 +151,8 @@ namespace Riskeer.Common.Plugin.TestUtil
             using (var treeView = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = new TFailurePath();
-                TFailurePathContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
+                var failureMechanism = new TFailureMechanism();
+                TContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
@@ -192,12 +192,12 @@ namespace Riskeer.Common.Plugin.TestUtil
             using (var treeView = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = new TFailurePath
+                var failureMechanism = new TFailureMechanism
                 {
                     InAssembly = false
                 };
 
-                TFailurePathContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
+                TContext context = CreateFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
@@ -232,9 +232,9 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// <summary>
         /// Creates a new instance of <see cref="FailurePathInAssemblyTreeNodeInfoTestFixtureBase{TPlugin,TFailurePath,TFailurePathContext}"/>.
         /// </summary>
-        /// <param name="contextMenuIndexWhenInAssemblyTrue">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
+        /// <param name="contextMenuIndexWhenInAssemblyTrue">The index of the InAssembly context menu item when the <typeparamref name="TFailureMechanism"/>
         /// is part of the assembly.</param>
-        /// <param name="contextMenuIndexWhenInAssemblyFalse">The index of the InAssembly context menu item when the <typeparamref name="TFailurePath"/>
+        /// <param name="contextMenuIndexWhenInAssemblyFalse">The index of the InAssembly context menu item when the <typeparamref name="TFailureMechanism"/>
         /// is not part of the assembly.</param>
         protected FailurePathInAssemblyTreeNodeInfoTestFixtureBase(int contextMenuIndexWhenInAssemblyTrue,
                                                                    int contextMenuIndexWhenInAssemblyFalse)
@@ -243,11 +243,11 @@ namespace Riskeer.Common.Plugin.TestUtil
             this.contextMenuIndexWhenInAssemblyFalse = contextMenuIndexWhenInAssemblyFalse;
         }
 
-        protected abstract TFailurePathContext CreateFailureMechanismContext(TFailurePath failureMechanism, IAssessmentSection assessmentSection);
+        protected abstract TContext CreateFailureMechanismContext(TFailureMechanism failureMechanism, IAssessmentSection assessmentSection);
 
         private static TreeNodeInfo GetInfo(TPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(TFailurePathContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(TContext));
         }
     }
 }

@@ -329,7 +329,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var failurePath = mocks.StrictMock<IFailureMechanism>();
             failurePath.Expect(fm => fm.InAssembly).Return(inAssembly);
-            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
+            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
             failurePathContext.Expect(fmc => fmc.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 

@@ -30,7 +30,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for a <see cref="SpecificFailurePath"/> instance.
     /// </summary>
-    public class SpecificFailurePathContext : ObservableWrappedObjectContextBase<SpecificFailurePath>, IFailurePathContext<SpecificFailurePath>
+    public class SpecificFailurePathContext : ObservableWrappedObjectContextBase<SpecificFailurePath>, IFailureMechanismContext<SpecificFailurePath>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SpecificFailurePathContext"/> class.

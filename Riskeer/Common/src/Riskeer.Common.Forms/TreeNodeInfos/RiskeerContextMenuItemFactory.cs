@@ -329,7 +329,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TFailureMechanismContext failureMechanismContext,
             Action<TFailureMechanismContext> calculateAllAction,
             Func<TFailureMechanismContext, string> enableMenuItemFunction)
-            where TFailureMechanismContext : IFailurePathContext<ICalculatableFailureMechanism>
+            where TFailureMechanismContext : IFailureMechanismContext<ICalculatableFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Calculate_All,
@@ -364,7 +364,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TFailureMechanismContext failureMechanism,
             Action<TFailureMechanismContext> validateAllAction,
             Func<TFailureMechanismContext, string> enableMenuItemFunction)
-            where TFailureMechanismContext : IFailurePathContext<ICalculatableFailureMechanism>
+            where TFailureMechanismContext : IFailureMechanismContext<ICalculatableFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Validate_All,
@@ -396,7 +396,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public static StrictContextMenuItem CreateToggleInAssemblyOfFailurePathItem<TFailurePathContext>(
             TFailurePathContext failurePathContext,
             Action<TFailurePathContext> onChangeAction)
-            where TFailurePathContext : IFailurePathContext<IFailureMechanism>
+            where TFailurePathContext : IFailureMechanismContext<IFailureMechanism>
         {
             bool inAssembly = failurePathContext.WrappedData.InAssembly;
             Bitmap checkboxImage = inAssembly ? Resources.Checkbox_ticked : Resources.Checkbox_empty;

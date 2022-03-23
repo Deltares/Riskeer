@@ -229,7 +229,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TFailureMechanismContext failureMechanismContext,
             Action<TFailureMechanismContext> calculateAllAction,
             Func<TFailureMechanismContext, string> enableMenuItemFunction = null)
-            where TFailureMechanismContext : IFailurePathContext<ICalculatableFailureMechanism>
+            where TFailureMechanismContext : IFailureMechanismContext<ICalculatableFailureMechanism>
         {
             contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreatePerformAllCalculationsInFailureMechanismItem(failureMechanismContext, calculateAllAction, enableMenuItemFunction));
             return this;
@@ -250,7 +250,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TFailureMechanismContext failureMechanism,
             Action<TFailureMechanismContext> validateAllAction,
             Func<TFailureMechanismContext, string> enableMenuItemFunction = null)
-            where TFailureMechanismContext : IFailurePathContext<ICalculatableFailureMechanism>
+            where TFailureMechanismContext : IFailureMechanismContext<ICalculatableFailureMechanism>
         {
             contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateValidateAllCalculationsInFailureMechanismItem(failureMechanism, validateAllAction, enableMenuItemFunction));
             return this;
@@ -266,7 +266,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public RiskeerContextMenuBuilder AddToggleInAssemblyOfFailurePathItem<TFailurePathContext>(
             TFailurePathContext failurePathContext,
             Action<TFailurePathContext> onChangeAction)
-            where TFailurePathContext : IFailurePathContext<IFailureMechanism>
+            where TFailurePathContext : IFailureMechanismContext<IFailureMechanism>
         {
             contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailurePathItem(failurePathContext, onChangeAction));
             return this;

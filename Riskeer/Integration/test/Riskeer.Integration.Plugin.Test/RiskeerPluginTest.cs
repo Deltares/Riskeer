@@ -239,7 +239,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(IFailurePathContext<IHasGeneralInput>),
+                    typeof(IFailureMechanismContext<IHasGeneralInput>),
                     typeof(StandAloneFailurePathProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(

@@ -174,7 +174,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new PipingStructureFailureMechanism();
 
-            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
+            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
             failurePathContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
@@ -196,7 +196,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
-            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
+            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
             failurePathContext.Expect(fm => fm.WrappedData).Return(new PipingStructureFailureMechanism());
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();

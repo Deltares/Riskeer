@@ -451,7 +451,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var failurePath = mocks.StrictMock<IFailureMechanism>();
             failurePath.Expect(fp => fp.InAssembly).Return(inAssembly);
-            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
+            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
             failurePathContext.Expect(fpc => fpc.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 
@@ -479,7 +479,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             failurePath.Expect(fp => fp.InAssembly).SetPropertyWithArgument(!inAssembly);
             failurePath.Expect(fp => fp.NotifyObservers());
 
-            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
+            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
             failurePathContext.Stub(fmc => fmc.WrappedData).Return(failurePath);
             mocks.ReplayAll();
 

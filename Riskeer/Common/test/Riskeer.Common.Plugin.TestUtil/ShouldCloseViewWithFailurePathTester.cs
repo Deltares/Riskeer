@@ -224,7 +224,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             mocks.ReplayAll();
 
             var failurePath = new TestFailurePath();
-            var failurePathContext = new TestFailurePathContext(otherFailurePath, assessmentSection);
+            var failurePathContext = new TestFailureMechanismContext(otherFailurePath, assessmentSection);
 
             using (IView view = GetView(failurePath))
             {
@@ -247,7 +247,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             mocks.ReplayAll();
 
             var failurePath = new TestFailurePath();
-            var failurePathContext = new TestFailurePathContext(failurePath, assessmentSection);
+            var failurePathContext = new TestFailureMechanismContext(failurePath, assessmentSection);
 
             using (IView view = GetView(failurePath))
             {
@@ -276,9 +276,9 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// <returns>A view object.</returns>
         protected abstract IView GetView(IFailureMechanism failurePath);
 
-        private class TestFailurePathContext : IFailurePathContext<IFailureMechanism>
+        private class TestFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            public TestFailurePathContext(IFailureMechanism wrappedFailurePath, IAssessmentSection parent)
+            public TestFailureMechanismContext(IFailureMechanism wrappedFailurePath, IAssessmentSection parent)
             {
                 WrappedData = wrappedFailurePath;
                 Parent = parent;

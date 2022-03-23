@@ -299,7 +299,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailurePathContext<WaveImpactAsphaltCoverFailureMechanism> failurePathContext)
+            if (dataToCloseFor is IFailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism> failurePathContext)
             {
                 failureMechanism = failurePathContext.WrappedData;
             }

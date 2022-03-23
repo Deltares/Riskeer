@@ -236,7 +236,7 @@ namespace Riskeer.Integration.Plugin
                     context.WrappedData,
                     new FailureMechanismContributionNormChangeHandler(context.AssessmentSection))
             };
-            yield return new PropertyInfo<IFailurePathContext<IHasGeneralInput>, StandAloneFailurePathProperties>
+            yield return new PropertyInfo<IFailureMechanismContext<IHasGeneralInput>, StandAloneFailurePathProperties>
             {
                 CreateInstance = context => new StandAloneFailurePathProperties(context.WrappedData)
             };
@@ -1407,7 +1407,7 @@ namespace Riskeer.Integration.Plugin
             TFailureMechanismContext, TFailureMechanism, TSectionResult>(Func<TFailureMechanismContext, TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
             where TSectionResult : FailureMechanismSectionResult
             where TFailureMechanism : FailureMechanismBase<TSectionResult>
-            where TFailureMechanismContext : IFailurePathContext<TFailureMechanism>
+            where TFailureMechanismContext : IFailureMechanismContext<TFailureMechanism>
         {
             return new RiskeerViewInfo<TFailureMechanismContext, TFailureMechanism,
                 StandAloneFailureMechanismView<TFailureMechanism, TSectionResult>>(() => Gui)
@@ -1442,7 +1442,7 @@ namespace Riskeer.Integration.Plugin
                                                        .FirstOrDefault(fp => fp == view.FailureMechanism);
             }
 
-            if (dataToCloseFor is IFailurePathContext<IFailureMechanism> failureMechanismContext)
+            if (dataToCloseFor is IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData as TFailureMechanism;
             }
@@ -1508,7 +1508,7 @@ namespace Riskeer.Integration.Plugin
                 return ReferenceEquals(commentView.Data, calculation.Comments);
             }
 
-            if (dataToCloseFor is IFailurePathContext<IFailureMechanism> failurePathContext)
+            if (dataToCloseFor is IFailureMechanismContext<IFailureMechanism> failurePathContext)
             {
                 return GetCommentElements(failurePathContext.WrappedData)
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
@@ -2069,7 +2069,7 @@ namespace Riskeer.Integration.Plugin
 
         #region StandAloneFailurePath TreeNodeInfo
 
-        private static object[] StandAloneFailurePathDisabledChildNodeObjects(IFailurePathContext<IFailureMechanism> nodeData)
+        private static object[] StandAloneFailurePathDisabledChildNodeObjects(IFailureMechanismContext<IFailureMechanism> nodeData)
         {
             return new object[]
             {
@@ -2077,7 +2077,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip StandAloneFailurePathEnabledContextMenuStrip(IFailurePathContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StandAloneFailurePathEnabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -2092,12 +2092,12 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForFailureMechanismContext(IFailurePathContext<IFailureMechanism> failureMechanismContext)
+        private void RemoveAllViewsForFailureMechanismContext(IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip StandAloneFailurePathDisabledContextMenuStrip(IFailurePathContext<IFailureMechanism> nodeData,
+        private ContextMenuStrip StandAloneFailurePathDisabledContextMenuStrip(IFailureMechanismContext<IFailureMechanism> nodeData,
                                                                                object parentData,
                                                                                TreeViewControl treeViewControl)
         {

@@ -345,7 +345,7 @@ namespace Riskeer.DuneErosion.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailurePathContext<DuneErosionFailureMechanism> failurePathContext)
+            if (dataToCloseFor is IFailureMechanismContext<DuneErosionFailureMechanism> failurePathContext)
             {
                 failureMechanism = failurePathContext.WrappedData;
             }

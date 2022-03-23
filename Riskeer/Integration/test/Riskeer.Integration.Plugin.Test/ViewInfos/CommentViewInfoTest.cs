@@ -524,7 +524,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             failurePath.Stub(fm => fm.InAssemblyInputComments).Return(affectedComment);
             failurePath.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failurePath.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
-            var failurePathContext = mocks.Stub<IFailurePathContext<IFailureMechanism>>();
+            var failurePathContext = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
 
             failurePathContext.Expect(c => c.WrappedData).Return(failurePath);
             mocks.ReplayAll();
@@ -554,7 +554,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             failurePath.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
             failurePath.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failurePath.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
-            var failurePathContext = mocks.Stub<IFailurePathContext<IFailureMechanism>>();
+            var failurePathContext = mocks.Stub<IFailureMechanismContext<IFailureMechanism>>();
 
             failurePathContext.Expect(c => c.WrappedData).Return(failurePath);
             mocks.ReplayAll();

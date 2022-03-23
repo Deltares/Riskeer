@@ -187,7 +187,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
+            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
             failurePathContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
             mocks.ReplayAll();
 
@@ -213,7 +213,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
-            var failurePathContext = mocks.StrictMock<IFailurePathContext<IFailureMechanism>>();
+            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
             failurePathContext.Expect(fm => fm.WrappedData).Return(new GrassCoverSlipOffInwardsFailureMechanism());
             mocks.ReplayAll();
 

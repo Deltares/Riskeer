@@ -77,7 +77,7 @@ namespace Riskeer.Common.Plugin
         public static bool ShouldCloseForFailureMechanismView(CloseForFailurePathView view, object removedObject)
         {
             var assessmentSection = removedObject as IAssessmentSection;
-            var failurePathContext = removedObject as IFailurePathContext<IFailureMechanism>;
+            var failurePathContext = removedObject as IFailureMechanismContext<IFailureMechanism>;
             var failureMechanism = removedObject as IFailureMechanism;
 
             if (failurePathContext != null)
@@ -105,7 +105,7 @@ namespace Riskeer.Common.Plugin
         {
             var failurePath = removedObject as IFailureMechanism;
 
-            if (removedObject is IFailurePathContext<IFailureMechanism> failurePathContext)
+            if (removedObject is IFailureMechanismContext<IFailureMechanism> failurePathContext)
             {
                 failurePath = failurePathContext.WrappedData;
             }

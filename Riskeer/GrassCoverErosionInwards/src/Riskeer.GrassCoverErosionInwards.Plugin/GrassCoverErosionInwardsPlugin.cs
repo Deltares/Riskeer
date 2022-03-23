@@ -432,7 +432,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailurePathContext<GrassCoverErosionInwardsFailureMechanism> failurePathContext)
+            if (dataToCloseFor is IFailureMechanismContext<GrassCoverErosionInwardsFailureMechanism> failurePathContext)
             {
                 failureMechanism = failurePathContext.WrappedData;
             }

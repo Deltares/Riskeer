@@ -298,7 +298,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailurePathContext<StabilityStoneCoverFailureMechanism> failurePathContext)
+            if (dataToCloseFor is IFailureMechanismContext<StabilityStoneCoverFailureMechanism> failurePathContext)
             {
                 failureMechanism = failurePathContext.WrappedData;
             }
