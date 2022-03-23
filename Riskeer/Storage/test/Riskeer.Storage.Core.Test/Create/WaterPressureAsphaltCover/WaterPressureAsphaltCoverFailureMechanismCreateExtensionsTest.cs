@@ -69,10 +69,6 @@ namespace Riskeer.Storage.Core.Test.Create.WaterPressureAsphaltCover
                 {
                     Body = "Really not in assembly"
                 },
-                CalculationsInputComments =
-                {
-                    Body = "Some calculation text"
-                },
                 GeneralInput =
                 {
                     N = new Random().NextRoundedDouble(1, 20)
@@ -113,10 +109,6 @@ namespace Riskeer.Storage.Core.Test.Create.WaterPressureAsphaltCover
                 NotInAssemblyComments =
                 {
                     Body = "Really not in assembly"
-                },
-                CalculationsInputComments =
-                {
-                    Body = "Some calculations text"
                 }
             };
             var registry = new PersistenceRegistry();

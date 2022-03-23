@@ -1343,6 +1343,8 @@ namespace Riskeer.Storage.Core.TestUtil
 
         private static void ConfigureDuneErosionFailureMechanism(DuneErosionFailureMechanism failureMechanism)
         {
+            failureMechanism.CalculationsInputComments.Body = $"Calculations input comment: {failureMechanism.Name}";
+
             failureMechanism.GeneralInput.N = (RoundedDouble) 5.5;
 
             var random = new Random(21);

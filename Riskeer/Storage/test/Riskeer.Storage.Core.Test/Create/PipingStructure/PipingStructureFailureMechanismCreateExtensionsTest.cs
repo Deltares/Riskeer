@@ -69,10 +69,6 @@ namespace Riskeer.Storage.Core.Test.Create.PipingStructure
                 {
                     Body = "Really not in assembly"
                 },
-                CalculationsInputComments =
-                {
-                    Body = "Some calculation text"
-                },
                 GeneralInput =
                 {
                     N = new Random().NextRoundedDouble(1, 20)
@@ -111,10 +107,6 @@ namespace Riskeer.Storage.Core.Test.Create.PipingStructure
                 NotInAssemblyComments =
                 {
                     Body = "Really not in assembly"
-                },
-                CalculationsInputComments =
-                {
-                    Body = "Some calculation text"
                 }
             };
             var registry = new PersistenceRegistry();

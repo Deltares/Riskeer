@@ -946,6 +946,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         {
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
 
+            AssertComments(expectedFailureMechanism.CalculationsInputComments, actualFailureMechanism.CalculationsInputComments);
+
             AssertDuneLocations(expectedFailureMechanism.DuneLocations, actualFailureMechanism.DuneLocations);
             AssertDuneLocationCalculations(expectedFailureMechanism, actualFailureMechanism);
         }
