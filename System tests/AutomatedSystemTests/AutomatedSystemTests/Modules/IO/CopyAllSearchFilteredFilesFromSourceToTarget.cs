@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 using System.Drawing;
 using System.Threading;
 using WinForms = System.Windows.Forms;
+using System.Linq;
 
 using Ranorex;
 using Ranorex.Core;
@@ -70,7 +71,7 @@ namespace AutomatedSystemTests.Modules.IO
         /// that will in turn invoke this method.</remarks>
         void ITestModule.Run()
         {
-            foreach (var sourceFilePath in Directory.GetFiles(sourcePath, searchPattern))
+            foreach (var sourceFilePath in Directory.GetFiles(sourcePath, searchPattern).ToList())
                 {
                 string fileName = Path.GetFileName(sourceFilePath);
                 string destinationFilePath = Path.Combine(targetPath, fileName);
