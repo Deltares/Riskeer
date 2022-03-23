@@ -2232,12 +2232,6 @@
 			name="DuplicateCalculationAgain">
 			</smartfoldernode>
 			<testmodule
-			id="7e154b4e-78e9-4e25-ba5c-b9bf4654e145"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="7f143857-7f9e-4130-ae9e-955684679e42"
 			name="WaitForXMiliseconds"
 			ref="c4d13523-92e2-47e6-9f4a-8cabca3f6785"
@@ -5485,10 +5479,6 @@
 					<![CDATA[First collapse all to get a consistent initial state...]]>
 				</description>
 			</testmodule>
-			<testcase
-			id="fc2a9dbf-03e9-453c-a3bc-3125413d3802"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<testmodule
 			id="fc479fe8-9932-4126-b169-4593b9e8390c"
 			name="CollapseRowItemsInPropertiesPanel"
@@ -5630,14 +5620,6 @@
 				<testcase
 				id="67f96106-b81a-4d2e-bd8f-52daca8f7e7f"
 				name="Script27">
-					<testcase
-					id="fc2a9dbf-03e9-453c-a3bc-3125413d3802"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="7e154b4e-78e9-4e25-ba5c-b9bf4654e145"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
 					<testcase
 					id="5a447dac-43ba-486d-a727-899f8cfa1363"
 					name="script27_Berekeningen_dupliceren,_exporteren_en_importeren">
@@ -8029,9 +8011,6 @@
 			</testcontainer>
 			<testcontainer
 			id="fa5292d0-a21d-4f4d-aacc-85ad0a59fe21">
-			</testcontainer>
-			<testcontainer
-			id="fc2a9dbf-03e9-453c-a3bc-3125413d3802">
 			</testcontainer>
 			<testcontainer
 			id="ff073895-6a94-444e-8434-eb9e684bc5e7">
