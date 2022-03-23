@@ -353,11 +353,8 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var failureMechanism = mocks.StrictMock<PipingFailureMechanism>();
-                failureMechanism.Stub(dm => dm.Calculations).Return(new[]
-                {
-                    new TestPipingCalculationScenario()
-                });
+                var failureMechanism = new PipingFailureMechanism();
+                failureMechanism.CalculationsGroup.Children.Add(new TestPipingCalculationScenario());
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var context = new PipingCalculationsContext(failureMechanism, assessmentSection);

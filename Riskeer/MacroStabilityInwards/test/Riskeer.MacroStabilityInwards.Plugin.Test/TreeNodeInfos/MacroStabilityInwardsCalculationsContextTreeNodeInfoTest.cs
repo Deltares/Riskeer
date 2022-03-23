@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -340,9 +339,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-                var data = mocks.StrictMock<MacroStabilityInwardsFailureMechanism>();
-                data.Stub(dm => dm.Calculations).Return(Array.Empty<ICalculation>());
-
+                var data = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var context = new MacroStabilityInwardsCalculationsContext(data, assessmentSection);
 
