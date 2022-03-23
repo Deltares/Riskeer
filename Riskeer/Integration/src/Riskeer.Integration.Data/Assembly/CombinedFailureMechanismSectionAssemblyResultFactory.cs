@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Integration.Data.Assembly
