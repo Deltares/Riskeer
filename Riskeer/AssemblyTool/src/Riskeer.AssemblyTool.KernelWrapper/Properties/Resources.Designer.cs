@@ -253,7 +253,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De signaleringskans moet kleiner zijn dan de ondergrens..
+        ///   Looks up a localized string similar to De signaleringsparameter moet kleiner zijn dan de omgevingswaarde..
         /// </summary>
         internal static string AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit {
             get {

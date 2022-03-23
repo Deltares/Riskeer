@@ -124,7 +124,7 @@
     <value>De trajectlengte moet groter zijn dan 0 [m].</value>
   </data>
   <data name="AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit" xml:space="preserve">
-    <value>De signaleringskans moet kleiner zijn dan de ondergrens.</value>
+    <value>De signaleringsparameter moet kleiner zijn dan de omgevingswaarde.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit" xml:space="preserve">
     <value>De categoriebovengrens moet boven de categorieondergrens liggen.</value>
