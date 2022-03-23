@@ -34,11 +34,11 @@ using Riskeer.Common.Forms.Views;
 namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
-    /// View for <see cref="SpecificFailurePath"/>.
+    /// View for <see cref="SpecificFailureMechanism"/>.
     /// </summary>
     public partial class SpecificFailurePathView : CloseForFailurePathView, IMapView
     {
-        private readonly SpecificFailurePath failurePath;
+        private readonly SpecificFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
 
         private MapDataCollection failurePathMapDataCollection;
@@ -58,10 +58,10 @@ namespace Riskeer.Integration.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="SpecificFailurePathView"/>.
         /// </summary>
-        /// <param name="failurePath">The <see cref="SpecificFailurePath"/> to show the data for.</param>
+        /// <param name="failureMechanism">The <see cref="SpecificFailureMechanism"/> to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public SpecificFailurePathView(SpecificFailurePath failurePath, IAssessmentSection assessmentSection) : base(failurePath)
+        public SpecificFailurePathView(SpecificFailureMechanism failureMechanism, IAssessmentSection assessmentSection) : base(failureMechanism)
         {
             if (assessmentSection == null)
             {
@@ -70,7 +70,7 @@ namespace Riskeer.Integration.Forms.Views
 
             InitializeComponent();
 
-            this.failurePath = failurePath;
+            this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
         }
 
@@ -120,7 +120,7 @@ namespace Riskeer.Integration.Forms.Views
 
             failurePathObserver = new Observer(UpdateFailurePathMapData)
             {
-                Observable = failurePath
+                Observable = failureMechanism
             };
         }
 
@@ -135,7 +135,7 @@ namespace Riskeer.Integration.Forms.Views
 
         private void CreateMapData()
         {
-            failurePathMapDataCollection = new MapDataCollection(failurePath.Name);
+            failurePathMapDataCollection = new MapDataCollection(failureMechanism.Name);
             hydraulicBoundaryLocationsMapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
 
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
@@ -184,13 +184,13 @@ namespace Riskeer.Integration.Forms.Views
 
         private void UpdateFailurePathMapDataCollectionData()
         {
-            failurePathMapDataCollection.Name = failurePath.Name;
+            failurePathMapDataCollection.Name = failureMechanism.Name;
             failurePathMapDataCollection.NotifyObservers();
         }
 
         private void SetSectionsMapData()
         {
-            IEnumerable<FailureMechanismSection> failureMechanismSections = failurePath.Sections.ToArray();
+            IEnumerable<FailureMechanismSection> failureMechanismSections = failureMechanism.Sections.ToArray();
             sectionsMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionFeatures(failureMechanismSections);
             sectionsStartPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionStartPointFeatures(failureMechanismSections);
             sectionsEndPointMapData.Features = RiskeerMapDataFeaturesFactory.CreateFailureMechanismSectionEndPointFeatures(failureMechanismSections);

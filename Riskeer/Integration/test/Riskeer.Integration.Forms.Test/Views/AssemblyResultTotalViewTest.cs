@@ -326,7 +326,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailurePathNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
         {
             // Given
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             AssessmentSection assessmentSection = CreateAssessmentSection();
             assessmentSection.SpecificFailurePaths.Add(failurePath);
 
@@ -479,8 +479,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
 
                 // When
-                ObservableList<SpecificFailurePath> specificFailurePaths = assessmentSection.SpecificFailurePaths;
-                specificFailurePaths.Add(new SpecificFailurePath());
+                ObservableList<SpecificFailureMechanism> specificFailurePaths = assessmentSection.SpecificFailurePaths;
+                specificFailurePaths.Add(new SpecificFailureMechanism());
                 specificFailurePaths.NotifyObservers();
 
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
@@ -513,9 +513,9 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
 
                 // When
-                ObservableList<SpecificFailurePath> specificFailurePaths = assessmentSection.SpecificFailurePaths;
-                SpecificFailurePath failurePathToRemove = specificFailurePaths.Last();
-                specificFailurePaths.Remove(failurePathToRemove);
+                ObservableList<SpecificFailureMechanism> specificFailurePaths = assessmentSection.SpecificFailurePaths;
+                SpecificFailureMechanism failureMechanismToRemove = specificFailurePaths.Last();
+                specificFailurePaths.Remove(failureMechanismToRemove);
                 specificFailurePaths.NotifyObservers();
 
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
@@ -532,8 +532,8 @@ namespace Riskeer.Integration.Forms.Test.Views
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
             assessmentSection.SpecificFailurePaths.AddRange(new[]
             {
-                new SpecificFailurePath(),
-                new SpecificFailurePath()
+                new SpecificFailureMechanism(),
+                new SpecificFailureMechanism()
             });
             return assessmentSection;
         }
@@ -661,8 +661,8 @@ namespace Riskeer.Integration.Forms.Test.Views
             int startIndexFailurePathRow = 15;
             for (int i = startIndexFailurePathRow; i < nrOfExpectedRows; i++)
             {
-                SpecificFailurePath specificFailurePath = assessmentSection.SpecificFailurePaths[i - startIndexFailurePathRow];
-                AssertAssemblyCells(specificFailurePath, assemblyOutput, rows[i].Cells);
+                SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailurePaths[i - startIndexFailurePathRow];
+                AssertAssemblyCells(specificFailureMechanism, assemblyOutput, rows[i].Cells);
             }
         }
 

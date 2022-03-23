@@ -78,11 +78,11 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             assessmentSection.SpecificFailurePaths.AddRange(new[]
             {
-                new SpecificFailurePath
+                new SpecificFailureMechanism
                 {
                     Code = "Nieuw1"
                 },
-                new SpecificFailurePath
+                new SpecificFailureMechanism
                 {
                     Code = "Nieuw2"
                 }

@@ -126,7 +126,7 @@ namespace Riskeer.Integration.TestUtil
             SetFullyConfiguredFailureMechanism(assessmentSection.PipingStructure);
             SetFullyConfiguredFailureMechanism(assessmentSection.WaterPressureAsphaltCover);
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             SetFullyConfiguredFailureMechanism(failurePath);
             assessmentSection.SpecificFailurePaths.Add(failurePath);
 
@@ -146,13 +146,13 @@ namespace Riskeer.Integration.TestUtil
         public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths(
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
-            var failurePaths = new List<SpecificFailurePath>
+            var failurePaths = new List<SpecificFailureMechanism>
             {
-                new SpecificFailurePath
+                new SpecificFailureMechanism
                 {
                     Name = "Path 1"
                 },
-                new SpecificFailurePath
+                new SpecificFailureMechanism
                 {
                     Name = "Path 2"
                 }
@@ -307,10 +307,10 @@ namespace Riskeer.Integration.TestUtil
                 AddFailureMechanismSections(failureMechanisms.ElementAt(i), i);
             }
 
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
+            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
+            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
 
-            ObservableList<SpecificFailurePath> specificFailurePaths = assessmentSection.SpecificFailurePaths;
+            ObservableList<SpecificFailureMechanism> specificFailurePaths = assessmentSection.SpecificFailurePaths;
             for (var i = 0; i < specificFailurePaths.Count; i++)
             {
                 AddFailureMechanismSections(specificFailurePaths.ElementAt(i), i);

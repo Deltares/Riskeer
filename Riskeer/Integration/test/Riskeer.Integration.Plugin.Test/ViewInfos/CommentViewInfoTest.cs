@@ -138,7 +138,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
-            deletedAssessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
+            deletedAssessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>());
             deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             deletedAssessmentSection.Stub(s => s.Comments).Return(new Comment());
 
@@ -216,7 +216,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             failureMechanism.Stub(fm => fm.CalculationsInputComments).Return(new Comment());
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
+            assessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>());
             assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -259,7 +259,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             deletedFailureMechanism.Stub(fm => fm.CalculationsInputComments).Return(new Comment());
 
             var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
-            deletedAssessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
+            deletedAssessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>());
             deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(new[]
             {
                 deletedFailureMechanism
@@ -462,9 +462,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
             deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
-            deletedAssessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>
+            deletedAssessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>
             {
-                new SpecificFailurePath()
+                new SpecificFailureMechanism()
             });
             deletedAssessmentSection.Stub(s => s.Comments).Return(new Comment());
             mocks.ReplayAll();
@@ -486,14 +486,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
         [Test]
         [TestCaseSource(nameof(GetFailurePathCommentTestCases))]
-        public void CloseForData_ViewDataIsFailurePathCommentOfDeletedAssessmentSection_ReturnTrue(Func<SpecificFailurePath, Comment> getCommentFunc)
+        public void CloseForData_ViewDataIsFailurePathCommentOfDeletedAssessmentSection_ReturnTrue(Func<SpecificFailureMechanism, Comment> getCommentFunc)
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>
+            assessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>
             {
                 failurePath
             });
@@ -701,9 +701,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
         private static IEnumerable<TestCaseData> GetFailurePathCommentTestCases()
         {
-            yield return new TestCaseData(new Func<SpecificFailurePath, Comment>(fp => fp.InAssemblyInputComments));
-            yield return new TestCaseData(new Func<SpecificFailurePath, Comment>(fp => fp.InAssemblyOutputComments));
-            yield return new TestCaseData(new Func<SpecificFailurePath, Comment>(fp => fp.NotInAssemblyComments));
+            yield return new TestCaseData(new Func<SpecificFailureMechanism, Comment>(fp => fp.InAssemblyInputComments));
+            yield return new TestCaseData(new Func<SpecificFailureMechanism, Comment>(fp => fp.InAssemblyOutputComments));
+            yield return new TestCaseData(new Func<SpecificFailureMechanism, Comment>(fp => fp.NotInAssemblyComments));
         }
     }
 }

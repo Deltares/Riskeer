@@ -100,9 +100,9 @@ namespace Riskeer.Integration.Plugin.Merge
             changedObjects.ForEachElementDo(co => co.NotifyObservers());
         }
 
-        private static void LogMergeMessage(SpecificFailurePath failurePath)
+        private static void LogMergeMessage(SpecificFailureMechanism failureMechanism)
         {
-            log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_added, failurePath.Name);
+            log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_added, failureMechanism.Name);
         }
 
         private static void LogMergeMessage(IFailureMechanism failureMechanism)
@@ -112,7 +112,7 @@ namespace Riskeer.Integration.Plugin.Merge
 
         #region FailurePaths
 
-        private static void MergeSpecificFailurePaths(AssessmentSection targetAssessmentSection, IEnumerable<SpecificFailurePath> mergeFailurePaths)
+        private static void MergeSpecificFailurePaths(AssessmentSection targetAssessmentSection, IEnumerable<SpecificFailureMechanism> mergeFailurePaths)
         {
             if (mergeFailurePaths.Any())
             {

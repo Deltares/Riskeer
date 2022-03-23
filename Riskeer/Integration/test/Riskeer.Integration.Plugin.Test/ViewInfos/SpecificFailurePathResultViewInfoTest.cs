@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>));
         }
 
         [TearDown]
@@ -70,7 +70,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
             var context = new SpecificFailurePathSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
@@ -98,12 +98,12 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
+            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>());
             mocks.ReplayAll();
 
-            var failureMechanism = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
                        fm => true, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
@@ -122,19 +122,19 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var otherFailureMechanism = new SpecificFailurePath();
+            var otherFailureMechanism = new SpecificFailureMechanism();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>
+            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>
             {
                 otherFailureMechanism
             });
             mocks.ReplayAll();
 
-            var failureMechanism = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
                        fm => true, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
@@ -153,17 +153,17 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>
+            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>
             {
                 failureMechanism
             });
             mocks.ReplayAll();
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
                        fm => true, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
@@ -185,10 +185,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
             var failurePathContext = new SpecificFailurePathContext(failureMechanism, assessmentSection);
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
                        fm => true, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
@@ -210,10 +210,10 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new SpecificFailurePath();
-            var failurePathContext = new SpecificFailurePathContext(new SpecificFailurePath(), assessmentSection);
+            var failureMechanism = new SpecificFailureMechanism();
+            var failurePathContext = new SpecificFailurePathContext(new SpecificFailureMechanism(), assessmentSection);
 
-            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>(
+            using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
                        fm => true, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
@@ -235,7 +235,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
             var context = new SpecificFailurePathSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
@@ -243,7 +243,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             IView view = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>>(view);
+            Assert.IsInstanceOf<NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>>(view);
             mocks.VerifyAll();
         }
     }

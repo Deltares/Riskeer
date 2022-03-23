@@ -350,18 +350,18 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            SpecificFailurePath specificFailurePath = entity.ReadSpecificFailurePath(collector);
+            SpecificFailureMechanism specificFailureMechanism = entity.ReadSpecificFailurePath(collector);
 
             // Assert
-            AssertCommonFailurePathProperties(entity, specificFailurePath);
+            AssertCommonFailurePathProperties(entity, specificFailureMechanism);
 
-            Assert.AreEqual(entity.Name, specificFailurePath.Name);
-            Assert.AreEqual(entity.Code, specificFailurePath.Code);
-            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
-            Assert.AreEqual(filePath, specificFailurePath.FailureMechanismSectionSourcePath);
+            Assert.AreEqual(entity.Name, specificFailureMechanism.Name);
+            Assert.AreEqual(entity.Code, specificFailureMechanism.Code);
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailureMechanism.Sections.Count());
+            Assert.AreEqual(filePath, specificFailureMechanism.FailureMechanismSectionSourcePath);
 
-            Assert.AreEqual(entity.N, specificFailurePath.GeneralInput.N, specificFailurePath.GeneralInput.N.GetAccuracy());
-            Assert.AreEqual(Convert.ToBoolean(entity.ApplyLengthEffectInSection), specificFailurePath.GeneralInput.ApplyLengthEffectInSection);
+            Assert.AreEqual(entity.N, specificFailureMechanism.GeneralInput.N, specificFailureMechanism.GeneralInput.N.GetAccuracy());
+            Assert.AreEqual(Convert.ToBoolean(entity.ApplyLengthEffectInSection), specificFailureMechanism.GeneralInput.ApplyLengthEffectInSection);
         }
 
         [Test]
@@ -375,10 +375,10 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            SpecificFailurePath specificFailurePath = entity.ReadSpecificFailurePath(collector);
+            SpecificFailureMechanism specificFailureMechanism = entity.ReadSpecificFailurePath(collector);
 
             // Assert
-            FailurePathAssemblyResult assemblyResult = specificFailurePath.AssemblyResult;
+            FailurePathAssemblyResult assemblyResult = specificFailureMechanism.AssemblyResult;
             Assert.IsNaN(assemblyResult.ManualFailurePathAssemblyProbability);
         }
 
@@ -394,11 +394,11 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            SpecificFailurePath specificFailurePath = entity.ReadSpecificFailurePath(collector);
+            SpecificFailureMechanism specificFailureMechanism = entity.ReadSpecificFailurePath(collector);
 
             // Assert
-            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
-            Assert.IsNull(specificFailurePath.FailureMechanismSectionSourcePath);
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailureMechanism.Sections.Count());
+            Assert.IsNull(specificFailureMechanism.FailureMechanismSectionSourcePath);
         }
 
         [Test]
@@ -432,16 +432,16 @@ namespace Riskeer.Storage.Core.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            SpecificFailurePath specificFailurePath = entity.ReadSpecificFailurePath(collector);
+            SpecificFailureMechanism specificFailureMechanism = entity.ReadSpecificFailurePath(collector);
 
             // Assert
-            Assert.AreEqual(filePath, specificFailurePath.FailureMechanismSectionSourcePath);
-            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailurePath.Sections.Count());
+            Assert.AreEqual(filePath, specificFailureMechanism.FailureMechanismSectionSourcePath);
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, specificFailureMechanism.Sections.Count());
 
             SectionResultTestHelper.AssertSectionResult(entity.FailureMechanismSectionEntities
                                                               .SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities)
                                                               .Single(),
-                                                        specificFailurePath.SectionResults.Single());
+                                                        specificFailureMechanism.SectionResults.Single());
         }
 
         private static void AssertCommonFailurePathProperties(IFailureMechanismEntity entity, IFailureMechanism failurePath)

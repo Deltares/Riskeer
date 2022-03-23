@@ -41,14 +41,14 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
 
             // Call
             var context = new SpecificFailurePathContext(failurePath, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<SpecificFailurePath>>(context);
-            Assert.IsInstanceOf<IFailureMechanismContext<SpecificFailurePath>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<SpecificFailureMechanism>>(context);
+            Assert.IsInstanceOf<IFailureMechanismContext<SpecificFailureMechanism>>(context);
             Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failurePath, context.WrappedData);
             mocks.VerifyAll();
@@ -58,7 +58,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
 
             // Call
             void Call() => new SpecificFailurePathContext(failurePath, null);

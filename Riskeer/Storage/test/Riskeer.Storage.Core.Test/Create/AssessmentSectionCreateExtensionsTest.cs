@@ -50,10 +50,10 @@ namespace Riskeer.Storage.Core.Test.Create
             var assessmentSection = new AssessmentSection(assessmentSectionComposition);
 
             // Call
-            TestDelegate test = () => assessmentSection.Create(null);
+            void Call() => assessmentSection.Create(null);
 
             // Assert
-            string parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string parameterName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("registry", parameterName);
         }
 
@@ -76,8 +76,8 @@ namespace Riskeer.Storage.Core.Test.Create
             const bool isVisible = true;
             const BackgroundDataType backgroundType = BackgroundDataType.Wmts;
             var normativeNorm = random.NextEnumValue<NormType>();
-            IEnumerable<SpecificFailurePath> specificFailurePaths = Enumerable.Repeat(new SpecificFailurePath(), random.Next(1, 10))
-                                                                              .ToArray();
+            IEnumerable<SpecificFailureMechanism> specificFailurePaths = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
+                                                                                   .ToArray();
 
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {

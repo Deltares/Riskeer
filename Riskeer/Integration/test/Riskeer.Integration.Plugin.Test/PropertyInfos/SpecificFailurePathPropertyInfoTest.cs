@@ -66,7 +66,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var context = new SpecificFailurePathContext(failurePath, assessmentSection);
 
             // Call

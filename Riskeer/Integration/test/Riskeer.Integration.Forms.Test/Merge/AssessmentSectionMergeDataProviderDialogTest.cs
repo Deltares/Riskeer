@@ -373,7 +373,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         private static void AssertFailurePathRows(AssessmentSection expectedAssessmentSection, DataGridViewRowCollection rows)
         {
             int offset = expectedAssessmentSection.GetFailureMechanisms().Count();
-            ObservableList<SpecificFailurePath> failurePaths = expectedAssessmentSection.SpecificFailurePaths;
+            ObservableList<SpecificFailureMechanism> failurePaths = expectedAssessmentSection.SpecificFailurePaths;
             for (int i = 0; i < failurePaths.Count; i++)
             {
                 AssertDataGridViewRow(failurePaths[i], rows[i + offset].Cells);

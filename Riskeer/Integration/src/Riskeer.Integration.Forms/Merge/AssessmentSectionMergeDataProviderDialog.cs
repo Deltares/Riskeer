@@ -137,11 +137,11 @@ namespace Riskeer.Integration.Forms.Merge
             return failurePathMergeDataRows.Any(row => row.FailurePath is TFailureMechanism && row.IsSelected);
         }
 
-        private IEnumerable<SpecificFailurePath> GetSelectedSpecificFailurePathsToMerge()
+        private IEnumerable<SpecificFailureMechanism> GetSelectedSpecificFailurePathsToMerge()
         {
-            return failurePathMergeDataRows.Where(row => row.IsSelected && row.FailurePath is SpecificFailurePath)
+            return failurePathMergeDataRows.Where(row => row.IsSelected && row.FailurePath is SpecificFailureMechanism)
                                            .Select(row => row.FailurePath)
-                                           .Cast<SpecificFailurePath>()
+                                           .Cast<SpecificFailureMechanism>()
                                            .ToArray();
         }
 

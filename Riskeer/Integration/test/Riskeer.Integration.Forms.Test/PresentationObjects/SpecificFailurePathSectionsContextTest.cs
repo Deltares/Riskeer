@@ -39,7 +39,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
 
             // Call
             var context = new SpecificFailurePathSectionsContext(failurePath, assessmentSection);

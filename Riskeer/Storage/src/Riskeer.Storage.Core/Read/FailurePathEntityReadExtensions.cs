@@ -99,12 +99,12 @@ namespace Riskeer.Storage.Core.Read
         }
 
         /// <summary>
-        /// Reads the <see cref="IFailureMechanismEntity"/> and uses the information to create a <see cref="SpecificFailurePath"/>.
+        /// Reads the <see cref="IFailureMechanismEntity"/> and uses the information to create a <see cref="SpecificFailureMechanism"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="SpecificFailurePathEntity"/> to create a <see cref="SpecificFailurePath"/> with.</param>
+        /// <param name="entity">The <see cref="SpecificFailurePathEntity"/> to create a <see cref="SpecificFailureMechanism"/> with.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
-        internal static SpecificFailurePath ReadSpecificFailurePath(this SpecificFailurePathEntity entity,
+        internal static SpecificFailureMechanism ReadSpecificFailurePath(this SpecificFailurePathEntity entity,
                                                                     ReadConversionCollector collector)
         {
             if (entity == null)
@@ -117,7 +117,7 @@ namespace Riskeer.Storage.Core.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var specificFailurePath = new SpecificFailurePath
+            var specificFailurePath = new SpecificFailureMechanism
             {
                 Name = entity.Name,
                 Code = entity.Code,
@@ -157,14 +157,14 @@ namespace Riskeer.Storage.Core.Read
         }
 
         private static void ReadNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(this IFailureMechanismEntity entity,
-                                                                                                 SpecificFailurePath specificFailurePath,
+                                                                                                 SpecificFailureMechanism specificFailureMechanism,
                                                                                                  ReadConversionCollector collector)
         {
             foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in
                      entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities))
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
-                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult = specificFailurePath.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult = specificFailureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
                 sectionResultEntity.Read(sectionResult);
             }

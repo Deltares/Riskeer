@@ -243,11 +243,11 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             assessmentSection.SpecificFailurePaths.AddRange(new[]
             {
-                new SpecificFailurePath
+                new SpecificFailureMechanism
                 {
                     Code = "NIEUW1"
                 },
-                new SpecificFailurePath
+                new SpecificFailureMechanism
                 {
                     Code = "NIEUW2"
                 }

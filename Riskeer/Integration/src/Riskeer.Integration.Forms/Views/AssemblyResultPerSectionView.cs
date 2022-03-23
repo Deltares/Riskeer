@@ -214,7 +214,7 @@ namespace Riskeer.Integration.Forms.Views
 
         private void SetSpecificFailurePathTextBoxColumns()
         {
-            foreach (SpecificFailurePath specificFailurePath in AssessmentSection.SpecificFailurePaths)
+            foreach (SpecificFailureMechanism specificFailurePath in AssessmentSection.SpecificFailurePaths)
             {
                 dataGridViewControl.AddTextBoxColumn(string.Empty,
                                                      specificFailurePath.Code,

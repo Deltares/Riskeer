@@ -349,11 +349,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             CollectionAssert.AreEqual(referenceLine.Points, assessmentSection.ReferenceLine.Points);
 
-            SpecificFailurePath failurePath = assessmentSection.SpecificFailurePaths.First();
-            CollectionAssert.IsEmpty(failurePath.Sections);
-            CollectionAssert.IsEmpty(failurePath.SectionResults);
-            CollectionAssert.Contains(observables, failurePath);
-            CollectionAssert.Contains(observables, failurePath.SectionResults);
+            SpecificFailureMechanism failureMechanism = assessmentSection.SpecificFailurePaths.First();
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+            CollectionAssert.Contains(observables, failureMechanism);
+            CollectionAssert.Contains(observables, failureMechanism.SectionResults);
 
             mocks.VerifyAll();
         }

@@ -692,7 +692,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
 
         #region SpecificFailurePaths
 
-        private static void AssertSpecificFailurePath(SpecificFailurePath expected, SpecificFailurePath actual)
+        private static void AssertSpecificFailurePath(SpecificFailureMechanism expected, SpecificFailureMechanism actual)
         {
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.InAssembly, actual.InAssembly);

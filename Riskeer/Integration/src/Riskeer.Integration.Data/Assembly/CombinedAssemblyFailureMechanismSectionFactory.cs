@@ -158,7 +158,7 @@ namespace Riskeer.Integration.Data.Assembly
                 inputs.Add(CreateCombinedSections(duneErosionFailureMechanism.SectionResults, assessmentSection, DuneErosionAssemblyFunc));
             }
 
-            foreach (SpecificFailurePath specificFailurePath in assessmentSection.SpecificFailurePaths)
+            foreach (SpecificFailureMechanism specificFailurePath in assessmentSection.SpecificFailurePaths)
             {
                 if (failureMechanisms.Contains(specificFailurePath))
                 {

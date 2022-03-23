@@ -96,7 +96,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePaths = new ObservableList<SpecificFailurePath>();
+            var failurePaths = new ObservableList<SpecificFailureMechanism>();
             var failureMechanismContext = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
             // Call
@@ -138,7 +138,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var failurePaths = new ObservableList<SpecificFailurePath>();
+                var failurePaths = new ObservableList<SpecificFailureMechanism>();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
@@ -172,7 +172,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_AddCustomItems()
         {
             // Setup
-            var failurePaths = new ObservableList<SpecificFailurePath>();
+            var failurePaths = new ObservableList<SpecificFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
@@ -205,7 +205,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var failurePaths = new ObservableList<SpecificFailurePath>();
+            var failurePaths = new ObservableList<SpecificFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
 
             var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
@@ -228,7 +228,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(1, failurePaths.Count);
                     IFailureMechanism addedItem = failurePaths.Single();
-                    Assert.IsInstanceOf<SpecificFailurePath>(addedItem);
+                    Assert.IsInstanceOf<SpecificFailureMechanism>(addedItem);
                     Assert.AreEqual("Nieuw faalmechanisme", addedItem.Name);
                 }
             }
@@ -241,9 +241,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
 
-            var failurePaths = new ObservableList<SpecificFailurePath>
+            var failurePaths = new ObservableList<SpecificFailureMechanism>
             {
-                new SpecificFailurePath
+                new SpecificFailureMechanism
                 {
                     Name = "Nieuw faalmechanisme"
                 }
@@ -270,7 +270,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     // Then
                     Assert.AreEqual(2, failurePaths.Count);
                     IFailureMechanism addedItem = failurePaths.Last();
-                    Assert.IsInstanceOf<SpecificFailurePath>(addedItem);
+                    Assert.IsInstanceOf<SpecificFailureMechanism>(addedItem);
                     Assert.AreEqual("Nieuw faalmechanisme (1)", addedItem.Name);
                 }
             }
@@ -283,7 +283,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePaths = new ObservableList<SpecificFailurePath>();
+            var failurePaths = new ObservableList<SpecificFailureMechanism>();
             var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
             // Call
@@ -300,10 +300,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePaths = new ObservableList<SpecificFailurePath>();
+            var failurePaths = new ObservableList<SpecificFailureMechanism>();
             var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
-            var draggedData = new SpecificFailurePathContext(new SpecificFailurePath(), assessmentSection);
+            var draggedData = new SpecificFailurePathContext(new SpecificFailureMechanism(), assessmentSection);
 
             // Call
             bool canInsert = info.CanInsert(draggedData, targetData);
@@ -319,8 +319,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
-            var failurePaths = new ObservableList<SpecificFailurePath>
+            var failurePath = new SpecificFailureMechanism();
+            var failurePaths = new ObservableList<SpecificFailureMechanism>
             {
                 failurePath
             };
@@ -342,7 +342,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePaths = new ObservableList<SpecificFailurePath>();
+            var failurePaths = new ObservableList<SpecificFailureMechanism>();
             var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
             // Call
@@ -359,10 +359,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePaths = new ObservableList<SpecificFailurePath>();
+            var failurePaths = new ObservableList<SpecificFailureMechanism>();
             var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
-            var draggedData = new SpecificFailurePathContext(new SpecificFailurePath(), assessmentSection);
+            var draggedData = new SpecificFailurePathContext(new SpecificFailureMechanism(), assessmentSection);
 
             // Call
             bool canDrop = info.CanDrop(draggedData, targetData);
@@ -378,8 +378,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
-            var failurePaths = new ObservableList<SpecificFailurePath>
+            var failurePath = new SpecificFailureMechanism();
+            var failurePaths = new ObservableList<SpecificFailureMechanism>
             {
                 failurePath
             };
@@ -403,9 +403,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var unmovedFailurePath = new SpecificFailurePath();
-            var movedFailurePath = new SpecificFailurePath();
-            var failurePaths = new ObservableList<SpecificFailurePath>
+            var unmovedFailurePath = new SpecificFailureMechanism();
+            var movedFailurePath = new SpecificFailureMechanism();
+            var failurePaths = new ObservableList<SpecificFailureMechanism>
             {
                 unmovedFailurePath,
                 movedFailurePath
@@ -433,7 +433,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePaths = new ObservableList<SpecificFailurePath>();
+            var failurePaths = new ObservableList<SpecificFailureMechanism>();
             var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
             // Call
@@ -450,8 +450,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
-            var failurePaths = new ObservableList<SpecificFailurePath>
+            var failurePath = new SpecificFailureMechanism();
+            var failurePaths = new ObservableList<SpecificFailureMechanism>
             {
                 failurePath
             };

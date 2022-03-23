@@ -30,38 +30,38 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
-    public class SpecificFailurePathTest
+    public class SpecificFailureMechanismTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var failurePath = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<Observable>(failurePath);
-            Assert.IsInstanceOf<IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failurePath);
-            Assert.IsInstanceOf<IHasGeneralInput>(failurePath);
-            Assert.AreEqual("Nieuw faalmechanisme", failurePath.Name);
-            Assert.AreEqual("NIEUW", failurePath.Code);
-            Assert.IsNotNull(failurePath.GeneralInput);
-            Assert.IsNotNull(failurePath.InAssemblyInputComments);
-            Assert.IsNotNull(failurePath.InAssemblyOutputComments);
-            Assert.IsNotNull(failurePath.NotInAssemblyComments);
-            Assert.IsNotNull(failurePath.AssemblyResult);
-            Assert.IsTrue(failurePath.InAssembly);
-            CollectionAssert.IsEmpty(failurePath.Sections);
-            CollectionAssert.IsEmpty(failurePath.SectionResults);
+            Assert.IsInstanceOf<Observable>(failureMechanism);
+            Assert.IsInstanceOf<IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failureMechanism);
+            Assert.IsInstanceOf<IHasGeneralInput>(failureMechanism);
+            Assert.AreEqual("Nieuw faalmechanisme", failureMechanism.Name);
+            Assert.AreEqual("NIEUW", failureMechanism.Code);
+            Assert.IsNotNull(failureMechanism.GeneralInput);
+            Assert.IsNotNull(failureMechanism.InAssemblyInputComments);
+            Assert.IsNotNull(failureMechanism.InAssemblyOutputComments);
+            Assert.IsNotNull(failureMechanism.NotInAssemblyComments);
+            Assert.IsNotNull(failureMechanism.AssemblyResult);
+            Assert.IsTrue(failureMechanism.InAssembly);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
 
         [Test]
         public void SetSections_SectionsNull_ThrowArgumentNullException()
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
 
             // Call 
-            void Call() => failurePath.SetSections(null, string.Empty);
+            void Call() => failureMechanism.SetSections(null, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -72,10 +72,10 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void SetSections_SourcePathNull_ThrowArgumentNullException()
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
 
             // Call 
-            void Call() => failurePath.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
+            void Call() => failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -83,11 +83,11 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void GivenSpecificFailurePathWithoutSections_WhenSettingValidSections_ThenExpectedSectionsAndSourcePathAndSectionResultsSet()
+        public void GivenSpecificFailureMechanismWithoutSections_WhenSettingValidSections_ThenExpectedSectionsAndSourcePathAndSectionResultsSet()
         {
             // Given
             const string sourcePath = "some/Path";
-            var failurePath = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
 
             const int matchingX = 1;
             const int matchingY = 2;
@@ -110,21 +110,21 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             };
 
             // When
-            failurePath.SetSections(sections, sourcePath);
+            failureMechanism.SetSections(sections, sourcePath);
 
             // Then
-            Assert.AreEqual(sourcePath, failurePath.FailureMechanismSectionSourcePath);
-            CollectionAssert.AreEqual(sections, failurePath.Sections);
-            Assert.AreEqual(sections.Length, failurePath.SectionResults.Count());
-            CollectionAssert.AreEqual(sections, failurePath.SectionResults.Select(sr => sr.Section));
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+            CollectionAssert.AreEqual(sections, failureMechanism.Sections);
+            Assert.AreEqual(sections.Length, failureMechanism.SectionResults.Count());
+            CollectionAssert.AreEqual(sections, failureMechanism.SectionResults.Select(sr => sr.Section));
         }
 
         [Test]
-        public void GivenSpecificFailurePathWithSections_WhenSettingValidSections_ThenExpectedSectionsAndSourcePathAndSectionResultsSet()
+        public void GivenSpecificFailureMechanismWithSections_WhenSettingValidSections_ThenExpectedSectionsAndSourcePathAndSectionResultsSet()
         {
             // Given
             const string sourcePath = "some/Path";
-            var failurePath = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
 
             const int matchingX = 1;
             const int matchingY = 2;
@@ -146,7 +146,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                 section2
             };
 
-            failurePath.SetSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("X", new[]
                 {
@@ -156,20 +156,20 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             }, "");
 
             // When
-            failurePath.SetSections(sections, sourcePath);
+            failureMechanism.SetSections(sections, sourcePath);
 
             // Then
-            Assert.AreEqual(sourcePath, failurePath.FailureMechanismSectionSourcePath);
-            CollectionAssert.AreEqual(sections, failurePath.Sections);
-            Assert.AreEqual(sections.Length, failurePath.SectionResults.Count());
-            CollectionAssert.AreEqual(sections, failurePath.SectionResults.Select(sr => sr.Section));
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+            CollectionAssert.AreEqual(sections, failureMechanism.Sections);
+            Assert.AreEqual(sections.Length, failureMechanism.SectionResults.Count());
+            CollectionAssert.AreEqual(sections, failureMechanism.SectionResults.Select(sr => sr.Section));
         }
 
         [Test]
         public void SetSections_SecondSectionEndConnectingToStartOfFirst_ThrowArgumentException()
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
 
             const int matchingX = 1;
             const int matchingY = 2;
@@ -186,7 +186,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            void Call() => failurePath.SetSections(new[]
+            void Call() => failureMechanism.SetSections(new[]
             {
                 section1,
                 section2
@@ -201,7 +201,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void SetSections_SecondSectionDoesNotConnectToFirst_ThrowArgumentException()
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
 
             var section1 = new FailureMechanismSection("A", new[]
             {
@@ -215,7 +215,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             });
 
             // Call
-            void Call() => failurePath.SetSections(new[]
+            void Call() => failureMechanism.SetSections(new[]
             {
                 section1,
                 section2
@@ -236,25 +236,25 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
                 new Point2D(3.3, 4.4)
             });
 
-            var failurePath = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
             const string sourcePath = "some/Path";
-            failurePath.SetSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 section
             }, sourcePath);
 
             // Precondition
-            Assert.AreEqual(sourcePath, failurePath.FailureMechanismSectionSourcePath);
-            CollectionAssert.IsNotEmpty(failurePath.Sections);
-            CollectionAssert.IsNotEmpty(failurePath.SectionResults);
+            Assert.AreEqual(sourcePath, failureMechanism.FailureMechanismSectionSourcePath);
+            CollectionAssert.IsNotEmpty(failureMechanism.Sections);
+            CollectionAssert.IsNotEmpty(failureMechanism.SectionResults);
 
             // Call
-            failurePath.ClearAllSections();
+            failureMechanism.ClearAllSections();
 
             // Assert
-            Assert.IsNull(failurePath.FailureMechanismSectionSourcePath);
-            CollectionAssert.IsEmpty(failurePath.Sections);
-            CollectionAssert.IsEmpty(failurePath.SectionResults);
+            Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SectionResults);
         }
     }
 }

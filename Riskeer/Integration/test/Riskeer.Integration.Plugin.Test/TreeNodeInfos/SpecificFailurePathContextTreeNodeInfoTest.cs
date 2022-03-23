@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var failureMechanismContext = new SpecificFailurePathContext(failurePath, assessmentSection);
 
             // Call
@@ -124,7 +124,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var context = new SpecificFailurePathContext(failurePath, assessmentSection);
 
             // Call
@@ -169,7 +169,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             failurePath.Attach(observer);
 
             var context = new SpecificFailurePathContext(failurePath, assessmentSection);
@@ -205,10 +205,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var context = new SpecificFailurePathContext(failurePath, assessmentSection);
 
-            var failurePaths = new ObservableList<SpecificFailurePath>
+            var failurePaths = new ObservableList<SpecificFailureMechanism>
             {
                 failurePath
             };
@@ -229,7 +229,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var specificFailurePath = new SpecificFailurePath();
+            var specificFailurePath = new SpecificFailureMechanism();
             var context = new SpecificFailurePathContext(specificFailurePath, assessmentSection);
 
             // Call
@@ -271,7 +271,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath
+            var failurePath = new SpecificFailureMechanism
             {
                 InAssembly = false
             };
@@ -293,7 +293,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var failurePath = new SpecificFailurePath();
+                var failurePath = new SpecificFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var context = new SpecificFailurePathContext(failurePath, assessmentSection);
 
@@ -333,7 +333,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailurePathInAssemblyFalse_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var failurePath = new SpecificFailurePath
+            var failurePath = new SpecificFailureMechanism
             {
                 InAssembly = false
             };
@@ -374,11 +374,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         [TestFixture]
         public class SpecificFailurePathContextInAssemblyTreeNodeInfoTest
-            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, SpecificFailurePath, SpecificFailurePathContext>
+            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, SpecificFailureMechanism, SpecificFailurePathContext>
         {
             public SpecificFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override SpecificFailurePathContext CreateFailureMechanismContext(SpecificFailurePath failureMechanism,
+            protected override SpecificFailurePathContext CreateFailureMechanismContext(SpecificFailureMechanism failureMechanism,
                                                                                         IAssessmentSection assessmentSection)
             {
                 return new SpecificFailurePathContext(failureMechanism, assessmentSection);

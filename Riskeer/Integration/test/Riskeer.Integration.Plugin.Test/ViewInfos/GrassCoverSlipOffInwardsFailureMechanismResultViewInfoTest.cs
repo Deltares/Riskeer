@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
+            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>());
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
@@ -130,7 +130,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 otherFailureMechanism
             });
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
+            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>());
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();

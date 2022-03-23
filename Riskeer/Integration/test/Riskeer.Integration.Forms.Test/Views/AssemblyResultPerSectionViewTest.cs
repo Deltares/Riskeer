@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 // When
                 const string testCode = "TestCode";
-                var specificFailurePath = new SpecificFailurePath
+                var specificFailurePath = new SpecificFailureMechanism
                 {
                     Code = testCode
                 };
@@ -226,7 +226,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Given
             var random = new Random(21);
             const string code = "TestCode";
-            var failureMechanismToRemove = new SpecificFailurePath
+            var failureMechanismToRemove = new SpecificFailureMechanism
             {
                 Code = code
             };

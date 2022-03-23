@@ -1049,7 +1049,7 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            SpecificFailurePath specificFailurePath1 = section.SpecificFailurePaths[0];
+            SpecificFailureMechanism specificFailurePath1 = section.SpecificFailurePaths[0];
             Assert.IsNotNull(specificFailurePath1);
             Assert.AreEqual(name1, specificFailurePath1.Name);
             Assert.AreEqual(inAssembly1, specificFailurePath1.InAssembly);
@@ -1059,7 +1059,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(n1, specificFailurePath1.GeneralInput.N, specificFailurePath1.GeneralInput.N.GetAccuracy());
             Assert.IsNull(specificFailurePath1.FailureMechanismSectionSourcePath);
 
-            SpecificFailurePath specificFailurePath2 = section.SpecificFailurePaths[1];
+            SpecificFailureMechanism specificFailurePath2 = section.SpecificFailurePaths[1];
             Assert.IsNotNull(specificFailurePath2);
             Assert.AreEqual(name2, specificFailurePath2.Name);
             Assert.AreEqual(inAssembly2, specificFailurePath2.InAssembly);

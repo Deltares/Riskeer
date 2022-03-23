@@ -30,15 +30,15 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for a collection of specific failure paths.
     /// </summary>
-    public class SpecificFailurePathsContext : ObservableWrappedObjectContextBase<ObservableList<SpecificFailurePath>>
+    public class SpecificFailurePathsContext : ObservableWrappedObjectContextBase<ObservableList<SpecificFailureMechanism>>
     {
         /// <summary>
         /// Initializes a new instance of <see cref="SpecificFailurePathsContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The collection of <see cref="SpecificFailurePath"/> to wrap.</param>
+        /// <param name="wrappedData">The collection of <see cref="SpecificFailureMechanism"/> to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
-        public SpecificFailurePathsContext(ObservableList<SpecificFailurePath> wrappedData, IAssessmentSection assessmentSection)
+        public SpecificFailurePathsContext(ObservableList<SpecificFailureMechanism> wrappedData, IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (assessmentSection == null)

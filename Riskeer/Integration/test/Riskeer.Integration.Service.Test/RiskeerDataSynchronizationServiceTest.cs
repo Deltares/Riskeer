@@ -1034,9 +1034,9 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.Sections);
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResults);
 
-            SpecificFailurePath specificFailurePath = assessmentSection.SpecificFailurePaths.First();
-            CollectionAssert.IsEmpty(specificFailurePath.Sections);
-            CollectionAssert.IsEmpty(specificFailurePath.SectionResults);
+            SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailurePaths.First();
+            CollectionAssert.IsEmpty(specificFailureMechanism.Sections);
+            CollectionAssert.IsEmpty(specificFailureMechanism.SectionResults);
         }
 
         [Test]
@@ -1747,9 +1747,9 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism);
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism.SectionResults);
 
-            SpecificFailurePath failurePath = assessmentSection.SpecificFailurePaths.First();
-            CollectionAssert.Contains(changedObjects, failurePath);
-            CollectionAssert.Contains(changedObjects, failurePath.SectionResults);
+            SpecificFailureMechanism failureMechanism = assessmentSection.SpecificFailurePaths.First();
+            CollectionAssert.Contains(changedObjects, failureMechanism);
+            CollectionAssert.Contains(changedObjects, failureMechanism.SectionResults);
         }
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine(AssessmentSection assessmentSection)

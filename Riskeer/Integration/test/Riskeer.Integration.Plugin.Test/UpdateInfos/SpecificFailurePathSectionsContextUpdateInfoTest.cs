@@ -26,7 +26,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var importTarget = new SpecificFailurePathSectionsContext(failurePath, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
@@ -99,7 +99,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             failurePath.SetSections(Enumerable.Empty<FailureMechanismSection>(),
                                     "path");
 
@@ -127,7 +127,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var context = new SpecificFailurePathSectionsContext(failurePath, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
@@ -169,7 +169,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             const string expectedFilePath = "path";
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             failurePath.SetSections(Enumerable.Empty<FailureMechanismSection>(),
                                     expectedFilePath);
 

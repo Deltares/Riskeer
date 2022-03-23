@@ -465,7 +465,7 @@ namespace Riskeer.Integration.Plugin.Test
                     viewInfos,
                     typeof(SpecificFailurePathSectionResultContext),
                     typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
-                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailurePath>));
+                    typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -739,7 +739,7 @@ namespace Riskeer.Integration.Plugin.Test
                 SetPlugins(gui);
                 gui.Run();
 
-                var failurePath = new SpecificFailurePath();
+                var failurePath = new SpecificFailureMechanism();
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
                     SpecificFailurePaths =

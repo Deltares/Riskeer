@@ -230,15 +230,15 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             {
                 SpecificFailurePaths =
                 {
-                    new SpecificFailurePath()
+                    new SpecificFailureMechanism()
                 }
             };
             IFailureMechanism[] originalFailurePaths = targetAssessmentSection.SpecificFailurePaths.ToArray();
 
             var failurePathsToMerge = new[]
             {
-                new SpecificFailurePath(),
-                new SpecificFailurePath()
+                new SpecificFailureMechanism(),
+                new SpecificFailureMechanism()
             };
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             sourceAssessmentSection.SpecificFailurePaths.AddRange(failurePathsToMerge);
@@ -264,15 +264,15 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             {
                 SpecificFailurePaths =
                 {
-                    new SpecificFailurePath()
+                    new SpecificFailureMechanism()
                 }
             };
             IFailureMechanism[] originalFailurePaths = targetAssessmentSection.SpecificFailurePaths.ToArray();
 
             var failurePathsToMerge = new[]
             {
-                new SpecificFailurePath(),
-                new SpecificFailurePath()
+                new SpecificFailureMechanism(),
+                new SpecificFailureMechanism()
             };
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             sourceAssessmentSection.SpecificFailurePaths.AddRange(failurePathsToMerge);
@@ -295,8 +295,8 @@ namespace Riskeer.Integration.Plugin.Test.Merge
 
             var failurePathsToMerge = new[]
             {
-                new SpecificFailurePath(),
-                new SpecificFailurePath()
+                new SpecificFailureMechanism(),
+                new SpecificFailureMechanism()
             };
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
@@ -321,17 +321,17 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             {
                 SpecificFailurePaths =
                 {
-                    new SpecificFailurePath()
+                    new SpecificFailureMechanism()
                 }
             };
 
             var failurePathsToMerge = new[]
             {
-                new SpecificFailurePath
+                new SpecificFailureMechanism
                 {
                     Name = "Path 1"
                 },
-                new SpecificFailurePath
+                new SpecificFailureMechanism
                 {
                     Name = "Path 2"
                 }

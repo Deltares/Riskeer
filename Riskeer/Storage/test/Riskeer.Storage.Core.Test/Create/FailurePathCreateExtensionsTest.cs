@@ -355,7 +355,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForFailurePath_RegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
 
             // Call
             void Call() => failurePath.Create(null, 0);
@@ -372,7 +372,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var random = new Random(21);
             int order = random.Next();
 
-            var failurePath = new SpecificFailurePath
+            var failurePath = new SpecificFailureMechanism
             {
                 GeneralInput =
                 {
@@ -415,7 +415,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForFailurePath_WithNaNValues_ReturnExpectedEntity()
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var registry = new PersistenceRegistry();
 
             // Precondition
@@ -434,7 +434,7 @@ namespace Riskeer.Storage.Core.Test.Create
         {
             // Setup
             const string specificFailurePathSectionsSourcePath = "File\\Path";
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
 
             failurePath.SetSections(new[]
             {
@@ -466,7 +466,7 @@ namespace Riskeer.Storage.Core.Test.Create
         public void CreateForFailurePath_StringPropertiesDoNotShareReference()
         {
             // Setup
-            var failurePath = new SpecificFailurePath
+            var failurePath = new SpecificFailureMechanism
             {
                 Name = "Just a Name",
                 Code = "FAALMECHANISME",

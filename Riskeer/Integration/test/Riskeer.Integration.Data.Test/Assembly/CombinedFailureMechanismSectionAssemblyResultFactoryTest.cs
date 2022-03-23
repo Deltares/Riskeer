@@ -84,7 +84,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
+            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
             Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
                                                                                     .Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths)
                                                                                     .Where(fm => fm.InAssembly)
@@ -131,7 +131,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.StabilityPointStructures]), results[i].StabilityPointStructures);
                 Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.DuneErosion]), results[i].DuneErosion);
                 Assert.AreEqual(assessmentSection.SpecificFailurePaths.Count, results[i].SpecificFailurePaths.Length);
-                foreach (SpecificFailurePath specificFailurePath in assessmentSection.SpecificFailurePaths)
+                foreach (SpecificFailureMechanism specificFailurePath in assessmentSection.SpecificFailurePaths)
                 {
                     Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[specificFailurePath]), results[i].SpecificFailurePaths.Single());
                 }
@@ -144,7 +144,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
+            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
             Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
                                                                                     .Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths)
                                                                                     .Where(fm => fm.InAssembly)

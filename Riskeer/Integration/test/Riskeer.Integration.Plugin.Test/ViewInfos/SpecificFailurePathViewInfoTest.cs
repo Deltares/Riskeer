@@ -70,7 +70,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var context = new SpecificFailurePathContext(failurePath, assessmentSection);
 
             // Call
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var context = new SpecificFailurePathContext(failurePath, assessmentSection);
 
             using (var testForm = new Form())
@@ -109,7 +109,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failurePath = new SpecificFailurePath
+            var failurePath = new SpecificFailureMechanism
             {
                 InAssembly = inAssembly
             };
@@ -127,11 +127,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
-            otherAssessmentSection.Stub(ass => ass.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
+            otherAssessmentSection.Stub(ass => ass.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>());
             otherAssessmentSection.Stub(ass => ass.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             var view = new SpecificFailurePathView(failurePath, assessmentSection);
 
@@ -147,7 +147,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnsTrue()
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub
             {
                 SpecificFailurePaths =
@@ -172,11 +172,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             var view = new SpecificFailurePathView(failurePath, assessmentSection);
 
-            var context = new SpecificFailurePathContext(new SpecificFailurePath(), otherAssessmentSection);
+            var context = new SpecificFailurePathContext(new SpecificFailureMechanism(), otherAssessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, context);
@@ -190,7 +190,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedContext_ReturnsTrue()
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             var view = new SpecificFailurePathView(failurePath, assessmentSection);
 
@@ -208,12 +208,12 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToFailurePath_ReturnsFalse()
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             var view = new SpecificFailurePathView(failurePath, assessmentSection);
 
             // Call
-            bool closeForData = info.CloseForData(view, new SpecificFailurePath());
+            bool closeForData = info.CloseForData(view, new SpecificFailureMechanism());
 
             // Assert
             Assert.IsFalse(closeForData);
@@ -224,7 +224,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailurePath_ReturnsTrue()
         {
             // Setup
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
             var view = new SpecificFailurePathView(failurePath, assessmentSection);
 

@@ -153,7 +153,7 @@ namespace Riskeer.Integration.Data.Merge
         /// <summary>
         /// Gets the collection of specific failure paths that should be merged.
         /// </summary>
-        public IEnumerable<SpecificFailurePath> MergeSpecificFailurePaths { get; }
+        public IEnumerable<SpecificFailureMechanism> MergeSpecificFailurePaths { get; }
 
         /// <summary>
         /// Container for properties for constructing an <see cref="AssessmentSectionMergeData"/>.
@@ -238,7 +238,7 @@ namespace Riskeer.Integration.Data.Merge
             /// <summary>
             /// Gets the list of specific failure paths that should be merged.
             /// </summary>
-            public List<SpecificFailurePath> MergeSpecificFailurePaths { get; } = new List<SpecificFailurePath>();
+            public List<SpecificFailureMechanism> MergeSpecificFailurePaths { get; } = new List<SpecificFailureMechanism>();
         }
     }
 }

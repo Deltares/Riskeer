@@ -64,8 +64,8 @@ namespace Riskeer.Integration.IO.Test.Factories
             };
             ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
 
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
+            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
+            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
 
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, random.Next(1, 10));
@@ -124,8 +124,8 @@ namespace Riskeer.Integration.IO.Test.Factories
             };
             ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
 
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
+            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
+            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
 
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, random.Next(1, 10));

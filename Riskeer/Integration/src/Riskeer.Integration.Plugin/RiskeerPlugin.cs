@@ -430,7 +430,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(fm => fm.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<SpecificFailurePathSectionResultContext, SpecificFailurePath>(fp => fp.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateFailureMechanismResultViewInfo<SpecificFailurePathSectionResultContext, SpecificFailureMechanism>(fp => fp.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
             yield return new RiskeerViewInfo<SpecificFailurePathContext, SpecificFailurePathView>(() => Gui)
             {
@@ -688,7 +688,7 @@ namespace Riskeer.Integration.Plugin
                 new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                SpecificFailurePathSectionsContext, SpecificFailurePath, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                SpecificFailurePathSectionsContext, SpecificFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
         }
 
@@ -1914,8 +1914,8 @@ namespace Riskeer.Integration.Plugin
 
         private static void AddSpecificFailurePath(SpecificFailurePathsContext nodeData)
         {
-            ObservableList<SpecificFailurePath> failurePaths = nodeData.WrappedData;
-            var newFailurePath = new SpecificFailurePath
+            ObservableList<SpecificFailureMechanism> failurePaths = nodeData.WrappedData;
+            var newFailurePath = new SpecificFailureMechanism
             {
                 Name = NamingHelper.GetUniqueName(failurePaths,
                                                   RiskeerCommonDataResources.SpecificFailurePath_DefaultName,
@@ -1974,7 +1974,7 @@ namespace Riskeer.Integration.Plugin
         private static void SpecificFailurePathContextOnNodeRemoved(SpecificFailurePathContext nodeData, object parentNodeData)
         {
             var specificFailurePathsContext = (SpecificFailurePathsContext) parentNodeData;
-            ObservableList<SpecificFailurePath> failurePaths = specificFailurePathsContext.WrappedData;
+            ObservableList<SpecificFailureMechanism> failurePaths = specificFailurePathsContext.WrappedData;
 
             failurePaths.Remove(nodeData.WrappedData);
             failurePaths.NotifyObservers();

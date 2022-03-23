@@ -31,9 +31,9 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// Object properties class for <see cref="SpecificFailurePath"/>.
+    /// Object properties class for <see cref="SpecificFailureMechanism"/>.
     /// </summary>
-    public class SpecificFailurePathProperties : ObjectProperties<SpecificFailurePath>
+    public class SpecificFailurePathProperties : ObjectProperties<SpecificFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public SpecificFailurePathProperties(SpecificFailurePath data)
+        public SpecificFailurePathProperties(SpecificFailureMechanism data)
         {
             if (data == null)
             {

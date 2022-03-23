@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new SpecificFailurePathView(new SpecificFailurePath(), null);
+            void Call() => new SpecificFailurePathView(new SpecificFailureMechanism(), null);
 
             // Assert
             Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
@@ -83,7 +83,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
 
             // Call
             SpecificFailurePathView view = CreateView(failurePath, assessmentSection);
@@ -129,7 +129,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 new Point2D(4.0, 4.0),
                 new Point2D(6.0, 4.0)
             };
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             FailureMechanismTestHelper.SetSections(failurePath, new[]
             {
                 new FailureMechanismSection("A", geometryPoints.Take(2)),
@@ -166,7 +166,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSectionStub();
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
 
             SpecificFailurePathView view = CreateView(failurePath, assessmentSection);
             MapDataCollection mapData = view.Map.Data;
@@ -201,7 +201,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ReferenceLine = referenceLine
             };
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             SpecificFailurePathView view = CreateView(failurePath, assessmentSection);
 
             IEnumerable<MapData> mapDataCollection = view.Map.Data.Collection;
@@ -234,7 +234,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             var assessmentSection = new AssessmentSectionStub();
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
 
             SpecificFailurePathView view = CreateView(failurePath, assessmentSection);
 
@@ -279,7 +279,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             const int updatedHydraulicBoundaryLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
 
             var assessmentSection = new AssessmentSectionStub();
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
 
             SpecificFailurePathView view = CreateView(failurePath, assessmentSection);
 
@@ -322,9 +322,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual("Hydraulische belastingen", actualHydraulicBoundaryLocationsData.Name);
         }
 
-        private SpecificFailurePathView CreateView(SpecificFailurePath failurePath, IAssessmentSection assessmentSection)
+        private SpecificFailurePathView CreateView(SpecificFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            var view = new SpecificFailurePathView(failurePath, assessmentSection);
+            var view = new SpecificFailurePathView(failureMechanism, assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();
@@ -332,9 +332,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             return view;
         }
 
-        private static void AssertEmptyMapData(SpecificFailurePath failurePath, MapDataCollection mapDataCollection)
+        private static void AssertEmptyMapData(SpecificFailureMechanism failureMechanism, MapDataCollection mapDataCollection)
         {
-            Assert.AreEqual(failurePath.Name, mapDataCollection.Name);
+            Assert.AreEqual(failureMechanism.Name, mapDataCollection.Name);
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 

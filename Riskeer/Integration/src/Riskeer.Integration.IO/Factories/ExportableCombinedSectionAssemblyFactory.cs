@@ -113,10 +113,10 @@ namespace Riskeer.Integration.IO.Factories
 
                 if (specificFailurePathAssemblyResult.HasValue)
                 {
-                    SpecificFailurePath specificFailurePath = assessmentSection.SpecificFailurePaths.ElementAt(i);
+                    SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailurePaths.ElementAt(i);
                     exportableAssemblyResults.Add(CreateExportableFailureMechanismCombinedSectionAssemblyResult(
                                                       specificFailurePathAssemblyResult.Value, ExportableFailureMechanismType.Specific,
-                                                      specificFailurePath.Code));
+                                                      specificFailureMechanism.Code));
                 }
             }
 

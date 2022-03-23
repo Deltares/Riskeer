@@ -300,8 +300,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
         {
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            IEnumerable<SpecificFailurePath> failurePaths = Enumerable.Repeat(new SpecificFailurePath(), random.Next(1, 10))
-                                                                      .ToArray();
+            IEnumerable<SpecificFailureMechanism> failurePaths = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
+                                                                           .ToArray();
             assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
             return assessmentSection;
         }

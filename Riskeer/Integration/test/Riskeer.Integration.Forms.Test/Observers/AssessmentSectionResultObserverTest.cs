@@ -148,7 +148,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenSpecificFailurePathInCollectionNotified_ThenAttachedObserverNotified()
         {
             // Given
-            var specificFailurePath = new SpecificFailurePath();
+            var specificFailurePath = new SpecificFailureMechanism();
 
             AssessmentSection assessmentSection = CreateAssessmentSection();
             assessmentSection.SpecificFailurePaths.Add(specificFailurePath);
@@ -183,7 +183,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 observer.Expect(o => o.UpdateObserver());
                 mocks.ReplayAll();
 
-                var specificFailurePath = new SpecificFailurePath();
+                var specificFailurePath = new SpecificFailureMechanism();
                 assessmentSection.SpecificFailurePaths.Add(specificFailurePath);
                 assessmentSection.SpecificFailurePaths.NotifyObservers();
                 resultObserver.Attach(observer);
@@ -200,12 +200,12 @@ namespace Riskeer.Integration.Forms.Test.Observers
         public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenSpecificFailurePathRemovedAndNotified_ThenAttachedObserverNotNotified()
         {
             // Given
-            var failurePathToRemove = new SpecificFailurePath();
+            var failurePathToRemove = new SpecificFailureMechanism();
             AssessmentSection assessmentSection = CreateAssessmentSection();
             assessmentSection.SpecificFailurePaths.AddRange(new[]
             {
                 failurePathToRemove,
-                new SpecificFailurePath()
+                new SpecificFailureMechanism()
             });
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))

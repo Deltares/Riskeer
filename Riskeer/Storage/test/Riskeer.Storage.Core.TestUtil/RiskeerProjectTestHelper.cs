@@ -216,8 +216,8 @@ namespace Riskeer.Storage.Core.TestUtil
                 SetFailurePathAssemblyResults(fm, i++);
             });
 
-            IEnumerable<SpecificFailurePath> failurePaths = Enumerable.Repeat(new SpecificFailurePath(), random.Next(1, 10))
-                                                                      .ToArray();
+            IEnumerable<SpecificFailureMechanism> failurePaths = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
+                                                                           .ToArray();
             SetSpecificFailurePaths(failurePaths);
             assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
             assessmentSection.SpecificFailurePaths.ForEach(SetComments);
@@ -534,10 +534,10 @@ namespace Riskeer.Storage.Core.TestUtil
 
         #region Specific FailurePath
 
-        private static void SetSpecificFailurePaths(IEnumerable<SpecificFailurePath> specificFailurePaths)
+        private static void SetSpecificFailurePaths(IEnumerable<SpecificFailureMechanism> specificFailurePaths)
         {
             var i = 0;
-            foreach (SpecificFailurePath failurePath in specificFailurePaths)
+            foreach (SpecificFailureMechanism failurePath in specificFailurePaths)
             {
                 var random = new Random(i);
                 failurePath.GeneralInput.N = random.NextRoundedDouble(1, 20);
@@ -1660,11 +1660,11 @@ namespace Riskeer.Storage.Core.TestUtil
                 new Point3D(5.8, 6.0, -2.3), // Dike toe at river
                 new Point3D(5.6, 6.0, 3.4),
                 new Point3D(4.2, 6.0, 3.5),
-                new Point3D(4.0, 6.0, 0.5),  // Dike toe at polder
-                new Point3D(3.8, 6.0, 0.5),  // Ditch dike side
-                new Point3D(3.6, 6.0, 0.2),  // Bottom ditch dike side
+                new Point3D(4.0, 6.0, 0.5), // Dike toe at polder
+                new Point3D(3.8, 6.0, 0.5), // Ditch dike side
+                new Point3D(3.6, 6.0, 0.2), // Bottom ditch dike side
                 new Point3D(3.4, 6.0, 0.25), // Bottom ditch polder side
-                new Point3D(3.2, 6.0, 0.5),  // Ditch polder side
+                new Point3D(3.2, 6.0, 0.5), // Ditch polder side
                 new Point3D(3.0, 6.0, 0.5)
             };
             surfaceLine.SetGeometry(geometryPoints);

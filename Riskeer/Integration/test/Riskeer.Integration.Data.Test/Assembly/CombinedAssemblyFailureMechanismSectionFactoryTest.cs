@@ -199,7 +199,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             yield return new TestCaseData(assessmentSection, assessmentSection.PipingStructure);
             yield return new TestCaseData(assessmentSection, assessmentSection.StabilityPointStructures);
             yield return new TestCaseData(assessmentSection, assessmentSection.DuneErosion);
-            foreach (SpecificFailurePath specificFailurePath in assessmentSection.SpecificFailurePaths)
+            foreach (SpecificFailureMechanism specificFailurePath in assessmentSection.SpecificFailurePaths)
             {
                 yield return new TestCaseData(assessmentSection, specificFailurePath);
             }

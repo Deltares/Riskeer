@@ -235,7 +235,7 @@ namespace Riskeer.Integration.Forms.Observers
 
         private void CreateFailurePathObservers()
         {
-            IEnumerable<Observer> observers = assessmentSection.SpecificFailurePaths.Select(CreateFailureMechanismObserver<SpecificFailurePath,
+            IEnumerable<Observer> observers = assessmentSection.SpecificFailurePaths.Select(CreateFailureMechanismObserver<SpecificFailureMechanism,
                                                                                                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>);
             specificFailurePathObservers.AddRange(observers);
         }

@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(21);
-            var failurePath = new SpecificFailurePath
+            var failurePath = new SpecificFailureMechanism
             {
                 InAssembly = random.NextBoolean(),
                 GeneralInput =
@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new SpecificFailurePathProperties(failurePath);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<SpecificFailurePath>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<SpecificFailureMechanism>>(properties);
             Assert.AreEqual(failurePath.Name, properties.Name);
             Assert.AreEqual(failurePath.Code, properties.Code);
             Assert.AreEqual(failurePath.InAssembly, properties.InAssembly);
@@ -87,7 +87,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_InAssemblyTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var failurePath = new SpecificFailurePath
+            var failurePath = new SpecificFailureMechanism
             {
                 InAssembly = true
             };
@@ -138,7 +138,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_InAssemblyFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var failurePath = new SpecificFailurePath
+            var failurePath = new SpecificFailureMechanism
             {
                 InAssembly = false
             };
@@ -183,7 +183,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var random = new Random(21);
-            var failurePath = new SpecificFailurePath
+            var failurePath = new SpecificFailureMechanism
             {
                 InAssembly = random.NextBoolean()
             };
@@ -223,7 +223,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailurePath();
+            var failurePath = new SpecificFailureMechanism();
             failurePath.Attach(observer);
 
             var properties = new SpecificFailurePathProperties(failurePath);
@@ -247,7 +247,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             observer.Expect(o => o.UpdateObserver());
             mocks.ReplayAll();
 
-            var failureMechanism = new SpecificFailurePath();
+            var failureMechanism = new SpecificFailureMechanism();
             failureMechanism.Attach(observer);
 
             var properties = new SpecificFailurePathProperties(failureMechanism);
@@ -266,7 +266,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
         {
             // Setup
-            var failurePath = new SpecificFailurePath
+            var failurePath = new SpecificFailureMechanism
             {
                 InAssembly = inAssembly
             };

@@ -27,17 +27,18 @@ using Riskeer.Common.Data.Properties;
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// This class is the implementation for a specific failure path.
+    /// This class is the implementation for a specific failure mechanism.
     /// </summary>
-    public class SpecificFailurePath : Observable, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, IHasGeneralInput
+    public class SpecificFailureMechanism : Observable, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>,
+                                            IHasGeneralInput
     {
         private readonly FailureMechanismSectionCollection sectionCollection;
         private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="SpecificFailurePath"/> class.
+        /// Creates a new instance of <see cref="SpecificFailureMechanism"/>.
         /// </summary>
-        public SpecificFailurePath()
+        public SpecificFailureMechanism()
         {
             Name = Resources.SpecificFailurePath_DefaultName;
             Code = Resources.SpecificFailurePath_DefaultCode;
