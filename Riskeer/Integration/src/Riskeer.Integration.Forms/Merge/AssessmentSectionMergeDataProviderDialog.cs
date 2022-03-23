@@ -139,7 +139,7 @@ namespace Riskeer.Integration.Forms.Merge
 
         private IEnumerable<SpecificFailurePath> GetSelectedSpecificFailurePathsToMerge()
         {
-            return failurePathMergeDataRows.Where(row => row.IsSelected && !(row.FailurePath is IFailureMechanism))
+            return failurePathMergeDataRows.Where(row => row.IsSelected && row.FailurePath is SpecificFailurePath)
                                            .Select(row => row.FailurePath)
                                            .Cast<SpecificFailurePath>()
                                            .ToArray();
