@@ -78,11 +78,9 @@ namespace AutomatedSystemTests.Modules.IO
             foreach (var sourceFilePath in Directory.GetFiles(sourcePath, searchPattern).ToList())
                 {
                 string fileName = Path.GetFileName(sourceFilePath);
-                //string destinationFilePath = Path.Combine("X:\\script09\\input_2\\", fileName);
                 string destinationFilePath = Path.Combine(targetPath, fileName);
                 Report.Info("source: " + sourceFilePath + "; target: " + destinationFilePath);
                 System.IO.File.Copy(sourceFilePath, destinationFilePath , true);
-                //Delay.Duration(Duration.Parse("1000"), false);
                 }
         }
     }

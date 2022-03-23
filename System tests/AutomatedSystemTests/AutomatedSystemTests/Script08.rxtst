@@ -549,11 +549,11 @@
 					</param>
 					<param
 					name="signalingValueName"
-					value="Signaleringswaarde [1/jaar]">
+					value="Signaleringsparameter [1/jaar]">
 					</param>
 					<param
 					name="lowLimitName"
-					value="Ondergrens [1/jaar]">
+					value="Omgevingswaarde [1/jaar]">
 					</param>
 					<param
 					name="normOfTrajectName"
@@ -625,11 +625,11 @@
 					</param>
 					<param
 					name="signalingValueName"
-					value="Signaleringswaarde [1/jaar]">
+					value="Signaleringsparameter [1/jaar]">
 					</param>
 					<param
 					name="lowLimitName"
-					value="Ondergrens [1/jaar]">
+					value="Omgevingswaarde [1/jaar]">
 					</param>
 					<param
 					name="normOfTrajectName"
@@ -1078,11 +1078,11 @@
 					</param>
 					<param
 					name="nameOfSignallingValueInPropertiesPanel"
-					value="Signaleringswaarde [1/jaar]">
+					value="Signaleringsparameter [1/jaar]">
 					</param>
 					<param
 					name="nameOfLowerLimitValueInPropertiesPanel"
-					value="Ondergrens [1/jaar]">
+					value="Omgevingswaarde [1/jaar]">
 					</param>
 				</parameters>
 			</smartfoldernode>
