@@ -99,7 +99,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailurePath>());
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -120,7 +120,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var otherFailureMechanism = mocks.Stub<IFailurePath>();
+            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
@@ -150,7 +150,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism
             });

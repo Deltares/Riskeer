@@ -57,7 +57,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         where TStructure : StructureBase
         where TStructureInput : StructuresInputBase<TStructure>
         where TCalculation : ICalculation
-        where TFailureMechanism : IFailurePath
+        where TFailureMechanism : IFailureMechanism
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 

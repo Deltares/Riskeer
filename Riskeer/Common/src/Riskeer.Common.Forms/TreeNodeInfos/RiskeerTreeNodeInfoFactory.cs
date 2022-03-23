@@ -49,13 +49,13 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             Func<TCalculationGroupContext, object[]> childNodeObjects,
             Func<TCalculationGroupContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
             Action<TCalculationGroupContext, object> onNodeRemoved)
-            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailurePath>
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             return new TreeNodeInfo<TCalculationGroupContext>
             {
                 Text = context => context.WrappedData.Name,
                 Image = context => Resources.GeneralFolderIcon,
-                EnsureVisibleOnCreate = (context, parent) => parent is ICalculationContext<CalculationGroup, IFailurePath>,
+                EnsureVisibleOnCreate = (context, parent) => parent is ICalculationContext<CalculationGroup, IFailureMechanism>,
                 ChildNodeObjects = childNodeObjects,
                 ContextMenuStrip = contextMenuStrip,
                 CanRename = (context, parentData) => IsNestedGroup(parentData),
@@ -87,7 +87,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             Func<TCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
             Action<TCalculationContext, object> onNodeRemoved,
             CalculationType calculationType)
-            where TCalculationContext : ICalculationContext<ICalculation, IFailurePath>
+            where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
             return new TreeNodeInfo<TCalculationContext>
             {
@@ -112,17 +112,17 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// Creates a <see cref="TreeNodeInfo"/> object for a failure path context of the type <typeparamref name="TFailurePathContext"/>.
         /// </summary>
         /// <typeparam name="TFailurePathContext">The type of failure path context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
-        /// <param name="enabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailurePath.InAssembly"/> is <c>true</c>.</param>
-        /// <param name="disabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailurePath.InAssembly"/> is <c>false</c>.</param>
-        /// <param name="enabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailurePath.InAssembly"/> is <c>true</c>.</param>
-        /// <param name="disabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailurePath.InAssembly"/> is <c>false</c>.</param>
+        /// <param name="enabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.InAssembly"/> is <c>true</c>.</param>
+        /// <param name="disabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.InAssembly"/> is <c>false</c>.</param>
+        /// <param name="enabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailureMechanism.InAssembly"/> is <c>true</c>.</param>
+        /// <param name="disabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailureMechanism.InAssembly"/> is <c>false</c>.</param>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
         public static TreeNodeInfo<TFailurePathContext> CreateFailurePathContextTreeNodeInfo<TFailurePathContext>(
             Func<TFailurePathContext, object[]> enabledChildNodeObjects,
             Func<TFailurePathContext, object[]> disabledChildNodeObjects,
             Func<TFailurePathContext, object, TreeViewControl, ContextMenuStrip> enabledContextMenuStrip,
             Func<TFailurePathContext, object, TreeViewControl, ContextMenuStrip> disabledContextMenuStrip)
-            where TFailurePathContext : IFailurePathContext<IFailurePath>
+            where TFailurePathContext : IFailurePathContext<IFailureMechanism>
         {
             return new TreeNodeInfo<TFailurePathContext>
             {
@@ -150,7 +150,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public static TreeNodeInfo<TFailureMechanismContext> CreateFailureMechanismStateContextTreeNodeInfo<TFailureMechanismContext>(
             Func<TFailureMechanismContext, object[]> childNodeObjects,
             Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip)
-            where TFailureMechanismContext : IFailurePathContext<IFailurePath>
+            where TFailureMechanismContext : IFailurePathContext<IFailureMechanism>
         {
             return new TreeNodeInfo<TFailureMechanismContext>
             {
@@ -164,9 +164,9 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
 
         #region Helper methods for CreateCalculationContextTreeNodeInfo
 
-        private static bool CalculationContextCanRemove(ICalculationContext<ICalculation, IFailurePath> calculationContext, object parentNodeData)
+        private static bool CalculationContextCanRemove(ICalculationContext<ICalculation, IFailureMechanism> calculationContext, object parentNodeData)
         {
-            var calculationGroupContext = parentNodeData as ICalculationContext<CalculationGroup, IFailurePath>;
+            var calculationGroupContext = parentNodeData as ICalculationContext<CalculationGroup, IFailureMechanism>;
             return calculationGroupContext != null && calculationGroupContext.WrappedData.Children.Contains(calculationContext.WrappedData);
         }
 
@@ -176,20 +176,20 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
 
         private static bool IsNestedGroup(object parentData)
         {
-            return parentData is ICalculationContext<CalculationGroup, IFailurePath>;
+            return parentData is ICalculationContext<CalculationGroup, IFailureMechanism>;
         }
 
         private static bool CalculationGroupCanDropOrInsert(object draggedData, object targetData)
         {
-            var calculationContext = draggedData as ICalculationContext<ICalculationBase, IFailurePath>;
-            return calculationContext != null && ReferenceEquals(calculationContext.FailureMechanism, ((ICalculationContext<CalculationGroup, IFailurePath>) targetData).FailureMechanism);
+            var calculationContext = draggedData as ICalculationContext<ICalculationBase, IFailureMechanism>;
+            return calculationContext != null && ReferenceEquals(calculationContext.FailureMechanism, ((ICalculationContext<CalculationGroup, IFailureMechanism>) targetData).FailureMechanism);
         }
 
         private static void CalculationGroupOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
         {
-            ICalculationBase calculationItem = ((ICalculationContext<ICalculationBase, IFailurePath>) droppedData).WrappedData;
-            var originalOwnerContext = oldParentData as ICalculationContext<CalculationGroup, IFailurePath>;
-            var targetContext = newParentData as ICalculationContext<CalculationGroup, IFailurePath>;
+            ICalculationBase calculationItem = ((ICalculationContext<ICalculationBase, IFailureMechanism>) droppedData).WrappedData;
+            var originalOwnerContext = oldParentData as ICalculationContext<CalculationGroup, IFailureMechanism>;
+            var targetContext = newParentData as ICalculationContext<CalculationGroup, IFailureMechanism>;
 
             if (calculationItem != null && originalOwnerContext != null && targetContext != null)
             {

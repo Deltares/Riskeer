@@ -100,7 +100,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
@@ -124,7 +124,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnsFalse()
         {
             // Setup
-            var otherFailureMechanism = mocks.Stub<IFailurePath>();
+            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
@@ -154,7 +154,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism
             });

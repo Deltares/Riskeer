@@ -60,7 +60,7 @@ namespace Riskeer.Integration.IO.Factories
             Func<TFailureMechanism, IAssessmentSection, double> assembleFailureMechanismFunc,
             Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResult> assembleFailureMechanismSectionFunc,
             ExportableFailureMechanismType failureMechanismType)
-            where TFailureMechanism : IFailurePath<TSectionResult>
+            where TFailureMechanism : IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             if (failureMechanism == null)
@@ -109,7 +109,7 @@ namespace Riskeer.Integration.IO.Factories
             <TFailureMechanism, TSectionResult>(
                 TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
                 Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResult> assembleFailureMechanismSectionFunc)
-            where TFailureMechanism : IFailurePath<TSectionResult>
+            where TFailureMechanism : IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             IDictionary<TSectionResult, ExportableFailureMechanismSection> failureMechanismSectionsLookup =

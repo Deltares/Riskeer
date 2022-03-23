@@ -55,7 +55,7 @@ namespace Riskeer.Integration.Data.Assembly
         /// <returns>A collection of <see cref="CombinedAssemblyFailureMechanismSection"/> collections.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> CreateInput(
-            AssessmentSection assessmentSection, IEnumerable<IFailurePath> failureMechanisms)
+            AssessmentSection assessmentSection, IEnumerable<IFailureMechanism> failureMechanisms)
         {
             if (assessmentSection == null)
             {

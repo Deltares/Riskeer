@@ -27,10 +27,10 @@ using Riskeer.Common.Data.FailurePath;
 namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// This class is an abstract base presentation object for a <see cref="IFailurePath"/> instance.
+    /// This class is an abstract base presentation object for a <see cref="IFailureMechanism"/> instance.
     /// </summary>
     public abstract class FailureMechanismContext<T> : ObservableWrappedObjectContextBase<T>, IFailurePathContext<T>
-        where T : IFailurePath
+        where T : IFailureMechanism
     {
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContext{T}"/>.

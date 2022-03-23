@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.Views
         where TCalculation : class, ICalculation<TCalculationInput>
         where TCalculationRow : CalculationRow<TCalculation>
         where TCalculationInput : class, ICalculationInput
-        where TFailureMechanism : IFailurePath
+        where TFailureMechanism : IFailureMechanism
     {
         private int nameColumnIndex = -1;
         private int selectableHydraulicBoundaryLocationColumnIndex = -1;
@@ -68,7 +68,7 @@ namespace Riskeer.Common.Forms.Views
         /// Creates a new instance of <see cref="CalculationsView{TCalculation, TCalculationInput, TCalculationRow, TFailureMechanism}"/>.
         /// </summary>
         /// <param name="calculationGroup">All the calculations of the failure mechanism.</param>
-        /// <param name="failureMechanism">The <see cref="IFailurePath"/> the calculations belongs to.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the calculations belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the calculations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected CalculationsView(CalculationGroup calculationGroup, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)

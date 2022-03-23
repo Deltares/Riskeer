@@ -35,7 +35,7 @@ namespace Riskeer.Common.Data.UpdateDataStrategies
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism in which the target collection should be updated.</typeparam>
     public abstract class ReplaceDataStrategyBase<TTargetData, TFailureMechanism>
         where TTargetData : class
-        where TFailureMechanism : IFailurePath
+        where TFailureMechanism : IFailureMechanism
     {
         private readonly ObservableUniqueItemCollectionWithSourcePath<TTargetData> targetCollection;
 

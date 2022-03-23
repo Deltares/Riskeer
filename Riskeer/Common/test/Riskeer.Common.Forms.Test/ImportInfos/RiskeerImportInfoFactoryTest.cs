@@ -45,10 +45,10 @@ namespace Riskeer.Common.Forms.Test.ImportInfos
             var fileImporter = mocks.Stub<IFileImporter>();
             mocks.ReplayAll();
 
-            Func<ICalculationContext<CalculationGroup, IFailurePath>, string, IFileImporter> createFileImporter = (context, s) => fileImporter;
+            Func<ICalculationContext<CalculationGroup, IFailureMechanism>, string, IFileImporter> createFileImporter = (context, s) => fileImporter;
 
             // Call
-            ImportInfo<ICalculationContext<CalculationGroup, IFailurePath>> importInfo = RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo(createFileImporter);
+            ImportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> importInfo = RiskeerImportInfoFactory.CreateCalculationConfigurationImportInfo(createFileImporter);
 
             // Assert
             Assert.AreSame(createFileImporter, importInfo.CreateFileImporter);

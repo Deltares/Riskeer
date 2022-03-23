@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.Views
     /// <typeparam name="TFailureMechanism">The type of failure mechanism.</typeparam>
     public class NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism>
         : FailureMechanismResultView<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow, TFailureMechanism>
-        where TFailureMechanism : IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+        where TFailureMechanism : IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
     {
         private const int initialFailureMechanismResultTypeIndex = 2;
         private const int initialFailureMechanismResultProfileProbabilityIndex = 3;
@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.Views
         private const int sectionProbabilityIndex = 9;
         private const int sectionNIndex = 10;
         private const int assemblyGroupIndex = 11;
-        
+
         private readonly Func<TFailureMechanism, bool> getUseLengthEffectFunc;
         private readonly Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performFailureMechanismSectionAssemblyFunc;
 
@@ -80,12 +80,12 @@ namespace Riskeer.Common.Forms.Views
             {
                 throw new ArgumentNullException(nameof(getUseLengthEffectFunc));
             }
-            
+
             if (performFailureMechanismSectionAssemblyFunc == null)
             {
                 throw new ArgumentNullException(nameof(performFailureMechanismSectionAssemblyFunc));
             }
-            
+
             this.getUseLengthEffectFunc = getUseLengthEffectFunc;
             this.performFailureMechanismSectionAssemblyFunc = performFailureMechanismSectionAssemblyFunc;
         }
@@ -172,7 +172,7 @@ namespace Riskeer.Common.Forms.Views
         {
             return new FailureMechanismSectionResultRowErrorProvider();
         }
-        
+
         private void UpdateVisibility()
         {
             bool useLengthEffect = getUseLengthEffectFunc(FailureMechanism);

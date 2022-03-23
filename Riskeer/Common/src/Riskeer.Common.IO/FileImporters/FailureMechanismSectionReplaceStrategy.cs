@@ -34,7 +34,7 @@ namespace Riskeer.Common.IO.FileImporters
     /// </summary>
     public class FailureMechanismSectionReplaceStrategy : IFailureMechanismSectionUpdateStrategy
     {
-        private readonly IFailurePath<FailureMechanismSectionResult> failurePath;
+        private readonly IFailureMechanism<FailureMechanismSectionResult> failurePath;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionReplaceStrategy"/>.
@@ -42,7 +42,7 @@ namespace Riskeer.Common.IO.FileImporters
         /// <param name="failurePath">The failure path to set the sections to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/>
         /// is <c>null</c>.</exception>
-        public FailureMechanismSectionReplaceStrategy(IFailurePath<FailureMechanismSectionResult> failurePath)
+        public FailureMechanismSectionReplaceStrategy(IFailureMechanism<FailureMechanismSectionResult> failurePath)
         {
             if (failurePath == null)
             {

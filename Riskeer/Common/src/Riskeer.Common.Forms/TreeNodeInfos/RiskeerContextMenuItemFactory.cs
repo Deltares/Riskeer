@@ -73,7 +73,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationContext calculationGroupContext,
             Action<TCalculationContext> addCalculationAction,
             CalculationType calculationType)
-            where TCalculationContext : ICalculationContext<CalculationGroup, IFailurePath>
+            where TCalculationContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             return new StrictContextMenuItem(
                 Resources.CalculationGroup_Add_Calculation,
@@ -118,7 +118,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationGroupContext calculationGroupContext,
             Action<TCalculationGroupContext> calculateAllAction,
             Func<TCalculationGroupContext, string> enableMenuItemFunction)
-            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailurePath>
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Calculate_All,
@@ -154,7 +154,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationGroupContext calculationGroupContext,
             Action<TCalculationGroupContext> validateAllAction,
             Func<TCalculationGroupContext, string> enableMenuItemFunction)
-            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailurePath>
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             CalculationGroup calculationGroup = calculationGroupContext.WrappedData;
             var menuItem = new StrictContextMenuItem(
@@ -189,7 +189,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public static StrictContextMenuItem CreateDuplicateCalculationItem<TCalculationItem, TCalculationItemContext>(
             TCalculationItem calculationItem,
             TCalculationItemContext calculationItemContext)
-            where TCalculationItemContext : ICalculationContext<TCalculationItem, IFailurePath>
+            where TCalculationItemContext : ICalculationContext<TCalculationItem, IFailureMechanism>
             where TCalculationItem : ICalculationBase
         {
             if (calculationItemContext.Parent == null)
@@ -232,7 +232,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationContext calculationContext,
             Action<TCalculationContext> calculateAction,
             Func<TCalculationContext, string> enableMenuItemFunction)
-            where TCalculationContext : ICalculationContext<TCalculation, IFailurePath>
+            where TCalculationContext : ICalculationContext<TCalculation, IFailureMechanism>
             where TCalculation : ICalculation
         {
             var menuItem = new StrictContextMenuItem(
@@ -259,7 +259,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             TCalculationContext calculation,
             Action<TCalculationContext> validateAction,
             Func<TCalculationContext, string> enableMenuItemFunction)
-            where TCalculationContext : ICalculationContext<ICalculation, IFailurePath>
+            where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
             var menuItem = new StrictContextMenuItem(
                 Resources.Validate,
@@ -397,7 +397,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         public static StrictContextMenuItem CreateToggleInAssemblyOfFailurePathItem<TFailurePathContext>(
             TFailurePathContext failurePathContext,
             Action<TFailurePathContext> onChangeAction)
-            where TFailurePathContext : IFailurePathContext<IFailurePath>
+            where TFailurePathContext : IFailurePathContext<IFailureMechanism>
         {
             bool inAssembly = failurePathContext.WrappedData.InAssembly;
             Bitmap checkboxImage = inAssembly ? Resources.Checkbox_ticked : Resources.Checkbox_empty;

@@ -30,7 +30,7 @@ namespace Riskeer.Common.Data.FailurePath
     /// <summary>
     /// This class is the implementation for a specific failure path.
     /// </summary>
-    public class SpecificFailurePath : Observable, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, IHasGeneralInput
+    public class SpecificFailurePath : Observable, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, IHasGeneralInput
     {
         private readonly FailureMechanismSectionCollection sectionCollection;
         private readonly ObservableList<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> sectionResults;

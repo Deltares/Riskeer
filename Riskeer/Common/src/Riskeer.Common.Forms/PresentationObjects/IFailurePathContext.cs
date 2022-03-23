@@ -26,13 +26,13 @@ namespace Riskeer.Common.Forms.PresentationObjects
 {
     /// <summary>
     /// Interface for a failure mechanism context which wraps an implementation of the 
-    /// <see cref="IFailurePath"/> interface.
+    /// <see cref="IFailureMechanism"/> interface.
     /// </summary>
     /// <typeparam name="T">The type of the wrapped failure mechanism.</typeparam>
-    public interface IFailurePathContext<out T> where T : IFailurePath
+    public interface IFailurePathContext<out T> where T : IFailureMechanism
     {
         /// <summary>
-        /// Gets the wrapped <see cref="IFailurePath"/> in this presentation object.
+        /// Gets the wrapped <see cref="IFailureMechanism"/> in this presentation object.
         /// </summary>
         T WrappedData { get; }
 

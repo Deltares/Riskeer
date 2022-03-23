@@ -27,7 +27,7 @@ using Riskeer.Common.Data.FailurePath;
 namespace Riskeer.Common.Forms.Views
 {
     /// <summary>
-    /// Base view which closes for an <see cref="IFailurePath"/> instance.
+    /// Base view which closes for an <see cref="IFailureMechanism"/> instance.
     /// </summary>
     public abstract class CloseForFailurePathView : UserControl, IView
     {
@@ -37,7 +37,7 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="failurePath">The failure path belonging to the view.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/>
         /// is <c>null</c>.</exception>
-        protected CloseForFailurePathView(IFailurePath failurePath)
+        protected CloseForFailurePathView(IFailureMechanism failurePath)
         {
             if (failurePath == null)
             {
@@ -48,9 +48,9 @@ namespace Riskeer.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="IFailurePath"/> the view belongs to.
+        /// Gets the <see cref="IFailureMechanism"/> the view belongs to.
         /// </summary>
-        public IFailurePath FailurePath { get; }
+        public IFailureMechanism FailurePath { get; }
 
         public object Data { get; set; }
     }

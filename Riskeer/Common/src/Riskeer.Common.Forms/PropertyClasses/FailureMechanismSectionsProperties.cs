@@ -34,10 +34,10 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="IFailurePath"/> for the properties panel
+    /// ViewModel of <see cref="IFailureMechanism"/> for the properties panel
     /// to show a collection of <see cref="FailureMechanismSection"/>.
     /// </summary>
-    public class FailureMechanismSectionsProperties : ObjectProperties<IFailurePath>, IDisposable
+    public class FailureMechanismSectionsProperties : ObjectProperties<IFailureMechanism>, IDisposable
     {
         private readonly Observer failurePathObserver;
 
@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         /// </summary>
         /// <param name="failurePath">The failure mechanism to show the section properties for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/> is <c>null</c>.</exception>
-        public FailureMechanismSectionsProperties(IFailurePath failurePath)
+        public FailureMechanismSectionsProperties(IFailureMechanism failurePath)
         {
             if (failurePath == null)
             {

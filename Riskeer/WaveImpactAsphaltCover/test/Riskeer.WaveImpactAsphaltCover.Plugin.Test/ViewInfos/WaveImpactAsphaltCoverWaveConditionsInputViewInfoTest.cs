@@ -173,7 +173,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             return new WaveImpactAsphaltCoverWaveConditionsCalculation();
         }
 
-        protected override ICalculationContext<ICalculation, IFailurePath> GetCalculationContextWithCalculation()
+        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
         {
             return new WaveImpactAsphaltCoverWaveConditionsCalculationContext(
                 new WaveImpactAsphaltCoverWaveConditionsCalculation(),
@@ -182,7 +182,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
                 new AssessmentSectionStub());
         }
 
-        protected override ICalculationContext<CalculationGroup, IFailurePath> GetCalculationGroupContextWithCalculation()
+        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
         {
             return new WaveImpactAsphaltCoverCalculationGroupContext(
                 new CalculationGroup

@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetContributingFailureMechanisms()).Return(new IFailurePath[]
+            assessmentSection.Stub(section => section.GetContributingFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism
             });

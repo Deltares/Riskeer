@@ -251,7 +251,7 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                                        "Comment");
         }
 
-        private static void SetSections(IFailurePath failurePath)
+        private static void SetSections(IFailureMechanism failurePath)
         {
             failurePath.SetSections(new[]
             {
@@ -445,7 +445,7 @@ namespace Riskeer.Storage.Core.TestUtil
             );
         }
 
-        private static void SetComments(IFailurePath failureMechanism)
+        private static void SetComments(IFailureMechanism failureMechanism)
         {
             failureMechanism.InAssemblyInputComments.Body = $"Input comment {failureMechanism.Name}";
             failureMechanism.InAssemblyOutputComments.Body = $"Output comment {failureMechanism.Name}";
@@ -457,7 +457,7 @@ namespace Riskeer.Storage.Core.TestUtil
             }
         }
 
-        private static void SetFailurePathAssemblyResults(IFailurePath failurePath, int seed)
+        private static void SetFailurePathAssemblyResults(IFailureMechanism failurePath, int seed)
         {
             var random = new Random(seed);
             FailurePathAssemblyResult assemblyResult = failurePath.AssemblyResult;

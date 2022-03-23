@@ -27,17 +27,17 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Data.FailurePath
 {
     /// <summary>
-    /// Defines a failure path.
+    /// Defines a failure mechanism.
     /// </summary>
-    public interface IFailurePath : IObservable
+    public interface IFailureMechanism : IObservable
     {
         /// <summary>
-        /// Gets the name of the failure path.
+        /// Gets the name of the failure mechanism.
         /// </summary>
         string Name { get; }
-        
+
         /// <summary>
-        /// Gets the code of the failure path.
+        /// Gets the code of the failure mechanism.
         /// </summary>
         string Code { get; }
 
@@ -52,12 +52,12 @@ namespace Riskeer.Common.Data.FailurePath
         Comment InAssemblyOutputComments { get; }
 
         /// <summary>
-        /// Gets the comments associated when the failure path is set to not be part of the assembly.
+        /// Gets the comments associated when the failure mechanism is set to not be part of the assembly.
         /// </summary>
         Comment NotInAssemblyComments { get; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this failure path is part of the assembly.
+        /// Gets or sets a value indicating whether this failure mechanism is part of the assembly.
         /// </summary>
         bool InAssembly { get; set; }
 
@@ -73,7 +73,7 @@ namespace Riskeer.Common.Data.FailurePath
         IEnumerable<FailureMechanismSection> Sections { get; }
 
         /// <summary>
-        /// Gets the assembly result of the failure path.
+        /// Gets the assembly result of the failure mechanism.
         /// </summary>
         FailurePathAssemblyResult AssemblyResult { get; }
 
@@ -97,10 +97,10 @@ namespace Riskeer.Common.Data.FailurePath
     }
 
     /// <summary>
-    /// This interface describes an <see cref="IFailurePath"/> containing <see cref="FailureMechanismSectionResult"/> objects.
+    /// This interface describes an <see cref="IFailureMechanism"/> containing <see cref="FailureMechanismSectionResult"/> objects.
     /// </summary>
     /// <typeparam name="T">The type of the section results.</typeparam>
-    public interface IFailurePath<out T> : IFailurePath
+    public interface IFailureMechanism<out T> : IFailureMechanism
         where T : FailureMechanismSectionResult
     {
         /// <summary>

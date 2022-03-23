@@ -91,7 +91,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
@@ -111,7 +111,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(ReferenceLineTestFactory.CreateReferenceLineWithGeometry());
             mocks.ReplayAll();
@@ -142,7 +142,7 @@ namespace Riskeer.Integration.Plugin.Test.ImportInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 

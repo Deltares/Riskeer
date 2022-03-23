@@ -44,7 +44,7 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
@@ -75,7 +75,7 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var entity = new FailureMechanismEntity();
@@ -445,7 +445,7 @@ namespace Riskeer.Storage.Core.Test.Read
                                                         specificFailurePath.SectionResults.Single());
         }
 
-        private static void AssertCommonFailurePathProperties(IFailurePathEntity entity, IFailurePath failurePath)
+        private static void AssertCommonFailurePathProperties(IFailurePathEntity entity, IFailureMechanism failurePath)
         {
             var inAssembly = Convert.ToBoolean(entity.InAssembly);
 

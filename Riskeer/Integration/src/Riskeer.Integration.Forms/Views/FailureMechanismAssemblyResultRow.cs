@@ -29,43 +29,43 @@ using Riskeer.Common.Forms.TypeConverters;
 namespace Riskeer.Integration.Forms.Views
 {
     /// <summary>
-    /// This class represents a row displaying the properties of a <see cref="IFailurePath"/>
+    /// This class represents a row displaying the properties of a <see cref="IFailureMechanism"/>
     /// and its assembly result.
     /// </summary>
     internal class FailureMechanismAssemblyResultRow : IHasColumnStateDefinitions
     {
         private const int probabilityIndex = 2;
-        private readonly IFailurePath failureMechanism;
+        private readonly IFailureMechanism failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/> with a default probability and an error message.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailurePath"/> to wrap so that it can be displayed as a row.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to wrap so that it can be displayed as a row.</param>
         /// <param name="errorMessage">The error message to display.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameters is <c>null</c>.</exception>
-        public FailureMechanismAssemblyResultRow(IFailurePath failureMechanism,
+        public FailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism,
                                                  string errorMessage)
             : this(failureMechanism, double.NaN, errorMessage) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/> with a specified probability.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailurePath"/> to wrap so that it can be displayed as a row.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to wrap so that it can be displayed as a row.</param>
         /// <param name="failureMechanismAssemblyResult">The assembly result of the failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="failureMechanism"/> is <c>null</c>.</exception>
-        public FailureMechanismAssemblyResultRow(IFailurePath failureMechanism,
+        public FailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism,
                                                  double failureMechanismAssemblyResult)
             : this(failureMechanism, failureMechanismAssemblyResult, string.Empty) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyResultRow"/> with a specified probability.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailurePath"/> to wrap so that it can be displayed as a row.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to wrap so that it can be displayed as a row.</param>
         /// <param name="failureMechanismAssemblyResult">The assembly result of the failure mechanism.</param>
         /// <param name="errorMessage">The error message to display.</param>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="failureMechanism"/> or <paramref name="errorMessage"/>
         /// is <c>null</c>.</exception>
-        private FailureMechanismAssemblyResultRow(IFailurePath failureMechanism,
+        private FailureMechanismAssemblyResultRow(IFailureMechanism failureMechanism,
                                                   double failureMechanismAssemblyResult,
                                                   string errorMessage)
         {

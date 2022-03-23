@@ -91,7 +91,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             return info.CloseForData(view, o);
         }
 
-        protected override IView GetView(IFailurePath failurePath)
+        protected override IView GetView(IFailureMechanism failurePath)
         {
             return new FailureMechanismSectionsView(failurePath.Sections, failurePath);
         }

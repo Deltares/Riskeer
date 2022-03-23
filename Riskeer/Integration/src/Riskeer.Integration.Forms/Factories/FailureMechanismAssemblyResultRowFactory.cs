@@ -35,11 +35,11 @@ namespace Riskeer.Integration.Forms.Factories
         /// <summary>
         /// Creates a <see cref="FailureMechanismAssemblyResultRow"/> based on its input arguments.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailurePath"/> to create the row for.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to create the row for.</param>
         /// <param name="performAssemblyFunc">Performs the assembly for <paramref name="failureMechanism"/>.</param>
         /// <returns>A <see cref="FailureMechanismAssemblyResultRow"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static FailureMechanismAssemblyResultRow CreateRow(IFailurePath failureMechanism,
+        public static FailureMechanismAssemblyResultRow CreateRow(IFailureMechanism failureMechanism,
                                                                   Func<double> performAssemblyFunc)
         {
             if (failureMechanism == null)
@@ -62,7 +62,7 @@ namespace Riskeer.Integration.Forms.Factories
                        : CreateAutomaticAssemblyRow(failureMechanism, performAssemblyFunc);
         }
 
-        private static FailureMechanismAssemblyResultRow CreateManualAssemblyRow(IFailurePath failureMechanism)
+        private static FailureMechanismAssemblyResultRow CreateManualAssemblyRow(IFailureMechanism failureMechanism)
         {
             FailurePathAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
 
@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.Factories
                        : new FailureMechanismAssemblyResultRow(failureMechanism, assemblyResult.ManualFailurePathAssemblyProbability);
         }
 
-        private static FailureMechanismAssemblyResultRow CreateAutomaticAssemblyRow(IFailurePath failureMechanism,
+        private static FailureMechanismAssemblyResultRow CreateAutomaticAssemblyRow(IFailureMechanism failureMechanism,
                                                                                     Func<double> performAssemblyFunc)
         {
             try

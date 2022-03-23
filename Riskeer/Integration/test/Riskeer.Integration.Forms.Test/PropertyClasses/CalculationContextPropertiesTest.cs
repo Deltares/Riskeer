@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new CalculationContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ICalculationContext<ICalculation, IFailurePath>>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<ICalculationContext<ICalculation, IFailureMechanism>>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -55,7 +55,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var calculation = new TestCalculation(name);
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailurePath>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var properties = new CalculationContextProperties
@@ -76,7 +76,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var projectObserver = mocks.StrictMock<IObserver>();
             const int numberOfChangedProperties = 1;
             projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
-            var failureMechanism = mocks.StrictMock<IFailurePath>();
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 
             var calculation = new TestCalculation();
@@ -118,9 +118,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "Naam van de berekening.");
         }
 
-        private class TestCalculationContext : Observable, ICalculationContext<ICalculation, IFailurePath>
+        private class TestCalculationContext : Observable, ICalculationContext<ICalculation, IFailureMechanism>
         {
-            public TestCalculationContext(ICalculation wrappedData, CalculationGroup parent, IFailurePath failureMechanism)
+            public TestCalculationContext(ICalculation wrappedData, CalculationGroup parent, IFailureMechanism failureMechanism)
             {
                 WrappedData = wrappedData;
                 Parent = parent;
@@ -131,7 +131,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             public CalculationGroup Parent { get; }
 
-            public IFailurePath FailureMechanism { get; }
+            public IFailureMechanism FailureMechanism { get; }
         }
     }
 }

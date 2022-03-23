@@ -63,7 +63,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            Dictionary<IFailurePath, bool> oldFailureMechanismsInAssembly = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.InAssembly, new ReferenceEqualityComparer<IFailurePath>());
+            Dictionary<IFailureMechanism, bool> oldFailureMechanismsInAssembly = assessmentSection.GetFailureMechanisms().ToDictionary(f => f, f => f.InAssembly, new ReferenceEqualityComparer<IFailureMechanism>());
 
             var affectedObjects = new List<IObservable>();
             if (assessmentSection.Composition != newComposition)
@@ -80,15 +80,15 @@ namespace Riskeer.Integration.Plugin.Handlers
             return affectedObjects;
         }
 
-        private void CloseViewsForFailureMechanismsNotPartOfAssembly(IEnumerable<IFailurePath> failureMechanisms)
+        private void CloseViewsForFailureMechanismsNotPartOfAssembly(IEnumerable<IFailureMechanism> failureMechanisms)
         {
-            foreach (IFailurePath failureMechanism in failureMechanisms.Where(fm => !fm.InAssembly))
+            foreach (IFailureMechanism failureMechanism in failureMechanisms.Where(fm => !fm.InAssembly))
             {
                 viewCommands.RemoveAllViewsForItem(failureMechanism);
             }
         }
 
-        private static IEnumerable<IFailurePath> GetFailureMechanismsWithInAssemblyUpdated(IDictionary<IFailurePath, bool> oldFailureMechanismInAssembly)
+        private static IEnumerable<IFailureMechanism> GetFailureMechanismsWithInAssemblyUpdated(IDictionary<IFailureMechanism, bool> oldFailureMechanismInAssembly)
         {
             return oldFailureMechanismInAssembly.Where(fmr => fmr.Value != fmr.Key.InAssembly).Select(fmr => fmr.Key);
         }

@@ -115,7 +115,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailurePath>());
+            assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             assessmentSection.Stub(s => s.Comments).Return(new Comment());
             mocks.ReplayAll();
 
@@ -140,11 +140,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
             deletedAssessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
-            deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailurePath>());
+            deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             deletedAssessmentSection.Stub(s => s.Comments).Return(new Comment());
 
             var viewDataAssessmentSection = mocks.Stub<IAssessmentSection>();
-            viewDataAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailurePath>());
+            viewDataAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             viewDataAssessmentSection.Stub(s => s.Comments).Return(new Comment());
             mocks.ReplayAll();
 
@@ -458,11 +458,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CloseForData_ViewDataIsFailurePathCommentButNotOfDeletedAssessmentSection_ReturnFalse()
         {
             // Setup
-            var viewDataComment = mocks.Stub<IFailurePath>();
+            var viewDataComment = mocks.Stub<IFailureMechanism>();
             viewDataComment.Stub(s => s.InAssemblyInputComments).Return(new Comment());
 
             var deletedAssessmentSection = mocks.Stub<IAssessmentSection>();
-            deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailurePath>());
+            deletedAssessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             deletedAssessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>
             {
                 new SpecificFailurePath()
@@ -493,7 +493,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failurePath = new SpecificFailurePath();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailurePath>());
+            assessmentSection.Stub(s => s.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             assessmentSection.Stub(s => s.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>
             {
                 failurePath
@@ -521,11 +521,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var affectedComment = new Comment();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             failurePath.Stub(fm => fm.InAssemblyInputComments).Return(affectedComment);
             failurePath.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failurePath.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
-            var failurePathContext = mocks.Stub<IFailurePathContext<IFailurePath>>();
+            var failurePathContext = mocks.Stub<IFailurePathContext<IFailureMechanism>>();
 
             failurePathContext.Expect(c => c.WrappedData).Return(failurePath);
             mocks.ReplayAll();
@@ -551,11 +551,11 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var unaffectedComment = new Comment();
 
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             failurePath.Stub(fm => fm.InAssemblyInputComments).Return(new Comment());
             failurePath.Stub(fm => fm.InAssemblyOutputComments).Return(new Comment());
             failurePath.Stub(fm => fm.NotInAssemblyComments).Return(new Comment());
-            var failurePathContext = mocks.Stub<IFailurePathContext<IFailurePath>>();
+            var failurePathContext = mocks.Stub<IFailurePathContext<IFailureMechanism>>();
 
             failurePathContext.Expect(c => c.WrappedData).Return(failurePath);
             mocks.ReplayAll();
@@ -581,7 +581,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
             viewDataCalculation.Stub(c => c.Comments).Return(new Comment());
-            var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, IFailurePath>>();
+            var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, IFailureMechanism>>();
 
             deletedCalculationContext.Expect(c => c.WrappedData).Return(viewDataCalculation);
             mocks.ReplayAll();
@@ -609,7 +609,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             calculation.Stub(s => s.Comments).Return(new Comment());
             var viewDataCalculation = mocks.Stub<ICalculation>();
             viewDataCalculation.Stub(s => s.Comments).Return(new Comment());
-            var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, IFailurePath>>();
+            var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, IFailureMechanism>>();
 
             deletedCalculationContext.Expect(c => c.WrappedData).Return(calculation);
 
@@ -636,7 +636,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
             viewDataCalculation.Stub(s => s.Comments).Return(new Comment());
-            var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, IFailurePath>>();
+            var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, IFailureMechanism>>();
             var deletedGroup = new CalculationGroup
             {
                 Children =
@@ -672,7 +672,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             viewDataCalculation.Stub(s => s.Comments).Return(new Comment());
             var deletedCalculation = mocks.Stub<ICalculation>();
             deletedCalculation.Stub(s => s.Comments).Return(new Comment());
-            var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, IFailurePath>>();
+            var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, IFailureMechanism>>();
             var deletedGroup = new CalculationGroup
             {
                 Children =

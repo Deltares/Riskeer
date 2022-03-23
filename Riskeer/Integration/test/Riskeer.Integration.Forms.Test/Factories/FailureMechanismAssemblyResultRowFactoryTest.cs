@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             var random = new Random(21);
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
             mocks.ReplayAll();
@@ -102,7 +102,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             const string failureMechanismCode = "Code";
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
             failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult
@@ -138,7 +138,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             const string errorMessage = "I am an error";
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
             failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult
@@ -174,7 +174,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             double assemblyResult = random.NextDouble();
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
             failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult
@@ -207,7 +207,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             const string failureMechanismCode = "Code";
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
             failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult

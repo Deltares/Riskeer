@@ -173,7 +173,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             return new StabilityStoneCoverWaveConditionsCalculation();
         }
 
-        protected override ICalculationContext<ICalculation, IFailurePath> GetCalculationContextWithCalculation()
+        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
         {
             return new StabilityStoneCoverWaveConditionsCalculationContext(
                 new StabilityStoneCoverWaveConditionsCalculation(),
@@ -182,7 +182,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
                 new AssessmentSectionStub());
         }
 
-        protected override ICalculationContext<CalculationGroup, IFailurePath> GetCalculationGroupContextWithCalculation()
+        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
         {
             return new StabilityStoneCoverCalculationGroupContext(
                 new CalculationGroup

@@ -128,7 +128,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             return new GrassCoverErosionInwardsCalculation();
         }
 
-        protected override ICalculationContext<ICalculation, IFailurePath> GetCalculationContextWithCalculation()
+        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
         {
             return new GrassCoverErosionInwardsCalculationScenarioContext(new GrassCoverErosionInwardsCalculationScenario(),
                                                                           new CalculationGroup(),
@@ -136,7 +136,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                                                                           new AssessmentSectionStub());
         }
 
-        protected override ICalculationContext<CalculationGroup, IFailurePath> GetCalculationGroupContextWithCalculation()
+        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
         {
             return new GrassCoverErosionInwardsCalculationGroupContext(
                 new CalculationGroup

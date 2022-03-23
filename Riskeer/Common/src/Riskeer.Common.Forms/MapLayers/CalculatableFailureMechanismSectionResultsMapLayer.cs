@@ -36,7 +36,7 @@ namespace Riskeer.Common.Forms.MapLayers
     /// <typeparam name="TSectionResult">The type of section result.</typeparam>
     /// <typeparam name="TCalculationInput">The type of calculation input.</typeparam>
     public class CalculatableFailureMechanismSectionResultsMapLayer<TFailureMechanism, TSectionResult, TCalculationInput> : NonCalculatableFailureMechanismSectionResultsMapLayer<TSectionResult>
-        where TFailureMechanism : IFailurePath<TSectionResult>, ICalculatableFailureMechanism
+        where TFailureMechanism : IFailureMechanism<TSectionResult>, ICalculatableFailureMechanism
         where TSectionResult : FailureMechanismSectionResult
         where TCalculationInput : class, ICalculationInput
     {
@@ -58,13 +58,13 @@ namespace Riskeer.Common.Forms.MapLayers
             {
                 Observable = failureMechanism.CalculationsGroup
             };
-            
+
             calculationInputsObserver = new RecursiveObserver<CalculationGroup, TCalculationInput>(
                 UpdateFeatures, pcg => pcg.Children.Concat<object>(pcg.Children.OfType<ICalculation<TCalculationInput>>().Select(pc => pc.InputParameters)))
             {
                 Observable = failureMechanism.CalculationsGroup
             };
-            
+
             calculationScenariosObserver = new RecursiveObserver<CalculationGroup, ICalculationScenario>(UpdateFeatures, pcg => pcg.Children)
             {
                 Observable = failureMechanism.CalculationsGroup
@@ -79,7 +79,7 @@ namespace Riskeer.Common.Forms.MapLayers
                 calculationGroupsObserver.Dispose();
                 calculationScenariosObserver.Dispose();
             }
-            
+
             base.Dispose(disposing);
         }
     }

@@ -45,7 +45,7 @@ namespace Riskeer.DuneErosion.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public DuneErosionFailureMechanismSectionResultContext(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> wrappedSectionResults,
-                                                               IFailurePath failureMechanism, IAssessmentSection assessmentSection)
+                                                               IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(wrappedSectionResults, failureMechanism, assessmentSection) {}
     }
 }

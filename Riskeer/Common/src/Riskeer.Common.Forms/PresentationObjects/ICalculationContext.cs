@@ -32,7 +32,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism the wrapped calculation item belongs to.</typeparam>
     public interface ICalculationContext<out TCalculationBase, out TFailureMechanism> : IObservable
         where TCalculationBase : ICalculationBase
-        where TFailureMechanism : IFailurePath
+        where TFailureMechanism : IFailureMechanism
     {
         /// <summary>
         /// Gets the wrapped calculation item.

@@ -41,12 +41,12 @@ namespace Riskeer.Common.Plugin.TestUtil
     /// Test fixture for verifying the InAssembly behavior of a TreeNodeInfo.
     /// </summary>
     /// <typeparam name="TPlugin">The type of plugin to create the tests for.</typeparam>
-    /// <typeparam name="TFailurePath">The type of <see cref="IFailurePath"/> to create the tests for.</typeparam>
+    /// <typeparam name="TFailurePath">The type of <see cref="IFailureMechanism"/> to create the tests for.</typeparam>
     /// <typeparam name="TFailurePathContext">The type of <see cref="IFailurePathContext{T}"/> to create the tests for.</typeparam>
     [TestFixture]
     public abstract class FailurePathInAssemblyTreeNodeInfoTestFixtureBase<TPlugin, TFailurePath, TFailurePathContext>
         where TPlugin : PluginBase, new()
-        where TFailurePath : IFailurePath, new()
+        where TFailurePath : IFailureMechanism, new()
         where TFailurePathContext : IFailurePathContext<TFailurePath>
     {
         private readonly int contextMenuIndexWhenInAssemblyFalse;
@@ -77,9 +77,9 @@ namespace Riskeer.Common.Plugin.TestUtil
                 mocks.ReplayAll();
 
                 using (var plugin = new TPlugin
-                {
-                    Gui = gui
-                })
+                       {
+                           Gui = gui
+                       })
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
@@ -124,9 +124,9 @@ namespace Riskeer.Common.Plugin.TestUtil
                 mocks.ReplayAll();
 
                 using (var plugin = new TPlugin
-                {
-                    Gui = gui
-                })
+                       {
+                           Gui = gui
+                       })
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
@@ -163,9 +163,9 @@ namespace Riskeer.Common.Plugin.TestUtil
                 mocks.ReplayAll();
 
                 using (var plugin = new TPlugin
-                {
-                    Gui = gui
-                })
+                       {
+                           Gui = gui
+                       })
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 
@@ -208,9 +208,9 @@ namespace Riskeer.Common.Plugin.TestUtil
                 mocks.ReplayAll();
 
                 using (var plugin = new TPlugin
-                {
-                    Gui = gui
-                })
+                       {
+                           Gui = gui
+                       })
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 

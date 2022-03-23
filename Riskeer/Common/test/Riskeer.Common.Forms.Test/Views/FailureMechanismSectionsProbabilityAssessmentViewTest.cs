@@ -67,7 +67,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
@@ -90,7 +90,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
@@ -129,7 +129,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
@@ -152,7 +152,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             FailureMechanismSection[] sections =
@@ -342,7 +342,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         private FailureMechanismSectionsProbabilityAssessmentView ShowFailureMechanismSectionsProbabilityAssessmentView(IEnumerable<FailureMechanismSection> sections,
-                                                                                                                        IFailurePath failureMechanism,
+                                                                                                                        IFailureMechanism failureMechanism,
                                                                                                                         ProbabilityAssessmentInput probabilityAssessmentInput)
         {
             var view = new FailureMechanismSectionsProbabilityAssessmentView(sections, failureMechanism, probabilityAssessmentInput);

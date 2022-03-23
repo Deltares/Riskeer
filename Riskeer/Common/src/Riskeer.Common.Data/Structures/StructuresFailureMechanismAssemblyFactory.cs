@@ -40,7 +40,7 @@ namespace Riskeer.Common.Data.Structures
         /// </summary>
         /// <typeparam name="TStructuresInput">The type of structures input contained by the calculation.</typeparam>
         /// <param name="sectionResult">The section result to assemble.</param>
-        /// <param name="failureMechanism">The <see cref="IFailurePath"/> the section result belongs to.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the section result belongs to.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the section belongs to.</param>
         /// <returns>A <see cref="FailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>

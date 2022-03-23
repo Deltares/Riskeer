@@ -128,7 +128,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var otherAssessmentSection = mocks.Stub<IAssessmentSection>();
             otherAssessmentSection.Stub(ass => ass.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
-            otherAssessmentSection.Stub(ass => ass.GetFailureMechanisms()).Return(Enumerable.Empty<IFailurePath>());
+            otherAssessmentSection.Stub(ass => ass.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             mocks.ReplayAll();
 
             var failurePath = new SpecificFailurePath();

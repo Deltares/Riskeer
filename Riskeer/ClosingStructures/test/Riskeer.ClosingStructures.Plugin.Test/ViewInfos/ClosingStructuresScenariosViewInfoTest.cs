@@ -178,7 +178,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
             using (var view = new ClosingStructuresScenariosView(new CalculationGroup(), new ClosingStructuresFailureMechanism()))

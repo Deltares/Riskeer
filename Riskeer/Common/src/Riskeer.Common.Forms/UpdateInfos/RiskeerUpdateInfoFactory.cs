@@ -54,7 +54,7 @@ namespace Riskeer.Common.Forms.UpdateInfos
         public static UpdateInfo<TSectionContext> CreateFailureMechanismSectionsUpdateInfo<TSectionContext, TFailureMechanism, TSectionResult>(
             IFailureMechanismSectionResultUpdateStrategy<TSectionResult> sectionResultUpdateStrategy)
             where TSectionContext : FailureMechanismSectionsContext
-            where TFailureMechanism : IFailurePath<TSectionResult>
+            where TFailureMechanism : IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             if (sectionResultUpdateStrategy == null)

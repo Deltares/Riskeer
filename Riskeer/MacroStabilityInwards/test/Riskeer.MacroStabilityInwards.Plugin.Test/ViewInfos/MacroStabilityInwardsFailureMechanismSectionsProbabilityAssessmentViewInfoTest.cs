@@ -94,14 +94,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                 return info.CloseForData(view, o);
             }
 
-            protected override IView GetView(IFailurePath failureMechanism)
+            protected override IView GetView(IFailureMechanism failureMechanism)
             {
                 return new FailureMechanismSectionsProbabilityAssessmentView(failureMechanism.Sections,
                                                                              failureMechanism,
                                                                              new MacroStabilityInwardsProbabilityAssessmentInput());
             }
 
-            protected override IFailurePath GetFailureMechanism()
+            protected override IFailureMechanism GetFailureMechanism()
             {
                 return new MacroStabilityInwardsFailureMechanism();
             }

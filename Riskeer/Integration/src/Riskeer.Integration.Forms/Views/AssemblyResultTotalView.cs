@@ -331,7 +331,7 @@ namespace Riskeer.Integration.Forms.Views
         }
 
         private FailureMechanismAssemblyResultRow CreateStandAloneFailureMechanismAssemblyResultRow<TFailureMechanism>(TFailureMechanism failureMechanism)
-            where TFailureMechanism : IHasGeneralInput, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+            where TFailureMechanism : IHasGeneralInput, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
             return FailureMechanismAssemblyResultRowFactory.CreateRow(
                 failureMechanism, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, AssessmentSection));

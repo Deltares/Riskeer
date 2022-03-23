@@ -64,7 +64,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 

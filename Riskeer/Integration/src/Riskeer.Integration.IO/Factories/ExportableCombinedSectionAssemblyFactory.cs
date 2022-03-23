@@ -124,7 +124,7 @@ namespace Riskeer.Integration.IO.Factories
         }
 
         private static Tuple<FailureMechanismSectionAssemblyGroup?, string> CreateTuple(
-            FailureMechanismSectionAssemblyGroup? assemblyResultGroup, IFailurePath failureMechanism)
+            FailureMechanismSectionAssemblyGroup? assemblyResultGroup, IFailureMechanism failureMechanism)
         {
             return new Tuple<FailureMechanismSectionAssemblyGroup?, string>(assemblyResultGroup, failureMechanism.Code);
         }

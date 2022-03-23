@@ -99,7 +99,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -120,7 +120,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var otherFailureMechanism = mocks.Stub<IFailurePath>();
+            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 otherFailureMechanism
@@ -148,7 +148,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism
             });

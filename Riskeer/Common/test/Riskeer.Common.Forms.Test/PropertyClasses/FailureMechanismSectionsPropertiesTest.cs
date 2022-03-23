@@ -62,12 +62,12 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             var failurePath = new TestFailurePath();
             failurePath.SetSections(sections, sourcePath);
-            
+
             // Call
             using (var properties = new FailureMechanismSectionsProperties(failurePath))
             {
                 // Assert
-                Assert.IsInstanceOf<ObjectProperties<IFailurePath>>(properties);
+                Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
                 Assert.AreSame(failurePath, properties.Data);
 
@@ -97,7 +97,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call

@@ -99,7 +99,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
 
             mocks.ReplayAll();
 
@@ -123,7 +123,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
-            var otherFailureMechanism = mocks.Stub<IFailurePath>();
+            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
@@ -153,7 +153,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism
             });

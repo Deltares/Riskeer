@@ -35,13 +35,13 @@ namespace Riskeer.Common.Data.TestUtil
     public class AssessmentSectionStub : Observable, IAssessmentSection
     {
         private static readonly Random random = new Random(21);
-        private readonly IEnumerable<IFailurePath> failureMechanisms;
+        private readonly IEnumerable<IFailureMechanism> failureMechanisms;
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNorm;
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNorm;
 
-        public AssessmentSectionStub() : this(new IFailurePath[0]) {}
+        public AssessmentSectionStub() : this(new IFailureMechanism[0]) {}
 
-        public AssessmentSectionStub(IEnumerable<IFailurePath> failureMechanisms)
+        public AssessmentSectionStub(IEnumerable<IFailureMechanism> failureMechanisms)
         {
             this.failureMechanisms = failureMechanisms;
             FailureMechanismContribution = new FailureMechanismContribution(1.0 / 30000,
@@ -139,12 +139,12 @@ namespace Riskeer.Common.Data.TestUtil
             }
         }
 
-        public IEnumerable<IFailurePath> GetFailureMechanisms()
+        public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
             yield break;
         }
 
-        public IEnumerable<IFailurePath> GetContributingFailureMechanisms()
+        public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
         {
             return failureMechanisms;
         }

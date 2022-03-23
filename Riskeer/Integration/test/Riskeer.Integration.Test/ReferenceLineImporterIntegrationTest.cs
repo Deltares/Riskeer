@@ -105,7 +105,7 @@ namespace Riskeer.Integration.Test
 
             DataImportHelper.ImportReferenceLine(assessmentSection);
             DataImportHelper.ImportFailureMechanismSections(assessmentSection, assessmentSection.GetFailureMechanisms()
-                                                                                                .Cast<IFailurePath<FailureMechanismSectionResult>>());
+                                                                                                .Cast<IFailureMechanism<FailureMechanismSectionResult>>());
             DataImportHelper.ImportPipingSurfaceLines(assessmentSection);
             DataImportHelper.ImportPipingStochasticSoilModels(assessmentSection);
 
@@ -130,7 +130,7 @@ namespace Riskeer.Integration.Test
             };
 
             assessmentSection.ReferenceLine.Attach(referenceLineObserver);
-            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 failureMechanism.Attach(failureMechanismObserver);
             }
@@ -151,7 +151,7 @@ namespace Riskeer.Integration.Test
             Assert.AreEqual(198237.375, point2Ds[123].X, 1e-6);
             Assert.AreEqual(514879.781, point2Ds[123].Y, 1e-6);
 
-            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 CollectionAssert.IsEmpty(failureMechanism.Sections);
             }

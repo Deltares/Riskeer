@@ -281,7 +281,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     {
                         CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 20)
                     };
-                    IEnumerable<IFailurePath> failureMechanisms = assessmentSection.GetFailureMechanisms();
+                    IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
                     failureMechanisms.ElementAt(random.Next(failureMechanisms.Count())).NotifyObservers();
 
                     // Then

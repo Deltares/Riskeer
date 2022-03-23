@@ -255,12 +255,12 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(ICalculationContext<CalculationGroup, IFailurePath>),
+                    typeof(ICalculationContext<CalculationGroup, IFailureMechanism>),
                     typeof(CalculationGroupContextProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(ICalculationContext<ICalculation, IFailurePath>),
+                    typeof(ICalculationContext<ICalculation, IFailureMechanism>),
                     typeof(CalculationContextProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(

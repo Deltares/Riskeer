@@ -41,7 +41,7 @@ namespace Riskeer.Common.Data.Test.FailurePath
 
             // Assert
             Assert.IsInstanceOf<Observable>(failurePath);
-            Assert.IsInstanceOf<IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failurePath);
+            Assert.IsInstanceOf<IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(failurePath);
             Assert.IsInstanceOf<IHasGeneralInput>(failurePath);
             Assert.AreEqual("Nieuw faalmechanisme", failurePath.Name);
             Assert.AreEqual("NIEUW", failurePath.Code);

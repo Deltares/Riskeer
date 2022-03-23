@@ -237,8 +237,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertHydraulicBoundaryLocationCalculations(expectedAssessmentSection, actualAssessmentSection);
             AssertReferenceLine(expectedAssessmentSection.ReferenceLine, actualAssessmentSection.ReferenceLine);
 
-            IFailurePath[] expectedProjectFailureMechanisms = expectedAssessmentSection.GetFailureMechanisms().ToArray();
-            IFailurePath[] actualProjectFailureMechanisms = actualAssessmentSection.GetFailureMechanisms().ToArray();
+            IFailureMechanism[] expectedProjectFailureMechanisms = expectedAssessmentSection.GetFailureMechanisms().ToArray();
+            IFailureMechanism[] actualProjectFailureMechanisms = actualAssessmentSection.GetFailureMechanisms().ToArray();
             for (var fmi = 0; fmi < expectedProjectFailureMechanisms.Length; fmi++)
             {
                 AssertFailureMechanism(expectedProjectFailureMechanisms[fmi], actualProjectFailureMechanisms[fmi]);
@@ -374,8 +374,8 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                      });
         }
 
-        private static void AssertFailureMechanism(IFailurePath expectedFailureMechanism,
-                                                   IFailurePath actualFailureMechanism)
+        private static void AssertFailureMechanism(IFailureMechanism expectedFailureMechanism,
+                                                   IFailureMechanism actualFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanism.Name, actualFailureMechanism.Name);
             Assert.AreEqual(expectedFailureMechanism.Code, actualFailureMechanism.Code);

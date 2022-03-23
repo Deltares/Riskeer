@@ -29,7 +29,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
-    public class CalculationContextProperties : ObjectProperties<ICalculationContext<ICalculation, IFailurePath>>
+    public class CalculationContextProperties : ObjectProperties<ICalculationContext<ICalculation, IFailureMechanism>>
     {
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Calculation_Name_DisplayName))]

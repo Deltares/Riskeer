@@ -62,11 +62,11 @@ namespace Riskeer.Common.Data.TestUtil
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
         /// <remarks>Whether <paramref name="filePath"/> is provided or not, a dummy location with id 1300001 is added to the
         /// hydraulic boundary database.</remarks>
-        public static IAssessmentSection CreateAssessmentSectionStub(IFailurePath failureMechanism,
+        public static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism,
                                                                      MockRepository mockRepository,
                                                                      string filePath = null)
         {
-            IFailurePath[] failureMechanisms = GetFailureMechanisms(failureMechanism);
+            IFailureMechanism[] failureMechanisms = GetFailureMechanisms(failureMechanism);
 
             var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.Id).Return("21");
@@ -89,10 +89,10 @@ namespace Riskeer.Common.Data.TestUtil
             return testAssessmentLevel;
         }
 
-        private static IFailurePath[] GetFailureMechanisms(IFailurePath failureMechanism)
+        private static IFailureMechanism[] GetFailureMechanisms(IFailureMechanism failureMechanism)
         {
             return failureMechanism == null
-                       ? Enumerable.Empty<IFailurePath>().ToArray()
+                       ? Enumerable.Empty<IFailureMechanism>().ToArray()
                        : new[]
                        {
                            failureMechanism

@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Data.Assembly
         /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> Create(IEnumerable<CombinedFailureMechanismSectionAssembly> output,
-                                                                                        IDictionary<IFailurePath, int> failureMechanisms,
+                                                                                        IDictionary<IFailureMechanism, int> failureMechanisms,
                                                                                         AssessmentSection assessmentSection)
         {
             if (output == null)
@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Data.Assembly
 
         private static CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties CreateFailureMechanismResults(
             IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismResults,
-            IDictionary<IFailurePath, int> failureMechanisms,
+            IDictionary<IFailureMechanism, int> failureMechanisms,
             AssessmentSection assessmentSection)
         {
             var constructionProperties = new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
@@ -98,8 +98,8 @@ namespace Riskeer.Integration.Data.Assembly
             return constructionProperties;
         }
 
-        private static FailureMechanismSectionAssemblyGroup? GetAssemblyGroup(IFailurePath failureMechanism,
-                                                                              IDictionary<IFailurePath, int> failureMechanisms,
+        private static FailureMechanismSectionAssemblyGroup? GetAssemblyGroup(IFailureMechanism failureMechanism,
+                                                                              IDictionary<IFailureMechanism, int> failureMechanisms,
                                                                               IEnumerable<FailureMechanismSectionAssemblyGroup> failureMechanismResults)
         {
             return failureMechanisms.ContainsKey(failureMechanism)

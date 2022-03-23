@@ -53,7 +53,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.Stub<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             mocks.ReplayAll();
@@ -72,7 +72,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             mocks.ReplayAll();
 
@@ -90,7 +90,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.Stub<IFailureMechanismSectionUpdateStrategy>();
             mocks.ReplayAll();
 
@@ -108,7 +108,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.Stub<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             mocks.ReplayAll();
@@ -119,7 +119,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var importer = new FailureMechanismSectionsImporter(failurePath, referenceLine, "", updateStrategy, messageProvider);
 
             // Assert
-            Assert.IsInstanceOf<FileImporterBase<IFailurePath>>(importer);
+            Assert.IsInstanceOf<FileImporterBase<IFailureMechanism>>(importer);
             mocks.VerifyAll();
         }
 
@@ -136,7 +136,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             updateStrategy.Expect(us => us.UpdateSectionsWithImportedData(null, null))
                           .IgnoreArguments()
@@ -148,7 +148,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                               Assert.AreEqual(sectionsFilePath, invocation.Arguments[1]);
                           })
                           .Return(Enumerable.Empty<IObservable>());
-            
+
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 
@@ -179,7 +179,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             updateStrategy.Expect(us => us.UpdateSectionsWithImportedData(null, null))
                           .IgnoreArguments()
@@ -209,7 +209,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.Stub<IFailureMechanismSectionUpdateStrategy>();
             updateStrategy.Stub(us => us.UpdateSectionsWithImportedData(null, null))
                           .IgnoreArguments()
@@ -252,7 +252,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
@@ -283,7 +283,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
@@ -314,7 +314,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
@@ -347,7 +347,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
@@ -382,7 +382,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
@@ -415,7 +415,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
@@ -446,7 +446,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
@@ -477,7 +477,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetUpdateDataFailedLogMessageText(sectionsTypeDescriptor)).Return(expectedUpdateDataFailedText);
@@ -508,7 +508,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             mocks.ReplayAll();
@@ -534,7 +534,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetCancelledLogMessageText(sectionsTypeDescriptor)).Return(expectedCancelledText);
@@ -572,7 +572,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetCancelledLogMessageText(sectionsTypeDescriptor)).Return(expectedCancelledText);
@@ -610,7 +610,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             updateStrategy.Expect(us => us.UpdateSectionsWithImportedData(null, null))
                           .IgnoreArguments()
@@ -619,7 +619,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                               CollectionAssert.IsNotEmpty((IEnumerable<FailureMechanismSection>) invocation.Arguments[0]);
                           })
                           .Return(Enumerable.Empty<IObservable>());
-            
+
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();
             messageProvider.Expect(mp => mp.GetAddDataToModelProgressText()).Return(expectedAddDataToModelProgressText);
             mocks.ReplayAll();
@@ -663,7 +663,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             ReferenceLine importReferenceLine = ImportReferenceLine(referenceLineFilePath);
 
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             updateStrategy.Expect(us => us.UpdateSectionsWithImportedData(null, null))
                           .IgnoreArguments()
@@ -675,7 +675,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
                               Assert.AreEqual(sectionsFilePath, invocation.Arguments[1]);
                           })
                           .Return(Enumerable.Empty<IObservable>());
-            
+
             var messageProvider = mocks.Stub<IImporterMessageProvider>();
             mocks.ReplayAll();
 

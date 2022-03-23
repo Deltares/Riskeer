@@ -180,7 +180,7 @@ namespace Riskeer.Integration.IO.Factories
             Func<TFailureMechanism, IAssessmentSection, double> assembleFailureMechanismFunc,
             Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResult> assembleFailureMechanismSectionFunc,
             ExportableFailureMechanismType failureMechanismType)
-            where TFailureMechanism : IFailurePath<TSectionResult>
+            where TFailureMechanism : IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
             if (failureMechanism.InAssembly)

@@ -47,14 +47,14 @@ namespace Riskeer.Common.Plugin
         /// <returns>Whether the view should be closed.</returns>
         public static bool ShouldCloseViewWithCalculationData(IView view, object removedObject)
         {
-            var context = removedObject as ICalculationContext<ICalculation, IFailurePath>;
+            var context = removedObject as ICalculationContext<ICalculation, IFailureMechanism>;
             if (context != null)
             {
                 return ReferenceEquals(view.Data, context.WrappedData);
             }
 
             IEnumerable<ICalculation> calculations;
-            var calculationGroupContext = removedObject as ICalculationContext<CalculationGroup, IFailurePath>;
+            var calculationGroupContext = removedObject as ICalculationContext<CalculationGroup, IFailureMechanism>;
             if (calculationGroupContext != null)
             {
                 calculations = calculationGroupContext.WrappedData
@@ -78,8 +78,8 @@ namespace Riskeer.Common.Plugin
         public static bool ShouldCloseForFailureMechanismView(CloseForFailurePathView view, object removedObject)
         {
             var assessmentSection = removedObject as IAssessmentSection;
-            var failurePathContext = removedObject as IFailurePathContext<IFailurePath>;
-            var failureMechanism = removedObject as IFailurePath;
+            var failurePathContext = removedObject as IFailurePathContext<IFailureMechanism>;
+            var failureMechanism = removedObject as IFailureMechanism;
 
             if (failurePathContext != null)
             {
@@ -104,17 +104,17 @@ namespace Riskeer.Common.Plugin
         /// <returns>Whether the view should be closed.</returns>
         public static bool ShouldCloseForFailurePathView(CloseForFailurePathView view, object removedObject)
         {
-            var failurePath = removedObject as IFailurePath;
+            var failurePath = removedObject as IFailureMechanism;
 
-            if (removedObject is IFailurePathContext<IFailurePath> failurePathContext)
+            if (removedObject is IFailurePathContext<IFailureMechanism> failurePathContext)
             {
                 failurePath = failurePathContext.WrappedData;
             }
 
             if (removedObject is IAssessmentSection assessmentSection)
             {
-                failurePath = (IFailurePath) assessmentSection.GetFailureMechanisms()
-                                                              .FirstOrDefault(fm => fm == view.FailurePath)
+                failurePath = (IFailureMechanism) assessmentSection.GetFailureMechanisms()
+                                                                   .FirstOrDefault(fm => fm == view.FailurePath)
                               ?? assessmentSection.SpecificFailurePaths
                                                   .FirstOrDefault(fp => fp == view.FailurePath);
             }

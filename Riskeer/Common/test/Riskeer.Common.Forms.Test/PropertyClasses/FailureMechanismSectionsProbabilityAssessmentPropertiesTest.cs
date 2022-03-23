@@ -45,7 +45,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
@@ -95,7 +95,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                                                 probabilityAssessmentInput))
             {
                 // Assert
-                Assert.IsInstanceOf<ObjectProperties<IFailurePath>>(properties);
+                Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
                 Assert.AreSame(failureMechanism, properties.Data);
 
@@ -129,7 +129,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var random = new Random(39);

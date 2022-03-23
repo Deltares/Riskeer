@@ -64,7 +64,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
@@ -82,7 +82,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
@@ -117,7 +117,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             IEnumerable<FailureMechanismSection> sections = Enumerable.Empty<FailureMechanismSection>();
@@ -137,7 +137,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             FailureMechanismSection[] sections =
@@ -264,7 +264,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         private FailureMechanismSectionsView ShowFailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections,
-                                                                              IFailurePath failurePath)
+                                                                              IFailureMechanism failurePath)
         {
             var view = new FailureMechanismSectionsView(sections, failurePath);
 

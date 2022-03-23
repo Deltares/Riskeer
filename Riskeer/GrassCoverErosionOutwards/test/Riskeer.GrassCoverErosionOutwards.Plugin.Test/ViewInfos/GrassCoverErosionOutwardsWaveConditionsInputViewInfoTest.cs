@@ -173,7 +173,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             return new GrassCoverErosionOutwardsWaveConditionsCalculation();
         }
 
-        protected override ICalculationContext<ICalculation, IFailurePath> GetCalculationContextWithCalculation()
+        protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
         {
             return new GrassCoverErosionOutwardsWaveConditionsCalculationContext(
                 new GrassCoverErosionOutwardsWaveConditionsCalculation(),
@@ -182,7 +182,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 new AssessmentSectionStub());
         }
 
-        protected override ICalculationContext<CalculationGroup, IFailurePath> GetCalculationGroupContextWithCalculation()
+        protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
         {
             return new GrassCoverErosionOutwardsCalculationGroupContext(
                 new CalculationGroup

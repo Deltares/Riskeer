@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 switch (failureMechanism)
                 {
@@ -131,7 +131,7 @@ namespace Riskeer.Integration.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 switch (failureMechanism)
                 {
@@ -182,7 +182,7 @@ namespace Riskeer.Integration.Service
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            IEnumerable<IFailurePath> failureMechanisms = assessmentSection.GetFailureMechanisms();
+            IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
 
             var changedObservables = new List<IObservable>();
             changedObservables.AddRange(PipingDataSynchronizationService.ClearAllSemiProbabilisticCalculationOutputWithoutManualAssessmentLevel(
@@ -278,7 +278,7 @@ namespace Riskeer.Integration.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 switch (failureMechanism)
                 {
@@ -323,7 +323,7 @@ namespace Riskeer.Integration.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 switch (failureMechanism)
                 {
@@ -368,7 +368,7 @@ namespace Riskeer.Integration.Service
 
             var changedObservables = new List<IObservable>();
 
-            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms())
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms())
             {
                 switch (failureMechanism)
                 {
@@ -496,8 +496,8 @@ namespace Riskeer.Integration.Service
             var changedObjects = new List<IObservable>();
             var removedObjects = new List<object>();
 
-            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms()
-                                                                       .Concat<IFailurePath>(assessmentSection.SpecificFailurePaths))
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms()
+                                                                            .Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths))
             {
                 ClearResults results = GetClearResultsForFailureMechanism(failureMechanism);
 
@@ -796,7 +796,7 @@ namespace Riskeer.Integration.Service
             return affectedObjects;
         }
 
-        private static ClearResults GetClearResultsForFailureMechanism(IFailurePath failureMechanism)
+        private static ClearResults GetClearResultsForFailureMechanism(IFailureMechanism failureMechanism)
         {
             switch (failureMechanism)
             {
@@ -819,11 +819,11 @@ namespace Riskeer.Integration.Service
                 case StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism:
                     return StabilityPointStructuresDataSynchronizationService.ClearReferenceLineDependentData(stabilityPointStructuresFailureMechanism);
                 default:
-                    return ClearReferenceLineDependentDataForFailureMechanism((IFailurePath<FailureMechanismSectionResult>) failureMechanism);
+                    return ClearReferenceLineDependentDataForFailureMechanism((IFailureMechanism<FailureMechanismSectionResult>) failureMechanism);
             }
         }
 
-        private static ClearResults ClearReferenceLineDependentDataForFailureMechanism(IFailurePath<FailureMechanismSectionResult> failureMechanism)
+        private static ClearResults ClearReferenceLineDependentDataForFailureMechanism(IFailureMechanism<FailureMechanismSectionResult> failureMechanism)
         {
             var removedObjects = new List<object>();
             var changedObjects = new List<IObservable>();

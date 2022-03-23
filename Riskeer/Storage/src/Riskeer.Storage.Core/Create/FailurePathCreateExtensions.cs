@@ -30,19 +30,19 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="IFailurePath"/> related to creating a <see cref="IFailurePathEntity"/>.
+    /// Extension methods for <see cref="IFailureMechanism"/> related to creating a <see cref="IFailurePathEntity"/>.
     /// </summary>
     internal static class FailurePathCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="IFailurePath"/>.
+        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="IFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The failure mechanism to create a database entity for.</param>
         /// <param name="type">The type of the failure mechanism that is being created.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static FailureMechanismEntity Create(this IFailurePath mechanism, FailureMechanismType type, PersistenceRegistry registry)
+        internal static FailureMechanismEntity Create(this IFailureMechanism mechanism, FailureMechanismType type, PersistenceRegistry registry)
         {
             if (registry == null)
             {
@@ -114,7 +114,7 @@ namespace Riskeer.Storage.Core.Create
             }
         }
 
-        private static T Create<T>(this IFailurePath failurePath, PersistenceRegistry registry)
+        private static T Create<T>(this IFailureMechanism failurePath, PersistenceRegistry registry)
             where T : IFailurePathEntity, new()
         {
             FailurePathAssemblyResult assemblyResult = failurePath.AssemblyResult;
@@ -134,7 +134,7 @@ namespace Riskeer.Storage.Core.Create
             return entity;
         }
 
-        private static void AddEntitiesForFailureMechanismSections(this IFailurePath specificFailurePath,
+        private static void AddEntitiesForFailureMechanismSections(this IFailureMechanism specificFailurePath,
                                                                    PersistenceRegistry registry,
                                                                    IFailurePathEntity entity)
         {

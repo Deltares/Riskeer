@@ -50,7 +50,7 @@ namespace Riskeer.Common.Forms.ExportInfos
             Func<TCalculationGroupContext, string, IFileExporter> createFileExporter,
             Func<TCalculationGroupContext, bool> isEnabled,
             IInquiryHelper inquiryHelper)
-            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailurePath>
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
         {
             return new ExportInfo<TCalculationGroupContext>
             {
@@ -76,7 +76,7 @@ namespace Riskeer.Common.Forms.ExportInfos
         public static ExportInfo<TCalculationContext> CreateCalculationConfigurationExportInfo<TCalculationContext>(
             Func<TCalculationContext, string, IFileExporter> createFileExporter,
             IInquiryHelper inquiryHelper)
-            where TCalculationContext : ICalculationContext<ICalculation, IFailurePath>
+            where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
         {
             return new ExportInfo<TCalculationContext>
             {

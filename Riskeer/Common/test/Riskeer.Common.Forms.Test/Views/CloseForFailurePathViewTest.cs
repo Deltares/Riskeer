@@ -48,7 +48,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
@@ -60,13 +60,13 @@ namespace Riskeer.Common.Forms.Test.Views
             Assert.IsNull(view.Data);
             Assert.AreSame(failurePath, view.FailurePath);
             CollectionAssert.IsEmpty(view.Controls);
-            
+
             mocks.VerifyAll();
         }
 
         private class TestCloseForFailurePathView : CloseForFailurePathView
         {
-            public TestCloseForFailurePathView(IFailurePath failurePath) : base(failurePath) {}
+            public TestCloseForFailurePathView(IFailureMechanism failurePath) : base(failurePath) {}
         }
     }
 }

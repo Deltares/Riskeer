@@ -233,7 +233,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                     new SpecificFailurePath()
                 }
             };
-            IFailurePath[] originalFailurePaths = targetAssessmentSection.SpecificFailurePaths.ToArray();
+            IFailureMechanism[] originalFailurePaths = targetAssessmentSection.SpecificFailurePaths.ToArray();
 
             var failurePathsToMerge = new[]
             {
@@ -251,7 +251,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             handler.PerformMerge(targetAssessmentSection, mergeData);
 
             // Assert
-            IEnumerable<IFailurePath> expectedFailurePaths = originalFailurePaths.Concat(failurePathsToMerge);
+            IEnumerable<IFailureMechanism> expectedFailurePaths = originalFailurePaths.Concat(failurePathsToMerge);
             CollectionAssert.AreEqual(expectedFailurePaths, targetAssessmentSection.SpecificFailurePaths);
         }
 
@@ -267,7 +267,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                     new SpecificFailurePath()
                 }
             };
-            IFailurePath[] originalFailurePaths = targetAssessmentSection.SpecificFailurePaths.ToArray();
+            IFailureMechanism[] originalFailurePaths = targetAssessmentSection.SpecificFailurePaths.ToArray();
 
             var failurePathsToMerge = new[]
             {

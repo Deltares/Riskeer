@@ -40,7 +40,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailurePath>());
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>());
             mocks.ReplayAll();
 
@@ -91,7 +91,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             var otherFailureMechanism = new TestFailureMechanism();
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
@@ -135,7 +135,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             var otherFailureMechanism = new TestFailureMechanism();
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             using (IView view = GetView(otherFailureMechanism))
@@ -158,7 +158,7 @@ namespace Riskeer.Common.Plugin.TestUtil
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailurePath>());
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailurePath>
             {
                 failurePath
@@ -182,7 +182,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         {
             // Setup
             var mocks = new MockRepository();
-            var otherFailurePath = mocks.Stub<IFailurePath>();
+            var otherFailurePath = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             var failurePath = new TestFailurePath();
@@ -219,7 +219,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         {
             // Setup
             var mocks = new MockRepository();
-            var otherFailurePath = mocks.Stub<IFailurePath>();
+            var otherFailurePath = mocks.Stub<IFailureMechanism>();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
@@ -274,17 +274,17 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// </summary>
         /// <param name="failurePath">The failure path containing the data to set to the view.</param>
         /// <returns>A view object.</returns>
-        protected abstract IView GetView(IFailurePath failurePath);
+        protected abstract IView GetView(IFailureMechanism failurePath);
 
-        private class TestFailurePathContext : IFailurePathContext<IFailurePath>
+        private class TestFailurePathContext : IFailurePathContext<IFailureMechanism>
         {
-            public TestFailurePathContext(IFailurePath wrappedFailurePath, IAssessmentSection parent)
+            public TestFailurePathContext(IFailureMechanism wrappedFailurePath, IAssessmentSection parent)
             {
                 WrappedData = wrappedFailurePath;
                 Parent = parent;
             }
 
-            public IFailurePath WrappedData { get; }
+            public IFailureMechanism WrappedData { get; }
             public IAssessmentSection Parent { get; }
         }
     }

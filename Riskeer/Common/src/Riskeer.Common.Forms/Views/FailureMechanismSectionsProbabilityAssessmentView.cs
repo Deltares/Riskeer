@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.Views
         /// failure mechanism.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public FailureMechanismSectionsProbabilityAssessmentView(IEnumerable<FailureMechanismSection> sections,
-                                                                 IFailurePath failureMechanism,
+                                                                 IFailureMechanism failureMechanism,
                                                                  ProbabilityAssessmentInput probabilityAssessmentInput)
             : base(sections, failureMechanism)
         {

@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
@@ -74,7 +74,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             const string errorMessage = "Error";
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
             mocks.ReplayAll();
@@ -123,7 +123,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             const string failureMechanismCode = "Code";
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
             mocks.ReplayAll();

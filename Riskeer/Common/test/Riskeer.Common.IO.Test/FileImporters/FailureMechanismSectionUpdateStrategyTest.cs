@@ -60,7 +60,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath<TestFailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
@@ -76,7 +76,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath<TestFailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
             var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
@@ -93,7 +93,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath<TestFailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
             var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
@@ -111,7 +111,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailurePath<TestFailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
             var sectionResultUpdateStrategy = mocks.Stub<IFailureMechanismSectionResultUpdateStrategy<TestFailureMechanismSectionResult>>();
             mocks.ReplayAll();
 

@@ -163,7 +163,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism
             });

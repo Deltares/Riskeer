@@ -163,7 +163,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism
             });

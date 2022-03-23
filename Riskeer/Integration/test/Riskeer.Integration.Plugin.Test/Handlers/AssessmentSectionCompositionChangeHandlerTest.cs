@@ -177,7 +177,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             // Setup
             var mocks = new MockRepository();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<IFailurePath>.Matches(fm => !fm.InAssembly)))
+            viewCommands.Expect(vc => vc.RemoveAllViewsForItem(Arg<IFailureMechanism>.Matches(fm => !fm.InAssembly)))
                         .Repeat.Times(expectedNumberOfCalls);
             mocks.ReplayAll();
 

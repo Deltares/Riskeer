@@ -181,7 +181,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism
             });

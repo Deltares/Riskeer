@@ -398,7 +398,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsEmpty(warningProvider.GetError(button));
 
                 // When
-                IFailurePath[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+                IFailureMechanism[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
                 failureMechanisms[random.Next(failureMechanisms.Length)].NotifyObservers();
 
                 // Then 

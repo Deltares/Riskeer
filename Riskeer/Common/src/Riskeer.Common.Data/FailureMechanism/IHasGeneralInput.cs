@@ -24,9 +24,9 @@ using Riskeer.Common.Data.FailurePath;
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// This interface describes an <see cref="IFailurePath"/> containing <see cref="FailureMechanism.GeneralInput"/> objects.
+    /// This interface describes an <see cref="IFailureMechanism"/> containing <see cref="FailureMechanism.GeneralInput"/> objects.
     /// </summary>
-    public interface IHasGeneralInput : IFailurePath
+    public interface IHasGeneralInput : IFailureMechanism
     {
         /// <summary>
         /// Gets the <see cref="FailureMechanism.GeneralInput"/>.

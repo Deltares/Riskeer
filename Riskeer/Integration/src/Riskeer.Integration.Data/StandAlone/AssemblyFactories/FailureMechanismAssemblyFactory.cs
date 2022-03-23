@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
         /// <exception cref="AssemblyException">Thrown when the failure mechanism cannot be assembled.</exception>
         public static double AssembleFailureMechanism<TFailureMechanism>(TFailureMechanism failureMechanism,
                                                                          IAssessmentSection assessmentSection)
-            where TFailureMechanism : IHasGeneralInput, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
+            where TFailureMechanism : IHasGeneralInput, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
             if (failureMechanism == null)
             {

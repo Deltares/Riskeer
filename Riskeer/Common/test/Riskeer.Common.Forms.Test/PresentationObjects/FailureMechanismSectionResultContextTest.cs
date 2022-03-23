@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
@@ -79,7 +79,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             // Setup
             var mocks = new MockRepository();
             var sectionResults = mocks.Stub<IObservableEnumerable<FailureMechanismSectionResult>>();
-            var failureMechanism = mocks.Stub<IFailurePath>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call

@@ -216,11 +216,11 @@ namespace Riskeer.Integration.Data.Test
             var assessmentSection = new AssessmentSection(composition);
 
             // Call
-            IFailurePath[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
+            IFailureMechanism[] failureMechanisms = assessmentSection.GetFailureMechanisms().ToArray();
 
             // Assert
             Assert.AreEqual(15, failureMechanisms.Length);
-            CollectionAssert.AreEqual(new IFailurePath[]
+            CollectionAssert.AreEqual(new IFailureMechanism[]
             {
                 assessmentSection.Piping,
                 assessmentSection.GrassCoverErosionInwards,
@@ -250,12 +250,12 @@ namespace Riskeer.Integration.Data.Test
             var assessmentSection = new AssessmentSection(composition);
 
             // Call
-            IFailurePath[] failureMechanisms = assessmentSection.GetContributingFailureMechanisms()
-                                                                .ToArray();
+            IFailureMechanism[] failureMechanisms = assessmentSection.GetContributingFailureMechanisms()
+                                                                     .ToArray();
 
             // Assert
             Assert.AreEqual(11, failureMechanisms.Length);
-            CollectionAssert.AreEqual(new IFailurePath[]
+            CollectionAssert.AreEqual(new IFailureMechanism[]
             {
                 assessmentSection.Piping,
                 assessmentSection.GrassCoverErosionInwards,

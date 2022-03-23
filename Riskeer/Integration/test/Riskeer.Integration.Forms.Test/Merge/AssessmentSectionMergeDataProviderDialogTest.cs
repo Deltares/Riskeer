@@ -391,7 +391,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
             Assert.AreEqual(expectedFailureMechanism.Calculations.Count(), cells[numberOfCalculationsIndex].Value);
         }
 
-        private static void AssertDataGridViewRow(IFailurePath expectedFailurePath,
+        private static void AssertDataGridViewRow(IFailureMechanism expectedFailurePath,
                                                   DataGridViewCellCollection cells)
         {
             Assert.AreEqual(false, cells[isSelectedIndex].Value);

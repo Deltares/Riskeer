@@ -389,7 +389,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsEmpty(warningProvider.GetError(button));
 
                 // When
-                IEnumerable<IFailurePath> failureMechanisms = assessmentSection.GetFailureMechanisms();
+                IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
                 failureMechanisms.ElementAt(random.Next(failureMechanisms.Count())).NotifyObservers();
 
                 // Then 
@@ -666,7 +666,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             }
         }
 
-        private static void AssertAssemblyCells(IFailurePath failureMechanism, double assemblyResult, DataGridViewCellCollection cells)
+        private static void AssertAssemblyCells(IFailureMechanism failureMechanism, double assemblyResult, DataGridViewCellCollection cells)
         {
             Assert.AreEqual(expectedColumnCount, cells.Count);
 

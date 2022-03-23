@@ -36,9 +36,9 @@ namespace Riskeer.Common.IO.FileImporters
 {
     /// <summary>
     /// Imports <see cref="FailureMechanismSection"/> instances from a shapefile that contains
-    /// one or more polylines and stores them in a <see cref="IFailurePath"/>.
+    /// one or more polylines and stores them in a <see cref="IFailureMechanism"/>.
     /// </summary>
-    public class FailureMechanismSectionsImporter : FileImporterBase<IFailurePath>
+    public class FailureMechanismSectionsImporter : FileImporterBase<IFailureMechanism>
     {
         /// <summary>
         /// The snapping tolerance in meters.
@@ -66,7 +66,7 @@ namespace Riskeer.Common.IO.FileImporters
         /// <param name="messageProvider">The message provider to provide the messages during the importer action.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.
         /// </exception>
-        public FailureMechanismSectionsImporter(IFailurePath importTarget,
+        public FailureMechanismSectionsImporter(IFailureMechanism importTarget,
                                                 ReferenceLine referenceLine,
                                                 string filePath,
                                                 IFailureMechanismSectionUpdateStrategy failureMechanismSectionUpdateStrategy,

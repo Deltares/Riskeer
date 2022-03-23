@@ -249,11 +249,11 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new PipingStructureFailurePathProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailurePath>, CalculationGroupContextProperties>
+            yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>
             {
                 CreateInstance = context => new CalculationGroupContextProperties(context)
             };
-            yield return new PropertyInfo<ICalculationContext<ICalculation, IFailurePath>, CalculationContextProperties>();
+            yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<WaterLevelCalculationsForNormTargetProbabilityContext, WaterLevelCalculationsForNormTargetProbabilityProperties>
             {
                 CreateInstance = context => new WaterLevelCalculationsForNormTargetProbabilityProperties(context.WrappedData, context.GetNormFunc())
@@ -1079,7 +1079,7 @@ namespace Riskeer.Integration.Plugin
         private ViewInfo<TContext, IObservableEnumerable<NonAdoptableFailureMechanismSectionResult>, NonAdoptableFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(
             Func<TFailureMechanism, IAssessmentSection, double> getFailureMechanismAssemblyResultFunc)
             where TContext : FailureMechanismSectionResultContext<NonAdoptableFailureMechanismSectionResult>
-            where TFailureMechanism : class, IFailurePath<NonAdoptableFailureMechanismSectionResult>
+            where TFailureMechanism : class, IFailureMechanism<NonAdoptableFailureMechanismSectionResult>
         {
             return new RiskeerViewInfo<
                 TContext,
@@ -1097,7 +1097,7 @@ namespace Riskeer.Integration.Plugin
 
         private ViewInfo<TContext, IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, NonAdoptableWithProfileProbabilityFailureMechanismResultView<TFailureMechanism>> CreateFailureMechanismResultViewInfo<TContext, TFailureMechanism>(Func<TFailureMechanism, bool> getUseLengthEffectFunc, Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
             where TContext : FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
-            where TFailureMechanism : class, IFailurePath<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, IHasGeneralInput
+            where TFailureMechanism : class, IFailureMechanism<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>, IHasGeneralInput
         {
             return new RiskeerViewInfo<
                 TContext,
@@ -1251,7 +1251,7 @@ namespace Riskeer.Integration.Plugin
 
         private IEnumerable<IObserver> CreateObservers(SpecificFailurePathView specificFailurePathView)
         {
-            IFailurePath failurePath = specificFailurePathView.FailurePath;
+            IFailureMechanism failurePath = specificFailurePathView.FailurePath;
             return new[]
             {
                 CreateViewTitleObserver(specificFailurePathView, failurePath, () => failurePath.Name)
@@ -1427,7 +1427,7 @@ namespace Riskeer.Integration.Plugin
 
         private static bool CloseFailureMechanismResultViewForData<TFailureMechanism, TSectionResult, TView, TSectionResultRow>(
             TView view, object dataToCloseFor)
-            where TFailureMechanism : class, IFailurePath<TSectionResult>
+            where TFailureMechanism : class, IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
             where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
             where TView : FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism>
@@ -1443,7 +1443,7 @@ namespace Riskeer.Integration.Plugin
                                                        .FirstOrDefault(fp => fp == view.FailureMechanism);
             }
 
-            if (dataToCloseFor is IFailurePathContext<IFailurePath> failureMechanismContext)
+            if (dataToCloseFor is IFailurePathContext<IFailureMechanism> failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData as TFailureMechanism;
             }
@@ -1497,19 +1497,19 @@ namespace Riskeer.Integration.Plugin
 
         private static bool CloseCommentViewForData(CommentView commentView, object dataToCloseFor)
         {
-            if (dataToCloseFor is ICalculationContext<CalculationGroup, IFailurePath> calculationGroupContext)
+            if (dataToCloseFor is ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext)
             {
                 return GetCommentElements(calculationGroupContext.WrappedData)
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
             }
 
-            var calculationContext = dataToCloseFor as ICalculationContext<ICalculationBase, IFailurePath>;
+            var calculationContext = dataToCloseFor as ICalculationContext<ICalculationBase, IFailureMechanism>;
             if (calculationContext?.WrappedData is ICalculation calculation)
             {
                 return ReferenceEquals(commentView.Data, calculation.Comments);
             }
 
-            if (dataToCloseFor is IFailurePathContext<IFailurePath> failurePathContext)
+            if (dataToCloseFor is IFailurePathContext<IFailureMechanism> failurePathContext)
             {
                 return GetCommentElements(failurePathContext.WrappedData)
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
@@ -1543,7 +1543,7 @@ namespace Riskeer.Integration.Plugin
             }
         }
 
-        private static IEnumerable<Comment> GetCommentElements(IFailurePath failureMechanism)
+        private static IEnumerable<Comment> GetCommentElements(IFailureMechanism failureMechanism)
         {
             yield return failureMechanism.InAssemblyInputComments;
             yield return failureMechanism.InAssemblyOutputComments;
@@ -2070,7 +2070,7 @@ namespace Riskeer.Integration.Plugin
 
         #region StandAloneFailurePath TreeNodeInfo
 
-        private static object[] StandAloneFailurePathDisabledChildNodeObjects(IFailurePathContext<IFailurePath> nodeData)
+        private static object[] StandAloneFailurePathDisabledChildNodeObjects(IFailurePathContext<IFailureMechanism> nodeData)
         {
             return new object[]
             {
@@ -2078,7 +2078,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip StandAloneFailurePathEnabledContextMenuStrip(IFailurePathContext<IFailurePath> nodeData, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip StandAloneFailurePathEnabledContextMenuStrip(IFailurePathContext<IFailureMechanism> nodeData, object parentData, TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -2093,12 +2093,12 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForFailureMechanismContext(IFailurePathContext<IFailurePath> failureMechanismContext)
+        private void RemoveAllViewsForFailureMechanismContext(IFailurePathContext<IFailureMechanism> failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip StandAloneFailurePathDisabledContextMenuStrip(IFailurePathContext<IFailurePath> nodeData,
+        private ContextMenuStrip StandAloneFailurePathDisabledContextMenuStrip(IFailurePathContext<IFailureMechanism> nodeData,
                                                                                object parentData,
                                                                                TreeViewControl treeViewControl)
         {

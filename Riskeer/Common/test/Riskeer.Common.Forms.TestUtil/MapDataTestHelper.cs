@@ -286,20 +286,20 @@ namespace Riskeer.Common.Forms.TestUtil
         /// Asserts whether the <see cref="MapData"/> contains the data that is representative 
         /// for the <paramref name="expectedAssemblyResult"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailurePath"/> the that contains the original data.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the that contains the original data.</param>
         /// <param name="expectedAssemblyResult">The expected <see cref="FailureMechanismSectionAssemblyResult"/> that contains the original data.</param>
         /// <param name="mapData">The <see cref="MapDataCollection"/> that needs to be asserted.</param>
         /// <exception cref="AssertionException">Thrown when:
         /// <list type="bullet">
         /// <item>the name of the <see cref="MapData"/> is not <c>Duidingsklasse per vak</c>;</item>
         /// <item>the amount of features in <paramref name="mapData"/> is not equal to the 
-        /// amount of the <see cref="IFailurePath.Sections"/>;</item>
+        /// amount of the <see cref="IFailureMechanism.Sections"/>;</item>
         /// <item>the geometries of the features in <paramref name="mapData"/> are not equal to 
-        /// the expected geometry of the <see cref="IFailurePath.Sections"/>;</item>
+        /// the expected geometry of the <see cref="IFailureMechanism.Sections"/>;</item>
         /// <item>the meta data does not contain the <see cref="FailureMechanismSectionAssemblyGroup"/>.</item>
         /// </list>
         /// </exception>
-        public static void AssertAssemblyMapData(IFailurePath failureMechanism,
+        public static void AssertAssemblyMapData(IFailureMechanism failureMechanism,
                                                  FailureMechanismSectionAssemblyResult expectedAssemblyResult,
                                                  MapData mapData)
         {

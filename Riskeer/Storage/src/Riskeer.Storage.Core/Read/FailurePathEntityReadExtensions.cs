@@ -30,19 +30,19 @@ using Riskeer.Storage.Core.Read.FailureMechanismSectionResults;
 namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for an <see cref="IFailurePath"/> implementation based on the
+    /// This class defines extension methods for read operations for an <see cref="IFailureMechanism"/> implementation based on the
     /// <see cref="IFailurePathEntity"/>
     /// </summary>
     internal static class FailurePathEntityReadExtensions
     {
         /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="IFailurePath"/>.
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="IFailureMechanism"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="IFailurePath"/>.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="IFailureMechanism"/>.</param>
         /// <param name="failurePath">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void ReadCommonFailurePathProperties<T>(this T entity, IFailurePath failurePath, ReadConversionCollector collector)
+        internal static void ReadCommonFailurePathProperties<T>(this T entity, IFailureMechanism failurePath, ReadConversionCollector collector)
             where T : IFailurePathEntity
         {
             if (entity == null)
@@ -133,7 +133,7 @@ namespace Riskeer.Storage.Core.Read
             return specificFailurePath;
         }
 
-        private static void ReadAssemblyResult(IFailurePathEntity entity, IFailurePath failurePath)
+        private static void ReadAssemblyResult(IFailurePathEntity entity, IFailureMechanism failurePath)
         {
             FailurePathAssemblyResult assemblyResult = failurePath.AssemblyResult;
             assemblyResult.ProbabilityResultType = (FailurePathAssemblyProbabilityResultType) entity.FailurePathAssemblyProbabilityResultType;
@@ -144,7 +144,7 @@ namespace Riskeer.Storage.Core.Read
         }
 
         private static void ReadFailureMechanismSections(this IFailurePathEntity entity,
-                                                         IFailurePath specificFailurePath,
+                                                         IFailureMechanism specificFailurePath,
                                                          ReadConversionCollector collector)
         {
             FailureMechanismSection[] readFailureMechanismSections = entity.FailureMechanismSectionEntities

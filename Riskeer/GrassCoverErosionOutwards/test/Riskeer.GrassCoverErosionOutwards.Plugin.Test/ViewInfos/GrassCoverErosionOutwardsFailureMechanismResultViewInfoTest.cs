@@ -98,7 +98,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -125,7 +125,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var otherFailureMechanism = mocks.Stub<IFailurePath>();
+            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
 
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new[]
             {
@@ -156,7 +156,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[]
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 failureMechanism
             });

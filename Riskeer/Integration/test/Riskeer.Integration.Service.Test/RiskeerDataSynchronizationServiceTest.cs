@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Service.Test
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailurePath[]
+            assessmentSection.Stub(section => section.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
                 pipingFailureMechanism,
                 macroStabilityInwardsFailureMechanism
@@ -1968,7 +1968,7 @@ namespace Riskeer.Integration.Service.Test
         }
 
         private static IEnumerable<object> GetExpectedRemovedObjectsWhenClearingReferenceLine<T>(T failureMechanism)
-            where T : IFailurePath<FailureMechanismSectionResult>
+            where T : IFailureMechanism<FailureMechanismSectionResult>
         {
             foreach (FailureMechanismSection section in failureMechanism.Sections)
             {

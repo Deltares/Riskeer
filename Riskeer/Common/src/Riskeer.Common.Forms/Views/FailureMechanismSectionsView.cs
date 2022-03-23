@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Views
         /// <param name="sections">The sections to be displayed in the view.</param>
         /// <param name="failurePath">The failure path the view belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections, IFailurePath failurePath)
+        public FailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections, IFailureMechanism failurePath)
             : base(failurePath)
         {
             if (sections == null)

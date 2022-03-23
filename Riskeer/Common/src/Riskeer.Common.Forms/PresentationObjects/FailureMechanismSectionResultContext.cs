@@ -39,10 +39,10 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// Creates a new instance of <see cref="FailureMechanismSectionResultContext{T}"/>.
         /// </summary>
         /// <param name="wrappedSectionResults">The <see cref="IObservableEnumerable{T}"/> of <typeparamref name="T"/> to wrap.</param>
-        /// <param name="failureMechanism">The <see cref="IFailurePath"/> the <paramref name="wrappedSectionResults"/> belongs to.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> the <paramref name="wrappedSectionResults"/> belongs to.</param>
         /// <param name="assessmentSection">The assessment section the section results belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public FailureMechanismSectionResultContext(IObservableEnumerable<T> wrappedSectionResults, IFailurePath failureMechanism,
+        public FailureMechanismSectionResultContext(IObservableEnumerable<T> wrappedSectionResults, IFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection)
             : base(wrappedSectionResults)
         {
@@ -61,9 +61,9 @@ namespace Riskeer.Common.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the <see cref="IFailurePath"/>.
+        /// Gets the <see cref="IFailureMechanism"/>.
         /// </summary>
-        public IFailurePath FailureMechanism { get; }
+        public IFailureMechanism FailureMechanism { get; }
 
         /// <summary>
         /// Gets the assessment section.

@@ -233,7 +233,7 @@ namespace Riskeer.Integration.Data
             }
         }
 
-        public IEnumerable<IFailurePath> GetFailureMechanisms()
+        public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
             yield return Piping;
             yield return GrassCoverErosionInwards;
@@ -252,7 +252,7 @@ namespace Riskeer.Integration.Data
             yield return DuneErosion;
         }
 
-        public IEnumerable<IFailurePath> GetContributingFailureMechanisms()
+        public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
         {
             yield return Piping;
             yield return GrassCoverErosionInwards;

@@ -88,15 +88,15 @@ namespace Riskeer.Integration.TestUtil
         }
 
         /// <summary>
-        /// Imports <see cref="FailureMechanismSection"/> data for a given <see cref="IFailurePath{FailureMechanismSectionResult}"/>.
+        /// Imports <see cref="FailureMechanismSection"/> data for a given <see cref="IFailureMechanism{T}"/>.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> that contains the <see cref="IFailurePath{FailureMechanismSectionResult}"/> instance.</param>
-        /// <param name="failureMechanism">The <see cref="IFailurePath{FailureMechanismSectionResult}"/> instance to import on.</param>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> that contains the <see cref="IFailureMechanism{T}"/> instance.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism{T}"/> instance to import on.</param>
         /// <remarks>
         /// <para>This will import 283 failure mechanism sections.</para>
         /// <para>Imports using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
-        public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailurePath<FailureMechanismSectionResult> failureMechanism)
+        public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IFailureMechanism<FailureMechanismSectionResult> failureMechanism)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    true,
@@ -117,15 +117,15 @@ namespace Riskeer.Integration.TestUtil
         }
 
         /// <summary>
-        /// Imports <see cref="FailureMechanismSection"/> data for a given enumeration of <see cref="IFailurePath{FailureMechanismSectionResult}"/>.
+        /// Imports <see cref="FailureMechanismSection"/> data for a given enumeration of <see cref="IFailureMechanism{T}"/>.
         /// </summary>
-        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> that contains the <see cref="IFailurePath{FailureMechanismSectionResult}"/> instances.</param>
-        /// <param name="targetFailureMechanisms">The <see cref="IFailurePath{FailureMechanismSectionResult}"/> instances to import on.</param>
+        /// <param name="assessmentSection">The <see cref="AssessmentSection"/> that contains the <see cref="IFailureMechanism{T}"/> instances.</param>
+        /// <param name="targetFailureMechanisms">The <see cref="IFailureMechanism{T}"/> instances to import on.</param>
         /// <remarks>
         /// <para>This will import the same 283 failure mechanism sections on all failure mechanisms.</para>
         /// <para>Does not import using <see cref="FileImportActivity"/>.</para>
         /// </remarks>
-        public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IEnumerable<IFailurePath<FailureMechanismSectionResult>> targetFailureMechanisms)
+        public static void ImportFailureMechanismSections(AssessmentSection assessmentSection, IEnumerable<IFailureMechanism<FailureMechanismSectionResult>> targetFailureMechanisms)
         {
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(DataImportHelper).Assembly,
                                                                                    true,
@@ -134,10 +134,10 @@ namespace Riskeer.Integration.TestUtil
                                                                                    "traject_6-3_vakken.prj",
                                                                                    "traject_6-3_vakken.shx"))
             {
-                IFailurePath<FailureMechanismSectionResult>[] failureMechanisms = targetFailureMechanisms.ToArray();
+                IFailureMechanism<FailureMechanismSectionResult>[] failureMechanisms = targetFailureMechanisms.ToArray();
                 for (var i = 0; i < failureMechanisms.Length; i++)
                 {
-                    IFailurePath<FailureMechanismSectionResult> failureMechanism = failureMechanisms[i];
+                    IFailureMechanism<FailureMechanismSectionResult> failureMechanism = failureMechanisms[i];
                     if (i == 0)
                     {
                         string filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath,

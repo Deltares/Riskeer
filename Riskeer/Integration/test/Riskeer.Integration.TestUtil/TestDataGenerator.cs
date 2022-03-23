@@ -302,7 +302,7 @@ namespace Riskeer.Integration.TestUtil
                 new Point2D(-3, 2)
             });
 
-            IEnumerable<IFailurePath> failureMechanisms = assessmentSection.GetFailureMechanisms();
+            IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
             for (var i = 0; i < failureMechanisms.Count(); i++)
             {
                 AddFailureMechanismSections(failureMechanisms.ElementAt(i), i);
@@ -984,7 +984,7 @@ namespace Riskeer.Integration.TestUtil
             AddFailureMechanismSections(failureMechanism);
         }
 
-        private static void SetFullyConfiguredFailureMechanism(IFailurePath failureMechanism)
+        private static void SetFullyConfiguredFailureMechanism(IFailureMechanism failureMechanism)
         {
             AddFailureMechanismSections(failureMechanism);
         }
@@ -1083,7 +1083,7 @@ namespace Riskeer.Integration.TestUtil
             });
         }
 
-        private static void AddFailureMechanismSections(IFailurePath failureMechanism)
+        private static void AddFailureMechanismSections(IFailureMechanism failureMechanism)
         {
             var section1 = new FailureMechanismSection("1",
                                                        new[]
@@ -1104,7 +1104,7 @@ namespace Riskeer.Integration.TestUtil
             }, pathToSections);
         }
 
-        private static void AddFailureMechanismSections(IFailurePath failureMechanism, int numberOfSections)
+        private static void AddFailureMechanismSections(IFailureMechanism failureMechanism, int numberOfSections)
         {
             var startPoint = new Point2D(-1, -1);
             var endPoint = new Point2D(15, 15);

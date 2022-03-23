@@ -71,7 +71,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
 
             // Assert
             Assert.IsInstanceOf<Observable>(failureMechanism);
-            Assert.IsInstanceOf<IFailurePath>(failureMechanism);
+            Assert.IsInstanceOf<IFailureMechanism>(failureMechanism);
             Assert.AreEqual(name, failureMechanism.Name);
             Assert.AreEqual(code, failureMechanism.Code);
             Assert.IsNotNull(failureMechanism.InAssemblyInputComments);

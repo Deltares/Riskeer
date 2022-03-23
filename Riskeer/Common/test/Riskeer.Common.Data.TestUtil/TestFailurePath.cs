@@ -28,9 +28,9 @@ using Riskeer.Common.Data.FailurePath;
 namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
-    /// An implementation of <see cref="IFailurePath"/> that can be used for testing.
+    /// An implementation of <see cref="IFailureMechanism"/> that can be used for testing.
     /// </summary>
-    public class TestFailurePath : Observable, IFailurePath<TestFailureMechanismSectionResult>
+    public class TestFailurePath : Observable, IFailureMechanism<TestFailureMechanismSectionResult>
     {
         private readonly FailureMechanismSectionCollection sectionCollection;
         private readonly ObservableList<TestFailureMechanismSectionResult> sectionResults;

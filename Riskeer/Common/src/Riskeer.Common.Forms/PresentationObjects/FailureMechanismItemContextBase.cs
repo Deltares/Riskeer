@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism which the context belongs to.</typeparam>
     public abstract class FailureMechanismItemContextBase<TData, TFailureMechanism> : ObservableWrappedObjectContextBase<TData>
         where TData : IObservable
-        where TFailureMechanism : IFailurePath
+        where TFailureMechanism : IFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismItemContextBase{TData,TFailureMechanism}"/> class.

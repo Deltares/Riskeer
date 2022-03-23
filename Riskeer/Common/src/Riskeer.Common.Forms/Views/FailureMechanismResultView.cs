@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Views
     public abstract partial class FailureMechanismResultView<TSectionResult, TSectionResultRow, TFailureMechanism> : UserControl, IView
         where TSectionResult : FailureMechanismSectionResult
         where TSectionResultRow : FailureMechanismSectionResultRow<TSectionResult>
-        where TFailureMechanism : IFailurePath<TSectionResult>
+        where TFailureMechanism : IFailureMechanism<TSectionResult>
     {
         private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
         private readonly Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc;

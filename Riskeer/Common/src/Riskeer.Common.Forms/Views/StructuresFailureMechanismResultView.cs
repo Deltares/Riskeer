@@ -40,7 +40,7 @@ namespace Riskeer.Common.Forms.Views
     /// <typeparam name="TFailureMechanism">The type of failure mechanism.</typeparam>
     /// <typeparam name="TStructuresInput">The type of input.</typeparam>
     public class StructuresFailureMechanismResultView<TFailureMechanism, TStructuresInput> : FailureMechanismResultView<AdoptableFailureMechanismSectionResult, AdoptableFailureMechanismSectionResultRow, TFailureMechanism>
-        where TFailureMechanism : IFailurePath<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism, IFailurePath
+        where TFailureMechanism : IFailureMechanism<AdoptableFailureMechanismSectionResult>, ICalculatableFailureMechanism, IFailureMechanism
         where TStructuresInput : IStructuresCalculationInput<StructureBase>, new()
     {
         private const int initialFailureMechanismResultTypeIndex = 2;

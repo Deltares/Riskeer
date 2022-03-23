@@ -35,7 +35,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     public abstract class InputContextBase<TInput, TCalculation, TFailureMechanism> : FailureMechanismItemContextBase<TInput, TFailureMechanism>
         where TInput : ICalculationInput
         where TCalculation : ICalculation
-        where TFailureMechanism : IFailurePath
+        where TFailureMechanism : IFailureMechanism
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="InputContextBase{TData,TCalculation,TFailureMechanism}"/> class.

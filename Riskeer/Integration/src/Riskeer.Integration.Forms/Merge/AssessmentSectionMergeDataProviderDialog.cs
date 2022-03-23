@@ -132,14 +132,14 @@ namespace Riskeer.Integration.Forms.Merge
         }
 
         private bool FailureMechanismIsSelectedToMerge<TFailureMechanism>()
-            where TFailureMechanism : IFailurePath
+            where TFailureMechanism : IFailureMechanism
         {
             return failurePathMergeDataRows.Any(row => row.FailurePath is TFailureMechanism && row.IsSelected);
         }
 
         private IEnumerable<SpecificFailurePath> GetSelectedSpecificFailurePathsToMerge()
         {
-            return failurePathMergeDataRows.Where(row => row.IsSelected && !(row.FailurePath is IFailurePath))
+            return failurePathMergeDataRows.Where(row => row.IsSelected && !(row.FailurePath is IFailureMechanism))
                                            .Select(row => row.FailurePath)
                                            .Cast<SpecificFailurePath>()
                                            .ToArray();

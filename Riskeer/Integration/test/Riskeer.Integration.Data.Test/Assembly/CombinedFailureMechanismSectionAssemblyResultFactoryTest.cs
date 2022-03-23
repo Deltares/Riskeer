@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
             // Call
             void Call() => CombinedFailureMechanismSectionAssemblyResultFactory.Create(
-                null, new Dictionary<IFailurePath, int>(),
+                null, new Dictionary<IFailureMechanism, int>(),
                 new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>()));
 
             // Assert
@@ -71,7 +71,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             // Call
             void Call() => CombinedFailureMechanismSectionAssemblyResultFactory.Create(
                 Enumerable.Empty<CombinedFailureMechanismSectionAssembly>(),
-                new Dictionary<IFailurePath, int>(), null);
+                new Dictionary<IFailureMechanism, int>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -85,15 +85,15 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
-            Dictionary<IFailurePath, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                               .Concat<IFailurePath>(assessmentSection.SpecificFailurePaths)
-                                                                               .Where(fm => fm.InAssembly)
-                                                                               .Select((fm, i) => new
-                                                                               {
-                                                                                   FailureMechanism = fm,
-                                                                                   Index = i
-                                                                               })
-                                                                               .ToDictionary(x => x.FailureMechanism, x => x.Index);
+            Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
+                                                                                    .Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths)
+                                                                                    .Where(fm => fm.InAssembly)
+                                                                                    .Select((fm, i) => new
+                                                                                    {
+                                                                                        FailureMechanism = fm,
+                                                                                        Index = i
+                                                                                    })
+                                                                                    .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
             var section1 = new CombinedAssemblyFailureMechanismSection(0, 5, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
             var section2 = new CombinedAssemblyFailureMechanismSection(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
@@ -145,15 +145,15 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             assessmentSection.SpecificFailurePaths.Add(new SpecificFailurePath());
-            Dictionary<IFailurePath, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                               .Concat<IFailurePath>(assessmentSection.SpecificFailurePaths)
-                                                                               .Where(fm => fm.InAssembly)
-                                                                               .Select((fm, i) => new
-                                                                               {
-                                                                                   FailureMechanism = fm,
-                                                                                   Index = i
-                                                                               })
-                                                                               .ToDictionary(x => x.FailureMechanism, x => x.Index);
+            Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
+                                                                                    .Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths)
+                                                                                    .Where(fm => fm.InAssembly)
+                                                                                    .Select((fm, i) => new
+                                                                                    {
+                                                                                        FailureMechanism = fm,
+                                                                                        Index = i
+                                                                                    })
+                                                                                    .ToDictionary(x => x.FailureMechanism, x => x.Index);
             var section1 = new CombinedAssemblyFailureMechanismSection(0, 5, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
             var section2 = new CombinedAssemblyFailureMechanismSection(5, 11, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
             var output = new[]
@@ -164,7 +164,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
             // Call
             CombinedFailureMechanismSectionAssemblyResult[] results = CombinedFailureMechanismSectionAssemblyResultFactory.Create(
-                output, new Dictionary<IFailurePath, int>(), assessmentSection).ToArray();
+                output, new Dictionary<IFailureMechanism, int>(), assessmentSection).ToArray();
 
             // Assert
             Assert.AreEqual(output.Length, results.Length);
@@ -198,7 +198,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         private static IEnumerable<FailureMechanismSectionAssemblyGroup> GetFailureMechanismsOutput(
-            IEnumerable<IFailurePath> failureMechanisms, Random random)
+            IEnumerable<IFailureMechanism> failureMechanisms, Random random)
         {
             return failureMechanisms.Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()).ToArray();
         }

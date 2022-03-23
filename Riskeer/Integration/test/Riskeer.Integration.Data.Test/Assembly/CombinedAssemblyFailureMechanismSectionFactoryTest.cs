@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void CreateInput_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => CombinedAssemblyFailureMechanismSectionFactory.CreateInput(null, Enumerable.Empty<IFailurePath>());
+            void Call() => CombinedAssemblyFailureMechanismSectionFactory.CreateInput(null, Enumerable.Empty<IFailureMechanism>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
                 // Call
                 IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailurePath>(assessmentSection.SpecificFailurePaths));
+                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths));
 
                 // Assert
                 int expectedNrOfGeneralSectionResults = assessmentSection.GetFailureMechanisms().Count();
@@ -113,7 +113,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
         [Test]
         [TestCaseSource(nameof(GetFailureMechanismTestCaseData))]
-        public void CreateInput_WithOneFailureMechanism_ReturnsInputCollection(AssessmentSection assessmentSection, IFailurePath failureMechanismInAssembly)
+        public void CreateInput_WithOneFailureMechanism_ReturnsInputCollection(AssessmentSection assessmentSection, IFailureMechanism failureMechanismInAssembly)
         {
             // Setup
             assessmentSection.GetFailureMechanisms()
@@ -129,7 +129,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     });
 
                 // Assert
-                IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults = ((IFailurePath<FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults;
+                IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults = ((IFailureMechanism<FailureMechanismSectionResult>) failureMechanismInAssembly).SectionResults;
                 AssertSections(failureMechanismSectionResults, inputs.Single());
             }
         }
@@ -150,7 +150,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
                 // Call
                 IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailurePath>(assessmentSection.SpecificFailurePaths));
+                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths));
 
                 // Assert
                 int expectedNrOfGeneralSectionResults = assessmentSection.GetFailureMechanisms().Count();

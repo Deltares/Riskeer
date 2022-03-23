@@ -149,8 +149,8 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailurePaths.First(), random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailurePaths.Last(), random.Next(1, 10));
 
-            foreach (IFailurePath failureMechanism in assessmentSection.GetFailureMechanisms()
-                                                                       .Concat<IFailurePath>(assessmentSection.SpecificFailurePaths))
+            foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms()
+                                                                            .Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths))
             {
                 failureMechanism.InAssembly = false;
             }
@@ -250,7 +250,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                                              exportableFailureMechanisms.ElementAt(16));
         }
 
-        private static void AssertExportableFailureMechanism(IFailurePath<FailureMechanismSectionResult> failureMechanism,
+        private static void AssertExportableFailureMechanism(IFailureMechanism<FailureMechanismSectionResult> failureMechanism,
                                                              ExportableFailureMechanismType expectedFailureMechanismType,
                                                              ExportableFailureMechanism actualExportableFailureMechanism)
         {

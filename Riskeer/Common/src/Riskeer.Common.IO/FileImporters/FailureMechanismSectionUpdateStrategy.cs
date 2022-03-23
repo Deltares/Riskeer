@@ -37,17 +37,17 @@ namespace Riskeer.Common.IO.FileImporters
     public class FailureMechanismSectionUpdateStrategy<T> : IFailureMechanismSectionUpdateStrategy
         where T : FailureMechanismSectionResult
     {
-        private readonly IFailurePath<T> failureMechanism;
+        private readonly IFailureMechanism<T> failureMechanism;
         private readonly IFailureMechanismSectionResultUpdateStrategy<T> sectionResultUpdateStrategy;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionUpdateStrategy{T}"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="IFailurePath"/> to update the sections for.</param>
+        /// <param name="failureMechanism">The <see cref="IFailureMechanism"/> to update the sections for.</param>
         /// <param name="sectionResultUpdateStrategy">The <see cref="IFailureMechanismSectionResultUpdateStrategy{T}"/> to use when updating
         /// the section results.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionUpdateStrategy(IFailurePath<T> failureMechanism,
+        public FailureMechanismSectionUpdateStrategy(IFailureMechanism<T> failureMechanism,
                                                      IFailureMechanismSectionResultUpdateStrategy<T> sectionResultUpdateStrategy)
         {
             if (failureMechanism == null)

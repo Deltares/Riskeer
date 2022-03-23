@@ -56,7 +56,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
             bool inAssembly = random.NextBoolean();
 
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             failurePath.Stub(fm => fm.Name).Return(failurePathName);
             failurePath.Stub(fm => fm.Sections).Return(Enumerable.Empty<FailureMechanismSection>());
             mocks.ReplayAll();
@@ -85,7 +85,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                                                                               random.Next(1, 10));
 
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailurePath>();
+            var failurePath = mocks.Stub<IFailureMechanism>();
             failurePath.Stub(fm => fm.Sections).Return(sections);
             mocks.ReplayAll();
 

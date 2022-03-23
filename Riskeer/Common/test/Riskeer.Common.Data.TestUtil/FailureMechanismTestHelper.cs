@@ -28,12 +28,12 @@ using Riskeer.Common.Data.FailurePath;
 namespace Riskeer.Common.Data.TestUtil
 {
     /// <summary>
-    /// Class that contains helper methods for an <see cref="IFailurePath"/>.
+    /// Class that contains helper methods for an <see cref="IFailureMechanism"/>.
     /// </summary>
     public static class FailureMechanismTestHelper
     {
         /// <summary>
-        /// Sets a collection of <see cref="FailureMechanismSection"/> to <see cref="IFailurePath.Sections"/>
+        /// Sets a collection of <see cref="FailureMechanismSection"/> to <see cref="IFailureMechanism.Sections"/>
         /// with an empty source path.
         /// </summary>
         /// <param name="failurePath">The failure path to set the sections to.</param>
@@ -41,7 +41,7 @@ namespace Riskeer.Common.Data.TestUtil
         /// <exception cref="ArgumentNullException">Thrown when <see cref="sections"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="sections"/> contains elements that
         /// are not properly connected.</exception>
-        public static void SetSections(IFailurePath failurePath, IEnumerable<FailureMechanismSection> sections)
+        public static void SetSections(IFailureMechanism failurePath, IEnumerable<FailureMechanismSection> sections)
         {
             failurePath.SetSections(sections, string.Empty);
         }
@@ -52,12 +52,12 @@ namespace Riskeer.Common.Data.TestUtil
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to add sections to.</param>
         /// <param name="numberOfSections">The number of sections to add to the <paramref name="failureMechanism"/>.</param>
-        public static void AddSections(IFailurePath failureMechanism, int numberOfSections)
+        public static void AddSections(IFailureMechanism failureMechanism, int numberOfSections)
         {
             AddSections(failureMechanism, numberOfSections, new Point2D(-1, -1), new Point2D(15, 15));
         }
 
-        private static void AddSections(IFailurePath failureMechanism, int numberOfSections, Point2D startPoint, Point2D endPoint)
+        private static void AddSections(IFailureMechanism failureMechanism, int numberOfSections, Point2D startPoint, Point2D endPoint)
         {
             double endPointStepsX = (endPoint.X - startPoint.X) / numberOfSections;
             double endPointStepsY = (endPoint.Y - startPoint.Y) / numberOfSections;

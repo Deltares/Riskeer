@@ -101,13 +101,13 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// <summary>
         /// Gets the failure mechanisms corresponding to the assessment section.
         /// </summary>
-        IEnumerable<IFailurePath> GetFailureMechanisms();
+        IEnumerable<IFailureMechanism> GetFailureMechanisms();
 
         /// <summary>
         /// Gets the contributing failure mechanisms of the assessment section.
         /// </summary>
         /// <returns>A collection of failure mechanisms.</returns>
-        IEnumerable<IFailurePath> GetContributingFailureMechanisms();
+        IEnumerable<IFailureMechanism> GetContributingFailureMechanisms();
 
         /// <summary>
         /// Changes <see cref="Composition"/> and reconfigures <see cref="FailureMechanismContribution"/>

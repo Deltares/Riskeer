@@ -227,7 +227,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                     // Assert
                     Assert.AreEqual(1, failurePaths.Count);
-                    IFailurePath addedItem = failurePaths.Single();
+                    IFailureMechanism addedItem = failurePaths.Single();
                     Assert.IsInstanceOf<SpecificFailurePath>(addedItem);
                     Assert.AreEqual("Nieuw faalmechanisme", addedItem.Name);
                 }
@@ -269,7 +269,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                     // Then
                     Assert.AreEqual(2, failurePaths.Count);
-                    IFailurePath addedItem = failurePaths.Last();
+                    IFailureMechanism addedItem = failurePaths.Last();
                     Assert.IsInstanceOf<SpecificFailurePath>(addedItem);
                     Assert.AreEqual("Nieuw faalmechanisme (1)", addedItem.Name);
                 }

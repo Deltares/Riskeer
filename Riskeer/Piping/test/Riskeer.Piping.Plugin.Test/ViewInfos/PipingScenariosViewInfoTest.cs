@@ -96,7 +96,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailurePath[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
             using (var view = new PipingScenariosView(new CalculationGroup(), new PipingFailureMechanism(), assessmentSection))
