@@ -20,14 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
@@ -197,8 +195,6 @@ namespace Riskeer.Common.Forms.Test.Views
         private class TestNonAdoptableFailureMechanism : FailureMechanismBase<NonAdoptableFailureMechanismSectionResult>
         {
             public TestNonAdoptableFailureMechanism() : base("Test", "T") {}
-
-            public override IEnumerable<ICalculation> Calculations { get; }
         }
     }
 }

@@ -55,8 +55,6 @@ namespace Riskeer.Piping.Data
             scenarioConfigurationsPerFailureMechanismSection = new ObservableList<PipingScenarioConfigurationPerFailureMechanismSection>();
         }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
-
         /// <summary>
         /// Gets the available surface lines within the scope of the piping failure mechanism.
         /// </summary>
@@ -88,6 +86,8 @@ namespace Riskeer.Piping.Data
         /// </summary>
         public IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection> ScenarioConfigurationsPerFailureMechanismSection =>
             scenarioConfigurationsPerFailureMechanismSection;
+
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
         public CalculationGroup CalculationsGroup { get; }
 

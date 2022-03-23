@@ -50,8 +50,6 @@ namespace Riskeer.MacroStabilityInwards.Data
             };
         }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
-
         /// <summary>
         /// Gets the available surface lines within the scope of the macro stability inwards failure mechanism.
         /// </summary>
@@ -72,6 +70,8 @@ namespace Riskeer.MacroStabilityInwards.Data
         /// in a semi-probabilistic assessment.
         /// </summary>
         public MacroStabilityInwardsProbabilityAssessmentInput MacroStabilityInwardsProbabilityAssessmentInput { get; }
+
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
         public CalculationGroup CalculationsGroup { get; }
     }

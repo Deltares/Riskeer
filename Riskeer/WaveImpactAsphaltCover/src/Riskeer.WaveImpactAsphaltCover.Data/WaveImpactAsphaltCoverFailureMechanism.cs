@@ -67,8 +67,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Data
         /// </summary>
         public GeneralWaveImpactAsphaltCoverInput GeneralWaveImpactAsphaltCoverInput { get; }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
-        
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>();
+
         public CalculationGroup CalculationsGroup { get; }
     }
 }

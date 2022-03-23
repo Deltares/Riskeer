@@ -365,7 +365,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 CalculationsGroup = new CalculationGroup();
             }
 
-            public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
+            public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
             public CalculationGroup CalculationsGroup { get; }
         }

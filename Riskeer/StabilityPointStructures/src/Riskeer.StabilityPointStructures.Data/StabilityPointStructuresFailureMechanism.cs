@@ -53,8 +53,6 @@ namespace Riskeer.StabilityPointStructures.Data
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>();
-
         /// <summary>
         /// Gets the general stability point structures calculation input parameters that apply to each calculation.
         /// </summary>
@@ -69,6 +67,8 @@ namespace Riskeer.StabilityPointStructures.Data
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
+
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>();
 
         public CalculationGroup CalculationsGroup { get; }
     }

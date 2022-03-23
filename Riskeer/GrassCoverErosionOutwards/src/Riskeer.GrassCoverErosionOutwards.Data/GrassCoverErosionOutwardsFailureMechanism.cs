@@ -60,7 +60,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>();
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>();
 
         public CalculationGroup CalculationsGroup { get; }
     }

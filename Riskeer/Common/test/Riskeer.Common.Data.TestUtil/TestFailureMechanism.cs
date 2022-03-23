@@ -73,9 +73,9 @@ namespace Riskeer.Common.Data.TestUtil
 
         public CalculationGroup CalculationsGroup { get; }
 
-        public GeneralInput GeneralInput { get; }
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
+        public GeneralInput GeneralInput { get; }
 
         protected override void AddSectionDependentData(FailureMechanismSection section)
         {

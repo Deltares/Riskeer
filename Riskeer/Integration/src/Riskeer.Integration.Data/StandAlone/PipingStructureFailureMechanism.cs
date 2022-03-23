@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Data.Properties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -46,13 +44,5 @@ namespace Riskeer.Integration.Data.StandAlone
         }
 
         public GeneralInput GeneralInput { get; }
-
-        public override IEnumerable<ICalculation> Calculations
-        {
-            get
-            {
-                yield break;
-            }
-        }
     }
 }

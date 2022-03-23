@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -31,7 +30,6 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.Contribution;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
@@ -52,8 +50,6 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 GeneralInput = new GeneralInput();
             }
-
-            public override IEnumerable<ICalculation> Calculations { get; }
 
             public GeneralInput GeneralInput { get; }
         }

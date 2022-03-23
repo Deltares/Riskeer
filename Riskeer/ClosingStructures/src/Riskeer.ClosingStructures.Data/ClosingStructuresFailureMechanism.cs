@@ -54,8 +54,6 @@ namespace Riskeer.ClosingStructures.Data
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
-
         /// <summary>
         /// Gets the general closing structures calculation input parameters that apply to each calculation.
         /// </summary>
@@ -70,6 +68,8 @@ namespace Riskeer.ClosingStructures.Data
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
+
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
 
         public CalculationGroup CalculationsGroup { get; }
     }

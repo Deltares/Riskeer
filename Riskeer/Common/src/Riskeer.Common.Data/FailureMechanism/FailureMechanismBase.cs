@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailurePath;
 
 namespace Riskeer.Common.Data.FailureMechanism
@@ -71,8 +70,6 @@ namespace Riskeer.Common.Data.FailureMechanism
         public string Name { get; }
 
         public string Code { get; }
-
-        public abstract IEnumerable<ICalculation> Calculations { get; }
 
         public Comment CalculationsInputComments { get; }
 

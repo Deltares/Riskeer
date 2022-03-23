@@ -52,8 +52,6 @@ namespace Riskeer.HeightStructures.Data
             ForeshoreProfiles = new ForeshoreProfileCollection();
         }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
-
         /// <summary>
         /// Gets the height structures calculation input parameters that apply to each calculation.
         /// </summary>
@@ -68,6 +66,8 @@ namespace Riskeer.HeightStructures.Data
         /// Gets the available foreshore profiles for this instance.
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
+
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
 
         /// <summary>
         /// Gets the container of all calculations.

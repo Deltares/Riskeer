@@ -49,8 +49,6 @@ namespace Riskeer.GrassCoverErosionInwards.Data
             DikeProfiles = new DikeProfileCollection();
         }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
-
         /// <summary>
         /// Gets the general grass cover erosion inwards calculation input parameters that apply to each calculation.
         /// </summary>
@@ -60,6 +58,8 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// Gets the available dike profiles for this instance.
         /// </summary>
         public DikeProfileCollection DikeProfiles { get; }
+
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>();
 
         public CalculationGroup CalculationsGroup { get; }
     }

@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.Test.FailureMechanism
@@ -292,8 +290,6 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             public SimpleFailureMechanismBase(string name = "SomeName",
                                               string failureMechanismCode = "SomeCode")
                 : base(name, failureMechanismCode) {}
-
-            public override IEnumerable<ICalculation> Calculations => throw new NotImplementedException();
         }
     }
 }

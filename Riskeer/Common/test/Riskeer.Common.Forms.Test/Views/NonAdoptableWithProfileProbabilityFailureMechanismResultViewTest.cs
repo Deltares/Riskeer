@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using NUnit.Extensions.Forms;
@@ -30,7 +29,6 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Common.Data.AssessmentSection;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
@@ -125,8 +123,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                (fm, ass) => double.NaN, fm => false, performFailureMechanismSectionAssemblyFunc))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => double.NaN, fm => false, performFailureMechanismSectionAssemblyFunc))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult,
@@ -345,8 +343,6 @@ namespace Riskeer.Common.Forms.Test.Views
         private class TestNonAdoptableWithProfileProbabilityFailureMechanism : FailureMechanismBase<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>
         {
             public TestNonAdoptableWithProfileProbabilityFailureMechanism() : base("Test", "T") {}
-
-            public override IEnumerable<ICalculation> Calculations { get; }
 
             public bool UseLengthEffect { get; set; }
         }

@@ -60,7 +60,7 @@ namespace Riskeer.StabilityStoneCover.Data
         /// </summary>
         public ForeshoreProfileCollection ForeshoreProfiles { get; }
 
-        public override IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>();
+        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations().OfType<StabilityStoneCoverWaveConditionsCalculation>();
 
         public CalculationGroup CalculationsGroup { get; }
     }
