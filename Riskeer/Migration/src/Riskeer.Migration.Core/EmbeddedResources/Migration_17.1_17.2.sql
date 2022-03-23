@@ -1655,7 +1655,7 @@ SELECT
 	[AssessmentSectionEntityId],
 	[Name],
 	0,
-	"De ondergrens is gelijk gesteld aan 1/" || CAST(ROUND(CAST(1.0 / [LowerLimitNorm] AS FLOAT)) AS INT) ||
+	"De omgevingswaarde is gelijk gesteld aan 1/" || CAST(ROUND(CAST(1.0 / [LowerLimitNorm] AS FLOAT)) AS INT) ||
 	CASE 
 		WHEN [NormativeNormType] IS 1
 			THEN " (voorheen de waarde van de norm)"
@@ -1686,7 +1686,7 @@ SELECT
 	"De norm van het dijktraject is gelijk gesteld aan de " ||
 	CASE 
 		WHEN [NormativeNormType] IS 1
-			THEN "ondergrens"
+			THEN "omgevingswaarde"
 		ELSE "signaleringsparameter"
 	END || "."
 	FROM AssessmentSectionEntity;

@@ -242,7 +242,7 @@ namespace Riskeer.Migration.Integration.Test
                     new MigrationLogMessage("21.1", newVersion, "    - De waarden van de doelkans voor HBN en overslagdebiet zijn veranderd naar de trajectnorm."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("21.1", newVersion, "* Traject: 'Traject 12-2 GEKB ondergrens'"),
+                    new MigrationLogMessage("21.1", newVersion, "* Traject: 'Traject 12-2 GEKB omgevingswaarde'"),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("21.1", newVersion, "  + Faalmechanisme: 'Grasbekleding erosie kruin en binnentalud'"),

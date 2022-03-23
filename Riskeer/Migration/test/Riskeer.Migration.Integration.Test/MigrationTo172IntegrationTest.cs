@@ -290,7 +290,7 @@ namespace Riskeer.Migration.Integration.Test
         private static string GetNormTypeString(NormType normType)
         {
             return normType == NormType.MaximumAllowableFloodingProbability
-                       ? "ondergrens"
+                       ? "omgevingswaarde"
                        : "signaleringsparameter";
         }
 
@@ -1031,7 +1031,7 @@ namespace Riskeer.Migration.Integration.Test
                                              ? " (voorheen de waarde van de norm)"
                                              : "";
             MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                new MigrationLogMessage("17.1", newVersion, $"  + De ondergrens is gelijk gesteld aan 1/{lowerLimitReturnPeriod}{lowerLimitLogSuffix}."),
+                new MigrationLogMessage("17.1", newVersion, $"  + De omgevingswaarde is gelijk gesteld aan 1/{lowerLimitReturnPeriod}{lowerLimitLogSuffix}."),
                 messages[0]);
             string signalingLogSuffix = normType == NormType.SignalFloodingProbability
                                             ? " (voorheen de waarde van de norm)"
