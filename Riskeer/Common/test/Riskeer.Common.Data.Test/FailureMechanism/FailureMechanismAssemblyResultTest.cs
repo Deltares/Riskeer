@@ -39,7 +39,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             // Assert
             Assert.IsInstanceOf<Observable>(result);
 
-            Assert.AreEqual(FailurePathAssemblyProbabilityResultType.Automatic, result.ProbabilityResultType);
+            Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Automatic, result.ProbabilityResultType);
             Assert.IsNaN(result.ManualFailurePathAssemblyProbability);
         }
 

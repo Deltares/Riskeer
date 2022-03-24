@@ -460,7 +460,7 @@ namespace Riskeer.Storage.Core.TestUtil
         {
             var random = new Random(seed);
             FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
-            assemblyResult.ProbabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>();
+            assemblyResult.ProbabilityResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>();
             assemblyResult.ManualFailurePathAssemblyProbability = random.NextDouble();
         }
 

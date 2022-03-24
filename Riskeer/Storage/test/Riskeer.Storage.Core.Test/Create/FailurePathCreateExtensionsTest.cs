@@ -66,7 +66,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 InAssembly = random.NextBoolean(),
                 AssemblyResult =
                 {
-                    ProbabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>(),
+                    ProbabilityResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>(),
                     ManualFailurePathAssemblyProbability = random.NextDouble()
                 }
             };
@@ -223,7 +223,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 InAssembly = random.NextBoolean(),
                 AssemblyResult =
                 {
-                    ProbabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>(),
+                    ProbabilityResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>(),
                     ManualFailurePathAssemblyProbability = random.NextDouble()
                 }
             };
@@ -382,7 +382,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 InAssembly = random.NextBoolean(),
                 AssemblyResult =
                 {
-                    ProbabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>(),
+                    ProbabilityResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>(),
                     ManualFailurePathAssemblyProbability = random.NextDouble()
                 }
             };

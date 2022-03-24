@@ -40,10 +40,10 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        [TestCase(FailurePathAssemblyProbabilityResultType.Automatic, false)]
-        [TestCase(FailurePathAssemblyProbabilityResultType.Manual, true)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.Automatic, false)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual, true)]
         public void IsManualProbability_WithFailurePathAssemblyProbabilityResultType_ReturnsExpectedResult(
-            FailurePathAssemblyProbabilityResultType resultType, bool expectedResult)
+            FailureMechanismAssemblyProbabilityResultType resultType, bool expectedResult)
         {
             // Setup
             var result = new FailureMechanismAssemblyResult

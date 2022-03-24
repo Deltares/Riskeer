@@ -25,9 +25,9 @@ using Riskeer.Common.Data.Properties;
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// Specifies the type of probability for a failure path assembly result.
+    /// Specifies the type of probability for a failure mechanism assembly result.
     /// </summary>
-    public enum FailurePathAssemblyProbabilityResultType
+    public enum FailureMechanismAssemblyProbabilityResultType
     {
         /// <summary>
         /// The automatically calculated probability type.

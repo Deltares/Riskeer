@@ -46,7 +46,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             // Setup
             var result = new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual,
                 ManualFailurePathAssemblyProbability = double.NaN
             };
 
@@ -64,7 +64,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             var random = new Random(21);
             var result = new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual,
                 ManualFailurePathAssemblyProbability = random.NextDouble()
             };
 
@@ -81,7 +81,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             // Setup
             var result = new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
             };
 
             // Call

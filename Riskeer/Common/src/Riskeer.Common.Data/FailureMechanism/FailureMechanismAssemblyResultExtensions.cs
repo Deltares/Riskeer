@@ -41,7 +41,7 @@ namespace Riskeer.Common.Data.FailureMechanism
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return result.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual;
+            return result.ProbabilityResultType == FailureMechanismAssemblyProbabilityResultType.Manual;
         }
     }
 }

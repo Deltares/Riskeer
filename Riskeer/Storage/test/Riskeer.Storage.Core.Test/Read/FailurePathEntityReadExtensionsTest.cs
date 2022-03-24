@@ -95,7 +95,7 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var random = new Random(21);
-            var assemblyResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>();
+            var assemblyResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>();
 
             var entity = new FailureMechanismEntity
             {
@@ -223,7 +223,7 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             // Setup
             var random = new Random(21);
-            var assemblyResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>();
+            var assemblyResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>();
 
             var entity = new FailureMechanismEntity
             {
@@ -325,7 +325,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
-            var probabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>();
+            var probabilityResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>();
 
             const string filePath = "failureMechanismSections/File/Path";
             var entity = new SpecificFailurePathEntity
@@ -453,7 +453,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyOutputComments, failurePath.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failurePath.NotInAssemblyComments.Body);
 
-            var probabilityResultType = (FailurePathAssemblyProbabilityResultType) entity.FailurePathAssemblyProbabilityResultType;
+            var probabilityResultType = (FailureMechanismAssemblyProbabilityResultType) entity.FailurePathAssemblyProbabilityResultType;
             FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
             Assert.AreEqual(probabilityResultType, assemblyResult.ProbabilityResultType);
             Assert.AreEqual(entity.ManualFailurePathAssemblyProbability, assemblyResult.ManualFailurePathAssemblyProbability);

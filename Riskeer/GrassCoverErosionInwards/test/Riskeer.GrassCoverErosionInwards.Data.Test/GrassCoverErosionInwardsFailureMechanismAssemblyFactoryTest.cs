@@ -81,7 +81,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
                 }
             };
             failureMechanism.SetSections(new[]
@@ -119,7 +119,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
                 }
             };
 
@@ -147,7 +147,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
             {
                 AssemblyResult =
                 {
-                    ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
                 }
             };
 

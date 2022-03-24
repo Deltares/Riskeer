@@ -107,7 +107,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
             failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
             });
             mocks.ReplayAll();
 
@@ -143,7 +143,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
             failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
             {
-                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
             });
             mocks.ReplayAll();
 
@@ -180,7 +180,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
             {
                 ManualFailurePathAssemblyProbability = assemblyResult,
-                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
             });
             mocks.ReplayAll();
 
@@ -213,7 +213,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
             {
                 ManualFailurePathAssemblyProbability = double.NaN,
-                ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual
+                ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
             });
             mocks.ReplayAll();
 

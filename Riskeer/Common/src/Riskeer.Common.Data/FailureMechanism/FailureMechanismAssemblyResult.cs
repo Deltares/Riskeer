@@ -38,14 +38,14 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// </summary>
         public FailureMechanismAssemblyResult()
         {
-            ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic;
+            ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic;
             ManualFailurePathAssemblyProbability = double.NaN;
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="FailurePathAssemblyProbabilityResultType"/>.
+        /// Gets or sets the <see cref="FailureMechanismAssemblyProbabilityResultType"/>.
         /// </summary>
-        public FailurePathAssemblyProbabilityResultType ProbabilityResultType { get; set; }
+        public FailureMechanismAssemblyProbabilityResultType ProbabilityResultType { get; set; }
 
         /// <summary>
         /// Gets or sets the probability of a failure mechanism assembly.

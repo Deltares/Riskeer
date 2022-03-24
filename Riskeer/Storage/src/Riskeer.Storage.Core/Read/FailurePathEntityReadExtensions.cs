@@ -135,7 +135,7 @@ namespace Riskeer.Storage.Core.Read
         private static void ReadAssemblyResult(IFailureMechanismEntity entity, IFailureMechanism failurePath)
         {
             FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
-            assemblyResult.ProbabilityResultType = (FailurePathAssemblyProbabilityResultType) entity.FailurePathAssemblyProbabilityResultType;
+            assemblyResult.ProbabilityResultType = (FailureMechanismAssemblyProbabilityResultType) entity.FailurePathAssemblyProbabilityResultType;
             if (entity.ManualFailurePathAssemblyProbability != null)
             {
                 assemblyResult.ManualFailurePathAssemblyProbability = entity.ManualFailurePathAssemblyProbability.ToNullAsNaN();

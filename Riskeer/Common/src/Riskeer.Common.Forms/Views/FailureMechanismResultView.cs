@@ -191,18 +191,18 @@ namespace Riskeer.Common.Forms.Views
 
         private void InitializeComboBox()
         {
-            IEnumerable<EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>> dataSource =
-                Enum.GetValues(typeof(FailurePathAssemblyProbabilityResultType))
-                    .Cast<FailurePathAssemblyProbabilityResultType>()
-                    .Select(e => new EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>(e))
+            IEnumerable<EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>> dataSource =
+                Enum.GetValues(typeof(FailureMechanismAssemblyProbabilityResultType))
+                    .Cast<FailureMechanismAssemblyProbabilityResultType>()
+                    .Select(e => new EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>(e))
                     .ToArray();
 
             probabilityResultTypeComboBox.BeginUpdate();
 
             probabilityResultTypeComboBoxUpdating = true;
             probabilityResultTypeComboBox.DataSource = dataSource;
-            probabilityResultTypeComboBox.ValueMember = nameof(EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>.Value);
-            probabilityResultTypeComboBox.DisplayMember = nameof(EnumDisplayWrapper<FailurePathAssemblyProbabilityResultType>.DisplayName);
+            probabilityResultTypeComboBox.ValueMember = nameof(EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>.Value);
+            probabilityResultTypeComboBox.DisplayMember = nameof(EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>.DisplayName);
             probabilityResultTypeComboBox.SelectedValue = FailureMechanism.AssemblyResult.ProbabilityResultType;
             probabilityResultTypeComboBoxUpdating = false;
 
@@ -309,7 +309,7 @@ namespace Riskeer.Common.Forms.Views
             }
 
             FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
-            assemblyResult.ProbabilityResultType = (FailurePathAssemblyProbabilityResultType) probabilityResultTypeComboBox.SelectedValue;
+            assemblyResult.ProbabilityResultType = (FailureMechanismAssemblyProbabilityResultType) probabilityResultTypeComboBox.SelectedValue;
             assemblyResult.NotifyObservers();
 
             UpdateAssemblyData();
@@ -376,7 +376,7 @@ namespace Riskeer.Common.Forms.Views
 
         private bool IsManualAssembly()
         {
-            return FailureMechanism.AssemblyResult.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual;
+            return FailureMechanism.AssemblyResult.ProbabilityResultType == FailureMechanismAssemblyProbabilityResultType.Manual;
         }
 
         private void SetErrorMessage(string errorMessage)

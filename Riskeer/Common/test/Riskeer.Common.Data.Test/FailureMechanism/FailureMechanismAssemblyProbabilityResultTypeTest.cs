@@ -27,27 +27,27 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
-    public class FailurePathAssemblyProbabilityResultTypeTest : EnumWithResourcesDisplayNameTestFixture<FailurePathAssemblyProbabilityResultType>
+    public class FailureMechanismAssemblyProbabilityResultTypeTest : EnumWithResourcesDisplayNameTestFixture<FailureMechanismAssemblyProbabilityResultType>
     {
-        protected override IDictionary<FailurePathAssemblyProbabilityResultType, int> ExpectedValueForEnumValues =>
-            new Dictionary<FailurePathAssemblyProbabilityResultType, int>
+        protected override IDictionary<FailureMechanismAssemblyProbabilityResultType, int> ExpectedValueForEnumValues =>
+            new Dictionary<FailureMechanismAssemblyProbabilityResultType, int>
             {
                 {
-                    FailurePathAssemblyProbabilityResultType.Automatic, 1
+                    FailureMechanismAssemblyProbabilityResultType.Automatic, 1
                 },
                 {
-                    FailurePathAssemblyProbabilityResultType.Manual, 2
+                    FailureMechanismAssemblyProbabilityResultType.Manual, 2
                 }
             };
 
-        protected override IDictionary<FailurePathAssemblyProbabilityResultType, string> ExpectedDisplayNameForEnumValues =>
-            new Dictionary<FailurePathAssemblyProbabilityResultType, string>
+        protected override IDictionary<FailureMechanismAssemblyProbabilityResultType, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<FailureMechanismAssemblyProbabilityResultType, string>
             {
                 {
-                    FailurePathAssemblyProbabilityResultType.Automatic, "Automatisch berekenen"
+                    FailureMechanismAssemblyProbabilityResultType.Automatic, "Automatisch berekenen"
                 },
                 {
-                    FailurePathAssemblyProbabilityResultType.Manual, "Handmatig invullen"
+                    FailureMechanismAssemblyProbabilityResultType.Manual, "Handmatig invullen"
                 }
             };
     }
