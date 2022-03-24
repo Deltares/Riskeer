@@ -519,9 +519,9 @@ namespace Riskeer.Common.Forms.Test.Views
             return (ComboBox) new ComboBoxTester("probabilityResultTypeComboBox").TheObject;
         }
 
-        private static TextBox GetFailurePathAssemblyProbabilityTextBox()
+        private static TextBox GetFailureMechanismAssemblyProbabilityTextBox()
         {
-            return (TextBox) new ControlTester("failurePathAssemblyProbabilityTextBox").TheObject;
+            return (TextBox) new ControlTester("failureMechanismAssemblyProbabilityTextBox").TheObject;
         }
 
         private static ErrorProvider GetErrorProvider(TestFailureMechanismResultView view)
@@ -646,7 +646,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCase(double.PositiveInfinity, "Oneindig")]
         [TestCase(0.0001, "1/10.000")]
         [TestCase(0.000000123456789, "1/8.100.000")]
-        public void GivenFailureMechanismResultView_WhenPerformFailureMechanismAssemblySuccessfullyCalled_ThenResultSetOnFailurePathAssemblyProbability(
+        public void GivenFailureMechanismResultView_WhenPerformFailureMechanismAssemblySuccessfullyCalled_ThenResultSetOnFailureMechanismAssemblyProbability(
             double assemblyResult, string expectedString)
         {
             // Given
@@ -670,15 +670,15 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Automatic, comboBox.SelectedValue);
 
                 // Then
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                Assert.AreEqual(expectedString, failurePathAssemblyProbabilityTextBox.Text);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.AreEqual(expectedString, failureMechanismAssemblyProbabilityTextBox.Text);
             }
 
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenFailureMechanismResultView_WhenPerformFailureMechanismAssemblyThrowsAssemblyException_ThenDefaultFailurePathAssemblyProbabilitySetWithError()
+        public void GivenFailureMechanismResultView_WhenPerformFailureMechanismAssemblyThrowsAssemblyException_ThenDefaultFailureMechanismAssemblyProbabilitySetWithError()
         {
             // Given
             const string exceptionMessage = "Message";
@@ -704,13 +704,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Automatic, comboBox.SelectedValue);
 
                 // Then
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                Assert.AreEqual("-", failurePathAssemblyProbabilityTextBox.Text);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.AreEqual("-", failureMechanismAssemblyProbabilityTextBox.Text);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual(exceptionMessage, errorMessage);
-                Assert.AreEqual(errorIconPadding, errorProvider.GetIconPadding(failurePathAssemblyProbabilityTextBox));
+                Assert.AreEqual(errorIconPadding, errorProvider.GetIconPadding(failureMechanismAssemblyProbabilityTextBox));
             }
 
             mocks.VerifyAll();
@@ -753,15 +753,15 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Automatic, comboBox.SelectedValue);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual(exceptionMessage, errorMessage);
 
                 // When
                 failureMechanism.NotifyObservers();
 
                 // Then
-                errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual("", errorMessage);
             }
 
@@ -794,15 +794,15 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Automatic, comboBox.SelectedValue);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual(exceptionMessage, errorMessage);
 
                 // When
                 comboBox.SelectedValue = FailureMechanismAssemblyProbabilityResultType.Manual;
 
                 // Then
-                errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual("", errorMessage);
             }
 
@@ -810,7 +810,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultViewAndProbabilityResultTypeAutomatic_WhenProbabilityResultTypeSetToManual_ThenFailurePathAssemblyProbabilityTextBoxSetWithCorrectStateAndObserversNotified()
+        public void GivenFailureMechanismResultViewAndProbabilityResultTypeAutomatic_WhenProbabilityResultTypeSetToManual_ThenFailureMechanismAssemblyProbabilityTextBoxSetWithCorrectStateAndObserversNotified()
         {
             // Given
             var mocks = new MockRepository();
@@ -829,11 +829,11 @@ namespace Riskeer.Common.Forms.Test.Views
 
             using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
 
                 // Precondition
-                Assert.IsFalse(failurePathAssemblyProbabilityTextBox.Enabled);
-                Assert.IsTrue(failurePathAssemblyProbabilityTextBox.ReadOnly);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
 
                 // When
                 const FailureMechanismAssemblyProbabilityResultType newResultType = FailureMechanismAssemblyProbabilityResultType.Manual;
@@ -842,8 +842,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Then
                 Assert.AreEqual(newResultType, failureMechanism.AssemblyResult.ProbabilityResultType);
-                Assert.IsTrue(failurePathAssemblyProbabilityTextBox.Enabled);
-                Assert.IsFalse(failurePathAssemblyProbabilityTextBox.ReadOnly);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
             }
 
             mocks.VerifyAll();
@@ -853,7 +853,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [SetCulture("nl-NL")]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.Automatic, FailureMechanismAssemblyProbabilityResultType.Manual)]
         [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual, FailureMechanismAssemblyProbabilityResultType.Automatic)]
-        public void GivenFailureMechanismResultView_WhenChangingProbabilityResultType_ThenFailurePathAssemblyProbabilityUpdated(
+        public void GivenFailureMechanismResultView_WhenChangingProbabilityResultType_ThenFailureMechanismAssemblyProbabilityUpdated(
             FailureMechanismAssemblyProbabilityResultType initialResultType,
             FailureMechanismAssemblyProbabilityResultType newResultType)
         {
@@ -880,11 +880,11 @@ namespace Riskeer.Common.Forms.Test.Views
             using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => assemblyResult))
             {
                 // Precondition
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
                 string expectedProbabilityText = initialResultType == FailureMechanismAssemblyProbabilityResultType.Automatic
                                                      ? assemblyResultText
                                                      : manualProbabilityText;
-                Assert.AreEqual(expectedProbabilityText, failurePathAssemblyProbabilityTextBox.Text);
+                Assert.AreEqual(expectedProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
 
                 // When
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
@@ -894,7 +894,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 expectedProbabilityText = newResultType == FailureMechanismAssemblyProbabilityResultType.Automatic
                                               ? assemblyResultText
                                               : manualProbabilityText;
-                Assert.AreEqual(expectedProbabilityText, failurePathAssemblyProbabilityTextBox.Text);
+                Assert.AreEqual(expectedProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
             }
 
             mocks.VerifyAll();
@@ -905,7 +905,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [TestCase("NotAProbability", "De waarde kon niet geïnterpreteerd worden als een kans.")]
         [TestCase("30", "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
         [TestCase("-1", "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.")]
-        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingInvalidValue_ThenInitialFailurePathAssemblyProbabilitySetWithError(
+        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingInvalidValue_ThenInitialFailureMechanismAssemblyProbabilitySetWithError(
             string invalidValue,
             string expectedErrorMessage)
         {
@@ -930,21 +930,21 @@ namespace Riskeer.Common.Forms.Test.Views
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Precondition
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                Assert.AreEqual(manualProbabilityText, failurePathAssemblyProbabilityTextBox.Text);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.AreEqual(manualProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual("", errorMessage);
 
                 // When
-                var textBoxTester = new TextBoxTester("failurePathAssemblyProbabilityTextBox");
+                var textBoxTester = new TextBoxTester("failureMechanismAssemblyProbabilityTextBox");
                 textBoxTester.Enter(invalidValue);
 
                 // Then
                 Assert.AreEqual(manualProbability, failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
 
-                errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual(expectedErrorMessage, errorMessage);
             }
 
@@ -952,7 +952,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingNaNValue_ThenSetFailurePathAssemblyProbabilityWithErrorAndObserversNotified()
+        public void GivenFailureMechanismResultTypeManualAndWithoutError_WhenSettingNaNValue_ThenSetFailureMechanismAssemblyProbabilityWithErrorAndObserversNotified()
         {
             // Given
             const double manualProbability = 0.2;
@@ -976,21 +976,21 @@ namespace Riskeer.Common.Forms.Test.Views
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Precondition
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                Assert.AreEqual(manualProbabilityText, failurePathAssemblyProbabilityTextBox.Text);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.AreEqual(manualProbabilityText, failureMechanismAssemblyProbabilityTextBox.Text);
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual("", errorMessage);
 
                 // When
-                var textBoxTester = new TextBoxTester("failurePathAssemblyProbabilityTextBox");
+                var textBoxTester = new TextBoxTester("failureMechanismAssemblyProbabilityTextBox");
                 textBoxTester.Enter("-");
 
                 // Then
                 Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
 
-                errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual("Er moet een waarde worden ingevuld voor de faalkans.", errorMessage);
             }
 
@@ -1001,7 +1001,7 @@ namespace Riskeer.Common.Forms.Test.Views
         [SetCulture("nl-NL")]
         [TestCase("0,1", "1/10", 0.1)]
         [TestCase("1/10", "1/10", 0.1)]
-        public void GivenFailureMechanismResultTypeManualAndWithError_WhenSettingValidValue_ThenFailurePathAssemblyProbabilitySetAndObserversNotified(
+        public void GivenFailureMechanismResultTypeManualAndWithError_WhenSettingValidValue_ThenFailureMechanismAssemblyProbabilitySetAndObserversNotified(
             string validValue,
             string formattedValidValue,
             double expectedProbability)
@@ -1024,12 +1024,12 @@ namespace Riskeer.Common.Forms.Test.Views
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Precondition
-                var textBoxTester = new TextBoxTester("failurePathAssemblyProbabilityTextBox");
+                var textBoxTester = new TextBoxTester("failureMechanismAssemblyProbabilityTextBox");
                 textBoxTester.Enter("NotAProbability");
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.IsNotEmpty(errorMessage);
 
                 failureMechanism.AssemblyResult.Attach(observer);
@@ -1038,10 +1038,10 @@ namespace Riskeer.Common.Forms.Test.Views
                 textBoxTester.Enter(validValue);
 
                 // Then
-                errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.IsEmpty(errorMessage);
 
-                Assert.AreEqual(formattedValidValue, failurePathAssemblyProbabilityTextBox.Text);
+                Assert.AreEqual(formattedValidValue, failureMechanismAssemblyProbabilityTextBox.Text);
                 Assert.AreEqual(expectedProbability, failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
             }
 
@@ -1062,12 +1062,12 @@ namespace Riskeer.Common.Forms.Test.Views
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
                 // Precondition
-                var textBoxTester = new TextBoxTester("failurePathAssemblyProbabilityTextBox");
+                var textBoxTester = new TextBoxTester("failureMechanismAssemblyProbabilityTextBox");
                 textBoxTester.Enter("NotAProbability");
 
                 ErrorProvider errorProvider = GetErrorProvider(view);
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                string errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.IsNotEmpty(errorMessage);
 
                 // When
@@ -1075,13 +1075,13 @@ namespace Riskeer.Common.Forms.Test.Views
                 comboBox.SelectedValue = FailureMechanismAssemblyProbabilityResultType.Automatic;
 
                 // Then
-                errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
                 Assert.AreEqual("", errorMessage);
             }
         }
 
         [Test]
-        public void GivenFailureMechanismResultTypeManual_WhenInvalidValueEnteredAndEscPressed_ThenFailurePathAssemblyProbabilitySetToInitialValue()
+        public void GivenFailureMechanismResultTypeManual_WhenInvalidValueEnteredAndEscPressed_ThenFailureMechanismAssemblyProbabilitySetToInitialValue()
         {
             // Given
             var mocks = new MockRepository();
@@ -1101,25 +1101,25 @@ namespace Riskeer.Common.Forms.Test.Views
 
             using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
-                var textBoxTester = new ControlTester("failurePathAssemblyProbabilityTextBox");
+                var textBoxTester = new ControlTester("failureMechanismAssemblyProbabilityTextBox");
                 const Keys keyData = Keys.Escape;
 
-                TextBox failurePathAssemblyProbabilityTextBox = GetFailurePathAssemblyProbabilityTextBox();
-                failurePathAssemblyProbabilityTextBox.TextChanged += (sender, args) =>
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                failureMechanismAssemblyProbabilityTextBox.TextChanged += (sender, args) =>
                 {
                     textBoxTester.FireEvent("KeyDown", new KeyEventArgs(keyData));
                 };
 
                 // Precondition
-                Assert.AreEqual(initialValueText, failurePathAssemblyProbabilityTextBox.Text);
+                Assert.AreEqual(initialValueText, failureMechanismAssemblyProbabilityTextBox.Text);
 
                 failureMechanism.AssemblyResult.Attach(observer);
 
                 // When
-                failurePathAssemblyProbabilityTextBox.Text = "NotAProbability";
+                failureMechanismAssemblyProbabilityTextBox.Text = "NotAProbability";
 
                 // Then
-                Assert.AreEqual(initialValueText, failurePathAssemblyProbabilityTextBox.Text);
+                Assert.AreEqual(initialValueText, failureMechanismAssemblyProbabilityTextBox.Text);
                 Assert.AreEqual(initialValue, failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
             }
 

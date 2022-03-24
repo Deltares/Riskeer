@@ -44,7 +44,7 @@ namespace Riskeer.Common.Forms.Views
             this.TableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.failureMechanismAssemblyLabel = new System.Windows.Forms.Label();
             this.probabilityResultTypeComboBox = new System.Windows.Forms.ComboBox();
-            this.failurePathAssemblyProbabilityTextBox = new System.Windows.Forms.TextBox();
+            this.failureMechanismAssemblyProbabilityTextBox = new System.Windows.Forms.TextBox();
             this.DataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.TableLayoutPanel.SuspendLayout();
@@ -60,7 +60,7 @@ namespace Riskeer.Common.Forms.Views
             this.TableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 363F));
             this.TableLayoutPanel.Controls.Add(this.failureMechanismAssemblyLabel, 0, 0);
             this.TableLayoutPanel.Controls.Add(this.probabilityResultTypeComboBox, 1, 0);
-            this.TableLayoutPanel.Controls.Add(this.failurePathAssemblyProbabilityTextBox, 2, 0);
+            this.TableLayoutPanel.Controls.Add(this.failureMechanismAssemblyProbabilityTextBox, 2, 0);
             this.TableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.TableLayoutPanel.Location = new System.Drawing.Point(0, 42);
             this.TableLayoutPanel.Name = "TableLayoutPanel";
@@ -92,16 +92,16 @@ namespace Riskeer.Common.Forms.Views
             this.probabilityResultTypeComboBox.TabIndex = 3;
             this.probabilityResultTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.ProbabilityResultTypeComboBoxSelectedIndexChanged);
             // 
-            // failurePathAssemblyProbabilityTextBox
+            // failureMechanismAssemblyProbabilityTextBox
             // 
-            this.failurePathAssemblyProbabilityTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.failurePathAssemblyProbabilityTextBox.Location = new System.Drawing.Point(298, 10);
-            this.failurePathAssemblyProbabilityTextBox.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
-            this.failurePathAssemblyProbabilityTextBox.Name = "failurePathAssemblyProbabilityTextBox";
-            this.failurePathAssemblyProbabilityTextBox.Size = new System.Drawing.Size(100, 20);
-            this.failurePathAssemblyProbabilityTextBox.KeyDown += new KeyEventHandler(this.FailurePathAssemblyProbabilityTextBoxKeyDown);
-            this.failurePathAssemblyProbabilityTextBox.Leave += new EventHandler(this.FailurePathAssemblyProbabilityTextBoxLeave);
-            this.failurePathAssemblyProbabilityTextBox.TabIndex = 4;
+            this.failureMechanismAssemblyProbabilityTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.failureMechanismAssemblyProbabilityTextBox.Location = new System.Drawing.Point(298, 10);
+            this.failureMechanismAssemblyProbabilityTextBox.Margin = new System.Windows.Forms.Padding(3, 10, 3, 10);
+            this.failureMechanismAssemblyProbabilityTextBox.Name = "failureMechanismAssemblyProbabilityTextBox";
+            this.failureMechanismAssemblyProbabilityTextBox.Size = new System.Drawing.Size(100, 20);
+            this.failureMechanismAssemblyProbabilityTextBox.KeyDown += new KeyEventHandler(this.FailureMechanismAssemblyProbabilityTextBoxKeyDown);
+            this.failureMechanismAssemblyProbabilityTextBox.Leave += new EventHandler(this.FailureMechanismAssemblyProbabilityTextBoxLeave);
+            this.failureMechanismAssemblyProbabilityTextBox.TabIndex = 4;
             // 
             // DataGridViewControl
             // 
@@ -143,7 +143,7 @@ namespace Riskeer.Common.Forms.Views
         protected System.Windows.Forms.TableLayoutPanel TableLayoutPanel;
         private System.Windows.Forms.Label failureMechanismAssemblyLabel;
         private System.Windows.Forms.ComboBox probabilityResultTypeComboBox;
-        private System.Windows.Forms.TextBox failurePathAssemblyProbabilityTextBox;
+        private System.Windows.Forms.TextBox failureMechanismAssemblyProbabilityTextBox;
         private ErrorProvider errorProvider;
     }
 }
