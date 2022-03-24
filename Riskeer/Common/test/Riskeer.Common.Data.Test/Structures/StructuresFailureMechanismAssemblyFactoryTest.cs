@@ -49,7 +49,7 @@ namespace Riskeer.Common.Data.Test.Structures
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             // Call
             void Call() => StructuresFailureMechanismAssemblyFactory.AssembleSection<TestStructuresInput>(null, failureMechanism, assessmentSection);
@@ -89,7 +89,7 @@ namespace Riskeer.Common.Data.Test.Structures
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             // Call
             void Call() => StructuresFailureMechanismAssemblyFactory.AssembleSection<TestStructuresInput>(sectionResult, failureMechanism, null);
@@ -114,7 +114,7 @@ namespace Riskeer.Common.Data.Test.Structures
                 RefinedSectionProbability = random.NextDouble()
             };
 
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -144,7 +144,7 @@ namespace Riskeer.Common.Data.Test.Structures
         public void AssembleSection_CalculatorRan_ReturnsExpectedOutput()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 
@@ -168,7 +168,7 @@ namespace Riskeer.Common.Data.Test.Structures
         public void AssembleSection_CalculatorThrowsException_ThrowsAssemblyException()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var sectionResult = new AdoptableFailureMechanismSectionResult(section);
 

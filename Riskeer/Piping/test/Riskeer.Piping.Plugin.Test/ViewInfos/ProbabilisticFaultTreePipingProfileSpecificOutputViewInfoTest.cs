@@ -182,7 +182,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                 return new ProbabilisticPipingCalculationScenario();
             }
 
-            protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+            protected override ICalculationContext<ICalculation, ICalculatableFailureMechanism> GetCalculationContextWithCalculation()
             {
                 return new ProbabilisticPipingCalculationScenarioContext(
                     new ProbabilisticPipingCalculationScenario(),
@@ -193,7 +193,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
                     new AssessmentSectionStub());
             }
 
-            protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+            protected override ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> GetCalculationGroupContextWithCalculation()
             {
                 return new PipingCalculationGroupContext(
                     new CalculationGroup

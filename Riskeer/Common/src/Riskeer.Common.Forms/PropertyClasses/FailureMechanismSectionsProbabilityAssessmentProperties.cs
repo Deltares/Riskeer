@@ -112,9 +112,8 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
         }
 
-        private FailureMechanismSectionProbabilityAssessmentProperties CreateFailureMechanismSectionProbabilityAssessmentProperties(FailureMechanismSection section,
-                                                                                                                                    double sectionStart,
-                                                                                                                                    double sectionEnd)
+        private FailureMechanismSectionProbabilityAssessmentProperties CreateFailureMechanismSectionProbabilityAssessmentProperties(
+            FailureMechanismSection section, double sectionStart, double sectionEnd)
         {
             return new FailureMechanismSectionProbabilityAssessmentProperties(section, sectionStart, sectionEnd, probabilityAssessmentInput);
         }

@@ -38,12 +38,12 @@ namespace Riskeer.Common.Forms.Views
     /// <typeparam name="TCalculationScenario">The type of calculation scenario.</typeparam>
     /// <typeparam name="TCalculationInput">The type of calculation input.</typeparam>
     /// <typeparam name="TScenarioRow">The type of the scenario row.</typeparam>
-    /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
+    /// <typeparam name="TFailureMechanism">The type of the calculatable failure mechanism.</typeparam>
     public abstract partial class ScenariosView<TCalculationScenario, TCalculationInput, TScenarioRow, TFailureMechanism> : UserControl, IView
         where TCalculationScenario : class, ICalculationScenario
         where TCalculationInput : class, ICalculationInput
         where TScenarioRow : ScenarioRow<TCalculationScenario>
-        where TFailureMechanism : IFailureMechanism
+        where TFailureMechanism : ICalculatableFailureMechanism
     {
         private Observer failureMechanismObserver;
         private RecursiveObserver<CalculationGroup, CalculationGroup> calculationGroupObserver;

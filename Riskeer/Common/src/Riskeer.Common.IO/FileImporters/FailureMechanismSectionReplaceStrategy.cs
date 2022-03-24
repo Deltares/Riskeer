@@ -33,22 +33,22 @@ namespace Riskeer.Common.IO.FileImporters
     /// </summary>
     public class FailureMechanismSectionReplaceStrategy : IFailureMechanismSectionUpdateStrategy
     {
-        private readonly IFailureMechanism<FailureMechanismSectionResult> failurePath;
+        private readonly IFailureMechanism<FailureMechanismSectionResult> failureMechanism;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionReplaceStrategy"/>.
         /// </summary>
-        /// <param name="failurePath">The failure path to set the sections to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/>
+        /// <param name="failureMechanism">The failure mechanism to set the sections to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public FailureMechanismSectionReplaceStrategy(IFailureMechanism<FailureMechanismSectionResult> failurePath)
+        public FailureMechanismSectionReplaceStrategy(IFailureMechanism<FailureMechanismSectionResult> failureMechanism)
         {
-            if (failurePath == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(failurePath));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            this.failurePath = failurePath;
+            this.failureMechanism = failureMechanism;
         }
 
         public virtual IEnumerable<IObservable> UpdateSectionsWithImportedData(IEnumerable<FailureMechanismSection> importedFailureMechanismSections,
@@ -68,9 +68,9 @@ namespace Riskeer.Common.IO.FileImporters
 
             try
             {
-                failurePath.SetSections(importedFailureMechanismSections, sourcePath);
-                affectedObjects.Add(failurePath);
-                affectedObjects.Add(failurePath.SectionResults);
+                failureMechanism.SetSections(importedFailureMechanismSections, sourcePath);
+                affectedObjects.Add(failureMechanism);
+                affectedObjects.Add(failureMechanism.SectionResults);
             }
             catch (ArgumentException e)
             {

@@ -44,15 +44,15 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             mocksRepository.ReplayAll();
 
             var calculation = new TestStructuresCalculationScenario();
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
             var parent = new CalculationGroup();
 
             // Call
             var context = new TestStructuresCalculationScenarioContext(calculation, parent, failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismItemContextBase<StructuresCalculationScenario<TestStructuresInput>, TestFailureMechanism>>(context);
-            Assert.IsInstanceOf<ICalculationContext<StructuresCalculationScenario<TestStructuresInput>, TestFailureMechanism>>(context);
+            Assert.IsInstanceOf<FailureMechanismItemContextBase<StructuresCalculationScenario<TestStructuresInput>, TestCalculatableFailureMechanism>>(context);
+            Assert.IsInstanceOf<ICalculationContext<StructuresCalculationScenario<TestStructuresInput>, TestCalculatableFailureMechanism>>(context);
             Assert.AreSame(calculation, context.WrappedData);
             Assert.AreSame(parent, context.Parent);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
@@ -69,7 +69,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             var calculation = new TestStructuresCalculationScenario();
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             // Call
             void Call() => new TestStructuresCalculationScenarioContext(calculation, null, failureMechanism, assessmentSection);
@@ -87,7 +87,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
 
             private static readonly IAssessmentSection assessmentSection = mocks.Stub<IAssessmentSection>();
             private static readonly TestStructuresCalculationScenario calculation = new TestStructuresCalculationScenario();
-            private static readonly TestFailureMechanism failureMechanism = new TestFailureMechanism();
+            private static readonly TestCalculatableFailureMechanism failureMechanism = new TestCalculatableFailureMechanism();
             private static readonly CalculationGroup parent = new CalculationGroup();
 
             [SetUp]
@@ -127,11 +127,11 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
             }
         }
 
-        private class TestStructuresCalculationScenarioContext : StructuresCalculationScenarioContext<TestStructuresInput, TestFailureMechanism>
+        private class TestStructuresCalculationScenarioContext : StructuresCalculationScenarioContext<TestStructuresInput, TestCalculatableFailureMechanism>
         {
             public TestStructuresCalculationScenarioContext(StructuresCalculationScenario<TestStructuresInput> calculation,
                                                             CalculationGroup parent,
-                                                            TestFailureMechanism failureMechanism,
+                                                            TestCalculatableFailureMechanism failureMechanism,
                                                             IAssessmentSection assessmentSection)
                 : base(calculation, parent, failureMechanism, assessmentSection) {}
         }
@@ -140,7 +140,7 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             public DerivedTestStructuresCalculationScenarioContext(StructuresCalculationScenario<TestStructuresInput> calculation,
                                                                    CalculationGroup parent,
-                                                                   TestFailureMechanism failureMechanism,
+                                                                   TestCalculatableFailureMechanism failureMechanism,
                                                                    IAssessmentSection assessmentSection)
                 : base(calculation, parent, failureMechanism, assessmentSection) {}
         }

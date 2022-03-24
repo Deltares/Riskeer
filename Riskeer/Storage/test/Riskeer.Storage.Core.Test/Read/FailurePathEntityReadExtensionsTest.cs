@@ -108,7 +108,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 ManualFailurePathAssemblyProbability = random.NextDouble()
             };
             var collector = new ReadConversionCollector();
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             // Call
             entity.ReadCommonFailurePathProperties(failureMechanism, collector);
@@ -126,7 +126,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             var entity = new FailureMechanismEntity();
             var collector = new ReadConversionCollector();
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             // Call
             entity.ReadCommonFailurePathProperties(failureMechanism, collector);
@@ -236,7 +236,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 ManualFailurePathAssemblyProbability = random.NextDouble()
             };
             var collector = new ReadConversionCollector();
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             // Call
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
@@ -254,7 +254,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             var entity = new FailureMechanismEntity();
             var collector = new ReadConversionCollector();
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             // Call
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
@@ -284,7 +284,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 }
             };
             var collector = new ReadConversionCollector();
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             // Call
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);

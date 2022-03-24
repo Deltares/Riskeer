@@ -138,7 +138,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                 return new MacroStabilityInwardsCalculationScenario();
             }
 
-            protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+            protected override ICalculationContext<ICalculation, ICalculatableFailureMechanism> GetCalculationContextWithCalculation()
             {
                 return new MacroStabilityInwardsCalculationScenarioContext(
                     new MacroStabilityInwardsCalculationScenario(),
@@ -149,7 +149,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                     new AssessmentSectionStub());
             }
 
-            protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+            protected override ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> GetCalculationGroupContextWithCalculation()
             {
                 return new MacroStabilityInwardsCalculationGroupContext(
                     new CalculationGroup

@@ -68,7 +68,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var changeHandler = new FailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>();
 
             // Call
-            void Call() => changeHandler.SetPropertyValueAfterConfirmation<int?>(new TestFailureMechanism(), null, (f, v) => {});
+            void Call() => changeHandler.SetPropertyValueAfterConfirmation<int?>(new TestCalculatableFailureMechanism(), null, (f, v) => {});
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -82,7 +82,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var changeHandler = new FailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>();
 
             // Call
-            void Call() => changeHandler.SetPropertyValueAfterConfirmation(new TestFailureMechanism(), 3, null);
+            void Call() => changeHandler.SetPropertyValueAfterConfirmation(new TestCalculatableFailureMechanism(), 3, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -110,7 +110,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
                 };
             }
 
-            var testFailureMechanism = new TestFailureMechanism(testCase.Calculations);
+            var testFailureMechanism = new TestCalculatableFailureMechanism(testCase.Calculations);
             var propertySet = 0;
 
             var changeHandler = new FailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>();
@@ -156,7 +156,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             ICalculation calculationWithOutput = CalculationTestDataFactory.CreateCalculationWithOutput();
             ICalculation calculationWithoutOutput = CalculationTestDataFactory.CreateCalculationWithoutOutput();
 
-            var testFailureMechanism = new TestFailureMechanism(
+            var testFailureMechanism = new TestCalculatableFailureMechanism(
                 new[]
                 {
                     calculationWithOutput,
@@ -188,7 +188,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
                 tester.ClickOk();
             };
 
-            var testFailureMechanism = new TestFailureMechanism(
+            var testFailureMechanism = new TestCalculatableFailureMechanism(
                 new[]
                 {
                     CalculationTestDataFactory.CreateCalculationWithOutput()
@@ -213,7 +213,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
         public void SetPropertyValueAfterConfirmation_ConfirmationNotRequiredExceptionInSetValue_ExceptionBubbled()
         {
             // Setup
-            var testFailureMechanism = new TestFailureMechanism();
+            var testFailureMechanism = new TestCalculatableFailureMechanism();
             var changeHandler = new FailureMechanismPropertyChangeHandler<ICalculatableFailureMechanism>();
             var expectedException = new Exception();
 

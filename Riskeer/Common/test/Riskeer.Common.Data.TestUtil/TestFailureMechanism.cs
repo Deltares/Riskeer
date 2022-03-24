@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base;
-using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.TestUtil
@@ -30,59 +29,73 @@ namespace Riskeer.Common.Data.TestUtil
     /// <summary>
     /// Simple failure mechanism which can be used for testing.
     /// </summary>
-    public class TestFailureMechanism : FailureMechanismBase<TestFailureMechanismSectionResult>,
-                                        IHasGeneralInput, ICalculatableFailureMechanism
+    public class TestFailureMechanism : Observable, IFailureMechanism<TestFailureMechanismSectionResult>, IHasGeneralInput
     {
-        private const string defaultName = "Test failure mechanism";
-        private const string defaultCode = "TFM";
+        private readonly FailureMechanismSectionCollection sectionCollection;
+        private readonly ObservableList<TestFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
-        /// Creates a new instance of <see cref="TestFailureMechanism"/> with a default name and code.
+        /// Creates a new instance of <see cref="TestFailureMechanism"/>.
         /// </summary>
         public TestFailureMechanism()
-            : this(defaultName, defaultCode) {}
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TestFailureMechanism"/> based on the input arguments.
-        /// </summary>
-        /// <param name="name">The name of the failure mechanism.</param>
-        /// <param name="code">The code of the failure mechanism.</param>
-        /// <exception cref="ArgumentException">Thrown when either:
-        /// <list type="bullet">
-        /// <item><paramref name="name"/> is <c>null</c> or empty.</item>
-        /// <item><paramref name="code"/> is <c>null</c> or empty.</item>
-        /// </list>
-        /// </exception>
-        public TestFailureMechanism(string name, string code)
-            : this(name, code, new List<ICalculation>()) {}
-
-        /// <summary>
-        /// Creates a new instance of <see cref="TestFailureMechanism"/> based on the input arguments.
-        /// </summary>
-        /// <param name="calculations">The collection of <see cref="ICalculation"/>.</param>
-        public TestFailureMechanism(IEnumerable<ICalculation> calculations)
-            : this(defaultName, defaultCode, calculations) {}
-
-        private TestFailureMechanism(string name, string code, IEnumerable<ICalculation> calculations)
-            : base(name, code)
         {
-            CalculationsGroup = new CalculationGroup();
-            CalculationsGroup.Children.AddRange(calculations);
+            Name = "Faalmechanisme";
+            Code = "NIEUW";
+
+            sectionCollection = new FailureMechanismSectionCollection();
+            InAssembly = true;
             GeneralInput = new GeneralInput();
-            CalculationsInputComments = new Comment();
+            InAssemblyInputComments = new Comment();
+            InAssemblyOutputComments = new Comment();
+            NotInAssemblyComments = new Comment();
+            AssemblyResult = new FailureMechanismAssemblyResult();
+            sectionResults = new ObservableList<TestFailureMechanismSectionResult>();
         }
 
-        public CalculationGroup CalculationsGroup { get; }
+        public string Name { get; }
 
-        public Comment CalculationsInputComments { get; }
+        public string Code { get; }
 
-        public IEnumerable<ICalculation> Calculations => CalculationsGroup.GetCalculations();
+        public IEnumerable<FailureMechanismSection> Sections => sectionCollection;
+
+        public FailureMechanismAssemblyResult AssemblyResult { get; }
+
+        public string FailureMechanismSectionSourcePath => sectionCollection.SourcePath;
+
+        public Comment InAssemblyInputComments { get; }
+
+        public Comment InAssemblyOutputComments { get; }
+
+        public Comment NotInAssemblyComments { get; }
+
+        public bool InAssembly { get; set; }
+
+        public IObservableEnumerable<TestFailureMechanismSectionResult> SectionResults => sectionResults;
 
         public GeneralInput GeneralInput { get; }
 
-        protected override void AddSectionDependentData(FailureMechanismSection section)
+        public void SetSections(IEnumerable<FailureMechanismSection> sections, string sourcePath)
         {
-            ((ObservableList<TestFailureMechanismSectionResult>) SectionResults).Add(new TestFailureMechanismSectionResult(section));
+            if (sections == null)
+            {
+                throw new ArgumentNullException(nameof(sections));
+            }
+
+            if (sourcePath == null)
+            {
+                throw new ArgumentNullException(nameof(sourcePath));
+            }
+
+            sectionCollection.SetSections(sections, sourcePath);
+            foreach (FailureMechanismSection section in sections)
+            {
+                sectionResults.Add(new TestFailureMechanismSectionResult(section));
+            }
+        }
+
+        public void ClearAllSections()
+        {
+            sectionCollection.Clear();
         }
     }
 }

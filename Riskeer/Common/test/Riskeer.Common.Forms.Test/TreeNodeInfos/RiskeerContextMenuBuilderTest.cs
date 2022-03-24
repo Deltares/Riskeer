@@ -1290,7 +1290,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 calculation
             });
@@ -1336,7 +1336,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
@@ -1392,7 +1392,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 calculation
             });
@@ -1441,7 +1441,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
@@ -1503,7 +1503,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 calculation
             });
@@ -1549,7 +1549,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
@@ -1605,7 +1605,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 }
             };
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 calculation
             });
@@ -1654,7 +1654,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             mocks.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var parent = new CalculationGroup();
             var calculationGroup = new CalculationGroup();
             var calculationGroupContext = new TestCalculationGroupContext(calculationGroup, parent, failureMechanism);
@@ -1705,7 +1705,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 new TestCalculation()
             });
@@ -1751,7 +1751,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
-            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
@@ -1795,7 +1795,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 new TestCalculation()
             });
@@ -1844,7 +1844,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
-            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
@@ -1894,7 +1894,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 new TestCalculation()
             });
@@ -1940,7 +1940,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
-            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();
@@ -1984,7 +1984,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 new TestCalculation()
             });
@@ -2036,7 +2036,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var viewCommands = mocks.StrictMock<IViewCommands>();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
 
-            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
             var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
             mocks.ReplayAll();

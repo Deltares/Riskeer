@@ -153,7 +153,7 @@ namespace Riskeer.Storage.Core.Test.Create
             // Setup
             var random = new Random(21);
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
-            IFailureMechanism failureMechanism = new TestFailureMechanism("a", "cool")
+            IFailureMechanism failureMechanism = new TestCalculatableFailureMechanism("a", "cool")
             {
                 InAssemblyInputComments =
                 {
@@ -310,7 +310,7 @@ namespace Riskeer.Storage.Core.Test.Create
             // Setup
             var random = new Random(21);
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
-            var failureMechanism = new TestFailureMechanism("a", "cool")
+            var failureMechanism = new TestCalculatableFailureMechanism("a", "cool")
             {
                 InAssemblyInputComments =
                 {

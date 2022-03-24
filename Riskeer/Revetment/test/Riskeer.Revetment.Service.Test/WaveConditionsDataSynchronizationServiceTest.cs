@@ -60,7 +60,7 @@ namespace Riskeer.Revetment.Service.Test
 
             // Call
             void Call() => WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<ICalculatableFailureMechanism, ICalculation<WaveConditionsInput>>(
-                new TestFailureMechanism(), normType);
+                new TestCalculatableFailureMechanism(), normType);
 
             // Assert
             var expectedMessage = $"The value of argument 'normType' ({normType}) is invalid for Enum type '{nameof(NormType)}'.";
@@ -137,7 +137,7 @@ namespace Riskeer.Revetment.Service.Test
         {
             // Call
             void Call() => WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<ICalculatableFailureMechanism, ICalculation<WaveConditionsInput>>(
-                new TestFailureMechanism(), null);
+                new TestCalculatableFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -222,7 +222,7 @@ namespace Riskeer.Revetment.Service.Test
         {
             // Call
             void Call() => WaveConditionsDataSynchronizationService.ClearWaveConditionsCalculationOutputAndRemoveTargetProbability<ICalculatableFailureMechanism, ICalculation<WaveConditionsInput>>(
-                new TestFailureMechanism(), null);
+                new TestCalculatableFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

@@ -48,11 +48,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsProbabilityAssessmentProperties(failureMechanism,
-                                                                                                  null);
+            void Call() => new FailureMechanismSectionsProbabilityAssessmentProperties(failureMechanism, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("probabilityAssessmentInput", exception.ParamName);
             mocks.VerifyAll();
         }
@@ -65,11 +64,10 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
 
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsProbabilityAssessmentProperties(null,
-                                                                                                  probabilityAssessmentInput);
+            void Call() => new FailureMechanismSectionsProbabilityAssessmentProperties(null, probabilityAssessmentInput);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
@@ -90,8 +88,8 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             failureMechanism.SetSections(sections, sourcePath);
 
             // Call
-            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(failureMechanism,
-                                                                                                probabilityAssessmentInput))
+            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(
+                       failureMechanism, probabilityAssessmentInput))
             {
                 // Assert
                 Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
@@ -135,8 +133,8 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
 
             // Call
-            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(failureMechanism,
-                                                                                                probabilityAssessmentInput))
+            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(
+                       failureMechanism, probabilityAssessmentInput))
             {
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -169,8 +167,8 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var probabilityAssessmentInput = new TestProbabilityAssessmentInput(random.NextDouble(), random.NextDouble());
             var failureMechanism = new TestFailureMechanism();
 
-            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(failureMechanism,
-                                                                                                probabilityAssessmentInput))
+            using (var properties = new FailureMechanismSectionsProbabilityAssessmentProperties(
+                       failureMechanism, probabilityAssessmentInput))
             {
                 var refreshRequiredRaised = 0;
                 properties.RefreshRequired += (sender, args) => refreshRequiredRaised++;

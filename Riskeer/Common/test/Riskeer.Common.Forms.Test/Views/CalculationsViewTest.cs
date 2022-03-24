@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GivenCalculationsView_WhenGenerateCalculationsButtonClicked_ThenGenerateCalculationsCalled()
         {
             // Given
-            var view = new TestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub())
+            var view = new TestCalculationsView(new CalculationGroup(), new TestCalculatableFailureMechanism(), new AssessmentSectionStub())
             {
                 CanGenerateCalculationState = true
             };
@@ -184,10 +184,10 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
-            return ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestFailureMechanism(), assessmentSection);
+            return ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestCalculatableFailureMechanism(), assessmentSection);
         }
 
-        private TestCalculationsView ShowCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private TestCalculationsView ShowCalculationsView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             var calculationsView = new TestCalculationsView(calculationGroup, failureMechanism, assessmentSection);
 
@@ -197,10 +197,10 @@ namespace Riskeer.Common.Forms.Test.Views
             return calculationsView;
         }
 
-        private abstract class TestCalculationsViewBase<TCalculationRow> : CalculationsView<TestCalculation, TestCalculationInput, TCalculationRow, TestFailureMechanism>
+        private abstract class TestCalculationsViewBase<TCalculationRow> : CalculationsView<TestCalculation, TestCalculationInput, TCalculationRow, TestCalculatableFailureMechanism>
             where TCalculationRow : CalculationRow<TestCalculation>
         {
-            protected TestCalculationsViewBase(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            protected TestCalculationsViewBase(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(calculationGroup, failureMechanism, assessmentSection) {}
 
             public bool CanGenerateCalculationState { get; set; }
@@ -240,7 +240,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private class TestCalculationsView : TestCalculationsViewBase<TestCalculationRow>
         {
-            public TestCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            public TestCalculationsView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(calculationGroup, failureMechanism, assessmentSection) {}
 
             public int HydraulicBoundaryLocationChangedCounter { get; private set; }
@@ -272,7 +272,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private class MissingNameColumnTestCalculationsView : TestCalculationsViewBase<TestCalculationRow>
         {
-            public MissingNameColumnTestCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            public MissingNameColumnTestCalculationsView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(calculationGroup, failureMechanism, assessmentSection) {}
 
             protected override TestCalculationRow CreateRow(TestCalculation calculation)
@@ -288,7 +288,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private class MissingHydraulicBoundaryLocationTestCalculationsView : TestCalculationsViewBase<TestCalculationRow>
         {
-            public MissingHydraulicBoundaryLocationTestCalculationsView(CalculationGroup calculationGroup, TestFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            public MissingHydraulicBoundaryLocationTestCalculationsView(CalculationGroup calculationGroup, TestCalculatableFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(calculationGroup, failureMechanism, assessmentSection) {}
 
             protected override TestCalculationRow CreateRow(TestCalculation calculation)
@@ -313,7 +313,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            void Call() => new TestCalculationsView(null, new TestFailureMechanism(), assessmentSection);
+            void Call() => new TestCalculationsView(null, new TestCalculatableFailureMechanism(), assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -342,7 +342,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new TestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), null);
+            void Call() => new TestCalculationsView(new CalculationGroup(), new TestCalculatableFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -353,7 +353,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_ExpectedValues()
         {
             // Call
-            TestCalculationsView view = ShowCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub());
+            TestCalculationsView view = ShowCalculationsView(new CalculationGroup(), new TestCalculatableFailureMechanism(), new AssessmentSectionStub());
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
@@ -374,7 +374,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestFailureMechanism(), assessmentSection);
+            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestCalculatableFailureMechanism(), assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -415,7 +415,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestFailureMechanism(), assessmentSection);
+            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestCalculatableFailureMechanism(), assessmentSection);
 
             // Assert
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
@@ -434,7 +434,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_IncorrectNameIndex_ThrowsInvalidOperationException()
         {
             // Call
-            void Call() => new MissingNameColumnTestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub());
+            void Call() => new MissingNameColumnTestCalculationsView(new CalculationGroup(), new TestCalculatableFailureMechanism(), new AssessmentSectionStub());
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(Call);
@@ -445,7 +445,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_IncorrectHydraulicBoundaryLocationIndex_ThrowsInvalidOperationException()
         {
             // Call
-            void Call() => new MissingHydraulicBoundaryLocationTestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub());
+            void Call() => new MissingHydraulicBoundaryLocationTestCalculationsView(new CalculationGroup(), new TestCalculatableFailureMechanism(), new AssessmentSectionStub());
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(Call);
@@ -458,7 +458,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void GenerateButton_Always_HasCorrectState(bool state)
         {
             // Setup
-            var view = new TestCalculationsView(new CalculationGroup(), new TestFailureMechanism(), new AssessmentSectionStub())
+            var view = new TestCalculationsView(new CalculationGroup(), new TestCalculatableFailureMechanism(), new AssessmentSectionStub())
             {
                 CanGenerateCalculationState = state
             };
@@ -536,7 +536,7 @@ namespace Riskeer.Common.Forms.Test.Views
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
             mocks.ReplayAll();
 
-            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestFailureMechanism(), assessmentSection);
+            ShowCalculationsView(ConfigureCalculationGroup(assessmentSection), new TestCalculatableFailureMechanism(), assessmentSection);
 
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var hydraulicBoundaryLocationCombobox = (DataGridViewComboBoxColumn) dataGridView.Columns[selectableHydraulicBoundaryLocationsColumnIndex];
@@ -572,7 +572,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
 
-            ShowCalculationsView(calculationGroup, new TestFailureMechanism(), assessmentSection);
+            ShowCalculationsView(calculationGroup, new TestCalculatableFailureMechanism(), assessmentSection);
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             var dataSourceUpdated = 0;
@@ -601,7 +601,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
 
-            ShowCalculationsView(calculationGroup, new TestFailureMechanism(), assessmentSection);
+            ShowCalculationsView(calculationGroup, new TestCalculatableFailureMechanism(), assessmentSection);
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             var invalidated = 0;
@@ -629,7 +629,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             CalculationGroup calculationGroup = ConfigureCalculationGroup(assessmentSection);
 
-            ShowCalculationsView(calculationGroup, new TestFailureMechanism(), assessmentSection);
+            ShowCalculationsView(calculationGroup, new TestCalculatableFailureMechanism(), assessmentSection);
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
             var dataSourceUpdated = 0;
@@ -686,7 +686,7 @@ namespace Riskeer.Common.Forms.Test.Views
             private readonly bool initialReadOnlyState;
 
             public TestCalculationsViewWithColumnStateDefinitions(CalculationGroup calculationGroup,
-                                                                  TestFailureMechanism failureMechanism,
+                                                                  TestCalculatableFailureMechanism failureMechanism,
                                                                   IAssessmentSection assessmentSection,
                                                                   bool initialReadOnlyState)
                 : base(calculationGroup, failureMechanism, assessmentSection)
@@ -707,7 +707,7 @@ namespace Riskeer.Common.Forms.Test.Views
             ConfigureHydraulicBoundaryDatabase(assessmentSection);
 
             var calculationsView = new TestCalculationsViewWithColumnStateDefinitions(ConfigureCalculationGroup(assessmentSection),
-                                                                                      new TestFailureMechanism(),
+                                                                                      new TestCalculatableFailureMechanism(),
                                                                                       assessmentSection,
                                                                                       initialReadOnlyState);
 

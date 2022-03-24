@@ -108,7 +108,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void Constructor_ForeshoreProfilesNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), null);
+            void Call() => new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -119,7 +119,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void Constructor_CreatesNewInstance()
         {
             // Call
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), new ForeshoreProfileCollection());
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), new ForeshoreProfileCollection());
 
             // Assert
             Assert.IsInstanceOf<IForeshoreProfileUpdateDataStrategy>(strategy);
@@ -130,7 +130,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void UpdateForeshoreProfilesWithImportedData_ImportedDataCollectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), new ForeshoreProfileCollection());
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), new ForeshoreProfileCollection());
 
             // Call
             void Call() => strategy.UpdateForeshoreProfilesWithImportedData(null, sourceFilePath);
@@ -144,7 +144,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
         public void UpdateForeshoreProfilesWithImportedData_SourceFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), new ForeshoreProfileCollection());
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), new ForeshoreProfileCollection());
 
             // Call
             void Call() => strategy.UpdateForeshoreProfilesWithImportedData(Enumerable.Empty<ForeshoreProfile>(), null);
@@ -168,7 +168,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 profileToBeUpdated
             }, sourceFilePath);
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), targetCollection);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), targetCollection);
 
             // Call
             strategy.UpdateForeshoreProfilesWithImportedData(new[]
@@ -195,7 +195,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 new TestForeshoreProfile("Name B", duplicateId)
             };
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             // Call
             void Call() => strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles, sourceFilePath);
@@ -227,7 +227,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 new TestForeshoreProfile("Name B", duplicateId)
             };
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             // Call
             void Call() => strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles, sourceFilePath);
@@ -260,7 +260,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 targetForeshoreProfile
             }, sourceFilePath);
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             // Call
             IEnumerable<IObservable> affectedObjects =
@@ -295,7 +295,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 readForeshoreProfile
             };
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles,
@@ -336,7 +336,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 foreshoreProfileToBeAdded
             };
 
-            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestFailureMechanism(), foreshoreProfiles);
+            var strategy = new ForeshoreProfileUpdateDataStrategy(new TestCalculatableFailureMechanism(), foreshoreProfiles);
 
             // Call
             IEnumerable<IObservable> affectedObjects = strategy.UpdateForeshoreProfilesWithImportedData(importedForeshoreProfiles,
@@ -378,7 +378,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
                 profileToBeRemoved
             }, sourceFilePath);
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 calculation
             });
@@ -426,7 +426,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             };
             foreshoreProfiles.AddRange(originalForeshoreProfiles, sourceFilePath);
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 affectedCalculation,
                 unaffectedCalculation
@@ -481,7 +481,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             };
             foreshoreProfiles.AddRange(originalForeshoreProfiles, sourceFilePath);
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 affectedCalculation,
                 calculationSameReference
@@ -532,7 +532,7 @@ namespace Riskeer.Integration.Plugin.Test.FileImporters
             };
             foreshoreProfiles.AddRange(originalForeshoreProfiles, sourceFilePath);
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 affectedCalculation
             });

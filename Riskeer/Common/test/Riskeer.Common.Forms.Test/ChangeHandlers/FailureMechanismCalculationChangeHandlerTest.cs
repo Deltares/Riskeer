@@ -112,7 +112,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             var inquiryHandler = mockRepository.StrictMock<IInquiryHelper>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism(Enumerable.Empty<ICalculation>());
+            var failureMechanism = new TestCalculatableFailureMechanism(Enumerable.Empty<ICalculation>());
 
             var handler = new FailureMechanismCalculationChangeHandler(failureMechanism, string.Empty, inquiryHandler);
 
@@ -135,7 +135,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             calculation.Expect(calc => calc.HasOutput).Return(false);
             mockRepository.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 calculation
             });
@@ -161,7 +161,7 @@ namespace Riskeer.Common.Forms.Test.ChangeHandlers
             calculation.Expect(calc => calc.HasOutput).Return(true);
             mockRepository.ReplayAll();
 
-            var failureMechanism = new TestFailureMechanism(new[]
+            var failureMechanism = new TestCalculatableFailureMechanism(new[]
             {
                 calculation
             });

@@ -59,16 +59,16 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             };
 
-            var failurePath = new TestFailurePath();
-            failurePath.SetSections(sections, sourcePath);
+            var failureMechanism = new TestFailureMechanism();
+            failureMechanism.SetSections(sections, sourcePath);
 
             // Call
-            using (var properties = new FailureMechanismSectionsProperties(failurePath))
+            using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
             {
                 // Assert
                 Assert.IsInstanceOf<ObjectProperties<IFailureMechanism>>(properties);
                 Assert.IsInstanceOf<IDisposable>(properties);
-                Assert.AreSame(failurePath, properties.Data);
+                Assert.AreSame(failureMechanism, properties.Data);
 
                 TestHelper.AssertTypeConverter<FailureMechanismSectionsProperties, ExpandableArrayConverter>(
                     nameof(FailureMechanismSectionsProperties.Sections));
@@ -129,7 +129,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_RefreshRequiredEventRaised()
         {
             // Given
-            var failureMechanism = new TestFailurePath();
+            var failureMechanism = new TestFailureMechanism();
 
             using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
             {

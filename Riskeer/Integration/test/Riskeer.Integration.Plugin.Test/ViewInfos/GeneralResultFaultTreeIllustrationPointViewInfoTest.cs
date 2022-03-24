@@ -140,7 +140,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 return new StructuresCalculation<HeightStructuresInput>();
             }
 
-            protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+            protected override ICalculationContext<ICalculation, ICalculatableFailureMechanism> GetCalculationContextWithCalculation()
             {
                 return new HeightStructuresCalculationScenarioContext(
                     new StructuresCalculationScenario<HeightStructuresInput>(),
@@ -149,7 +149,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
 
-            protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+            protected override ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> GetCalculationGroupContextWithCalculation()
             {
                 return new HeightStructuresCalculationGroupContext(
                     new CalculationGroup
@@ -187,7 +187,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 return new StructuresCalculation<ClosingStructuresInput>();
             }
 
-            protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+            protected override ICalculationContext<ICalculation, ICalculatableFailureMechanism> GetCalculationContextWithCalculation()
             {
                 return new ClosingStructuresCalculationScenarioContext(
                     new StructuresCalculationScenario<ClosingStructuresInput>(),
@@ -196,7 +196,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
 
-            protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+            protected override ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> GetCalculationGroupContextWithCalculation()
             {
                 return new ClosingStructuresCalculationGroupContext(
                     new CalculationGroup
@@ -235,7 +235,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 return new StructuresCalculation<StabilityPointStructuresInput>();
             }
 
-            protected override ICalculationContext<ICalculation, IFailureMechanism> GetCalculationContextWithCalculation()
+            protected override ICalculationContext<ICalculation, ICalculatableFailureMechanism> GetCalculationContextWithCalculation()
             {
                 return new StabilityPointStructuresCalculationScenarioContext(
                     new StructuresCalculationScenario<StabilityPointStructuresInput>(),
@@ -244,7 +244,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     new AssessmentSection(AssessmentSectionComposition.Dike));
             }
 
-            protected override ICalculationContext<CalculationGroup, IFailureMechanism> GetCalculationGroupContextWithCalculation()
+            protected override ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> GetCalculationGroupContextWithCalculation()
             {
                 return new StabilityPointStructuresCalculationGroupContext(
                     new CalculationGroup

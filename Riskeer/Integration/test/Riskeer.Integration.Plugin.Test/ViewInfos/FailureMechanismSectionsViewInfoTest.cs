@@ -74,14 +74,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new TestFailurePath();
-            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failurePath, assessmentSection);
+            var failureMechanism = new TestFailureMechanism();
+            var failureMechanismSectionsContext = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Call
             object viewData = info.GetViewData(failureMechanismSectionsContext);
 
             // Assert
-            Assert.AreSame(failurePath.Sections, viewData);
+            Assert.AreSame(failureMechanism.Sections, viewData);
             mocks.VerifyAll();
         }
 

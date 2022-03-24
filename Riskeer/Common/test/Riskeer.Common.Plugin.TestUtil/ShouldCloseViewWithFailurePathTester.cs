@@ -44,7 +44,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>());
             mocks.ReplayAll();
 
-            var failurePath = new TestFailurePath();
+            var failurePath = new TestFailureMechanism();
             using (IView view = GetView(failurePath))
             {
                 // Call
@@ -61,7 +61,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingToRemovedAssessmentSectionAndFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -88,7 +88,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewNotCorrespondingToRemovedAssessmentSectionAndFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var otherFailureMechanism = new TestFailureMechanism();
+            var otherFailureMechanism = new TestCalculatableFailureMechanism();
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
@@ -116,7 +116,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestCalculatableFailureMechanism();
 
             using (IView view = GetView(failureMechanism))
             {
@@ -132,7 +132,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var otherFailureMechanism = new TestFailureMechanism();
+            var otherFailureMechanism = new TestCalculatableFailureMechanism();
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
@@ -185,7 +185,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             var otherFailurePath = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
-            var failurePath = new TestFailurePath();
+            var failurePath = new TestFailureMechanism();
             using (IView view = GetView(failurePath))
             {
                 // Call
@@ -202,7 +202,7 @@ namespace Riskeer.Common.Plugin.TestUtil
         public void ShouldCloseMethod_ViewCorrespondingToRemovedFailurePath_ReturnsTrue()
         {
             // Setup
-            var failurePath = new TestFailurePath();
+            var failurePath = new TestFailureMechanism();
 
             using (IView view = GetView(failurePath))
             {
@@ -223,7 +223,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new TestFailurePath();
+            var failurePath = new TestFailureMechanism();
             var failurePathContext = new TestFailureMechanismContext(otherFailurePath, assessmentSection);
 
             using (IView view = GetView(failurePath))
@@ -246,7 +246,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new TestFailurePath();
+            var failurePath = new TestFailureMechanism();
             var failurePathContext = new TestFailureMechanismContext(failurePath, assessmentSection);
 
             using (IView view = GetView(failurePath))
