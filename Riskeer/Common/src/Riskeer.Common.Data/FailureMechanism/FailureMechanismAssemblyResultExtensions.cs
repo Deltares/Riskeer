@@ -26,7 +26,7 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// <summary>
     /// Extension methods for <see cref="FailurePathAssemblyResult"/>.
     /// </summary>
-    public static class FailurePathAssemblyResultExtensions
+    public static class FailureMechanismAssemblyResultExtensions
     {
         /// <summary>
         /// Gets whether the <see cref="FailurePathAssemblyResult"/> is a manual probability.

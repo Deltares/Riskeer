@@ -26,13 +26,13 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
-    public class FailurePathAssemblyResultExtensionsTest
+    public class FailureMechanismAssemblyResultExtensionsTest
     {
         [Test]
         public void IsManualProbability_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailurePathAssemblyResultExtensions.IsManualProbability(null);
+            void Call() => FailureMechanismAssemblyResultExtensions.IsManualProbability(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
