@@ -86,6 +86,7 @@ namespace Riskeer.Common.Data.TestUtil
                 throw new ArgumentNullException(nameof(sourcePath));
             }
 
+            sectionResults.Clear();
             sectionCollection.SetSections(sections, sourcePath);
             foreach (FailureMechanismSection section in sections)
             {

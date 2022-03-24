@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
                 Assert.AreSame(view.Map, ((RiskeerMapControl) view.Controls[0]).MapControl);
                 Assert.AreEqual(DockStyle.Fill, ((Control) view.Map).Dock);
-                AssertEmptyMapData(view.Map.Data);
+                AssertEmptyMapData(failureMechanism, view.Map.Data);
             }
         }
 
@@ -420,9 +420,9 @@ namespace Riskeer.Integration.Forms.Test.Views
                 failureMechanism, assessmentSection, sr => new DefaultFailureMechanismSectionAssemblyResult());
         }
 
-        private static void AssertEmptyMapData(MapDataCollection mapDataCollection)
+        private static void AssertEmptyMapData(IFailureMechanism failureMechanism, MapDataCollection mapDataCollection)
         {
-            Assert.AreEqual("Test failure mechanism", mapDataCollection.Name);
+            Assert.AreEqual(failureMechanism.Name, mapDataCollection.Name);
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
