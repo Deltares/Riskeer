@@ -38,26 +38,26 @@ namespace Riskeer.Common.Forms.PropertyClasses
     /// </summary>
     public class FailureMechanismSectionsProperties : ObjectProperties<IFailureMechanism>, IDisposable
     {
-        private readonly Observer failurePathObserver;
+        private readonly Observer failureMechanismObserver;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionsProperties"/>.
         /// </summary>
-        /// <param name="failurePath">The failure mechanism to show the section properties for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/> is <c>null</c>.</exception>
-        public FailureMechanismSectionsProperties(IFailureMechanism failurePath)
+        /// <param name="failureMechanism">The failure mechanism to show the section properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/> is <c>null</c>.</exception>
+        public FailureMechanismSectionsProperties(IFailureMechanism failureMechanism)
         {
-            if (failurePath == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(failurePath));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            failurePathObserver = new Observer(OnRefreshRequired)
+            failureMechanismObserver = new Observer(OnRefreshRequired)
             {
-                Observable = failurePath
+                Observable = failureMechanism
             };
 
-            data = failurePath;
+            data = failureMechanism;
         }
 
         [PropertyOrder(1)]
@@ -97,7 +97,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
         {
             if (disposing)
             {
-                failurePathObserver.Dispose();
+                failureMechanismObserver.Dispose();
             }
         }
 

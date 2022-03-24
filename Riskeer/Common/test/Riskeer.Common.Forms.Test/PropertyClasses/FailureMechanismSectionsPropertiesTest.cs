@@ -39,14 +39,14 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
     public class FailureMechanismSectionsPropertiesTest
     {
         [Test]
-        public void Constructor_FailurePathNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new FailureMechanismSectionsProperties(null);
+            void Call() => new FailureMechanismSectionsProperties(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("failurePath", exception.ParamName);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
                 Assert.AreEqual(2, dynamicProperties.Count);
-                var generalCategoryName = "Algemeen";
+                const string generalCategoryName = "Algemeen";
 
                 PropertyDescriptor sourcePathProperty = dynamicProperties[0];
                 PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(sourcePathProperty,
@@ -126,7 +126,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenPropertyControlWithData_WhenFailurePathUpdated_RefreshRequiredEventRaised()
+        public void GivenPropertyControlWithData_WhenFailureMechanismUpdated_RefreshRequiredEventRaised()
         {
             // Given
             var failureMechanism = new TestFailurePath();
