@@ -44,10 +44,10 @@ namespace Riskeer.Common.Forms.Views
         /// Creates a new instance of <see cref="FailureMechanismSectionsView"/>.
         /// </summary>
         /// <param name="sections">The sections to be displayed in the view.</param>
-        /// <param name="failurePath">The failure path the view belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism the view belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public FailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections, IFailureMechanism failurePath)
-            : base(failurePath)
+        public FailureMechanismSectionsView(IEnumerable<FailureMechanismSection> sections, IFailureMechanism failureMechanism)
+            : base(failureMechanism)
         {
             if (sections == null)
             {
@@ -71,7 +71,7 @@ namespace Riskeer.Common.Forms.Views
 
             failureMechanismObserver = new Observer(HandleFailureMechanismSectionsChange)
             {
-                Observable = failurePath
+                Observable = failureMechanism
             };
 
             Sections = sections;
