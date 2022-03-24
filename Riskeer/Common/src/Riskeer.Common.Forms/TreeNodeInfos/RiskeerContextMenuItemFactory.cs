@@ -386,19 +386,19 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing whether the failure path is part of
+        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of changing whether the failure mechanism is part of
         /// the assembly or not.
         /// </summary>
-        /// <typeparam name="TFailurePathContext">The type of the failure path context.</typeparam>
-        /// <param name="failurePathContext">The failure path context belonging to the failure path.</param>
+        /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
+        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
         /// <param name="onChangeAction">The action to perform when relevance changes.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateToggleInAssemblyOfFailurePathItem<TFailurePathContext>(
-            TFailurePathContext failurePathContext,
-            Action<TFailurePathContext> onChangeAction)
-            where TFailurePathContext : IFailureMechanismContext<IFailureMechanism>
+        public static StrictContextMenuItem CreateToggleInAssemblyOfFailurePathItem<TFailureMechanismContext>(
+            TFailureMechanismContext failureMechanismContext,
+            Action<TFailureMechanismContext> onChangeAction)
+            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            bool inAssembly = failurePathContext.WrappedData.InAssembly;
+            bool inAssembly = failureMechanismContext.WrappedData.InAssembly;
             Bitmap checkboxImage = inAssembly ? Resources.Checkbox_ticked : Resources.Checkbox_empty;
             return new StrictContextMenuItem(
                 Resources.FailurePathContextMenuStrip_In_assembly,
@@ -406,10 +406,10 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
                 checkboxImage,
                 (sender, args) =>
                 {
-                    onChangeAction?.Invoke(failurePathContext);
+                    onChangeAction?.Invoke(failureMechanismContext);
 
-                    failurePathContext.WrappedData.InAssembly = !inAssembly;
-                    failurePathContext.WrappedData.NotifyObservers();
+                    failureMechanismContext.WrappedData.InAssembly = !inAssembly;
+                    failureMechanismContext.WrappedData.NotifyObservers();
                 });
         }
 

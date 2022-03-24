@@ -257,18 +257,18 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which sets if the failure path is part of the assembly.
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which sets if the failure mechanism is part of the assembly.
         /// </summary>
-        /// <typeparam name="TFailurePathContext">The type of the failure path context.</typeparam>
-        /// <param name="failurePathContext">The failure path context belonging to the failure mechanism.</param>
+        /// <typeparam name="TFailureMechanismContext">The type of the failure mechanism context.</typeparam>
+        /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
         /// <param name="onChangeAction">The action to perform when relevance changes.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
-        public RiskeerContextMenuBuilder AddToggleInAssemblyOfFailurePathItem<TFailurePathContext>(
-            TFailurePathContext failurePathContext,
-            Action<TFailurePathContext> onChangeAction)
-            where TFailurePathContext : IFailureMechanismContext<IFailureMechanism>
+        public RiskeerContextMenuBuilder AddToggleInAssemblyOfFailurePathItem<TFailureMechanismContext>(
+            TFailureMechanismContext failureMechanismContext,
+            Action<TFailureMechanismContext> onChangeAction)
+            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailurePathItem(failurePathContext, onChangeAction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailurePathItem(failureMechanismContext, onChangeAction));
             return this;
         }
 
