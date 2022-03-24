@@ -87,12 +87,12 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_SpecificFailureMechanismsWithSameCodes_LogsErrorAndReturnsFalse()
+        public void Export_SpecificFailureMechanismsWithSameNames_LogsErrorAndReturnsFalse()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(Export_SpecificFailureMechanismsWithSameCodes_LogsErrorAndReturnsFalse));
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_SpecificFailureMechanismsWithSameNames_LogsErrorAndReturnsFalse));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
-            assessmentSection.SpecificFailureMechanisms.Last().Code = assessmentSection.SpecificFailureMechanisms.First().Code;
+            assessmentSection.SpecificFailureMechanisms.Last().Name = assessmentSection.SpecificFailureMechanisms.First().Name;
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
@@ -103,7 +103,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen voor meer details.";
+                const string expectedMessage = "Om een oordeel te kunnen exporteren moeten de specifieke faalmechanismen unieke namen hebben.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
@@ -129,7 +129,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen voor meer details.";
+                const string expectedMessage = "Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen of de gecombineerde faalkans voor meer details.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
@@ -155,7 +155,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen voor meer details.";
+                const string expectedMessage = "Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen of de gecombineerde faalkans voor meer details.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
@@ -245,11 +245,11 @@ namespace Riskeer.Integration.IO.Test.Exporters
             {
                 new SpecificFailureMechanism
                 {
-                    Code = "NIEUW1"
+                    Name = "Specific failure mechanism 1"
                 },
                 new SpecificFailureMechanism
                 {
-                    Code = "NIEUW2"
+                    Name = "Specific failure mechanism 2"
                 }
             });
 

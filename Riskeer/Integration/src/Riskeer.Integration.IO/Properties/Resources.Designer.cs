@@ -91,12 +91,20 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen voor meer details..
+        ///   Looks up a localized string similar to Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen of de gecombineerde faalkans voor meer details..
         /// </summary>
-        public static string AssemblyExporter_LogErrorMessage_No_AssemblyResult_exported_Check_FailureMechanism_results_for_details {
+        public static string AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details {
             get {
-                return ResourceManager.GetString("AssemblyExporter_LogErrorMessage_No_AssemblyResult_exported_Check_FailureMechanis" +
-                        "m_results_for_details", resourceCulture);
+                return ResourceManager.GetString("AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om een oordeel te kunnen exporteren moeten de specifieke faalmechanismen unieke namen hebben..
+        /// </summary>
+        public static string AssemblyExporter_Specific_failure_mechanisms_must_have_a_unique_name {
+            get {
+                return ResourceManager.GetString("AssemblyExporter_Specific_failure_mechanisms_must_have_a_unique_name", resourceCulture);
             }
         }
         

@@ -67,16 +67,16 @@ namespace Riskeer.Integration.IO.Exporters
 
         public bool Export()
         {
-            if (!ValidateSpecificFailureMechanisms())
+            if (!AreSpecificFailureMechanismsUniquelyNamed())
             {
-                LogErrorMessage();
+                log.Error(Resources.AssemblyExporter_Specific_failure_mechanisms_must_have_a_unique_name);
                 return false;
             }
 
             ExportableAssessmentSection exportableAssessmentSection = CreateExportableAssessmentSection();
             if (exportableAssessmentSection == null)
             {
-                LogErrorMessage();
+                log.Error(Resources.AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details);
                 return false;
             }
 
@@ -87,7 +87,7 @@ namespace Riskeer.Integration.IO.Exporters
             }
             catch (AssemblyCreatorException)
             {
-                LogErrorMessage();
+                log.Error(Resources.AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details);
                 return false;
             }
             catch (CriticalFileWriteException e)
@@ -99,12 +99,12 @@ namespace Riskeer.Integration.IO.Exporters
             return true;
         }
 
-        private bool ValidateSpecificFailureMechanisms()
+        private bool AreSpecificFailureMechanismsUniquelyNamed()
         {
             return assessmentSection.SpecificFailureMechanisms
-                                    .Select(fp => fp.Code)
-                                    .GroupBy(x => x)
-                                    .All(g => g.Count() == 1);
+                                    .Select(fp => fp.Name)
+                                    .GroupBy(name => name)
+                                    .All(group => group.Count() == 1);
         }
 
         private ExportableAssessmentSection CreateExportableAssessmentSection()
@@ -117,11 +117,6 @@ namespace Riskeer.Integration.IO.Exporters
             {
                 return null;
             }
-        }
-
-        private static void LogErrorMessage()
-        {
-            log.Error(Resources.AssemblyExporter_LogErrorMessage_No_AssemblyResult_exported_Check_FailureMechanism_results_for_details);
         }
     }
 }
