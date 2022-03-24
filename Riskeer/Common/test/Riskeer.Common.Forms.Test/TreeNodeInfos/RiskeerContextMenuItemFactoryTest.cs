@@ -449,14 +449,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.StrictMock<IFailureMechanism>();
-            failurePath.Expect(fp => fp.InAssembly).Return(inAssembly);
-            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failurePathContext.Expect(fpc => fpc.WrappedData).Return(failurePath);
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            failureMechanism.Expect(fp => fp.InAssembly).Return(inAssembly);
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            failureMechanismContext.Expect(fpc => fpc.WrappedData).Return(failureMechanism);
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailurePathItem(failurePathContext, null);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailurePathItem(failureMechanismContext, null);
 
             // Assert
             Assert.AreEqual("I&n assemblage", toolStripItem.Text);
@@ -474,17 +474,17 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.StrictMock<IFailureMechanism>();
-            failurePath.Expect(fp => fp.InAssembly).Return(inAssembly);
-            failurePath.Expect(fp => fp.InAssembly).SetPropertyWithArgument(!inAssembly);
-            failurePath.Expect(fp => fp.NotifyObservers());
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            failureMechanism.Expect(fp => fp.InAssembly).Return(inAssembly);
+            failureMechanism.Expect(fp => fp.InAssembly).SetPropertyWithArgument(!inAssembly);
+            failureMechanism.Expect(fp => fp.NotifyObservers());
 
-            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failurePathContext.Stub(fmc => fmc.WrappedData).Return(failurePath);
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            failureMechanismContext.Stub(fmc => fmc.WrappedData).Return(failureMechanism);
             mocks.ReplayAll();
 
             var actionCounter = 0;
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailurePathItem(failurePathContext, context => actionCounter++);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailurePathItem(failureMechanismContext, context => actionCounter++);
 
             // Call
             toolStripItem.PerformClick();

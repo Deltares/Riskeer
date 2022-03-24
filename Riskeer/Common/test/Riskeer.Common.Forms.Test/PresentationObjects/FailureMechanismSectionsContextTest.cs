@@ -54,16 +54,16 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failurePath = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
-            failurePath.Stub(fm => fm.Sections).Return(sectionsSequence);
+            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
+            failureMechanism.Stub(fm => fm.Sections).Return(sectionsSequence);
             mocks.ReplayAll();
 
             // Call
-            var context = new FailureMechanismSectionsContext(failurePath, assessmentSection);
+            var context = new FailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IFailureMechanism<FailureMechanismSectionResult>>>(context);
-            Assert.AreSame(failurePath, context.WrappedData);
+            Assert.AreSame(failureMechanism, context.WrappedData);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
             mocks.VerifyAll();
         }
@@ -73,11 +73,11 @@ namespace Riskeer.Common.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
+            var failureMechanism = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
             mocks.ReplayAll();
 
             // Call
-            void Call() => new FailureMechanismSectionsContext(failurePath, null);
+            void Call() => new FailureMechanismSectionsContext(failureMechanism, null);
 
             // Assert
             Assert.Throws<ArgumentNullException>(Call);

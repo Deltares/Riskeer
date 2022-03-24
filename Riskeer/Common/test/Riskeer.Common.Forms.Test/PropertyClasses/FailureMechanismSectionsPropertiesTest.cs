@@ -96,11 +96,11 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
-            using (var properties = new FailureMechanismSectionsProperties(failurePath))
+            using (var properties = new FailureMechanismSectionsProperties(failureMechanism))
             {
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

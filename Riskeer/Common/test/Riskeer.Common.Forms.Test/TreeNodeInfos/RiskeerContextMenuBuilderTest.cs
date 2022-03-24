@@ -327,10 +327,10 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var exportCommandHandler = mocks.StrictMock<IExportCommandHandler>();
             var updateCommandHandler = mocks.StrictMock<IUpdateCommandHandler>();
             var viewCommands = mocks.StrictMock<IViewCommands>();
-            var failurePath = mocks.StrictMock<IFailureMechanism>();
-            failurePath.Expect(fm => fm.InAssembly).Return(inAssembly);
-            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failurePathContext.Expect(fmc => fmc.WrappedData).Return(failurePath);
+            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            failureMechanism.Expect(fm => fm.InAssembly).Return(inAssembly);
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            failureMechanismContext.Expect(fmc => fmc.WrappedData).Return(failureMechanism);
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
@@ -340,12 +340,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                                                                 exportCommandHandler,
                                                                 updateCommandHandler,
                                                                 viewCommands,
-                                                                failurePath,
+                                                                failureMechanism,
                                                                 treeViewControl);
                 var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddToggleInAssemblyOfFailurePathItem(failurePathContext, null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddToggleInAssemblyOfFailurePathItem(failureMechanismContext, null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);

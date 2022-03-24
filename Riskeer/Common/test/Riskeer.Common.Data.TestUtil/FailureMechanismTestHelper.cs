@@ -35,14 +35,14 @@ namespace Riskeer.Common.Data.TestUtil
         /// Sets a collection of <see cref="FailureMechanismSection"/> to <see cref="IFailureMechanism.Sections"/>
         /// with an empty source path.
         /// </summary>
-        /// <param name="failurePath">The failure path to set the sections to.</param>
+        /// <param name="failureMechanism">The failure mechanism to set the sections to.</param>
         /// <param name="sections">The sections to set.</param>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="sections"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="sections"/> contains elements that
         /// are not properly connected.</exception>
-        public static void SetSections(IFailureMechanism failurePath, IEnumerable<FailureMechanismSection> sections)
+        public static void SetSections(IFailureMechanism failureMechanism, IEnumerable<FailureMechanismSection> sections)
         {
-            failurePath.SetSections(sections, string.Empty);
+            failureMechanism.SetSections(sections, string.Empty);
         }
 
         /// <summary>
