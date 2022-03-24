@@ -26,17 +26,17 @@ using Riskeer.Common.Forms.Properties;
 namespace Riskeer.Common.Forms.Helpers
 {
     /// <summary>
-    /// Class containing validation helper methods for a <see cref="FailurePathAssemblyResult"/> 
+    /// Class containing validation helper methods for a <see cref="FailureMechanismAssemblyResult"/> 
     /// </summary>
     public static class FailurePathAssemblyResultValidationHelper
     {
         /// <summary>
-        /// Gets the validation error for a <see cref="FailurePathAssemblyResult"/>.
+        /// Gets the validation error for a <see cref="FailureMechanismAssemblyResult"/>.
         /// </summary>
-        /// <param name="result">The <see cref="FailurePathAssemblyResult"/> to get the validation messages for.</param>
+        /// <param name="result">The <see cref="FailureMechanismAssemblyResult"/> to get the validation messages for.</param>
         /// <returns>An error message when the validation fails or <see cref="string.Empty"/> when there are no errors.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        public static string GetValidationError(FailurePathAssemblyResult result)
+        public static string GetValidationError(FailureMechanismAssemblyResult result)
         {
             if (result == null)
             {

@@ -44,7 +44,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void GetValidationError_WithResultManualAndInvalidProbability_ReturnsErrorMessage()
         {
             // Setup
-            var result = new FailurePathAssemblyResult
+            var result = new FailureMechanismAssemblyResult
             {
                 ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
                 ManualFailurePathAssemblyProbability = double.NaN
@@ -62,7 +62,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         {
             // Setup
             var random = new Random(21);
-            var result = new FailurePathAssemblyResult
+            var result = new FailureMechanismAssemblyResult
             {
                 ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
                 ManualFailurePathAssemblyProbability = random.NextDouble()
@@ -79,7 +79,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         public void GetValidationError_WithResultAutomatic_ReturnsEmptyMessage()
         {
             // Setup
-            var result = new FailurePathAssemblyResult
+            var result = new FailureMechanismAssemblyResult
             {
                 ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
             };

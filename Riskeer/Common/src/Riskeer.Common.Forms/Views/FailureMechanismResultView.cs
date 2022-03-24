@@ -220,7 +220,7 @@ namespace Riskeer.Common.Forms.Views
         {
             ClearErrorMessage();
 
-            FailurePathAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
             double failurePathAssemblyProbability = assemblyResult.IsManualProbability()
                                                         ? assemblyResult.ManualFailurePathAssemblyProbability
                                                         : TryGetFailurePathAssemblyProbability();
@@ -308,7 +308,7 @@ namespace Riskeer.Common.Forms.Views
                 return;
             }
 
-            FailurePathAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
             assemblyResult.ProbabilityResultType = (FailurePathAssemblyProbabilityResultType) probabilityResultTypeComboBox.SelectedValue;
             assemblyResult.NotifyObservers();
 
@@ -349,7 +349,7 @@ namespace Riskeer.Common.Forms.Views
             {
                 double probability = ProbabilityParsingHelper.Parse(failurePathAssemblyProbabilityTextBox.Text);
 
-                FailurePathAssemblyResult failureMechanismAssemblyResult = FailureMechanism.AssemblyResult;
+                FailureMechanismAssemblyResult failureMechanismAssemblyResult = FailureMechanism.AssemblyResult;
                 failureMechanismAssemblyResult.ManualFailurePathAssemblyProbability = probability;
                 failureMechanismAssemblyResult.NotifyObservers();
 
@@ -367,7 +367,7 @@ namespace Riskeer.Common.Forms.Views
         {
             failurePathAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
 
-            FailurePathAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
             if (assemblyResult.IsManualProbability())
             {
                 SetErrorMessage(FailurePathAssemblyResultValidationHelper.GetValidationError(assemblyResult));

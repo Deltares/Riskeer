@@ -98,7 +98,7 @@ namespace Riskeer.Common.Data.AssemblyTool
                 return double.NaN;
             }
 
-            FailurePathAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
             if (assemblyResult.ProbabilityResultType == FailurePathAssemblyProbabilityResultType.Manual)
             {
                 return assemblyResult.ManualFailurePathAssemblyProbability;

@@ -116,7 +116,7 @@ namespace Riskeer.Storage.Core.Create
         private static T Create<T>(this IFailureMechanism failurePath, PersistenceRegistry registry)
             where T : IFailureMechanismEntity, new()
         {
-            FailurePathAssemblyResult assemblyResult = failurePath.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
             var entity = new T
             {
                 InAssembly = Convert.ToByte(failurePath.InAssembly),

@@ -59,7 +59,7 @@ namespace Riskeer.Common.Data.FailureMechanism
             InAssemblyOutputComments = new Comment();
             NotInAssemblyComments = new Comment();
 
-            AssemblyResult = new FailurePathAssemblyResult();
+            AssemblyResult = new FailureMechanismAssemblyResult();
             sectionResults = new ObservableList<T>();
         }
 
@@ -69,7 +69,7 @@ namespace Riskeer.Common.Data.FailureMechanism
 
         public IEnumerable<FailureMechanismSection> Sections => sectionCollection;
 
-        public FailurePathAssemblyResult AssemblyResult { get; }
+        public FailureMechanismAssemblyResult AssemblyResult { get; }
 
         public string FailureMechanismSectionSourcePath => sectionCollection.SourcePath;
 

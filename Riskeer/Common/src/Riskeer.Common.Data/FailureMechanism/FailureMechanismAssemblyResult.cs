@@ -27,16 +27,16 @@ using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// Class containing the assembly result of an entire failure path.
+    /// Class containing the assembly result of an entire failure mechanism.
     /// </summary>
-    public class FailurePathAssemblyResult : Observable
+    public class FailureMechanismAssemblyResult : Observable
     {
         private double manualFailurePathAssemblyProbability;
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailurePathAssemblyResult"/>.
+        /// Creates a new instance of <see cref="FailureMechanismAssemblyResult"/>.
         /// </summary>
-        public FailurePathAssemblyResult()
+        public FailureMechanismAssemblyResult()
         {
             ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic;
             ManualFailurePathAssemblyProbability = double.NaN;
@@ -48,7 +48,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         public FailurePathAssemblyProbabilityResultType ProbabilityResultType { get; set; }
 
         /// <summary>
-        /// Gets or sets the probability of a failure path assembly.
+        /// Gets or sets the probability of a failure mechanism assembly.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         public double ManualFailurePathAssemblyProbability

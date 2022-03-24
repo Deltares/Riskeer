@@ -64,7 +64,7 @@ namespace Riskeer.Integration.Forms.Factories
 
         private static FailureMechanismAssemblyResultRow CreateManualAssemblyRow(IFailureMechanism failureMechanism)
         {
-            FailurePathAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
 
             string validationError = FailurePathAssemblyResultValidationHelper.GetValidationError(assemblyResult);
             return !string.IsNullOrEmpty(validationError)

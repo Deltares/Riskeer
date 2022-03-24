@@ -46,7 +46,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             FailurePathAssemblyProbabilityResultType resultType, bool expectedResult)
         {
             // Setup
-            var result = new FailurePathAssemblyResult
+            var result = new FailureMechanismAssemblyResult
             {
                 ProbabilityResultType = resultType
             };

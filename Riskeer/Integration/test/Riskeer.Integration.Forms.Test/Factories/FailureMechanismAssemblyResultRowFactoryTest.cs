@@ -105,7 +105,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
-            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult
+            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
             {
                 ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
             });
@@ -141,7 +141,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
-            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult
+            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
             {
                 ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic
             });
@@ -177,7 +177,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
-            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult
+            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
             {
                 ManualFailurePathAssemblyProbability = assemblyResult,
                 ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual
@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
             failureMechanism.Stub(fm => fm.Code).Return(failureMechanismCode);
-            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailurePathAssemblyResult
+            failureMechanism.Stub(fm => fm.AssemblyResult).Return(new FailureMechanismAssemblyResult
             {
                 ManualFailurePathAssemblyProbability = double.NaN,
                 ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual

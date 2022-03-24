@@ -158,7 +158,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var mocks = new MockRepository();
             var failurePath = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
             failurePath.Stub(fp => fp.AssemblyResult)
-                       .Return(new FailurePathAssemblyResult
+                       .Return(new FailureMechanismAssemblyResult
                        {
                            ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Manual,
                            ManualFailurePathAssemblyProbability = expectedAssemblyResult
@@ -185,7 +185,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var mocks = new MockRepository();
             var failurePath = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
             failurePath.Stub(fp => fp.AssemblyResult)
-                       .Return(new FailurePathAssemblyResult
+                       .Return(new FailureMechanismAssemblyResult
                        {
                            ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic,
                            ManualFailurePathAssemblyProbability = double.NaN
@@ -232,7 +232,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var mocks = new MockRepository();
             var failurePath = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
             failurePath.Stub(fp => fp.AssemblyResult)
-                       .Return(new FailurePathAssemblyResult
+                       .Return(new FailureMechanismAssemblyResult
                        {
                            ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic,
                            ManualFailurePathAssemblyProbability = double.NaN
@@ -273,7 +273,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var mocks = new MockRepository();
             var failurePath = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
             failurePath.Stub(fp => fp.AssemblyResult)
-                       .Return(new FailurePathAssemblyResult
+                       .Return(new FailureMechanismAssemblyResult
                        {
                            ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic,
                            ManualFailurePathAssemblyProbability = double.NaN
@@ -310,7 +310,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var mocks = new MockRepository();
             var failurePath = mocks.Stub<IFailureMechanism<FailureMechanismSectionResult>>();
             failurePath.Stub(fp => fp.AssemblyResult)
-                       .Return(new FailurePathAssemblyResult
+                       .Return(new FailureMechanismAssemblyResult
                        {
                            ProbabilityResultType = FailurePathAssemblyProbabilityResultType.Automatic,
                            ManualFailurePathAssemblyProbability = double.NaN

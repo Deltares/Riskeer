@@ -74,7 +74,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <summary>
         /// Gets the assembly result of the failure mechanism.
         /// </summary>
-        FailurePathAssemblyResult AssemblyResult { get; }
+        FailureMechanismAssemblyResult AssemblyResult { get; }
 
         /// <summary>
         /// Sets a collection of <see cref="FailureMechanismSection"/> to <see cref="Sections"/>.

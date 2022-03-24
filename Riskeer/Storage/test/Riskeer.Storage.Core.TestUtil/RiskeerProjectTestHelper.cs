@@ -459,7 +459,7 @@ namespace Riskeer.Storage.Core.TestUtil
         private static void SetFailurePathAssemblyResults(IFailureMechanism failurePath, int seed)
         {
             var random = new Random(seed);
-            FailurePathAssemblyResult assemblyResult = failurePath.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
             assemblyResult.ProbabilityResultType = random.NextEnumValue<FailurePathAssemblyProbabilityResultType>();
             assemblyResult.ManualFailurePathAssemblyProbability = random.NextDouble();
         }
@@ -1660,11 +1660,11 @@ namespace Riskeer.Storage.Core.TestUtil
                 new Point3D(5.8, 6.0, -2.3), // Dike toe at river
                 new Point3D(5.6, 6.0, 3.4),
                 new Point3D(4.2, 6.0, 3.5),
-                new Point3D(4.0, 6.0, 0.5), // Dike toe at polder
-                new Point3D(3.8, 6.0, 0.5), // Ditch dike side
-                new Point3D(3.6, 6.0, 0.2), // Bottom ditch dike side
+                new Point3D(4.0, 6.0, 0.5),  // Dike toe at polder
+                new Point3D(3.8, 6.0, 0.5),  // Ditch dike side
+                new Point3D(3.6, 6.0, 0.2),  // Bottom ditch dike side
                 new Point3D(3.4, 6.0, 0.25), // Bottom ditch polder side
-                new Point3D(3.2, 6.0, 0.5), // Ditch polder side
+                new Point3D(3.2, 6.0, 0.5),  // Ditch polder side
                 new Point3D(3.0, 6.0, 0.5)
             };
             surfaceLine.SetGeometry(geometryPoints);

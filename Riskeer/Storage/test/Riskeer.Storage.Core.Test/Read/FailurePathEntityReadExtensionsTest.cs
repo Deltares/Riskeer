@@ -378,7 +378,7 @@ namespace Riskeer.Storage.Core.Test.Read
             SpecificFailureMechanism specificFailureMechanism = entity.ReadSpecificFailurePath(collector);
 
             // Assert
-            FailurePathAssemblyResult assemblyResult = specificFailureMechanism.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = specificFailureMechanism.AssemblyResult;
             Assert.IsNaN(assemblyResult.ManualFailurePathAssemblyProbability);
         }
 
@@ -454,7 +454,7 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.NotInAssemblyComments, failurePath.NotInAssemblyComments.Body);
 
             var probabilityResultType = (FailurePathAssemblyProbabilityResultType) entity.FailurePathAssemblyProbabilityResultType;
-            FailurePathAssemblyResult assemblyResult = failurePath.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
             Assert.AreEqual(probabilityResultType, assemblyResult.ProbabilityResultType);
             Assert.AreEqual(entity.ManualFailurePathAssemblyProbability, assemblyResult.ManualFailurePathAssemblyProbability);
         }

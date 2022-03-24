@@ -28,13 +28,13 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Common.Data.Test.FailureMechanism
 {
     [TestFixture]
-    public class FailurePathAssemblyResultTest
+    public class FailureMechanismAssemblyResultTest
     {
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Call
-            var result = new FailurePathAssemblyResult();
+            var result = new FailureMechanismAssemblyResult();
 
             // Assert
             Assert.IsInstanceOf<Observable>(result);
@@ -52,7 +52,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void ManualInitialFailureMechanismResultProfileProbability_InvalidValue_ThrowsArgumentOutOfRangeException(double newValue)
         {
             // Setup
-            var result = new FailurePathAssemblyResult();
+            var result = new FailureMechanismAssemblyResult();
 
             // Call
             void Call() => result.ManualFailurePathAssemblyProbability = newValue;
@@ -72,7 +72,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
         public void ManualInitialFailureMechanismResultProfileProbability_ValidValue_NewValueSet(double newValue)
         {
             // Setup
-            var result = new FailurePathAssemblyResult();
+            var result = new FailureMechanismAssemblyResult();
 
             // Call
             result.ManualFailurePathAssemblyProbability = newValue;

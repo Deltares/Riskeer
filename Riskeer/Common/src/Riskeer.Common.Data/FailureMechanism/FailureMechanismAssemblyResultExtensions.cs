@@ -24,17 +24,17 @@ using System;
 namespace Riskeer.Common.Data.FailureMechanism
 {
     /// <summary>
-    /// Extension methods for <see cref="FailurePathAssemblyResult"/>.
+    /// Extension methods for <see cref="FailureMechanismAssemblyResult"/>.
     /// </summary>
     public static class FailureMechanismAssemblyResultExtensions
     {
         /// <summary>
-        /// Gets whether the <see cref="FailurePathAssemblyResult"/> is a manual probability.
+        /// Gets whether the <see cref="FailureMechanismAssemblyResult"/> is a manual probability.
         /// </summary>
-        /// <param name="result">The <see cref="FailurePathAssemblyResult"/> to determine.</param>
-        /// <returns>An indicator whether the <see cref="FailurePathAssemblyResult"/> is a manual probability.</returns>
+        /// <param name="result">The <see cref="FailureMechanismAssemblyResult"/> to determine.</param>
+        /// <returns>An indicator whether the <see cref="FailureMechanismAssemblyResult"/> is a manual probability.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        public static bool IsManualProbability(this FailurePathAssemblyResult result)
+        public static bool IsManualProbability(this FailureMechanismAssemblyResult result)
         {
             if (result == null)
             {

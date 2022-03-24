@@ -105,7 +105,7 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         internal static SpecificFailureMechanism ReadSpecificFailurePath(this SpecificFailurePathEntity entity,
-                                                                    ReadConversionCollector collector)
+                                                                         ReadConversionCollector collector)
         {
             if (entity == null)
             {
@@ -134,7 +134,7 @@ namespace Riskeer.Storage.Core.Read
 
         private static void ReadAssemblyResult(IFailureMechanismEntity entity, IFailureMechanism failurePath)
         {
-            FailurePathAssemblyResult assemblyResult = failurePath.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
             assemblyResult.ProbabilityResultType = (FailurePathAssemblyProbabilityResultType) entity.FailurePathAssemblyProbabilityResultType;
             if (entity.ManualFailurePathAssemblyProbability != null)
             {
