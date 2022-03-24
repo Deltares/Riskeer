@@ -40,10 +40,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_CalculationGroupContextNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new CalculationGroupContextProperties(null);
+            void Call() => new CalculationGroupContextProperties(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("calculationContext", paramName);
         }
 
@@ -52,7 +52,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var calculationGroupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
@@ -61,7 +61,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new CalculationGroupContextProperties(calculationGroupContext);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<ICalculationContext<CalculationGroup, IFailureMechanism>>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>>>(properties);
             Assert.AreEqual(calculationGroupContext, properties.Data);
             mocks.VerifyAll();
         }
@@ -71,7 +71,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var calculationGroup = new CalculationGroup();
@@ -91,7 +91,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var projectObserver = mocks.StrictMock<IObserver>();
             projectObserver.Expect(o => o.UpdateObserver());
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var calculationGroup = new CalculationGroup();
@@ -114,7 +114,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
@@ -138,7 +138,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup(),
@@ -157,7 +157,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var properties = new CalculationGroupContextProperties(new TestCalculationGroupContext(new CalculationGroup(),
@@ -171,9 +171,9 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             Assert.IsTrue(isReadOnly);
         }
 
-        private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
+        private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>
         {
-            public TestCalculationGroupContext(CalculationGroup wrappedData, CalculationGroup parent, IFailureMechanism failureMechanism)
+            public TestCalculationGroupContext(CalculationGroup wrappedData, CalculationGroup parent, ICalculatableFailureMechanism failureMechanism)
             {
                 WrappedData = wrappedData;
                 Parent = parent;
@@ -184,7 +184,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             public CalculationGroup Parent { get; }
 
-            public IFailureMechanism FailureMechanism { get; }
+            public ICalculatableFailureMechanism FailureMechanism { get; }
         }
     }
 }

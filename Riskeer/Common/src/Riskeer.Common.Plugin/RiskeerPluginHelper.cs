@@ -46,15 +46,13 @@ namespace Riskeer.Common.Plugin
         /// <returns>Whether the view should be closed.</returns>
         public static bool ShouldCloseViewWithCalculationData(IView view, object removedObject)
         {
-            var context = removedObject as ICalculationContext<ICalculation, IFailureMechanism>;
-            if (context != null)
+            if (removedObject is ICalculationContext<ICalculation, ICalculatableFailureMechanism> context)
             {
                 return ReferenceEquals(view.Data, context.WrappedData);
             }
 
             IEnumerable<ICalculation> calculations;
-            var calculationGroupContext = removedObject as ICalculationContext<CalculationGroup, IFailureMechanism>;
-            if (calculationGroupContext != null)
+            if (removedObject is ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> calculationGroupContext)
             {
                 calculations = calculationGroupContext.WrappedData
                                                       .GetCalculations();
@@ -76,16 +74,14 @@ namespace Riskeer.Common.Plugin
         /// <returns>Whether the view should be closed.</returns>
         public static bool ShouldCloseForFailureMechanismView(CloseForFailurePathView view, object removedObject)
         {
-            var assessmentSection = removedObject as IAssessmentSection;
-            var failurePathContext = removedObject as IFailureMechanismContext<IFailureMechanism>;
             var failureMechanism = removedObject as IFailureMechanism;
 
-            if (failurePathContext != null)
+            if (removedObject is IFailureMechanismContext<IFailureMechanism> failurePathContext)
             {
                 failureMechanism = failurePathContext.WrappedData;
             }
 
-            if (assessmentSection != null)
+            if (removedObject is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .FirstOrDefault(fm => fm == view.FailurePath);

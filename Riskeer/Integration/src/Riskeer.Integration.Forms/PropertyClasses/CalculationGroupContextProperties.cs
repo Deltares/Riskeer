@@ -35,13 +35,13 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// Object properties class for <see cref="CalculationGroup"/>.
     /// </summary>
     [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationGroupContextProperties_DisplayName))]
-    public class CalculationGroupContextProperties : ObjectProperties<ICalculationContext<CalculationGroup, IFailureMechanism>>
+    public class CalculationGroupContextProperties : ObjectProperties<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>>
     {
         /// <summary>
         /// Creates a new instance of the <see cref="CalculationGroupContextProperties"/> class.
         /// </summary>
         /// <param name="calculationContext">The calculation context to use for the properties.</param>
-        public CalculationGroupContextProperties(ICalculationContext<CalculationGroup, IFailureMechanism> calculationContext)
+        public CalculationGroupContextProperties(ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> calculationContext)
         {
             if (calculationContext == null)
             {

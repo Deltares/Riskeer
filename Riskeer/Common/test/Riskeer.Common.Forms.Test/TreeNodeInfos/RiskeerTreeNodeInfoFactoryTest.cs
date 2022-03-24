@@ -71,7 +71,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             const string groupName = "testName";
@@ -109,7 +109,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
@@ -142,7 +142,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
@@ -176,7 +176,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             const string newName = "new name";
@@ -200,7 +200,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var parentGroup = new CalculationGroup();
@@ -221,7 +221,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var nodeData = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
@@ -240,7 +240,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var parentGroup = new CalculationGroup();
@@ -261,7 +261,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var groupContext = new TestCalculationGroupContext(new CalculationGroup(), new CalculationGroup(), failureMechanism);
@@ -285,7 +285,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             object draggedItemContext;
@@ -332,8 +332,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var sourceFailureMechanism = mocks.StrictMock<IFailureMechanism>();
-            var targetFailureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var sourceFailureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
+            var targetFailureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             object draggedItemContext;
@@ -378,7 +378,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             var originalOwnerObserver = mocks.StrictMock<IObserver>();
             originalOwnerObserver.Expect(o => o.UpdateObserver());
             var newOwnerObserver = mocks.StrictMock<IObserver>();
@@ -431,7 +431,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             var existingItem = mocks.StrictMock<ICalculationBase>();
             existingItem.Stub(ci => ci.Name).Return("");
             var originalOwnerObserver = mocks.StrictMock<IObserver>();
@@ -486,7 +486,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var treeViewControl = mocks.StrictMock<TreeViewControl>();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
 
             ICalculationBase draggedItem;
             object draggedItemContext;
@@ -553,7 +553,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         /// <param name="data">The created group without any children.</param>
         /// <param name="dataContext">The context object for <paramref name="data"/>, without any other data.</param>
         /// <param name="failureMechanism">The failure mechanism the item and context it belong to.</param>
-        private static void CreateCalculationGroupAndContext(out CalculationGroup data, out TestCalculationGroupContext dataContext, IFailureMechanism failureMechanism)
+        private static void CreateCalculationGroupAndContext(out CalculationGroup data, out TestCalculationGroupContext dataContext, ICalculatableFailureMechanism failureMechanism)
         {
             data = new CalculationGroup();
             dataContext = new TestCalculationGroupContext(data, new CalculationGroup(), failureMechanism);
@@ -569,7 +569,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         /// <param name="initialName">Optional: The name of <paramref name="data"/>.</param>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="type"/> is an unsupported value 
         /// of <see cref="CalculationItemType"/>.</exception>
-        private static void CreateCalculationItemAndContext(CalculationItemType type, out ICalculationBase data, out object dataContext, IFailureMechanism failureMechanism, string initialName = null)
+        private static void CreateCalculationItemAndContext(CalculationItemType type, out ICalculationBase data, out object dataContext, ICalculatableFailureMechanism failureMechanism, string initialName = null)
         {
             switch (type)
             {
@@ -631,7 +631,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
@@ -688,7 +688,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var observer = mocks.StrictMock<IObserver>();
             observer.Expect(o => o.UpdateObserver());
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
@@ -721,7 +721,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             group.Children.Add(calculationToBeRemoved);
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
@@ -747,7 +747,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
 
             var mocks = new MockRepository();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
@@ -771,7 +771,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             // Setup
             var mocks = new MockRepository();
             var data = mocks.StrictMock<object>();
-            var failureMechanism = mocks.StrictMock<IFailureMechanism>();
+            var failureMechanism = mocks.StrictMock<ICalculatableFailureMechanism>();
             mocks.ReplayAll();
 
             var calculationType = new Random(21).NextEnumValue<CalculationType>();
@@ -943,8 +943,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
                 RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(pathContext => resultInAssembly,
-                                                                                                                        pathContext => resultNotInAssembly,
-                                                                                                                        null, null);
+                                                                                                                             pathContext => resultNotInAssembly,
+                                                                                                                             null, null);
 
             // Call
             object[] children = treeNodeInfo.ChildNodeObjects(context);
@@ -981,8 +981,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
                 RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(pathContext => resultInAssembly,
-                                                                                                                        pathContext => resultNotInAssembly,
-                                                                                                                        null, null);
+                                                                                                                             pathContext => resultNotInAssembly,
+                                                                                                                             null, null);
 
             // Call
             object[] children = treeNodeInfo.ChildNodeObjects(context);
@@ -1250,9 +1250,9 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #region Nested types
 
-        private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, IFailureMechanism>
+        private class TestCalculationGroupContext : Observable, ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>
         {
-            public TestCalculationGroupContext(CalculationGroup wrappedData, CalculationGroup parent, IFailureMechanism failureMechanism)
+            public TestCalculationGroupContext(CalculationGroup wrappedData, CalculationGroup parent, ICalculatableFailureMechanism failureMechanism)
             {
                 WrappedData = wrappedData;
                 Parent = parent;
@@ -1263,12 +1263,12 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             public CalculationGroup Parent { get; }
 
-            public IFailureMechanism FailureMechanism { get; }
+            public ICalculatableFailureMechanism FailureMechanism { get; }
         }
 
-        private class TestCalculationContext : Observable, ICalculationContext<TestCalculation, IFailureMechanism>
+        private class TestCalculationContext : Observable, ICalculationContext<TestCalculation, ICalculatableFailureMechanism>
         {
-            public TestCalculationContext(TestCalculation wrappedData, CalculationGroup parent, IFailureMechanism failureMechanism)
+            public TestCalculationContext(TestCalculation wrappedData, CalculationGroup parent, ICalculatableFailureMechanism failureMechanism)
             {
                 WrappedData = wrappedData;
                 Parent = parent;
@@ -1279,7 +1279,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             public CalculationGroup Parent { get; }
 
-            public IFailureMechanism FailureMechanism { get; }
+            public ICalculatableFailureMechanism FailureMechanism { get; }
         }
 
         private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>

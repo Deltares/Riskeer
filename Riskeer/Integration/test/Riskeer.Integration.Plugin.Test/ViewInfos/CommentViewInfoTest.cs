@@ -580,7 +580,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
             viewDataCalculation.Stub(c => c.Comments).Return(new Comment());
-            var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, IFailureMechanism>>();
+            var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>>();
 
             deletedCalculationContext.Expect(c => c.WrappedData).Return(viewDataCalculation);
             mocks.ReplayAll();
@@ -608,7 +608,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             calculation.Stub(s => s.Comments).Return(new Comment());
             var viewDataCalculation = mocks.Stub<ICalculation>();
             viewDataCalculation.Stub(s => s.Comments).Return(new Comment());
-            var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, IFailureMechanism>>();
+            var deletedCalculationContext = mocks.StrictMock<ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>>();
 
             deletedCalculationContext.Expect(c => c.WrappedData).Return(calculation);
 
@@ -635,7 +635,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var viewDataCalculation = mocks.Stub<ICalculation>();
             viewDataCalculation.Stub(s => s.Comments).Return(new Comment());
-            var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, IFailureMechanism>>();
+            var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>>();
             var deletedGroup = new CalculationGroup
             {
                 Children =
@@ -671,7 +671,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             viewDataCalculation.Stub(s => s.Comments).Return(new Comment());
             var deletedCalculation = mocks.Stub<ICalculation>();
             deletedCalculation.Stub(s => s.Comments).Return(new Comment());
-            var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, IFailureMechanism>>();
+            var deletedGroupContext = mocks.StrictMock<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>>();
             var deletedGroup = new CalculationGroup
             {
                 Children =

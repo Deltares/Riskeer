@@ -49,13 +49,13 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             Func<TCalculationGroupContext, object[]> childNodeObjects,
             Func<TCalculationGroupContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
             Action<TCalculationGroupContext, object> onNodeRemoved)
-            where TCalculationGroupContext : ICalculationContext<CalculationGroup, IFailureMechanism>
+            where TCalculationGroupContext : ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>
         {
             return new TreeNodeInfo<TCalculationGroupContext>
             {
                 Text = context => context.WrappedData.Name,
                 Image = context => Resources.GeneralFolderIcon,
-                EnsureVisibleOnCreate = (context, parent) => parent is ICalculationContext<CalculationGroup, IFailureMechanism>,
+                EnsureVisibleOnCreate = (context, parent) => parent is ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>,
                 ChildNodeObjects = childNodeObjects,
                 ContextMenuStrip = contextMenuStrip,
                 CanRename = (context, parentData) => IsNestedGroup(parentData),
@@ -87,7 +87,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             Func<TCalculationContext, object, TreeViewControl, ContextMenuStrip> contextMenuStrip,
             Action<TCalculationContext, object> onNodeRemoved,
             CalculationType calculationType)
-            where TCalculationContext : ICalculationContext<ICalculation, IFailureMechanism>
+            where TCalculationContext : ICalculationContext<ICalculation, ICalculatableFailureMechanism>
         {
             return new TreeNodeInfo<TCalculationContext>
             {
@@ -164,10 +164,10 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
 
         #region Helper methods for CreateCalculationContextTreeNodeInfo
 
-        private static bool CalculationContextCanRemove(ICalculationContext<ICalculation, IFailureMechanism> calculationContext, object parentNodeData)
+        private static bool CalculationContextCanRemove(ICalculationContext<ICalculation, ICalculatableFailureMechanism> calculationContext, object parentNodeData)
         {
-            var calculationGroupContext = parentNodeData as ICalculationContext<CalculationGroup, IFailureMechanism>;
-            return calculationGroupContext != null && calculationGroupContext.WrappedData.Children.Contains(calculationContext.WrappedData);
+            return parentNodeData is ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> calculationGroupContext
+                   && calculationGroupContext.WrappedData.Children.Contains(calculationContext.WrappedData);
         }
 
         #endregion
@@ -176,22 +176,21 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
 
         private static bool IsNestedGroup(object parentData)
         {
-            return parentData is ICalculationContext<CalculationGroup, IFailureMechanism>;
+            return parentData is ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>;
         }
 
         private static bool CalculationGroupCanDropOrInsert(object draggedData, object targetData)
         {
-            var calculationContext = draggedData as ICalculationContext<ICalculationBase, IFailureMechanism>;
-            return calculationContext != null && ReferenceEquals(calculationContext.FailureMechanism, ((ICalculationContext<CalculationGroup, IFailureMechanism>) targetData).FailureMechanism);
+            return draggedData is ICalculationContext<ICalculationBase, ICalculatableFailureMechanism> calculationContext
+                   && ReferenceEquals(calculationContext.FailureMechanism, ((ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>) targetData).FailureMechanism);
         }
 
         private static void CalculationGroupOnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
         {
-            ICalculationBase calculationItem = ((ICalculationContext<ICalculationBase, IFailureMechanism>) droppedData).WrappedData;
-            var originalOwnerContext = oldParentData as ICalculationContext<CalculationGroup, IFailureMechanism>;
-            var targetContext = newParentData as ICalculationContext<CalculationGroup, IFailureMechanism>;
+            ICalculationBase calculationItem = ((ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>) droppedData).WrappedData;
 
-            if (calculationItem != null && originalOwnerContext != null && targetContext != null)
+            if (calculationItem != null && oldParentData is ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> originalOwnerContext
+                                        && newParentData is ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> targetContext)
             {
                 CalculationGroup sourceCalculationGroup = originalOwnerContext.WrappedData;
                 CalculationGroup targetCalculationGroup = targetContext.WrappedData;

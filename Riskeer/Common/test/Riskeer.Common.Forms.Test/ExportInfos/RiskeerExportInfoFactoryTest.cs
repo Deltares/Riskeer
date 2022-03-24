@@ -46,10 +46,10 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            Func<ICalculationContext<ICalculation, IFailureMechanism>, string, IFileExporter> createFileExporter = (context, s) => fileImporter;
+            Func<ICalculationContext<ICalculation, ICalculatableFailureMechanism>, string, IFileExporter> createFileExporter = (context, s) => fileImporter;
 
             // Call
-            ExportInfo<ICalculationContext<ICalculation, IFailureMechanism>> exportInfo =
+            ExportInfo<ICalculationContext<ICalculation, ICalculatableFailureMechanism>> exportInfo =
                 RiskeerExportInfoFactory.CreateCalculationConfigurationExportInfo(createFileExporter, inquiryHelper);
 
             // Assert
@@ -75,11 +75,11 @@ namespace Riskeer.Common.Forms.Test.ExportInfos
             var inquiryHelper = mocks.Stub<IInquiryHelper>();
             mocks.ReplayAll();
 
-            Func<ICalculationContext<CalculationGroup, IFailureMechanism>, bool> isEnabled = context => false;
-            Func<ICalculationContext<CalculationGroup, IFailureMechanism>, string, IFileExporter> createFileExporter = (context, s) => fileImporter;
+            Func<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>, bool> isEnabled = context => false;
+            Func<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>, string, IFileExporter> createFileExporter = (context, s) => fileImporter;
 
             // Call
-            ExportInfo<ICalculationContext<CalculationGroup, IFailureMechanism>> exportInfo =
+            ExportInfo<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>> exportInfo =
                 RiskeerExportInfoFactory.CreateCalculationGroupConfigurationExportInfo(createFileExporter, isEnabled, inquiryHelper);
 
             // Assert

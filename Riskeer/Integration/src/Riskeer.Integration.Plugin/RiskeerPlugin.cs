@@ -248,11 +248,11 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new PipingStructureFailurePathProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>
+            yield return new PropertyInfo<ICalculationContext<CalculationGroup, ICalculatableFailureMechanism>, CalculationGroupContextProperties>
             {
                 CreateInstance = context => new CalculationGroupContextProperties(context)
             };
-            yield return new PropertyInfo<ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>();
+            yield return new PropertyInfo<ICalculationContext<ICalculation, ICalculatableFailureMechanism>, CalculationContextProperties>();
             yield return new PropertyInfo<WaterLevelCalculationsForNormTargetProbabilityContext, WaterLevelCalculationsForNormTargetProbabilityProperties>
             {
                 CreateInstance = context => new WaterLevelCalculationsForNormTargetProbabilityProperties(context.WrappedData, context.GetNormFunc())
@@ -1496,13 +1496,13 @@ namespace Riskeer.Integration.Plugin
 
         private static bool CloseCommentViewForData(CommentView commentView, object dataToCloseFor)
         {
-            if (dataToCloseFor is ICalculationContext<CalculationGroup, IFailureMechanism> calculationGroupContext)
+            if (dataToCloseFor is ICalculationContext<CalculationGroup, ICalculatableFailureMechanism> calculationGroupContext)
             {
                 return GetCommentElements(calculationGroupContext.WrappedData)
                     .Any(commentElement => ReferenceEquals(commentView.Data, commentElement));
             }
 
-            var calculationContext = dataToCloseFor as ICalculationContext<ICalculationBase, IFailureMechanism>;
+            var calculationContext = dataToCloseFor as ICalculationContext<ICalculationBase, ICalculatableFailureMechanism>;
             if (calculationContext?.WrappedData is ICalculation calculation)
             {
                 return ReferenceEquals(commentView.Data, calculation.Comments);
