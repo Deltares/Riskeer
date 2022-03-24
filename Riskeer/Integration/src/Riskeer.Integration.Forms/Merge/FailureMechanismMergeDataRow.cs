@@ -34,46 +34,46 @@ namespace Riskeer.Integration.Forms.Merge
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismMergeDataRow"/>.
         /// </summary>
-        /// <param name="failurePath">The wrapped <see cref="IFailureMechanism"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/>
+        /// <param name="failureMechanism">The wrapped <see cref="IFailureMechanism"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public FailureMechanismMergeDataRow(IFailureMechanism failurePath)
+        public FailureMechanismMergeDataRow(IFailureMechanism failureMechanism)
         {
-            if (failurePath == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(failurePath));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            FailurePath = failurePath;
+            FailureMechanism = failureMechanism;
         }
 
         /// <summary>
         /// Gets the wrapped <see cref="IFailureMechanism"/> of the row.
         /// </summary>
-        public IFailureMechanism FailurePath { get; }
+        public IFailureMechanism FailureMechanism { get; }
 
         /// <summary>
-        /// Gets and sets whether the failure path is selected to be merged.
+        /// Gets and sets whether the failure mechanism is selected to be merged.
         /// </summary>
         public bool IsSelected { get; set; }
 
         /// <summary>
-        /// Gets the name of the failure path.
+        /// Gets the name of the failure mechanism.
         /// </summary>
-        public string Name => FailurePath.Name;
+        public string Name => FailureMechanism.Name;
 
         /// <summary>
-        /// Gets indicator whether the failure path is marked as part of the assembly.
+        /// Gets indicator whether the failure mechanism is marked as part of the assembly.
         /// </summary>
-        public bool InAssembly => FailurePath.InAssembly;
+        public bool InAssembly => FailureMechanism.InAssembly;
 
         /// <summary>
-        /// Gets indicator whether the failure path has sections.
+        /// Gets indicator whether the failure mechanism has sections.
         /// </summary>
-        public bool HasSections => FailurePath.Sections.Any();
+        public bool HasSections => FailureMechanism.Sections.Any();
 
         /// <summary>
-        /// Gets the amount of calculations that are contained by the failure path.
+        /// Gets the amount of calculations that are contained by the failure mechanism.
         /// </summary>
         public virtual int NumberOfCalculations => 0;
     }

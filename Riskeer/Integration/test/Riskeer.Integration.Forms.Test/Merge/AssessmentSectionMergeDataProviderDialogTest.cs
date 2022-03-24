@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 using (new FormTester(formName)) {}
             };
 
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndSpecificFailureMechanisms();
 
             using (var dialogParent = new Form())
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
@@ -247,7 +247,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
             using (var dialog = new AssessmentSectionMergeDataProviderDialog(dialogParent))
             {
                 // When
-                AssessmentSectionMergeData result = dialog.GetMergeData(TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths());
+                AssessmentSectionMergeData result = dialog.GetMergeData(TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndSpecificFailureMechanisms());
 
                 // Then
                 Assert.IsNull(result);
@@ -258,7 +258,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         public void GivenValidDialog_WhenGetMergeDataCalledAndImportPressed_ThenReturnsSelectedData()
         {
             // Given
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndSpecificFailureMechanisms();
 
             DialogBoxHandler = (formName, wnd) =>
             {
@@ -293,7 +293,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsFalse(result.MergePipingStructure);
                 Assert.IsFalse(result.MergeStabilityPointStructures);
                 Assert.IsFalse(result.MergeDuneErosion);
-                CollectionAssert.IsEmpty(result.MergeSpecificFailurePaths);
+                CollectionAssert.IsEmpty(result.MergeSpecificFailureMechanisms);
             }
         }
 
@@ -301,7 +301,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
         public void GivenValidDialog_WhenGetMergeDataCalledAndAllDataSelectedAndImportPressed_ThenReturnsSelectedData()
         {
             // Given
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths();
+            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurationsAndSpecificFailureMechanisms();
 
             DialogBoxHandler = (formName, wnd) =>
             {
@@ -347,7 +347,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsTrue(result.MergePipingStructure);
                 Assert.IsTrue(result.MergeStabilityPointStructures);
                 Assert.IsTrue(result.MergeDuneErosion);
-                CollectionAssert.AreEqual(assessmentSection.SpecificFailureMechanisms, result.MergeSpecificFailurePaths);
+                CollectionAssert.AreEqual(assessmentSection.SpecificFailureMechanisms, result.MergeSpecificFailureMechanisms);
             }
         }
 

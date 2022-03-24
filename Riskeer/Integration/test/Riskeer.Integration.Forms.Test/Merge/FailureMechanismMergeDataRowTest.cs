@@ -49,26 +49,26 @@ namespace Riskeer.Integration.Forms.Test.Merge
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const string failurePathName = "Just a name";
+            const string failureMechanismName = "Just a name";
 
             var random = new Random(21);
             bool inAssembly = random.NextBoolean();
 
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailureMechanism>();
-            failurePath.Stub(fm => fm.Name).Return(failurePathName);
-            failurePath.Stub(fm => fm.Sections).Return(Enumerable.Empty<FailureMechanismSection>());
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
+            failureMechanism.Stub(fm => fm.Sections).Return(Enumerable.Empty<FailureMechanismSection>());
             mocks.ReplayAll();
 
-            failurePath.InAssembly = inAssembly;
+            failureMechanism.InAssembly = inAssembly;
 
             // Call
-            var row = new FailureMechanismMergeDataRow(failurePath);
+            var row = new FailureMechanismMergeDataRow(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismMergeDataRow>(row);
-            Assert.AreSame(failurePath, row.FailurePath);
-            Assert.AreEqual(inAssembly, failurePath.InAssembly);
+            Assert.AreSame(failureMechanism, row.FailureMechanism);
+            Assert.AreEqual(inAssembly, failureMechanism.InAssembly);
             Assert.IsFalse(row.HasSections);
             Assert.AreEqual(0, row.NumberOfCalculations);
 

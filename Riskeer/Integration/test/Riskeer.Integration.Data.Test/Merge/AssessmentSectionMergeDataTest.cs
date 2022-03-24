@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Data.Test.Merge
             Assert.IsFalse(mergeData.MergePipingStructure);
             Assert.IsFalse(mergeData.MergeStabilityPointStructures);
             Assert.IsFalse(mergeData.MergeDuneErosion);
-            CollectionAssert.IsEmpty(mergeData.MergeSpecificFailurePaths);
+            CollectionAssert.IsEmpty(mergeData.MergeSpecificFailureMechanisms);
         }
 
         [Test]
@@ -128,7 +128,7 @@ namespace Riskeer.Integration.Data.Test.Merge
             Assert.AreEqual(constructionProperties.MergePipingStructure, mergeData.MergePipingStructure);
             Assert.AreEqual(constructionProperties.MergeStabilityPointStructures, mergeData.MergeStabilityPointStructures);
             Assert.AreEqual(constructionProperties.MergeDuneErosion, mergeData.MergeDuneErosion);
-            Assert.AreSame(constructionProperties.MergeSpecificFailurePaths, mergeData.MergeSpecificFailurePaths);
+            Assert.AreSame(constructionProperties.MergeSpecificFailureMechanisms, mergeData.MergeSpecificFailureMechanisms);
         }
     }
 }

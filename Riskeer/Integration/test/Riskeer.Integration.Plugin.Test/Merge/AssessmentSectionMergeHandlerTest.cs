@@ -244,7 +244,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             sourceAssessmentSection.SpecificFailureMechanisms.AddRange(failureMechanismsToMerge);
 
             var constructionProperties = new AssessmentSectionMergeData.ConstructionProperties();
-            constructionProperties.MergeSpecificFailurePaths.AddRange(failureMechanismsToMerge);
+            constructionProperties.MergeSpecificFailureMechanisms.AddRange(failureMechanismsToMerge);
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, constructionProperties);
 
             // Call
@@ -301,7 +301,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var constructionProperties = new AssessmentSectionMergeData.ConstructionProperties();
-            constructionProperties.MergeSpecificFailurePaths.AddRange(failureMechanismsToMerge);
+            constructionProperties.MergeSpecificFailureMechanisms.AddRange(failureMechanismsToMerge);
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, constructionProperties);
 
             // Call
@@ -340,7 +340,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             sourceAssessmentSection.SpecificFailureMechanisms.AddRange(failureMechanismsToMerge);
 
             var constructionProperties = new AssessmentSectionMergeData.ConstructionProperties();
-            constructionProperties.MergeSpecificFailurePaths.AddRange(failureMechanismsToMerge);
+            constructionProperties.MergeSpecificFailureMechanisms.AddRange(failureMechanismsToMerge);
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, constructionProperties);
 
             // Call

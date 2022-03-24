@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Forms.Merge
     /// </summary>
     public partial class AssessmentSectionMergeDataProviderDialog : DialogBase, IAssessmentSectionMergeDataProvider
     {
-        private FailureMechanismMergeDataRow[] failurePathMergeDataRows;
+        private FailureMechanismMergeDataRow[] failureMechanismMergeDataRows;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionMergeDataProviderDialog"/>.
@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Forms.Merge
                     MergeStabilityPointStructures = FailureMechanismIsSelectedToMerge<StabilityPointStructuresFailureMechanism>(),
                     MergeDuneErosion = FailureMechanismIsSelectedToMerge<DuneErosionFailureMechanism>()
                 };
-                constructionProperties.MergeSpecificFailurePaths.AddRange(GetSelectedSpecificFailurePathsToMerge());
+                constructionProperties.MergeSpecificFailureMechanisms.AddRange(GetSelectedSpecificFailureMechanismsToMerge());
 
                 return new AssessmentSectionMergeData(assessmentSection, constructionProperties);
             }
@@ -134,43 +134,43 @@ namespace Riskeer.Integration.Forms.Merge
         private bool FailureMechanismIsSelectedToMerge<TFailureMechanism>()
             where TFailureMechanism : IFailureMechanism
         {
-            return failurePathMergeDataRows.Any(row => row.FailurePath is TFailureMechanism && row.IsSelected);
+            return failureMechanismMergeDataRows.Any(row => row.FailureMechanism is TFailureMechanism && row.IsSelected);
         }
 
-        private IEnumerable<SpecificFailureMechanism> GetSelectedSpecificFailurePathsToMerge()
+        private IEnumerable<SpecificFailureMechanism> GetSelectedSpecificFailureMechanismsToMerge()
         {
-            return failurePathMergeDataRows.Where(row => row.IsSelected && row.FailurePath is SpecificFailureMechanism)
-                                           .Select(row => row.FailurePath)
-                                           .Cast<SpecificFailureMechanism>()
-                                           .ToArray();
+            return failureMechanismMergeDataRows.Where(row => row.IsSelected)
+                                                .Select(row => row.FailureMechanism)
+                                                .OfType<SpecificFailureMechanism>()
+                                                .ToArray();
         }
 
         #region Data Setters
 
         private void SetDataGridViewData(AssessmentSection assessmentSection)
         {
-            failurePathMergeDataRows = new[]
-                                       {
-                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.Piping),
-                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionInwards),
-                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.MacroStabilityInwards),
-                                           new FailureMechanismMergeDataRow(assessmentSection.Microstability),
-                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.StabilityStoneCover),
-                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.WaveImpactAsphaltCover),
-                                           new FailureMechanismMergeDataRow(assessmentSection.WaterPressureAsphaltCover),
-                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionOutwards),
-                                           new FailureMechanismMergeDataRow(assessmentSection.GrassCoverSlipOffOutwards),
-                                           new FailureMechanismMergeDataRow(assessmentSection.GrassCoverSlipOffInwards),
-                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.HeightStructures),
-                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.ClosingStructures),
-                                           new FailureMechanismMergeDataRow(assessmentSection.PipingStructure),
-                                           new CalculatableFailureMechanismMergeDataRow(assessmentSection.StabilityPointStructures),
-                                           new FailureMechanismMergeDataRow(assessmentSection.DuneErosion)
-                                       }
-                                       .Concat(assessmentSection.SpecificFailureMechanisms.Select(fp => new FailureMechanismMergeDataRow(fp)))
-                                       .ToArray();
+            failureMechanismMergeDataRows = new[]
+                                            {
+                                                new CalculatableFailureMechanismMergeDataRow(assessmentSection.Piping),
+                                                new CalculatableFailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionInwards),
+                                                new CalculatableFailureMechanismMergeDataRow(assessmentSection.MacroStabilityInwards),
+                                                new FailureMechanismMergeDataRow(assessmentSection.Microstability),
+                                                new CalculatableFailureMechanismMergeDataRow(assessmentSection.StabilityStoneCover),
+                                                new CalculatableFailureMechanismMergeDataRow(assessmentSection.WaveImpactAsphaltCover),
+                                                new FailureMechanismMergeDataRow(assessmentSection.WaterPressureAsphaltCover),
+                                                new CalculatableFailureMechanismMergeDataRow(assessmentSection.GrassCoverErosionOutwards),
+                                                new FailureMechanismMergeDataRow(assessmentSection.GrassCoverSlipOffOutwards),
+                                                new FailureMechanismMergeDataRow(assessmentSection.GrassCoverSlipOffInwards),
+                                                new CalculatableFailureMechanismMergeDataRow(assessmentSection.HeightStructures),
+                                                new CalculatableFailureMechanismMergeDataRow(assessmentSection.ClosingStructures),
+                                                new FailureMechanismMergeDataRow(assessmentSection.PipingStructure),
+                                                new CalculatableFailureMechanismMergeDataRow(assessmentSection.StabilityPointStructures),
+                                                new FailureMechanismMergeDataRow(assessmentSection.DuneErosion)
+                                            }
+                                            .Concat(assessmentSection.SpecificFailureMechanisms.Select(fp => new FailureMechanismMergeDataRow(fp)))
+                                            .ToArray();
 
-            dataGridViewControl.SetDataSource(failurePathMergeDataRows);
+            dataGridViewControl.SetDataSource(failureMechanismMergeDataRows);
         }
 
         #endregion

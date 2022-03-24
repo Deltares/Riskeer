@@ -138,12 +138,12 @@ namespace Riskeer.Integration.TestUtil
         /// <list type="bullet">
         /// <item>a desired <see cref="AssessmentSectionComposition"/>,</item>
         /// <item>all possible configurations for the parent and nested calculations of the failure mechanisms,</item>
-        /// <item>and configured failure paths</item>
+        /// <item>and configured specific failure mechanisms</item>
         /// </list>
         /// </summary>
         /// <param name="composition">The desired <see cref="AssessmentSectionComposition"/> to initialize the <see cref="AssessmentSection"/> with.</param>
         /// <returns>The configured <see cref="AssessmentSection"/>.</returns>
-        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths(
+        public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsAndSpecificFailureMechanisms(
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
             var failureMechanisms = new List<SpecificFailureMechanism>
@@ -157,7 +157,7 @@ namespace Riskeer.Integration.TestUtil
                     Name = "Path 2"
                 }
             };
-            for (int i = 0; i < failureMechanisms.Count; i++)
+            for (var i = 0; i < failureMechanisms.Count; i++)
             {
                 AddFailureMechanismSections(failureMechanisms[i], i);
             }

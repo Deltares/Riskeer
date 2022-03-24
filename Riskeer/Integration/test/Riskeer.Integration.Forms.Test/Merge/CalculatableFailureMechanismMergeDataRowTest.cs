@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismMergeDataRow>(row);
-            Assert.AreSame(failureMechanism, row.FailurePath);
+            Assert.AreSame(failureMechanism, row.FailureMechanism);
             Assert.AreEqual(calculations.Count(), row.NumberOfCalculations);
 
             mocks.ReplayAll();
