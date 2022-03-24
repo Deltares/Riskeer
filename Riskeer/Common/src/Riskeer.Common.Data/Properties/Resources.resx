@@ -396,10 +396,10 @@
     <data name="ProbabilityRefinementType_Both_DisplayName" xml:space="preserve">
     <value>Beide</value>
   </data>
-    <data name="FailurePathAssemblyProbabilityResultTypeAutomatic_DisplayName" xml:space="preserve">
+    <data name="FailureMechanismAssemblyProbabilityResultTypeAutomatic_DisplayName" xml:space="preserve">
     <value>Automatisch berekenen</value>
   </data>
-    <data name="FailurePathAssemblyProbabilityResultTypeManual_DisplayName" xml:space="preserve">
+    <data name="FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName" xml:space="preserve">
     <value>Handmatig invullen</value>
   </data>
   <data name="SpecificFailurePath_DefaultName" xml:space="preserve">

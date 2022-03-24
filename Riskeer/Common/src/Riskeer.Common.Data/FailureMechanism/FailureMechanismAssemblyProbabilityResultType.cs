@@ -32,13 +32,13 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// <summary>
         /// The automatically calculated probability type.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailurePathAssemblyProbabilityResultTypeAutomatic_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeAutomatic_DisplayName))]
         Automatic = 1,
 
         /// <summary>
         /// The manual probability type.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailurePathAssemblyProbabilityResultTypeManual_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName))]
         Manual = 2
     }
 }

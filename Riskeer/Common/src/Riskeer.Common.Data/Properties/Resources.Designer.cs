@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -388,6 +388,24 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automatisch berekenen.
+        /// </summary>
+        public static string FailureMechanismAssemblyProbabilityResultTypeAutomatic_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeAutomatic_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Handmatig invullen.
+        /// </summary>
+        public static string FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De omgevingswaarde moet gelijk zijn aan of groter zijn dan de signaleringsparameter..
         /// </summary>
         public static string FailureMechanismContribution_MaximumAllowableFloodingProbability_should_be_same_or_greater_than_SignalFloodingProbability {
@@ -423,24 +441,6 @@ namespace Riskeer.Common.Data.Properties {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionCollection_ValidateSection_Section_0_must_connect_to_exist" +
                         "ing_sections", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Automatisch berekenen.
-        /// </summary>
-        public static string FailurePathAssemblyProbabilityResultTypeAutomatic_DisplayName {
-            get {
-                return ResourceManager.GetString("FailurePathAssemblyProbabilityResultTypeAutomatic_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Handmatig invullen.
-        /// </summary>
-        public static string FailurePathAssemblyProbabilityResultTypeManual_DisplayName {
-            get {
-                return ResourceManager.GetString("FailurePathAssemblyProbabilityResultTypeManual_DisplayName", resourceCulture);
             }
         }
         
