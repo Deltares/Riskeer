@@ -432,9 +432,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailureMechanismContext<GrassCoverErosionInwardsFailureMechanism> failurePathContext)
+            if (dataToCloseFor is IFailureMechanismContext<GrassCoverErosionInwardsFailureMechanism> failureMechanismContext)
             {
-                failureMechanism = failurePathContext.WrappedData;
+                failureMechanism = failureMechanismContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
@@ -1005,9 +1005,9 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (DikeProfileDependentDataShouldUpdate(new[]
-            {
-                calculation
-            }, message))
+                {
+                    calculation
+                }, message))
             {
                 UpdateDikeProfileDerivedCalculationInput(calculation);
             }

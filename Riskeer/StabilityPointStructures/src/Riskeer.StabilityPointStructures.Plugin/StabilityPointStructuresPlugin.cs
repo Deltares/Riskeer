@@ -280,7 +280,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             };
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                StabilityPointStructuresFailureMechanismSectionsContext,StabilityPointStructuresFailureMechanism,AdoptableFailureMechanismSectionResult>(
+                StabilityPointStructuresFailureMechanismSectionsContext, StabilityPointStructuresFailureMechanism, AdoptableFailureMechanismSectionResult>(
                 new AdoptableFailureMechanismSectionResultUpdateStrategy());
         }
 
@@ -308,9 +308,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is IFailureMechanismContext<StabilityPointStructuresFailureMechanism> failurePathContext)
+            if (dataToCloseFor is IFailureMechanismContext<StabilityPointStructuresFailureMechanism> failureMechanismContext)
             {
-                failureMechanism = failurePathContext.WrappedData;
+                failureMechanism = failureMechanismContext.WrappedData;
             }
 
             return failureMechanism != null && ReferenceEquals(view.FailureMechanism.SectionResults, failureMechanism.SectionResults);
