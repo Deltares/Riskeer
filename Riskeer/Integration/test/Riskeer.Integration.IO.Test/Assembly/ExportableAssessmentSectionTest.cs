@@ -47,7 +47,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
         }
 
         [Test]
-        public void Constructor_InvalidId_ThrowsArgumentNullException()
+        public void Constructor_IdNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new ExportableAssessmentSection(string.Empty, null, Enumerable.Empty<Point2D>(),

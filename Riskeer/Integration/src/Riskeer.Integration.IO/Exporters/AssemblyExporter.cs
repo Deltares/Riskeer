@@ -74,7 +74,7 @@ namespace Riskeer.Integration.IO.Exporters
             }
 
             ExportableAssessmentSection exportableAssessmentSection = CreateExportableAssessmentSection();
-            if (!ValidateExportableAssessmentSection(exportableAssessmentSection))
+            if (exportableAssessmentSection == null)
             {
                 LogErrorMessage();
                 return false;
@@ -117,11 +117,6 @@ namespace Riskeer.Integration.IO.Exporters
             {
                 return null;
             }
-        }
-
-        private static bool ValidateExportableAssessmentSection(ExportableAssessmentSection exportableAssessmentSection)
-        {
-            return exportableAssessmentSection != null;
         }
 
         private static void LogErrorMessage()
