@@ -27,7 +27,6 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
@@ -69,14 +68,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
                 }
             };
 
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(section => section.GetContributingFailureMechanisms()).Return(new IFailureMechanism[]
-            {
-                failureMechanism
-            });
-            mocks.ReplayAll();
-
             // Call
             var properties = new StandAloneFailurePathProperties(failureMechanism);
 
@@ -88,8 +79,6 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses.StandAlone
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
             Assert.AreEqual(failureMechanism.GeneralInput.N, properties.N);
             Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
-
-            mocks.VerifyAll();
         }
 
         [Test]

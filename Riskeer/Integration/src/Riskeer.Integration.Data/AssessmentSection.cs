@@ -252,21 +252,6 @@ namespace Riskeer.Integration.Data
             yield return DuneErosion;
         }
 
-        public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
-        {
-            yield return Piping;
-            yield return GrassCoverErosionInwards;
-            yield return MacroStabilityInwards;
-            yield return StabilityStoneCover;
-            yield return WaveImpactAsphaltCover;
-            yield return GrassCoverErosionOutwards;
-            yield return HeightStructures;
-            yield return ClosingStructures;
-            yield return PipingStructure;
-            yield return StabilityPointStructures;
-            yield return DuneErosion;
-        }
-
         /// <inheritdoc />
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="newComposition"/> 
         /// is not a valid enum value of <see cref="AssessmentSectionComposition"/>.</exception>
