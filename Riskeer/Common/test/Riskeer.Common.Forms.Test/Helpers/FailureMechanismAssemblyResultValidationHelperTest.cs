@@ -27,13 +27,13 @@ using Riskeer.Common.Forms.Helpers;
 namespace Riskeer.Common.Forms.Test.Helpers
 {
     [TestFixture]
-    public class FailurePathAssemblyResultValidationHelperTest
+    public class FailureMechanismAssemblyResultValidationHelperTest
     {
         [Test]
         public void GetValidationError_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailurePathAssemblyResultValidationHelper.GetValidationError(null);
+            void Call() => FailureMechanismAssemblyResultValidationHelper.GetValidationError(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -51,7 +51,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             };
 
             // Call
-            string message = FailurePathAssemblyResultValidationHelper.GetValidationError(result);
+            string message = FailureMechanismAssemblyResultValidationHelper.GetValidationError(result);
 
             // Assert
             Assert.AreEqual("Er moet een waarde worden ingevuld voor de faalkans.", message);
@@ -69,7 +69,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             };
 
             // Call
-            string message = FailurePathAssemblyResultValidationHelper.GetValidationError(result);
+            string message = FailureMechanismAssemblyResultValidationHelper.GetValidationError(result);
 
             // Assert
             Assert.IsEmpty(message);
@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             };
 
             // Call
-            string message = FailurePathAssemblyResultValidationHelper.GetValidationError(result);
+            string message = FailureMechanismAssemblyResultValidationHelper.GetValidationError(result);
 
             // Assert
             Assert.IsEmpty(message);

@@ -28,7 +28,7 @@ namespace Riskeer.Common.Forms.Helpers
     /// <summary>
     /// Class containing validation helper methods for a <see cref="FailureMechanismAssemblyResult"/> 
     /// </summary>
-    public static class FailurePathAssemblyResultValidationHelper
+    public static class FailureMechanismAssemblyResultValidationHelper
     {
         /// <summary>
         /// Gets the validation error for a <see cref="FailureMechanismAssemblyResult"/>.

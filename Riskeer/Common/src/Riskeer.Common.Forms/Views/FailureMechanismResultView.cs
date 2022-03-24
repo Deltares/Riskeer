@@ -370,7 +370,7 @@ namespace Riskeer.Common.Forms.Views
             FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
             if (assemblyResult.IsManualProbability())
             {
-                SetErrorMessage(FailurePathAssemblyResultValidationHelper.GetValidationError(assemblyResult));
+                SetErrorMessage(FailureMechanismAssemblyResultValidationHelper.GetValidationError(assemblyResult));
             }
         }
 
