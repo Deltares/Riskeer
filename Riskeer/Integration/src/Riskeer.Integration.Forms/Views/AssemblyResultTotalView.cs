@@ -147,7 +147,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             var failureMechanismAssemblyResultRows = new List<FailureMechanismAssemblyResultRow>();
             failureMechanismAssemblyResultRows.AddRange(CreateFailureMechanismResultRows());
-            failureMechanismAssemblyResultRows.AddRange(CreateFailurePathResultRows());
+            failureMechanismAssemblyResultRows.AddRange(CreateSpecificFailureMechanismResultRows());
 
             assemblyResultRows = failureMechanismAssemblyResultRows;
 
@@ -197,9 +197,9 @@ namespace Riskeer.Integration.Forms.Views
 
         #region Failure path assembly result rows
 
-        private IEnumerable<FailureMechanismAssemblyResultRow> CreateFailurePathResultRows()
+        private IEnumerable<FailureMechanismAssemblyResultRow> CreateSpecificFailureMechanismResultRows()
         {
-            return AssessmentSection.SpecificFailurePaths
+            return AssessmentSection.SpecificFailureMechanisms
                                     .Select(fp => FailureMechanismAssemblyResultRowFactory.CreateRow(
                                                 fp, () => FailureMechanismAssemblyFactory.AssembleFailureMechanism(fp, AssessmentSection))
                                     )

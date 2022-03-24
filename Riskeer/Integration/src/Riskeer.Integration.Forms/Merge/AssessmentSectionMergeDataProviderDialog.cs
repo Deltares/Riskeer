@@ -167,7 +167,7 @@ namespace Riskeer.Integration.Forms.Merge
                                            new CalculatableFailureMechanismMergeDataRow(assessmentSection.StabilityPointStructures),
                                            new FailureMechanismMergeDataRow(assessmentSection.DuneErosion)
                                        }
-                                       .Concat(assessmentSection.SpecificFailurePaths.Select(fp => new FailureMechanismMergeDataRow(fp)))
+                                       .Concat(assessmentSection.SpecificFailureMechanisms.Select(fp => new FailureMechanismMergeDataRow(fp)))
                                        .ToArray();
 
             dataGridViewControl.SetDataSource(failurePathMergeDataRows);

@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Data.Assembly
                 PipingStructure = GetAssemblyGroup(assessmentSection.PipingStructure, failureMechanisms, failureMechanismResults),
                 StabilityPointStructures = GetAssemblyGroup(assessmentSection.StabilityPointStructures, failureMechanisms, failureMechanismResults),
                 DuneErosion = GetAssemblyGroup(assessmentSection.DuneErosion, failureMechanisms, failureMechanismResults),
-                SpecificFailurePaths = assessmentSection.SpecificFailurePaths.Select(sfp => GetAssemblyGroup(sfp, failureMechanisms, failureMechanismResults)).ToArray()
+                SpecificFailurePaths = assessmentSection.SpecificFailureMechanisms.Select(sfp => GetAssemblyGroup(sfp, failureMechanisms, failureMechanismResults)).ToArray()
             };
 
             return constructionProperties;

@@ -108,7 +108,7 @@ namespace Riskeer.Integration.Data.Assembly
                     AssemblyToolKernelFactory.Instance);
 
                 Dictionary<IFailureMechanism, int> failureMechanismsToAssemble = assessmentSection.GetFailureMechanisms()
-                                                                                                  .Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths)
+                                                                                                  .Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms)
                                                                                                   .Where(fm => fm.InAssembly)
                                                                                                   .Select((fm, i) => new
                                                                                                   {
@@ -175,7 +175,7 @@ namespace Riskeer.Integration.Data.Assembly
             AssembleWhenApplicable(failureMechanismAssemblies, assessmentSection.WaterPressureAsphaltCover, assessmentSection,
                                    FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            failureMechanismAssemblies.AddRange(assessmentSection.SpecificFailurePaths
+            failureMechanismAssemblies.AddRange(assessmentSection.SpecificFailureMechanisms
                                                                  .Where(fp => fp.InAssembly)
                                                                  .Select(fp => FailureMechanismAssemblyFactory.AssembleFailureMechanism(fp, assessmentSection)));
 

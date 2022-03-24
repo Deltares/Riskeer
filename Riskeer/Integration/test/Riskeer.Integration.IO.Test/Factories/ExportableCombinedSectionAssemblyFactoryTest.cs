@@ -76,7 +76,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 new Point2D(2, 2)
             });
 
-            assessmentSection.SpecificFailurePaths.AddRange(new[]
+            assessmentSection.SpecificFailureMechanisms.AddRange(new[]
             {
                 new SpecificFailureMechanism
                 {

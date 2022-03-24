@@ -57,10 +57,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
         }
 
         [Test]
-        public void AssembleAssessmentSection_AssessmentSectionContainingFailurePathsWithRandomInAssemblyState_SetsInputOnCalculator()
+        public void AssembleAssessmentSection_AssessmentSectionContainingFailureMechanismsWithRandomInAssemblyState_SetsInputOnCalculator()
         {
             // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailurePathsWithRandomInAssemblyState();
+            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithRandomInAssemblyState();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -77,8 +77,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(contribution.LowerLimitNorm, assessmentSectionAssemblyCalculator.LowerLimitNormInput);
 
                 int expectedNrOfProbabilities = assessmentSection.GetFailureMechanisms()
-                                                                 .Cast<IFailureMechanism>()
-                                                                 .Concat(assessmentSection.SpecificFailurePaths)
+                                                                 .Concat(assessmentSection.SpecificFailureMechanisms)
                                                                  .Count(fp => fp.InAssembly);
                 IEnumerable<double> calculatorInput = assessmentSectionAssemblyCalculator.FailureMechanismProbabilitiesInput;
                 Assert.AreEqual(expectedNrOfProbabilities, calculatorInput.Count());
@@ -93,7 +92,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
         public void AssembleAssessmentSection_AssemblyRan_ReturnsOutput()
         {
             // Setup
-            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailurePathsWithInAssemblyTrue();
+            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -119,7 +118,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSectionContainingFailurePathsWithInAssemblyTrue());
+                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
@@ -140,7 +139,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 calculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSectionContainingFailurePathsWithInAssemblyTrue());
+                void Call() => AssessmentSectionAssemblyFactory.AssembleAssessmentSection(CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue());
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);
@@ -187,7 +186,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 IEnumerable<CombinedAssemblyFailureMechanismSection>[] actualInput = assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionsInput.ToArray();
                 IEnumerable<CombinedAssemblyFailureMechanismSection>[] expectedInput = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths)).ToArray();
+                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms)).ToArray();
                 Assert.AreEqual(expectedInput.Length, actualInput.Length);
 
                 for (var i = 0; i < expectedInput.Length; i++)
@@ -230,7 +229,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
                 // Assert
                 Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                        .Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths)
+                                                                                        .Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms)
                                                                                         .Where(fm => fm.InAssembly)
                                                                                         .Select((fm, i) => new
                                                                                         {
@@ -296,25 +295,25 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
         #region Helpers
 
-        private static AssessmentSection CreateAssessmentSectionContainingFailurePathsWithInAssemblyTrue()
+        private static AssessmentSection CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue()
         {
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            IEnumerable<SpecificFailureMechanism> failurePaths = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
-                                                                           .ToArray();
-            assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
+            IEnumerable<SpecificFailureMechanism> failureMechanisms = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
+                                                                                .ToArray();
+            assessmentSection.SpecificFailureMechanisms.AddRange(failureMechanisms);
             return assessmentSection;
         }
 
-        private static AssessmentSection CreateAssessmentSectionContainingFailurePathsWithRandomInAssemblyState()
+        private static AssessmentSection CreateAssessmentSectionContainingFailureMechanismsWithRandomInAssemblyState()
         {
             var random = new Random(21);
 
-            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailurePathsWithInAssemblyTrue();
+            AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue();
 
             assessmentSection.GetFailureMechanisms()
                              .Cast<IFailureMechanism>()
-                             .Concat(assessmentSection.SpecificFailurePaths)
+                             .Concat(assessmentSection.SpecificFailureMechanisms)
                              .ForEachElementDo(fp => fp.InAssembly = random.NextBoolean());
 
             return assessmentSection;

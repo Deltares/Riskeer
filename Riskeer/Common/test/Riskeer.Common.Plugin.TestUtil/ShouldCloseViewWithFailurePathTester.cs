@@ -41,7 +41,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>());
+            assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
             mocks.ReplayAll();
 
             var failurePath = new TestFailureMechanism();
@@ -69,7 +69,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             {
                 failureMechanism
             });
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>());
+            assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
             mocks.ReplayAll();
 
             using (IView view = GetView(failureMechanism))
@@ -97,7 +97,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             {
                 failureMechanism
             });
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>());
+            assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
             mocks.ReplayAll();
 
             using (IView view = GetView(otherFailureMechanism))
@@ -159,7 +159,7 @@ namespace Riskeer.Common.Plugin.TestUtil
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>
+            assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>
             {
                 failurePath
             });

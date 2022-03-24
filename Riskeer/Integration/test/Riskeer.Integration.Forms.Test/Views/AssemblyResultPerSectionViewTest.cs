@@ -207,8 +207,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                     Code = testCode
                 };
 
-                assessmentSection.SpecificFailurePaths.Add(specificFailurePath);
-                assessmentSection.SpecificFailurePaths.NotifyObservers();
+                assessmentSection.SpecificFailureMechanisms.Add(specificFailurePath);
+                assessmentSection.SpecificFailureMechanisms.NotifyObservers();
                 calculator.CombinedFailureMechanismSectionAssemblyOutput = null;
                 buttonTester.Click();
 
@@ -233,7 +233,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.SpecificFailurePaths.Add(failureMechanismToRemove);
+            assessmentSection.SpecificFailureMechanisms.Add(failureMechanismToRemove);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultPerSectionView(assessmentSection))
@@ -249,7 +249,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
 
                 // When
-                assessmentSection.SpecificFailurePaths.Remove(failureMechanismToRemove);
+                assessmentSection.SpecificFailureMechanisms.Remove(failureMechanismToRemove);
                 assessmentSection.NotifyObservers();
                 buttonTester.Click();
 

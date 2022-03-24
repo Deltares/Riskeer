@@ -110,7 +110,7 @@ namespace Riskeer.Common.Plugin
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .FirstOrDefault(fm => fm == view.FailurePath)
-                                   ?? assessmentSection.SpecificFailurePaths
+                                   ?? assessmentSection.SpecificFailureMechanisms
                                                        .FirstOrDefault(fp => fp == view.FailurePath);
             }
 

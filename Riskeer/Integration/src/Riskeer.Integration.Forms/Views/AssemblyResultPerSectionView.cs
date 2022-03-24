@@ -198,7 +198,7 @@ namespace Riskeer.Integration.Forms.Views
                                                  DuneErosionDataResources.DuneErosionFailureMechanism_Code,
                                                  true);
 
-            SetSpecificFailurePathTextBoxColumns();
+            SetSpecificFailureMechanismTextBoxColumns();
 
             suspendDueToAddingColumns = false;
 
@@ -212,12 +212,12 @@ namespace Riskeer.Integration.Forms.Views
             InitializeDataGridView();
         }
 
-        private void SetSpecificFailurePathTextBoxColumns()
+        private void SetSpecificFailureMechanismTextBoxColumns()
         {
-            foreach (SpecificFailureMechanism specificFailurePath in AssessmentSection.SpecificFailurePaths)
+            foreach (SpecificFailureMechanism specificFailureMechanism in AssessmentSection.SpecificFailureMechanisms)
             {
                 dataGridViewControl.AddTextBoxColumn(string.Empty,
-                                                     specificFailurePath.Code,
+                                                     specificFailureMechanism.Code,
                                                      true);
             }
         }

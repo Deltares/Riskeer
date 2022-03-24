@@ -1034,7 +1034,7 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.Sections);
             CollectionAssert.IsEmpty(pipingStructureFailureMechanism.SectionResults);
 
-            SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailurePaths.First();
+            SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailureMechanisms.First();
             CollectionAssert.IsEmpty(specificFailureMechanism.Sections);
             CollectionAssert.IsEmpty(specificFailureMechanism.SectionResults);
         }
@@ -1747,7 +1747,7 @@ namespace Riskeer.Integration.Service.Test
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism);
             CollectionAssert.Contains(changedObjects, pipingStructureFailureMechanism.SectionResults);
 
-            SpecificFailureMechanism failureMechanism = assessmentSection.SpecificFailurePaths.First();
+            SpecificFailureMechanism failureMechanism = assessmentSection.SpecificFailureMechanisms.First();
             CollectionAssert.Contains(changedObjects, failureMechanism);
             CollectionAssert.Contains(changedObjects, failureMechanism.SectionResults);
         }
@@ -1770,7 +1770,7 @@ namespace Riskeer.Integration.Service.Test
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.PipingStructure));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.StabilityPointStructures));
             expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.DuneErosion));
-            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.SpecificFailurePaths.First()));
+            expectedRemovedObjects.AddRange(GetExpectedRemovedObjectsWhenClearingReferenceLine(assessmentSection.SpecificFailureMechanisms.First()));
             return expectedRemovedObjects;
         }
 

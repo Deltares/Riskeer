@@ -64,8 +64,8 @@ namespace Riskeer.Integration.IO.Test.Factories
             };
             ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
 
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
+            assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
+            assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
 
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, random.Next(1, 10));
@@ -84,8 +84,8 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.GrassCoverSlipOffInwards, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.PipingStructure, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.WaterPressureAsphaltCover, random.Next(1, 10));
-            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailurePaths.First(), random.Next(1, 10));
-            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailurePaths.Last(), random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.First(), random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.Last(), random.Next(1, 10));
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -124,8 +124,8 @@ namespace Riskeer.Integration.IO.Test.Factories
             };
             ReferenceLineTestFactory.SetReferenceLineGeometry(assessmentSection.ReferenceLine);
 
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
+            assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
+            assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
 
             FailureMechanismTestHelper.AddSections(assessmentSection.Piping, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.MacroStabilityInwards, random.Next(1, 10));
@@ -145,11 +145,11 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.PipingStructure, random.Next(1, 10));
             FailureMechanismTestHelper.AddSections(assessmentSection.WaterPressureAsphaltCover, random.Next(1, 10));
 
-            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailurePaths.First(), random.Next(1, 10));
-            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailurePaths.Last(), random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.First(), random.Next(1, 10));
+            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.Last(), random.Next(1, 10));
 
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms()
-                                                                            .Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths))
+                                                                            .Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms))
             {
                 failureMechanism.InAssembly = false;
             }
@@ -240,11 +240,11 @@ namespace Riskeer.Integration.IO.Test.Factories
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(14));
 
-            AssertExportableFailureMechanism(assessmentSection.SpecificFailurePaths.First(),
+            AssertExportableFailureMechanism(assessmentSection.SpecificFailureMechanisms.First(),
                                              ExportableFailureMechanismType.Specific,
                                              exportableFailureMechanisms.ElementAt(15));
 
-            AssertExportableFailureMechanism(assessmentSection.SpecificFailurePaths.Last(),
+            AssertExportableFailureMechanism(assessmentSection.SpecificFailureMechanisms.Last(),
                                              ExportableFailureMechanismType.Specific,
                                              exportableFailureMechanisms.ElementAt(16));
         }

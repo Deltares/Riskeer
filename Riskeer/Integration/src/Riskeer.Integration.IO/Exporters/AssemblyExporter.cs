@@ -67,7 +67,7 @@ namespace Riskeer.Integration.IO.Exporters
 
         public bool Export()
         {
-            if (!ValidateSpecificFailurePaths())
+            if (!ValidateSpecificFailureMechanisms())
             {
                 LogErrorMessage();
                 return false;
@@ -99,9 +99,9 @@ namespace Riskeer.Integration.IO.Exporters
             return true;
         }
 
-        private bool ValidateSpecificFailurePaths()
+        private bool ValidateSpecificFailureMechanisms()
         {
-            return assessmentSection.SpecificFailurePaths
+            return assessmentSection.SpecificFailureMechanisms
                                     .Select(fp => fp.Code)
                                     .GroupBy(x => x)
                                     .All(g => g.Count() == 1);

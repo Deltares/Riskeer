@@ -213,14 +213,14 @@ namespace Riskeer.Storage.Core.TestUtil
             assessmentSection.GetFailureMechanisms().ForEachElementDo(fm =>
             {
                 SetComments(fm);
-                SetFailurePathAssemblyResults(fm, i++);
+                SetFailureMechanismAssemblyResults(fm, i++);
             });
 
-            IEnumerable<SpecificFailureMechanism> failurePaths = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
-                                                                           .ToArray();
-            SetSpecificFailurePaths(failurePaths);
-            assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
-            assessmentSection.SpecificFailurePaths.ForEach(SetComments);
+            IEnumerable<SpecificFailureMechanism> failureMechanisms = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
+                                                                                .ToArray();
+            SetSpecificFailureMechanisms(failureMechanisms);
+            assessmentSection.SpecificFailureMechanisms.AddRange(failureMechanisms);
+            assessmentSection.SpecificFailureMechanisms.ForEach(SetComments);
 
             var fullTestProject = new RiskeerProject(assessmentSection)
             {
@@ -250,9 +250,9 @@ namespace Riskeer.Storage.Core.TestUtil
                                                                                        "Comment");
         }
 
-        private static void SetSections(IFailureMechanism failurePath)
+        private static void SetSections(IFailureMechanism failureMechanism)
         {
-            failurePath.SetSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 new FailureMechanismSection("section 1", new[]
                 {
@@ -456,10 +456,10 @@ namespace Riskeer.Storage.Core.TestUtil
             }
         }
 
-        private static void SetFailurePathAssemblyResults(IFailureMechanism failurePath, int seed)
+        private static void SetFailureMechanismAssemblyResults(IFailureMechanism failureMechanism, int seed)
         {
             var random = new Random(seed);
-            FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
             assemblyResult.ProbabilityResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>();
             assemblyResult.ManualFailureMechanismAssemblyProbability = random.NextDouble();
         }
@@ -532,25 +532,25 @@ namespace Riskeer.Storage.Core.TestUtil
 
         #endregion
 
-        #region Specific FailurePath
+        #region Specific FailureMechanism
 
-        private static void SetSpecificFailurePaths(IEnumerable<SpecificFailureMechanism> specificFailurePaths)
+        private static void SetSpecificFailureMechanisms(IEnumerable<SpecificFailureMechanism> specificFailureMechanisms)
         {
             var i = 0;
-            foreach (SpecificFailureMechanism failurePath in specificFailurePaths)
+            foreach (SpecificFailureMechanism failureMechanism in specificFailureMechanisms)
             {
                 var random = new Random(i);
-                failurePath.GeneralInput.N = random.NextRoundedDouble(1, 20);
+                failureMechanism.GeneralInput.N = random.NextRoundedDouble(1, 20);
 
-                failurePath.Name = $"Path {i}";
-                failurePath.InAssembly = random.NextBoolean();
-                failurePath.InAssemblyInputComments.Body = $"Input comment path: {i}";
-                failurePath.InAssemblyOutputComments.Body = $"Output comment path: {i}";
-                failurePath.NotInAssemblyComments.Body = $"NotInAssembly comment path: {i}";
+                failureMechanism.Name = $"Path {i}";
+                failureMechanism.InAssembly = random.NextBoolean();
+                failureMechanism.InAssemblyInputComments.Body = $"Input comment path: {i}";
+                failureMechanism.InAssemblyOutputComments.Body = $"Output comment path: {i}";
+                failureMechanism.NotInAssemblyComments.Body = $"NotInAssembly comment path: {i}";
 
-                SetSections(failurePath);
-                SetSectionResults(failurePath.SectionResults);
-                SetFailurePathAssemblyResults(failurePath, i);
+                SetSections(failureMechanism);
+                SetSectionResults(failureMechanism.SectionResults);
+                SetFailureMechanismAssemblyResults(failureMechanism, i);
                 i++;
             }
         }

@@ -299,7 +299,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailurePathCollectionNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
+        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailureMechanismCollectionNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -314,7 +314,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsEmpty(warningProvider.GetError(button));
 
                 // When
-                assessmentSection.SpecificFailurePaths.NotifyObservers();
+                assessmentSection.SpecificFailureMechanisms.NotifyObservers();
 
                 // Then 
                 Assert.IsTrue(buttonTester.Properties.Enabled);
@@ -323,12 +323,12 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailurePathNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
+        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailureMechanismNotifiesObservers_ThenRefreshButtonEnabledAndWarningSet()
         {
             // Given
-            var failurePath = new SpecificFailureMechanism();
+            var failureMechanism = new SpecificFailureMechanism();
             AssessmentSection assessmentSection = CreateAssessmentSection();
-            assessmentSection.SpecificFailurePaths.Add(failurePath);
+            assessmentSection.SpecificFailureMechanisms.Add(failureMechanism);
 
             using (AssemblyResultTotalView view = ShowAssemblyResultTotalView(assessmentSection))
             {
@@ -340,7 +340,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 Assert.IsEmpty(warningProvider.GetError(button));
 
                 // When
-                failurePath.NotifyObservers();
+                failureMechanism.NotifyObservers();
 
                 // Then 
                 Assert.IsTrue(buttonTester.Properties.Enabled);
@@ -460,7 +460,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailurePathAddedAndRefreshingAssemblyResults_ThenDataGridViewDataSourceAndRowsUpdated()
+        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailureMechanismAddedAndRefreshingAssemblyResults_ThenDataGridViewDataSourceAndRowsUpdated()
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -479,9 +479,9 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
 
                 // When
-                ObservableList<SpecificFailureMechanism> specificFailurePaths = assessmentSection.SpecificFailurePaths;
-                specificFailurePaths.Add(new SpecificFailureMechanism());
-                specificFailurePaths.NotifyObservers();
+                ObservableList<SpecificFailureMechanism> specificFailureMechanisms = assessmentSection.SpecificFailureMechanisms;
+                specificFailureMechanisms.Add(new SpecificFailureMechanism());
+                specificFailureMechanisms.NotifyObservers();
 
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
                 buttonTester.Click();
@@ -494,7 +494,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
         [Test]
         [SetCulture("nl-NL")]
-        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailurePathRemovedAndRefreshingAssemblyResults_ThenDataGridViewDataSourceAndRowsUpdated()
+        public void GivenFormWithAssemblyResultTotalView_WhenSpecificFailureMechanismRemovedAndRefreshingAssemblyResults_ThenDataGridViewDataSourceAndRowsUpdated()
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -513,10 +513,10 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
 
                 // When
-                ObservableList<SpecificFailureMechanism> specificFailurePaths = assessmentSection.SpecificFailurePaths;
-                SpecificFailureMechanism failureMechanismToRemove = specificFailurePaths.Last();
-                specificFailurePaths.Remove(failureMechanismToRemove);
-                specificFailurePaths.NotifyObservers();
+                ObservableList<SpecificFailureMechanism> specificFailureMechanisms = assessmentSection.SpecificFailureMechanisms;
+                SpecificFailureMechanism failureMechanismToRemove = specificFailureMechanisms.Last();
+                specificFailureMechanisms.Remove(failureMechanismToRemove);
+                specificFailureMechanisms.NotifyObservers();
 
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
                 buttonTester.Click();
@@ -530,7 +530,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         private static AssessmentSection CreateAssessmentSection()
         {
             var assessmentSection = new AssessmentSection(new Random(21).NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.SpecificFailurePaths.AddRange(new[]
+            assessmentSection.SpecificFailureMechanisms.AddRange(new[]
             {
                 new SpecificFailureMechanism(),
                 new SpecificFailureMechanism()
@@ -610,7 +610,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                                                        DataGridViewRowCollection rows)
         {
             int nrOfExpectedRows = assessmentSection.GetFailureMechanisms().Count() +
-                                   assessmentSection.SpecificFailurePaths.Count;
+                                   assessmentSection.SpecificFailureMechanisms.Count;
             Assert.AreEqual(nrOfExpectedRows, rows.Count);
 
             PipingFailureMechanism piping = assessmentSection.Piping;
@@ -658,10 +658,10 @@ namespace Riskeer.Integration.Forms.Test.Views
             DuneErosionFailureMechanism duneErosion = assessmentSection.DuneErosion;
             AssertAssemblyCells(duneErosion, assemblyOutput, rows[14].Cells);
 
-            int startIndexFailurePathRow = 15;
-            for (int i = startIndexFailurePathRow; i < nrOfExpectedRows; i++)
+            int startIndexFailureMechanismRow = 15;
+            for (int i = startIndexFailureMechanismRow; i < nrOfExpectedRows; i++)
             {
-                SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailurePaths[i - startIndexFailurePathRow];
+                SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailureMechanisms[i - startIndexFailureMechanismRow];
                 AssertAssemblyCells(specificFailureMechanism, assemblyOutput, rows[i].Cells);
             }
         }

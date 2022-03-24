@@ -301,9 +301,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                 expectedAssessmentSection.StabilityPointStructures.SectionResults,
                 actualAssessmentSection.StabilityPointStructures.SectionResults);
 
-            AssertCollectionAndItems(expectedAssessmentSection.SpecificFailurePaths,
-                                     actualAssessmentSection.SpecificFailurePaths,
-                                     AssertSpecificFailurePath);
+            AssertCollectionAndItems(expectedAssessmentSection.SpecificFailureMechanisms,
+                                     actualAssessmentSection.SpecificFailureMechanisms,
+                                     AssertSpecificFailureMechanism);
         }
 
         private static void AssertFailureMechanismSectionResults(
@@ -391,11 +391,11 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             AssertFailureMechanismSections(expectedFailureMechanism.Sections, actualFailureMechanism.Sections);
             Assert.AreEqual(expectedFailureMechanism.FailureMechanismSectionSourcePath, actualFailureMechanism.FailureMechanismSectionSourcePath);
 
-            AssertFailurePathAssemblyResult(expectedFailureMechanism.AssemblyResult, actualFailureMechanism.AssemblyResult);
+            AssertFailureMechanismAssemblyResult(expectedFailureMechanism.AssemblyResult, actualFailureMechanism.AssemblyResult);
         }
 
-        private static void AssertFailurePathAssemblyResult(FailureMechanismAssemblyResult expectedResult,
-                                                            FailureMechanismAssemblyResult actualResult)
+        private static void AssertFailureMechanismAssemblyResult(FailureMechanismAssemblyResult expectedResult,
+                                                                 FailureMechanismAssemblyResult actualResult)
         {
             Assert.AreEqual(expectedResult.ProbabilityResultType, actualResult.ProbabilityResultType);
             Assert.AreEqual(expectedResult.ManualFailureMechanismAssemblyProbability, actualResult.ManualFailureMechanismAssemblyProbability);
@@ -690,9 +690,9 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             }
         }
 
-        #region SpecificFailurePaths
+        #region SpecificFailureMechanisms
 
-        private static void AssertSpecificFailurePath(SpecificFailureMechanism expected, SpecificFailureMechanism actual)
+        private static void AssertSpecificFailureMechanism(SpecificFailureMechanism expected, SpecificFailureMechanism actual)
         {
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.InAssembly, actual.InAssembly);
@@ -708,7 +708,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             Assert.AreEqual(expected.GeneralInput.N, actual.GeneralInput.N);
             Assert.AreEqual(expected.GeneralInput.ApplyLengthEffectInSection, actual.GeneralInput.ApplyLengthEffectInSection);
 
-            AssertFailurePathAssemblyResult(expected.AssemblyResult, actual.AssemblyResult);
+            AssertFailureMechanismAssemblyResult(expected.AssemblyResult, actual.AssemblyResult);
         }
 
         #endregion

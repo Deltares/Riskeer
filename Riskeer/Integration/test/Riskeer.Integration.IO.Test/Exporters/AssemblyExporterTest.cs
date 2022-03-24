@@ -87,12 +87,12 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_SpecificFailurePathsWithSameCodes_LogsErrorAndReturnsFalse()
+        public void Export_SpecificFailureMechanismsWithSameCodes_LogsErrorAndReturnsFalse()
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(Export_SpecificFailurePathsWithSameCodes_LogsErrorAndReturnsFalse));
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_SpecificFailureMechanismsWithSameCodes_LogsErrorAndReturnsFalse));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
-            assessmentSection.SpecificFailurePaths.Last().Code = assessmentSection.SpecificFailurePaths.First().Code;
+            assessmentSection.SpecificFailureMechanisms.Last().Code = assessmentSection.SpecificFailureMechanisms.First().Code;
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
@@ -241,7 +241,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 new Point2D(2, 2)
             });
 
-            assessmentSection.SpecificFailurePaths.AddRange(new[]
+            assessmentSection.SpecificFailureMechanisms.AddRange(new[]
             {
                 new SpecificFailureMechanism
                 {
@@ -271,8 +271,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             FailureMechanismTestHelper.AddSections(assessmentSection.PipingStructure, 2);
             FailureMechanismTestHelper.AddSections(assessmentSection.WaterPressureAsphaltCover, 2);
 
-            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailurePaths.First(), 2);
-            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailurePaths.Last(), 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.First(), 2);
+            FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.Last(), 2);
 
             return assessmentSection;
         }

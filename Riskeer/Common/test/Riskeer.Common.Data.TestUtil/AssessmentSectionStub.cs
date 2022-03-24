@@ -70,7 +70,7 @@ namespace Riskeer.Common.Data.TestUtil
             waterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
             waterLevelCalculationsForLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
-            SpecificFailurePaths = new ObservableList<SpecificFailureMechanism>();
+            SpecificFailureMechanisms = new ObservableList<SpecificFailureMechanism>();
         }
 
         public string Id { get; }
@@ -109,7 +109,7 @@ namespace Riskeer.Common.Data.TestUtil
 
         public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaveHeightCalculationsForUserDefinedTargetProbabilities { get; }
 
-        public ObservableList<SpecificFailureMechanism> SpecificFailurePaths { get; }
+        public ObservableList<SpecificFailureMechanism> SpecificFailureMechanisms { get; }
 
         /// <summary>
         /// Sets the hydraulic boundary locations on the assessment section stub.
@@ -139,14 +139,14 @@ namespace Riskeer.Common.Data.TestUtil
             }
         }
 
-        public IEnumerable<IFailureMechanism> GetFailureMechanisms()
-        {
-            yield break;
-        }
-
         public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
         {
             return failureMechanisms;
+        }
+
+        public IEnumerable<IFailureMechanism> GetFailureMechanisms()
+        {
+            yield break;
         }
 
         public void ChangeComposition(AssessmentSectionComposition newComposition)

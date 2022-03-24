@@ -1437,7 +1437,7 @@ namespace Riskeer.Integration.Plugin
                 failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .OfType<TFailureMechanism>()
                                                     .FirstOrDefault()
-                                   ?? assessmentSection.SpecificFailurePaths
+                                   ?? assessmentSection.SpecificFailureMechanisms
                                                        .Cast<TFailureMechanism>()
                                                        .FirstOrDefault(fp => fp == view.FailureMechanism);
             }
@@ -1536,7 +1536,7 @@ namespace Riskeer.Integration.Plugin
                 yield return comment;
             }
 
-            foreach (Comment comment in assessmentSection.SpecificFailurePaths.SelectMany(GetCommentElements))
+            foreach (Comment comment in assessmentSection.SpecificFailureMechanisms.SelectMany(GetCommentElements))
             {
                 yield return comment;
             }
@@ -1821,7 +1821,7 @@ namespace Riskeer.Integration.Plugin
             {
                 new FailureMechanismSectionAssemblyGroupsContext(assessmentSection),
                 new GenericFailurePathsContext(assessmentSection),
-                new SpecificFailurePathsContext(assessmentSection.SpecificFailurePaths, assessmentSection),
+                new SpecificFailurePathsContext(assessmentSection.SpecificFailureMechanisms, assessmentSection),
                 new AssemblyResultsContext(assessmentSection)
             };
         }
@@ -1879,7 +1879,7 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region SpecificFailurePaths TreeNodeInfo
+        #region SpecificFailureMechanisms TreeNodeInfo
 
         private static object[] SpecificFailurePathsChildNodeObjects(SpecificFailurePathsContext nodeData)
         {

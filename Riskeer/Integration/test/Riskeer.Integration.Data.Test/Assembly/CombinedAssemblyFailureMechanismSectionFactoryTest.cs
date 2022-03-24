@@ -80,11 +80,11 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
                 // Call
                 IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths));
+                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms));
 
                 // Assert
                 int expectedNrOfGeneralSectionResults = assessmentSection.GetFailureMechanisms().Count();
-                int expectedNrOfSpecificSectionResults = assessmentSection.SpecificFailurePaths.Count;
+                int expectedNrOfSpecificSectionResults = assessmentSection.SpecificFailureMechanisms.Count;
                 Assert.AreEqual(expectedNrOfGeneralSectionResults + expectedNrOfSpecificSectionResults, inputs.Count());
 
                 AssertSectionsWithResult(assessmentSection.Piping.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(0));
@@ -104,7 +104,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 AssertSectionsWithResult(assessmentSection.DuneErosion.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(14));
                 for (var i = 0; i < expectedNrOfSpecificSectionResults; i++)
                 {
-                    AssertSectionsWithResult(assessmentSection.SpecificFailurePaths[i].SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup,
+                    AssertSectionsWithResult(assessmentSection.SpecificFailureMechanisms[i].SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup,
                                              inputs.ElementAt(expectedNrOfGeneralSectionResults + i));
                 }
             }
@@ -149,11 +149,11 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
                 // Call
                 IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths));
+                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms));
 
                 // Assert
                 int expectedNrOfGeneralSectionResults = assessmentSection.GetFailureMechanisms().Count();
-                int expectedNrOfSpecificSectionResults = assessmentSection.SpecificFailurePaths.Count;
+                int expectedNrOfSpecificSectionResults = assessmentSection.SpecificFailureMechanisms.Count;
                 Assert.AreEqual(expectedNrOfGeneralSectionResults + expectedNrOfSpecificSectionResults, inputs.Count());
 
                 AssertSectionsWithResult(assessmentSection.Piping.SectionResults, FailureMechanismSectionAssemblyGroup.Gr, inputs.ElementAt(0));
@@ -173,7 +173,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 AssertSectionsWithResult(assessmentSection.DuneErosion.SectionResults, FailureMechanismSectionAssemblyGroup.Gr, inputs.ElementAt(14));
                 for (var i = 0; i < expectedNrOfSpecificSectionResults; i++)
                 {
-                    AssertSectionsWithResult(assessmentSection.SpecificFailurePaths[i].SectionResults, FailureMechanismSectionAssemblyGroup.Gr,
+                    AssertSectionsWithResult(assessmentSection.SpecificFailureMechanisms[i].SectionResults, FailureMechanismSectionAssemblyGroup.Gr,
                                              inputs.ElementAt(expectedNrOfGeneralSectionResults + i));
                 }
             }
@@ -199,9 +199,9 @@ namespace Riskeer.Integration.Data.Test.Assembly
             yield return new TestCaseData(assessmentSection, assessmentSection.PipingStructure);
             yield return new TestCaseData(assessmentSection, assessmentSection.StabilityPointStructures);
             yield return new TestCaseData(assessmentSection, assessmentSection.DuneErosion);
-            foreach (SpecificFailureMechanism specificFailurePath in assessmentSection.SpecificFailurePaths)
+            foreach (SpecificFailureMechanism specificFailureMechanism in assessmentSection.SpecificFailureMechanisms)
             {
-                yield return new TestCaseData(assessmentSection, specificFailurePath);
+                yield return new TestCaseData(assessmentSection, specificFailureMechanism);
             }
         }
 

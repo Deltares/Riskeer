@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Plugin.Merge
             changedObjects.AddRange(MergeHydraulicBoundaryLocationCalculations(targetAssessmentSection, mergeData.AssessmentSection));
 
             MergeFailureMechanisms(targetAssessmentSection, mergeData);
-            MergeSpecificFailurePaths(targetAssessmentSection, mergeData.MergeSpecificFailurePaths);
+            MergeSpecificFailureMechanism(targetAssessmentSection, mergeData.MergeSpecificFailurePaths);
 
             AfterMerge(changedObjects);
         }
@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Plugin.Merge
         private static void ValidateMergeData(AssessmentSectionMergeData mergeData)
         {
             AssessmentSection sourceAssessmentSection = mergeData.AssessmentSection;
-            if (!mergeData.MergeSpecificFailurePaths.All(fp => sourceAssessmentSection.SpecificFailurePaths.Contains(fp)))
+            if (!mergeData.MergeSpecificFailurePaths.All(fp => sourceAssessmentSection.SpecificFailureMechanisms.Contains(fp)))
             {
                 throw new ArgumentException($"{nameof(AssessmentSectionMergeData.MergeSpecificFailurePaths)} must contain items of " +
                                             $"the assessment section in {nameof(mergeData)}.");
@@ -110,13 +110,13 @@ namespace Riskeer.Integration.Plugin.Merge
             log.InfoFormat(Resources.AssessmentSectionMergeHandler_TryMergeFailureMechanism_FailureMechanism_0_replaced, failureMechanism.Name);
         }
 
-        #region FailurePaths
+        #region SpecificFailureMechanisms
 
-        private static void MergeSpecificFailurePaths(AssessmentSection targetAssessmentSection, IEnumerable<SpecificFailureMechanism> mergeFailurePaths)
+        private static void MergeSpecificFailureMechanism(AssessmentSection targetAssessmentSection, IEnumerable<SpecificFailureMechanism> mergeFailurePaths)
         {
             if (mergeFailurePaths.Any())
             {
-                targetAssessmentSection.SpecificFailurePaths.AddRange(mergeFailurePaths);
+                targetAssessmentSection.SpecificFailureMechanisms.AddRange(mergeFailurePaths);
                 mergeFailurePaths.ForEachElementDo(LogMergeMessage);
             }
         }

@@ -164,10 +164,10 @@ namespace Riskeer.Integration.IO.Factories
                 exportableFailureMechanisms, assessmentSection.WaterPressureAsphaltCover, assessmentSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism,
                 FailureMechanismAssemblyFactory.AssembleSection, ExportableFailureMechanismType.Generic);
 
-            foreach (SpecificFailureMechanism specificFailurePath in assessmentSection.SpecificFailurePaths)
+            foreach (SpecificFailureMechanism specificFailureMechanism in assessmentSection.SpecificFailureMechanisms)
             {
                 AddFailureMechanismWhenInAssembly<SpecificFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                    exportableFailureMechanisms, specificFailurePath, assessmentSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism,
+                    exportableFailureMechanisms, specificFailureMechanism, assessmentSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism,
                     FailureMechanismAssemblyFactory.AssembleSection, ExportableFailureMechanismType.Specific);
             }
 

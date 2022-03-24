@@ -84,9 +84,9 @@ namespace Riskeer.Integration.Data.Test.Assembly
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
+            assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
             Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                    .Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths)
+                                                                                    .Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms)
                                                                                     .Where(fm => fm.InAssembly)
                                                                                     .Select((fm, i) => new
                                                                                     {
@@ -130,10 +130,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.PipingStructure]), results[i].PipingStructure);
                 Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.StabilityPointStructures]), results[i].StabilityPointStructures);
                 Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.DuneErosion]), results[i].DuneErosion);
-                Assert.AreEqual(assessmentSection.SpecificFailurePaths.Count, results[i].SpecificFailurePaths.Length);
-                foreach (SpecificFailureMechanism specificFailurePath in assessmentSection.SpecificFailurePaths)
+                Assert.AreEqual(assessmentSection.SpecificFailureMechanisms.Count, results[i].SpecificFailurePaths.Length);
+                foreach (SpecificFailureMechanism specificFailureMechanism in assessmentSection.SpecificFailureMechanisms)
                 {
-                    Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[specificFailurePath]), results[i].SpecificFailurePaths.Single());
+                    Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[specificFailureMechanism]), results[i].SpecificFailurePaths.Single());
                 }
             }
         }
@@ -144,9 +144,9 @@ namespace Riskeer.Integration.Data.Test.Assembly
             // Setup
             var random = new Random(21);
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
+            assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
             Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                    .Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths)
+                                                                                    .Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms)
                                                                                     .Where(fm => fm.InAssembly)
                                                                                     .Select((fm, i) => new
                                                                                     {
@@ -189,7 +189,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.IsNull(results[i].PipingStructure);
                 Assert.IsNull(results[i].StabilityPointStructures);
                 Assert.IsNull(results[i].DuneErosion);
-                Assert.AreEqual(assessmentSection.SpecificFailurePaths.Count, results[i].SpecificFailurePaths.Length);
+                Assert.AreEqual(assessmentSection.SpecificFailureMechanisms.Count, results[i].SpecificFailurePaths.Length);
                 foreach (FailureMechanismSectionAssemblyGroup? specificFailurePath in results[i].SpecificFailurePaths)
                 {
                     Assert.IsNull(specificFailurePath);

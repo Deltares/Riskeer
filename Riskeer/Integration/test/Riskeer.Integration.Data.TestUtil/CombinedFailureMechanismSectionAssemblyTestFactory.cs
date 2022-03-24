@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Data.TestUtil
             return new CombinedFailureMechanismSectionAssembly(
                 new CombinedAssemblyFailureMechanismSection(random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()),
                 assessmentSection.GetFailureMechanisms()
-                                 .Concat<IFailureMechanism>(assessmentSection.SpecificFailurePaths)
+                                 .Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms)
                                  .Where(fm => fm.InAssembly)
                                  .Select(fm => random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
                                  .ToArray());

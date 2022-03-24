@@ -742,7 +742,7 @@ namespace Riskeer.Integration.Plugin.Test
                 var failurePath = new SpecificFailureMechanism();
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
-                    SpecificFailurePaths =
+                    SpecificFailureMechanisms =
                     {
                         failurePath
                     }

@@ -45,7 +45,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
     public class AssessmentSectionMergeDataProviderDialogTest : NUnitFormTest
     {
         private const int isSelectedIndex = 0;
-        private const int failurePathNameIndex = 1;
+        private const int failureMechanismNameIndex = 1;
         private const int inAssemblyIndex = 2;
         private const int hasSectionsIndex = 3;
         private const int numberOfCalculationsIndex = 4;
@@ -114,19 +114,19 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.AreEqual(columnCount, dataGridView.ColumnCount);
                 Assert.AreEqual(0, dataGridView.RowCount);
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[isSelectedIndex]);
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[failurePathNameIndex]);
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[failureMechanismNameIndex]);
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[inAssemblyIndex]);
                 Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[hasSectionsIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[numberOfCalculationsIndex]);
 
                 Assert.AreEqual("Selecteer", dataGridView.Columns[isSelectedIndex].HeaderText);
-                Assert.AreEqual("Faalmechanisme", dataGridView.Columns[failurePathNameIndex].HeaderText);
+                Assert.AreEqual("Faalmechanisme", dataGridView.Columns[failureMechanismNameIndex].HeaderText);
                 Assert.AreEqual("In assemblage", dataGridView.Columns[inAssemblyIndex].HeaderText);
                 Assert.AreEqual("Heeft vakindeling", dataGridView.Columns[hasSectionsIndex].HeaderText);
                 Assert.AreEqual("Aantal berekeningen", dataGridView.Columns[numberOfCalculationsIndex].HeaderText);
 
                 Assert.IsFalse(dataGridView.Columns[isSelectedIndex].ReadOnly);
-                Assert.IsTrue(dataGridView.Columns[failurePathNameIndex].ReadOnly);
+                Assert.IsTrue(dataGridView.Columns[failureMechanismNameIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[inAssemblyIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[hasSectionsIndex].ReadOnly);
                 Assert.IsTrue(dataGridView.Columns[numberOfCalculationsIndex].ReadOnly);
@@ -223,10 +223,10 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 DataGridViewRowCollection rows = dataGridView.Rows;
 
                 int expectedNrOfRows = assessmentSection.GetFailureMechanisms().Count() +
-                                       assessmentSection.SpecificFailurePaths.Count;
+                                       assessmentSection.SpecificFailureMechanisms.Count;
                 Assert.AreEqual(expectedNrOfRows, rows.Count);
                 AssertFailureMechanismRows(assessmentSection, rows);
-                AssertFailurePathRows(assessmentSection, rows);
+                AssertSpecificFailureMechanismRows(assessmentSection, rows);
             }
         }
 
@@ -347,7 +347,7 @@ namespace Riskeer.Integration.Forms.Test.Merge
                 Assert.IsTrue(result.MergePipingStructure);
                 Assert.IsTrue(result.MergeStabilityPointStructures);
                 Assert.IsTrue(result.MergeDuneErosion);
-                CollectionAssert.AreEqual(assessmentSection.SpecificFailurePaths, result.MergeSpecificFailurePaths);
+                CollectionAssert.AreEqual(assessmentSection.SpecificFailureMechanisms, result.MergeSpecificFailurePaths);
             }
         }
 
@@ -370,13 +370,13 @@ namespace Riskeer.Integration.Forms.Test.Merge
             AssertDataGridViewRow(expectedAssessmentSection.DuneErosion, rows[14].Cells);
         }
 
-        private static void AssertFailurePathRows(AssessmentSection expectedAssessmentSection, DataGridViewRowCollection rows)
+        private static void AssertSpecificFailureMechanismRows(AssessmentSection expectedAssessmentSection, DataGridViewRowCollection rows)
         {
             int offset = expectedAssessmentSection.GetFailureMechanisms().Count();
-            ObservableList<SpecificFailureMechanism> failurePaths = expectedAssessmentSection.SpecificFailurePaths;
-            for (int i = 0; i < failurePaths.Count; i++)
+            ObservableList<SpecificFailureMechanism> failureMechanisms = expectedAssessmentSection.SpecificFailureMechanisms;
+            for (int i = 0; i < failureMechanisms.Count; i++)
             {
-                AssertDataGridViewRow(failurePaths[i], rows[i + offset].Cells);
+                AssertDataGridViewRow(failureMechanisms[i], rows[i + offset].Cells);
             }
         }
 
@@ -384,19 +384,19 @@ namespace Riskeer.Integration.Forms.Test.Merge
                                                   DataGridViewCellCollection cells)
         {
             Assert.AreEqual(false, cells[isSelectedIndex].Value);
-            Assert.AreEqual(expectedFailureMechanism.Name, cells[failurePathNameIndex].Value);
+            Assert.AreEqual(expectedFailureMechanism.Name, cells[failureMechanismNameIndex].Value);
             Assert.AreEqual(expectedFailureMechanism.InAssembly, cells[inAssemblyIndex].Value);
             Assert.AreEqual(expectedFailureMechanism.Sections.Any(), cells[hasSectionsIndex].Value);
             Assert.AreEqual(expectedFailureMechanism.Calculations.Count(), cells[numberOfCalculationsIndex].Value);
         }
 
-        private static void AssertDataGridViewRow(IFailureMechanism expectedFailurePath,
+        private static void AssertDataGridViewRow(IFailureMechanism expectedFailureMechanism,
                                                   DataGridViewCellCollection cells)
         {
             Assert.AreEqual(false, cells[isSelectedIndex].Value);
-            Assert.AreEqual(expectedFailurePath.Name, cells[failurePathNameIndex].Value);
-            Assert.AreEqual(expectedFailurePath.InAssembly, cells[inAssemblyIndex].Value);
-            Assert.AreEqual(expectedFailurePath.Sections.Any(), cells[hasSectionsIndex].Value);
+            Assert.AreEqual(expectedFailureMechanism.Name, cells[failureMechanismNameIndex].Value);
+            Assert.AreEqual(expectedFailureMechanism.InAssembly, cells[inAssemblyIndex].Value);
+            Assert.AreEqual(expectedFailureMechanism.Sections.Any(), cells[hasSectionsIndex].Value);
             Assert.AreEqual(0, cells[numberOfCalculationsIndex].Value);
         }
 

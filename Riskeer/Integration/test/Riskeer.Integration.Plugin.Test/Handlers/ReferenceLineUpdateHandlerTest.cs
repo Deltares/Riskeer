@@ -349,7 +349,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
             CollectionAssert.AreEqual(referenceLine.Points, assessmentSection.ReferenceLine.Points);
 
-            SpecificFailureMechanism failureMechanism = assessmentSection.SpecificFailurePaths.First();
+            SpecificFailureMechanism failureMechanism = assessmentSection.SpecificFailureMechanisms.First();
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
             CollectionAssert.Contains(observables, failureMechanism);

@@ -109,9 +109,9 @@ namespace Riskeer.Storage.Core.Create
         private static void AddSpecificFailurePathEntities(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
         {
             var i = 0;
-            foreach (SpecificFailureMechanism failurePath in section.SpecificFailurePaths)
+            foreach (SpecificFailureMechanism specificFailureMechanism in section.SpecificFailureMechanisms)
             {
-                entity.SpecificFailurePathEntities.Add(failurePath.Create(registry, i++));
+                entity.SpecificFailurePathEntities.Add(specificFailureMechanism.Create(registry, i++));
             }
         }
 

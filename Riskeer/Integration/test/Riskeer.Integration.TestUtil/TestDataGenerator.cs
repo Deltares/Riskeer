@@ -126,9 +126,9 @@ namespace Riskeer.Integration.TestUtil
             SetFullyConfiguredFailureMechanism(assessmentSection.PipingStructure);
             SetFullyConfiguredFailureMechanism(assessmentSection.WaterPressureAsphaltCover);
 
-            var failurePath = new SpecificFailureMechanism();
-            SetFullyConfiguredFailureMechanism(failurePath);
-            assessmentSection.SpecificFailurePaths.Add(failurePath);
+            var failureMechanism = new SpecificFailureMechanism();
+            SetFullyConfiguredFailureMechanism(failureMechanism);
+            assessmentSection.SpecificFailureMechanisms.Add(failureMechanism);
 
             return assessmentSection;
         }
@@ -146,7 +146,7 @@ namespace Riskeer.Integration.TestUtil
         public static AssessmentSection GetAssessmentSectionWithAllCalculationConfigurationsAndFailurePaths(
             AssessmentSectionComposition composition = AssessmentSectionComposition.Dike)
         {
-            var failurePaths = new List<SpecificFailureMechanism>
+            var failureMechanisms = new List<SpecificFailureMechanism>
             {
                 new SpecificFailureMechanism
                 {
@@ -157,13 +157,13 @@ namespace Riskeer.Integration.TestUtil
                     Name = "Path 2"
                 }
             };
-            for (int i = 0; i < failurePaths.Count; i++)
+            for (int i = 0; i < failureMechanisms.Count; i++)
             {
-                AddFailureMechanismSections(failurePaths[i], i);
+                AddFailureMechanismSections(failureMechanisms[i], i);
             }
 
             AssessmentSection assessmentSection = GetAssessmentSectionWithAllCalculationConfigurations(composition);
-            assessmentSection.SpecificFailurePaths.AddRange(failurePaths);
+            assessmentSection.SpecificFailureMechanisms.AddRange(failureMechanisms);
             return assessmentSection;
         }
 
@@ -307,13 +307,13 @@ namespace Riskeer.Integration.TestUtil
                 AddFailureMechanismSections(failureMechanisms.ElementAt(i), i);
             }
 
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
-            assessmentSection.SpecificFailurePaths.Add(new SpecificFailureMechanism());
+            assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
+            assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
 
-            ObservableList<SpecificFailureMechanism> specificFailurePaths = assessmentSection.SpecificFailurePaths;
-            for (var i = 0; i < specificFailurePaths.Count; i++)
+            ObservableList<SpecificFailureMechanism> specificFailureMechanisms = assessmentSection.SpecificFailureMechanisms;
+            for (var i = 0; i < specificFailureMechanisms.Count; i++)
             {
-                AddFailureMechanismSections(specificFailurePaths.ElementAt(i), i);
+                AddFailureMechanismSections(specificFailureMechanisms.ElementAt(i), i);
             }
 
             return assessmentSection;

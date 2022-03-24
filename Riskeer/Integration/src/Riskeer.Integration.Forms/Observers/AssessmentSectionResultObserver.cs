@@ -69,8 +69,8 @@ namespace Riskeer.Integration.Forms.Observers
         private readonly Observer pipingStructureObserver;
         private readonly Observer waterPressureAsphaltCoverObserver;
 
-        private readonly Observer specificFailurePathsObserver;
-        private readonly List<Observer> specificFailurePathObservers;
+        private readonly Observer specificFailureMechanismsObserver;
+        private readonly List<Observer> specificFailureMechanismObservers;
 
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionResultObserver"/>.
@@ -100,17 +100,17 @@ namespace Riskeer.Integration.Forms.Observers
                 Observable = assessmentSection.ReferenceLine
             };
 
-            specificFailurePathsObserver = new Observer(() =>
+            specificFailureMechanismsObserver = new Observer(() =>
             {
-                ClearFailurePathObservers();
-                CreateFailurePathObservers();
+                ClearFailureMechanismObservers();
+                CreateSpecificFailureMechanismObservers();
                 NotifyObservers();
             })
             {
-                Observable = assessmentSection.SpecificFailurePaths
+                Observable = assessmentSection.SpecificFailureMechanisms
             };
-            specificFailurePathObservers = new List<Observer>();
-            CreateFailurePathObservers();
+            specificFailureMechanismObservers = new List<Observer>();
+            CreateSpecificFailureMechanismObservers();
 
             closingStructuresObserver = CreateCalculatableFailureMechanismObserver<ClosingStructuresFailureMechanism,
                 AdoptableFailureMechanismSectionResult, StructuresCalculation<ClosingStructuresInput>>(assessmentSection.ClosingStructures);
@@ -187,9 +187,9 @@ namespace Riskeer.Integration.Forms.Observers
             microstabilityObserver.Dispose();
             pipingStructureObserver.Dispose();
             waterPressureAsphaltCoverObserver.Dispose();
-            specificFailurePathsObserver.Dispose();
+            specificFailureMechanismsObserver.Dispose();
 
-            ClearFailurePathObservers();
+            ClearFailureMechanismObservers();
         }
 
         private void ResubscribeFailureMechanismObservers(AssessmentSection assessmentSection)
@@ -233,21 +233,21 @@ namespace Riskeer.Integration.Forms.Observers
             };
         }
 
-        private void CreateFailurePathObservers()
+        private void CreateSpecificFailureMechanismObservers()
         {
-            IEnumerable<Observer> observers = assessmentSection.SpecificFailurePaths.Select(CreateFailureMechanismObserver<SpecificFailureMechanism,
-                                                                                                NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>);
-            specificFailurePathObservers.AddRange(observers);
+            IEnumerable<Observer> observers = assessmentSection.SpecificFailureMechanisms.Select(CreateFailureMechanismObserver<SpecificFailureMechanism,
+                                                                                                     NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>);
+            specificFailureMechanismObservers.AddRange(observers);
         }
 
-        private void ClearFailurePathObservers()
+        private void ClearFailureMechanismObservers()
         {
-            foreach (Observer failurePathObserver in specificFailurePathObservers)
+            foreach (Observer failureMechanismObserver in specificFailureMechanismObservers)
             {
-                failurePathObserver.Dispose();
+                failureMechanismObserver.Dispose();
             }
 
-            specificFailurePathObservers.Clear();
+            specificFailureMechanismObservers.Clear();
         }
     }
 }

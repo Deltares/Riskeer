@@ -98,7 +98,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>());
+            assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
             mocks.ReplayAll();
 
             var failureMechanism = new MicrostabilityFailureMechanism();
@@ -129,7 +129,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 otherFailureMechanism
             });
-            assessmentSection.Stub(asm => asm.SpecificFailurePaths).Return(new ObservableList<SpecificFailureMechanism>());
+            assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
             mocks.ReplayAll();
 
             var failureMechanism = new MicrostabilityFailureMechanism();
@@ -186,8 +186,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new MicrostabilityFailureMechanism();
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failurePathContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            failureMechanismContext.Expect(fm => fm.WrappedData).Return(failureMechanism);
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<MicrostabilityFailureMechanism>(
@@ -197,7 +197,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                        sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failurePathContext);
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -211,8 +211,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var failurePathContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
-            failurePathContext.Expect(fm => fm.WrappedData).Return(new MicrostabilityFailureMechanism());
+            var failureMechanismContext = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            failureMechanismContext.Expect(fm => fm.WrappedData).Return(new MicrostabilityFailureMechanism());
             mocks.ReplayAll();
 
             var failureMechanism = new MicrostabilityFailureMechanism();
@@ -224,7 +224,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                        sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failurePathContext);
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);

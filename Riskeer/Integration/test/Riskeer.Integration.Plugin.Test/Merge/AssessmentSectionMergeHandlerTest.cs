@@ -222,60 +222,60 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void PerformMerge_WithFailurePathsToMerge_FailurePathsSame()
+        public void PerformMerge_WithFailureMechanismsToMerge_FailureMechanismsSame()
         {
             // Setup
             var handler = new AssessmentSectionMergeHandler();
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                SpecificFailurePaths =
+                SpecificFailureMechanisms =
                 {
                     new SpecificFailureMechanism()
                 }
             };
-            IFailureMechanism[] originalFailurePaths = targetAssessmentSection.SpecificFailurePaths.ToArray();
+            IFailureMechanism[] originalFailureMechanisms = targetAssessmentSection.SpecificFailureMechanisms.ToArray();
 
-            var failurePathsToMerge = new[]
+            var failureMechanismsToMerge = new[]
             {
                 new SpecificFailureMechanism(),
                 new SpecificFailureMechanism()
             };
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            sourceAssessmentSection.SpecificFailurePaths.AddRange(failurePathsToMerge);
+            sourceAssessmentSection.SpecificFailureMechanisms.AddRange(failureMechanismsToMerge);
 
             var constructionProperties = new AssessmentSectionMergeData.ConstructionProperties();
-            constructionProperties.MergeSpecificFailurePaths.AddRange(failurePathsToMerge);
+            constructionProperties.MergeSpecificFailurePaths.AddRange(failureMechanismsToMerge);
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, constructionProperties);
 
             // Call
             handler.PerformMerge(targetAssessmentSection, mergeData);
 
             // Assert
-            IEnumerable<IFailureMechanism> expectedFailurePaths = originalFailurePaths.Concat(failurePathsToMerge);
-            CollectionAssert.AreEqual(expectedFailurePaths, targetAssessmentSection.SpecificFailurePaths);
+            IEnumerable<IFailureMechanism> expectedFailureMechanisms = originalFailureMechanisms.Concat(failureMechanismsToMerge);
+            CollectionAssert.AreEqual(expectedFailureMechanisms, targetAssessmentSection.SpecificFailureMechanisms);
         }
 
         [Test]
-        public void PerformMerge_WithNoFailurePathsToMerge_FailurePathsNotSame()
+        public void PerformMerge_WithNoFailureMechanismsToMerge_FailureMechanismsNotSame()
         {
             // Setup
             var handler = new AssessmentSectionMergeHandler();
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                SpecificFailurePaths =
+                SpecificFailureMechanisms =
                 {
                     new SpecificFailureMechanism()
                 }
             };
-            IFailureMechanism[] originalFailurePaths = targetAssessmentSection.SpecificFailurePaths.ToArray();
+            IFailureMechanism[] originalFailureMechanisms = targetAssessmentSection.SpecificFailureMechanisms.ToArray();
 
-            var failurePathsToMerge = new[]
+            var failureMechanismsToMerge = new[]
             {
                 new SpecificFailureMechanism(),
                 new SpecificFailureMechanism()
             };
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            sourceAssessmentSection.SpecificFailurePaths.AddRange(failurePathsToMerge);
+            sourceAssessmentSection.SpecificFailureMechanisms.AddRange(failureMechanismsToMerge);
 
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, new AssessmentSectionMergeData.ConstructionProperties());
 
@@ -283,17 +283,17 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             handler.PerformMerge(targetAssessmentSection, mergeData);
 
             // Assert
-            CollectionAssert.AreEqual(originalFailurePaths, targetAssessmentSection.SpecificFailurePaths);
+            CollectionAssert.AreEqual(originalFailureMechanisms, targetAssessmentSection.SpecificFailureMechanisms);
         }
 
         [Test]
-        public void PerformMerge_WithFailurePathsToMergeNotInSourceAssessmentSection_ThrowsArgumentException()
+        public void PerformMerge_WithFailureMechanismsToMergeNotInSourceAssessmentSection_ThrowsArgumentException()
         {
             // Setup
             var handler = new AssessmentSectionMergeHandler();
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            var failurePathsToMerge = new[]
+            var failureMechanismsToMerge = new[]
             {
                 new SpecificFailureMechanism(),
                 new SpecificFailureMechanism()
@@ -301,7 +301,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             var constructionProperties = new AssessmentSectionMergeData.ConstructionProperties();
-            constructionProperties.MergeSpecificFailurePaths.AddRange(failurePathsToMerge);
+            constructionProperties.MergeSpecificFailurePaths.AddRange(failureMechanismsToMerge);
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, constructionProperties);
 
             // Call
@@ -313,19 +313,19 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         }
 
         [Test]
-        public void PerformMerge_WithFailurePathsToMerge_LogsMessages()
+        public void PerformMerge_WithFailureMechanismsToMerge_LogsMessages()
         {
             // Setup
             var handler = new AssessmentSectionMergeHandler();
             var targetAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
             {
-                SpecificFailurePaths =
+                SpecificFailureMechanisms =
                 {
                     new SpecificFailureMechanism()
                 }
             };
 
-            var failurePathsToMerge = new[]
+            var failureMechanismsToMerge = new[]
             {
                 new SpecificFailureMechanism
                 {
@@ -337,10 +337,10 @@ namespace Riskeer.Integration.Plugin.Test.Merge
                 }
             };
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            sourceAssessmentSection.SpecificFailurePaths.AddRange(failurePathsToMerge);
+            sourceAssessmentSection.SpecificFailureMechanisms.AddRange(failureMechanismsToMerge);
 
             var constructionProperties = new AssessmentSectionMergeData.ConstructionProperties();
-            constructionProperties.MergeSpecificFailurePaths.AddRange(failurePathsToMerge);
+            constructionProperties.MergeSpecificFailurePaths.AddRange(failureMechanismsToMerge);
             var mergeData = new AssessmentSectionMergeData(sourceAssessmentSection, constructionProperties);
 
             // Call
@@ -350,12 +350,12 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             TestHelper.AssertLogMessages(Call, messages =>
             {
                 string[] msgs = messages.ToArray();
-                int nrOfFailurePaths = failurePathsToMerge.Length;
-                Assert.AreEqual(nrOfFailurePaths + 1, msgs.Length);
-                for (int i = 0; i < nrOfFailurePaths; i++)
+                int nrOfFailureMechanisms = failureMechanismsToMerge.Length;
+                Assert.AreEqual(nrOfFailureMechanisms + 1, msgs.Length);
+                for (int i = 0; i < nrOfFailureMechanisms; i++)
                 {
-                    string failurePathName = failurePathsToMerge[i].Name;
-                    Assert.AreEqual($"Faalmechanisme '{failurePathName}' en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalmechanismen.", msgs[i + 1]);
+                    string failureMechanismName = failureMechanismsToMerge[i].Name;
+                    Assert.AreEqual($"Faalmechanisme '{failureMechanismName}' en de bijbehorende gegevens zijn toegevoegd aan de lijst van specifieke faalmechanismen.", msgs[i + 1]);
                 }
             });
         }
