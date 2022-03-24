@@ -31,7 +31,7 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// from this class.
     /// </summary>
     /// <typeparam name="T">The type of section results.</typeparam>
-    public abstract class FailureMechanismBase<T> : Observable, IFailureMechanism<T>, IFailureMechanism where T : FailureMechanismSectionResult
+    public abstract class FailureMechanismBase<T> : Observable, IFailureMechanism<T> where T : FailureMechanismSectionResult
     {
         private readonly FailureMechanismSectionCollection sectionCollection;
         private readonly ObservableList<T> sectionResults;

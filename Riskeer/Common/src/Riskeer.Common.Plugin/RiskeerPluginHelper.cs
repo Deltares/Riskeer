@@ -112,8 +112,8 @@ namespace Riskeer.Common.Plugin
 
             if (removedObject is IAssessmentSection assessmentSection)
             {
-                failurePath = (IFailureMechanism) assessmentSection.GetFailureMechanisms()
-                                                                   .FirstOrDefault(fm => fm == view.FailurePath)
+                failurePath = assessmentSection.GetFailureMechanisms()
+                                               .FirstOrDefault(fm => fm == view.FailurePath)
                               ?? assessmentSection.SpecificFailurePaths
                                                   .FirstOrDefault(fp => fp == view.FailurePath);
             }
