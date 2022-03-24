@@ -43,7 +43,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="SerializableAssessmentProcess"/>.
         /// </summary>
-        /// <param name="id">The unique ID of the assessment process.</param>
+        /// <param name="id">The unique assembly ID.</param>
         /// <param name="assessmentSection">The assessment section this process belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>

@@ -40,7 +40,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanismSectionAssembly"/>.
         /// </summary>
-        /// <param name="id">The unique ID of the assembly.</param>
+        /// <param name="id">The unique assembly ID.</param>
         /// <param name="failureMechanism">The failure mechanism this assembly belongs to.</param>
         /// <param name="section">The section this assembly belongs to.</param>
         /// <param name="sectionResult">The assembly result for this section assembly.</param>

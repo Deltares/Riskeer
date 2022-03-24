@@ -33,7 +33,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         public const string Assembly = "Assemblage";
 
         /// <summary>
-        /// Identifier for an assembly element.
+        /// Identifier for an assembly method element.
         /// </summary>
         public const string AssemblyMethod = "assemblagemethode";
 
@@ -48,11 +48,6 @@ namespace Riskeer.AssemblyTool.IO.Model
         public const string AssemblyNamespaceIdentifier = "asm";
 
         /// <summary>
-        /// Identifier for an assessment type element.
-        /// </summary>
-        public const string AssessmentType = "toets";
-
-        /// <summary>
         /// Identifier for an assessment process element.
         /// </summary>
         public const string AssessmentProcess = "Beoordelingsproces";
@@ -63,7 +58,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         public const string AssessmentProcessId = "BeoordelingsprocesID";
 
         /// <summary>
-        /// Identifier for an assessment process ID attribute.
+        /// Identifier for an assessment process ID reference attribute.
         /// </summary>
         public const string AssessmentProcessIdRef = "BeoordelingsprocesIDRef";
 

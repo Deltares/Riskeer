@@ -120,9 +120,6 @@
   <data name="AssessmentSectionType" xml:space="preserve">
     <value>DKTRJCT</value>
   </data>
-  <data name="DirectFailureMechanism" xml:space="preserve">
-    <value>DIRECT</value>
-  </data>
   <data name="FullAssembly" xml:space="preserve">
     <value>VOLLDG</value>
   </data>

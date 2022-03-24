@@ -100,15 +100,6 @@ namespace Riskeer.AssemblyTool.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DIRECT.
-        /// </summary>
-        internal static string DirectFailureMechanism {
-            get {
-                return ResourceManager.GetString("DirectFailureMechanism", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to VOLLDG.
         /// </summary>
         internal static string FullAssembly {

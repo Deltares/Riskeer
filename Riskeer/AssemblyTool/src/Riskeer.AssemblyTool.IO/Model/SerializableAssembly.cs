@@ -43,7 +43,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="SerializableAssembly"/>.
         /// </summary>
-        /// <param name="id">The unique ID of the assembly.</param>
+        /// <param name="id">The unique assembly ID.</param>
         /// <param name="lowerCorner">The lower corner of the assembly map boundary.</param>
         /// <param name="upperCorner">The upper corner of the assembly map boundary.</param>
         /// <param name="assessmentSection">The <see cref="SerializableAssessmentSection"/> that belongs to the assembly.</param>
