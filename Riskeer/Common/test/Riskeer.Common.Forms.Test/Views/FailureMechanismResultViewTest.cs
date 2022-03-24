@@ -783,7 +783,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 AssemblyResult =
                 {
                     ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic,
-                    ManualFailurePathAssemblyProbability = 0.1
+                    ManualFailureMechanismAssemblyProbability = 0.1
                 }
             };
 
@@ -873,7 +873,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 AssemblyResult =
                 {
                     ProbabilityResultType = initialResultType,
-                    ManualFailurePathAssemblyProbability = manualProbability
+                    ManualFailureMechanismAssemblyProbability = manualProbability
                 }
             };
 
@@ -922,7 +922,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 AssemblyResult =
                 {
                     ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual,
-                    ManualFailurePathAssemblyProbability = manualProbability
+                    ManualFailureMechanismAssemblyProbability = manualProbability
                 }
             };
             failureMechanism.AssemblyResult.Attach(observer);
@@ -942,7 +942,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 textBoxTester.Enter(invalidValue);
 
                 // Then
-                Assert.AreEqual(manualProbability, failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+                Assert.AreEqual(manualProbability, failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
 
                 errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
                 Assert.AreEqual(expectedErrorMessage, errorMessage);
@@ -968,7 +968,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 AssemblyResult =
                 {
                     ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual,
-                    ManualFailurePathAssemblyProbability = manualProbability
+                    ManualFailureMechanismAssemblyProbability = manualProbability
                 }
             };
             failureMechanism.AssemblyResult.Attach(observer);
@@ -988,7 +988,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 textBoxTester.Enter("-");
 
                 // Then
-                Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+                Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
 
                 errorMessage = errorProvider.GetError(failurePathAssemblyProbabilityTextBox);
                 Assert.AreEqual("Er moet een waarde worden ingevuld voor de faalkans.", errorMessage);
@@ -1042,7 +1042,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.IsEmpty(errorMessage);
 
                 Assert.AreEqual(formattedValidValue, failurePathAssemblyProbabilityTextBox.Text);
-                Assert.AreEqual(expectedProbability, failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+                Assert.AreEqual(expectedProbability, failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
             }
 
             mocks.VerifyAll();
@@ -1095,7 +1095,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 AssemblyResult =
                 {
                     ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual,
-                    ManualFailurePathAssemblyProbability = initialValue
+                    ManualFailureMechanismAssemblyProbability = initialValue
                 }
             };
 
@@ -1120,7 +1120,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Then
                 Assert.AreEqual(initialValueText, failurePathAssemblyProbabilityTextBox.Text);
-                Assert.AreEqual(initialValue, failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+                Assert.AreEqual(initialValue, failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
             }
 
             mocks.VerifyAll();

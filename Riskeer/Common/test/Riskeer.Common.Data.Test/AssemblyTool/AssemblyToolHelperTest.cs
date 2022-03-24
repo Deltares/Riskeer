@@ -161,7 +161,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                        .Return(new FailureMechanismAssemblyResult
                        {
                            ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual,
-                           ManualFailurePathAssemblyProbability = expectedAssemblyResult
+                           ManualFailureMechanismAssemblyProbability = expectedAssemblyResult
                        });
             mocks.ReplayAll();
 
@@ -188,7 +188,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                        .Return(new FailureMechanismAssemblyResult
                        {
                            ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic,
-                           ManualFailurePathAssemblyProbability = double.NaN
+                           ManualFailureMechanismAssemblyProbability = double.NaN
                        });
             failurePath.Stub(fp => fp.SectionResults)
                        .Return(new ObservableList<TestFailureMechanismSectionResult>
@@ -235,7 +235,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                        .Return(new FailureMechanismAssemblyResult
                        {
                            ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic,
-                           ManualFailurePathAssemblyProbability = double.NaN
+                           ManualFailureMechanismAssemblyProbability = double.NaN
                        });
             failurePath.Stub(fp => fp.SectionResults)
                        .Return(new ObservableList<TestFailureMechanismSectionResult>
@@ -276,7 +276,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                        .Return(new FailureMechanismAssemblyResult
                        {
                            ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic,
-                           ManualFailurePathAssemblyProbability = double.NaN
+                           ManualFailureMechanismAssemblyProbability = double.NaN
                        });
             failurePath.Stub(fp => fp.SectionResults)
                        .Return(new ObservableList<TestFailureMechanismSectionResult>
@@ -313,7 +313,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                        .Return(new FailureMechanismAssemblyResult
                        {
                            ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic,
-                           ManualFailurePathAssemblyProbability = double.NaN
+                           ManualFailureMechanismAssemblyProbability = double.NaN
                        });
             failurePath.Stub(fp => fp.SectionResults)
                        .Return(new ObservableList<TestFailureMechanismSectionResult>

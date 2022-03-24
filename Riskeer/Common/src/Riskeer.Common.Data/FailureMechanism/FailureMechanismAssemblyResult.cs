@@ -31,7 +31,7 @@ namespace Riskeer.Common.Data.FailureMechanism
     /// </summary>
     public class FailureMechanismAssemblyResult : Observable
     {
-        private double manualFailurePathAssemblyProbability;
+        private double manualFailureMechanismAssemblyProbability;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismAssemblyResult"/>.
@@ -39,7 +39,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         public FailureMechanismAssemblyResult()
         {
             ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic;
-            ManualFailurePathAssemblyProbability = double.NaN;
+            ManualFailureMechanismAssemblyProbability = double.NaN;
         }
 
         /// <summary>
@@ -51,15 +51,15 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// Gets or sets the probability of a failure mechanism assembly.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
-        public double ManualFailurePathAssemblyProbability
+        public double ManualFailureMechanismAssemblyProbability
         {
-            get => manualFailurePathAssemblyProbability;
+            get => manualFailureMechanismAssemblyProbability;
             set
             {
                 ProbabilityHelper.ValidateProbability(value, null,
                                                       RiskeerCommonDataResources.FailureProbability_Value_needs_to_be_in_Range_0_,
                                                       true);
-                manualFailurePathAssemblyProbability = value;
+                manualFailureMechanismAssemblyProbability = value;
             }
         }
     }

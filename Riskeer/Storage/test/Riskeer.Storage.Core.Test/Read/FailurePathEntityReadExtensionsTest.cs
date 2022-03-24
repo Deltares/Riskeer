@@ -139,7 +139,7 @@ namespace Riskeer.Storage.Core.Test.Read
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
 
-            Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+            Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
         }
 
         [Test]
@@ -267,7 +267,7 @@ namespace Riskeer.Storage.Core.Test.Read
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
 
-            Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+            Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
         }
 
         [Test]
@@ -379,7 +379,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             // Assert
             FailureMechanismAssemblyResult assemblyResult = specificFailureMechanism.AssemblyResult;
-            Assert.IsNaN(assemblyResult.ManualFailurePathAssemblyProbability);
+            Assert.IsNaN(assemblyResult.ManualFailureMechanismAssemblyProbability);
         }
 
         [Test]
@@ -456,7 +456,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var probabilityResultType = (FailureMechanismAssemblyProbabilityResultType) entity.FailurePathAssemblyProbabilityResultType;
             FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
             Assert.AreEqual(probabilityResultType, assemblyResult.ProbabilityResultType);
-            Assert.AreEqual(entity.ManualFailurePathAssemblyProbability, assemblyResult.ManualFailurePathAssemblyProbability);
+            Assert.AreEqual(entity.ManualFailurePathAssemblyProbability, assemblyResult.ManualFailureMechanismAssemblyProbability);
         }
 
         private static FailureMechanismSectionEntity CreateSimpleFailureMechanismSectionEntity()

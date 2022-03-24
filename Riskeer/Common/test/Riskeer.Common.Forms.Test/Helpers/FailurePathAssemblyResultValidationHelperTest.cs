@@ -47,7 +47,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             var result = new FailureMechanismAssemblyResult
             {
                 ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual,
-                ManualFailurePathAssemblyProbability = double.NaN
+                ManualFailureMechanismAssemblyProbability = double.NaN
             };
 
             // Call
@@ -65,7 +65,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
             var result = new FailureMechanismAssemblyResult
             {
                 ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual,
-                ManualFailurePathAssemblyProbability = random.NextDouble()
+                ManualFailureMechanismAssemblyProbability = random.NextDouble()
             };
 
             // Call

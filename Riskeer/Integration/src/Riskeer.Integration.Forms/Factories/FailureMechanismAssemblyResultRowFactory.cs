@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Forms.Factories
             string validationError = FailurePathAssemblyResultValidationHelper.GetValidationError(assemblyResult);
             return !string.IsNullOrEmpty(validationError)
                        ? new FailureMechanismAssemblyResultRow(failureMechanism, validationError)
-                       : new FailureMechanismAssemblyResultRow(failureMechanism, assemblyResult.ManualFailurePathAssemblyProbability);
+                       : new FailureMechanismAssemblyResultRow(failureMechanism, assemblyResult.ManualFailureMechanismAssemblyProbability);
         }
 
         private static FailureMechanismAssemblyResultRow CreateAutomaticAssemblyRow(IFailureMechanism failureMechanism,

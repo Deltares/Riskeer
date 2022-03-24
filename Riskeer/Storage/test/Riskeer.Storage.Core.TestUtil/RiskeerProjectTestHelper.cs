@@ -461,7 +461,7 @@ namespace Riskeer.Storage.Core.TestUtil
             var random = new Random(seed);
             FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
             assemblyResult.ProbabilityResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>();
-            assemblyResult.ManualFailurePathAssemblyProbability = random.NextDouble();
+            assemblyResult.ManualFailureMechanismAssemblyProbability = random.NextDouble();
         }
 
         private static void SetSectionResults(IEnumerable<AdoptableFailureMechanismSectionResult> sectionResults)

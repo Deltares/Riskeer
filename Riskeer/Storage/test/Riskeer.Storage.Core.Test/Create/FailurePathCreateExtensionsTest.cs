@@ -67,7 +67,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 AssemblyResult =
                 {
                     ProbabilityResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>(),
-                    ManualFailurePathAssemblyProbability = random.NextDouble()
+                    ManualFailureMechanismAssemblyProbability = random.NextDouble()
                 }
             };
 
@@ -90,7 +90,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
             Assert.AreEqual(Convert.ToByte(assemblyResult.ProbabilityResultType), entity.FailurePathAssemblyProbabilityResultType);
-            Assert.AreEqual(assemblyResult.ManualFailurePathAssemblyProbability, entity.ManualFailurePathAssemblyProbability);
+            Assert.AreEqual(assemblyResult.ManualFailureMechanismAssemblyProbability, entity.ManualFailurePathAssemblyProbability);
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             // Precondition
             FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
-            Assert.IsNaN(assemblyResult.ManualFailurePathAssemblyProbability);
+            Assert.IsNaN(assemblyResult.ManualFailureMechanismAssemblyProbability);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(failureMechanismType, registry);
@@ -224,7 +224,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 AssemblyResult =
                 {
                     ProbabilityResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>(),
-                    ManualFailurePathAssemblyProbability = random.NextDouble()
+                    ManualFailureMechanismAssemblyProbability = random.NextDouble()
                 }
             };
 
@@ -247,7 +247,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
             Assert.AreEqual(Convert.ToByte(assemblyResult.ProbabilityResultType), entity.FailurePathAssemblyProbabilityResultType);
-            Assert.AreEqual(assemblyResult.ManualFailurePathAssemblyProbability, entity.ManualFailurePathAssemblyProbability);
+            Assert.AreEqual(assemblyResult.ManualFailureMechanismAssemblyProbability, entity.ManualFailurePathAssemblyProbability);
         }
 
         [Test]
@@ -262,7 +262,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             // Precondition
             FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
-            Assert.IsNaN(assemblyResult.ManualFailurePathAssemblyProbability);
+            Assert.IsNaN(assemblyResult.ManualFailureMechanismAssemblyProbability);
 
             // Call
             FailureMechanismEntity entity = failureMechanism.Create(failureMechanismType, registry);
@@ -383,7 +383,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 AssemblyResult =
                 {
                     ProbabilityResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>(),
-                    ManualFailurePathAssemblyProbability = random.NextDouble()
+                    ManualFailureMechanismAssemblyProbability = random.NextDouble()
                 }
             };
 
@@ -408,7 +408,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
             Assert.AreEqual(Convert.ToByte(assemblyResult.ProbabilityResultType), entity.FailurePathAssemblyProbabilityResultType);
-            Assert.AreEqual(assemblyResult.ManualFailurePathAssemblyProbability, entity.ManualFailurePathAssemblyProbability);
+            Assert.AreEqual(assemblyResult.ManualFailureMechanismAssemblyProbability, entity.ManualFailurePathAssemblyProbability);
         }
 
         [Test]
@@ -420,7 +420,7 @@ namespace Riskeer.Storage.Core.Test.Create
 
             // Precondition
             FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
-            Assert.IsNaN(assemblyResult.ManualFailurePathAssemblyProbability);
+            Assert.IsNaN(assemblyResult.ManualFailureMechanismAssemblyProbability);
 
             // Call
             SpecificFailurePathEntity entity = failurePath.Create(registry, 0);

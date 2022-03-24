@@ -40,7 +40,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             Assert.IsInstanceOf<Observable>(result);
 
             Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Automatic, result.ProbabilityResultType);
-            Assert.IsNaN(result.ManualFailurePathAssemblyProbability);
+            Assert.IsNaN(result.ManualFailureMechanismAssemblyProbability);
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var result = new FailureMechanismAssemblyResult();
 
             // Call
-            void Call() => result.ManualFailurePathAssemblyProbability = newValue;
+            void Call() => result.ManualFailureMechanismAssemblyProbability = newValue;
 
             // Assert
             const string message = "De waarde voor de faalkans moet in het bereik [0,0, 1,0] liggen.";
@@ -75,10 +75,10 @@ namespace Riskeer.Common.Data.Test.FailureMechanism
             var result = new FailureMechanismAssemblyResult();
 
             // Call
-            result.ManualFailurePathAssemblyProbability = newValue;
+            result.ManualFailureMechanismAssemblyProbability = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, result.ManualFailurePathAssemblyProbability);
+            Assert.AreEqual(newValue, result.ManualFailureMechanismAssemblyProbability);
         }
     }
 }

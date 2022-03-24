@@ -125,7 +125,7 @@ namespace Riskeer.Storage.Core.Create
                 NotInAssemblyComments = failurePath.NotInAssemblyComments.Body.DeepClone(),
                 FailureMechanismSectionCollectionSourcePath = failurePath.FailureMechanismSectionSourcePath.DeepClone(),
                 FailurePathAssemblyProbabilityResultType = Convert.ToByte(assemblyResult.ProbabilityResultType),
-                ManualFailurePathAssemblyProbability = assemblyResult.ManualFailurePathAssemblyProbability.ToNaNAsNull()
+                ManualFailurePathAssemblyProbability = assemblyResult.ManualFailureMechanismAssemblyProbability.ToNaNAsNull()
             };
 
             AddEntitiesForFailureMechanismSections(failurePath, registry, entity);

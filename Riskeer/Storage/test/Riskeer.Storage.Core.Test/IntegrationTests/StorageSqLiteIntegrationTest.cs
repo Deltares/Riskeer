@@ -398,7 +398,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
                                                             FailureMechanismAssemblyResult actualResult)
         {
             Assert.AreEqual(expectedResult.ProbabilityResultType, actualResult.ProbabilityResultType);
-            Assert.AreEqual(expectedResult.ManualFailurePathAssemblyProbability, actualResult.ManualFailurePathAssemblyProbability);
+            Assert.AreEqual(expectedResult.ManualFailureMechanismAssemblyProbability, actualResult.ManualFailureMechanismAssemblyProbability);
         }
 
         private static void AssertFailureMechanismSections(IEnumerable<FailureMechanismSection> expectedSections,

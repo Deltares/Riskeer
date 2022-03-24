@@ -138,7 +138,7 @@ namespace Riskeer.Storage.Core.Read
             assemblyResult.ProbabilityResultType = (FailureMechanismAssemblyProbabilityResultType) entity.FailurePathAssemblyProbabilityResultType;
             if (entity.ManualFailurePathAssemblyProbability != null)
             {
-                assemblyResult.ManualFailurePathAssemblyProbability = entity.ManualFailurePathAssemblyProbability.ToNullAsNaN();
+                assemblyResult.ManualFailureMechanismAssemblyProbability = entity.ManualFailurePathAssemblyProbability.ToNullAsNaN();
             }
         }
 

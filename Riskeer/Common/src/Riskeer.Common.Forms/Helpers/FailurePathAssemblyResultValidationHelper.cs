@@ -43,7 +43,7 @@ namespace Riskeer.Common.Forms.Helpers
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return result.IsManualProbability() && double.IsNaN(result.ManualFailurePathAssemblyProbability)
+            return result.IsManualProbability() && double.IsNaN(result.ManualFailureMechanismAssemblyProbability)
                        ? Resources.FailureProbability_must_not_be_NaN
                        : string.Empty;
         }

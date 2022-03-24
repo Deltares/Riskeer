@@ -222,7 +222,7 @@ namespace Riskeer.Common.Forms.Views
 
             FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
             double failurePathAssemblyProbability = assemblyResult.IsManualProbability()
-                                                        ? assemblyResult.ManualFailurePathAssemblyProbability
+                                                        ? assemblyResult.ManualFailureMechanismAssemblyProbability
                                                         : TryGetFailurePathAssemblyProbability();
             SetTextBoxValue(failurePathAssemblyProbability);
         }
@@ -327,7 +327,7 @@ namespace Riskeer.Common.Forms.Views
             if (e.KeyCode == Keys.Escape)
             {
                 ClearErrorMessage();
-                SetTextBoxValue(FailureMechanism.AssemblyResult.ManualFailurePathAssemblyProbability);
+                SetTextBoxValue(FailureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
                 e.Handled = true;
             }
         }
@@ -350,7 +350,7 @@ namespace Riskeer.Common.Forms.Views
                 double probability = ProbabilityParsingHelper.Parse(failurePathAssemblyProbabilityTextBox.Text);
 
                 FailureMechanismAssemblyResult failureMechanismAssemblyResult = FailureMechanism.AssemblyResult;
-                failureMechanismAssemblyResult.ManualFailurePathAssemblyProbability = probability;
+                failureMechanismAssemblyResult.ManualFailureMechanismAssemblyProbability = probability;
                 failureMechanismAssemblyResult.NotifyObservers();
 
                 SetTextBoxValue(probability);
