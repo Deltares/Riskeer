@@ -71,7 +71,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
         }
-        
+
         [Test]
         [Combinatorial]
         public void ShouldSerializeProbability_WithProbabilityAndAssemblyGroupOtherThanNotDominant_ReturnsTrue(
@@ -82,7 +82,8 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
                     SerializableFailureMechanismSectionAssemblyGroup.Zero,
                     SerializableFailureMechanismSectionAssemblyGroup.IMin,
                     SerializableFailureMechanismSectionAssemblyGroup.IIMin,
-                    SerializableFailureMechanismSectionAssemblyGroup.IIIMin)] 
+                    SerializableFailureMechanismSectionAssemblyGroup.IIIMin,
+                    SerializableFailureMechanismSectionAssemblyGroup.NotRelevant)]
             SerializableFailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             // Setup
