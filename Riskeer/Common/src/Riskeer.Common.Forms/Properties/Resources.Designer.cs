@@ -128,7 +128,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Toetsoordeel.
+        ///   Looks up a localized string similar to Oordeel.
         /// </summary>
         public static string AssemblyResult_DisplayName {
             get {
