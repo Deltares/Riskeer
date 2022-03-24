@@ -3,6 +3,28 @@
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
 			<testmodule
+			id="004fa115-92e1-496a-8847-a973a05efd21"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateWithCalculations"
+					datasourceid="d38943d2-3230-4ea3-8f4b-84dfdc10d1a3"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="StateWithCalculations"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
 			id="02e004a9-50a8-457c-a3cf-bd67899ddfc4"
 			name="GetValueParameterForItemInTraject"
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
@@ -114,6 +136,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="08045ee7-a38c-413f-a967-0529d3cf7310"
+			name="OpenCategoriesView">
+				<parameters>
+					<param
+					name="pathToCategoriesItemInPE"
+					value="Traject>Duidingsklassen">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="0a799e76-7742-4e4b-b388-345355e7431f"
 			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
@@ -227,69 +259,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="0d4a744e-6fed-4d07-95a8-1240b149a0a7"
-			name="CalculateExpectedCategoriesBoundaries"
-			ref="cc703ad4-bbc5-4365-a154-3f7c69272854"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="signalingValueText"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
-					variableid="9729ee64-46b0-4724-8fb5-0622c4848710"
-					variablename="signalingValueText">
-					</var>
-					<var
-					dataname="parameterNValue"
-					datasourceid="0f83f8e1-8205-4b7f-b320-e557f1a6eae7"
-					variableid="dcab1944-8539-41ad-b5f4-a46596d4879a"
-					variablename="parameterNText">
-					</var>
-					<var
-					dataname="failureContributionValue"
-					datasourceid="0f83f8e1-8205-4b7f-b320-e557f1a6eae7"
-					variableid="6a695e78-69fe-4c10-94a2-e36d73f3974a"
-					variablename="contributionText">
-					</var>
-					<var
-					dataname="lowLimitText"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
-					variableid="e245e13a-797a-4e56-9da6-b6f4b788d7a6"
-					variablename="lowerLimitText">
-					</var>
-					<var
-					dataname="expectedCategoriesBoundaries"
-					datasourceid="ad49f78a-d3ee-42c0-a9c7-cf1a4b2465c8"
-					variableid="75c8278d-537e-4ed7-93e8-482b42700784"
-					variablename="expectedCategoriesBoundaries">
-					</var>
-				</databinding>
-			</testmodule>
-			<smartfoldernode
-			datasource="tableNamesFMsForDeterminationAssessmentRequirementsTraject"
-			id="0f83f8e1-8205-4b7f-b320-e557f1a6eae7"
-			maxrange="10"
-			minrange="6"
-			name="LoopFMsGeneralFormula">
-				<parameters>
-					<param
-					name="failureContributionValue"
-					value="">
-					</param>
-					<param
-					name="failureContributionName"
-					value="Faalkansbijdrage [%]">
-					</param>
-					<param
-					name="parameterNValue"
-					value="">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="190ec681-6b6a-4d60-b260-51aecf157736"
-			name="CheckWithRandomlyChangedValues">
-			</smartfoldernode>
-			<testmodule
 			id="1b0346ac-f12f-44a9-b690-9f905133fbe7"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -394,94 +363,10 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="24f4c358-0239-4641-a8fe-2f985ff3ef80"
-			name="OpenViewForCategoryBoundaries"
-			ref="ed363a67-11ee-4f0d-b3b8-1920b8a08550"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="fmName"
-					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
-					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringFMName">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			id="2699941f-41b7-4230-a187-2f2c9c1e873f"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="normItemName"
-					datasourceid="347aa134-c4c7-49c6-891a-68eb4b7c5c22"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="lowLimitText"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="lowLimitName"
-					datasourceid="347aa134-c4c7-49c6-891a-68eb4b7c5c22"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-			</testmodule>
-			<smartfoldernode
-			id="269c4e97-8bac-4c9d-9242-d93c8406f02c"
-			name="CheckWithOriginalValues">
-			</smartfoldernode>
-			<testmodule
-			id="26a76463-11a2-4d82-b145-0f5d5e3a7756"
-			name="ExpandRowItemsInPropertiesPanel"
-			ref="de336d4d-6903-4666-935e-4619a8a89c40"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="numberOfPassesExpandingRows"
-					datasourceid="ad49f78a-d3ee-42c0-a9c7-cf1a4b2465c8"
-					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
-					variablename="numberOfIterationsExpand">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="27ede540-64bc-410c-8a13-e4ee063f541e"
 			name="CreateScreenshotDocumentView"
 			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			id="2b702e0a-5342-4982-b72b-a86d29d520ba"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="normItemName"
-					datasourceid="39cb1c53-020e-48d9-8db2-0f1cd148fb41"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="signalingValueText"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="signalingValueName"
-					datasourceid="39cb1c53-020e-48d9-8db2-0f1cd148fb41"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
 			</testmodule>
 			<testmodule
 			id="2f036f34-cff0-47e7-a2a0-21c191dad311"
@@ -512,54 +397,6 @@
 			<smartfoldernode
 			id="323cdfa7-68f1-4b68-a853-77d96e689fda"
 			name="SetBackToOriginalValue">
-			</smartfoldernode>
-			<testmodule
-			id="34307d5e-8189-4b48-b821-dba173654661"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="normItemName"
-					datasourceid="39cb1c53-020e-48d9-8db2-0f1cd148fb41"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="normOfTraject"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="normOfTrajectName"
-					datasourceid="39cb1c53-020e-48d9-8db2-0f1cd148fb41"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-			</testmodule>
-			<smartfoldernode
-			id="347aa134-c4c7-49c6-891a-68eb4b7c5c22"
-			name="RetrieveValuesFromNorm">
-				<parameters>
-					<param
-					name="normItemName"
-					value="Normen">
-					</param>
-					<param
-					name="signalingValueName"
-					value="Signaleringsparameter [1/jaar]">
-					</param>
-					<param
-					name="lowLimitName"
-					value="Omgevingswaarde [1/jaar]">
-					</param>
-					<param
-					name="normOfTrajectName"
-					value="Norm van het dijktraject">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="36d2d6ea-bfd7-4bff-afd2-7f9493f9164b"
@@ -615,28 +452,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="39cb1c53-020e-48d9-8db2-0f1cd148fb41"
-			name="RetrieveValuesFromNorm">
-				<parameters>
-					<param
-					name="normItemName"
-					value="Normen">
-					</param>
-					<param
-					name="signalingValueName"
-					value="Signaleringsparameter [1/jaar]">
-					</param>
-					<param
-					name="lowLimitName"
-					value="Omgevingswaarde [1/jaar]">
-					</param>
-					<param
-					name="normOfTrajectName"
-					value="Norm van het dijktraject">
-					</param>
-				</parameters>
-			</smartfoldernode>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -656,6 +471,52 @@
 			reporttemplatefolder="ReportDeltaresStyle"
 			reportwriteinterval="30000ms">
 			</testsuite>
+			<testmodule
+			id="3d021975-d6bc-46bf-995f-f46e43c5f222"
+			name="ValidateSectionCategoryBoundary"
+			ref="7db319a1-061b-489d-a466-cc166afeb2e0"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="expectedCategoriesBoundaries"
+					datasourceid="be32de9f-ad56-4116-a647-11fe4090a876"
+					variableid="2cf00c13-2878-4943-b748-690262879fa5"
+					variablename="expectedCategoriesBoundaries">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="expectedBoundaryValue"
+					datasourceid="aedd5571-96f0-44fd-9a62-fa76607ec249"
+					variableid="2cf00c13-2878-4943-b748-690262879fa5"
+					variablename="expectedBoundary">
+					</var>
+					<var
+					dataname="prefixBoundaryType"
+					datasourceid="d28727ab-c53e-454f-bdd6-0451d5d86352"
+					variableid="1f89c2ef-1e04-4e47-8930-eaea2121eed6"
+					variablename="boundaryTypeSubstring">
+					</var>
+					<var
+					dataname="prefix"
+					datasourceid="0b466300-a11b-4ace-860a-c951a79db2c2"
+					variableid="28562d45-d12f-40d8-b2bc-22381f14aa7a"
+					variablename="categoryName">
+					</var>
+					<var
+					dataname="substringScope"
+					datasourceid="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
+					variableid="a54874c0-7e6e-487a-a690-8a06dd4d1bff"
+					variablename="sectionSubstring">
+					</var>
+					<var
+					dataname="suffixScope"
+					datasourceid="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
+					variableid="64559a28-482c-44af-95a6-c33e7b67d554"
+					variablename="categorySuffix">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<testmodule
 			id="3dd6af9a-fd6b-4cf2-a0c1-dc543b75560d"
 			name="StartAUT"
@@ -782,10 +643,42 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="41df931f-91f1-45a4-a70c-1daba65e949d"
-			name="GetFailureContribution">
-			</smartfoldernode>
+			<testmodule
+			id="43f290f5-3f68-46c7-b9f2-50d13d8dd1a7"
+			name="ExpandRowItemsInPropertiesPanel"
+			ref="de336d4d-6903-4666-935e-4619a8a89c40"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="numberOfPassesExpandingRows"
+					datasourceid="be32de9f-ad56-4116-a647-11fe4090a876"
+					variableid="dad1141d-7f02-4a3a-a011-eb32c0ca7b1e"
+					variablename="numberOfIterationsExpand">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="44e48f88-4654-4199-9935-488cd85fd58d"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCategoriesItemInPE"
+					datasourceid="e6e502fd-4733-4082-8ec1-086a639a6c1d"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToAssemblyCombinedAssessmentSection"
+					datasourceid="b9a31d77-70d9-4350-b971-fe7f81576009"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="46532e05-40d9-4829-8d2f-5a1ff200522f"
 			name="Validate_FormulaType2_(AGK)">
@@ -940,7 +833,7 @@
 			</testmodule>
 			<testcase
 			id="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-			name="script08_Bepalen_categorieën_faalkans_per_vak_en_lengte-effect_parameters">
+			name="script08_Duidingsklassen_en_lengte-effect_parameters">
 				<parameters>
 					<param
 					name="caseNumber"
@@ -973,22 +866,48 @@
 				</parameters>
 			</testcase>
 			<testmodule
+			id="498b0bb6-75d5-4389-a5b3-594507fb7af7"
+			name="CalculateExpectedCategoriesBoundaries"
+			ref="cc703ad4-bbc5-4365-a154-3f7c69272854"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="lowLimitValue"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="e245e13a-797a-4e56-9da6-b6f4b788d7a6"
+					variablename="lowerLimitText">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="9729ee64-46b0-4724-8fb5-0622c4848710"
+					variablename="signalingValueText">
+					</var>
+					<var
+					dataname="expectedCategoriesBoundaries"
+					datasourceid="be32de9f-ad56-4116-a647-11fe4090a876"
+					variableid="75c8278d-537e-4ed7-93e8-482b42700784"
+					variablename="expectedCategoriesBoundaries">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="49b3f54b-80bf-422d-b697-10547396eede"
 			name="GetRandomNorm"
 			ref="3f50af80-7a9e-4428-b269-4f7f8984a5c6"
 			type="Recording">
 				<databinding>
 					<var
-					dataname="signalingValueText"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
-					variableid="c2e11629-322d-4b63-afe5-6fef0cc6581e"
-					variablename="signallingValue">
-					</var>
-					<var
-					dataname="lowLimitText"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
+					dataname="lowLimitValue"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
 					variableid="e01fd9fd-aa65-4395-8eb5-c1f689b71205"
 					variablename="lowerLimitValue">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="c2e11629-322d-4b63-afe5-6fef0cc6581e"
+					variablename="signallingValue">
 					</var>
 				</databinding>
 				<missingdatabinding>
@@ -1010,6 +929,12 @@
 			id="49e32e06-b602-46a8-b988-6cfb0f1b8dc7"
 			name="ValidateNewValue">
 			</smartfoldernode>
+			<testmodule
+			id="4d0d5f9e-9af7-45f2-8147-ef7480721d7d"
+			name="CreateScreenshotDocumentView"
+			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			type="Recording">
+			</testmodule>
 			<testmodule
 			id="4d3d7b25-036b-4281-9f01-322d76232ea9"
 			name="ConvertToCurrentCulture"
@@ -1037,28 +962,16 @@
 			type="UserCode">
 				<databinding>
 					<var
-					dataname="signalingValueText"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
-					variableid="9729ee64-46b0-4724-8fb5-0622c4848710"
-					variablename="signalingValueText">
-					</var>
-					<var
-					dataname="parameterNValue"
-					datasourceid="a3bc2d09-8f7c-4458-9a42-44e8a79da688"
-					variableid="dcab1944-8539-41ad-b5f4-a46596d4879a"
-					variablename="parameterNText">
-					</var>
-					<var
-					dataname="failureContributionValue"
-					datasourceid="a3bc2d09-8f7c-4458-9a42-44e8a79da688"
-					variableid="6a695e78-69fe-4c10-94a2-e36d73f3974a"
-					variablename="contributionText">
-					</var>
-					<var
-					dataname="lowLimitText"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
+					dataname="lowLimitValue"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
 					variableid="e245e13a-797a-4e56-9da6-b6f4b788d7a6"
 					variablename="lowerLimitText">
+					</var>
+					<var
+					dataname="signallingValue"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
+					variableid="9729ee64-46b0-4724-8fb5-0622c4848710"
+					variablename="signalingValueText">
 					</var>
 					<var
 					dataname="expectedCategoriesBoundaries"
@@ -1237,32 +1150,6 @@
 			name="OpenViewCategoryClasses">
 			</smartfoldernode>
 			<testmodule
-			id="5eb1fc3a-25f1-4b05-b99e-6be502db17c0"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="normItemName"
-					datasourceid="347aa134-c4c7-49c6-891a-68eb4b7c5c22"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="signalingValueText"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="signalingValueName"
-					datasourceid="347aa134-c4c7-49c6-891a-68eb4b7c5c22"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="63483576-888f-4739-b375-5ed22953f933"
 			name="SetValueWithKeyPressParameterForItemInTraject"
 			ref="e550d732-7780-4b40-a989-f787f458a7c7"
@@ -1281,8 +1168,8 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 					<var
-					dataname="lowLimitText"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
+					dataname="lowLimitValue"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
 					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
@@ -1338,20 +1225,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="6618b92c-282f-4dfb-830e-5832790c8b92"
-			name="OpenViewForCategoryBoundaries"
-			ref="ed363a67-11ee-4f0d-b3b8-1920b8a08550"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="fmName"
-					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
-					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringFMName">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="685853ec-3de6-4f68-862b-370a18617963"
 			name="Validate">
@@ -1619,38 +1492,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="7b61b963-bdcc-4c8d-9339-5fc23a353290"
-			name="CalculateValueParameterN"
-			ref="2fdf315c-3bbf-4b7a-b901-e88b144bf94e"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="fmLabel"
-					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
-					variableid="e5da979c-abe6-4a71-b419-78bbd2a92489"
-					variablename="fmLabel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="parameterNValue"
-					datasourceid="0f83f8e1-8205-4b7f-b320-e557f1a6eae7"
-					variableid="36cb73b7-04f3-4751-8474-8aef02c92ab7"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="parameterNName"
-					datasourceid="9791367f-f992-4afd-b441-72896acb2170"
-					variableid="afe1ce8e-ff00-4307-a9d8-1f91fa796fad"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="7cd204d0-7a9b-47ea-aaf6-ee383b83fe6c"
 			name="SetValueParameterForItemInTraject"
 			ref="fe097e7d-bf74-4910-a6c5-c4cd7da935d8"
@@ -1738,32 +1579,6 @@
 			id="7d9745bb-c43c-4f21-8864-1eff4f432867"
 			name="setup">
 			</setup>
-			<testmodule
-			id="7e4da825-1553-487b-8ade-89d8dc9fe210"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="failureContributionValue"
-					datasourceid="0f83f8e1-8205-4b7f-b320-e557f1a6eae7"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="failureContributionName"
-					datasourceid="0f83f8e1-8205-4b7f-b320-e557f1a6eae7"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-				</databinding>
-			</testmodule>
 			<smartfoldernode
 			id="7e51d787-7b9f-4e8a-8823-4aee3e493621"
 			name="ValidateOriginalValue">
@@ -1837,6 +1652,28 @@
 					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
 					variableid="dd230550-3763-4882-aad6-2c842903d448"
 					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="81a7521a-fd06-4e60-a3e5-d53488cff505"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToCategoriesItemInPE"
+					datasourceid="08045ee7-a38c-413f-a967-0529d3cf7310"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToAssemblyCombinedAssessmentSection"
+					datasourceid="b9a31d77-70d9-4350-b971-fe7f81576009"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
 					</var>
 				</missingdatabinding>
 			</testmodule>
@@ -1939,6 +1776,16 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
+			id="86c8096d-7d7e-4ae7-b9e4-e82d534474d2"
+			name="SelectStateRegistrationAssembly">
+				<parameters>
+					<param
+					name="stateWithCalculations"
+					value="@RA">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			id="87031ad4-6dc3-41aa-99c4-73d1ff3b1993"
 			name="SetBackToOriginalValue">
 			</smartfoldernode>
@@ -2005,32 +1852,6 @@
 					datasourceid="35053357-b9f5-45fe-8657-c49a72276bbd"
 					variableid="ef7281c2-8cbd-4b30-8007-ee513bb16330"
 					variablename="trajectType">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			id="8dac5bc0-8a38-4e44-8b19-315f298645ff"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="normItemName"
-					datasourceid="347aa134-c4c7-49c6-891a-68eb4b7c5c22"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="normOfTraject"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="normOfTrajectName"
-					datasourceid="347aa134-c4c7-49c6-891a-68eb4b7c5c22"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2127,9 +1948,9 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="93fb08fc-a92a-4313-9bdf-201cf996f628"
-			name="CreateScreenshotDocumentView"
-			ref="8badabce-c10f-42fb-a575-8d9ad473c375"
+			id="903ea696-a1bb-4e72-9f1a-4282ac9a5da9"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
 			</testmodule>
 			<testmodule
@@ -2192,16 +2013,6 @@
 			<smartfoldernode
 			id="963c282c-c528-443b-82d8-14e9d5e98bdc"
 			name="ControlFailureMechanismContributions">
-			</smartfoldernode>
-			<smartfoldernode
-			id="9791367f-f992-4afd-b441-72896acb2170"
-			name="CalculateValueN">
-				<parameters>
-					<param
-					name="parameterNName"
-					value="">
-					</param>
-				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="9bf37e0c-947c-4f86-90cd-f6ceef6ba7bd"
@@ -2296,32 +2107,6 @@
 				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
-			id="9fc8ca18-f1e9-4b4c-b6bd-ac47aa646c72"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="normItemName"
-					datasourceid="39cb1c53-020e-48d9-8db2-0f1cd148fb41"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="lowLimitText"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="lowLimitName"
-					datasourceid="39cb1c53-020e-48d9-8db2-0f1cd148fb41"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="a103d806-76cc-48a1-a797-1bac4e909c7a"
 			name="SetRangeInTableForFMCViewBasedOnTrajectType"
 			ref="a23d7db6-2e34-49a1-8c66-009718c79641"
@@ -2337,16 +2122,8 @@
 			</testmodule>
 			<smartfoldernode
 			id="a232761c-ffe8-4256-854d-c47a253ea9ba"
-			name="c)_d)_DeterminationOfAssessmentRequirements">
+			name="a)Determine_Categories_Failure_Prob_per_Section">
 				<parameters>
-					<param
-					name="signalingValueText"
-					value="">
-					</param>
-					<param
-					name="lowLimitText"
-					value="">
-					</param>
 					<param
 					name="normOfTraject"
 					value="">
@@ -2400,30 +2177,31 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="tableNamesFMsForDeterminationAssessmentRequirementsTraject"
-			id="a3bc2d09-8f7c-4458-9a42-44e8a79da688"
-			maxrange="10"
-			minrange="6"
-			name="LoopFMsGeneralFormula">
-				<parameters>
-					<param
-					name="failureContributionValue"
-					value="">
-					</param>
-					<param
-					name="failureContributionName"
-					value="Faalkansbijdrage [%]">
-					</param>
-					<param
-					name="parameterNValue"
-					value="">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
 			id="a42ea627-0e94-475a-ab47-26af7e16caeb"
 			name="SelectTraject">
 			</smartfoldernode>
+			<testmodule
+			id="a50c7552-6764-459e-8fa6-6d595e936738"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateWithCalculations"
+					datasourceid="b2335e82-7645-4923-9b34-eaf64089e1e8"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="StateWithCalculations"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="a5841966-9b7d-465a-8963-98b79f40df82"
 			name="Validate_FormulaType3_(BSKW)">
@@ -2492,20 +2270,12 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<smartfoldernode
-			id="ad49f78a-d3ee-42c0-a9c7-cf1a4b2465c8"
-			name="ValidateBoundaries">
-				<parameters>
-					<param
-					name="numberOfPassesExpandingRows"
-					value="3">
-					</param>
-					<param
-					name="expectedCategoriesBoundaries"
-					value="">
-					</param>
-				</parameters>
-			</smartfoldernode>
+			<testmodule
+			id="ab18eed6-f947-49b0-b36b-4d08cb042815"
+			name="CloseViewCentralPanelWithFocus"
+			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			type="Recording">
+			</testmodule>
 			<smartfoldernode
 			datasource="tableFMsWithNoNParameter"
 			id="af28a844-b824-4f6f-9ea2-739b6c9c9725"
@@ -2564,12 +2334,18 @@
 				</missingdatabinding>
 			</testmodule>
 			<smartfoldernode
-			id="b15e431d-f465-4c16-a118-453b32686266"
-			name="GetFailureContribution">
-			</smartfoldernode>
-			<smartfoldernode
 			id="b170e78b-63fd-49dc-a926-8d4fda2f98d2"
 			name="Validate">
+			</smartfoldernode>
+			<smartfoldernode
+			id="b2335e82-7645-4923-9b34-eaf64089e1e8"
+			name="SelectStateRegistrationAssembly">
+				<parameters>
+					<param
+					name="stateWithCalculations"
+					value="@RA">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<testmodule
 			id="b284c434-be65-4a03-b5dc-da1b0d4eb7fe"
@@ -2590,8 +2366,8 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 					<var
-					dataname="signalingValueText"
-					datasourceid="a232761c-ffe8-4256-854d-c47a253ea9ba"
+					dataname="signallingValue"
+					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
 					variableid="d011c3e1-0e89-45e2-81b6-18f9cb969511"
 					variablename="valueToSetParameterForItemInTraject">
 					</var>
@@ -2698,6 +2474,20 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="be32de9f-ad56-4116-a647-11fe4090a876"
+			name="ValidateBoundaries">
+				<parameters>
+					<param
+					name="numberOfPassesExpandingRows"
+					value="3">
+					</param>
+					<param
+					name="expectedCategoriesBoundaries"
+					value="">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="befb1777-959e-4c0a-a759-c2b5be589d03"
 			name="ValidateContributionInFailureMechanismContributionView"
@@ -2719,25 +2509,27 @@
 				</databinding>
 			</testmodule>
 			<testmodule
-			id="bf588b80-30ce-416c-b444-d8c98beb697d"
-			name="CloseViewCentralPanelWithFocus"
-			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
+			id="bfdd880f-a8d8-42b9-b2af-b7e60be27351"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
+				<databinding>
+					<var
+					dataname="stateWithCalculations"
+					datasourceid="86c8096d-7d7e-4ae7-b9e4-e82d534474d2"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="StateWithCalculations"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="c2fe899f-7db5-49f4-99d9-a25f9e572628"
-			name="CalculateValueN">
-				<parameters>
-					<param
-					name="parameterNName"
-					value="">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="c6fe128e-eac6-406f-b075-bfb155ccc419"
-			name="OpenCategoryBoundariesView">
-			</smartfoldernode>
 			<testmodule
 			id="cbbfccbf-354e-48b2-bc41-4f9934607fb2"
 			name="CloseAUT"
@@ -2751,52 +2543,6 @@
 					variablename="CloseAutProcessIDVar">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="ccb07c08-ec70-48ab-83ed-1c593bf1eb34"
-			name="ValidateSectionCategoryBoundary"
-			ref="7db319a1-061b-489d-a466-cc166afeb2e0"
-			type="UserCode">
-				<databinding>
-					<var
-					dataname="expectedCategoriesBoundaries"
-					datasourceid="ad49f78a-d3ee-42c0-a9c7-cf1a4b2465c8"
-					variableid="2cf00c13-2878-4943-b748-690262879fa5"
-					variablename="expectedCategoriesBoundaries">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="expectedBoundaryValue"
-					datasourceid="aedd5571-96f0-44fd-9a62-fa76607ec249"
-					variableid="2cf00c13-2878-4943-b748-690262879fa5"
-					variablename="expectedBoundary">
-					</var>
-					<var
-					dataname="prefixBoundaryType"
-					datasourceid="d28727ab-c53e-454f-bdd6-0451d5d86352"
-					variableid="1f89c2ef-1e04-4e47-8930-eaea2121eed6"
-					variablename="boundaryTypeSubstring">
-					</var>
-					<var
-					dataname="prefix"
-					datasourceid="0b466300-a11b-4ace-860a-c951a79db2c2"
-					variableid="28562d45-d12f-40d8-b2bc-22381f14aa7a"
-					variablename="categoryName">
-					</var>
-					<var
-					dataname="substringScope"
-					datasourceid="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
-					variableid="a54874c0-7e6e-487a-a690-8a06dd4d1bff"
-					variablename="sectionSubstring">
-					</var>
-					<var
-					dataname="suffixScope"
-					datasourceid="e4aa2fbe-8cc3-4c2e-8735-175a6a8ab1a4"
-					variableid="64559a28-482c-44af-95a6-c33e7b67d554"
-					variablename="categorySuffix">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="ce5d74b9-8155-414e-b80c-3960b1a6a22a"
@@ -2858,32 +2604,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<testmodule
-			id="d5d82505-e566-4c07-af08-bac7c5428185"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="failureContributionValue"
-					datasourceid="a3bc2d09-8f7c-4458-9a42-44e8a79da688"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="failureContributionName"
-					datasourceid="a3bc2d09-8f7c-4458-9a42-44e8a79da688"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-				</databinding>
-			</testmodule>
+			<smartfoldernode
+			id="d38943d2-3230-4ea3-8f4b-84dfdc10d1a3"
+			name="SelectStateTraject">
+				<parameters>
+					<param
+					name="stateWithCalculations"
+					value="@TR">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="d849ec75-f115-4c47-9c9e-92f5368b374f"
 			name="SignallingValue">
@@ -3052,36 +2782,10 @@
 			name="SetValidateLengthEffectParameterN">
 			</smartfoldernode>
 			<testmodule
-			id="e46b1a38-2d29-411b-a997-5773600df74b"
-			name="CalculateValueParameterN"
-			ref="2fdf315c-3bbf-4b7a-b901-e88b144bf94e"
+			id="e56e88e0-67c3-40e1-a986-a481b8a48114"
+			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
+			ref="6295dc9c-a237-4ff3-b0ac-355382aaa3df"
 			type="Recording">
-				<databinding>
-					<var
-					dataname="fmLabel"
-					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
-					variableid="e5da979c-abe6-4a71-b419-78bbd2a92489"
-					variablename="fmLabel">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="6f7c440d-3d2b-4277-bfaa-9daa8a3fdee8"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="parameterNValue"
-					datasourceid="a3bc2d09-8f7c-4458-9a42-44e8a79da688"
-					variableid="36cb73b7-04f3-4751-8474-8aef02c92ab7"
-					variablename="valueOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="parameterNName"
-					datasourceid="c2fe899f-7db5-49f4-99d9-a25f9e572628"
-					variableid="afe1ce8e-ff00-4307-a9d8-1f91fa796fad"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-				</databinding>
 			</testmodule>
 			<testmodule
 			id="e6c035a9-cb03-4690-8920-95311a66702a"
@@ -3115,6 +2819,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="e6e502fd-4733-4082-8ec1-086a639a6c1d"
+			name="OpenCategoriesView">
+				<parameters>
+					<param
+					name="pathToCategoriesItemInPE"
+					value="Traject>Duidingsklassen">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="e796e0d7-0d00-4f73-9272-beb4369e7f8a"
 			name="CloseViewCentralPanelWithFocus"
@@ -3151,10 +2865,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="eddd4a16-d38c-4696-aed2-3c72f40cf427"
-			name="OpenCategoryBoundariesView">
-			</smartfoldernode>
 			<testmodule
 			id="f527cd5f-2d3c-4e8f-873b-0a75f74c3bd8"
 			name="CalculateNFormula3"
@@ -3202,7 +2912,7 @@
 				name="Script08">
 					<testcase
 					id="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					name="script08_Bepalen_categorieën_faalkans_per_vak_en_lengte-effect_parameters">
+					name="script08_Duidingsklassen_en_lengte-effect_parameters">
 						<setup
 						id="7d9745bb-c43c-4f21-8864-1eff4f432867"
 						name="setup">
@@ -3226,6 +2936,138 @@
 							id="e796e0d7-0d00-4f73-9272-beb4369e7f8a"
 							name="CloseViewCentralPanelWithFocus">
 							</testmodule>
+						</smartfoldernode>
+						<smartfoldernode
+						id="a232761c-ffe8-4256-854d-c47a253ea9ba"
+						name="a)Determine_Categories_Failure_Prob_per_Section">
+							<smartfoldernode
+							id="08045ee7-a38c-413f-a967-0529d3cf7310"
+							name="OpenCategoriesView">
+								<smartfoldernode
+								id="b2335e82-7645-4923-9b34-eaf64089e1e8"
+								name="SelectStateRegistrationAssembly">
+									<testmodule
+									id="a50c7552-6764-459e-8fa6-6d595e936738"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
+								<testmodule
+								id="81a7521a-fd06-4e60-a3e5-d53488cff505"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="903ea696-a1bb-4e72-9f1a-4282ac9a5da9"
+								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="e0aed3bf-cb32-48bb-aa9f-ebcce37cbe0b"
+							name="ValidateBoundaries">
+								<testmodule
+								id="27ede540-64bc-410c-8a13-e4ee063f541e"
+								name="CreateScreenshotDocumentView">
+								</testmodule>
+								<testmodule
+								id="4ee5ccef-f26f-4d9b-80c3-5d6abf102e6b"
+								name="CalculateExpectedCategoriesBoundaries">
+								</testmodule>
+								<testmodule
+								id="a92e5ce2-f5a6-48ae-babb-3fb6d732fded"
+								name="ExpandRowItemsInPropertiesPanel">
+								</testmodule>
+								<testmodule
+								id="baadb165-b61c-4de8-af1f-30465183b113"
+								name="ValidateSectionCategoryBoundary">
+								</testmodule>
+								<testmodule
+								id="1b0346ac-f12f-44a9-b690-9f905133fbe7"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="4f1d6611-54b5-4e83-b1c2-c5adc3d5cd75"
+							name="ChangeNormToRandomValues">
+								<smartfoldernode
+								id="d38943d2-3230-4ea3-8f4b-84dfdc10d1a3"
+								name="SelectStateTraject">
+									<testmodule
+									id="004fa115-92e1-496a-8847-a973a05efd21"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
+								<testmodule
+								id="49b3f54b-80bf-422d-b697-10547396eede"
+								name="GetRandomNorm">
+								</testmodule>
+								<smartfoldernode
+								id="d849ec75-f115-4c47-9c9e-92f5368b374f"
+								name="SignallingValue">
+									<testmodule
+									id="b284c434-be65-4a03-b5dc-da1b0d4eb7fe"
+									name="SetValueWithKeyPressParameterForItemInTraject">
+									</testmodule>
+									<testmodule
+									id="36d2d6ea-bfd7-4bff-afd2-7f9493f9164b"
+									name="ConfirmActionInDialog">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
+								id="e1977bd3-4f63-4bf1-998e-e55b6e93415e"
+								name="LowerLimitValue">
+									<testmodule
+									id="63483576-888f-4739-b375-5ed22953f933"
+									name="SetValueWithKeyPressParameterForItemInTraject">
+									</testmodule>
+									<testmodule
+									id="5585b7b9-dd33-47de-abcb-ded396dd142e"
+									name="ConfirmActionInDialog">
+									</testmodule>
+								</smartfoldernode>
+							</smartfoldernode>
+							<smartfoldernode
+							id="e6e502fd-4733-4082-8ec1-086a639a6c1d"
+							name="OpenCategoriesView">
+								<smartfoldernode
+								id="86c8096d-7d7e-4ae7-b9e4-e82d534474d2"
+								name="SelectStateRegistrationAssembly">
+									<testmodule
+									id="bfdd880f-a8d8-42b9-b2af-b7e60be27351"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
+								<testmodule
+								id="44e48f88-4654-4199-9935-488cd85fd58d"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="e56e88e0-67c3-40e1-a986-a481b8a48114"
+								name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+								</testmodule>
+							</smartfoldernode>
+							<smartfoldernode
+							id="be32de9f-ad56-4116-a647-11fe4090a876"
+							name="ValidateBoundaries">
+								<testmodule
+								id="4d0d5f9e-9af7-45f2-8147-ef7480721d7d"
+								name="CreateScreenshotDocumentView">
+								</testmodule>
+								<testmodule
+								id="498b0bb6-75d5-4389-a5b3-594507fb7af7"
+								name="CalculateExpectedCategoriesBoundaries">
+								</testmodule>
+								<testmodule
+								id="43f290f5-3f68-46c7-b9f2-50d13d8dd1a7"
+								name="ExpandRowItemsInPropertiesPanel">
+								</testmodule>
+								<testmodule
+								id="3d021975-d6bc-46bf-995f-f46e43c5f222"
+								name="ValidateSectionCategoryBoundary">
+								</testmodule>
+								<testmodule
+								id="ab18eed6-f947-49b0-b36b-4d08cb042815"
+								name="CloseViewCentralPanelWithFocus">
+								</testmodule>
+							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
 						id="d9d678b3-6afe-4095-b6b6-3ce733e4f829"
@@ -3552,186 +3394,6 @@
 									id="474acefb-a61d-4c72-98f9-3683e33dffa3"
 									name="ValidateParameterDoesNotExistForItemInTraject">
 									</testmodule>
-								</smartfoldernode>
-							</smartfoldernode>
-						</smartfoldernode>
-						<smartfoldernode
-						id="a232761c-ffe8-4256-854d-c47a253ea9ba"
-						name="c)_d)_DeterminationOfAssessmentRequirements">
-							<smartfoldernode
-							id="269c4e97-8bac-4c9d-9242-d93c8406f02c"
-							name="CheckWithOriginalValues">
-								<smartfoldernode
-								id="39cb1c53-020e-48d9-8db2-0f1cd148fb41"
-								name="RetrieveValuesFromNorm">
-									<testmodule
-									id="2b702e0a-5342-4982-b72b-a86d29d520ba"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-									<testmodule
-									id="9fc8ca18-f1e9-4b4c-b6bd-ac47aa646c72"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-									<testmodule
-									id="34307d5e-8189-4b48-b821-dba173654661"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="a3bc2d09-8f7c-4458-9a42-44e8a79da688"
-								name="LoopFMsGeneralFormula">
-									<smartfoldernode
-									id="b15e431d-f465-4c16-a118-453b32686266"
-									name="GetFailureContribution">
-										<testmodule
-										id="d5d82505-e566-4c07-af08-bac7c5428185"
-										name="GetValueParameterForItemInTraject">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="c2fe899f-7db5-49f4-99d9-a25f9e572628"
-									name="CalculateValueN">
-										<testmodule
-										id="e46b1a38-2d29-411b-a997-5773600df74b"
-										name="CalculateValueParameterN">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="eddd4a16-d38c-4696-aed2-3c72f40cf427"
-									name="OpenCategoryBoundariesView">
-										<testmodule
-										id="24f4c358-0239-4641-a8fe-2f985ff3ef80"
-										name="OpenViewForCategoryBoundaries">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="e0aed3bf-cb32-48bb-aa9f-ebcce37cbe0b"
-									name="ValidateBoundaries">
-										<testmodule
-										id="27ede540-64bc-410c-8a13-e4ee063f541e"
-										name="CreateScreenshotDocumentView">
-										</testmodule>
-										<testmodule
-										id="4ee5ccef-f26f-4d9b-80c3-5d6abf102e6b"
-										name="CalculateExpectedCategoriesBoundaries">
-										</testmodule>
-										<testmodule
-										id="a92e5ce2-f5a6-48ae-babb-3fb6d732fded"
-										name="ExpandRowItemsInPropertiesPanel">
-										</testmodule>
-										<testmodule
-										id="baadb165-b61c-4de8-af1f-30465183b113"
-										name="ValidateSectionCategoryBoundary">
-										</testmodule>
-										<testmodule
-										id="1b0346ac-f12f-44a9-b690-9f905133fbe7"
-										name="CloseViewCentralPanelWithFocus">
-										</testmodule>
-									</smartfoldernode>
-								</smartfoldernode>
-							</smartfoldernode>
-							<smartfoldernode
-							id="4f1d6611-54b5-4e83-b1c2-c5adc3d5cd75"
-							name="ChangeNormToRandomValues">
-								<testmodule
-								id="49b3f54b-80bf-422d-b697-10547396eede"
-								name="GetRandomNorm">
-								</testmodule>
-								<smartfoldernode
-								id="d849ec75-f115-4c47-9c9e-92f5368b374f"
-								name="SignallingValue">
-									<testmodule
-									id="b284c434-be65-4a03-b5dc-da1b0d4eb7fe"
-									name="SetValueWithKeyPressParameterForItemInTraject">
-									</testmodule>
-									<testmodule
-									id="36d2d6ea-bfd7-4bff-afd2-7f9493f9164b"
-									name="ConfirmActionInDialog">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="e1977bd3-4f63-4bf1-998e-e55b6e93415e"
-								name="LowerLimitValue">
-									<testmodule
-									id="63483576-888f-4739-b375-5ed22953f933"
-									name="SetValueWithKeyPressParameterForItemInTraject">
-									</testmodule>
-									<testmodule
-									id="5585b7b9-dd33-47de-abcb-ded396dd142e"
-									name="ConfirmActionInDialog">
-									</testmodule>
-								</smartfoldernode>
-							</smartfoldernode>
-							<smartfoldernode
-							id="190ec681-6b6a-4d60-b260-51aecf157736"
-							name="CheckWithRandomlyChangedValues">
-								<smartfoldernode
-								id="347aa134-c4c7-49c6-891a-68eb4b7c5c22"
-								name="RetrieveValuesFromNorm">
-									<testmodule
-									id="5eb1fc3a-25f1-4b05-b99e-6be502db17c0"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-									<testmodule
-									id="2699941f-41b7-4230-a187-2f2c9c1e873f"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-									<testmodule
-									id="8dac5bc0-8a38-4e44-8b19-315f298645ff"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-								</smartfoldernode>
-								<smartfoldernode
-								id="0f83f8e1-8205-4b7f-b320-e557f1a6eae7"
-								name="LoopFMsGeneralFormula">
-									<smartfoldernode
-									id="41df931f-91f1-45a4-a70c-1daba65e949d"
-									name="GetFailureContribution">
-										<testmodule
-										id="7e4da825-1553-487b-8ade-89d8dc9fe210"
-										name="GetValueParameterForItemInTraject">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="9791367f-f992-4afd-b441-72896acb2170"
-									name="CalculateValueN">
-										<testmodule
-										id="7b61b963-bdcc-4c8d-9339-5fc23a353290"
-										name="CalculateValueParameterN">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="c6fe128e-eac6-406f-b075-bfb155ccc419"
-									name="OpenCategoryBoundariesView">
-										<testmodule
-										id="6618b92c-282f-4dfb-830e-5832790c8b92"
-										name="OpenViewForCategoryBoundaries">
-										</testmodule>
-									</smartfoldernode>
-									<smartfoldernode
-									id="ad49f78a-d3ee-42c0-a9c7-cf1a4b2465c8"
-									name="ValidateBoundaries">
-										<testmodule
-										id="93fb08fc-a92a-4313-9bdf-201cf996f628"
-										name="CreateScreenshotDocumentView">
-										</testmodule>
-										<testmodule
-										id="0d4a744e-6fed-4d07-95a8-1240b149a0a7"
-										name="CalculateExpectedCategoriesBoundaries">
-										</testmodule>
-										<testmodule
-										id="26a76463-11a2-4d82-b145-0f5d5e3a7756"
-										name="ExpandRowItemsInPropertiesPanel">
-										</testmodule>
-										<testmodule
-										id="ccb07c08-ec70-48ab-83ed-1c593bf1eb34"
-										name="ValidateSectionCategoryBoundary">
-										</testmodule>
-										<testmodule
-										id="bf588b80-30ce-416c-b444-d8c98beb697d"
-										name="CloseViewCentralPanelWithFocus">
-										</testmodule>
-									</smartfoldernode>
 								</smartfoldernode>
 							</smartfoldernode>
 						</smartfoldernode>
@@ -5309,151 +4971,37 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="0a7c484b-a8bd-4be8-a780-f6d338b2c113">
-			</testcontainer>
-			<testcontainer
-			id="0f83f8e1-8205-4b7f-b320-e557f1a6eae7">
-			</testcontainer>
-			<testcontainer
-			id="190ec681-6b6a-4d60-b260-51aecf157736">
-			</testcontainer>
-			<testcontainer
-			id="1da3d43e-f1f9-42ed-959e-43ed8867a49a">
-			</testcontainer>
-			<testcontainer
-			id="2168be67-e412-4d7f-be64-59f6d51d1717">
-			</testcontainer>
-			<testcontainer
-			id="216b836c-b2b6-435a-9ee1-c49ea7612013">
-			</testcontainer>
-			<testcontainer
-			id="269c4e97-8bac-4c9d-9242-d93c8406f02c">
-			</testcontainer>
-			<testcontainer
-			id="323cdfa7-68f1-4b68-a853-77d96e689fda">
-			</testcontainer>
-			<testcontainer
-			id="347aa134-c4c7-49c6-891a-68eb4b7c5c22">
-			</testcontainer>
-			<testcontainer
-			id="39cb1c53-020e-48d9-8db2-0f1cd148fb41">
-			</testcontainer>
-			<testcontainer
-			id="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f">
-			</testcontainer>
-			<testcontainer
-			id="41df931f-91f1-45a4-a70c-1daba65e949d">
-			</testcontainer>
-			<testcontainer
-			id="46532e05-40d9-4829-8d2f-5a1ff200522f">
+			id="08045ee7-a38c-413f-a967-0529d3cf7310">
 			</testcontainer>
 			<testcontainer
 			id="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4">
 			</testcontainer>
 			<testcontainer
-			id="49e32e06-b602-46a8-b988-6cfb0f1b8dc7">
-			</testcontainer>
-			<testcontainer
 			id="4f1d6611-54b5-4e83-b1c2-c5adc3d5cd75">
 			</testcontainer>
 			<testcontainer
-			id="51e9aa58-7772-4ed0-b80a-a215c13899ca">
-			</testcontainer>
-			<testcontainer
-			id="5a97e740-ae47-4f81-a055-2b61b54b490f">
-			</testcontainer>
-			<testcontainer
-			id="5b137145-6eda-48d5-a9ff-43ed887b7674">
-			</testcontainer>
-			<testcontainer
-			id="5b570fe7-4ac1-497e-bd4c-b7f997e9ee8b">
-			</testcontainer>
-			<testcontainer
-			id="5e014e82-4d1b-4476-b7c5-87e11105ee75">
-			</testcontainer>
-			<testcontainer
-			id="63c12419-02aa-4ec0-a910-4ad1214f588a">
-			</testcontainer>
-			<testcontainer
-			id="65699a3b-a6bc-4727-bd0e-f832127575ce">
-			</testcontainer>
-			<testcontainer
-			id="685853ec-3de6-4f68-862b-370a18617963">
-			</testcontainer>
-			<testcontainer
-			id="69ec974a-8f83-4841-8dd0-71db94b678e1">
-			</testcontainer>
-			<testcontainer
-			id="71c7456e-a188-4d98-98c2-89d17065c55b">
-			</testcontainer>
-			<testcontainer
-			id="78ad8033-9193-4354-8f72-0a87333e1209">
-			</testcontainer>
-			<testcontainer
-			id="7e51d787-7b9f-4e8a-8823-4aee3e493621">
-			</testcontainer>
-			<testcontainer
-			id="80ae3228-cd3d-4667-9f3d-ca2618fc9db3">
-			</testcontainer>
-			<testcontainer
-			id="87031ad4-6dc3-41aa-99c4-73d1ff3b1993">
-			</testcontainer>
-			<testcontainer
-			id="955eb10b-59ab-43b5-8fe4-fd5dfac15588">
-			</testcontainer>
-			<testcontainer
-			id="963c282c-c528-443b-82d8-14e9d5e98bdc">
-			</testcontainer>
-			<testcontainer
-			id="9791367f-f992-4afd-b441-72896acb2170">
-			</testcontainer>
-			<testcontainer
-			id="9e2f1291-5db4-44e8-b110-68f8da0c987e">
+			id="86c8096d-7d7e-4ae7-b9e4-e82d534474d2">
 			</testcontainer>
 			<testcontainer
 			id="a232761c-ffe8-4256-854d-c47a253ea9ba">
 			</testcontainer>
 			<testcontainer
-			id="a3bc2d09-8f7c-4458-9a42-44e8a79da688">
-			</testcontainer>
-			<testcontainer
 			id="a42ea627-0e94-475a-ab47-26af7e16caeb">
 			</testcontainer>
 			<testcontainer
-			id="a5841966-9b7d-465a-8963-98b79f40df82">
-			</testcontainer>
-			<testcontainer
-			id="aa91298b-143b-487c-982b-fc84fe01889c">
-			</testcontainer>
-			<testcontainer
-			id="ad49f78a-d3ee-42c0-a9c7-cf1a4b2465c8">
-			</testcontainer>
-			<testcontainer
-			id="af28a844-b824-4f6f-9ea2-739b6c9c9725">
-			</testcontainer>
-			<testcontainer
-			id="b15e431d-f465-4c16-a118-453b32686266">
-			</testcontainer>
-			<testcontainer
-			id="b170e78b-63fd-49dc-a926-8d4fda2f98d2">
+			id="b2335e82-7645-4923-9b34-eaf64089e1e8">
 			</testcontainer>
 			<testcontainer
 			id="b468605b-ee5e-43c5-bc4e-88df820c5e8d">
 			</testcontainer>
 			<testcontainer
-			id="c2fe899f-7db5-49f4-99d9-a25f9e572628">
+			id="be32de9f-ad56-4116-a647-11fe4090a876">
 			</testcontainer>
 			<testcontainer
-			id="c6fe128e-eac6-406f-b075-bfb155ccc419">
+			id="d38943d2-3230-4ea3-8f4b-84dfdc10d1a3">
 			</testcontainer>
 			<testcontainer
 			id="d849ec75-f115-4c47-9c9e-92f5368b374f">
-			</testcontainer>
-			<testcontainer
-			id="d9d678b3-6afe-4095-b6b6-3ce733e4f829">
-			</testcontainer>
-			<testcontainer
-			id="decf6d51-913b-4b0a-8db7-10569a6612b6">
 			</testcontainer>
 			<testcontainer
 			id="e0aed3bf-cb32-48bb-aa9f-ebcce37cbe0b">
@@ -5462,13 +5010,7 @@
 			id="e1977bd3-4f63-4bf1-998e-e55b6e93415e">
 			</testcontainer>
 			<testcontainer
-			id="e26b1c62-1f9e-4350-84d9-3e2c4a66e61c">
-			</testcontainer>
-			<testcontainer
-			id="eddd4a16-d38c-4696-aed2-3c72f40cf427">
-			</testcontainer>
-			<testcontainer
-			id="fcb08619-a998-4b9f-a9d9-3947e75b0ca3">
+			id="e6e502fd-4733-4082-8ec1-086a639a6c1d">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>

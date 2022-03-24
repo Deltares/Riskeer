@@ -1227,18 +1227,6 @@
       <UserCode>true</UserCode>
       <id>76073981-10bf-481e-a09d-25dcf225d501</id>
     </Compile>
-    <Compile Include="Modules\OpenViews\OpenViewForCategoryBoundaries.cs">
-      <DependentUpon>OpenViewForCategoryBoundaries.rxrec</DependentUpon>
-      <RecorderCode>true</RecorderCode>
-      <id>936f9f55-9312-4d99-bf39-cceed680dfc4</id>
-      <BoundTo>05ef76dd-e062-4a45-852f-453e401adf67</BoundTo>
-    </Compile>
-    <Compile Include="Modules\OpenViews\OpenViewForCategoryBoundaries.UserCode.cs">
-      <DependentUpon>OpenViewForCategoryBoundaries.rxrec</DependentUpon>
-      <UserCode>true</UserCode>
-      <id>074f00b5-2de5-46e6-b964-94133799ed97</id>
-      <BoundTo>05ef76dd-e062-4a45-852f-453e401adf67</BoundTo>
-    </Compile>
     <Compile Include="Modules\OpenViews\OpenViewForCurrentlySelectedItemInProjectExplorer.cs">
       <DependentUpon>OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
@@ -3024,11 +3012,6 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>b4220af5-04f9-4914-8581-74fabf79ebbf</id>
       <recordtableid>d4189ba6-04e4-4c32-a503-2b635376521a</recordtableid>
-    </None>
-    <None Include="Modules\OpenViews\OpenViewForCategoryBoundaries.rxrec">
-      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
-      <id>05ef76dd-e062-4a45-852f-453e401adf67</id>
-      <recordtableid>ed363a67-11ee-4f0d-b3b8-1920b8a08550</recordtableid>
     </None>
     <None Include="Modules\OpenViews\OpenViewForCurrentlySelectedItemInProjectExplorer.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>

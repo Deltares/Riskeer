@@ -1004,6 +1004,25 @@ Ci8EIxlN9/ueuduvvCRUSA/y/BpXl5+Ui+rMfnRmeyL0hblJeL6KhKphqPIwCHnKcUMch8GfPoy/
 					</folder>
 					<folder
 					capname="container"
+					id="538de49e-c846-4fcf-b0d7-8ebfbe0829bd"
+					isrooted="True"
+					name="FMSectionAssemblyGroupsView"
+					refimgid="8b5dc543-11c6-4c32-b4b6-aead6e03ee05"
+					searchtimeout="30000ms"
+					usecache="False">
+						<item
+						capname="table"
+						id="171d18ca-9186-4ec9-b2fb-d120854d5a24"
+						name="TableDuidingsklassen"
+						searchtimeout="30000ms">
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismSectionAssemblyGroupsView']//table
+						</item>
+						<basepath>
+							/form[@automationid='RiskeerMainWindow']/container/container[4]/container/container[@instance='1' and @controltypename='WinFormsAdapter']/container[@controlname='FailureMechanismSectionAssemblyGroupsView']
+						</basepath>
+					</folder>
+					<folder
+					capname="container"
 					id="323db88f-b940-4cf7-9a48-4eea40485948"
 					isrooted="True"
 					name="DesignWaterLevelWaveHeightCalculationsView"

@@ -2874,6 +2874,7 @@ namespace AutomatedSystemTests
             AutomatedSystemTestsRepositoryFolders.FM_ResultViewFolder _fm_resultview;
             AutomatedSystemTestsRepositoryFolders.AssessmentSectionAssemblyCategoriesViewFolder _assessmentsectionassemblycategoriesview;
             AutomatedSystemTestsRepositoryFolders.ViewCategoryBoundariesFolder _viewcategoryboundaries;
+            AutomatedSystemTestsRepositoryFolders.FMSectionAssemblyGroupsViewFolder _fmsectionassemblygroupsview;
             AutomatedSystemTestsRepositoryFolders.DesignWaterLevelWaveHeightCalculationsViewFolder _designwaterlevelwaveheightcalculationsview;
             AutomatedSystemTestsRepositoryFolders.ScenariosViewFolder _scenariosview;
             AutomatedSystemTestsRepositoryFolders.HydraulicBCDunesFolder _hydraulicbcdunes;
@@ -2895,6 +2896,7 @@ namespace AutomatedSystemTests
                 _fm_resultview = new AutomatedSystemTestsRepositoryFolders.FM_ResultViewFolder(this);
                 _assessmentsectionassemblycategoriesview = new AutomatedSystemTestsRepositoryFolders.AssessmentSectionAssemblyCategoriesViewFolder(this);
                 _viewcategoryboundaries = new AutomatedSystemTestsRepositoryFolders.ViewCategoryBoundariesFolder(this);
+                _fmsectionassemblygroupsview = new AutomatedSystemTestsRepositoryFolders.FMSectionAssemblyGroupsViewFolder(this);
                 _designwaterlevelwaveheightcalculationsview = new AutomatedSystemTestsRepositoryFolders.DesignWaterLevelWaveHeightCalculationsViewFolder(this);
                 _scenariosview = new AutomatedSystemTestsRepositoryFolders.ScenariosViewFolder(this);
                 _hydraulicbcdunes = new AutomatedSystemTestsRepositoryFolders.HydraulicBCDunesFolder(this);
@@ -3037,6 +3039,15 @@ namespace AutomatedSystemTests
             public virtual AutomatedSystemTestsRepositoryFolders.ViewCategoryBoundariesFolder ViewCategoryBoundaries
             {
                 get { return _viewcategoryboundaries; }
+            }
+
+            /// <summary>
+            /// The FMSectionAssemblyGroupsView folder.
+            /// </summary>
+            [RepositoryFolder("538de49e-c846-4fcf-b0d7-8ebfbe0829bd")]
+            public virtual AutomatedSystemTestsRepositoryFolders.FMSectionAssemblyGroupsViewFolder FMSectionAssemblyGroupsView
+            {
+                get { return _fmsectionassemblygroupsview; }
             }
 
             /// <summary>
@@ -4474,6 +4485,72 @@ namespace AutomatedSystemTests
                 get
                 {
                     return _genericcategoryboundarycellInfo;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The FMSectionAssemblyGroupsViewFolder folder.
+        /// </summary>
+        [RepositoryFolder("538de49e-c846-4fcf-b0d7-8ebfbe0829bd")]
+        public partial class FMSectionAssemblyGroupsViewFolder : RepoGenBaseFolder
+        {
+            RepoItemInfo _tableduidingsklassenInfo;
+
+            /// <summary>
+            /// Creates a new FMSectionAssemblyGroupsView  folder.
+            /// </summary>
+            public FMSectionAssemblyGroupsViewFolder(RepoGenBaseFolder parentFolder) :
+                    base("FMSectionAssemblyGroupsView", "container[@controlname='FailureMechanismSectionAssemblyGroupsView']", parentFolder, 30000, null, false, "538de49e-c846-4fcf-b0d7-8ebfbe0829bd", "")
+            {
+                _tableduidingsklassenInfo = new RepoItemInfo(this, "TableDuidingsklassen", ".//table", 30000, null, "171d18ca-9186-4ec9-b2fb-d120854d5a24");
+            }
+
+            /// <summary>
+            /// The Self item.
+            /// </summary>
+            [RepositoryItem("538de49e-c846-4fcf-b0d7-8ebfbe0829bd")]
+            public virtual Ranorex.Container Self
+            {
+                get
+                {
+                    return _selfInfo.CreateAdapter<Ranorex.Container>(true);
+                }
+            }
+
+            /// <summary>
+            /// The Self item info.
+            /// </summary>
+            [RepositoryItemInfo("538de49e-c846-4fcf-b0d7-8ebfbe0829bd")]
+            public virtual RepoItemInfo SelfInfo
+            {
+                get
+                {
+                    return _selfInfo;
+                }
+            }
+
+            /// <summary>
+            /// The TableDuidingsklassen item.
+            /// </summary>
+            [RepositoryItem("171d18ca-9186-4ec9-b2fb-d120854d5a24")]
+            public virtual Ranorex.Table TableDuidingsklassen
+            {
+                get
+                {
+                    return _tableduidingsklassenInfo.CreateAdapter<Ranorex.Table>(true);
+                }
+            }
+
+            /// <summary>
+            /// The TableDuidingsklassen item info.
+            /// </summary>
+            [RepositoryItemInfo("171d18ca-9186-4ec9-b2fb-d120854d5a24")]
+            public virtual RepoItemInfo TableDuidingsklassenInfo
+            {
+                get
+                {
+                    return _tableduidingsklassenInfo;
                 }
             }
         }
