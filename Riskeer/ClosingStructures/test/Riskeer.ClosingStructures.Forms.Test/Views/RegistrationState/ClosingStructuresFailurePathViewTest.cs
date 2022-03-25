@@ -47,7 +47,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 
-namespace Riskeer.ClosingStructures.Forms.Test.Views
+namespace Riskeer.ClosingStructures.Forms.Test.Views.RegistrationState
 {
     [TestFixture]
     public class ClosingStructuresFailurePathViewTest

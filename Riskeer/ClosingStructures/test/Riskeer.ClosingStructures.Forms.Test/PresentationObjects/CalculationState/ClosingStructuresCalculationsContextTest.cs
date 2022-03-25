@@ -26,7 +26,7 @@ using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 
-namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects
+namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects.CalculationState
 {
     [TestFixture]
     public class ClosingStructuresCalculationsContextTest

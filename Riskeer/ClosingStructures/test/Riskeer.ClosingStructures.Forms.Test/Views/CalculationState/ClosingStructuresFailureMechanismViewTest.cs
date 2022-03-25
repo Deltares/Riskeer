@@ -43,7 +43,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 
-namespace Riskeer.ClosingStructures.Forms.Test.Views
+namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationState
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismViewTest

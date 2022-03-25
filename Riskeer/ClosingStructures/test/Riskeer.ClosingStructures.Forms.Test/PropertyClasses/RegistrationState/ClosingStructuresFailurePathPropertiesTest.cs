@@ -31,7 +31,7 @@ using Riskeer.ClosingStructures.Forms.PropertyClasses;
 using Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState;
 using Riskeer.Common.Data.TestUtil;
 
-namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
+namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
 {
     public class ClosingStructuresFailurePathPropertiesTest
     {
