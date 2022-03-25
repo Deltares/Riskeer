@@ -29,15 +29,15 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for <see cref="SpecificFailureMechanism.Sections"/>.
     /// </summary>
-    public class SpecificFailurePathSectionsContext : FailureMechanismSectionsContext
+    public class SpecificFailureMechanismSectionsContext : FailureMechanismSectionsContext
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SpecificFailurePathSectionsContext"/> class.
+        /// Initializes a new instance of the <see cref="SpecificFailureMechanismSectionsContext"/> class.
         /// </summary>
         /// <param name="wrappedData">The <see cref="SpecificFailureMechanism"/> to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public SpecificFailurePathSectionsContext(SpecificFailureMechanism wrappedData, IAssessmentSection assessmentSection)
+        public SpecificFailureMechanismSectionsContext(SpecificFailureMechanism wrappedData, IAssessmentSection assessmentSection)
             : base(wrappedData, assessmentSection) {}
     }
 }

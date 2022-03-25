@@ -688,7 +688,7 @@ namespace Riskeer.Integration.Plugin
                 new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
 
             yield return RiskeerUpdateInfoFactory.CreateFailureMechanismSectionsUpdateInfo<
-                SpecificFailurePathSectionsContext, SpecificFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                SpecificFailureMechanismSectionsContext, SpecificFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultUpdateStrategy());
         }
 
@@ -2005,7 +2005,7 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new SpecificFailurePathSectionsContext(nodeData.WrappedData, nodeData.Parent),
+                new SpecificFailureMechanismSectionsContext(nodeData.WrappedData, nodeData.Parent),
                 nodeData.WrappedData.InAssemblyInputComments
             };
         }

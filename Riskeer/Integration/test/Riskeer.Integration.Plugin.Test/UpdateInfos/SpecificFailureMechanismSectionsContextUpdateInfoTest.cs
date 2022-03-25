@@ -15,7 +15,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.UpdateInfos
 {
     [TestFixture]
-    public class SpecificFailurePathSectionsContextUpdateInfoTest
+    public class SpecificFailureMechanismSectionsContextUpdateInfoTest
     {
         [Test]
         public void CreateFileImporter_Always_ReturnFileImporter()
@@ -26,8 +26,8 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             assessmentSection.Stub(a => a.ReferenceLine).Return(new ReferenceLine());
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailureMechanism();
-            var importTarget = new SpecificFailurePathSectionsContext(failurePath, assessmentSection);
+            var failureMechanism = new SpecificFailureMechanism();
+            var importTarget = new SpecificFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -99,11 +99,11 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailureMechanism();
-            failurePath.SetSections(Enumerable.Empty<FailureMechanismSection>(),
-                                    "path");
+            var failureMechanism = new SpecificFailureMechanism();
+            failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(),
+                                         "path");
 
-            var context = new SpecificFailurePathSectionsContext(failurePath, assessmentSection);
+            var context = new SpecificFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -127,8 +127,8 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailureMechanism();
-            var context = new SpecificFailurePathSectionsContext(failurePath, assessmentSection);
+            var failureMechanism = new SpecificFailureMechanism();
+            var context = new SpecificFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -169,11 +169,11 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
             mocks.ReplayAll();
 
             const string expectedFilePath = "path";
-            var failurePath = new SpecificFailureMechanism();
-            failurePath.SetSections(Enumerable.Empty<FailureMechanismSection>(),
-                                    expectedFilePath);
+            var failureMechanism = new SpecificFailureMechanism();
+            failureMechanism.SetSections(Enumerable.Empty<FailureMechanismSection>(),
+                                         expectedFilePath);
 
-            var context = new SpecificFailurePathSectionsContext(failurePath, assessmentSection);
+            var context = new SpecificFailureMechanismSectionsContext(failureMechanism, assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -190,7 +190,7 @@ namespace Riskeer.Integration.Plugin.Test.UpdateInfos
 
         private static UpdateInfo GetUpdateInfo(RiskeerPlugin plugin)
         {
-            return plugin.GetUpdateInfos().First(ui => ui.DataType == typeof(SpecificFailurePathSectionsContext));
+            return plugin.GetUpdateInfos().First(ui => ui.DataType == typeof(SpecificFailureMechanismSectionsContext));
         }
     }
 }

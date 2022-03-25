@@ -243,7 +243,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputFolder.Category);
 
-            var sectionsContext = (SpecificFailurePathSectionsContext) inputFolder.Contents.ElementAt(0);
+            var sectionsContext = (SpecificFailureMechanismSectionsContext) inputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, sectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, sectionsContext.AssessmentSection);
 

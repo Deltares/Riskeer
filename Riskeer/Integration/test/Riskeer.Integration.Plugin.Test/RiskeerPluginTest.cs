@@ -706,7 +706,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(MicrostabilityFailureMechanismSectionsContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(PipingStructureFailureMechanismSectionsContext)));
                 Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(WaterPressureAsphaltCoverFailureMechanismSectionsContext)));
-                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(SpecificFailurePathSectionsContext)));
+                Assert.IsTrue(updateInfos.Any(i => i.DataType == typeof(SpecificFailureMechanismSectionsContext)));
             }
         }
 
