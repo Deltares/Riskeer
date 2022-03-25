@@ -308,7 +308,7 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             void Call() => handler.PerformMerge(targetAssessmentSection, mergeData);
 
             // Assert
-            const string expectedMessage = "MergeSpecificFailurePaths must contain items of the assessment section in mergeData.";
+            const string expectedMessage = "MergeSpecificFailureMechanisms must contain items of the assessment section in mergeData.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
@@ -329,11 +329,11 @@ namespace Riskeer.Integration.Plugin.Test.Merge
             {
                 new SpecificFailureMechanism
                 {
-                    Name = "Path 1"
+                    Name = "Mechanism 1"
                 },
                 new SpecificFailureMechanism
                 {
-                    Name = "Path 2"
+                    Name = "Mechanism 2"
                 }
             };
             var sourceAssessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
