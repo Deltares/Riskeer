@@ -337,7 +337,10 @@ namespace Riskeer.Integration.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  () => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.WrappedData, context.AssessmentSection)),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new RiskeerViewInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>(() => Gui)
@@ -350,7 +353,10 @@ namespace Riskeer.Integration.Plugin
                                                                                  () => context.WrappedData.TargetProbability,
                                                                                  () => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.WrappedData.HydraulicBoundaryLocationCalculations,
                                                                                                                                                                                     context.AssessmentSection)),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new RiskeerViewInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>(() => Gui)
@@ -364,7 +370,10 @@ namespace Riskeer.Integration.Plugin
                                                                            () => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(context.WrappedData,
                                                                                                                                                                     context.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
                                                                                                                                                                     probability => probability.TargetProbability)),
-                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
+                AfterCreate = (view, context) =>
+                {
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
 
             yield return new RiskeerViewInfo<AssessmentSectionStateRootContext, AssessmentSectionReferenceLineView>(() => Gui)
@@ -421,7 +430,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return CreateFailureMechanismResultViewInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, WaterPressureAsphaltCoverFailureMechanism>(fm => fm.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return CreateFailureMechanismResultViewInfo<SpecificFailurePathSectionResultContext, SpecificFailureMechanism>(fp => fp.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
+            yield return CreateFailureMechanismResultViewInfo<SpecificFailureMechanismSectionResultContext, SpecificFailureMechanism>(fp => fp.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
             yield return new RiskeerViewInfo<SpecificFailureMechanismContext, SpecificFailureMechanismView>(() => Gui)
             {
@@ -955,7 +964,7 @@ namespace Riskeer.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MicrostabilityFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<PipingStructureFailureMechanismSectionResultContext, NonAdoptableFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<SpecificFailurePathSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<SpecificFailureMechanismSectionResultContext, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>();
 
             yield return new TreeNodeInfo<Comment>
             {
@@ -1987,7 +1996,7 @@ namespace Riskeer.Integration.Plugin
                                        GetSpecificFailureMechanismInputs(nodeData),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetSpecificFailureMechanismMechanismOutputs(nodeData),
+                                       GetSpecificFailureMechanismOutputs(nodeData),
                                        TreeFolderCategory.Output)
             };
         }
@@ -2001,12 +2010,12 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetSpecificFailureMechanismMechanismOutputs(SpecificFailureMechanismContext nodeData)
+        private static IEnumerable<object> GetSpecificFailureMechanismOutputs(SpecificFailureMechanismContext nodeData)
         {
             return new object[]
             {
-                new SpecificFailurePathSectionResultContext(nodeData.WrappedData.SectionResults,
-                                                            nodeData.WrappedData, nodeData.Parent),
+                new SpecificFailureMechanismSectionResultContext(nodeData.WrappedData.SectionResults,
+                                                                 nodeData.WrappedData, nodeData.Parent),
                 nodeData.WrappedData.InAssemblyOutputComments
             };
         }

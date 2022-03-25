@@ -29,7 +29,7 @@ using Riskeer.Integration.Forms.PresentationObjects;
 namespace Riskeer.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class SpecificFailurePathSectionResultContextTest
+    public class SpecificFailureMechanismSectionResultContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -39,10 +39,10 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailureMechanism();
+            var failureMechanism = new SpecificFailureMechanism();
 
             // Call
-            var context = new SpecificFailurePathSectionResultContext(failurePath.SectionResults, failurePath, assessmentSection);
+            var context = new SpecificFailureMechanismSectionResultContext(failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResultContext<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>>(context);

@@ -34,7 +34,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class SpecificFailurePathSectionResultContextTreeNodeInfoTest
+    public class SpecificFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private RiskeerPlugin plugin;
         private TreeNodeInfo info;
@@ -43,7 +43,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(SpecificFailurePathSectionResultContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(SpecificFailureMechanismSectionResultContext));
         }
 
         [Test]

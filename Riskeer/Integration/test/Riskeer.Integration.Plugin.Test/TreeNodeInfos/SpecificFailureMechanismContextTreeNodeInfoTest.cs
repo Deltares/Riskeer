@@ -161,7 +161,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void OnNodeRenamed_ChangesNameOfFailurePathAndNotifiesObservers()
+        public void OnNodeRenamed_ChangesNameOfFailureMechanismAndNotifiesObservers()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -174,7 +174,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             var context = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
-            const string newName = "Updated FailurePath name";
+            const string newName = "Updated FailureMechanism name";
 
             // Call
             info.OnNodeRenamed(context, newName);
@@ -255,7 +255,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
             Assert.AreEqual(2, outputFolder.Contents.Count());
-            var sectionResultContext = (SpecificFailurePathSectionResultContext) outputFolder.Contents.ElementAt(0);
+            var sectionResultContext = (SpecificFailureMechanismSectionResultContext) outputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism.SectionResults, sectionResultContext.WrappedData);
             Assert.AreSame(failureMechanism, sectionResultContext.FailureMechanism);
             Assert.AreSame(assessmentSection, sectionResultContext.AssessmentSection);

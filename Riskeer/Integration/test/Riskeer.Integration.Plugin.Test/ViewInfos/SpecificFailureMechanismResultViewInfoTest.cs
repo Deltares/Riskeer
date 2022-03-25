@@ -35,7 +35,7 @@ using Riskeer.Integration.Forms.PresentationObjects;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class SpecificFailurePathResultViewInfoTest
+    public class SpecificFailureMechanismResultViewInfoTest
     {
         private MockRepository mocks;
         private RiskeerPlugin plugin;
@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(SpecificFailurePathSectionResultContext), info.DataType);
+            Assert.AreEqual(typeof(SpecificFailureMechanismSectionResultContext), info.DataType);
             Assert.AreEqual(typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>), info.ViewDataType);
         }
 
@@ -71,7 +71,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new SpecificFailureMechanism();
-            var context = new SpecificFailurePathSectionResultContext(
+            var context = new SpecificFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call
@@ -236,7 +236,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new SpecificFailureMechanism();
-            var context = new SpecificFailurePathSectionResultContext(
+            var context = new SpecificFailureMechanismSectionResultContext(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection);
 
             // Call

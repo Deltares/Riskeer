@@ -463,7 +463,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(SpecificFailurePathSectionResultContext),
+                    typeof(SpecificFailureMechanismSectionResultContext),
                     typeof(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>),
                     typeof(NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>));
 
@@ -610,7 +610,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GenericFailurePathsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailureMechanismsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailureMechanismContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailurePathSectionResultContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailureMechanismSectionResultContext)));
             }
         }
 
