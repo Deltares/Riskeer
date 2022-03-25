@@ -116,6 +116,8 @@ namespace Riskeer.Migration.Integration.Test
                     AssertWaterPressureAsphaltCoverSectionResults(reader, sourceFilePath);
                     AssertGrassCoverSlipOffOutwardsSectionResults(reader, sourceFilePath);
                     AssertGrassCoverSlipOffInwardsSectionResults(reader, sourceFilePath);
+                    
+                    AssertIllustrationPointResults(reader);
                 }
 
                 AssertLogDatabase(logFilePath);
@@ -1342,5 +1344,68 @@ namespace Riskeer.Migration.Integration.Test
         }
 
         #endregion
+        
+        private static void AssertIllustrationPointResults(MigratedDatabaseReader reader)
+        {
+            const string validateFaultTreeIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [FaultTreeIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateFaultTreeIllustrationPoint);
+
+            const string validateFaultTreeIllustrationPointStochast =
+                "SELECT COUNT() = 0 " +
+                "FROM [FaultTreeIllustrationPointStochastEntity]; ";
+            reader.AssertReturnedDataIsValid(validateFaultTreeIllustrationPointStochast);
+
+            const string validateFaultTreeSubmechanismIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [FaultTreeSubmechanismIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateFaultTreeSubmechanismIllustrationPoint);
+
+            const string validateGeneralResultFaultTreeIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [GeneralResultFaultTreeIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateGeneralResultFaultTreeIllustrationPoint);
+
+            const string validateGeneralResultFaultTreeIllustrationPointStochast =
+                "SELECT COUNT() = 0 " +
+                "FROM [GeneralResultFaultTreeIllustrationPointStochastEntity]; ";
+            reader.AssertReturnedDataIsValid(validateGeneralResultFaultTreeIllustrationPointStochast);
+
+            const string validateGeneralResultSubMechanismIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [GeneralResultSubMechanismIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateGeneralResultSubMechanismIllustrationPoint);
+
+            const string validateGeneralResultSubMechanismIllustrationPointStochast =
+                "SELECT COUNT() = 0 " +
+                "FROM [GeneralResultSubMechanismIllustrationPointStochastEntity]; ";
+            reader.AssertReturnedDataIsValid(validateGeneralResultSubMechanismIllustrationPointStochast);
+
+            const string validateIllustrationPointResult =
+                "SELECT COUNT() = 0 " +
+                "FROM [IllustrationPointResultEntity]; ";
+            reader.AssertReturnedDataIsValid(validateIllustrationPointResult);
+
+            const string validateSubMechanismIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [SubMechanismIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateSubMechanismIllustrationPoint);
+
+            const string validateSubMechanismIllustrationPointStochast =
+                "SELECT COUNT() = 0 " +
+                "FROM [SubMechanismIllustrationPointStochastEntity]; ";
+            reader.AssertReturnedDataIsValid(validateSubMechanismIllustrationPointStochast);
+
+            const string validateTopLevelFaultTreeIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [TopLevelFaultTreeIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateTopLevelFaultTreeIllustrationPoint);
+
+            const string validateTopLevelSubMechanismIllustrationPoint =
+                "SELECT COUNT() = 0 " +
+                "FROM [TopLevelSubMechanismIllustrationPointEntity]; ";
+            reader.AssertReturnedDataIsValid(validateTopLevelSubMechanismIllustrationPoint);
+        }
     }
 }
