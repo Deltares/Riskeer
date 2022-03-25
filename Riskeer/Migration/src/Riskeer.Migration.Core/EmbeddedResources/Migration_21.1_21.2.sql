@@ -1143,6 +1143,7 @@ Outputs that used HydraRing are not migrated
 -- HeightStructuresOutputEntity
 -- HydraulicLocationOutputEntity
 -- SemiProbabilisticPipingCalculationOutputEntity where SemiProbabilisticPipingCalculationEntity.UseManualAssessmentLevel is 0
+-- ProbabilisticPipingCalculationOutputEntity
 -- StabilityPointStructuresOutputEntity
 -- StabilityStoneCoverWaveConditionsOutputEntity
 -- WaveImpactAsphaltCoverWaveConditionsOutputEntity
@@ -1251,6 +1252,64 @@ VALUES (
     "21.1",
     "21.2",
     "Gevolgen van de migratie van versie 21.1 naar versie 21.2:");
+
+CREATE TEMP TABLE TempLogOutputDeleted 
+(
+	'NrDeleted' INTEGER NOT NULL
+);
+
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HydraulicLocationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].DuneLocationCalculationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsDikeHeightOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionInwardsOvertoppingRateOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].ProbabilisticPipingCalculationOutputEntity;
+INSERT INTO TempLogOutputDeleted
+SELECT COUNT()
+FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
+WHERE SemiProbabilisticPipingCalculationEntityId IN (
+    SELECT SemiProbabilisticPipingCalculationEntityId
+    FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity
+    WHERE UseAssessmentLevelManualInput IS 0);
+
+CREATE TEMP TABLE TempLogOutputRemaining
+(
+	'NrRemaining' INTEGER NOT NULL
+);
+INSERT INTO TempLogOutputRemaining
+SELECT COUNT()
+FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
+WHERE SemiProbabilisticPipingCalculationEntityId IN (
+    SELECT SemiProbabilisticPipingCalculationEntityId
+    FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity
+    WHERE UseAssessmentLevelManualInput IS 1
+    );
+
+INSERT INTO [LOGDATABASE].MigrationLogEntity (
+    [FromVersion],
+    [ToVersion],
+[LogMessage])
+SELECT
+    "21.1",
+    "21.2",
+    CASE
+        WHEN [NrRemaining] > 0
+			THEN "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' waarbij de waterstand handmatig is ingevuld."
+        ELSE "* Alle berekende resultaten zijn verwijderd."
+        END
+FROM TempLogOutputDeleted
+         LEFT JOIN TempLogOutputRemaining
+WHERE [NrDeleted] > 0
+    LIMIT 1;
+
+DROP TABLE TempLogOutputDeleted;
+DROP TABLE TempLogOutputRemaining;
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],

@@ -214,10 +214,13 @@ namespace Riskeer.Migration.Integration.Test
             {
                 ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
 
-                Assert.AreEqual(8, messages.Count);
+                Assert.AreEqual(9, messages.Count);
                 var i = 0;
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("21.1", newVersion, "Gevolgen van de migratie van versie 21.1 naar versie 21.2:"),
+                    messages[i++]);
+                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
+                    new MigrationLogMessage("21.1", newVersion, "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' waarbij de waterstand handmatig is ingevuld."),
                     messages[i++]);
                 MigrationLogTestHelper.AssertMigrationLogMessageEqual(
                     new MigrationLogMessage("21.1", newVersion, "* De oorspronkelijke faalmechanismen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd."),
@@ -1261,10 +1264,10 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertDuneLocationCalculation(MigratedDatabaseReader reader)
         {
-            const string validateOutput =
+            const string validateCalculation =
                 "SELECT COUNT() = 0 " +
                 "FROM [DuneLocationCalculationEntity]; ";
-            reader.AssertReturnedDataIsValid(validateOutput);
+            reader.AssertReturnedDataIsValid(validateCalculation);
         }
 
         private static void AssertDuneLocationCalculationOutput(MigratedDatabaseReader reader)
