@@ -28,17 +28,17 @@ using Riskeer.Common.Data.FailureMechanism;
 namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for a collection of specific failure paths.
+    /// Presentation object for a collection of specific failure mechanisms.
     /// </summary>
-    public class SpecificFailurePathsContext : ObservableWrappedObjectContextBase<ObservableList<SpecificFailureMechanism>>
+    public class SpecificFailureMechanismsContext : ObservableWrappedObjectContextBase<ObservableList<SpecificFailureMechanism>>
     {
         /// <summary>
-        /// Initializes a new instance of <see cref="SpecificFailurePathsContext"/>.
+        /// Creates a new instance of <see cref="SpecificFailureMechanismsContext"/>.
         /// </summary>
         /// <param name="wrappedData">The collection of <see cref="SpecificFailureMechanism"/> to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
-        public SpecificFailurePathsContext(ObservableList<SpecificFailureMechanism> wrappedData, IAssessmentSection assessmentSection)
+        public SpecificFailureMechanismsContext(ObservableList<SpecificFailureMechanism> wrappedData, IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (assessmentSection == null)

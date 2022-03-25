@@ -402,7 +402,7 @@
     <data name="FailureMechanismAssemblyProbabilityResultTypeManual_DisplayName" xml:space="preserve">
     <value>Handmatig invullen</value>
   </data>
-  <data name="SpecificFailurePath_DefaultName" xml:space="preserve">
+  <data name="SpecificFailureMechanism_DefaultName" xml:space="preserve">
     <value>Nieuw faalmechanisme</value>
   </data>
   <data name="SpecificFailurePath_DefaultCode" xml:space="preserve">

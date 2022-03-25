@@ -608,7 +608,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssemblyResultPerSectionMapContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionAssemblyGroupsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GenericFailurePathsContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailurePathsContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailureMechanismsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailurePathSectionResultContext)));
             }

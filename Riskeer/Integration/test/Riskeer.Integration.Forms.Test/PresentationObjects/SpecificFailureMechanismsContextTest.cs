@@ -31,7 +31,7 @@ using Riskeer.Integration.Forms.PresentationObjects;
 namespace Riskeer.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class SpecificFailurePathsContextTest
+    public class SpecificFailureMechanismsContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -41,15 +41,15 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePaths = new ObservableList<SpecificFailureMechanism>();
+            var failureMechanisms = new ObservableList<SpecificFailureMechanism>();
 
             // Call
-            var context = new SpecificFailurePathsContext(failurePaths, assessmentSection);
+            var context = new SpecificFailureMechanismsContext(failureMechanisms, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<SpecificFailureMechanism>>>(context);
             Assert.AreSame(assessmentSection, context.AssessmentSection);
-            Assert.AreSame(failurePaths, context.WrappedData);
+            Assert.AreSame(failureMechanisms, context.WrappedData);
             mocks.VerifyAll();
         }
 
@@ -57,10 +57,10 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failurePaths = new ObservableList<SpecificFailureMechanism>();
+            var failureMechanisms = new ObservableList<SpecificFailureMechanism>();
 
             // Call
-            void Call() => new SpecificFailurePathsContext(failurePaths, null);
+            void Call() => new SpecificFailureMechanismsContext(failureMechanisms, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);

@@ -337,10 +337,7 @@ namespace Riskeer.Integration.Plugin
                                                                                  context.AssessmentSection,
                                                                                  context.GetNormFunc,
                                                                                  () => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.WrappedData, context.AssessmentSection)),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new RiskeerViewInfo<WaterLevelCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, DesignWaterLevelCalculationsView>(() => Gui)
@@ -353,10 +350,7 @@ namespace Riskeer.Integration.Plugin
                                                                                  () => context.WrappedData.TargetProbability,
                                                                                  () => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(context.WrappedData.HydraulicBoundaryLocationCalculations,
                                                                                                                                                                                     context.AssessmentSection)),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new RiskeerViewInfo<WaveHeightCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<HydraulicBoundaryLocationCalculation>, WaveHeightCalculationsView>(() => Gui)
@@ -370,10 +364,7 @@ namespace Riskeer.Integration.Plugin
                                                                            () => TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForCalculations(context.WrappedData,
                                                                                                                                                                     context.AssessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
                                                                                                                                                                     probability => probability.TargetProbability)),
-                AfterCreate = (view, context) =>
-                {
-                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                AfterCreate = (view, context) => { view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService; }
             };
 
             yield return new RiskeerViewInfo<AssessmentSectionStateRootContext, AssessmentSectionReferenceLineView>(() => Gui)
@@ -790,7 +781,7 @@ namespace Riskeer.Integration.Plugin
                 StandAloneFailurePathEnabledContextMenuStrip,
                 StandAloneFailurePathDisabledContextMenuStrip);
 
-            yield return CreateSpecificFailurePathTreeNodeInfo();
+            yield return CreateSpecificFailureMechanismTreeNodeInfo();
 
             yield return new TreeNodeInfo<FailureMechanismSectionAssemblyGroupsContext>
             {
@@ -812,15 +803,15 @@ namespace Riskeer.Integration.Plugin
                 ExpandOnCreate = context => true
             };
 
-            yield return new TreeNodeInfo<SpecificFailurePathsContext>
+            yield return new TreeNodeInfo<SpecificFailureMechanismsContext>
             {
                 Text = context => Resources.SpecificFailureMechanisms_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
-                ChildNodeObjects = SpecificFailurePathsChildNodeObjects,
-                ContextMenuStrip = SpecificFailurePathsContextMenuStrip,
-                CanInsert = SpecificFailurePathsContext_CanDropOrInsert,
-                CanDrop = SpecificFailurePathsContext_CanDropOrInsert,
-                OnDrop = SpecificFailurePathsContext_OnDrop,
+                ChildNodeObjects = SpecificFailureMechanismsChildNodeObjects,
+                ContextMenuStrip = SpecificFailureMechanismsContextMenuStrip,
+                CanInsert = SpecificFailureMechanismsContext_CanDropOrInsert,
+                CanDrop = SpecificFailureMechanismsContext_CanDropOrInsert,
+                OnDrop = SpecificFailureMechanismsContext_OnDrop,
                 ExpandOnCreate = context => true
             };
 
@@ -1169,9 +1160,9 @@ namespace Riskeer.Integration.Plugin
             {
                 observers = CreateObservers(waveHeightCalculationsView);
             }
-            else if (e.View is SpecificFailureMechanismView specificFailurePathView)
+            else if (e.View is SpecificFailureMechanismView specificFailureMechanismView)
             {
-                observers = CreateObservers(specificFailurePathView);
+                observers = CreateObservers(specificFailureMechanismView);
             }
 
             if (!observers.Any())
@@ -1821,7 +1812,7 @@ namespace Riskeer.Integration.Plugin
             {
                 new FailureMechanismSectionAssemblyGroupsContext(assessmentSection),
                 new GenericFailurePathsContext(assessmentSection),
-                new SpecificFailurePathsContext(assessmentSection.SpecificFailureMechanisms, assessmentSection),
+                new SpecificFailureMechanismsContext(assessmentSection.SpecificFailureMechanisms, assessmentSection),
                 new AssemblyResultsContext(assessmentSection)
             };
         }
@@ -1881,7 +1872,7 @@ namespace Riskeer.Integration.Plugin
 
         #region SpecificFailureMechanisms TreeNodeInfo
 
-        private static object[] SpecificFailurePathsChildNodeObjects(SpecificFailurePathsContext nodeData)
+        private static object[] SpecificFailureMechanismsChildNodeObjects(SpecificFailureMechanismsContext nodeData)
         {
             return nodeData.WrappedData
                            .Select(sfp => new SpecificFailureMechanismContext(sfp, nodeData.AssessmentSection))
@@ -1889,9 +1880,9 @@ namespace Riskeer.Integration.Plugin
                            .ToArray();
         }
 
-        private ContextMenuStrip SpecificFailurePathsContextMenuStrip(SpecificFailurePathsContext nodeData,
-                                                                      object parentData,
-                                                                      TreeViewControl treeViewControl)
+        private ContextMenuStrip SpecificFailureMechanismsContextMenuStrip(SpecificFailureMechanismsContext nodeData,
+                                                                           object parentData,
+                                                                           TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -1904,58 +1895,58 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private static StrictContextMenuItem CreateAddSpecificFailureMechanismItem(SpecificFailurePathsContext nodeData)
+        private static StrictContextMenuItem CreateAddSpecificFailureMechanismItem(SpecificFailureMechanismsContext nodeData)
         {
             return new StrictContextMenuItem(Resources.RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism,
                                              Resources.RiskeerPlugin_ContextMenuStrip_Add_SpecificFailureMechanism_Tooltip,
                                              RiskeerCommonFormsResources.FailureMechanismIcon,
-                                             (sender, args) => AddSpecificFailurePath(nodeData));
+                                             (sender, args) => AddSpecificFailureMechanism(nodeData));
         }
 
-        private static void AddSpecificFailurePath(SpecificFailurePathsContext nodeData)
+        private static void AddSpecificFailureMechanism(SpecificFailureMechanismsContext nodeData)
         {
-            ObservableList<SpecificFailureMechanism> failurePaths = nodeData.WrappedData;
-            var newFailurePath = new SpecificFailureMechanism
+            ObservableList<SpecificFailureMechanism> failureMechanisms = nodeData.WrappedData;
+            var newFailureMechanism = new SpecificFailureMechanism
             {
-                Name = NamingHelper.GetUniqueName(failurePaths,
-                                                  RiskeerCommonDataResources.SpecificFailurePath_DefaultName,
+                Name = NamingHelper.GetUniqueName(failureMechanisms,
+                                                  RiskeerCommonDataResources.SpecificFailureMechanism_DefaultName,
                                                   fp => fp.Name)
             };
-            failurePaths.Add(newFailurePath);
-            failurePaths.NotifyObservers();
+            failureMechanisms.Add(newFailureMechanism);
+            failureMechanisms.NotifyObservers();
         }
 
-        private static bool SpecificFailurePathsContext_CanDropOrInsert(object draggedData, object targetData)
+        private static bool SpecificFailureMechanismsContext_CanDropOrInsert(object draggedData, object targetData)
         {
-            var failurePathsContext = (SpecificFailurePathsContext) targetData;
+            var failureMechanismsContext = (SpecificFailureMechanismsContext) targetData;
 
             return draggedData is SpecificFailureMechanismContext failureMechanismContext
-                   && failurePathsContext.WrappedData.Contains(failureMechanismContext.WrappedData);
+                   && failureMechanismsContext.WrappedData.Contains(failureMechanismContext.WrappedData);
         }
 
-        private static void SpecificFailurePathsContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
+        private static void SpecificFailureMechanismsContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
         {
-            var failurePathsContext = (SpecificFailurePathsContext) newParentData;
+            var failureMechanismsContext = (SpecificFailureMechanismsContext) newParentData;
             var failureMechanismContext = (SpecificFailureMechanismContext) droppedData;
 
-            failurePathsContext.WrappedData.Remove(failureMechanismContext.WrappedData);
-            failurePathsContext.WrappedData.Insert(position, failureMechanismContext.WrappedData);
+            failureMechanismsContext.WrappedData.Remove(failureMechanismContext.WrappedData);
+            failureMechanismsContext.WrappedData.Insert(position, failureMechanismContext.WrappedData);
 
-            failurePathsContext.WrappedData.NotifyObservers();
+            failureMechanismsContext.WrappedData.NotifyObservers();
         }
 
         #endregion
 
-        #region SpecificFailurePath TreeNodeInfo
+        #region SpecificFailureMechanism TreeNodeInfo
 
-        private TreeNodeInfo CreateSpecificFailurePathTreeNodeInfo()
+        private TreeNodeInfo CreateSpecificFailureMechanismTreeNodeInfo()
         {
             TreeNodeInfo<SpecificFailureMechanismContext> treeNodeInfo =
                 RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<SpecificFailureMechanismContext>(
-                    SpecificFailurePathEnabledChildNodeObjects,
-                    SpecificFailurePathDisabledChildNodeObjects,
-                    SpecificFailurePathEnabledContextMenuStrip,
-                    SpecificFailurePathDisabledContextMenuStrip);
+                    SpecificFailureMechanismEnabledChildNodeObjects,
+                    SpecificFailureMechanismDisabledChildNodeObjects,
+                    SpecificFailureMechanismEnabledContextMenuStrip,
+                    SpecificFailureMechanismDisabledContextMenuStrip);
             treeNodeInfo.CanRename = (context, o) => true;
             treeNodeInfo.OnNodeRenamed = SpecificFailureMechanismContextOnNodeRenamed;
             treeNodeInfo.CanRemove = (context, o) => true;
@@ -1973,14 +1964,14 @@ namespace Riskeer.Integration.Plugin
 
         private static void SpecificFailureMechanismContextOnNodeRemoved(SpecificFailureMechanismContext nodeData, object parentNodeData)
         {
-            var specificFailurePathsContext = (SpecificFailurePathsContext) parentNodeData;
-            ObservableList<SpecificFailureMechanism> failureMechanisms = specificFailurePathsContext.WrappedData;
+            var specificFailureMechanismsContext = (SpecificFailureMechanismsContext) parentNodeData;
+            ObservableList<SpecificFailureMechanism> failureMechanisms = specificFailureMechanismsContext.WrappedData;
 
             failureMechanisms.Remove(nodeData.WrappedData);
             failureMechanisms.NotifyObservers();
         }
 
-        private static object[] SpecificFailurePathDisabledChildNodeObjects(SpecificFailureMechanismContext nodeData)
+        private static object[] SpecificFailureMechanismDisabledChildNodeObjects(SpecificFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -1988,20 +1979,20 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static object[] SpecificFailurePathEnabledChildNodeObjects(SpecificFailureMechanismContext nodeData)
+        private static object[] SpecificFailureMechanismEnabledChildNodeObjects(SpecificFailureMechanismContext nodeData)
         {
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetSpecificFailurePathInputs(nodeData),
+                                       GetSpecificFailureMechanismInputs(nodeData),
                                        TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetSpecificFailureMechanismPathOutputs(nodeData),
+                                       GetSpecificFailureMechanismMechanismOutputs(nodeData),
                                        TreeFolderCategory.Output)
             };
         }
 
-        private static IEnumerable<object> GetSpecificFailurePathInputs(SpecificFailureMechanismContext nodeData)
+        private static IEnumerable<object> GetSpecificFailureMechanismInputs(SpecificFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -2010,7 +2001,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetSpecificFailureMechanismPathOutputs(SpecificFailureMechanismContext nodeData)
+        private static IEnumerable<object> GetSpecificFailureMechanismMechanismOutputs(SpecificFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -2020,9 +2011,9 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip SpecificFailurePathEnabledContextMenuStrip(SpecificFailureMechanismContext nodeData,
-                                                                            object parentData,
-                                                                            TreeViewControl treeViewControl)
+        private ContextMenuStrip SpecificFailureMechanismEnabledContextMenuStrip(SpecificFailureMechanismContext nodeData,
+                                                                                 object parentData,
+                                                                                 TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
@@ -2046,9 +2037,9 @@ namespace Riskeer.Integration.Plugin
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip SpecificFailurePathDisabledContextMenuStrip(SpecificFailureMechanismContext nodeData,
-                                                                             object parentData,
-                                                                             TreeViewControl treeViewControl)
+        private ContextMenuStrip SpecificFailureMechanismDisabledContextMenuStrip(SpecificFailureMechanismContext nodeData,
+                                                                                  object parentData,
+                                                                                  TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 

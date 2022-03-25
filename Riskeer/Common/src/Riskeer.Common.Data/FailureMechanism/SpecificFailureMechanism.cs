@@ -40,7 +40,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// </summary>
         public SpecificFailureMechanism()
         {
-            Name = Resources.SpecificFailurePath_DefaultName;
+            Name = Resources.SpecificFailureMechanism_DefaultName;
             Code = Resources.SpecificFailurePath_DefaultCode;
 
             sectionCollection = new FailureMechanismSectionCollection();

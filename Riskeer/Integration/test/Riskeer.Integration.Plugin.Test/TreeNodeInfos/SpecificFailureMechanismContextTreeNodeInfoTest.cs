@@ -213,7 +213,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 failureMechanism
             };
             failureMechanisms.Attach(observer);
-            var parentContext = new SpecificFailurePathsContext(failureMechanisms, assessmentSection);
+            var parentContext = new SpecificFailureMechanismsContext(failureMechanisms, assessmentSection);
 
             // Call
             info.OnNodeRemoved(context, parentContext);
