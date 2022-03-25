@@ -77,7 +77,7 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Status)]
         public string Status { get; set; }
-        
+
         /// <summary>
         /// Determines whether <see cref="Probability"/> should be serialized.
         /// </summary>

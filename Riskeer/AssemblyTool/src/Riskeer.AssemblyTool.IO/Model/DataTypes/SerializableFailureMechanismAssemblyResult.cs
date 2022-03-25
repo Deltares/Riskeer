@@ -46,9 +46,9 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         public SerializableFailureMechanismAssemblyResult(double probability, bool isManual) : this()
         {
             Probability = probability;
-            
-            AssemblyMethod = isManual 
-                                 ? SerializableAssemblyMethod.Manual 
+
+            AssemblyMethod = isManual
+                                 ? SerializableAssemblyMethod.Manual
                                  : SerializableAssemblyMethod.WBI1B1;
         }
 

@@ -63,7 +63,7 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3C1)]
         WBI3C1 = 6,
-        
+
         /// <summary>
         /// Represents a manual assembly.
         /// </summary>

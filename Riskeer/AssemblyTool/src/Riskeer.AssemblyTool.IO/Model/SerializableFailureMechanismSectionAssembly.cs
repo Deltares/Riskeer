@@ -49,7 +49,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         public SerializableFailureMechanismSectionAssembly(string id,
                                                            SerializableFailureMechanism failureMechanism,
                                                            SerializableFailureMechanismSection section,
-                                                           SerializableFailureMechanismSectionAssemblyResult sectionResult) 
+                                                           SerializableFailureMechanismSectionAssemblyResult sectionResult)
             : this()
         {
             if (!SerializableIdValidator.Validate(id))
