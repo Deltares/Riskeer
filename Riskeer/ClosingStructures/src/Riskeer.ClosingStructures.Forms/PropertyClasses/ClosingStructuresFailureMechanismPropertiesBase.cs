@@ -30,20 +30,20 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.ClosingStructures.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="ClosingStructuresFailureMechanism"/> for properties panel.
+    /// Base ViewModel of <see cref="ClosingStructuresFailureMechanism"/> for properties panel.
     /// </summary>
-    public class ClosingStructuresFailureMechanismProperties : ObjectProperties<ClosingStructuresFailureMechanism>
+    public abstract class ClosingStructuresFailureMechanismPropertiesBase : ObjectProperties<ClosingStructuresFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismPropertiesBase"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="constructionProperties">The property values required to create an instance of <see cref="ClosingStructuresFailureMechanismProperties"/>.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of <see cref="ClosingStructuresFailureMechanismPropertiesBase"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClosingStructuresFailureMechanismProperties(ClosingStructuresFailureMechanism data,
-                                                           ConstructionProperties constructionProperties)
+        protected ClosingStructuresFailureMechanismPropertiesBase(ClosingStructuresFailureMechanism data,
+                                                                  ConstructionProperties constructionProperties)
         {
             if (data == null)
             {
@@ -77,19 +77,19 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="ClosingStructuresFailureMechanismProperties"/>.
+        /// Class holding the various construction parameters for <see cref="ClosingStructuresFailureMechanismPropertiesBase"/>.
         /// </summary>
         public class ConstructionProperties
         {
             #region General
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="ClosingStructuresFailureMechanismProperties.Name"/>.
+            /// Gets or sets the property index for <see cref="ClosingStructuresFailureMechanismPropertiesBase.Name"/>.
             /// </summary>
             public int NamePropertyIndex { get; set; }
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="ClosingStructuresFailureMechanismProperties.Code"/>.
+            /// Gets or sets the property index for <see cref="ClosingStructuresFailureMechanismPropertiesBase.Code"/>.
             /// </summary>
             public int CodePropertyIndex { get; set; }
 

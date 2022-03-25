@@ -33,7 +33,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationState
     /// <summary>
     /// Calculation related ViewModel of <see cref="ClosingStructuresFailureMechanism"/> for properties panel.
     /// </summary>
-    public class ClosingStructuresCalculationsProperties : ClosingStructuresFailureMechanismProperties
+    public class ClosingStructuresCalculationsProperties : ClosingStructuresFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;

@@ -29,7 +29,7 @@ using Riskeer.ClosingStructures.Forms.PropertyClasses;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 {
-    public class ClosingStructuresFailureMechanismPropertiesTest
+    public class ClosingStructuresFailureMechanismPropertiesBaseTest
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 0;
@@ -38,7 +38,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new ClosingStructuresFailureMechanismProperties(null, new ClosingStructuresFailureMechanismProperties.ConstructionProperties());
+            void Call() => new TestClosingStructuresFailureMechanismProperties(null, new ClosingStructuresFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -49,7 +49,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new ClosingStructuresFailureMechanismProperties(new ClosingStructuresFailureMechanism(), null);
+            void Call() => new TestClosingStructuresFailureMechanismProperties(new ClosingStructuresFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -63,7 +63,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism, new ClosingStructuresFailureMechanismProperties.ConstructionProperties());
+            var properties = new TestClosingStructuresFailureMechanismProperties(failureMechanism, new ClosingStructuresFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<ClosingStructuresFailureMechanism>>(properties);
@@ -76,7 +76,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Call
-            var properties = new ClosingStructuresFailureMechanismProperties(new ClosingStructuresFailureMechanism(), new ClosingStructuresFailureMechanismProperties.ConstructionProperties
+            var properties = new TestClosingStructuresFailureMechanismProperties(new ClosingStructuresFailureMechanism(), new ClosingStructuresFailureMechanismPropertiesBase.ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex
@@ -101,6 +101,13 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
                                                                             "Label",
                                                                             "Het label van het faalmechanisme.",
                                                                             true);
+        }
+
+        private class TestClosingStructuresFailureMechanismProperties : ClosingStructuresFailureMechanismPropertiesBase
+        {
+            public TestClosingStructuresFailureMechanismProperties(ClosingStructuresFailureMechanism data,
+                                                                   ConstructionProperties constructionProperties)
+                : base(data, constructionProperties) {}
         }
     }
 }

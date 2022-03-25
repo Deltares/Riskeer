@@ -62,7 +62,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.CalculationState
             var properties = new ClosingStructuresCalculationsProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<ClosingStructuresFailureMechanismProperties>(properties);
+            Assert.IsInstanceOf<ClosingStructuresFailureMechanismPropertiesBase>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);

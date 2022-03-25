@@ -32,7 +32,7 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState
     /// <summary>
     /// Failure path related ViewModel of <see cref="ClosingStructuresFailureMechanism"/> for properties panel.
     /// </summary>
-    public class ClosingStructuresFailurePathProperties : ClosingStructuresFailureMechanismProperties
+    public class ClosingStructuresFailurePathProperties : ClosingStructuresFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
