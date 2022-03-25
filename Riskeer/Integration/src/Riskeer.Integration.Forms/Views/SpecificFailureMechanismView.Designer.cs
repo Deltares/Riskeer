@@ -21,7 +21,7 @@
 
 namespace Riskeer.Integration.Forms.Views
 {
-    partial class SpecificFailurePathView
+    partial class SpecificFailureMechanismView
     {
         /// <summary> 
         /// Required designer variable.
@@ -52,7 +52,7 @@ namespace Riskeer.Integration.Forms.Views
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.riskeerMapControl);
-            this.Name = "SpecificFailurePathView";
+            this.Name = "SpecificFailureMechanismView";
             this.ResumeLayout(false);
 
         }

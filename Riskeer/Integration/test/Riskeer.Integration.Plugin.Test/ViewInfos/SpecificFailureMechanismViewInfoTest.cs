@@ -35,7 +35,7 @@ using Riskeer.Integration.Forms.Views;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class SpecificFailurePathViewInfoTest
+    public class SpecificFailureMechanismViewInfoTest
     {
         private MockRepository mocks;
         private RiskeerPlugin plugin;
@@ -46,7 +46,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(SpecificFailurePathView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(SpecificFailureMechanismView));
         }
 
         [TearDown]
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var testForm = new Form())
             {
                 // Call
-                var view = info.CreateInstance(context) as SpecificFailurePathView;
+                var view = info.CreateInstance(context) as SpecificFailureMechanismView;
 
                 testForm.Controls.Add(view);
                 testForm.Show();
@@ -133,7 +133,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
-            var view = new SpecificFailurePathView(failureMechanism, assessmentSection);
+            var view = new SpecificFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -155,7 +155,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     failureMechanism
                 }
             };
-            var view = new SpecificFailurePathView(failureMechanism, assessmentSection);
+            var view = new SpecificFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -174,7 +174,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
-            var view = new SpecificFailurePathView(failureMechanism, assessmentSection);
+            var view = new SpecificFailureMechanismView(failureMechanism, assessmentSection);
 
             var context = new SpecificFailurePathContext(new SpecificFailureMechanism(), otherAssessmentSection);
 
@@ -192,7 +192,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
-            var view = new SpecificFailurePathView(failureMechanism, assessmentSection);
+            var view = new SpecificFailureMechanismView(failureMechanism, assessmentSection);
 
             var context = new SpecificFailurePathContext(failureMechanism, assessmentSection);
 
@@ -210,7 +210,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
-            var view = new SpecificFailurePathView(failureMechanism, assessmentSection);
+            var view = new SpecificFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, new SpecificFailureMechanism());
@@ -226,7 +226,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var failureMechanism = new SpecificFailureMechanism();
             var assessmentSection = new AssessmentSectionStub();
-            var view = new SpecificFailurePathView(failureMechanism, assessmentSection);
+            var view = new SpecificFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, failureMechanism);

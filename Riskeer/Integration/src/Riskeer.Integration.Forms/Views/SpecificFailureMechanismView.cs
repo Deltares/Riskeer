@@ -36,12 +36,12 @@ namespace Riskeer.Integration.Forms.Views
     /// <summary>
     /// View for <see cref="SpecificFailureMechanism"/>.
     /// </summary>
-    public partial class SpecificFailurePathView : CloseForFailurePathView, IMapView
+    public partial class SpecificFailureMechanismView : CloseForFailurePathView, IMapView
     {
         private readonly SpecificFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
 
-        private MapDataCollection failurePathMapDataCollection;
+        private MapDataCollection failureMechanismMapDataCollection;
 
         private HydraulicBoundaryLocationsMapLayer hydraulicBoundaryLocationsMapLayer;
 
@@ -53,15 +53,15 @@ namespace Riskeer.Integration.Forms.Views
 
         private Observer assessmentSectionObserver;
         private Observer referenceLineObserver;
-        private Observer failurePathObserver;
+        private Observer failureMechanismObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="SpecificFailurePathView"/>.
+        /// Creates a new instance of <see cref="SpecificFailureMechanismView"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="SpecificFailureMechanism"/> to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public SpecificFailurePathView(SpecificFailureMechanism failureMechanism, IAssessmentSection assessmentSection) : base(failureMechanism)
+        public SpecificFailureMechanismView(SpecificFailureMechanism failureMechanism, IAssessmentSection assessmentSection) : base(failureMechanism)
         {
             if (assessmentSection == null)
             {
@@ -83,7 +83,7 @@ namespace Riskeer.Integration.Forms.Views
             CreateMapData();
             SetAllMapDataFeatures();
 
-            riskeerMapControl.SetAllData(failurePathMapDataCollection, assessmentSection.BackgroundData);
+            riskeerMapControl.SetAllData(failureMechanismMapDataCollection, assessmentSection.BackgroundData);
 
             base.OnLoad(e);
         }
@@ -92,7 +92,7 @@ namespace Riskeer.Integration.Forms.Views
         {
             assessmentSectionObserver.Dispose();
             referenceLineObserver.Dispose();
-            failurePathObserver.Dispose();
+            failureMechanismObserver.Dispose();
             hydraulicBoundaryLocationsMapLayer.Dispose();
 
             if (disposing)
@@ -118,7 +118,7 @@ namespace Riskeer.Integration.Forms.Views
                 Observable = assessmentSection.ReferenceLine
             };
 
-            failurePathObserver = new Observer(UpdateFailurePathMapData)
+            failureMechanismObserver = new Observer(UpdateFailureMechanismMapData)
             {
                 Observable = failureMechanism
             };
@@ -135,7 +135,7 @@ namespace Riskeer.Integration.Forms.Views
 
         private void CreateMapData()
         {
-            failurePathMapDataCollection = new MapDataCollection(failureMechanism.Name);
+            failureMechanismMapDataCollection = new MapDataCollection(failureMechanism.Name);
             hydraulicBoundaryLocationsMapLayer = new HydraulicBoundaryLocationsMapLayer(assessmentSection);
 
             referenceLineMapData = RiskeerMapDataFactory.CreateReferenceLineMapData();
@@ -148,9 +148,9 @@ namespace Riskeer.Integration.Forms.Views
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
 
-            failurePathMapDataCollection.Add(referenceLineMapData);
-            failurePathMapDataCollection.Add(sectionsMapDataCollection);
-            failurePathMapDataCollection.Add(hydraulicBoundaryLocationsMapLayer.MapData);
+            failureMechanismMapDataCollection.Add(referenceLineMapData);
+            failureMechanismMapDataCollection.Add(sectionsMapDataCollection);
+            failureMechanismMapDataCollection.Add(hydraulicBoundaryLocationsMapLayer.MapData);
         }
 
         #region ReferenceLine MapData
@@ -170,11 +170,11 @@ namespace Riskeer.Integration.Forms.Views
 
         #endregion
 
-        #region FailurePath MapData
+        #region FailureMechanism MapData
 
-        private void UpdateFailurePathMapData()
+        private void UpdateFailureMechanismMapData()
         {
-            UpdateFailurePathMapDataCollectionData();
+            UpdateFailureMechanismMapDataCollectionData();
 
             SetSectionsMapData();
             sectionsMapData.NotifyObservers();
@@ -182,10 +182,10 @@ namespace Riskeer.Integration.Forms.Views
             sectionsEndPointMapData.NotifyObservers();
         }
 
-        private void UpdateFailurePathMapDataCollectionData()
+        private void UpdateFailureMechanismMapDataCollectionData()
         {
-            failurePathMapDataCollection.Name = failureMechanism.Name;
-            failurePathMapDataCollection.NotifyObservers();
+            failureMechanismMapDataCollection.Name = failureMechanism.Name;
+            failureMechanismMapDataCollection.NotifyObservers();
         }
 
         private void SetSectionsMapData()

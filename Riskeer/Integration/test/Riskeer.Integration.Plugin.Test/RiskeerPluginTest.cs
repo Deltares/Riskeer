@@ -541,7 +541,7 @@ namespace Riskeer.Integration.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(SpecificFailurePathContext),
-                    typeof(SpecificFailurePathView));
+                    typeof(SpecificFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -757,7 +757,7 @@ namespace Riskeer.Integration.Plugin.Test
                 IView view = gui.ViewHost.DocumentViews.First();
 
                 // Precondition
-                Assert.IsInstanceOf<SpecificFailurePathView>(view);
+                Assert.IsInstanceOf<SpecificFailureMechanismView>(view);
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, failurePath.Name));
 
                 // When

@@ -432,10 +432,10 @@ namespace Riskeer.Integration.Plugin
 
             yield return CreateFailureMechanismResultViewInfo<SpecificFailurePathSectionResultContext, SpecificFailureMechanism>(fp => fp.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return new RiskeerViewInfo<SpecificFailurePathContext, SpecificFailurePathView>(() => Gui)
+            yield return new RiskeerViewInfo<SpecificFailurePathContext, SpecificFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new SpecificFailurePathView(context.WrappedData, context.Parent),
+                CreateInstance = context => new SpecificFailureMechanismView(context.WrappedData, context.Parent),
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailurePathView
             };
@@ -1169,7 +1169,7 @@ namespace Riskeer.Integration.Plugin
             {
                 observers = CreateObservers(waveHeightCalculationsView);
             }
-            else if (e.View is SpecificFailurePathView specificFailurePathView)
+            else if (e.View is SpecificFailureMechanismView specificFailurePathView)
             {
                 observers = CreateObservers(specificFailurePathView);
             }
@@ -1248,12 +1248,12 @@ namespace Riskeer.Integration.Plugin
             return Enumerable.Empty<IObserver>();
         }
 
-        private IEnumerable<IObserver> CreateObservers(SpecificFailurePathView specificFailurePathView)
+        private IEnumerable<IObserver> CreateObservers(SpecificFailureMechanismView specificFailureMechanismView)
         {
-            IFailureMechanism failurePath = specificFailurePathView.FailurePath;
+            IFailureMechanism failureMechanism = specificFailureMechanismView.FailurePath;
             return new[]
             {
-                CreateViewTitleObserver(specificFailurePathView, failurePath, () => failurePath.Name)
+                CreateViewTitleObserver(specificFailureMechanismView, failureMechanism, () => failureMechanism.Name)
             };
         }
 
