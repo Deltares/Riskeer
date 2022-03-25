@@ -77,6 +77,8 @@ namespace Riskeer.Migration.Integration.Test
                     AssertPipingScenarioConfigurationPerFailureMechanismSection(reader, sourceFilePath);
                     AssertPipingFailureMechanismSectionResults(reader, sourceFilePath);
                     AssertSemiProbabilisticPipingOutput(reader, sourceFilePath);
+                    
+                    AssertProbabilisticPipingOutput(reader);
 
                     AssertGrassCoverErosionInwardsFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
@@ -104,8 +106,11 @@ namespace Riskeer.Migration.Integration.Test
                     AssertMacroStabilityInwardsFailureMechanismSectionResults(reader, sourceFilePath);
 
                     AssertHeightStructuresSectionResults(reader, sourceFilePath);
+                    AssertHeightStructuresOutput(reader);
                     AssertClosingStructuresSectionResults(reader, sourceFilePath);
+                    AssertClosingStructuresOutput(reader);
                     AssertStabilityPointStructuresSectionResults(reader, sourceFilePath);
+                    AssertStabilityPointStructuresOutput(reader);
 
                     AssertStandAloneFailureMechanismMetaEntity(reader, sourceFilePath);
 
@@ -506,6 +511,14 @@ namespace Riskeer.Migration.Integration.Test
         {
             AssertAdoptableFailureMechanismSectionResults(reader, "HeightStructuresSectionResultEntity", sourceFilePath);
         }
+        
+        private static void AssertHeightStructuresOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [HeightStructuresOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
 
         #endregion
 
@@ -515,6 +528,14 @@ namespace Riskeer.Migration.Integration.Test
         {
             AssertAdoptableFailureMechanismSectionResults(reader, "ClosingStructuresSectionResultEntity", sourceFilePath);
         }
+        
+        private static void AssertClosingStructuresOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [ClosingStructuresOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
 
         #endregion
 
@@ -523,6 +544,14 @@ namespace Riskeer.Migration.Integration.Test
         private static void AssertStabilityPointStructuresSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
         {
             AssertAdoptableFailureMechanismSectionResults(reader, "StabilityPointStructuresSectionResultEntity", sourceFilePath);
+        }
+        
+        private static void AssertStabilityPointStructuresOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [StabilityPointStructuresOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
         }
 
         #endregion
@@ -911,6 +940,14 @@ namespace Riskeer.Migration.Integration.Test
                 "DETACH SOURCEPROJECT;";
             reader.AssertReturnedDataIsValid(validateOutput);
         }
+        
+        private static void AssertProbabilisticPipingOutput(MigratedDatabaseReader reader)
+        {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [ProbabilisticPipingCalculationOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
 
         #endregion
 
@@ -1073,6 +1110,11 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertGrassCoverErosionInwardsOutput(MigratedDatabaseReader reader)
         {
+            const string validateOutput =
+                "SELECT COUNT() = 0 " +
+                "FROM [GrassCoverErosionInwardsOutputEntity]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+            
             const string validateDikeHeightOutput =
                 "SELECT COUNT() = 0 " +
                 "FROM [GrassCoverErosionInwardsDikeHeightOutputEntity]; ";
@@ -1344,7 +1386,7 @@ namespace Riskeer.Migration.Integration.Test
         }
 
         #endregion
-        
+
         private static void AssertIllustrationPointResults(MigratedDatabaseReader reader)
         {
             const string validateFaultTreeIllustrationPoint =
