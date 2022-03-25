@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
 
@@ -31,13 +33,10 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Helpers
         [TestCase("AValidId1-2.3")]
         [TestCase("_AValidId1-2.3")]
         [TestCase("aValidId1-2.3")]
-        public void Validate_WithValidIds_ReturnsTrue(string validId)
+        public void ThrowIfInvalid_WithValidIds_DoesNotThrow(string validId)
         {
-            // Call
-            bool result = SerializableIdValidator.Validate(validId);
-
-            // Assert
-            Assert.IsTrue(result);
+            // Call & Assert
+            SerializableIdValidator.ThrowIfInvalid(validId);
         }
 
         [Test]
@@ -56,13 +55,14 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Helpers
         [TestCase("")]
         [TestCase("  ")]
         [TestCase(null)]
-        public void Validate_WithInvalidIds_ReturnsFalse(string invalidId)
+        public void Validate_WithInvalidIds_ThrowsArgumentException(string invalidId)
         {
             // Call
-            bool result = SerializableIdValidator.Validate(invalidId);
+            void Call() => SerializableIdValidator.ThrowIfInvalid(invalidId);
 
             // Assert
-            Assert.IsFalse(result);
+            const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
     }
 }

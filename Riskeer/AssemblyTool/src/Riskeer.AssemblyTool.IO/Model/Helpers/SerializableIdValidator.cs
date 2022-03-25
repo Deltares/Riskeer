@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Text.RegularExpressions;
 
 namespace Riskeer.AssemblyTool.IO.Model.Helpers
@@ -28,21 +29,19 @@ namespace Riskeer.AssemblyTool.IO.Model.Helpers
     /// </summary>
     public static class SerializableIdValidator
     {
+        private static readonly Regex regex = new Regex(@"^[A-Za-z\\_][A-Za-z\\_\d\-\.]+$");
+
         /// <summary>
-        /// Validates whether <paramref name="id"/> is a valid id to be used
-        /// as an identifier in an xml context.
+        /// Throws when <paramref name="id"/> is invalid for use as an identifier in an xml context.
         /// </summary>
         /// <param name="id">The identifier to validate.</param>
-        /// <returns><c>true</c> when <paramref name="id"/> is valid, <c>false</c> otherwise.</returns>
-        public static bool Validate(string id)
+        /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
+        public static void ThrowIfInvalid(string id)
         {
-            if (string.IsNullOrWhiteSpace(id))
+            if (string.IsNullOrWhiteSpace(id) || !regex.IsMatch(id))
             {
-                return false;
+                throw new ArgumentException($@"'{nameof(id)}' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.");
             }
-
-            var regex = new Regex(@"^[A-Za-z\\_][A-Za-z\\_\d\-\.]+$");
-            return regex.IsMatch(id);
         }
     }
 }

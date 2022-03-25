@@ -60,10 +60,7 @@ namespace Riskeer.AssemblyTool.IO.Model
                                              string name,
                                              IEnumerable<Point2D> geometry) : this()
         {
-            if (!SerializableIdValidator.Validate(id))
-            {
-                throw new ArgumentException($@"'{nameof(id)}' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.");
-            }
+            SerializableIdValidator.ThrowIfInvalid(id);
 
             if (name == null)
             {
