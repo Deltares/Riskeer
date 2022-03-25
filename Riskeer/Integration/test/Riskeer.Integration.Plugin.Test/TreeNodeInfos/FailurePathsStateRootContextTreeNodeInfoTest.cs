@@ -160,8 +160,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 var assemblyGroupsContext = (FailureMechanismSectionAssemblyGroupsContext) objects[0];
                 Assert.AreSame(assessmentSection, assemblyGroupsContext.WrappedData);
 
-                var genericFailurePathsContext = (GenericFailurePathsContext) objects[1];
-                Assert.AreSame(assessmentSection, genericFailurePathsContext.WrappedData);
+                var genericFailureMechanismsContext = (GenericFailureMechanismsContext) objects[1];
+                Assert.AreSame(assessmentSection, genericFailureMechanismsContext.WrappedData);
 
                 var specificFailureMechanismsContext = (SpecificFailureMechanismsContext) objects[2];
                 Assert.AreSame(assessmentSection.SpecificFailureMechanisms, specificFailureMechanismsContext.WrappedData);

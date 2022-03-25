@@ -47,7 +47,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GenericFailurePathsContextTreeNodeInfoTest
+    public class GenericFailureMechanismsContextTreeNodeInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -165,7 +165,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new GenericFailurePathsContext(assessmentSection);
+            var context = new GenericFailureMechanismsContext(assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -240,7 +240,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GenericFailurePathsContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GenericFailureMechanismsContext));
         }
     }
 }

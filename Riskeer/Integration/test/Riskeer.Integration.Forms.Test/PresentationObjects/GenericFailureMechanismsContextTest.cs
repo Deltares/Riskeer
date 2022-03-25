@@ -30,7 +30,7 @@ using Riskeer.Integration.Forms.PresentationObjects;
 namespace Riskeer.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class GenericFailurePathsContextTest
+    public class GenericFailureMechanismsContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -40,7 +40,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
 
             // Call
-            var context = new GenericFailurePathsContext(assessmentSection);
+            var context = new GenericFailureMechanismsContext(assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<AssessmentSection>>(context);

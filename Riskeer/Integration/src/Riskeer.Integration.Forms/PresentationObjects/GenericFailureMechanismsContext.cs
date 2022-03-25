@@ -26,15 +26,15 @@ using Riskeer.Integration.Data;
 namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for a collection of generic failure paths.
+    /// Presentation object for a collection of generic failure mechanisms.
     /// </summary>
-    public class GenericFailurePathsContext : ObservableWrappedObjectContextBase<AssessmentSection>
+    public class GenericFailureMechanismsContext : ObservableWrappedObjectContextBase<AssessmentSection>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GenericFailurePathsContext"/>.
+        /// Creates a new instance of <see cref="GenericFailureMechanismsContext"/>.
         /// </summary>
-        /// <param name="wrappedData">The <see cref="AssessmentSection"/> that the <see cref="GenericFailurePathsContext"/> belongs to.</param>
+        /// <param name="wrappedData">The <see cref="AssessmentSection"/> that the <see cref="GenericFailureMechanismsContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="wrappedData"/> is <c>null</c>.</exception>
-        public GenericFailurePathsContext(AssessmentSection wrappedData) : base(wrappedData) {}
+        public GenericFailureMechanismsContext(AssessmentSection wrappedData) : base(wrappedData) {}
     }
 }

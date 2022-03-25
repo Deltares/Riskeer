@@ -803,12 +803,12 @@ namespace Riskeer.Integration.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<GenericFailurePathsContext>
+            yield return new TreeNodeInfo<GenericFailureMechanismsContext>
             {
                 Text = context => Resources.GenericFailureMechanisms_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
-                ChildNodeObjects = GenericFailurePathChildNodeObjects,
-                ContextMenuStrip = GenericFailurePathsContextMenuStrip,
+                ChildNodeObjects = GenericFailureMechanismsChildNodeObjects,
+                ContextMenuStrip = GenericFailureMechanismsContextMenuStrip,
                 ExpandOnCreate = context => true
             };
 
@@ -1820,7 +1820,7 @@ namespace Riskeer.Integration.Plugin
             return new object[]
             {
                 new FailureMechanismSectionAssemblyGroupsContext(assessmentSection),
-                new GenericFailurePathsContext(assessmentSection),
+                new GenericFailureMechanismsContext(assessmentSection),
                 new SpecificFailureMechanismsContext(assessmentSection.SpecificFailureMechanisms, assessmentSection),
                 new AssemblyResultsContext(assessmentSection)
             };
@@ -1843,9 +1843,9 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region GenericFailurePaths TreeNodeInfo
+        #region GenericFailureMechanisms TreeNodeInfo
 
-        private static object[] GenericFailurePathChildNodeObjects(GenericFailurePathsContext nodeData)
+        private static object[] GenericFailureMechanismsChildNodeObjects(GenericFailureMechanismsContext nodeData)
         {
             AssessmentSection assessmentSection = nodeData.WrappedData;
             return new object[]
@@ -1868,8 +1868,8 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip GenericFailurePathsContextMenuStrip(GenericFailurePathsContext nodeData,
-                                                                     object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip GenericFailureMechanismsContextMenuStrip(GenericFailureMechanismsContext nodeData,
+                                                                          object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
                       .AddCollapseAllItem()
