@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.Views.CalculationState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
@@ -35,9 +34,9 @@ using ClosingStructuresDataResources = Riskeer.ClosingStructures.Data.Properties
 namespace Riskeer.ClosingStructures.Forms.Views.RegistrationState
 {
     /// <summary>
-    /// This class is a view showing map data for a closing structures failure path.
+    /// This class is a view showing map data for a closing structures failure mechanism.
     /// </summary>
-    public class ClosingStructuresFailurePathView : ClosingStructuresFailureMechanismView
+    public class ClosingStructuresFailureMechanismView : CalculationState.ClosingStructuresFailureMechanismView
     {
         private MapLineData sectionsMapData;
         private MapPointData sectionsStartPointMapData;
@@ -48,13 +47,13 @@ namespace Riskeer.ClosingStructures.Forms.Views.RegistrationState
         private Observer failureMechanismObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructuresFailurePathView"/>.
+        /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClosingStructuresFailurePathView(ClosingStructuresFailureMechanism failureMechanism,
-                                                IAssessmentSection assessmentSection)
+        public ClosingStructuresFailureMechanismView(ClosingStructuresFailureMechanism failureMechanism,
+                                                     IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
 
         protected override void Dispose(bool disposing)

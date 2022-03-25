@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -37,7 +36,6 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
-using Riskeer.ClosingStructures.Forms.Views.CalculationState;
 using Riskeer.ClosingStructures.Forms.Views.RegistrationState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -46,11 +44,12 @@ using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
+using CalculationStateFailureMechanismView = Riskeer.ClosingStructures.Forms.Views.CalculationState.ClosingStructuresFailureMechanismView;
 
 namespace Riskeer.ClosingStructures.Forms.Test.Views.RegistrationState
 {
     [TestFixture]
-    public class ClosingStructuresFailurePathViewTest
+    public class ClosingStructuresFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
         private const int sectionsCollectionIndex = 1;
@@ -91,10 +90,10 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.RegistrationState
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            ClosingStructuresFailurePathView view = CreateView(failureMechanism, assessmentSection);
+            ClosingStructuresFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<ClosingStructuresFailureMechanismView>(view);
+            Assert.IsInstanceOf<CalculationStateFailureMechanismView>(view);
             Assert.IsNull(view.Data);
             Assert.AreSame(failureMechanism, view.FailureMechanism);
             Assert.AreSame(assessmentSection, view.AssessmentSection);
@@ -106,8 +105,6 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.RegistrationState
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var random = new Random(39);
-
             var calculationA = new StructuresCalculationScenario<ClosingStructuresInput>
             {
                 InputParameters =
@@ -179,7 +176,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.RegistrationState
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                ClosingStructuresFailurePathView view = CreateView(failureMechanism, assessmentSection);
+                ClosingStructuresFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -215,7 +212,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.RegistrationState
             // Given
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            ClosingStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            ClosingStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -264,7 +261,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.RegistrationState
 
             var assessmentSection = new AssessmentSectionStub();
 
-            ClosingStructuresFailurePathView view = CreateView(new ClosingStructuresFailureMechanism(), assessmentSection);
+            ClosingStructuresFailureMechanismView view = CreateView(new ClosingStructuresFailureMechanism(), assessmentSection);
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             MapDataCollection mapData = map.Data;
@@ -332,9 +329,9 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.RegistrationState
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
         }
 
-        private ClosingStructuresFailurePathView CreateView(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private ClosingStructuresFailureMechanismView CreateView(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            var view = new ClosingStructuresFailurePathView(failureMechanism, assessmentSection);
+            var view = new ClosingStructuresFailureMechanismView(failureMechanism, assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();

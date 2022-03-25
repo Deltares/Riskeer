@@ -37,8 +37,6 @@ using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
 using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
 using Riskeer.ClosingStructures.Forms.Views;
-using Riskeer.ClosingStructures.Forms.Views.CalculationState;
-using Riskeer.ClosingStructures.Forms.Views.RegistrationState;
 using Riskeer.ClosingStructures.IO;
 using Riskeer.ClosingStructures.IO.Configurations;
 using Riskeer.ClosingStructures.Plugin.FileImporters;
@@ -66,6 +64,8 @@ using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
 using CalculationStateFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationState.ClosingStructuresFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState.ClosingStructuresFailureMechanismProperties;
+using CalculationStateFailureMechanismView = Riskeer.ClosingStructures.Forms.Views.CalculationState.ClosingStructuresFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.ClosingStructures.Forms.Views.RegistrationState.ClosingStructuresFailureMechanismView;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
@@ -102,17 +102,17 @@ namespace Riskeer.ClosingStructures.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<ClosingStructuresCalculationsContext, ClosingStructuresFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<ClosingStructuresCalculationsContext, CalculationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new ClosingStructuresFailureMechanismView(context.WrappedData, context.Parent)
+                CreateInstance = context => new CalculationStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<ClosingStructuresFailurePathContext, ClosingStructuresFailurePathView>(() => Gui)
+            yield return new RiskeerViewInfo<ClosingStructuresFailurePathContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CreateInstance = context => new ClosingStructuresFailurePathView(context.WrappedData, context.Parent),
+                CreateInstance = context => new RegistrationStateFailureMechanismView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
             };
 
@@ -294,7 +294,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailurePathViewForData(ClosingStructuresFailurePathView view, object dataToCloseFor)
+        private static bool CloseFailurePathViewForData(RegistrationStateFailureMechanismView view, object dataToCloseFor)
         {
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as ClosingStructuresFailureMechanism;

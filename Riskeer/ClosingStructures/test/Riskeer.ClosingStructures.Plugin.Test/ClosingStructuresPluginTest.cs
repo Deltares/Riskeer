@@ -36,14 +36,14 @@ using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
 using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
 using Riskeer.ClosingStructures.Forms.Views;
-using Riskeer.ClosingStructures.Forms.Views.CalculationState;
-using Riskeer.ClosingStructures.Forms.Views.RegistrationState;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
 using CalculationStateFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationState.ClosingStructuresFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState.ClosingStructuresFailureMechanismProperties;
+using CalculationStateFailureMechanismView = Riskeer.ClosingStructures.Forms.Views.CalculationState.ClosingStructuresFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.ClosingStructures.Forms.Views.RegistrationState.ClosingStructuresFailureMechanismView;
 
 namespace Riskeer.ClosingStructures.Plugin.Test
 {
@@ -149,12 +149,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(ClosingStructuresCalculationsContext),
-                    typeof(ClosingStructuresFailureMechanismView));
+                    typeof(CalculationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(ClosingStructuresFailurePathContext),
-                    typeof(ClosingStructuresFailurePathView));
+                    typeof(RegistrationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
