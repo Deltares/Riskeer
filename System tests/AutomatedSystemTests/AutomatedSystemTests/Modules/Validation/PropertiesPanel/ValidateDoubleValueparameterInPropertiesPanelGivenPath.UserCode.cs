@@ -20,6 +20,7 @@ using Ranorex;
 using Ranorex.Core;
 using Ranorex.Core.Repository;
 using Ranorex.Core.Testing;
+using Ranorex_Automation_Helpers.UserCodeCollections;
 
 namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
 {
@@ -34,47 +35,20 @@ namespace AutomatedSystemTests.Modules.Validation.PropertiesPanel
             // Your recording specific initialization code goes here.
         }
 
-        public Ranorex.Row GetRowInPropertiesPanelGivenPath(Adapter tableAdapter, string pathItem)
-            {
-            int minimumIndex = 0;
-            var stepsPathItem = pathItem.Split('>').ToList();
-            Ranorex.Row stepRow = tableAdapter.As<Table>().Rows.ToList()[1];
-            for (int i=0; i < stepsPathItem.Count; i++) {
-                    // Find the item corresponding to the step
-                    var step = stepsPathItem[i];
-                    var completeList = tableAdapter.As<Table>().Rows.ToList();
-                    var searchList = completeList.GetRange(minimumIndex, completeList.Count-minimumIndex);
-                    var indexStepRow = searchList.FindIndex(rw => rw.GetAttributeValue<string>("AccessibleName").Contains(step));
-                    stepRow = searchList[indexStepRow];
-                    // Select (and expand) the item
-                    stepRow.Focus();
-                    stepRow.Select();
-                    if (i != stepsPathItem.Count - 1)
-                        {
-                            stepRow.PressKeys("{Right}");
-                        }
-                    
-                    // Update the minimum index administration (only search forward)
-                    minimumIndex += 1 + indexStepRow;
-                    }
-            return stepRow;
-        }
-        
         public void ValidateValueDoubleOfParameterInPropertiesPanelGivenPath(Adapter propertiesPanelAdapter, string pathToRowInPropertiesPanel)
         {
             System.Globalization.CultureInfo fixedDataSourceCulture = new CultureInfo("en-US");
-			fixedDataSourceCulture.NumberFormat.NumberDecimalSeparator = ".";
-			fixedDataSourceCulture.NumberFormat.NumberGroupSeparator = "";
-			System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
+            fixedDataSourceCulture.NumberFormat.NumberDecimalSeparator = ".";
+            fixedDataSourceCulture.NumberFormat.NumberGroupSeparator = "";
+            System.Globalization.CultureInfo currentCulture = CultureInfo.CurrentCulture;
 
-        	Ranorex.Row row = GetRowInPropertiesPanelGivenPath(propertiesPanelAdapter, pathToRowInPropertiesPanel);
-        	string currentValueString = row.Element.GetAttributeValueText("AccessibleValue");
-        	double currentValueDouble = Double.Parse(currentValueString, currentCulture);
-        	double expectedValueDouble = Double.Parse(expectedValueString, fixedDataSourceCulture);
-        	
-        	double deviation = Math.Abs(currentValueDouble-expectedValueDouble);
-        	Validate.IsTrue(deviation<0.00000001);
+            Ranorex.Row row = PropertiesPanelHelpers.GetRowInPropertiesPanelGivenPath(pathToRowInPropertiesPanel, propertiesPanelAdapter);
+            string currentValueString = row.Element.GetAttributeValueText("AccessibleValue");
+            double currentValueDouble = Double.Parse(currentValueString, currentCulture);
+            double expectedValueDouble = Double.Parse(expectedValueString, fixedDataSourceCulture);
+
+            double deviation = Math.Abs(currentValueDouble-expectedValueDouble);
+            Validate.IsTrue(deviation<0.00000001);
         }
-
     }
 }

@@ -2442,6 +2442,9 @@
       <id>efa53e23-d8e4-4e67-ac1c-b7c4fc9f2aaf</id>
       <BoundTo>a07de890-0a93-4d5e-865b-7ca9370d261c</BoundTo>
     </Compile>
+    <Compile Include="Modules\Validation\PropertiesPanel\ValidateTextValueInPropertiesPanelGivenPath.cs">
+      <id>98d5f7ef-17bf-47b6-9f85-7c9a710d142f</id>
+    </Compile>
     <Compile Include="Modules\Validation\PropertiesPanel\ValidateTextValueParameterCurrentlyShownInPropertiesPanel.cs">
       <DependentUpon>ValidateTextValueParameterCurrentlyShownInPropertiesPanel.rxrec</DependentUpon>
       <RecorderCode>true</RecorderCode>
