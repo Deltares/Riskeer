@@ -64,8 +64,8 @@ using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
-using CalculationStateClosingStructuresFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationState.ClosingStructuresFailureMechanismProperties;
-using RegistrationStateClosingStructuresFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState.ClosingStructuresFailureMechanismProperties;
+using CalculationStateFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationState.ClosingStructuresFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState.ClosingStructuresFailureMechanismProperties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
@@ -79,13 +79,13 @@ namespace Riskeer.ClosingStructures.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<ClosingStructuresCalculationsContext, CalculationStateClosingStructuresFailureMechanismProperties>
+            yield return new PropertyInfo<ClosingStructuresCalculationsContext, CalculationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new CalculationStateClosingStructuresFailureMechanismProperties(context.WrappedData)
+                CreateInstance = context => new CalculationStateFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<ClosingStructuresFailurePathContext, RegistrationStateClosingStructuresFailureMechanismProperties>
+            yield return new PropertyInfo<ClosingStructuresFailurePathContext, RegistrationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new RegistrationStateClosingStructuresFailureMechanismProperties(context.WrappedData)
+                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<ClosingStructure, ClosingStructureProperties>();
             yield return new PropertyInfo<ClosingStructuresContext, StructureCollectionProperties<ClosingStructure>>
