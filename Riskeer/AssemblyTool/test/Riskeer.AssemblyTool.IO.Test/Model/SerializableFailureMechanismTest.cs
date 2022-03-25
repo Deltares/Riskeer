@@ -44,7 +44,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.IsNull(failureMechanism.TotalAssemblyResultId);
             Assert.AreEqual((SerializableFailureMechanismType) 0, failureMechanism.FailureMechanismType);
             Assert.IsNull(failureMechanism.GenericFailureMechanismCode);
-            Assert.IsNull(failureMechanism.SpecificFailureMechanismCode);
+            Assert.IsNull(failureMechanism.SpecificFailureMechanismName);
             Assert.IsNull(failureMechanism.FailureMechanismAssemblyResult);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableFailureMechanism), "Faalmechanisme");
@@ -59,7 +59,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
                 nameof(SerializableFailureMechanism.GenericFailureMechanismCode), "generiekFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
-                nameof(SerializableFailureMechanism.SpecificFailureMechanismCode), "specifiekFaalmechanisme");
+                nameof(SerializableFailureMechanism.SpecificFailureMechanismName), "specifiekFaalmechanisme");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanism>(
                 nameof(SerializableFailureMechanism.FailureMechanismAssemblyResult), "analyseFaalmechanisme");
         }
@@ -75,6 +75,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             void Call() => new SerializableFailureMechanism(invalidId,
                                                             random.NextEnumValue<SerializableFailureMechanismType>(),
                                                             "code",
+                                                            "name",
                                                             new SerializableTotalAssemblyResult(),
                                                             new SerializableFailureMechanismAssemblyResult());
 
@@ -91,7 +92,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             // Call
             void Call() => new SerializableFailureMechanism("id", random.NextEnumValue<SerializableFailureMechanismType>(),
-                                                            "code", null, new SerializableFailureMechanismAssemblyResult());
+                                                            "code", "name", null, new SerializableFailureMechanismAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -106,7 +107,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             // Call
             void Call() => new SerializableFailureMechanism("id", random.NextEnumValue<SerializableFailureMechanismType>(),
-                                                            "code", new SerializableTotalAssemblyResult(), null);
+                                                            "code", "name", new SerializableTotalAssemblyResult(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -122,12 +123,14 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             const string id = "sectionId";
             var failureMechanismType = random.NextEnumValue<SerializableFailureMechanismType>();
             const string code = "code";
+            const string name = "name";
             const string totalResultId = "totalResultId";
             var assemblyResult = new SerializableFailureMechanismAssemblyResult();
 
             // Call
             var failureMechanism = new SerializableFailureMechanism(
-                id, failureMechanismType, code, new SerializableTotalAssemblyResult(
+                id, failureMechanismType, code, name,
+                new SerializableTotalAssemblyResult(
                     totalResultId, new SerializableAssessmentProcess(),
                     new SerializableAssessmentSectionAssemblyResult()),
                 assemblyResult);
@@ -137,7 +140,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.AreEqual(totalResultId, failureMechanism.TotalAssemblyResultId);
             Assert.AreEqual(failureMechanismType, failureMechanism.FailureMechanismType);
             Assert.AreEqual(code, failureMechanism.GenericFailureMechanismCode);
-            Assert.AreEqual(code, failureMechanism.SpecificFailureMechanismCode);
+            Assert.AreEqual(name, failureMechanism.SpecificFailureMechanismName);
             Assert.AreSame(assemblyResult, failureMechanism.FailureMechanismAssemblyResult);
         }
 
@@ -149,12 +152,12 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         {
             // Given
             var failureMechanism = new SerializableFailureMechanism(
-                "id", failureMechanismType, "code", new SerializableTotalAssemblyResult(),
+                "id", failureMechanismType, "code", "name", new SerializableTotalAssemblyResult(),
                 new SerializableFailureMechanismAssemblyResult());
 
             // When
             bool shouldSerializeGeneric = failureMechanism.ShouldSerializeGenericFailureMechanismCode();
-            bool shouldSerializeSpecific = failureMechanism.ShouldSerializeSpecificFailureMechanismCode();
+            bool shouldSerializeSpecific = failureMechanism.ShouldSerializeSpecificFailureMechanismName();
 
             // Then
             Assert.AreEqual(expectedShouldSerializeGeneric, shouldSerializeGeneric);
