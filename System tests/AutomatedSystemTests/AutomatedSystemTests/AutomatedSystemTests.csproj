@@ -1896,6 +1896,9 @@
     <Compile Include="Modules\Validation\Abstract\ValidateCombinedApproxFailureProbabilityAndBeta.cs">
       <id>451d0653-a93b-4305-83ac-406b8bea1f77</id>
     </Compile>
+    <Compile Include="Modules\Validation\Abstract\ValidateEqualityStrings.cs">
+      <id>76c673a9-a642-49e6-9c0f-194fe9463b9f</id>
+    </Compile>
     <Compile Include="Modules\Validation\Abstract\ValidateSafetyFactorSTPH.cs">
       <id>ef5b2d51-65fd-4f10-9182-72da3a833f1b</id>
     </Compile>

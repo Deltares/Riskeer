@@ -4751,12 +4751,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			datasource="script15d_HydraulicBCCalculationsToCarryOut"
-			errorbehavior="ContinueNextIteration"
-			id="eb0bc417-7050-4ce7-abc9-d0dcfcd6efb1"
-			name="LoopHydraulicBoundaryCalculationsAfterChangeClimateScenario">
-			</smartfoldernode>
 			<testmodule
 			id="ec30564b-16d1-4927-a1ca-ef52351ada8f"
 			name="ClickOnRunSelectedHBCCalculations"
@@ -6000,68 +5994,64 @@
 								id="d946d7ec-7467-4842-a487-1a67cfeb1fd0"
 								name="CalculateHBC">
 									<smartfoldernode
-									id="eb0bc417-7050-4ce7-abc9-d0dcfcd6efb1"
-									name="LoopHydraulicBoundaryCalculationsAfterChangeClimateScenario">
-										<smartfoldernode
-										id="46d281ab-a2a3-4602-8787-792a9fb83272"
-										name="OpenDocumentViewForHydraulicBCItem">
-											<testmodule
-											id="920a1d73-0967-442a-bba5-fbc5a5d68cbf"
-											name="GetStepFromPath">
-											</testmodule>
-											<testmodule
-											id="5e513b9b-2f84-485d-ac45-2366d977b5b5"
-											name="ConvertProbabilityToCurrentCulture">
-											</testmodule>
-											<testmodule
-											id="72a38dd0-35eb-4c03-9a18-849bc6b4a024"
-											name="ReplaceSubstring">
-											</testmodule>
-											<testmodule
-											id="0828bfaf-af05-441b-88c4-64202b1f5fc7"
-											name="SelectGenericItemInProjectExplorer">
-											</testmodule>
-											<testmodule
-											id="fbd90976-9759-4334-811f-70f341b69196"
-											name="OpenViewForCurrentlySelectedItemInProjectExplorer">
-											</testmodule>
-										</smartfoldernode>
-										<smartfoldernode
-										id="57c0813e-ccc9-428a-8ff2-2e57d32bbe74"
-										name="ValidateResultInDocumentViewHasBeenDeleted">
-											<testmodule
-											id="48008046-e20d-474e-8d19-a70106e009df"
-											name="ValidateWaterLevelWaveHeightInDocumentView">
-											</testmodule>
-										</smartfoldernode>
-										<smartfoldernode
-										id="5ffbd4bf-934f-4121-922c-6dcebc873aa6"
-										name="SelectLocationForCalculation">
-											<testmodule
-											id="e2bb7be5-6c51-4f26-b385-95a2030b7923"
-											name="SelectCalculationsAndIllustrationPoints">
-											</testmodule>
-										</smartfoldernode>
-										<smartfoldernode
-										id="f6703f8b-81e1-47cc-8b29-6b8f4dbc2d18"
-										name="RunHydraulicBCCalculationUntilFinished">
-											<testmodule
-											id="fc883d05-25b5-47a1-aab5-847d63e4c73c"
-											name="ClickOnRunSelectedHBCCalculations">
-											</testmodule>
-											<testmodule
-											id="0feab7f1-fba0-4d7d-a00a-399505b7b1cd"
-											name="WaitUntilAllCalculationsHaveBeenCarriedOut">
-											</testmodule>
-										</smartfoldernode>
-										<smartfoldernode
-										id="281cc25b-9665-40d2-b9b8-beff08d662fc"
-										name="CloseDocumentView">
-											<testmodule
-											id="48898fb1-2673-475e-8910-956412a4c5c6"
-											name="CloseViewCentralPanelWithFocus">
-											</testmodule>
-										</smartfoldernode>
+									id="46d281ab-a2a3-4602-8787-792a9fb83272"
+									name="OpenDocumentViewForHydraulicBCItem">
+										<testmodule
+										id="920a1d73-0967-442a-bba5-fbc5a5d68cbf"
+										name="GetStepFromPath">
+										</testmodule>
+										<testmodule
+										id="5e513b9b-2f84-485d-ac45-2366d977b5b5"
+										name="ConvertProbabilityToCurrentCulture">
+										</testmodule>
+										<testmodule
+										id="72a38dd0-35eb-4c03-9a18-849bc6b4a024"
+										name="ReplaceSubstring">
+										</testmodule>
+										<testmodule
+										id="0828bfaf-af05-441b-88c4-64202b1f5fc7"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="fbd90976-9759-4334-811f-70f341b69196"
+										name="OpenViewForCurrentlySelectedItemInProjectExplorer">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="57c0813e-ccc9-428a-8ff2-2e57d32bbe74"
+									name="ValidateResultInDocumentViewHasBeenDeleted">
+										<testmodule
+										id="48008046-e20d-474e-8d19-a70106e009df"
+										name="ValidateWaterLevelWaveHeightInDocumentView">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="5ffbd4bf-934f-4121-922c-6dcebc873aa6"
+									name="SelectLocationForCalculation">
+										<testmodule
+										id="e2bb7be5-6c51-4f26-b385-95a2030b7923"
+										name="SelectCalculationsAndIllustrationPoints">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="f6703f8b-81e1-47cc-8b29-6b8f4dbc2d18"
+									name="RunHydraulicBCCalculationUntilFinished">
+										<testmodule
+										id="fc883d05-25b5-47a1-aab5-847d63e4c73c"
+										name="ClickOnRunSelectedHBCCalculations">
+										</testmodule>
+										<testmodule
+										id="0feab7f1-fba0-4d7d-a00a-399505b7b1cd"
+										name="WaitUntilAllCalculationsHaveBeenCarriedOut">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="281cc25b-9665-40d2-b9b8-beff08d662fc"
+									name="CloseDocumentView">
+										<testmodule
+										id="48898fb1-2673-475e-8910-956412a4c5c6"
+										name="CloseViewCentralPanelWithFocus">
+										</testmodule>
 									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
@@ -7361,39 +7351,6 @@
 			</table>
 		</DataSource>
 		<DataSource
-		id="f15d38ce-c989-46a1-b670-6491a0acaf99"
-		lastknownrowcount="1"
-		name="script15d_HydraulicBCCalculationsToCarryOut"
-		type="Ranorex.Core.Data.SimpleDataConnector">
-			<lastknowncolumns>
-				<column>
-					pathFromTrajectToHydraulicBCCalculationItem
-				</column>
-				<column>
-					fmLabel
-				</column>
-			</lastknowncolumns>
-			<maskedcolumns>
-			</maskedcolumns>
-			<table>
-				<tr>
-					<th>
-						pathFromTrajectToHydraulicBCCalculationItem
-					</th>
-					<th>
-						fmLabel
-					</th>
-				</tr>
-				<tr>
-					<td>
-						Traject&gt;@HB&gt;Waterstanden&gt;1/3000
-					</td>
-					<td>
-					</td>
-				</tr>
-			</table>
-		</DataSource>
-		<DataSource
 		id="4a60ee36-4886-48f5-a7ed-2c77fde452a0"
 		lastknownrowcount="1"
 		name="script15d_LocationsToCalculateWaterLevels"
@@ -7823,9 +7780,6 @@
 			</testcontainer>
 			<testcontainer
 			id="e3bfbfc0-3e28-4673-a704-6693ceefa9ec">
-			</testcontainer>
-			<testcontainer
-			id="eb0bc417-7050-4ce7-abc9-d0dcfcd6efb1">
 			</testcontainer>
 			<testcontainer
 			id="f439c70d-b78e-4927-af51-08e1f2ab0e05">

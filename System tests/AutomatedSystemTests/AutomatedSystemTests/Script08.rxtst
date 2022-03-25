@@ -25,6 +25,12 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			id="02cd3733-484f-4f49-92bb-9dbf78252635"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+			</testmodule>
+			<testmodule
 			id="02e004a9-50a8-457c-a3cf-bd67899ddfc4"
 			name="GetValueParameterForItemInTraject"
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
@@ -126,6 +132,26 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="0a0593cc-8e8d-4211-8045-7cbbcb6d5fb8"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToLengthInPPforFM"
+					datasourceid="6d42c555-b56d-4896-8200-5e6619488fd5"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="valueLengthInFM"
+					datasourceid="fcb08619-a998-4b9f-a9d9-3947e75b0ca3"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
+					</var>
+				</databinding>
+			</testmodule>
 			<testmodule
 			id="0a799e76-7742-4e4b-b388-345355e7431f"
 			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
@@ -237,6 +263,26 @@
 					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="101aca6d-b39f-44c9-b437-62f29d845d13"
+			name="ValidateStringsAreEqual"
+			ref="aeaa38ed-2c8f-4c2c-9dbc-888f329cf081"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="valueLengthInFM"
+					datasourceid="fcb08619-a998-4b9f-a9d9-3947e75b0ca3"
+					variableid="51334c9e-35b0-4b8e-a31e-042eacfb5a8e"
+					variablename="string2ToCompare">
+					</var>
+					<var
+					dataname="trajectLengthValue"
+					datasourceid="63c12419-02aa-4ec0-a910-4ad1214f588a"
+					variableid="63a22286-cee4-4343-bf19-c93a2573e75b"
+					variablename="string1ToCompare">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="1b0346ac-f12f-44a9-b690-9f905133fbe7"
@@ -374,6 +420,12 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="31f8fa48-8df5-4571-805d-fdd9f7d30d39"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+			</testmodule>
 			<smartfoldernode
 			id="323cdfa7-68f1-4b68-a853-77d96e689fda"
 			name="SetBackToOriginalValue">
@@ -431,6 +483,20 @@
 					variablename="caseNumberVar">
 					</var>
 				</missingdatabinding>
+			</testmodule>
+			<testmodule
+			id="3ae447dc-8897-42ca-af99-08bbdb5f077c"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToFM"
+					datasourceid="6d42c555-b56d-4896-8200-5e6619488fd5"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
 			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
@@ -592,6 +658,7 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			enabled="False"
 			id="409d09f1-44aa-49e8-b093-24e09f49391a"
 			name="CalculateLinearTransformationOfValue"
 			ref="ff1cb4d9-1388-49e6-bf2a-00ed354dca1e"
@@ -1101,6 +1168,28 @@
 			ref="e1edec81-14b1-41ff-bcc7-e1f75797dd7b"
 			type="Recording">
 			</testmodule>
+			<testmodule
+			id="581c8bba-28bd-4281-a8b2-2e6f69d9276c"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateName"
+					datasourceid="a9a96b28-70ec-45f0-bf01-edcf5997be6d"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="StateWithCalculations"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="5a97e740-ae47-4f81-a055-2b61b54b490f"
 			name="SetN">
@@ -1168,6 +1257,14 @@
 					<param
 					name="trajectLengthValue"
 					value="">
+					</param>
+					<param
+					name="pathToRefLineInPE"
+					value="Traject>Referentielijn">
+					</param>
+					<param
+					name="pathToLengthInPropPanel"
+					value="Algemeen>Lengte">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -1244,7 +1341,7 @@
 			name="SelectStateTraject">
 				<parameters>
 					<param
-					name="stateWithCalculations"
+					name="stateName"
 					value="@TR">
 					</param>
 				</parameters>
@@ -1274,6 +1371,13 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
+			id="75e453f0-f8b3-4939-99d7-8ba2f843583b"
+			name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue"
+			ref="52d4c162-4d43-4281-9b87-3cf96d0fa894"
+			type="UserCode">
+			</testmodule>
+			<testmodule
+			enabled="False"
 			id="768cf0b8-e4e9-44b4-b79f-7d849139360d"
 			name="GetValueParameterForItemInTraject"
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
@@ -1462,6 +1566,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="7cd204d0-7a9b-47ea-aaf6-ee383b83fe6c"
 			name="SetValueParameterForItemInTraject"
 			ref="fe097e7d-bf74-4910-a6c5-c4cd7da935d8"
@@ -1604,6 +1709,12 @@
 			name="b)LengthEffectParameters">
 			</smartfoldernode>
 			<testmodule
+			id="80c65b50-c2bf-43e5-95c1-a8b5dee75436"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+			</testmodule>
+			<testmodule
 			id="81a7521a-fd06-4e60-a3e5-d53488cff505"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -1648,32 +1759,6 @@
 					datasourceid="2168be67-e412-4d7f-be64-59f6d51d1717"
 					variableid="a6c6752c-53a8-4e28-a7d5-e369855d34cb"
 					variablename="pathToElementInPropertiesPanel">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
-			id="8556c65c-3181-43b9-b0f7-ae8adb58eb88"
-			name="ValidateValueParameterForItemInTraject"
-			ref="54946666-7cba-49b9-b848-41ea43b074d9"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="fmName"
-					datasourceid="6d42c555-b56d-4896-8200-5e6619488fd5"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringNameItemInTraject">
-					</var>
-					<var
-					dataname="trajectLengthValue"
-					datasourceid="63c12419-02aa-4ec0-a910-4ad1214f588a"
-					variableid="541e9cf7-fb71-4773-bd20-19b633ea6f9d"
-					variablename="expectedValueOfParameterForItemInTraject">
-					</var>
-					<var
-					dataname="nameOfLengthParameterToValidate"
-					datasourceid="fcb08619-a998-4b9f-a9d9-3947e75b0ca3"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2078,6 +2163,16 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
+			id="a9a96b28-70ec-45f0-bf01-edcf5997be6d"
+			name="SelectStateRegistryAssembly">
+				<parameters>
+					<param
+					name="stateName"
+					value="@RA">
+					</param>
+				</parameters>
+			</smartfoldernode>
+			<smartfoldernode
 			datasource="tableFMsToSetAndValidateValueFor_2NA"
 			errorbehavior="ContinueNextIteration"
 			id="aa91298b-143b-487c-982b-fc84fe01889c"
@@ -2248,7 +2343,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="stateWithCalculations"
+					dataname="stateName"
 					datasourceid="71111e7d-4681-4c61-914f-88f0063c31de"
 					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
 					variablename="stateName">
@@ -2415,6 +2510,12 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="d620d05d-2579-42cf-beb6-d2d911255592"
+			name="ValidateStringsAreEqual"
+			ref="aeaa38ed-2c8f-4c2c-9dbc-888f329cf081"
+			type="UserCode">
+			</testmodule>
 			<smartfoldernode
 			id="d849ec75-f115-4c47-9c9e-92f5368b374f"
 			name="SignallingValue">
@@ -2478,6 +2579,7 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="d9712046-10e9-4ac6-b8f6-f54a6cec16b3"
 			name="ValidateValueParameterForItemInTraject"
 			ref="54946666-7cba-49b9-b848-41ea43b074d9"
@@ -2528,6 +2630,20 @@
 			name="GetValueParameterInPropertiesPanelGivenPath"
 			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
 			type="UserCode">
+				<databinding>
+					<var
+					dataname="pathToLengthInPropPanel"
+					datasourceid="63c12419-02aa-4ec0-a910-4ad1214f588a"
+					variableid="717108e0-7b86-418f-9953-a968ec4f5bef"
+					variablename="pathToElementInPropertiesPanel">
+					</var>
+					<var
+					dataname="trajectLengthValue"
+					datasourceid="63c12419-02aa-4ec0-a910-4ad1214f588a"
+					variableid="b8b2d988-b9c5-4a36-b47d-a548cdc8bb5e"
+					variablename="valueOfElement">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="de5206b0-5aed-4c3f-ae4b-e1bf40ef4e8e"
@@ -2640,31 +2756,12 @@
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
 			type="Recording">
-			</testmodule>
-			<testmodule
-			enabled="False"
-			id="edad3c70-d3ca-4718-9caa-17500b961766"
-			name="GetValueParameterForItemInTraject"
-			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
-			type="Recording">
 				<databinding>
 					<var
-					dataname="nameItemReferenceLineInProjectExplorer"
-					datasourceid="65699a3b-a6bc-4727-bd0e-f832127575ce"
-					variableid="cb52c14e-9bef-4f4a-9d11-1758141c50cb"
-					variablename="substringnameitemintraject">
-					</var>
-					<var
-					dataname="nameLengthParameterInPropertiesPanel"
-					datasourceid="65699a3b-a6bc-4727-bd0e-f832127575ce"
-					variableid="be55172b-156d-4b6c-a990-593bf6c5d6a2"
-					variablename="nameOfParameterInPropertiesPanel">
-					</var>
-					<var
-					dataname="trajectLengthValue"
+					dataname="pathToRefLineInPE"
 					datasourceid="63c12419-02aa-4ec0-a910-4ad1214f588a"
-					variableid="d2cb0634-81a3-4751-83ba-7939e1c8f258"
-					variablename="valueOfParameterInPropertiesPanel">
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2702,6 +2799,10 @@
 					<param
 					name="nameOfLengthParameterToValidate"
 					value="Lengte* [m]">
+					</param>
+					<param
+					name="valueLengthInFM"
+					value="">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2890,10 +2991,6 @@
 								id="65699a3b-a6bc-4727-bd0e-f832127575ce"
 								name="ReadTrajectLength">
 									<testmodule
-									id="edad3c70-d3ca-4718-9caa-17500b961766"
-									name="GetValueParameterForItemInTraject">
-									</testmodule>
-									<testmodule
 									id="ead7501b-3fdf-4b05-9b09-0d1943df0961"
 									name="SelectGenericItemInProjectExplorer">
 									</testmodule>
@@ -2903,17 +3000,53 @@
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
+								id="a9a96b28-70ec-45f0-bf01-edcf5997be6d"
+								name="SelectStateRegistryAssembly">
+									<testmodule
+									id="581c8bba-28bd-4281-a8b2-2e6f69d9276c"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
 								id="fcb08619-a998-4b9f-a9d9-3947e75b0ca3"
 								name="CompareTrajectLengthInFMs">
 									<testmodule
-									id="8556c65c-3181-43b9-b0f7-ae8adb58eb88"
-									name="ValidateValueParameterForItemInTraject">
+									id="3ae447dc-8897-42ca-af99-08bbdb5f077c"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="0a0593cc-8e8d-4211-8045-7cbbcb6d5fb8"
+									name="GetValueParameterInPropertiesPanelGivenPath">
+									</testmodule>
+									<testmodule
+									id="101aca6d-b39f-44c9-b437-62f29d845d13"
+									name="ValidateStringsAreEqual">
 									</testmodule>
 								</smartfoldernode>
 							</smartfoldernode>
 							<smartfoldernode
 							id="3ea72a48-9cc6-4b39-8ecf-4f93b6c09a2f"
 							name="SetNewValueForParameter_a">
+								<testmodule
+								id="02cd3733-484f-4f49-92bb-9dbf78252635"
+								name="SelectGenericItemInProjectExplorer">
+								</testmodule>
+								<testmodule
+								id="80c65b50-c2bf-43e5-95c1-a8b5dee75436"
+								name="GetValueParameterInPropertiesPanelGivenPath">
+								</testmodule>
+								<testmodule
+								id="75e453f0-f8b3-4939-99d7-8ba2f843583b"
+								name="SetValueParameterInPropertiesPanelGivenPathTypeAndNewValue">
+								</testmodule>
+								<testmodule
+								id="31f8fa48-8df5-4571-805d-fdd9f7d30d39"
+								name="GetValueParameterInPropertiesPanelGivenPath">
+								</testmodule>
+								<testmodule
+								id="d620d05d-2579-42cf-beb6-d2d911255592"
+								name="ValidateStringsAreEqual">
+								</testmodule>
 								<testmodule
 								id="768cf0b8-e4e9-44b4-b79f-7d849139360d"
 								name="GetValueParameterForItemInTraject">
@@ -4458,7 +4591,10 @@
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
 				<column>
-					fmName
+					pathToFM
+				</column>
+				<column>
+					pathToLengthInPPforFM
 				</column>
 			</lastknowncolumns>
 			<maskedcolumns>
@@ -4466,22 +4602,34 @@
 			<table>
 				<tr>
 					<th>
-						fmName
+						pathToFM
+					</th>
+					<th>
+						pathToLengthInPPforFM
 					</th>
 				</tr>
 				<tr>
 					<td>
-						Piping
+						Traject&gt;@GF&gt;@STPH
+					</td>
+					<td>
+						Lengte-effect&gt;Lengte
 					</td>
 				</tr>
 				<tr>
 					<td>
-						Macrostabiliteit binnenwaarts
+						Traject&gt;@GF&gt;@STBI
+					</td>
+					<td>
+						Lengte-effect&gt;Lengte
 					</td>
 				</tr>
 				<tr>
 					<td>
-						Golfklappen op asfaltbekleding
+						Traject&gt;@GF&gt;@AGK
+					</td>
+					<td>
+						Lengte-effect&gt;Lengte
 					</td>
 				</tr>
 			</table>
@@ -4749,6 +4897,9 @@
 			</testcontainer>
 			<testcontainer
 			id="a42ea627-0e94-475a-ab47-26af7e16caeb">
+			</testcontainer>
+			<testcontainer
+			id="a9a96b28-70ec-45f0-bf01-edcf5997be6d">
 			</testcontainer>
 			<testcontainer
 			id="b2335e82-7645-4923-9b34-eaf64089e1e8">
