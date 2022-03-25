@@ -90,9 +90,9 @@ namespace Riskeer.Common.Forms.Test.Views
             using (FailureMechanismSectionsView view = ShowFailureMechanismSectionsView(sections, failureMechanism))
             {
                 // Assert
-                Assert.IsInstanceOf<CloseForFailurePathView>(view);
+                Assert.IsInstanceOf<CloseForFailureMechanismView>(view);
                 Assert.IsNull(view.Data);
-                Assert.AreSame(failureMechanism, view.FailurePath);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
                 Assert.AreEqual(1, view.Controls.Count);
 
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);

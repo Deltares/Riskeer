@@ -64,7 +64,7 @@ namespace Riskeer.Common.Plugin.Test
         {
             protected override bool ShouldCloseMethod(IView view, object o)
             {
-                return RiskeerPluginHelper.ShouldCloseForFailureMechanismView((CloseForFailurePathView) view, o);
+                return RiskeerPluginHelper.ShouldCloseForFailureMechanismView((CloseForFailureMechanismView) view, o);
             }
 
             protected override IView GetView(IFailureMechanism failureMechanism)
@@ -72,7 +72,7 @@ namespace Riskeer.Common.Plugin.Test
                 return new TestFailureMechanismView(failureMechanism);
             }
 
-            private class TestFailureMechanismView : CloseForFailurePathView
+            private class TestFailureMechanismView : CloseForFailureMechanismView
             {
                 public TestFailureMechanismView(IFailureMechanism failureMechanism)
                     : base(failureMechanism) {}
@@ -89,18 +89,18 @@ namespace Riskeer.Common.Plugin.Test
         {
             protected override bool ShouldCloseMethod(IView view, object o)
             {
-                return RiskeerPluginHelper.ShouldCloseForFailurePathView((CloseForFailurePathView) view, o);
+                return RiskeerPluginHelper.ShouldCloseForFailurePathView((CloseForFailureMechanismView) view, o);
             }
 
             protected override IView GetView(IFailureMechanism failurePath)
             {
-                return new TestFailurePathView(failurePath);
+                return new TestFailureMechanismView(failurePath);
             }
 
-            private class TestFailurePathView : CloseForFailurePathView
+            private class TestFailureMechanismView : CloseForFailureMechanismView
             {
-                public TestFailurePathView(IFailureMechanism failurePath)
-                    : base(failurePath) {}
+                public TestFailureMechanismView(IFailureMechanism failureMechanism)
+                    : base(failureMechanism) {}
             }
         }
     }

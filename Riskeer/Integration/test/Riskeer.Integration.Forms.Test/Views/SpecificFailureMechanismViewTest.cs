@@ -89,10 +89,10 @@ namespace Riskeer.Integration.Forms.Test.Views
             SpecificFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<CloseForFailurePathView>(view);
+            Assert.IsInstanceOf<CloseForFailureMechanismView>(view);
             Assert.IsInstanceOf<IMapView>(view);
             Assert.IsNull(view.Data);
-            Assert.AreSame(failureMechanism, view.FailurePath);
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
 
             Assert.AreEqual(1, view.Controls.Count);
             Assert.IsInstanceOf<RiskeerMapControl>(view.Controls[0]);
@@ -176,12 +176,12 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(failureMechanism.Name, mapData.Name);
 
             // When
-            const string newFailurePathName = "New Failure Mechanism Name";
-            failureMechanism.Name = newFailurePathName;
+            const string newFailureMechanismName = "New Failure Mechanism Name";
+            failureMechanism.Name = newFailureMechanismName;
             failureMechanism.NotifyObservers();
 
             // Then
-            Assert.AreEqual(newFailurePathName, mapData.Name);
+            Assert.AreEqual(newFailureMechanismName, mapData.Name);
             mocks.VerifyAll();
         }
 

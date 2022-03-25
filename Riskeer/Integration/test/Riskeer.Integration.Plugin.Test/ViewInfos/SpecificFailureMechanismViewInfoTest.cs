@@ -98,7 +98,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 testForm.Show();
 
                 // Assert
-                Assert.AreSame(failureMechanism, view.FailurePath);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
         }
 

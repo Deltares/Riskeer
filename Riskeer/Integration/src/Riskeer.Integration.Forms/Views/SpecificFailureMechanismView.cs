@@ -36,7 +36,7 @@ namespace Riskeer.Integration.Forms.Views
     /// <summary>
     /// View for <see cref="SpecificFailureMechanism"/>.
     /// </summary>
-    public partial class SpecificFailureMechanismView : CloseForFailurePathView, IMapView
+    public partial class SpecificFailureMechanismView : CloseForFailureMechanismView, IMapView
     {
         private readonly SpecificFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;

@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     public class SpecificFailureMechanismSectionsContext : FailureMechanismSectionsContext
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SpecificFailureMechanismSectionsContext"/> class.
+        /// Creates a new instance of <see cref="SpecificFailureMechanismSectionsContext"/>.
         /// </summary>
         /// <param name="wrappedData">The <see cref="SpecificFailureMechanism"/> to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>

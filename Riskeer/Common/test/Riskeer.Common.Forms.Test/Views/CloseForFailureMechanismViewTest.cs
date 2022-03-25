@@ -30,17 +30,17 @@ using Riskeer.Common.Forms.Views;
 namespace Riskeer.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class CloseForFailurePathViewTest
+    public class CloseForFailureMechanismViewTest
     {
         [Test]
-        public void Constructor_FailurePathNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new TestCloseForFailurePathView(null);
+            void Call() => new TestCloseForFailureMechanismView(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failurePath", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -48,25 +48,25 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailureMechanism>();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
             mocks.ReplayAll();
 
             // Call
-            var view = new TestCloseForFailurePathView(failurePath);
+            var view = new TestCloseForFailureMechanismView(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
             Assert.IsInstanceOf<IView>(view);
             Assert.IsNull(view.Data);
-            Assert.AreSame(failurePath, view.FailurePath);
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
             CollectionAssert.IsEmpty(view.Controls);
 
             mocks.VerifyAll();
         }
 
-        private class TestCloseForFailurePathView : CloseForFailurePathView
+        private class TestCloseForFailureMechanismView : CloseForFailureMechanismView
         {
-            public TestCloseForFailurePathView(IFailureMechanism failurePath) : base(failurePath) {}
+            public TestCloseForFailureMechanismView(IFailureMechanism failureMechanism) : base(failureMechanism) {}
         }
     }
 }

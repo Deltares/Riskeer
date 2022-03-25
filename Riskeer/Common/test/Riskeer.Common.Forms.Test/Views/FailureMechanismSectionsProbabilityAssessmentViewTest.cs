@@ -70,15 +70,13 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () =>
+            void Call()
             {
-                new FailureMechanismSectionsProbabilityAssessmentView(Enumerable.Empty<FailureMechanismSection>(),
-                                                                      failureMechanism,
-                                                                      null);
-            };
+                new FailureMechanismSectionsProbabilityAssessmentView(Enumerable.Empty<FailureMechanismSection>(), failureMechanism, null);
+            }
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("probabilityAssessmentInput", paramName);
 
             mocks.VerifyAll();
@@ -103,7 +101,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismSectionsView>(view);
                 Assert.IsNull(view.Data);
-                Assert.AreSame(failureMechanism, view.FailurePath);
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
                 Assert.AreEqual(1, view.Controls.Count);
 
                 DataGridViewControl sectionsDataGridViewControl = GetSectionsDataGridViewControl(view);

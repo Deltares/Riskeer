@@ -29,28 +29,28 @@ namespace Riskeer.Common.Forms.Views
     /// <summary>
     /// Base view which closes for an <see cref="IFailureMechanism"/> instance.
     /// </summary>
-    public abstract class CloseForFailurePathView : UserControl, IView
+    public abstract class CloseForFailureMechanismView : UserControl, IView
     {
         /// <summary>
-        /// Creates a new instance of <see cref="CloseForFailurePathView"/>.
+        /// Creates a new instance of <see cref="CloseForFailureMechanismView"/>.
         /// </summary>
-        /// <param name="failurePath">The failure path belonging to the view.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failurePath"/>
+        /// <param name="failureMechanism">The failure path belonging to the view.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        protected CloseForFailurePathView(IFailureMechanism failurePath)
+        protected CloseForFailureMechanismView(IFailureMechanism failureMechanism)
         {
-            if (failurePath == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(failurePath));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            FailurePath = failurePath;
+            FailureMechanism = failureMechanism;
         }
 
         /// <summary>
         /// Gets the <see cref="IFailureMechanism"/> the view belongs to.
         /// </summary>
-        public IFailureMechanism FailurePath { get; }
+        public IFailureMechanism FailureMechanism { get; }
 
         public object Data { get; set; }
     }

@@ -1250,7 +1250,7 @@ namespace Riskeer.Integration.Plugin
 
         private IEnumerable<IObserver> CreateObservers(SpecificFailureMechanismView specificFailureMechanismView)
         {
-            IFailureMechanism failureMechanism = specificFailureMechanismView.FailurePath;
+            IFailureMechanism failureMechanism = specificFailureMechanismView.FailureMechanism;
             return new[]
             {
                 CreateViewTitleObserver(specificFailureMechanismView, failureMechanism, () => failureMechanism.Name)
