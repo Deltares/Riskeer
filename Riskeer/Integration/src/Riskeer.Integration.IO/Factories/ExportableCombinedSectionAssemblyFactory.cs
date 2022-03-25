@@ -83,7 +83,7 @@ namespace Riskeer.Integration.IO.Factories
         private static IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> CreateFailureMechanismCombinedSectionAssemblyResults(
             CombinedFailureMechanismSectionAssemblyResult assemblyResult, AssessmentSection assessmentSection)
         {
-            Tuple<FailureMechanismSectionAssemblyGroup?, string>[] failureMechanisms =
+            Tuple<FailureMechanismSectionAssemblyGroup?, string, string>[] failureMechanisms =
             {
                 CreateTuple(assemblyResult.Piping, assessmentSection.Piping),
                 CreateTuple(assemblyResult.GrassCoverErosionInwards, assessmentSection.GrassCoverErosionInwards),
@@ -104,7 +104,7 @@ namespace Riskeer.Integration.IO.Factories
 
             List<ExportableFailureMechanismCombinedSectionAssemblyResult> exportableAssemblyResults =
                 failureMechanisms.Where(fm => fm.Item1.HasValue)
-                                 .Select(fm => CreateExportableFailureMechanismCombinedSectionAssemblyResult(fm.Item1.Value, ExportableFailureMechanismType.Generic, fm.Item2))
+                                 .Select(fm => CreateExportableFailureMechanismCombinedSectionAssemblyResult(fm.Item1.Value, ExportableFailureMechanismType.Generic, fm.Item2, fm.Item3))
                                  .ToList();
 
             for (var i = 0; i < assessmentSection.SpecificFailureMechanisms.Count; i++)
@@ -116,26 +116,26 @@ namespace Riskeer.Integration.IO.Factories
                     SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailureMechanisms.ElementAt(i);
                     exportableAssemblyResults.Add(CreateExportableFailureMechanismCombinedSectionAssemblyResult(
                                                       specificFailurePathAssemblyResult.Value, ExportableFailureMechanismType.Specific,
-                                                      specificFailureMechanism.Code));
+                                                      specificFailureMechanism.Code, specificFailureMechanism.Name));
                 }
             }
 
             return exportableAssemblyResults;
         }
 
-        private static Tuple<FailureMechanismSectionAssemblyGroup?, string> CreateTuple(
+        private static Tuple<FailureMechanismSectionAssemblyGroup?, string, string> CreateTuple(
             FailureMechanismSectionAssemblyGroup? assemblyResultGroup, IFailureMechanism failureMechanism)
         {
-            return new Tuple<FailureMechanismSectionAssemblyGroup?, string>(assemblyResultGroup, failureMechanism.Code);
+            return new Tuple<FailureMechanismSectionAssemblyGroup?, string, string>(assemblyResultGroup, failureMechanism.Code, failureMechanism.Name);
         }
 
         private static ExportableFailureMechanismCombinedSectionAssemblyResult CreateExportableFailureMechanismCombinedSectionAssemblyResult(
             FailureMechanismSectionAssemblyGroup sectionAssemblyGroup, ExportableFailureMechanismType failureMechanismType,
-            string failureMechanismCode)
+            string failureMechanismCode, string failureMechanismName)
         {
             return new ExportableFailureMechanismCombinedSectionAssemblyResult(
                 new ExportableFailureMechanismSubSectionAssemblyResult(sectionAssemblyGroup, ExportableAssemblyMethod.WBI3B1),
-                failureMechanismType, failureMechanismCode);
+                failureMechanismType, failureMechanismCode, failureMechanismName);
         }
     }
 }
