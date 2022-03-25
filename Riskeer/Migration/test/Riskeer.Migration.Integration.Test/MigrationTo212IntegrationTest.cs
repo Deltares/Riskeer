@@ -76,6 +76,7 @@ namespace Riskeer.Migration.Integration.Test
                     AssertPipingFailureMechanism(reader, sourceFilePath);
                     AssertPipingScenarioConfigurationPerFailureMechanismSection(reader, sourceFilePath);
                     AssertPipingFailureMechanismSectionResults(reader, sourceFilePath);
+                    AssertSemiProbabilisticPipingOutput(reader, sourceFilePath);
 
                     AssertGrassCoverErosionInwardsFailureMechanismMetaEntity(reader, sourceFilePath);
                     AssertGrassCoverErosionInwardsCalculation(reader, sourceFilePath);
@@ -880,6 +881,33 @@ namespace Riskeer.Migration.Integration.Test
         private static void AssertPipingFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
         {
             AssertAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "PipingSectionResultEntity", sourceFilePath);
+        }
+        
+        private static void AssertSemiProbabilisticPipingOutput(MigratedDatabaseReader reader, string sourceFilePath)
+        {
+            string validateOutput =
+                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
+                "SELECT COUNT() = " +
+                "(" +
+                "SELECT COUNT() " +
+                "FROM SOURCEPROJECT.SemiProbabilisticPipingCalculationOutputEntity " +
+                "WHERE SemiProbabilisticPipingCalculationEntityId IN (SELECT SemiProbabilisticPipingCalculationEntityId FROM SOURCEPROJECT.SemiProbabilisticPipingCalculationEntity WHERE UseAssessmentLevelManualInput IS 1) " +
+                ") " +
+                "FROM SemiProbabilisticPipingCalculationOutputEntity NEW " +
+                "JOIN SOURCEPROJECT.SemiProbabilisticPipingCalculationOutputEntity OLD " +
+                "ON NEW.[SemiProbabilisticPipingCalculationOutputEntityId] = OLD.[SemiProbabilisticPipingCalculationOutputEntityId]" +
+                "WHERE NEW.[SemiProbabilisticPipingCalculationEntityId] = OLD.[SemiProbabilisticPipingCalculationEntityId] " +
+                "AND NEW.\"Order\" = OLD.\"Order\" " +
+                "AND NEW.[HeaveFactorOfSafety] IS OLD.[HeaveFactorOfSafety] " +
+                "AND NEW.[UpliftFactorOfSafety] IS OLD.[UpliftFactorOfSafety] " +
+                "AND NEW.[SellmeijerFactorOfSafety] IS OLD.[SellmeijerFactorOfSafety] " +
+                "AND NEW.[UpliftEffectiveStress] IS OLD.[UpliftEffectiveStress] " +
+                "AND NEW.[HeaveGradient] IS OLD.[HeaveGradient] " +
+                "AND NEW.[SellmeijerCreepCoefficient] IS OLD.[SellmeijerCreepCoefficient] " +
+                "AND NEW.[SellmeijerCriticalFall] IS OLD.[SellmeijerCriticalFall] " +
+                "AND NEW.[SellmeijerReducedFall] IS OLD.[SellmeijerReducedFall]; " +
+                "DETACH SOURCEPROJECT;";
+            reader.AssertReturnedDataIsValid(validateOutput);
         }
 
         #endregion

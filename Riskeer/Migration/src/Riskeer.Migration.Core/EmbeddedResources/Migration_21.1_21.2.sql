@@ -542,7 +542,35 @@ FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
 INSERT INTO ProbabilisticPipingCalculationEntity SELECT * FROM [SOURCEPROJECT].ProbabilisticPipingCalculationEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;
 INSERT INTO SemiProbabilisticPipingCalculationEntity SELECT * FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity;
-INSERT INTO SemiProbabilisticPipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity;
+INSERT INTO SemiProbabilisticPipingCalculationOutputEntity(
+    [SemiProbabilisticPipingCalculationOutputEntityId],
+    [SemiProbabilisticPipingCalculationEntityId],
+    [Order],
+    [HeaveFactorOfSafety],
+    [UpliftFactorOfSafety],
+    [SellmeijerFactorOfSafety],
+    [UpliftEffectiveStress],
+    [HeaveGradient],
+    [SellmeijerCreepCoefficient],
+    [SellmeijerCriticalFall],
+    [SellmeijerReducedFall])
+SELECT
+    [SemiProbabilisticPipingCalculationOutputEntityId],
+    [SemiProbabilisticPipingCalculationEntityId],
+    [Order],
+    [HeaveFactorOfSafety],
+    [UpliftFactorOfSafety],
+    [SellmeijerFactorOfSafety],
+    [UpliftEffectiveStress],
+    [HeaveGradient],
+    [SellmeijerCreepCoefficient],
+    [SellmeijerCriticalFall],
+    [SellmeijerReducedFall]
+FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
+WHERE SemiProbabilisticPipingCalculationEntityId IN (
+    SELECT SemiProbabilisticPipingCalculationEntityId
+    FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity
+    WHERE UseAssessmentLevelManualInput IS 1);
 INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;
 INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;
 INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity;
