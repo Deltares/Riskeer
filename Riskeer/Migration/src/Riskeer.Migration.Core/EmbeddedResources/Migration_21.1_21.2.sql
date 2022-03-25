@@ -42,7 +42,6 @@ INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGrou
 INSERT INTO ClosingStructureEntity SELECT * FROM [SOURCEPROJECT].ClosingStructureEntity;
 INSERT INTO ClosingStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity;
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity;
-INSERT INTO ClosingStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresOutputEntity;
 INSERT INTO ClosingStructuresSectionResultEntity (
     [ClosingStructuresSectionResultEntityId],
     [FailureMechanismSectionEntityId],
@@ -151,14 +150,7 @@ SELECT
     [FailureMechanismSectionPointXml]
 FROM [SOURCEPROJECT].FailureMechanismSectionEntity;
 
-INSERT INTO FaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointEntity;
-INSERT INTO FaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].FaultTreeIllustrationPointStochastEntity;
-INSERT INTO FaultTreeSubmechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].FaultTreeSubmechanismIllustrationPointEntity;
 INSERT INTO ForeshoreProfileEntity SELECT * FROM [SOURCEPROJECT].ForeshoreProfileEntity;
-INSERT INTO GeneralResultFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointEntity;
-INSERT INTO GeneralResultFaultTreeIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].GeneralResultFaultTreeIllustrationPointStochastEntity;
-INSERT INTO GeneralResultSubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointEntity;
-INSERT INTO GeneralResultSubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].GeneralResultSubMechanismIllustrationPointStochastEntity;
 INSERT INTO GrassCoverErosionInwardsFailureMechanismMetaEntity (
     [GrassCoverErosionInwardsFailureMechanismMetaEntityId],
     [FailureMechanismEntityId],
@@ -173,7 +165,6 @@ SELECT
     [DikeProfileCollectionSourcePath],
     0
 FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
-INSERT INTO GrassCoverErosionInwardsOutputEntity SELECT * FROM [SOURCEPROJECT].GrassCoverErosionInwardsOutputEntity;
 INSERT INTO GrassCoverErosionInwardsSectionResultEntity (
     [GrassCoverErosionInwardsSectionResultEntityId],
     [FailureMechanismSectionEntityId],
@@ -352,7 +343,6 @@ WHERE FailureMechanismType = 5;
 INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureEntity;
 INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
 INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
-INSERT INTO HeightStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresOutputEntity;
 INSERT INTO HeightStructuresSectionResultEntity (
     [HeightStructuresSectionResultEntityId],
     [FailureMechanismSectionEntityId],
@@ -407,7 +397,6 @@ FROM HydraulicLocationCalculationCollectionEntity
 JOIN [SOURCEPROJECT].HydraulicLocationCalculationEntity USING(HydraulicLocationCalculationCollectionEntityId);
 
 INSERT INTO HydraulicLocationEntity SELECT * FROM [SOURCEPROJECT].HydraulicLocationEntity;
-INSERT INTO IllustrationPointResultEntity SELECT * FROM [SOURCEPROJECT].IllustrationPointResultEntity;
 INSERT INTO MacroStabilityInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationEntity;
 INSERT INTO MacroStabilityInwardsCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCharacteristicPointEntity;
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsFailureMechanismMetaEntity;
@@ -551,14 +540,12 @@ SELECT
     NULL
 FROM [SOURCEPROJECT].PipingStructureSectionResultEntity;
 INSERT INTO ProbabilisticPipingCalculationEntity SELECT * FROM [SOURCEPROJECT].ProbabilisticPipingCalculationEntity;
-INSERT INTO ProbabilisticPipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].ProbabilisticPipingCalculationOutputEntity;
 INSERT INTO ProjectEntity SELECT * FROM [SOURCEPROJECT].ProjectEntity;
 INSERT INTO SemiProbabilisticPipingCalculationEntity SELECT * FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity;
 INSERT INTO SemiProbabilisticPipingCalculationOutputEntity SELECT * FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity;
 INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;
 INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;
 INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity;
-INSERT INTO StabilityPointStructuresOutputEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresOutputEntity;
 INSERT INTO StabilityPointStructuresSectionResultEntity (
     [StabilityPointStructuresSectionResultEntityId],
     [FailureMechanismSectionEntityId],
@@ -666,11 +653,7 @@ SELECT
 FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsCalculationEntity;
 INSERT INTO StochastEntity SELECT * FROM [SOURCEPROJECT].StochastEntity;
 INSERT INTO StochasticSoilModelEntity SELECT * FROM [SOURCEPROJECT].StochasticSoilModelEntity;
-INSERT INTO SubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].SubMechanismIllustrationPointEntity;
-INSERT INTO SubMechanismIllustrationPointStochastEntity SELECT * FROM [SOURCEPROJECT].SubMechanismIllustrationPointStochastEntity;
 INSERT INTO SurfaceLineEntity SELECT * FROM [SOURCEPROJECT].SurfaceLineEntity;
-INSERT INTO TopLevelFaultTreeIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelFaultTreeIllustrationPointEntity;
-INSERT INTO TopLevelSubMechanismIllustrationPointEntity SELECT * FROM [SOURCEPROJECT].TopLevelSubMechanismIllustrationPointEntity;
 INSERT INTO VersionEntity (
     [VersionId],
     [Version],
@@ -1119,6 +1102,35 @@ ON sectionId = AssessmentSectionEntityId;
 /* 
 Write migration logging
 */
+
+/*
+Outputs that used HydraRing are not migrated
+*/
+-- ClosingStructuresOutputEntity
+-- DuneLocationOutputEntity
+-- GrassCoverErosionInwardsDikeHeightOutputEntity
+-- GrassCoverErosionInwardsOutputEntity
+-- GrassCoverErosionInwardsOvertoppingRateOutputEntity
+-- GrassCoverErosionOutwardsWaveConditionsOutputEntity
+-- HeightStructuresOutputEntity
+-- HydraulicLocationOutputEntity
+-- SemiProbabilisticPipingCalculationOutputEntity where SemiProbabilisticPipingCalculationEntity.UseManualAssessmentLevel is 0
+-- StabilityPointStructuresOutputEntity
+-- StabilityStoneCoverWaveConditionsOutputEntity
+-- WaveImpactAsphaltCoverWaveConditionsOutputEntity
+-- FaultTreeIllustrationPointEntity
+-- FaultTreeIllustrationPointStochastEntity
+-- FaultTreeSubMechanismIllustrationPointEntity
+-- GeneralResultFaultTreeIllustrationPointEntity
+-- GeneralResultFaultTreeIllustrationPointStochastEntity
+-- GeneralResultSubMechanismIllustrationPointEntity
+-- GeneralResultSubMechanismIllustrationPointStochastEntity
+-- IllustrationPointResultEntity
+-- SubMechanismIllustrationPointEntity
+-- SubMechanismIllustrationPointStochastEntity
+-- TopLevelFaultTreeIllustrationPointEntity
+-- TopLevelSubMechanismIllustrationPointEntity
+
 ATTACH DATABASE "{1}" AS LOGDATABASE;
 
 CREATE TABLE IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity'
