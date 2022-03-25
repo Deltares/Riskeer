@@ -25,11 +25,11 @@ using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
-using Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
+using Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationState;
 using Riskeer.Common.Data.AssessmentSection;
 
-namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
+namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos.CalculationState
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismPropertyInfoTest
@@ -54,7 +54,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(ClosingStructuresCalculationsContext), info.DataType);
             Assert.AreEqual(typeof(ClosingStructuresFailureMechanismProperties), info.PropertyObjectType);
         }
 
@@ -67,7 +67,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

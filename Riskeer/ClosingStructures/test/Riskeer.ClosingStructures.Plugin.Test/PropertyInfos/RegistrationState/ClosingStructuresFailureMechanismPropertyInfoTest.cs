@@ -25,14 +25,14 @@ using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
-using Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationState;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
+using Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState;
 using Riskeer.Common.Data.AssessmentSection;
 
-namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
+namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos.RegistrationState
 {
     [TestFixture]
-    public class ClosingStructuresCalculationsPropertyInfoTest
+    public class ClosingStructuresFailureMechanismPropertyInfoTest
     {
         private ClosingStructuresPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new ClosingStructuresPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(ClosingStructuresCalculationsProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(ClosingStructuresFailureMechanismProperties));
         }
 
         [TearDown]
@@ -54,8 +54,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(ClosingStructuresCalculationsProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(ClosingStructuresFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -67,13 +67,13 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<ClosingStructuresCalculationsProperties>(objectProperties);
+            Assert.IsInstanceOf<ClosingStructuresFailureMechanismProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
 
             mocks.VerifyAll();

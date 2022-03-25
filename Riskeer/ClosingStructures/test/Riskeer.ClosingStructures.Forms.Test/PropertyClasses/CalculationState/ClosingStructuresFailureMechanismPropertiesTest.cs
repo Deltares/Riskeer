@@ -30,7 +30,7 @@ using Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationState;
 namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.CalculationState
 {
     [TestFixture]
-    public class ClosingStructuresCalculationsPropertiesTest
+    public class ClosingStructuresFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -45,7 +45,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.CalculationState
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new ClosingStructuresCalculationsProperties(null);
+            void Call() => new ClosingStructuresFailureMechanismProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -59,7 +59,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.CalculationState
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var properties = new ClosingStructuresCalculationsProperties(failureMechanism);
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ClosingStructuresFailureMechanismPropertiesBase>(properties);
@@ -84,7 +84,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.CalculationState
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Call
-            var properties = new ClosingStructuresCalculationsProperties(new ClosingStructuresFailureMechanism());
+            var properties = new ClosingStructuresFailureMechanismProperties(new ClosingStructuresFailureMechanism());
 
             // Assert
             const string generalCategory = "Algemeen";
