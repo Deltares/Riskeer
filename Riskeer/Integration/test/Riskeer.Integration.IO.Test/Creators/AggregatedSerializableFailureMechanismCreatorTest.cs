@@ -50,6 +50,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                     ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
                     Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
                     random.NextEnumValue<ExportableFailureMechanismType>(),
+                    string.Empty,
                     string.Empty));
 
             // Assert
@@ -70,6 +71,7 @@ namespace Riskeer.Integration.IO.Test.Creators
                     ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
                     Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
                     random.NextEnumValue<ExportableFailureMechanismType>(),
+                    string.Empty,
                     string.Empty));
 
             // Assert
@@ -104,7 +106,8 @@ namespace Riskeer.Integration.IO.Test.Creators
                         ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(random.Next()), random.Next())
                 },
                 random.NextEnumValue<ExportableFailureMechanismType>(),
-                "code");
+                "code",
+                "name");
 
             var idGenerator = new IdentifierGenerator();
 

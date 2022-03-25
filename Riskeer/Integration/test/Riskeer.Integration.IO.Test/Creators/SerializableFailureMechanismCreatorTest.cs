@@ -101,7 +101,8 @@ namespace Riskeer.Integration.IO.Test.Creators
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
                 Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
                 random.NextEnumValue<ExportableFailureMechanismType>(),
-                "code");
+                "code",
+                "name");
         }
 
         private static SerializableTotalAssemblyResult CreateSerializableTotalAssembly(string totalAssemblyId)
