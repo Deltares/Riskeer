@@ -240,7 +240,7 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new StandAloneFailurePathProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<SpecificFailurePathContext, SpecificFailurePathProperties>
+            yield return new PropertyInfo<SpecificFailureMechanismContext, SpecificFailurePathProperties>
             {
                 CreateInstance = context => new SpecificFailurePathProperties(context.WrappedData)
             };
@@ -432,7 +432,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return CreateFailureMechanismResultViewInfo<SpecificFailurePathSectionResultContext, SpecificFailureMechanism>(fp => fp.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
 
-            yield return new RiskeerViewInfo<SpecificFailurePathContext, SpecificFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<SpecificFailureMechanismContext, SpecificFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 CreateInstance = context => new SpecificFailureMechanismView(context.WrappedData, context.Parent),
@@ -1884,7 +1884,7 @@ namespace Riskeer.Integration.Plugin
         private static object[] SpecificFailurePathsChildNodeObjects(SpecificFailurePathsContext nodeData)
         {
             return nodeData.WrappedData
-                           .Select(sfp => new SpecificFailurePathContext(sfp, nodeData.AssessmentSection))
+                           .Select(sfp => new SpecificFailureMechanismContext(sfp, nodeData.AssessmentSection))
                            .Cast<object>()
                            .ToArray();
         }
@@ -1929,17 +1929,17 @@ namespace Riskeer.Integration.Plugin
         {
             var failurePathsContext = (SpecificFailurePathsContext) targetData;
 
-            return draggedData is SpecificFailurePathContext failurePathContext
-                   && failurePathsContext.WrappedData.Contains(failurePathContext.WrappedData);
+            return draggedData is SpecificFailureMechanismContext failureMechanismContext
+                   && failurePathsContext.WrappedData.Contains(failureMechanismContext.WrappedData);
         }
 
         private static void SpecificFailurePathsContext_OnDrop(object droppedData, object newParentData, object oldParentData, int position, TreeViewControl treeViewControl)
         {
             var failurePathsContext = (SpecificFailurePathsContext) newParentData;
-            var failurePathContext = (SpecificFailurePathContext) droppedData;
+            var failureMechanismContext = (SpecificFailureMechanismContext) droppedData;
 
-            failurePathsContext.WrappedData.Remove(failurePathContext.WrappedData);
-            failurePathsContext.WrappedData.Insert(position, failurePathContext.WrappedData);
+            failurePathsContext.WrappedData.Remove(failureMechanismContext.WrappedData);
+            failurePathsContext.WrappedData.Insert(position, failureMechanismContext.WrappedData);
 
             failurePathsContext.WrappedData.NotifyObservers();
         }
@@ -1950,37 +1950,37 @@ namespace Riskeer.Integration.Plugin
 
         private TreeNodeInfo CreateSpecificFailurePathTreeNodeInfo()
         {
-            TreeNodeInfo<SpecificFailurePathContext> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<SpecificFailurePathContext>(
+            TreeNodeInfo<SpecificFailureMechanismContext> treeNodeInfo =
+                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<SpecificFailureMechanismContext>(
                     SpecificFailurePathEnabledChildNodeObjects,
                     SpecificFailurePathDisabledChildNodeObjects,
                     SpecificFailurePathEnabledContextMenuStrip,
                     SpecificFailurePathDisabledContextMenuStrip);
             treeNodeInfo.CanRename = (context, o) => true;
-            treeNodeInfo.OnNodeRenamed = SpecificFailurePathContextOnNodeRenamed;
+            treeNodeInfo.OnNodeRenamed = SpecificFailureMechanismContextOnNodeRenamed;
             treeNodeInfo.CanRemove = (context, o) => true;
-            treeNodeInfo.OnNodeRemoved = SpecificFailurePathContextOnNodeRemoved;
+            treeNodeInfo.OnNodeRemoved = SpecificFailureMechanismContextOnNodeRemoved;
             treeNodeInfo.CanDrag = (context, o) => true;
 
             return treeNodeInfo;
         }
 
-        private static void SpecificFailurePathContextOnNodeRenamed(SpecificFailurePathContext nodeData, string newName)
+        private static void SpecificFailureMechanismContextOnNodeRenamed(SpecificFailureMechanismContext nodeData, string newName)
         {
             nodeData.WrappedData.Name = newName;
             nodeData.WrappedData.NotifyObservers();
         }
 
-        private static void SpecificFailurePathContextOnNodeRemoved(SpecificFailurePathContext nodeData, object parentNodeData)
+        private static void SpecificFailureMechanismContextOnNodeRemoved(SpecificFailureMechanismContext nodeData, object parentNodeData)
         {
             var specificFailurePathsContext = (SpecificFailurePathsContext) parentNodeData;
-            ObservableList<SpecificFailureMechanism> failurePaths = specificFailurePathsContext.WrappedData;
+            ObservableList<SpecificFailureMechanism> failureMechanisms = specificFailurePathsContext.WrappedData;
 
-            failurePaths.Remove(nodeData.WrappedData);
-            failurePaths.NotifyObservers();
+            failureMechanisms.Remove(nodeData.WrappedData);
+            failureMechanisms.NotifyObservers();
         }
 
-        private static object[] SpecificFailurePathDisabledChildNodeObjects(SpecificFailurePathContext nodeData)
+        private static object[] SpecificFailurePathDisabledChildNodeObjects(SpecificFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -1988,7 +1988,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static object[] SpecificFailurePathEnabledChildNodeObjects(SpecificFailurePathContext nodeData)
+        private static object[] SpecificFailurePathEnabledChildNodeObjects(SpecificFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -2001,7 +2001,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetSpecificFailurePathInputs(SpecificFailurePathContext nodeData)
+        private static IEnumerable<object> GetSpecificFailurePathInputs(SpecificFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -2010,7 +2010,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private static IEnumerable<object> GetSpecificFailureMechanismPathOutputs(SpecificFailurePathContext nodeData)
+        private static IEnumerable<object> GetSpecificFailureMechanismPathOutputs(SpecificFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -2020,7 +2020,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip SpecificFailurePathEnabledContextMenuStrip(SpecificFailurePathContext nodeData,
+        private ContextMenuStrip SpecificFailurePathEnabledContextMenuStrip(SpecificFailureMechanismContext nodeData,
                                                                             object parentData,
                                                                             TreeViewControl treeViewControl)
         {
@@ -2041,12 +2041,12 @@ namespace Riskeer.Integration.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForFailurePathContext(SpecificFailurePathContext failurePathContext)
+        private void RemoveAllViewsForFailurePathContext(SpecificFailureMechanismContext failureMechanismContext)
         {
-            Gui.ViewCommands.RemoveAllViewsForItem(failurePathContext);
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip SpecificFailurePathDisabledContextMenuStrip(SpecificFailurePathContext nodeData,
+        private ContextMenuStrip SpecificFailurePathDisabledContextMenuStrip(SpecificFailureMechanismContext nodeData,
                                                                              object parentData,
                                                                              TreeViewControl treeViewControl)
         {

@@ -30,15 +30,17 @@ namespace Riskeer.Integration.Forms.PresentationObjects
     /// <summary>
     /// This class is a presentation object for a <see cref="SpecificFailureMechanism"/> instance.
     /// </summary>
-    public class SpecificFailurePathContext : ObservableWrappedObjectContextBase<SpecificFailureMechanism>, IFailureMechanismContext<SpecificFailureMechanism>
+    public class SpecificFailureMechanismContext : ObservableWrappedObjectContextBase<SpecificFailureMechanism>, 
+                                                   IFailureMechanismContext<SpecificFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SpecificFailurePathContext"/> class.
+        /// Creates a new instance of <see cref="SpecificFailureMechanismContext"/>.
         /// </summary>
-        /// <param name="wrappedFailurePath">The failure failure path.</param>
-        /// <param name="parent">The parent of <paramref name="wrappedFailurePath"/>.</param>
+        /// <param name="failureMechanism">The failure failure mechanism.</param>
+        /// <param name="parent">The parent of <paramref name="failureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public SpecificFailurePathContext(SpecificFailureMechanism wrappedFailurePath, IAssessmentSection parent) : base(wrappedFailurePath)
+        public SpecificFailureMechanismContext(SpecificFailureMechanism failureMechanism, IAssessmentSection parent)
+            : base(failureMechanism)
         {
             if (parent == null)
             {

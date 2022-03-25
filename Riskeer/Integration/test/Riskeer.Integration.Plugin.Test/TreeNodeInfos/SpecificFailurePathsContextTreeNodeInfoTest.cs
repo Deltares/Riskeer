@@ -303,7 +303,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var failurePaths = new ObservableList<SpecificFailureMechanism>();
             var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
-            var draggedData = new SpecificFailurePathContext(new SpecificFailureMechanism(), assessmentSection);
+            var draggedData = new SpecificFailureMechanismContext(new SpecificFailureMechanism(), assessmentSection);
 
             // Call
             bool canInsert = info.CanInsert(draggedData, targetData);
@@ -326,7 +326,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
 
             var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
-            var draggedData = new SpecificFailurePathContext(failurePath, assessmentSection);
+            var draggedData = new SpecificFailureMechanismContext(failurePath, assessmentSection);
 
             // Call
             bool canInsert = info.CanInsert(draggedData, targetData);
@@ -362,7 +362,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var failurePaths = new ObservableList<SpecificFailureMechanism>();
             var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
 
-            var draggedData = new SpecificFailurePathContext(new SpecificFailureMechanism(), assessmentSection);
+            var draggedData = new SpecificFailureMechanismContext(new SpecificFailureMechanism(), assessmentSection);
 
             // Call
             bool canDrop = info.CanDrop(draggedData, targetData);
@@ -385,7 +385,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             };
 
             var targetData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
-            var draggedData = new SpecificFailurePathContext(failurePath, assessmentSection);
+            var draggedData = new SpecificFailureMechanismContext(failurePath, assessmentSection);
 
             // Call
             bool canDrop = info.CanDrop(draggedData, targetData);
@@ -413,7 +413,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             failurePaths.Attach(observer);
 
             var parentData = new SpecificFailurePathsContext(failurePaths, assessmentSection);
-            var draggedData = new SpecificFailurePathContext(movedFailurePath, assessmentSection);
+            var draggedData = new SpecificFailureMechanismContext(movedFailurePath, assessmentSection);
 
             // Call
             info.OnDrop(draggedData, parentData, parentData, 0, null);
@@ -462,7 +462,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(1, children.Length);
-            var failurePathContext = (SpecificFailurePathContext) children[0];
+            var failurePathContext = (SpecificFailureMechanismContext) children[0];
             Assert.AreSame(failurePath, failurePathContext.WrappedData);
             Assert.AreSame(assessmentSection, failurePathContext.Parent);
         }

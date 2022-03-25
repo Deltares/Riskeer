@@ -186,7 +186,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new SpecificFailureMechanism();
-            var failurePathContext = new SpecificFailurePathContext(failureMechanism, assessmentSection);
+            var failurePathContext = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new SpecificFailureMechanism();
-            var failurePathContext = new SpecificFailurePathContext(new SpecificFailureMechanism(), assessmentSection);
+            var failurePathContext = new SpecificFailureMechanismContext(new SpecificFailureMechanism(), assessmentSection);
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,

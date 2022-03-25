@@ -244,7 +244,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(SpecificFailurePathContext),
+                    typeof(SpecificFailureMechanismContext),
                     typeof(SpecificFailurePathProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -540,7 +540,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(SpecificFailurePathContext),
+                    typeof(SpecificFailureMechanismContext),
                     typeof(SpecificFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
@@ -609,7 +609,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionAssemblyGroupsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GenericFailurePathsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailurePathsContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailurePathContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(SpecificFailurePathSectionResultContext)));
             }
         }
@@ -739,12 +739,12 @@ namespace Riskeer.Integration.Plugin.Test
                 SetPlugins(gui);
                 gui.Run();
 
-                var failurePath = new SpecificFailureMechanism();
+                var failureMechanism = new SpecificFailureMechanism();
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
                 {
                     SpecificFailureMechanisms =
                     {
-                        failurePath
+                        failureMechanism
                     }
                 };
                 var project = new RiskeerProject(assessmentSection);
@@ -752,18 +752,18 @@ namespace Riskeer.Integration.Plugin.Test
                 gui.SetProject(project, null);
 
                 gui.DocumentViewController.CloseAllViews();
-                gui.DocumentViewController.OpenViewForData(new SpecificFailurePathContext(failurePath, assessmentSection));
+                gui.DocumentViewController.OpenViewForData(new SpecificFailureMechanismContext(failureMechanism, assessmentSection));
 
                 IView view = gui.ViewHost.DocumentViews.First();
 
                 // Precondition
                 Assert.IsInstanceOf<SpecificFailureMechanismView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, failurePath.Name));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, failureMechanism.Name));
 
                 // When
                 const string newName = "Awesome faalmechanisme";
-                failurePath.Name = newName;
-                failurePath.NotifyObservers();
+                failureMechanism.Name = newName;
+                failureMechanism.NotifyObservers();
 
                 // Then
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, newName));

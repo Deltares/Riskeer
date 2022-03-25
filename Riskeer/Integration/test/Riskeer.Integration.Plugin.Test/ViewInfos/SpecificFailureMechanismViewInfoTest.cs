@@ -59,8 +59,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(SpecificFailurePathContext), info.DataType);
-            Assert.AreEqual(typeof(SpecificFailurePathContext), info.ViewDataType);
+            Assert.AreEqual(typeof(SpecificFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(SpecificFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new SpecificFailureMechanism();
-            var context = new SpecificFailurePathContext(failureMechanism, assessmentSection);
+            var context = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -87,7 +87,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new SpecificFailureMechanism();
-            var context = new SpecificFailurePathContext(failureMechanism, assessmentSection);
+            var context = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var testForm = new Form())
             {
@@ -113,7 +113,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 InAssembly = inAssembly
             };
-            var context = new SpecificFailurePathContext(failureMechanism, assessmentSection);
+            var context = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool additionalDataCheck = info.AdditionalDataCheck(context);
@@ -176,7 +176,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var view = new SpecificFailureMechanismView(failureMechanism, assessmentSection);
 
-            var context = new SpecificFailurePathContext(new SpecificFailureMechanism(), otherAssessmentSection);
+            var context = new SpecificFailureMechanismContext(new SpecificFailureMechanism(), otherAssessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, context);
@@ -194,7 +194,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var view = new SpecificFailureMechanismView(failureMechanism, assessmentSection);
 
-            var context = new SpecificFailurePathContext(failureMechanism, assessmentSection);
+            var context = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, context);

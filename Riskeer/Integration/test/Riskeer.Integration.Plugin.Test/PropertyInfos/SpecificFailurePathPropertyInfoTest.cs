@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(SpecificFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(SpecificFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(SpecificFailurePathProperties), info.PropertyObjectType);
         }
 
@@ -66,15 +66,15 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailureMechanism();
-            var context = new SpecificFailurePathContext(failurePath, assessmentSection);
+            var failureMechanism = new SpecificFailureMechanism();
+            var context = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
             Assert.IsInstanceOf<SpecificFailurePathProperties>(objectProperties);
-            Assert.AreSame(failurePath, objectProperties.Data);
+            Assert.AreSame(failureMechanism, objectProperties.Data);
             mocks.VerifyAll();
         }
     }
