@@ -41,7 +41,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Call
             void Call() => new ExportableFailureMechanism(
                 null, Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>(),
-                random.NextEnumValue<ExportableFailureMechanismType>(), string.Empty);
+                random.NextEnumValue<ExportableFailureMechanismType>(), string.Empty, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -57,7 +57,8 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Call
             void Call() => new ExportableFailureMechanism(
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult(),
-                null, random.NextEnumValue<ExportableFailureMechanismType>(), string.Empty);
+                null, random.NextEnumValue<ExportableFailureMechanismType>(),
+                string.Empty, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -69,23 +70,25 @@ namespace Riskeer.Integration.IO.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            
+
             ExportableFailureMechanismAssemblyResult failureMechanismAssembly =
                 ExportableFailureMechanismAssemblyResultTestFactory.CreateResult();
             IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> sectionAssemblyResults =
                 Enumerable.Empty<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>();
             var failureMechanismType = random.NextEnumValue<ExportableFailureMechanismType>();
             const string code = "code";
+            const string name = "name";
 
             // Call
             var failureMechanism = new ExportableFailureMechanism(
-                failureMechanismAssembly, sectionAssemblyResults, failureMechanismType, code);
+                failureMechanismAssembly, sectionAssemblyResults, failureMechanismType, code, name);
 
             // Assert
             Assert.AreSame(failureMechanismAssembly, failureMechanism.FailureMechanismAssembly);
             Assert.AreSame(sectionAssemblyResults, failureMechanism.SectionAssemblyResults);
             Assert.AreEqual(failureMechanismType, failureMechanism.FailureMechanismType);
             Assert.AreEqual(code, failureMechanism.Code);
+            Assert.AreEqual(name, failureMechanism.Name);
         }
     }
 }
