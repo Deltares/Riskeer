@@ -35,14 +35,14 @@ namespace Riskeer.Integration.Forms.Test.Merge
     public class FailureMechanismMergeDataRowTest
     {
         [Test]
-        public void Constructor_FailurePathNull_ThrowsArgumentNullException()
+        public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => new FailureMechanismMergeDataRow(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failurePath", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
@@ -84,12 +84,12 @@ namespace Riskeer.Integration.Forms.Test.Merge
                                                                               random.Next(1, 10));
 
             var mocks = new MockRepository();
-            var failurePath = mocks.Stub<IFailureMechanism>();
-            failurePath.Stub(fm => fm.Sections).Return(sections);
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            failureMechanism.Stub(fm => fm.Sections).Return(sections);
             mocks.ReplayAll();
 
             // Call
-            var row = new FailureMechanismMergeDataRow(failurePath);
+            var row = new FailureMechanismMergeDataRow(failureMechanism);
 
             // Assert
             Assert.IsTrue(row.HasSections);
