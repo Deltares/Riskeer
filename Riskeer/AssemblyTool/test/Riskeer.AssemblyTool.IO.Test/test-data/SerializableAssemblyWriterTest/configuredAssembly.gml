@@ -78,7 +78,7 @@
       <asm:analyseDeelvak>
         <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
         <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
-        <asm:specifiekFaalmechanisme>NIEUW</asm:specifiekFaalmechanisme>
+        <asm:specifiekFaalmechanisme>Specifiek</asm:specifiekFaalmechanisme>
         <asm:duidingsklasse>0</asm:duidingsklasse>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseDeelvak>
