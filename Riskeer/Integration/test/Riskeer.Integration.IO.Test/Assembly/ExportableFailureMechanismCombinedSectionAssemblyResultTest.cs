@@ -38,7 +38,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
 
             // Call
             void Call() => new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                null, random.NextEnumValue<ExportableFailureMechanismType>(), string.Empty);
+                null, random.NextEnumValue<ExportableFailureMechanismType>(), string.Empty, string.Empty);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -50,6 +50,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
         {
             // Setup
             const string code = "code";
+            const string name = "name";
             var random = new Random(21);
             var combinedSectionAssembly = new ExportableFailureMechanismSubSectionAssemblyResult(
                 random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(), random.NextEnumValue<ExportableAssemblyMethod>());
@@ -57,12 +58,13 @@ namespace Riskeer.Integration.IO.Test.Assembly
 
             // Call
             var assemblyResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                combinedSectionAssembly, failureMechanismType, code);
+                combinedSectionAssembly, failureMechanismType, code, name);
 
             // Assert
             Assert.AreSame(combinedSectionAssembly, assemblyResult.SectionAssemblyResult);
             Assert.AreEqual(failureMechanismType, assemblyResult.FailureMechanismType);
             Assert.AreEqual(code, assemblyResult.Code);
+            Assert.AreEqual(name, assemblyResult.Name);
         }
     }
 }
