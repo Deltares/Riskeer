@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -826,20 +826,20 @@ namespace Riskeer.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to NIEUW.
+        /// </summary>
+        public static string SpecificFailureMechanism_DefaultCode {
+            get {
+                return ResourceManager.GetString("SpecificFailureMechanism_DefaultCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieuw faalmechanisme.
         /// </summary>
         public static string SpecificFailureMechanism_DefaultName {
             get {
                 return ResourceManager.GetString("SpecificFailureMechanism_DefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NIEUW.
-        /// </summary>
-        public static string SpecificFailurePath_DefaultCode {
-            get {
-                return ResourceManager.GetString("SpecificFailurePath_DefaultCode", resourceCulture);
             }
         }
         

@@ -405,7 +405,7 @@
   <data name="SpecificFailureMechanism_DefaultName" xml:space="preserve">
     <value>Nieuw faalmechanisme</value>
   </data>
-  <data name="SpecificFailurePath_DefaultCode" xml:space="preserve">
+  <data name="SpecificFailureMechanism_DefaultCode" xml:space="preserve">
     <value>NIEUW</value>
   </data>
 </root>
