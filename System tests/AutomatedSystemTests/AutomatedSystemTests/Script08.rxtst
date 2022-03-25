@@ -71,26 +71,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			id="035a45d0-ebd4-491c-9dd1-bcd955689ee9"
-			name="ValidateContributionOfFMInProjectExplorer"
-			ref="502bc375-64a0-4290-aa3d-5d8fa8819d35"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="contribution"
-					datasourceid="b7a8dc2f-f0d7-4272-afb7-f787ef640a2f"
-					variableid="e05a5c02-06a1-4745-8d56-f32ce5980414"
-					variablename="expectedContributionPE">
-					</var>
-					<var
-					dataname="fmName"
-					datasourceid="b7a8dc2f-f0d7-4272-afb7-f787ef640a2f"
-					variableid="3a7276c1-fca1-4026-9d2e-5bac10651a47"
-					variablename="substringFMName">
-					</var>
-				</databinding>
-			</testmodule>
-			<testmodule
 			id="03b878e4-1ad5-4ea7-b1f3-d7ec1515de1e"
 			name="GetValueParameterForItemInTraject"
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
@@ -714,12 +694,6 @@
 				</parameters>
 			</smartfoldernode>
 			<testmodule
-			id="472d62c1-cf6e-45e6-b814-215cfa0adc59"
-			name="CloseViewCentralPanelWithFocus"
-			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
-			type="Recording">
-			</testmodule>
-			<testmodule
 			id="474acefb-a61d-4c72-98f9-3683e33dffa3"
 			name="ValidateParameterDoesNotExistForItemInTraject"
 			ref="76b79b85-92aa-460c-b126-3cc5de9d5f07"
@@ -1132,22 +1106,8 @@
 			name="SetN">
 			</smartfoldernode>
 			<smartfoldernode
-			id="5b137145-6eda-48d5-a9ff-43ed887b7674"
-			name="SetStateRA">
-				<parameters>
-					<param
-					name="StateToSelect"
-					value="@RA">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
 			id="5b570fe7-4ac1-497e-bd4c-b7f997e9ee8b"
 			name="ValidateNewValue">
-			</smartfoldernode>
-			<smartfoldernode
-			id="5e014e82-4d1b-4476-b7c5-87e11105ee75"
-			name="OpenViewCategoryClasses">
 			</smartfoldernode>
 			<testmodule
 			id="63483576-888f-4739-b375-5ed22953f933"
@@ -1279,6 +1239,16 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
+			<smartfoldernode
+			id="71111e7d-4681-4c61-914f-88f0063c31de"
+			name="SelectStateTraject">
+				<parameters>
+					<param
+					name="stateWithCalculations"
+					value="@TR">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			datasource="tableFMsNValue"
 			errorbehavior="ContinueNextIteration"
@@ -1634,28 +1604,6 @@
 			name="b)LengthEffectParameters">
 			</smartfoldernode>
 			<testmodule
-			id="80ec3043-34c3-4136-96ce-17c7339f2655"
-			name="SelectState"
-			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="StateToSelect"
-					datasourceid="5b137145-6eda-48d5-a9ff-43ed887b7674"
-					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
-					variablename="stateName">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="stateName"
-					datasourceid="0c299d5c-b55a-4bbe-80f5-fd724806cc52"
-					variableid="dd230550-3763-4882-aad6-2c842903d448"
-					variablename="StateToSelect">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
 			id="81a7521a-fd06-4e60-a3e5-d53488cff505"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -1789,72 +1737,6 @@
 			id="87031ad4-6dc3-41aa-99c4-73d1ff3b1993"
 			name="SetBackToOriginalValue">
 			</smartfoldernode>
-			<testmodule
-			id="8aacac3e-1dfe-4f55-b1b3-a71ab292399a"
-			name="ValidateProbabilitySpaceInFailureMechanismContributionView"
-			ref="bbbbf5bf-dfd4-4308-9cd1-53e977ec87f1"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="signallingValue"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="c1f6a6e7-a412-48c1-88a7-9969552442cf"
-					variablename="signallingValueVar">
-					</var>
-					<var
-					dataname="lowLimitValue"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="d45edc98-38df-45d4-baee-7910ebf746ec"
-					variablename="lowLimitValueVar">
-					</var>
-					<var
-					dataname="labelFM"
-					datasourceid="a935893b-4673-417b-a3b6-eedd191ca5d9"
-					variableid="7cc22a20-a5dd-4037-8ffb-9bca9a82e6ae"
-					variablename="fmLabel">
-					</var>
-					<var
-					dataname="contribution"
-					datasourceid="a935893b-4673-417b-a3b6-eedd191ca5d9"
-					variableid="89b0cb78-8dc2-46b2-a3e4-6295a3181948"
-					variablename="contributionValue">
-					</var>
-					<var
-					dataname="probabilitySpaceForZeroContribution"
-					datasourceid="955eb10b-59ab-43b5-8fe4-fd5dfac15588"
-					variableid="9b94e552-ef8b-4b1f-b14a-b179b6f3403f"
-					variablename="probSpaceForZeroContribution">
-					</var>
-					<var
-					dataname="normType"
-					datasourceid="4931d1c5-6f9b-42a2-85ab-b355c5f9f0e4"
-					variableid="062b1503-100f-4586-a386-93ef730cd7ef"
-					variablename="normTypeVar">
-					</var>
-				</databinding>
-				<missingdatabinding>
-					<var
-					dataname="normType"
-					datasourceid="d9d678b3-6afe-4095-b6b6-3ce733e4f829"
-					variableid="062b1503-100f-4586-a386-93ef730cd7ef"
-					variablename="normTypeVar">
-					</var>
-				</missingdatabinding>
-			</testmodule>
-			<testmodule
-			id="8bbaf50d-7ae4-4d7a-8d06-123c939f39dd"
-			name="SetRangeInTableForPEBasedOnTrajectType"
-			ref="3a6da0ca-5c45-4932-a886-7c30d0e62630"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="trajectType"
-					datasourceid="35053357-b9f5-45fe-8657-c49a72276bbd"
-					variableid="ef7281c2-8cbd-4b30-8007-ee513bb16330"
-					variablename="trajectType">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="8fad36d8-cd16-490f-8f6b-433eb407eee3"
 			name="ValidateValueParameterForItemInTraject"
@@ -1999,21 +1881,6 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			datasource="contributionsFMsTypeDijkFMCView"
-			id="955eb10b-59ab-43b5-8fe4-fd5dfac15588"
-			name="ValidateContributionsOfAllFMsinFMCViewTrajectTypeDijk">
-				<parameters>
-					<param
-					name="probabilitySpaceForZeroContribution"
-					value="n.v.t">
-					</param>
-				</parameters>
-			</smartfoldernode>
-			<smartfoldernode
-			id="963c282c-c528-443b-82d8-14e9d5e98bdc"
-			name="ControlFailureMechanismContributions">
-			</smartfoldernode>
 			<testmodule
 			id="9bf37e0c-947c-4f86-90cd-f6ceef6ba7bd"
 			name="GetValueParameterForItemInTraject"
@@ -2077,46 +1944,6 @@
 					datasourceid="71c7456e-a188-4d98-98c2-89d17065c55b"
 					variableid="ac108b35-e8c3-4c50-8517-867ecd23a44d"
 					variablename="convertedValue">
-					</var>
-				</databinding>
-			</testmodule>
-			<smartfoldernode
-			datasource="contributionsFMsInProjectExplorerVisibleInPropertiesPanel"
-			id="9e2f1291-5db4-44e8-b110-68f8da0c987e"
-			name="ValidateContributionsOfAllFMsInProjectExplorer">
-				<conditiongroup
-				comparison="AND"
-				enabled="True">
-					<condition
-					comparison="IsNotEqual">
-						<leftvalue>
-							<datavaluesource>
-								<databinding
-								bindingtype="DataConnector"
-								dataname="contribution"
-								id="b7a8dc2f-f0d7-4272-afb7-f787ef640a2f">
-								</databinding>
-							</datavaluesource>
-						</leftvalue>
-						<rightvalue>
-							<simplevaluesource
-							value="0">
-							</simplevaluesource>
-						</rightvalue>
-					</condition>
-				</conditiongroup>
-			</smartfoldernode>
-			<testmodule
-			id="a103d806-76cc-48a1-a797-1bac4e909c7a"
-			name="SetRangeInTableForFMCViewBasedOnTrajectType"
-			ref="a23d7db6-2e34-49a1-8c66-009718c79641"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="trajectType"
-					datasourceid="35053357-b9f5-45fe-8657-c49a72276bbd"
-					variableid="8c022444-0274-44a3-939f-061f44706b2f"
-					variablename="trajectType">
 					</var>
 				</databinding>
 			</testmodule>
@@ -2415,18 +2242,26 @@
 				</parameters>
 			</testcase>
 			<testmodule
-			id="b68ea2f5-2c0f-4422-9bee-5fcf4b5f1317"
-			name="SelectTrajectType"
-			ref="f3cd18f8-b687-4886-b040-fc89f784d832"
+			id="b9cfc135-0d45-450f-ae34-b91cc213f873"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
 			type="Recording">
 				<databinding>
 					<var
-					dataname="trajectType"
-					datasourceid="35053357-b9f5-45fe-8657-c49a72276bbd"
-					variableid="7e8f3140-795e-40f1-a611-9c126ff7de4f"
-					variablename="trajectType">
+					dataname="stateWithCalculations"
+					datasourceid="71111e7d-4681-4c61-914f-88f0063c31de"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="StateWithCalculations"
+					datasourceid="e9f97e7e-0679-44f7-91f3-fdc9ab5754bc"
+					variableid="dd230550-3763-4882-aad6-2c842903d448"
+					variablename="StateToSelect">
+					</var>
+				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="baadb165-b61c-4de8-af1f-30465183b113"
@@ -2476,7 +2311,7 @@
 			</testmodule>
 			<smartfoldernode
 			id="be32de9f-ad56-4116-a647-11fe4090a876"
-			name="ValidateBoundaries">
+			name="ValidateCategoriesBoundaries">
 				<parameters>
 					<param
 					name="numberOfPassesExpandingRows"
@@ -2488,26 +2323,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="befb1777-959e-4c0a-a759-c2b5be589d03"
-			name="ValidateContributionInFailureMechanismContributionView"
-			ref="4a63a2c8-7cac-4869-96dc-543747d8c4c7"
-			type="Recording">
-				<databinding>
-					<var
-					dataname="labelFM"
-					datasourceid="a935893b-4673-417b-a3b6-eedd191ca5d9"
-					variableid="7cc22a20-a5dd-4037-8ffb-9bca9a82e6ae"
-					variablename="fmLabel">
-					</var>
-					<var
-					dataname="contribution"
-					datasourceid="a935893b-4673-417b-a3b6-eedd191ca5d9"
-					variableid="4a6b7212-c461-4d6c-895c-d6e646118872"
-					variablename="contributionValue">
-					</var>
-				</databinding>
-			</testmodule>
 			<testmodule
 			id="bfdd880f-a8d8-42b9-b2af-b7e60be27351"
 			name="SelectState"
@@ -2543,20 +2358,6 @@
 					variablename="CloseAutProcessIDVar">
 					</var>
 				</databinding>
-			</testmodule>
-			<testmodule
-			id="ce5d74b9-8155-414e-b80c-3960b1a6a22a"
-			name="OpenViewForFailureMechanismContribution"
-			ref="5e81345e-66bc-4e08-8ade-03d386d824fd"
-			type="Recording">
-				<missingdatabinding>
-					<var
-					dataname="substringInTrajectName"
-					datasourceid="9339f92a-867d-4e0d-b2a5-1fe03f3fc82a"
-					variableid="77ae6c27-603e-4704-add9-e1249169f0e5"
-					variablename="substringTrajectName">
-					</var>
-				</missingdatabinding>
 			</testmodule>
 			<testmodule
 			id="d17abbd7-9d75-42a8-9007-f8c5ee610999"
@@ -2722,10 +2523,12 @@
 					</var>
 				</missingdatabinding>
 			</testmodule>
-			<smartfoldernode
-			id="d9d678b3-6afe-4095-b6b6-3ce733e4f829"
-			name="a)_Classes_Failure_probability_space">
-			</smartfoldernode>
+			<testmodule
+			id="dcdc9001-a1b0-4392-ac79-d7f64813cf66"
+			name="GetValueParameterInPropertiesPanelGivenPath"
+			ref="c77b1704-aea4-41db-90c0-a00bacb9cffc"
+			type="UserCode">
+			</testmodule>
 			<testmodule
 			id="de5206b0-5aed-4c3f-ae4b-e1bf40ef4e8e"
 			name="CalculateNFormula2"
@@ -2753,15 +2556,8 @@
 				</databinding>
 			</testmodule>
 			<smartfoldernode
-			datasource="possibleTrajectTypes"
-			id="decf6d51-913b-4b0a-8db7-10569a6612b6"
-			maxrange="2"
-			minrange="2"
-			name="SelectTrajectType">
-			</smartfoldernode>
-			<smartfoldernode
 			id="e0aed3bf-cb32-48bb-aa9f-ebcce37cbe0b"
-			name="ValidateBoundaries">
+			name="ValidateCategoriesBoundaries">
 				<parameters>
 					<param
 					name="numberOfPassesExpandingRows"
@@ -2840,6 +2636,13 @@
 			name="teardown">
 			</teardown>
 			<testmodule
+			id="ead7501b-3fdf-4b05-9b09-0d1943df0961"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+			</testmodule>
+			<testmodule
+			enabled="False"
 			id="edad3c70-d3ca-4718-9caa-17500b961766"
 			name="GetValueParameterForItemInTraject"
 			ref="3b08b464-43f7-4e4b-9c47-143e9b31807c"
@@ -2962,7 +2765,7 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="e0aed3bf-cb32-48bb-aa9f-ebcce37cbe0b"
-							name="ValidateBoundaries">
+							name="ValidateCategoriesBoundaries">
 								<testmodule
 								id="27ede540-64bc-410c-8a13-e4ee063f541e"
 								name="CreateScreenshotDocumentView">
@@ -3046,7 +2849,7 @@
 							</smartfoldernode>
 							<smartfoldernode
 							id="be32de9f-ad56-4116-a647-11fe4090a876"
-							name="ValidateBoundaries">
+							name="ValidateCategoriesBoundaries">
 								<testmodule
 								id="4d0d5f9e-9af7-45f2-8147-ef7480721d7d"
 								name="CreateScreenshotDocumentView">
@@ -3070,81 +2873,33 @@
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
-						id="d9d678b3-6afe-4095-b6b6-3ce733e4f829"
-						name="a)_Classes_Failure_probability_space">
-							<smartfoldernode
-							id="5e014e82-4d1b-4476-b7c5-87e11105ee75"
-							name="OpenViewCategoryClasses">
-								<smartfoldernode
-								id="5b137145-6eda-48d5-a9ff-43ed887b7674"
-								name="SetStateRA">
-									<testmodule
-									id="80ec3043-34c3-4136-96ce-17c7339f2655"
-									name="SelectState">
-									</testmodule>
-								</smartfoldernode>
-							</smartfoldernode>
-							<smartfoldernode
-							id="963c282c-c528-443b-82d8-14e9d5e98bdc"
-							name="ControlFailureMechanismContributions">
-								<testmodule
-								id="ce5d74b9-8155-414e-b80c-3960b1a6a22a"
-								name="OpenViewForFailureMechanismContribution">
-								</testmodule>
-								<smartfoldernode
-								id="decf6d51-913b-4b0a-8db7-10569a6612b6"
-								name="SelectTrajectType">
-									<testmodule
-									id="b68ea2f5-2c0f-4422-9bee-5fcf4b5f1317"
-									name="SelectTrajectType">
-									</testmodule>
-									<testmodule
-									id="a103d806-76cc-48a1-a797-1bac4e909c7a"
-									name="SetRangeInTableForFMCViewBasedOnTrajectType">
-									</testmodule>
-									<smartfoldernode
-									id="955eb10b-59ab-43b5-8fe4-fd5dfac15588"
-									name="ValidateContributionsOfAllFMsinFMCViewTrajectTypeDijk">
-										<testmodule
-										id="befb1777-959e-4c0a-a759-c2b5be589d03"
-										name="ValidateContributionInFailureMechanismContributionView">
-										</testmodule>
-										<testmodule
-										id="8aacac3e-1dfe-4f55-b1b3-a71ab292399a"
-										name="ValidateProbabilitySpaceInFailureMechanismContributionView">
-										</testmodule>
-									</smartfoldernode>
-									<testmodule
-									id="8bbaf50d-7ae4-4d7a-8d06-123c939f39dd"
-									name="SetRangeInTableForPEBasedOnTrajectType">
-									</testmodule>
-									<smartfoldernode
-									id="9e2f1291-5db4-44e8-b110-68f8da0c987e"
-									name="ValidateContributionsOfAllFMsInProjectExplorer">
-										<testmodule
-										id="035a45d0-ebd4-491c-9dd1-bcd955689ee9"
-										name="ValidateContributionOfFMInProjectExplorer">
-										</testmodule>
-									</smartfoldernode>
-								</smartfoldernode>
-							</smartfoldernode>
-							<testmodule
-							id="472d62c1-cf6e-45e6-b814-215cfa0adc59"
-							name="CloseViewCentralPanelWithFocus">
-							</testmodule>
-						</smartfoldernode>
-						<smartfoldernode
 						id="80ae3228-cd3d-4667-9f3d-ca2618fc9db3"
 						name="b)LengthEffectParameters">
 							<smartfoldernode
 							id="63c12419-02aa-4ec0-a910-4ad1214f588a"
 							name="LengthEffects(trajectType=Dijk/Duin)">
 								<smartfoldernode
+								id="71111e7d-4681-4c61-914f-88f0063c31de"
+								name="SelectStateTraject">
+									<testmodule
+									id="b9cfc135-0d45-450f-ae34-b91cc213f873"
+									name="SelectState">
+									</testmodule>
+								</smartfoldernode>
+								<smartfoldernode
 								id="65699a3b-a6bc-4727-bd0e-f832127575ce"
 								name="ReadTrajectLength">
 									<testmodule
 									id="edad3c70-d3ca-4718-9caa-17500b961766"
 									name="GetValueParameterForItemInTraject">
+									</testmodule>
+									<testmodule
+									id="ead7501b-3fdf-4b05-9b09-0d1943df0961"
+									name="SelectGenericItemInProjectExplorer">
+									</testmodule>
+									<testmodule
+									id="dcdc9001-a1b0-4392-ac79-d7f64813cf66"
+									name="GetValueParameterInPropertiesPanelGivenPath">
 									</testmodule>
 								</smartfoldernode>
 								<smartfoldernode
@@ -4698,7 +4453,7 @@
 		</DataSource>
 		<DataSource
 		id="6d42c555-b56d-4896-8200-5e6619488fd5"
-		lastknownrowcount="4"
+		lastknownrowcount="3"
 		name="tableFMsToValidateTrajectLength"
 		type="Ranorex.Core.Data.SimpleDataConnector">
 			<lastknowncolumns>
@@ -4716,22 +4471,17 @@
 				</tr>
 				<tr>
 					<td>
-						Dijken en dammen - Piping
+						Piping
 					</td>
 				</tr>
 				<tr>
 					<td>
-						Dijken en dammen - Macrostabiliteit binnenwaarts
+						Macrostabiliteit binnenwaarts
 					</td>
 				</tr>
 				<tr>
 					<td>
-						Dijken en dammen - Macrostabiliteit buitenwaarts
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Dijken en dammen - Golfklappen op asfaltbekleding
+						Golfklappen op asfaltbekleding
 					</td>
 				</tr>
 			</table>
@@ -4980,6 +4730,18 @@
 			id="4f1d6611-54b5-4e83-b1c2-c5adc3d5cd75">
 			</testcontainer>
 			<testcontainer
+			id="63c12419-02aa-4ec0-a910-4ad1214f588a">
+			</testcontainer>
+			<testcontainer
+			id="65699a3b-a6bc-4727-bd0e-f832127575ce">
+			</testcontainer>
+			<testcontainer
+			id="71111e7d-4681-4c61-914f-88f0063c31de">
+			</testcontainer>
+			<testcontainer
+			id="80ae3228-cd3d-4667-9f3d-ca2618fc9db3">
+			</testcontainer>
+			<testcontainer
 			id="86c8096d-7d7e-4ae7-b9e4-e82d534474d2">
 			</testcontainer>
 			<testcontainer
@@ -5011,6 +4773,9 @@
 			</testcontainer>
 			<testcontainer
 			id="e6e502fd-4733-4082-8ec1-086a639a6c1d">
+			</testcontainer>
+			<testcontainer
+			id="fcb08619-a998-4b9f-a9d9-3947e75b0ca3">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
