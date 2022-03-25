@@ -44,12 +44,13 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <param name="id">The unique assembly ID.</param>
         /// <param name="failureMechanismType">The type of the failure mechanism.</param>
         /// <param name="code">The code of the failure mechanism.</param>
+        /// <param name="name">The name of the failure mechanism.</param>
         /// <param name="totalAssemblyResult">The total assembly result the failure mechanism belongs to.</param>
         /// <param name="failureMechanismAssemblyResult">The total failure mechanism assembly result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public SerializableFailureMechanism(string id, SerializableFailureMechanismType failureMechanismType, string code,
-                                            SerializableTotalAssemblyResult totalAssemblyResult,
+                                            string name, SerializableTotalAssemblyResult totalAssemblyResult,
                                             SerializableFailureMechanismAssemblyResult failureMechanismAssemblyResult)
             : this()
         {
@@ -72,7 +73,7 @@ namespace Riskeer.AssemblyTool.IO.Model
             FailureMechanismType = failureMechanismType;
             TotalAssemblyResultId = totalAssemblyResult.Id;
             GenericFailureMechanismCode = code;
-            SpecificFailureMechanismCode = code;
+            SpecificFailureMechanismName = name;
             FailureMechanismAssemblyResult = failureMechanismAssemblyResult;
         }
 
@@ -101,10 +102,10 @@ namespace Riskeer.AssemblyTool.IO.Model
         public string GenericFailureMechanismCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the specific failure mechanism code.
+        /// Gets or sets the specific failure mechanism name.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.SpecificFailureMechanism)]
-        public string SpecificFailureMechanismCode { get; set; }
+        public string SpecificFailureMechanismName { get; set; }
 
         /// <summary>
         /// Gets or sets the total failure mechanism assembly result.
@@ -123,11 +124,11 @@ namespace Riskeer.AssemblyTool.IO.Model
         }
 
         /// <summary>
-        /// Determines whether <see cref="SpecificFailureMechanismCode"/> should be serialized.
+        /// Determines whether <see cref="SpecificFailureMechanismName"/> should be serialized.
         /// </summary>
         /// <returns><c>true</c> if <see cref="FailureMechanismType"/> is <see cref="SerializableFailureMechanismType.Specific"/>;
         /// <c>false</c> otherwise.</returns>
-        public bool ShouldSerializeSpecificFailureMechanismCode()
+        public bool ShouldSerializeSpecificFailureMechanismName()
         {
             return FailureMechanismType == SerializableFailureMechanismType.Specific;
         }
