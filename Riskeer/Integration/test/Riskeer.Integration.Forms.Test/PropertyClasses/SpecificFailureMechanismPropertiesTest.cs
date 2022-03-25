@@ -35,7 +35,7 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class SpecificFailurePathPropertiesTest
+    public class SpecificFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new SpecificFailurePathProperties(null);
+            void Call() => new SpecificFailureMechanismProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -59,7 +59,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(21);
-            var failurePath = new SpecificFailureMechanism
+            var failureMechanism = new SpecificFailureMechanism
             {
                 InAssembly = random.NextBoolean(),
                 GeneralInput =
@@ -69,15 +69,15 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new SpecificFailurePathProperties(failurePath);
+            var properties = new SpecificFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<SpecificFailureMechanism>>(properties);
-            Assert.AreEqual(failurePath.Name, properties.Name);
-            Assert.AreEqual(failurePath.Code, properties.Code);
-            Assert.AreEqual(failurePath.InAssembly, properties.InAssembly);
+            Assert.AreEqual(failureMechanism.Name, properties.Name);
+            Assert.AreEqual(failureMechanism.Code, properties.Code);
+            Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
 
-            GeneralInput input = failurePath.GeneralInput;
+            GeneralInput input = failureMechanism.GeneralInput;
             Assert.AreEqual(2, properties.N.NumberOfDecimalPlaces);
             Assert.AreEqual(input.N, properties.N, properties.N.GetAccuracy());
             Assert.AreEqual(input.ApplyLengthEffectInSection, properties.ApplyLengthEffectInSection);
@@ -87,13 +87,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_InAssemblyTrue_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var failurePath = new SpecificFailureMechanism
+            var failureMechanism = new SpecificFailureMechanism
             {
                 InAssembly = true
             };
 
             // Call
-            var properties = new SpecificFailurePathProperties(failurePath);
+            var properties = new SpecificFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -138,13 +138,13 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void Constructor_InAssemblyFalse_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
-            var failurePath = new SpecificFailureMechanism
+            var failureMechanism = new SpecificFailureMechanism
             {
                 InAssembly = false
             };
 
             // Call
-            var properties = new SpecificFailurePathProperties(failurePath);
+            var properties = new SpecificFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -183,15 +183,15 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             var random = new Random(21);
-            var failurePath = new SpecificFailureMechanism
+            var failureMechanism = new SpecificFailureMechanism
             {
                 InAssembly = random.NextBoolean()
             };
 
             // Call
-            var properties = new SpecificFailurePathProperties(failurePath);
+            var properties = new SpecificFailureMechanismProperties(failureMechanism);
 
-            failurePath.Attach(projectObserver);
+            failureMechanism.Attach(projectObserver);
 
             // Call
             const string newName = "Some new cool pretty name";
@@ -202,10 +202,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             properties.N = newN;
 
             // Assert
-            Assert.AreEqual(newName, failurePath.Name);
-            Assert.AreEqual(newCode, failurePath.Code);
+            Assert.AreEqual(newName, failureMechanism.Name);
+            Assert.AreEqual(newCode, failureMechanism.Code);
 
-            GeneralInput input = failurePath.GeneralInput;
+            GeneralInput input = failureMechanism.GeneralInput;
             Assert.AreEqual(newN, input.N, input.N.GetAccuracy());
 
             mocks.VerifyAll();
@@ -223,10 +223,10 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var observer = mocks.StrictMock<IObserver>();
             mocks.ReplayAll();
 
-            var failurePath = new SpecificFailureMechanism();
-            failurePath.Attach(observer);
+            var failureMechanism = new SpecificFailureMechanism();
+            failureMechanism.Attach(observer);
 
-            var properties = new SpecificFailurePathProperties(failurePath);
+            var properties = new SpecificFailureMechanismProperties(failureMechanism);
 
             // Call
             void Call() => properties.N = (RoundedDouble) newN;
@@ -250,7 +250,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var failureMechanism = new SpecificFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new SpecificFailurePathProperties(failureMechanism);
+            var properties = new SpecificFailureMechanismProperties(failureMechanism);
 
             // Call
             properties.ApplyLengthEffectInSection = true;
@@ -266,11 +266,11 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         public void DynamicVisibleValidationMethod_DependingOnInAssembly_ReturnExpectedVisibility(bool inAssembly)
         {
             // Setup
-            var failurePath = new SpecificFailureMechanism
+            var failureMechanism = new SpecificFailureMechanism
             {
                 InAssembly = inAssembly
             };
-            var properties = new SpecificFailurePathProperties(failurePath);
+            var properties = new SpecificFailureMechanismProperties(failureMechanism);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));

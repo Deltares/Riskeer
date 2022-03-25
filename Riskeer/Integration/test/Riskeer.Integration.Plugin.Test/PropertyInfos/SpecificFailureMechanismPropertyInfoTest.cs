@@ -32,7 +32,7 @@ using Riskeer.Integration.Forms.PropertyClasses;
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class SpecificFailurePathPropertyInfoTest
+    public class SpecificFailureMechanismPropertyInfoTest
     {
         private RiskeerPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(SpecificFailurePathProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(SpecificFailureMechanismProperties));
         }
 
         [TearDown]
@@ -55,11 +55,11 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(SpecificFailureMechanismContext), info.DataType);
-            Assert.AreEqual(typeof(SpecificFailurePathProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(SpecificFailureMechanismProperties), info.PropertyObjectType);
         }
 
         [Test]
-        public void CreateInstance_WithContext_SetsFailurePathAsData()
+        public void CreateInstance_WithContext_SetsFailureMechanismAsData()
         {
             // Setup
             var mocks = new MockRepository();
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<SpecificFailurePathProperties>(objectProperties);
+            Assert.IsInstanceOf<SpecificFailureMechanismProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
             mocks.VerifyAll();
         }

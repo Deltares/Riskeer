@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -532,24 +532,6 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string FailureMechanismSectionAssemblyGroups_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionAssemblyGroups_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het label van het faalmechanisme..
-        /// </summary>
-        public static string FailurePath_Code_Description {
-            get {
-                return ResourceManager.GetString("FailurePath_Code_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De naam van het faalmechanisme..
-        /// </summary>
-        public static string FailurePath_Name_Description {
-            get {
-                return ResourceManager.GetString("FailurePath_Name_Description", resourceCulture);
             }
         }
         

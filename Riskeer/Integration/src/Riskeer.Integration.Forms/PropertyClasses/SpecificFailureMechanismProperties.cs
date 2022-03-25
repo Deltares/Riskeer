@@ -25,7 +25,6 @@ using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Integration.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses
@@ -33,7 +32,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// <summary>
     /// Object properties class for <see cref="SpecificFailureMechanism"/>.
     /// </summary>
-    public class SpecificFailurePathProperties : ObjectProperties<SpecificFailureMechanism>
+    public class SpecificFailureMechanismProperties : ObjectProperties<SpecificFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -42,11 +41,11 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         private const int applyLengthEffectInSectionPropertyIndex = 5;
 
         /// <summary>
-        /// Creates a new instance of <see cref="SpecificFailurePathProperties"/>.
+        /// Creates a new instance of <see cref="SpecificFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public SpecificFailurePathProperties(SpecificFailureMechanism data)
+        public SpecificFailureMechanismProperties(SpecificFailureMechanism data)
         {
             if (data == null)
             {
@@ -59,10 +58,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
         {
-            return data.InAssembly || !ShouldHidePropertyWhenFailurePathNotPartOfAssembly(propertyName);
+            return data.InAssembly || !ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(propertyName);
         }
 
-        private static bool ShouldHidePropertyWhenFailurePathNotPartOfAssembly(string propertyName)
+        private static bool ShouldHidePropertyWhenFailureMechanismNotPartOfAssembly(string propertyName)
         {
             return nameof(N).Equals(propertyName)
                    || nameof(ApplyLengthEffectInSection).Equals(propertyName);
@@ -73,7 +72,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.FailurePath_Name_Description))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Name_Description))]
         public string Name
         {
             get
@@ -90,7 +89,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [PropertyOrder(codePropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.FailurePath_Code_Description))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailureMechanism_Code_Description))]
         public string Code
         {
             get
