@@ -282,11 +282,11 @@ namespace Riskeer.AssemblyTool.IO.Test
                     SerializableAssemblyMethod.WBI2B1, SerializableAssessmentSectionAssemblyGroup.B, 0.00068354));
 
             var failureMechanism = new SerializableFailureMechanism(
-                "toetsspoorGABI", SerializableFailureMechanismType.Generic, "GABI", totalAssemblyResult,
+                "toetsspoorGABI", SerializableFailureMechanismType.Generic, "GABI", "Faalmechanisme GABI", totalAssemblyResult,
                 new SerializableFailureMechanismAssemblyResult(0.08419, false));
 
             var specificFailureMechanism = new SerializableFailureMechanism(
-                "specifiekFaalmechanisme", SerializableFailureMechanismType.Specific, "NIEUW", totalAssemblyResult,
+                "specifiekFaalmechanisme", SerializableFailureMechanismType.Specific, "NIEUW", "Specifiek faalmechanisme", totalAssemblyResult,
                 new SerializableFailureMechanismAssemblyResult(0.002834, false));
 
             var sections1 = new SerializableFailureMechanismSectionCollection("vakindelingGABI");

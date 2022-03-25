@@ -119,7 +119,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             var random = new Random(39);
             var failureMechanism = new SerializableFailureMechanism(
                 "failureMechanismID", random.NextEnumValue<SerializableFailureMechanismType>(),
-                "code", new SerializableTotalAssemblyResult(), new SerializableFailureMechanismAssemblyResult());
+                "code", "name", new SerializableTotalAssemblyResult(), new SerializableFailureMechanismAssemblyResult());
             var section = new SerializableFailureMechanismSection("sectionID",
                                                                   new SerializableFailureMechanismSectionCollection(),
                                                                   random.NextDouble(),
