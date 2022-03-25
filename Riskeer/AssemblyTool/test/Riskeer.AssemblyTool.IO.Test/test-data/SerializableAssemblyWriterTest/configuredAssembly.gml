@@ -40,7 +40,7 @@
     </asm:Faalmechanisme>
     <asm:Faalmechanisme FaalmechanismeID="specifiekFaalmechanisme" VeiligheidsoordeelIDRef="veiligheidsoordeel_1">
       <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
-      <asm:specifiekFaalmechanisme>NIEUW</asm:specifiekFaalmechanisme>
+      <asm:specifiekFaalmechanisme>Specifiek faalmechanisme</asm:specifiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
         <asm:faalkans>0.002834</asm:faalkans>

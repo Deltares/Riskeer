@@ -157,7 +157,7 @@
     </asm:Faalmechanisme>
     <asm:Faalmechanisme FaalmechanismeID="Fm.14" VeiligheidsoordeelIDRef="Vo.0">
       <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
-      <asm:specifiekFaalmechanisme>NIEUW1</asm:specifiekFaalmechanisme>
+      <asm:specifiekFaalmechanisme>Specific failure mechanism 1</asm:specifiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
         <asm:faalkans>0</asm:faalkans>
@@ -166,7 +166,7 @@
     </asm:Faalmechanisme>
     <asm:Faalmechanisme FaalmechanismeID="Fm.15" VeiligheidsoordeelIDRef="Vo.0">
       <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
-      <asm:specifiekFaalmechanisme>NIEUW2</asm:specifiekFaalmechanisme>
+      <asm:specifiekFaalmechanisme>Specific failure mechanism 2</asm:specifiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
         <asm:faalkans>0</asm:faalkans>
