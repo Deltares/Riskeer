@@ -33,7 +33,8 @@ using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
 {
-    public class ClosingStructuresFailurePathPropertiesTest
+    [TestFixture]
+    public class ClosingStructuresFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -54,7 +55,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
             };
 
             // Call
-            var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ClosingStructuresFailureMechanismPropertiesBase>(properties);
@@ -76,7 +77,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
         public void Constructor_InAssemblyTrue_PropertiesHaveExpectedAttributeValues()
         {
             // Call
-            var properties = new ClosingStructuresFailurePathProperties(new ClosingStructuresFailureMechanism());
+            var properties = new ClosingStructuresFailureMechanismProperties(new ClosingStructuresFailureMechanism());
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -142,7 +143,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
             {
                 InAssembly = false
             };
-            var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             const string generalCategory = "Algemeen";
@@ -187,7 +188,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
 
             // Call
             void Call() => properties.N2A = newN2A;
@@ -214,7 +215,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
             var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
 
             // Call
             properties.N2A = newN2A;
@@ -235,7 +236,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses.RegistrationState
             {
                 InAssembly = inAssembly
             };
-            var properties = new ClosingStructuresFailurePathProperties(failureMechanism);
+            var properties = new ClosingStructuresFailureMechanismProperties(failureMechanism);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));

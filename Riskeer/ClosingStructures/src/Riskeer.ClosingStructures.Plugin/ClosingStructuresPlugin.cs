@@ -83,9 +83,9 @@ namespace Riskeer.ClosingStructures.Plugin
             {
                 CreateInstance = context => new ClosingStructuresCalculationsProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<ClosingStructuresFailurePathContext, ClosingStructuresFailurePathProperties>
+            yield return new PropertyInfo<ClosingStructuresFailurePathContext, ClosingStructuresFailureMechanismProperties>
             {
-                CreateInstance = context => new ClosingStructuresFailurePathProperties(context.WrappedData)
+                CreateInstance = context => new ClosingStructuresFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<ClosingStructure, ClosingStructureProperties>();
             yield return new PropertyInfo<ClosingStructuresContext, StructureCollectionProperties<ClosingStructure>>

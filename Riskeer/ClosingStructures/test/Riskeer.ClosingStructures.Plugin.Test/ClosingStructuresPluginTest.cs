@@ -81,7 +81,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ClosingStructuresFailurePathContext),
-                    typeof(ClosingStructuresFailurePathProperties));
+                    typeof(ClosingStructuresFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,

@@ -30,9 +30,9 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState
 {
     /// <summary>
-    /// Failure path related ViewModel of <see cref="ClosingStructuresFailureMechanism"/> for properties panel.
+    /// Registration state related ViewModel of <see cref="ClosingStructuresFailureMechanism"/> for properties panel.
     /// </summary>
-    public class ClosingStructuresFailurePathProperties : ClosingStructuresFailureMechanismPropertiesBase
+    public class ClosingStructuresFailureMechanismProperties : ClosingStructuresFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -44,11 +44,11 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState
         private const int applyLengthEffectInSectionPropertyIndex = 7;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructuresFailurePathProperties"/>.
+        /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public ClosingStructuresFailurePathProperties(ClosingStructuresFailureMechanism data) : base(data, new ConstructionProperties
+        public ClosingStructuresFailureMechanismProperties(ClosingStructuresFailureMechanism data) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex
