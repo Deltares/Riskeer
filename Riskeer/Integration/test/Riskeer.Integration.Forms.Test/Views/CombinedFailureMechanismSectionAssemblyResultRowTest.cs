@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int pipingStructureIndex = 16;
         private const int stabilityPointStructuresIndex = 17;
         private const int duneErosionIndex = 18;
-        private const int specificFailurePathStartIndex = 19;
+        private const int specificFailureMechanismStartIndex = 19;
 
         [Test]
         public void Constructor_CombinedFailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
@@ -127,7 +127,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             for (var i = 0; i < result.SpecificFailureMechanisms.Length; i++)
             {
                 FailureMechanismSectionAssemblyGroup? specificFailureMechanism = result.SpecificFailureMechanisms[i];
-                Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(specificFailureMechanism), row.SpecificFailurePaths[i]);
+                Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(specificFailureMechanism), row.SpecificFailureMechanisms[i]);
             }
         }
 
@@ -194,7 +194,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             for (var i = 0; i < result.SpecificFailureMechanisms.Length; i++)
             {
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailurePathStartIndex + i], expectedBackgroundColor);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailureMechanismStartIndex + i], expectedBackgroundColor);
             }
         }
 
@@ -259,7 +259,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             for (var i = 0; i < result.SpecificFailureMechanisms.Length; i++)
             {
-                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailurePathStartIndex + i], expectedBackgroundColor);
+                DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailureMechanismStartIndex + i], expectedBackgroundColor);
             }
         }
 

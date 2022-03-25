@@ -66,8 +66,8 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int pipingStructures = 16;
         private const int stabilityPointStructuresColumnIndex = 17;
         private const int duneErosionColumnIndex = 18;
-        private const int specificFailurePath1ColumnIndex = 19;
-        private const int specificFailurePath2ColumnIndex = 20;
+        private const int specificFailureMechanism1ColumnIndex = 19;
+        private const int specificFailureMechanism2ColumnIndex = 20;
         private const int expectedColumnCount = 21;
         private const string assemblyResultOutdatedWarning = "De resultaten zijn verouderd. Druk op de \"Resultaten verversen\" knop om opnieuw te berekenen.";
 
@@ -164,24 +164,24 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithAssemblyResultPerSectionView_ThenExpectedFailurePathCellData()
+        public void GivenFormWithAssemblyResultPerSectionView_ThenExpectedFailureMechanismCellData()
         {
             // Given
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultPerSectionView())
             {
                 DataGridView dataGridView = GetDataGridView();
-                object actualFirstFailurePathValue = dataGridView.Rows[0].Cells[specificFailurePath1ColumnIndex].Value;
-                object actualSecondFailurePathValue = dataGridView.Rows[0].Cells[specificFailurePath2ColumnIndex].Value;
+                object actualFirstFailureMechanismValue = dataGridView.Rows[0].Cells[specificFailureMechanism1ColumnIndex].Value;
+                object actualSecondFailureMechanismValue = dataGridView.Rows[0].Cells[specificFailureMechanism2ColumnIndex].Value;
 
                 // Then
-                Assert.AreEqual("Do", actualFirstFailurePathValue);
-                Assert.AreEqual("Do", actualSecondFailurePathValue);
+                Assert.AreEqual("Do", actualFirstFailureMechanismValue);
+                Assert.AreEqual("Do", actualSecondFailureMechanismValue);
             }
         }
 
         [Test]
-        public void GivenFormWithAssemblyResultPerSectionView_WhenSpecificFailurePathAdded_ThenColumnAdded()
+        public void GivenFormWithAssemblyResultPerSectionView_WhenSpecificFailureMechanismAdded_ThenColumnAdded()
         {
             // Given
             var random = new Random(21);
@@ -202,12 +202,12 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 // When
                 const string testCode = "TestCode";
-                var specificFailurePath = new SpecificFailureMechanism
+                var failureMechanism = new SpecificFailureMechanism
                 {
                     Code = testCode
                 };
 
-                assessmentSection.SpecificFailureMechanisms.Add(specificFailurePath);
+                assessmentSection.SpecificFailureMechanisms.Add(failureMechanism);
                 assessmentSection.SpecificFailureMechanisms.NotifyObservers();
                 calculator.CombinedFailureMechanismSectionAssemblyOutput = null;
                 buttonTester.Click();
@@ -221,7 +221,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void GivenFormWithAssemblyResultPerSectionView_WhenSpecificFailurePathRemoved_ThenColumnRemoved()
+        public void GivenFormWithAssemblyResultPerSectionView_WhenSpecificFailureMechanismRemoved_ThenColumnRemoved()
         {
             // Given
             var random = new Random(21);
@@ -534,8 +534,8 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssertColumn(dataGridViewColumns[pipingStructures], "PKW");
             AssertColumn(dataGridViewColumns[stabilityPointStructuresColumnIndex], "STKWp");
             AssertColumn(dataGridViewColumns[duneErosionColumnIndex], "DA");
-            AssertColumn(dataGridViewColumns[specificFailurePath1ColumnIndex], "NIEUW");
-            AssertColumn(dataGridViewColumns[specificFailurePath2ColumnIndex], "NIEUW");
+            AssertColumn(dataGridViewColumns[specificFailureMechanism1ColumnIndex], "NIEUW");
+            AssertColumn(dataGridViewColumns[specificFailureMechanism2ColumnIndex], "NIEUW");
         }
     }
 }

@@ -132,7 +132,7 @@ namespace Riskeer.Integration.Forms.Views
             {
                 var dataRow = (CombinedFailureMechanismSectionAssemblyResultRow) dataGridViewControl.GetRowFromIndex(e.RowIndex).DataBoundItem;
                 DataGridViewCell cell = dataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
-                cell.Value = dataRow.SpecificFailurePaths[e.ColumnIndex - numberOfFixedColumns];
+                cell.Value = dataRow.SpecificFailureMechanisms[e.ColumnIndex - numberOfFixedColumns];
             }
         }
 

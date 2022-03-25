@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Forms.Views
         private const int pipingStructureIndex = 16;
         private const int stabilityPointStructuresIndex = 17;
         private const int duneErosionIndex = 18;
-        private const int specificFailurePathStartIndex = 19;
+        private const int specificFailureMechanismStartIndex = 19;
 
         private readonly CombinedFailureMechanismSectionAssemblyResult combinedFailureMechanismSectionAssemblyResult;
 
@@ -177,9 +177,9 @@ namespace Riskeer.Integration.Forms.Views
         public string DuneErosion => GetDisplayNameForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
 
         /// <summary>
-        /// Gets the assembly result for specific failure paths.
+        /// Gets the assembly result for specific failure mechanisms.
         /// </summary>
-        public string[] SpecificFailurePaths =>
+        public string[] SpecificFailureMechanisms =>
             combinedFailureMechanismSectionAssemblyResult.SpecificFailureMechanisms
                                                          .Select(GetDisplayNameForFailureMechanism).ToArray();
 
@@ -204,9 +204,9 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions.Add(stabilityPointStructuresIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(duneErosionIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
 
-            for (var i = 0; i <= SpecificFailurePaths.Length; i++)
+            for (var i = 0; i <= SpecificFailureMechanisms.Length; i++)
             {
-                ColumnStateDefinitions.Add(specificFailurePathStartIndex + i, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
+                ColumnStateDefinitions.Add(specificFailureMechanismStartIndex + i, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             }
         }
 
@@ -229,11 +229,11 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions[stabilityPointStructuresIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
             ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
 
-            FailureMechanismSectionAssemblyGroup?[] specificFailurePathAssemblyResults = combinedFailureMechanismSectionAssemblyResult.SpecificFailureMechanisms;
-            int nrOfSpecificFailurePaths = specificFailurePathAssemblyResults.Length;
-            for (var i = 0; i < nrOfSpecificFailurePaths; i++)
+            FailureMechanismSectionAssemblyGroup?[] specificFailureMechanismAssemblyResults = combinedFailureMechanismSectionAssemblyResult.SpecificFailureMechanisms;
+            int nrOfSpecificFailureMechanisms = specificFailureMechanismAssemblyResults.Length;
+            for (var i = 0; i < nrOfSpecificFailureMechanisms; i++)
             {
-                ColumnStateDefinitions[specificFailurePathStartIndex + i].Style = CreateCellStyleForFailureMechanism(specificFailurePathAssemblyResults[i]);
+                ColumnStateDefinitions[specificFailureMechanismStartIndex + i].Style = CreateCellStyleForFailureMechanism(specificFailureMechanismAssemblyResults[i]);
             }
         }
 
