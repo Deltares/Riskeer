@@ -43,17 +43,18 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// </summary>
         /// <param name="assemblyMethod">The method used to assemble this result.</param>
         /// <param name="failureMechanismType">The type of the failure mechanism.</param>
-        /// <param name="code">The generic failure mechanism code this result is assembled for.</param>
+        /// <param name="code">The code of the failure mechanism this result is assembled for.</param>
+        /// <param name="name">The name of the failure mechanism this result is assembled for.</param>
         /// <param name="assemblyGroup">The group of this assembly result.</param>
         public SerializableCombinedFailureMechanismSectionAssemblyResult(
             SerializableAssemblyMethod assemblyMethod, SerializableFailureMechanismType failureMechanismType,
-            string code, SerializableFailureMechanismSectionAssemblyGroup assemblyGroup)
+            string code, string name, SerializableFailureMechanismSectionAssemblyGroup assemblyGroup)
             : this()
         {
             AssemblyMethod = assemblyMethod;
             FailureMechanismType = failureMechanismType;
             GenericFailureMechanismCode = code;
-            SpecificFailureMechanismName = code;
+            SpecificFailureMechanismName = name;
             AssemblyGroup = assemblyGroup;
         }
 
@@ -70,13 +71,13 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         public SerializableFailureMechanismType FailureMechanismType { get; set; }
 
         /// <summary>
-        /// Gets or sets the generic failure mechanism code of this assembly result.
+        /// Gets or sets the code of the failure mechanism this result is assembled for.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.GenericFailureMechanism)]
         public string GenericFailureMechanismCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the specific failure mechanism name of this assembly result.
+        /// Gets or sets the name of the failure mechanism this result is assembled for.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.SpecificFailureMechanism)]
         public string SpecificFailureMechanismName { get; set; }

@@ -60,6 +60,7 @@ namespace Riskeer.Integration.IO.Creators
                 SerializableAssemblyMethodCreator.Create(sectionResultSectionAssemblyResult.AssemblyMethod),
                 SerializableFailureMechanismTypeCreator.Create(sectionResult.FailureMechanismType),
                 sectionResult.Code,
+                sectionResult.Name,
                 SerializableFailureMechanismSectionAssemblyGroupCreator.Create(sectionResultSectionAssemblyResult.AssemblyGroup));
         }
     }

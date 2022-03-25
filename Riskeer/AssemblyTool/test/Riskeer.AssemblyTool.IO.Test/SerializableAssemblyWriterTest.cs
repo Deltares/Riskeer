@@ -328,15 +328,15 @@ namespace Riskeer.AssemblyTool.IO.Test
                 {
                     new SerializableCombinedFailureMechanismSectionAssemblyResult(
                         SerializableAssemblyMethod.WBI3B1,
-                        SerializableFailureMechanismType.Generic, "HTKW",
+                        SerializableFailureMechanismType.Generic, "HTKW", "Hoogte kunstwerk",
                         SerializableFailureMechanismSectionAssemblyGroup.III),
                     new SerializableCombinedFailureMechanismSectionAssemblyResult(
                         SerializableAssemblyMethod.WBI3B1,
-                        SerializableFailureMechanismType.Generic, "STPH",
+                        SerializableFailureMechanismType.Generic, "STPH", "Piping",
                         SerializableFailureMechanismSectionAssemblyGroup.II),
                     new SerializableCombinedFailureMechanismSectionAssemblyResult(
                         SerializableAssemblyMethod.WBI3B1,
-                        SerializableFailureMechanismType.Specific, "NIEUW",
+                        SerializableFailureMechanismType.Specific, "NIEUW", "Specifiek",
                         SerializableFailureMechanismSectionAssemblyGroup.Zero)
                 },
                 new SerializableFailureMechanismSectionAssemblyResult(

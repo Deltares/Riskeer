@@ -65,17 +65,18 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
             var failureMechanismType = random.NextEnumValue<SerializableFailureMechanismType>();
             const string code = "code";
+            const string name = "name";
             var assemblyGroup = random.NextEnumValue<SerializableFailureMechanismSectionAssemblyGroup>();
 
             // Call
             var assemblyResult = new SerializableCombinedFailureMechanismSectionAssemblyResult(
-                assemblyMethod, failureMechanismType, code, assemblyGroup);
+                assemblyMethod, failureMechanismType, code, name, assemblyGroup);
 
             // Assert
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
             Assert.AreEqual(failureMechanismType, assemblyResult.FailureMechanismType);
             Assert.AreEqual(code, assemblyResult.GenericFailureMechanismCode);
-            Assert.AreEqual(code, assemblyResult.SpecificFailureMechanismName);
+            Assert.AreEqual(name, assemblyResult.SpecificFailureMechanismName);
             Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
         }
@@ -90,7 +91,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             var random = new Random(39);
             var assemblyResult = new SerializableCombinedFailureMechanismSectionAssemblyResult(
                 random.NextEnumValue<SerializableAssemblyMethod>(), failureMechanismType, "code",
-                random.NextEnumValue<SerializableFailureMechanismSectionAssemblyGroup>());
+                "name", random.NextEnumValue<SerializableFailureMechanismSectionAssemblyGroup>());
 
             // When
             bool shouldSerializeGeneric = assemblyResult.ShouldSerializeGenericFailureMechanismCode();
