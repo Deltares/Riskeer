@@ -22,7 +22,7 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 

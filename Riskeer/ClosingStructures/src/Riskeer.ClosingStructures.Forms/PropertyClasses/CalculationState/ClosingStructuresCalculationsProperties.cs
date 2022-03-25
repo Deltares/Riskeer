@@ -28,7 +28,7 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Forms.PropertyClasses;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.ClosingStructures.Forms.PropertyClasses
+namespace Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationState
 {
     /// <summary>
     /// Calculation related ViewModel of <see cref="ClosingStructuresFailureMechanism"/> for properties panel.

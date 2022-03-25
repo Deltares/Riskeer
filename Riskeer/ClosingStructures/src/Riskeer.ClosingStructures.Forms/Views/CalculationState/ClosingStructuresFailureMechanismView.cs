@@ -36,7 +36,7 @@ using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
 using ClosingStructuresDataResources = Riskeer.ClosingStructures.Data.Properties.Resources;
 
-namespace Riskeer.ClosingStructures.Forms.Views
+namespace Riskeer.ClosingStructures.Forms.Views.CalculationState
 {
     /// <summary>
     /// This class is a view showing map data for a closing structures failure mechanism.
@@ -44,7 +44,7 @@ namespace Riskeer.ClosingStructures.Forms.Views
     public partial class ClosingStructuresFailureMechanismView : UserControl, IMapView
     {
         private HydraulicBoundaryLocationsMapLayer hydraulicBoundaryLocationsMapLayer;
-        
+
         private MapLineData referenceLineMapData;
         private MapLineData foreshoreProfilesMapData;
         private MapPointData structuresMapData;

@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Components.Gis.Data;
 using Riskeer.ClosingStructures.Data;
+using Riskeer.ClosingStructures.Forms.Views.CalculationState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
@@ -31,7 +32,7 @@ using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
 using ClosingStructuresDataResources = Riskeer.ClosingStructures.Data.Properties.Resources;
 
-namespace Riskeer.ClosingStructures.Forms.Views
+namespace Riskeer.ClosingStructures.Forms.Views.RegistrationState
 {
     /// <summary>
     /// This class is a view showing map data for a closing structures failure path.

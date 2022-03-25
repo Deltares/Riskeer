@@ -27,7 +27,7 @@ using Core.Gui;
 using Core.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.DuneErosion.Forms.PresentationObjects;

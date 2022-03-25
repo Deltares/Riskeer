@@ -25,8 +25,8 @@ using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.PresentationObjects;
-using Riskeer.ClosingStructures.Forms.PropertyClasses;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
+using Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState;
 using Riskeer.Common.Data.AssessmentSection;
 
 namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos

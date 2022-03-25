@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;

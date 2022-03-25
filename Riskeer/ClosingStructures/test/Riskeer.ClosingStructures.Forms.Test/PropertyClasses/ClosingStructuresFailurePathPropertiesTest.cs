@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
+using Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState;
 using Riskeer.Common.Data.TestUtil;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses

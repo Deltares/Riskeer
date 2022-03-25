@@ -25,6 +25,7 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
+using Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationState;
 
 namespace Riskeer.ClosingStructures.Forms.Test.PropertyClasses
 {

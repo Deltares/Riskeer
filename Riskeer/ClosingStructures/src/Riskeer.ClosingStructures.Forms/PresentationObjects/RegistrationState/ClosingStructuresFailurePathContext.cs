@@ -24,21 +24,20 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 
-namespace Riskeer.ClosingStructures.Forms.PresentationObjects
+namespace Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState
 {
     /// <summary>
-    /// Presentation object for calculations of <see cref="ClosingStructuresFailureMechanism"/>.
+    /// Presentation object for the failure path of <see cref="ClosingStructuresFailureMechanism"/>.
     /// </summary>
-    public class ClosingStructuresCalculationsContext : FailureMechanismContext<ClosingStructuresFailureMechanism>
+    public class ClosingStructuresFailurePathContext : FailureMechanismContext<ClosingStructuresFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructuresCalculationsContext"/>.
+        /// Creates a new instance of <see cref="ClosingStructuresFailurePathContext"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/> instance
-        /// wrapped by this context object.</param>
+        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/> instance wrapped by this context object.</param>
         /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public ClosingStructuresCalculationsContext(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public ClosingStructuresFailurePathContext(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
     }
 }

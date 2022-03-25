@@ -26,8 +26,8 @@ using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.PresentationObjects;
-using Riskeer.ClosingStructures.Forms.Views;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
+using Riskeer.ClosingStructures.Forms.Views.CalculationState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 
@@ -78,7 +78,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             // Assert
             Assert.AreEqual(failureMechanism.Name, viewName);
         }
-        
+
         [Test]
         [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnClosingStructuresFailureMechanismView()

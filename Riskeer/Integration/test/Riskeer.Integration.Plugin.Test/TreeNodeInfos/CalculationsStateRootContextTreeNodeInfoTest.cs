@@ -30,7 +30,7 @@ using Core.Gui.ContextMenu;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.ClosingStructures.Forms.PresentationObjects;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
@@ -300,7 +300,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
-                
+
                 // Call
                 const string newName = "New Name";
                 info.OnNodeRenamed(context, newName);
@@ -319,7 +319,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var plugin = new RiskeerPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
-                
+
                 // Call
                 bool canRemove = info.CanRemove(null, null);
 
