@@ -726,7 +726,7 @@ namespace Riskeer.Integration.Plugin.Test
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSetAndOpenedSpecificFailurePathView_WhenChangingCorrespondingSpecificFailurePathAndObserversNotified_ThenViewTitleUpdated()
+        public void GivenPluginWithGuiSetAndOpenedSpecificFailureMechanismView_WhenChangingCorrespondingSpecificFailureMechanismAndObserversNotified_ThenViewTitleUpdated()
         {
             // Given
             var mocks = new MockRepository();
