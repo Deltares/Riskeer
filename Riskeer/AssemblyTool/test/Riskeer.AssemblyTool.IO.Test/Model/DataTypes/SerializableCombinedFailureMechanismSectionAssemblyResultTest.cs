@@ -41,7 +41,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
             Assert.AreEqual((SerializableFailureMechanismType) 0, assemblyResult.FailureMechanismType);
             Assert.IsNull(assemblyResult.GenericFailureMechanismCode);
-            Assert.IsNull(assemblyResult.SpecificFailureMechanismCode);
+            Assert.IsNull(assemblyResult.SpecificFailureMechanismName);
             Assert.AreEqual((SerializableFailureMechanismSectionAssemblyGroup) 0, assemblyResult.AssemblyGroup);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
 
@@ -75,11 +75,11 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
             Assert.AreEqual(failureMechanismType, assemblyResult.FailureMechanismType);
             Assert.AreEqual(code, assemblyResult.GenericFailureMechanismCode);
-            Assert.AreEqual(code, assemblyResult.SpecificFailureMechanismCode);
+            Assert.AreEqual(code, assemblyResult.SpecificFailureMechanismName);
             Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
         }
-        
+
         [Test]
         [TestCase(SerializableFailureMechanismType.Generic, true, false)]
         [TestCase(SerializableFailureMechanismType.Specific, false, true)]
@@ -94,7 +94,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
 
             // When
             bool shouldSerializeGeneric = assemblyResult.ShouldSerializeGenericFailureMechanismCode();
-            bool shouldSerializeSpecific = assemblyResult.ShouldSerializeSpecificFailureMechanismCode();
+            bool shouldSerializeSpecific = assemblyResult.ShouldSerializeSpecificFailureMechanismName();
 
             // Then
             Assert.AreEqual(expectedShouldSerializeGeneric, shouldSerializeGeneric);
