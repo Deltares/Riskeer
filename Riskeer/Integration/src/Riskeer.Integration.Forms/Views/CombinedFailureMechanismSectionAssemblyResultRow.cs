@@ -180,7 +180,7 @@ namespace Riskeer.Integration.Forms.Views
         /// Gets the assembly result for specific failure paths.
         /// </summary>
         public string[] SpecificFailurePaths =>
-            combinedFailureMechanismSectionAssemblyResult.SpecificFailurePaths
+            combinedFailureMechanismSectionAssemblyResult.SpecificFailureMechanisms
                                                          .Select(GetDisplayNameForFailureMechanism).ToArray();
 
         public IDictionary<int, DataGridViewColumnStateDefinition> ColumnStateDefinitions { get; }
@@ -228,8 +228,8 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions[pipingStructureIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.PipingStructure);
             ColumnStateDefinitions[stabilityPointStructuresIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.StabilityPointStructures);
             ColumnStateDefinitions[duneErosionIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.DuneErosion);
-            
-            FailureMechanismSectionAssemblyGroup?[] specificFailurePathAssemblyResults = combinedFailureMechanismSectionAssemblyResult.SpecificFailurePaths;
+
+            FailureMechanismSectionAssemblyGroup?[] specificFailurePathAssemblyResults = combinedFailureMechanismSectionAssemblyResult.SpecificFailureMechanisms;
             int nrOfSpecificFailurePaths = specificFailurePathAssemblyResults.Length;
             for (var i = 0; i < nrOfSpecificFailurePaths; i++)
             {

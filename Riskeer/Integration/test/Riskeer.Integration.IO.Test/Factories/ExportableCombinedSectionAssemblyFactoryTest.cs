@@ -128,7 +128,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                     PipingStructure = GetAssemblyGroup(random, hasAssemblyGroupResults),
                     StabilityPointStructures = GetAssemblyGroup(random, hasAssemblyGroupResults),
                     DuneErosion = GetAssemblyGroup(random, hasAssemblyGroupResults),
-                    SpecificFailurePaths = new[]
+                    SpecificFailureMechanisms = new[]
                     {
                         GetAssemblyGroup(random, hasAssemblyGroupResults),
                         GetAssemblyGroup(random, hasAssemblyGroupResults)
@@ -228,9 +228,9 @@ namespace Riskeer.Integration.IO.Test.Factories
                              failureMechanismCombinedSectionResults.ElementAt(13));
             AssertSubSection(expectedSection.DuneErosion, "DA", ExportableFailureMechanismType.Generic,
                              failureMechanismCombinedSectionResults.ElementAt(14));
-            AssertSubSection(expectedSection.SpecificFailurePaths[0], "Nieuw1", ExportableFailureMechanismType.Specific,
+            AssertSubSection(expectedSection.SpecificFailureMechanisms[0], "Nieuw1", ExportableFailureMechanismType.Specific,
                              failureMechanismCombinedSectionResults.ElementAt(15));
-            AssertSubSection(expectedSection.SpecificFailurePaths[1], "Nieuw2", ExportableFailureMechanismType.Specific,
+            AssertSubSection(expectedSection.SpecificFailureMechanisms[1], "Nieuw2", ExportableFailureMechanismType.Specific,
                              failureMechanismCombinedSectionResults.ElementAt(16));
         }
 

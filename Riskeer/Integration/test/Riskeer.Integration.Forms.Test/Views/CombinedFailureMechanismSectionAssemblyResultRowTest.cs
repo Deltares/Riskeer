@@ -98,7 +98,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, pipingStructureIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, stabilityPointStructuresIndex);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, duneErosionIndex);
-            for (var i = 1; i < result.SpecificFailurePaths.Length; i++)
+            for (var i = 1; i < result.SpecificFailureMechanisms.Length; i++)
             {
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, duneErosionIndex + i);
             }
@@ -124,10 +124,10 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.PipingStructure), row.PipingStructure);
             Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.StabilityPointStructures), row.StabilityPointStructures);
             Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(result.DuneErosion), row.DuneErosion);
-            for (var i = 0; i < result.SpecificFailurePaths.Length; i++)
+            for (var i = 0; i < result.SpecificFailureMechanisms.Length; i++)
             {
-                FailureMechanismSectionAssemblyGroup? specificFailurePath = result.SpecificFailurePaths[i];
-                Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(specificFailurePath), row.SpecificFailurePaths[i]);
+                FailureMechanismSectionAssemblyGroup? specificFailureMechanism = result.SpecificFailureMechanisms[i];
+                Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(specificFailureMechanism), row.SpecificFailurePaths[i]);
             }
         }
 
@@ -162,7 +162,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     PipingStructure = assemblyGroup,
                     StabilityPointStructures = assemblyGroup,
                     DuneErosion = assemblyGroup,
-                    SpecificFailurePaths = new FailureMechanismSectionAssemblyGroup?[]
+                    SpecificFailureMechanisms = new FailureMechanismSectionAssemblyGroup?[]
                     {
                         assemblyGroup,
                         assemblyGroup
@@ -192,7 +192,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityPointStructuresIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex], expectedBackgroundColor);
 
-            for (var i = 0; i < result.SpecificFailurePaths.Length; i++)
+            for (var i = 0; i < result.SpecificFailureMechanisms.Length; i++)
             {
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailurePathStartIndex + i], expectedBackgroundColor);
             }
@@ -226,7 +226,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     PipingStructure = null,
                     StabilityPointStructures = null,
                     DuneErosion = null,
-                    SpecificFailurePaths = new FailureMechanismSectionAssemblyGroup?[]
+                    SpecificFailureMechanisms = new FailureMechanismSectionAssemblyGroup?[]
                     {
                         null,
                         null
@@ -257,7 +257,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[stabilityPointStructuresIndex], expectedBackgroundColor);
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[duneErosionIndex], expectedBackgroundColor);
 
-            for (var i = 0; i < result.SpecificFailurePaths.Length; i++)
+            for (var i = 0; i < result.SpecificFailureMechanisms.Length; i++)
             {
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailurePathStartIndex + i], expectedBackgroundColor);
             }
@@ -288,7 +288,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     PipingStructure = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
                     StabilityPointStructures = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
                     DuneErosion = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    SpecificFailurePaths = new[]
+                    SpecificFailureMechanisms = new[]
                     {
                         GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
                         GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),

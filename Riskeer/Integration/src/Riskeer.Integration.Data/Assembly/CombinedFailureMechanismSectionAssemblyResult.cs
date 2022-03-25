@@ -70,7 +70,7 @@ namespace Riskeer.Integration.Data.Assembly
             PipingStructure = properties.PipingStructure;
             StabilityPointStructures = properties.StabilityPointStructures;
             DuneErosion = properties.DuneErosion;
-            SpecificFailurePaths = properties.SpecificFailurePaths;
+            SpecificFailureMechanisms = properties.SpecificFailureMechanisms;
         }
 
         /// <summary>
@@ -171,9 +171,9 @@ namespace Riskeer.Integration.Data.Assembly
         public FailureMechanismSectionAssemblyGroup? DuneErosion { get; }
 
         /// <summary>
-        /// Gets the collection of assembly results for specific failure paths or <c>null</c> (which indicates this failure mechanism is not part of the assembly).
+        /// Gets the collection of assembly results for specific failure mechanisms.
         /// </summary>
-        public FailureMechanismSectionAssemblyGroup?[] SpecificFailurePaths { get; }
+        public FailureMechanismSectionAssemblyGroup?[] SpecificFailureMechanisms { get; }
 
         /// <summary>
         /// Container for properties for constructing a <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.
@@ -200,7 +200,7 @@ namespace Riskeer.Integration.Data.Assembly
                 PipingStructure = FailureMechanismSectionAssemblyGroup.Gr;
                 StabilityPointStructures = FailureMechanismSectionAssemblyGroup.Gr;
                 DuneErosion = FailureMechanismSectionAssemblyGroup.Gr;
-                SpecificFailurePaths = Array.Empty<FailureMechanismSectionAssemblyGroup?>();
+                SpecificFailureMechanisms = Array.Empty<FailureMechanismSectionAssemblyGroup?>();
             }
 
             /// <summary>
@@ -279,9 +279,9 @@ namespace Riskeer.Integration.Data.Assembly
             public FailureMechanismSectionAssemblyGroup? DuneErosion { internal get; set; }
 
             /// <summary>
-            /// Gets or sets the collection of assembly results for specific failure paths or <c>null</c> (which indicates this failure mechanism is not part of the assembly).
+            /// Gets or sets the collection of assembly results for specific failure mechanisms or <c>null</c> (which indicates this failure mechanism is not part of the assembly).
             /// </summary>
-            public FailureMechanismSectionAssemblyGroup?[] SpecificFailurePaths { internal get; set; }
+            public FailureMechanismSectionAssemblyGroup?[] SpecificFailureMechanisms { internal get; set; }
         }
     }
 }

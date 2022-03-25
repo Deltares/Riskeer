@@ -130,10 +130,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.PipingStructure]), results[i].PipingStructure);
                 Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.StabilityPointStructures]), results[i].StabilityPointStructures);
                 Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[assessmentSection.DuneErosion]), results[i].DuneErosion);
-                Assert.AreEqual(assessmentSection.SpecificFailureMechanisms.Count, results[i].SpecificFailurePaths.Length);
+                Assert.AreEqual(assessmentSection.SpecificFailureMechanisms.Count, results[i].SpecificFailureMechanisms.Length);
                 foreach (SpecificFailureMechanism specificFailureMechanism in assessmentSection.SpecificFailureMechanisms)
                 {
-                    Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[specificFailureMechanism]), results[i].SpecificFailurePaths.Single());
+                    Assert.AreEqual(output[i].FailureMechanismSectionAssemblyGroupResults.ElementAt(failureMechanisms[specificFailureMechanism]), results[i].SpecificFailureMechanisms.Single());
                 }
             }
         }
@@ -189,10 +189,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.IsNull(results[i].PipingStructure);
                 Assert.IsNull(results[i].StabilityPointStructures);
                 Assert.IsNull(results[i].DuneErosion);
-                Assert.AreEqual(assessmentSection.SpecificFailureMechanisms.Count, results[i].SpecificFailurePaths.Length);
-                foreach (FailureMechanismSectionAssemblyGroup? specificFailurePath in results[i].SpecificFailurePaths)
+                Assert.AreEqual(assessmentSection.SpecificFailureMechanisms.Count, results[i].SpecificFailureMechanisms.Length);
+                foreach (FailureMechanismSectionAssemblyGroup? failureMechanismSectionAssemblyGroup in results[i].SpecificFailureMechanisms)
                 {
-                    Assert.IsNull(specificFailurePath);
+                    Assert.IsNull(failureMechanismSectionAssemblyGroup);
                 }
             }
         }

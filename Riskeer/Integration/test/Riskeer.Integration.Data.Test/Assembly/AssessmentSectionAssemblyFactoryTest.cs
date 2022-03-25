@@ -261,7 +261,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     Assert.AreEqual(expectedOutput[i].PipingStructure, output[i].PipingStructure);
                     Assert.AreEqual(expectedOutput[i].StabilityPointStructures, output[i].StabilityPointStructures);
                     Assert.AreEqual(expectedOutput[i].DuneErosion, output[i].DuneErosion);
-                    CollectionAssert.AreEqual(expectedOutput[i].SpecificFailurePaths, output[i].SpecificFailurePaths);
+                    CollectionAssert.AreEqual(expectedOutput[i].SpecificFailureMechanisms, output[i].SpecificFailureMechanisms);
                 }
             }
         }

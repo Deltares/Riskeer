@@ -109,14 +109,14 @@ namespace Riskeer.Integration.IO.Factories
 
             for (var i = 0; i < assessmentSection.SpecificFailureMechanisms.Count; i++)
             {
-                FailureMechanismSectionAssemblyGroup? specificFailurePathAssemblyResult = assemblyResult.SpecificFailurePaths[i];
+                FailureMechanismSectionAssemblyGroup? specificFailureMechanismAssemblyResult = assemblyResult.SpecificFailureMechanisms[i];
 
-                if (specificFailurePathAssemblyResult.HasValue)
+                if (specificFailureMechanismAssemblyResult.HasValue)
                 {
                     SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailureMechanisms.ElementAt(i);
                     exportableAssemblyResults.Add(CreateExportableFailureMechanismCombinedSectionAssemblyResult(
-                                                      specificFailurePathAssemblyResult.Value, ExportableFailureMechanismType.Specific,
-                                                      specificFailureMechanism.Code, specificFailureMechanism.Name));
+                                                      specificFailureMechanismAssemblyResult.Value, ExportableFailureMechanismType.Specific,
+                                                      specificFailureMechanism.Code));
                 }
             }
 

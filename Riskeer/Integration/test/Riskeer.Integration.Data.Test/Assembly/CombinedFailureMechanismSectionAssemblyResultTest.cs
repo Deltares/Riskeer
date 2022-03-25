@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.PipingStructure);
             Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.StabilityPointStructures);
             Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.DuneErosion);
-            Assert.IsEmpty(result.SpecificFailurePaths);
+            Assert.IsEmpty(result.SpecificFailureMechanisms);
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var pipingStructureResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
             var stabilityPointStructuresResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
             var duneErosionResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
-            var specificFailurePathsResult = new FailureMechanismSectionAssemblyGroup?[]
+            var specificFailureMechanismResults = new FailureMechanismSectionAssemblyGroup?[]
             {
                 random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
                 random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
@@ -135,7 +135,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     PipingStructure = pipingStructureResult,
                     StabilityPointStructures = stabilityPointStructuresResult,
                     DuneErosion = duneErosionResult,
-                    SpecificFailurePaths = specificFailurePathsResult
+                    SpecificFailureMechanisms = specificFailureMechanismResults
                 });
 
             // Assert
@@ -158,7 +158,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.AreEqual(pipingStructureResult, result.PipingStructure);
             Assert.AreEqual(stabilityPointStructuresResult, result.StabilityPointStructures);
             Assert.AreEqual(duneErosionResult, result.DuneErosion);
-            CollectionAssert.AreEqual(specificFailurePathsResult, result.SpecificFailurePaths);
+            CollectionAssert.AreEqual(specificFailureMechanismResults, result.SpecificFailureMechanisms);
         }
 
         [Test]
@@ -170,7 +170,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
             var totalResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
-            var specificFailurePathResults = new FailureMechanismSectionAssemblyGroup?[]
+            var specificFailureMechanismResults = new FailureMechanismSectionAssemblyGroup?[]
             {
                 null,
                 null,
@@ -197,7 +197,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     PipingStructure = null,
                     StabilityPointStructures = null,
                     DuneErosion = null,
-                    SpecificFailurePaths = specificFailurePathResults
+                    SpecificFailureMechanisms = specificFailureMechanismResults
                 });
 
             // Assert
@@ -220,10 +220,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.IsNull(result.PipingStructure);
             Assert.IsNull(result.StabilityPointStructures);
             Assert.IsNull(result.DuneErosion);
-            Assert.AreEqual(specificFailurePathResults.Length, result.SpecificFailurePaths.Length);
-            foreach (FailureMechanismSectionAssemblyGroup? specificFailurePathResult in result.SpecificFailurePaths)
+            Assert.AreEqual(specificFailureMechanismResults.Length, result.SpecificFailureMechanisms.Length);
+            foreach (FailureMechanismSectionAssemblyGroup? specificFailureMechanismResult in result.SpecificFailureMechanisms)
             {
-                Assert.IsNull(specificFailurePathResult);
+                Assert.IsNull(specificFailureMechanismResult);
             }
         }
     }
