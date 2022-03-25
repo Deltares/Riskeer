@@ -53,7 +53,7 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
             AssemblyMethod = assemblyMethod;
             FailureMechanismType = failureMechanismType;
             GenericFailureMechanismCode = code;
-            SpecificFailureMechanismCode = code;
+            SpecificFailureMechanismName = code;
             AssemblyGroup = assemblyGroup;
         }
 
@@ -76,10 +76,10 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         public string GenericFailureMechanismCode { get; set; }
 
         /// <summary>
-        /// Gets or sets the specific failure mechanism code of this assembly result.
+        /// Gets or sets the specific failure mechanism name of this assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.SpecificFailureMechanism)]
-        public string SpecificFailureMechanismCode { get; set; }
+        public string SpecificFailureMechanismName { get; set; }
 
         /// <summary>
         /// Gets or sets the group of this assembly result.
@@ -104,11 +104,11 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         }
 
         /// <summary>
-        /// Determines whether <see cref="SpecificFailureMechanismCode"/> should be serialized.
+        /// Determines whether <see cref="SpecificFailureMechanismName"/> should be serialized.
         /// </summary>
         /// <returns><c>true</c> if <see cref="FailureMechanismType"/> is <see cref="SerializableFailureMechanismType.Specific"/>;
         /// <c>false</c> otherwise.</returns>
-        public bool ShouldSerializeSpecificFailureMechanismCode()
+        public bool ShouldSerializeSpecificFailureMechanismName()
         {
             return FailureMechanismType == SerializableFailureMechanismType.Specific;
         }
