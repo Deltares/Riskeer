@@ -174,7 +174,8 @@ namespace Riskeer.Integration.IO.Test.Creators
             return new ExportableFailureMechanismCombinedSectionAssemblyResult(
                 CreateSectionAssemblyResult(random.Next()),
                 random.NextEnumValue<ExportableFailureMechanismType>(),
-                "code");
+                "code",
+                "name");
         }
 
         private static ExportableFailureMechanismSubSectionAssemblyResult CreateSectionAssemblyResult(int seed)

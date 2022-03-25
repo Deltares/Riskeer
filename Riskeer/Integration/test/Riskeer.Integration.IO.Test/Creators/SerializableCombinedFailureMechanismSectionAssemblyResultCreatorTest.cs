@@ -54,7 +54,8 @@ namespace Riskeer.Integration.IO.Test.Creators
             var sectionResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(
                 new ExportableFailureMechanismSubSectionAssemblyResult(assemblyGroup, random.NextEnumValue<ExportableAssemblyMethod>()),
                 random.NextEnumValue<ExportableFailureMechanismType>(),
-                "code");
+                "code",
+                "name");
 
             // Call
             void Call() => SerializableCombinedFailureMechanismSectionAssemblyResultCreator.Create(sectionResult);
@@ -70,7 +71,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             // Setup
             var random = new Random(21);
             var sectionResult = new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                CreateSectionAssemblyResult(), random.NextEnumValue<ExportableFailureMechanismType>(), "code");
+                CreateSectionAssemblyResult(), random.NextEnumValue<ExportableFailureMechanismType>(), "code", "name");
 
             // Call
             SerializableCombinedFailureMechanismSectionAssemblyResult serializableResult =
