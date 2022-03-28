@@ -596,10 +596,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertHeightStructuresOutput(MigratedDatabaseReader reader)
         {
-            const string validateOutput =
-                "SELECT COUNT() = 0 " +
-                "FROM [HeightStructuresOutputEntity]; ";
-            reader.AssertReturnedDataIsValid(validateOutput);
+            AssertOutputEntity(reader, "HeightStructuresOutputEntity");
         }
 
         #endregion
@@ -613,10 +610,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertClosingStructuresOutput(MigratedDatabaseReader reader)
         {
-            const string validateOutput =
-                "SELECT COUNT() = 0 " +
-                "FROM [ClosingStructuresOutputEntity]; ";
-            reader.AssertReturnedDataIsValid(validateOutput);
+            AssertOutputEntity(reader, "ClosingStructuresOutputEntity");
         }
 
         #endregion
@@ -630,10 +624,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertStabilityPointStructuresOutput(MigratedDatabaseReader reader)
         {
-            const string validateOutput =
-                "SELECT COUNT() = 0 " +
-                "FROM [StabilityPointStructuresOutputEntity]; ";
-            reader.AssertReturnedDataIsValid(validateOutput);
+            AssertOutputEntity(reader, "StabilityPointStructuresOutputEntity");
         }
 
         #endregion
@@ -932,10 +923,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertHydraulicLocationOutput(MigratedDatabaseReader reader)
         {
-            const string validateOutput =
-                "SELECT COUNT() = 0 " +
-                "FROM [HydraulicLocationOutputEntity]; ";
-            reader.AssertReturnedDataIsValid(validateOutput);
+            AssertOutputEntity(reader, "HydraulicLocationOutputEntity");
         }
 
         #endregion
@@ -1016,10 +1004,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertProbabilisticPipingOutput(MigratedDatabaseReader reader)
         {
-            const string validateOutput =
-                "SELECT COUNT() = 0 " +
-                "FROM [ProbabilisticPipingCalculationOutputEntity]; ";
-            reader.AssertReturnedDataIsValid(validateOutput);
+            AssertOutputEntity(reader, "ProbabilisticPipingCalculationOutputEntity");
         }
 
         #endregion
@@ -1183,20 +1168,9 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertGrassCoverErosionInwardsOutput(MigratedDatabaseReader reader)
         {
-            const string validateOutput =
-                "SELECT COUNT() = 0 " +
-                "FROM [GrassCoverErosionInwardsOutputEntity]; ";
-            reader.AssertReturnedDataIsValid(validateOutput);
-
-            const string validateDikeHeightOutput =
-                "SELECT COUNT() = 0 " +
-                "FROM [GrassCoverErosionInwardsDikeHeightOutputEntity]; ";
-            reader.AssertReturnedDataIsValid(validateDikeHeightOutput);
-
-            const string validateOvertoppingRateOutput =
-                "SELECT COUNT() = 0 " +
-                "FROM [GrassCoverErosionInwardsOvertoppingRateOutputEntity]; ";
-            reader.AssertReturnedDataIsValid(validateOvertoppingRateOutput);
+            AssertOutputEntity(reader, "GrassCoverErosionInwardsOutputEntity");
+            AssertOutputEntity(reader, "GrassCoverErosionInwardsDikeHeightOutputEntity");
+            AssertOutputEntity(reader, "GrassCoverErosionInwardsOvertoppingRateOutputEntity");
         }
 
         private static void AssertGrassCoverErosionInwardsSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
@@ -1342,10 +1316,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertDuneLocationCalculationOutput(MigratedDatabaseReader reader)
         {
-            const string validateOutput =
-                "SELECT COUNT() = 0 " +
-                "FROM [DuneLocationCalculationOutputEntity]; ";
-            reader.AssertReturnedDataIsValid(validateOutput);
+            AssertOutputEntity(reader, "DuneLocationCalculationOutputEntity");
         }
 
         private static void AssertDuneErosionFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
@@ -1459,5 +1430,13 @@ namespace Riskeer.Migration.Integration.Test
         }
 
         #endregion
+        
+        private static void AssertOutputEntity(MigratedDatabaseReader reader, string entity)
+        {
+            string validateOutput =
+                "SELECT COUNT() = 0 " +
+                $"FROM [{entity}]; ";
+            reader.AssertReturnedDataIsValid(validateOutput);
+        }
     }
 }
