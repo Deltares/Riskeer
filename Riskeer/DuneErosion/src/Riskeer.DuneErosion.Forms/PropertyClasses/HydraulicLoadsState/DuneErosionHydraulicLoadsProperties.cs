@@ -22,7 +22,7 @@
 using System;
 using Riskeer.DuneErosion.Data;
 
-namespace Riskeer.DuneErosion.Forms.PropertyClasses
+namespace Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState
 {
     /// <summary>
     /// Hydraulic loads related ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.

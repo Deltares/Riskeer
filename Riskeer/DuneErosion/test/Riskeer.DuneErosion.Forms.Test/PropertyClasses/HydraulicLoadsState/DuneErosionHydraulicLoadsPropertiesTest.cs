@@ -24,8 +24,9 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
+using Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState;
 
-namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
+namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses.HydraulicLoadsState
 {
     [TestFixture]
     public class DuneErosionHydraulicLoadsPropertiesTest

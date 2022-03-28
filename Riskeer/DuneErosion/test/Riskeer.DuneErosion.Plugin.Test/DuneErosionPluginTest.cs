@@ -43,6 +43,8 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
+using Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState;
+using Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState;
 using Riskeer.DuneErosion.Forms.Views;
 
 namespace Riskeer.DuneErosion.Plugin.Test
@@ -140,9 +142,9 @@ namespace Riskeer.DuneErosion.Plugin.Test
             mockRepository.ReplayAll();
 
             using (var plugin = new DuneErosionPlugin
-            {
-                Gui = gui
-            })
+                   {
+                       Gui = gui
+                   })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();

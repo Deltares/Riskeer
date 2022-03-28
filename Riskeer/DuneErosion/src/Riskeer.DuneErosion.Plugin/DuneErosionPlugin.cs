@@ -49,6 +49,8 @@ using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.GuiServices;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
+using Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState;
+using Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState;
 using Riskeer.DuneErosion.Forms.Views;
 using Riskeer.DuneErosion.IO;
 using Riskeer.DuneErosion.Plugin.Handlers;

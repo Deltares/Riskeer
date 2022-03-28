@@ -26,7 +26,7 @@ using Core.Gui.Attributes;
 using Riskeer.DuneErosion.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.DuneErosion.Forms.PropertyClasses
+namespace Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState
 {
     /// <summary>
     /// Failure path related ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
@@ -50,6 +50,22 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex
             }) {}
+
+        #region General
+
+        [PropertyOrder(inAssemblyPropertyIndex)]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_Description))]
+        public bool InAssembly
+        {
+            get
+            {
+                return data.InAssembly;
+            }
+        }
+
+        #endregion
 
         [DynamicVisibleValidationMethod]
         public bool DynamicVisibleValidationMethod(string propertyName)
@@ -93,22 +109,6 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
             get
             {
                 return data.GeneralInput.ApplyLengthEffectInSection;
-            }
-        }
-
-        #endregion
-
-        #region General
-
-        [PropertyOrder(inAssemblyPropertyIndex)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_DisplayName))]
-        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.FailurePath_InAssembly_Description))]
-        public bool InAssembly
-        {
-            get
-            {
-                return data.InAssembly;
             }
         }
 

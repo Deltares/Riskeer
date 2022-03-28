@@ -27,9 +27,9 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
-using Riskeer.DuneErosion.Forms.PropertyClasses;
+using Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState;
 
-namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos
+namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos.RegistrationState
 {
     [TestFixture]
     public class DuneErosionFailurePathPropertyInfoTest
