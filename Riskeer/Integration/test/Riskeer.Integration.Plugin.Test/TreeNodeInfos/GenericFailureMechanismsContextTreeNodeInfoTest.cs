@@ -220,9 +220,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.HeightStructures, heightStructuresFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, heightStructuresFailurePathContext.Parent);
 
-                var closingStructuresFailurePathContext = (ClosingStructuresFailurePathContext) objects[11];
-                Assert.AreSame(assessmentSection.ClosingStructures, closingStructuresFailurePathContext.WrappedData);
-                Assert.AreSame(assessmentSection, closingStructuresFailurePathContext.Parent);
+                var closingStructuresFailureMechanismContext = (ClosingStructuresFailureMechanismContext) objects[11];
+                Assert.AreSame(assessmentSection.ClosingStructures, closingStructuresFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, closingStructuresFailureMechanismContext.Parent);
 
                 var pipingStructureFailurePathContext = (PipingStructureFailurePathContext) objects[12];
                 Assert.AreSame(assessmentSection.PipingStructure, pipingStructureFailurePathContext.WrappedData);

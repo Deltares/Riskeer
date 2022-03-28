@@ -222,7 +222,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
@@ -244,7 +244,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new ClosingStructuresFailurePathContext(new ClosingStructuresFailureMechanism(), assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSection);
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<ClosingStructuresFailureMechanism, ClosingStructuresInput>(

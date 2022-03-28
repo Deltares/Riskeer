@@ -22,14 +22,14 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 
-namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects.CalculationState
+namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects.RegistrationState
 {
     [TestFixture]
-    public class ClosingStructuresCalculationsContextTest
+    public class ClosingStructuresFailureMechanismContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.PresentationObjects.CalculationSt
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<ClosingStructuresFailureMechanism>>(context);

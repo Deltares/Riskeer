@@ -32,14 +32,14 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
-using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
-using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.ClosingStructures.Forms.PropertyClasses;
 using Riskeer.ClosingStructures.Forms.Views;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.Views;
+using CalculationStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState.ClosingStructuresFailureMechanismContext;
+using RegistrationStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState.ClosingStructuresFailureMechanismContext;
 using CalculationStateFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationState.ClosingStructuresFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState.ClosingStructuresFailureMechanismProperties;
 using CalculationStateFailureMechanismView = Riskeer.ClosingStructures.Forms.Views.CalculationState.ClosingStructuresFailureMechanismView;
@@ -75,12 +75,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(ClosingStructuresCalculationsContext),
+                    typeof(CalculationStateFailureMechanismContext),
                     typeof(CalculationStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(ClosingStructuresFailurePathContext),
+                    typeof(RegistrationStateFailureMechanismContext),
                     typeof(RegistrationStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -111,8 +111,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(9, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresCalculationsContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresFailurePathContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CalculationStateFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RegistrationStateFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresFailureMechanismSectionResultContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructure)));
@@ -148,12 +148,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(ClosingStructuresCalculationsContext),
+                    typeof(CalculationStateFailureMechanismContext),
                     typeof(CalculationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(ClosingStructuresFailurePathContext),
+                    typeof(RegistrationStateFailureMechanismContext),
                     typeof(RegistrationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(

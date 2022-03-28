@@ -58,8 +58,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.CalculationState
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(ClosingStructuresCalculationsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.CalculationState
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -87,7 +87,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.CalculationState
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var testForm = new Form())
             {

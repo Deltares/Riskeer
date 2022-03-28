@@ -58,8 +58,8 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.RegistrationState
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresFailurePathContext), info.DataType);
-            Assert.AreEqual(typeof(ClosingStructuresFailurePathContext), info.ViewDataType);
+            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.RegistrationState
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -93,7 +93,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.RegistrationState
                 InAssembly = inAssembly
             };
 
-            var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -111,7 +111,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.RegistrationState
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var testForm = new Form())
             {

@@ -49,7 +49,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         public void Setup()
         {
             plugin = new ClosingStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresFailureMechanismContext));
         }
 
         [TearDown]
@@ -90,7 +90,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new ClosingStructuresFailurePathContext(new ClosingStructuresFailureMechanism(), assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -116,7 +116,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -166,7 +166,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             {
                 InAssembly = false
             };
-            var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -190,7 +190,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new ClosingStructuresFailureMechanism();
-                var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
+                var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -233,7 +233,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
                 {
                     InAssembly = false
                 };
-                var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
+                var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -263,14 +263,14 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
 
         [TestFixture]
         public class ClosingStructuresFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<ClosingStructuresPlugin, ClosingStructuresFailureMechanism, ClosingStructuresFailurePathContext>
+            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<ClosingStructuresPlugin, ClosingStructuresFailureMechanism, ClosingStructuresFailureMechanismContext>
         {
             public ClosingStructuresFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override ClosingStructuresFailurePathContext CreateFailureMechanismContext(ClosingStructuresFailureMechanism failureMechanism,
-                                                                                                 IAssessmentSection assessmentSection)
+            protected override ClosingStructuresFailureMechanismContext CreateFailureMechanismContext(ClosingStructuresFailureMechanism failureMechanism,
+                                                                                                      IAssessmentSection assessmentSection)
             {
-                return new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
+                return new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
     }

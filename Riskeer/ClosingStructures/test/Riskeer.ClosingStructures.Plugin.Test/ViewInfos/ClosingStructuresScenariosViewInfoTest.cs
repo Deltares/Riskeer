@@ -203,7 +203,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresFailurePathContext(new ClosingStructuresFailureMechanism(), assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSection);
 
             using (var view = new ClosingStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism))
             {
@@ -226,7 +226,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new ClosingStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism))
             {

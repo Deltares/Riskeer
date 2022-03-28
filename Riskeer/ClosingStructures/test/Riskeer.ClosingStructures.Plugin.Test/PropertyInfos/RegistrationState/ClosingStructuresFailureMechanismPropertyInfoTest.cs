@@ -54,7 +54,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos.RegistrationState
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(ClosingStructuresFailureMechanismProperties), info.PropertyObjectType);
         }
 
@@ -67,7 +67,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos.RegistrationState
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var context = new ClosingStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

@@ -199,7 +199,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 
             using (var view = new ClosingStructuresCalculationsView(new CalculationGroup(), failureMechanism, assessmentSection))
             {
-                var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
+                var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -218,7 +218,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos
 
             using (var view = new ClosingStructuresCalculationsView(failureMechanism.CalculationsGroup, new ClosingStructuresFailureMechanism(), assessmentSection))
             {
-                var context = new ClosingStructuresCalculationsContext(failureMechanism, assessmentSection);
+                var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, context);
