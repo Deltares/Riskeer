@@ -3283,7 +3283,7 @@ QmCC
 				name="SelectCellGenericRow"
 				refimgid="5b768348-ce22-4f13-a467-1d05bbb53b21"
 				searchtimeout="30000ms">
-					/form[@controlname='AssessmentSectionMergeDataProviderDialog']//table[@controlname='dataGridView']/row[@accessiblename='Row '+$indexRow]/cell[@accessiblename&gt;'Selecteer']
+					/form[@controlname='AssessmentSectionMergeDataProviderDialog']//table[@controlname='dataGridView']/row[@accessiblename~' '+$indexRow]/cell[@accessiblename&gt;'Selecteer']
 				</item>
 				<basepath>
 					/form[@controlname='AssessmentSectionMergeDataProviderDialog']//table[@controlname='dataGridView']

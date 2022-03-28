@@ -25,7 +25,7 @@ namespace AutomatedSystemTests.Modules.Calculation
     /// Description of ReplaceAllAliasesInPath.
     /// </summary>
     [TestModule("A6119855-84A5-463A-BD4F-6DAA72A2F84C", ModuleType.UserCode, 1)]
-    public class ReplaceAllAliasesInPath : ITestModule
+    public class ReplaceAllAliasesInString : ITestModule
     {
         
         string _path = "";
@@ -40,7 +40,7 @@ namespace AutomatedSystemTests.Modules.Calculation
         /// <summary>
         /// Constructs a new instance.
         /// </summary>
-        public ReplaceAllAliasesInPath()
+        public ReplaceAllAliasesInString()
         {
             // Do not delete - a parameterless constructor is required!
         }

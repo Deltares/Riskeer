@@ -10796,7 +10796,7 @@ namespace AutomatedSystemTests
             public TableFMsFolder(RepoGenBaseFolder parentFolder) :
                     base("TableFMs", ".//table[@controlname='dataGridView']", parentFolder, 30000, null, false, "15fe51ee-f2a2-4404-a313-53b35aded5fd", "")
             {
-                _selectcellgenericrowInfo = new RepoItemInfo(this, "SelectCellGenericRow", "row[@accessiblename='Row '+$indexRow]/cell[@accessiblename>'Selecteer']", 30000, null, "67bc4452-c4a1-459b-8ab9-a476e489359f");
+                _selectcellgenericrowInfo = new RepoItemInfo(this, "SelectCellGenericRow", "row[@accessiblename~' '+$indexRow]/cell[@accessiblename>'Selecteer']", 30000, null, "67bc4452-c4a1-459b-8ab9-a476e489359f");
             }
 
             /// <summary>
