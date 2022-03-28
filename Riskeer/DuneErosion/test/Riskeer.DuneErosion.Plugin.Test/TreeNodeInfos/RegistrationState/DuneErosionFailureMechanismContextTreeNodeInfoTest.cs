@@ -41,7 +41,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
 {
     [TestFixture]
-    public class DuneErosionFailurePathContextTreeNodeInfoTest
+    public class DuneErosionFailureMechanismContextTreeNodeInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -81,7 +81,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new DuneErosionFailurePathContext(new DuneErosionFailureMechanism(), assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -119,7 +119,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -170,7 +170,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
             {
                 InAssembly = false
             };
-            var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var plugin = new DuneErosionPlugin())
             {
@@ -199,7 +199,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new DuneErosionFailureMechanism();
-                var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+                var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -248,7 +248,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
                 {
                     InAssembly = false
                 };
-                var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+                var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -284,20 +284,20 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
 
         [TestFixture]
         public class DuneErosionFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<DuneErosionPlugin, DuneErosionFailureMechanism, DuneErosionFailurePathContext>
+            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<DuneErosionPlugin, DuneErosionFailureMechanism, DuneErosionFailureMechanismContext>
         {
             public DuneErosionFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override DuneErosionFailurePathContext CreateFailureMechanismContext(DuneErosionFailureMechanism failureMechanism,
-                                                                                           IAssessmentSection assessmentSection)
+            protected override DuneErosionFailureMechanismContext CreateFailureMechanismContext(DuneErosionFailureMechanism failureMechanism,
+                                                                                                IAssessmentSection assessmentSection)
             {
-                return new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+                return new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
 
         private static TreeNodeInfo GetInfo(DuneErosionPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneErosionFailurePathContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneErosionFailureMechanismContext));
         }
     }
 }

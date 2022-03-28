@@ -70,8 +70,6 @@ using Riskeer.Common.Service;
 using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.Common.Util.TypeConverters;
-using Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState;
-using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
 using Riskeer.DuneErosion.Plugin.Handlers;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
@@ -102,6 +100,8 @@ using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using ClosingStructuresCalculationsStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState.ClosingStructuresFailureMechanismContext;
 using ClosingStructuresRegistrationStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState.ClosingStructuresFailureMechanismContext;
 using CoreGuiResources = Core.Gui.Properties.Resources;
+using DuneErosionHydraulicLoadsStateFailureMechanismContext = Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState.DuneErosionFailureMechanismContext;
+using DuneErosionRegistrationStateFailureMechanismContext = Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState.DuneErosionFailureMechanismContext;
 using FontFamily = System.Windows.Media.FontFamily;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
@@ -1731,7 +1731,7 @@ namespace Riskeer.Integration.Plugin
                 new StabilityStoneCoverHydraulicLoadsContext(assessmentSection.StabilityStoneCover, assessmentSection),
                 new WaveImpactAsphaltCoverHydraulicLoadsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
                 new GrassCoverErosionOutwardsHydraulicLoadsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
-                new DuneErosionHydraulicLoadsContext(assessmentSection.DuneErosion, assessmentSection)
+                new DuneErosionHydraulicLoadsStateFailureMechanismContext(assessmentSection.DuneErosion, assessmentSection)
             };
         }
 
@@ -1866,7 +1866,7 @@ namespace Riskeer.Integration.Plugin
                 new ClosingStructuresRegistrationStateFailureMechanismContext(assessmentSection.ClosingStructures, assessmentSection),
                 new PipingStructureFailurePathContext(assessmentSection.PipingStructure, assessmentSection),
                 new StabilityPointStructuresFailurePathContext(assessmentSection.StabilityPointStructures, assessmentSection),
-                new DuneErosionFailurePathContext(assessmentSection.DuneErosion, assessmentSection)
+                new DuneErosionRegistrationStateFailureMechanismContext(assessmentSection.DuneErosion, assessmentSection)
             };
         }
 

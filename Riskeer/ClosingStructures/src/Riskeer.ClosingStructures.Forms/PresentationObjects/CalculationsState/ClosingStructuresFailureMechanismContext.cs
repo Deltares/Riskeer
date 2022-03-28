@@ -27,7 +27,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 namespace Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState
 {
     /// <summary>
-    /// Presentation object for <see cref="ClosingStructuresFailureMechanism"/>.
+    /// Presentation object for <see cref="ClosingStructuresFailureMechanism"/> in the calculations state.
     /// </summary>
     public class ClosingStructuresFailureMechanismContext : FailureMechanismContext<ClosingStructuresFailureMechanism>
     {

@@ -51,7 +51,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
 {
     [TestFixture]
-    public class DuneErosionHydraulicLoadsContextTreeNodeInfoTest
+    public class DuneErosionFailureMechanismContextTreeNodeInfoTest
     {
         private const int contextMenuCalculateAllIndex = 2;
 
@@ -66,7 +66,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
         {
             mocksRepository = new MockRepository();
             plugin = new DuneErosionPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneErosionHydraulicLoadsContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(DuneErosionFailureMechanismContext));
         }
 
         [TearDown]
@@ -111,7 +111,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
             var assessmentSection = new AssessmentSectionStub();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneErosionHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -139,7 +139,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
             // Setup
             var failureMechanism = new DuneErosionFailureMechanism();
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
-            var context = new DuneErosionHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             var orderMocksRepository = new MockRepository();
             var menuBuilder = orderMocksRepository.StrictMock<IContextMenuBuilder>();
@@ -188,7 +188,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
                 duneLocation
             });
 
-            var context = new DuneErosionHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -226,7 +226,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
             };
             HydraulicBoundaryDatabaseTestHelper.SetHydraulicBoundaryLocationConfigurationSettings(assessmentSection.HydraulicBoundaryDatabase);
 
-            var context = new DuneErosionHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             var mocks = new MockRepository();
 
@@ -282,7 +282,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
                 duneLocation
             });
 
-            var context = new DuneErosionHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {

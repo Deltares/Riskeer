@@ -183,9 +183,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.GrassCoverErosionOutwards, grassCoverErosionOutwardsHydraulicLoadsContext.WrappedData);
                 Assert.AreSame(assessmentSection, grassCoverErosionOutwardsHydraulicLoadsContext.Parent);
 
-                var duneErosionHydraulicLoadsContext = (DuneErosionHydraulicLoadsContext) objects[4];
-                Assert.AreSame(assessmentSection.DuneErosion, duneErosionHydraulicLoadsContext.WrappedData);
-                Assert.AreSame(assessmentSection, duneErosionHydraulicLoadsContext.Parent);
+                var duneErosionFailureMechanismContext = (DuneErosionFailureMechanismContext) objects[4];
+                Assert.AreSame(assessmentSection.DuneErosion, duneErosionFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, duneErosionFailureMechanismContext.Parent);
             }
         }
 

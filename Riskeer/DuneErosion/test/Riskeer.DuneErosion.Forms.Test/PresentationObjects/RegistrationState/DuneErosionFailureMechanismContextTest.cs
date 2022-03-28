@@ -24,12 +24,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState;
+using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
 
-namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects.HydraulicLoadsState
+namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects.RegistrationState
 {
     [TestFixture]
-    public class DuneErosionHydraulicLoadsContextTest
+    public class DuneErosionFailureMechanismContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects.HydraulicLoadsState
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var context = new DuneErosionHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<DuneErosionFailureMechanism>>(context);

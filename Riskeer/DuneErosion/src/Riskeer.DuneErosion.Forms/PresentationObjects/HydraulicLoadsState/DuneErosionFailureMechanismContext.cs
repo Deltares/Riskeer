@@ -19,36 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-using Rhino.Mocks;
+using System;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
 
-namespace Riskeer.DuneErosion.Forms.Test.PresentationObjects.RegistrationState
+namespace Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState
 {
-    [TestFixture]
-    public class DuneErosionFailurePathContextTest
+    /// <summary>
+    /// Presentation object for <see cref="DuneErosionFailureMechanism"/> in the hydraulic loads state.
+    /// </summary>
+    public class DuneErosionFailureMechanismContext : FailureMechanismContext<DuneErosionFailureMechanism>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new DuneErosionFailureMechanism();
-
-            // Call
-            var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
-
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismContext<DuneErosionFailureMechanism>>(context);
-            Assert.AreSame(failureMechanism, context.WrappedData);
-            Assert.AreSame(assessmentSection, context.Parent);
-            mocks.VerifyAll();
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="DuneErosionFailureMechanismContext"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> instance
+        /// wrapped by this context object.</param>
+        /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public DuneErosionFailureMechanismContext(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            : base(failureMechanism, assessmentSection) {}
     }
 }

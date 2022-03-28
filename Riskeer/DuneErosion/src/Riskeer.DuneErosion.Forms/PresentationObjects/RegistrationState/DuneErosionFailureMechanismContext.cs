@@ -24,21 +24,21 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Data;
 
-namespace Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState
+namespace Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState
 {
     /// <summary>
-    /// Presentation object for hydraulic loads of <see cref="DuneErosionFailureMechanism"/>.
+    /// Presentation object for <see cref="DuneErosionFailureMechanism"/> in the registration state.
     /// </summary>
-    public class DuneErosionHydraulicLoadsContext : FailureMechanismContext<DuneErosionFailureMechanism>
+    public class DuneErosionFailureMechanismContext : FailureMechanismContext<DuneErosionFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DuneErosionHydraulicLoadsContext"/>.
+        /// Creates a new instance of <see cref="DuneErosionFailureMechanismContext"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="DuneErosionFailureMechanism"/> instance
         /// wrapped by this context object.</param>
         /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DuneErosionHydraulicLoadsContext(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public DuneErosionFailureMechanismContext(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
     }
 }

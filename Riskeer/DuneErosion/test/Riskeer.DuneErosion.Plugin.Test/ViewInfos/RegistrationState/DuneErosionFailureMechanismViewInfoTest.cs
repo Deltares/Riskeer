@@ -58,8 +58,8 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos.RegistrationState
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(DuneErosionFailurePathContext), info.DataType);
-            Assert.AreEqual(typeof(DuneErosionFailurePathContext), info.ViewDataType);
+            Assert.AreEqual(typeof(DuneErosionFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(DuneErosionFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos.RegistrationState
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -94,7 +94,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos.RegistrationState
                 InAssembly = inAssembly
             };
 
-            var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -112,7 +112,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos.RegistrationState
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var testForm = new Form())
             {

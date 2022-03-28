@@ -230,7 +230,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new DuneErosionFailureMechanism();
-            var context = new DuneErosionFailurePathContext(failureMechanism, assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(failureMechanism.SectionResults,
                                                                                                       failureMechanism,
@@ -253,7 +253,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new DuneErosionFailurePathContext(new DuneErosionFailureMechanism(), assessmentSection);
+            var context = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
             var failureMechanism = new DuneErosionFailureMechanism();
 
             using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(failureMechanism.SectionResults,
