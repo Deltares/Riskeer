@@ -253,44 +253,6 @@ namespace Riskeer.Migration.Integration.Test
             }
         }
 
-        private static void AssertLogDatabase(string logFilePath)
-        {
-            using (var reader = new MigrationLogDatabaseReader(logFilePath))
-            {
-                ReadOnlyCollection<MigrationLogMessage> messages = reader.GetMigrationLogMessages();
-
-                Assert.AreEqual(9, messages.Count);
-                var i = 0;
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("21.1", newVersion, "Gevolgen van de migratie van versie 21.1 naar versie 21.2:"),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("21.1", newVersion, "* Alle berekende resultaten zijn verwijderd, behalve die van het faalmechanisme 'Piping' waarbij de waterstand handmatig is ingevuld."),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("21.1", newVersion, "* De oorspronkelijke faalmechanismen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd."),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("21.1", newVersion, "* Traject: 'Traject 12-2 GEKB signaleringsparameter'"),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("21.1", newVersion, "  + Faalmechanisme: 'Grasbekleding erosie kruin en binnentalud'"),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("21.1", newVersion, "    - De waarden van de doelkans voor HBN en overslagdebiet zijn veranderd naar de trajectnorm."),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("21.1", newVersion, "* Traject: 'Traject 12-2 GEKB omgevingswaarde'"),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("21.1", newVersion, "  + Faalmechanisme: 'Grasbekleding erosie kruin en binnentalud'"),
-                    messages[i++]);
-                MigrationLogTestHelper.AssertMigrationLogMessageEqual(
-                    new MigrationLogMessage("21.1", newVersion, "    - De waarden van de doelkans voor HBN en overslagdebiet zijn veranderd naar de trajectnorm."),
-                    messages[i]);
-            }
-        }
-
         private static void AssertVersions(MigratedDatabaseReader reader)
         {
             const string validateVersion =

@@ -1160,6 +1160,11 @@ Outputs that used HydraRing are not migrated
 -- TopLevelFaultTreeIllustrationPointEntity
 -- TopLevelSubMechanismIllustrationPointEntity
 
+/*
+ Outputs that used MacroStabilityInwards kernel are not migrated
+ */
+ -- MacroStabilityInwardsCalculationOutputEntity
+
 ATTACH DATABASE "{1}" AS LOGDATABASE;
 
 CREATE TABLE IF NOT EXISTS [LOGDATABASE].'MigrationLogEntity'
@@ -1270,6 +1275,7 @@ INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityPo
 INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
 INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].ProbabilisticPipingCalculationOutputEntity;
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].MacroStabilityInwardsCalculationOutputEntity;
 INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
 WHERE SemiProbabilisticPipingCalculationEntityId IN (
     SELECT SemiProbabilisticPipingCalculationEntityId
