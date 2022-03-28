@@ -27,7 +27,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState
     /// <summary>
     /// Hydraulic loads related ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
     /// </summary>
-    public class DuneErosionHydraulicLoadsProperties : DuneErosionFailureMechanismProperties
+    public class DuneErosionHydraulicLoadsProperties : DuneErosionFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;

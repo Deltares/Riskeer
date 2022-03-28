@@ -30,7 +30,7 @@ using Riskeer.DuneErosion.Forms.PropertyClasses;
 namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class DuneErosionFailureMechanismPropertiesTest
+    public class DuneErosionFailureMechanismPropertiesBaseTest
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 0;
@@ -39,7 +39,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new DuneErosionFailureMechanismProperties(null, new DuneErosionFailureMechanismProperties.ConstructionProperties());
+            void Call() => new TestDuneErosionFailureMechanismPropertiesBase(null, new DuneErosionFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -53,7 +53,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            void Call() => new DuneErosionFailureMechanismProperties(failureMechanism, null);
+            void Call() => new TestDuneErosionFailureMechanismPropertiesBase(failureMechanism, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -67,7 +67,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionFailureMechanismProperties(failureMechanism, new DuneErosionFailureMechanismProperties.ConstructionProperties());
+            var properties = new TestDuneErosionFailureMechanismPropertiesBase(failureMechanism, new DuneErosionFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<DuneErosionFailureMechanism>>(properties);
@@ -83,7 +83,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionFailureMechanismProperties(failureMechanism, new DuneErosionFailureMechanismProperties.ConstructionProperties
+            var properties = new TestDuneErosionFailureMechanismPropertiesBase(failureMechanism, new DuneErosionFailureMechanismPropertiesBase.ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex
@@ -108,6 +108,12 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Label",
                                                                             "Het label van het faalmechanisme.",
                                                                             true);
+        }
+
+        private class TestDuneErosionFailureMechanismPropertiesBase : DuneErosionFailureMechanismPropertiesBase
+        {
+            public TestDuneErosionFailureMechanismPropertiesBase(DuneErosionFailureMechanism data, ConstructionProperties constructionProperties)
+                : base(data, constructionProperties) {}
         }
     }
 }

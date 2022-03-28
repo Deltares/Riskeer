@@ -30,20 +30,20 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.DuneErosion.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
+    /// Base ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
     /// </summary>
-    public class DuneErosionFailureMechanismProperties : ObjectProperties<DuneErosionFailureMechanism>
+    public abstract class DuneErosionFailureMechanismPropertiesBase : ObjectProperties<DuneErosionFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DuneErosionFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="DuneErosionFailureMechanismPropertiesBase"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="constructionProperties">The property values required to create an instance of <see cref="DuneErosionFailureMechanismProperties"/>.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of <see cref="DuneErosionFailureMechanismPropertiesBase"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public DuneErosionFailureMechanismProperties(DuneErosionFailureMechanism data,
-                                                     ConstructionProperties constructionProperties)
+        protected DuneErosionFailureMechanismPropertiesBase(DuneErosionFailureMechanism data,
+                                                            ConstructionProperties constructionProperties)
         {
             if (data == null)
             {
@@ -77,19 +77,19 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="DuneErosionFailureMechanismProperties"/>.
+        /// Class holding the various construction parameters for <see cref="DuneErosionFailureMechanismPropertiesBase"/>.
         /// </summary>
         public class ConstructionProperties
         {
             #region General
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="DuneErosionFailureMechanismProperties.Name"/>.
+            /// Gets or sets the property index for <see cref="DuneErosionFailureMechanismPropertiesBase.Name"/>.
             /// </summary>
             public int NamePropertyIndex { get; set; }
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="DuneErosionFailureMechanismProperties.Code"/>.
+            /// Gets or sets the property index for <see cref="DuneErosionFailureMechanismPropertiesBase.Code"/>.
             /// </summary>
             public int CodePropertyIndex { get; set; }
 

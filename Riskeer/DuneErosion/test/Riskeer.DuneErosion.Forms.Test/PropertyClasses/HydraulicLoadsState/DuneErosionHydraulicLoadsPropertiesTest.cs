@@ -44,7 +44,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses.HydraulicLoadsState
             var properties = new DuneErosionHydraulicLoadsProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<DuneErosionFailureMechanismProperties>(properties);
+            Assert.IsInstanceOf<DuneErosionFailureMechanismPropertiesBase>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);

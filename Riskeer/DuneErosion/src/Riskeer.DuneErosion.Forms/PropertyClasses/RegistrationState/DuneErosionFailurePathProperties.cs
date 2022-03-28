@@ -31,7 +31,7 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState
     /// <summary>
     /// Failure path related ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
     /// </summary>
-    public class DuneErosionFailurePathProperties : DuneErosionFailureMechanismProperties
+    public class DuneErosionFailurePathProperties : DuneErosionFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
