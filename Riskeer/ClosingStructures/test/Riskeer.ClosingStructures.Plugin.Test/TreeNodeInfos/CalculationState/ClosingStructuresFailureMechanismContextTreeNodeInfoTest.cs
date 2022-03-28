@@ -53,10 +53,10 @@ using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
+namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationState
 {
     [TestFixture]
-    public class ClosingStructuresCalculationsContextTreeNodeInfoTest : NUnitFormTest
+    public class ClosingStructuresFailureMechanismContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuValidateAllIndex = 2;
         private const int contextMenuCalculateAllIndex = 3;

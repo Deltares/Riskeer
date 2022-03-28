@@ -37,10 +37,10 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
+namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
 {
     [TestFixture]
-    public class ClosingStructuresFailurePathContextTreeNodeInfoTest
+    public class ClosingStructuresFailureMechanismContextTreeNodeInfoTest
     {
         private ClosingStructuresPlugin plugin;
         private TreeNodeInfo info;
@@ -262,10 +262,10 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class ClosingStructuresFailurePathContextInAssemblyTreeNodeInfoTest :
+        public class ClosingStructuresFailureMechanismContextInAssemblyTreeNodeInfoTest :
             FailurePathInAssemblyTreeNodeInfoTestFixtureBase<ClosingStructuresPlugin, ClosingStructuresFailureMechanism, ClosingStructuresFailureMechanismContext>
         {
-            public ClosingStructuresFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
+            public ClosingStructuresFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override ClosingStructuresFailureMechanismContext CreateFailureMechanismContext(ClosingStructuresFailureMechanism failureMechanism,
                                                                                                       IAssessmentSection assessmentSection)
