@@ -2,6 +2,16 @@
 <testsuitedoc>
 	<testsuiteentryhierarchy>
 		<flatlistofchildren>
+			<smartfoldernode
+			id="0252f0f3-7b06-4fcf-ac95-b0b4aedc7561"
+			name="SelectStateTraject">
+				<parameters>
+					<param
+					name="stateName"
+					value="@TR">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="05d0ba1c-bcbe-4203-9518-7e6f4bc6a552"
 			name="ValidateTextMesage"
@@ -103,7 +113,7 @@
 				<parameters>
 					<param
 					name="pathRootTraject"
-					value="Traject 50-1">
+					value="@TR">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -239,16 +249,16 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<testcase
-			id="125728d1-b87e-4067-85a3-81cd183c78df"
-			name="TakeScreenshotOfDesktop">
-			</testcase>
 			<testmodule
 			id="12cabbc6-1910-4994-bf03-496be91fa561"
 			name="PressImportDialogSelectionInformationImportMergeProject"
 			ref="0b4b70f2-eb5f-4a5e-972a-c191b344cb2d"
 			type="Recording">
 			</testmodule>
+			<smartfoldernode
+			id="130cc328-d315-4b75-8e3a-298818d922de"
+			name="ChangeHBCScenario">
+			</smartfoldernode>
 			<smartfoldernode
 			id="14d397c1-324f-4fa3-aecb-be4fb37e36b1"
 			name="CalculateFileName">
@@ -407,10 +417,6 @@
 					</var>
 				</databinding>
 			</testmodule>
-			<smartfoldernode
-			id="3627b990-a0b3-45aa-a93e-3456106b5dea"
-			name="NewProject">
-			</smartfoldernode>
 			<smartfoldernode
 			id="36936bda-acf7-45f1-8418-7e86ccd8e709"
 			name="ProceedToImport">
@@ -806,6 +812,20 @@
 					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
 					variableid="28d37ace-d02d-48e5-bb3c-18c756645759"
 					variablename="fileName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="65ce6606-2d08-4290-adb6-d22dbcfae921"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateName"
+					datasourceid="d37edba8-efea-4b04-868c-47293a4ae04b"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
 					</var>
 				</databinding>
 			</testmodule>
@@ -1323,7 +1343,7 @@
 					</param>
 					<param
 					name="errorMessage"
-					value="Er zijn geen trajecten gevonden die samengevoegd kunnen worden.">
+					value="Er is geen traject gevonden dat samengevoegd kan worden.">
 					</param>
 					<param
 					name="waitPeriodUntilErrorMessageHasBeenProduced"
@@ -1498,18 +1518,26 @@
 			id="92ae9ccd-da2f-4f04-a1cd-9291f2953267"
 			name="OpenProject">
 			</smartfoldernode>
+			<testmodule
+			id="93ace033-feef-461a-97bf-ccbf0714d7f9"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateName"
+					datasourceid="0252f0f3-7b06-4fcf-ac95-b0b4aedc7561"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			datasource="script28_a_1_ErrorMessagesMergeOldProject"
 			errorbehavior="ContinueNextIteration"
 			id="96bccf88-39bb-4bba-a4a4-38632a9757d0"
 			name="LoopErrorMessages">
 			</smartfoldernode>
-			<testmodule
-			id="98655c19-2c21-45d8-851c-0289b0a73899"
-			name="NewProjectUsingKeyboard"
-			ref="f0658d7f-65e3-4f38-afe8-97fd942c1478"
-			type="Recording">
-			</testmodule>
 			<smartfoldernode
 			datasource="script28_b_2_LoopValidationProperties"
 			errorbehavior="ContinueNextIteration"
@@ -1528,12 +1556,6 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
-			<testmodule
-			id="9bf4959d-d488-4578-9f56-1589bfc36e85"
-			name="CreateScreenshotEntireDesktop"
-			ref="0f7ebadb-0285-4449-9422-0cd6fde5bf4d"
-			type="Recording">
-			</testmodule>
 			<testmodule
 			id="9d9d20c4-79ab-437a-9f66-2e76fb693e11"
 			name="SetRangeInSmartFolder"
@@ -1868,7 +1890,7 @@
 				<parameters>
 					<param
 					name="pathToHBC"
-					value="Traject 50-1>Hydraulische belastingen">
+					value="@TR>@HB">
 					</param>
 					<param
 					name="pathNewHLCD"
@@ -2108,6 +2130,16 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="d37edba8-efea-4b04-868c-47293a4ae04b"
+			name="SelectStateHB">
+				<parameters>
+					<param
+					name="stateName"
+					value="@HyB">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="d4e1ef72-d903-4b9a-a7f3-0543d9762f8c"
 			name="WaitForXMiliseconds"
@@ -2565,14 +2597,6 @@
 				id="83c4e281-b959-472f-92b4-778c82a5524f"
 				name="Script28">
 					<testcase
-					id="125728d1-b87e-4067-85a3-81cd183c78df"
-					name="TakeScreenshotOfDesktop">
-						<testmodule
-						id="9bf4959d-d488-4578-9f56-1589bfc36e85"
-						name="CreateScreenshotEntireDesktop">
-						</testmodule>
-					</testcase>
-					<testcase
 					id="666b113a-868e-4995-ad39-04a5e56c07e5"
 					name="script28_Projecten_samenvoegen">
 						<setup
@@ -2644,14 +2668,34 @@
 								<smartfoldernode
 								id="bc55fa88-dfbc-42cd-8bfe-907b152450b4"
 								name="ModifyTraject">
-									<testmodule
-									id="413eb0c1-c501-4cb7-950b-8d947c2fc496"
-									name="SelectGenericItemInProjectExplorer">
-									</testmodule>
-									<testmodule
-									id="b1f7a58d-f4e3-4c25-bcfa-79455f84af10"
-									name="SetNewHBCScenario">
-									</testmodule>
+									<smartfoldernode
+									id="d37edba8-efea-4b04-868c-47293a4ae04b"
+									name="SelectStateHB">
+										<testmodule
+										id="65ce6606-2d08-4290-adb6-d22dbcfae921"
+										name="SelectState">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="130cc328-d315-4b75-8e3a-298818d922de"
+									name="ChangeHBCScenario">
+										<testmodule
+										id="413eb0c1-c501-4cb7-950b-8d947c2fc496"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="b1f7a58d-f4e3-4c25-bcfa-79455f84af10"
+										name="SetNewHBCScenario">
+										</testmodule>
+									</smartfoldernode>
+									<smartfoldernode
+									id="0252f0f3-7b06-4fcf-ac95-b0b4aedc7561"
+									name="SelectStateTraject">
+										<testmodule
+										id="93ace033-feef-461a-97bf-ccbf0714d7f9"
+										name="SelectState">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="b13d9dd8-b806-4292-8160-89158b3dcf9e"
@@ -2684,24 +2728,16 @@
 							</smartfoldernode>
 						</smartfoldernode>
 						<smartfoldernode
-						id="3627b990-a0b3-45aa-a93e-3456106b5dea"
-						name="NewProject">
-							<testmodule
-							id="98655c19-2c21-45d8-851c-0289b0a73899"
-							name="NewProjectUsingKeyboard">
-							</testmodule>
-						</smartfoldernode>
-						<smartfoldernode
-						id="92ae9ccd-da2f-4f04-a1cd-9291f2953267"
-						name="OpenProject">
-							<testmodule
-							id="09dd3f56-7d85-4291-a8cf-b3682e6ae651"
-							name="OpenProject">
-							</testmodule>
-						</smartfoldernode>
-						<smartfoldernode
 						id="f9bea1a4-ae7c-493a-a646-02f6d917370c"
 						name="b)MergeFMsInSameSection">
+							<smartfoldernode
+							id="92ae9ccd-da2f-4f04-a1cd-9291f2953267"
+							name="OpenProject">
+								<testmodule
+								id="09dd3f56-7d85-4291-a8cf-b3682e6ae651"
+								name="OpenProject">
+								</testmodule>
+							</smartfoldernode>
 							<smartfoldernode
 							id="c52f2201-1123-47d2-88d4-813ef49b6ceb"
 							name="1)CancelledByUser">
@@ -4934,91 +4970,25 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="0abc14d7-9101-4f34-a8cb-9234ee53e5f4">
+			id="0252f0f3-7b06-4fcf-ac95-b0b4aedc7561">
 			</testcontainer>
 			<testcontainer
 			id="0b0cdec6-1eb0-4000-b7e2-1733807629c7">
 			</testcontainer>
 			<testcontainer
-			id="0ce848bb-2a6d-4064-af2f-8650a8a9828f">
-			</testcontainer>
-			<testcontainer
-			id="125728d1-b87e-4067-85a3-81cd183c78df">
-			</testcontainer>
-			<testcontainer
-			id="14d397c1-324f-4fa3-aecb-be4fb37e36b1">
-			</testcontainer>
-			<testcontainer
-			id="1e5ebec6-ded3-46f8-b4da-382e684fe250">
-			</testcontainer>
-			<testcontainer
-			id="230bfaad-79af-46d1-981b-d17ffa2ce28b">
+			id="130cc328-d315-4b75-8e3a-298818d922de">
 			</testcontainer>
 			<testcontainer
 			id="26ae2138-7916-4a03-8fb7-5d5cf4c2cbc5">
 			</testcontainer>
 			<testcontainer
-			id="3627b990-a0b3-45aa-a93e-3456106b5dea">
-			</testcontainer>
-			<testcontainer
-			id="36936bda-acf7-45f1-8418-7e86ccd8e709">
-			</testcontainer>
-			<testcontainer
-			id="3bc878e1-f788-4b43-a26b-c424368b5b59">
-			</testcontainer>
-			<testcontainer
-			id="3ef9e76d-159f-494c-8046-cd3a089c5b55">
-			</testcontainer>
-			<testcontainer
-			id="43a9552b-6263-4bb9-be62-6610d781eb44">
-			</testcontainer>
-			<testcontainer
-			id="441497d9-2293-4e69-8501-e06b3d845cba">
-			</testcontainer>
-			<testcontainer
-			id="45cfc5d3-f55d-4fb3-afb9-e4eae19b10cc">
-			</testcontainer>
-			<testcontainer
-			id="518f9335-845f-44d5-8724-84ad55520000">
-			</testcontainer>
-			<testcontainer
-			id="52ef8895-c7b3-42db-ad31-4b014c8a60ee">
-			</testcontainer>
-			<testcontainer
-			id="54fd3926-a219-4ffd-adb3-a9c1f6728482">
-			</testcontainer>
-			<testcontainer
-			id="61912302-b64a-4235-9d6d-9e2dc974301d">
-			</testcontainer>
-			<testcontainer
 			id="666b113a-868e-4995-ad39-04a5e56c07e5">
-			</testcontainer>
-			<testcontainer
-			id="6f0c0d8a-5c12-4bf6-80bf-240af8e9998a">
-			</testcontainer>
-			<testcontainer
-			id="7076410d-3cdb-4cd7-b3a1-449e2f4f3970">
-			</testcontainer>
-			<testcontainer
-			id="76827ce3-9756-4ff2-9105-7c9487152537">
-			</testcontainer>
-			<testcontainer
-			id="79c0a666-8b46-47d6-8c19-71b91011957f">
 			</testcontainer>
 			<testcontainer
 			id="83c4e281-b959-472f-92b4-778c82a5524f">
 			</testcontainer>
 			<testcontainer
-			id="855babf3-3154-4c6f-aa7c-d3e4c3974d24">
-			</testcontainer>
-			<testcontainer
 			id="8a37614b-4da8-4ae1-b7f6-43231c373972">
-			</testcontainer>
-			<testcontainer
-			id="8d7def54-1eff-43ac-99a7-65be4da715bb">
-			</testcontainer>
-			<testcontainer
-			id="8dc00a52-1c7e-42c0-a8aa-457b0a08bda7">
 			</testcontainer>
 			<testcontainer
 			id="92ae9ccd-da2f-4f04-a1cd-9291f2953267">
@@ -5027,25 +4997,10 @@
 			id="96bccf88-39bb-4bba-a4a4-38632a9757d0">
 			</testcontainer>
 			<testcontainer
-			id="9b1a8fdf-6106-46db-8334-14f36e7cd85c">
-			</testcontainer>
-			<testcontainer
-			id="a0a87348-5ca1-4ab9-9de5-84e45177f8fa">
-			</testcontainer>
-			<testcontainer
 			id="a1e93938-4b48-49b8-bd18-e3504ea93c7a">
 			</testcontainer>
 			<testcontainer
-			id="a60ded01-9672-4a38-a68d-091d4c7d94b4">
-			</testcontainer>
-			<testcontainer
 			id="aa0de140-3066-4e38-b79c-fd9f31dd348f">
-			</testcontainer>
-			<testcontainer
-			id="ab92454f-ed8f-4299-a593-4f1273fba8e6">
-			</testcontainer>
-			<testcontainer
-			id="b0509a53-2f5e-499f-b5f1-ade72bcc73ac">
 			</testcontainer>
 			<testcontainer
 			id="b0fcd5ea-054f-49cb-8d41-4619d25af082">
@@ -5066,49 +5021,16 @@
 			id="c52f2201-1123-47d2-88d4-813ef49b6ceb">
 			</testcontainer>
 			<testcontainer
-			id="c6872d5f-ca5b-41ab-a90c-a785336e2d68">
-			</testcontainer>
-			<testcontainer
 			id="cd95c499-a777-42af-9dee-fc70ab195986">
 			</testcontainer>
 			<testcontainer
-			id="dca6a081-1ea4-40c7-ba34-e0e9f836eda7">
+			id="d37edba8-efea-4b04-868c-47293a4ae04b">
 			</testcontainer>
 			<testcontainer
 			id="e0a818c0-bd8c-4d74-a930-009c91119b57">
 			</testcontainer>
 			<testcontainer
-			id="e37aba9d-3b71-4f24-84e6-9f8666bade9d">
-			</testcontainer>
-			<testcontainer
-			id="e44c3c13-c44a-4c53-85e9-40737c809cdc">
-			</testcontainer>
-			<testcontainer
-			id="e5076244-389d-494c-a0ca-39e11a7ea5ca">
-			</testcontainer>
-			<testcontainer
-			id="eea30392-b69e-4754-a435-b013b2ad001c">
-			</testcontainer>
-			<testcontainer
-			id="f18be060-a8ab-4c9f-b112-b69eb67f049e">
-			</testcontainer>
-			<testcontainer
-			id="f2f78b75-a2b9-46e0-bf05-8eb07e972595">
-			</testcontainer>
-			<testcontainer
-			id="f70ae74a-e777-45d4-adca-d55322e57b51">
-			</testcontainer>
-			<testcontainer
-			id="f8700ac2-c2fb-4ae6-ac73-8e68bffdda16">
-			</testcontainer>
-			<testcontainer
 			id="f9bea1a4-ae7c-493a-a646-02f6d917370c">
-			</testcontainer>
-			<testcontainer
-			id="f9f44f47-057f-4d41-92d2-3d7888cd9304">
-			</testcontainer>
-			<testcontainer
-			id="fbf27485-fee5-44df-84a9-f6cb964fcd52">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
