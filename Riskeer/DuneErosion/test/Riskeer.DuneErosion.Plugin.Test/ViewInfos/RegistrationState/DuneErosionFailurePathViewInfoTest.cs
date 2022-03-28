@@ -29,9 +29,9 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
-using Riskeer.DuneErosion.Forms.Views;
+using Riskeer.DuneErosion.Forms.Views.RegistrationState;
 
-namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
+namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos.RegistrationState
 {
     [TestFixture]
     public class DuneErosionFailurePathViewInfoTest

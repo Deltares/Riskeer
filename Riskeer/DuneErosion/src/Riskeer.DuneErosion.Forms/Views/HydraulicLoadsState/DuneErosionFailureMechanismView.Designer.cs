@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.DuneErosion.Forms.Views
+namespace Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState
 {
     partial class DuneErosionFailureMechanismView
     {

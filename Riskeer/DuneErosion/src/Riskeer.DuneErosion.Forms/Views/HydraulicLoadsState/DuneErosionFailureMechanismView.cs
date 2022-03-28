@@ -29,7 +29,7 @@ using Riskeer.Common.Forms.Factories;
 using Riskeer.DuneErosion.Data;
 using DuneErosionDataResources = Riskeer.DuneErosion.Data.Properties.Resources;
 
-namespace Riskeer.DuneErosion.Forms.Views
+namespace Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState
 {
     /// <summary>
     /// This class is a view showing map data for a dune erosion failure mechanism.

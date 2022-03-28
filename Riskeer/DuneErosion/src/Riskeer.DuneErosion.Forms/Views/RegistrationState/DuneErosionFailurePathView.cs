@@ -29,9 +29,10 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
 using Riskeer.DuneErosion.Data;
+using Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState;
 using DuneErosionDataResources = Riskeer.DuneErosion.Data.Properties.Resources;
 
-namespace Riskeer.DuneErosion.Forms.Views
+namespace Riskeer.DuneErosion.Forms.Views.RegistrationState
 {
     /// <summary>
     /// This class is a view showing map data for a dune erosion failure path.

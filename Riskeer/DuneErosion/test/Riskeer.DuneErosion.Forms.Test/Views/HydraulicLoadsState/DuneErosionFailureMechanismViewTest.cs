@@ -38,9 +38,9 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.TestUtil;
-using Riskeer.DuneErosion.Forms.Views;
+using Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState;
 
-namespace Riskeer.DuneErosion.Forms.Test.Views
+namespace Riskeer.DuneErosion.Forms.Test.Views.HydraulicLoadsState
 {
     [TestFixture]
     public class DuneErosionFailureMechanismViewTest
