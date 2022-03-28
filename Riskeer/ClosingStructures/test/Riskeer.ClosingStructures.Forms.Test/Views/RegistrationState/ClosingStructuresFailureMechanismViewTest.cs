@@ -44,7 +44,7 @@ using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
-using CalculationStateFailureMechanismView = Riskeer.ClosingStructures.Forms.Views.CalculationState.ClosingStructuresFailureMechanismView;
+using CalculationsStateFailureMechanismView = Riskeer.ClosingStructures.Forms.Views.CalculationsState.ClosingStructuresFailureMechanismView;
 
 namespace Riskeer.ClosingStructures.Forms.Test.Views.RegistrationState
 {
@@ -93,7 +93,7 @@ namespace Riskeer.ClosingStructures.Forms.Test.Views.RegistrationState
             ClosingStructuresFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<CalculationStateFailureMechanismView>(view);
+            Assert.IsInstanceOf<CalculationsStateFailureMechanismView>(view);
             Assert.IsNull(view.Data);
             Assert.AreSame(failureMechanism, view.FailureMechanism);
             Assert.AreSame(assessmentSection, view.AssessmentSection);

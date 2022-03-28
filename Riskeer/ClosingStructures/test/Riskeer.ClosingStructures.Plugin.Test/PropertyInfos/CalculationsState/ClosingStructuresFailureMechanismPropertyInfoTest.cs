@@ -25,11 +25,11 @@ using Core.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
-using Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationState;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState;
+using Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationsState;
 using Riskeer.Common.Data.AssessmentSection;
 
-namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos.CalculationState
+namespace Riskeer.ClosingStructures.Plugin.Test.PropertyInfos.CalculationsState
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismPropertyInfoTest

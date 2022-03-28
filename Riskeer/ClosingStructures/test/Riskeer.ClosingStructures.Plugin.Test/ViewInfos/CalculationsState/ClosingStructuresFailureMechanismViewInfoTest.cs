@@ -26,12 +26,12 @@ using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
-using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
-using Riskeer.ClosingStructures.Forms.Views.CalculationState;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState;
+using Riskeer.ClosingStructures.Forms.Views.CalculationsState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 
-namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.CalculationState
+namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.CalculationsState
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismViewInfoTest

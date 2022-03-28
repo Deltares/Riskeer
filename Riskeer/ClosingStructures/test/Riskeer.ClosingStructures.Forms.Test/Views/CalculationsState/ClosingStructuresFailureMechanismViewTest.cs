@@ -34,7 +34,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
-using Riskeer.ClosingStructures.Forms.Views.CalculationState;
+using Riskeer.ClosingStructures.Forms.Views.CalculationsState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -43,7 +43,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 
-namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationState
+namespace Riskeer.ClosingStructures.Forms.Test.Views.CalculationsState
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismViewTest

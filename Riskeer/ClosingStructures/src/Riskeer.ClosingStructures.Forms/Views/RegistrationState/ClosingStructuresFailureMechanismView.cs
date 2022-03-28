@@ -36,7 +36,7 @@ namespace Riskeer.ClosingStructures.Forms.Views.RegistrationState
     /// <summary>
     /// This class is a view showing map data for a closing structures failure mechanism.
     /// </summary>
-    public class ClosingStructuresFailureMechanismView : CalculationState.ClosingStructuresFailureMechanismView
+    public class ClosingStructuresFailureMechanismView : CalculationsState.ClosingStructuresFailureMechanismView
     {
         private MapLineData sectionsMapData;
         private MapPointData sectionsStartPointMapData;

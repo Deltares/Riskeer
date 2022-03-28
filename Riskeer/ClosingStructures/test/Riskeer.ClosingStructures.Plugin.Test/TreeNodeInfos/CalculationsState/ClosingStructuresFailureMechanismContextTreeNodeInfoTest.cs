@@ -38,7 +38,7 @@ using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.ClosingStructures.Forms.PresentationObjects;
-using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Hydraulics;
@@ -53,7 +53,7 @@ using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationState
+namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.CalculationsState
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismContextTreeNodeInfoTest : NUnitFormTest

@@ -30,7 +30,7 @@ using Core.Gui.ContextMenu;
 using Core.Gui.TestUtil.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState;
+using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;

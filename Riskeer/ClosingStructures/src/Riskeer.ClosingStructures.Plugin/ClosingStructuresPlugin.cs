@@ -60,11 +60,11 @@ using Riskeer.Common.Plugin.FileImporters;
 using Riskeer.Common.Service;
 using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
-using CalculationStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState.ClosingStructuresFailureMechanismContext;
+using CalculationsStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState.ClosingStructuresFailureMechanismContext;
 using RegistrationStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState.ClosingStructuresFailureMechanismContext;
-using CalculationStateFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationState.ClosingStructuresFailureMechanismProperties;
+using CalculationsStateFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationsState.ClosingStructuresFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState.ClosingStructuresFailureMechanismProperties;
-using CalculationStateFailureMechanismView = Riskeer.ClosingStructures.Forms.Views.CalculationState.ClosingStructuresFailureMechanismView;
+using CalculationsStateFailureMechanismView = Riskeer.ClosingStructures.Forms.Views.CalculationsState.ClosingStructuresFailureMechanismView;
 using RegistrationStateFailureMechanismView = Riskeer.ClosingStructures.Forms.Views.RegistrationState.ClosingStructuresFailureMechanismView;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
@@ -79,9 +79,9 @@ namespace Riskeer.ClosingStructures.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<CalculationStateFailureMechanismContext, CalculationStateFailureMechanismProperties>
+            yield return new PropertyInfo<CalculationsStateFailureMechanismContext, CalculationsStateFailureMechanismProperties>
             {
-                CreateInstance = context => new CalculationStateFailureMechanismProperties(context.WrappedData)
+                CreateInstance = context => new CalculationsStateFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismProperties>
             {
@@ -102,10 +102,10 @@ namespace Riskeer.ClosingStructures.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<CalculationStateFailureMechanismContext, CalculationStateFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<CalculationsStateFailureMechanismContext, CalculationsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new CalculationStateFailureMechanismView(context.WrappedData, context.Parent)
+                CreateInstance = context => new CalculationsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new RiskeerViewInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismView>(() => Gui)
@@ -149,7 +149,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<CalculationStateFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<CalculationsStateFailureMechanismContext>(
                 CalculationStateFailureMechanismChildNodeObjects,
                 CalculationStateFailureMechanismContextMenuStrip);
 
@@ -346,7 +346,7 @@ namespace Riskeer.ClosingStructures.Plugin
         {
             ClosingStructuresFailureMechanism failureMechanism = null;
 
-            if (dataToCloseFor is CalculationStateFailureMechanismContext failureMechanismContext)
+            if (dataToCloseFor is CalculationsStateFailureMechanismContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -367,7 +367,7 @@ namespace Riskeer.ClosingStructures.Plugin
 
         #region CalculationStateFailureMechanismContext TreeNodeInfo
 
-        private static object[] CalculationStateFailureMechanismChildNodeObjects(CalculationStateFailureMechanismContext context)
+        private static object[] CalculationStateFailureMechanismChildNodeObjects(CalculationsStateFailureMechanismContext context)
         {
             ClosingStructuresFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -390,7 +390,7 @@ namespace Riskeer.ClosingStructures.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationStateFailureMechanismContextMenuStrip(CalculationStateFailureMechanismContext context,
+        private ContextMenuStrip CalculationStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                                                   object parentData,
                                                                                   TreeViewControl treeViewControl)
         {
@@ -423,18 +423,18 @@ namespace Riskeer.ClosingStructures.Plugin
                           .Build();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(CalculationStateFailureMechanismContext context)
+        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(CalculationsStateFailureMechanismContext context)
         {
             return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
-        private static void ValidateAllInFailureMechanism(CalculationStateFailureMechanismContext context)
+        private static void ValidateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
         {
             ValidateAll(context.WrappedData.Calculations.OfType<StructuresCalculation<ClosingStructuresInput>>(),
                         context.Parent);
         }
 
-        private void CalculateAllInFailureMechanism(CalculationStateFailureMechanismContext context)
+        private void CalculateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              ClosingStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));

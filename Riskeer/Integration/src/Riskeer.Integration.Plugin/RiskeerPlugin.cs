@@ -98,7 +98,7 @@ using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using ClosingStructuresCalculationStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationState.ClosingStructuresFailureMechanismContext;
+using ClosingStructuresCalculationsStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState.ClosingStructuresFailureMechanismContext;
 using ClosingStructuresRegistrationStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState.ClosingStructuresFailureMechanismContext;
 using CoreGuiResources = Core.Gui.Properties.Resources;
 using FontFamily = System.Windows.Media.FontFamily;
@@ -1778,7 +1778,7 @@ namespace Riskeer.Integration.Plugin
                 new GrassCoverErosionInwardsCalculationsContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
                 new MacroStabilityInwardsCalculationsContext(assessmentSection.MacroStabilityInwards, assessmentSection),
                 new HeightStructuresCalculationsContext(assessmentSection.HeightStructures, assessmentSection),
-                new ClosingStructuresCalculationStateFailureMechanismContext(assessmentSection.ClosingStructures, assessmentSection),
+                new ClosingStructuresCalculationsStateFailureMechanismContext(assessmentSection.ClosingStructures, assessmentSection),
                 new StabilityPointStructuresCalculationsContext(assessmentSection.StabilityPointStructures, assessmentSection)
             };
         }
