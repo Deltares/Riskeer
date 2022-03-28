@@ -29,7 +29,7 @@ using Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState;
 namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses.HydraulicLoadsState
 {
     [TestFixture]
-    public class DuneErosionHydraulicLoadsPropertiesTest
+    public class DuneErosionFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -41,7 +41,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses.HydraulicLoadsState
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionHydraulicLoadsProperties(failureMechanism);
+            var properties = new DuneErosionFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<DuneErosionFailureMechanismPropertiesBase>(properties);
@@ -57,7 +57,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses.HydraulicLoadsState
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionHydraulicLoadsProperties(failureMechanism);
+            var properties = new DuneErosionFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

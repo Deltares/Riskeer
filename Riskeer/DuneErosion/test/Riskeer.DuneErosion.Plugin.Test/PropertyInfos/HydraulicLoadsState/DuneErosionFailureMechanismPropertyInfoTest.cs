@@ -32,7 +32,7 @@ using Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState;
 namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos.HydraulicLoadsState
 {
     [TestFixture]
-    public class DuneErosionHydraulicLoadsPropertyInfoTest
+    public class DuneErosionFailureMechanismPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -45,7 +45,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos.HydraulicLoadsState
 
                 // Assert
                 Assert.AreEqual(typeof(DuneErosionHydraulicLoadsContext), info.DataType);
-                Assert.AreEqual(typeof(DuneErosionHydraulicLoadsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(DuneErosionFailureMechanismProperties), info.PropertyObjectType);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos.HydraulicLoadsState
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<DuneErosionHydraulicLoadsProperties>(objectProperties);
+                Assert.IsInstanceOf<DuneErosionFailureMechanismProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
 

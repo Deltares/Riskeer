@@ -25,19 +25,19 @@ using Riskeer.DuneErosion.Data;
 namespace Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState
 {
     /// <summary>
-    /// Hydraulic loads related ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
+    /// Hydraulic loads state related ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
     /// </summary>
-    public class DuneErosionHydraulicLoadsProperties : DuneErosionFailureMechanismPropertiesBase
+    public class DuneErosionFailureMechanismProperties : DuneErosionFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DuneErosionHydraulicLoadsProperties"/>.
+        /// Creates a new instance of <see cref="DuneErosionFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public DuneErosionHydraulicLoadsProperties(DuneErosionFailureMechanism data)
+        public DuneErosionFailureMechanismProperties(DuneErosionFailureMechanism data)
             : base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
