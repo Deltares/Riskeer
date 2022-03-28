@@ -183,8 +183,8 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="projectToOpenFileName"
-					datasourceid="ffd7722e-fb6a-4059-a901-6b57196a5a93"
+					dataname="fileToOpen"
+					datasourceid="85d947f1-d6dc-4113-b652-d87ae9744e56"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
 					variablename="fileName">
 					</var>
@@ -1169,6 +1169,12 @@
 			<smartfoldernode
 			id="85d947f1-d6dc-4113-b652-d87ae9744e56"
 			name="OpenProject">
+				<parameters>
+					<param
+					name="fileToOpen"
+					value="inputScript20b_STPH.risk">
+					</param>
+				</parameters>
 			</smartfoldernode>
 			<smartfoldernode
 			id="8904eaf4-9433-4ebc-8995-c15033ef792f"
