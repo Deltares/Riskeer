@@ -74,7 +74,7 @@ namespace Riskeer.MacroStabilityInwards.Data
 
         public double CalculateSectionProbability()
         {
-            return CalculateProfileProbability() * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length);
+            return Math.Min(1.0, CalculateProfileProbability() * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
         }
     }
 }

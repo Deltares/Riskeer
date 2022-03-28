@@ -83,8 +83,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
 
         public double CalculateSectionProbability()
         {
-            return CalculateProfileProbability() * failureMechanism.PipingProbabilityAssessmentInput.GetN(
-                       sectionResult.Section.Length);
+            return Math.Min(1.0, CalculateProfileProbability() * failureMechanism.PipingProbabilityAssessmentInput.GetN(sectionResult.Section.Length));
         }
     }
 }
