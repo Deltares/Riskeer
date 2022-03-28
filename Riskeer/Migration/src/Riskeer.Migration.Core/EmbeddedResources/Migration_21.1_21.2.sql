@@ -1270,9 +1270,7 @@ INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityPo
 INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].StabilityStoneCoverWaveConditionsOutputEntity;
 INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsOutputEntity;
 INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].ProbabilisticPipingCalculationOutputEntity;
-INSERT INTO TempLogOutputDeleted
-SELECT COUNT()
-FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
+INSERT INTO TempLogOutputDeleted SELECT COUNT() FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
 WHERE SemiProbabilisticPipingCalculationEntityId IN (
     SELECT SemiProbabilisticPipingCalculationEntityId
     FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity
@@ -1282,9 +1280,7 @@ CREATE TEMP TABLE TempLogOutputRemaining
 (
 	'NrRemaining' INTEGER NOT NULL
 );
-INSERT INTO TempLogOutputRemaining
-SELECT COUNT()
-FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
+INSERT INTO TempLogOutputRemaining SELECT COUNT() FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationOutputEntity
 WHERE SemiProbabilisticPipingCalculationEntityId IN (
     SELECT SemiProbabilisticPipingCalculationEntityId
     FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity
