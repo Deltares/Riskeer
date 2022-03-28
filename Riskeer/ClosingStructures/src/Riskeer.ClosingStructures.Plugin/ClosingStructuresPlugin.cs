@@ -150,8 +150,8 @@ namespace Riskeer.ClosingStructures.Plugin
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<CalculationsStateFailureMechanismContext>(
-                CalculationStateFailureMechanismChildNodeObjects,
-                CalculationStateFailureMechanismContextMenuStrip);
+                CalculationsStateFailureMechanismChildNodeObjects,
+                CalculationsStateFailureMechanismContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<RegistrationStateFailureMechanismContext>(
                 RegistrationStateFailureMechanismEnabledChildNodeObjects,
@@ -365,9 +365,9 @@ namespace Riskeer.ClosingStructures.Plugin
 
         #region TreeNodeInfos
 
-        #region CalculationStateFailureMechanismContext TreeNodeInfo
+        #region CalculationsStateFailureMechanismContext TreeNodeInfo
 
-        private static object[] CalculationStateFailureMechanismChildNodeObjects(CalculationsStateFailureMechanismContext context)
+        private static object[] CalculationsStateFailureMechanismChildNodeObjects(CalculationsStateFailureMechanismContext context)
         {
             ClosingStructuresFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -375,12 +375,12 @@ namespace Riskeer.ClosingStructures.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetCalculationStateFailureMechanismInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                                       GetCalculationsStateFailureMechanismInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup, null, failureMechanism, assessmentSection)
             };
         }
 
-        private static IEnumerable<object> GetCalculationStateFailureMechanismInputs(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetCalculationsStateFailureMechanismInputs(ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -390,9 +390,9 @@ namespace Riskeer.ClosingStructures.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
-                                                                                  object parentData,
-                                                                                  TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationsStateFailureMechanismContextMenuStrip(CalculationsStateFailureMechanismContext context,
+                                                                                   object parentData,
+                                                                                   TreeViewControl treeViewControl)
         {
             IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations = context.WrappedData
                                                                                              .Calculations
