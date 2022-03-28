@@ -116,7 +116,7 @@ namespace Riskeer.Integration.IO.Factories
                     SpecificFailureMechanism specificFailureMechanism = assessmentSection.SpecificFailureMechanisms.ElementAt(i);
                     exportableAssemblyResults.Add(CreateExportableFailureMechanismCombinedSectionAssemblyResult(
                                                       specificFailureMechanismAssemblyResult.Value, ExportableFailureMechanismType.Specific,
-                                                      specificFailureMechanism.Code));
+                                                      specificFailureMechanism.Code, specificFailureMechanism.Name));
                 }
             }
 
