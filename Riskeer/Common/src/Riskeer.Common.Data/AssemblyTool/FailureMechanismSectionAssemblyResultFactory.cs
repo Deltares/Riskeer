@@ -236,7 +236,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         {
             if (probabilityRefinementType == ProbabilityRefinementType.Profile)
             {
-                refinedSectionProbability = refinedProfileProbability * sectionN;
+                refinedSectionProbability = Math.Min(1.0, refinedProfileProbability * sectionN);
             }
 
             if (probabilityRefinementType == ProbabilityRefinementType.Section)

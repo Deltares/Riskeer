@@ -258,17 +258,20 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         }
 
         [Test]
-        [TestCase(ProbabilityRefinementType.Profile)]
-        [TestCase(ProbabilityRefinementType.Section)]
-        [TestCase(ProbabilityRefinementType.Both)]
+        [TestCase(ProbabilityRefinementType.Profile, 1)]
+        [TestCase(ProbabilityRefinementType.Profile, 10)]
+        [TestCase(ProbabilityRefinementType.Section, 1)]
+        [TestCase(ProbabilityRefinementType.Section, 10)]
+        [TestCase(ProbabilityRefinementType.Both, 1)]
+        [TestCase(ProbabilityRefinementType.Both, 10)]
         public void AssembleSectionAdoptableWithProfileProbability_WithInputAndUseLengthEffectTrueAndVariousProbabilityRefinementType_SetsInputOnCalculator(
-            ProbabilityRefinementType probabilityRefinementType)
+            ProbabilityRefinementType probabilityRefinementType,
+            double sectionN)
         {
             // Setup
             var random = new Random(21);
             double refinedSectionProbability = random.NextDouble();
             double refinedProfileProbability = random.NextDouble();
-            double sectionN = random.NextDouble();
 
             var mocks = new MockRepository();
             var calculateStrategy = mocks.Stub<IFailureMechanismSectionResultCalculateProbabilityStrategy>();
@@ -298,7 +301,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 {
                     case ProbabilityRefinementType.Profile:
                         Assert.AreEqual(refinedProfileProbability, calculatorInput.RefinedProfileProbability);
-                        Assert.AreEqual(refinedProfileProbability * sectionN, calculatorInput.RefinedSectionProbability);
+                        Assert.AreEqual(Math.Min(1.0, refinedProfileProbability * sectionN), calculatorInput.RefinedSectionProbability);
                         break;
                     case ProbabilityRefinementType.Section:
                         Assert.AreEqual(refinedSectionProbability / sectionN, calculatorInput.RefinedProfileProbability);
