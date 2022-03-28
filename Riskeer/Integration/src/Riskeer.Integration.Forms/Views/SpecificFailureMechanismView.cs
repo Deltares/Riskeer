@@ -30,6 +30,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
 using Riskeer.Common.Forms.Views;
+using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
 
 namespace Riskeer.Integration.Forms.Views
 {
@@ -45,6 +46,8 @@ namespace Riskeer.Integration.Forms.Views
 
         private HydraulicBoundaryLocationsMapLayer hydraulicBoundaryLocationsMapLayer;
 
+        private NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> assemblyResultMapLayer;
+        
         private MapLineData referenceLineMapData;
 
         private MapLineData sectionsMapData;
@@ -94,6 +97,7 @@ namespace Riskeer.Integration.Forms.Views
             referenceLineObserver.Dispose();
             failureMechanismObserver.Dispose();
             hydraulicBoundaryLocationsMapLayer.Dispose();
+            assemblyResultMapLayer.Dispose();
 
             if (disposing)
             {
@@ -148,8 +152,12 @@ namespace Riskeer.Integration.Forms.Views
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
 
+            assemblyResultMapLayer = new NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+                failureMechanism, sr => FailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
+
             failureMechanismMapDataCollection.Add(referenceLineMapData);
             failureMechanismMapDataCollection.Add(sectionsMapDataCollection);
+            failureMechanismMapDataCollection.Add(assemblyResultMapLayer.MapData);
             failureMechanismMapDataCollection.Add(hydraulicBoundaryLocationsMapLayer.MapData);
         }
 

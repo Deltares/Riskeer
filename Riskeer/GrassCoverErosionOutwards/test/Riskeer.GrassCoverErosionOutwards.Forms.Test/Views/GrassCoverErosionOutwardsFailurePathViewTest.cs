@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -101,8 +100,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var random = new Random(39);
-
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {

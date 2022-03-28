@@ -30,6 +30,9 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.KernelWrapper.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Hydraulics;
@@ -45,7 +48,8 @@ namespace Riskeer.Integration.Forms.Test.Views
     {
         private const int referenceLineIndex = 0;
         private const int sectionsCollectionIndex = 1;
-        private const int hydraulicBoundaryLocationsIndex = 2;
+        private const int assemblyResultsIndex = 2;
+        private const int hydraulicBoundaryLocationsIndex = 3;
 
         private const int sectionsIndex = 0;
         private const int sectionsStartPointIndex = 1;
@@ -137,22 +141,29 @@ namespace Riskeer.Integration.Forms.Test.Views
                 new FailureMechanismSection("C", geometryPoints.Skip(2).Take(2))
             });
 
-            // Call
-            SpecificFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
+            using (new AssemblyToolCalculatorFactoryConfig())
+            {
+                // Call
+                SpecificFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
-            // Assert
-            MapDataCollection mapData = view.Map.Data;
-            List<MapData> mapDataList = mapData.Collection.ToList();
-            Assert.AreEqual(3, mapDataList.Count);
+                // Assert
+                MapDataCollection mapData = view.Map.Data;
+                List<MapData> mapDataList = mapData.Collection.ToList();
+                Assert.AreEqual(4, mapDataList.Count);
 
-            MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
+                MapDataTestHelper.AssertReferenceLineMapData(assessmentSection.ReferenceLine, mapDataList[referenceLineIndex]);
 
-            IEnumerable<MapData> sectionsCollection = ((MapDataCollection) mapDataList[sectionsCollectionIndex]).Collection;
-            MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsIndex));
-            MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsStartPointIndex));
-            MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsEndPointIndex));
+                IEnumerable<MapData> sectionsCollection = ((MapDataCollection) mapDataList[sectionsCollectionIndex]).Collection;
+                MapDataTestHelper.AssertFailureMechanismSectionsMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsIndex));
+                MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsStartPointIndex));
+                MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsEndPointIndex));
 
-            MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
+
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
+                MapDataTestHelper.AssertAssemblyMapData(failureMechanism, calculator.FailureMechanismSectionAssemblyResultOutput, mapDataList[assemblyResultsIndex]);
+            }
         }
 
         [Test]
@@ -277,6 +288,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             const int updatedReferenceLineLayerIndex = referenceLineIndex + hydraulicBoundaryLocationsIndex;
             const int updatedSectionsCollectionLayerIndex = sectionsCollectionIndex - 1;
             const int updatedHydraulicBoundaryLocationsLayerIndex = hydraulicBoundaryLocationsIndex - 1;
+            const int updatedAssemblyResultsIndex = assemblyResultsIndex - 1;
 
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new SpecificFailureMechanism();
@@ -299,6 +311,9 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             MapData hydraulicBoundaryLocationsData = mapDataCollection.ElementAt(updatedHydraulicBoundaryLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsData.Name);
+
+            var assemblyResultsData = (MapLineData) mapDataCollection.ElementAt(updatedAssemblyResultsIndex);
+            Assert.AreEqual("Duidingsklasse per vak", assemblyResultsData.Name);
 
             // When
             var points = new List<Point2D>
@@ -338,7 +353,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             List<MapData> mapDataList = mapDataCollection.Collection.ToList();
 
-            Assert.AreEqual(3, mapDataList.Count);
+            Assert.AreEqual(4, mapDataList.Count);
 
             var referenceLineMapData = (MapLineData) mapDataList[referenceLineIndex];
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
@@ -356,9 +371,13 @@ namespace Riskeer.Integration.Forms.Test.Views
             var sectionsStartPointMapData = (MapPointData) sectionsDataList[sectionsStartPointIndex];
             var sectionsEndPointMapData = (MapPointData) sectionsDataList[sectionsEndPointIndex];
 
+            var assemblyResultsMapData = (MapLineData) mapDataList[assemblyResultsIndex];
+            Assert.AreEqual("Duidingsklasse per vak", assemblyResultsMapData.Name);
+
             CollectionAssert.IsEmpty(sectionsMapData.Features);
             CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
             CollectionAssert.IsEmpty(sectionsEndPointMapData.Features);
+            CollectionAssert.IsEmpty(assemblyResultsMapData.Features);
         }
 
         /// <summary>
