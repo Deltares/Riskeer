@@ -34,7 +34,7 @@ using ClosingStructuresDataResources = Riskeer.ClosingStructures.Data.Properties
 namespace Riskeer.ClosingStructures.Forms.Views.RegistrationState
 {
     /// <summary>
-    /// This class is a view showing map data for a closing structures failure mechanism.
+    /// Registration state view showing map data for a closing structures failure mechanism.
     /// </summary>
     public class ClosingStructuresFailureMechanismView : CalculationsState.ClosingStructuresFailureMechanismView
     {
