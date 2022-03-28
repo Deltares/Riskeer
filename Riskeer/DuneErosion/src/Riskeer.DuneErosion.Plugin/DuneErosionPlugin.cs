@@ -49,13 +49,13 @@ using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.GuiServices;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
-using Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState;
-using Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState;
 using Riskeer.DuneErosion.Forms.Views;
 using Riskeer.DuneErosion.IO;
 using Riskeer.DuneErosion.Plugin.Handlers;
 using Riskeer.DuneErosion.Plugin.Properties;
 using Riskeer.DuneErosion.Service;
+using HydraulicLoadsStateFailureMechanismProperties = Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState.DuneErosionFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState.DuneErosionFailureMechanismProperties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonPluginResources = Riskeer.Common.Plugin.Properties.Resources;
@@ -94,14 +94,14 @@ namespace Riskeer.DuneErosion.Plugin
 
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<DuneErosionHydraulicLoadsContext, DuneErosionFailureMechanismProperties>
+            yield return new PropertyInfo<DuneErosionHydraulicLoadsContext, HydraulicLoadsStateFailureMechanismProperties>
             {
-                CreateInstance = context => new DuneErosionFailureMechanismProperties(context.WrappedData)
+                CreateInstance = context => new HydraulicLoadsStateFailureMechanismProperties(context.WrappedData)
             };
 
-            yield return new PropertyInfo<DuneErosionFailurePathContext, DuneErosionFailurePathProperties>
+            yield return new PropertyInfo<DuneErosionFailurePathContext, RegistrationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new DuneErosionFailurePathProperties(context.WrappedData)
+                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData)
             };
 
             yield return new PropertyInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext, DuneLocationCalculationsForUserDefinedTargetProbabilityProperties>

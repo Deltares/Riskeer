@@ -32,7 +32,7 @@ using Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState;
 namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos.RegistrationState
 {
     [TestFixture]
-    public class DuneErosionFailurePathPropertyInfoTest
+    public class DuneErosionFailureMechanismPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -45,7 +45,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos.RegistrationState
 
                 // Assert
                 Assert.AreEqual(typeof(DuneErosionFailurePathContext), info.DataType);
-                Assert.AreEqual(typeof(DuneErosionFailurePathProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(DuneErosionFailureMechanismProperties), info.PropertyObjectType);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos.RegistrationState
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<DuneErosionFailurePathProperties>(objectProperties);
+                Assert.IsInstanceOf<DuneErosionFailureMechanismProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
 

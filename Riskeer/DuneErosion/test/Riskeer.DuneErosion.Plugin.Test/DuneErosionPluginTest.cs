@@ -43,9 +43,9 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
-using Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState;
-using Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState;
 using Riskeer.DuneErosion.Forms.Views;
+using HydraulicLoadsStateFailureMechanismProperties = Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState.DuneErosionFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState.DuneErosionFailureMechanismProperties;
 
 namespace Riskeer.DuneErosion.Plugin.Test
 {
@@ -93,11 +93,11 @@ namespace Riskeer.DuneErosion.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DuneErosionHydraulicLoadsContext),
-                    typeof(DuneErosionFailureMechanismProperties));
+                    typeof(HydraulicLoadsStateFailureMechanismProperties));
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DuneErosionFailurePathContext),
-                    typeof(DuneErosionFailurePathProperties));
+                    typeof(RegistrationStateFailureMechanismProperties));
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(DuneLocationCalculationsForUserDefinedTargetProbabilityContext),

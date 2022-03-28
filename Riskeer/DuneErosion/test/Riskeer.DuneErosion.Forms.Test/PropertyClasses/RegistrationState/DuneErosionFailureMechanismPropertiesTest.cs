@@ -35,7 +35,7 @@ using Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState;
 namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses.RegistrationState
 {
     [TestFixture]
-    public class DuneErosionFailurePathPropertiesTest
+    public class DuneErosionFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -54,7 +54,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses.RegistrationState
             };
 
             // Call
-            var properties = new DuneErosionFailurePathProperties(failureMechanism);
+            var properties = new DuneErosionFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<DuneErosionFailureMechanismPropertiesBase>(properties);
@@ -75,7 +75,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses.RegistrationState
             var failureMechanism = new DuneErosionFailureMechanism();
 
             // Call
-            var properties = new DuneErosionFailurePathProperties(failureMechanism);
+            var properties = new DuneErosionFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -129,7 +129,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses.RegistrationState
             };
 
             // Call
-            var properties = new DuneErosionFailurePathProperties(failureMechanism);
+            var properties = new DuneErosionFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -174,7 +174,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses.RegistrationState
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new DuneErosionFailurePathProperties(failureMechanism);
+            var properties = new DuneErosionFailureMechanismProperties(failureMechanism);
 
             // Call
             void Call() => properties.N = (RoundedDouble) newN;
@@ -201,7 +201,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses.RegistrationState
             var failureMechanism = new DuneErosionFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new DuneErosionFailurePathProperties(failureMechanism);
+            var properties = new DuneErosionFailureMechanismProperties(failureMechanism);
 
             // Call
             properties.N = (RoundedDouble) newN;
@@ -222,7 +222,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses.RegistrationState
             {
                 InAssembly = inAssembly
             };
-            var properties = new DuneErosionFailurePathProperties(failureMechanism);
+            var properties = new DuneErosionFailureMechanismProperties(failureMechanism);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));

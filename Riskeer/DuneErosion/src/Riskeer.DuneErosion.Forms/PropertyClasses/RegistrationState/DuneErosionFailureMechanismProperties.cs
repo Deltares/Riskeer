@@ -29,9 +29,9 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState
 {
     /// <summary>
-    /// Failure path related ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
+    /// Registration state related ViewModel of <see cref="DuneErosionFailureMechanism"/> for properties panel.
     /// </summary>
-    public class DuneErosionFailurePathProperties : DuneErosionFailureMechanismPropertiesBase
+    public class DuneErosionFailureMechanismProperties : DuneErosionFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -40,11 +40,11 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState
         private const int applyLengthEffectInSectionPropertyIndex = 5;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DuneErosionFailurePathProperties"/>.
+        /// Creates a new instance of <see cref="DuneErosionFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public DuneErosionFailurePathProperties(DuneErosionFailureMechanism data)
+        public DuneErosionFailureMechanismProperties(DuneErosionFailureMechanism data)
             : base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
