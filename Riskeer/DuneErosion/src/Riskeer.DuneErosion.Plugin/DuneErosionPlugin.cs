@@ -50,14 +50,14 @@ using Riskeer.DuneErosion.Forms.GuiServices;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Forms.Views;
-using Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState;
-using Riskeer.DuneErosion.Forms.Views.RegistrationState;
 using Riskeer.DuneErosion.IO;
 using Riskeer.DuneErosion.Plugin.Handlers;
 using Riskeer.DuneErosion.Plugin.Properties;
 using Riskeer.DuneErosion.Service;
 using HydraulicLoadsStateFailureMechanismProperties = Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState.DuneErosionFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState.DuneErosionFailureMechanismProperties;
+using HydraulicLoadsStateFailureMechanismView = Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState.DuneErosionFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.DuneErosion.Forms.Views.RegistrationState.DuneErosionFailureMechanismView;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonPluginResources = Riskeer.Common.Plugin.Properties.Resources;
@@ -185,18 +185,18 @@ namespace Riskeer.DuneErosion.Plugin
                     DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism)
             };
 
-            yield return new RiskeerViewInfo<DuneErosionHydraulicLoadsContext, DuneErosionFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<DuneErosionHydraulicLoadsContext, HydraulicLoadsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new DuneErosionFailureMechanismView(context.WrappedData, context.Parent)
+                CreateInstance = context => new HydraulicLoadsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<DuneErosionFailurePathContext, DuneErosionFailurePathView>(() => Gui)
+            yield return new RiskeerViewInfo<DuneErosionFailurePathContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CreateInstance = context => new DuneErosionFailurePathView(context.WrappedData, context.Parent),
-                CloseForData = CloseFailurePathViewForData
+                CreateInstance = context => new RegistrationStateFailureMechanismView(context.WrappedData, context.Parent),
+                CloseForData = CloseFailureMechanismViewForData
             };
 
             yield return new RiskeerViewInfo<DuneLocationCalculationsForUserDefinedTargetProbabilityContext, IObservableEnumerable<DuneLocationCalculation>, DuneLocationCalculationsView>(() => Gui)
@@ -327,7 +327,7 @@ namespace Riskeer.DuneErosion.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailurePathViewForData(DuneErosionFailurePathView view, object dataToCloseFor)
+        private static bool CloseFailureMechanismViewForData(RegistrationStateFailureMechanismView view, object dataToCloseFor)
         {
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as DuneErosionFailureMechanism;

@@ -41,13 +41,13 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.TestUtil;
-using Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState;
 using Riskeer.DuneErosion.Forms.Views.RegistrationState;
+using HydraulicLoadsStateFailureMechanismView = Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState.DuneErosionFailureMechanismView;
 
 namespace Riskeer.DuneErosion.Forms.Test.Views.RegistrationState
 {
     [TestFixture]
-    public class DuneErosionFailurePathViewTest
+    public class DuneErosionFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
         private const int sectionsCollectionIndex = 1;
@@ -85,10 +85,10 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.RegistrationState
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            DuneErosionFailurePathView view = CreateView(failureMechanism, assessmentSection);
+            DuneErosionFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<DuneErosionFailureMechanismView>(view);
+            Assert.IsInstanceOf<HydraulicLoadsStateFailureMechanismView>(view);
             Assert.IsNull(view.Data);
             Assert.AreSame(failureMechanism, view.FailureMechanism);
             Assert.AreSame(assessmentSection, view.AssessmentSection);
@@ -135,7 +135,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.RegistrationState
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                DuneErosionFailurePathView view = CreateView(failureMechanism, assessmentSection);
+                DuneErosionFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -167,7 +167,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.RegistrationState
             // Given
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            DuneErosionFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            DuneErosionFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -214,7 +214,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.RegistrationState
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            DuneErosionFailurePathView view = CreateView(failureMechanism, assessmentSection);
+            DuneErosionFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -265,9 +265,9 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.RegistrationState
             Assert.AreEqual("Hydraulische belastingen", actualDuneLocationsData.Name);
         }
 
-        private DuneErosionFailurePathView CreateView(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private DuneErosionFailureMechanismView CreateView(DuneErosionFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            var view = new DuneErosionFailurePathView(failureMechanism, assessmentSection);
+            var view = new DuneErosionFailureMechanismView(failureMechanism, assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();

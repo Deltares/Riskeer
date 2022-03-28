@@ -29,15 +29,14 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.MapLayers;
 using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState;
 using DuneErosionDataResources = Riskeer.DuneErosion.Data.Properties.Resources;
 
 namespace Riskeer.DuneErosion.Forms.Views.RegistrationState
 {
     /// <summary>
-    /// This class is a view showing map data for a dune erosion failure path.
+    /// Registration state view showing map data for a dune erosion failure mechanism.
     /// </summary>
-    public class DuneErosionFailurePathView : DuneErosionFailureMechanismView
+    public class DuneErosionFailureMechanismView : HydraulicLoadsState.DuneErosionFailureMechanismView
     {
         private MapLineData sectionsMapData;
         private MapPointData sectionsStartPointMapData;
@@ -48,14 +47,15 @@ namespace Riskeer.DuneErosion.Forms.Views.RegistrationState
         private Observer failureMechanismObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="DuneErosionFailurePathView"/>.
+        /// Creates a new instance of <see cref="DuneErosionFailureMechanismView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section in which the <paramref name="failureMechanism"/>
         /// belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public DuneErosionFailurePathView(DuneErosionFailureMechanism failureMechanism,
-                                          IAssessmentSection assessmentSection) : base(failureMechanism, assessmentSection) {}
+        public DuneErosionFailureMechanismView(DuneErosionFailureMechanism failureMechanism,
+                                               IAssessmentSection assessmentSection)
+            : base(failureMechanism, assessmentSection) {}
 
         protected override void Dispose(bool disposing)
         {

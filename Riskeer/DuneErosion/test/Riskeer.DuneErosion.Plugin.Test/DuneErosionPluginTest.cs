@@ -44,10 +44,10 @@ using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Forms.Views;
-using Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState;
-using Riskeer.DuneErosion.Forms.Views.RegistrationState;
 using HydraulicLoadsStateFailureMechanismProperties = Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState.DuneErosionFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.DuneErosion.Forms.PropertyClasses.RegistrationState.DuneErosionFailureMechanismProperties;
+using HydraulicLoadsStateFailureMechanismView = Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState.DuneErosionFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.DuneErosion.Forms.Views.RegistrationState.DuneErosionFailureMechanismView;
 
 namespace Riskeer.DuneErosion.Plugin.Test
 {
@@ -163,12 +163,12 @@ namespace Riskeer.DuneErosion.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(DuneErosionHydraulicLoadsContext),
-                    typeof(DuneErosionFailureMechanismView));
+                    typeof(HydraulicLoadsStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(DuneErosionFailurePathContext),
-                    typeof(DuneErosionFailurePathView));
+                    typeof(RegistrationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

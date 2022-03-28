@@ -32,7 +32,7 @@ using DuneErosionDataResources = Riskeer.DuneErosion.Data.Properties.Resources;
 namespace Riskeer.DuneErosion.Forms.Views.HydraulicLoadsState
 {
     /// <summary>
-    /// This class is a view showing map data for a dune erosion failure mechanism.
+    /// Hydraulic loads state view showing map data for a dune erosion failure mechanism.
     /// </summary>
     public partial class DuneErosionFailureMechanismView : UserControl, IMapView
     {
