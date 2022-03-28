@@ -22,6 +22,7 @@
 using System;
 using System.Linq;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
@@ -188,41 +189,41 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
         }
 
         [Test]
-        public void CalculateSectionProbability_MultipleScenarios_ReturnsValueBasedOnRelevantScenarios()
+        public void CalculateSectionProbability_MultipleScenariosForSectionWithSmallLength_ReturnsValueBasedOnRelevantScenarios()
         {
             // Setup
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
-
-            var calculationScenario1 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario2 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-            var calculationScenario3 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
-
-            calculationScenario1.IsRelevant = true;
-            calculationScenario1.Contribution = (RoundedDouble) 0.2111;
-            calculationScenario1.Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(1.1, 2.2, 3.3);
-
-            calculationScenario2.IsRelevant = true;
-            calculationScenario2.Contribution = (RoundedDouble) 0.7889;
-            calculationScenario2.Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(4.4, 5.5, 6.6);
-
-            calculationScenario3.IsRelevant = false;
-
-            SemiProbabilisticPipingCalculationScenario[] calculations =
+            var section = new FailureMechanismSection("test", new[]
             {
-                calculationScenario1,
-                calculationScenario2,
-                calculationScenario3
-            };
+                new Point2D(0, 0),
+                new Point2D(1, 0)
+            });
 
-            var strategy = new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
-                sectionResult, calculations, new PipingFailureMechanism(), new AssessmentSectionStub());
+            SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy strategy = CreateStrategyForMultipleScenarios(section);
 
             // Call
             double sectionProbability = strategy.CalculateSectionProbability();
 
             // Assert
-            Assert.AreEqual(9.3093502955931647E-16, sectionProbability);
+            Assert.AreEqual(0.98862377, sectionProbability, 1e-8);
+        }
+
+        [Test]
+        public void CalculateSectionProbability_MultipleScenariosForSectionWithLargeLength_ReturnsProbabilityEqualToOne()
+        {
+            // Setup
+            var section = new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(10000, 0)
+            });
+
+            SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy strategy = CreateStrategyForMultipleScenarios(section);
+
+            // Call
+            double sectionProbability = strategy.CalculateSectionProbability();
+
+            // Assert
+            Assert.AreEqual(1.0, sectionProbability);
         }
 
         [Test]
@@ -241,6 +242,35 @@ namespace Riskeer.Piping.Data.Test.SemiProbabilistic
 
             // Assert
             Assert.IsNaN(sectionProbability);
+        }
+
+        private static SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy CreateStrategyForMultipleScenarios(FailureMechanismSection section)
+        {
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
+
+            var calculationScenario1 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
+            var calculationScenario2 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
+            var calculationScenario3 = SemiProbabilisticPipingCalculationTestFactory.CreateCalculation<SemiProbabilisticPipingCalculationScenario>(section);
+
+            calculationScenario1.IsRelevant = true;
+            calculationScenario1.Contribution = (RoundedDouble) 0.2111;
+            calculationScenario1.Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(0.01, 0.02, 0.03);
+
+            calculationScenario2.IsRelevant = true;
+            calculationScenario2.Contribution = (RoundedDouble) 0.7889;
+            calculationScenario2.Output = PipingTestDataGenerator.GetSemiProbabilisticPipingOutput(0.04, 0.05, 0.06);
+
+            calculationScenario3.IsRelevant = false;
+
+            SemiProbabilisticPipingCalculationScenario[] calculations =
+            {
+                calculationScenario1,
+                calculationScenario2,
+                calculationScenario3
+            };
+
+            return new SemiProbabilisticPipingFailureMechanismSectionResultCalculateProbabilityStrategy(
+                sectionResult, calculations, new PipingFailureMechanism(), new AssessmentSectionStub());
         }
     }
 }
