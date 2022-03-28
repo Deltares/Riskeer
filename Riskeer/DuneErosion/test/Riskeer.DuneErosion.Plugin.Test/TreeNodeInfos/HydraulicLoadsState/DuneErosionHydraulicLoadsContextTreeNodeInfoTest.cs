@@ -42,12 +42,13 @@ using Riskeer.Common.Service.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Data.TestUtil;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
+namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
 {
     [TestFixture]
     public class DuneErosionHydraulicLoadsContextTreeNodeInfoTest

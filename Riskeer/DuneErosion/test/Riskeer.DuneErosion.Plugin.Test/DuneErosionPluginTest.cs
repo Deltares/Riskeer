@@ -42,6 +42,8 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState;
+using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
 using Riskeer.DuneErosion.Forms.PropertyClasses;
 using Riskeer.DuneErosion.Forms.Views;
 using HydraulicLoadsStateFailureMechanismProperties = Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState.DuneErosionFailureMechanismProperties;

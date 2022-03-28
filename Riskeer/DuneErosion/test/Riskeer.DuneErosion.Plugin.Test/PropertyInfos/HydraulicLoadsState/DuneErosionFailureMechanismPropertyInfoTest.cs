@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.DuneErosion.Data;
-using Riskeer.DuneErosion.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState;
 using Riskeer.DuneErosion.Forms.PropertyClasses.HydraulicLoadsState;
 
 namespace Riskeer.DuneErosion.Plugin.Test.PropertyInfos.HydraulicLoadsState

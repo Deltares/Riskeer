@@ -34,7 +34,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.TestUtil;
-using Riskeer.DuneErosion.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Forms.PresentationObjects.HydraulicLoadsState;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;

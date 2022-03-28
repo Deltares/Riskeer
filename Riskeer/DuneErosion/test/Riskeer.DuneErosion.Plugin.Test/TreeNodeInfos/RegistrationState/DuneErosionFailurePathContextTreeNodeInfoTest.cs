@@ -35,9 +35,10 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.DuneErosion.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
+namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos.RegistrationState
 {
     [TestFixture]
     public class DuneErosionFailurePathContextTreeNodeInfoTest
@@ -164,7 +165,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var failureMechanism = new DuneErosionFailureMechanism
             {
                 InAssembly = false
@@ -184,7 +185,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.TreeNodeInfos
                 var comment = (Comment) children[0];
                 Assert.AreSame(failureMechanism.NotInAssemblyComments, comment);
             }
-            
+
             mocks.VerifyAll();
         }
 

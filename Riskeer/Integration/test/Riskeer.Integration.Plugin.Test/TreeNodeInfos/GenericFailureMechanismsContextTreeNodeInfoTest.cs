@@ -30,7 +30,7 @@ using Rhino.Mocks;
 using Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Plugin.TestUtil;
-using Riskeer.DuneErosion.Forms.PresentationObjects;
+using Riskeer.DuneErosion.Forms.PresentationObjects.RegistrationState;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
