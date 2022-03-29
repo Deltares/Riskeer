@@ -214,6 +214,10 @@ namespace Riskeer.Integration.IO.Test.Exporters
             using (var fileDisposeHelper = new FileDisposeHelper(filePath))
             using (new AssemblyToolCalculatorFactoryConfig())
             {
+                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+                assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = Array.Empty<CombinedFailureMechanismSectionAssembly>();
+
                 fileDisposeHelper.LockFiles();
 
                 // Call
