@@ -80,7 +80,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(RegistrationStateFailureMechanismProperties),
+                    typeof(RegistrationStateFailureMechanismContext),
                     typeof(RegistrationStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
