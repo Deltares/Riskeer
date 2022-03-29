@@ -132,7 +132,9 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
                 id, failureMechanismType, code, name,
                 new SerializableTotalAssemblyResult(
                     totalResultId, new SerializableAssessmentProcess(),
-                    new SerializableAssessmentSectionAssemblyResult()),
+                    random.NextEnumValue<SerializableAssemblyMethod>(),
+                    random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>(),
+                    random.NextDouble()),
                 assemblyResult);
 
             // Assert
