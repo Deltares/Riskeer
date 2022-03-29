@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -80,7 +78,6 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.CalculationsState
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnClosingStructuresFailureMechanismView()
         {
             // Setup
@@ -89,18 +86,12 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ViewInfos.CalculationsState
 
             var context = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as ClosingStructuresFailureMechanismView;
+            // Call
+            var view = (ClosingStructuresFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
     }
 }

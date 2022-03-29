@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,9 +27,9 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionInwards.Forms.Views;
+using Riskeer.GrassCoverErosionInwards.Forms.Views.CalculationsState;
 
-namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
+namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos.CalculationsState
 {
     [TestFixture]
     public class GrassCoverErosionInwardsFailureMechanismViewInfoTest
@@ -80,7 +78,6 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnGrassCoverErosionInwardsFailureMechanismView()
         {
             // Setup
@@ -89,18 +86,12 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             var context = new GrassCoverErosionInwardsCalculationsContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as GrassCoverErosionInwardsFailureMechanismView;
+            // Call
+            var view = (GrassCoverErosionInwardsFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
     }
 }

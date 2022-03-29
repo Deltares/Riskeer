@@ -30,12 +30,12 @@ using Riskeer.Common.Forms.MapLayers;
 using Riskeer.GrassCoverErosionInwards.Data;
 using GrassCoverErosionInwardsDataResources = Riskeer.GrassCoverErosionInwards.Data.Properties.Resources;
 
-namespace Riskeer.GrassCoverErosionInwards.Forms.Views
+namespace Riskeer.GrassCoverErosionInwards.Forms.Views.RegistrationState
 {
     /// <summary>
-    /// This class is a view showing map data for a grass cover erosion inwards failure path.
+    /// Registration state view showing map data for a grass cover erosion inwards failure mechanism.
     /// </summary>
-    public class GrassCoverErosionInwardsFailurePathView : GrassCoverErosionInwardsFailureMechanismView
+    public class GrassCoverErosionInwardsFailureMechanismView : CalculationsState.GrassCoverErosionInwardsFailureMechanismView
     {
         private MapLineData sectionsMapData;
         private MapPointData sectionsStartPointMapData;
@@ -46,12 +46,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views
         private Observer failureMechanismObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailurePathView"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsFailurePathView(GrassCoverErosionInwardsFailureMechanism failureMechanism,
+        public GrassCoverErosionInwardsFailureMechanismView(GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                        IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
 

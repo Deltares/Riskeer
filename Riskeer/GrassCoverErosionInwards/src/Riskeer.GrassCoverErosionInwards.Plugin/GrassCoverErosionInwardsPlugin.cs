@@ -59,6 +59,8 @@ using Riskeer.GrassCoverErosionInwards.Service;
 using Riskeer.GrassCoverErosionInwards.Util;
 using CalculationsStateFailureMechanismProperties = Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses.CalculationsState.GrassCoverErosionInwardsFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses.RegistrationState.GrassCoverErosionInwardsFailureMechanismProperties;
+using CalculationsStateFailureMechanismView = Riskeer.GrassCoverErosionInwards.Forms.Views.CalculationsState.GrassCoverErosionInwardsFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.GrassCoverErosionInwards.Forms.Views.RegistrationState.GrassCoverErosionInwardsFailureMechanismView;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -177,18 +179,18 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<GrassCoverErosionInwardsCalculationsContext, GrassCoverErosionInwardsFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<GrassCoverErosionInwardsCalculationsContext, CalculationsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new GrassCoverErosionInwardsFailureMechanismView(context.WrappedData, context.Parent)
+                CreateInstance = context => new CalculationsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<GrassCoverErosionInwardsFailurePathContext, GrassCoverErosionInwardsFailurePathView>(() => Gui)
+            yield return new RiskeerViewInfo<GrassCoverErosionInwardsFailurePathContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CloseForData = CloseFailurePathViewForData,
-                CreateInstance = context => new GrassCoverErosionInwardsFailurePathView(context.WrappedData, context.Parent)
+                CreateInstance = context => new RegistrationStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
             yield return new RiskeerViewInfo<
@@ -391,12 +393,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailurePathViewForData(GrassCoverErosionInwardsFailurePathView view, object dataToCloseFor)
+        private static bool CloseFailurePathViewForData(RegistrationStateFailureMechanismView view, object dataToCloseFor)
         {
-            var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as GrassCoverErosionInwardsFailureMechanism;
 
-            return assessmentSection != null
+            return dataToCloseFor is IAssessmentSection assessmentSection
                        ? ReferenceEquals(view.AssessmentSection, assessmentSection)
                        : ReferenceEquals(view.FailureMechanism, failureMechanism);
         }

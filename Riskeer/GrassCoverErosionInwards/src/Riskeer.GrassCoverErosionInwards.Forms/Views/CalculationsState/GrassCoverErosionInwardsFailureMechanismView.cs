@@ -35,10 +35,10 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.Factories;
 using GrassCoverErosionInwardsDataResources = Riskeer.GrassCoverErosionInwards.Data.Properties.Resources;
 
-namespace Riskeer.GrassCoverErosionInwards.Forms.Views
+namespace Riskeer.GrassCoverErosionInwards.Forms.Views.CalculationsState
 {
     /// <summary>
-    /// This class is a view showing map data for a grass cover erosion inwards failure mechanism.
+    /// Calculations state view showing map data for a grass cover erosion inwards failure mechanism.
     /// </summary>
     public partial class GrassCoverErosionInwardsFailureMechanismView : UserControl, IMapView
     {

@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -42,12 +41,13 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionInwards.Data;
-using Riskeer.GrassCoverErosionInwards.Forms.Views;
+using Riskeer.GrassCoverErosionInwards.Forms.Views.RegistrationState;
+using CalculationsStateFailureMechanismView = Riskeer.GrassCoverErosionInwards.Forms.Views.CalculationsState.GrassCoverErosionInwardsFailureMechanismView;
 
-namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
+namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views.RegistrationState
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailurePathViewTest
+    public class GrassCoverErosionInwardsFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
         private const int sectionsCollectionIndex = 1;
@@ -88,10 +88,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            GrassCoverErosionInwardsFailurePathView view = CreateView(failureMechanism, assessmentSection);
+            GrassCoverErosionInwardsFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismView>(view);
+            Assert.IsInstanceOf<CalculationsStateFailureMechanismView>(view);
             Assert.IsNull(view.Data);
             Assert.AreSame(failureMechanism, view.FailureMechanism);
             Assert.AreSame(assessmentSection, view.AssessmentSection);
@@ -103,8 +103,6 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var random = new Random(39);
-
             var calculationA = new GrassCoverErosionInwardsCalculationScenario
             {
                 InputParameters =
@@ -174,7 +172,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                GrassCoverErosionInwardsFailurePathView view = CreateView(failureMechanism, assessmentSection);
+                GrassCoverErosionInwardsFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -204,7 +202,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             // Given
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            GrassCoverErosionInwardsFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            GrassCoverErosionInwardsFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -253,7 +251,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
 
             var assessmentSection = new AssessmentSectionStub();
 
-            GrassCoverErosionInwardsFailurePathView view = CreateView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
+            GrassCoverErosionInwardsFailureMechanismView view = CreateView(new GrassCoverErosionInwardsFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -322,9 +320,9 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.Views
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
         }
 
-        private GrassCoverErosionInwardsFailurePathView CreateView(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private GrassCoverErosionInwardsFailureMechanismView CreateView(GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            var view = new GrassCoverErosionInwardsFailurePathView(failureMechanism, assessmentSection);
+            var view = new GrassCoverErosionInwardsFailureMechanismView(failureMechanism, assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();

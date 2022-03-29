@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -81,7 +79,6 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos.HydraulicLoadsState
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnDuneFailureMechanismView()
         {
             // Setup
@@ -90,18 +87,12 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos.HydraulicLoadsState
 
             var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as DuneErosionFailureMechanismView;
+            // Call
+            var view = (DuneErosionFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
     }
 }
