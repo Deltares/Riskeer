@@ -26,12 +26,12 @@ using Core.Gui.Attributes;
 using Riskeer.GrassCoverErosionInwards.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
+namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses.RegistrationState
 {
     /// <summary>
-    /// Failure path related ViewModel of <see cref="GrassCoverErosionInwardsFailureMechanism"/> for properties panel.
+    /// Registration state related ViewModel of <see cref="GrassCoverErosionInwardsFailureMechanism"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionInwardsFailurePathProperties : GrassCoverErosionInwardsFailureMechanismProperties
+    public class GrassCoverErosionInwardsFailureMechanismProperties : GrassCoverErosionInwardsFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -40,13 +40,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int applyLengthEffectInSectionPropertyIndex = 5;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailurePathProperties"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsFailurePathProperties(
-            GrassCoverErosionInwardsFailureMechanism data) :
-            base(data, new ConstructionProperties
+        public GrassCoverErosionInwardsFailureMechanismProperties(GrassCoverErosionInwardsFailureMechanism data)
+            : base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex

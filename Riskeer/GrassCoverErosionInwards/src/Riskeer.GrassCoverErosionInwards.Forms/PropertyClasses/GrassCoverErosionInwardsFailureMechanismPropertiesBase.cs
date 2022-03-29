@@ -30,21 +30,21 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="GrassCoverErosionInwardsFailureMechanism"/> for properties panel.
+    /// Base ViewModel of <see cref="GrassCoverErosionInwardsFailureMechanism"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionInwardsFailureMechanismProperties : ObjectProperties<GrassCoverErosionInwardsFailureMechanism>
+    public abstract class GrassCoverErosionInwardsFailureMechanismPropertiesBase : ObjectProperties<GrassCoverErosionInwardsFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismPropertiesBase"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="constructionProperties">The property values required to create an instance of <see cref="GrassCoverErosionInwardsFailureMechanismProperties"/>.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="GrassCoverErosionInwardsFailureMechanismPropertiesBase"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsFailureMechanismProperties(
-            GrassCoverErosionInwardsFailureMechanism data,
-            ConstructionProperties constructionProperties)
+        protected GrassCoverErosionInwardsFailureMechanismPropertiesBase(GrassCoverErosionInwardsFailureMechanism data,
+                                                                         ConstructionProperties constructionProperties)
         {
             if (data == null)
             {
@@ -78,19 +78,19 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="GrassCoverErosionInwardsFailureMechanismProperties"/>.
+        /// Class holding the various construction parameters for <see cref="GrassCoverErosionInwardsFailureMechanismPropertiesBase"/>.
         /// </summary>
         public class ConstructionProperties
         {
             #region General
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="GrassCoverErosionInwardsFailureMechanismProperties.Name"/>.
+            /// Gets or sets the property index for <see cref="GrassCoverErosionInwardsFailureMechanismPropertiesBase.Name"/>.
             /// </summary>
             public int NamePropertyIndex { get; set; }
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="GrassCoverErosionInwardsFailureMechanismProperties.Code"/>.
+            /// Gets or sets the property index for <see cref="GrassCoverErosionInwardsFailureMechanismPropertiesBase.Code"/>.
             /// </summary>
             public int CodePropertyIndex { get; set; }
 

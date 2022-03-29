@@ -49,11 +49,12 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses.CalculationsState
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public ClosingStructuresFailureMechanismProperties(ClosingStructuresFailureMechanism data) : base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex
-        }) {}
+        public ClosingStructuresFailureMechanismProperties(ClosingStructuresFailureMechanism data)
+            : base(data, new ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex
+            }) {}
 
         #region General
 

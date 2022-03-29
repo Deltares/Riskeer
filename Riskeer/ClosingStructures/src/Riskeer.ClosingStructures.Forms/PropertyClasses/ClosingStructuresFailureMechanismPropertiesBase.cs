@@ -40,7 +40,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses
         /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismPropertiesBase"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="constructionProperties">The property values required to create an instance of <see cref="ClosingStructuresFailureMechanismPropertiesBase"/>.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="ClosingStructuresFailureMechanismPropertiesBase"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected ClosingStructuresFailureMechanismPropertiesBase(ClosingStructuresFailureMechanism data,
                                                                   ConstructionProperties constructionProperties)

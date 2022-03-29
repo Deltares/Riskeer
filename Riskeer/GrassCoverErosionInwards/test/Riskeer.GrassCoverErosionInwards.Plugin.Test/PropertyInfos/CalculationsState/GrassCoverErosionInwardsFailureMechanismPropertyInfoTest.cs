@@ -27,12 +27,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses.CalculationsState;
 
-namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
+namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos.CalculationsState
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsCalculationsPropertyInfoTest
+    public class GrassCoverErosionInwardsFailureMechanismPropertyInfoTest
     {
         private GrassCoverErosionInwardsPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(GrassCoverErosionInwardsCalculationsProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(GrassCoverErosionInwardsFailureMechanismProperties));
         }
 
         [TearDown]
@@ -55,7 +55,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculationsProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsCalculationsProperties>(objectProperties);
+            Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
             mocks.VerifyAll();
         }

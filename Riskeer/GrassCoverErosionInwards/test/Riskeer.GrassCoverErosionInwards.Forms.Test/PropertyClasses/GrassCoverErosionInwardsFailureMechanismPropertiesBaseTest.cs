@@ -30,7 +30,7 @@ using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
 namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailureMechanismPropertiesTest
+    public class GrassCoverErosionInwardsFailureMechanismPropertiesBaseTest
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 0;
@@ -39,7 +39,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new GrassCoverErosionInwardsFailureMechanismProperties(null, new GrassCoverErosionInwardsFailureMechanismProperties.ConstructionProperties());
+            void Call() => new TestGrassCoverErosionInwardsFailureMechanismProperties(
+                null, new GrassCoverErosionInwardsFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -50,7 +51,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new GrassCoverErosionInwardsFailureMechanismProperties(new GrassCoverErosionInwardsFailureMechanism(), null);
+            void Call() => new TestGrassCoverErosionInwardsFailureMechanismProperties(
+                new GrassCoverErosionInwardsFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -64,7 +66,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(failureMechanism, new GrassCoverErosionInwardsFailureMechanismProperties.ConstructionProperties());
+            var properties = new TestGrassCoverErosionInwardsFailureMechanismProperties(
+                failureMechanism, new GrassCoverErosionInwardsFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionInwardsFailureMechanism>>(properties);
@@ -79,11 +82,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(failureMechanism, new GrassCoverErosionInwardsFailureMechanismProperties.ConstructionProperties
-            {
-                NamePropertyIndex = namePropertyIndex,
-                CodePropertyIndex = codePropertyIndex
-            });
+            var properties = new TestGrassCoverErosionInwardsFailureMechanismProperties(
+                failureMechanism, new GrassCoverErosionInwardsFailureMechanismPropertiesBase.ConstructionProperties
+                {
+                    NamePropertyIndex = namePropertyIndex,
+                    CodePropertyIndex = codePropertyIndex
+                });
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -104,6 +108,13 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
                                                                             "Label",
                                                                             "Het label van het faalmechanisme.",
                                                                             true);
+        }
+
+        private class TestGrassCoverErosionInwardsFailureMechanismProperties : GrassCoverErosionInwardsFailureMechanismPropertiesBase
+        {
+            public TestGrassCoverErosionInwardsFailureMechanismProperties(GrassCoverErosionInwardsFailureMechanism data,
+                                                                          ConstructionProperties constructionProperties)
+                : base(data, constructionProperties) {}
         }
     }
 }

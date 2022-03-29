@@ -40,7 +40,8 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         /// Creates a new instance of <see cref="DuneErosionFailureMechanismPropertiesBase"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="constructionProperties">The property values required to create an instance of <see cref="DuneErosionFailureMechanismPropertiesBase"/>.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="DuneErosionFailureMechanismPropertiesBase"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         protected DuneErosionFailureMechanismPropertiesBase(DuneErosionFailureMechanism data,
                                                             ConstructionProperties constructionProperties)

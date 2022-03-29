@@ -30,11 +30,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses.RegistrationState;
 
-namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
+namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses.RegistrationState
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsFailurePathPropertiesTest
+    public class GrassCoverErosionInwardsFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -57,10 +58,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
+            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismProperties>(properties);
+            Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismPropertiesBase>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
@@ -83,7 +84,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
+            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -136,7 +137,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
+            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -180,7 +181,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.Attach(observer);
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
+            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(failureMechanism);
 
             // Call
             void Call() => properties.N = (RoundedDouble) value;
@@ -205,7 +206,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             failureMechanism.Attach(observer);
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
+            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(failureMechanism);
 
             // Call
             properties.N = (RoundedDouble) value;
@@ -228,7 +229,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
             failureMechanism.Attach(observer);
 
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
+            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(failureMechanism);
 
             // Call
             properties.ApplyLengthEffectInSection = true;
@@ -248,7 +249,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             {
                 InAssembly = inAssembly
             };
-            var properties = new GrassCoverErosionInwardsFailurePathProperties(failureMechanism);
+            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));

@@ -24,11 +24,12 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses.CalculationsState;
 
-namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
+namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses.CalculationsState
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsCalculationsPropertiesTest
+    public class GrassCoverErosionInwardsFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -44,11 +45,11 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var properties = new GrassCoverErosionInwardsCalculationsProperties(
+            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(
                 failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismProperties>(properties);
+            Assert.IsInstanceOf<GrassCoverErosionInwardsFailureMechanismPropertiesBase>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
 
@@ -74,7 +75,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var properties = new GrassCoverErosionInwardsCalculationsProperties(
+            var properties = new GrassCoverErosionInwardsFailureMechanismProperties(
                 failureMechanism);
 
             // Assert

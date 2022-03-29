@@ -28,12 +28,12 @@ using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionInwards.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
+namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses.CalculationsState
 {
     /// <summary>
-    /// Calculation related ViewModel of <see cref="GrassCoverErosionInwardsFailureMechanism"/> for properties panel.
+    /// Calculations state related ViewModel of <see cref="GrassCoverErosionInwardsFailureMechanism"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationsProperties : GrassCoverErosionInwardsFailureMechanismProperties
+    public class GrassCoverErosionInwardsFailureMechanismProperties : GrassCoverErosionInwardsFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -43,12 +43,12 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses
         private const int fshallowModelFactorPropertyIndex = 6;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationsProperties"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionInwardsFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsCalculationsProperties(
-            GrassCoverErosionInwardsFailureMechanism data) : base(data, new ConstructionProperties
+        public GrassCoverErosionInwardsFailureMechanismProperties(GrassCoverErosionInwardsFailureMechanism data)
+            : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex

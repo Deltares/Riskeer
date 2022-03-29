@@ -57,6 +57,8 @@ using Riskeer.GrassCoverErosionInwards.Plugin.FileImporters;
 using Riskeer.GrassCoverErosionInwards.Plugin.Properties;
 using Riskeer.GrassCoverErosionInwards.Service;
 using Riskeer.GrassCoverErosionInwards.Util;
+using CalculationsStateFailureMechanismProperties = Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses.CalculationsState.GrassCoverErosionInwardsFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses.RegistrationState.GrassCoverErosionInwardsFailureMechanismProperties;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -71,22 +73,19 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<GrassCoverErosionInwardsCalculationsContext, GrassCoverErosionInwardsCalculationsProperties>
+            yield return new PropertyInfo<GrassCoverErosionInwardsCalculationsContext, CalculationsStateFailureMechanismProperties>
             {
-                CreateInstance = context => new GrassCoverErosionInwardsCalculationsProperties(
-                    context.WrappedData)
+                CreateInstance = context => new CalculationsStateFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<GrassCoverErosionInwardsFailurePathContext, GrassCoverErosionInwardsFailurePathProperties>
+            yield return new PropertyInfo<GrassCoverErosionInwardsFailurePathContext, RegistrationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new GrassCoverErosionInwardsFailurePathProperties(
-                    context.WrappedData)
+                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<DikeProfile, DikeProfileProperties>();
             yield return new PropertyInfo<GrassCoverErosionInwardsInputContext, GrassCoverErosionInwardsInputContextProperties>
             {
                 CreateInstance = context => new GrassCoverErosionInwardsInputContextProperties(
-                    context,
-                    new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
+                    context, new ObservablePropertyChangeHandler(context.Calculation, context.WrappedData))
             };
             yield return new PropertyInfo<DikeProfilesContext, DikeProfileCollectionProperties>
             {
