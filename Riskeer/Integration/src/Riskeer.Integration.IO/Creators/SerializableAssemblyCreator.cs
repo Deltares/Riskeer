@@ -62,8 +62,11 @@ namespace Riskeer.Integration.IO.Creators
             SerializableAssessmentProcess serializableAssessmentProcess = SerializableAssessmentProcessCreator.Create(idGenerator, serializableAssessmentSection);
             SerializableTotalAssemblyResult serializableTotalAssemblyResult =
                 SerializableTotalAssemblyResultCreator.Create(
-                    idGenerator, serializableAssessmentProcess,
-                    SerializableAssessmentSectionAssemblyResultCreator.Create(assessmentSection.AssessmentSectionAssembly));
+                    idGenerator,
+                    serializableAssessmentProcess,
+                    SerializableAssemblyMethodCreator.Create(assessmentSection.AssessmentSectionAssembly.AssemblyMethod),
+                    SerializableAssessmentSectionAssemblyGroupCreator.Create(assessmentSection.AssessmentSectionAssembly.AssemblyGroup),
+                    assessmentSection.AssessmentSectionAssembly.Probability);
 
             AggregatedSerializableFailureMechanism[] aggregatedFailureMechanisms = assessmentSection.FailureMechanisms
                                                                                                     .Select(fm => AggregatedSerializableFailureMechanismCreator.Create(
