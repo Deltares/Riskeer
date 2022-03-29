@@ -27,12 +27,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses.RegistrationState;
 
-namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
+namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos.RegistrationState
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailurePathContextPropertyInfoTest
+    public class GrassCoverErosionOutwardsFailureMechanismPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -45,7 +45,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailurePathContext), info.DataType);
-                Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailurePathProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailureMechanismProperties), info.PropertyObjectType);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<GrassCoverErosionOutwardsFailurePathProperties>(objectProperties);
+                Assert.IsInstanceOf<GrassCoverErosionOutwardsFailureMechanismProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
 

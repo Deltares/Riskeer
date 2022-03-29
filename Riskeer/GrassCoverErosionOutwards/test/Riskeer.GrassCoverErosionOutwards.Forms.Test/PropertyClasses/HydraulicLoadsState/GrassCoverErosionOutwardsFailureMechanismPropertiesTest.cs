@@ -24,12 +24,12 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
+using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses.HydraulicLoadsState;
 
-namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses.HydraulicLoadsState
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsHydraulicLoadsPropertiesTest
+    public class GrassCoverErosionOutwardsFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -44,7 +44,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var properties = new GrassCoverErosionOutwardsHydraulicLoadsProperties(failureMechanism);
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>>(properties);
@@ -62,7 +62,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Call
-            var properties = new GrassCoverErosionOutwardsHydraulicLoadsProperties(new GrassCoverErosionOutwardsFailureMechanism());
+            var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(new GrassCoverErosionOutwardsFailureMechanism());
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

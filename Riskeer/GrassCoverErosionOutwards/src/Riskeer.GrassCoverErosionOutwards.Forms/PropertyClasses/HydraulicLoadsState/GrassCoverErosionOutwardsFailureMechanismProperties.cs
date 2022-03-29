@@ -28,12 +28,12 @@ using Riskeer.GrassCoverErosionOutwards.Forms.Properties;
 using Riskeer.Revetment.Forms.PropertyClasses;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
+namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses.HydraulicLoadsState
 {
     /// <summary>
-    /// Hydraulic loads related ViewModel of <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for properties panel.
+    /// Hydraulic loads state related ViewModel of <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionOutwardsHydraulicLoadsProperties : GrassCoverErosionOutwardsFailureMechanismProperties
+    public class GrassCoverErosionOutwardsFailureMechanismProperties : GrassCoverErosionOutwardsFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -42,11 +42,11 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses
         private const int waveImpactWithWaveDirectionPropertyIndex = 5;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicLoadsProperties"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsHydraulicLoadsProperties(GrassCoverErosionOutwardsFailureMechanism data)
+        public GrassCoverErosionOutwardsFailureMechanismProperties(GrassCoverErosionOutwardsFailureMechanism data)
             : base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,

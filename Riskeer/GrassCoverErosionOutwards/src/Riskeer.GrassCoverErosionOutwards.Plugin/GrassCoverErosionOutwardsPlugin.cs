@@ -59,6 +59,8 @@ using Riskeer.GrassCoverErosionOutwards.Service;
 using Riskeer.Revetment.Data;
 using Riskeer.Revetment.Forms.Views;
 using Riskeer.Revetment.Service;
+using HydraulicLoadsStateFailureMechanismProperties = Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses.HydraulicLoadsState.GrassCoverErosionOutwardsFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses.RegistrationState.GrassCoverErosionOutwardsFailureMechanismProperties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonIoResources = Riskeer.Common.IO.Properties.Resources;
@@ -72,15 +74,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<GrassCoverErosionOutwardsHydraulicLoadsContext, GrassCoverErosionOutwardsHydraulicLoadsProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsHydraulicLoadsContext, HydraulicLoadsStateFailureMechanismProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsHydraulicLoadsProperties(context.WrappedData)
+                CreateInstance = context => new HydraulicLoadsStateFailureMechanismProperties(context.WrappedData)
             };
 
-            yield return new PropertyInfo<GrassCoverErosionOutwardsFailurePathContext, GrassCoverErosionOutwardsFailurePathProperties>
+            yield return new PropertyInfo<GrassCoverErosionOutwardsFailurePathContext, RegistrationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new GrassCoverErosionOutwardsFailurePathProperties(
-                    context.WrappedData)
+                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData)
             };
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsOutputContext, GrassCoverErosionOutwardsWaveConditionsOutputProperties>

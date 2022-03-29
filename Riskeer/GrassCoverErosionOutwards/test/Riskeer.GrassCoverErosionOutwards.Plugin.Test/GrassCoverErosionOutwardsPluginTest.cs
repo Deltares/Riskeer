@@ -38,6 +38,8 @@ using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionOutwards.Forms.Views;
 using Riskeer.Revetment.Forms.Views;
+using HydraulicLoadsStateFailureMechanismProperties = Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses.HydraulicLoadsState.GrassCoverErosionOutwardsFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses.RegistrationState.GrassCoverErosionOutwardsFailureMechanismProperties;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
 {
@@ -147,12 +149,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionOutwardsHydraulicLoadsContext),
-                    typeof(GrassCoverErosionOutwardsHydraulicLoadsProperties));
+                    typeof(HydraulicLoadsStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(GrassCoverErosionOutwardsFailurePathContext),
-                    typeof(GrassCoverErosionOutwardsFailurePathProperties));
+                    typeof(RegistrationStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
