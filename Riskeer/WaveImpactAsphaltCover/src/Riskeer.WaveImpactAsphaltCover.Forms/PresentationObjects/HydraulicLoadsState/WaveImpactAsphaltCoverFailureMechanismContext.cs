@@ -24,20 +24,20 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Data;
 
-namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects
+namespace Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.HydraulicLoadsState
 {
     /// <summary>
-    /// Presentation object for hydraulic loads of <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
+    /// Presentation object for <see cref="WaveImpactAsphaltCoverFailureMechanism"/> in the hydraulic loads state.
     /// </summary>
-    public class WaveImpactAsphaltCoverHydraulicLoadsContext : FailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>
+    public class WaveImpactAsphaltCoverFailureMechanismContext : FailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverHydraulicLoadsContext"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismContext"/>.
         /// </summary>
         /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
         /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverHydraulicLoadsContext(WaveImpactAsphaltCoverFailureMechanism wrappedFailureMechanism, IAssessmentSection parent)
+        public WaveImpactAsphaltCoverFailureMechanismContext(WaveImpactAsphaltCoverFailureMechanism wrappedFailureMechanism, IAssessmentSection parent)
             : base(wrappedFailureMechanism, parent) {}
     }
 }

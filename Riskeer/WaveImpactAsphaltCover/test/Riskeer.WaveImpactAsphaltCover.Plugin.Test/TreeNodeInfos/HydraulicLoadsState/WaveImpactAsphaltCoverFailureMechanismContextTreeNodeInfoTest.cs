@@ -47,12 +47,13 @@ using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Revetment.Data;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.HydraulicLoadsState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverHydraulicLoadsContextTreeNodeInfoTest
+    public class WaveImpactAsphaltCoverFailureMechanismContextTreeNodeInfoTest
     {
         private const int contextMenuCalculateAllIndex = 2;
 
@@ -67,7 +68,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new WaveImpactAsphaltCoverPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverHydraulicLoadsContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailureMechanismContext));
         }
 
         [TearDown]
@@ -112,7 +113,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string nodeText = info.Text(context);
@@ -142,7 +143,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             Image icon = info.Image(context);
@@ -157,7 +158,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -192,7 +193,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+                var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -230,7 +231,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var context = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+                var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
@@ -266,7 +267,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(new WaveImpactAsphaltCoverWaveConditionsCalculation());
 
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-                var nodeData = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+                var nodeData = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var gui = mocks.Stub<IGui>();
@@ -304,7 +305,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 calculationB
             });
 
-            var nodeData = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var nodeData = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {

@@ -89,7 +89,6 @@ using Riskeer.Integration.Plugin.Merge;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service;
 using Riskeer.Integration.Service.Comparers;
-using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using ClosingStructuresCalculationsStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState.ClosingStructuresFailureMechanismContext;
 using ClosingStructuresRegistrationStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.RegistrationState.ClosingStructuresFailureMechanismContext;
 using CoreGuiResources = Core.Gui.Properties.Resources;
@@ -106,10 +105,6 @@ using MacroStabilityInwardsCalculationsStateFailureMechanismContext = Riskeer.Ma
 using MacroStabilityInwardsRegistrationStateFailureMechanismContext = Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState.MacroStabilityInwardsFailureMechanismContext;
 using PipingCalculationsStateFailureMechanismContext = Riskeer.Piping.Forms.PresentationObjects.CalculationsState.PipingFailureMechanismContext;
 using PipingRegistrationStateFailureMechanismContext = Riskeer.Piping.Forms.PresentationObjects.RegistrationState.PipingFailureMechanismContext;
-using StabilityPointStructuresCalculationsStateFailureMechanismContext = Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState.StabilityPointStructuresFailureMechanismContext;
-using StabilityPointStructuresRegistrationStateFailureMechanismContext = Riskeer.StabilityPointStructures.Forms.PresentationObjects.RegistrationState.StabilityPointStructuresFailureMechanismContext;
-using StabilityStoneCoverHydraulicLoadsStateFailureMechanismContext = Riskeer.StabilityStoneCover.Forms.PresentationObjects.HydraulicLoadsState.StabilityStoneCoverFailureMechanismContext;
-using StabilityStoneCoverRegistrationStateFailureMechanismContext = Riskeer.StabilityStoneCover.Forms.PresentationObjects.RegistrationState.StabilityStoneCoverFailureMechanismContext;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
@@ -119,6 +114,12 @@ using RiskeerCommonServiceResources = Riskeer.Common.Service.Properties.Resource
 using RiskeerDataResources = Riskeer.Integration.Data.Properties.Resources;
 using RiskeerFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 using RiskeerIOResources = Riskeer.Integration.IO.Properties.Resources;
+using StabilityPointStructuresCalculationsStateFailureMechanismContext = Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState.StabilityPointStructuresFailureMechanismContext;
+using StabilityPointStructuresRegistrationStateFailureMechanismContext = Riskeer.StabilityPointStructures.Forms.PresentationObjects.RegistrationState.StabilityPointStructuresFailureMechanismContext;
+using StabilityStoneCoverHydraulicLoadsStateFailureMechanismContext = Riskeer.StabilityStoneCover.Forms.PresentationObjects.HydraulicLoadsState.StabilityStoneCoverFailureMechanismContext;
+using StabilityStoneCoverRegistrationStateFailureMechanismContext = Riskeer.StabilityStoneCover.Forms.PresentationObjects.RegistrationState.StabilityStoneCoverFailureMechanismContext;
+using WaveImpactAsphaltCoverHydraulicLoadsStateFailureMechanismContext = Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.HydraulicLoadsState.WaveImpactAsphaltCoverFailureMechanismContext;
+using WaveImpactAsphaltCoverRegistrationStateFailureMechanismContext = Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.RegistrationState.WaveImpactAsphaltCoverFailureMechanismContext;
 
 namespace Riskeer.Integration.Plugin
 {
@@ -1736,7 +1737,7 @@ namespace Riskeer.Integration.Plugin
             {
                 new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
                 new StabilityStoneCoverHydraulicLoadsStateFailureMechanismContext(assessmentSection.StabilityStoneCover, assessmentSection),
-                new WaveImpactAsphaltCoverHydraulicLoadsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
+                new WaveImpactAsphaltCoverHydraulicLoadsStateFailureMechanismContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
                 new GrassCoverErosionOutwardsHydraulicLoadsStateFailureMechanismContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
                 new DuneErosionHydraulicLoadsStateFailureMechanismContext(assessmentSection.DuneErosion, assessmentSection)
             };
@@ -1864,7 +1865,7 @@ namespace Riskeer.Integration.Plugin
                 new MacroStabilityInwardsRegistrationStateFailureMechanismContext(assessmentSection.MacroStabilityInwards, assessmentSection),
                 new MicrostabilityFailurePathContext(assessmentSection.Microstability, assessmentSection),
                 new StabilityStoneCoverRegistrationStateFailureMechanismContext(assessmentSection.StabilityStoneCover, assessmentSection),
-                new WaveImpactAsphaltCoverFailurePathContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
+                new WaveImpactAsphaltCoverRegistrationStateFailureMechanismContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
                 new WaterPressureAsphaltCoverFailurePathContext(assessmentSection.WaterPressureAsphaltCover, assessmentSection),
                 new GrassCoverErosionOutwardsRegistrationStateFailureMechanismContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
                 new GrassCoverSlipOffOutwardsFailurePathContext(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection),

@@ -24,12 +24,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.HydraulicLoadsState;
 
-namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects.HydraulicLoadsState
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverFailurePathContextTest
+    public class WaveImpactAsphaltCoverFailureMechanismContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             // Call
-            var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<WaveImpactAsphaltCoverFailureMechanism>>(context);

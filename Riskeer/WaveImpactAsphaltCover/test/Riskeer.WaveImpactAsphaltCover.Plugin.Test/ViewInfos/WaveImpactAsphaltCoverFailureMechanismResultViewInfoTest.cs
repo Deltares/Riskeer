@@ -31,6 +31,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.RegistrationState;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 {
@@ -228,7 +229,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
@@ -252,7 +253,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new WaveImpactAsphaltCoverFailurePathContext(
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(
                 new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();

@@ -34,12 +34,13 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.RegistrationState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.RegistrationState
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverFailurePathContextTreeNodeInfoTest
+    public class WaveImpactAsphaltCoverFailureMechanismContextTreeNodeInfoTest
     {
         private WaveImpactAsphaltCoverPlugin plugin;
         private TreeNodeInfo info;
@@ -48,7 +49,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         public void Setup()
         {
             plugin = new WaveImpactAsphaltCoverPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailureMechanismContext));
         }
 
         [TearDown]
@@ -89,7 +90,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new WaveImpactAsphaltCoverFailurePathContext(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -115,7 +116,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -160,7 +161,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 InAssembly = false
             };
-            var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -184,7 +185,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-                var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+                var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -227,7 +228,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     InAssembly = false
                 };
-                var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+                var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -257,14 +258,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
 
         [TestFixture]
         public class WaveImpactAsphaltCoverFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<WaveImpactAsphaltCoverPlugin, WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailurePathContext>
+            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<WaveImpactAsphaltCoverPlugin, WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismContext>
         {
             public WaveImpactAsphaltCoverFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override WaveImpactAsphaltCoverFailurePathContext CreateFailureMechanismContext(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+            protected override WaveImpactAsphaltCoverFailureMechanismContext CreateFailureMechanismContext(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                                                                                       IAssessmentSection assessmentSection)
             {
-                return new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+                return new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
     }

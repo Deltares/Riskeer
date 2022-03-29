@@ -38,6 +38,8 @@ using Riskeer.Revetment.Forms.Views;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
+using HydraulicLoadsStateFailureMechanismContext = Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.HydraulicLoadsState.WaveImpactAsphaltCoverFailureMechanismContext;
+using RegistrationStateFailureMechanismContext = Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.RegistrationState.WaveImpactAsphaltCoverFailureMechanismContext;
 using HydraulicLoadsStateFailureMechanismProperties = Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsState.WaveImpactAsphaltCoverFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.RegistrationState.WaveImpactAsphaltCoverFailureMechanismProperties;
 using HydraulicLoadsStateFailureMechanismView = Riskeer.WaveImpactAsphaltCover.Forms.Views.HydraulicLoadsState.WaveImpactAsphaltCoverFailureMechanismView;
@@ -73,12 +75,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(WaveImpactAsphaltCoverHydraulicLoadsContext),
+                    typeof(HydraulicLoadsStateFailureMechanismContext),
                     typeof(HydraulicLoadsStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(WaveImpactAsphaltCoverFailurePathContext),
+                    typeof(RegistrationStateFailureMechanismContext),
                     typeof(RegistrationStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -118,12 +120,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(WaveImpactAsphaltCoverHydraulicLoadsContext),
+                    typeof(HydraulicLoadsStateFailureMechanismContext),
                     typeof(HydraulicLoadsStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(WaveImpactAsphaltCoverFailurePathContext),
+                    typeof(RegistrationStateFailureMechanismContext),
                     typeof(RegistrationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
@@ -159,8 +161,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(8, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverHydraulicLoadsContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailurePathContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicLoadsStateFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RegistrationStateFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverFailureMechanismSectionResultContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsCalculationContext)));

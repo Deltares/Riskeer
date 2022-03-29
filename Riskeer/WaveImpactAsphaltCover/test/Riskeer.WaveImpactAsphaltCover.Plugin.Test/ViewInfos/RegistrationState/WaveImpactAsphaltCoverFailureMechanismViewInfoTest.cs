@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.RegistrationState;
 using Riskeer.WaveImpactAsphaltCover.Forms.Views.RegistrationState;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.RegistrationState
@@ -56,8 +56,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.RegistrationState
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailurePathContext), info.DataType);
-            Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailurePathContext), info.ViewDataType);
+            Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.RegistrationState
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -91,7 +91,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.RegistrationState
                 InAssembly = inAssembly
             };
 
-            var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -108,7 +108,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.RegistrationState
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var context = new WaveImpactAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             var view = (WaveImpactAsphaltCoverFailureMechanismView) info.CreateInstance(context);

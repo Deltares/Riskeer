@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.HydraulicLoadsState;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsState;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos.HydraulicLoadsState
@@ -44,7 +44,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos.HydraulicLoad
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(WaveImpactAsphaltCoverHydraulicLoadsContext), info.DataType);
+                Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismContext), info.DataType);
                 Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismProperties), info.PropertyObjectType);
             }
         }
@@ -58,7 +58,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos.HydraulicLoad
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
@@ -77,7 +77,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos.HydraulicLoad
 
         private static PropertyInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(WaveImpactAsphaltCoverHydraulicLoadsContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(WaveImpactAsphaltCoverFailureMechanismContext));
         }
     }
 }

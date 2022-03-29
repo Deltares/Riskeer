@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects.HydraulicLoadsState;
 using Riskeer.WaveImpactAsphaltCover.Forms.Views.HydraulicLoadsState;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.HydraulicLoadsState
@@ -56,8 +56,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.HydraulicLoadsSta
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(WaveImpactAsphaltCoverHydraulicLoadsContext), info.DataType);
-            Assert.AreEqual(typeof(WaveImpactAsphaltCoverHydraulicLoadsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.HydraulicLoadsSta
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var context = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -84,7 +84,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.HydraulicLoadsSta
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var context = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             var view = (WaveImpactAsphaltCoverFailureMechanismView) info.CreateInstance(context);
