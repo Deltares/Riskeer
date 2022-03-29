@@ -20,9 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Helpers;
 
@@ -34,8 +35,15 @@ namespace Riskeer.Integration.IO.Test.Creators
         [Test]
         public void Create_IdGeneratorNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random();
+
             // Call
-            void Call() => SerializableTotalAssemblyResultCreator.Create(null, new SerializableAssessmentProcess(), new SerializableAssessmentSectionAssemblyResult());
+            void Call() => SerializableTotalAssemblyResultCreator.Create(null,
+                                                                         new SerializableAssessmentProcess(),
+                                                                         random.NextEnumValue<SerializableAssemblyMethod>(),
+                                                                         random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>(),
+                                                                         random.NextDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -50,18 +58,26 @@ namespace Riskeer.Integration.IO.Test.Creators
 
             const string assessmentProcessId = "assessmentProcessId";
             var serializableAssessmentProcess = new SerializableAssessmentProcess(assessmentProcessId, new SerializableAssessmentSection());
-            var assessmentSectionAssemblyResult = new SerializableAssessmentSectionAssemblyResult();
+
+            var random = new Random();
+            var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
+            var assemblyGroup = random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>();
+            double probability = random.NextDouble();
 
             // Call
             SerializableTotalAssemblyResult serializableTotalAssembly =
                 SerializableTotalAssemblyResultCreator.Create(idGenerator,
                                                               serializableAssessmentProcess,
-                                                              assessmentSectionAssemblyResult);
+                                                              assemblyMethod,
+                                                              assemblyGroup,
+                                                              probability);
 
             // Assert
             Assert.AreEqual("Vo.0", serializableTotalAssembly.Id);
             Assert.AreEqual(serializableAssessmentProcess.Id, serializableTotalAssembly.AssessmentProcessId);
-            Assert.AreSame(assessmentSectionAssemblyResult, serializableTotalAssembly.AssessmentSectionAssemblyResult);
+            Assert.AreEqual(assemblyMethod, serializableTotalAssembly.AssemblyMethod);
+            Assert.AreEqual(assemblyGroup, serializableTotalAssembly.AssemblyGroup);
+            Assert.AreEqual(probability, serializableTotalAssembly.Probability);
         }
     }
 }
