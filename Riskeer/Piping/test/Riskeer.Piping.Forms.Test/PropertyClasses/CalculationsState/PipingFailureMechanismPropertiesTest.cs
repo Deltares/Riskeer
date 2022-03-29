@@ -33,11 +33,12 @@ using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Forms.PropertyClasses.CalculationsState;
 
-namespace Riskeer.Piping.Forms.Test.PropertyClasses
+namespace Riskeer.Piping.Forms.Test.PropertyClasses.CalculationsState
 {
     [TestFixture]
-    public class PipingCalculationsPropertiesTest
+    public class PipingFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -57,7 +58,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_ChangeHandlerNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new PipingCalculationsProperties(new PipingFailureMechanism(), null);
+            void Call() => new PipingFailureMechanismProperties(new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -75,10 +76,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var properties = new PipingCalculationsProperties(failureMechanism, handler);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, handler);
 
             // Assert
-            Assert.IsInstanceOf<PipingFailureMechanismProperties>(properties);
+            Assert.IsInstanceOf<PipingFailureMechanismPropertiesBase>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
 
@@ -123,7 +124,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var properties = new PipingCalculationsProperties(failureMechanism, handler);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, handler);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -255,7 +256,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new PipingCalculationsProperties(failureMechanism, handler);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, handler);
 
             // Call            
             void Call() => properties.WaterVolumetricWeight = roundedValue;
@@ -291,7 +292,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                     observable
                 });
 
-            var properties = new PipingCalculationsProperties(failureMechanism, handler);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, handler);
 
             // Call            
             properties.WaterVolumetricWeight = roundedValue;

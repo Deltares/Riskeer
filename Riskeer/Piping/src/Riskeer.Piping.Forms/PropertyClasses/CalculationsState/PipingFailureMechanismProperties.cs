@@ -32,12 +32,12 @@ using Riskeer.Piping.Data.SemiProbabilistic;
 using Riskeer.Piping.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.Piping.Forms.PropertyClasses
+namespace Riskeer.Piping.Forms.PropertyClasses.CalculationsState
 {
     /// <summary>
-    /// Calculation related ViewModel of <see cref="PipingFailureMechanism"/> for properties panel.
+    /// Calculations state related ViewModel of <see cref="PipingFailureMechanism"/> for properties panel.
     /// </summary>
-    public class PipingCalculationsProperties : PipingFailureMechanismProperties
+    public class PipingFailureMechanismProperties : PipingFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -56,17 +56,17 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         private readonly IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> propertyChangeHandler;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingCalculationsProperties"/>.
+        /// Creates a new instance of <see cref="PipingFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <param name="handler">Handler responsible for handling effects of a property change.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingCalculationsProperties(PipingFailureMechanism data,
-                                            IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler) : base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex
-        })
+        public PipingFailureMechanismProperties(PipingFailureMechanism data, IFailureMechanismPropertyChangeHandler<PipingFailureMechanism> handler)
+            : base(data, new ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex
+            })
         {
             if (handler == null)
             {

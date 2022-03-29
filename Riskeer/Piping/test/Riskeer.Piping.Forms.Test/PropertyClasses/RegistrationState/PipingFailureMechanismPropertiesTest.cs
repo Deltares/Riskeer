@@ -31,11 +31,12 @@ using Riskeer.Common.Data.Probability;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PropertyClasses;
+using Riskeer.Piping.Forms.PropertyClasses.RegistrationState;
 
-namespace Riskeer.Piping.Forms.Test.PropertyClasses
+namespace Riskeer.Piping.Forms.Test.PropertyClasses.RegistrationState
 {
     [TestFixture]
-    public class PipingFailurePathPropertiesTest
+    public class PipingFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -50,7 +51,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new PipingFailurePathProperties(new PipingFailureMechanism(), null);
+            void Call() => new PipingFailureMechanismProperties(new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -73,10 +74,10 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new PipingFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<PipingFailureMechanismProperties>(properties);
+            Assert.IsInstanceOf<PipingFailureMechanismPropertiesBase>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
@@ -108,7 +109,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var properties = new PipingFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -189,7 +190,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new PipingFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -238,7 +239,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new PipingFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Call
             void Call() => properties.A = value;
@@ -268,7 +269,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new PipingFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new PipingFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Call
             properties.A = value;
@@ -294,7 +295,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                 InAssembly = inAssembly
             };
 
-            var properties = new PipingFailurePathProperties(pipingFailureMechanism, assessmentSection);
+            var properties = new PipingFailureMechanismProperties(pipingFailureMechanism, assessmentSection);
 
             // Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));

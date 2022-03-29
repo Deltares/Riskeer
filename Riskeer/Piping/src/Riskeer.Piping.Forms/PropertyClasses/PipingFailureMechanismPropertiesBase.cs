@@ -30,20 +30,21 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Piping.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="PipingFailureMechanism"/> for properties panel.
+    /// Base ViewModel of <see cref="PipingFailureMechanism"/> for properties panel.
     /// </summary>
-    public class PipingFailureMechanismProperties : ObjectProperties<PipingFailureMechanism>
+    public abstract class PipingFailureMechanismPropertiesBase : ObjectProperties<PipingFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="PipingFailureMechanismPropertiesBase"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="constructionProperties">The property values required to create an instance of <see cref="PipingFailureMechanismProperties"/>.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="PipingFailureMechanismPropertiesBase"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismProperties(PipingFailureMechanism data,
-                                                ConstructionProperties constructionProperties)
+        protected PipingFailureMechanismPropertiesBase(PipingFailureMechanism data,
+                                                       ConstructionProperties constructionProperties)
         {
             if (data == null)
             {
@@ -77,19 +78,19 @@ namespace Riskeer.Piping.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="PipingFailureMechanismProperties"/>.
+        /// Class holding the various construction parameters for <see cref="PipingFailureMechanismPropertiesBase"/>.
         /// </summary>
         public class ConstructionProperties
         {
             #region General
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.Name"/>.
+            /// Gets or sets the property index for <see cref="PipingFailureMechanismPropertiesBase.Name"/>.
             /// </summary>
             public int NamePropertyIndex { get; set; }
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="PipingFailureMechanismProperties.Code"/>.
+            /// Gets or sets the property index for <see cref="PipingFailureMechanismPropertiesBase.Code"/>.
             /// </summary>
             public int CodePropertyIndex { get; set; }
 

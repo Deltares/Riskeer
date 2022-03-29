@@ -30,7 +30,7 @@ using Riskeer.Piping.Forms.PropertyClasses;
 namespace Riskeer.Piping.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class PipingFailureMechanismPropertiesTest
+    public class PipingFailureMechanismPropertiesBaseTest
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 0;
@@ -39,7 +39,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new PipingFailureMechanismProperties(null, new PipingFailureMechanismProperties.ConstructionProperties());
+            void Call() => new TestPipingFailureMechanismProperties(
+                null, new PipingFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -50,7 +51,7 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new PipingFailureMechanismProperties(new PipingFailureMechanism(), null);
+            void Call() => new TestPipingFailureMechanismProperties(new PipingFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -64,7 +65,8 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var properties = new PipingFailureMechanismProperties(failureMechanism, new PipingFailureMechanismProperties.ConstructionProperties());
+            var properties = new TestPipingFailureMechanismProperties(
+                failureMechanism, new PipingFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<PipingFailureMechanism>>(properties);
@@ -79,11 +81,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
             var failureMechanism = new PipingFailureMechanism();
 
             // Call
-            var properties = new PipingFailureMechanismProperties(failureMechanism, new PipingFailureMechanismProperties.ConstructionProperties
-            {
-                NamePropertyIndex = namePropertyIndex,
-                CodePropertyIndex = codePropertyIndex
-            });
+            var properties = new TestPipingFailureMechanismProperties(
+                failureMechanism, new PipingFailureMechanismPropertiesBase.ConstructionProperties
+                {
+                    NamePropertyIndex = namePropertyIndex,
+                    CodePropertyIndex = codePropertyIndex
+                });
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -104,6 +107,12 @@ namespace Riskeer.Piping.Forms.Test.PropertyClasses
                                                                             "Label",
                                                                             "Het label van het faalmechanisme.",
                                                                             true);
+        }
+
+        private class TestPipingFailureMechanismProperties : PipingFailureMechanismPropertiesBase
+        {
+            public TestPipingFailureMechanismProperties(PipingFailureMechanism data, ConstructionProperties constructionProperties)
+                : base(data, constructionProperties) {}
         }
     }
 }
