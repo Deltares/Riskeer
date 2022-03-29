@@ -38,6 +38,8 @@ using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
 using Riskeer.StabilityPointStructures.Forms.Views;
+using CalculationStateFailureMechanismContext = Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState.StabilityPointStructuresFailureMechanismContext;
+using RegistrationStateFailureMechanismContext = Riskeer.StabilityPointStructures.Forms.PresentationObjects.RegistrationState.StabilityPointStructuresFailureMechanismContext;
 using CalculationsStateFailureMechanismProperties = Riskeer.StabilityPointStructures.Forms.PropertyClasses.CalculationsState.StabilityPointStructuresFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.StabilityPointStructures.Forms.PropertyClasses.RegistrationState.StabilityPointStructuresFailureMechanismProperties;
 using CalculationsStateFailureMechanismView = Riskeer.StabilityPointStructures.Forms.Views.CalculationsState.StabilityPointStructuresFailureMechanismView;
@@ -73,12 +75,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(StabilityPointStructuresCalculationsContext),
+                    typeof(CalculationStateFailureMechanismContext),
                     typeof(CalculationsStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(StabilityPointStructuresFailurePathContext),
+                    typeof(RegistrationStateFailureMechanismProperties),
                     typeof(RegistrationStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -109,8 +111,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(9, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresCalculationsContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresFailurePathContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CalculationStateFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RegistrationStateFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresFailureMechanismSectionResultContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructuresContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(StabilityPointStructure)));
@@ -146,12 +148,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(StabilityPointStructuresCalculationsContext),
+                    typeof(CalculationStateFailureMechanismContext),
                     typeof(CalculationsStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(StabilityPointStructuresFailurePathContext),
+                    typeof(RegistrationStateFailureMechanismContext),
                     typeof(RegistrationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(

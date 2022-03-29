@@ -50,6 +50,7 @@ using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
@@ -104,7 +105,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             {
@@ -140,7 +141,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             {
@@ -185,7 +186,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             var menuBuilder = mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
@@ -233,7 +234,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
-                var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+                var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocksRepository.Stub<IGui>();
@@ -290,7 +291,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
 
-            var nodeData = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var plugin = new StabilityPointStructuresPlugin())
@@ -332,7 +333,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var plugin = new StabilityPointStructuresPlugin())
@@ -385,7 +386,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var nodeData = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var plugin = new StabilityPointStructuresPlugin())
@@ -457,7 +458,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
@@ -557,7 +558,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
@@ -620,7 +621,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var plugin = new StabilityPointStructuresPlugin())
@@ -669,7 +670,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var plugin = new StabilityPointStructuresPlugin())
@@ -727,7 +728,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var messageBoxText = "";
@@ -800,7 +801,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var messageBoxText = "";
@@ -844,7 +845,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(StabilityPointStructuresPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresCalculationsContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresFailureMechanismContext));
         }
     }
 }

@@ -39,7 +39,7 @@ using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState;
 using Riskeer.Piping.Forms.PresentationObjects.RegistrationState;
-using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
@@ -228,9 +228,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.PipingStructure, pipingStructureFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, pipingStructureFailurePathContext.Parent);
 
-                var stabilityPointStructuresFailurePathContext = (StabilityPointStructuresFailurePathContext) objects[13];
-                Assert.AreSame(assessmentSection.StabilityPointStructures, stabilityPointStructuresFailurePathContext.WrappedData);
-                Assert.AreSame(assessmentSection, stabilityPointStructuresFailurePathContext.Parent);
+                var stabilityPointStructuresFailureMechanismContext = (StabilityPointStructuresFailureMechanismContext) objects[13];
+                Assert.AreSame(assessmentSection.StabilityPointStructures, stabilityPointStructuresFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, stabilityPointStructuresFailureMechanismContext.Parent);
 
                 var duneErosionFailureMechanismContext = (DuneErosionFailureMechanismContext) objects[14];
                 Assert.AreSame(assessmentSection.DuneErosion, duneErosionFailureMechanismContext.WrappedData);

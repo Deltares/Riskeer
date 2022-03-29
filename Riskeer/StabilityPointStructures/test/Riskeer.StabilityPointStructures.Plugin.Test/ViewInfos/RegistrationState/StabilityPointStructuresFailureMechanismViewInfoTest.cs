@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
-using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.StabilityPointStructures.Forms.Views.RegistrationState;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationState
@@ -56,8 +56,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationSta
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(StabilityPointStructuresFailurePathContext), info.DataType);
-            Assert.AreEqual(typeof(StabilityPointStructuresFailurePathContext), info.ViewDataType);
+            Assert.AreEqual(typeof(StabilityPointStructuresFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(StabilityPointStructuresFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationSta
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -91,7 +91,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationSta
                 InAssembly = inAssembly
             };
 
-            var context = new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -178,7 +178,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationSta
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var context = new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             var view = (StabilityPointStructuresFailureMechanismView) info.CreateInstance(context);

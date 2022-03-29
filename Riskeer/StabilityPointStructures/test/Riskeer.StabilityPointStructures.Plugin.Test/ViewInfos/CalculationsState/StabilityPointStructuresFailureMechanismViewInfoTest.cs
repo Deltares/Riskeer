@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
-using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.StabilityPointStructures.Forms.Views.CalculationsState;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.CalculationsState
@@ -56,8 +56,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.CalculationsSta
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(StabilityPointStructuresCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(StabilityPointStructuresCalculationsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(StabilityPointStructuresFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(StabilityPointStructuresFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.CalculationsSta
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -84,7 +84,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.CalculationsSta
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             var view = (StabilityPointStructuresFailureMechanismView) info.CreateInstance(context);

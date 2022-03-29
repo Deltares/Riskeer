@@ -29,6 +29,7 @@ using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.StabilityPointStructures.Forms.Views;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
@@ -202,7 +203,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new StabilityPointStructuresFailurePathContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
             using (var view = new StabilityPointStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism))
             {
@@ -225,7 +226,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new StabilityPointStructuresScenariosView(failureMechanism.CalculationsGroup, failureMechanism))
             {

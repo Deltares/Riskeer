@@ -24,22 +24,22 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Data;
 
-namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects
+namespace Riskeer.StabilityPointStructures.Forms.PresentationObjects.RegistrationState
 {
     /// <summary>
-    /// Presentation object for the failure path of <see cref="StabilityPointStructuresFailureMechanism"/>.
+    /// Presentation object for <see cref="StabilityPointStructuresFailureMechanism"/> in the registration state.
     /// </summary>
-    public class StabilityPointStructuresFailurePathContext : FailureMechanismContext<StabilityPointStructuresFailureMechanism>
+    public class StabilityPointStructuresFailureMechanismContext : FailureMechanismContext<StabilityPointStructuresFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityPointStructuresFailurePathContext"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismContext"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="StabilityPointStructuresFailureMechanism"/>
         /// instance wrapped by this context object.</param>
         /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityPointStructuresFailurePathContext(StabilityPointStructuresFailureMechanism failureMechanism,
-                                                          IAssessmentSection assessmentSection)
+        public StabilityPointStructuresFailureMechanismContext(StabilityPointStructuresFailureMechanism failureMechanism,
+                                                               IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
     }
 }

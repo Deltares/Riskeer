@@ -34,6 +34,7 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects.RegistrationState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
@@ -48,7 +49,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         public void Setup()
         {
             plugin = new StabilityPointStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresFailureMechanismContext));
         }
 
         [TearDown]
@@ -89,7 +90,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new StabilityPointStructuresFailurePathContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -115,7 +116,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -165,7 +166,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             {
                 InAssembly = false
             };
-            var context = new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -189,7 +190,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
-                var context = new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
+                var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -232,7 +233,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
                 {
                     InAssembly = false
                 };
-                var context = new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
+                var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -262,14 +263,14 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 
         [TestFixture]
         public class StabilityPointStructuresFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<StabilityPointStructuresPlugin, StabilityPointStructuresFailureMechanism, StabilityPointStructuresFailurePathContext>
+            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<StabilityPointStructuresPlugin, StabilityPointStructuresFailureMechanism, StabilityPointStructuresFailureMechanismContext>
         {
             public StabilityPointStructuresFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override StabilityPointStructuresFailurePathContext CreateFailureMechanismContext(StabilityPointStructuresFailureMechanism failureMechanism,
-                                                                                                        IAssessmentSection assessmentSection)
+            protected override StabilityPointStructuresFailureMechanismContext CreateFailureMechanismContext(StabilityPointStructuresFailureMechanism failureMechanism,
+                                                                                                             IAssessmentSection assessmentSection)
             {
-                return new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
+                return new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
     }

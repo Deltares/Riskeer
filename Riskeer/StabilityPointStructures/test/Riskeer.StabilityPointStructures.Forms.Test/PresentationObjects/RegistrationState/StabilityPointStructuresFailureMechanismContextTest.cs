@@ -24,12 +24,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Data;
-using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects.RegistrationState;
 
-namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
+namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects.RegistrationState
 {
     [TestFixture]
-    public class StabilityPointStructuresCalculationsContextTest
+    public class StabilityPointStructuresFailureMechanismContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PresentationObjects
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<StabilityPointStructuresFailureMechanism>>(context);

@@ -60,6 +60,8 @@ using Riskeer.StabilityPointStructures.IO;
 using Riskeer.StabilityPointStructures.IO.Configurations;
 using Riskeer.StabilityPointStructures.Plugin.FileImporters;
 using Riskeer.StabilityPointStructures.Service;
+using CalculationStateFailureMechanismContext = Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState.StabilityPointStructuresFailureMechanismContext;
+using RegistrationStateFailureMechanismContext = Riskeer.StabilityPointStructures.Forms.PresentationObjects.RegistrationState.StabilityPointStructuresFailureMechanismContext;
 using CalculationsStateFailureMechanismProperties = Riskeer.StabilityPointStructures.Forms.PropertyClasses.CalculationsState.StabilityPointStructuresFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.StabilityPointStructures.Forms.PropertyClasses.RegistrationState.StabilityPointStructuresFailureMechanismProperties;
 using CalculationsStateFailureMechanismView = Riskeer.StabilityPointStructures.Forms.Views.CalculationsState.StabilityPointStructuresFailureMechanismView;
@@ -77,11 +79,11 @@ namespace Riskeer.StabilityPointStructures.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<StabilityPointStructuresCalculationsContext, CalculationsStateFailureMechanismProperties>
+            yield return new PropertyInfo<CalculationStateFailureMechanismContext, CalculationsStateFailureMechanismProperties>
             {
                 CreateInstance = context => new CalculationsStateFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<StabilityPointStructuresFailurePathContext, RegistrationStateFailureMechanismProperties>
+            yield return new PropertyInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismProperties>
             {
                 CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData)
             };
@@ -98,13 +100,13 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<StabilityPointStructuresCalculationsContext, CalculationsStateFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<CalculationStateFailureMechanismContext, CalculationsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 CreateInstance = context => new CalculationsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<StabilityPointStructuresFailurePathContext, RegistrationStateFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
@@ -145,11 +147,11 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<StabilityPointStructuresCalculationsContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<CalculationStateFailureMechanismContext>(
                 CalculationsChildNodeObjects,
                 CalculationsContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<StabilityPointStructuresFailurePathContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<RegistrationStateFailureMechanismContext>(
                 FailurePathEnabledChildNodeObjects,
                 FailurePathDisabledChildNodeObjects,
                 FailurePathEnabledContextMenuStrip,
@@ -350,7 +352,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is StabilityPointStructuresCalculationsContext failureMechanismContext)
+            if (dataToCloseFor is CalculationStateFailureMechanismContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -364,7 +366,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         #region StabilityPointStructuresCalculationsContext TreeNodeInfo
 
-        private static object[] CalculationsChildNodeObjects(StabilityPointStructuresCalculationsContext context)
+        private static object[] CalculationsChildNodeObjects(CalculationStateFailureMechanismContext context)
         {
             StabilityPointStructuresFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -389,7 +391,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationsContextMenuStrip(StabilityPointStructuresCalculationsContext context,
+        private ContextMenuStrip CalculationsContextMenuStrip(CalculationStateFailureMechanismContext context,
                                                               object parentData,
                                                               TreeViewControl treeViewControl)
         {
@@ -420,18 +422,18 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .Build();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(StabilityPointStructuresCalculationsContext context)
+        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(CalculationStateFailureMechanismContext context)
         {
             return EnableValidateAndCalculateMenu(context.Parent);
         }
 
-        private static void ValidateAllInFailureMechanism(StabilityPointStructuresCalculationsContext context)
+        private static void ValidateAllInFailureMechanism(CalculationStateFailureMechanismContext context)
         {
             ValidateAll(context.WrappedData.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>(),
                         context.Parent);
         }
 
-        private void CalculateAllInFailureMechanism(StabilityPointStructuresCalculationsContext context)
+        private void CalculateAllInFailureMechanism(CalculationStateFailureMechanismContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              StabilityPointStructuresCalculationActivityFactory.CreateCalculationActivities(context.WrappedData, context.Parent));
@@ -441,7 +443,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         #region StabilityPointStructuresFailurePathContext TreeNodeInfo
 
-        private static object[] FailurePathEnabledChildNodeObjects(StabilityPointStructuresFailurePathContext context)
+        private static object[] FailurePathEnabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             StabilityPointStructuresFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -455,7 +457,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             };
         }
 
-        private static object[] FailurePathDisabledChildNodeObjects(StabilityPointStructuresFailurePathContext context)
+        private static object[] FailurePathDisabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             return new object[]
             {
@@ -483,7 +485,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathEnabledContextMenuStrip(StabilityPointStructuresFailurePathContext context,
+        private ContextMenuStrip FailurePathEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
@@ -500,7 +502,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip FailurePathDisabledContextMenuStrip(StabilityPointStructuresFailurePathContext context,
+        private ContextMenuStrip FailurePathDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                      object parentData,
                                                                      TreeViewControl treeViewControl)
         {
@@ -515,7 +517,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(StabilityPointStructuresFailurePathContext context)
+        private void RemoveAllViewsForItem(RegistrationStateFailureMechanismContext context)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(context);
         }

@@ -89,7 +89,6 @@ using Riskeer.Integration.Plugin.Merge;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service;
 using Riskeer.Integration.Service.Comparers;
-using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using ClosingStructuresCalculationsStateFailureMechanismContext = Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState.ClosingStructuresFailureMechanismContext;
@@ -108,6 +107,8 @@ using MacroStabilityInwardsCalculationsStateFailureMechanismContext = Riskeer.Ma
 using MacroStabilityInwardsRegistrationStateFailureMechanismContext = Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState.MacroStabilityInwardsFailureMechanismContext;
 using PipingCalculationsStateFailureMechanismContext = Riskeer.Piping.Forms.PresentationObjects.CalculationsState.PipingFailureMechanismContext;
 using PipingRegistrationStateFailureMechanismContext = Riskeer.Piping.Forms.PresentationObjects.RegistrationState.PipingFailureMechanismContext;
+using StabilityPointStructuresCalculationsStateFailureMechanismContext = Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState.StabilityPointStructuresFailureMechanismContext;
+using StabilityPointStructuresRegistrationStateFailureMechanismContext = Riskeer.StabilityPointStructures.Forms.PresentationObjects.RegistrationState.StabilityPointStructuresFailureMechanismContext;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
@@ -1785,7 +1786,7 @@ namespace Riskeer.Integration.Plugin
                 new MacroStabilityInwardsCalculationsStateFailureMechanismContext(assessmentSection.MacroStabilityInwards, assessmentSection),
                 new HeightStructuresCalculationsStateFailureMechanismContext(assessmentSection.HeightStructures, assessmentSection),
                 new ClosingStructuresCalculationsStateFailureMechanismContext(assessmentSection.ClosingStructures, assessmentSection),
-                new StabilityPointStructuresCalculationsContext(assessmentSection.StabilityPointStructures, assessmentSection)
+                new StabilityPointStructuresCalculationsStateFailureMechanismContext(assessmentSection.StabilityPointStructures, assessmentSection)
             };
         }
 
@@ -1870,7 +1871,7 @@ namespace Riskeer.Integration.Plugin
                 new HeightStructuresRegistrationStateFailureMechanismContext(assessmentSection.HeightStructures, assessmentSection),
                 new ClosingStructuresRegistrationStateFailureMechanismContext(assessmentSection.ClosingStructures, assessmentSection),
                 new PipingStructureFailurePathContext(assessmentSection.PipingStructure, assessmentSection),
-                new StabilityPointStructuresFailurePathContext(assessmentSection.StabilityPointStructures, assessmentSection),
+                new StabilityPointStructuresRegistrationStateFailureMechanismContext(assessmentSection.StabilityPointStructures, assessmentSection),
                 new DuneErosionRegistrationStateFailureMechanismContext(assessmentSection.DuneErosion, assessmentSection)
             };
         }

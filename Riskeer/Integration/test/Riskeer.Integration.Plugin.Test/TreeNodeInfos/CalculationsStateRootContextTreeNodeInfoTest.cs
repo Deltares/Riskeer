@@ -39,7 +39,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Piping.Forms.PresentationObjects.CalculationsState;
-using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
+using Riskeer.StabilityPointStructures.Forms.PresentationObjects.CalculationsState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Resources;
 
@@ -187,9 +187,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.ClosingStructures, closingStructuresFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, closingStructuresFailureMechanismContext.Parent);
 
-                var stabilityPointStructuresCalculationsContext = (StabilityPointStructuresCalculationsContext) objects[5];
-                Assert.AreSame(assessmentSection.StabilityPointStructures, stabilityPointStructuresCalculationsContext.WrappedData);
-                Assert.AreSame(assessmentSection, stabilityPointStructuresCalculationsContext.Parent);
+                var stabilityPointStructuresFailureMechanismsContext = (StabilityPointStructuresFailureMechanismContext) objects[5];
+                Assert.AreSame(assessmentSection.StabilityPointStructures, stabilityPointStructuresFailureMechanismsContext.WrappedData);
+                Assert.AreSame(assessmentSection, stabilityPointStructuresFailureMechanismsContext.Parent);
             }
         }
 
