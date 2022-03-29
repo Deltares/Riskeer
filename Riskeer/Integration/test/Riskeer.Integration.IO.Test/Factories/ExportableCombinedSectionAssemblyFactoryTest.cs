@@ -200,33 +200,33 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             AssertSubSection(expectedSection.Piping, "STPH", ExportableFailureMechanismType.Generic,
                              failureMechanismCombinedSectionResults.ElementAt(0));
-            AssertSubSection(expectedSection.GrassCoverErosionInwards, "GEKB", ExportableFailureMechanismType.Generic,
-                             failureMechanismCombinedSectionResults.ElementAt(1));
             AssertSubSection(expectedSection.MacroStabilityInwards, "STBI", ExportableFailureMechanismType.Generic,
+                             failureMechanismCombinedSectionResults.ElementAt(1));
+            AssertSubSection(expectedSection.GrassCoverErosionInwards, "GEKB", ExportableFailureMechanismType.Generic,
                              failureMechanismCombinedSectionResults.ElementAt(2));
-            AssertSubSection(expectedSection.Microstability, "STMI", ExportableFailureMechanismType.Generic,
-                             failureMechanismCombinedSectionResults.ElementAt(3));
-            AssertSubSection(expectedSection.StabilityStoneCover, "ZST", ExportableFailureMechanismType.Generic,
-                             failureMechanismCombinedSectionResults.ElementAt(4));
-            AssertSubSection(expectedSection.WaveImpactAsphaltCover, "AGK", ExportableFailureMechanismType.Generic,
-                             failureMechanismCombinedSectionResults.ElementAt(5));
-            AssertSubSection(expectedSection.WaterPressureAsphaltCover, "AWO", ExportableFailureMechanismType.Generic,
-                             failureMechanismCombinedSectionResults.ElementAt(6));
-            AssertSubSection(expectedSection.GrassCoverErosionOutwards, "GEBU", ExportableFailureMechanismType.Generic,
-                             failureMechanismCombinedSectionResults.ElementAt(7));
-            AssertSubSection(expectedSection.GrassCoverSlipOffOutwards, "GABU", ExportableFailureMechanismType.Generic,
-                             failureMechanismCombinedSectionResults.ElementAt(8));
-            AssertSubSection(expectedSection.GrassCoverSlipOffInwards, "GABI", ExportableFailureMechanismType.Generic,
-                             failureMechanismCombinedSectionResults.ElementAt(9));
             AssertSubSection(expectedSection.HeightStructures, "HTKW", ExportableFailureMechanismType.Generic,
-                             failureMechanismCombinedSectionResults.ElementAt(10));
+                             failureMechanismCombinedSectionResults.ElementAt(3));
             AssertSubSection(expectedSection.ClosingStructures, "BSKW", ExportableFailureMechanismType.Generic,
-                             failureMechanismCombinedSectionResults.ElementAt(11));
-            AssertSubSection(expectedSection.PipingStructure, "PKW", ExportableFailureMechanismType.Generic,
-                             failureMechanismCombinedSectionResults.ElementAt(12));
+                             failureMechanismCombinedSectionResults.ElementAt(4));
             AssertSubSection(expectedSection.StabilityPointStructures, "STKWp", ExportableFailureMechanismType.Generic,
-                             failureMechanismCombinedSectionResults.ElementAt(13));
+                             failureMechanismCombinedSectionResults.ElementAt(5));
+            AssertSubSection(expectedSection.StabilityStoneCover, "ZST", ExportableFailureMechanismType.Generic,
+                             failureMechanismCombinedSectionResults.ElementAt(6));
+            AssertSubSection(expectedSection.WaveImpactAsphaltCover, "AGK", ExportableFailureMechanismType.Generic,
+                             failureMechanismCombinedSectionResults.ElementAt(7));
+            AssertSubSection(expectedSection.GrassCoverErosionOutwards, "GEBU", ExportableFailureMechanismType.Generic,
+                             failureMechanismCombinedSectionResults.ElementAt(8));
             AssertSubSection(expectedSection.DuneErosion, "DA", ExportableFailureMechanismType.Generic,
+                             failureMechanismCombinedSectionResults.ElementAt(9));
+            AssertSubSection(expectedSection.Microstability, "STMI", ExportableFailureMechanismType.Generic,
+                             failureMechanismCombinedSectionResults.ElementAt(10));
+            AssertSubSection(expectedSection.GrassCoverSlipOffOutwards, "GABU", ExportableFailureMechanismType.Generic,
+                             failureMechanismCombinedSectionResults.ElementAt(11));
+            AssertSubSection(expectedSection.GrassCoverSlipOffInwards, "GABI", ExportableFailureMechanismType.Generic,
+                             failureMechanismCombinedSectionResults.ElementAt(12));
+            AssertSubSection(expectedSection.PipingStructure, "PKW", ExportableFailureMechanismType.Generic,
+                             failureMechanismCombinedSectionResults.ElementAt(13));
+            AssertSubSection(expectedSection.WaterPressureAsphaltCover, "AWO", ExportableFailureMechanismType.Generic,
                              failureMechanismCombinedSectionResults.ElementAt(14));
             AssertSubSection(expectedSection.SpecificFailureMechanisms[0], "Nieuw1", ExportableFailureMechanismType.Specific,
                              failureMechanismCombinedSectionResults.ElementAt(15));
