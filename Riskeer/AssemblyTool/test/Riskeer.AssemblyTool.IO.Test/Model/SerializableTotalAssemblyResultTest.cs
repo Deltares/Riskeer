@@ -109,20 +109,21 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
 
             var random = new Random(39);
             var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
-            var group = random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>();
+            var assemblyGroup = random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>();
             double probability = random.NextDouble();
-            var assessmentSectionResult = new SerializableAssessmentSectionAssemblyResult(assemblyMethod, group, probability);
 
             // Call
             var totalAssemblyResult = new SerializableTotalAssemblyResult(id,
                                                                           assessmentProcess,
-                                                                          assessmentSectionResult);
+                                                                          assemblyMethod,
+                                                                          assemblyGroup,
+                                                                          probability);
 
             // Assert
             Assert.AreEqual(id, totalAssemblyResult.Id);
             Assert.AreEqual(assessmentProcess.Id, totalAssemblyResult.AssessmentProcessId);
             Assert.AreEqual(assemblyMethod, totalAssemblyResult.AssemblyMethod);
-            Assert.AreEqual(group, totalAssemblyResult.AssemblyGroup);
+            Assert.AreEqual(assemblyGroup, totalAssemblyResult.AssemblyGroup);
             Assert.AreEqual(probability, totalAssemblyResult.Probability);
             Assert.AreEqual("VOLLDG", totalAssemblyResult.Status);
         }

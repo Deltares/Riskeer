@@ -21,7 +21,6 @@
 
 using System;
 using System.Xml.Serialization;
-using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
 using Riskeer.AssemblyTool.IO.Properties;
@@ -44,12 +43,16 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The unique assembly ID.</param>
         /// <param name="assessmentProcess">The assessment process this result belongs to.</param>
-        /// <param name="assessmentSectionAssemblyResult">The assembly result for the assessment section.</param>
+        /// <param name="assemblyMethod">The method used to assemble this result.</param>
+        /// <param name="assemblyGroup">The group of this assembly result.</param>
+        /// <param name="probability">The probability of this assembly result.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public SerializableTotalAssemblyResult(string id,
                                                SerializableAssessmentProcess assessmentProcess,
-                                               SerializableAssessmentSectionAssemblyResult assessmentSectionAssemblyResult) : this()
+                                               SerializableAssemblyMethod assemblyMethod,
+                                               SerializableAssessmentSectionAssemblyGroup assemblyGroup,
+                                               double probability) : this()
         {
             SerializableIdValidator.ThrowIfInvalid(id);
 
@@ -58,16 +61,11 @@ namespace Riskeer.AssemblyTool.IO.Model
                 throw new ArgumentNullException(nameof(assessmentProcess));
             }
 
-            if (assessmentSectionAssemblyResult == null)
-            {
-                throw new ArgumentNullException(nameof(assessmentSectionAssemblyResult));
-            }
-
             Id = id;
             AssessmentProcessId = assessmentProcess.Id;
-            AssemblyMethod = assessmentSectionAssemblyResult.AssemblyMethod;
-            AssemblyGroup = assessmentSectionAssemblyResult.AssemblyGroup;
-            Probability = assessmentSectionAssemblyResult.Probability;
+            AssemblyMethod = assemblyMethod;
+            AssemblyGroup = assemblyGroup;
+            Probability = probability;
             Status = Resources.FullAssembly;
         }
 
@@ -84,7 +82,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         public string AssessmentProcessId { get; set; }
 
         /// <summary>
-        /// Gets or sets the name of the method used to assemble this result.
+        /// Gets or sets the method used to assemble this result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.AssemblyMethod)]
         public SerializableAssemblyMethod AssemblyMethod { get; set; }
