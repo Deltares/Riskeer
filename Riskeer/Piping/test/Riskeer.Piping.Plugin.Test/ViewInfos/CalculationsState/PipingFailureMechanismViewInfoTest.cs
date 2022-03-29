@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,9 +27,9 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
-using Riskeer.Piping.Forms.Views;
+using Riskeer.Piping.Forms.Views.CalculationsState;
 
-namespace Riskeer.Piping.Plugin.Test.ViewInfos
+namespace Riskeer.Piping.Plugin.Test.ViewInfos.CalculationsState
 {
     [TestFixture]
     public class PipingFailureMechanismViewInfoTest
@@ -81,7 +79,6 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnPipingFailureMechanismView()
         {
             // Setup
@@ -90,18 +87,12 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             var context = new PipingCalculationsContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as PipingFailureMechanismView;
+            // Call
+            var view = (PipingFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
     }
 }

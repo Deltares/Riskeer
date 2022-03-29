@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -46,13 +45,14 @@ using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil.Probabilistic;
 using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
-using Riskeer.Piping.Forms.Views;
+using Riskeer.Piping.Forms.Views.RegistrationState;
 using Riskeer.Piping.Primitives;
+using CalculationsStateFailureMechanismView = Riskeer.Piping.Forms.Views.CalculationsState.PipingFailureMechanismView;
 
-namespace Riskeer.Piping.Forms.Test.Views
+namespace Riskeer.Piping.Forms.Test.Views.RegistrationState
 {
     [TestFixture]
-    public class PipingFailurePathViewTest
+    public class PipingFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
         private const int stochasticSoilModelsIndex = 1;
@@ -90,10 +90,10 @@ namespace Riskeer.Piping.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            PipingFailurePathView view = CreateView(failureMechanism, assessmentSection);
+            PipingFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<PipingFailureMechanismView>(view);
+            Assert.IsInstanceOf<CalculationsStateFailureMechanismView>(view);
             Assert.IsNull(view.Data);
             Assert.AreSame(failureMechanism, view.FailureMechanism);
             Assert.AreSame(assessmentSection, view.AssessmentSection);
@@ -105,8 +105,6 @@ namespace Riskeer.Piping.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var random = new Random(39);
-
             PipingStochasticSoilModel stochasticSoilModel1 = PipingStochasticSoilModelTestFactory.CreatePipingStochasticSoilModel("name1", new[]
             {
                 new Point2D(1.0, 2.0),
@@ -198,7 +196,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                PipingFailurePathView view = CreateView(failureMechanism, assessmentSection);
+                PipingFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -243,7 +241,7 @@ namespace Riskeer.Piping.Forms.Test.Views
 
             var assessmentSection = new AssessmentSectionStub();
 
-            PipingFailurePathView view = CreateView(new PipingFailureMechanism(), assessmentSection);
+            PipingFailureMechanismView view = CreateView(new PipingFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -318,9 +316,9 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual("Probabilistische berekeningen", actualProbabilisticCalculationsData.Name);
         }
 
-        private PipingFailurePathView CreateView(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private PipingFailureMechanismView CreateView(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            var view = new PipingFailurePathView(failureMechanism, assessmentSection);
+            var view = new PipingFailureMechanismView(failureMechanism, assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();

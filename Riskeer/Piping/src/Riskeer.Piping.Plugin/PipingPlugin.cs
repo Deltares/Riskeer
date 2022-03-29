@@ -73,6 +73,8 @@ using Riskeer.Piping.Service.SemiProbabilistic;
 using Riskeer.Piping.Util;
 using CalculationsStateFailureMechanismProperties = Riskeer.Piping.Forms.PropertyClasses.CalculationsState.PipingFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.Piping.Forms.PropertyClasses.RegistrationState.PipingFailureMechanismProperties;
+using CalculationsStateFailureMechanismView = Riskeer.Piping.Forms.Views.CalculationsState.PipingFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.Piping.Forms.Views.RegistrationState.PipingFailureMechanismView;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using PipingFormsResources = Riskeer.Piping.Forms.Properties.Resources;
@@ -244,17 +246,17 @@ namespace Riskeer.Piping.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<PipingCalculationsContext, PipingFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<PipingCalculationsContext, CalculationsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new PipingFailureMechanismView(context.WrappedData, context.Parent)
+                CreateInstance = context => new CalculationsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<PipingFailurePathContext, PipingFailurePathView>(() => Gui)
+            yield return new RiskeerViewInfo<PipingFailurePathContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CreateInstance = context => new PipingFailurePathView(context.WrappedData, context.Parent),
+                CreateInstance = context => new RegistrationStateFailureMechanismView(context.WrappedData, context.Parent),
                 CloseForData = ClosePipingFailurePathViewForData
             };
 
@@ -580,7 +582,7 @@ namespace Riskeer.Piping.Plugin
 
         #region ViewInfos
 
-        private static bool ClosePipingFailurePathViewForData(PipingFailurePathView view, object dataToCloseFor)
+        private static bool ClosePipingFailurePathViewForData(RegistrationStateFailureMechanismView view, object dataToCloseFor)
         {
             var pipingFailureMechanism = dataToCloseFor as PipingFailureMechanism;
             return dataToCloseFor is IAssessmentSection assessmentSection

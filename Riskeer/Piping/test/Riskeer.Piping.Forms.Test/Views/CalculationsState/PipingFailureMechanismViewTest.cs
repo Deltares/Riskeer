@@ -46,10 +46,10 @@ using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Data.TestUtil;
 using Riskeer.Piping.Data.TestUtil.Probabilistic;
 using Riskeer.Piping.Data.TestUtil.SemiProbabilistic;
-using Riskeer.Piping.Forms.Views;
+using Riskeer.Piping.Forms.Views.CalculationsState;
 using Riskeer.Piping.Primitives;
 
-namespace Riskeer.Piping.Forms.Test.Views
+namespace Riskeer.Piping.Forms.Test.Views.CalculationsState
 {
     [TestFixture]
     public class PipingFailureMechanismViewTest

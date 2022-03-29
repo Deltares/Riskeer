@@ -39,10 +39,10 @@ using Riskeer.Piping.Forms.Factories;
 using Riskeer.Piping.Primitives;
 using PipingDataResources = Riskeer.Piping.Data.Properties.Resources;
 
-namespace Riskeer.Piping.Forms.Views
+namespace Riskeer.Piping.Forms.Views.CalculationsState
 {
     /// <summary>
-    /// This class is a view showing map data for a piping failure mechanism.
+    /// Calculations state view showing map data for a piping failure mechanism.
     /// </summary>
     public partial class PipingFailureMechanismView : UserControl, IMapView
     {

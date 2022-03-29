@@ -26,22 +26,22 @@ using Riskeer.Common.Forms.MapLayers;
 using Riskeer.Piping.Data;
 using PipingDataResources = Riskeer.Piping.Data.Properties.Resources;
 
-namespace Riskeer.Piping.Forms.Views
+namespace Riskeer.Piping.Forms.Views.RegistrationState
 {
     /// <summary>
-    /// This class is a view showing map data for a piping failure path.
+    /// Registration state view showing map data for a piping failure mechanism.
     /// </summary>
-    public class PipingFailurePathView : PipingFailureMechanismView
+    public class PipingFailureMechanismView : CalculationsState.PipingFailureMechanismView
     {
         private CalculatableFailureMechanismSectionResultsMapLayer<PipingFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, PipingInput> assemblyResultMapLayer;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingFailurePathView"/>.
+        /// Creates a new instance of <see cref="PipingFailureMechanismView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailurePathView(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public PipingFailureMechanismView(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
 
         protected override void Dispose(bool disposing)

@@ -49,6 +49,8 @@ using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Primitives;
 using CalculationsStateFailureMechanismProperties = Riskeer.Piping.Forms.PropertyClasses.CalculationsState.PipingFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.Piping.Forms.PropertyClasses.RegistrationState.PipingFailureMechanismProperties;
+using CalculationsStateFailureMechanismView = Riskeer.Piping.Forms.Views.CalculationsState.PipingFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.Piping.Forms.Views.RegistrationState.PipingFailureMechanismView;
 
 namespace Riskeer.Piping.Plugin.Test
 {
@@ -206,12 +208,12 @@ namespace Riskeer.Piping.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(PipingCalculationsContext),
-                    typeof(PipingFailureMechanismView));
+                    typeof(CalculationsStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(PipingFailurePathContext),
-                    typeof(PipingFailurePathView));
+                    typeof(RegistrationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
