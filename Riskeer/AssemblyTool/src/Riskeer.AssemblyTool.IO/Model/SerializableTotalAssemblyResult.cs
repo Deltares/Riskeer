@@ -22,7 +22,9 @@
 using System;
 using System.Xml.Serialization;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
+using Riskeer.AssemblyTool.IO.Properties;
 
 namespace Riskeer.AssemblyTool.IO.Model
 {
@@ -63,7 +65,10 @@ namespace Riskeer.AssemblyTool.IO.Model
 
             Id = id;
             AssessmentProcessId = assessmentProcess.Id;
-            AssessmentSectionAssemblyResult = assessmentSectionAssemblyResult;
+            AssemblyMethod = assessmentSectionAssemblyResult.AssemblyMethod;
+            AssemblyGroup = assessmentSectionAssemblyResult.AssemblyGroup;
+            Probability = assessmentSectionAssemblyResult.Probability;
+            Status = Resources.FullAssembly;
         }
 
         /// <summary>
@@ -79,9 +84,27 @@ namespace Riskeer.AssemblyTool.IO.Model
         public string AssessmentProcessId { get; set; }
 
         /// <summary>
-        /// Gets or sets the assessment section assembly result.
+        /// Gets or sets the name of the method used to assemble this result.
         /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.AssessmentSectionAssemblyResult)]
-        public SerializableAssessmentSectionAssemblyResult AssessmentSectionAssemblyResult { get; set; }
+        [XmlElement(AssemblyXmlIdentifiers.AssemblyMethod)]
+        public SerializableAssemblyMethod AssemblyMethod { get; set; }
+
+        /// <summary>
+        /// Gets or sets the group of this assembly result.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.AssessmentSectionAssemblyGroup)]
+        public SerializableAssessmentSectionAssemblyGroup AssemblyGroup { get; set; }
+
+        /// <summary>
+        /// Gets or sets the probability of this assembly result.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.Probability)]
+        public double Probability { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status of this assembly result.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.Status)]
+        public string Status { get; set; }
     }
 }

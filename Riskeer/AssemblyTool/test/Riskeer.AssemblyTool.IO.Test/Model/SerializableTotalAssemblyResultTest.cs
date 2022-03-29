@@ -24,6 +24,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.TestUtil;
 
 namespace Riskeer.AssemblyTool.IO.Test.Model
@@ -41,7 +42,10 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.IsInstanceOf<SerializableFeatureMember>(totalAssemblyResult);
             Assert.IsNull(totalAssemblyResult.Id);
             Assert.IsNull(totalAssemblyResult.AssessmentProcessId);
-            Assert.IsNull(totalAssemblyResult.AssessmentSectionAssemblyResult);
+            Assert.AreEqual((SerializableAssemblyMethod) 0, totalAssemblyResult.AssemblyMethod);
+            Assert.AreEqual((SerializableAssessmentSectionAssemblyGroup) 0, totalAssemblyResult.AssemblyGroup);
+            Assert.AreEqual(0, totalAssemblyResult.Probability);
+            Assert.AreEqual("VOLLDG", totalAssemblyResult.Status);
 
             SerializableAttributeTestHelper.AssertXmlTypeAttribute(typeof(SerializableTotalAssemblyResult), "Veiligheidsoordeel");
 
@@ -50,8 +54,14 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableTotalAssemblyResult>(
                 nameof(SerializableTotalAssemblyResult.AssessmentProcessId), "BeoordelingsprocesIDRef");
 
-            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableTotalAssemblyResult>(
-                nameof(SerializableTotalAssemblyResult.AssessmentSectionAssemblyResult), "veiligheidsoordeel");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
+                nameof(SerializableAssessmentSectionAssemblyResult.AssemblyMethod), "assemblagemethode");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
+                nameof(SerializableAssessmentSectionAssemblyResult.AssemblyGroup), "categorie");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
+                nameof(SerializableAssessmentSectionAssemblyResult.Probability), "faalkans");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
+                nameof(SerializableAssessmentSectionAssemblyResult.Status), "status");
         }
 
         [Test]
@@ -96,7 +106,12 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             const string id = "id";
 
             var assessmentProcess = new SerializableAssessmentProcess("processId", new SerializableAssessmentSection());
-            var assessmentSectionResult = new SerializableAssessmentSectionAssemblyResult();
+
+            var random = new Random(39);
+            var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
+            var group = random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>();
+            double probability = random.NextDouble();
+            var assessmentSectionResult = new SerializableAssessmentSectionAssemblyResult(assemblyMethod, group, probability);
 
             // Call
             var totalAssemblyResult = new SerializableTotalAssemblyResult(id,
@@ -106,7 +121,10 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             // Assert
             Assert.AreEqual(id, totalAssemblyResult.Id);
             Assert.AreEqual(assessmentProcess.Id, totalAssemblyResult.AssessmentProcessId);
-            Assert.AreSame(assessmentSectionResult, totalAssemblyResult.AssessmentSectionAssemblyResult);
+            Assert.AreEqual(assemblyMethod, totalAssemblyResult.AssemblyMethod);
+            Assert.AreEqual(group, totalAssemblyResult.AssemblyGroup);
+            Assert.AreEqual(probability, totalAssemblyResult.Probability);
+            Assert.AreEqual("VOLLDG", totalAssemblyResult.Status);
         }
     }
 }

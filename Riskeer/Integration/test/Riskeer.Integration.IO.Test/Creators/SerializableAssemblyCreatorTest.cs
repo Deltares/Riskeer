@@ -26,7 +26,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Gml;
 using Riskeer.AssemblyTool.IO.Model.Helpers;
 using Riskeer.Integration.IO.Assembly;
@@ -215,12 +214,11 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             Assert.AreEqual(expectedId, serializableTotalAssembly.Id);
             Assert.AreEqual(expectedAssessmentProcess.Id, serializableTotalAssembly.AssessmentProcessId);
-
-            SerializableAssessmentSectionAssemblyResult serializableAssessmentSectionAssemblyResult = serializableTotalAssembly.AssessmentSectionAssemblyResult;
             Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyMethod),
-                            serializableAssessmentSectionAssemblyResult.AssemblyMethod);
+                            serializableTotalAssembly.AssemblyMethod);
             Assert.AreEqual(SerializableAssessmentSectionAssemblyGroupCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyGroup),
-                            serializableAssessmentSectionAssemblyResult.AssemblyGroup);
+                            serializableTotalAssembly.AssemblyGroup);
+            Assert.AreEqual(expectedAssessmentSectionAssemblyResult.Probability, serializableTotalAssembly.Probability);
         }
 
         private static void AssertSerializableFailureMechanismSection(string expectedId,
