@@ -63,6 +63,8 @@ using Riskeer.HeightStructures.Plugin.FileImporters;
 using Riskeer.HeightStructures.Service;
 using CalculationsStateFailureMechanismProperties = Riskeer.HeightStructures.Forms.PropertyClasses.CalculationsState.HeightStructuresFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.HeightStructures.Forms.PropertyClasses.RegistrationState.HeightStructuresFailureMechanismProperties;
+using CalculationsStateFailureMechanismView = Riskeer.HeightStructures.Forms.Views.CalculationsState.HeightStructuresFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.HeightStructures.Forms.Views.RegistrationState.HeightStructuresFailureMechanismView;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
@@ -163,17 +165,17 @@ namespace Riskeer.HeightStructures.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<HeightStructuresCalculationsContext, HeightStructuresFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<HeightStructuresCalculationsContext, CalculationsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new HeightStructuresFailureMechanismView(context.WrappedData, context.Parent)
+                CreateInstance = context => new CalculationsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<HeightStructuresFailurePathContext, HeightStructuresFailurePathView>(() => Gui)
+            yield return new RiskeerViewInfo<HeightStructuresFailurePathContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CreateInstance = context => new HeightStructuresFailurePathView(context.WrappedData, context.Parent),
+                CreateInstance = context => new RegistrationStateFailureMechanismView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
             };
 
@@ -292,7 +294,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailurePathViewForData(HeightStructuresFailurePathView view, object dataToCloseFor)
+        private static bool CloseFailurePathViewForData(RegistrationStateFailureMechanismView view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as HeightStructuresFailureMechanism;
 

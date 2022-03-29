@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,9 +27,9 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
-using Riskeer.HeightStructures.Forms.Views;
+using Riskeer.HeightStructures.Forms.Views.CalculationsState;
 
-namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
+namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos.CalculationsState
 {
     [TestFixture]
     public class HeightStructuresFailureMechanismViewInfoTest
@@ -80,7 +78,6 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnHeightStructuresFailureMechanismView()
         {
             // Setup
@@ -89,18 +86,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as HeightStructuresFailureMechanismView;
+            // Call
+            var view = (HeightStructuresFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
     }
 }

@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,9 +27,9 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
-using Riskeer.HeightStructures.Forms.Views;
+using Riskeer.HeightStructures.Forms.Views.RegistrationState;
 
-namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
+namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos.RegistrationState
 {
     [TestFixture]
     public class HeightStructuresFailurePathViewInfoTest
@@ -45,7 +43,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new HeightStructuresPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(HeightStructuresFailurePathView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(HeightStructuresFailureMechanismView));
         }
 
         [TearDown]
@@ -104,8 +102,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void CreateInstance_WithContext_ReturnHeightStructuresFailurePathView()
+        public void CreateInstance_WithContext_ReturnHeightStructuresFailureMechanismView()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -113,18 +110,12 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as HeightStructuresFailurePathView;
+            // Call
+            var view = (HeightStructuresFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
 
         [Test]
@@ -137,7 +128,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var view = new HeightStructuresFailurePathView(failureMechanism, assessmentSection);
+            var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -155,7 +146,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var view = new HeightStructuresFailurePathView(failureMechanism, assessmentSection);
+            var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -172,7 +163,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var otherHeightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
 
-            var view = new HeightStructuresFailurePathView(failureMechanism, assessmentSection);
+            var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, otherHeightStructuresFailureMechanism);
@@ -188,7 +179,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var view = new HeightStructuresFailurePathView(failureMechanism, assessmentSection);
+            var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, failureMechanism);

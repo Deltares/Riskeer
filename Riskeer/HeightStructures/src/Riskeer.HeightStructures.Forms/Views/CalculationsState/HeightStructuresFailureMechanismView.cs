@@ -36,10 +36,10 @@ using Riskeer.Common.Forms.MapLayers;
 using Riskeer.HeightStructures.Data;
 using HeightStructuresDataResources = Riskeer.HeightStructures.Data.Properties.Resources;
 
-namespace Riskeer.HeightStructures.Forms.Views
+namespace Riskeer.HeightStructures.Forms.Views.CalculationsState
 {
     /// <summary>
-    /// This class is a view showing map data for a height structures failure mechanism.
+    /// Calculations state view showing map data for a height structures failure mechanism.
     /// </summary>
     public partial class HeightStructuresFailureMechanismView : UserControl, IMapView
     {

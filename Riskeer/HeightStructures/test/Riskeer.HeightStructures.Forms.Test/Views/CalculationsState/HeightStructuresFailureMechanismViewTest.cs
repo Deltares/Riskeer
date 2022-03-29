@@ -41,9 +41,9 @@ using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
-using Riskeer.HeightStructures.Forms.Views;
+using Riskeer.HeightStructures.Forms.Views.CalculationsState;
 
-namespace Riskeer.HeightStructures.Forms.Test.Views
+namespace Riskeer.HeightStructures.Forms.Test.Views.CalculationsState
 {
     [TestFixture]
     public class HeightStructuresFailureMechanismViewTest

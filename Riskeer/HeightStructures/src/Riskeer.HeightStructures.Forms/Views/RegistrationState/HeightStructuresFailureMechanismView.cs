@@ -31,12 +31,12 @@ using Riskeer.Common.Forms.MapLayers;
 using Riskeer.HeightStructures.Data;
 using HeightStructuresDataResources = Riskeer.HeightStructures.Data.Properties.Resources;
 
-namespace Riskeer.HeightStructures.Forms.Views
+namespace Riskeer.HeightStructures.Forms.Views.RegistrationState
 {
     /// <summary>
-    /// This class is a view showing map data for a height structures failure path.
+    /// Registration state view showing map data for a height structures failure mechanism.
     /// </summary>
-    public class HeightStructuresFailurePathView : HeightStructuresFailureMechanismView
+    public class HeightStructuresFailureMechanismView : CalculationsState.HeightStructuresFailureMechanismView
     {
         private MapLineData sectionsMapData;
         private MapPointData sectionsStartPointMapData;
@@ -47,13 +47,14 @@ namespace Riskeer.HeightStructures.Forms.Views
         private Observer failureMechanismObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructuresFailurePathView"/>.
+        /// Creates a new instance of <see cref="HeightStructuresFailureMechanismView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HeightStructuresFailurePathView(HeightStructuresFailureMechanism failureMechanism,
-                                               IAssessmentSection assessmentSection) : base(failureMechanism, assessmentSection) {}
+        public HeightStructuresFailureMechanismView(HeightStructuresFailureMechanism failureMechanism,
+                                                    IAssessmentSection assessmentSection)
+            : base(failureMechanism, assessmentSection) {}
 
         protected override void Dispose(bool disposing)
         {

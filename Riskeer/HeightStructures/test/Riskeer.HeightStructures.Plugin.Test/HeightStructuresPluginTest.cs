@@ -40,6 +40,8 @@ using Riskeer.HeightStructures.Forms.PropertyClasses;
 using Riskeer.HeightStructures.Forms.Views;
 using CalculationsStateFailureMechanismProperties = Riskeer.HeightStructures.Forms.PropertyClasses.CalculationsState.HeightStructuresFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.HeightStructures.Forms.PropertyClasses.RegistrationState.HeightStructuresFailureMechanismProperties;
+using CalculationsStateFailureMechanismView = Riskeer.HeightStructures.Forms.Views.CalculationsState.HeightStructuresFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.HeightStructures.Forms.Views.RegistrationState.HeightStructuresFailureMechanismView;
 
 namespace Riskeer.HeightStructures.Plugin.Test
 {
@@ -146,12 +148,12 @@ namespace Riskeer.HeightStructures.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(HeightStructuresCalculationsContext),
-                    typeof(HeightStructuresFailureMechanismView));
+                    typeof(CalculationsStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(HeightStructuresFailurePathContext),
-                    typeof(HeightStructuresFailurePathView));
+                    typeof(RegistrationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

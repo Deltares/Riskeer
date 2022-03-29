@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -44,12 +43,13 @@ using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
-using Riskeer.HeightStructures.Forms.Views;
+using Riskeer.HeightStructures.Forms.Views.RegistrationState;
+using CalculationsStateFailureMechanismView = Riskeer.HeightStructures.Forms.Views.CalculationsState.HeightStructuresFailureMechanismView;
 
-namespace Riskeer.HeightStructures.Forms.Test.Views
+namespace Riskeer.HeightStructures.Forms.Test.Views.RegistrationState
 {
     [TestFixture]
-    public class HeightStructuresFailurePathViewTest
+    public class HeightStructuresFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
         private const int sectionsCollectionIndex = 1;
@@ -90,10 +90,10 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            HeightStructuresFailurePathView view = CreateView(failureMechanism, assessmentSection);
+            HeightStructuresFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<HeightStructuresFailureMechanismView>(view);
+            Assert.IsInstanceOf<CalculationsStateFailureMechanismView>(view);
             Assert.IsNull(view.Data);
             Assert.AreSame(failureMechanism, view.FailureMechanism);
             Assert.AreSame(assessmentSection, view.AssessmentSection);
@@ -105,8 +105,6 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var random = new Random(39);
-
             var calculationA = new StructuresCalculationScenario<HeightStructuresInput>
             {
                 InputParameters =
@@ -178,7 +176,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                HeightStructuresFailurePathView view = CreateView(failureMechanism, assessmentSection);
+                HeightStructuresFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -214,7 +212,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             // Given
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            HeightStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            HeightStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -263,7 +261,7 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
 
             var assessmentSection = new AssessmentSectionStub();
 
-            HeightStructuresFailurePathView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
+            HeightStructuresFailureMechanismView view = CreateView(new HeightStructuresFailureMechanism(), assessmentSection);
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             MapDataCollection mapData = map.Data;
@@ -331,9 +329,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
         }
 
-        private HeightStructuresFailurePathView CreateView(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private HeightStructuresFailureMechanismView CreateView(HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            var view = new HeightStructuresFailurePathView(failureMechanism, assessmentSection);
+            var view = new HeightStructuresFailureMechanismView(failureMechanism, assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();

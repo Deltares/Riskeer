@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.HeightStructures.Forms.Views
+namespace Riskeer.HeightStructures.Forms.Views.CalculationsState
 {
     partial class HeightStructuresFailureMechanismView
     {
