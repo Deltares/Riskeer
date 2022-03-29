@@ -2,8 +2,8 @@
 <asm:Assemblage xmlns:gml="http://www.opengis.net/gml/3.2" gml:id="Assemblage.0" xmlns:asm="http://localhost/standaarden/assemblage">
   <gml:boundedBy>
     <gml:Envelope>
-      <gml:lowerCorner>1 1</gml:lowerCorner>
-      <gml:upperCorner>2 2</gml:upperCorner>
+      <gml:lowerCorner>0 0</gml:lowerCorner>
+      <gml:upperCorner>3 4</gml:upperCorner>
     </gml:Envelope>
   </gml:boundedBy>
   <asm:featureMember>
@@ -11,10 +11,10 @@
       <asm:naam>assessmentSectionName</asm:naam>
       <asm:geometrie2D>
         <gml:LineString srsName="EPSG:28992">
-          <gml:posList>1 1 2 2</gml:posList>
+          <gml:posList>0 0 3 4</gml:posList>
         </gml:LineString>
       </asm:geometrie2D>
-      <asm:lengte uom="m">1.4142135623730952</asm:lengte>
+      <asm:lengte uom="m">5</asm:lengte>
       <asm:typeWaterkeringstelsel>DKTRJCT</asm:typeWaterkeringstelsel>
     </asm:Waterkeringstelsel>
     <asm:Beoordelingsproces BeoordelingsprocesID="Bp.0" WaterkeringstelselIDRef="Wks.assessmentSectionId">
@@ -1036,25 +1036,25 @@
     </asm:Deelvak>
     <asm:Deelvak gml:id="Bv.32" VakindelingIDRef="Vi.16">
       <asm:afstandBegin uom="m">0</asm:afstandBegin>
-      <asm:afstandEinde uom="m">0.5</asm:afstandEinde>
+      <asm:afstandEinde uom="m">2.5</asm:afstandEinde>
       <asm:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
-          <gml:posList>1 1 1.35355339059327 1.35355339059327</gml:posList>
+          <gml:posList>0 0 1.5 2</gml:posList>
         </gml:LineString>
       </asm:geometrieLijn2D>
-      <asm:lengte uom="m">0.49999999999999994</asm:lengte>
+      <asm:lengte uom="m">2.5</asm:lengte>
       <asm:typeWaterkeringsectie>DEELVK</asm:typeWaterkeringsectie>
       <asm:assemblagemethode>WBI-3A-1</asm:assemblagemethode>
     </asm:Deelvak>
     <asm:Deelvak gml:id="Bv.33" VakindelingIDRef="Vi.16">
-      <asm:afstandBegin uom="m">0.5</asm:afstandBegin>
-      <asm:afstandEinde uom="m">1</asm:afstandEinde>
+      <asm:afstandBegin uom="m">2.5</asm:afstandBegin>
+      <asm:afstandEinde uom="m">5</asm:afstandEinde>
       <asm:geometrieLijn2D>
         <gml:LineString srsName="EPSG:28992">
-          <gml:posList>1.35355339059327 1.35355339059327 1.70710678118655 1.70710678118655</gml:posList>
+          <gml:posList>1.5 2 3 4</gml:posList>
         </gml:LineString>
       </asm:geometrieLijn2D>
-      <asm:lengte uom="m">0.49999999999999994</asm:lengte>
+      <asm:lengte uom="m">2.5</asm:lengte>
       <asm:typeWaterkeringsectie>DEELVK</asm:typeWaterkeringsectie>
       <asm:assemblagemethode>WBI-3A-1</asm:assemblagemethode>
     </asm:Deelvak>

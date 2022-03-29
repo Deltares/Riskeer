@@ -184,9 +184,9 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
                 {
-                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(0, 0.5, FailureMechanismSectionAssemblyGroup.II),
+                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(0, 2.5, FailureMechanismSectionAssemblyGroup.II),
                                                                 failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.II)),
-                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(0.5, 1, FailureMechanismSectionAssemblyGroup.III),
+                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(2.5, 5, FailureMechanismSectionAssemblyGroup.III),
                                                                 failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.III))
                 };
 
@@ -251,8 +251,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             };
             assessmentSection.ReferenceLine.SetGeometry(new[]
             {
-                new Point2D(1, 1),
-                new Point2D(2, 2)
+                new Point2D(0, 0),
+                new Point2D(3, 4)
             });
 
             assessmentSection.SpecificFailureMechanisms.AddRange(new[]
