@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.GrassCoverErosionInwards.Data;
-using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.RegistrationState;
 using Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses.RegistrationState;
 
 namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos.RegistrationState
@@ -54,7 +54,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos.Registratio
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismProperties), info.PropertyObjectType);
         }
 
@@ -67,7 +67,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.PropertyInfos.Registratio
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new GrassCoverErosionInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

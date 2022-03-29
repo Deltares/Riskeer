@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Data;
-using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.CalculationsState;
 using Riskeer.GrassCoverErosionInwards.Forms.Views.CalculationsState;
 
 namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos.CalculationsState
@@ -56,8 +56,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos.CalculationsSta
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsCalculationsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(GrassCoverErosionInwardsFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos.CalculationsSta
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new GrassCoverErosionInwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -84,7 +84,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos.CalculationsSta
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var context = new GrassCoverErosionInwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             var view = (GrassCoverErosionInwardsFailureMechanismView) info.CreateInstance(context);

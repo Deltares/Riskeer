@@ -57,6 +57,8 @@ using Riskeer.GrassCoverErosionInwards.Plugin.FileImporters;
 using Riskeer.GrassCoverErosionInwards.Plugin.Properties;
 using Riskeer.GrassCoverErosionInwards.Service;
 using Riskeer.GrassCoverErosionInwards.Util;
+using CalculationsStateFailureMechanismContext = Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.CalculationsState.GrassCoverErosionInwardsFailureMechanismContext;
+using RegistrationStateFailureMechanismContext = Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.RegistrationState.GrassCoverErosionInwardsFailureMechanismContext;
 using CalculationsStateFailureMechanismProperties = Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses.CalculationsState.GrassCoverErosionInwardsFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses.RegistrationState.GrassCoverErosionInwardsFailureMechanismProperties;
 using CalculationsStateFailureMechanismView = Riskeer.GrassCoverErosionInwards.Forms.Views.CalculationsState.GrassCoverErosionInwardsFailureMechanismView;
@@ -75,11 +77,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<GrassCoverErosionInwardsCalculationsContext, CalculationsStateFailureMechanismProperties>
+            yield return new PropertyInfo<CalculationsStateFailureMechanismContext, CalculationsStateFailureMechanismProperties>
             {
                 CreateInstance = context => new CalculationsStateFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<GrassCoverErosionInwardsFailurePathContext, RegistrationStateFailureMechanismProperties>
+            yield return new PropertyInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismProperties>
             {
                 CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData)
             };
@@ -179,13 +181,13 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<GrassCoverErosionInwardsCalculationsContext, CalculationsStateFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<CalculationsStateFailureMechanismContext, CalculationsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 CreateInstance = context => new CalculationsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<GrassCoverErosionInwardsFailurePathContext, RegistrationStateFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
@@ -264,11 +266,11 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<GrassCoverErosionInwardsCalculationsContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<CalculationsStateFailureMechanismContext>(
                 CalculationsChildNodeObjects,
                 CalculationsContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<GrassCoverErosionInwardsFailurePathContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<RegistrationStateFailureMechanismContext>(
                 FailurePathEnabledChildNodeObjects,
                 FailurePathDisabledChildNodeObjects,
                 FailurePathEnabledContextMenuStrip,
@@ -451,7 +453,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is GrassCoverErosionInwardsCalculationsContext failureMechanismContext)
+            if (dataToCloseFor is CalculationsStateFailureMechanismContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -492,7 +494,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is GrassCoverErosionInwardsCalculationsContext failureMechanismContext)
+            if (dataToCloseFor is CalculationsStateFailureMechanismContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -506,7 +508,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #region GrassCoverErosionInwardsCalculationsContext TreeNodeInfo
 
-        private static object[] CalculationsChildNodeObjects(GrassCoverErosionInwardsCalculationsContext context)
+        private static object[] CalculationsChildNodeObjects(CalculationsStateFailureMechanismContext context)
         {
             GrassCoverErosionInwardsFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -528,7 +530,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationsContextMenuStrip(GrassCoverErosionInwardsCalculationsContext context,
+        private ContextMenuStrip CalculationsContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                               object parentData,
                                                               TreeViewControl treeViewControl)
         {
@@ -562,17 +564,17 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                    .Build();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(GrassCoverErosionInwardsCalculationsContext context)
+        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(CalculationsStateFailureMechanismContext context)
         {
             return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
-        private static void ValidateAllInFailureMechanism(GrassCoverErosionInwardsCalculationsContext context)
+        private static void ValidateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
         {
             ValidateAll(context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.Parent);
         }
 
-        private void CalculateAllInFailureMechanism(GrassCoverErosionInwardsCalculationsContext context)
+        private void CalculateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
@@ -583,7 +585,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         #region GrassCoverErosionInwardsFailurePathContext TreeNodeInfo
 
-        private static object[] FailurePathEnabledChildNodeObjects(GrassCoverErosionInwardsFailurePathContext context)
+        private static object[] FailurePathEnabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             GrassCoverErosionInwardsFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -597,7 +599,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private static object[] FailurePathDisabledChildNodeObjects(GrassCoverErosionInwardsFailurePathContext context)
+        private static object[] FailurePathDisabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             return new object[]
             {
@@ -625,7 +627,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathEnabledContextMenuStrip(GrassCoverErosionInwardsFailurePathContext context,
+        private ContextMenuStrip FailurePathEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
@@ -642,7 +644,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip FailurePathDisabledContextMenuStrip(GrassCoverErosionInwardsFailurePathContext context,
+        private ContextMenuStrip FailurePathDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                      object parentData,
                                                                      TreeViewControl treeViewControl)
         {
@@ -657,7 +659,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(GrassCoverErosionInwardsFailurePathContext context)
+        private void RemoveAllViewsForItem(RegistrationStateFailureMechanismContext context)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
@@ -672,17 +674,14 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
             foreach (ICalculationBase calculationItem in context.WrappedData.Children)
             {
-                var calculation = calculationItem as GrassCoverErosionInwardsCalculationScenario;
-                var group = calculationItem as CalculationGroup;
-
-                if (calculation != null)
+                if (calculationItem is GrassCoverErosionInwardsCalculationScenario calculation)
                 {
                     childNodeObjects.Add(new GrassCoverErosionInwardsCalculationScenarioContext(calculation,
                                                                                                 context.WrappedData,
                                                                                                 context.FailureMechanism,
                                                                                                 context.AssessmentSection));
                 }
-                else if (group != null)
+                else if (calculationItem is CalculationGroup @group)
                 {
                     childNodeObjects.Add(new GrassCoverErosionInwardsCalculationGroupContext(group,
                                                                                              context.WrappedData,
