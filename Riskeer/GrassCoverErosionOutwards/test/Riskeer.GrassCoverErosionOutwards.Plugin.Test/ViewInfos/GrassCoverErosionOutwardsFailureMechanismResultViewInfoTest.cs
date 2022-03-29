@@ -31,6 +31,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.RegistrationState;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 {
@@ -234,7 +235,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new GrassCoverErosionOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverErosionOutwardsFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
@@ -259,7 +260,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionOutwardsFailurePathContext(
+            var context = new GrassCoverErosionOutwardsFailureMechanismContext(
                 new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();

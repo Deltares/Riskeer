@@ -34,12 +34,13 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.RegistrationState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
+namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.RegistrationState
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailurePathContextTreeNodeInfoTest
+    public class GrassCoverErosionOutwardsFailureMechanismContextTreeNodeInfoTest
     {
         private GrassCoverErosionOutwardsPlugin plugin;
         private TreeNodeInfo info;
@@ -48,7 +49,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         public void Setup()
         {
             plugin = new GrassCoverErosionOutwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionOutwardsFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverErosionOutwardsFailureMechanismContext));
         }
 
         [TearDown]
@@ -89,7 +90,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new GrassCoverErosionOutwardsFailurePathContext(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
+            var context = new GrassCoverErosionOutwardsFailureMechanismContext(new GrassCoverErosionOutwardsFailureMechanism(), assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -115,7 +116,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            var context = new GrassCoverErosionOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -161,7 +162,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 InAssembly = false
             };
-            var context = new GrassCoverErosionOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -185,7 +186,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var context = new GrassCoverErosionOutwardsFailurePathContext(failureMechanism, assessmentSection);
+                var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -228,7 +229,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     InAssembly = false
                 };
-                var context = new GrassCoverErosionOutwardsFailurePathContext(failureMechanism, assessmentSection);
+                var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -258,14 +259,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
 
         [TestFixture]
         public class GrassCoverErosionOutwardsFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<GrassCoverErosionOutwardsPlugin, GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailurePathContext>
+            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<GrassCoverErosionOutwardsPlugin, GrassCoverErosionOutwardsFailureMechanism, GrassCoverErosionOutwardsFailureMechanismContext>
         {
             public GrassCoverErosionOutwardsFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override GrassCoverErosionOutwardsFailurePathContext CreateFailureMechanismContext(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+            protected override GrassCoverErosionOutwardsFailureMechanismContext CreateFailureMechanismContext(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                                                          IAssessmentSection assessmentSection)
             {
-                return new GrassCoverErosionOutwardsFailurePathContext(failureMechanism, assessmentSection);
+                return new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
     }

@@ -24,22 +24,22 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Data;
 
-namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects
+namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.RegistrationState
 {
     /// <summary>
-    /// Presentation object for hydraulic loads of <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
+    /// Presentation object for <see cref="GrassCoverErosionOutwardsFailureMechanism"/> in registration state.
     /// </summary>
-    public class GrassCoverErosionOutwardsHydraulicLoadsContext : FailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>
+    public class GrassCoverErosionOutwardsFailureMechanismContext : FailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsHydraulicLoadsContext"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismContext"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> 
         /// instance wrapped by this context object.</param>
         /// <param name="assessmentSection">The assessment section which the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsHydraulicLoadsContext(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                              IAssessmentSection assessmentSection)
+        public GrassCoverErosionOutwardsFailureMechanismContext(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
     }
 }

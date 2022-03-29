@@ -71,7 +71,6 @@ using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.Common.Util.TypeConverters;
 using Riskeer.DuneErosion.Plugin.Handlers;
-using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
@@ -104,6 +103,8 @@ using DuneErosionRegistrationStateFailureMechanismContext = Riskeer.DuneErosion.
 using FontFamily = System.Windows.Media.FontFamily;
 using GrassCoverErosionInwardsCalculationsStateFailureMechanismContext = Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.CalculationsState.GrassCoverErosionInwardsFailureMechanismContext;
 using GrassCoverErosionInwardsRegistrationStateFailureMechanismContext = Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.RegistrationState.GrassCoverErosionInwardsFailureMechanismContext;
+using GrassCoverErosionOutwardsHydraulicLoadsStateFailureMechanismContext = Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.HydraulicLoadsState.GrassCoverErosionOutwardsFailureMechanismContext;
+using GrassCoverErosionOutwardsRegistrationStateFailureMechanismContext = Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.RegistrationState.GrassCoverErosionOutwardsFailureMechanismContext;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
@@ -1731,7 +1732,7 @@ namespace Riskeer.Integration.Plugin
                 new HydraulicBoundaryDatabaseContext(assessmentSection.HydraulicBoundaryDatabase, assessmentSection),
                 new StabilityStoneCoverHydraulicLoadsContext(assessmentSection.StabilityStoneCover, assessmentSection),
                 new WaveImpactAsphaltCoverHydraulicLoadsContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
-                new GrassCoverErosionOutwardsHydraulicLoadsContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
+                new GrassCoverErosionOutwardsHydraulicLoadsStateFailureMechanismContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
                 new DuneErosionHydraulicLoadsStateFailureMechanismContext(assessmentSection.DuneErosion, assessmentSection)
             };
         }
@@ -1860,7 +1861,7 @@ namespace Riskeer.Integration.Plugin
                 new StabilityStoneCoverFailurePathContext(assessmentSection.StabilityStoneCover, assessmentSection),
                 new WaveImpactAsphaltCoverFailurePathContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
                 new WaterPressureAsphaltCoverFailurePathContext(assessmentSection.WaterPressureAsphaltCover, assessmentSection),
-                new GrassCoverErosionOutwardsFailurePathContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
+                new GrassCoverErosionOutwardsRegistrationStateFailureMechanismContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
                 new GrassCoverSlipOffOutwardsFailurePathContext(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection),
                 new GrassCoverSlipOffInwardsFailurePathContext(assessmentSection.GrassCoverSlipOffInwards, assessmentSection),
                 new HeightStructuresFailurePathContext(assessmentSection.HeightStructures, assessmentSection),

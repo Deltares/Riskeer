@@ -24,12 +24,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.HydraulicLoadsState;
 
-namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects.HydraulicLoadsState
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsFailurePathContextTest
+    public class GrassCoverErosionOutwardsFailureMechanismContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            var context = new GrassCoverErosionOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverErosionOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>>(context);
