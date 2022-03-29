@@ -24,7 +24,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Creators;
 using Riskeer.Integration.IO.Helpers;
@@ -107,9 +107,12 @@ namespace Riskeer.Integration.IO.Test.Creators
 
         private static SerializableTotalAssemblyResult CreateSerializableTotalAssembly(string totalAssemblyId)
         {
+            var random = new Random(21);
             return new SerializableTotalAssemblyResult(totalAssemblyId,
                                                        new SerializableAssessmentProcess(),
-                                                       new SerializableAssessmentSectionAssemblyResult());
+                                                       random.NextEnumValue<SerializableAssemblyMethod>(),
+                                                       random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>(),
+                                                       random.NextDouble());
         }
     }
 }
