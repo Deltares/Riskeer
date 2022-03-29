@@ -46,16 +46,17 @@ using Riskeer.Common.Service.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Data.TestUtil;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
+using Riskeer.HeightStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.HydraRing.Calculation.Calculator.Factory;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Input.Structures;
 using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
+namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.CalculationsState
 {
     [TestFixture]
-    public class HeightStructuresCalculationsContextTreeNodeInfoTest : NUnitFormTest
+    public class HeightStructuresFailureMechanismContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuValidateAllIndex = 2;
         private const int contextMenuCalculateAllIndex = 3;
@@ -103,7 +104,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -131,7 +132,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -169,7 +170,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
-            var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             var menuBuilder = mocksRepository.StrictMock<IContextMenuBuilder>();
             using (mocksRepository.Ordered())
@@ -214,7 +215,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
                 var failureMechanism = new HeightStructuresFailureMechanism();
-                var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+                var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocksRepository.Stub<IGui>();
@@ -265,7 +266,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
-            var nodeData = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -299,7 +300,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -344,7 +345,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var nodeData = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -377,7 +378,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocksRepository);
 
-            var nodeData = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -411,7 +412,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -456,7 +457,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var nodeData = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -515,7 +516,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(FailureMechanismContributionTestFactory.CreateFailureMechanismContribution());
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -610,7 +611,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocksRepository.Stub<IAssessmentSection>();
             assessmentSection.Stub(a => a.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
 
-            var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -671,7 +672,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -717,7 +718,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
@@ -772,7 +773,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var messageBoxText = "";
@@ -843,7 +844,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(null, mocksRepository, "invalidFilePath");
 
-            var nodeData = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             var messageBoxText = "";
@@ -882,7 +883,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         {
             mocksRepository = new MockRepository();
             plugin = new HeightStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresCalculationsContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresFailureMechanismContext));
         }
 
         public override void TearDown()

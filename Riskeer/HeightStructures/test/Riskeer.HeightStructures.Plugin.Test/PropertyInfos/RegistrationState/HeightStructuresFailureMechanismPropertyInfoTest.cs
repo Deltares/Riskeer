@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.HeightStructures.Data;
-using Riskeer.HeightStructures.Forms.PresentationObjects;
+using Riskeer.HeightStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.HeightStructures.Forms.PropertyClasses.RegistrationState;
 
 namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos.RegistrationState
@@ -54,7 +54,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos.RegistrationState
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HeightStructuresFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(HeightStructuresFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(HeightStructuresFailureMechanismProperties), info.PropertyObjectType);
         }
 
@@ -67,7 +67,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos.RegistrationState
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

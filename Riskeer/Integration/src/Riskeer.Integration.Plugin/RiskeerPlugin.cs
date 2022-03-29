@@ -71,7 +71,6 @@ using Riskeer.Common.Util;
 using Riskeer.Common.Util.Helpers;
 using Riskeer.Common.Util.TypeConverters;
 using Riskeer.DuneErosion.Plugin.Handlers;
-using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.StandAlone;
 using Riskeer.Integration.Data.StandAlone.AssemblyFactories;
@@ -105,6 +104,8 @@ using GrassCoverErosionInwardsCalculationsStateFailureMechanismContext = Riskeer
 using GrassCoverErosionInwardsRegistrationStateFailureMechanismContext = Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.RegistrationState.GrassCoverErosionInwardsFailureMechanismContext;
 using GrassCoverErosionOutwardsHydraulicLoadsStateFailureMechanismContext = Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.HydraulicLoadsState.GrassCoverErosionOutwardsFailureMechanismContext;
 using GrassCoverErosionOutwardsRegistrationStateFailureMechanismContext = Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.RegistrationState.GrassCoverErosionOutwardsFailureMechanismContext;
+using HeightStructuresCalculationsStateFailureMechanismContext = Riskeer.HeightStructures.Forms.PresentationObjects.CalculationsState.HeightStructuresFailureMechanismContext;
+using HeightStructuresRegistrationStateFailureMechanismContext = Riskeer.HeightStructures.Forms.PresentationObjects.RegistrationState.HeightStructuresFailureMechanismContext;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
@@ -1780,7 +1781,7 @@ namespace Riskeer.Integration.Plugin
                 new PipingCalculationsContext(assessmentSection.Piping, assessmentSection),
                 new GrassCoverErosionInwardsCalculationsStateFailureMechanismContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
                 new MacroStabilityInwardsCalculationsContext(assessmentSection.MacroStabilityInwards, assessmentSection),
-                new HeightStructuresCalculationsContext(assessmentSection.HeightStructures, assessmentSection),
+                new HeightStructuresCalculationsStateFailureMechanismContext(assessmentSection.HeightStructures, assessmentSection),
                 new ClosingStructuresCalculationsStateFailureMechanismContext(assessmentSection.ClosingStructures, assessmentSection),
                 new StabilityPointStructuresCalculationsContext(assessmentSection.StabilityPointStructures, assessmentSection)
             };
@@ -1864,7 +1865,7 @@ namespace Riskeer.Integration.Plugin
                 new GrassCoverErosionOutwardsRegistrationStateFailureMechanismContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
                 new GrassCoverSlipOffOutwardsFailurePathContext(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection),
                 new GrassCoverSlipOffInwardsFailurePathContext(assessmentSection.GrassCoverSlipOffInwards, assessmentSection),
-                new HeightStructuresFailurePathContext(assessmentSection.HeightStructures, assessmentSection),
+                new HeightStructuresRegistrationStateFailureMechanismContext(assessmentSection.HeightStructures, assessmentSection),
                 new ClosingStructuresRegistrationStateFailureMechanismContext(assessmentSection.ClosingStructures, assessmentSection),
                 new PipingStructureFailurePathContext(assessmentSection.PipingStructure, assessmentSection),
                 new StabilityPointStructuresFailurePathContext(assessmentSection.StabilityPointStructures, assessmentSection),

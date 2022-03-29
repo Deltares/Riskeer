@@ -61,6 +61,8 @@ using Riskeer.HeightStructures.IO;
 using Riskeer.HeightStructures.IO.Configurations;
 using Riskeer.HeightStructures.Plugin.FileImporters;
 using Riskeer.HeightStructures.Service;
+using CalculationsStateFailureMechanismContext = Riskeer.HeightStructures.Forms.PresentationObjects.CalculationsState.HeightStructuresFailureMechanismContext;
+using RegistrationStateFailureMechanismContext = Riskeer.HeightStructures.Forms.PresentationObjects.RegistrationState.HeightStructuresFailureMechanismContext;
 using CalculationsStateFailureMechanismProperties = Riskeer.HeightStructures.Forms.PropertyClasses.CalculationsState.HeightStructuresFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.HeightStructures.Forms.PropertyClasses.RegistrationState.HeightStructuresFailureMechanismProperties;
 using CalculationsStateFailureMechanismView = Riskeer.HeightStructures.Forms.Views.CalculationsState.HeightStructuresFailureMechanismView;
@@ -78,11 +80,11 @@ namespace Riskeer.HeightStructures.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<HeightStructuresCalculationsContext, CalculationsStateFailureMechanismProperties>
+            yield return new PropertyInfo<CalculationsStateFailureMechanismContext, CalculationsStateFailureMechanismProperties>
             {
                 CreateInstance = context => new CalculationsStateFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<HeightStructuresFailurePathContext, RegistrationStateFailureMechanismProperties>
+            yield return new PropertyInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismProperties>
             {
                 CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData)
             };
@@ -165,13 +167,13 @@ namespace Riskeer.HeightStructures.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<HeightStructuresCalculationsContext, CalculationsStateFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<CalculationsStateFailureMechanismContext, CalculationsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 CreateInstance = context => new CalculationsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<HeightStructuresFailurePathContext, RegistrationStateFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
@@ -215,11 +217,11 @@ namespace Riskeer.HeightStructures.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<HeightStructuresCalculationsContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<CalculationsStateFailureMechanismContext>(
                 CalculationsChildNodeObjects,
                 CalculationsContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<HeightStructuresFailurePathContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<RegistrationStateFailureMechanismContext>(
                 FailurePathEnabledChildNodeObjects,
                 FailurePathDisabledChildNodeObjects,
                 FailurePathEnabledContextMenuStrip,
@@ -353,7 +355,7 @@ namespace Riskeer.HeightStructures.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is HeightStructuresCalculationsContext failureMechanismContext)
+            if (dataToCloseFor is CalculationsStateFailureMechanismContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -367,7 +369,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         #region HeightStructuresCalculationsContext TreeNodeInfo
 
-        private static object[] CalculationsChildNodeObjects(HeightStructuresCalculationsContext context)
+        private static object[] CalculationsChildNodeObjects(CalculationsStateFailureMechanismContext context)
         {
             HeightStructuresFailureMechanism wrappedData = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -390,7 +392,7 @@ namespace Riskeer.HeightStructures.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationsContextMenuStrip(HeightStructuresCalculationsContext context,
+        private ContextMenuStrip CalculationsContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                               object parentData,
                                                               TreeViewControl treeViewControl)
         {
@@ -424,18 +426,18 @@ namespace Riskeer.HeightStructures.Plugin
                           .Build();
         }
 
-        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(HeightStructuresCalculationsContext context)
+        private static string EnableValidateAndCalculateMenuItemForFailureMechanism(CalculationsStateFailureMechanismContext context)
         {
             return EnableValidateAndCalculateMenuItem(context.Parent);
         }
 
-        private static void ValidateAllInFailureMechanism(HeightStructuresCalculationsContext context)
+        private static void ValidateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
         {
             ValidateAll(context.WrappedData.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>(),
                         context.Parent);
         }
 
-        private void CalculateAllInFailureMechanism(HeightStructuresCalculationsContext context)
+        private void CalculateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
@@ -446,7 +448,7 @@ namespace Riskeer.HeightStructures.Plugin
 
         #region HeightStructuresFailurePathContext TreeNodeInfo
 
-        private static object[] FailurePathEnabledChildNodeObjects(HeightStructuresFailurePathContext context)
+        private static object[] FailurePathEnabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             HeightStructuresFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -460,7 +462,7 @@ namespace Riskeer.HeightStructures.Plugin
             };
         }
 
-        private static object[] FailurePathDisabledChildNodeObjects(HeightStructuresFailurePathContext context)
+        private static object[] FailurePathDisabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             return new object[]
             {
@@ -488,7 +490,7 @@ namespace Riskeer.HeightStructures.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathEnabledContextMenuStrip(HeightStructuresFailurePathContext context,
+        private ContextMenuStrip FailurePathEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
@@ -505,7 +507,7 @@ namespace Riskeer.HeightStructures.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip FailurePathDisabledContextMenuStrip(HeightStructuresFailurePathContext context,
+        private ContextMenuStrip FailurePathDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                      object parentData,
                                                                      TreeViewControl treeViewControl)
         {
@@ -520,7 +522,7 @@ namespace Riskeer.HeightStructures.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(HeightStructuresFailurePathContext context)
+        private void RemoveAllViewsForItem(RegistrationStateFailureMechanismContext context)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(context);
         }
@@ -857,9 +859,9 @@ namespace Riskeer.HeightStructures.Plugin
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (StructureDependentDataShouldUpdate(new[]
-                {
-                    calculation
-                }, message))
+            {
+                calculation
+            }, message))
             {
                 UpdateStructureDerivedCalculationInput(calculation);
             }

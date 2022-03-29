@@ -31,6 +31,7 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
+using Riskeer.HeightStructures.Forms.PresentationObjects.RegistrationState;
 
 namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
 {
@@ -215,7 +216,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             var view = new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN);
@@ -237,7 +238,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new HeightStructuresFailurePathContext(new HeightStructuresFailureMechanism(), assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
 
             var view = new StructuresFailureMechanismResultView<HeightStructuresFailureMechanism, HeightStructuresInput>(
                 failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN);

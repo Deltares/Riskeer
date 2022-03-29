@@ -34,12 +34,13 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
+using Riskeer.HeightStructures.Forms.PresentationObjects.RegistrationState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
+namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos.RegistrationState
 {
     [TestFixture]
-    public class HeightStructuresFailurePathContextTreeNodeInfoTest
+    public class HeightStructuresFailureMechanismContextTreeNodeInfoTest
     {
         private HeightStructuresPlugin plugin;
         private TreeNodeInfo info;
@@ -48,7 +49,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
         public void Setup()
         {
             plugin = new HeightStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresFailureMechanismContext));
         }
 
         [TearDown]
@@ -89,7 +90,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new HeightStructuresFailurePathContext(new HeightStructuresFailureMechanism(), assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(new HeightStructuresFailureMechanism(), assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -115,7 +116,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -165,7 +166,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             {
                 InAssembly = false
             };
-            var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -189,7 +190,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new HeightStructuresFailureMechanism();
-                var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
+                var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -232,7 +233,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
                 {
                     InAssembly = false
                 };
-                var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
+                var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -262,14 +263,14 @@ namespace Riskeer.HeightStructures.Plugin.Test.TreeNodeInfos
 
         [TestFixture]
         public class HeightStructuresFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<HeightStructuresPlugin, HeightStructuresFailureMechanism, HeightStructuresFailurePathContext>
+            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<HeightStructuresPlugin, HeightStructuresFailureMechanism, HeightStructuresFailureMechanismContext>
         {
             public HeightStructuresFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override HeightStructuresFailurePathContext CreateFailureMechanismContext(HeightStructuresFailureMechanism failureMechanism,
-                                                                                                IAssessmentSection assessmentSection)
+            protected override HeightStructuresFailureMechanismContext CreateFailureMechanismContext(HeightStructuresFailureMechanism failureMechanism,
+                                                                                                     IAssessmentSection assessmentSection)
             {
-                return new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
+                return new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
     }

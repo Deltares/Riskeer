@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
-using Riskeer.HeightStructures.Forms.PresentationObjects;
+using Riskeer.HeightStructures.Forms.PresentationObjects.RegistrationState;
 using Riskeer.HeightStructures.Forms.Views.RegistrationState;
 
 namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos.RegistrationState
@@ -56,8 +56,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos.RegistrationState
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HeightStructuresFailurePathContext), info.DataType);
-            Assert.AreEqual(typeof(HeightStructuresFailurePathContext), info.ViewDataType);
+            Assert.AreEqual(typeof(HeightStructuresFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(HeightStructuresFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos.RegistrationState
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -91,7 +91,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos.RegistrationState
                 InAssembly = inAssembly
             };
 
-            var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -108,7 +108,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos.RegistrationState
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
-            var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             var view = (HeightStructuresFailureMechanismView) info.CreateInstance(context);

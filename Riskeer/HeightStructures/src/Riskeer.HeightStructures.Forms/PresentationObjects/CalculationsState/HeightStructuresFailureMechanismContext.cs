@@ -19,36 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-using Rhino.Mocks;
+using System;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Data;
-using Riskeer.HeightStructures.Forms.PresentationObjects;
 
-namespace Riskeer.HeightStructures.Forms.Test.PresentationObjects
+namespace Riskeer.HeightStructures.Forms.PresentationObjects.CalculationsState
 {
-    [TestFixture]
-    public class HeightStructuresFailurePathContextTest
+    /// <summary>
+    /// Presentation object for <see cref="HeightStructuresFailureMechanism"/> in calculations state.
+    /// </summary>
+    public class HeightStructuresFailureMechanismContext : FailureMechanismContext<HeightStructuresFailureMechanism>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            // Call
-            var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
-
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismContext<HeightStructuresFailureMechanism>>(context);
-            Assert.AreSame(assessmentSection, context.Parent);
-            Assert.AreSame(failureMechanism, context.WrappedData);
-            mocks.VerifyAll();
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="HeightStructuresFailureMechanismContext"/>.
+        /// </summary>
+        /// <param name="wrappedFailureMechanism">The <see cref="HeightStructuresFailureMechanism"/>
+        /// instance wrapped by this context object.</param>
+        /// <param name="parent">The assessment section which the failure mechanism belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public HeightStructuresFailureMechanismContext(HeightStructuresFailureMechanism wrappedFailureMechanism, IAssessmentSection parent)
+            : base(wrappedFailureMechanism, parent) {}
     }
 }

@@ -38,6 +38,8 @@ using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
 using Riskeer.HeightStructures.Forms.PropertyClasses;
 using Riskeer.HeightStructures.Forms.Views;
+using CalculationsStateFailureMechanismContext = Riskeer.HeightStructures.Forms.PresentationObjects.CalculationsState.HeightStructuresFailureMechanismContext;
+using RegistrationStateFailureMechanismContext = Riskeer.HeightStructures.Forms.PresentationObjects.RegistrationState.HeightStructuresFailureMechanismContext;
 using CalculationsStateFailureMechanismProperties = Riskeer.HeightStructures.Forms.PropertyClasses.CalculationsState.HeightStructuresFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.HeightStructures.Forms.PropertyClasses.RegistrationState.HeightStructuresFailureMechanismProperties;
 using CalculationsStateFailureMechanismView = Riskeer.HeightStructures.Forms.Views.CalculationsState.HeightStructuresFailureMechanismView;
@@ -73,12 +75,12 @@ namespace Riskeer.HeightStructures.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(HeightStructuresCalculationsContext),
+                    typeof(CalculationsStateFailureMechanismContext),
                     typeof(CalculationsStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(HeightStructuresFailurePathContext),
+                    typeof(RegistrationStateFailureMechanismContext),
                     typeof(RegistrationStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -109,8 +111,8 @@ namespace Riskeer.HeightStructures.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(9, treeNodeInfos.Length);
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresCalculationsContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresFailurePathContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CalculationsStateFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RegistrationStateFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresCalculationScenarioContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresInputContext)));
@@ -147,12 +149,12 @@ namespace Riskeer.HeightStructures.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(HeightStructuresCalculationsContext),
+                    typeof(CalculationsStateFailureMechanismContext),
                     typeof(CalculationsStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(HeightStructuresFailurePathContext),
+                    typeof(RegistrationStateFailureMechanismContext),
                     typeof(RegistrationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
