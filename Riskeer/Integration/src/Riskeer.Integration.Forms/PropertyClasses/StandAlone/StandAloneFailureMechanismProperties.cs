@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -24,15 +24,15 @@ using Core.Common.Base.Data;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
 using Core.Gui.PropertyBag;
-using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Common.Data.FailureMechanism;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
 {
     /// <summary>
-    /// Failure paths related ViewModel of <see cref="PipingStructureFailureMechanism"/> for properties panel.
+    /// Registration state related ViewModel of <see cref="IHasGeneralInput"/> for properties panel.
     /// </summary>
-    public class PipingStructureFailurePathProperties : ObjectProperties<PipingStructureFailureMechanism>
+    public class StandAloneFailureMechanismProperties : ObjectProperties<IHasGeneralInput>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -41,18 +41,18 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
         private const int applyLengthEffectInSectionPropertyIndex = 5;
 
         /// <summary>
-        /// Creates a new instance of <see cref="PipingStructureFailurePathProperties"/>.
+        /// Creates a new instance of <see cref="StandAloneFailureMechanismProperties"/>.
         /// </summary>
-        /// <param name="data">The instance to show the properties of.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> input parameter is <c>null</c>.</exception>
-        public PipingStructureFailurePathProperties(PipingStructureFailureMechanism data)
+        /// <param name="failureMechanism">The failure mechanism to show the properties for.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public StandAloneFailureMechanismProperties(IHasGeneralInput failureMechanism)
         {
-            if (data == null)
+            if (failureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(data));
+                throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            Data = data;
+            Data = failureMechanism;
         }
 
         [DynamicVisibleValidationMethod]
@@ -97,6 +97,11 @@ namespace Riskeer.Integration.Forms.PropertyClasses.StandAlone
             get
             {
                 return data.GeneralInput.ApplyLengthEffectInSection;
+            }
+            set
+            {
+                data.GeneralInput.ApplyLengthEffectInSection = value;
+                data.NotifyObservers();
             }
         }
 

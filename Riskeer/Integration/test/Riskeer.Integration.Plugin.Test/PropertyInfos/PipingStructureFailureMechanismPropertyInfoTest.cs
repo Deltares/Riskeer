@@ -32,7 +32,7 @@ using Riskeer.Integration.Forms.PropertyClasses.StandAlone;
 namespace Riskeer.Integration.Plugin.Test.PropertyInfos
 {
     [TestFixture]
-    public class PipingStructureFailurePathPropertyInfoTest
+    public class PipingStructureFailureMechanismPropertyInfoTest
     {
         private RiskeerPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingStructureFailurePathProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(PipingStructureFailureMechanismProperties));
         }
 
         [TearDown]
@@ -55,7 +55,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(PipingStructureFailurePathContext), info.DataType);
-            Assert.AreEqual(typeof(PipingStructureFailurePathProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(PipingStructureFailureMechanismProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<PipingStructureFailurePathProperties>(objectProperties);
+            Assert.IsInstanceOf<PipingStructureFailureMechanismProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
             mocks.VerifyAll();
         }

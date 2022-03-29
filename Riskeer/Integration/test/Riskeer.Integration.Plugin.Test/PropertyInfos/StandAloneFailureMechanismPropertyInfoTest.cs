@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StandAloneFailurePathProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StandAloneFailureMechanismProperties));
         }
 
         [TearDown]
@@ -55,7 +55,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(IFailureMechanismContext<IHasGeneralInput>), info.DataType);
-            Assert.AreEqual(typeof(StandAloneFailurePathProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(StandAloneFailureMechanismProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<StandAloneFailurePathProperties>(objectProperties);
+            Assert.IsInstanceOf<StandAloneFailureMechanismProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
             mocks.VerifyAll();
         }
