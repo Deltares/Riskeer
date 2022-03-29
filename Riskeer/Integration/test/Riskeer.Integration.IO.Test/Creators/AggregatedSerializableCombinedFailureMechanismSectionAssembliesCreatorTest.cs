@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.AggregatedSerializable;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Creators;
@@ -141,9 +142,12 @@ namespace Riskeer.Integration.IO.Test.Creators
 
         private static SerializableTotalAssemblyResult CreateSerializableTotalAssembly(string totalAssemblyId)
         {
+            var random = new Random();
             return new SerializableTotalAssemblyResult(totalAssemblyId,
                                                        new SerializableAssessmentProcess(),
-                                                       new SerializableAssessmentSectionAssemblyResult());
+                                                       random.NextEnumValue<SerializableAssemblyMethod>(),
+                                                       random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>(),
+                                                       random.NextDouble());
         }
 
         private static ExportableCombinedFailureMechanismSection CreateSection(int seed)
