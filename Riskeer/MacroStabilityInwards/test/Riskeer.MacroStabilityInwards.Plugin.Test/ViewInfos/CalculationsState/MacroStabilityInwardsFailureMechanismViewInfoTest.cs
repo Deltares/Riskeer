@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,9 +27,9 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
-using Riskeer.MacroStabilityInwards.Forms.Views;
+using Riskeer.MacroStabilityInwards.Forms.Views.CalculationsState;
 
-namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos.CalculationsState
 {
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismViewInfoTest
@@ -80,7 +78,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]        
         public void CreateInstance_WithContext_ReturnMacroStabilityInwardsFailureMechanismView()
         {
             // Setup
@@ -89,18 +86,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as MacroStabilityInwardsFailureMechanismView;
+            // Call
+            var view = (MacroStabilityInwardsFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
     }
 }

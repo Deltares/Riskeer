@@ -63,6 +63,8 @@ using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.MacroStabilityInwards.Service;
 using CalculationsStateFailureMechanismProperties = Riskeer.MacroStabilityInwards.Forms.PropertyClasses.CalculationsState.MacroStabilityInwardsFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState.MacroStabilityInwardsFailureMechanismProperties;
+using CalculationsStateFailureMechanismView = Riskeer.MacroStabilityInwards.Forms.Views.CalculationsState.MacroStabilityInwardsFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.MacroStabilityInwards.Forms.Views.RegistrationState.MacroStabilityInwardsFailureMechanismView;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
@@ -245,17 +247,17 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<MacroStabilityInwardsCalculationsContext, MacroStabilityInwardsFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<MacroStabilityInwardsCalculationsContext, CalculationsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new MacroStabilityInwardsFailureMechanismView(context.WrappedData, context.Parent)
+                CreateInstance = context => new CalculationsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<MacroStabilityInwardsFailurePathContext, MacroStabilityInwardsFailurePathView>(() => Gui)
+            yield return new RiskeerViewInfo<MacroStabilityInwardsFailurePathContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CreateInstance = context => new MacroStabilityInwardsFailurePathView(context.WrappedData, context.Parent),
+                CreateInstance = context => new RegistrationStateFailureMechanismView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
             };
 
@@ -453,7 +455,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailurePathViewForData(MacroStabilityInwardsFailurePathView view, object dataToCloseFor)
+        private static bool CloseFailurePathViewForData(RegistrationStateFailureMechanismView view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as MacroStabilityInwardsFailureMechanism;
 
@@ -762,7 +764,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                                                              nodeData.FailureMechanism,
                                                                                              nodeData.AssessmentSection));
                 }
-                else if (item is CalculationGroup @group)
+                else if (item is CalculationGroup group)
                 {
                     childNodeObjects.Add(new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                           nodeData.WrappedData,

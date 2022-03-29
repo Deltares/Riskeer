@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,12 +27,12 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
-using Riskeer.MacroStabilityInwards.Forms.Views;
+using Riskeer.MacroStabilityInwards.Forms.Views.RegistrationState;
 
-namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos.RegistrationState
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailurePathViewInfoTest
+    public class MacroStabilityInwardsFailureMechanismViewInfoTest
     {
         private MockRepository mocks;
         private MacroStabilityInwardsPlugin plugin;
@@ -45,7 +43,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityInwardsFailurePathView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(MacroStabilityInwardsFailureMechanismView));
         }
 
         [TearDown]
@@ -104,8 +102,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void CreateInstance_WithContext_ReturnMacroStabilityInwardsFailurePathView()
+        public void CreateInstance_WithContext_ReturnMacroStabilityInwardsFailureMechanismView()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -113,18 +110,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var context = new MacroStabilityInwardsFailurePathContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as MacroStabilityInwardsFailurePathView;
+            // Call
+            var view = (MacroStabilityInwardsFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
 
         [Test]
@@ -136,7 +127,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var view = new MacroStabilityInwardsFailurePathView(failureMechanism, assessmentSection);
+            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -152,7 +143,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var view = new MacroStabilityInwardsFailurePathView(failureMechanism, assessmentSection);
+            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -169,7 +160,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             var otherMacroStabilityInwardsFailureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var view = new MacroStabilityInwardsFailurePathView(failureMechanism, assessmentSection);
+            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, otherMacroStabilityInwardsFailureMechanism);
@@ -185,7 +176,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var view = new MacroStabilityInwardsFailurePathView(failureMechanism, assessmentSection);
+            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, failureMechanism);

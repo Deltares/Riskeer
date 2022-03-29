@@ -43,6 +43,8 @@ using Riskeer.MacroStabilityInwards.Forms.Views;
 using Riskeer.MacroStabilityInwards.Primitives;
 using CalculationsStateFailureMechanismProperties = Riskeer.MacroStabilityInwards.Forms.PropertyClasses.CalculationsState.MacroStabilityInwardsFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState.MacroStabilityInwardsFailureMechanismProperties;
+using CalculationsStateFailureMechanismView = Riskeer.MacroStabilityInwards.Forms.Views.CalculationsState.MacroStabilityInwardsFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.MacroStabilityInwards.Forms.Views.RegistrationState.MacroStabilityInwardsFailureMechanismView;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test
 {
@@ -177,12 +179,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(MacroStabilityInwardsCalculationsContext),
-                    typeof(MacroStabilityInwardsFailureMechanismView));
+                    typeof(CalculationsStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(MacroStabilityInwardsFailurePathContext),
-                    typeof(MacroStabilityInwardsFailurePathView));
+                    typeof(RegistrationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

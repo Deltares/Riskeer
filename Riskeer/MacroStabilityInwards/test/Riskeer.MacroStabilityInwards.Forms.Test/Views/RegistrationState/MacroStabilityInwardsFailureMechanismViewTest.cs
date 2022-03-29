@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -44,13 +43,14 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
-using Riskeer.MacroStabilityInwards.Forms.Views;
+using Riskeer.MacroStabilityInwards.Forms.Views.RegistrationState;
 using Riskeer.MacroStabilityInwards.Primitives;
+using CalculationsStateFailureMechanismView = Riskeer.MacroStabilityInwards.Forms.Views.CalculationsState.MacroStabilityInwardsFailureMechanismView;
 
-namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.RegistrationState
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailurePathViewTest
+    public class MacroStabilityInwardsFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
         private const int stochasticSoilModelsIndex = 1;
@@ -91,10 +91,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            MacroStabilityInwardsFailurePathView view = CreateView(failureMechanism, assessmentSection);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsFailureMechanismView>(view);
+            Assert.IsInstanceOf<CalculationsStateFailureMechanismView>(view);
             Assert.IsNull(view.Data);
             Assert.AreSame(failureMechanism, view.FailureMechanism);
             Assert.AreSame(assessmentSection, view.AssessmentSection);
@@ -106,8 +106,6 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var random = new Random(39);
-
             MacroStabilityInwardsStochasticSoilModel stochasticSoilModel1 =
                 MacroStabilityInwardsStochasticSoilModelTestFactory.CreateValidStochasticSoilModel("name1", new[]
                 {
@@ -196,7 +194,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                MacroStabilityInwardsFailurePathView view = CreateView(failureMechanism, assessmentSection);
+                MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -231,7 +229,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Given
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            MacroStabilityInwardsFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            MacroStabilityInwardsFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -280,7 +278,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             var assessmentSection = new AssessmentSectionStub();
 
-            MacroStabilityInwardsFailurePathView view = CreateView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            MacroStabilityInwardsFailureMechanismView view = CreateView(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -349,9 +347,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
         }
 
-        private MacroStabilityInwardsFailurePathView CreateView(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private MacroStabilityInwardsFailureMechanismView CreateView(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            var view = new MacroStabilityInwardsFailurePathView(failureMechanism, assessmentSection);
+            var view = new MacroStabilityInwardsFailureMechanismView(failureMechanism, assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();

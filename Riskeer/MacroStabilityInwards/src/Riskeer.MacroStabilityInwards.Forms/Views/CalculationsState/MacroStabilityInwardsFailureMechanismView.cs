@@ -36,10 +36,10 @@ using Riskeer.MacroStabilityInwards.Forms.Factories;
 using Riskeer.MacroStabilityInwards.Primitives;
 using MacroStabilityInwardsDataResources = Riskeer.MacroStabilityInwards.Data.Properties.Resources;
 
-namespace Riskeer.MacroStabilityInwards.Forms.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Views.CalculationsState
 {
     /// <summary>
-    /// This class is a view showing map data for a macro stability inwards failure mechanism.
+    /// Calculations state view showing map data for a macro stability inwards failure mechanism.
     /// </summary>
     public partial class MacroStabilityInwardsFailureMechanismView : UserControl, IMapView
     {

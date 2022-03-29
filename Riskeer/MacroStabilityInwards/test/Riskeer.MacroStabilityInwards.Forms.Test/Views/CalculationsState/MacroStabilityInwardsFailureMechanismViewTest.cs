@@ -42,10 +42,10 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
-using Riskeer.MacroStabilityInwards.Forms.Views;
+using Riskeer.MacroStabilityInwards.Forms.Views.CalculationsState;
 using Riskeer.MacroStabilityInwards.Primitives;
 
-namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
+namespace Riskeer.MacroStabilityInwards.Forms.Test.Views.CalculationsState
 {
     [TestFixture]
     public class MacroStabilityInwardsFailureMechanismViewTest
