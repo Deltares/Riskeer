@@ -30,19 +30,20 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="StabilityStoneCoverFailureMechanism"/> for properties panel.
+    /// Base ViewModel of <see cref="StabilityStoneCoverFailureMechanism"/> for properties panel.
     /// </summary>
-    public class StabilityStoneCoverFailureMechanismProperties : ObjectProperties<StabilityStoneCoverFailureMechanism>
+    public abstract class StabilityStoneCoverFailureMechanismPropertiesBase : ObjectProperties<StabilityStoneCoverFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismPropertiesBase"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="constructionProperties">The property values required to create an instance of <see cref="StabilityStoneCoverFailureMechanismProperties"/>.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="StabilityStoneCoverFailureMechanismPropertiesBase"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityStoneCoverFailureMechanismProperties(StabilityStoneCoverFailureMechanism data, ConstructionProperties constructionProperties)
+        protected StabilityStoneCoverFailureMechanismPropertiesBase(StabilityStoneCoverFailureMechanism data, ConstructionProperties constructionProperties)
         {
             if (data == null)
             {
@@ -76,19 +77,19 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="StabilityStoneCoverFailureMechanismProperties"/>.
+        /// Class holding the various construction parameters for <see cref="StabilityStoneCoverFailureMechanismPropertiesBase"/>.
         /// </summary>
         public class ConstructionProperties
         {
             #region General
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="StabilityStoneCoverFailureMechanismProperties.Name"/>.
+            /// Gets or sets the property index for <see cref="StabilityStoneCoverFailureMechanismPropertiesBase.Name"/>.
             /// </summary>
             public int NamePropertyIndex { get; set; }
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="StabilityStoneCoverFailureMechanismProperties.Code"/>.
+            /// Gets or sets the property index for <see cref="StabilityStoneCoverFailureMechanismPropertiesBase.Code"/>.
             /// </summary>
             public int CodePropertyIndex { get; set; }
 

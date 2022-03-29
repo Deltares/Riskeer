@@ -30,10 +30,11 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
+using Riskeer.StabilityStoneCover.Forms.PropertyClasses.RegistrationState;
 
-namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
+namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses.RegistrationState
 {
-    public class StabilityStoneCoverFailurePathPropertiesTest
+    public class StabilityStoneCoverFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -52,10 +53,10 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new StabilityStoneCoverFailurePathProperties(failureMechanism);
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismProperties>(properties);
+            Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismPropertiesBase>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
@@ -75,7 +76,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            var properties = new StabilityStoneCoverFailurePathProperties(failureMechanism);
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -128,7 +129,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new StabilityStoneCoverFailurePathProperties(failureMechanism);
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -173,7 +174,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new StabilityStoneCoverFailurePathProperties(failureMechanism);
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
 
             // Call
             void Call() => properties.N = (RoundedDouble) newN;
@@ -200,7 +201,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new StabilityStoneCoverFailurePathProperties(failureMechanism);
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
 
             // Call
             properties.N = (RoundedDouble) newN;
@@ -224,7 +225,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 
             failureMechanism.Attach(observer);
 
-            var properties = new StabilityStoneCoverFailurePathProperties(failureMechanism);
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
 
             // Call
             properties.ApplyLengthEffectInSection = true;
@@ -244,7 +245,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             {
                 InAssembly = inAssembly
             };
-            var properties = new StabilityStoneCoverFailurePathProperties(failureMechanism);
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));

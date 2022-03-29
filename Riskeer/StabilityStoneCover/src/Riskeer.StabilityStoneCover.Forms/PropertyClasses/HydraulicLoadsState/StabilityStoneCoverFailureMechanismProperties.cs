@@ -28,12 +28,12 @@ using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
+namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses.HydraulicLoadsState
 {
     /// <summary>
-    /// Hydraulic loads related ViewModel of <see cref="StabilityStoneCoverFailureMechanism"/> for properties panel.
+    /// Hydraulic loads state related ViewModel of <see cref="StabilityStoneCoverFailureMechanism"/> for properties panel.
     /// </summary>
-    public class StabilityStoneCoverHydraulicLoadsProperties : StabilityStoneCoverFailureMechanismProperties
+    public class StabilityStoneCoverFailureMechanismProperties : StabilityStoneCoverFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -41,11 +41,11 @@ namespace Riskeer.StabilityStoneCover.Forms.PropertyClasses
         private const int columnsPropertyIndex = 4;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityStoneCoverHydraulicLoadsProperties"/>.
+        /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public StabilityStoneCoverHydraulicLoadsProperties(StabilityStoneCoverFailureMechanism data)
+        public StabilityStoneCoverFailureMechanismProperties(StabilityStoneCoverFailureMechanism data)
             : base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,

@@ -27,12 +27,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
-using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
+using Riskeer.StabilityStoneCover.Forms.PropertyClasses.HydraulicLoadsState;
 
-namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos
+namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos.HydraulicLoadsState
 {
     [TestFixture]
-    public class StabilityStoneCoverHydraulicLoadsContextPropertyInfoTest
+    public class StabilityStoneCoverFailureMechanismPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -45,7 +45,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(StabilityStoneCoverHydraulicLoadsContext), info.DataType);
-                Assert.AreEqual(typeof(StabilityStoneCoverHydraulicLoadsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismProperties), info.PropertyObjectType);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<StabilityStoneCoverHydraulicLoadsProperties>(objectProperties);
+                Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
 

@@ -19,43 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
-using Core.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
+using Riskeer.StabilityStoneCover.Forms.PropertyClasses.HydraulicLoadsState;
 
-namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
+namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses.HydraulicLoadsState
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismPropertiesTest
     {
-        private const int namePropertyIndex = 1;
-        private const int codePropertyIndex = 0;
-
-        [Test]
-        public void Constructor_DataNull_ThrowArgumentNullException()
-        {
-            // Call
-            void Call() => new StabilityStoneCoverFailureMechanismProperties(null, new StabilityStoneCoverFailureMechanismProperties.ConstructionProperties());
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
-            Assert.AreEqual("data", paramName);
-        }
-
-        [Test]
-        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new StabilityStoneCoverFailureMechanismProperties(new StabilityStoneCoverFailureMechanism(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("constructionProperties", exception.ParamName);
-        }
+        private const int namePropertyIndex = 0;
+        private const int codePropertyIndex = 1;
+        private const int blocksPropertyIndex = 2;
+        private const int columnsPropertyIndex = 3;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -64,34 +44,39 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism, new StabilityStoneCoverFailureMechanismProperties.ConstructionProperties());
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StabilityStoneCoverFailureMechanism>>(properties);
+            Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismPropertiesBase>(properties);
+            TestHelper.AssertTypeConverter<StabilityStoneCoverFailureMechanismProperties, ExpandableObjectConverter>(
+                nameof(StabilityStoneCoverFailureMechanismProperties.Columns));
+            TestHelper.AssertTypeConverter<StabilityStoneCoverFailureMechanismProperties, ExpandableObjectConverter>(
+                nameof(StabilityStoneCoverFailureMechanismProperties.Blocks));
 
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
+
+            GeneralStabilityStoneCoverWaveConditionsInput generalInput = failureMechanism.GeneralInput;
+            Assert.AreSame(generalInput.GeneralBlocksWaveConditionsInput, properties.Blocks.Data);
+            Assert.AreSame(generalInput.GeneralColumnsWaveConditionsInput, properties.Columns.Data);
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism, new StabilityStoneCoverFailureMechanismProperties.ConstructionProperties
-            {
-                NamePropertyIndex = namePropertyIndex,
-                CodePropertyIndex = codePropertyIndex
-            });
+            var properties = new StabilityStoneCoverFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(2, dynamicProperties.Count);
+            Assert.AreEqual(4, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
+            const string modelSettingsCateogry = "Modelinstellingen";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -105,6 +90,20 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
                                                                             generalCategory,
                                                                             "Label",
                                                                             "Het label van het faalmechanisme.",
+                                                                            true);
+
+            PropertyDescriptor blocksProperty = dynamicProperties[blocksPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(blocksProperty,
+                                                                            modelSettingsCateogry,
+                                                                            "Blokken",
+                                                                            "De modelinstellingen voor het berekenen van golfcondities voor blokken.",
+                                                                            true);
+
+            PropertyDescriptor columnsProperty = dynamicProperties[columnsPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(columnsProperty,
+                                                                            modelSettingsCateogry,
+                                                                            "Zuilen",
+                                                                            "De modelinstellingen voor het berekenen van golfcondities voor zuilen.",
                                                                             true);
         }
     }

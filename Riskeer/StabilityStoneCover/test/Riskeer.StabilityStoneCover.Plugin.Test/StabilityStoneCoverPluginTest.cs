@@ -37,6 +37,8 @@ using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
 using Riskeer.StabilityStoneCover.Forms.Views;
+using HydraulicLoadsStateFailureMechanismProperties = Riskeer.StabilityStoneCover.Forms.PropertyClasses.HydraulicLoadsState.StabilityStoneCoverFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.StabilityStoneCover.Forms.PropertyClasses.RegistrationState.StabilityStoneCoverFailureMechanismProperties;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test
 {
@@ -58,11 +60,11 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityStoneCoverHydraulicLoadsContext),
-                    typeof(StabilityStoneCoverHydraulicLoadsProperties));
+                    typeof(HydraulicLoadsStateFailureMechanismProperties));
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityStoneCoverFailurePathContext),
-                    typeof(StabilityStoneCoverFailurePathProperties));
+                    typeof(RegistrationStateFailureMechanismProperties));
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityStoneCoverWaveConditionsOutputContext),

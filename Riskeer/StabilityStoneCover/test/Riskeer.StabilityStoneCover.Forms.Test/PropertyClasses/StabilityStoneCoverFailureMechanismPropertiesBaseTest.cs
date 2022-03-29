@@ -19,8 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
-using Core.Common.TestUtil;
+using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.StabilityStoneCover.Data;
@@ -29,12 +30,32 @@ using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
 namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class StabilityStoneCoverHydraulicLoadsPropertiesTest
+    public class StabilityStoneCoverFailureMechanismPropertiesBaseTest
     {
-        private const int namePropertyIndex = 0;
-        private const int codePropertyIndex = 1;
-        private const int blocksPropertyIndex = 2;
-        private const int columnsPropertyIndex = 3;
+        private const int namePropertyIndex = 1;
+        private const int codePropertyIndex = 0;
+
+        [Test]
+        public void Constructor_DataNull_ThrowArgumentNullException()
+        {
+            // Call
+            void Call() => new TestStabilityStoneCoverFailureMechanismProperties(null, new StabilityStoneCoverFailureMechanismPropertiesBase.ConstructionProperties());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
+            Assert.AreEqual("data", paramName);
+        }
+
+        [Test]
+        public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new TestStabilityStoneCoverFailureMechanismProperties(new StabilityStoneCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("constructionProperties", exception.ParamName);
+        }
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -43,39 +64,36 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            var properties = new StabilityStoneCoverHydraulicLoadsProperties(failureMechanism);
+            var properties = new TestStabilityStoneCoverFailureMechanismProperties(
+                failureMechanism, new StabilityStoneCoverFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
-            Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismProperties>(properties);
-            TestHelper.AssertTypeConverter<StabilityStoneCoverHydraulicLoadsProperties, ExpandableObjectConverter>(
-                nameof(StabilityStoneCoverHydraulicLoadsProperties.Columns));
-            TestHelper.AssertTypeConverter<StabilityStoneCoverHydraulicLoadsProperties, ExpandableObjectConverter>(
-                nameof(StabilityStoneCoverHydraulicLoadsProperties.Blocks));
+            Assert.IsInstanceOf<ObjectProperties<StabilityStoneCoverFailureMechanism>>(properties);
 
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
-
-            GeneralStabilityStoneCoverWaveConditionsInput generalInput = failureMechanism.GeneralInput;
-            Assert.AreSame(generalInput.GeneralBlocksWaveConditionsInput, properties.Blocks.Data);
-            Assert.AreSame(generalInput.GeneralColumnsWaveConditionsInput, properties.Columns.Data);
         }
 
         [Test]
-        public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
-            var properties = new StabilityStoneCoverHydraulicLoadsProperties(failureMechanism);
+            var properties = new TestStabilityStoneCoverFailureMechanismProperties(
+                failureMechanism, new StabilityStoneCoverFailureMechanismPropertiesBase.ConstructionProperties
+                {
+                    NamePropertyIndex = namePropertyIndex,
+                    CodePropertyIndex = codePropertyIndex
+                });
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(4, dynamicProperties.Count);
+            Assert.AreEqual(2, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
-            const string modelSettingsCateogry = "Modelinstellingen";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -90,20 +108,13 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.PropertyClasses
                                                                             "Label",
                                                                             "Het label van het faalmechanisme.",
                                                                             true);
+        }
 
-            PropertyDescriptor blocksProperty = dynamicProperties[blocksPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(blocksProperty,
-                                                                            modelSettingsCateogry,
-                                                                            "Blokken",
-                                                                            "De modelinstellingen voor het berekenen van golfcondities voor blokken.",
-                                                                            true);
-
-            PropertyDescriptor columnsProperty = dynamicProperties[columnsPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(columnsProperty,
-                                                                            modelSettingsCateogry,
-                                                                            "Zuilen",
-                                                                            "De modelinstellingen voor het berekenen van golfcondities voor zuilen.",
-                                                                            true);
+        private class TestStabilityStoneCoverFailureMechanismProperties : StabilityStoneCoverFailureMechanismPropertiesBase
+        {
+            public TestStabilityStoneCoverFailureMechanismProperties(StabilityStoneCoverFailureMechanism data,
+                                                                     ConstructionProperties constructionProperties)
+                : base(data, constructionProperties) {}
         }
     }
 }

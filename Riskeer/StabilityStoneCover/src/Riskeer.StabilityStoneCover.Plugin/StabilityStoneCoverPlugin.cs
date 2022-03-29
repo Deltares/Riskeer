@@ -59,6 +59,8 @@ using Riskeer.StabilityStoneCover.Forms.Views;
 using Riskeer.StabilityStoneCover.IO.Configurations;
 using Riskeer.StabilityStoneCover.IO.Exporters;
 using Riskeer.StabilityStoneCover.Service;
+using HydraulicLoadsStateFailureMechanismProperties = Riskeer.StabilityStoneCover.Forms.PropertyClasses.HydraulicLoadsState.StabilityStoneCoverFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.StabilityStoneCover.Forms.PropertyClasses.RegistrationState.StabilityStoneCoverFailureMechanismProperties;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -71,13 +73,13 @@ namespace Riskeer.StabilityStoneCover.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<StabilityStoneCoverHydraulicLoadsContext, StabilityStoneCoverHydraulicLoadsProperties>
+            yield return new PropertyInfo<StabilityStoneCoverHydraulicLoadsContext, HydraulicLoadsStateFailureMechanismProperties>
             {
-                CreateInstance = context => new StabilityStoneCoverHydraulicLoadsProperties(context.WrappedData)
+                CreateInstance = context => new HydraulicLoadsStateFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<StabilityStoneCoverFailurePathContext, StabilityStoneCoverFailurePathProperties>
+            yield return new PropertyInfo<StabilityStoneCoverFailurePathContext, RegistrationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new StabilityStoneCoverFailurePathProperties(context.WrappedData)
+                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<StabilityStoneCoverWaveConditionsOutputContext, StabilityStoneCoverWaveConditionsOutputProperties>
             {
