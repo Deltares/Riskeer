@@ -41,9 +41,9 @@ using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
-using Riskeer.StabilityPointStructures.Forms.Views;
+using Riskeer.StabilityPointStructures.Forms.Views.CalculationsState;
 
-namespace Riskeer.StabilityPointStructures.Forms.Test.Views
+namespace Riskeer.StabilityPointStructures.Forms.Test.Views.CalculationsState
 {
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismViewTest

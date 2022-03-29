@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,12 +27,12 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
-using Riskeer.StabilityPointStructures.Forms.Views;
+using Riskeer.StabilityPointStructures.Forms.Views.RegistrationState;
 
-namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
+namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.RegistrationState
 {
     [TestFixture]
-    public class StabilityPointStructuresFailurePathViewInfoTest
+    public class StabilityPointStructuresFailureMechanismViewInfoTest
     {
         private MockRepository mocks;
         private StabilityPointStructuresPlugin plugin;
@@ -45,7 +43,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new StabilityPointStructuresPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityPointStructuresFailurePathView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityPointStructuresFailureMechanismView));
         }
 
         [TearDown]
@@ -113,7 +111,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var view = new StabilityPointStructuresFailurePathView(failureMechanism, assessmentSection);
+            var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -131,7 +129,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var view = new StabilityPointStructuresFailurePathView(failureMechanism, assessmentSection);
+            var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -148,7 +146,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var otherStabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var view = new StabilityPointStructuresFailurePathView(failureMechanism, assessmentSection);
+            var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, otherStabilityPointStructuresFailureMechanism);
@@ -164,7 +162,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            var view = new StabilityPointStructuresFailurePathView(failureMechanism, assessmentSection);
+            var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, failureMechanism);
@@ -174,8 +172,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void CreateInstance_WithContext_ReturnStabilityPointStructuresFailurePathView()
+        public void CreateInstance_WithContext_ReturnStabilityPointStructuresFailureMechanismView()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -183,18 +180,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
 
             var context = new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as StabilityPointStructuresFailurePathView;
+            // Call
+            var view = (StabilityPointStructuresFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
     }
 }

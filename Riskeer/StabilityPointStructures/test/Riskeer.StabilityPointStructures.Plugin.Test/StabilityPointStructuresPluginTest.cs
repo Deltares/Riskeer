@@ -40,6 +40,8 @@ using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
 using Riskeer.StabilityPointStructures.Forms.Views;
 using CalculationsStateFailureMechanismProperties = Riskeer.StabilityPointStructures.Forms.PropertyClasses.CalculationsState.StabilityPointStructuresFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.StabilityPointStructures.Forms.PropertyClasses.RegistrationState.StabilityPointStructuresFailureMechanismProperties;
+using CalculationsStateFailureMechanismView = Riskeer.StabilityPointStructures.Forms.Views.CalculationsState.StabilityPointStructuresFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.StabilityPointStructures.Forms.Views.RegistrationState.StabilityPointStructuresFailureMechanismView;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test
 {
@@ -145,12 +147,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(StabilityPointStructuresCalculationsContext),
-                    typeof(StabilityPointStructuresFailureMechanismView));
+                    typeof(CalculationsStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(StabilityPointStructuresFailurePathContext),
-                    typeof(StabilityPointStructuresFailurePathView));
+                    typeof(RegistrationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

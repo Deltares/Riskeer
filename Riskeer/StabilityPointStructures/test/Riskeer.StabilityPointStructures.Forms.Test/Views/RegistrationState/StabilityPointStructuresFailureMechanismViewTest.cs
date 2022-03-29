@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -44,12 +43,13 @@ using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Data.TestUtil;
-using Riskeer.StabilityPointStructures.Forms.Views;
+using Riskeer.StabilityPointStructures.Forms.Views.RegistrationState;
+using CalculationsStateFailureMechanismView = Riskeer.StabilityPointStructures.Forms.Views.CalculationsState.StabilityPointStructuresFailureMechanismView;
 
-namespace Riskeer.StabilityPointStructures.Forms.Test.Views
+namespace Riskeer.StabilityPointStructures.Forms.Test.Views.RegistrationState
 {
     [TestFixture]
-    public class StabilityPointStructuresFailurePathViewTest
+    public class StabilityPointStructuresFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
         private const int sectionsCollectionIndex = 1;
@@ -90,10 +90,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            StabilityPointStructuresFailurePathView view = CreateView(failureMechanism, assessmentSection);
+            StabilityPointStructuresFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismView>(view);
+            Assert.IsInstanceOf<CalculationsStateFailureMechanismView>(view);
             Assert.IsNull(view.Data);
             Assert.AreSame(failureMechanism, view.FailureMechanism);
             Assert.AreSame(assessmentSection, view.AssessmentSection);
@@ -105,8 +105,6 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var random = new Random(39);
-
             var calculationA = new StructuresCalculationScenario<StabilityPointStructuresInput>
             {
                 InputParameters =
@@ -178,7 +176,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                StabilityPointStructuresFailurePathView view = CreateView(failureMechanism, assessmentSection);
+                StabilityPointStructuresFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -214,7 +212,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             // Given
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
-            StabilityPointStructuresFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            StabilityPointStructuresFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -263,7 +261,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
 
             var assessmentSection = new AssessmentSectionStub();
 
-            StabilityPointStructuresFailurePathView view = CreateView(new StabilityPointStructuresFailureMechanism(), assessmentSection);
+            StabilityPointStructuresFailureMechanismView view = CreateView(new StabilityPointStructuresFailureMechanism(), assessmentSection);
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
             MapDataCollection mapData = map.Data;
@@ -331,9 +329,9 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.Views
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
         }
 
-        private StabilityPointStructuresFailurePathView CreateView(StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private StabilityPointStructuresFailureMechanismView CreateView(StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            var view = new StabilityPointStructuresFailurePathView(failureMechanism, assessmentSection);
+            var view = new StabilityPointStructuresFailureMechanismView(failureMechanism, assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();

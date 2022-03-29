@@ -31,12 +31,12 @@ using Riskeer.Common.Forms.MapLayers;
 using Riskeer.StabilityPointStructures.Data;
 using StabilityPointStructuresDataResources = Riskeer.StabilityPointStructures.Data.Properties.Resources;
 
-namespace Riskeer.StabilityPointStructures.Forms.Views
+namespace Riskeer.StabilityPointStructures.Forms.Views.RegistrationState
 {
     /// <summary>
-    /// This class is a view showing map data for a stability point structures failure path.
+    /// Registration state view showing map data for a stability point structures failure mechanism.
     /// </summary>
-    public class StabilityPointStructuresFailurePathView : StabilityPointStructuresFailureMechanismView
+    public class StabilityPointStructuresFailureMechanismView : CalculationsState.StabilityPointStructuresFailureMechanismView
     {
         private MapLineData sectionsMapData;
         private MapPointData sectionsStartPointMapData;
@@ -47,13 +47,14 @@ namespace Riskeer.StabilityPointStructures.Forms.Views
         private Observer failureMechanismObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityPointStructuresFailurePathView"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityPointStructuresFailurePathView(StabilityPointStructuresFailureMechanism failureMechanism,
-                                                       IAssessmentSection assessmentSection) : base(failureMechanism, assessmentSection) {}
+        public StabilityPointStructuresFailureMechanismView(StabilityPointStructuresFailureMechanism failureMechanism,
+                                                            IAssessmentSection assessmentSection)
+            : base(failureMechanism, assessmentSection) {}
 
         protected override void Dispose(bool disposing)
         {

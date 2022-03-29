@@ -62,6 +62,8 @@ using Riskeer.StabilityPointStructures.Plugin.FileImporters;
 using Riskeer.StabilityPointStructures.Service;
 using CalculationsStateFailureMechanismProperties = Riskeer.StabilityPointStructures.Forms.PropertyClasses.CalculationsState.StabilityPointStructuresFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.StabilityPointStructures.Forms.PropertyClasses.RegistrationState.StabilityPointStructuresFailureMechanismProperties;
+using CalculationsStateFailureMechanismView = Riskeer.StabilityPointStructures.Forms.Views.CalculationsState.StabilityPointStructuresFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.StabilityPointStructures.Forms.Views.RegistrationState.StabilityPointStructuresFailureMechanismView;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
@@ -96,17 +98,17 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<StabilityPointStructuresCalculationsContext, StabilityPointStructuresFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<StabilityPointStructuresCalculationsContext, CalculationsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new StabilityPointStructuresFailureMechanismView(context.WrappedData, context.Parent)
+                CreateInstance = context => new CalculationsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<StabilityPointStructuresFailurePathContext, StabilityPointStructuresFailurePathView>(() => Gui)
+            yield return new RiskeerViewInfo<StabilityPointStructuresFailurePathContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CreateInstance = context => new StabilityPointStructuresFailurePathView(context.WrappedData, context.Parent),
+                CreateInstance = context => new RegistrationStateFailureMechanismView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
             };
 
@@ -288,7 +290,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailurePathViewForData(StabilityPointStructuresFailurePathView view, object dataToCloseFor)
+        private static bool CloseFailurePathViewForData(RegistrationStateFailureMechanismView view, object dataToCloseFor)
         {
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as StabilityPointStructuresFailureMechanism;

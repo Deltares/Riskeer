@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,9 +27,9 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
-using Riskeer.StabilityPointStructures.Forms.Views;
+using Riskeer.StabilityPointStructures.Forms.Views.CalculationsState;
 
-namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
+namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos.CalculationsState
 {
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismViewInfoTest
@@ -80,7 +78,6 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnStabilityPointStructuresFailureMechanismView()
         {
             // Setup
@@ -89,18 +86,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
 
             var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as StabilityPointStructuresFailureMechanismView;
+            // Call
+            var view = (StabilityPointStructuresFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
     }
 }

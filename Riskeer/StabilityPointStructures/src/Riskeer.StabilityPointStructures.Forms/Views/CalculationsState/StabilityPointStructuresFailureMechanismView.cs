@@ -36,10 +36,10 @@ using Riskeer.Common.Forms.MapLayers;
 using Riskeer.StabilityPointStructures.Data;
 using StabilityPointStructuresDataResources = Riskeer.StabilityPointStructures.Data.Properties.Resources;
 
-namespace Riskeer.StabilityPointStructures.Forms.Views
+namespace Riskeer.StabilityPointStructures.Forms.Views.CalculationsState
 {
     /// <summary>
-    /// This class is a view showing map data for a stability point structures failure mechanism.
+    /// Calculations state view showing map data for a stability point structures failure mechanism.
     /// </summary>
     public partial class StabilityPointStructuresFailureMechanismView : UserControl, IMapView
     {
