@@ -27,7 +27,7 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.RegistrationState
 {
     /// <summary>
-    /// Presentation object for <see cref="GrassCoverErosionOutwardsFailureMechanism"/> in registration state.
+    /// Presentation object for <see cref="GrassCoverErosionOutwardsFailureMechanism"/> in the registration state.
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismContext : FailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>
     {

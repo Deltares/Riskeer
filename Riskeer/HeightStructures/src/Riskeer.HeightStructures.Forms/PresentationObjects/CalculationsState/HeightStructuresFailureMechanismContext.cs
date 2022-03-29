@@ -27,7 +27,7 @@ using Riskeer.HeightStructures.Data;
 namespace Riskeer.HeightStructures.Forms.PresentationObjects.CalculationsState
 {
     /// <summary>
-    /// Presentation object for <see cref="HeightStructuresFailureMechanism"/> in calculations state.
+    /// Presentation object for <see cref="HeightStructuresFailureMechanism"/> in the calculations state.
     /// </summary>
     public class HeightStructuresFailureMechanismContext : FailureMechanismContext<HeightStructuresFailureMechanism>
     {

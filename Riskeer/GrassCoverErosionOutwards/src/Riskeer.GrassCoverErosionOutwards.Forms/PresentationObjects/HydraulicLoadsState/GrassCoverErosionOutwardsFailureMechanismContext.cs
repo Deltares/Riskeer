@@ -27,7 +27,7 @@ using Riskeer.GrassCoverErosionOutwards.Data;
 namespace Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects.HydraulicLoadsState
 {
     /// <summary>
-    /// Presentation object for <see cref="GrassCoverErosionOutwardsFailureMechanism"/> in hydraulic loads state.
+    /// Presentation object for <see cref="GrassCoverErosionOutwardsFailureMechanism"/> in the hydraulic loads state.
     /// </summary>
     public class GrassCoverErosionOutwardsFailureMechanismContext : FailureMechanismContext<GrassCoverErosionOutwardsFailureMechanism>
     {
