@@ -36,7 +36,10 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <summary>
         /// Creates a new instance of <see cref="SerializableTotalAssemblyResult"/>.
         /// </summary>
-        public SerializableTotalAssemblyResult() {}
+        public SerializableTotalAssemblyResult()
+        {
+            Status = Resources.FullAssembly;
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="SerializableTotalAssemblyResult"/>.
@@ -66,7 +69,6 @@ namespace Riskeer.AssemblyTool.IO.Model
             AssemblyMethod = assemblyMethod;
             AssemblyGroup = assemblyGroup;
             Probability = probability;
-            Status = Resources.FullAssembly;
         }
 
         /// <summary>
