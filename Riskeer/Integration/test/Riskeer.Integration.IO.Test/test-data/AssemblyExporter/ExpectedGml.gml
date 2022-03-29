@@ -427,6 +427,244 @@
         <asm:status>VOLLDG</asm:status>
       </asm:analyseVak>
     </asm:Faalanalyse>
+    <asm:FaalanalyseGecombineerd FaalanalyseGecombineerdID="Gf.0" VeiligheidsoordeelIDRef="Vo.0" WaterkeringsectieIDRef="Bv.32">
+      <asm:analyseGecombineerdDeelvak>
+        <asm:assemblagemethode>WBI-3C-1</asm:assemblagemethode>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseGecombineerdDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>STPH</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>GEKB</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>STBI</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>STMI</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>ZST</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>AGK</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>AWO</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>GEBU</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>GABU</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>GABI</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>HTKW</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>BSKW</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>PKW</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>STKWp</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
+        <asm:specifiekFaalmechanisme>Specific failure mechanism 1</asm:specifiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
+        <asm:specifiekFaalmechanisme>Specific failure mechanism 2</asm:specifiekFaalmechanisme>
+        <asm:duidingsklasse>+II</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+    </asm:FaalanalyseGecombineerd>
+    <asm:FaalanalyseGecombineerd FaalanalyseGecombineerdID="Gf.1" VeiligheidsoordeelIDRef="Vo.0" WaterkeringsectieIDRef="Bv.33">
+      <asm:analyseGecombineerdDeelvak>
+        <asm:assemblagemethode>WBI-3C-1</asm:assemblagemethode>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseGecombineerdDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>STPH</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>GEKB</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>STBI</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>STMI</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>ZST</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>AGK</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>AWO</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>GEBU</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>GABU</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>GABI</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>HTKW</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>BSKW</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>PKW</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
+        <asm:generiekFaalmechanisme>STKWp</asm:generiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
+        <asm:specifiekFaalmechanisme>Specific failure mechanism 1</asm:specifiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+      <asm:analyseDeelvak>
+        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
+        <asm:specifiekFaalmechanisme>Specific failure mechanism 2</asm:specifiekFaalmechanisme>
+        <asm:duidingsklasse>+III</asm:duidingsklasse>
+        <asm:status>VOLLDG</asm:status>
+      </asm:analyseDeelvak>
+    </asm:FaalanalyseGecombineerd>
     <asm:Vakindeling VakindelingID="Vi.0" />
     <asm:Vakindeling VakindelingID="Vi.1" />
     <asm:Vakindeling VakindelingID="Vi.2" />
@@ -795,6 +1033,30 @@
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">11.313708498984761</asm:lengte>
       <asm:typeWaterkeringsectie>FAALMVK</asm:typeWaterkeringsectie>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.32" VakindelingIDRef="Vi.16">
+      <asm:afstandBegin uom="m">0</asm:afstandBegin>
+      <asm:afstandEinde uom="m">0.5</asm:afstandEinde>
+      <asm:geometrieLijn2D>
+        <gml:LineString srsName="EPSG:28992">
+          <gml:posList>1 1 1.35355339059327 1.35355339059327</gml:posList>
+        </gml:LineString>
+      </asm:geometrieLijn2D>
+      <asm:lengte uom="m">0.49999999999999994</asm:lengte>
+      <asm:typeWaterkeringsectie>DEELVK</asm:typeWaterkeringsectie>
+      <asm:assemblagemethode>WBI-3A-1</asm:assemblagemethode>
+    </asm:Deelvak>
+    <asm:Deelvak gml:id="Bv.33" VakindelingIDRef="Vi.16">
+      <asm:afstandBegin uom="m">0.5</asm:afstandBegin>
+      <asm:afstandEinde uom="m">1</asm:afstandEinde>
+      <asm:geometrieLijn2D>
+        <gml:LineString srsName="EPSG:28992">
+          <gml:posList>1.35355339059327 1.35355339059327 1.70710678118655 1.70710678118655</gml:posList>
+        </gml:LineString>
+      </asm:geometrieLijn2D>
+      <asm:lengte uom="m">0.49999999999999994</asm:lengte>
+      <asm:typeWaterkeringsectie>DEELVK</asm:typeWaterkeringsectie>
+      <asm:assemblagemethode>WBI-3A-1</asm:assemblagemethode>
     </asm:Deelvak>
   </asm:featureMember>
 </asm:Assemblage>

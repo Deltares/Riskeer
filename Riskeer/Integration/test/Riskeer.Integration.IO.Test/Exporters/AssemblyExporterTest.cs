@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -176,9 +177,18 @@ namespace Riskeer.Integration.IO.Test.Exporters
             using (new FileDisposeHelper(filePath))
             using (new AssemblyToolCalculatorFactoryConfig())
             {
+                IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms()
+                                                                                    .Concat(assessmentSection.SpecificFailureMechanisms);
+
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = Array.Empty<CombinedFailureMechanismSectionAssembly>();
+                assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
+                {
+                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(0, 0.5, FailureMechanismSectionAssemblyGroup.II),
+                                                                failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.II)),
+                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(0.5, 1, FailureMechanismSectionAssemblyGroup.III),
+                                                                failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.III))
+                };
 
                 try
                 {
