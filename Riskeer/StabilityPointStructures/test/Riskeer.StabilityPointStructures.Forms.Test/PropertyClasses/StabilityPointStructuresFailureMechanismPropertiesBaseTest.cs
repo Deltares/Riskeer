@@ -29,7 +29,7 @@ using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
 
 namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
 {
-    public class StabilityPointStructuresFailureMechanismPropertiesTest
+    public class StabilityPointStructuresFailureMechanismPropertiesBaseTest
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 0;
@@ -38,7 +38,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new StabilityPointStructuresFailureMechanismProperties(null, new StabilityPointStructuresFailureMechanismProperties.ConstructionProperties());
+            void Call() => new TestStabilityPointStructuresFailureMechanismProperties(null, new StabilityPointStructuresFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -49,7 +49,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new StabilityPointStructuresFailureMechanismProperties(new StabilityPointStructuresFailureMechanism(), null);
+            void Call() => new TestStabilityPointStructuresFailureMechanismProperties(new StabilityPointStructuresFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -63,7 +63,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, new StabilityPointStructuresFailureMechanismProperties.ConstructionProperties());
+            var properties = new TestStabilityPointStructuresFailureMechanismProperties(failureMechanism, new StabilityPointStructuresFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<StabilityPointStructuresFailureMechanism>>(properties);
@@ -78,7 +78,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism, new StabilityPointStructuresFailureMechanismProperties.ConstructionProperties
+            var properties = new TestStabilityPointStructuresFailureMechanismProperties(failureMechanism, new StabilityPointStructuresFailureMechanismPropertiesBase.ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex
@@ -103,6 +103,13 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             "Label",
                                                                             "Het label van het faalmechanisme.",
                                                                             true);
+        }
+
+        private class TestStabilityPointStructuresFailureMechanismProperties : StabilityPointStructuresFailureMechanismPropertiesBase
+        {
+            public TestStabilityPointStructuresFailureMechanismProperties(StabilityPointStructuresFailureMechanism data,
+                                                                          ConstructionProperties constructionProperties)
+                : base(data, constructionProperties) {}
         }
     }
 }

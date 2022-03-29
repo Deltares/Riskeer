@@ -27,12 +27,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
-using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
+using Riskeer.StabilityPointStructures.Forms.PropertyClasses.RegistrationState;
 
-namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
+namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos.RegistrationState
 {
     [TestFixture]
-    public class StabilityPointStructuresCalculationsPropertyInfoTest
+    public class StabilityPointStructuresFailureMechanismPropertyInfoTest
     {
         private StabilityPointStructuresPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new StabilityPointStructuresPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StabilityPointStructuresCalculationsProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(StabilityPointStructuresFailureMechanismProperties));
         }
 
         [TearDown]
@@ -54,8 +54,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(StabilityPointStructuresCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(StabilityPointStructuresCalculationsProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(StabilityPointStructuresFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(StabilityPointStructuresFailureMechanismProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -67,13 +67,13 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var context = new StabilityPointStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new StabilityPointStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<StabilityPointStructuresCalculationsProperties>(objectProperties);
+            Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
 
             mocks.VerifyAll();

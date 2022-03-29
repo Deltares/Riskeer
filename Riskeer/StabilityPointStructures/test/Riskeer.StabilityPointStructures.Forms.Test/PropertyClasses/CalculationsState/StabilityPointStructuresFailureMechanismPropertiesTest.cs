@@ -21,16 +21,16 @@
 
 using System;
 using System.ComponentModel;
-using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
+using Riskeer.StabilityPointStructures.Forms.PropertyClasses.CalculationsState;
 
-namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
+namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses.CalculationsState
 {
     [TestFixture]
-    public class StabilityPointStructuresCalculationsPropertiesTest
+    public class StabilityPointStructuresFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -44,7 +44,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
         public void Constructor_DataIsNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new StabilityPointStructuresCalculationsProperties(null);
+            void Call() => new StabilityPointStructuresFailureMechanismProperties(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -58,10 +58,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var properties = new StabilityPointStructuresCalculationsProperties(failureMechanism);
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StabilityPointStructuresFailureMechanism>>(properties);
+            Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismPropertiesBase>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
@@ -85,7 +85,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var properties = new StabilityPointStructuresCalculationsProperties(failureMechanism);
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             const string generalCategory = "Algemeen";

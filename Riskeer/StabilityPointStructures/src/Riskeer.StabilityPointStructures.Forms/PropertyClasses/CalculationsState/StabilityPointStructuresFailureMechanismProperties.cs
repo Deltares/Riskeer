@@ -29,12 +29,12 @@ using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
+namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses.CalculationsState
 {
     /// <summary>
-    /// Calculation related ViewModel of <see cref="StabilityPointStructuresFailureMechanism"/> for properties panel.
+    /// Calculations state related ViewModel of <see cref="StabilityPointStructuresFailureMechanism"/> for properties panel.
     /// </summary>
-    public class StabilityPointStructuresCalculationsProperties : StabilityPointStructuresFailureMechanismProperties
+    public class StabilityPointStructuresFailureMechanismProperties : StabilityPointStructuresFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -45,15 +45,16 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         private const int modelFactorLongThresholdPropertyIndex = 7;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityPointStructuresCalculationsProperties"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public StabilityPointStructuresCalculationsProperties(StabilityPointStructuresFailureMechanism data) : base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex
-        }) {}
+        public StabilityPointStructuresFailureMechanismProperties(StabilityPointStructuresFailureMechanism data)
+            : base(data, new ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex
+            }) {}
 
         #region General
 

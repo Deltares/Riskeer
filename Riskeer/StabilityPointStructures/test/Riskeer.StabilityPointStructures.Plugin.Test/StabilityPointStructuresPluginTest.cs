@@ -38,6 +38,8 @@ using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
 using Riskeer.StabilityPointStructures.Forms.Views;
+using CalculationsStateFailureMechanismProperties = Riskeer.StabilityPointStructures.Forms.PropertyClasses.CalculationsState.StabilityPointStructuresFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.StabilityPointStructures.Forms.PropertyClasses.RegistrationState.StabilityPointStructuresFailureMechanismProperties;
 
 namespace Riskeer.StabilityPointStructures.Plugin.Test
 {
@@ -70,12 +72,12 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityPointStructuresCalculationsContext),
-                    typeof(StabilityPointStructuresCalculationsProperties));
+                    typeof(CalculationsStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(StabilityPointStructuresFailurePathContext),
-                    typeof(StabilityPointStructuresFailurePathProperties));
+                    typeof(RegistrationStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -130,9 +132,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
             mockRepository.ReplayAll();
 
             using (var plugin = new StabilityPointStructuresPlugin
-                   {
-                       Gui = gui
-                   })
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -220,9 +222,9 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test
             mocks.ReplayAll();
 
             using (var plugin = new StabilityPointStructuresPlugin
-                   {
-                       Gui = gui
-                   })
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();

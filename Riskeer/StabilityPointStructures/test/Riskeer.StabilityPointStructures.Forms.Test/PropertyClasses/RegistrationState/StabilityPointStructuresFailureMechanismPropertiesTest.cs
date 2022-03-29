@@ -30,10 +30,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityPointStructures.Data;
 using Riskeer.StabilityPointStructures.Forms.PropertyClasses;
+using Riskeer.StabilityPointStructures.Forms.PropertyClasses.RegistrationState;
 
-namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
+namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses.RegistrationState
 {
-    public class StabilityPointStructuresFailurePathPropertiesTest
+    [TestFixture]
+    public class StabilityPointStructuresFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -52,10 +54,10 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new StabilityPointStructuresFailurePathProperties(failureMechanism);
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismProperties>(properties);
+            Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismPropertiesBase>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
@@ -75,7 +77,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var properties = new StabilityPointStructuresFailurePathProperties(failureMechanism);
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -129,7 +131,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new StabilityPointStructuresFailurePathProperties(failureMechanism);
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -174,7 +176,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new StabilityPointStructuresFailurePathProperties(failureMechanism);
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
 
             // Call
             void Call() => properties.N = (RoundedDouble) value;
@@ -201,7 +203,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new StabilityPointStructuresFailurePathProperties(failureMechanism);
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
 
             // Call
             properties.N = (RoundedDouble) value;
@@ -222,7 +224,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Test.PropertyClasses
             {
                 InAssembly = inAssembly
             };
-            var properties = new StabilityPointStructuresFailurePathProperties(failureMechanism);
+            var properties = new StabilityPointStructuresFailureMechanismProperties(failureMechanism);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));

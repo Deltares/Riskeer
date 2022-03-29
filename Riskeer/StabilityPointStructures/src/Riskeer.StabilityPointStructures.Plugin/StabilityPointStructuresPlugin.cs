@@ -60,6 +60,8 @@ using Riskeer.StabilityPointStructures.IO;
 using Riskeer.StabilityPointStructures.IO.Configurations;
 using Riskeer.StabilityPointStructures.Plugin.FileImporters;
 using Riskeer.StabilityPointStructures.Service;
+using CalculationsStateFailureMechanismProperties = Riskeer.StabilityPointStructures.Forms.PropertyClasses.CalculationsState.StabilityPointStructuresFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.StabilityPointStructures.Forms.PropertyClasses.RegistrationState.StabilityPointStructuresFailureMechanismProperties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
@@ -73,13 +75,13 @@ namespace Riskeer.StabilityPointStructures.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<StabilityPointStructuresCalculationsContext, StabilityPointStructuresCalculationsProperties>
+            yield return new PropertyInfo<StabilityPointStructuresCalculationsContext, CalculationsStateFailureMechanismProperties>
             {
-                CreateInstance = context => new StabilityPointStructuresCalculationsProperties(context.WrappedData)
+                CreateInstance = context => new CalculationsStateFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<StabilityPointStructuresFailurePathContext, StabilityPointStructuresFailurePathProperties>
+            yield return new PropertyInfo<StabilityPointStructuresFailurePathContext, RegistrationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new StabilityPointStructuresFailurePathProperties(context.WrappedData)
+                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<StabilityPointStructure, StabilityPointStructureProperties>();
             yield return new PropertyInfo<StabilityPointStructuresInputContext, StabilityPointStructuresInputContextProperties>
@@ -849,9 +851,9 @@ namespace Riskeer.StabilityPointStructures.Plugin
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (StructureDependentDataShouldUpdate(new[]
-                {
-                    calculation
-                }, message))
+            {
+                calculation
+            }, message))
             {
                 UpdateStructureDerivedCalculationInput(calculation);
             }

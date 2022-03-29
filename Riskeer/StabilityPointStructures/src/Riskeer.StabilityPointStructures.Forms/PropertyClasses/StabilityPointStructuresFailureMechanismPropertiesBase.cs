@@ -30,20 +30,21 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="StabilityPointStructuresFailureMechanism"/> for properties panel.
+    /// Base ViewModel of <see cref="StabilityPointStructuresFailureMechanism"/> for properties panel.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanismProperties : ObjectProperties<StabilityPointStructuresFailureMechanism>
+    public abstract class StabilityPointStructuresFailureMechanismPropertiesBase : ObjectProperties<StabilityPointStructuresFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismPropertiesBase"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="constructionProperties">The property values required to create an instance of <see cref="StabilityPointStructuresFailureMechanismProperties"/>.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="StabilityPointStructuresFailureMechanismPropertiesBase"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityPointStructuresFailureMechanismProperties(StabilityPointStructuresFailureMechanism data,
-                                                                  ConstructionProperties constructionProperties)
+        protected StabilityPointStructuresFailureMechanismPropertiesBase(StabilityPointStructuresFailureMechanism data,
+                                                                         ConstructionProperties constructionProperties)
         {
             if (data == null)
             {
@@ -77,19 +78,19 @@ namespace Riskeer.StabilityPointStructures.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="StabilityPointStructuresFailureMechanismProperties"/>.
+        /// Class holding the various construction parameters for <see cref="StabilityPointStructuresFailureMechanismPropertiesBase"/>.
         /// </summary>
         public class ConstructionProperties
         {
             #region General
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="StabilityPointStructuresFailureMechanismProperties.Name"/>.
+            /// Gets or sets the property index for <see cref="StabilityPointStructuresFailureMechanismPropertiesBase.Name"/>.
             /// </summary>
             public int NamePropertyIndex { get; set; }
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="StabilityPointStructuresFailureMechanismProperties.Code"/>.
+            /// Gets or sets the property index for <see cref="StabilityPointStructuresFailureMechanismPropertiesBase.Code"/>.
             /// </summary>
             public int CodePropertyIndex { get; set; }
 
