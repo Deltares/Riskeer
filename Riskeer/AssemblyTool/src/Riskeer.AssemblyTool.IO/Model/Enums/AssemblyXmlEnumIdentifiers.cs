@@ -140,7 +140,7 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.Manual"/>.
         /// </summary>
-        public const string SerializableAssemblyMethodManual = "Handmatig";
+        public const string SerializableAssemblyMethodManual = "HANDMTG";
 
         #endregion
 
