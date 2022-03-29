@@ -198,8 +198,9 @@ namespace Riskeer.Integration.IO.Factories
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static IEnumerable<ExportableCombinedSectionAssembly> CreateExportableCombinedSectionAssemblyCollection(AssessmentSection assessmentSection)
         {
-            IEnumerable<CombinedFailureMechanismSectionAssemblyResult> assemblyResults = new List<CombinedFailureMechanismSectionAssemblyResult>();
-            return ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(assemblyResults, assessmentSection);
+            return ExportableCombinedSectionAssemblyFactory.CreateExportableCombinedSectionAssemblyCollection(
+                AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(assessmentSection),
+                assessmentSection);
         }
     }
 }
