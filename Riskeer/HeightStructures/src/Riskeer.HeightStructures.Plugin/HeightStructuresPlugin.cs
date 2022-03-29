@@ -61,6 +61,8 @@ using Riskeer.HeightStructures.IO;
 using Riskeer.HeightStructures.IO.Configurations;
 using Riskeer.HeightStructures.Plugin.FileImporters;
 using Riskeer.HeightStructures.Service;
+using CalculationsStateFailureMechanismProperties = Riskeer.HeightStructures.Forms.PropertyClasses.CalculationsState.HeightStructuresFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.HeightStructures.Forms.PropertyClasses.RegistrationState.HeightStructuresFailureMechanismProperties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
@@ -74,13 +76,13 @@ namespace Riskeer.HeightStructures.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<HeightStructuresCalculationsContext, HeightStructuresCalculationsProperties>
+            yield return new PropertyInfo<HeightStructuresCalculationsContext, CalculationsStateFailureMechanismProperties>
             {
-                CreateInstance = context => new HeightStructuresCalculationsProperties(context.WrappedData)
+                CreateInstance = context => new CalculationsStateFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<HeightStructuresFailurePathContext, HeightStructuresFailurePathProperties>
+            yield return new PropertyInfo<HeightStructuresFailurePathContext, RegistrationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new HeightStructuresFailurePathProperties(context.WrappedData)
+                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData)
             };
             yield return new PropertyInfo<HeightStructure, HeightStructureProperties>();
             yield return new PropertyInfo<HeightStructuresContext, StructureCollectionProperties<HeightStructure>>

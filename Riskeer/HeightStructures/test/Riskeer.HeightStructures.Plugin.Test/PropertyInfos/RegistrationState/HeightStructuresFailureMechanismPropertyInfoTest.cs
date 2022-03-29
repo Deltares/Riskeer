@@ -27,12 +27,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PresentationObjects;
-using Riskeer.HeightStructures.Forms.PropertyClasses;
+using Riskeer.HeightStructures.Forms.PropertyClasses.RegistrationState;
 
-namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
+namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos.RegistrationState
 {
     [TestFixture]
-    public class HeightStructuresCalculationsPropertyInfoTest
+    public class HeightStructuresFailureMechanismPropertyInfoTest
     {
         private HeightStructuresPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new HeightStructuresPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(HeightStructuresCalculationsProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(HeightStructuresFailureMechanismProperties));
         }
 
         [TearDown]
@@ -54,8 +54,8 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HeightStructuresCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(HeightStructuresCalculationsProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(HeightStructuresFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(HeightStructuresFailureMechanismProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -67,13 +67,13 @@ namespace Riskeer.HeightStructures.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new HeightStructuresCalculationsContext(failureMechanism, assessmentSection);
+            var context = new HeightStructuresFailurePathContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<HeightStructuresCalculationsProperties>(objectProperties);
+            Assert.IsInstanceOf<HeightStructuresFailureMechanismProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
 
             mocks.VerifyAll();

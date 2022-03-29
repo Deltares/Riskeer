@@ -24,12 +24,12 @@ using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.HeightStructures.Data;
-using Riskeer.HeightStructures.Forms.PropertyClasses;
+using Riskeer.HeightStructures.Forms.PropertyClasses.CalculationsState;
 
-namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
+namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses.CalculationsState
 {
     [TestFixture]
-    public class HeightStructuresCalculationsPropertiesTest
+    public class HeightStructuresFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -44,7 +44,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var properties = new HeightStructuresCalculationsProperties(failureMechanism);
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HeightStructuresFailureMechanism>>(properties);
@@ -66,7 +66,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         public void Constructor_Always_PropertiesHaveExpectedAttributeValues()
         {
             // Call
-            var properties = new HeightStructuresCalculationsProperties(new HeightStructuresFailureMechanism());
+            var properties = new HeightStructuresFailureMechanismProperties(new HeightStructuresFailureMechanism());
 
             // Assert
             const string generalCategory = "Algemeen";

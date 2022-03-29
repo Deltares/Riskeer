@@ -28,12 +28,12 @@ using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.HeightStructures.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.HeightStructures.Forms.PropertyClasses
+namespace Riskeer.HeightStructures.Forms.PropertyClasses.CalculationsState
 {
     /// <summary>
-    /// Calculation related ViewModel of <see cref="HeightStructuresFailureMechanism"/> for properties panel.
+    /// Calculations state related ViewModel of <see cref="HeightStructuresFailureMechanism"/> for properties panel.
     /// </summary>
-    public class HeightStructuresCalculationsProperties : HeightStructuresFailureMechanismProperties
+    public class HeightStructuresFailureMechanismProperties : HeightStructuresFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -42,15 +42,16 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
         private const int modelFactorStorageVolumePropertyIndex = 5;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructuresCalculationsProperties"/>.
+        /// Creates a new instance of <see cref="HeightStructuresFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public HeightStructuresCalculationsProperties(HeightStructuresFailureMechanism data) : base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex
-        }) {}
+        public HeightStructuresFailureMechanismProperties(HeightStructuresFailureMechanism data)
+            : base(data, new ConstructionProperties
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex
+            }) {}
 
         #region General
 

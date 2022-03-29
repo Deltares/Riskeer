@@ -30,20 +30,21 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.HeightStructures.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HeightStructuresFailureMechanism"/> for properties panel.
+    /// Base ViewModel of <see cref="HeightStructuresFailureMechanism"/> for properties panel.
     /// </summary>
-    public class HeightStructuresFailureMechanismProperties : ObjectProperties<HeightStructuresFailureMechanism>
+    public abstract class HeightStructuresFailureMechanismPropertiesBase : ObjectProperties<HeightStructuresFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructuresFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="HeightStructuresFailureMechanismPropertiesBase"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="constructionProperties">The property values required to create an instance of <see cref="HeightStructuresFailureMechanismProperties"/>.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="HeightStructuresFailureMechanismPropertiesBase"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HeightStructuresFailureMechanismProperties(HeightStructuresFailureMechanism data,
-                                                          ConstructionProperties constructionProperties)
+        protected HeightStructuresFailureMechanismPropertiesBase(HeightStructuresFailureMechanism data,
+                                                                 ConstructionProperties constructionProperties)
         {
             if (data == null)
             {
@@ -77,19 +78,19 @@ namespace Riskeer.HeightStructures.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="HeightStructuresFailureMechanismProperties"/>.
+        /// Class holding the various construction parameters for <see cref="HeightStructuresFailureMechanismPropertiesBase"/>.
         /// </summary>
         public class ConstructionProperties
         {
             #region General
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="HeightStructuresFailureMechanismProperties.Name"/>.
+            /// Gets or sets the property index for <see cref="HeightStructuresFailureMechanismPropertiesBase.Name"/>.
             /// </summary>
             public int NamePropertyIndex { get; set; }
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="HeightStructuresFailureMechanismProperties.Code"/>.
+            /// Gets or sets the property index for <see cref="HeightStructuresFailureMechanismPropertiesBase.Code"/>.
             /// </summary>
             public int CodePropertyIndex { get; set; }
 

@@ -38,7 +38,8 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new HeightStructuresFailureMechanismProperties(null, new HeightStructuresFailureMechanismProperties.ConstructionProperties());
+            void Call() => new TestHeightStructuresFailureMechanismProperties(
+                null, new HeightStructuresFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -49,7 +50,8 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new HeightStructuresFailureMechanismProperties(new HeightStructuresFailureMechanism(), null);
+            void Call() => new TestHeightStructuresFailureMechanismProperties(
+                new HeightStructuresFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -63,7 +65,8 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, new HeightStructuresFailureMechanismProperties.ConstructionProperties());
+            var properties = new TestHeightStructuresFailureMechanismProperties(
+                failureMechanism, new HeightStructuresFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HeightStructuresFailureMechanism>>(properties);
@@ -78,11 +81,12 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism, new HeightStructuresFailureMechanismProperties.ConstructionProperties
-            {
-                NamePropertyIndex = namePropertyIndex,
-                CodePropertyIndex = codePropertyIndex
-            });
+            var properties = new TestHeightStructuresFailureMechanismProperties(
+                failureMechanism, new HeightStructuresFailureMechanismPropertiesBase.ConstructionProperties
+                {
+                    NamePropertyIndex = namePropertyIndex,
+                    CodePropertyIndex = codePropertyIndex
+                });
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -103,6 +107,13 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
                                                                             "Label",
                                                                             "Het label van het faalmechanisme.",
                                                                             true);
+        }
+
+        private class TestHeightStructuresFailureMechanismProperties : HeightStructuresFailureMechanismPropertiesBase
+        {
+            public TestHeightStructuresFailureMechanismProperties(HeightStructuresFailureMechanism data,
+                                                                  ConstructionProperties constructionProperties)
+                : base(data, constructionProperties) {}
         }
     }
 }

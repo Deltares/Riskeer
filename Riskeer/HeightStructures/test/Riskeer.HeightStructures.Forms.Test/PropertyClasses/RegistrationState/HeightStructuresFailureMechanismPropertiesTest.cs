@@ -30,10 +30,11 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.HeightStructures.Data;
 using Riskeer.HeightStructures.Forms.PropertyClasses;
+using Riskeer.HeightStructures.Forms.PropertyClasses.RegistrationState;
 
-namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
+namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses.RegistrationState
 {
-    public class HeightStructuresFailurePathPropertiesTest
+    public class HeightStructuresFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -52,10 +53,10 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new HeightStructuresFailurePathProperties(failureMechanism);
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<HeightStructuresFailureMechanismProperties>(properties);
+            Assert.IsInstanceOf<HeightStructuresFailureMechanismPropertiesBase>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
             Assert.AreEqual(failureMechanism.InAssembly, properties.InAssembly);
@@ -75,7 +76,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var properties = new HeightStructuresFailurePathProperties(failureMechanism);
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -129,7 +130,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new HeightStructuresFailurePathProperties(failureMechanism);
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -174,7 +175,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new HeightStructuresFailurePathProperties(failureMechanism);
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
 
             // Call
             void Call() => properties.N = (RoundedDouble) newN;
@@ -201,7 +202,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new HeightStructuresFailurePathProperties(failureMechanism);
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
 
             // Call
             properties.N = (RoundedDouble) newN;
@@ -222,7 +223,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses
             {
                 InAssembly = inAssembly
             };
-            var properties = new HeightStructuresFailurePathProperties(failureMechanism);
+            var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));
