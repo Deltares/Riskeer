@@ -34,12 +34,13 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.RegistrationState
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailurePathContextTreeNodeInfoTest
+    public class MacroStabilityInwardsFailureMechanismContextTreeNodeInfoTest
     {
         private MacroStabilityInwardsPlugin plugin;
         private TreeNodeInfo info;
@@ -48,7 +49,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         public void Setup()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsFailureMechanismContext));
         }
 
         [TearDown]
@@ -89,7 +90,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new MacroStabilityInwardsFailurePathContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -115,7 +116,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -165,7 +166,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 InAssembly = false
             };
-            var context = new MacroStabilityInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -189,7 +190,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-                var context = new MacroStabilityInwardsFailurePathContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -232,7 +233,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 {
                     InAssembly = false
                 };
-                var context = new MacroStabilityInwardsFailurePathContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -262,14 +263,14 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
         [TestFixture]
         public class MacroStabilityInwardsFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<MacroStabilityInwardsPlugin, MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsFailurePathContext>
+            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<MacroStabilityInwardsPlugin, MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsFailureMechanismContext>
         {
             public MacroStabilityInwardsFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override MacroStabilityInwardsFailurePathContext CreateFailureMechanismContext(MacroStabilityInwardsFailureMechanism failureMechanism,
-                                                                                                     IAssessmentSection assessmentSection)
+            protected override MacroStabilityInwardsFailureMechanismContext CreateFailureMechanismContext(MacroStabilityInwardsFailureMechanism failureMechanism,
+                                                                                                          IAssessmentSection assessmentSection)
             {
-                return new MacroStabilityInwardsFailurePathContext(failureMechanism, assessmentSection);
+                return new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
     }

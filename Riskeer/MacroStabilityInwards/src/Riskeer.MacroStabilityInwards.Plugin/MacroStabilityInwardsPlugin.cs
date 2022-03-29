@@ -61,6 +61,8 @@ using Riskeer.MacroStabilityInwards.Plugin.FileImporter;
 using Riskeer.MacroStabilityInwards.Plugin.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.MacroStabilityInwards.Service;
+using CalculationsStateFailureMechanismContext = Riskeer.MacroStabilityInwards.Forms.PresentationObjects.CalculationsState.MacroStabilityInwardsFailureMechanismContext;
+using RegistrationStateFailureMechanismContext = Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState.MacroStabilityInwardsFailureMechanismContext;
 using CalculationsStateFailureMechanismProperties = Riskeer.MacroStabilityInwards.Forms.PropertyClasses.CalculationsState.MacroStabilityInwardsFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState.MacroStabilityInwardsFailureMechanismProperties;
 using CalculationsStateFailureMechanismView = Riskeer.MacroStabilityInwards.Forms.Views.CalculationsState.MacroStabilityInwardsFailureMechanismView;
@@ -79,11 +81,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<MacroStabilityInwardsCalculationsContext, CalculationsStateFailureMechanismProperties>
+            yield return new PropertyInfo<CalculationsStateFailureMechanismContext, CalculationsStateFailureMechanismProperties>
             {
                 CreateInstance = context => new CalculationsStateFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<MacroStabilityInwardsFailurePathContext, RegistrationStateFailureMechanismProperties>
+            yield return new PropertyInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismProperties>
             {
                 CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData, context.Parent)
             };
@@ -247,13 +249,13 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<MacroStabilityInwardsCalculationsContext, CalculationsStateFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<CalculationsStateFailureMechanismContext, CalculationsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 CreateInstance = context => new CalculationsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<MacroStabilityInwardsFailurePathContext, RegistrationStateFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<RegistrationStateFailureMechanismContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
@@ -323,11 +325,11 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
-            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<MacroStabilityInwardsCalculationsContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<CalculationsStateFailureMechanismContext>(
                 CalculationsChildNodeObjects,
                 CalculationsContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<MacroStabilityInwardsFailurePathContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<RegistrationStateFailureMechanismContext>(
                 FailurePathEnabledChildNodeObjects,
                 FailurePathDisabledChildNodeObjects,
                 FailurePathEnabledContextMenuStrip,
@@ -494,7 +496,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is MacroStabilityInwardsCalculationsContext failureMechanismContext)
+            if (dataToCloseFor is CalculationsStateFailureMechanismContext failureMechanismContext)
             {
                 failureMechanism = failureMechanismContext.WrappedData;
             }
@@ -532,7 +534,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                     .FirstOrDefault();
             }
 
-            if (dataToCloseFor is MacroStabilityInwardsCalculationsContext calculationsContext)
+            if (dataToCloseFor is CalculationsStateFailureMechanismContext calculationsContext)
             {
                 failureMechanism = calculationsContext.WrappedData;
             }
@@ -602,7 +604,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #region MacroStabilityInwardsCalculationsContext TreeNodeInfo
 
-        private static object[] CalculationsChildNodeObjects(MacroStabilityInwardsCalculationsContext context)
+        private static object[] CalculationsChildNodeObjects(CalculationsStateFailureMechanismContext context)
         {
             MacroStabilityInwardsFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -626,7 +628,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
         }
 
-        private ContextMenuStrip CalculationsContextMenuStrip(MacroStabilityInwardsCalculationsContext context,
+        private ContextMenuStrip CalculationsContextMenuStrip(CalculationsStateFailureMechanismContext context,
                                                               object parentData,
                                                               TreeViewControl treeViewControl)
         {
@@ -650,12 +652,12 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                           .Build();
         }
 
-        private static void ValidateAllInFailureMechanism(MacroStabilityInwardsCalculationsContext context)
+        private static void ValidateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
         {
             ValidateAll(context.WrappedData.Calculations.OfType<MacroStabilityInwardsCalculation>(), context.WrappedData.GeneralInput, context.Parent);
         }
 
-        private void CalculateAllInFailureMechanism(MacroStabilityInwardsCalculationsContext context)
+        private void CalculateAllInFailureMechanism(CalculationsStateFailureMechanismContext context)
         {
             ActivityProgressDialogRunner.Run(
                 Gui.MainWindow,
@@ -666,7 +668,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
         #region MacroStabilityInwardsFailurePathContext TreeNodeInfo
 
-        private static object[] FailurePathEnabledChildNodeObjects(MacroStabilityInwardsFailurePathContext context)
+        private static object[] FailurePathEnabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             MacroStabilityInwardsFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -680,7 +682,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
         }
 
-        private static object[] FailurePathDisabledChildNodeObjects(MacroStabilityInwardsFailurePathContext context)
+        private static object[] FailurePathDisabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             return new object[]
             {
@@ -708,7 +710,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathEnabledContextMenuStrip(MacroStabilityInwardsFailurePathContext context,
+        private ContextMenuStrip FailurePathEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                     object parentData,
                                                                     TreeViewControl treeViewControl)
         {
@@ -725,7 +727,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip FailurePathDisabledContextMenuStrip(MacroStabilityInwardsFailurePathContext context,
+        private ContextMenuStrip FailurePathDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
                                                                      object parentData,
                                                                      TreeViewControl treeViewControl)
         {
@@ -740,7 +742,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                           .Build();
         }
 
-        private void RemoveAllViewsForItem(MacroStabilityInwardsFailurePathContext context)
+        private void RemoveAllViewsForItem(RegistrationStateFailureMechanismContext context)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(context);
         }

@@ -19,25 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Data;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.CalculationsState;
 
-namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
+namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects.CalculationsState
 {
-    /// <summary>
-    /// Presentation object for the failure path of <see cref="MacroStabilityInwardsFailureMechanism"/>.
-    /// </summary>
-    public class MacroStabilityInwardsFailurePathContext : FailureMechanismContext<MacroStabilityInwardsFailureMechanism>
+    [TestFixture]
+    public class MacroStabilityInwardsFailureMechanismContextTest
     {
-        /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsFailurePathContext"/>.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism.</param>
-        /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public MacroStabilityInwardsFailurePathContext(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(failureMechanism, assessmentSection) {}
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
+
+            // Call
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismContext<MacroStabilityInwardsFailureMechanism>>(context);
+            Assert.AreSame(assessmentSection, context.Parent);
+            Assert.AreSame(failureMechanism, context.WrappedData);
+            mocks.VerifyAll();
+        }
     }
 }

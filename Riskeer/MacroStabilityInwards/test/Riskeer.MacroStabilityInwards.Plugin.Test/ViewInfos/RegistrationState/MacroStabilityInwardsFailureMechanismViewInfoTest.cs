@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState;
 using Riskeer.MacroStabilityInwards.Forms.Views.RegistrationState;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos.RegistrationState
@@ -56,8 +56,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos.RegistrationState
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MacroStabilityInwardsFailurePathContext), info.DataType);
-            Assert.AreEqual(typeof(MacroStabilityInwardsFailurePathContext), info.ViewDataType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos.RegistrationState
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -91,7 +91,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos.RegistrationState
                 InAssembly = inAssembly
             };
 
-            var context = new MacroStabilityInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -108,7 +108,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos.RegistrationState
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var context = new MacroStabilityInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             var view = (MacroStabilityInwardsFailureMechanismView) info.CreateInstance(context);

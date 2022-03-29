@@ -19,36 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-using Rhino.Mocks;
+using System;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
 
-namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
+namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState
 {
-    [TestFixture]
-    public class MacroStabilityInwardsFailurePathContextTest
+    /// <summary>
+    /// Presentation object for <see cref="MacroStabilityInwardsFailureMechanism"/> in the registration state.
+    /// </summary>
+    public class MacroStabilityInwardsFailureMechanismContext : FailureMechanismContext<MacroStabilityInwardsFailureMechanism>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-
-            // Call
-            var context = new MacroStabilityInwardsFailurePathContext(failureMechanism, assessmentSection);
-
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismContext<MacroStabilityInwardsFailureMechanism>>(context);
-            Assert.AreSame(assessmentSection, context.Parent);
-            Assert.AreSame(failureMechanism, context.WrappedData);
-            mocks.VerifyAll();
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismContext"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism.</param>
+        /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        public MacroStabilityInwardsFailureMechanismContext(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            : base(failureMechanism, assessmentSection) {}
     }
 }

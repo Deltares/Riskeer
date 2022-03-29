@@ -29,6 +29,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.SoilProfile;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.CalculationsState;
 using Riskeer.MacroStabilityInwards.Forms.Views;
 using Riskeer.MacroStabilityInwards.Primitives;
 
@@ -232,7 +233,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             using (var view = new MacroStabilityInwardsCalculationsView(new CalculationGroup(), new MacroStabilityInwardsFailureMechanism(), assessmentSection))
             {
-                var context = new MacroStabilityInwardsCalculationsContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
+                var context = new MacroStabilityInwardsFailureMechanismContext(new MacroStabilityInwardsFailureMechanism(), assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -256,7 +257,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
             using (var view = new MacroStabilityInwardsCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, context);

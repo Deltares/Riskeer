@@ -24,12 +24,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState;
 
-namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
+namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects.RegistrationState
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculationsContextTest
+    public class MacroStabilityInwardsFailureMechanismContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -42,7 +42,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PresentationObjects
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismContext<MacroStabilityInwardsFailureMechanism>>(context);

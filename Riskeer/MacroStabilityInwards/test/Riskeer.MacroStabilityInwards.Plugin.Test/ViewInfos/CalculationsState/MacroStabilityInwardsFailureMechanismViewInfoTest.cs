@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.CalculationsState;
 using Riskeer.MacroStabilityInwards.Forms.Views.CalculationsState;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos.CalculationsState
@@ -56,8 +56,8 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos.CalculationsState
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MacroStabilityInwardsCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(MacroStabilityInwardsCalculationsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos.CalculationsState
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -84,7 +84,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos.CalculationsState
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
-            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             var view = (MacroStabilityInwardsFailureMechanismView) info.CreateInstance(context);

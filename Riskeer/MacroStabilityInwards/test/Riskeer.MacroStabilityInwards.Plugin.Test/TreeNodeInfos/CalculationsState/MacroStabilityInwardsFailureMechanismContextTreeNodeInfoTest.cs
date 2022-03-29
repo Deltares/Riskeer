@@ -43,14 +43,15 @@ using Riskeer.Common.Service.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.CalculationsState;
 using Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Calculators;
 using CoreGuiResources = Core.Gui.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.CalculationsState
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculationsContextTreeNodeInfoTest : NUnitFormTest
+    public class MacroStabilityInwardsFailureMechanismContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuValidateAllIndex = 2;
         private const int contextMenuCalculateAllIndex = 3;
@@ -95,7 +96,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var mechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsCalculationsContext(mechanism, assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(mechanism, assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -127,7 +128,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
             failureMechanism.CalculationsGroup.Children.Add(new MacroStabilityInwardsCalculationScenario());
 
-            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -188,7 +189,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(calculation2);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -250,7 +251,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             var applicationFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
             var importCommandHandler = mocks.Stub<IImportCommandHandler>();
@@ -341,7 +342,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
 
                 var data = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new MacroStabilityInwardsCalculationsContext(data, assessmentSection);
+                var context = new MacroStabilityInwardsFailureMechanismContext(data, assessmentSection);
 
                 var gui = mocks.Stub<IGui>();
                 gui.Stub(cmp => cmp.Get(context, treeViewControl)).Return(menuBuilder);
@@ -375,7 +376,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(calculation);
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -423,7 +424,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                     }
                 };
 
-                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -458,7 +459,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
             {
                 var failureMechanism = new MacroStabilityInwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -514,7 +515,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(validCalculation);
                 failureMechanism.CalculationsGroup.Children.Add(invalidCalculation);
 
-                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -569,7 +570,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(calculationA);
                 failureMechanism.CalculationsGroup.Children.Add(calculationB);
 
-                var context = new MacroStabilityInwardsCalculationsContext(failureMechanism, assessmentSection);
+                var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -624,7 +625,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsCalculationsContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MacroStabilityInwardsFailureMechanismContext));
         }
 
         public override void TearDown()

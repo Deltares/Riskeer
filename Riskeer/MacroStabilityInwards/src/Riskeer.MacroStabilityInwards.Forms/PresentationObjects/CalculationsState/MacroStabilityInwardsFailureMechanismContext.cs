@@ -24,20 +24,20 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.MacroStabilityInwards.Data;
 
-namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects
+namespace Riskeer.MacroStabilityInwards.Forms.PresentationObjects.CalculationsState
 {
     /// <summary>
-    /// Presentation object for calculations of <see cref="MacroStabilityInwardsFailureMechanism"/>.
+    /// Presentation object for <see cref="MacroStabilityInwardsFailureMechanism"/> in the calculations state.
     /// </summary>
-    public class MacroStabilityInwardsCalculationsContext : FailureMechanismContext<MacroStabilityInwardsFailureMechanism>
+    public class MacroStabilityInwardsFailureMechanismContext : FailureMechanismContext<MacroStabilityInwardsFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of  <see cref="MacroStabilityInwardsCalculationsContext"/>.
+        /// Creates a new instance of  <see cref="MacroStabilityInwardsFailureMechanismContext"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsCalculationsContext(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public MacroStabilityInwardsFailureMechanismContext(MacroStabilityInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
     }
 }

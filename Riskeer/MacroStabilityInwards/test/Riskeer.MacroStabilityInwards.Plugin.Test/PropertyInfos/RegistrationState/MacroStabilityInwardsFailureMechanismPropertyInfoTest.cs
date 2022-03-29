@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
-using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos.RegistrationState
@@ -54,7 +54,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos.RegistrationSt
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(MacroStabilityInwardsFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismProperties), info.PropertyObjectType);
         }
 
@@ -67,7 +67,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos.RegistrationSt
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

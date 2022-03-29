@@ -30,6 +30,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
+using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState;
 using Riskeer.MacroStabilityInwards.Forms.Views;
 
 namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
@@ -218,7 +219,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            var context = new MacroStabilityInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new MacroStabilityInwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
@@ -243,7 +244,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
 
             using (var view = new MacroStabilityInwardsFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
-                var context = new MacroStabilityInwardsFailurePathContext(
+                var context = new MacroStabilityInwardsFailureMechanismContext(
                     new MacroStabilityInwardsFailureMechanism(),
                     assessmentSection);
 
