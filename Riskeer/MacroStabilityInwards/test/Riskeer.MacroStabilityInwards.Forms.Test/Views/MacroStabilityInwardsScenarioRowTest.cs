@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
@@ -85,15 +86,24 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_WithCalculationWithOutput_PropertiesFromCalculation()
+        [TestCase(1)]
+        [TestCase(100)]
+        public void Constructor_WithCalculationWithOutput_PropertiesFromCalculation(double sectionLength)
         {
             // Setup
             var calculation = new MacroStabilityInwardsCalculationScenario
             {
-                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput()
+                Output = MacroStabilityInwardsOutputTestFactory.CreateOutput(new MacroStabilityInwardsOutput.ConstructionProperties
+                {
+                    FactorOfStability = 0.1
+                })
             };
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
-            FailureMechanismSection failureMechanismSection = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
+            var failureMechanismSection = new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(sectionLength, 0)
+            });
 
             // Call
             var row = new MacroStabilityInwardsScenarioRow(calculation, failureMechanism, failureMechanismSection);
@@ -101,8 +111,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             // Assert
             DerivedMacroStabilityInwardsOutput expectedDerivedOutput = DerivedMacroStabilityInwardsOutputFactory.Create(calculation.Output, failureMechanism.GeneralInput.ModelFactor);
             Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability, row.FailureProbability);
-            Assert.AreEqual(expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
-                                failureMechanismSection.Length),
+            Assert.AreEqual(Math.Min(1.0, expectedDerivedOutput.MacroStabilityInwardsProbability * failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(
+                                              failureMechanismSection.Length)),
                             row.SectionFailureProbability);
         }
 
