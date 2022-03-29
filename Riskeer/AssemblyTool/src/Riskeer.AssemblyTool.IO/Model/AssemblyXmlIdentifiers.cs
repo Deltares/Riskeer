@@ -63,11 +63,6 @@ namespace Riskeer.AssemblyTool.IO.Model
         public const string AssessmentProcessIdRef = "BeoordelingsprocesIDRef";
 
         /// <summary>
-        /// Identifier for an assessment section assembly result element.
-        /// </summary>
-        public const string AssessmentSectionAssemblyResult = "veiligheidsoordeel";
-
-        /// <summary>
         /// Identifier for an assessment section assembly group element.
         /// </summary>
         public const string AssessmentSectionAssemblyGroup = "categorie";
