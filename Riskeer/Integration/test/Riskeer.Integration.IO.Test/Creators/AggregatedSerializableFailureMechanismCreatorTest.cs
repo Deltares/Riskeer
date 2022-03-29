@@ -25,7 +25,7 @@ using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.DataTypes;
+using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.AggregatedSerializable;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Creators;
@@ -42,7 +42,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             // Setup
             var random = new Random(21);
-            
+
             // Call
             void Call() => AggregatedSerializableFailureMechanismCreator.Create(
                 null, new SerializableTotalAssemblyResult(),
@@ -63,7 +63,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             // Setup
             var random = new Random(21);
-            
+
             // Call
             void Call() => AggregatedSerializableFailureMechanismCreator.Create(
                 new IdentifierGenerator(), null,
@@ -112,7 +112,11 @@ namespace Riskeer.Integration.IO.Test.Creators
             var idGenerator = new IdentifierGenerator();
 
             const string totalAssemblyId = "totalAssemblyId";
-            SerializableTotalAssemblyResult serializableTotalAssembly = CreateSerializableTotalAssembly(totalAssemblyId);
+            var serializableTotalAssembly = new SerializableTotalAssemblyResult(totalAssemblyId,
+                                                                                new SerializableAssessmentProcess(),
+                                                                                random.NextEnumValue<SerializableAssemblyMethod>(),
+                                                                                random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>(),
+                                                                                random.NextDouble());
 
             // Call
             AggregatedSerializableFailureMechanism aggregatedFailureMechanism =
@@ -175,13 +179,6 @@ namespace Riskeer.Integration.IO.Test.Creators
                                     expectedSectionAssemblyResult.AssemblyGroup), actualSectionAssemblyResult.SectionResult.AssemblyGroup);
                 Assert.AreEqual(expectedSectionAssemblyResult.Probability, actualSectionAssemblyResult.SectionResult.Probability);
             }
-        }
-
-        private static SerializableTotalAssemblyResult CreateSerializableTotalAssembly(string totalAssemblyId)
-        {
-            return new SerializableTotalAssemblyResult(totalAssemblyId,
-                                                       new SerializableAssessmentProcess(),
-                                                       new SerializableAssessmentSectionAssemblyResult());
         }
     }
 }
