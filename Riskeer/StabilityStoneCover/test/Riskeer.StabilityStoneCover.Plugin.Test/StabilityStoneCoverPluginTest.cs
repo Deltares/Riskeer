@@ -36,9 +36,10 @@ using Riskeer.Revetment.Forms.Views;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.PropertyClasses;
-using Riskeer.StabilityStoneCover.Forms.Views;
 using HydraulicLoadsStateFailureMechanismProperties = Riskeer.StabilityStoneCover.Forms.PropertyClasses.HydraulicLoadsState.StabilityStoneCoverFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.StabilityStoneCover.Forms.PropertyClasses.RegistrationState.StabilityStoneCoverFailureMechanismProperties;
+using HydraulicLoadsStateFailureMechanismView = Riskeer.StabilityStoneCover.Forms.Views.HydraulicLoadsState.StabilityStoneCoverFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.StabilityStoneCover.Forms.Views.RegistrationState.StabilityStoneCoverFailureMechanismView;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test
 {
@@ -102,12 +103,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(StabilityStoneCoverHydraulicLoadsContext),
-                    typeof(StabilityStoneCoverFailureMechanismView));
+                    typeof(HydraulicLoadsStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(StabilityStoneCoverFailurePathContext),
-                    typeof(StabilityStoneCoverFailurePathView));
+                    typeof(RegistrationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,

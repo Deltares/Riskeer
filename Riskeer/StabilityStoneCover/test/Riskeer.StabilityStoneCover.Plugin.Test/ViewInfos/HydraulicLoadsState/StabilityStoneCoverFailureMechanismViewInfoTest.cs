@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,9 +27,9 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
-using Riskeer.StabilityStoneCover.Forms.Views;
+using Riskeer.StabilityStoneCover.Forms.Views.HydraulicLoadsState;
 
-namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
+namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.HydraulicLoadsState
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismViewInfoTest
@@ -80,7 +78,6 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnStabilityStoneCoverFailureMechanismView()
         {
             // Setup
@@ -89,18 +86,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
             var context = new StabilityStoneCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as StabilityStoneCoverFailureMechanismView;
+            // Call
+            var view = (StabilityStoneCoverFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
     }
 }

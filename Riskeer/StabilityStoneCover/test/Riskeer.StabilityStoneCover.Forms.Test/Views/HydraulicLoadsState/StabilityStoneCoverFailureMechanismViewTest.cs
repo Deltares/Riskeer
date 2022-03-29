@@ -39,9 +39,9 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityStoneCover.Data;
-using Riskeer.StabilityStoneCover.Forms.Views;
+using Riskeer.StabilityStoneCover.Forms.Views.HydraulicLoadsState;
 
-namespace Riskeer.StabilityStoneCover.Forms.Test.Views
+namespace Riskeer.StabilityStoneCover.Forms.Test.Views.HydraulicLoadsState
 {
     [TestFixture]
     public class StabilityStoneCoverFailureMechanismViewTest

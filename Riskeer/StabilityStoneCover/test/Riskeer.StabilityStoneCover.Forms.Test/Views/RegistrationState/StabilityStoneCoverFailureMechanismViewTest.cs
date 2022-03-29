@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -42,12 +41,13 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.StabilityStoneCover.Data;
-using Riskeer.StabilityStoneCover.Forms.Views;
+using Riskeer.StabilityStoneCover.Forms.Views.RegistrationState;
+using HydraulicLoadsFailureMechanismView = Riskeer.StabilityStoneCover.Forms.Views.HydraulicLoadsState.StabilityStoneCoverFailureMechanismView;
 
-namespace Riskeer.StabilityStoneCover.Forms.Test.Views
+namespace Riskeer.StabilityStoneCover.Forms.Test.Views.RegistrationState
 {
     [TestFixture]
-    public class StabilityStoneCoverFailurePathViewTest
+    public class StabilityStoneCoverFailureMechanismViewTest
     {
         private const int referenceLineIndex = 0;
         private const int sectionsCollectionIndex = 1;
@@ -87,10 +87,10 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
 
             // Call
-            StabilityStoneCoverFailurePathView view = CreateView(failureMechanism, assessmentSection);
+            StabilityStoneCoverFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<StabilityStoneCoverFailureMechanismView>(view);
+            Assert.IsInstanceOf<HydraulicLoadsFailureMechanismView>(view);
             Assert.IsNull(view.Data);
             Assert.AreSame(failureMechanism, view.FailureMechanism);
             Assert.AreSame(assessmentSection, view.AssessmentSection);
@@ -102,8 +102,6 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
         public void Constructor_WithAllData_DataUpdatedToCollectionOfFilledMapData()
         {
             // Setup
-            var random = new Random(39);
-
             var calculationA = new StabilityStoneCoverWaveConditionsCalculation
             {
                 InputParameters =
@@ -175,7 +173,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                StabilityStoneCoverFailurePathView view = CreateView(failureMechanism, assessmentSection);
+                StabilityStoneCoverFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
                 IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -209,7 +207,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             // Given
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            StabilityStoneCoverFailurePathView view = CreateView(failureMechanism, new AssessmentSectionStub());
+            StabilityStoneCoverFailureMechanismView view = CreateView(failureMechanism, new AssessmentSectionStub());
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -258,7 +256,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            StabilityStoneCoverFailurePathView view = CreateView(failureMechanism, assessmentSection);
+            StabilityStoneCoverFailureMechanismView view = CreateView(failureMechanism, assessmentSection);
 
             IMapControl map = ((RiskeerMapControl) view.Controls[0]).MapControl;
 
@@ -321,9 +319,9 @@ namespace Riskeer.StabilityStoneCover.Forms.Test.Views
             Assert.AreEqual("Berekeningen", actualCalculationsData.Name);
         }
 
-        private StabilityStoneCoverFailurePathView CreateView(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private StabilityStoneCoverFailureMechanismView CreateView(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            var view = new StabilityStoneCoverFailurePathView(failureMechanism, assessmentSection);
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
 
             testForm.Controls.Add(view);
             testForm.Show();

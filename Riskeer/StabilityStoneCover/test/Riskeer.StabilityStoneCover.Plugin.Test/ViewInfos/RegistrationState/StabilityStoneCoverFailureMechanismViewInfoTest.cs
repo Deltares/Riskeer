@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,12 +27,12 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
-using Riskeer.StabilityStoneCover.Forms.Views;
+using Riskeer.StabilityStoneCover.Forms.Views.RegistrationState;
 
-namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
+namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.RegistrationState
 {
     [TestFixture]
-    public class StabilityStoneCoverFailurePathViewInfoTest
+    public class StabilityStoneCoverFailureMechanismViewInfoTest
     {
         private MockRepository mocks;
         private StabilityStoneCoverPlugin plugin;
@@ -45,7 +43,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new StabilityStoneCoverPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityStoneCoverFailurePathView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(StabilityStoneCoverFailureMechanismView));
         }
 
         [TearDown]
@@ -104,8 +102,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
-        public void CreateInstance_WithContext_ReturnStabilityStoneCoverFailurePathView()
+        public void CreateInstance_WithContext_ReturnStabilityStoneCoverFailureMechanismView()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();
@@ -113,18 +110,12 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
             var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as StabilityStoneCoverFailurePathView;
+            // Call
+            var view = (StabilityStoneCoverFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
 
         [Test]
@@ -137,7 +128,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var view = new StabilityStoneCoverFailurePathView(failureMechanism, assessmentSection);
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, otherAssessmentSection);
@@ -155,7 +146,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var view = new StabilityStoneCoverFailurePathView(failureMechanism, assessmentSection);
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, assessmentSection);
@@ -174,7 +165,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var otherGrassCoverErosionInwardsFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var view = new StabilityStoneCoverFailurePathView(failureMechanism, assessmentSection);
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, otherGrassCoverErosionInwardsFailureMechanism);
@@ -190,7 +181,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var view = new StabilityStoneCoverFailurePathView(failureMechanism, assessmentSection);
+            var view = new StabilityStoneCoverFailureMechanismView(failureMechanism, assessmentSection);
 
             // Call
             bool closeForData = info.CloseForData(view, failureMechanism);

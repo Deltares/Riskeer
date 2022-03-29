@@ -30,12 +30,12 @@ using Riskeer.Common.Forms.MapLayers;
 using Riskeer.StabilityStoneCover.Data;
 using StabilityStoneCoverDataResources = Riskeer.StabilityStoneCover.Data.Properties.Resources;
 
-namespace Riskeer.StabilityStoneCover.Forms.Views
+namespace Riskeer.StabilityStoneCover.Forms.Views.RegistrationState
 {
     /// <summary>
-    /// This class is a view showing map data for a stability stone cover failure path.
+    /// Registration state view showing map data for a stability stone cover failure mechanism.
     /// </summary>
-    public class StabilityStoneCoverFailurePathView : StabilityStoneCoverFailureMechanismView
+    public class StabilityStoneCoverFailureMechanismView : HydraulicLoadsState.StabilityStoneCoverFailureMechanismView
     {
         private MapLineData sectionsMapData;
         private MapPointData sectionsStartPointMapData;
@@ -46,13 +46,13 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
         private Observer failureMechanismObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityStoneCoverFailurePathView"/>.
+        /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StabilityStoneCoverFailurePathView(StabilityStoneCoverFailureMechanism failureMechanism,
-                                                  IAssessmentSection assessmentSection)
+        public StabilityStoneCoverFailureMechanismView(StabilityStoneCoverFailureMechanism failureMechanism,
+                                                       IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
 
         protected override void Dispose(bool disposing)

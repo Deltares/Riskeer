@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Riskeer.StabilityStoneCover.Forms.Views
+namespace Riskeer.StabilityStoneCover.Forms.Views.HydraulicLoadsState
 {
     partial class StabilityStoneCoverFailureMechanismView
     {

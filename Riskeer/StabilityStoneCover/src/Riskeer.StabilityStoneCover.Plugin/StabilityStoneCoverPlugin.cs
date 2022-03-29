@@ -61,6 +61,8 @@ using Riskeer.StabilityStoneCover.IO.Exporters;
 using Riskeer.StabilityStoneCover.Service;
 using HydraulicLoadsStateFailureMechanismProperties = Riskeer.StabilityStoneCover.Forms.PropertyClasses.HydraulicLoadsState.StabilityStoneCoverFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.StabilityStoneCover.Forms.PropertyClasses.RegistrationState.StabilityStoneCoverFailureMechanismProperties;
+using HydraulicLoadsStateFailureMechanismView = Riskeer.StabilityStoneCover.Forms.Views.HydraulicLoadsState.StabilityStoneCoverFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.StabilityStoneCover.Forms.Views.RegistrationState.StabilityStoneCoverFailureMechanismView;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -96,17 +98,17 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<StabilityStoneCoverHydraulicLoadsContext, StabilityStoneCoverFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<StabilityStoneCoverHydraulicLoadsContext, HydraulicLoadsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new StabilityStoneCoverFailureMechanismView(context.WrappedData, context.Parent)
+                CreateInstance = context => new HydraulicLoadsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<StabilityStoneCoverFailurePathContext, StabilityStoneCoverFailurePathView>(() => Gui)
+            yield return new RiskeerViewInfo<StabilityStoneCoverFailurePathContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CreateInstance = context => new StabilityStoneCoverFailurePathView(context.WrappedData, context.Parent),
+                CreateInstance = context => new RegistrationStateFailureMechanismView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
             };
 
@@ -280,7 +282,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailurePathViewForData(StabilityStoneCoverFailurePathView view, object dataToCloseFor)
+        private static bool CloseFailurePathViewForData(RegistrationStateFailureMechanismView view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as StabilityStoneCoverFailureMechanism;
 

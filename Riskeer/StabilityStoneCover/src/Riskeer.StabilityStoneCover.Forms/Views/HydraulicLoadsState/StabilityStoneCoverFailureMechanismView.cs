@@ -36,10 +36,10 @@ using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.Factories;
 using StabilityStoneCoverDataResources = Riskeer.StabilityStoneCover.Data.Properties.Resources;
 
-namespace Riskeer.StabilityStoneCover.Forms.Views
+namespace Riskeer.StabilityStoneCover.Forms.Views.HydraulicLoadsState
 {
     /// <summary>
-    /// This class is a view showing map data for a stability stone cover failure mechanism.
+    /// Hydraulic loads state view showing map data for a stability stone cover failure mechanism.
     /// </summary>
     public partial class StabilityStoneCoverFailureMechanismView : UserControl, IMapView
     {
@@ -207,7 +207,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Views
         }
 
         #region Calculations MapData
-        
+
         private void UpdateCalculationsMapData()
         {
             SetCalculationsMapData();
