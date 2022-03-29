@@ -31,11 +31,12 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
+using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.RegistrationState;
 
-namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses.RegistrationState
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverFailurePathPropertiesTest
+    public class WaveImpactAsphaltCoverFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -49,7 +50,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new WaveImpactAsphaltCoverFailurePathProperties(new WaveImpactAsphaltCoverFailureMechanism(), null);
+            void Call() => new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -76,10 +77,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new WaveImpactAsphaltCoverFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismProperties>(properties);
+            Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismPropertiesBase>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
@@ -114,7 +115,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             mocks.ReplayAll();
 
             // Call
-            var properties = new WaveImpactAsphaltCoverFailurePathProperties(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(new WaveImpactAsphaltCoverFailureMechanism(), assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -188,7 +189,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             };
 
             // Call
-            var properties = new WaveImpactAsphaltCoverFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -236,7 +237,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new WaveImpactAsphaltCoverFailurePathProperties(
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(
                 failureMechanism,
                 assessmentSection);
 
@@ -266,7 +267,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.Attach(observer);
 
-            var properties = new WaveImpactAsphaltCoverFailurePathProperties(
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(
                 failureMechanism,
                 assessmentSection);
 
@@ -293,7 +294,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 
             failureMechanism.Attach(observer);
 
-            var properties = new WaveImpactAsphaltCoverFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Call
             properties.ApplyLengthEffectInSection = true;
@@ -318,7 +319,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             {
                 InAssembly = inAssembly
             };
-            var properties = new WaveImpactAsphaltCoverFailurePathProperties(failureMechanism, assessmentSection);
+            var properties = new WaveImpactAsphaltCoverFailureMechanismProperties(failureMechanism, assessmentSection);
 
             // Call & Assert
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(nameof(properties.Name)));

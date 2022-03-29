@@ -31,20 +31,21 @@ using RiskeerRevetmentFormsResources = Riskeer.Revetment.Forms.Properties.Resour
 namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanismProperties"/> for properties panel.
+    /// Base ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanismPropertiesBase"/> for properties panel.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailureMechanismProperties : ObjectProperties<WaveImpactAsphaltCoverFailureMechanism>
+    public abstract class WaveImpactAsphaltCoverFailureMechanismPropertiesBase : ObjectProperties<WaveImpactAsphaltCoverFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismPropertiesBase"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="constructionProperties">The property values required to create an instance of <see cref="WaveImpactAsphaltCoverFailureMechanismProperties"/>.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="WaveImpactAsphaltCoverFailureMechanismPropertiesBase"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverFailureMechanismProperties(WaveImpactAsphaltCoverFailureMechanism data,
-                                                                ConstructionProperties constructionProperties)
+        protected WaveImpactAsphaltCoverFailureMechanismPropertiesBase(WaveImpactAsphaltCoverFailureMechanism data,
+                                                                       ConstructionProperties constructionProperties)
         {
             if (data == null)
             {
@@ -78,19 +79,19 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="WaveImpactAsphaltCoverFailureMechanismProperties"/>.
+        /// Class holding the various construction parameters for <see cref="WaveImpactAsphaltCoverFailureMechanismPropertiesBase"/>.
         /// </summary>
         public class ConstructionProperties
         {
             #region General
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="WaveImpactAsphaltCoverFailureMechanismProperties.Name"/>.
+            /// Gets or sets the property index for <see cref="WaveImpactAsphaltCoverFailureMechanismPropertiesBase.Name"/>.
             /// </summary>
             public int NamePropertyIndex { get; set; }
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="WaveImpactAsphaltCoverFailureMechanismProperties.Code"/>.
+            /// Gets or sets the property index for <see cref="WaveImpactAsphaltCoverFailureMechanismPropertiesBase.Code"/>.
             /// </summary>
             public int CodePropertyIndex { get; set; }
 

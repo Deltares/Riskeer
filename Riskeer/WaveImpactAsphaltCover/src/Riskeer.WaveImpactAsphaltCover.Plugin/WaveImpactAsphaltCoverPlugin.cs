@@ -61,6 +61,8 @@ using Riskeer.WaveImpactAsphaltCover.IO.Exporters;
 using Riskeer.WaveImpactAsphaltCover.Service;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
+using HydraulicLoadsStateFailureMechanismProperties = Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsState.WaveImpactAsphaltCoverFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.RegistrationState.WaveImpactAsphaltCoverFailureMechanismProperties;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin
 {
@@ -71,13 +73,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<WaveImpactAsphaltCoverHydraulicLoadsContext, WaveImpactAsphaltCoverHydraulicLoadsProperties>
+            yield return new PropertyInfo<WaveImpactAsphaltCoverHydraulicLoadsContext, HydraulicLoadsStateFailureMechanismProperties>
             {
-                CreateInstance = context => new WaveImpactAsphaltCoverHydraulicLoadsProperties(context.WrappedData)
+                CreateInstance = context => new HydraulicLoadsStateFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<WaveImpactAsphaltCoverFailurePathContext, WaveImpactAsphaltCoverFailurePathProperties>
+            yield return new PropertyInfo<WaveImpactAsphaltCoverFailurePathContext, RegistrationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new WaveImpactAsphaltCoverFailurePathProperties(context.WrappedData, context.Parent)
+                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData, context.Parent)
             };
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsOutput, WaveImpactAsphaltCoverWaveConditionsOutputProperties>();
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsInputContext, WaveImpactAsphaltCoverWaveConditionsInputContextProperties>

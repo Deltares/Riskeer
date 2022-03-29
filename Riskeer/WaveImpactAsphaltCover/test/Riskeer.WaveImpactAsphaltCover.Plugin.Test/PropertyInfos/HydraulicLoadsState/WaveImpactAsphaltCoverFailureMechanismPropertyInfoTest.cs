@@ -27,12 +27,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
+using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsState;
 
-namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos.HydraulicLoadsState
 {
     [TestFixture]
-    public class WaveImpactAsphaltCoverHydraulicLoadsContextPropertyInfoTest
+    public class WaveImpactAsphaltCoverFailureMechanismPropertyInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -45,7 +45,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
 
                 // Assert
                 Assert.AreEqual(typeof(WaveImpactAsphaltCoverHydraulicLoadsContext), info.DataType);
-                Assert.AreEqual(typeof(WaveImpactAsphaltCoverHydraulicLoadsProperties), info.PropertyObjectType);
+                Assert.AreEqual(typeof(WaveImpactAsphaltCoverFailureMechanismProperties), info.PropertyObjectType);
             }
         }
 
@@ -68,7 +68,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.PropertyInfos
                 IObjectProperties objectProperties = info.CreateInstance(context);
 
                 // Assert
-                Assert.IsInstanceOf<WaveImpactAsphaltCoverHydraulicLoadsProperties>(objectProperties);
+                Assert.IsInstanceOf<WaveImpactAsphaltCoverFailureMechanismProperties>(objectProperties);
                 Assert.AreSame(failureMechanism, objectProperties.Data);
             }
 

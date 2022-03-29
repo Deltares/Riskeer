@@ -27,12 +27,12 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerRevetmentFormsResources = Riskeer.Revetment.Forms.Properties.Resources;
 
-namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
+namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsState
 {
     /// <summary>
-    /// Hydraulic loads related ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for properties panel.
+    /// Hydraulic loads state related ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for properties panel.
     /// </summary>
-    public class WaveImpactAsphaltCoverHydraulicLoadsProperties : WaveImpactAsphaltCoverFailureMechanismProperties
+    public class WaveImpactAsphaltCoverFailureMechanismProperties : WaveImpactAsphaltCoverFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -41,11 +41,11 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         private const int cPropertyIndex = 5;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverHydraulicLoadsProperties"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverHydraulicLoadsProperties(WaveImpactAsphaltCoverFailureMechanism data) : base(data, new ConstructionProperties
+        public WaveImpactAsphaltCoverFailureMechanismProperties(WaveImpactAsphaltCoverFailureMechanism data) : base(data, new ConstructionProperties
         {
             NamePropertyIndex = namePropertyIndex,
             CodePropertyIndex = codePropertyIndex

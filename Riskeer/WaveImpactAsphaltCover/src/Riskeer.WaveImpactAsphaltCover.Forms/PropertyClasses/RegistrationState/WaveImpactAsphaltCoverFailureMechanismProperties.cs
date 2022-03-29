@@ -29,12 +29,12 @@ using Riskeer.WaveImpactAsphaltCover.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerRevetmentFormsResources = Riskeer.Revetment.Forms.Properties.Resources;
 
-namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
+namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.RegistrationState
 {
     /// <summary>
-    /// Failure path related ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for properties panel.
+    /// Registration state related ViewModel of <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for properties panel.
     /// </summary>
-    public class WaveImpactAsphaltCoverFailurePathProperties : WaveImpactAsphaltCoverFailureMechanismProperties
+    public class WaveImpactAsphaltCoverFailureMechanismProperties : WaveImpactAsphaltCoverFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -47,12 +47,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses
         private readonly IAssessmentSection assessmentSection;
 
         /// <summary>
-        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailurePathProperties"/>.
+        /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="assessmentSection"></param>
+        /// <param name="assessmentSection">The assessment section the failure mechanism belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverFailurePathProperties(WaveImpactAsphaltCoverFailureMechanism data, IAssessmentSection assessmentSection)
+        public WaveImpactAsphaltCoverFailureMechanismProperties(WaveImpactAsphaltCoverFailureMechanism data, IAssessmentSection assessmentSection)
             : base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,

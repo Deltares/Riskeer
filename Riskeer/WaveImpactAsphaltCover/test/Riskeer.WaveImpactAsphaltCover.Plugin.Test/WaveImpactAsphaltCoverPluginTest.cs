@@ -39,6 +39,8 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Riskeer.WaveImpactAsphaltCover.Forms.Views;
+using HydraulicLoadsStateFailureMechanismProperties = Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsState.WaveImpactAsphaltCoverFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.RegistrationState.WaveImpactAsphaltCoverFailureMechanismProperties;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 {
@@ -71,12 +73,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveImpactAsphaltCoverHydraulicLoadsContext),
-                    typeof(WaveImpactAsphaltCoverHydraulicLoadsProperties));
+                    typeof(HydraulicLoadsStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(WaveImpactAsphaltCoverFailurePathContext),
-                    typeof(WaveImpactAsphaltCoverFailurePathProperties));
+                    typeof(RegistrationStateFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
