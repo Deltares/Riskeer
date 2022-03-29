@@ -108,7 +108,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = context => new RegistrationStateFailureMechanismView(context.WrappedData, context.Parent),
-                CloseForData = CloseFailurePathViewForData
+                CloseForData = CloseFailureMechanismViewForData
             };
 
             yield return new RiskeerViewInfo<
@@ -162,14 +162,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return RiskeerTreeNodeInfoFactory.CreateFailureMechanismStateContextTreeNodeInfo<HydraulicLoadsStateFailureMechanismContext>(
-                HydraulicLoadsChildNodeObjects,
-                HydraulicLoadsContextMenuStrip);
+                HydraulicLoadsStateFailureMechanismChildNodeObjects,
+                HydraulicLoadsStateFailureMechanismContextMenuStrip);
 
             yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<RegistrationStateFailureMechanismContext>(
-                FailurePathEnabledChildNodeObjects,
-                FailurePathDisabledChildNodeObjects,
-                FailurePathEnabledContextMenuStrip,
-                FailurePathDisabledContextMenuStrip);
+                RegistrationStateFailureMechanismEnabledChildNodeObjects,
+                RegistrationStateFailureMechanismDisabledChildNodeObjects,
+                RegistrationStateFailureMechanismEnabledContextMenuStrip,
+                RegistrationStateFailureMechanismDisabledContextMenuStrip);
 
             yield return new TreeNodeInfo<WaveImpactAsphaltCoverFailureMechanismSectionResultContext>
             {
@@ -284,7 +284,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailurePathViewForData(RegistrationStateFailureMechanismView view, object dataToCloseFor)
+        private static bool CloseFailureMechanismViewForData(RegistrationStateFailureMechanismView view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as WaveImpactAsphaltCoverFailureMechanism;
 
@@ -317,9 +317,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         #region TreeNodeInfos
 
-        #region WaveImpactAsphaltCoverHydraulicLoadsContext TreeNodeInfo
+        #region HydraulicLoadsStateFailureMechanismContext TreeNodeInfo
 
-        private static object[] HydraulicLoadsChildNodeObjects(HydraulicLoadsStateFailureMechanismContext context)
+        private static object[] HydraulicLoadsStateFailureMechanismChildNodeObjects(HydraulicLoadsStateFailureMechanismContext context)
         {
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -327,13 +327,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetHydraulicLoadsInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                                       GetHydraulicLoadsStateFailureMechanismInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new WaveImpactAsphaltCoverCalculationGroupContext(failureMechanism.CalculationsGroup, null,
                                                                   failureMechanism, assessmentSection)
             };
         }
 
-        private static IEnumerable<object> GetHydraulicLoadsInputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetHydraulicLoadsStateFailureMechanismInputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -342,9 +342,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private ContextMenuStrip HydraulicLoadsContextMenuStrip(HydraulicLoadsStateFailureMechanismContext context,
-                                                                object parentData,
-                                                                TreeViewControl treeViewControl)
+        private ContextMenuStrip HydraulicLoadsStateFailureMechanismContextMenuStrip(HydraulicLoadsStateFailureMechanismContext context,
+                                                                                     object parentData,
+                                                                                     TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -377,9 +377,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         #endregion
 
-        #region WaveImpactAsphaltCoverFailurePathContext TreeNodeInfo
+        #region RegistrationStateFailureMechanismContext TreeNodeInfo
 
-        private static object[] FailurePathEnabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
+        private static object[] RegistrationStateFailureMechanismEnabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             WaveImpactAsphaltCoverFailureMechanism failureMechanism = context.WrappedData;
             IAssessmentSection assessmentSection = context.Parent;
@@ -387,13 +387,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Inputs_DisplayName,
-                                       GetFailurePathInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
+                                       GetRegistrationStateFailureMechanismInputs(failureMechanism, assessmentSection), TreeFolderCategory.Input),
                 new CategoryTreeFolder(RiskeerCommonFormsResources.FailureMechanism_Outputs_DisplayName,
-                                       GetFailurePathOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
+                                       GetRegistrationStateFailureMechanismOutputs(failureMechanism, assessmentSection), TreeFolderCategory.Output)
             };
         }
 
-        private static object[] FailurePathDisabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
+        private static object[] RegistrationStateFailureMechanismDisabledChildNodeObjects(RegistrationStateFailureMechanismContext context)
         {
             return new object[]
             {
@@ -401,7 +401,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private static IEnumerable<object> GetFailurePathInputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetRegistrationStateFailureMechanismInputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -410,7 +410,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private static IEnumerable<object> GetFailurePathOutputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static IEnumerable<object> GetRegistrationStateFailureMechanismOutputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             return new object[]
             {
@@ -420,9 +420,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
-                                                                    object parentData,
-                                                                    TreeViewControl treeViewControl)
+        private ContextMenuStrip RegistrationStateFailureMechanismEnabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
+                                                                                          object parentData,
+                                                                                          TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
@@ -437,9 +437,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                           .Build();
         }
 
-        private ContextMenuStrip FailurePathDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
-                                                                     object parentData,
-                                                                     TreeViewControl treeViewControl)
+        private ContextMenuStrip RegistrationStateFailureMechanismDisabledContextMenuStrip(RegistrationStateFailureMechanismContext context,
+                                                                                           object parentData,
+                                                                                           TreeViewControl treeViewControl)
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
