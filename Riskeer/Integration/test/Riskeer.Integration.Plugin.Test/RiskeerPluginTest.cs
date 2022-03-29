@@ -249,7 +249,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(PipingStructureFailurePathContext),
+                    typeof(PipingStructureFailureMechanismContext),
                     typeof(PipingStructureFailureMechanismProperties));
 
                 PluginTestHelper.AssertPropertyInfoDefined(
@@ -510,31 +510,31 @@ namespace Riskeer.Integration.Plugin.Test
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(MicrostabilityFailurePathContext),
+                    typeof(MicrostabilityFailureMechanismContext),
                     typeof(MicrostabilityFailureMechanism),
                     typeof(StandAloneFailureMechanismView<MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(GrassCoverSlipOffOutwardsFailurePathContext),
+                    typeof(GrassCoverSlipOffOutwardsFailureMechanismContext),
                     typeof(GrassCoverSlipOffOutwardsFailureMechanism),
                     typeof(StandAloneFailureMechanismView<GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(GrassCoverSlipOffInwardsFailurePathContext),
+                    typeof(GrassCoverSlipOffInwardsFailureMechanismContext),
                     typeof(GrassCoverSlipOffInwardsFailureMechanism),
                     typeof(StandAloneFailureMechanismView<GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(PipingStructureFailurePathContext),
+                    typeof(PipingStructureFailureMechanismContext),
                     typeof(PipingStructureFailureMechanism),
                     typeof(StandAloneFailureMechanismView<PipingStructureFailureMechanism, NonAdoptableFailureMechanismSectionResult>));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
-                    typeof(WaterPressureAsphaltCoverFailurePathContext),
+                    typeof(WaterPressureAsphaltCoverFailureMechanismContext),
                     typeof(WaterPressureAsphaltCoverFailureMechanism),
                     typeof(StandAloneFailureMechanismView<WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>));
 
@@ -577,11 +577,11 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(BackgroundData)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(NormContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverSlipOffInwardsFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverSlipOffOutwardsFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MicrostabilityFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingStructureFailurePathContext)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterPressureAsphaltCoverFailurePathContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverSlipOffInwardsFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverSlipOffOutwardsFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(MicrostabilityFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(PipingStructureFailureMechanismContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaterPressureAsphaltCoverFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CategoryTreeFolder)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionsContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundaryDatabaseContext)));

@@ -27,17 +27,17 @@ using Riskeer.Integration.Data.StandAlone;
 namespace Riskeer.Integration.Forms.PresentationObjects.StandAlone
 {
     /// <summary>
-    /// Presentation object for the failure path of <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/>.
+    /// Presentation object for <see cref="GrassCoverSlipOffInwardsFailureMechanism"/> in the registration state.
     /// </summary>
-    public class GrassCoverSlipOffOutwardsFailurePathContext : FailureMechanismContext<GrassCoverSlipOffOutwardsFailureMechanism>
+    public class GrassCoverSlipOffInwardsFailureMechanismContext : FailureMechanismContext<GrassCoverSlipOffInwardsFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GrassCoverSlipOffOutwardsFailurePathContext"/> class.
+        /// Creates a new instance of <see cref="GrassCoverSlipOffInwardsFailureMechanismContext"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public GrassCoverSlipOffOutwardsFailurePathContext(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public GrassCoverSlipOffInwardsFailureMechanismContext(GrassCoverSlipOffInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
     }
 }

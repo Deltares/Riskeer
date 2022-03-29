@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingStructureFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(PipingStructureFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(PipingStructureFailureMechanismProperties), info.PropertyObjectType);
         }
 
@@ -67,7 +67,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingStructureFailureMechanism();
-            var context = new PipingStructureFailurePathContext(failureMechanism, assessmentSection);
+            var context = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

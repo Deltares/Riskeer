@@ -254,7 +254,7 @@ namespace Riskeer.Integration.Plugin
             {
                 CreateInstance = context => new SpecificFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<PipingStructureFailurePathContext, PipingStructureFailureMechanismProperties>
+            yield return new PropertyInfo<PipingStructureFailureMechanismContext, PipingStructureFailureMechanismProperties>
             {
                 CreateInstance = context => new PipingStructureFailureMechanismProperties(context.WrappedData)
             };
@@ -414,19 +414,19 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseAssessmentSectionViewForData
             };
 
-            yield return CreateFailureMechanismViewInfo<MicrostabilityFailurePathContext, MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+            yield return CreateFailureMechanismViewInfo<MicrostabilityFailureMechanismContext, MicrostabilityFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
-            yield return CreateFailureMechanismViewInfo<GrassCoverSlipOffOutwardsFailurePathContext, GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+            yield return CreateFailureMechanismViewInfo<GrassCoverSlipOffOutwardsFailureMechanismContext, GrassCoverSlipOffOutwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
-            yield return CreateFailureMechanismViewInfo<GrassCoverSlipOffInwardsFailurePathContext, GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+            yield return CreateFailureMechanismViewInfo<GrassCoverSlipOffInwardsFailureMechanismContext, GrassCoverSlipOffInwardsFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
-            yield return CreateFailureMechanismViewInfo<PipingStructureFailurePathContext, PipingStructureFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
+            yield return CreateFailureMechanismViewInfo<PipingStructureFailureMechanismContext, PipingStructureFailureMechanism, NonAdoptableFailureMechanismSectionResult>(
                 (context, sr) => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, context.Parent));
 
-            yield return CreateFailureMechanismViewInfo<WaterPressureAsphaltCoverFailurePathContext, WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
+            yield return CreateFailureMechanismViewInfo<WaterPressureAsphaltCoverFailureMechanismContext, WaterPressureAsphaltCoverFailureMechanism, NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
                 (context, sr) => FailureMechanismAssemblyFactory.AssembleSection(sr, context.WrappedData, context.Parent));
 
             yield return CreateFailureMechanismResultViewInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResultContext, GrassCoverSlipOffInwardsFailureMechanism>(fm => fm.GeneralInput.ApplyLengthEffectInSection, FailureMechanismAssemblyFactory.AssembleFailureMechanism);
@@ -770,31 +770,31 @@ namespace Riskeer.Integration.Plugin
                 ContextMenuStrip = NormContextMenuStrip
             };
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<GrassCoverSlipOffInwardsFailurePathContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismContext>(
                 GrassCoverSlipOffInwardsFailurePathEnabledChildNodeObjects,
                 StandAloneFailurePathDisabledChildNodeObjects,
                 StandAloneFailurePathEnabledContextMenuStrip,
                 StandAloneFailurePathDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<GrassCoverSlipOffOutwardsFailurePathContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismContext>(
                 GrassCoverSlipOffOutwardsFailurePathEnabledChildNodeObjects,
                 StandAloneFailurePathDisabledChildNodeObjects,
                 StandAloneFailurePathEnabledContextMenuStrip,
                 StandAloneFailurePathDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<MicrostabilityFailurePathContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<MicrostabilityFailureMechanismContext>(
                 MicrostabilityFailurePathEnabledChildNodeObjects,
                 StandAloneFailurePathDisabledChildNodeObjects,
                 StandAloneFailurePathEnabledContextMenuStrip,
                 StandAloneFailurePathDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<PipingStructureFailurePathContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<PipingStructureFailureMechanismContext>(
                 PipingStructureFailurePathEnabledChildNodeObjects,
                 StandAloneFailurePathDisabledChildNodeObjects,
                 StandAloneFailurePathEnabledContextMenuStrip,
                 StandAloneFailurePathDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<WaterPressureAsphaltCoverFailurePathContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismContext>(
                 WaterPressureAsphaltCoverFailurePathEnabledChildNodeObjects,
                 StandAloneFailurePathDisabledChildNodeObjects,
                 StandAloneFailurePathEnabledContextMenuStrip,
@@ -1863,16 +1863,16 @@ namespace Riskeer.Integration.Plugin
                 new PipingRegistrationStateFailureMechanismContext(assessmentSection.Piping, assessmentSection),
                 new GrassCoverErosionInwardsRegistrationStateFailureMechanismContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
                 new MacroStabilityInwardsRegistrationStateFailureMechanismContext(assessmentSection.MacroStabilityInwards, assessmentSection),
-                new MicrostabilityFailurePathContext(assessmentSection.Microstability, assessmentSection),
+                new MicrostabilityFailureMechanismContext(assessmentSection.Microstability, assessmentSection),
                 new StabilityStoneCoverRegistrationStateFailureMechanismContext(assessmentSection.StabilityStoneCover, assessmentSection),
                 new WaveImpactAsphaltCoverRegistrationStateFailureMechanismContext(assessmentSection.WaveImpactAsphaltCover, assessmentSection),
-                new WaterPressureAsphaltCoverFailurePathContext(assessmentSection.WaterPressureAsphaltCover, assessmentSection),
+                new WaterPressureAsphaltCoverFailureMechanismContext(assessmentSection.WaterPressureAsphaltCover, assessmentSection),
                 new GrassCoverErosionOutwardsRegistrationStateFailureMechanismContext(assessmentSection.GrassCoverErosionOutwards, assessmentSection),
-                new GrassCoverSlipOffOutwardsFailurePathContext(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection),
-                new GrassCoverSlipOffInwardsFailurePathContext(assessmentSection.GrassCoverSlipOffInwards, assessmentSection),
+                new GrassCoverSlipOffOutwardsFailureMechanismContext(assessmentSection.GrassCoverSlipOffOutwards, assessmentSection),
+                new GrassCoverSlipOffInwardsFailureMechanismContext(assessmentSection.GrassCoverSlipOffInwards, assessmentSection),
                 new HeightStructuresRegistrationStateFailureMechanismContext(assessmentSection.HeightStructures, assessmentSection),
                 new ClosingStructuresRegistrationStateFailureMechanismContext(assessmentSection.ClosingStructures, assessmentSection),
-                new PipingStructureFailurePathContext(assessmentSection.PipingStructure, assessmentSection),
+                new PipingStructureFailureMechanismContext(assessmentSection.PipingStructure, assessmentSection),
                 new StabilityPointStructuresRegistrationStateFailureMechanismContext(assessmentSection.StabilityPointStructures, assessmentSection),
                 new DuneErosionRegistrationStateFailureMechanismContext(assessmentSection.DuneErosion, assessmentSection)
             };
@@ -2077,7 +2077,7 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region StandAloneFailurePath TreeNodeInfo
+        #region StandAloneFailureMechanism TreeNodeInfo
 
         private static object[] StandAloneFailurePathDisabledChildNodeObjects(IFailureMechanismContext<IFailureMechanism> nodeData)
         {
@@ -2124,9 +2124,9 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region GrassCoverSlipOffInwardsFailurePathContext TreeNodeInfo
+        #region GrassCoverSlipOffInwardsFailureMechanismContext TreeNodeInfo
 
-        private static object[] GrassCoverSlipOffInwardsFailurePathEnabledChildNodeObjects(GrassCoverSlipOffInwardsFailurePathContext nodeData)
+        private static object[] GrassCoverSlipOffInwardsFailurePathEnabledChildNodeObjects(GrassCoverSlipOffInwardsFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -2160,9 +2160,9 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region GrassCoverSlipOffOutwardsFailurePathContext TreeNodeInfo
+        #region GrassCoverSlipOffOutwardsFailureMechanismContext TreeNodeInfo
 
-        private static object[] GrassCoverSlipOffOutwardsFailurePathEnabledChildNodeObjects(GrassCoverSlipOffOutwardsFailurePathContext nodeData)
+        private static object[] GrassCoverSlipOffOutwardsFailurePathEnabledChildNodeObjects(GrassCoverSlipOffOutwardsFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -2196,9 +2196,9 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region MicrostabilityFailurePathContext TreeNodeInfo
+        #region MicrostabilityFailureMechanismContext TreeNodeInfo
 
-        private static object[] MicrostabilityFailurePathEnabledChildNodeObjects(MicrostabilityFailurePathContext nodeData)
+        private static object[] MicrostabilityFailurePathEnabledChildNodeObjects(MicrostabilityFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -2231,9 +2231,9 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region PipingStructureFailurePathContext TreeNodeInfo
+        #region PipingStructureFailureMechanismContext TreeNodeInfo
 
-        private static object[] PipingStructureFailurePathEnabledChildNodeObjects(PipingStructureFailurePathContext nodeData)
+        private static object[] PipingStructureFailurePathEnabledChildNodeObjects(PipingStructureFailureMechanismContext nodeData)
         {
             return new object[]
             {
@@ -2268,9 +2268,9 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region WaterPressureAsphaltCoverFailurePathContext TreeNodeInfo
+        #region WaterPressureAsphaltCoverFailureMechanismContext TreeNodeInfo
 
-        private static object[] WaterPressureAsphaltCoverFailurePathEnabledChildNodeObjects(WaterPressureAsphaltCoverFailurePathContext nodeData)
+        private static object[] WaterPressureAsphaltCoverFailurePathEnabledChildNodeObjects(WaterPressureAsphaltCoverFailureMechanismContext nodeData)
         {
             IAssessmentSection assessmentSection = nodeData.Parent;
             WaterPressureAsphaltCoverFailureMechanism failureMechanism = nodeData.WrappedData;

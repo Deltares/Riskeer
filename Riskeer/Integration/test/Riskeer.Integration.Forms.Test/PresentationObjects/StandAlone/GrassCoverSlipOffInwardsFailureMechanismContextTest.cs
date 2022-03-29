@@ -19,25 +19,36 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Data.StandAlone;
+using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 
-namespace Riskeer.Integration.Forms.PresentationObjects.StandAlone
+namespace Riskeer.Integration.Forms.Test.PresentationObjects.StandAlone
 {
-    /// <summary>
-    /// Presentation object for the failure path of <see cref="PipingStructureFailureMechanism"/>.
-    /// </summary>
-    public class PipingStructureFailurePathContext : FailureMechanismContext<PipingStructureFailureMechanism>
+    [TestFixture]
+    public class GrassCoverSlipOffInwardsFailureMechanismContextTest
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PipingStructureFailurePathContext"/> class.
-        /// </summary>
-        /// <param name="failureMechanism">The failure mechanism.</param>
-        /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public PipingStructureFailurePathContext(PipingStructureFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(failureMechanism, assessmentSection) {}
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+
+            // Call
+            var context = new GrassCoverSlipOffInwardsFailureMechanismContext(failureMechanism, assessmentSection);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismContext<GrassCoverSlipOffInwardsFailureMechanism>>(context);
+            Assert.AreSame(assessmentSection, context.Parent);
+            Assert.AreSame(failureMechanism, context.WrappedData);
+            mocks.VerifyAll();
+        }
     }
 }

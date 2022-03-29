@@ -19,36 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-using Rhino.Mocks;
+using System;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Integration.Data.StandAlone;
-using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 
-namespace Riskeer.Integration.Forms.Test.PresentationObjects.StandAlone
+namespace Riskeer.Integration.Forms.PresentationObjects.StandAlone
 {
-    [TestFixture]
-    public class PipingStructureFailurePathContextTest
+    /// <summary>
+    /// Presentation object for <see cref="PipingStructureFailureMechanism"/> in the registration state.
+    /// </summary>
+    public class PipingStructureFailureMechanismContext : FailureMechanismContext<PipingStructureFailureMechanism>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingStructureFailureMechanism();
-
-            // Call
-            var context = new PipingStructureFailurePathContext(failureMechanism, assessmentSection);
-
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismContext<PipingStructureFailureMechanism>>(context);
-            Assert.AreSame(assessmentSection, context.Parent);
-            Assert.AreSame(failureMechanism, context.WrappedData);
-            mocks.VerifyAll();
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="PipingStructureFailureMechanismContext"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism.</param>
+        /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        public PipingStructureFailureMechanismContext(PipingStructureFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            : base(failureMechanism, assessmentSection) {}
     }
 }

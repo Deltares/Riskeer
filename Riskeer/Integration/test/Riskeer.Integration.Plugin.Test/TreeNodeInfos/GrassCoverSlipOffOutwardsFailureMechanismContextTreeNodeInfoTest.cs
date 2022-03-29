@@ -38,7 +38,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverSlipOffOutwardsFailurePathContextTreeNodeInfoTest
+    public class GrassCoverSlipOffOutwardsFailureMechanismContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private TreeNodeInfo info;
@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverSlipOffOutwardsFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverSlipOffOutwardsFailureMechanismContext));
         }
 
         [TearDown]
@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new GrassCoverSlipOffOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(failureMechanismContext);
@@ -124,7 +124,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            var context = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverSlipOffOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -141,7 +141,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new GrassCoverSlipOffOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -186,7 +186,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 InAssembly = false
             };
 
-            var failureMechanismContext = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new GrassCoverSlipOffOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -205,7 +205,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 var failureMechanism = new GrassCoverSlipOffOutwardsFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+                var context = new GrassCoverSlipOffOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -244,7 +244,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 InAssembly = false
             };
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var context = new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new GrassCoverSlipOffOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var treeView = new TreeViewControl())
             {
@@ -275,15 +275,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class GrassCoverSlipOffOutwardsFailurePathContextInAssemblyTreeNodeInfoTest
-            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailurePathContext>
+        public class GrassCoverSlipOffOutwardsFailureMechanismContextInAssemblyTreeNodeInfoTest
+            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, GrassCoverSlipOffOutwardsFailureMechanism, GrassCoverSlipOffOutwardsFailureMechanismContext>
         {
-            public GrassCoverSlipOffOutwardsFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
+            public GrassCoverSlipOffOutwardsFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override GrassCoverSlipOffOutwardsFailurePathContext CreateFailureMechanismContext(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism,
-                                                                                                         IAssessmentSection assessmentSection)
+            protected override GrassCoverSlipOffOutwardsFailureMechanismContext CreateFailureMechanismContext(GrassCoverSlipOffOutwardsFailureMechanism failureMechanism,
+                                                                                                              IAssessmentSection assessmentSection)
             {
-                return new GrassCoverSlipOffOutwardsFailurePathContext(failureMechanism, assessmentSection);
+                return new GrassCoverSlipOffOutwardsFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
     }

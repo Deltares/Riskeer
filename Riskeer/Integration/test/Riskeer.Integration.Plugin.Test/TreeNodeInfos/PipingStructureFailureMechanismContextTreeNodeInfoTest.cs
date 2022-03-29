@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Integration.Data.StandAlone;
@@ -38,7 +39,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class MicrostabilityFailurePathContextTreeNodeInfoTest
+    public class PipingStructureFailureMechanismContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private TreeNodeInfo info;
@@ -49,7 +50,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MicrostabilityFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingStructureFailureMechanismContext));
         }
 
         [TearDown]
@@ -93,8 +94,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MicrostabilityFailureMechanism();
-            var failureMechanismContext = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanism = new PipingStructureFailureMechanism();
+            var failureMechanismContext = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(failureMechanismContext);
@@ -123,8 +124,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MicrostabilityFailureMechanism();
-            var context = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanism = new PipingStructureFailureMechanism();
+            var context = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -137,11 +138,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismInAssemblyTrue_ReturnChildDataNodes()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
+            var assessmentSection = new AssessmentSectionStub();
 
-            var failureMechanism = new MicrostabilityFailureMechanism();
-            var failureMechanismContext = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanism = new PipingStructureFailureMechanism();
+            var failureMechanismContext = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -153,7 +153,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputFolder.Category);
 
-            var failureMechanismSectionsContext = (MicrostabilityFailureMechanismSectionsContext) inputFolder.Contents.ElementAt(0);
+            var failureMechanismSectionsContext = (PipingStructureFailureMechanismSectionsContext) inputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
@@ -165,11 +165,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-            var failureMechanismResultsContext = (MicrostabilityFailureMechanismSectionResultContext)
+            var failureMechanismResultsContext = (PipingStructureFailureMechanismSectionResultContext)
                 outputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
-            Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
 
             var inAssemblyOutputComments = (Comment) outputFolder.Contents.ElementAt(1);
             Assert.AreSame(failureMechanism.InAssemblyOutputComments, inAssemblyOutputComments);
@@ -182,12 +181,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new MicrostabilityFailureMechanism
+            var failureMechanism = new PipingStructureFailureMechanism
             {
                 InAssembly = false
             };
 
-            var failureMechanismContext = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -204,9 +203,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var failureMechanism = new MicrostabilityFailureMechanism();
+                var failureMechanism = new PipingStructureFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
+                var context = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -240,12 +239,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismInAssemblyFalse_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var failureMechanism = new MicrostabilityFailureMechanism
+            var failureMechanism = new PipingStructureFailureMechanism
             {
                 InAssembly = false
             };
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var context = new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
+            var context = new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var treeView = new TreeViewControl())
             {
@@ -276,15 +275,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class MicrostabilityFailurePathContextInAssemblyTreeNodeInfoTest
-            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, MicrostabilityFailureMechanism, MicrostabilityFailurePathContext>
+        public class PipingStructureFailureMechanismContextInAssemblyTreeNodeInfoTest
+            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, PipingStructureFailureMechanism, PipingStructureFailureMechanismContext>
         {
-            public MicrostabilityFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
+            public PipingStructureFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override MicrostabilityFailurePathContext CreateFailureMechanismContext(MicrostabilityFailureMechanism failureMechanism,
-                                                                                              IAssessmentSection assessmentSection)
+            protected override PipingStructureFailureMechanismContext CreateFailureMechanismContext(PipingStructureFailureMechanism failureMechanism,
+                                                                                                    IAssessmentSection assessmentSection)
             {
-                return new MicrostabilityFailurePathContext(failureMechanism, assessmentSection);
+                return new PipingStructureFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
     }

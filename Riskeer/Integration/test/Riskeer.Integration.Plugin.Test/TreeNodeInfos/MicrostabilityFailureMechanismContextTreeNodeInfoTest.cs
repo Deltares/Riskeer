@@ -38,7 +38,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class GrassCoverSlipOffInwardsFailurePathContextTreeNodeInfoTest
+    public class MicrostabilityFailureMechanismContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private TreeNodeInfo info;
@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(GrassCoverSlipOffInwardsFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(MicrostabilityFailureMechanismContext));
         }
 
         [TearDown]
@@ -93,8 +93,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverSlipOffInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanism = new MicrostabilityFailureMechanism();
+            var failureMechanismContext = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(failureMechanismContext);
@@ -123,8 +123,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
-            var context = new GrassCoverSlipOffInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanism = new MicrostabilityFailureMechanism();
+            var context = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -140,8 +140,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverSlipOffInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanism = new MicrostabilityFailureMechanism();
+            var failureMechanismContext = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -153,7 +153,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputFolder.Category);
 
-            var failureMechanismSectionsContext = (GrassCoverSlipOffInwardsFailureMechanismSectionsContext) inputFolder.Contents.ElementAt(0);
+            var failureMechanismSectionsContext = (MicrostabilityFailureMechanismSectionsContext) inputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.AssessmentSection);
 
@@ -165,7 +165,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             Assert.AreEqual("Oordeel", outputFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputFolder.Category);
 
-            var failureMechanismResultsContext = (GrassCoverSlipOffInwardsFailureMechanismSectionResultContext) outputFolder.Contents.ElementAt(0);
+            var failureMechanismResultsContext = (MicrostabilityFailureMechanismSectionResultContext)
+                outputFolder.Contents.ElementAt(0);
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismResultsContext.AssessmentSection);
@@ -181,12 +182,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism
+            var failureMechanism = new MicrostabilityFailureMechanism
             {
                 InAssembly = false
             };
 
-            var failureMechanismContext = new GrassCoverSlipOffInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -203,9 +204,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             // Setup
             using (var treeView = new TreeViewControl())
             {
-                var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+                var failureMechanism = new MicrostabilityFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new GrassCoverSlipOffInwardsFailurePathContext(failureMechanism, assessmentSection);
+                var context = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -239,12 +240,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_FailureMechanismInAssemblyFalse_CallsContextMenuBuilderMethods()
         {
             // Setup
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism
+            var failureMechanism = new MicrostabilityFailureMechanism
             {
                 InAssembly = false
             };
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var context = new GrassCoverSlipOffInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var treeView = new TreeViewControl())
             {
@@ -275,15 +276,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class GrassCoverSlipOffInwardsFailurePathContextInAssemblyTreeNodeInfoTest
-            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, GrassCoverSlipOffInwardsFailureMechanism, GrassCoverSlipOffInwardsFailurePathContext>
+        public class MicrostabilityFailureMechanismContextInAssemblyTreeNodeInfoTest
+            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, MicrostabilityFailureMechanism, MicrostabilityFailureMechanismContext>
         {
-            public GrassCoverSlipOffInwardsFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
+            public MicrostabilityFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override GrassCoverSlipOffInwardsFailurePathContext CreateFailureMechanismContext(GrassCoverSlipOffInwardsFailureMechanism failureMechanism,
-                                                                                                        IAssessmentSection assessmentSection)
+            protected override MicrostabilityFailureMechanismContext CreateFailureMechanismContext(MicrostabilityFailureMechanism failureMechanism,
+                                                                                                   IAssessmentSection assessmentSection)
             {
-                return new GrassCoverSlipOffInwardsFailurePathContext(failureMechanism, assessmentSection);
+                return new MicrostabilityFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
     }

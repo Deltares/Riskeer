@@ -29,7 +29,7 @@ using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 namespace Riskeer.Integration.Forms.Test.PresentationObjects.StandAlone
 {
     [TestFixture]
-    public class GrassCoverSlipOffInwardsFailurePathContextTest
+    public class WaterPressureAsphaltCoverFailureMechanismContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -39,13 +39,13 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects.StandAlone
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new GrassCoverSlipOffInwardsFailureMechanism();
+            var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
 
             // Call
-            var context = new GrassCoverSlipOffInwardsFailurePathContext(failureMechanism, assessmentSection);
+            var context = new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismContext<GrassCoverSlipOffInwardsFailureMechanism>>(context);
+            Assert.IsInstanceOf<FailureMechanismContext<WaterPressureAsphaltCoverFailureMechanism>>(context);
             Assert.AreSame(assessmentSection, context.Parent);
             Assert.AreSame(failureMechanism, context.WrappedData);
             mocks.VerifyAll();

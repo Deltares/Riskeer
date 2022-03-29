@@ -38,7 +38,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class WaterPressureAsphaltCoverFailurePathContextTreeNodeInfoTest
+    public class WaterPressureAsphaltCoverFailureMechanismContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private TreeNodeInfo info;
@@ -49,7 +49,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RiskeerPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaterPressureAsphaltCoverFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaterPressureAsphaltCoverFailureMechanismContext));
         }
 
         [TearDown]
@@ -94,7 +94,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            var failureMechanismContext = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string text = info.Text(failureMechanismContext);
@@ -124,7 +124,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            var context = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             Color textColor = info.ForeColor(context);
@@ -141,7 +141,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
-            var failureMechanismContext = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -186,7 +186,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 InAssembly = false
             };
 
-            var failureMechanismContext = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(failureMechanismContext).ToArray();
@@ -205,7 +205,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 var failureMechanism = new WaterPressureAsphaltCoverFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+                var context = new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -244,7 +244,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 InAssembly = false
             };
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            var context = new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var treeView = new TreeViewControl())
             {
@@ -275,15 +275,15 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class WaterPressureAsphaltCoverFailurePathContextInAssemblyTreeNodeInfoTest
-            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailurePathContext>
+        public class WaterPressureAsphaltCoverFailureMechanismContextInAssemblyTreeNodeInfoTest
+            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismContext>
         {
-            public WaterPressureAsphaltCoverFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
+            public WaterPressureAsphaltCoverFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override WaterPressureAsphaltCoverFailurePathContext CreateFailureMechanismContext(WaterPressureAsphaltCoverFailureMechanism failureMechanism,
-                                                                                                         IAssessmentSection assessmentSection)
+            protected override WaterPressureAsphaltCoverFailureMechanismContext CreateFailureMechanismContext(WaterPressureAsphaltCoverFailureMechanism failureMechanism,
+                                                                                                              IAssessmentSection assessmentSection)
             {
-                return new WaterPressureAsphaltCoverFailurePathContext(failureMechanism, assessmentSection);
+                return new WaterPressureAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
     }

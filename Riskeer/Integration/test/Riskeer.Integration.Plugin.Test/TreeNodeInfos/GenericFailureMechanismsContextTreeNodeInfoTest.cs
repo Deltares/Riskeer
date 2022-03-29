@@ -188,9 +188,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.MacroStabilityInwards, macroStabilityInwardsFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, macroStabilityInwardsFailureMechanismContext.Parent);
 
-                var microStabilityFailurePathContext = (MicrostabilityFailurePathContext) objects[3];
-                Assert.AreSame(assessmentSection.Microstability, microStabilityFailurePathContext.WrappedData);
-                Assert.AreSame(assessmentSection, microStabilityFailurePathContext.Parent);
+                var microstabilityFailureMechanismContext = (MicrostabilityFailureMechanismContext) objects[3];
+                Assert.AreSame(assessmentSection.Microstability, microstabilityFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, microstabilityFailureMechanismContext.Parent);
 
                 var stabilityStoneCoverFailureMechanismContext = (StabilityStoneCoverFailureMechanismContext) objects[4];
                 Assert.AreSame(assessmentSection.StabilityStoneCover, stabilityStoneCoverFailureMechanismContext.WrappedData);
@@ -200,21 +200,21 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.WaveImpactAsphaltCover, waveImpactAsphaltCoverFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, waveImpactAsphaltCoverFailureMechanismContext.Parent);
 
-                var waterPressureAsphaltCoverFailurePathContext = (WaterPressureAsphaltCoverFailurePathContext) objects[6];
-                Assert.AreSame(assessmentSection.WaterPressureAsphaltCover, waterPressureAsphaltCoverFailurePathContext.WrappedData);
-                Assert.AreSame(assessmentSection, waterPressureAsphaltCoverFailurePathContext.Parent);
+                var waterPressureAsphaltCoverFailureMechanismContext = (WaterPressureAsphaltCoverFailureMechanismContext) objects[6];
+                Assert.AreSame(assessmentSection.WaterPressureAsphaltCover, waterPressureAsphaltCoverFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, waterPressureAsphaltCoverFailureMechanismContext.Parent);
 
                 var grassCoverErosionOutwardsFailureMechanismContext = (GrassCoverErosionOutwardsFailureMechanismContext) objects[7];
                 Assert.AreSame(assessmentSection.GrassCoverErosionOutwards, grassCoverErosionOutwardsFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, grassCoverErosionOutwardsFailureMechanismContext.Parent);
 
-                var grassCoverSlipOffOutwardsFailurePathContext = (GrassCoverSlipOffOutwardsFailurePathContext) objects[8];
-                Assert.AreSame(assessmentSection.GrassCoverSlipOffOutwards, grassCoverSlipOffOutwardsFailurePathContext.WrappedData);
-                Assert.AreSame(assessmentSection, grassCoverSlipOffOutwardsFailurePathContext.Parent);
+                var grassCoverSlipOffOutwardsFailureMechanismContext = (GrassCoverSlipOffOutwardsFailureMechanismContext) objects[8];
+                Assert.AreSame(assessmentSection.GrassCoverSlipOffOutwards, grassCoverSlipOffOutwardsFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, grassCoverSlipOffOutwardsFailureMechanismContext.Parent);
 
-                var grassCoverSlipOffInwardsFailurePathContext = (GrassCoverSlipOffInwardsFailurePathContext) objects[9];
-                Assert.AreSame(assessmentSection.GrassCoverSlipOffInwards, grassCoverSlipOffInwardsFailurePathContext.WrappedData);
-                Assert.AreSame(assessmentSection, grassCoverSlipOffInwardsFailurePathContext.Parent);
+                var grassCoverSlipOffInwardsFailureMechanismContext = (GrassCoverSlipOffInwardsFailureMechanismContext) objects[9];
+                Assert.AreSame(assessmentSection.GrassCoverSlipOffInwards, grassCoverSlipOffInwardsFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, grassCoverSlipOffInwardsFailureMechanismContext.Parent);
 
                 var heightStructuresFailureMechanismContext = (HeightStructuresFailureMechanismContext) objects[10];
                 Assert.AreSame(assessmentSection.HeightStructures, heightStructuresFailureMechanismContext.WrappedData);
@@ -224,9 +224,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.ClosingStructures, closingStructuresFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, closingStructuresFailureMechanismContext.Parent);
 
-                var pipingStructureFailurePathContext = (PipingStructureFailurePathContext) objects[12];
-                Assert.AreSame(assessmentSection.PipingStructure, pipingStructureFailurePathContext.WrappedData);
-                Assert.AreSame(assessmentSection, pipingStructureFailurePathContext.Parent);
+                var pipingStructureFailureMechanismContext = (PipingStructureFailureMechanismContext) objects[12];
+                Assert.AreSame(assessmentSection.PipingStructure, pipingStructureFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, pipingStructureFailureMechanismContext.Parent);
 
                 var stabilityPointStructuresFailureMechanismContext = (StabilityPointStructuresFailureMechanismContext) objects[13];
                 Assert.AreSame(assessmentSection.StabilityPointStructures, stabilityPointStructuresFailureMechanismContext.WrappedData);
