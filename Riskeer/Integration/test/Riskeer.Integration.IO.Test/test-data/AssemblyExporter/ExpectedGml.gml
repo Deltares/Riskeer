@@ -22,12 +22,10 @@
       <asm:eindJaarBeoordelingsronde>2035</asm:eindJaarBeoordelingsronde>
     </asm:Beoordelingsproces>
     <asm:Veiligheidsoordeel VeiligheidsoordeelID="Vo.0" BeoordelingsprocesIDRef="Bp.0">
-      <asm:veiligheidsoordeel>
-        <asm:assemblagemethode>WBI-2B-1</asm:assemblagemethode>
-        <asm:categorie>A+</asm:categorie>
-        <asm:faalkans>0.14</asm:faalkans>
-        <asm:status>VOLLDG</asm:status>
-      </asm:veiligheidsoordeel>
+      <asm:assemblagemethode>WBI-2B-1</asm:assemblagemethode>
+      <asm:categorie>A+</asm:categorie>
+      <asm:faalkans>0.14</asm:faalkans>
+      <asm:status>VOLLDG</asm:status>
     </asm:Veiligheidsoordeel>
     <asm:Faalmechanisme FaalmechanismeID="Fm.0" VeiligheidsoordeelIDRef="Vo.0">
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
