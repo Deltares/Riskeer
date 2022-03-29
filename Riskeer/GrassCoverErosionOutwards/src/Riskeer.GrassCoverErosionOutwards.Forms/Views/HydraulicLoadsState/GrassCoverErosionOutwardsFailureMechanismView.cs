@@ -36,10 +36,10 @@ using Riskeer.GrassCoverErosionOutwards.Forms.Factories;
 using Riskeer.Revetment.Data;
 using GrassCoverErosionOutwardsDataResources = Riskeer.GrassCoverErosionOutwards.Data.Properties.Resources;
 
-namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Views.HydraulicLoadsState
 {
     /// <summary>
-    /// This class is a view showing map data for a grass cover erosion outwards failure mechanism.
+    /// Hydraulic loads state view showing map data for a grass cover erosion outwards failure mechanism.
     /// </summary>
     public partial class GrassCoverErosionOutwardsFailureMechanismView : UserControl, IMapView
     {

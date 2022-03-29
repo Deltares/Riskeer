@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,9 +27,9 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
-using Riskeer.GrassCoverErosionOutwards.Forms.Views;
+using Riskeer.GrassCoverErosionOutwards.Forms.Views.HydraulicLoadsState;
 
-namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
+namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos.HydraulicLoadsState
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismViewInfoTest
@@ -80,7 +78,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnGrassCoverErosionOutwardsFailureMechanismView()
         {
             // Setup
@@ -89,18 +86,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
             var context = new GrassCoverErosionOutwardsHydraulicLoadsContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as GrassCoverErosionOutwardsFailureMechanismView;
+            // Call
+            var view = (GrassCoverErosionOutwardsFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
     }
 }

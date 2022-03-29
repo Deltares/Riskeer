@@ -36,10 +36,11 @@ using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
-using Riskeer.GrassCoverErosionOutwards.Forms.Views;
 using Riskeer.Revetment.Forms.Views;
 using HydraulicLoadsStateFailureMechanismProperties = Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses.HydraulicLoadsState.GrassCoverErosionOutwardsFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses.RegistrationState.GrassCoverErosionOutwardsFailureMechanismProperties;
+using HydraulicLoadsStateFailureMechanismView = Riskeer.GrassCoverErosionOutwards.Forms.Views.HydraulicLoadsState.GrassCoverErosionOutwardsFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.GrassCoverErosionOutwards.Forms.Views.RegistrationState.GrassCoverErosionOutwardsFailureMechanismView;
 
 namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
 {
@@ -70,9 +71,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
             mockRepository.ReplayAll();
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin
-                   {
-                       Gui = gui
-                   })
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -83,12 +84,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverErosionOutwardsHydraulicLoadsContext),
-                    typeof(GrassCoverErosionOutwardsFailureMechanismView));
+                    typeof(HydraulicLoadsStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverErosionOutwardsFailurePathContext),
-                    typeof(GrassCoverErosionOutwardsFailurePathView));
+                    typeof(RegistrationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -179,9 +180,9 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test
             mocks.ReplayAll();
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin
-                   {
-                       Gui = gui
-                   })
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();

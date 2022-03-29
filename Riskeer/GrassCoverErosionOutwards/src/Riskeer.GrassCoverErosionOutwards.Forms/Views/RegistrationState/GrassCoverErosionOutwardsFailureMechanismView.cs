@@ -30,12 +30,12 @@ using Riskeer.Common.Forms.MapLayers;
 using Riskeer.GrassCoverErosionOutwards.Data;
 using GrassCoverErosionOutwardsDataResources = Riskeer.GrassCoverErosionOutwards.Data.Properties.Resources;
 
-namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Views.RegistrationState
 {
     /// <summary>
-    /// This class is a view showing map data for a grass cover erosion outwards failure path.
+    /// Registration state view showing map data for a grass cover erosion outwards failure mechanism.
     /// </summary>
-    public class GrassCoverErosionOutwardsFailurePathView : GrassCoverErosionOutwardsFailureMechanismView
+    public class GrassCoverErosionOutwardsFailureMechanismView : HydraulicLoadsState.GrassCoverErosionOutwardsFailureMechanismView
     {
         private MapLineData sectionsMapData;
         private MapPointData sectionsStartPointMapData;
@@ -46,13 +46,13 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views
         private Observer failureMechanismObserver;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailurePathView"/>.
+        /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismView"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to show the data for.</param>
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsFailurePathView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                        IAssessmentSection assessmentSection) 
+        public GrassCoverErosionOutwardsFailureMechanismView(GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                             IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
 
         protected override void Dispose(bool disposing)

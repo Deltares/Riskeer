@@ -38,9 +38,9 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.GrassCoverErosionOutwards.Data;
-using Riskeer.GrassCoverErosionOutwards.Forms.Views;
+using Riskeer.GrassCoverErosionOutwards.Forms.Views.HydraulicLoadsState;
 
-namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views
+namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.Views.HydraulicLoadsState
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismViewTest
