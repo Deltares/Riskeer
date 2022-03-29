@@ -29,6 +29,7 @@ using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.Probabilistic;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Piping.Forms.PresentationObjects.Probabilistic;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Primitives;
@@ -295,7 +296,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            var context = new PipingCalculationsContext(failureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new PipingInputView
             {
@@ -322,7 +323,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
 
-            var context = new PipingCalculationsContext(new PipingFailureMechanism(), assessmentSection);
+            var context = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
             using (var view = new PipingInputView
             {
@@ -352,7 +353,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            var context = new PipingCalculationsContext(failureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new PipingInputView
             {
@@ -382,7 +383,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
-            var context = new PipingCalculationsContext(new PipingFailureMechanism(), assessmentSection);
+            var context = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
             using (var view = new PipingInputView
             {

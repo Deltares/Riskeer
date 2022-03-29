@@ -38,7 +38,7 @@ using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.PresentationObjects;
 using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState;
-using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.RegistrationState;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -176,9 +176,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 // Assert
                 Assert.AreEqual(15, objects.Length);
-                var pipingFailurePathContext = (PipingFailurePathContext) objects[0];
-                Assert.AreSame(assessmentSection.Piping, pipingFailurePathContext.WrappedData);
-                Assert.AreSame(assessmentSection, pipingFailurePathContext.Parent);
+                var pipingFailureMechanismContext = (PipingFailureMechanismContext) objects[0];
+                Assert.AreSame(assessmentSection.Piping, pipingFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, pipingFailureMechanismContext.Parent);
 
                 var grassCoverErosionInwardsFailureMechanismContext = (GrassCoverErosionInwardsFailureMechanismContext) objects[1];
                 Assert.AreSame(assessmentSection.GrassCoverErosionInwards, grassCoverErosionInwardsFailureMechanismContext.WrappedData);

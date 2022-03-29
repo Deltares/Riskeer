@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.RegistrationState;
 using Riskeer.Piping.Forms.PropertyClasses.RegistrationState;
 
 namespace Riskeer.Piping.Plugin.Test.PropertyInfos.RegistrationState
@@ -54,7 +54,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.RegistrationState
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingFailurePathContext), info.DataType);
+            Assert.AreEqual(typeof(PipingFailureMechanismContext), info.DataType);
             Assert.AreEqual(typeof(PipingFailureMechanismProperties), info.PropertyObjectType);
         }
 
@@ -67,7 +67,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.RegistrationState
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             IObjectProperties objectProperties = info.CreateInstance(context);

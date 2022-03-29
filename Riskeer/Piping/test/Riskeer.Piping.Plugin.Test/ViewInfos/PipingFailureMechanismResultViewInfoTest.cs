@@ -31,6 +31,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.RegistrationState;
 using Riskeer.Piping.Forms.Views;
 
 namespace Riskeer.Piping.Plugin.Test.ViewInfos
@@ -217,7 +218,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
@@ -242,7 +243,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             using (var view = new PipingFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection))
             {
-                var context = new PipingFailurePathContext(
+                var context = new PipingFailureMechanismContext(
                     new PipingFailureMechanism(),
                     assessmentSection);
 

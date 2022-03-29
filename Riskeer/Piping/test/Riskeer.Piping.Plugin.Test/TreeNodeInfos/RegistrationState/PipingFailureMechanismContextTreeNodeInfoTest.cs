@@ -34,12 +34,13 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.RegistrationState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
+namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.RegistrationState
 {
     [TestFixture]
-    public class PipingFailurePathContextTreeNodeInfoTest
+    public class PipingFailureMechanismContextTreeNodeInfoTest
     {
         private PipingPlugin plugin;
         private TreeNodeInfo info;
@@ -48,7 +49,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
         public void Setup()
         {
             plugin = new PipingPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(PipingFailureMechanismContext));
         }
 
         [TearDown]
@@ -89,7 +90,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new PipingFailurePathContext(new PipingFailureMechanism(), assessmentSection);
+            var context = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -115,7 +116,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -166,7 +167,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             {
                 InAssembly = false
             };
-            var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -190,7 +191,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new PipingFailureMechanism();
-                var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -233,7 +234,7 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
                 {
                     InAssembly = false
                 };
-                var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -263,14 +264,14 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos
 
         [TestFixture]
         public class PipingFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<PipingPlugin, PipingFailureMechanism, PipingFailurePathContext>
+            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<PipingPlugin, PipingFailureMechanism, PipingFailureMechanismContext>
         {
             public PipingFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override PipingFailurePathContext CreateFailureMechanismContext(PipingFailureMechanism failureMechanism,
-                                                                                      IAssessmentSection assessmentSection)
+            protected override PipingFailureMechanismContext CreateFailureMechanismContext(PipingFailureMechanism failureMechanism,
+                                                                                           IAssessmentSection assessmentSection)
             {
-                return new PipingFailurePathContext(failureMechanism, assessmentSection);
+                return new PipingFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
     }

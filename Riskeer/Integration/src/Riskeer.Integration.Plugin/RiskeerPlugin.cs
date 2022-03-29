@@ -89,7 +89,6 @@ using Riskeer.Integration.Plugin.Merge;
 using Riskeer.Integration.Plugin.Properties;
 using Riskeer.Integration.Service;
 using Riskeer.Integration.Service.Comparers;
-using Riskeer.Piping.Forms.PresentationObjects;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -107,6 +106,8 @@ using HeightStructuresCalculationsStateFailureMechanismContext = Riskeer.HeightS
 using HeightStructuresRegistrationStateFailureMechanismContext = Riskeer.HeightStructures.Forms.PresentationObjects.RegistrationState.HeightStructuresFailureMechanismContext;
 using MacroStabilityInwardsCalculationsStateFailureMechanismContext = Riskeer.MacroStabilityInwards.Forms.PresentationObjects.CalculationsState.MacroStabilityInwardsFailureMechanismContext;
 using MacroStabilityInwardsRegistrationStateFailureMechanismContext = Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState.MacroStabilityInwardsFailureMechanismContext;
+using PipingCalculationsStateFailureMechanismContext = Riskeer.Piping.Forms.PresentationObjects.CalculationsState.PipingFailureMechanismContext;
+using PipingRegistrationStateFailureMechanismContext = Riskeer.Piping.Forms.PresentationObjects.RegistrationState.PipingFailureMechanismContext;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
 using RiskeerCommonUtilResources = Riskeer.Common.Util.Properties.Resources;
@@ -1779,7 +1780,7 @@ namespace Riskeer.Integration.Plugin
 
             return new object[]
             {
-                new PipingCalculationsContext(assessmentSection.Piping, assessmentSection),
+                new PipingCalculationsStateFailureMechanismContext(assessmentSection.Piping, assessmentSection),
                 new GrassCoverErosionInwardsCalculationsStateFailureMechanismContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
                 new MacroStabilityInwardsCalculationsStateFailureMechanismContext(assessmentSection.MacroStabilityInwards, assessmentSection),
                 new HeightStructuresCalculationsStateFailureMechanismContext(assessmentSection.HeightStructures, assessmentSection),
@@ -1856,7 +1857,7 @@ namespace Riskeer.Integration.Plugin
             AssessmentSection assessmentSection = nodeData.WrappedData;
             return new object[]
             {
-                new PipingFailurePathContext(assessmentSection.Piping, assessmentSection),
+                new PipingRegistrationStateFailureMechanismContext(assessmentSection.Piping, assessmentSection),
                 new GrassCoverErosionInwardsRegistrationStateFailureMechanismContext(assessmentSection.GrassCoverErosionInwards, assessmentSection),
                 new MacroStabilityInwardsRegistrationStateFailureMechanismContext(assessmentSection.MacroStabilityInwards, assessmentSection),
                 new MicrostabilityFailurePathContext(assessmentSection.Microstability, assessmentSection),

@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.RegistrationState;
 using Riskeer.Piping.Forms.Views.RegistrationState;
 
 namespace Riskeer.Piping.Plugin.Test.ViewInfos.RegistrationState
@@ -56,8 +56,8 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.RegistrationState
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingFailurePathContext), info.DataType);
-            Assert.AreEqual(typeof(PipingFailurePathContext), info.ViewDataType);
+            Assert.AreEqual(typeof(PipingFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(PipingFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.RegistrationState
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -92,7 +92,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.RegistrationState
                 InAssembly = inAssembly
             };
 
-            var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             bool result = info.AdditionalDataCheck(context);
@@ -109,7 +109,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.RegistrationState
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new PipingFailurePathContext(failureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             var view = (PipingFailureMechanismView) info.CreateInstance(context);

@@ -24,20 +24,20 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Piping.Data;
 
-namespace Riskeer.Piping.Forms.PresentationObjects
+namespace Riskeer.Piping.Forms.PresentationObjects.CalculationsState
 {
     /// <summary>
-    /// Presentation object for the failure path of <see cref="PipingFailureMechanism"/>.
+    /// Presentation object for <see cref="PipingFailureMechanism"/> in the calculations state.
     /// </summary>
-    public class PipingFailurePathContext : FailureMechanismContext<PipingFailureMechanism>
+    public class PipingFailureMechanismContext : FailureMechanismContext<PipingFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="PipingFailurePathContext"/>.
+        /// Creates a new instance of <see cref="PipingFailureMechanismContext"/>.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailurePathContext(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) 
+        public PipingFailureMechanismContext(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) 
             : base(failureMechanism, assessmentSection) {}
     }
 }

@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Piping.Data;
-using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Piping.Forms.Views.CalculationsState;
 
 namespace Riskeer.Piping.Plugin.Test.ViewInfos.CalculationsState
@@ -56,8 +56,8 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.CalculationsState
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(PipingCalculationsContext), info.DataType);
-            Assert.AreEqual(typeof(PipingCalculationsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(PipingFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(PipingFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.CalculationsState
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
-            var context = new PipingCalculationsContext(failureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -85,7 +85,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos.CalculationsState
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new PipingFailureMechanism();
 
-            var context = new PipingCalculationsContext(failureMechanism, assessmentSection);
+            var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             var view = (PipingFailureMechanismView) info.CreateInstance(context);

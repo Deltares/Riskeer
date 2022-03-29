@@ -29,6 +29,7 @@ using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Piping.Data;
 using Riskeer.Piping.Data.SoilProfile;
 using Riskeer.Piping.Forms.PresentationObjects;
+using Riskeer.Piping.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Piping.Forms.Views;
 using Riskeer.Piping.Primitives;
 
@@ -232,7 +233,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
 
             using (var view = new PipingCalculationsView(new CalculationGroup(), new PipingFailureMechanism(), assessmentSection))
             {
-                var context = new PipingCalculationsContext(new PipingFailureMechanism(), assessmentSection);
+                var context = new PipingFailureMechanismContext(new PipingFailureMechanism(), assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -256,7 +257,7 @@ namespace Riskeer.Piping.Plugin.Test.ViewInfos
             var failureMechanism = new PipingFailureMechanism();
             using (var view = new PipingCalculationsView(failureMechanism.CalculationsGroup, failureMechanism, assessmentSection))
             {
-                var context = new PipingCalculationsContext(failureMechanism, assessmentSection);
+                var context = new PipingFailureMechanismContext(failureMechanism, assessmentSection);
 
                 // Call
                 bool closeForData = info.CloseForData(view, context);
