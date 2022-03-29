@@ -24,11 +24,12 @@ using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
+using Riskeer.MacroStabilityInwards.Forms.PropertyClasses.CalculationsState;
 
-namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses.CalculationsState
 {
     [TestFixture]
-    public class MacroStabilityInwardsCalculationsPropertiesTest
+    public class MacroStabilityInwardsFailureMechanismPropertiesTest
     {
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
@@ -42,10 +43,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsFailureMechanismProperties>(properties);
+            Assert.IsInstanceOf<MacroStabilityInwardsFailureMechanismPropertiesBase>(properties);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
 
@@ -62,7 +63,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var properties = new MacroStabilityInwardsCalculationsProperties(failureMechanism);
+            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism);
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

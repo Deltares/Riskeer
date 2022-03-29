@@ -61,6 +61,8 @@ using Riskeer.MacroStabilityInwards.Plugin.FileImporter;
 using Riskeer.MacroStabilityInwards.Plugin.Properties;
 using Riskeer.MacroStabilityInwards.Primitives;
 using Riskeer.MacroStabilityInwards.Service;
+using CalculationsStateFailureMechanismProperties = Riskeer.MacroStabilityInwards.Forms.PropertyClasses.CalculationsState.MacroStabilityInwardsFailureMechanismProperties;
+using RegistrationStateFailureMechanismProperties = Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState.MacroStabilityInwardsFailureMechanismProperties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
 using RiskeerCommonIOResources = Riskeer.Common.IO.Properties.Resources;
@@ -75,19 +77,19 @@ namespace Riskeer.MacroStabilityInwards.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<MacroStabilityInwardsCalculationsContext, MacroStabilityInwardsCalculationsProperties>
+            yield return new PropertyInfo<MacroStabilityInwardsCalculationsContext, CalculationsStateFailureMechanismProperties>
             {
-                CreateInstance = context => new MacroStabilityInwardsCalculationsProperties(context.WrappedData)
+                CreateInstance = context => new CalculationsStateFailureMechanismProperties(context.WrappedData)
             };
-            yield return new PropertyInfo<MacroStabilityInwardsFailurePathContext, MacroStabilityInwardsFailurePathProperties>
+            yield return new PropertyInfo<MacroStabilityInwardsFailurePathContext, RegistrationStateFailureMechanismProperties>
             {
-                CreateInstance = context => new MacroStabilityInwardsFailurePathProperties(context.WrappedData, context.Parent)
+                CreateInstance = context => new RegistrationStateFailureMechanismProperties(context.WrappedData, context.Parent)
             };
             yield return new PropertyInfo<MacroStabilityInwardsInputContext, MacroStabilityInwardsInputContextProperties>
             {
-                CreateInstance = context => new MacroStabilityInwardsInputContextProperties(context,
-                                                                                            () => GetNormativeAssessmentLevel(context.AssessmentSection, context.MacroStabilityInwardsCalculation),
-                                                                                            new ObservablePropertyChangeHandler(context.MacroStabilityInwardsCalculation, context.WrappedData))
+                CreateInstance = context => new MacroStabilityInwardsInputContextProperties(
+                    context, () => GetNormativeAssessmentLevel(context.AssessmentSection, context.MacroStabilityInwardsCalculation),
+                    new ObservablePropertyChangeHandler(context.MacroStabilityInwardsCalculation, context.WrappedData))
             };
             yield return new PropertyInfo<MacroStabilityInwardsOutputContext, MacroStabilityInwardsOutputProperties>
             {
@@ -113,7 +115,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             yield return new PropertyInfo<MacroStabilityInwardsFailureMechanismSectionsContext, FailureMechanismSectionsProbabilityAssessmentProperties>
             {
                 CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentProperties(
-                    (IFailureMechanism) context.WrappedData, ((MacroStabilityInwardsFailureMechanism) context.WrappedData).MacroStabilityInwardsProbabilityAssessmentInput)
+                    context.WrappedData, ((MacroStabilityInwardsFailureMechanism) context.WrappedData).MacroStabilityInwardsProbabilityAssessmentInput)
             };
         }
 
@@ -310,9 +312,9 @@ namespace Riskeer.MacroStabilityInwards.Plugin
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
                 CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
-                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(context.WrappedData.Sections,
-                                                                                                  (IFailureMechanism) context.WrappedData,
-                                                                                                  ((MacroStabilityInwardsFailureMechanism) context.WrappedData).MacroStabilityInwardsProbabilityAssessmentInput),
+                CreateInstance = context => new FailureMechanismSectionsProbabilityAssessmentView(
+                    context.WrappedData.Sections, context.WrappedData,
+                    ((MacroStabilityInwardsFailureMechanism) context.WrappedData).MacroStabilityInwardsProbabilityAssessmentInput),
                 GetViewData = context => context.WrappedData.Sections
             };
         }
@@ -751,10 +753,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
 
             foreach (ICalculationBase item in nodeData.WrappedData.Children)
             {
-                var calculation = item as MacroStabilityInwardsCalculationScenario;
-                var group = item as CalculationGroup;
-
-                if (calculation != null)
+                if (item is MacroStabilityInwardsCalculationScenario calculation)
                 {
                     childNodeObjects.Add(new MacroStabilityInwardsCalculationScenarioContext(calculation,
                                                                                              nodeData.WrappedData,
@@ -763,7 +762,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin
                                                                                              nodeData.FailureMechanism,
                                                                                              nodeData.AssessmentSection));
                 }
-                else if (group != null)
+                else if (item is CalculationGroup @group)
                 {
                     childNodeObjects.Add(new MacroStabilityInwardsCalculationGroupContext(group,
                                                                                           nodeData.WrappedData,

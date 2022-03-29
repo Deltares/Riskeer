@@ -30,20 +30,21 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="MacroStabilityInwardsFailureMechanism"/> for properties panel.
+    /// Base ViewModel of <see cref="MacroStabilityInwardsFailureMechanism"/> for properties panel.
     /// </summary>
-    public class MacroStabilityInwardsFailureMechanismProperties : ObjectProperties<MacroStabilityInwardsFailureMechanism>
+    public abstract class MacroStabilityInwardsFailureMechanismPropertiesBase : ObjectProperties<MacroStabilityInwardsFailureMechanism>
     {
         private readonly Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismPropertiesBase"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
-        /// <param name="constructionProperties">The property values required to create an instance of <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.</param>
+        /// <param name="constructionProperties">The property values required to create an instance of
+        /// <see cref="MacroStabilityInwardsFailureMechanismPropertiesBase"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public MacroStabilityInwardsFailureMechanismProperties(MacroStabilityInwardsFailureMechanism data,
-                                                               ConstructionProperties constructionProperties)
+        protected MacroStabilityInwardsFailureMechanismPropertiesBase(MacroStabilityInwardsFailureMechanism data,
+                                                                      ConstructionProperties constructionProperties)
         {
             if (data == null)
             {
@@ -77,19 +78,19 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         }
 
         /// <summary>
-        /// Class holding the various construction parameters for <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.
+        /// Class holding the various construction parameters for <see cref="MacroStabilityInwardsFailureMechanismPropertiesBase"/>.
         /// </summary>
         public class ConstructionProperties
         {
             #region General
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.Name"/>.
+            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismPropertiesBase.Name"/>.
             /// </summary>
             public int NamePropertyIndex { get; set; }
 
             /// <summary>
-            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismProperties.Code"/>.
+            /// Gets or sets the property index for <see cref="MacroStabilityInwardsFailureMechanismPropertiesBase.Code"/>.
             /// </summary>
             public int CodePropertyIndex { get; set; }
 

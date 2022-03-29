@@ -27,12 +27,12 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects;
-using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
+using Riskeer.MacroStabilityInwards.Forms.PropertyClasses.RegistrationState;
 
-namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
+namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos.RegistrationState
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailurePathPropertyInfoTest
+    public class MacroStabilityInwardsFailureMechanismPropertyInfoTest
     {
         private MacroStabilityInwardsPlugin plugin;
         private PropertyInfo info;
@@ -41,7 +41,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
         public void SetUp()
         {
             plugin = new MacroStabilityInwardsPlugin();
-            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(MacroStabilityInwardsFailurePathProperties));
+            info = plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(MacroStabilityInwardsFailureMechanismProperties));
         }
 
         [TearDown]
@@ -55,7 +55,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
         {
             // Assert
             Assert.AreEqual(typeof(MacroStabilityInwardsFailurePathContext), info.DataType);
-            Assert.AreEqual(typeof(MacroStabilityInwardsFailurePathProperties), info.PropertyObjectType);
+            Assert.AreEqual(typeof(MacroStabilityInwardsFailureMechanismProperties), info.PropertyObjectType);
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
             IObjectProperties objectProperties = info.CreateInstance(context);
 
             // Assert
-            Assert.IsInstanceOf<MacroStabilityInwardsFailurePathProperties>(objectProperties);
+            Assert.IsInstanceOf<MacroStabilityInwardsFailureMechanismProperties>(objectProperties);
             Assert.AreSame(failureMechanism, objectProperties.Data);
             mocks.VerifyAll();
         }

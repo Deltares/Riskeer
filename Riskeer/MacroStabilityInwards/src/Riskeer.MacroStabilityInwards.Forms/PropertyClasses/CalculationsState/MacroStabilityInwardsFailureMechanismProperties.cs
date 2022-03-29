@@ -26,12 +26,12 @@ using Riskeer.MacroStabilityInwards.Data;
 using Riskeer.MacroStabilityInwards.Forms.Properties;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
+namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses.CalculationsState
 {
     /// <summary>
-    /// Calculation related ViewModel of <see cref="MacroStabilityInwardsFailureMechanism"/> for properties panel.
+    /// Calculations state related ViewModel of <see cref="MacroStabilityInwardsFailureMechanism"/> for properties panel.
     /// </summary>
-    public class MacroStabilityInwardsCalculationsProperties : MacroStabilityInwardsFailureMechanismProperties
+    public class MacroStabilityInwardsFailureMechanismProperties : MacroStabilityInwardsFailureMechanismPropertiesBase
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -39,12 +39,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.PropertyClasses
         private const int modelFactorPropertyIndex = 4;
 
         /// <summary>
-        /// Creates a new instance of <see cref="MacroStabilityInwardsCalculationsProperties"/>.
+        /// Creates a new instance of <see cref="MacroStabilityInwardsFailureMechanismProperties"/>.
         /// </summary>
         /// <param name="data">The instance to show the properties of.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="data"/> is <c>null</c>.</exception>
-        public MacroStabilityInwardsCalculationsProperties(MacroStabilityInwardsFailureMechanism data) :
-            base(data, new ConstructionProperties
+        public MacroStabilityInwardsFailureMechanismProperties(MacroStabilityInwardsFailureMechanism data)
+            : base(data, new ConstructionProperties
             {
                 NamePropertyIndex = namePropertyIndex,
                 CodePropertyIndex = codePropertyIndex

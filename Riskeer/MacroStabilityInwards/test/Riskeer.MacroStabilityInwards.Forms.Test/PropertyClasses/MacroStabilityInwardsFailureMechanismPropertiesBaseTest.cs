@@ -30,7 +30,7 @@ using Riskeer.MacroStabilityInwards.Forms.PropertyClasses;
 namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class MacroStabilityInwardsFailureMechanismPropertiesTest
+    public class MacroStabilityInwardsFailureMechanismPropertiesBaseTest
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 0;
@@ -39,7 +39,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismProperties(null, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties());
+            void Call() => new TestMacroStabilityInwardsFailureMechanismProperties(
+                null, new MacroStabilityInwardsFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -50,7 +51,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ConstructionPropertiesNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new MacroStabilityInwardsFailureMechanismProperties(new MacroStabilityInwardsFailureMechanism(), null);
+            void Call() => new TestMacroStabilityInwardsFailureMechanismProperties(
+                new MacroStabilityInwardsFailureMechanism(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -64,7 +66,8 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties());
+            var properties = new TestMacroStabilityInwardsFailureMechanismProperties(
+                failureMechanism, new MacroStabilityInwardsFailureMechanismPropertiesBase.ConstructionProperties());
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<MacroStabilityInwardsFailureMechanism>>(properties);
@@ -79,11 +82,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             var failureMechanism = new MacroStabilityInwardsFailureMechanism();
 
             // Call
-            var properties = new MacroStabilityInwardsFailureMechanismProperties(failureMechanism, new MacroStabilityInwardsFailureMechanismProperties.ConstructionProperties
-            {
-                NamePropertyIndex = namePropertyIndex,
-                CodePropertyIndex = codePropertyIndex
-            });
+            var properties = new TestMacroStabilityInwardsFailureMechanismProperties(
+                failureMechanism, new MacroStabilityInwardsFailureMechanismPropertiesBase.ConstructionProperties
+                {
+                    NamePropertyIndex = namePropertyIndex,
+                    CodePropertyIndex = codePropertyIndex
+                });
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
@@ -104,6 +108,12 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
                                                                             "Label",
                                                                             "Het label van het faalmechanisme.",
                                                                             true);
+        }
+
+        private class TestMacroStabilityInwardsFailureMechanismProperties : MacroStabilityInwardsFailureMechanismPropertiesBase
+        {
+            public TestMacroStabilityInwardsFailureMechanismProperties(MacroStabilityInwardsFailureMechanism data, ConstructionProperties constructionProperties)
+                : base(data, constructionProperties) {}
         }
     }
 }
