@@ -249,7 +249,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             AssertSerializableFailureMechanismSection($"Bv.{expectedId}",
                                                       failureMechanismSectionCollection,
                                                       serializableFailureMechanismSection);
-            AssertSerializableFailureMechanismSectionAssembly($"F.{expectedId}",
+            AssertSerializableFailureMechanismSectionAssembly($"Fa.{expectedId}",
                                                               failureMechanism,
                                                               serializableFailureMechanismSection,
                                                               (SerializableFailureMechanismSectionAssembly) serializableAssemblyFeatureMembers[indexSerializableFailureMechanism + 4]);

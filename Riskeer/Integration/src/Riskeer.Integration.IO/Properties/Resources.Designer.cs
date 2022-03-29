@@ -317,7 +317,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to F.
+        ///   Looks up a localized string similar to Fa.
         /// </summary>
         public static string SerializableFailureMechanismSectionAssembly_IdPrefix {
             get {

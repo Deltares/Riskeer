@@ -167,7 +167,7 @@ namespace Riskeer.Integration.IO.Test.Creators
 
                 ExportableFailureMechanismSectionAssemblyWithProbabilityResult expectedSectionAssemblyResult = expectedSectionAssemblyResults.ElementAt(i);
                 SerializableFailureMechanismSectionAssembly actualSectionAssemblyResult = serializableFailureMechanismSectionAssemblies.ElementAt(i);
-                Assert.AreEqual($"F.{sectionAssemblyId++}", actualSectionAssemblyResult.Id);
+                Assert.AreEqual($"Fa.{sectionAssemblyId++}", actualSectionAssemblyResult.Id);
                 Assert.AreEqual(expectedSerializableFailureMechanism.Id, actualSectionAssemblyResult.FailureMechanismId);
 
                 Assert.AreEqual(actualSection.Id, actualSectionAssemblyResult.FailureMechanismSectionId);
