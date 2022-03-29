@@ -23,7 +23,6 @@ using System;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model;
-using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.AssemblyTool.IO.TestUtil;
 
@@ -54,23 +53,29 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             SerializableAttributeTestHelper.AssertXmlAttributeAttribute<SerializableTotalAssemblyResult>(
                 nameof(SerializableTotalAssemblyResult.AssessmentProcessId), "BeoordelingsprocesIDRef");
 
-            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
-                nameof(SerializableAssessmentSectionAssemblyResult.AssemblyMethod), "assemblagemethode");
-            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
-                nameof(SerializableAssessmentSectionAssemblyResult.AssemblyGroup), "categorie");
-            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
-                nameof(SerializableAssessmentSectionAssemblyResult.Probability), "faalkans");
-            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableAssessmentSectionAssemblyResult>(
-                nameof(SerializableAssessmentSectionAssemblyResult.Status), "status");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableTotalAssemblyResult>(
+                nameof(SerializableTotalAssemblyResult.AssemblyMethod), "assemblagemethode");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableTotalAssemblyResult>(
+                nameof(SerializableTotalAssemblyResult.AssemblyGroup), "categorie");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableTotalAssemblyResult>(
+                nameof(SerializableTotalAssemblyResult.Probability), "faalkans");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableTotalAssemblyResult>(
+                nameof(SerializableTotalAssemblyResult.Status), "status");
         }
 
         [Test]
         [TestCaseSource(typeof(InvalidIdTestHelper), nameof(InvalidIdTestHelper.InvalidIdCases))]
         public void Constructor_InvalidId_ThrowsArgumentException(string invalidId)
         {
+            // Setup
+            var random = new Random();
+
             // Call
-            void Call() => new SerializableTotalAssemblyResult(invalidId, new SerializableAssessmentProcess(),
-                                                               new SerializableAssessmentSectionAssemblyResult());
+            void Call() => new SerializableTotalAssemblyResult(invalidId,
+                                                               new SerializableAssessmentProcess(),
+                                                               random.NextEnumValue<SerializableAssemblyMethod>(),
+                                                               random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>(),
+                                                               random.NextDouble());
 
             // Assert
             const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
@@ -80,23 +85,19 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
         [Test]
         public void Constructor_AssessmentProcessNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var random = new Random();
+
             // Call
-            void Call() => new SerializableTotalAssemblyResult("id", null, new SerializableAssessmentSectionAssemblyResult());
+            void Call() => new SerializableTotalAssemblyResult("id",
+                                                               null,
+                                                               random.NextEnumValue<SerializableAssemblyMethod>(),
+                                                               random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>(),
+                                                               random.NextDouble());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentProcess", exception.ParamName);
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionAssemblyResultNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => new SerializableTotalAssemblyResult("id", new SerializableAssessmentProcess(), null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("assessmentSectionAssemblyResult", exception.ParamName);
         }
 
         [Test]
