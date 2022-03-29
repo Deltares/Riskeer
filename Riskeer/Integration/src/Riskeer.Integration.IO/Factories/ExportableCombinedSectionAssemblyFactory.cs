@@ -86,20 +86,20 @@ namespace Riskeer.Integration.IO.Factories
             Tuple<FailureMechanismSectionAssemblyGroup?, string, string>[] failureMechanisms =
             {
                 CreateTuple(assemblyResult.Piping, assessmentSection.Piping),
-                CreateTuple(assemblyResult.GrassCoverErosionInwards, assessmentSection.GrassCoverErosionInwards),
                 CreateTuple(assemblyResult.MacroStabilityInwards, assessmentSection.MacroStabilityInwards),
-                CreateTuple(assemblyResult.Microstability, assessmentSection.Microstability),
-                CreateTuple(assemblyResult.StabilityStoneCover, assessmentSection.StabilityStoneCover),
-                CreateTuple(assemblyResult.WaveImpactAsphaltCover, assessmentSection.WaveImpactAsphaltCover),
-                CreateTuple(assemblyResult.WaterPressureAsphaltCover, assessmentSection.WaterPressureAsphaltCover),
-                CreateTuple(assemblyResult.GrassCoverErosionOutwards, assessmentSection.GrassCoverErosionOutwards),
-                CreateTuple(assemblyResult.GrassCoverSlipOffOutwards, assessmentSection.GrassCoverSlipOffOutwards),
-                CreateTuple(assemblyResult.GrassCoverSlipOffInwards, assessmentSection.GrassCoverSlipOffInwards),
+                CreateTuple(assemblyResult.GrassCoverErosionInwards, assessmentSection.GrassCoverErosionInwards),
                 CreateTuple(assemblyResult.HeightStructures, assessmentSection.HeightStructures),
                 CreateTuple(assemblyResult.ClosingStructures, assessmentSection.ClosingStructures),
-                CreateTuple(assemblyResult.PipingStructure, assessmentSection.PipingStructure),
                 CreateTuple(assemblyResult.StabilityPointStructures, assessmentSection.StabilityPointStructures),
-                CreateTuple(assemblyResult.DuneErosion, assessmentSection.DuneErosion)
+                CreateTuple(assemblyResult.StabilityStoneCover, assessmentSection.StabilityStoneCover),
+                CreateTuple(assemblyResult.WaveImpactAsphaltCover, assessmentSection.WaveImpactAsphaltCover),
+                CreateTuple(assemblyResult.GrassCoverErosionOutwards, assessmentSection.GrassCoverErosionOutwards),
+                CreateTuple(assemblyResult.DuneErosion, assessmentSection.DuneErosion),
+                CreateTuple(assemblyResult.Microstability, assessmentSection.Microstability),
+                CreateTuple(assemblyResult.GrassCoverSlipOffOutwards, assessmentSection.GrassCoverSlipOffOutwards),
+                CreateTuple(assemblyResult.GrassCoverSlipOffInwards, assessmentSection.GrassCoverSlipOffInwards),
+                CreateTuple(assemblyResult.PipingStructure, assessmentSection.PipingStructure),
+                CreateTuple(assemblyResult.WaterPressureAsphaltCover, assessmentSection.WaterPressureAsphaltCover)
             };
 
             List<ExportableFailureMechanismCombinedSectionAssemblyResult> exportableAssemblyResults =
