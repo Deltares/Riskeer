@@ -248,8 +248,11 @@ namespace Riskeer.AssemblyTool.IO.Test
                 schema.Add("http://localhost/standaarden/assemblage", Path.Combine(testDataPath, "assemblage.xsd"));
                 XDocument doc = XDocument.Parse(fileContent);
 
-                string msg = string.Empty;
-                doc.Validate(schema, (o, e) => { msg += e.Message + Environment.NewLine; });
+                var msg = string.Empty;
+                doc.Validate(schema, (o, e) =>
+                {
+                    msg += e.Message + Environment.NewLine;
+                });
                 if (msg == string.Empty)
                 {
                     Assert.Pass("Serialized document is valid" + Environment.NewLine);
@@ -277,17 +280,16 @@ namespace Riskeer.AssemblyTool.IO.Test
                                                                       assessmentSection);
 
             var totalAssemblyResult = new SerializableTotalAssemblyResult(
-                "veiligheidsoordeel_1", assessmentProcess,
-                new SerializableAssessmentSectionAssemblyResult(
-                    SerializableAssemblyMethod.WBI2B1, SerializableAssessmentSectionAssemblyGroup.B, 0.00068354));
+                "veiligheidsoordeel_1", assessmentProcess, SerializableAssemblyMethod.WBI2B1,
+                SerializableAssessmentSectionAssemblyGroup.B, 0.00068354);
 
             var failureMechanism = new SerializableFailureMechanism(
                 "toetsspoorGABI", SerializableFailureMechanismType.Generic, "GABI", "Faalmechanisme GABI", totalAssemblyResult,
                 new SerializableFailureMechanismAssemblyResult(0.08419, false));
 
             var specificFailureMechanism = new SerializableFailureMechanism(
-                "specifiekFaalmechanisme", SerializableFailureMechanismType.Specific, "NIEUW", "Specifiek faalmechanisme", totalAssemblyResult,
-                new SerializableFailureMechanismAssemblyResult(0.002834, false));
+                "specifiekFaalmechanisme", SerializableFailureMechanismType.Specific, "NIEUW", "Specifiek faalmechanisme",
+                totalAssemblyResult, new SerializableFailureMechanismAssemblyResult(0.002834, false));
 
             var sections1 = new SerializableFailureMechanismSectionCollection("vakindelingGABI");
             var section1 = new SerializableFailureMechanismSection(
