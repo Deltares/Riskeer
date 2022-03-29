@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.GrassCoverErosionOutwards.Data;
+using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Riskeer.GrassCoverErosionOutwards.Forms.PropertyClasses.HydraulicLoadsState;
 
 namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses.HydraulicLoadsState
@@ -47,7 +47,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Test.PropertyClasses.Hydraulic
             var properties = new GrassCoverErosionOutwardsFailureMechanismProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<GrassCoverErosionOutwardsFailureMechanism>>(properties);
+            Assert.IsInstanceOf<GrassCoverErosionOutwardsFailureMechanismPropertiesBase>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);

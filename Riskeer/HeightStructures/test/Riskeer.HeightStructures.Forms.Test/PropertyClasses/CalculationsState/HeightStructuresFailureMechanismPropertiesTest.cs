@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System.ComponentModel;
-using Core.Gui.PropertyBag;
 using Core.Gui.TestUtil;
 using NUnit.Framework;
 using Riskeer.HeightStructures.Data;
+using Riskeer.HeightStructures.Forms.PropertyClasses;
 using Riskeer.HeightStructures.Forms.PropertyClasses.CalculationsState;
 
 namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses.CalculationsState
@@ -47,7 +47,7 @@ namespace Riskeer.HeightStructures.Forms.Test.PropertyClasses.CalculationsState
             var properties = new HeightStructuresFailureMechanismProperties(failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<HeightStructuresFailureMechanism>>(properties);
+            Assert.IsInstanceOf<HeightStructuresFailureMechanismPropertiesBase>(properties);
             Assert.AreSame(failureMechanism, properties.Data);
             Assert.AreEqual(failureMechanism.Name, properties.Name);
             Assert.AreEqual(failureMechanism.Code, properties.Code);
