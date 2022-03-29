@@ -47,12 +47,13 @@ using Riskeer.HydraRing.Calculation.TestUtil.Calculator;
 using Riskeer.Revetment.Data;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects.HydraulicLoadsState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
+namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.HydraulicLoadsState
 {
     [TestFixture]
-    public class StabilityStoneCoverHydraulicLoadsContextTreeNodeInfoTest
+    public class StabilityStoneCoverFailureMechanismContextTreeNodeInfoTest
     {
         private const int contextMenuCalculateAllIndex = 2;
 
@@ -67,7 +68,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new StabilityStoneCoverPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverHydraulicLoadsContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverFailureMechanismContext));
         }
 
         [TearDown]
@@ -112,7 +113,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string nodeText = info.Text(context);
@@ -142,7 +143,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             Image icon = info.Image(context);
@@ -157,7 +158,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -193,7 +194,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var context = new StabilityStoneCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+                var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -231,7 +232,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var context = new StabilityStoneCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+                var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
                 var gui = mocks.Stub<IGui>();
@@ -267,7 +268,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 failureMechanism.CalculationsGroup.Children.Add(new StabilityStoneCoverWaveConditionsCalculation());
 
                 IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mocks);
-                var nodeData = new StabilityStoneCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+                var nodeData = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 var gui = mocks.Stub<IGui>();
@@ -305,7 +306,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 calculationB
             });
 
-            var nodeData = new StabilityStoneCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var nodeData = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var treeViewControl = new TreeViewControl())
             {

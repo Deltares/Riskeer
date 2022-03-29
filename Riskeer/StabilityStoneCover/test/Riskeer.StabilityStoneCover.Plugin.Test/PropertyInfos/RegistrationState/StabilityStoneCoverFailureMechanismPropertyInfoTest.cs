@@ -26,7 +26,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.StabilityStoneCover.Data;
-using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects.RegistrationState;
 using Riskeer.StabilityStoneCover.Forms.PropertyClasses.RegistrationState;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos.RegistrationState
@@ -44,7 +44,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos.RegistrationStat
                 PropertyInfo info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(StabilityStoneCoverFailurePathContext), info.DataType);
+                Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismContext), info.DataType);
                 Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismProperties), info.PropertyObjectType);
             }
         }
@@ -58,7 +58,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos.RegistrationStat
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var plugin = new StabilityStoneCoverPlugin())
             {
@@ -77,7 +77,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.PropertyInfos.RegistrationStat
 
         private static PropertyInfo GetInfo(StabilityStoneCoverPlugin plugin)
         {
-            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(StabilityStoneCoverFailurePathContext));
+            return plugin.GetPropertyInfos().First(pi => pi.DataType == typeof(StabilityStoneCoverFailureMechanismContext));
         }
     }
 }

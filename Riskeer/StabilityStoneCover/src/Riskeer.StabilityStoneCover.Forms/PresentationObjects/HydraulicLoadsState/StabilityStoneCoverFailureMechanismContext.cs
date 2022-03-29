@@ -19,36 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using NUnit.Framework;
-using Rhino.Mocks;
+using System;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.StabilityStoneCover.Data;
-using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
 
-namespace Riskeer.StabilityStoneCover.Forms.Test.PresentationObjects
+namespace Riskeer.StabilityStoneCover.Forms.PresentationObjects.HydraulicLoadsState
 {
-    [TestFixture]
-    public class StabilityStoneCoverFailurePathContextTest
+    /// <summary>
+    /// Presentation object for <see cref="StabilityStoneCoverFailureMechanism"/> in the hydraulic loads state.
+    /// </summary>
+    public class StabilityStoneCoverFailureMechanismContext : FailureMechanismContext<StabilityStoneCoverFailureMechanism>
     {
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-
-            // Call
-            var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
-
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismContext<StabilityStoneCoverFailureMechanism>>(context);
-            Assert.AreSame(failureMechanism, context.WrappedData);
-            Assert.AreSame(assessmentSection, context.Parent);
-            mocks.VerifyAll();
-        }
+        /// <summary>
+        /// Creates a new instance of <see cref="StabilityStoneCoverFailureMechanismContext"/>.
+        /// </summary>
+        /// <param name="wrappedFailureMechanism">The failure mechanism.</param>
+        /// <param name="parent">The parent of <paramref name="wrappedFailureMechanism"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public StabilityStoneCoverFailureMechanismContext(StabilityStoneCoverFailureMechanism wrappedFailureMechanism, IAssessmentSection parent)
+            : base(wrappedFailureMechanism, parent) {}
     }
 }

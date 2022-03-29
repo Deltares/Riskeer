@@ -34,12 +34,13 @@ using Riskeer.Common.Forms.PresentationObjects;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
 using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects.RegistrationState;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
-namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
+namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.RegistrationState
 {
     [TestFixture]
-    public class StabilityStoneCoverFailurePathContextTreeNodeInfoTest
+    public class StabilityStoneCoverFailureMechanismContextTreeNodeInfoTest
     {
         private StabilityStoneCoverPlugin plugin;
         private TreeNodeInfo info;
@@ -48,7 +49,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         public void Setup()
         {
             plugin = new StabilityStoneCoverPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverFailurePathContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityStoneCoverFailureMechanismContext));
         }
 
         [TearDown]
@@ -89,7 +90,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new StabilityStoneCoverFailurePathContext(new StabilityStoneCoverFailureMechanism(), assessmentSection);
+            var context = new StabilityStoneCoverFailureMechanismContext(new StabilityStoneCoverFailureMechanism(), assessmentSection);
 
             // Call
             string text = info.Text(context);
@@ -115,7 +116,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             // Setup
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -159,7 +160,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 InAssembly = false
             };
-            var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(context).ToArray();
@@ -183,7 +184,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var failureMechanism = new StabilityStoneCoverFailureMechanism();
-                var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
+                var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -226,7 +227,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 {
                     InAssembly = false
                 };
-                var context = new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
+                var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 using (mocks.Ordered())
@@ -256,14 +257,14 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
 
         [TestFixture]
         public class StabilityStoneCoverFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<StabilityStoneCoverPlugin, StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailurePathContext>
+            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<StabilityStoneCoverPlugin, StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismContext>
         {
             public StabilityStoneCoverFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
-            protected override StabilityStoneCoverFailurePathContext CreateFailureMechanismContext(StabilityStoneCoverFailureMechanism failureMechanism,
-                                                                                                   IAssessmentSection assessmentSection)
+            protected override StabilityStoneCoverFailureMechanismContext CreateFailureMechanismContext(StabilityStoneCoverFailureMechanism failureMechanism,
+                                                                                                        IAssessmentSection assessmentSection)
             {
-                return new StabilityStoneCoverFailurePathContext(failureMechanism, assessmentSection);
+                return new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
             }
         }
     }

@@ -26,7 +26,7 @@ using Rhino.Mocks;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.StabilityStoneCover.Data;
-using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects.HydraulicLoadsState;
 using Riskeer.StabilityStoneCover.Forms.Views.HydraulicLoadsState;
 
 namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.HydraulicLoadsState
@@ -56,8 +56,8 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.HydraulicLoadsState
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(StabilityStoneCoverHydraulicLoadsContext), info.DataType);
-            Assert.AreEqual(typeof(StabilityStoneCoverHydraulicLoadsContext), info.ViewDataType);
+            Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismContext), info.DataType);
+            Assert.AreEqual(typeof(StabilityStoneCoverFailureMechanismContext), info.ViewDataType);
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.HydraulicLoadsState
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var context = new StabilityStoneCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             string viewName = info.GetViewName(null, context);
@@ -84,7 +84,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.ViewInfos.HydraulicLoadsState
             var assessmentSection = new AssessmentSectionStub();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
-            var context = new StabilityStoneCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
+            var context = new StabilityStoneCoverFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Call
             var view = (StabilityStoneCoverFailureMechanismView) info.CreateInstance(context);

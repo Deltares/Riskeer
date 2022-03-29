@@ -40,7 +40,7 @@ using Riskeer.Integration.Forms.PresentationObjects.StandAlone;
 using Riskeer.MacroStabilityInwards.Forms.PresentationObjects.RegistrationState;
 using Riskeer.Piping.Forms.PresentationObjects.RegistrationState;
 using Riskeer.StabilityPointStructures.Forms.PresentationObjects.RegistrationState;
-using Riskeer.StabilityStoneCover.Forms.PresentationObjects;
+using Riskeer.StabilityStoneCover.Forms.PresentationObjects.RegistrationState;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -192,9 +192,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.Microstability, microStabilityFailurePathContext.WrappedData);
                 Assert.AreSame(assessmentSection, microStabilityFailurePathContext.Parent);
 
-                var stabilityStoneCoverFailurePathContext = (StabilityStoneCoverFailurePathContext) objects[4];
-                Assert.AreSame(assessmentSection.StabilityStoneCover, stabilityStoneCoverFailurePathContext.WrappedData);
-                Assert.AreSame(assessmentSection, stabilityStoneCoverFailurePathContext.Parent);
+                var stabilityStoneCoverFailureMechanismContext = (StabilityStoneCoverFailureMechanismContext) objects[4];
+                Assert.AreSame(assessmentSection.StabilityStoneCover, stabilityStoneCoverFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection, stabilityStoneCoverFailureMechanismContext.Parent);
 
                 var waveImpactAsphaltCoverFailurePathContext = (WaveImpactAsphaltCoverFailurePathContext) objects[5];
                 Assert.AreSame(assessmentSection.WaveImpactAsphaltCover, waveImpactAsphaltCoverFailurePathContext.WrappedData);
