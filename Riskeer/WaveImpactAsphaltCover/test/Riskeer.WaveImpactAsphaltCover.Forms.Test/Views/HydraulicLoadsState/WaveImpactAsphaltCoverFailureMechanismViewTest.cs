@@ -39,9 +39,9 @@ using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.WaveImpactAsphaltCover.Data;
-using Riskeer.WaveImpactAsphaltCover.Forms.Views;
+using Riskeer.WaveImpactAsphaltCover.Forms.Views.HydraulicLoadsState;
 
-namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Test.Views.HydraulicLoadsState
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismViewTest

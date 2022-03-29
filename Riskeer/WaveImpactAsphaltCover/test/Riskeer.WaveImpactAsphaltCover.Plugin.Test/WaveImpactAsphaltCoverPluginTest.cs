@@ -38,9 +38,10 @@ using Riskeer.Revetment.Forms.Views;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses;
-using Riskeer.WaveImpactAsphaltCover.Forms.Views;
 using HydraulicLoadsStateFailureMechanismProperties = Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsState.WaveImpactAsphaltCoverFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.RegistrationState.WaveImpactAsphaltCoverFailureMechanismProperties;
+using HydraulicLoadsStateFailureMechanismView = Riskeer.WaveImpactAsphaltCover.Forms.Views.HydraulicLoadsState.WaveImpactAsphaltCoverFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.WaveImpactAsphaltCover.Forms.Views.RegistrationState.WaveImpactAsphaltCoverFailureMechanismView;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
 {
@@ -105,9 +106,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
             mockRepository.ReplayAll();
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin
-                   {
-                       Gui = gui
-                   })
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -118,12 +119,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(WaveImpactAsphaltCoverHydraulicLoadsContext),
-                    typeof(WaveImpactAsphaltCoverFailureMechanismView));
+                    typeof(HydraulicLoadsStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(WaveImpactAsphaltCoverFailurePathContext),
-                    typeof(WaveImpactAsphaltCoverFailurePathView));
+                    typeof(RegistrationStateFailureMechanismView));
 
                 PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
@@ -180,9 +181,9 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test
             mocks.ReplayAll();
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin
-                   {
-                       Gui = gui
-                   })
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();

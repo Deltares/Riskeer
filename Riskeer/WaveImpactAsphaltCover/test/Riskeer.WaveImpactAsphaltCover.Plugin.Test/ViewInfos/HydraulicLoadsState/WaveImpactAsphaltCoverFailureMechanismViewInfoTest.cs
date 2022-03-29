@@ -20,8 +20,6 @@
 // All rights reserved.
 
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -29,9 +27,9 @@ using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.PresentationObjects;
-using Riskeer.WaveImpactAsphaltCover.Forms.Views;
+using Riskeer.WaveImpactAsphaltCover.Forms.Views.HydraulicLoadsState;
 
-namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
+namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.HydraulicLoadsState
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverFailureMechanismViewInfoTest
@@ -80,7 +78,6 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         }
 
         [Test]
-        [Apartment(ApartmentState.STA)]
         public void CreateInstance_WithContext_ReturnWaveImpactAsphaltCoverFailureMechanismView()
         {
             // Setup
@@ -89,18 +86,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             var context = new WaveImpactAsphaltCoverHydraulicLoadsContext(failureMechanism, assessmentSection);
 
-            using (var testForm = new Form())
-            {
-                // Call
-                var view = info.CreateInstance(context) as WaveImpactAsphaltCoverFailureMechanismView;
+            // Call
+            var view = (WaveImpactAsphaltCoverFailureMechanismView) info.CreateInstance(context);
 
-                testForm.Controls.Add(view);
-                testForm.Show();
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-                Assert.AreSame(assessmentSection, view.AssessmentSection);
-            }
+            // Assert
+            Assert.AreSame(failureMechanism, view.FailureMechanism);
+            Assert.AreSame(assessmentSection, view.AssessmentSection);
         }
     }
 }

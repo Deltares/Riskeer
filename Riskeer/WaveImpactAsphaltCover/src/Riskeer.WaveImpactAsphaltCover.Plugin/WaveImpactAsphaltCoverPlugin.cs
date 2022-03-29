@@ -59,10 +59,12 @@ using Riskeer.WaveImpactAsphaltCover.Forms.Views;
 using Riskeer.WaveImpactAsphaltCover.IO.Configurations;
 using Riskeer.WaveImpactAsphaltCover.IO.Exporters;
 using Riskeer.WaveImpactAsphaltCover.Service;
-using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
-using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 using HydraulicLoadsStateFailureMechanismProperties = Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.HydraulicLoadsState.WaveImpactAsphaltCoverFailureMechanismProperties;
 using RegistrationStateFailureMechanismProperties = Riskeer.WaveImpactAsphaltCover.Forms.PropertyClasses.RegistrationState.WaveImpactAsphaltCoverFailureMechanismProperties;
+using HydraulicLoadsStateFailureMechanismView = Riskeer.WaveImpactAsphaltCover.Forms.Views.HydraulicLoadsState.WaveImpactAsphaltCoverFailureMechanismView;
+using RegistrationStateFailureMechanismView = Riskeer.WaveImpactAsphaltCover.Forms.Views.RegistrationState.WaveImpactAsphaltCoverFailureMechanismView;
+using RiskeerCommonDataResources = Riskeer.Common.Data.Properties.Resources;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.WaveImpactAsphaltCover.Plugin
 {
@@ -93,17 +95,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
-            yield return new RiskeerViewInfo<WaveImpactAsphaltCoverHydraulicLoadsContext, WaveImpactAsphaltCoverFailureMechanismView>(() => Gui)
+            yield return new RiskeerViewInfo<WaveImpactAsphaltCoverHydraulicLoadsContext, HydraulicLoadsStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
-                CreateInstance = context => new WaveImpactAsphaltCoverFailureMechanismView(context.WrappedData, context.Parent)
+                CreateInstance = context => new HydraulicLoadsStateFailureMechanismView(context.WrappedData, context.Parent)
             };
 
-            yield return new RiskeerViewInfo<WaveImpactAsphaltCoverFailurePathContext, WaveImpactAsphaltCoverFailurePathView>(() => Gui)
+            yield return new RiskeerViewInfo<WaveImpactAsphaltCoverFailurePathContext, RegistrationStateFailureMechanismView>(() => Gui)
             {
                 GetViewName = (view, context) => context.WrappedData.Name,
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CreateInstance = context => new WaveImpactAsphaltCoverFailurePathView(context.WrappedData, context.Parent),
+                CreateInstance = context => new RegistrationStateFailureMechanismView(context.WrappedData, context.Parent),
                 CloseForData = CloseFailurePathViewForData
             };
 
@@ -280,7 +282,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         #region ViewInfos
 
-        private static bool CloseFailurePathViewForData(WaveImpactAsphaltCoverFailurePathView view, object dataToCloseFor)
+        private static bool CloseFailurePathViewForData(RegistrationStateFailureMechanismView view, object dataToCloseFor)
         {
             var failureMechanism = dataToCloseFor as WaveImpactAsphaltCoverFailureMechanism;
 
@@ -463,17 +465,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
             foreach (ICalculationBase item in nodeData.WrappedData.Children)
             {
-                var calculation = item as WaveImpactAsphaltCoverWaveConditionsCalculation;
-                var group = item as CalculationGroup;
-
-                if (calculation != null)
+                if (item is WaveImpactAsphaltCoverWaveConditionsCalculation calculation)
                 {
                     childNodeObjects.Add(new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                                     nodeData.WrappedData,
                                                                                                     nodeData.FailureMechanism,
                                                                                                     nodeData.AssessmentSection));
                 }
-                else if (group != null)
+                else if (item is CalculationGroup @group)
                 {
                     childNodeObjects.Add(new WaveImpactAsphaltCoverCalculationGroupContext(group,
                                                                                            nodeData.WrappedData,

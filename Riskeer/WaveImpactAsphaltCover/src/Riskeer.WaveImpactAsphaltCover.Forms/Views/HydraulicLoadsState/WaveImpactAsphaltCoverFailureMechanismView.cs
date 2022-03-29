@@ -36,10 +36,10 @@ using Riskeer.WaveImpactAsphaltCover.Data;
 using Riskeer.WaveImpactAsphaltCover.Forms.Factories;
 using WaveImpactAsphaltCoverDataResources = Riskeer.WaveImpactAsphaltCover.Data.Properties.Resources;
 
-namespace Riskeer.WaveImpactAsphaltCover.Forms.Views
+namespace Riskeer.WaveImpactAsphaltCover.Forms.Views.HydraulicLoadsState
 {
     /// <summary>
-    /// This class is a view showing map data for a wave impact asphalt cover failure mechanism.
+    /// Hydraulic loads state view showing map data for a wave impact asphalt cover failure mechanism.
     /// </summary>
     public partial class WaveImpactAsphaltCoverFailureMechanismView : UserControl, IMapView
     {
