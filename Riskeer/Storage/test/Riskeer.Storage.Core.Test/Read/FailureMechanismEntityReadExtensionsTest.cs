@@ -27,10 +27,12 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Riskeer.ClosingStructures.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.DikeProfiles;
+using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.Structures;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
@@ -72,6 +74,134 @@ namespace Riskeer.Storage.Core.Test.Read
             return failureMechanismSectionEntity;
         }
 
+        [Test]
+        public void ReadCommonFailurePathProperties_EntityNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadCommonFailurePathProperties(failureMechanism, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ReadCommonFailurePathProperties_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadCommonFailurePathProperties(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failurePath", exception.ParamName);
+        }
+
+        [Test]
+        public void ReadCommonFailurePathProperties_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = mocks.Stub<IFailureMechanism>();
+            mocks.ReplayAll();
+
+            var entity = new FailureMechanismEntity();
+
+            // Call
+            void Call() => entity.ReadCommonFailurePathProperties(failureMechanism, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void ReadCommonFailurePathProperties_WithoutSectionsSet_SetsFailureMechanism(bool inAssembly)
+        {
+            // Setup
+            var random = new Random(21);
+            var assemblyResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>();
+
+            var entity = new FailureMechanismEntity
+            {
+                InAssembly = Convert.ToByte(inAssembly),
+                InAssemblyInputComments = "Some input text",
+                InAssemblyOutputComments = "Some output text",
+                CalculationsInputComments = "Some calculation text",
+                NotInAssemblyComments = "Really not in assembly",
+                FailureMechanismAssemblyResultProbabilityResultType = Convert.ToByte(assemblyResultType),
+                FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability = random.NextDouble()
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new TestCalculatableFailureMechanism();
+
+            // Call
+            entity.ReadCommonFailurePathProperties(failureMechanism, collector);
+
+            // Assert
+            FailureMechanismEntityTestHelper.AssertIFailureMechanismEntityProperties(entity, failureMechanism);
+            Assert.IsNull(failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
+        }
+
+        [Test]
+        public void ReadCommonFailurePathProperties_WithNullValues_SetsFailureMechanism()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new TestCalculatableFailureMechanism();
+
+            // Call
+            entity.ReadCommonFailurePathProperties(failureMechanism, collector);
+
+            // Assert
+            Assert.IsNull(failureMechanism.InAssemblyInputComments.Body);
+            Assert.IsNull(failureMechanism.InAssemblyOutputComments.Body);
+            Assert.IsNull(failureMechanism.NotInAssemblyComments.Body);
+            Assert.IsNull(failureMechanism.CalculationsInputComments.Body);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsNull(failureMechanism.FailureMechanismSectionSourcePath);
+
+            Assert.IsNaN(failureMechanism.AssemblyResult.ManualFailureMechanismAssemblyProbability);
+        }
+
+        [Test]
+        public void ReadCommonFailurePathProperties_WithSectionsSet_SetsFailureMechanismWithFailureMechanismSections()
+        {
+            // Setup
+            const string filePath = "failureMechanismSections/File/Path";
+            var entity = new FailureMechanismEntity
+            {
+                FailureMechanismSectionCollectionSourcePath = filePath,
+                FailureMechanismSectionEntities =
+                {
+                    CreateSimpleFailureMechanismSectionEntity()
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            entity.ReadCommonFailurePathProperties(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
+            Assert.AreEqual(filePath, failureMechanism.FailureMechanismSectionSourcePath);
+        }
+        
         #region GrassCoverSlipOffInwards
 
         [Test]
