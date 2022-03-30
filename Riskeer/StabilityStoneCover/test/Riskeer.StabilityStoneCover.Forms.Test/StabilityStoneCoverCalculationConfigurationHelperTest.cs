@@ -43,7 +43,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test
             var calculations = new List<ICalculationBase>();
 
             // Call
-            void Call() => StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(null, calculations, random.NextEnumValue<NormType>());
+            void Call() => StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(null, calculations, random.NextEnumValue<NormativeProbabilityType>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -58,7 +58,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test
             IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             // Call
-            void Call() => StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, null, random.NextEnumValue<NormType>());
+            void Call() => StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, null, random.NextEnumValue<NormativeProbabilityType>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -74,17 +74,17 @@ namespace Riskeer.StabilityStoneCover.Forms.Test
             var calculationBases = new List<ICalculationBase>();
 
             // Call
-            StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases, random.NextEnumValue<NormType>());
+            StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases, random.NextEnumValue<NormativeProbabilityType>());
 
             // Assert
             CollectionAssert.IsEmpty(calculationBases);
         }
 
         [Test]
-        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
-        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
+        [TestCase(NormativeProbabilityType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormativeProbabilityType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
         public void AddCalculationsFromLocations_MultipleCalculationsEmptyCalculationBase_ReturnsUniquelyNamedCalculationsWithCorrectInputSet(
-            NormType normType,
+            NormativeProbabilityType normativeProbabilityType,
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {
             // Setup
@@ -97,7 +97,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test
             var calculationBases = new List<ICalculationBase>();
 
             // Call
-            StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases, normType);
+            StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases, normativeProbabilityType);
 
             // Assert
             Assert.AreEqual(2, calculationBases.Count);
@@ -115,10 +115,10 @@ namespace Riskeer.StabilityStoneCover.Forms.Test
         }
 
         [Test]
-        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
-        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
+        [TestCase(NormativeProbabilityType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormativeProbabilityType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
         public void AddCalculationsFromLocations_MultipleCalculationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculationsWithCorrectInputSet(
-            NormType normType,
+            NormativeProbabilityType normativeProbabilityType,
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {
             // Setup
@@ -137,7 +137,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Test
             };
 
             // Call
-            StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases, normType);
+            StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases, normativeProbabilityType);
 
             // Assert
             Assert.AreEqual(3, calculationBases.Count);

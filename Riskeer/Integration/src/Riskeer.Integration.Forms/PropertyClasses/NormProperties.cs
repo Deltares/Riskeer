@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             get => data.LowerLimitNorm;
             set
             {
-                ChangeNorm(() => data.LowerLimitNorm = value, NormType.MaximumAllowableFloodingProbability);
+                ChangeNorm(() => data.LowerLimitNorm = value, NormativeProbabilityType.MaximumAllowableFloodingProbability);
             }
         }
 
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             get => data.SignalingNorm;
             set
             {
-                ChangeNorm(() => data.SignalingNorm = value, NormType.SignalFloodingProbability);
+                ChangeNorm(() => data.SignalingNorm = value, NormativeProbabilityType.SignalFloodingProbability);
             }
         }
 
@@ -95,7 +95,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormativeNorm_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.NormativeNorm_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
-        public NormType NormativeNorm
+        public NormativeProbabilityType NormativeNorm
         {
             get => data.NormativeNorm;
             set
@@ -104,9 +104,9 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             }
         }
 
-        private void ChangeNorm(Action action, NormType normType)
+        private void ChangeNorm(Action action, NormativeProbabilityType normativeProbabilityType)
         {
-            if (data.NormativeNorm == normType)
+            if (data.NormativeNorm == normativeProbabilityType)
             {
                 normChangeHandler.ChangeNormativeNorm(action);
             }

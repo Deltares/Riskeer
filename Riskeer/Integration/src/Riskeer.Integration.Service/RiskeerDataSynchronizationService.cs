@@ -252,27 +252,27 @@ namespace Riskeer.Integration.Service
         }
 
         /// <summary>
-        /// Clears the wave conditions calculation output that corresponds with the <paramref name="normType"/>
+        /// Clears the wave conditions calculation output that corresponds with the <paramref name="normativeProbabilityType"/>
         /// in the <paramref name="assessmentSection"/>. 
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the calculations.</param>
-        /// <param name="normType">The <see cref="NormType"/> to clear for.</param>
+        /// <param name="normativeProbabilityType">The <see cref="NormativeProbabilityType"/> to clear for.</param>
         /// <returns>All objects affected by the operation.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is invalid.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is not supported.</exception>
-        public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutput(IAssessmentSection assessmentSection, NormType normType)
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normativeProbabilityType"/> is invalid.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="normativeProbabilityType"/> is not supported.</exception>
+        public static IEnumerable<IObservable> ClearAllWaveConditionsCalculationOutput(IAssessmentSection assessmentSection, NormativeProbabilityType normativeProbabilityType)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            if (!Enum.IsDefined(typeof(NormType), normType))
+            if (!Enum.IsDefined(typeof(NormativeProbabilityType), normativeProbabilityType))
             {
-                throw new InvalidEnumArgumentException(nameof(normType),
-                                                       (int) normType,
-                                                       typeof(NormType));
+                throw new InvalidEnumArgumentException(nameof(normativeProbabilityType),
+                                                       (int) normativeProbabilityType,
+                                                       typeof(NormativeProbabilityType));
             }
 
             var changedObservables = new List<IObservable>();
@@ -283,15 +283,15 @@ namespace Riskeer.Integration.Service
                 {
                     case GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism:
                         changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<GrassCoverErosionOutwardsFailureMechanism,
-                                                        GrassCoverErosionOutwardsWaveConditionsCalculation>(grassCoverErosionOutwardsFailureMechanism, normType));
+                                                        GrassCoverErosionOutwardsWaveConditionsCalculation>(grassCoverErosionOutwardsFailureMechanism, normativeProbabilityType));
                         break;
                     case StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism:
                         changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<StabilityStoneCoverFailureMechanism,
-                                                        StabilityStoneCoverWaveConditionsCalculation>(stabilityStoneCoverFailureMechanism, normType));
+                                                        StabilityStoneCoverWaveConditionsCalculation>(stabilityStoneCoverFailureMechanism, normativeProbabilityType));
                         break;
                     case WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism:
                         changedObservables.AddRange(WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<WaveImpactAsphaltCoverFailureMechanism,
-                                                        WaveImpactAsphaltCoverWaveConditionsCalculation>(waveImpactAsphaltCoverFailureMechanism, normType));
+                                                        WaveImpactAsphaltCoverWaveConditionsCalculation>(waveImpactAsphaltCoverFailureMechanism, normativeProbabilityType));
                         break;
                 }
             }

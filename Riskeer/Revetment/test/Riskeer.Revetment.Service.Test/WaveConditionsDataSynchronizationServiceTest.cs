@@ -41,11 +41,11 @@ namespace Riskeer.Revetment.Service.Test
     public class WaveConditionsDataSynchronizationServiceTest
     {
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputWithNormType_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ClearAllWaveConditionsCalculationOutputWithNormativeProbabilityType_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
             void Call() => WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<ICalculatableFailureMechanism, ICalculation<WaveConditionsInput>>(
-                null, NormType.SignalFloodingProbability);
+                null, NormativeProbabilityType.SignalFloodingProbability);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -53,25 +53,25 @@ namespace Riskeer.Revetment.Service.Test
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputWithNormType_InvalidNormType_ThrowsInvalidEnumArgumentException()
+        public void ClearAllWaveConditionsCalculationOutputWithNormativeProbabilityType_InvalidNormativeProbabilityType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            const NormType normType = (NormType) 99;
+            const NormativeProbabilityType normativeProbabilityType = (NormativeProbabilityType) 99;
 
             // Call
             void Call() => WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<ICalculatableFailureMechanism, ICalculation<WaveConditionsInput>>(
-                new TestCalculatableFailureMechanism(), normType);
+                new TestCalculatableFailureMechanism(), normativeProbabilityType);
 
             // Assert
-            var expectedMessage = $"The value of argument 'normType' ({normType}) is invalid for Enum type '{nameof(NormType)}'.";
+            var expectedMessage = $"The value of argument 'normativeProbabilityType' ({normativeProbabilityType}) is invalid for Enum type '{nameof(NormativeProbabilityType)}'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
-            Assert.AreEqual("normType", exception.ParamName);
+            Assert.AreEqual("normativeProbabilityType", exception.ParamName);
         }
 
         [Test]
-        [TestCase(NormType.MaximumAllowableFloodingProbability)]
-        [TestCase(NormType.SignalFloodingProbability)]
-        public void ClearAllWaveConditionsCalculationOutputWithNormType_WithAllData_ClearsOutputAndReturnsAffectedObjects(NormType normType)
+        [TestCase(NormativeProbabilityType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormativeProbabilityType.SignalFloodingProbability)]
+        public void ClearAllWaveConditionsCalculationOutputWithNormativeProbabilityType_WithAllData_ClearsOutputAndReturnsAffectedObjects(NormativeProbabilityType normativeProbabilityType)
         {
             // Setup
             var calculation1 = new TestWaveConditionsCalculation<WaveConditionsInput>(new WaveConditionsInput
@@ -104,14 +104,14 @@ namespace Riskeer.Revetment.Service.Test
 
             TestWaveConditionsCalculation<WaveConditionsInput>[] expectedAffectedCalculations =
             {
-                normType == NormType.MaximumAllowableFloodingProbability
+                normativeProbabilityType == NormativeProbabilityType.MaximumAllowableFloodingProbability
                     ? calculation2
                     : calculation1
             };
 
             // Call
             IEnumerable<IObservable> affectedCalculations = WaveConditionsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput<ICalculatableFailureMechanism, TestWaveConditionsCalculation<WaveConditionsInput>>(
-                failureMechanism, normType);
+                failureMechanism, normativeProbabilityType);
 
             // Assert
             CollectionAssert.AreEqual(expectedAffectedCalculations, affectedCalculations);

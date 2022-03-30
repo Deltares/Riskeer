@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -657,18 +657,18 @@ namespace Riskeer.Common.Data.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Omgevingswaarde.
         /// </summary>
-        public static string NormType_MaximumAllowableFloodingProbability_DisplayName {
+        public static string NormativeProbabilityType_MaximumAllowableFloodingProbability_DisplayName {
             get {
-                return ResourceManager.GetString("NormType_MaximumAllowableFloodingProbability_DisplayName", resourceCulture);
+                return ResourceManager.GetString("NormativeProbabilityType_MaximumAllowableFloodingProbability_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Signaleringsparameter.
         /// </summary>
-        public static string NormType_SignalFloodingProbability_DisplayName {
+        public static string NormativeProbabilityType_SignalFloodingProbability_DisplayName {
             get {
-                return ResourceManager.GetString("NormType_SignalFloodingProbability_DisplayName", resourceCulture);
+                return ResourceManager.GetString("NormativeProbabilityType_SignalFloodingProbability_DisplayName", resourceCulture);
             }
         }
         

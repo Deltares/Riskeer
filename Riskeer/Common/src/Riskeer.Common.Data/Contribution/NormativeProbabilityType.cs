@@ -25,20 +25,20 @@ using Riskeer.Common.Data.Properties;
 namespace Riskeer.Common.Data.Contribution
 {
     /// <summary>
-    /// Describes the norm types used in <see cref="FailureMechanismContribution"/>.
+    /// Describes the normative probability types.
     /// </summary>
-    public enum NormType
+    public enum NormativeProbabilityType
     {
         /// <summary>
-        /// The maximum allowable flooding probability norm type.
+        /// The maximum allowable flooding probability type.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormType_MaximumAllowableFloodingProbability_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormativeProbabilityType_MaximumAllowableFloodingProbability_DisplayName))]
         MaximumAllowableFloodingProbability = 1,
 
         /// <summary>
-        /// The signal flooding probability norm type.
+        /// The signal flooding probability type.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormType_SignalFloodingProbability_DisplayName))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormativeProbabilityType_SignalFloodingProbability_DisplayName))]
         SignalFloodingProbability = 2
     }
 }

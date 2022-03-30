@@ -43,7 +43,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
             var calculations = new List<ICalculationBase>();
 
             // Call
-            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(null, calculations, random.NextEnumValue<NormType>());
+            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(null, calculations, random.NextEnumValue<NormativeProbabilityType>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -58,7 +58,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
             IEnumerable<HydraulicBoundaryLocation> locations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
             // Call
-            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(locations, null, random.NextEnumValue<NormType>());
+            void Call() => WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(locations, null, random.NextEnumValue<NormativeProbabilityType>());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -76,17 +76,17 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
             // Call
             WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(locations,
                                                                                                             calculationBases,
-                                                                                                            random.NextEnumValue<NormType>());
+                                                                                                            random.NextEnumValue<NormativeProbabilityType>());
 
             // Assert
             CollectionAssert.IsEmpty(calculationBases);
         }
 
         [Test]
-        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
-        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
+        [TestCase(NormativeProbabilityType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormativeProbabilityType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
         public void AddCalculationsFromLocations_MultipleCalculationsEmptyCalculationBase_ReturnsUniquelyNamedCalculationsWithCorrectInputSet(
-            NormType normType,
+            NormativeProbabilityType normativeProbabilityType,
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {
             // Setup
@@ -101,7 +101,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
             // Call
             WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(locations,
                                                                                                             calculationBases,
-                                                                                                            normType);
+                                                                                                            normativeProbabilityType);
 
             // Assert
             Assert.AreEqual(2, calculationBases.Count);
@@ -119,10 +119,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
         }
 
         [Test]
-        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
-        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
+        [TestCase(NormativeProbabilityType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormativeProbabilityType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
         public void AddCalculationsFromLocations_MultipleCalculationsAndDuplicateNameInCalculationBase_ReturnsUniquelyNamedCalculationsWithCorrectInputSet(
-            NormType normType,
+            NormativeProbabilityType normativeProbabilityType,
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {
             // Setup
@@ -141,7 +141,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Test
             };
 
             // Call
-            WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases, normType);
+            WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(locations, calculationBases, normativeProbabilityType);
 
             // Assert
             Assert.AreEqual(3, calculationBases.Count);

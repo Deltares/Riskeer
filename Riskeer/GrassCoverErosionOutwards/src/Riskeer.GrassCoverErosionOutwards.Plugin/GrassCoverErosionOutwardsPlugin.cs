@@ -599,12 +599,12 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin
 
         private static void GenerateGrassCoverErosionOutwardsWaveConditionsCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                                                         List<ICalculationBase> calculationCollection,
-                                                                                        NormType normType)
+                                                                                        NormativeProbabilityType normativeProbabilityType)
         {
             GrassCoverErosionOutwardsWaveConditionsCalculationHelper.AddCalculationsFromLocations(
                 hydraulicBoundaryLocations,
                 calculationCollection,
-                normType);
+                normativeProbabilityType);
         }
 
         private static void AddWaveConditionsCalculation(GrassCoverErosionOutwardsCalculationGroupContext nodeData)

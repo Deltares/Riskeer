@@ -57,7 +57,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = (NormType) invalidValue
+                    NormativeNorm = (NormativeProbabilityType) invalidValue
                 }
             };
 
@@ -65,9 +65,9 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             void Call() => assessmentSection.GetNormativeAssessmentLevel(new TestHydraulicBoundaryLocation());
 
             // Assert
-            var expectedMessage = $"The value of argument 'normType' ({invalidValue}) is invalid for Enum type '{nameof(NormType)}'.";
+            var expectedMessage = $"The value of argument 'normType' ({invalidValue}) is invalid for Enum type '{nameof(NormativeProbabilityType)}'.";
             string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
-            Assert.AreEqual("normType", parameterName);
+            Assert.AreEqual("normativeProbabilityType", parameterName);
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = new Random(32).NextEnumValue<NormType>()
+                    NormativeNorm = new Random(32).NextEnumValue<NormativeProbabilityType>()
                 }
             };
 
@@ -97,7 +97,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = new Random(32).NextEnumValue<NormType>()
+                    NormativeNorm = new Random(32).NextEnumValue<NormativeProbabilityType>()
                 }
             };
 
@@ -115,7 +115,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormType>();
+            assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormativeProbabilityType>();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -133,11 +133,11 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingAssessmentLevel(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
-            NormType normType,
+            NormativeProbabilityType normativeProbabilityType,
             HydraulicBoundaryLocationCalculation calculation)
         {
             // Setup
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
 
             // Call
             RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(hydraulicBoundaryLocation);
@@ -168,7 +168,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = (NormType) invalidValue
+                    NormativeNorm = (NormativeProbabilityType) invalidValue
                 }
             };
 
@@ -176,9 +176,9 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             void Call() => assessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Assert
-            var expectedMessage = $"The value of argument 'normType' ({invalidValue}) is invalid for Enum type '{nameof(NormType)}'.";
+            var expectedMessage = $"The value of argument 'normType' ({invalidValue}) is invalid for Enum type '{nameof(NormativeProbabilityType)}'.";
             string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
-            Assert.AreEqual("normType", parameterName);
+            Assert.AreEqual("normativeProbabilityType", parameterName);
         }
 
         [Test]
@@ -190,7 +190,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = random.NextEnumValue<NormType>()
+                    NormativeNorm = random.NextEnumValue<NormativeProbabilityType>()
                 }
             };
 
@@ -210,7 +210,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = random.NextEnumValue<NormType>()
+                    NormativeNorm = random.NextEnumValue<NormativeProbabilityType>()
                 }
             };
 
@@ -227,11 +227,11 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         public void GetNormativeHydraulicBoundaryLocationCalculation_HydraulicBoundaryLocation_ReturnsCorrespondingCalculation(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
-            NormType normType,
+            NormativeProbabilityType normativeProbabilityType,
             HydraulicBoundaryLocationCalculation calculation)
         {
             // Setup
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
 
             // Call
             HydraulicBoundaryLocationCalculation normativeHydraulicBoundaryLocationCalculation =
@@ -254,13 +254,13 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             yield return new TestCaseData(
                 assessmentSection,
                 hydraulicBoundaryLocation,
-                NormType.SignalFloodingProbability,
+                NormativeProbabilityType.SignalFloodingProbability,
                 assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0));
 
             yield return new TestCaseData(
                 assessmentSection,
                 hydraulicBoundaryLocation,
-                NormType.MaximumAllowableFloodingProbability,
+                NormativeProbabilityType.MaximumAllowableFloodingProbability,
                 assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0));
         }
     }

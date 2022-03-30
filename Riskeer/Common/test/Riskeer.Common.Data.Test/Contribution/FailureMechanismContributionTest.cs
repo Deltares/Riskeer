@@ -87,7 +87,7 @@ namespace Riskeer.Common.Data.Test.Contribution
             Assert.AreEqual(norm, result.Norm);
             Assert.AreEqual(norm, result.SignalingNorm);
             Assert.AreEqual(norm, result.LowerLimitNorm);
-            Assert.AreEqual(NormType.MaximumAllowableFloodingProbability, result.NormativeNorm);
+            Assert.AreEqual(NormativeProbabilityType.MaximumAllowableFloodingProbability, result.NormativeNorm);
         }
 
         [Test]
@@ -199,14 +199,14 @@ namespace Riskeer.Common.Data.Test.Contribution
         }
 
         [Test]
-        [TestCase(NormType.SignalFloodingProbability, 0.01)]
-        [TestCase(NormType.MaximumAllowableFloodingProbability, 0.1)]
-        public void Norm_DifferentNormativeNormTypes_ReturnNorm(NormType normType, double expectedNorm)
+        [TestCase(NormativeProbabilityType.SignalFloodingProbability, 0.01)]
+        [TestCase(NormativeProbabilityType.MaximumAllowableFloodingProbability, 0.1)]
+        public void Norm_DifferentNormativeNormTypes_ReturnNorm(NormativeProbabilityType normativeProbabilityType, double expectedNorm)
         {
             // Setup
             var failureMechanismContribution = new FailureMechanismContribution(0.1, 0.01)
             {
-                NormativeNorm = normType
+                NormativeNorm = normativeProbabilityType
             };
 
             // Call

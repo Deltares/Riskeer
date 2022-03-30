@@ -276,7 +276,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         [Test]
         [TestCaseSource(nameof(GetChangeNormativeNormCases))]
         public void GivenCalculationsWithOutput_WhenChangingNormativeNorm_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified(
-            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
+            NormativeProbabilityType normativeProbabilityType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
             WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Given
@@ -287,7 +287,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
 
             IEnumerable<HydraulicBoundaryLocationCalculation> expectedLocationCalculationsToClear = getLocationCalculationsFunc(assessmentSection);
 
@@ -357,7 +357,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         [Test]
         [TestCaseSource(nameof(GetChangeNormativeNormCases))]
         public void GivenCalculationsWithoutOutput_WhenChangingNormativeNorm_ThenActionPerformedAndContributionNotified(
-            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
+            NormativeProbabilityType normativeProbabilityType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
             WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Given
@@ -368,7 +368,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
 
             IEnumerable<HydraulicBoundaryLocationCalculation> calculationsBelongingToNorm = getLocationCalculationsFunc(assessmentSection);
 
@@ -476,7 +476,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         [Test]
         [TestCaseSource(nameof(GetChangeNormCases))]
         public void GivenCalculationsWithOutput_WhenChangingNorm_ThenAllDependingOutputClearedAndActionPerformedAndAllAffectedObjectsNotified(
-            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc,
+            NormativeProbabilityType normativeProbabilityType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc,
             WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Given
@@ -487,7 +487,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
 
             IEnumerable<HydraulicBoundaryLocationCalculation> expectedCalculationsToClear = getCalculationsFunc(assessmentSection);
 
@@ -545,7 +545,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         [Test]
         [TestCaseSource(nameof(GetChangeNormCases))]
         public void GivenCalculationsWithoutOutput_WhenChangingNorm_ThenActionPerformedAndContributionNotified(
-            NormType normType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
+            NormativeProbabilityType normativeProbabilityType, Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>> getLocationCalculationsFunc,
             WaveConditionsInputWaterLevelType waterLevelType)
         {
             // Given
@@ -556,7 +556,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normType;
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
 
             IEnumerable<HydraulicBoundaryLocationCalculation> calculationsBelongingToNorm = getLocationCalculationsFunc(assessmentSection);
 
@@ -602,11 +602,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         private static IEnumerable<TestCaseData> GetChangeNormativeNormCases()
         {
             yield return new TestCaseData(
-                NormType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                NormativeProbabilityType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForLowerLimitNorm),
                 WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability);
             yield return new TestCaseData(
-                NormType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                NormativeProbabilityType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForSignalingNorm),
                 WaveConditionsInputWaterLevelType.SignalFloodingProbability);
         }
@@ -614,11 +614,11 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         private static IEnumerable<TestCaseData> GetChangeNormCases()
         {
             yield return new TestCaseData(
-                NormType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                NormativeProbabilityType.MaximumAllowableFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForSignalingNorm),
                 WaveConditionsInputWaterLevelType.SignalFloodingProbability);
             yield return new TestCaseData(
-                NormType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
+                NormativeProbabilityType.SignalFloodingProbability, new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                     section => section.WaterLevelCalculationsForLowerLimitNorm),
                 WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability);
         }

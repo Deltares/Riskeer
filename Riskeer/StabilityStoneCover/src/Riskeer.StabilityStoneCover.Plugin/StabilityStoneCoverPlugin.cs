@@ -591,12 +591,12 @@ namespace Riskeer.StabilityStoneCover.Plugin
 
         private static void GenerateStabilityStoneCoverCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                                     List<ICalculationBase> calculationCollection,
-                                                                    NormType normType)
+                                                                    NormativeProbabilityType normativeProbabilityType)
         {
             StabilityStoneCoverCalculationConfigurationHelper.AddCalculationsFromLocations(
                 hydraulicBoundaryLocations,
                 calculationCollection,
-                normType);
+                normativeProbabilityType);
         }
 
         private static void AddWaveConditionsCalculation(StabilityStoneCoverCalculationGroupContext nodeData)

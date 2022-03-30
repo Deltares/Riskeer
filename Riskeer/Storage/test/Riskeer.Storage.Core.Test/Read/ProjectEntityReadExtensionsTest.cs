@@ -118,7 +118,7 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 SignalingNorm = 0.00001,
                 LowerLimitNorm = 0.0001,
-                NormativeNormType = Convert.ToByte(random.NextEnumValue<NormType>()),
+                NormativeNormType = Convert.ToByte(random.NextEnumValue<NormativeProbabilityType>()),
                 Name = "Just a name",
                 Composition = Convert.ToByte(random.NextEnumValue<AssessmentSectionComposition>()),
                 BackgroundDataEntities = new[]

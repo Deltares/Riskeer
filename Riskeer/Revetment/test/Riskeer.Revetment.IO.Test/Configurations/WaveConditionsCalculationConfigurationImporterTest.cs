@@ -300,9 +300,9 @@ namespace Riskeer.Revetment.IO.Test.Configurations
         }
 
         [Test]
-        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
-        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
-        public void Import_TargetProbabilityNull_DataAddedToModel(NormType normType, WaveConditionsInputWaterLevelType expectedWaterLevelType)
+        [TestCase(NormativeProbabilityType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormativeProbabilityType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
+        public void Import_TargetProbabilityNull_DataAddedToModel(NormativeProbabilityType normativeProbabilityType, WaveConditionsInputWaterLevelType expectedWaterLevelType)
         {
             // Setup
             string filePath = Path.Combine(path, "validConfigurationWithoutTargetProbability.xml");
@@ -321,7 +321,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             });
             var failureMechanismContribution = new FailureMechanismContribution(0.1, 0.1)
             {
-                NormativeNorm = normType
+                NormativeNorm = normativeProbabilityType
             };
 
             var importer = new TestWaveConditionsCalculationConfigurationImporter(

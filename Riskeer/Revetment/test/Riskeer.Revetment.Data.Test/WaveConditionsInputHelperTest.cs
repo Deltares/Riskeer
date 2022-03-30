@@ -59,7 +59,7 @@ namespace Riskeer.Revetment.Data.Test
             var random = new Random(21);
 
             // Call
-            void Call() => WaveConditionsInputHelper.SetWaterLevelType(null, random.NextEnumValue<NormType>());
+            void Call() => WaveConditionsInputHelper.SetWaterLevelType(null, random.NextEnumValue<NormativeProbabilityType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -67,32 +67,32 @@ namespace Riskeer.Revetment.Data.Test
         }
 
         [Test]
-        public void SetWaterLevelType_InvalidNormType_ThrowsInvalidEnumArgumentException()
+        public void SetWaterLevelType_InvalidNormativeProbabilityType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
-            const NormType normType = (NormType) 99;
+            const NormativeProbabilityType normativeProbabilityType = (NormativeProbabilityType) 99;
 
             // Call
-            void Call() => WaveConditionsInputHelper.SetWaterLevelType(new WaveConditionsInput(), normType);
+            void Call() => WaveConditionsInputHelper.SetWaterLevelType(new WaveConditionsInput(), normativeProbabilityType);
 
             // Assert
-            var expectedMessage = $"The value of argument 'normType' ({normType}) is invalid for Enum type '{nameof(NormType)}'.";
+            var expectedMessage = $"The value of argument 'normativeProbabilityType' ({normativeProbabilityType}) is invalid for Enum type '{nameof(NormativeProbabilityType)}'.";
             var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
-            Assert.AreEqual("normType", exception.ParamName);
+            Assert.AreEqual("normativeProbabilityType", exception.ParamName);
         }
 
         [Test]
-        [TestCase(NormType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
-        [TestCase(NormType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
+        [TestCase(NormativeProbabilityType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormativeProbabilityType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
         public void SetWaterLevelType_WithWaveConditionsInputAndVariousNormTypes_SetsWaterLevelType(
-            NormType normType,
+            NormativeProbabilityType normativeProbabilityType,
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {
             // Setup
             var waveConditionsInput = new WaveConditionsInput();
 
             // Call
-            WaveConditionsInputHelper.SetWaterLevelType(waveConditionsInput, normType);
+            WaveConditionsInputHelper.SetWaterLevelType(waveConditionsInput, normativeProbabilityType);
 
             // Assert
             Assert.AreEqual(expectedWaveConditionsInputWaterLevelType, waveConditionsInput.WaterLevelType);

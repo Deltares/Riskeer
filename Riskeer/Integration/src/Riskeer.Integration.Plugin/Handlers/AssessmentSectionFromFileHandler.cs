@@ -123,7 +123,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                            : TryCreateAssessmentSection(selectedItem,
                                                         dialog.SelectedMaximumAllowableFloodingProbability,
                                                         dialog.SelectedSignalFloodingProbability,
-                                                        dialog.SelectedNormativeNorm);
+                                                        dialog.SelectedNormativeProbabilityType);
             }
         }
 
@@ -207,7 +207,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// <param name="selectedItem">The selected <see cref="ReferenceLineMeta"/>.</param>
         /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
         /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
-        /// <param name="normativeNorm">The norm type of the assessment section.</param>
+        /// <param name="normativeProbabilityType">The normative probability type of the assessment section.</param>
         /// <returns>The newly created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
@@ -219,7 +219,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         private AssessmentSection CreateAssessmentSection(ReferenceLineMeta selectedItem,
                                                           double lowerLimitNorm,
                                                           double signalingNorm,
-                                                          NormType normativeNorm)
+                                                          NormativeProbabilityType normativeProbabilityType)
         {
             AssessmentSection assessmentSection;
             AssessmentSectionSettings settingOfSelectedAssessmentSection = settings.FirstOrDefault(s => s.AssessmentSectionId == selectedItem.AssessmentSectionId);
@@ -251,7 +251,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 assessmentSection.ReferenceLine.SetGeometry(selectedItem.ReferenceLine.Points);
             }
 
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeNorm;
+            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
 
             return assessmentSection;
         }
@@ -262,7 +262,7 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// <param name="selectedItem">The selected <see cref="ReferenceLineMeta"/>.</param>
         /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
         /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
-        /// <param name="normativeNorm">The norm type of the assessment section.</param>
+        /// <param name="normativeProbabilityType">The normative probability type of the assessment section.</param>
         /// <returns>The created <see cref="AssessmentSection"/>.</returns>
         /// <exception cref="CriticalFileValidationException">Thrown when:
         /// <list type="bullet">
@@ -274,14 +274,14 @@ namespace Riskeer.Integration.Plugin.Handlers
         private AssessmentSection TryCreateAssessmentSection(ReferenceLineMeta selectedItem,
                                                              double lowerLimitNorm,
                                                              double signalingNorm,
-                                                             NormType normativeNorm)
+                                                             NormativeProbabilityType normativeProbabilityType)
         {
             try
             {
                 return CreateAssessmentSection(selectedItem,
                                                lowerLimitNorm,
                                                signalingNorm,
-                                               normativeNorm);
+                                               normativeProbabilityType);
             }
             catch (ArgumentOutOfRangeException exception)
             {

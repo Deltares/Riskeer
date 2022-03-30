@@ -69,7 +69,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string comments = "Some text";
             const double lowerLimitNorm = 0.05;
             const double signalingNorm = 0.02;
-            var normativeNorm = new Random(9).NextEnumValue<NormType>();
+            var normativeNorm = new Random(9).NextEnumValue<NormativeProbabilityType>();
             var entity = new AssessmentSectionEntity
             {
                 Id = testId,
@@ -1169,7 +1169,7 @@ namespace Riskeer.Storage.Core.Test.Read
             {
                 LowerLimitNorm = 1.0 / 30000,
                 SignalingNorm = 1.0 / 300000,
-                NormativeNormType = Convert.ToByte(NormType.SignalFloodingProbability),
+                NormativeNormType = Convert.ToByte(NormativeProbabilityType.SignalFloodingProbability),
                 Composition = Convert.ToByte(AssessmentSectionComposition.Dike)
             };
         }

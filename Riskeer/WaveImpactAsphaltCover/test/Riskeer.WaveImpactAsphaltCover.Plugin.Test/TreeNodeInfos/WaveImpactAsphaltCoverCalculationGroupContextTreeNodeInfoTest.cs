@@ -1429,10 +1429,10 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(NormType.SignalFloodingProbability)]
-        [TestCase(NormType.MaximumAllowableFloodingProbability)]
+        [TestCase(NormativeProbabilityType.SignalFloodingProbability)]
+        [TestCase(NormativeProbabilityType.MaximumAllowableFloodingProbability)]
         public void ContextMenuStrip_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers(
-            NormType normType)
+            NormativeProbabilityType normativeProbabilityType)
         {
             // Setup
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -1442,7 +1442,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = normType
+                    NormativeNorm = normativeProbabilityType
                 }
             };
             var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
@@ -1482,7 +1482,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     Assert.IsNotNull(newCalculationItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                    Assert.AreEqual(GetWaterLevelTypeFromNormType(normType), newCalculationItem.InputParameters.WaterLevelType);
+                    Assert.AreEqual(GetWaterLevelTypeFromNormType(normativeProbabilityType), newCalculationItem.InputParameters.WaterLevelType);
                 }
             }
         }
@@ -1492,7 +1492,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var random = new Random(21);
-            var normType = random.NextEnumValue<NormType>();
+            var normType = random.NextEnumValue<NormativeProbabilityType>();
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1931,13 +1931,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             };
         }
 
-        private static WaveConditionsInputWaterLevelType GetWaterLevelTypeFromNormType(NormType normType)
+        private static WaveConditionsInputWaterLevelType GetWaterLevelTypeFromNormType(NormativeProbabilityType normativeProbabilityType)
         {
-            switch (normType)
+            switch (normativeProbabilityType)
             {
-                case NormType.MaximumAllowableFloodingProbability:
+                case NormativeProbabilityType.MaximumAllowableFloodingProbability:
                     return WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;
-                case NormType.SignalFloodingProbability:
+                case NormativeProbabilityType.SignalFloodingProbability:
                     return WaveConditionsInputWaterLevelType.SignalFloodingProbability;
                 default:
                     throw new NotSupportedException();

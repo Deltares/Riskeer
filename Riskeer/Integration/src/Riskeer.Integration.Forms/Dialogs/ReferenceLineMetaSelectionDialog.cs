@@ -75,9 +75,9 @@ namespace Riskeer.Integration.Forms.Dialogs
         public double SelectedSignalFloodingProbability { get; private set; }
 
         /// <summary>
-        /// Gets the norm type from the selected <see cref="RadioButton"/> in the dialog.
+        /// Gets the normative probability type from the selected <see cref="RadioButton"/> in the dialog.
         /// </summary>
-        public NormType SelectedNormativeNorm { get; private set; }
+        public NormativeProbabilityType SelectedNormativeProbabilityType { get; private set; }
 
         protected override Button GetCancelButton()
         {
@@ -107,16 +107,16 @@ namespace Riskeer.Integration.Forms.Dialogs
             {
                 SelectedReferenceLineMeta = referenceLineMetaSelectionRow.ReferenceLineMeta;
 
-                SelectedNormativeNorm = SignalFloodingProbabilityRadioButton.Checked
-                                            ? NormType.SignalFloodingProbability
-                                            : NormType.MaximumAllowableFloodingProbability;
+                SelectedNormativeProbabilityType = SignalFloodingProbabilityRadioButton.Checked
+                                                       ? NormativeProbabilityType.SignalFloodingProbability
+                                                       : NormativeProbabilityType.MaximumAllowableFloodingProbability;
 
                 double lowerLimitNormValue = GetNormValue(referenceLineMetaSelectionRow.MaximumAllowableFloodingProbabilityReturnPeriod);
 
                 SelectedMaximumAllowableFloodingProbability = lowerLimitNormValue;
                 SelectedSignalFloodingProbability = referenceLineMetaSelectionRow.SignalFloodingProbabilityReturnPeriod.HasValue
-                                            ? GetNormValue(referenceLineMetaSelectionRow.SignalFloodingProbabilityReturnPeriod.Value)
-                                            : lowerLimitNormValue;
+                                                        ? GetNormValue(referenceLineMetaSelectionRow.SignalFloodingProbabilityReturnPeriod.Value)
+                                                        : lowerLimitNormValue;
             }
         }
 

@@ -27,38 +27,28 @@ using Riskeer.Common.Data.Contribution;
 namespace Riskeer.Common.Data.Test.Contribution
 {
     [TestFixture]
-    public class NormTypeTest : EnumWithResourcesDisplayNameTestFixture<NormType>
+    public class NormativeProbabilityTypeTest : EnumWithResourcesDisplayNameTestFixture<NormativeProbabilityType>
     {
-        protected override IDictionary<NormType, string> ExpectedDisplayNameForEnumValues
-        {
-            get
+        protected override IDictionary<NormativeProbabilityType, string> ExpectedDisplayNameForEnumValues =>
+            new Dictionary<NormativeProbabilityType, string>
             {
-                return new Dictionary<NormType, string>
                 {
-                    {
-                        NormType.MaximumAllowableFloodingProbability, "Omgevingswaarde"
-                    },
-                    {
-                        NormType.SignalFloodingProbability, "Signaleringsparameter"
-                    }
-                };
-            }
-        }
+                    NormativeProbabilityType.MaximumAllowableFloodingProbability, "Omgevingswaarde"
+                },
+                {
+                    NormativeProbabilityType.SignalFloodingProbability, "Signaleringsparameter"
+                }
+            };
 
-        protected override IDictionary<NormType, int> ExpectedValueForEnumValues
-        {
-            get
+        protected override IDictionary<NormativeProbabilityType, int> ExpectedValueForEnumValues =>
+            new Dictionary<NormativeProbabilityType, int>
             {
-                return new Dictionary<NormType, int>
                 {
-                    {
-                        NormType.MaximumAllowableFloodingProbability, 1
-                    },
-                    {
-                        NormType.SignalFloodingProbability, 2
-                    }
-                };
-            }
-        }
+                    NormativeProbabilityType.MaximumAllowableFloodingProbability, 1
+                },
+                {
+                    NormativeProbabilityType.SignalFloodingProbability, 2
+                }
+            };
     }
 }

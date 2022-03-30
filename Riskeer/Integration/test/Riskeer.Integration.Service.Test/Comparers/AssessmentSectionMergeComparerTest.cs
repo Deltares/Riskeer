@@ -214,9 +214,9 @@ namespace Riskeer.Integration.Service.Test.Comparers
                                                                    "LowerLimitNorm");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.SignalingNorm = sec.FailureMechanismContribution.SignalingNorm - 1e-15,
                                                                    "SignalingNorm");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.NormativeNorm = sec.FailureMechanismContribution.NormativeNorm == NormType.MaximumAllowableFloodingProbability
-                                                                                                                               ? NormType.SignalFloodingProbability
-                                                                                                                               : NormType.MaximumAllowableFloodingProbability,
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.NormativeNorm = sec.FailureMechanismContribution.NormativeNorm == NormativeProbabilityType.MaximumAllowableFloodingProbability
+                                                                                                                               ? NormativeProbabilityType.SignalFloodingProbability
+                                                                                                                               : NormativeProbabilityType.MaximumAllowableFloodingProbability,
                                                                    "NormType");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.ChangeComposition(AssessmentSectionComposition.DikeAndDune),
                                                                    "Composition");

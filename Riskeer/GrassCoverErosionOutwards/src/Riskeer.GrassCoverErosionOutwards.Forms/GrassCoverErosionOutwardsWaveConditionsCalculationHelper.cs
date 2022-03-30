@@ -38,19 +38,19 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms
     {
         /// <summary>
         /// Adds a <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> in the <paramref name="calculations"/>
-        /// based on the <paramref name="locations"/> and the <paramref name="normType"/>.
+        /// based on the <paramref name="locations"/> and the <paramref name="normativeProbabilityType"/>.
         /// </summary>
         /// <param name="locations">Locations to base the calculation upon.</param>
         /// <param name="calculations">The list to update.</param>
-        /// <param name="normType">The <see cref="NormType"/> to base the calculation on.</param>
+        /// <param name="normativeProbabilityType">The <see cref="NormativeProbabilityType"/> to base the calculation on.</param>
         /// <exception cref="ArgumentNullException">Throw when any <paramref name="locations"/>
         /// or <paramref name="calculations"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normativeProbabilityType"/> is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="normativeProbabilityType"/> is a valid value,
         /// but unsupported.</exception>
         public static void AddCalculationsFromLocations(IEnumerable<HydraulicBoundaryLocation> locations,
                                                         List<ICalculationBase> calculations,
-                                                        NormType normType)
+                                                        NormativeProbabilityType normativeProbabilityType)
         {
             if (locations == null)
             {
@@ -66,7 +66,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms
             {
                 calculations.Add(CreateGrassCoverErosionOutwardsWaveConditionsCalculation(hydraulicBoundaryLocation,
                                                                                           calculations,
-                                                                                          normType));
+                                                                                          normativeProbabilityType));
             }
         }
 
@@ -76,15 +76,15 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms
         /// </summary>
         /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> to set.</param>
         /// <param name="calculations">The list of calculations to base the calculation name from.</param>
-        /// <param name="normType">The <see cref="NormType"/> to base the water level type input on.</param>
+        /// <param name="normativeProbabilityType">The <see cref="NormativeProbabilityType"/> to base the water level type input on.</param>
         /// <returns>An <see cref="ICalculationBase"/> representing a grass cover erosion outwards calculation.</returns>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normType"/> is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <paramref name="normType"/> is a valid value,
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normativeProbabilityType"/> is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <paramref name="normativeProbabilityType"/> is a valid value,
         /// but unsupported.</exception>
         private static ICalculationBase CreateGrassCoverErosionOutwardsWaveConditionsCalculation(
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
             IEnumerable<ICalculationBase> calculations,
-            NormType normType)
+            NormativeProbabilityType normativeProbabilityType)
         {
             string nameBase = hydraulicBoundaryLocation.Name;
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -95,7 +95,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-            WaveConditionsInputHelper.SetWaterLevelType(calculation.InputParameters, normType);
+            WaveConditionsInputHelper.SetWaterLevelType(calculation.InputParameters, normativeProbabilityType);
             return calculation;
         }
     }

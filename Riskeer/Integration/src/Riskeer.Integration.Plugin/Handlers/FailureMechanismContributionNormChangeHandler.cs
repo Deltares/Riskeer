@@ -145,14 +145,14 @@ namespace Riskeer.Integration.Plugin.Handlers
             return affectedObjects;
         }
 
-        private IEnumerable<IObservable> ClearNormDependingHydraulicBoundaryLocationCalculationOutput(bool normativeNorm)
+        private IEnumerable<IObservable> ClearNormDependingHydraulicBoundaryLocationCalculationOutput(bool normativeProbability)
         {
-            NormType normToClearFor = GetNormToClearFor(normativeNorm, assessmentSection.FailureMechanismContribution.NormativeNorm);
-            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsToClear = GetHydraulicBoundaryLocationCalculationsToClear(normToClearFor);
+            NormativeProbabilityType normativeProbabilityToClearFor = GetNormativeProbabilityToClearFor(normativeProbability, assessmentSection.FailureMechanismContribution.NormativeNorm);
+            IEnumerable<HydraulicBoundaryLocationCalculation> calculationsToClear = GetHydraulicBoundaryLocationCalculationsToClear(normativeProbabilityToClearFor);
 
             var affectedObjects = new List<IObservable>();
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(calculationsToClear));
-            affectedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(assessmentSection, normToClearFor));
+            affectedObjects.AddRange(RiskeerDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(assessmentSection, normativeProbabilityToClearFor));
 
             if (affectedObjects.Any())
             {
@@ -162,21 +162,21 @@ namespace Riskeer.Integration.Plugin.Handlers
             return affectedObjects;
         }
 
-        private static NormType GetNormToClearFor(bool normativeNorm, NormType normativeNormType)
+        private static NormativeProbabilityType GetNormativeProbabilityToClearFor(bool normativeProbability, NormativeProbabilityType normativeProbabilityType)
         {
-            if (normativeNorm)
+            if (normativeProbability)
             {
-                return normativeNormType;
+                return normativeProbabilityType;
             }
 
-            return normativeNormType == NormType.MaximumAllowableFloodingProbability
-                       ? NormType.SignalFloodingProbability
-                       : NormType.MaximumAllowableFloodingProbability;
+            return normativeProbabilityType == NormativeProbabilityType.MaximumAllowableFloodingProbability
+                       ? NormativeProbabilityType.SignalFloodingProbability
+                       : NormativeProbabilityType.MaximumAllowableFloodingProbability;
         }
 
-        private IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculationsToClear(NormType normToClearFor)
+        private IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculationsToClear(NormativeProbabilityType normativeProbabilityToClearFor)
         {
-            return normToClearFor == NormType.MaximumAllowableFloodingProbability
+            return normativeProbabilityToClearFor == NormativeProbabilityType.MaximumAllowableFloodingProbability
                        ? assessmentSection.WaterLevelCalculationsForLowerLimitNorm
                        : assessmentSection.WaterLevelCalculationsForSignalingNorm;
         }

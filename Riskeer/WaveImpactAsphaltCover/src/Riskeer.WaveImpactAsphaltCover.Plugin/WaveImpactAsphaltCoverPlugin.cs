@@ -593,12 +593,12 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
 
         private static void GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
                                                                                      List<ICalculationBase> calculationCollection,
-                                                                                     NormType normType)
+                                                                                     NormativeProbabilityType normativeProbabilityType)
         {
             WaveImpactAsphaltCoverWaveConditionsCalculationConfigurationHelper.AddCalculationsFromLocations(
                 hydraulicBoundaryLocations,
                 calculationCollection,
-                normType);
+                normativeProbabilityType);
         }
 
         private static void AddWaveConditionsCalculation(WaveImpactAsphaltCoverCalculationGroupContext nodeData)

@@ -49,9 +49,9 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assessmentSection"/>
-        /// contains an invalid value of <see cref="NormType"/>.</exception>
+        /// contains an invalid value of <see cref="NormativeProbabilityType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="assessmentSection"/>
-        /// contains a valid value of <see cref="NormType"/>, but unsupported.</exception>
+        /// contains a valid value of <see cref="NormativeProbabilityType"/>, but unsupported.</exception>
         public static RoundedDouble GetNormativeAssessmentLevel(this IAssessmentSection assessmentSection,
                                                                 HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
@@ -81,9 +81,9 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assessmentSection"/>
-        /// contains an invalid value of <see cref="NormType"/>.</exception>
+        /// contains an invalid value of <see cref="NormativeProbabilityType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="assessmentSection"/>
-        /// contains a valid value of <see cref="NormType"/>, but unsupported.</exception>
+        /// contains a valid value of <see cref="NormativeProbabilityType"/>, but unsupported.</exception>
         public static HydraulicBoundaryLocationCalculation GetNormativeHydraulicBoundaryLocationCalculation(this IAssessmentSection assessmentSection,
                                                                                                             HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
@@ -97,36 +97,36 @@ namespace Riskeer.Common.Data.AssessmentSection
         }
 
         /// <summary>
-        /// Gets the relevant collection of <see cref="HydraulicBoundaryLocationCalculation"/> based on the <see cref="NormType"/> of the
+        /// Gets the relevant collection of <see cref="HydraulicBoundaryLocationCalculation"/> based on the <see cref="NormativeProbabilityType"/> of the
         /// assessment section.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> to get the collections of
         /// <see cref="HydraulicBoundaryLocationCalculation"/> from.</param>
         /// <returns>A collection of <see cref="HydraulicBoundaryLocationCalculation"/> from the <see cref="IAssessmentSection"/>
-        /// based on the <see cref="NormType"/>.</returns>
+        /// based on the <see cref="NormativeProbabilityType"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="assessmentSection"/>
-        /// contains an invalid value of <see cref="NormType"/>.</exception>
+        /// contains an invalid value of <see cref="NormativeProbabilityType"/>.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="assessmentSection"/>
-        /// contains a valid value of <see cref="NormType"/>, but unsupported.</exception>
+        /// contains a valid value of <see cref="NormativeProbabilityType"/>, but unsupported.</exception>
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculations(IAssessmentSection assessmentSection)
         {
-            NormType normType = assessmentSection.FailureMechanismContribution.NormativeNorm;
+            NormativeProbabilityType normativeProbabilityType = assessmentSection.FailureMechanismContribution.NormativeNorm;
 
-            if (!Enum.IsDefined(typeof(NormType), normType))
+            if (!Enum.IsDefined(typeof(NormativeProbabilityType), normativeProbabilityType))
             {
-                throw new InvalidEnumArgumentException(nameof(normType),
-                                                       (int) normType,
-                                                       typeof(NormType));
+                throw new InvalidEnumArgumentException(nameof(normativeProbabilityType),
+                                                       (int) normativeProbabilityType,
+                                                       typeof(NormativeProbabilityType));
             }
 
             IEnumerable<HydraulicBoundaryLocationCalculation> calculations;
 
-            switch (normType)
+            switch (normativeProbabilityType)
             {
-                case NormType.SignalFloodingProbability:
+                case NormativeProbabilityType.SignalFloodingProbability:
                     calculations = assessmentSection.WaterLevelCalculationsForSignalingNorm;
                     break;
-                case NormType.MaximumAllowableFloodingProbability:
+                case NormativeProbabilityType.MaximumAllowableFloodingProbability:
                     calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
                     break;
                 default:
