@@ -49,7 +49,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// <param name="assemblyMethod">The method used to assemble this result.</param>
         /// <param name="assemblyGroup">The group of this assembly result.</param>
         /// <param name="probability">The probability of this assembly result.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter except <paramref name="id"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentProcess"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public SerializableTotalAssemblyResult(string id,
                                                SerializableAssessmentProcess assessmentProcess,

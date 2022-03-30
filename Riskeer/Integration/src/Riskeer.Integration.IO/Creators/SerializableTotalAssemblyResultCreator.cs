@@ -42,7 +42,8 @@ namespace Riskeer.Integration.IO.Creators
         /// <param name="assemblyGroup">The group of this assembly result.</param>
         /// <param name="probability">The probability of this assembly result.</param>
         /// <returns>A <see cref="SerializableTotalAssemblyResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="idGenerator"/>
+        /// or <paramref name="assessmentProcess"/> is <c>null</c>.</exception>
         public static SerializableTotalAssemblyResult Create(IdentifierGenerator idGenerator,
                                                              SerializableAssessmentProcess assessmentProcess,
                                                              SerializableAssemblyMethod assemblyMethod,
