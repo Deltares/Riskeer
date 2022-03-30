@@ -91,7 +91,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             TestHelper.AssertTypeConverter<NormProperties, NoProbabilityValueDoubleConverter>(
                 nameof(NormProperties.MaximumAllowableFloodingProbability));
             TestHelper.AssertTypeConverter<NormProperties, EnumTypeConverter>(
-                nameof(NormProperties.NormativeNorm));
+                nameof(NormProperties.NormativeProbabilityType));
             mocks.VerifyAll();
         }
 
@@ -127,8 +127,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
                                                                             "Signaleringsparameter [1/jaar]",
                                                                             "De overstromingskans voor de signalering over de veiligheid van het traject.");
 
-            PropertyDescriptor normativeNormProperty = dynamicProperties[2];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(normativeNormProperty,
+            PropertyDescriptor normativeProbabilityTypeProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(normativeProbabilityTypeProperty,
                                                                             expectedCategory,
                                                                             "Rekenwaarde voor waterstanden",
                                                                             "De doelkans die wordt gebruikt om de lokale waterstand te bepalen voor de semi-probabilistische toets voor 'Piping' en 'Macrostabiliteit binnenwaarts'.");
@@ -152,12 +152,12 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, properties.MaximumAllowableFloodingProbability);
             Assert.AreEqual(failureMechanismContribution.SignalingNorm, properties.SignalFloodingProbability);
-            Assert.AreEqual(failureMechanismContribution.NormativeNorm, properties.NormativeNorm);
+            Assert.AreEqual(failureMechanismContribution.NormativeNorm, properties.NormativeProbabilityType);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void GivenNormativeNormIsMaximumAllowableFloodingProbability_WhenChangingMaximumAllowableFloodingProbability_ThenHandlerCalledAndPropertySet()
+        public void GivenNormativeProbabilityTypeIsMaximumAllowableFloodingProbability_WhenChangingMaximumAllowableFloodingProbability_ThenHandlerCalledAndPropertySet()
         {
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
@@ -186,7 +186,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenNormativeNormIsSignalFloodingProbability_WhenChangingMaximumAllowableFloodingProbability_ThenHandlerCalledAndPropertySet()
+        public void GivenNormativeProbabilityTypeIsSignalFloodingProbability_WhenChangingMaximumAllowableFloodingProbability_ThenHandlerCalledAndPropertySet()
         {
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
@@ -216,7 +216,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenNormativeNormIsSignalFloodingProbability_WhenChangingSignalFloodingProbability_ThenHandlerCalledAndPropertySet()
+        public void GivenNormativeProbabilityTypeIsSignalFloodingProbability_WhenChangingSignalFloodingProbability_ThenHandlerCalledAndPropertySet()
         {
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
@@ -246,7 +246,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void GivenNormativeNormIsMaximumAllowableFloodingProbability_WhenChangingSignalFloodingProbability_ThenHandlerCalledAndPropertySet()
+        public void GivenNormativeProbabilityTypeIsMaximumAllowableFloodingProbability_WhenChangingSignalFloodingProbability_ThenHandlerCalledAndPropertySet()
         {
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
@@ -275,7 +275,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void NormativeNorm_Always_HandlerCalledAndPropertySet()
+        public void NormativeProbabilityType_Always_HandlerCalledAndPropertySet()
         {
             // Setup
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
@@ -296,7 +296,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             const NormativeProbabilityType newValue = NormativeProbabilityType.SignalFloodingProbability;
 
             // Call
-            properties.NormativeNorm = newValue;
+            properties.NormativeProbabilityType = newValue;
 
             // Assert
             Assert.AreEqual(newValue, failureMechanismContribution.NormativeNorm);

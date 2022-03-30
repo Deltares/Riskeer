@@ -92,10 +92,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
         [PropertyOrder(3)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormativeNorm_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.NormativeNorm_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.NormativeProbabilityType_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.NormativeProbabilityType_Description))]
         [TypeConverter(typeof(EnumTypeConverter))]
-        public NormativeProbabilityType NormativeNorm
+        public NormativeProbabilityType NormativeProbabilityType
         {
             get => data.NormativeNorm;
             set
