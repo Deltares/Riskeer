@@ -158,11 +158,11 @@ namespace Riskeer.Integration.Forms.Test.Views
                 MapDataTestHelper.AssertFailureMechanismSectionsStartPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsStartPointIndex));
                 MapDataTestHelper.AssertFailureMechanismSectionsEndPointMapData(failureMechanism.Sections, sectionsCollection.ElementAt(sectionsEndPointIndex));
 
-                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
-
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
                 MapDataTestHelper.AssertAssemblyMapData(failureMechanism, calculator.FailureMechanismSectionAssemblyResultOutput, mapDataList[assemblyResultsIndex]);
+
+                MapDataTestHelper.AssertHydraulicBoundaryLocationsMapData(assessmentSection, mapDataList[hydraulicBoundaryLocationsIndex]);
             }
         }
 
@@ -309,11 +309,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             MapData sectionsData = mapDataCollection.ElementAt(updatedSectionsCollectionLayerIndex);
             Assert.AreEqual("Vakindeling", sectionsData.Name);
 
-            MapData hydraulicBoundaryLocationsData = mapDataCollection.ElementAt(updatedHydraulicBoundaryLocationsLayerIndex);
-            Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsData.Name);
-
             var assemblyResultsData = (MapLineData) mapDataCollection.ElementAt(updatedAssemblyResultsIndex);
             Assert.AreEqual("Duidingsklasse per vak", assemblyResultsData.Name);
+
+            MapData hydraulicBoundaryLocationsData = mapDataCollection.ElementAt(updatedHydraulicBoundaryLocationsLayerIndex);
+            Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsData.Name);
 
             // When
             var points = new List<Point2D>
@@ -332,6 +332,9 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             MapData actualSectionsData = mapDataCollection.ElementAt(updatedSectionsCollectionLayerIndex);
             Assert.AreEqual("Vakindeling", actualSectionsData.Name);
+
+            var actualAssemblyResultsData = (MapLineData) mapDataCollection.ElementAt(updatedAssemblyResultsIndex);
+            Assert.AreEqual("Duidingsklasse per vak", actualAssemblyResultsData.Name);
 
             MapData actualHydraulicBoundaryLocationsData = mapDataCollection.ElementAt(updatedHydraulicBoundaryLocationsLayerIndex);
             Assert.AreEqual("Hydraulische belastingen", actualHydraulicBoundaryLocationsData.Name);
@@ -359,10 +362,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             CollectionAssert.IsEmpty(referenceLineMapData.Features);
 
-            var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[hydraulicBoundaryLocationsIndex];
-            Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
-            CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
-
             var sectionsMapDataCollection = (MapDataCollection) mapDataList[sectionsCollectionIndex];
             Assert.AreEqual("Vakindeling", sectionsMapDataCollection.Name);
             List<MapData> sectionsDataList = sectionsMapDataCollection.Collection.ToList();
@@ -373,6 +372,10 @@ namespace Riskeer.Integration.Forms.Test.Views
 
             var assemblyResultsMapData = (MapLineData) mapDataList[assemblyResultsIndex];
             Assert.AreEqual("Duidingsklasse per vak", assemblyResultsMapData.Name);
+
+            var hydraulicBoundaryLocationsMapData = (MapPointData) mapDataList[hydraulicBoundaryLocationsIndex];
+            Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
+            CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
 
             CollectionAssert.IsEmpty(sectionsMapData.Features);
             CollectionAssert.IsEmpty(sectionsStartPointMapData.Features);
