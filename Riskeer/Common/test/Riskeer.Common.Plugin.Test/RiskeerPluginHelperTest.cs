@@ -23,7 +23,6 @@ using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Riskeer.Common.Data.Calculation;
 using Riskeer.Common.Data.FailureMechanism;
-using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Forms.Views;
 using Riskeer.Common.Plugin.TestUtil;
 
@@ -70,31 +69,6 @@ namespace Riskeer.Common.Plugin.Test
             protected override IView GetView(IFailureMechanism failureMechanism)
             {
                 return new TestFailureMechanismView(failureMechanism);
-            }
-
-            private class TestFailureMechanismView : CloseForFailureMechanismView
-            {
-                public TestFailureMechanismView(IFailureMechanism failureMechanism)
-                    : base(failureMechanism) {}
-            }
-
-            protected override IFailureMechanism GetFailureMechanism()
-            {
-                return new TestFailureMechanism();
-            }
-        }
-
-        [TestFixture]
-        public class ShouldCloseFailurePathViewForDataTester : ShouldCloseViewWithFailurePathTester
-        {
-            protected override bool ShouldCloseMethod(IView view, object o)
-            {
-                return RiskeerPluginHelper.ShouldCloseForFailurePathView((CloseForFailureMechanismView) view, o);
-            }
-
-            protected override IView GetView(IFailureMechanism failurePath)
-            {
-                return new TestFailureMechanismView(failurePath);
             }
 
             private class TestFailureMechanismView : CloseForFailureMechanismView

@@ -447,7 +447,7 @@ namespace Riskeer.Integration.Plugin
                 GetViewName = (view, context) => context.WrappedData.Name,
                 CreateInstance = context => new SpecificFailureMechanismView(context.WrappedData, context.Parent),
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
-                CloseForData = RiskeerPluginHelper.ShouldCloseForFailurePathView
+                CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView
             };
 
             yield return new RiskeerViewInfo<Comment, CommentView>(() => Gui)
@@ -460,7 +460,7 @@ namespace Riskeer.Integration.Plugin
             yield return new RiskeerViewInfo<FailureMechanismSectionsContext, IEnumerable<FailureMechanismSection>, FailureMechanismSectionsView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerCommonFormsResources.FailureMechanismSections_DisplayName,
-                CloseForData = RiskeerPluginHelper.ShouldCloseForFailurePathView,
+                CloseForData = RiskeerPluginHelper.ShouldCloseForFailureMechanismView,
                 CreateInstance = context => new FailureMechanismSectionsView(context.WrappedData.Sections, context.WrappedData),
                 GetViewData = context => context.WrappedData.Sections
             };

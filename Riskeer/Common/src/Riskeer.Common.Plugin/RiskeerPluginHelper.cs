@@ -84,31 +84,6 @@ namespace Riskeer.Common.Plugin
             if (removedObject is IAssessmentSection assessmentSection)
             {
                 failureMechanism = assessmentSection.GetFailureMechanisms()
-                                                    .FirstOrDefault(fm => fm == view.FailureMechanism);
-            }
-
-            return failureMechanism != null && ReferenceEquals(view.FailureMechanism, failureMechanism);
-        }
-
-        /// <summary>
-        /// Checks whether <paramref name="view"/> should be closed based on the removal of
-        /// <paramref name="removedObject"/>.
-        /// </summary>
-        /// <param name="view">The view to be checked.</param>
-        /// <param name="removedObject">The object that is removed.</param>
-        /// <returns>Whether the view should be closed.</returns>
-        public static bool ShouldCloseForFailurePathView(CloseForFailureMechanismView view, object removedObject)
-        {
-            var failureMechanism = removedObject as IFailureMechanism;
-
-            if (removedObject is IFailureMechanismContext<IFailureMechanism> failureMechanismContext)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-
-            if (removedObject is IAssessmentSection assessmentSection)
-            {
-                failureMechanism = assessmentSection.GetFailureMechanisms()
                                                     .FirstOrDefault(fm => fm == view.FailureMechanism)
                                    ?? assessmentSection.SpecificFailureMechanisms
                                                        .FirstOrDefault(fp => fp == view.FailureMechanism);

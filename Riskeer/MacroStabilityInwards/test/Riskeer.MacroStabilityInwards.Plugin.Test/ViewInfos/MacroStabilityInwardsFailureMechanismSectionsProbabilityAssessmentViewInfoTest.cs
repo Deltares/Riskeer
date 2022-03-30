@@ -99,11 +99,6 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.ViewInfos
                                                                              failureMechanism,
                                                                              new MacroStabilityInwardsProbabilityAssessmentInput());
             }
-
-            protected override IFailureMechanism GetFailureMechanism()
-            {
-                return new MacroStabilityInwardsFailureMechanism();
-            }
         }
     }
 }

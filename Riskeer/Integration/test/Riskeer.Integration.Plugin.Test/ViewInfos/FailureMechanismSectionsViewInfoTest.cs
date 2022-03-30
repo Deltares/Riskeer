@@ -35,7 +35,7 @@ using Riskeer.Common.Plugin.TestUtil;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class FailureMechanismSectionsViewInfoTest : ShouldCloseViewWithFailurePathTester
+    public class FailureMechanismSectionsViewInfoTest : ShouldCloseViewWithFailureMechanismTester
     {
         private static ViewInfo info;
 
