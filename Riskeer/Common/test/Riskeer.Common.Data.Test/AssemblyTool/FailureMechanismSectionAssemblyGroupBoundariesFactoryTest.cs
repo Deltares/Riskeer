@@ -52,8 +52,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
 
                 // Assert
-                Assert.AreEqual(signalingNorm, calculator.SignalingNorm);
-                Assert.AreEqual(lowerLimitNorm, calculator.LowerLimitNorm);
+                Assert.AreEqual(signalingNorm, calculator.SignalFloodingProbability);
+                Assert.AreEqual(lowerLimitNorm, calculator.MaximumAllowableFloodingProbability);
             }
         }
 
