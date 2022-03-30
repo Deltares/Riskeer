@@ -112,12 +112,12 @@ namespace Riskeer.Integration.Plugin.Merge
 
         #region SpecificFailureMechanisms
 
-        private static void MergeSpecificFailureMechanism(AssessmentSection targetAssessmentSection, IEnumerable<SpecificFailureMechanism> mergeFailurePaths)
+        private static void MergeSpecificFailureMechanism(AssessmentSection targetAssessmentSection, IEnumerable<SpecificFailureMechanism> mergeFailureMechanisms)
         {
-            if (mergeFailurePaths.Any())
+            if (mergeFailureMechanisms.Any())
             {
-                targetAssessmentSection.SpecificFailureMechanisms.AddRange(mergeFailurePaths);
-                mergeFailurePaths.ForEachElementDo(LogMergeMessage);
+                targetAssessmentSection.SpecificFailureMechanisms.AddRange(mergeFailureMechanisms);
+                mergeFailureMechanisms.ForEachElementDo(LogMergeMessage);
             }
         }
 
