@@ -57,7 +57,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = (NormativeProbabilityType) invalidValue
+                    NormativeProbabilityType = (NormativeProbabilityType) invalidValue
                 }
             };
 
@@ -78,7 +78,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = new Random(32).NextEnumValue<NormativeProbabilityType>()
+                    NormativeProbabilityType = new Random(32).NextEnumValue<NormativeProbabilityType>()
                 }
             };
 
@@ -97,7 +97,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = new Random(32).NextEnumValue<NormativeProbabilityType>()
+                    NormativeProbabilityType = new Random(32).NextEnumValue<NormativeProbabilityType>()
                 }
             };
 
@@ -115,7 +115,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            assessmentSection.FailureMechanismContribution.NormativeNorm = new Random(32).NextEnumValue<NormativeProbabilityType>();
+            assessmentSection.FailureMechanismContribution.NormativeProbabilityType = new Random(32).NextEnumValue<NormativeProbabilityType>();
             assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
             {
                 hydraulicBoundaryLocation
@@ -137,7 +137,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             HydraulicBoundaryLocationCalculation calculation)
         {
             // Setup
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
+            assessmentSection.FailureMechanismContribution.NormativeProbabilityType = normativeProbabilityType;
 
             // Call
             RoundedDouble normativeAssessmentLevel = assessmentSection.GetNormativeAssessmentLevel(hydraulicBoundaryLocation);
@@ -168,7 +168,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = (NormativeProbabilityType) invalidValue
+                    NormativeProbabilityType = (NormativeProbabilityType) invalidValue
                 }
             };
 
@@ -190,7 +190,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = random.NextEnumValue<NormativeProbabilityType>()
+                    NormativeProbabilityType = random.NextEnumValue<NormativeProbabilityType>()
                 }
             };
 
@@ -210,7 +210,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = random.NextEnumValue<NormativeProbabilityType>()
+                    NormativeProbabilityType = random.NextEnumValue<NormativeProbabilityType>()
                 }
             };
 
@@ -231,7 +231,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             HydraulicBoundaryLocationCalculation calculation)
         {
             // Setup
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
+            assessmentSection.FailureMechanismContribution.NormativeProbabilityType = normativeProbabilityType;
 
             // Call
             HydraulicBoundaryLocationCalculation normativeHydraulicBoundaryLocationCalculation =

@@ -64,7 +64,7 @@ namespace Riskeer.Storage.Core.Read
                 },
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = (NormativeProbabilityType) entity.NormativeNormType
+                    NormativeProbabilityType = (NormativeProbabilityType) entity.NormativeNormType
                 }
             };
 

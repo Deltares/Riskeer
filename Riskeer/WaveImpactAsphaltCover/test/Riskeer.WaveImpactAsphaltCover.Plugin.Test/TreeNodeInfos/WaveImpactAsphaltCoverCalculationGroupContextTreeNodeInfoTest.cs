@@ -1442,7 +1442,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = normativeProbabilityType
+                    NormativeProbabilityType = normativeProbabilityType
                 }
             };
             var nodeData = new WaveImpactAsphaltCoverCalculationGroupContext(group,
@@ -1514,7 +1514,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     FailureMechanismContribution =
                     {
-                        NormativeNorm = normType
+                        NormativeProbabilityType = normType
                     }
                 };
                 assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(new[]

@@ -585,7 +585,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                 {
                     GenerateWaveImpactAsphaltCoverWaveConditionsCalculations(dialog.SelectedItems,
                                                                              nodeData.WrappedData.Children,
-                                                                             nodeData.AssessmentSection.FailureMechanismContribution.NormativeNorm);
+                                                                             nodeData.AssessmentSection.FailureMechanismContribution.NormativeProbabilityType);
                     nodeData.NotifyObservers();
                 }
             }
@@ -610,7 +610,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                                                   c => c.Name)
             };
             WaveConditionsInputHelper.SetWaterLevelType(calculation.InputParameters,
-                                                        nodeData.AssessmentSection.FailureMechanismContribution.NormativeNorm);
+                                                        nodeData.AssessmentSection.FailureMechanismContribution.NormativeProbabilityType);
             nodeData.WrappedData.Children.Add(calculation);
             nodeData.WrappedData.NotifyObservers();
         }

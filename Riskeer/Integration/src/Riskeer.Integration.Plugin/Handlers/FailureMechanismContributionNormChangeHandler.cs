@@ -147,7 +147,7 @@ namespace Riskeer.Integration.Plugin.Handlers
 
         private IEnumerable<IObservable> ClearNormDependingHydraulicBoundaryLocationCalculationOutput(bool normativeProbability)
         {
-            NormativeProbabilityType normativeProbabilityToClearFor = GetNormativeProbabilityToClearFor(normativeProbability, assessmentSection.FailureMechanismContribution.NormativeNorm);
+            NormativeProbabilityType normativeProbabilityToClearFor = GetNormativeProbabilityToClearFor(normativeProbability, assessmentSection.FailureMechanismContribution.NormativeProbabilityType);
             IEnumerable<HydraulicBoundaryLocationCalculation> calculationsToClear = GetHydraulicBoundaryLocationCalculationsToClear(normativeProbabilityToClearFor);
 
             var affectedObjects = new List<IObservable>();

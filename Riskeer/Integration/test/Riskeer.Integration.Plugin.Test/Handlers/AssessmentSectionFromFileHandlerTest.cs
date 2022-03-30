@@ -375,7 +375,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 Name = "Traject 1-2",
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = useSignalingValue ? NormativeProbabilityType.SignalFloodingProbability : NormativeProbabilityType.MaximumAllowableFloodingProbability
+                    NormativeProbabilityType = useSignalingValue ? NormativeProbabilityType.SignalFloodingProbability : NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
             assessmentSection.GrassCoverErosionInwards.GeneralInput.N = (RoundedDouble) 2.0;
@@ -400,7 +400,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 Name = "Traject 2-1",
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormativeProbabilityType.SignalFloodingProbability
+                    NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability
                 },
                 GrassCoverErosionInwards =
                 {
@@ -444,7 +444,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 Name = "Traject 3-3",
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormativeProbabilityType.SignalFloodingProbability
+                    NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability
                 }
             };
             assessmentSection.ReferenceLine.SetGeometry(new[]
@@ -466,7 +466,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.FailureMechanismContribution.LowerLimitNorm, actual.FailureMechanismContribution.LowerLimitNorm);
             Assert.AreEqual(expected.FailureMechanismContribution.SignalingNorm, actual.FailureMechanismContribution.SignalingNorm);
-            Assert.AreEqual(expected.FailureMechanismContribution.NormativeNorm, actual.FailureMechanismContribution.NormativeNorm);
+            Assert.AreEqual(expected.FailureMechanismContribution.NormativeProbabilityType, actual.FailureMechanismContribution.NormativeProbabilityType);
             Assert.AreEqual(expected.Composition, actual.Composition);
 
             Assert.AreEqual(expected.GrassCoverErosionInwards.GeneralInput.N, actual.GrassCoverErosionInwards.GeneralInput.N);

@@ -287,7 +287,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
+            assessmentSection.FailureMechanismContribution.NormativeProbabilityType = normativeProbabilityType;
 
             IEnumerable<HydraulicBoundaryLocationCalculation> expectedLocationCalculationsToClear = getLocationCalculationsFunc(assessmentSection);
 
@@ -368,7 +368,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
+            assessmentSection.FailureMechanismContribution.NormativeProbabilityType = normativeProbabilityType;
 
             IEnumerable<HydraulicBoundaryLocationCalculation> calculationsBelongingToNorm = getLocationCalculationsFunc(assessmentSection);
 
@@ -487,7 +487,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
+            assessmentSection.FailureMechanismContribution.NormativeProbabilityType = normativeProbabilityType;
 
             IEnumerable<HydraulicBoundaryLocationCalculation> expectedCalculationsToClear = getCalculationsFunc(assessmentSection);
 
@@ -556,7 +556,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
             };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllCalculationConfigurations();
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
+            assessmentSection.FailureMechanismContribution.NormativeProbabilityType = normativeProbabilityType;
 
             IEnumerable<HydraulicBoundaryLocationCalculation> calculationsBelongingToNorm = getLocationCalculationsFunc(assessmentSection);
 

@@ -229,7 +229,7 @@ namespace Riskeer.Revetment.IO.Configurations
 
         private WaveConditionsInputWaterLevelType ConvertNormType()
         {
-            switch (failureMechanismContribution.NormativeNorm)
+            switch (failureMechanismContribution.NormativeProbabilityType)
             {
                 case NormativeProbabilityType.MaximumAllowableFloodingProbability:
                     return WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;

@@ -1417,7 +1417,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = normativeProbabilityType
+                    NormativeProbabilityType = normativeProbabilityType
                 }
             };
             var nodeData = new StabilityStoneCoverCalculationGroupContext(group,
@@ -1489,7 +1489,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 {
                     FailureMechanismContribution =
                     {
-                        NormativeNorm = normType
+                        NormativeProbabilityType = normType
                     }
                 };
                 assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(new[]

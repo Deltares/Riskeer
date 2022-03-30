@@ -110,7 +110,7 @@ namespace Riskeer.Common.Data.AssessmentSection
         /// contains a valid value of <see cref="NormativeProbabilityType"/>, but unsupported.</exception>
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculations(IAssessmentSection assessmentSection)
         {
-            NormativeProbabilityType normativeProbabilityType = assessmentSection.FailureMechanismContribution.NormativeNorm;
+            NormativeProbabilityType normativeProbabilityType = assessmentSection.FailureMechanismContribution.NormativeProbabilityType;
 
             if (!Enum.IsDefined(typeof(NormativeProbabilityType), normativeProbabilityType))
             {

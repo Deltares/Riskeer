@@ -1464,7 +1464,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = normativeProbabilityType
+                    NormativeProbabilityType = normativeProbabilityType
                 }
             };
             var nodeData = new GrassCoverErosionOutwardsCalculationGroupContext(group,
@@ -1767,7 +1767,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     FailureMechanismContribution =
                     {
-                        NormativeNorm = normType
+                        NormativeProbabilityType = normType
                     }
                 };
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]

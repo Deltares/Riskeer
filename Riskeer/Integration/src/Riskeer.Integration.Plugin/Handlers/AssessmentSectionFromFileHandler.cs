@@ -251,7 +251,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                 assessmentSection.ReferenceLine.SetGeometry(selectedItem.ReferenceLine.Points);
             }
 
-            assessmentSection.FailureMechanismContribution.NormativeNorm = normativeProbabilityType;
+            assessmentSection.FailureMechanismContribution.NormativeProbabilityType = normativeProbabilityType;
 
             return assessmentSection;
         }

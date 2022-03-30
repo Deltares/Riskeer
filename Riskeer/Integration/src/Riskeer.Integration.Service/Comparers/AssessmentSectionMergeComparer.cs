@@ -105,7 +105,7 @@ namespace Riskeer.Integration.Service.Comparers
         {
             return AreNormsEquivalent(failureMechanismContribution.LowerLimitNorm, otherFailureMechanismContribution.LowerLimitNorm)
                    && AreNormsEquivalent(failureMechanismContribution.SignalingNorm, otherFailureMechanismContribution.SignalingNorm)
-                   && failureMechanismContribution.NormativeNorm == otherFailureMechanismContribution.NormativeNorm;
+                   && failureMechanismContribution.NormativeProbabilityType == otherFailureMechanismContribution.NormativeProbabilityType;
         }
 
         private static bool AreNormsEquivalent(double norm, double otherNorm)

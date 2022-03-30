@@ -75,7 +75,7 @@ namespace Riskeer.Storage.Core.Create
                 Comments = section.Comments.Body.DeepClone(),
                 LowerLimitNorm = contribution.LowerLimitNorm,
                 SignalingNorm = contribution.SignalingNorm,
-                NormativeNormType = Convert.ToByte(contribution.NormativeNorm)
+                NormativeNormType = Convert.ToByte(contribution.NormativeProbabilityType)
             };
 
             AddEntityForHydraulicDatabase(section.HydraulicBoundaryDatabase, entity, registry);

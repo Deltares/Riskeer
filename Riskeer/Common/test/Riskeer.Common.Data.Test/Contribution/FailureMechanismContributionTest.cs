@@ -35,11 +35,11 @@ namespace Riskeer.Common.Data.Test.Contribution
         public void Constructor_InvalidMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Call
-            TestDelegate test = () => new FailureMechanismContribution(invalidNorm, 0.000001);
+            void Call() => new FailureMechanismContribution(invalidNorm, 0.000001);
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
             Assert.AreEqual(invalidNorm, exception.ActualValue);
         }
@@ -50,11 +50,11 @@ namespace Riskeer.Common.Data.Test.Contribution
         public void Constructor_InvalidSignalFloodingProbability_ThrowsArgumentOutOfRangeException(double invalidNorm)
         {
             // Call
-            TestDelegate test = () => new FailureMechanismContribution(0.1, invalidNorm);
+            void Call() => new FailureMechanismContribution(0.1, invalidNorm);
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
             Assert.AreEqual(invalidNorm, exception.ActualValue);
         }
@@ -66,12 +66,11 @@ namespace Riskeer.Common.Data.Test.Contribution
             const double signalFloodingProbability = 0.1;
 
             // Call
-            TestDelegate test = () => new FailureMechanismContribution(0.01,
-                                                                       signalFloodingProbability);
+            void Call() => new FailureMechanismContribution(0.01, signalFloodingProbability);
 
             // Assert
             const string expectedMessage = "De signaleringsparameter moet gelijk zijn aan of kleiner zijn dan de omgevingswaarde.";
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
             Assert.AreEqual(signalFloodingProbability, exception.ActualValue);
         }
@@ -87,7 +86,7 @@ namespace Riskeer.Common.Data.Test.Contribution
             Assert.AreEqual(norm, result.Norm);
             Assert.AreEqual(norm, result.SignalingNorm);
             Assert.AreEqual(norm, result.LowerLimitNorm);
-            Assert.AreEqual(NormativeProbabilityType.MaximumAllowableFloodingProbability, result.NormativeNorm);
+            Assert.AreEqual(NormativeProbabilityType.MaximumAllowableFloodingProbability, result.NormativeProbabilityType);
         }
 
         [Test]
@@ -97,15 +96,14 @@ namespace Riskeer.Common.Data.Test.Contribution
         {
             // Setup
             const double norm = 1.0 / 30000;
-            var failureMechanismContribution = new FailureMechanismContribution(norm,
-                                                                                norm);
+            var failureMechanismContribution = new FailureMechanismContribution(norm, norm);
 
             // Call
-            TestDelegate test = () => failureMechanismContribution.LowerLimitNorm = invalidNorm;
+            void Call() => failureMechanismContribution.LowerLimitNorm = invalidNorm;
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
             Assert.AreEqual(invalidNorm, exception.ActualValue);
         }
@@ -117,15 +115,14 @@ namespace Riskeer.Common.Data.Test.Contribution
         {
             // Setup
             const double norm = 1.0 / 30000;
-            var failureMechanismContribution = new FailureMechanismContribution(norm,
-                                                                                norm);
+            var failureMechanismContribution = new FailureMechanismContribution(norm, norm);
 
             // Call
-            TestDelegate test = () => failureMechanismContribution.SignalingNorm = invalidNorm;
+            void Call() => failureMechanismContribution.SignalingNorm = invalidNorm;
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
             Assert.AreEqual(invalidNorm, exception.ActualValue);
         }
@@ -136,15 +133,14 @@ namespace Riskeer.Common.Data.Test.Contribution
             // Setup
             const double norm = 1.0 / 30000;
             const double newNorm = 1.0 / 10;
-            var failureMechanismContribution = new FailureMechanismContribution(norm,
-                                                                                norm);
+            var failureMechanismContribution = new FailureMechanismContribution(norm, norm);
 
             // Call
-            TestDelegate test = () => failureMechanismContribution.SignalingNorm = newNorm;
+            void Call() => failureMechanismContribution.SignalingNorm = newNorm;
 
             // Assert
             const string expectedMessage = "De signaleringsparameter moet gelijk zijn aan of kleiner zijn dan de omgevingswaarde.";
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
             Assert.AreEqual(newNorm, exception.ActualValue);
         }
@@ -155,15 +151,14 @@ namespace Riskeer.Common.Data.Test.Contribution
             // Setup
             const double norm = 1.0 / 30000;
             const double newNorm = 1.0 / 1000000;
-            var failureMechanismContribution = new FailureMechanismContribution(norm,
-                                                                                norm);
+            var failureMechanismContribution = new FailureMechanismContribution(norm, norm);
 
             // Call
-            TestDelegate test = () => failureMechanismContribution.LowerLimitNorm = newNorm;
+            void Call() => failureMechanismContribution.LowerLimitNorm = newNorm;
 
             // Assert
             const string expectedMessage = "De omgevingswaarde moet gelijk zijn aan of groter zijn dan de signaleringsparameter.";
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(test);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
             Assert.AreEqual(newNorm, exception.ActualValue);
         }
@@ -201,12 +196,12 @@ namespace Riskeer.Common.Data.Test.Contribution
         [Test]
         [TestCase(NormativeProbabilityType.SignalFloodingProbability, 0.01)]
         [TestCase(NormativeProbabilityType.MaximumAllowableFloodingProbability, 0.1)]
-        public void Norm_DifferentNormativeNormTypes_ReturnNorm(NormativeProbabilityType normativeProbabilityType, double expectedNorm)
+        public void Norm_DifferentNormativeProbabilityTypes_ReturnNorm(NormativeProbabilityType normativeProbabilityType, double expectedNorm)
         {
             // Setup
             var failureMechanismContribution = new FailureMechanismContribution(0.1, 0.01)
             {
-                NormativeNorm = normativeProbabilityType
+                NormativeProbabilityType = normativeProbabilityType
             };
 
             // Call

@@ -152,7 +152,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, properties.MaximumAllowableFloodingProbability);
             Assert.AreEqual(failureMechanismContribution.SignalingNorm, properties.SignalFloodingProbability);
-            Assert.AreEqual(failureMechanismContribution.NormativeNorm, properties.NormativeProbabilityType);
+            Assert.AreEqual(failureMechanismContribution.NormativeProbabilityType, properties.NormativeProbabilityType);
             mocks.VerifyAll();
         }
 
@@ -190,7 +190,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
-            failureMechanismContribution.NormativeNorm = NormativeProbabilityType.SignalFloodingProbability;
+            failureMechanismContribution.NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability;
 
             var mocks = new MockRepository();
             var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
@@ -220,7 +220,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
         {
             // Given
             FailureMechanismContribution failureMechanismContribution = FailureMechanismContributionTestFactory.CreateFailureMechanismContribution();
-            failureMechanismContribution.NormativeNorm = NormativeProbabilityType.SignalFloodingProbability;
+            failureMechanismContribution.NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability;
 
             var mocks = new MockRepository();
             var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
@@ -299,7 +299,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             properties.NormativeProbabilityType = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, failureMechanismContribution.NormativeNorm);
+            Assert.AreEqual(newValue, failureMechanismContribution.NormativeProbabilityType);
             mocks.VerifyAll();
         }
     }

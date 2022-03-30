@@ -321,7 +321,7 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             });
             var failureMechanismContribution = new FailureMechanismContribution(0.1, 0.1)
             {
-                NormativeNorm = normativeProbabilityType
+                NormativeProbabilityType = normativeProbabilityType
             };
 
             var importer = new TestWaveConditionsCalculationConfigurationImporter(

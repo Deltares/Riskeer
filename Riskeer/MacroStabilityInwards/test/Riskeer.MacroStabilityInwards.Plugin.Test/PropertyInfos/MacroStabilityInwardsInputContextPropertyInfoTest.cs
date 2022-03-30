@@ -60,7 +60,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormativeProbabilityType.SignalFloodingProbability
+                    NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability
                 }
             };
 
@@ -106,7 +106,7 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.PropertyInfos
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormativeProbabilityType.MaximumAllowableFloodingProbability
+                    NormativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
 

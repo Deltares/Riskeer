@@ -53,10 +53,10 @@ namespace Riskeer.Integration.Service.Test.Comparers
             var comparer = new AssessmentSectionMergeComparer();
 
             // Call
-            TestDelegate call = () => comparer.Compare(null, CreateAssessmentSection());
+            void Call() => comparer.Compare(null, CreateAssessmentSection());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
@@ -67,10 +67,10 @@ namespace Riskeer.Integration.Service.Test.Comparers
             var comparer = new AssessmentSectionMergeComparer();
 
             // Call
-            TestDelegate call = () => comparer.Compare(CreateAssessmentSection(), null);
+            void Call() => comparer.Compare(CreateAssessmentSection(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("otherAssessmentSection", exception.ParamName);
         }
 
@@ -214,9 +214,9 @@ namespace Riskeer.Integration.Service.Test.Comparers
                                                                    "LowerLimitNorm");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.SignalingNorm = sec.FailureMechanismContribution.SignalingNorm - 1e-15,
                                                                    "SignalingNorm");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.NormativeNorm = sec.FailureMechanismContribution.NormativeNorm == NormativeProbabilityType.MaximumAllowableFloodingProbability
-                                                                                                                               ? NormativeProbabilityType.SignalFloodingProbability
-                                                                                                                               : NormativeProbabilityType.MaximumAllowableFloodingProbability,
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.NormativeProbabilityType = sec.FailureMechanismContribution.NormativeProbabilityType == NormativeProbabilityType.MaximumAllowableFloodingProbability
+                                                                                                                                          ? NormativeProbabilityType.SignalFloodingProbability
+                                                                                                                                          : NormativeProbabilityType.MaximumAllowableFloodingProbability,
                                                                    "NormType");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.ChangeComposition(AssessmentSectionComposition.DikeAndDune),
                                                                    "Composition");

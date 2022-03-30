@@ -91,7 +91,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 {
                     LowerLimitNorm = lowerLimitNorm,
                     SignalingNorm = signalingNorm,
-                    NormativeNorm = normativeNorm
+                    NormativeProbabilityType = normativeNorm
                 },
                 BackgroundData =
                 {

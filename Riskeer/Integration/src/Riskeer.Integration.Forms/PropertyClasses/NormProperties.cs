@@ -97,16 +97,16 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [TypeConverter(typeof(EnumTypeConverter))]
         public NormativeProbabilityType NormativeProbabilityType
         {
-            get => data.NormativeNorm;
+            get => data.NormativeProbabilityType;
             set
             {
-                normChangeHandler.ChangeNormativeNormType(() => data.NormativeNorm = value);
+                normChangeHandler.ChangeNormativeNormType(() => data.NormativeProbabilityType = value);
             }
         }
 
         private void ChangeNorm(Action action, NormativeProbabilityType normativeProbabilityType)
         {
-            if (data.NormativeNorm == normativeProbabilityType)
+            if (data.NormativeProbabilityType == normativeProbabilityType)
             {
                 normChangeHandler.ChangeNormativeNorm(action);
             }

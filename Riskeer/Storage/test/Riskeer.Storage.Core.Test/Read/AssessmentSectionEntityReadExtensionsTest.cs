@@ -95,7 +95,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             Assert.AreEqual(lowerLimitNorm, section.FailureMechanismContribution.LowerLimitNorm);
             Assert.AreEqual(signalingNorm, section.FailureMechanismContribution.SignalingNorm);
-            Assert.AreEqual(normativeNorm, section.FailureMechanismContribution.NormativeNorm);
+            Assert.AreEqual(normativeNorm, section.FailureMechanismContribution.NormativeProbabilityType);
 
             Assert.AreEqual(assessmentSectionComposition, section.Composition);
             CollectionAssert.IsEmpty(section.ReferenceLine.Points);

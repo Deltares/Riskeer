@@ -229,7 +229,7 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
             FailureMechanismContribution actualContribution = actualAssessmentSection.FailureMechanismContribution;
             Assert.AreEqual(expectedContribution.LowerLimitNorm, actualContribution.LowerLimitNorm);
             Assert.AreEqual(expectedContribution.SignalingNorm, actualContribution.SignalingNorm);
-            Assert.AreEqual(expectedContribution.NormativeNorm, actualContribution.NormativeNorm);
+            Assert.AreEqual(expectedContribution.NormativeProbabilityType, actualContribution.NormativeProbabilityType);
 
             BackgroundDataTestHelper.AssertBackgroundData(expectedAssessmentSection.BackgroundData, actualAssessmentSection.BackgroundData);
             AssertHydraulicBoundaryDatabase(expectedAssessmentSection.HydraulicBoundaryDatabase, actualAssessmentSection.HydraulicBoundaryDatabase);

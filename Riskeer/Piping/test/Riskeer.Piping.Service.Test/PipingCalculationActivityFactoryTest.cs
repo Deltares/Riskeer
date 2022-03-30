@@ -93,7 +93,7 @@ namespace Riskeer.Piping.Service.Test
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormativeProbabilityType.MaximumAllowableFloodingProbability
+                    NormativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
 
@@ -246,7 +246,7 @@ namespace Riskeer.Piping.Service.Test
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormativeProbabilityType.MaximumAllowableFloodingProbability
+                    NormativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
 
@@ -408,7 +408,7 @@ namespace Riskeer.Piping.Service.Test
             {
                 FailureMechanismContribution =
                 {
-                    NormativeNorm = NormativeProbabilityType.MaximumAllowableFloodingProbability
+                    NormativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
 
