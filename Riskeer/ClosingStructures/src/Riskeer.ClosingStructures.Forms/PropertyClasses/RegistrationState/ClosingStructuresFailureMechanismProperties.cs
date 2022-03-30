@@ -90,8 +90,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState
         [DynamicVisible]
         [PropertyOrder(cPropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailurePathProperties_C_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailurePathProperties_C_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_C_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_C_Description))]
         public RoundedDouble C
         {
             get
@@ -103,8 +103,8 @@ namespace Riskeer.ClosingStructures.Forms.PropertyClasses.RegistrationState
         [DynamicVisible]
         [PropertyOrder(n2APropertyIndex)]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_LengthEffect))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailurePathProperties_N2A_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailurePathProperties_N2A_Description))]
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_N2A_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.ClosingStructuresFailureMechanismProperties_N2A_Description))]
         public int N2A
         {
             get
