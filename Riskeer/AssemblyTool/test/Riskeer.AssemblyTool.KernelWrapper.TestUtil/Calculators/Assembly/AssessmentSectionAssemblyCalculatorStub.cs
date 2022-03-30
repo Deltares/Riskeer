@@ -43,14 +43,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public IEnumerable<double> FailureMechanismProbabilitiesInput { get; private set; }
 
         /// <summary>
-        /// Gets the lower limit norm input.
+        /// Gets the maximum allowable flooding probability input.
         /// </summary>
-        public double LowerLimitNormInput { get; private set; }
+        public double MaximumAllowableFloodingProbabilityInput { get; private set; }
 
         /// <summary>
-        /// Gets the signaling norm input.
+        /// Gets the signal flooding probability input.
         /// </summary>
-        public double SignalingNormInput { get; private set; }
+        public double SignalFloodingProbability { get; private set; }
 
         /// <summary>
         /// Gets or sets the output of an assessment section assembly.
@@ -72,7 +72,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public IEnumerable<CombinedFailureMechanismSectionAssembly> CombinedFailureMechanismSectionAssemblyOutput { get; set; }
 
-        public AssessmentSectionAssemblyResult AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities, double lowerLimitNorm, double signalingNorm)
+        public AssessmentSectionAssemblyResult AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities, double maximumAllowableFloodingProbability, double signalFloodingProbability)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -80,8 +80,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             }
 
             FailureMechanismProbabilitiesInput = failureMechanismProbabilities;
-            LowerLimitNormInput = lowerLimitNorm;
-            SignalingNormInput = signalingNorm;
+            MaximumAllowableFloodingProbabilityInput = maximumAllowableFloodingProbability;
+            SignalFloodingProbability = signalFloodingProbability;
 
             return AssessmentSectionAssemblyResult ?? (AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResult(0.14, AssessmentSectionAssemblyGroup.APlus));
         }

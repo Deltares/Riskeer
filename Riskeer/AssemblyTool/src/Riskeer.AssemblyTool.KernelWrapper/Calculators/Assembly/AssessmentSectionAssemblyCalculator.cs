@@ -56,8 +56,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         }
 
         public AssessmentSectionAssemblyResult AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities,
-                                                                         double lowerLimitNorm,
-                                                                         double signalingNorm)
+                                                                         double maximumAllowableFloodingProbability,
+                                                                         double signalFloodingProbability)
         {
             if (failureMechanismProbabilities == null)
             {
@@ -68,8 +68,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 ICategoryLimitsCalculator categoryLimitsKernel = factory.CreateAssemblyGroupsKernel();
                 CategoriesList<AssessmentSectionCategory> assessmentSectionCategories = categoryLimitsKernel.CalculateAssessmentSectionCategoryLimitsWbi21(
-                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalingNorm),
-                                          AssemblyCalculatorInputCreator.CreateProbability(lowerLimitNorm)));
+                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalFloodingProbability),
+                                          AssemblyCalculatorInputCreator.CreateProbability(maximumAllowableFloodingProbability)));
 
                 IAssessmentGradeAssembler assessmentSectionAssemblyKernel = factory.CreateAssessmentSectionAssemblyKernel();
                 IEnumerable<Probability> probabilities = failureMechanismProbabilities.Select(AssemblyCalculatorInputCreator.CreateProbability)
