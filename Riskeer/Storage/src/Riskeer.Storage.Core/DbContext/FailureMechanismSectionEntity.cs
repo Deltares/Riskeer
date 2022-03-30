@@ -56,7 +56,7 @@ namespace Riskeer.Storage.Core.DbContext
             WaterPressureAsphaltCoverSectionResultEntities = new HashSet<WaterPressureAsphaltCoverSectionResultEntity>();
             WaveImpactAsphaltCoverSectionResultEntities = new HashSet<WaveImpactAsphaltCoverSectionResultEntity>();
             FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
-            SpecificFailurePathEntities = new HashSet<SpecificFailurePathEntity>();
+            SpecificFailureMechanismEntities = new HashSet<SpecificFailureMechanismEntity>();
         }
 
         public long FailureMechanismSectionEntityId { get; set; }
@@ -118,6 +118,6 @@ namespace Riskeer.Storage.Core.DbContext
         public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
 
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SpecificFailurePathEntity> SpecificFailurePathEntities { get; set; }
+        public virtual ICollection<SpecificFailureMechanismEntity> SpecificFailureMechanismEntities { get; set; }
     }
 }

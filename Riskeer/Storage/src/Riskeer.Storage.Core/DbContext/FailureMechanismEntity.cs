@@ -74,8 +74,8 @@ namespace Riskeer.Storage.Core.DbContext
         public string InAssemblyOutputComments { get; set; }
         public string NotInAssemblyComments { get; set; }
         public string CalculationsInputComments { get; set; }
-        public byte FailurePathAssemblyProbabilityResultType { get; set; }
-        public double? ManualFailurePathAssemblyProbability { get; set; }
+        public byte FailureMechanismAssemblyResultProbabilityResultType { get; set; }
+        public double? FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }

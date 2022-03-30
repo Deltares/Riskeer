@@ -33,15 +33,15 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public partial class SpecificFailurePathEntity
+    public partial class SpecificFailureMechanismEntity
     {
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SpecificFailurePathEntity()
+        public SpecificFailureMechanismEntity()
         {
             FailureMechanismSectionEntities = new HashSet<FailureMechanismSectionEntity>();
         }
 
-        public long SpecificFailurePathEntityId { get; set; }
+        public long SpecificFailureMechanismEntityId { get; set; }
         public long AssessmentSectionEntityId { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
@@ -52,8 +52,8 @@ namespace Riskeer.Storage.Core.DbContext
         public string InAssemblyOutputComments { get; set; }
         public string NotInAssemblyComments { get; set; }
         public double N { get; set; }
-        public byte FailurePathAssemblyProbabilityResultType { get; set; }
-        public double? ManualFailurePathAssemblyProbability { get; set; }
+        public byte FailureMechanismAssemblyResultProbabilityResultType { get; set; }
+        public double? FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability { get; set; }
         public byte ApplyLengthEffectInSection { get; set; }
 
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }

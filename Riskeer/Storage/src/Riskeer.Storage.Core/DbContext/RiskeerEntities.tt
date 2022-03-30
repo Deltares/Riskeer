@@ -208,7 +208,7 @@ foreach (var enumType in typeMapper.GetEnumItemsToGenerate(itemCollection))
 
     if (foundOne)
     {
-        GenerationEnvironment.Remove(GenerationEnvironment.Length - 3, 1);
+        this.GenerationEnvironment.Remove(this.GenerationEnvironment.Length - 3, 1);
     }
 #>
 }

@@ -34,8 +34,6 @@ namespace Riskeer.Storage.Core.DbContext
     {
         public long NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity1 { get; set; }
         public long? FailureMechanismSectionEntityId { get; set; }
-
-        public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
         public byte IsRelevant { get; set; }
         public byte InitialFailureMechanismResultType { get; set; }
         public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
@@ -43,5 +41,7 @@ namespace Riskeer.Storage.Core.DbContext
         public byte FurtherAnalysisType { get; set; }
         public double? RefinedSectionProbability { get; set; }
         public double? RefinedProfileProbability { get; set; }
+
+        public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }
