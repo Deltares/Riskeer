@@ -97,14 +97,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 
         private RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(
             Func<IAssessmentResultsTranslator, CategoriesList<InterpretationCategory>, KernelFailureMechanismSectionAssemblyResult> getAssemblyResultFunc,
-            double signalingNorm, double lowerLimitNorm)
+            double signalFloodingProbability, double maximumAllowableFloodingProbability)
         {
             try
             {
                 ICategoryLimitsCalculator assemblyGroupsKernel = factory.CreateAssemblyGroupsKernel();
                 CategoriesList<InterpretationCategory> interpretationCategories = assemblyGroupsKernel.CalculateInterpretationCategoryLimitsWbi03(
-                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalingNorm),
-                                          AssemblyCalculatorInputCreator.CreateProbability(lowerLimitNorm)));
+                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalFloodingProbability),
+                                          AssemblyCalculatorInputCreator.CreateProbability(maximumAllowableFloodingProbability)));
 
                 KernelFailureMechanismSectionAssemblyResult output = getAssemblyResultFunc(factory.CreateFailureMechanismSectionAssemblyKernel(), interpretationCategories);
 

@@ -32,12 +32,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups
         /// <summary>
         /// Performs the calculation for getting the assessment section assembly group boundaries.
         /// </summary>
-        /// <param name="signalingNorm">The signaling norm to calculate with.</param>
-        /// <param name="lowerLimitNorm">The lower limit norm to calculate with.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability to calculate with.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability to calculate with.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyGroupBoundariesCalculatorException">Thrown when an error occurs
         /// while performing the calculation.</exception>
         IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionAssemblyGroupBoundaries(
-            double signalingNorm, double lowerLimitNorm);
+            double signalFloodingProbability, double maximumAllowableFloodingProbability);
     }
 }

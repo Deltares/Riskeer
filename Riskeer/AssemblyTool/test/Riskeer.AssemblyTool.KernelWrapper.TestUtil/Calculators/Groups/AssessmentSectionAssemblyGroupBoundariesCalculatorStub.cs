@@ -32,14 +32,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Groups
     public class AssessmentSectionAssemblyGroupBoundariesCalculatorStub : IAssessmentSectionAssemblyGroupBoundariesCalculator
     {
         /// <summary>
-        /// Gets the signaling norm that is used in the calculation.
+        /// Gets the signal flooding probability that is used in the calculation.
         /// </summary>
-        public double SignalingNorm { get; private set; }
+        public double SignalFloodingProbability { get; private set; }
 
         /// <summary>
-        /// Gets the lower limit norm that is used in the calculation.
+        /// Gets the maximum allowable flooding probability that is used in the calculation.
         /// </summary>
-        public double LowerLimitNorm { get; private set; }
+        public double MaximumAllowableFloodingProbability { get; private set; }
 
         /// <summary>
         /// Gets or sets the output of the <see cref="AssessmentSectionAssemblyGroupBoundaries"/> calculation.
@@ -51,15 +51,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Groups
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
 
-        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionAssemblyGroupBoundaries(double signalingNorm, double lowerLimitNorm)
+        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionAssemblyGroupBoundaries(double signalFloodingProbability, double maximumAllowableFloodingProbability)
         {
             if (ThrowExceptionOnCalculate)
             {
                 throw new AssessmentSectionAssemblyGroupBoundariesCalculatorException("Message", new Exception());
             }
 
-            SignalingNorm = signalingNorm;
-            LowerLimitNorm = lowerLimitNorm;
+            SignalFloodingProbability = signalFloodingProbability;
+            MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability;
 
             return AssessmentSectionAssemblyGroupBoundariesOutput
                    ?? (AssessmentSectionAssemblyGroupBoundariesOutput = new[]

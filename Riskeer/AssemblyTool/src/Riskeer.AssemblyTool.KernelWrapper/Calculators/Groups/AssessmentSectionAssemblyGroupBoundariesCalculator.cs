@@ -53,14 +53,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Groups
             this.factory = factory;
         }
 
-        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionAssemblyGroupBoundaries(double signalingNorm, double lowerLimitNorm)
+        public IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CalculateAssessmentSectionAssemblyGroupBoundaries(double signalFloodingProbability, double maximumAllowableFloodingProbability)
         {
             try
             {
                 ICategoryLimitsCalculator kernel = factory.CreateAssemblyGroupsKernel();
                 CategoriesList<AssessmentSectionCategory> assessmentSectionCategories = kernel.CalculateAssessmentSectionCategoryLimitsWbi21(
-                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalingNorm),
-                                          AssemblyCalculatorInputCreator.CreateProbability(lowerLimitNorm)));
+                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalFloodingProbability),
+                                          AssemblyCalculatorInputCreator.CreateProbability(maximumAllowableFloodingProbability)));
 
                 return AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroupBoundaries(assessmentSectionCategories);
             }
