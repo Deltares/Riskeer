@@ -111,16 +111,16 @@ namespace Riskeer.Integration.Forms.Dialogs
                                                        ? NormativeProbabilityType.SignalFloodingProbability
                                                        : NormativeProbabilityType.MaximumAllowableFloodingProbability;
 
-                double lowerLimitNormValue = GetNormValue(referenceLineMetaSelectionRow.MaximumAllowableFloodingProbabilityReturnPeriod);
+                double maximumAllowableFloodingProbability = GetFloodingProbability(referenceLineMetaSelectionRow.MaximumAllowableFloodingProbabilityReturnPeriod);
 
-                SelectedMaximumAllowableFloodingProbability = lowerLimitNormValue;
+                SelectedMaximumAllowableFloodingProbability = maximumAllowableFloodingProbability;
                 SelectedSignalFloodingProbability = referenceLineMetaSelectionRow.SignalFloodingProbabilityReturnPeriod.HasValue
-                                                        ? GetNormValue(referenceLineMetaSelectionRow.SignalFloodingProbabilityReturnPeriod.Value)
-                                                        : lowerLimitNormValue;
+                                                        ? GetFloodingProbability(referenceLineMetaSelectionRow.SignalFloodingProbabilityReturnPeriod.Value)
+                                                        : maximumAllowableFloodingProbability;
             }
         }
 
-        private static double GetNormValue(int returnPeriod)
+        private static double GetFloodingProbability(int returnPeriod)
         {
             return 1.0 / returnPeriod;
         }

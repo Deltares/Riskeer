@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Data
     /// </summary>
     public sealed class AssessmentSection : Observable, IAssessmentSection
     {
-        private const double defaultNorm = 1.0 / 30000;
+        private const double defaultFloodingProbability = 1.0 / 30000;
         private const RiskeerWellKnownTileSource defaultWellKnownTileSource = RiskeerWellKnownTileSource.BingAerial;
 
         private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
@@ -59,13 +59,13 @@ namespace Riskeer.Integration.Data
         /// </summary>
         /// <param name="composition">The composition of the assessment section, e.g. what
         /// type of elements can be found within the assessment section.</param>
-        /// <param name="lowerLimitNorm">The lower limit norm of the assessment section.</param>
-        /// <param name="signalingNorm">The signaling norm of the assessment section.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability of the assessment section.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability of the assessment section.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// <item><paramref name="maximumAllowableFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalFloodingProbability"/> is larger than <paramref name="maximumAllowableFloodingProbability"/>.</item>
         /// </list>
         /// </exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="composition"/> 
@@ -73,8 +73,8 @@ namespace Riskeer.Integration.Data
         /// <exception cref="NotSupportedException">Thrown when <paramref name="composition"/>
         /// is not supported.</exception>
         public AssessmentSection(AssessmentSectionComposition composition,
-                                 double lowerLimitNorm = defaultNorm,
-                                 double signalingNorm = defaultNorm)
+                                 double maximumAllowableFloodingProbability = defaultFloodingProbability,
+                                 double signalFloodingProbability = defaultFloodingProbability)
         {
             Name = Resources.AssessmentSection_DisplayName;
             Comments = new Comment();
@@ -108,7 +108,7 @@ namespace Riskeer.Integration.Data
             PipingStructure = new PipingStructureFailureMechanism();
             DuneErosion = new DuneErosionFailureMechanism();
 
-            FailureMechanismContribution = new FailureMechanismContribution(lowerLimitNorm, signalingNorm);
+            FailureMechanismContribution = new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability);
             ChangeComposition(composition);
         }
 

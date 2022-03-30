@@ -117,20 +117,20 @@ namespace Riskeer.Integration.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidNormValues),
+        [TestCaseSource(nameof(GetInvalidProbabilities),
                         new object[]
                         {
-                            "Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException"
+                            "Constructor_InvalidMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException"
                         })]
         [SetCulture("nl-NL")]
-        public void Constructor_InvalidLowerLimitNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
+        public void Constructor_InvalidMaximumAllowableFloodingProbability_ThrowsArgumentOutOfRangeException(double invalidProbability)
         {
             // Setup
             var random = new Random(21);
             var composition = random.NextEnumValue<AssessmentSectionComposition>();
 
             // Call
-            void Call() => new AssessmentSection(composition, invalidNorm, 0.000001);
+            void Call() => new AssessmentSection(composition, invalidProbability, 0.000001);
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
@@ -139,20 +139,20 @@ namespace Riskeer.Integration.Data.Test
         }
 
         [Test]
-        [TestCaseSource(nameof(GetInvalidNormValues),
+        [TestCaseSource(nameof(GetInvalidProbabilities),
                         new object[]
                         {
-                            "Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException"
+                            "Constructor_InvalidSignalFloodingProbability_ThrowsArgumentOutOfRangeException"
                         })]
         [SetCulture("nl-NL")]
-        public void Constructor_InvalidSignalingNorm_ThrowsArgumentOutOfRangeException(double invalidNorm)
+        public void Constructor_InvalidSignalFloodingProbability_ThrowsArgumentOutOfRangeException(double invalidProbability)
         {
             // Setup
             var random = new Random(21);
             var composition = random.NextEnumValue<AssessmentSectionComposition>();
 
             // Call
-            void Call() => new AssessmentSection(composition, 0.1, invalidNorm);
+            void Call() => new AssessmentSection(composition, 0.1, invalidProbability);
 
             // Assert
             const string expectedMessage = "De waarde van de norm moet in het bereik [0,000001, 0,1] liggen.";
@@ -174,36 +174,6 @@ namespace Riskeer.Integration.Data.Test
             const string expectedMessage = "De signaleringsparameter moet gelijk zijn aan of kleiner zijn dan de omgevingswaarde.";
             var exception = Assert.Throws<ArgumentOutOfRangeException>(Call);
             StringAssert.StartsWith(expectedMessage, exception.Message);
-        }
-
-        [Test]
-        public void Name_SetingNewValue_GetNewValue()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            const string newValue = "new value";
-
-            // Call
-            assessmentSection.Name = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, assessmentSection.Name);
-        }
-
-        [Test]
-        public void Comments_SettingNewValue_GetNewValue()
-        {
-            // Setup
-            var random = new Random(21);
-            var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
-            const string newValue = "new comment value";
-
-            // Call
-            assessmentSection.Comments.Body = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, assessmentSection.Comments.Body);
         }
 
         [Test]
@@ -412,7 +382,7 @@ namespace Riskeer.Integration.Data.Test
             });
         }
 
-        private static IEnumerable<TestCaseData> GetInvalidNormValues(string name)
+        private static IEnumerable<TestCaseData> GetInvalidProbabilities(string name)
         {
             yield return new TestCaseData(double.PositiveInfinity)
                 .SetName($"{name} positive infinity");
