@@ -157,7 +157,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.Last(), random.Next(1, 10));
 
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms()
-                                                                            .Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms))
+                                                                            .Concat(assessmentSection.SpecificFailureMechanisms))
             {
                 failureMechanism.InAssembly = false;
             }

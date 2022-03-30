@@ -108,7 +108,7 @@ namespace Riskeer.Integration.Data.Assembly
                     AssemblyToolKernelFactory.Instance);
 
                 Dictionary<IFailureMechanism, int> failureMechanismsToAssemble = assessmentSection.GetFailureMechanisms()
-                                                                                                  .Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms)
+                                                                                                  .Concat(assessmentSection.SpecificFailureMechanisms)
                                                                                                   .Where(fm => fm.InAssembly)
                                                                                                   .Select((fm, i) => new
                                                                                                   {

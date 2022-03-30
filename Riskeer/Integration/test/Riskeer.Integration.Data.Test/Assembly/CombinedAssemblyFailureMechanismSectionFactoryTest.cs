@@ -80,7 +80,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
                 // Call
                 IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms));
+                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat(assessmentSection.SpecificFailureMechanisms));
 
                 // Assert
                 int expectedNrOfGeneralSectionResults = assessmentSection.GetFailureMechanisms().Count();
@@ -149,7 +149,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
                 // Call
                 IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> inputs = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms));
+                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat(assessmentSection.SpecificFailureMechanisms));
 
                 // Assert
                 int expectedNrOfGeneralSectionResults = assessmentSection.GetFailureMechanisms().Count();

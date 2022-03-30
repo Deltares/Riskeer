@@ -186,7 +186,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 IEnumerable<CombinedAssemblyFailureMechanismSection>[] actualInput = assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionsInput.ToArray();
                 IEnumerable<CombinedAssemblyFailureMechanismSection>[] expectedInput = CombinedAssemblyFailureMechanismSectionFactory.CreateInput(
-                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms)).ToArray();
+                    assessmentSection, assessmentSection.GetFailureMechanisms().Concat(assessmentSection.SpecificFailureMechanisms)).ToArray();
                 Assert.AreEqual(expectedInput.Length, actualInput.Length);
 
                 for (var i = 0; i < expectedInput.Length; i++)
@@ -229,7 +229,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
                 // Assert
                 Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                        .Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms)
+                                                                                        .Concat(assessmentSection.SpecificFailureMechanisms)
                                                                                         .Where(fm => fm.InAssembly)
                                                                                         .Select((fm, i) => new
                                                                                         {
@@ -312,7 +312,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
             AssessmentSection assessmentSection = CreateAssessmentSectionContainingFailureMechanismsWithInAssemblyTrue();
 
             assessmentSection.GetFailureMechanisms()
-                             .Cast<IFailureMechanism>()
                              .Concat(assessmentSection.SpecificFailureMechanisms)
                              .ForEachElementDo(fp => fp.InAssembly = random.NextBoolean());
 

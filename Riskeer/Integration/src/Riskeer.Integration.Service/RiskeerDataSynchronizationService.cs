@@ -496,7 +496,7 @@ namespace Riskeer.Integration.Service
             var removedObjects = new List<object>();
 
             foreach (IFailureMechanism failureMechanism in assessmentSection.GetFailureMechanisms()
-                                                                            .Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms))
+                                                                            .Concat(assessmentSection.SpecificFailureMechanisms))
             {
                 ClearResults results = GetClearResultsForFailureMechanism(failureMechanism);
 

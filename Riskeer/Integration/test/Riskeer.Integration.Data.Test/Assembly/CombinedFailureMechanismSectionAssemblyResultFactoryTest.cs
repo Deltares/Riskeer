@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
             Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                    .Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms)
+                                                                                    .Concat(assessmentSection.SpecificFailureMechanisms)
                                                                                     .Where(fm => fm.InAssembly)
                                                                                     .Select((fm, i) => new
                                                                                     {
@@ -146,7 +146,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
             var assessmentSection = new AssessmentSection(random.NextEnumValue<AssessmentSectionComposition>());
             assessmentSection.SpecificFailureMechanisms.Add(new SpecificFailureMechanism());
             Dictionary<IFailureMechanism, int> failureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                    .Concat<IFailureMechanism>(assessmentSection.SpecificFailureMechanisms)
+                                                                                    .Concat(assessmentSection.SpecificFailureMechanisms)
                                                                                     .Where(fm => fm.InAssembly)
                                                                                     .Select((fm, i) => new
                                                                                     {
