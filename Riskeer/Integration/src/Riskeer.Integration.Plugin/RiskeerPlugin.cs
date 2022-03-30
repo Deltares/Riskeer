@@ -2038,7 +2038,7 @@ namespace Riskeer.Integration.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleInAssemblyOfFailurePathItem(nodeData, RemoveAllViewsForFailureMechanismContext)
+                          .AddToggleInAssemblyOfFailureMechanismItem(nodeData, RemoveAllViewsForFailureMechanismContext)
                           .AddSeparator()
                           .AddRenameItem()
                           .AddSeparator()
@@ -2062,7 +2062,7 @@ namespace Riskeer.Integration.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddToggleInAssemblyOfFailurePathItem(nodeData, RemoveAllViewsForFailureMechanismContext)
+            return builder.AddToggleInAssemblyOfFailureMechanismItem(nodeData, RemoveAllViewsForFailureMechanismContext)
                           .AddSeparator()
                           .AddRenameItem()
                           .AddSeparator()
@@ -2093,7 +2093,7 @@ namespace Riskeer.Integration.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleInAssemblyOfFailurePathItem(nodeData, RemoveAllViewsForFailureMechanismContext)
+                          .AddToggleInAssemblyOfFailureMechanismItem(nodeData, RemoveAllViewsForFailureMechanismContext)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -2113,7 +2113,7 @@ namespace Riskeer.Integration.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddToggleInAssemblyOfFailurePathItem(nodeData, RemoveAllViewsForFailureMechanismContext)
+            return builder.AddToggleInAssemblyOfFailureMechanismItem(nodeData, RemoveAllViewsForFailureMechanismContext)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()

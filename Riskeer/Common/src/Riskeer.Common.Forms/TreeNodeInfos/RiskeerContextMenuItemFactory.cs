@@ -393,7 +393,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
         /// <param name="onChangeAction">The action to perform when relevance changes.</param>
         /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateToggleInAssemblyOfFailurePathItem<TFailureMechanismContext>(
+        public static StrictContextMenuItem CreateToggleInAssemblyOfFailureMechanismItem<TFailureMechanismContext>(
             TFailureMechanismContext failureMechanismContext,
             Action<TFailureMechanismContext> onChangeAction)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>

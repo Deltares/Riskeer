@@ -445,7 +445,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateToggleInAssemblyOfFailurePathItem_InAssembly_CreateDecoratedItem(bool inAssembly)
+        public void CreateToggleInAssemblyOfFailureMechanismItem_InAssembly_CreateDecoratedItem(bool inAssembly)
         {
             // Setup
             var mocks = new MockRepository();
@@ -456,7 +456,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Call
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailurePathItem(failureMechanismContext, null);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailureMechanismItem(failureMechanismContext, null);
 
             // Assert
             Assert.AreEqual("I&n assemblage", toolStripItem.Text);
@@ -470,7 +470,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CreateToggleInAssemblyOfFailurePathItem_PerformClickOnInAssemblyItem_RelevanceChangedAndObserversNotified(bool inAssembly)
+        public void CreateToggleInAssemblyOfFailureMechanismItem_PerformClickOnInAssemblyItem_RelevanceChangedAndObserversNotified(bool inAssembly)
         {
             // Setup
             var mocks = new MockRepository();
@@ -484,7 +484,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var actionCounter = 0;
-            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailurePathItem(failureMechanismContext, context => actionCounter++);
+            StrictContextMenuItem toolStripItem = RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailureMechanismItem(failureMechanismContext, context => actionCounter++);
 
             // Call
             toolStripItem.PerformClick();

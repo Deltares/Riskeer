@@ -318,7 +318,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void AddToggleInAssemblyOfFailurePathItem_WhenBuild_ItemAddedToContextMenuEnabled(bool inAssembly)
+        public void AddToggleInAssemblyOfFailureMechanismItem_WhenBuild_ItemAddedToContextMenuEnabled(bool inAssembly)
         {
             // Setup
             var mocks = new MockRepository();
@@ -345,7 +345,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 var riskeerContextMenuBuilder = new RiskeerContextMenuBuilder(contextMenuBuilder);
 
                 // Call
-                ContextMenuStrip result = riskeerContextMenuBuilder.AddToggleInAssemblyOfFailurePathItem(failureMechanismContext, null).Build();
+                ContextMenuStrip result = riskeerContextMenuBuilder.AddToggleInAssemblyOfFailureMechanismItem(failureMechanismContext, null).Build();
 
                 // Assert
                 Assert.IsInstanceOf<ContextMenuStrip>(result);

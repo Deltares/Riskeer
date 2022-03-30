@@ -491,7 +491,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleInAssemblyOfFailurePathItem(context, RemoveAllViewsForItem)
+                          .AddToggleInAssemblyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()
@@ -506,7 +506,7 @@ namespace Riskeer.StabilityPointStructures.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(context, treeViewControl));
 
-            return builder.AddToggleInAssemblyOfFailurePathItem(context, RemoveAllViewsForItem)
+            return builder.AddToggleInAssemblyOfFailureMechanismItem(context, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddCollapseAllItem()
                           .AddExpandAllItem()

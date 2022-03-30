@@ -263,12 +263,12 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         /// <param name="failureMechanismContext">The failure mechanism context belonging to the failure mechanism.</param>
         /// <param name="onChangeAction">The action to perform when relevance changes.</param>
         /// <returns>The <see cref="RiskeerContextMenuBuilder"/> itself.</returns>
-        public RiskeerContextMenuBuilder AddToggleInAssemblyOfFailurePathItem<TFailureMechanismContext>(
+        public RiskeerContextMenuBuilder AddToggleInAssemblyOfFailureMechanismItem<TFailureMechanismContext>(
             TFailureMechanismContext failureMechanismContext,
             Action<TFailureMechanismContext> onChangeAction)
             where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailurePathItem(failureMechanismContext, onChangeAction));
+            contextMenuBuilder.AddCustomItem(RiskeerContextMenuItemFactory.CreateToggleInAssemblyOfFailureMechanismItem(failureMechanismContext, onChangeAction));
             return this;
         }
 
