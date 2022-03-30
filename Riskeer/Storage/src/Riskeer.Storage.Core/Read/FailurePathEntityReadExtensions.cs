@@ -63,7 +63,7 @@ namespace Riskeer.Storage.Core.Read
                     ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection)
                 }
             };
-            entity.ReadCommonFailurePathProperties(specificFailurePath, collector);
+            entity.ReadCommonFailureMechanismProperties(specificFailurePath, collector);
             ReadNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(entity, specificFailurePath, collector);
             return specificFailurePath;
         }

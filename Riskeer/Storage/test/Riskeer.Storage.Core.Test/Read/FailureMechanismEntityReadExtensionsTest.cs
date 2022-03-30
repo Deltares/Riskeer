@@ -75,7 +75,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadCommonFailurePathProperties_EntityNull_ThrowsArgumentNullException()
+        public void ReadCommonFailureMechanismProperties_EntityNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -83,7 +83,7 @@ namespace Riskeer.Storage.Core.Test.Read
             mocks.ReplayAll();
 
             // Call
-            void Call() => ((FailureMechanismEntity) null).ReadCommonFailurePathProperties(failureMechanism, new ReadConversionCollector());
+            void Call() => ((FailureMechanismEntity) null).ReadCommonFailureMechanismProperties(failureMechanism, new ReadConversionCollector());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -92,21 +92,21 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadCommonFailurePathProperties_FailureMechanismNull_ThrowsArgumentNullException()
+        public void ReadCommonFailureMechanismProperties_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
             var entity = new FailureMechanismEntity();
 
             // Call
-            void Call() => entity.ReadCommonFailurePathProperties(null, new ReadConversionCollector());
+            void Call() => entity.ReadCommonFailureMechanismProperties(null, new ReadConversionCollector());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("failurePath", exception.ParamName);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
 
         [Test]
-        public void ReadCommonFailurePathProperties_CollectorNull_ThrowsArgumentNullException()
+        public void ReadCommonFailureMechanismProperties_CollectorNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -116,7 +116,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var entity = new FailureMechanismEntity();
 
             // Call
-            void Call() => entity.ReadCommonFailurePathProperties(failureMechanism, null);
+            void Call() => entity.ReadCommonFailureMechanismProperties(failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -127,7 +127,7 @@ namespace Riskeer.Storage.Core.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void ReadCommonFailurePathProperties_WithoutSectionsSet_SetsFailureMechanism(bool inAssembly)
+        public void ReadCommonFailureMechanismProperties_WithoutSectionsSet_SetsFailureMechanism(bool inAssembly)
         {
             // Setup
             var random = new Random(21);
@@ -147,7 +147,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var failureMechanism = new TestCalculatableFailureMechanism();
 
             // Call
-            entity.ReadCommonFailurePathProperties(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
 
             // Assert
             FailureMechanismEntityTestHelper.AssertIFailureMechanismEntityProperties(entity, failureMechanism);
@@ -157,7 +157,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadCommonFailurePathProperties_WithNullValues_SetsFailureMechanism()
+        public void ReadCommonFailureMechanismProperties_WithNullValues_SetsFailureMechanism()
         {
             // Setup
             var entity = new FailureMechanismEntity();
@@ -165,7 +165,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var failureMechanism = new TestCalculatableFailureMechanism();
 
             // Call
-            entity.ReadCommonFailurePathProperties(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
 
             // Assert
             Assert.IsNull(failureMechanism.InAssemblyInputComments.Body);
@@ -179,7 +179,7 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void ReadCommonFailurePathProperties_WithSectionsSet_SetsFailureMechanismWithFailureMechanismSections()
+        public void ReadCommonFailureMechanismProperties_WithSectionsSet_SetsFailureMechanismWithFailureMechanismSections()
         {
             // Setup
             const string filePath = "failureMechanismSections/File/Path";
@@ -195,7 +195,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var failureMechanism = new TestFailureMechanism();
 
             // Call
-            entity.ReadCommonFailurePathProperties(failureMechanism, collector);
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
 
             // Assert
             Assert.AreEqual(entity.FailureMechanismSectionEntities.Count, failureMechanism.Sections.Count());
