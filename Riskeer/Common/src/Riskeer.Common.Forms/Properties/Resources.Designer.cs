@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -1380,6 +1380,24 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of het lengte-effect binnen een vak toegepast wordt..
+        /// </summary>
+        public static string FailureMechanism_ApplyLengthEffectInSection_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_ApplyLengthEffectInSection_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toepassen lengte-effect binnen vak.
+        /// </summary>
+        public static string FailureMechanism_ApplyLengthEffectInSection_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_ApplyLengthEffectInSection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Resultaat.
         /// </summary>
         public static string FailureMechanism_AssessmentResult_DisplayName {
@@ -1430,6 +1448,24 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanism_CreateValidateAllItem_No_calculations_to_validate {
             get {
                 return ResourceManager.GetString("FailureMechanism_CreateValidateAllItem_No_calculations_to_validate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage..
+        /// </summary>
+        public static string FailureMechanism_InAssembly_Description {
+            get {
+                return ResourceManager.GetString("FailureMechanism_InAssembly_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In assemblage.
+        /// </summary>
+        public static string FailureMechanism_InAssembly_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanism_InAssembly_DisplayName", resourceCulture);
             }
         }
         
@@ -1547,6 +1583,15 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanism_Validate_All_ToolTip {
             get {
                 return ResourceManager.GetString("FailureMechanism_Validate_All_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I&amp;n assemblage.
+        /// </summary>
+        public static string FailureMechanismContextMenuStrip_In_assembly {
+            get {
+                return ResourceManager.GetString("FailureMechanismContextMenuStrip_In_assembly", resourceCulture);
             }
         }
         
@@ -1886,51 +1931,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismSections_StartPoints_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismSections_StartPoints_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of het lengte-effect binnen een vak toegepast wordt..
-        /// </summary>
-        public static string FailurePath_ApplyLengthEffectInSection_Description {
-            get {
-                return ResourceManager.GetString("FailurePath_ApplyLengthEffectInSection_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toepassen lengte-effect binnen vak.
-        /// </summary>
-        public static string FailurePath_ApplyLengthEffectInSection_DisplayName {
-            get {
-                return ResourceManager.GetString("FailurePath_ApplyLengthEffectInSection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage..
-        /// </summary>
-        public static string FailurePath_InAssembly_Description {
-            get {
-                return ResourceManager.GetString("FailurePath_InAssembly_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to In assemblage.
-        /// </summary>
-        public static string FailurePath_InAssembly_DisplayName {
-            get {
-                return ResourceManager.GetString("FailurePath_InAssembly_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to I&amp;n assemblage.
-        /// </summary>
-        public static string FailurePathContextMenuStrip_In_assembly {
-            get {
-                return ResourceManager.GetString("FailurePathContextMenuStrip_In_assembly", resourceCulture);
             }
         }
         

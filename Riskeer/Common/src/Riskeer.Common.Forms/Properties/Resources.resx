@@ -313,10 +313,10 @@
             PublicKeyToken=b03f5f7f11d50a3a
         </value>
     </data>
-    <data name="FailurePathContextMenuStrip_In_assembly" xml:space="preserve">
+    <data name="FailureMechanismContextMenuStrip_In_assembly" xml:space="preserve">
     <value>I&amp;n assemblage</value>
   </data>
-    <data name="FailurePath_InAssembly_Description" xml:space="preserve">
+    <data name="FailureMechanism_InAssembly_Description" xml:space="preserve">
     <value>Geeft aan of dit faalmechanisme wordt meegenomen in de assemblage.</value>
   </data>
     <data name="CalculationGroup_Add_Calculation_Tooltip" xml:space="preserve">
@@ -929,7 +929,7 @@ Weet u zeker dat u wilt doorgaan?</value>
             PublicKeyToken=b03f5f7f11d50a3a
         </value>
     </data>
-    <data name="FailurePath_InAssembly_DisplayName" xml:space="preserve">
+    <data name="FailureMechanism_InAssembly_DisplayName" xml:space="preserve">
     <value>In assemblage</value>
   </data>
     <data name="DataTypeDisplayName_xml_file_filter_Extension" xml:space="preserve">
@@ -1594,10 +1594,10 @@ faalkans per vak
     <data name="AssemblyGroup_DisplayName" xml:space="preserve">
     <value>Duidingsklasse</value>
   </data>
-    <data name="FailurePath_ApplyLengthEffectInSection_DisplayName" xml:space="preserve">
+    <data name="FailureMechanism_ApplyLengthEffectInSection_DisplayName" xml:space="preserve">
     <value>Toepassen lengte-effect binnen vak</value>
   </data>
-    <data name="FailurePath_ApplyLengthEffectInSection_Description" xml:space="preserve">
+    <data name="FailureMechanism_ApplyLengthEffectInSection_Description" xml:space="preserve">
     <value>Geeft aan of het lengte-effect binnen een vak toegepast wordt.</value>
   </data>
     <data name="FailureMechanismSectionResultRow_Derived_DisplayName" xml:space="preserve">

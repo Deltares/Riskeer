@@ -401,8 +401,8 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             bool inAssembly = failureMechanismContext.WrappedData.InAssembly;
             Bitmap checkboxImage = inAssembly ? Resources.Checkbox_ticked : Resources.Checkbox_empty;
             return new StrictContextMenuItem(
-                Resources.FailurePathContextMenuStrip_In_assembly,
-                Resources.FailurePath_InAssembly_Description,
+                Resources.FailureMechanismContextMenuStrip_In_assembly,
+                Resources.FailureMechanism_InAssembly_Description,
                 checkboxImage,
                 (sender, args) =>
                 {
