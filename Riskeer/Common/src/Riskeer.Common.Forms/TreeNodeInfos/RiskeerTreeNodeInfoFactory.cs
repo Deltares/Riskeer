@@ -109,22 +109,22 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
         }
 
         /// <summary>
-        /// Creates a <see cref="TreeNodeInfo"/> object for a failure path context of the type <typeparamref name="TFailurePathContext"/>.
+        /// Creates a <see cref="TreeNodeInfo"/> object for a failure mechanism context of the type <typeparamref name="TFailureMechanismContext"/>.
         /// </summary>
-        /// <typeparam name="TFailurePathContext">The type of failure path context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
+        /// <typeparam name="TFailureMechanismContext">The type of failure mechanism context to create a <see cref="TreeNodeInfo"/> object for.</typeparam>
         /// <param name="enabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.InAssembly"/> is <c>true</c>.</param>
         /// <param name="disabledChildNodeObjects">The function for obtaining the child node objects when <see cref="IFailureMechanism.InAssembly"/> is <c>false</c>.</param>
         /// <param name="enabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailureMechanism.InAssembly"/> is <c>true</c>.</param>
         /// <param name="disabledContextMenuStrip">The function for obtaining the context menu strip when <see cref="IFailureMechanism.InAssembly"/> is <c>false</c>.</param>
         /// <returns>A <see cref="TreeNodeInfo"/> object.</returns>
-        public static TreeNodeInfo<TFailurePathContext> CreateFailurePathContextTreeNodeInfo<TFailurePathContext>(
-            Func<TFailurePathContext, object[]> enabledChildNodeObjects,
-            Func<TFailurePathContext, object[]> disabledChildNodeObjects,
-            Func<TFailurePathContext, object, TreeViewControl, ContextMenuStrip> enabledContextMenuStrip,
-            Func<TFailurePathContext, object, TreeViewControl, ContextMenuStrip> disabledContextMenuStrip)
-            where TFailurePathContext : IFailureMechanismContext<IFailureMechanism>
+        public static TreeNodeInfo<TFailureMechanismContext> CreateRegistrationStateContextTreeNodeInfo<TFailureMechanismContext>(
+            Func<TFailureMechanismContext, object[]> enabledChildNodeObjects,
+            Func<TFailureMechanismContext, object[]> disabledChildNodeObjects,
+            Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> enabledContextMenuStrip,
+            Func<TFailureMechanismContext, object, TreeViewControl, ContextMenuStrip> disabledContextMenuStrip)
+            where TFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            return new TreeNodeInfo<TFailurePathContext>
+            return new TreeNodeInfo<TFailureMechanismContext>
             {
                 Text = context => context.WrappedData.Name,
                 ForeColor = context => context.WrappedData.InAssembly

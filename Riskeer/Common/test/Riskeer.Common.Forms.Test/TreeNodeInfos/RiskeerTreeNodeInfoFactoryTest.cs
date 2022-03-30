@@ -803,14 +803,14 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
         #endregion
 
-        #region CreateFailurePathContextTreeNodeInfo
+        #region CreateRegistrationStateContextTreeNodeInfo
 
         [Test]
-        public void CreateFailurePathContextTreeNodeInfo_Always_ExpectedPropertiesSet()
+        public void CreateRegistrationStateContextTreeNodeInfo_Always_ExpectedPropertiesSet()
         {
             // Call
             TreeNodeInfo<FailureMechanismContext<IFailureMechanism>> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(null, null, null, null);
+                RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<FailureMechanismContext<IFailureMechanism>>(null, null, null, null);
 
             // Assert
             Assert.AreEqual(typeof(FailureMechanismContext<IFailureMechanism>), treeNodeInfo.TagType);
@@ -834,7 +834,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Text_FailurePath_Always_ReturnsWrappedDataName()
+        public void Text_RegistrationState_Always_ReturnsWrappedDataName()
         {
             // Setup
             const string name = "A";
@@ -847,7 +847,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(null, null, null, null);
+                RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(null, null, null, null);
 
             // Call
             string text = treeNodeInfo.Text(context);
@@ -858,11 +858,11 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_FailurePath_Always_ReturnsFailureMechanismIcon()
+        public void Image_RegistrationState_Always_ReturnsFailureMechanismIcon()
         {
             // Setup
             TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(null, null, null, null);
+                RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(null, null, null, null);
 
             // Call
             Image image = treeNodeInfo.Image(null);
@@ -872,7 +872,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_FailurePathInAssemblyTrue_ReturnsControlText()
+        public void ForeColor_FailureMechanismInAssemblyTrue_ReturnsControlText()
         {
             // Setup
             var mocks = new MockRepository();
@@ -884,7 +884,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             failureMechanism.InAssembly = true;
 
             TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(null, null, null, null);
+                RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(null, null, null, null);
 
             // Call
             Color color = treeNodeInfo.ForeColor(context);
@@ -895,7 +895,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ForeColor_FailurePathInAssemblyFalse_ReturnsGrayText()
+        public void ForeColor_FailureMechanismInAssemblyFalse_ReturnsGrayText()
         {
             // Setup
             var mocks = new MockRepository();
@@ -907,7 +907,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             failureMechanism.InAssembly = false;
 
             TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(null, null, null, null);
+                RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(null, null, null, null);
 
             // Call
             Color color = treeNodeInfo.ForeColor(context);
@@ -918,7 +918,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailurePathInAssemblyTrue_ReturnResultFromConstructorMethod()
+        public void ChildNodeObjects_FailureMechanismInAssemblyTrue_ReturnResultFromConstructorMethod()
         {
             // Setup
             var mocks = new MockRepository();
@@ -942,7 +942,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             };
 
             TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(pathContext => resultInAssembly,
+                RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(pathContext => resultInAssembly,
                                                                                                                              pathContext => resultNotInAssembly,
                                                                                                                              null, null);
 
@@ -956,7 +956,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_FailurePathInAssemblyFalse_ReturnResultFromConstructorMethod()
+        public void ChildNodeObjects_FailureMechanismInAssemblyFalse_ReturnResultFromConstructorMethod()
         {
             // Setup
             var mocks = new MockRepository();
@@ -980,7 +980,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
             };
 
             TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(pathContext => resultInAssembly,
+                RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(pathContext => resultInAssembly,
                                                                                                                              pathContext => resultNotInAssembly,
                                                                                                                              null, null);
 
@@ -994,7 +994,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailurePathInAssembly_ReturnResultFromConstructorMethod()
+        public void ContextMenuStrip_FailureMechanismInAssembly_ReturnResultFromConstructorMethod()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -1012,7 +1012,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 failureMechanism.InAssembly = true;
 
                 TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
-                    RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(
+                    RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(
                         null,
                         null,
                         (mechanismContext, parent, treeViewControl) =>
@@ -1044,7 +1044,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_FailurePathNotInAssembly_ReturnResultFromConstructorMethod()
+        public void ContextMenuStrip_FailureMechanismNotInAssembly_ReturnResultFromConstructorMethod()
         {
             // Setup
             using (var treeView = new TreeViewControl())
@@ -1062,7 +1062,7 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
                 failureMechanism.InAssembly = false;
 
                 TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
-                    RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(
+                    RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(
                         null,
                         null,
                         (mechanismContext, parent, treeViewControl) =>

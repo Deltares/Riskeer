@@ -153,7 +153,7 @@ namespace Riskeer.ClosingStructures.Plugin
                 CalculationsStateFailureMechanismChildNodeObjects,
                 CalculationsStateFailureMechanismContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<RegistrationStateFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<RegistrationStateFailureMechanismContext>(
                 RegistrationStateFailureMechanismEnabledChildNodeObjects,
                 RegistrationStateFailureMechanismDisabledChildNodeObjects,
                 RegistrationStateFailureMechanismEnabledContextMenuStrip,

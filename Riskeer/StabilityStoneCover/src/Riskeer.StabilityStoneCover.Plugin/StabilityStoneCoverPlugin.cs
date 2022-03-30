@@ -154,7 +154,7 @@ namespace Riskeer.StabilityStoneCover.Plugin
                 HydraulicLoadsStateFailureMechanismChildNodeObjects,
                 HydraulicLoadsStateFailureMechanismContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<RegistrationStateFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<RegistrationStateFailureMechanismContext>(
                 RegistrationStateFailureMechanismEnabledChildNodeObjects,
                 RegistrationStateFailureMechanismDisabledChildNodeObjects,
                 RegistrationStateFailureMechanismEnabledContextMenuStrip,

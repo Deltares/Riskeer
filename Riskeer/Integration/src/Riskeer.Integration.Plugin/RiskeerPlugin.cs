@@ -770,31 +770,31 @@ namespace Riskeer.Integration.Plugin
                 ContextMenuStrip = NormContextMenuStrip
             };
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismContext>(
                 GrassCoverSlipOffInwardsFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
                 StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismContext>(
                 GrassCoverSlipOffOutwardsFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
                 StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<MicrostabilityFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<MicrostabilityFailureMechanismContext>(
                 MicrostabilityFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
                 StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<PipingStructureFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<PipingStructureFailureMechanismContext>(
                 PipingStructureFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
                 StandAloneFailureMechanismDisabledContextMenuStrip);
 
-            yield return RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismContext>(
+            yield return RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismContext>(
                 WaterPressureAsphaltCoverFailureMechanismEnabledChildNodeObjects,
                 StandAloneFailureMechanismDisabledChildNodeObjects,
                 StandAloneFailureMechanismEnabledContextMenuStrip,
@@ -1961,7 +1961,7 @@ namespace Riskeer.Integration.Plugin
         private TreeNodeInfo CreateSpecificFailureMechanismTreeNodeInfo()
         {
             TreeNodeInfo<SpecificFailureMechanismContext> treeNodeInfo =
-                RiskeerTreeNodeInfoFactory.CreateFailurePathContextTreeNodeInfo<SpecificFailureMechanismContext>(
+                RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<SpecificFailureMechanismContext>(
                     SpecificFailureMechanismEnabledChildNodeObjects,
                     SpecificFailureMechanismDisabledChildNodeObjects,
                     SpecificFailureMechanismEnabledContextMenuStrip,
