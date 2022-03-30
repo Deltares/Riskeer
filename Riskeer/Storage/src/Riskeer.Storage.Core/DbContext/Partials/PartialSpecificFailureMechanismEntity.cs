@@ -22,8 +22,8 @@
 namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
-    /// Partial implementation of <see cref="SpecificFailurePathEntity"/> that implements a
+    /// Partial implementation of <see cref="SpecificFailureMechanismEntity"/> that implements a
     /// <see cref="IFailureMechanismEntity"/>.
     /// </summary>
-    public partial class SpecificFailurePathEntity : IFailureMechanismEntity {}
+    public partial class SpecificFailureMechanismEntity : IFailureMechanismEntity {}
 }

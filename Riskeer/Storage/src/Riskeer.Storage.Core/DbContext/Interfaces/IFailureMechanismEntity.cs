@@ -61,11 +61,11 @@ namespace Riskeer.Storage.Core.DbContext
         /// <summary>
         /// Gets or sets the failure mechanism assembly probability result type.
         /// </summary>
-        byte FailurePathAssemblyProbabilityResultType { get; set; }
+        byte FailureMechanismAssemblyResultProbabilityResultType { get; set; }
 
         /// <summary>
         /// Gets or sets the manual failure mechanism assembly probability.
         /// </summary>
-        double? ManualFailurePathAssemblyProbability { get; set; }
+        double? FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability { get; set; }
     }
 }

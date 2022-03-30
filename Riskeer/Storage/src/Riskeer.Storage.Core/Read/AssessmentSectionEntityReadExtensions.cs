@@ -261,8 +261,8 @@ namespace Riskeer.Storage.Core.Read
                                                      IAssessmentSection assessmentSection,
                                                      ReadConversionCollector collector)
         {
-            IEnumerable<SpecificFailurePathEntity> specificFailurePathEntities =
-                entity.SpecificFailurePathEntities
+            IEnumerable<SpecificFailureMechanismEntity> specificFailurePathEntities =
+                entity.SpecificFailureMechanismEntities
                       .OrderBy(e => e.Order);
 
             assessmentSection.SpecificFailureMechanisms.AddRange(specificFailurePathEntities.Select(e => e.ReadSpecificFailurePath(collector)).ToArray());

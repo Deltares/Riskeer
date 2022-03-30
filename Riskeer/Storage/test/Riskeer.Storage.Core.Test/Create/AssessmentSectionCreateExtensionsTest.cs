@@ -133,7 +133,7 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.PipingAtStructure));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.StabilityPointStructures));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.DuneErosion));
-            Assert.AreEqual(assessmentSection.SpecificFailureMechanisms.Count, entity.SpecificFailurePathEntities.Count);
+            Assert.AreEqual(assessmentSection.SpecificFailureMechanisms.Count, entity.SpecificFailureMechanismEntities.Count);
 
             Assert.IsNull(entity.ReferenceLinePointXml);
 

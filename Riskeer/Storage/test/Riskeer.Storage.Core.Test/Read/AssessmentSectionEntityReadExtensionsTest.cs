@@ -1019,7 +1019,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             RoundedDouble n1 = random.NextRoundedDouble(1, 20);
             RoundedDouble n2 = random.NextRoundedDouble(1, 20);
-            var firstSpecificFailurePathEntity = new SpecificFailurePathEntity
+            var firstSpecificFailurePathEntity = new SpecificFailureMechanismEntity
             {
                 Name = name1,
                 InAssembly = Convert.ToByte(inAssembly1),
@@ -1029,7 +1029,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 NotInAssemblyComments = notInAssemblyComments1
             };
 
-            var secondSpecificFailurePathEntity = new SpecificFailurePathEntity
+            var secondSpecificFailurePathEntity = new SpecificFailureMechanismEntity
             {
                 Name = name2,
                 InAssembly = Convert.ToByte(inAssembly2),
@@ -1039,8 +1039,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 NotInAssemblyComments = notInAssemblyComments2
             };
 
-            entity.SpecificFailurePathEntities.Add(firstSpecificFailurePathEntity);
-            entity.SpecificFailurePathEntities.Add(secondSpecificFailurePathEntity);
+            entity.SpecificFailureMechanismEntities.Add(firstSpecificFailurePathEntity);
+            entity.SpecificFailureMechanismEntities.Add(secondSpecificFailurePathEntity);
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();

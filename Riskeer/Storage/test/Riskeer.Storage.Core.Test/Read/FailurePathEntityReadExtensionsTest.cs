@@ -104,8 +104,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyOutputComments = "Some output text",
                 CalculationsInputComments = "Some calculation text",
                 NotInAssemblyComments = "Really not in assembly",
-                FailurePathAssemblyProbabilityResultType = Convert.ToByte(assemblyResultType),
-                ManualFailurePathAssemblyProbability = random.NextDouble()
+                FailureMechanismAssemblyResultProbabilityResultType = Convert.ToByte(assemblyResultType),
+                FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability = random.NextDouble()
             };
             var collector = new ReadConversionCollector();
             var failureMechanism = new TestCalculatableFailureMechanism();
@@ -232,8 +232,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyOutputComments = "Some output text",
                 CalculationsInputComments = "Some calculation text",
                 NotInAssemblyComments = "Really not in assembly",
-                FailurePathAssemblyProbabilityResultType = Convert.ToByte(assemblyResultType),
-                ManualFailurePathAssemblyProbability = random.NextDouble()
+                FailureMechanismAssemblyResultProbabilityResultType = Convert.ToByte(assemblyResultType),
+                FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability = random.NextDouble()
             };
             var collector = new ReadConversionCollector();
             var failureMechanism = new TestCalculatableFailureMechanism();
@@ -298,7 +298,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadSpecificFailurePath_EntityNull_ThrowArgumentNullException()
         {
             // Call
-            void Call() => ((SpecificFailurePathEntity) null).ReadSpecificFailurePath(new ReadConversionCollector());
+            void Call() => ((SpecificFailureMechanismEntity) null).ReadSpecificFailurePath(new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -309,7 +309,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadSpecificFailurePath_CollectorNull_ThrowArgumentNullException()
         {
             // Setup
-            var entity = new SpecificFailurePathEntity();
+            var entity = new SpecificFailureMechanismEntity();
 
             // Call
             void Call() => entity.ReadSpecificFailurePath(null);
@@ -328,7 +328,7 @@ namespace Riskeer.Storage.Core.Test.Read
             var probabilityResultType = random.NextEnumValue<FailureMechanismAssemblyProbabilityResultType>();
 
             const string filePath = "failureMechanismSections/File/Path";
-            var entity = new SpecificFailurePathEntity
+            var entity = new SpecificFailureMechanismEntity
             {
                 Name = "Specific failure path name",
                 Code = "FAALMECHANISME",
@@ -339,8 +339,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 InAssemblyOutputComments = "Some output text",
                 NotInAssemblyComments = "Some not in assembly text",
                 FailureMechanismSectionCollectionSourcePath = filePath,
-                FailurePathAssemblyProbabilityResultType = Convert.ToByte(probabilityResultType),
-                ManualFailurePathAssemblyProbability = random.NextDouble(),
+                FailureMechanismAssemblyResultProbabilityResultType = Convert.ToByte(probabilityResultType),
+                FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability = random.NextDouble(),
                 FailureMechanismSectionEntities =
                 {
                     CreateSimpleFailureMechanismSectionEntity()
@@ -368,7 +368,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadSpecificFailurePath_EntityWithNullValues_ReturnSpecificFailurePath()
         {
             // Setup
-            var entity = new SpecificFailurePathEntity
+            var entity = new SpecificFailureMechanismEntity
             {
                 N = 1.1
             };
@@ -386,7 +386,7 @@ namespace Riskeer.Storage.Core.Test.Read
         public void ReadSpecificFailurePath_ValidEntityWithoutSections_ReturnSpecificFailurePath()
         {
             // Setup
-            var entity = new SpecificFailurePathEntity
+            var entity = new SpecificFailureMechanismEntity
             {
                 N = 1.1
             };
@@ -419,7 +419,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 sectionResultEntity
             };
 
-            var entity = new SpecificFailurePathEntity
+            var entity = new SpecificFailureMechanismEntity
             {
                 N = 1.1,
                 FailureMechanismSectionEntities = new List<FailureMechanismSectionEntity>
@@ -453,10 +453,10 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(entity.InAssemblyOutputComments, failurePath.InAssemblyOutputComments.Body);
             Assert.AreEqual(entity.NotInAssemblyComments, failurePath.NotInAssemblyComments.Body);
 
-            var probabilityResultType = (FailureMechanismAssemblyProbabilityResultType) entity.FailurePathAssemblyProbabilityResultType;
+            var probabilityResultType = (FailureMechanismAssemblyProbabilityResultType) entity.FailureMechanismAssemblyResultProbabilityResultType;
             FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
             Assert.AreEqual(probabilityResultType, assemblyResult.ProbabilityResultType);
-            Assert.AreEqual(entity.ManualFailurePathAssemblyProbability, assemblyResult.ManualFailureMechanismAssemblyProbability);
+            Assert.AreEqual(entity.FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability, assemblyResult.ManualFailureMechanismAssemblyProbability);
         }
 
         private static FailureMechanismSectionEntity CreateSimpleFailureMechanismSectionEntity()

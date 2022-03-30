@@ -101,10 +101,10 @@ namespace Riskeer.Storage.Core.Read
         /// <summary>
         /// Reads the <see cref="IFailureMechanismEntity"/> and uses the information to create a <see cref="SpecificFailureMechanism"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="SpecificFailurePathEntity"/> to create a <see cref="SpecificFailureMechanism"/> with.</param>
+        /// <param name="entity">The <see cref="SpecificFailureMechanismEntity"/> to create a <see cref="SpecificFailureMechanism"/> with.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
-        internal static SpecificFailureMechanism ReadSpecificFailurePath(this SpecificFailurePathEntity entity,
+        internal static SpecificFailureMechanism ReadSpecificFailurePath(this SpecificFailureMechanismEntity entity,
                                                                          ReadConversionCollector collector)
         {
             if (entity == null)
@@ -135,10 +135,10 @@ namespace Riskeer.Storage.Core.Read
         private static void ReadAssemblyResult(IFailureMechanismEntity entity, IFailureMechanism failurePath)
         {
             FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
-            assemblyResult.ProbabilityResultType = (FailureMechanismAssemblyProbabilityResultType) entity.FailurePathAssemblyProbabilityResultType;
-            if (entity.ManualFailurePathAssemblyProbability != null)
+            assemblyResult.ProbabilityResultType = (FailureMechanismAssemblyProbabilityResultType) entity.FailureMechanismAssemblyResultProbabilityResultType;
+            if (entity.FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability != null)
             {
-                assemblyResult.ManualFailureMechanismAssemblyProbability = entity.ManualFailurePathAssemblyProbability.ToNullAsNaN();
+                assemblyResult.ManualFailureMechanismAssemblyProbability = entity.FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability.ToNullAsNaN();
             }
         }
 

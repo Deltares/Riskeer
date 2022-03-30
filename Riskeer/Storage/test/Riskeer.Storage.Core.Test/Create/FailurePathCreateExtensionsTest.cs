@@ -89,8 +89,8 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.IsNull(entity.NotInAssemblyComments);
 
             FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
-            Assert.AreEqual(Convert.ToByte(assemblyResult.ProbabilityResultType), entity.FailurePathAssemblyProbabilityResultType);
-            Assert.AreEqual(assemblyResult.ManualFailureMechanismAssemblyProbability, entity.ManualFailurePathAssemblyProbability);
+            Assert.AreEqual(Convert.ToByte(assemblyResult.ProbabilityResultType), entity.FailureMechanismAssemblyResultProbabilityResultType);
+            Assert.AreEqual(assemblyResult.ManualFailureMechanismAssemblyProbability, entity.FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability);
         }
 
         [Test]
@@ -111,7 +111,7 @@ namespace Riskeer.Storage.Core.Test.Create
             FailureMechanismEntity entity = failureMechanism.Create(failureMechanismType, registry);
 
             // Assert
-            Assert.IsNull(entity.ManualFailurePathAssemblyProbability);
+            Assert.IsNull(entity.FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability);
         }
 
         [Test]
@@ -246,8 +246,8 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.IsNull(entity.NotInAssemblyComments);
 
             FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
-            Assert.AreEqual(Convert.ToByte(assemblyResult.ProbabilityResultType), entity.FailurePathAssemblyProbabilityResultType);
-            Assert.AreEqual(assemblyResult.ManualFailureMechanismAssemblyProbability, entity.ManualFailurePathAssemblyProbability);
+            Assert.AreEqual(Convert.ToByte(assemblyResult.ProbabilityResultType), entity.FailureMechanismAssemblyResultProbabilityResultType);
+            Assert.AreEqual(assemblyResult.ManualFailureMechanismAssemblyProbability, entity.FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability);
         }
 
         [Test]
@@ -268,7 +268,7 @@ namespace Riskeer.Storage.Core.Test.Create
             FailureMechanismEntity entity = failureMechanism.Create(failureMechanismType, registry);
 
             // Assert
-            Assert.IsNull(entity.ManualFailurePathAssemblyProbability);
+            Assert.IsNull(entity.FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability);
         }
 
         [Test]
@@ -390,7 +390,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            SpecificFailurePathEntity entity = failurePath.Create(registry, order);
+            SpecificFailureMechanismEntity entity = failurePath.Create(registry, order);
 
             // Assert
             Assert.AreEqual(order, entity.Order);
@@ -407,8 +407,8 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.IsNull(entity.NotInAssemblyComments);
 
             FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
-            Assert.AreEqual(Convert.ToByte(assemblyResult.ProbabilityResultType), entity.FailurePathAssemblyProbabilityResultType);
-            Assert.AreEqual(assemblyResult.ManualFailureMechanismAssemblyProbability, entity.ManualFailurePathAssemblyProbability);
+            Assert.AreEqual(Convert.ToByte(assemblyResult.ProbabilityResultType), entity.FailureMechanismAssemblyResultProbabilityResultType);
+            Assert.AreEqual(assemblyResult.ManualFailureMechanismAssemblyProbability, entity.FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability);
         }
 
         [Test]
@@ -423,10 +423,10 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.IsNaN(assemblyResult.ManualFailureMechanismAssemblyProbability);
 
             // Call
-            SpecificFailurePathEntity entity = failurePath.Create(registry, 0);
+            SpecificFailureMechanismEntity entity = failurePath.Create(registry, 0);
 
             // Assert
-            Assert.IsNull(entity.ManualFailurePathAssemblyProbability);
+            Assert.IsNull(entity.FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability);
         }
 
         [Test]
@@ -453,7 +453,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            SpecificFailurePathEntity entity = failurePath.Create(registry, 0);
+            SpecificFailureMechanismEntity entity = failurePath.Create(registry, 0);
 
             // Assert
             int nrOfFailurePathSections = failurePath.Sections.Count();
@@ -491,7 +491,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            SpecificFailurePathEntity entity = failurePath.Create(registry, 0);
+            SpecificFailureMechanismEntity entity = failurePath.Create(registry, 0);
 
             // Assert
             TestHelper.AssertAreEqualButNotSame(failurePath.Name, entity.Name);

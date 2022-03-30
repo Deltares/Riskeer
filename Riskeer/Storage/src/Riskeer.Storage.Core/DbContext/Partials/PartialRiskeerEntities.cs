@@ -137,8 +137,8 @@ namespace Riskeer.Storage.Core.DbContext
             WaveImpactAsphaltCoverWaveConditionsCalculationEntities.Load();
             WaveImpactAsphaltCoverWaveConditionsOutputEntities.Load();
 
-            SpecificFailurePathEntities.Include(e => e.FailureMechanismSectionEntities)
-                                       .Load();
+            SpecificFailureMechanismEntities.Include(e => e.FailureMechanismSectionEntities)
+                                            .Load();
             NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Load();
 
             LoadIllustrationPointsIntoContext();

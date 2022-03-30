@@ -111,7 +111,7 @@ namespace Riskeer.Storage.Core.Create
             var i = 0;
             foreach (SpecificFailureMechanism specificFailureMechanism in section.SpecificFailureMechanisms)
             {
-                entity.SpecificFailurePathEntities.Add(specificFailureMechanism.Create(registry, i++));
+                entity.SpecificFailureMechanismEntities.Add(specificFailureMechanism.Create(registry, i++));
             }
         }
 
