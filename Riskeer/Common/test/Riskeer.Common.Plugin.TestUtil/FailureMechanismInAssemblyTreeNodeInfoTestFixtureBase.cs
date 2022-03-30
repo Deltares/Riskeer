@@ -44,7 +44,7 @@ namespace Riskeer.Common.Plugin.TestUtil
     /// <typeparam name="TFailureMechanism">The type of <see cref="IFailureMechanism"/> to create the tests for.</typeparam>
     /// <typeparam name="TContext">The type of <see cref="IFailureMechanismContext{T}"/> to create the tests for.</typeparam>
     [TestFixture]
-    public abstract class FailurePathInAssemblyTreeNodeInfoTestFixtureBase<TPlugin, TFailureMechanism, TContext>
+    public abstract class FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase<TPlugin, TFailureMechanism, TContext>
         where TPlugin : PluginBase, new()
         where TFailureMechanism : IFailureMechanism, new()
         where TContext : IFailureMechanismContext<TFailureMechanism>
@@ -77,9 +77,9 @@ namespace Riskeer.Common.Plugin.TestUtil
                 mocks.ReplayAll();
 
                 using (var plugin = new TPlugin
-                       {
-                           Gui = gui
-                       })
+                {
+                    Gui = gui
+                })
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
@@ -124,9 +124,9 @@ namespace Riskeer.Common.Plugin.TestUtil
                 mocks.ReplayAll();
 
                 using (var plugin = new TPlugin
-                       {
-                           Gui = gui
-                       })
+                {
+                    Gui = gui
+                })
                 {
                     TreeNodeInfo info = GetInfo(plugin);
                     using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
@@ -163,9 +163,9 @@ namespace Riskeer.Common.Plugin.TestUtil
                 mocks.ReplayAll();
 
                 using (var plugin = new TPlugin
-                       {
-                           Gui = gui
-                       })
+                {
+                    Gui = gui
+                })
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 
@@ -208,9 +208,9 @@ namespace Riskeer.Common.Plugin.TestUtil
                 mocks.ReplayAll();
 
                 using (var plugin = new TPlugin
-                       {
-                           Gui = gui
-                       })
+                {
+                    Gui = gui
+                })
                 {
                     TreeNodeInfo info = GetInfo(plugin);
 
@@ -230,14 +230,14 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         /// <summary>
-        /// Creates a new instance of <see cref="FailurePathInAssemblyTreeNodeInfoTestFixtureBase{TPlugin,TFailurePath,TFailurePathContext}"/>.
+        /// Creates a new instance of <see cref="FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase{TPlugin,TFailureMechanism,TContext}"/>.
         /// </summary>
         /// <param name="contextMenuIndexWhenInAssemblyTrue">The index of the InAssembly context menu item when the <typeparamref name="TFailureMechanism"/>
         /// is part of the assembly.</param>
         /// <param name="contextMenuIndexWhenInAssemblyFalse">The index of the InAssembly context menu item when the <typeparamref name="TFailureMechanism"/>
         /// is not part of the assembly.</param>
-        protected FailurePathInAssemblyTreeNodeInfoTestFixtureBase(int contextMenuIndexWhenInAssemblyTrue,
-                                                                   int contextMenuIndexWhenInAssemblyFalse)
+        protected FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase(int contextMenuIndexWhenInAssemblyTrue,
+                                                                        int contextMenuIndexWhenInAssemblyFalse)
         {
             this.contextMenuIndexWhenInAssemblyTrue = contextMenuIndexWhenInAssemblyTrue;
             this.contextMenuIndexWhenInAssemblyFalse = contextMenuIndexWhenInAssemblyFalse;

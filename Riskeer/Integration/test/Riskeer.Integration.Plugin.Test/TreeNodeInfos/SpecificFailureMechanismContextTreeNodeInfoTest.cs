@@ -374,7 +374,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         [TestFixture]
         public class SpecificFailureMechanismContextInAssemblyTreeNodeInfoTest
-            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, SpecificFailureMechanism, SpecificFailureMechanismContext>
+            : FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, SpecificFailureMechanism, SpecificFailureMechanismContext>
         {
             public SpecificFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 

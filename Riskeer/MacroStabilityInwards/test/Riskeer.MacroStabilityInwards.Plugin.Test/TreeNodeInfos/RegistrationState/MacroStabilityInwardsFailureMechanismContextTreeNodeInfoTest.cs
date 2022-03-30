@@ -262,10 +262,10 @@ namespace Riskeer.MacroStabilityInwards.Plugin.Test.TreeNodeInfos.RegistrationSt
         }
 
         [TestFixture]
-        public class MacroStabilityInwardsFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<MacroStabilityInwardsPlugin, MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsFailureMechanismContext>
+        public class MacroStabilityInwardsFailureMechanismContextInAssemblyTreeNodeInfoTest :
+            FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase<MacroStabilityInwardsPlugin, MacroStabilityInwardsFailureMechanism, MacroStabilityInwardsFailureMechanismContext>
         {
-            public MacroStabilityInwardsFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
+            public MacroStabilityInwardsFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override MacroStabilityInwardsFailureMechanismContext CreateFailureMechanismContext(MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                                                           IAssessmentSection assessmentSection)

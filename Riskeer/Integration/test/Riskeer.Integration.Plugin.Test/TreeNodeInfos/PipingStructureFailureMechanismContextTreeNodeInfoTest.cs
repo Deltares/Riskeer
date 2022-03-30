@@ -276,7 +276,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         [TestFixture]
         public class PipingStructureFailureMechanismContextInAssemblyTreeNodeInfoTest
-            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, PipingStructureFailureMechanism, PipingStructureFailureMechanismContext>
+            : FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, PipingStructureFailureMechanism, PipingStructureFailureMechanismContext>
         {
             public PipingStructureFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 

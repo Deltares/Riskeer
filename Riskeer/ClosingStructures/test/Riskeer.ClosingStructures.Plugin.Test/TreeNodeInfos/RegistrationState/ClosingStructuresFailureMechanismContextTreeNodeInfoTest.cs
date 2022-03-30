@@ -263,7 +263,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.TreeNodeInfos.RegistrationState
 
         [TestFixture]
         public class ClosingStructuresFailureMechanismContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<ClosingStructuresPlugin, ClosingStructuresFailureMechanism, ClosingStructuresFailureMechanismContext>
+            FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase<ClosingStructuresPlugin, ClosingStructuresFailureMechanism, ClosingStructuresFailureMechanismContext>
         {
             public ClosingStructuresFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 

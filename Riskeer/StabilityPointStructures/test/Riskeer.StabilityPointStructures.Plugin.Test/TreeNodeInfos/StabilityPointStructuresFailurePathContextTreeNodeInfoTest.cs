@@ -262,10 +262,10 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
         }
 
         [TestFixture]
-        public class StabilityPointStructuresFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<StabilityPointStructuresPlugin, StabilityPointStructuresFailureMechanism, StabilityPointStructuresFailureMechanismContext>
+        public class StabilityPointStructuresFailureMechanismContextInAssemblyTreeNodeInfoTest :
+            FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase<StabilityPointStructuresPlugin, StabilityPointStructuresFailureMechanism, StabilityPointStructuresFailureMechanismContext>
         {
-            public StabilityPointStructuresFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
+            public StabilityPointStructuresFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override StabilityPointStructuresFailureMechanismContext CreateFailureMechanismContext(StabilityPointStructuresFailureMechanism failureMechanism,
                                                                                                              IAssessmentSection assessmentSection)

@@ -276,7 +276,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         [TestFixture]
         public class WaterPressureAsphaltCoverFailureMechanismContextInAssemblyTreeNodeInfoTest
-            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismContext>
+            : FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, WaterPressureAsphaltCoverFailureMechanism, WaterPressureAsphaltCoverFailureMechanismContext>
         {
             public WaterPressureAsphaltCoverFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 

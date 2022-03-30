@@ -277,7 +277,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         [TestFixture]
         public class MicrostabilityFailureMechanismContextInAssemblyTreeNodeInfoTest
-            : FailurePathInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, MicrostabilityFailureMechanism, MicrostabilityFailureMechanismContext>
+            : FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase<RiskeerPlugin, MicrostabilityFailureMechanism, MicrostabilityFailureMechanismContext>
         {
             public MicrostabilityFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 

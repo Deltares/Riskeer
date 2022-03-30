@@ -263,10 +263,10 @@ namespace Riskeer.Piping.Plugin.Test.TreeNodeInfos.RegistrationState
         }
 
         [TestFixture]
-        public class PipingFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<PipingPlugin, PipingFailureMechanism, PipingFailureMechanismContext>
+        public class PipingFailureMechanismContextInAssemblyTreeNodeInfoTest :
+            FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase<PipingPlugin, PipingFailureMechanism, PipingFailureMechanismContext>
         {
-            public PipingFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
+            public PipingFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override PipingFailureMechanismContext CreateFailureMechanismContext(PipingFailureMechanism failureMechanism,
                                                                                            IAssessmentSection assessmentSection)

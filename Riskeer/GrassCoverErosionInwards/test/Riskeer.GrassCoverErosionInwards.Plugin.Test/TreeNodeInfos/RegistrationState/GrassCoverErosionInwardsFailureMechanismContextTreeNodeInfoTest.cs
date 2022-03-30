@@ -261,13 +261,13 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos.Registratio
         }
 
         [TestFixture]
-        public class GrassCoverErosionInwardsFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<GrassCoverErosionInwardsPlugin, GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismContext>
+        public class GrassCoverErosionInwardsFailureMechanismContextInAssemblyTreeNodeInfoTest :
+            FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase<GrassCoverErosionInwardsPlugin, GrassCoverErosionInwardsFailureMechanism, GrassCoverErosionInwardsFailureMechanismContext>
         {
-            public GrassCoverErosionInwardsFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
+            public GrassCoverErosionInwardsFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override GrassCoverErosionInwardsFailureMechanismContext CreateFailureMechanismContext(GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                                                                        IAssessmentSection assessmentSection)
+                                                                                                             IAssessmentSection assessmentSection)
             {
                 return new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSection);
             }

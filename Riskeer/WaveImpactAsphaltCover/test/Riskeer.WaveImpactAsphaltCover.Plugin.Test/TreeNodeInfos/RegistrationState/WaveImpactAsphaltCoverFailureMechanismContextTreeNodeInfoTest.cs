@@ -257,13 +257,13 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos.RegistrationS
         }
 
         [TestFixture]
-        public class WaveImpactAsphaltCoverFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<WaveImpactAsphaltCoverPlugin, WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismContext>
+        public class WaveImpactAsphaltCoverFailureMechanismContextInAssemblyTreeNodeInfoTest :
+            FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase<WaveImpactAsphaltCoverPlugin, WaveImpactAsphaltCoverFailureMechanism, WaveImpactAsphaltCoverFailureMechanismContext>
         {
-            public WaveImpactAsphaltCoverFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
+            public WaveImpactAsphaltCoverFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override WaveImpactAsphaltCoverFailureMechanismContext CreateFailureMechanismContext(WaveImpactAsphaltCoverFailureMechanism failureMechanism,
-                                                                                                      IAssessmentSection assessmentSection)
+                                                                                                           IAssessmentSection assessmentSection)
             {
                 return new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism, assessmentSection);
             }

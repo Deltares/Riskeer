@@ -256,10 +256,10 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos.RegistrationStat
         }
 
         [TestFixture]
-        public class StabilityStoneCoverFailurePathContextInAssemblyTreeNodeInfoTest :
-            FailurePathInAssemblyTreeNodeInfoTestFixtureBase<StabilityStoneCoverPlugin, StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismContext>
+        public class StabilityStoneCoverFailureMechanismContextInAssemblyTreeNodeInfoTest :
+            FailureMechanismInAssemblyTreeNodeInfoTestFixtureBase<StabilityStoneCoverPlugin, StabilityStoneCoverFailureMechanism, StabilityStoneCoverFailureMechanismContext>
         {
-            public StabilityStoneCoverFailurePathContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
+            public StabilityStoneCoverFailureMechanismContextInAssemblyTreeNodeInfoTest() : base(2, 0) {}
 
             protected override StabilityStoneCoverFailureMechanismContext CreateFailureMechanismContext(StabilityStoneCoverFailureMechanism failureMechanism,
                                                                                                         IAssessmentSection assessmentSection)
