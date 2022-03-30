@@ -66,11 +66,11 @@ namespace Riskeer.Migration.Integration.Test
                     AssertAssessmentSection(reader, sourceFilePath);
                     AssertFailureMechanism(reader, sourceFilePath);
                     AssertFailureMechanismSection(reader, sourceFilePath);
-                    AssertMacroStabilityOutwardsFailurePath(reader, sourceFilePath);
+                    AssertMacroStabilityOutwardsFailureMechanism(reader, sourceFilePath);
                     AssertMacroStabilityOutwardsSections(reader, sourceFilePath);
-                    AssertStrengthStabilityLengthwiseConstructionFailurePath(reader, sourceFilePath);
+                    AssertStrengthStabilityLengthwiseConstructionFailureMechanism(reader, sourceFilePath);
                     AssertStrengthStabilityLengthwiseConstructionSections(reader, sourceFilePath);
-                    AssertTechnicalInnovationFailurePath(reader, sourceFilePath);
+                    AssertTechnicalInnovationFailureMechanism(reader, sourceFilePath);
                     AssertTechnicalInnovationSections(reader, sourceFilePath);
 
                     AssertHydraulicBoundaryLocationCalculation(reader, sourceFilePath);
@@ -332,8 +332,8 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[InAssemblyOutputComments] IS OLD.[OutputComments] " +
                 "AND NEW.[NotInAssemblyComments] IS OLD.[NotRelevantComments] " +
                 "AND NEW.[CalculationsInputComments] IS NULL " +
-                "AND NEW.[FailurePathAssemblyProbabilityResultType] = 1 " +
-                "AND NEW.[ManualFailurePathAssemblyProbability] IS NULL; " +
+                "AND NEW.[FailureMechanismAssemblyResultProbabilityResultType] = 1 " +
+                "AND NEW.[FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability] IS NULL; " +
                 "DETACH SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateFailureMechanism);
@@ -371,42 +371,42 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateFailureMechanismSectionEntity);
         }
 
-        private static void AssertMacroStabilityOutwardsFailurePath(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertMacroStabilityOutwardsFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            AssertMigratedSpecificFailurePath(reader, sourceFilePath, 13, "Macrostabiliteit buitenwaarts", "STBU", 1);
+            AssertMigratedSpecificFailureMechanism(reader, sourceFilePath, 13, "Macrostabiliteit buitenwaarts", "STBU", 1);
         }
 
         private static void AssertMacroStabilityOutwardsSections(MigratedDatabaseReader reader, string sourceFilePath)
         {
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity(reader, "MacroStabilityOutwardsSectionResultEntity", sourceFilePath);
-            AssertSpecificFailurePathFailureMechanismSectionEntity(reader, 13, "Macrostabiliteit buitenwaarts", sourceFilePath);
+            AssertSpecificFailureMechanismFailureMechanismSectionEntity(reader, 13, "Macrostabiliteit buitenwaarts", sourceFilePath);
         }
 
-        private static void AssertStrengthStabilityLengthwiseConstructionFailurePath(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertStrengthStabilityLengthwiseConstructionFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            AssertMigratedSpecificFailurePath(reader, sourceFilePath, 17, "Sterkte en stabiliteit langsconstructies", "STKWl", 2);
+            AssertMigratedSpecificFailureMechanism(reader, sourceFilePath, 17, "Sterkte en stabiliteit langsconstructies", "STKWl", 2);
         }
 
         private static void AssertStrengthStabilityLengthwiseConstructionSections(MigratedDatabaseReader reader, string sourceFilePath)
         {
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity(reader, "StrengthStabilityLengthwiseConstructionSectionResultEntity", sourceFilePath);
-            AssertSpecificFailurePathFailureMechanismSectionEntity(reader, 17, "Sterkte en stabiliteit langsconstructies", sourceFilePath);
+            AssertSpecificFailureMechanismFailureMechanismSectionEntity(reader, 17, "Sterkte en stabiliteit langsconstructies", sourceFilePath);
         }
 
-        private static void AssertTechnicalInnovationFailurePath(MigratedDatabaseReader reader, string sourceFilePath)
+        private static void AssertTechnicalInnovationFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            AssertMigratedSpecificFailurePath(reader, sourceFilePath, 18, "Technische innovaties", "INN", 3);
+            AssertMigratedSpecificFailureMechanism(reader, sourceFilePath, 18, "Technische innovaties", "INN", 3);
         }
 
         private static void AssertTechnicalInnovationSections(MigratedDatabaseReader reader, string sourceFilePath)
         {
             AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity(reader, "TechnicalInnovationSectionResultEntity", sourceFilePath);
-            AssertSpecificFailurePathFailureMechanismSectionEntity(reader, 18, "Technische innovaties", sourceFilePath);
+            AssertSpecificFailureMechanismFailureMechanismSectionEntity(reader, 18, "Technische innovaties", sourceFilePath);
         }
 
-        private static void AssertSpecificFailurePathFailureMechanismSectionEntity(MigratedDatabaseReader reader, int failureMechanismType, string failureMechanismName, string sourceFilePath)
+        private static void AssertSpecificFailureMechanismFailureMechanismSectionEntity(MigratedDatabaseReader reader, int failureMechanismType, string failureMechanismName, string sourceFilePath)
         {
-            string validateSpecificFailurePathFailureMechanismSectionEntity =
+            string validateSpecificFailureMechanismFailureMechanismSectionEntity =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT " +
                 "( " +
@@ -418,8 +418,8 @@ namespace Riskeer.Migration.Integration.Test
                 $"WHERE FailureMechanismType = {failureMechanismType} " +
                 ") " +
                 ") " +
-                "FROM SpecificFailurePathEntity NEW " +
-                "JOIN SpecificFailurePathFailureMechanismSectionEntity USING(SpecificFailurePathEntityId) " +
+                "FROM SpecificFailureMechanismEntity NEW " +
+                "JOIN SpecificFailureMechanismFailureMechanismSectionEntity USING(SpecificFailureMechanismEntityId) " +
                 "JOIN ( " +
                 "SELECT " +
                 "[AssessmentSectionEntityId], " +
@@ -432,7 +432,7 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.AssessmentSectionEntityId = OLD.AssessmentSectionEntityId; " +
                 "DETACH SOURCEPROJECT;";
 
-            reader.AssertReturnedDataIsValid(validateSpecificFailurePathFailureMechanismSectionEntity);
+            reader.AssertReturnedDataIsValid(validateSpecificFailureMechanismFailureMechanismSectionEntity);
         }
 
         private static void AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity(MigratedDatabaseReader reader, string failureMechanismSectionResultEntityName, string sourceFilePath)
@@ -458,13 +458,13 @@ namespace Riskeer.Migration.Integration.Test
             reader.AssertReturnedDataIsValid(validateNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity);
         }
 
-        private static void AssertMigratedSpecificFailurePath(MigratedDatabaseReader reader, string sourceFilePath,
+        private static void AssertMigratedSpecificFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath,
                                                               int failureMechanismType,
                                                               string failureMechanismName,
                                                               string failureMechanismCode,
                                                               int order)
         {
-            string validateSpecificFailurePathEntity =
+            string validateSpecificFailureMechanismEntity =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
                 "SELECT COUNT() = " +
                 "(" +
@@ -472,7 +472,7 @@ namespace Riskeer.Migration.Integration.Test
                 "FROM SOURCEPROJECT.FailureMechanismEntity " +
                 $"WHERE FailureMechanismType = {failureMechanismType} " +
                 ") " +
-                "FROM SpecificFailurePathEntity NEW " +
+                "FROM SpecificFailureMechanismEntity NEW " +
                 "JOIN (" +
                 "SELECT " +
                 "[AssessmentSectionEntityId], " +
@@ -493,12 +493,12 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[InAssemblyOutputComments] IS OLD.[OutputComments] " +
                 "AND NEW.[NotInAssemblyComments] IS OLD.[NotRelevantComments] " +
                 "AND NEW.[N] = 1 " +
-                "AND NEW.[FailurePathAssemblyProbabilityResultType] = 1 " +
-                "AND NEW.[ManualFailurePathAssemblyProbability] IS NULL " +
+                "AND NEW.[FailureMechanismAssemblyResultProbabilityResultType] = 1 " +
+                "AND NEW.[FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability] IS NULL " +
                 "AND NEW.[ApplyLengthEffectInSection] = 0; " +
                 "DETACH SOURCEPROJECT;";
 
-            reader.AssertReturnedDataIsValid(validateSpecificFailurePathEntity);
+            reader.AssertReturnedDataIsValid(validateSpecificFailureMechanismEntity);
         }
 
         #region WaveConditions

@@ -101,8 +101,8 @@ INSERT INTO FailureMechanismEntity (
     [InAssemblyOutputComments],
     [NotInAssemblyComments],
     [CalculationsInputComments],
-    [FailurePathAssemblyProbabilityResultType],
-    [ManualFailurePathAssemblyProbability]
+    [FailureMechanismAssemblyResultProbabilityResultType],
+    [FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability]
 ) 
 SELECT
     [FailureMechanismEntityId],
@@ -810,7 +810,7 @@ SELECT
     END
 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
 
-INSERT INTO SpecificFailurePathEntity (
+INSERT INTO SpecificFailureMechanismEntity (
     [AssessmentSectionEntityId],
     [Name],
     [Code],
@@ -821,8 +821,8 @@ INSERT INTO SpecificFailurePathEntity (
     [InAssemblyOutputComments],
     [NotInAssemblyComments],
     [N],
-    [FailurePathAssemblyProbabilityResultType],
-    [ManualFailurePathAssemblyProbability],
+    [FailureMechanismAssemblyResultProbabilityResultType],
+    [FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability],
     [ApplyLengthEffectInSection]
 )
 SELECT
@@ -863,7 +863,7 @@ SELECT
     NULL
 FROM [SOURCEPROJECT].MacroStabilityOutwardsSectionResultEntity;
 
-INSERT INTO SpecificFailurePathEntity (
+INSERT INTO SpecificFailureMechanismEntity (
     [AssessmentSectionEntityId],
     [Name],
     [Code],
@@ -874,8 +874,8 @@ INSERT INTO SpecificFailurePathEntity (
     [InAssemblyOutputComments],
     [NotInAssemblyComments],
     [N],
-    [FailurePathAssemblyProbabilityResultType],
-    [ManualFailurePathAssemblyProbability],
+    [FailureMechanismAssemblyResultProbabilityResultType],
+    [FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability],
     [ApplyLengthEffectInSection]
 )
 SELECT
@@ -916,7 +916,7 @@ SELECT
     NULL
 FROM [SOURCEPROJECT].StrengthStabilityLengthwiseConstructionSectionResultEntity;
 
-INSERT INTO SpecificFailurePathEntity (
+INSERT INTO SpecificFailureMechanismEntity (
     [AssessmentSectionEntityId],
     [Name],
     [Code],
@@ -927,8 +927,8 @@ INSERT INTO SpecificFailurePathEntity (
     [InAssemblyOutputComments],
     [NotInAssemblyComments],
     [N],
-    [FailurePathAssemblyProbabilityResultType],
-    [ManualFailurePathAssemblyProbability],
+    [FailureMechanismAssemblyResultProbabilityResultType],
+    [FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability],
     [ApplyLengthEffectInSection]
 )
 SELECT
@@ -969,38 +969,38 @@ SELECT
     NULL
 FROM [SOURCEPROJECT].TechnicalInnovationSectionResultEntity;
 
-CREATE TEMP TABLE TempSpecificFailurePathMapping
+CREATE TEMP TABLE TempSpecificFailureMechanismMapping
 (
     'FailureMechanismEntityId' INTEGER NOT NULL,
-    'SpecificFailurePathEntityId' INTEGER NOT NULL,
-CONSTRAINT 'PK_SpecificFailurePathFailureMechanismSectionEntity' PRIMARY KEY ('FailureMechanismEntityId','SpecificFailurePathEntityId')
+    'SpecificFailureMechanismEntityId' INTEGER NOT NULL,
+CONSTRAINT 'PK_SpecificFailureMechanismFailureMechanismSectionEntity' PRIMARY KEY ('FailureMechanismEntityId','SpecificFailureMechanismEntityId')
 );
 
-INSERT INTO TempSpecificFailurePathMapping
+INSERT INTO TempSpecificFailureMechanismMapping
 (
     [FailureMechanismEntityId],
-    [SpecificFailurePathEntityId]
+    [SpecificFailureMechanismEntityId]
 )
 SELECT
     [FailureMechanismEntityId],
-    [SpecificFailurePathEntityId]
+    [SpecificFailureMechanismEntityId]
 FROM [SOURCEPROJECT].FailureMechanismEntity fme
-JOIN SpecificFailurePathEntity sfpe USING (AssessmentSectionEntityId)
+JOIN SpecificFailureMechanismEntity sfpe USING (AssessmentSectionEntityId)
 WHERE (fme.[FailureMechanismType] = 13 AND sfpe.[Name] = "Macrostabiliteit buitenwaarts") OR
 (fme.[FailureMechanismType] = 17 AND sfpe.[Name] = "Sterkte en stabiliteit langsconstructies") OR
 (fme.[FailureMechanismType] = 18 AND sfpe.[Name] = "Technische innovaties");
 
-INSERT INTO SpecificFailurePathFailureMechanismSectionEntity (
-    [SpecificFailurePathEntityId],
+INSERT INTO SpecificFailureMechanismFailureMechanismSectionEntity (
+    [SpecificFailureMechanismEntityId],
     [FailureMechanismSectionEntityId]
 )
 SELECT
-    [SpecificFailurePathEntityId],
+    [SpecificFailureMechanismEntityId],
     [FailureMechanismSectionEntityId]
-FROM TempSpecificFailurePathMapping
+FROM TempSpecificFailureMechanismMapping
 JOIN [SOURCEPROJECT].FailureMechanismSectionEntity USING(FailureMechanismEntityId);
 
-DROP TABLE TempSpecificFailurePathMapping;
+DROP TABLE TempSpecificFailureMechanismMapping;
 
 /*
  Map all calculation groups to failure mechanism ids.
