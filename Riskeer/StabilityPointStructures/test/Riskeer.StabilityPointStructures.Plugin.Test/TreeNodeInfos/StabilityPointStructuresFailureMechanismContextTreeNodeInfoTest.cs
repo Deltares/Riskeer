@@ -40,7 +40,7 @@ using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StabilityPointStructuresFailurePathContextTreeNodeInfoTest
+    public class StabilityPointStructuresFailureMechanismContextTreeNodeInfoTest
     {
         private StabilityPointStructuresPlugin plugin;
         private TreeNodeInfo info;
