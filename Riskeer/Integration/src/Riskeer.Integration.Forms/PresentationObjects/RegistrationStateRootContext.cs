@@ -25,18 +25,18 @@ using Riskeer.Integration.Data;
 namespace Riskeer.Integration.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for the failure paths state.
+    /// Presentation object for the registration state.
     /// </summary>
-    public class FailurePathsStateRootContext : StateRootContext
+    public class RegistrationStateRootContext : StateRootContext
     {
         /// <summary>
-        /// Creates a new instance of <see cref="FailurePathsStateRootContext"/>.
+        /// Creates a new instance of <see cref="RegistrationStateRootContext"/>.
         /// </summary>
         /// <param name="wrappedData">The <see cref="AssessmentSection"/> which the
-        /// <see cref="FailurePathsStateRootContext"/> belongs to.</param>
+        /// <see cref="RegistrationStateRootContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when
         /// <paramref name="wrappedData"/> is <c>null</c>.</exception>
-        public FailurePathsStateRootContext(AssessmentSection wrappedData)
+        public RegistrationStateRootContext(AssessmentSection wrappedData)
             : base(wrappedData) {}
     }
 }

@@ -37,7 +37,7 @@ using RiskeerIntegrationFormsResources = Riskeer.Integration.Forms.Properties.Re
 namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class FailurePathsStateRootContextTreeNodeInfoTest
+    public class RegistrationStateRootContextTreeNodeInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 Name = "ttt"
             };
 
-            var context = new FailurePathsStateRootContext(assessmentSection);
+            var context = new RegistrationStateRootContext(assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -145,7 +145,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new FailurePathsStateRootContext(assessmentSection);
+            var context = new RegistrationStateRootContext(assessmentSection);
 
             using (var plugin = new RiskeerPlugin())
             {
@@ -237,7 +237,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            var context = new FailurePathsStateRootContext(assessmentSection);
+            var context = new RegistrationStateRootContext(assessmentSection);
             context.Attach(observer);
 
             using (var plugin = new RiskeerPlugin())
@@ -271,7 +271,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(RiskeerPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailurePathsStateRootContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(RegistrationStateRootContext));
         }
     }
 }

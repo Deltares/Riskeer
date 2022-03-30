@@ -31,7 +31,7 @@ using Riskeer.Integration.Forms.PresentationObjects;
 namespace Riskeer.Integration.Plugin.Test.StateInfos
 {
     [TestFixture]
-    public class FailurePathsStateInfoTest
+    public class RegistrationStateInfoTest
     {
         private RiskeerPlugin plugin;
         private StateInfo info;
@@ -68,10 +68,10 @@ namespace Riskeer.Integration.Plugin.Test.StateInfos
 
             // Assert
             Assert.IsNotNull(rootData);
-            Assert.IsInstanceOf<FailurePathsStateRootContext>(rootData);
+            Assert.IsInstanceOf<RegistrationStateRootContext>(rootData);
 
-            var failurePathsStateRootContext = (FailurePathsStateRootContext) rootData;
-            Assert.AreSame(assessmentSection, failurePathsStateRootContext.WrappedData);
+            var registrationStateRootContext = (RegistrationStateRootContext) rootData;
+            Assert.AreSame(assessmentSection, registrationStateRootContext.WrappedData);
         }
 
         [Test]

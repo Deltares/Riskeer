@@ -33,7 +33,7 @@ using Riskeer.Integration.Forms.Views;
 namespace Riskeer.Integration.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class FailurePathsStateRootContextViewInfoTest
+    public class RegistrationStateRootContextViewInfoTest
     {
         private RiskeerPlugin plugin;
         private ViewInfo info;
@@ -42,7 +42,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void SetUp()
         {
             plugin = new RiskeerPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.DataType == typeof(FailurePathsStateRootContext));
+            info = plugin.GetViewInfos().First(tni => tni.DataType == typeof(RegistrationStateRootContext));
         }
 
         [TearDown]
@@ -72,7 +72,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         public void CreateInstance_WithContext_ReturnsAssessmentSectionExtendedView()
         {
             // Setup
-            var context = new FailurePathsStateRootContext(new AssessmentSection(AssessmentSectionComposition.Dike));
+            var context = new RegistrationStateRootContext(new AssessmentSection(AssessmentSectionComposition.Dike));
 
             // Call
             IView view = info.CreateInstance(context);

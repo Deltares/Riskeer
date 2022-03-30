@@ -27,7 +27,7 @@ using Riskeer.Integration.Forms.PresentationObjects;
 namespace Riskeer.Integration.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class FailurePathsStateRootContextTest
+    public class RegistrationStateRootContextTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -36,7 +36,7 @@ namespace Riskeer.Integration.Forms.Test.PresentationObjects
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             // Call
-            var context = new FailurePathsStateRootContext(assessmentSection);
+            var context = new RegistrationStateRootContext(assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<StateRootContext>(context);

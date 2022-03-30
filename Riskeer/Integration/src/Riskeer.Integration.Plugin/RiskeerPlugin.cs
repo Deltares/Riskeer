@@ -215,7 +215,7 @@ namespace Riskeer.Integration.Plugin
             {
                 if (project is RiskeerProject riskeerProject)
                 {
-                    return new FailurePathsStateRootContext(riskeerProject.AssessmentSection);
+                    return new RegistrationStateRootContext(riskeerProject.AssessmentSection);
                 }
 
                 return null;
@@ -407,7 +407,7 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = CloseAssessmentSectionViewForData
             };
 
-            yield return new RiskeerViewInfo<FailurePathsStateRootContext, AssessmentSectionExtendedView>(() => Gui)
+            yield return new RiskeerViewInfo<RegistrationStateRootContext, AssessmentSectionExtendedView>(() => Gui)
             {
                 GetViewName = (view, context) => RiskeerFormsResources.AssessmentSectionMap_DisplayName,
                 CreateInstance = context => new AssessmentSectionExtendedView(context.WrappedData),
@@ -729,9 +729,9 @@ namespace Riskeer.Integration.Plugin
                 CalculationsStateRootContextChildNodeObjects,
                 CalculationsStateRootContextMenuStrip);
 
-            yield return CreateStateRootTreeNodeInfo<FailurePathsStateRootContext>(
-                FailurePathsStateRootContextChildNodeObjects,
-                FailurePathsStateRootContextMenuStrip);
+            yield return CreateStateRootTreeNodeInfo<RegistrationStateRootContext>(
+                RegistrationStateRootContextChildNodeObjects,
+                RegistrationStateRootContextMenuStrip);
 
             yield return new TreeNodeInfo<BackgroundData>
             {
@@ -1821,9 +1821,9 @@ namespace Riskeer.Integration.Plugin
 
         #endregion
 
-        #region FailurePathsStateRootContext TreeNodeInfo
+        #region RegistrationStateRootContext TreeNodeInfo
 
-        private static object[] FailurePathsStateRootContextChildNodeObjects(FailurePathsStateRootContext nodeData)
+        private static object[] RegistrationStateRootContextChildNodeObjects(RegistrationStateRootContext nodeData)
         {
             AssessmentSection assessmentSection = nodeData.WrappedData;
 
@@ -1836,7 +1836,7 @@ namespace Riskeer.Integration.Plugin
             };
         }
 
-        private ContextMenuStrip FailurePathsStateRootContextMenuStrip(FailurePathsStateRootContext nodeData,
+        private ContextMenuStrip RegistrationStateRootContextMenuStrip(RegistrationStateRootContext nodeData,
                                                                        object parentData, TreeViewControl treeViewControl)
         {
             return Gui.Get(nodeData, treeViewControl)
