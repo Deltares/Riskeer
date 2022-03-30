@@ -89,8 +89,8 @@ namespace Riskeer.Storage.Core.Test.Create
                 },
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = lowerLimitNorm,
-                    SignalingNorm = signalingNorm,
+                    MaximumAllowableFloodingProbability = lowerLimitNorm,
+                    SignalFloodingProbability = signalingNorm,
                     NormativeProbabilityType = normativeNorm
                 },
                 BackgroundData =

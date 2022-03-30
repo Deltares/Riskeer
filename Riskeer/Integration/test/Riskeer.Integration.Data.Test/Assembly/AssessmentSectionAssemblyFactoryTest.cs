@@ -73,8 +73,8 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
                 // Assert
                 FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
-                Assert.AreEqual(contribution.SignalingNorm, assessmentSectionAssemblyCalculator.SignalingNormInput);
-                Assert.AreEqual(contribution.LowerLimitNorm, assessmentSectionAssemblyCalculator.LowerLimitNormInput);
+                Assert.AreEqual(contribution.SignalFloodingProbability, assessmentSectionAssemblyCalculator.SignalingNormInput);
+                Assert.AreEqual(contribution.MaximumAllowableFloodingProbability, assessmentSectionAssemblyCalculator.LowerLimitNormInput);
 
                 int expectedNrOfProbabilities = assessmentSection.GetFailureMechanisms()
                                                                  .Concat(assessmentSection.SpecificFailureMechanisms)

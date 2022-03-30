@@ -92,8 +92,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 using (new FailureMechanismSectionAssemblyGroupsView(assessmentSection))
                 {
                     // Assert
-                    Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, calculator.LowerLimitNorm);
-                    Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, calculator.SignalingNorm);
+                    Assert.AreEqual(assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability, calculator.LowerLimitNorm);
+                    Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalFloodingProbability, calculator.SignalingNorm);
                 }
             }
         }

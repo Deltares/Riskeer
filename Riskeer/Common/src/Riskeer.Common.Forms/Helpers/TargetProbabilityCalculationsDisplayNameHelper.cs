@@ -61,11 +61,11 @@ namespace Riskeer.Common.Forms.Helpers
             {
                 {
                     assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                    noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.LowerLimitNorm)
+                    noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability)
                 },
                 {
                     assessmentSection.WaterLevelCalculationsForSignalingNorm,
-                    noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.SignalingNorm)
+                    noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.SignalFloodingProbability)
                 }
             };
 

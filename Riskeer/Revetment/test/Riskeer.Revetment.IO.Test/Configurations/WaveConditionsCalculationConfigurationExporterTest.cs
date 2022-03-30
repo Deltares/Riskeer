@@ -140,8 +140,8 @@ namespace Riskeer.Revetment.IO.Test.Configurations
             {
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = 0.1,
-                    SignalingNorm = 0.05
+                    MaximumAllowableFloodingProbability = 0.1,
+                    SignalFloodingProbability = 0.05
                 }
             });
         }

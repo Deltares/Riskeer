@@ -73,8 +73,8 @@ namespace Riskeer.Storage.Core.Create
                 Name = section.Name.DeepClone(),
                 Composition = Convert.ToByte(section.Composition),
                 Comments = section.Comments.Body.DeepClone(),
-                LowerLimitNorm = contribution.LowerLimitNorm,
-                SignalingNorm = contribution.SignalingNorm,
+                LowerLimitNorm = contribution.MaximumAllowableFloodingProbability,
+                SignalingNorm = contribution.SignalFloodingProbability,
                 NormativeNormType = Convert.ToByte(contribution.NormativeProbabilityType)
             };
 

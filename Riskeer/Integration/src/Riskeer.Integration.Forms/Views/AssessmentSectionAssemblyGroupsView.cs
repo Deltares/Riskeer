@@ -87,8 +87,8 @@ namespace Riskeer.Integration.Forms.Views
         {
             assemblyGroupsTable.SetData(
                 AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(
-                                                                   FailureMechanismContribution.SignalingNorm,
-                                                                   FailureMechanismContribution.LowerLimitNorm)
+                                                                   FailureMechanismContribution.SignalFloodingProbability,
+                                                                   FailureMechanismContribution.MaximumAllowableFloodingProbability)
                                                                .Select(group => new Tuple<AssemblyGroupBoundaries, Color, AssessmentSectionAssemblyGroup>(
                                                                            group,
                                                                            AssessmentSectionAssemblyGroupColorHelper.GetAssessmentSectionAssemblyGroupColor(group.AssessmentSectionAssemblyGroup),

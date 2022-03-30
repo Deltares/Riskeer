@@ -103,8 +103,8 @@ namespace Riskeer.Integration.Service.Comparers
         private static bool AreFailureMechanismContributionsEquivalent(FailureMechanismContribution failureMechanismContribution,
                                                                        FailureMechanismContribution otherFailureMechanismContribution)
         {
-            return AreNormsEquivalent(failureMechanismContribution.LowerLimitNorm, otherFailureMechanismContribution.LowerLimitNorm)
-                   && AreNormsEquivalent(failureMechanismContribution.SignalingNorm, otherFailureMechanismContribution.SignalingNorm)
+            return AreNormsEquivalent(failureMechanismContribution.MaximumAllowableFloodingProbability, otherFailureMechanismContribution.MaximumAllowableFloodingProbability)
+                   && AreNormsEquivalent(failureMechanismContribution.SignalFloodingProbability, otherFailureMechanismContribution.SignalFloodingProbability)
                    && failureMechanismContribution.NormativeProbabilityType == otherFailureMechanismContribution.NormativeProbabilityType;
         }
 

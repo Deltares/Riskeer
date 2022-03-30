@@ -91,8 +91,8 @@ namespace Riskeer.Storage.Core.TestUtil
                 Id = "12-2",
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = 1.0 / 10,
-                    SignalingNorm = 1.0 / 1000000,
+                    MaximumAllowableFloodingProbability = 1.0 / 10,
+                    SignalFloodingProbability = 1.0 / 1000000,
                     NormativeProbabilityType = NormativeProbabilityType.SignalFloodingProbability
                 }
             };

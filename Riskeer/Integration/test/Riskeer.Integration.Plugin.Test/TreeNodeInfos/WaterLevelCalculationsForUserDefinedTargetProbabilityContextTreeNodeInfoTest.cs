@@ -1073,8 +1073,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = lowerLimitNorm,
-                    SignalingNorm = signalingNorm
+                    MaximumAllowableFloodingProbability = lowerLimitNorm,
+                    SignalFloodingProbability = signalingNorm
                 },
                 WaterLevelCalculationsForUserDefinedTargetProbabilities =
                 {

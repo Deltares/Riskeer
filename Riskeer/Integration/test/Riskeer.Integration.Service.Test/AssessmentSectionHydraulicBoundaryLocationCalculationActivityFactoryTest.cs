@@ -83,9 +83,9 @@ namespace Riskeer.Integration.Service.Test
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
             const string lowerLimitNormText = "1/30.000";
-            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
+            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalFloodingProbability;
             const string signalingNormText = "1/30.000 (1)";
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),
@@ -202,10 +202,10 @@ namespace Riskeer.Integration.Service.Test
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
             const string expectedLowerLimitNormText = "1/30.000";
 
-            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalingNorm;
+            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalFloodingProbability;
             const string expectedSignalingNormText = "1/30.000 (1)";
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),

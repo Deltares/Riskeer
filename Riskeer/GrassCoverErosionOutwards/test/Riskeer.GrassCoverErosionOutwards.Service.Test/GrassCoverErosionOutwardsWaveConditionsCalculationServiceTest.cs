@@ -416,7 +416,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
 
                 var waterLevelIndex = 0;
                 GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
-                double expectedTargetProbability = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+                double expectedTargetProbability = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
                 int nrOfReceivedInputsPerType = nrOfReceivedInputs / 3;
                 for (var i = 0; i < nrOfReceivedInputsPerType; i++)
                 {
@@ -789,7 +789,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
                 Assert.AreEqual(3, waveImpactWithWaveDirectionOutputs.Length);
 
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
-                                                                  assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                                                                  assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability,
                                                                   waveImpactOutputs[0]);
             }
 

@@ -408,7 +408,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
 
                 WaveConditionsInput input = calculation.InputParameters;
 
-                double expectedTargetProbability = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+                double expectedTargetProbability = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
 
                 var waterLevelIndex = 0;
                 for (var i = 0; i < waveConditionsInputs.Length / 2; i++)
@@ -730,7 +730,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 Assert.AreEqual(3, blocksWaveConditionsOutputs.Length);
 
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
-                                                                  assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                                                                  assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability,
                                                                   blocksWaveConditionsOutputs[0]);
 
                 WaveConditionsOutput[] columnsWaveConditionsOutputs = calculation.Output.ColumnsOutput.ToArray();
@@ -833,7 +833,7 @@ namespace Riskeer.StabilityStoneCover.Service.Test
                 Assert.AreEqual(3, columnsWaveConditionsOutputs.Length);
 
                 WaveConditionsOutputTestHelper.AssertFailedOutput(waterLevelUpperBoundaryRevetment,
-                                                                  assessmentSection.FailureMechanismContribution.LowerLimitNorm,
+                                                                  assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability,
                                                                   columnsWaveConditionsOutputs[0]);
             }
 

@@ -78,7 +78,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
 
             try
             {
-                dataToSet = AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(contribution.SignalingNorm, contribution.LowerLimitNorm)
+                dataToSet = AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(contribution.SignalFloodingProbability, contribution.MaximumAllowableFloodingProbability)
                                                                            .Select(assemblyGroupBoundaries => new AssessmentSectionAssemblyGroupProperties(assemblyGroupBoundaries))
                                                                            .ToArray();
             }

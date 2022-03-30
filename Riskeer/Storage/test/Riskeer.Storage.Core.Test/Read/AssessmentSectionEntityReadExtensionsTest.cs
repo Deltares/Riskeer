@@ -93,8 +93,8 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(testName, section.Name);
             Assert.AreEqual(comments, section.Comments.Body);
 
-            Assert.AreEqual(lowerLimitNorm, section.FailureMechanismContribution.LowerLimitNorm);
-            Assert.AreEqual(signalingNorm, section.FailureMechanismContribution.SignalingNorm);
+            Assert.AreEqual(lowerLimitNorm, section.FailureMechanismContribution.MaximumAllowableFloodingProbability);
+            Assert.AreEqual(signalingNorm, section.FailureMechanismContribution.SignalFloodingProbability);
             Assert.AreEqual(normativeNorm, section.FailureMechanismContribution.NormativeProbabilityType);
 
             Assert.AreEqual(assessmentSectionComposition, section.Composition);

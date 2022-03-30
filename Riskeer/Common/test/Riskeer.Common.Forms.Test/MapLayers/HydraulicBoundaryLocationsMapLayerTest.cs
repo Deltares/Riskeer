@@ -133,8 +133,8 @@ namespace Riskeer.Common.Forms.Test.MapLayers
                 // When
                 var random = new Random(21);
                 FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
-                contribution.LowerLimitNorm = random.NextDouble(0.000001, 0.1);
-                contribution.SignalingNorm = contribution.LowerLimitNorm - 0.000001;
+                contribution.MaximumAllowableFloodingProbability = random.NextDouble(0.000001, 0.1);
+                contribution.SignalFloodingProbability = contribution.MaximumAllowableFloodingProbability - 0.000001;
                 contribution.NotifyObservers();
 
                 // Then

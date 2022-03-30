@@ -105,12 +105,12 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
             var assessmentSection = new AssessmentSectionStub();
 
             yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                                                                          WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability, assessmentSection.FailureMechanismContribution.LowerLimitNorm), "1/30.000");
+                                                                          WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability, assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability), "1/30.000");
             yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm,
-                                                                          WaveConditionsInputWaterLevelType.SignalFloodingProbability, assessmentSection.FailureMechanismContribution.SignalingNorm), "1/30.000 (1)");
+                                                                          WaveConditionsInputWaterLevelType.SignalFloodingProbability, assessmentSection.FailureMechanismContribution.SignalFloodingProbability), "1/30.000 (1)");
 
             var sectionWithNonUniqueTargetProbability = new AssessmentSectionStub();
-            var nonUniqueTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(assessmentSection.FailureMechanismContribution.LowerLimitNorm);
+            var nonUniqueTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability);
             sectionWithNonUniqueTargetProbability.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(nonUniqueTargetProbability);
             yield return new TestCaseData(new SelectableTargetProbability(sectionWithNonUniqueTargetProbability, nonUniqueTargetProbability.HydraulicBoundaryLocationCalculations,
                                                                           WaveConditionsInputWaterLevelType.UserDefinedTargetProbability, nonUniqueTargetProbability.TargetProbability), "1/30.000 (2)");

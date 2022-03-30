@@ -455,8 +455,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Assert
                 FailureMechanismSectionAssemblyInput input = calculator.FailureMechanismSectionAssemblyInput;
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalingNorm, input.SignalingNorm);
-                Assert.AreEqual(assessmentSection.FailureMechanismContribution.LowerLimitNorm, input.LowerLimitNorm);
+                Assert.AreEqual(assessmentSection.FailureMechanismContribution.SignalFloodingProbability, input.SignalingNorm);
+                Assert.AreEqual(assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability, input.LowerLimitNorm);
                 Assert.AreEqual(row.IsRelevant, input.IsRelevant);
                 Assert.IsTrue(input.HasProbabilitySpecified);
                 Assert.AreEqual(row.InitialFailureMechanismResultSectionProbability, input.InitialSectionProbability);

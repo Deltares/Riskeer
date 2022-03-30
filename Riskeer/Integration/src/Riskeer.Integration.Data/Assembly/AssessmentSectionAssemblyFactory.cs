@@ -71,7 +71,7 @@ namespace Riskeer.Integration.Data.Assembly
 
                 IEnumerable<double> assemblyResults = GetFailureMechanismAssemblyResults(assessmentSection);
                 FailureMechanismContribution contribution = assessmentSection.FailureMechanismContribution;
-                return calculator.AssembleAssessmentSection(assemblyResults, contribution.LowerLimitNorm, contribution.SignalingNorm);
+                return calculator.AssembleAssessmentSection(assemblyResults, contribution.MaximumAllowableFloodingProbability, contribution.SignalFloodingProbability);
             }
             catch (AssessmentSectionAssemblyCalculatorException e)
             {

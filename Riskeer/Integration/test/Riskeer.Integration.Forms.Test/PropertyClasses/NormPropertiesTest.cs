@@ -150,8 +150,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             var properties = new NormProperties(failureMechanismContribution, failureMechanismContributionNormChangeHandler);
 
             // Assert
-            Assert.AreEqual(failureMechanismContribution.LowerLimitNorm, properties.MaximumAllowableFloodingProbability);
-            Assert.AreEqual(failureMechanismContribution.SignalingNorm, properties.SignalFloodingProbability);
+            Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, properties.MaximumAllowableFloodingProbability);
+            Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, properties.SignalFloodingProbability);
             Assert.AreEqual(failureMechanismContribution.NormativeProbabilityType, properties.NormativeProbabilityType);
             mocks.VerifyAll();
         }
@@ -181,7 +181,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             properties.MaximumAllowableFloodingProbability = newValue;
 
             // Then
-            Assert.AreEqual(newValue, failureMechanismContribution.LowerLimitNorm);
+            Assert.AreEqual(newValue, failureMechanismContribution.MaximumAllowableFloodingProbability);
             mocks.VerifyAll();
         }
 
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             properties.MaximumAllowableFloodingProbability = newValue;
 
             // Then
-            Assert.AreEqual(newValue, failureMechanismContribution.LowerLimitNorm);
+            Assert.AreEqual(newValue, failureMechanismContribution.MaximumAllowableFloodingProbability);
             mocks.VerifyAll();
         }
 
@@ -241,7 +241,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             properties.SignalFloodingProbability = newValue;
 
             // Then
-            Assert.AreEqual(newValue, failureMechanismContribution.SignalingNorm);
+            Assert.AreEqual(newValue, failureMechanismContribution.SignalFloodingProbability);
             mocks.VerifyAll();
         }
 
@@ -270,7 +270,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             properties.SignalFloodingProbability = newValue;
 
             // Then
-            Assert.AreEqual(newValue, failureMechanismContribution.SignalingNorm);
+            Assert.AreEqual(newValue, failureMechanismContribution.SignalFloodingProbability);
             mocks.VerifyAll();
         }
 

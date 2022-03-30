@@ -54,8 +54,8 @@ namespace Riskeer.Integration.Util
             {
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
                 return FailureMechanismSectionAssemblyGroupBoundariesFactory
-                       .CreateFailureMechanismSectionAssemblyGroupBoundaries(failureMechanismContribution.SignalingNorm,
-                                                                             failureMechanismContribution.LowerLimitNorm)
+                       .CreateFailureMechanismSectionAssemblyGroupBoundaries(failureMechanismContribution.SignalFloodingProbability,
+                                                                             failureMechanismContribution.MaximumAllowableFloodingProbability)
                        .Concat(new[]
                        {
                            new FailureMechanismSectionAssemblyGroupBoundaries(double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Dominant),

@@ -222,7 +222,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         {
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
             return new FailureMechanismSectionAssemblyInput(
-                failureMechanismContribution.LowerLimitNorm, failureMechanismContribution.SignalingNorm,
+                failureMechanismContribution.MaximumAllowableFloodingProbability, failureMechanismContribution.SignalFloodingProbability,
                 isRelevant, hasProbabilitySpecified, initialSectionProbability, furtherAnalysisType, refinedSectionProbability);
         }
 
@@ -260,7 +260,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         {
             FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
             return new FailureMechanismSectionWithProfileProbabilityAssemblyInput(
-                failureMechanismContribution.LowerLimitNorm, failureMechanismContribution.SignalingNorm,
+                failureMechanismContribution.MaximumAllowableFloodingProbability, failureMechanismContribution.SignalFloodingProbability,
                 isRelevant, hasProbabilitySpecified, initialProfileProbability, initialSectionProbability,
                 furtherAnalysisType, refinedProfileProbability, refinedSectionProbability);
         }

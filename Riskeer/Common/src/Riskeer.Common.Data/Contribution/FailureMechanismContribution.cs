@@ -34,78 +34,72 @@ namespace Riskeer.Common.Data.Contribution
     {
         private static readonly Range<double> normValidityRange = new Range<double>(1.0 / 1000000, 1.0 / 10);
 
-        private double lowerLimitNorm;
-        private double signalingNorm;
+        private double maximumAllowableFloodingProbability;
+        private double signalFloodingProbability;
 
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismContribution"/>
         /// </summary>
-        /// <param name="lowerLimitNorm">The lower limit norm.</param>
-        /// <param name="signalingNorm">The signaling norm.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability.</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when:
         /// <list type="bullet">
-        /// <item><paramref name="lowerLimitNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item><paramref name="signalingNorm"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The <paramref name="signalingNorm"/> is larger than <paramref name="lowerLimitNorm"/>.</item>
+        /// <item><paramref name="maximumAllowableFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item><paramref name="signalFloodingProbability"/> is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The <paramref name="signalFloodingProbability"/> is larger than <paramref name="maximumAllowableFloodingProbability"/>.</item>
         /// </list>
         /// </exception>
-        public FailureMechanismContribution(double lowerLimitNorm, double signalingNorm)
+        public FailureMechanismContribution(double maximumAllowableFloodingProbability, double signalFloodingProbability)
         {
-            ValidateNorms(signalingNorm, lowerLimitNorm);
+            ValidateNorms(signalFloodingProbability, maximumAllowableFloodingProbability);
 
-            this.lowerLimitNorm = lowerLimitNorm;
-            this.signalingNorm = signalingNorm;
+            this.maximumAllowableFloodingProbability = maximumAllowableFloodingProbability;
+            this.signalFloodingProbability = signalFloodingProbability;
             NormativeProbabilityType = NormativeProbabilityType.MaximumAllowableFloodingProbability;
         }
 
         /// <summary>
-        /// Gets the signaling norm which has been defined on the assessment section.
+        /// Gets the signal flooding probability which has been defined on the assessment section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when
         /// <list type="bullet">
         /// <item>The new value is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The new value is larger than the <see cref="LowerLimitNorm"/>.</item>
+        /// <item>The new value is larger than the <see cref="MaximumAllowableFloodingProbability"/>.</item>
         /// </list></exception>
-        public double SignalingNorm
+        public double SignalFloodingProbability
         {
-            get
-            {
-                return signalingNorm;
-            }
+            get => signalFloodingProbability;
             set
             {
-                ValidateNorms(value, lowerLimitNorm);
+                ValidateNorms(value, maximumAllowableFloodingProbability);
 
-                signalingNorm = value;
+                signalFloodingProbability = value;
             }
         }
 
         /// <summary>
-        /// Gets the lower limit norm which has been defined on the assessment section.
+        /// Gets the maximum allowable flooding probability which has been defined on the assessment section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when
         /// <list type="bullet">
         /// <item>The new value is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The new value is smaller than the <see cref="SignalingNorm"/>.</item>
+        /// <item>The new value is smaller than the <see cref="SignalFloodingProbability"/>.</item>
         /// </list></exception>
-        public double LowerLimitNorm
+        public double MaximumAllowableFloodingProbability
         {
-            get
-            {
-                return lowerLimitNorm;
-            }
+            get => maximumAllowableFloodingProbability;
             set
             {
                 ValidateNorm(value);
 
-                if (value < signalingNorm)
+                if (value < signalFloodingProbability)
                 {
                     throw new ArgumentOutOfRangeException(nameof(value),
                                                           value,
                                                           Resources.FailureMechanismContribution_MaximumAllowableFloodingProbability_should_be_same_or_greater_than_SignalFloodingProbability);
                 }
 
-                lowerLimitNorm = value;
+                maximumAllowableFloodingProbability = value;
             }
         }
 
@@ -119,8 +113,8 @@ namespace Riskeer.Common.Data.Contribution
             get
             {
                 return NormativeProbabilityType == NormativeProbabilityType.MaximumAllowableFloodingProbability
-                           ? LowerLimitNorm
-                           : SignalingNorm;
+                           ? MaximumAllowableFloodingProbability
+                           : SignalFloodingProbability;
             }
         }
 

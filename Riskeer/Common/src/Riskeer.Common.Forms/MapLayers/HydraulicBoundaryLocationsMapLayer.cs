@@ -253,8 +253,8 @@ namespace Riskeer.Common.Forms.MapLayers
                     tp => (IObservableEnumerable<HydraulicBoundaryLocationCalculation>) tp.HydraulicBoundaryLocationCalculations,
                     tp => tp.TargetProbability);
 
-            waterLevelCalculations.Add(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm);
-            waterLevelCalculations.Add(assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection.FailureMechanismContribution.SignalingNorm);
+            waterLevelCalculations.Add(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability);
+            waterLevelCalculations.Add(assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection.FailureMechanismContribution.SignalFloodingProbability);
 
             return waterLevelCalculations.OrderByDescending(pair => pair.Value)
                                          .ToDictionary(x => x.Key, x => string.Format(Resources.MetaData_WaterLevel_TargetProbability_0,

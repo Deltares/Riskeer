@@ -177,9 +177,9 @@ namespace Riskeer.Revetment.Data
                 case WaveConditionsInputWaterLevelType.None:
                     return double.NaN;
                 case WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability:
-                    return assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+                    return assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
                 case WaveConditionsInputWaterLevelType.SignalFloodingProbability:
-                    return assessmentSection.FailureMechanismContribution.SignalingNorm;
+                    return assessmentSection.FailureMechanismContribution.SignalFloodingProbability;
                 case WaveConditionsInputWaterLevelType.UserDefinedTargetProbability:
                     return input.CalculationsTargetProbability.TargetProbability;
                 default:

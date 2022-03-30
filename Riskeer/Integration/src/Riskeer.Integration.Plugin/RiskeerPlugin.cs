@@ -629,10 +629,10 @@ namespace Riskeer.Integration.Plugin
                     {
                         new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
                             context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
-                            context.AssessmentSection.FailureMechanismContribution.LowerLimitNorm),
+                            context.AssessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability),
                         new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
                             context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
-                            context.AssessmentSection.FailureMechanismContribution.SignalingNorm)
+                            context.AssessmentSection.FailureMechanismContribution.SignalFloodingProbability)
                     }, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath),
                 IsEnabled = context => true,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(RiskeerCommonIOResources.Zip_file_filter_Extension,
@@ -2459,10 +2459,10 @@ namespace Riskeer.Integration.Plugin
             {
                 new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                                           context.AssessmentSection,
-                                                                          () => context.AssessmentSection.FailureMechanismContribution.LowerLimitNorm),
+                                                                          () => context.AssessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability),
                 new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                                           context.AssessmentSection,
-                                                                          () => context.AssessmentSection.FailureMechanismContribution.SignalingNorm)
+                                                                          () => context.AssessmentSection.FailureMechanismContribution.SignalFloodingProbability)
             };
         }
 

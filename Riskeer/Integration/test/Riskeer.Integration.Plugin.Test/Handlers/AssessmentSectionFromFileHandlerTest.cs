@@ -464,8 +464,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
         {
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.Name, actual.Name);
-            Assert.AreEqual(expected.FailureMechanismContribution.LowerLimitNorm, actual.FailureMechanismContribution.LowerLimitNorm);
-            Assert.AreEqual(expected.FailureMechanismContribution.SignalingNorm, actual.FailureMechanismContribution.SignalingNorm);
+            Assert.AreEqual(expected.FailureMechanismContribution.MaximumAllowableFloodingProbability, actual.FailureMechanismContribution.MaximumAllowableFloodingProbability);
+            Assert.AreEqual(expected.FailureMechanismContribution.SignalFloodingProbability, actual.FailureMechanismContribution.SignalFloodingProbability);
             Assert.AreEqual(expected.FailureMechanismContribution.NormativeProbabilityType, actual.FailureMechanismContribution.NormativeProbabilityType);
             Assert.AreEqual(expected.Composition, actual.Composition);
 

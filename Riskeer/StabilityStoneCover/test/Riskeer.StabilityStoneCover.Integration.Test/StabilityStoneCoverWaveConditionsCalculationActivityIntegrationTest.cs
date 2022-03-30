@@ -234,7 +234,7 @@ namespace Riskeer.StabilityStoneCover.Integration.Test
                 GeneralStabilityStoneCoverWaveConditionsInput generalInput = stabilityStoneCoverFailureMechanism.GeneralInput;
 
                 WaveConditionsInput input = calculation.InputParameters;
-                double targetProbability = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+                double targetProbability = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
 
                 var waterLevelIndex = 0;
                 for (var i = 0; i < waveConditionsInputs.Length / 2; i++)

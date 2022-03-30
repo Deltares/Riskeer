@@ -395,11 +395,11 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
             {
                 CreateSelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                   WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
-                                                  assessmentSection.FailureMechanismContribution.LowerLimitNorm),
+                                                  assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability),
                 CreateSelectableTargetProbability(assessmentSection,
                                                   assessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                   WaveConditionsInputWaterLevelType.SignalFloodingProbability,
-                                                  assessmentSection.FailureMechanismContribution.SignalingNorm)
+                                                  assessmentSection.FailureMechanismContribution.SignalFloodingProbability)
             };
             targetProbabilities.AddRange(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
                                                           .Select(calculationsForTargetProbability => CreateSelectableTargetProbability(assessmentSection,
@@ -437,11 +437,11 @@ namespace Riskeer.Revetment.Forms.PropertyClasses
                 case WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability:
                     return CreateSelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
                                                              WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
-                                                             assessmentSection.FailureMechanismContribution.LowerLimitNorm);
+                                                             assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability);
                 case WaveConditionsInputWaterLevelType.SignalFloodingProbability:
                     return CreateSelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm,
                                                              WaveConditionsInputWaterLevelType.SignalFloodingProbability,
-                                                             assessmentSection.FailureMechanismContribution.SignalingNorm);
+                                                             assessmentSection.FailureMechanismContribution.SignalFloodingProbability);
                 case WaveConditionsInputWaterLevelType.UserDefinedTargetProbability:
                     HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability = data.WrappedData.CalculationsTargetProbability;
                     return CreateSelectableTargetProbability(assessmentSection, calculationsForTargetProbability.HydraulicBoundaryLocationCalculations,

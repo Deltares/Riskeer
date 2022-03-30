@@ -130,8 +130,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             const double lowerLimitNorm = 0.005;
 
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.FailureMechanismContribution.LowerLimitNorm = lowerLimitNorm;
-            assessmentSection.FailureMechanismContribution.SignalingNorm = signalingNorm;
+            assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability = lowerLimitNorm;
+            assessmentSection.FailureMechanismContribution.SignalFloodingProbability = signalingNorm;
 
             var locations = new ObservableList<HydraulicBoundaryLocation>();
             var calculationsGroupContext = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(locations, assessmentSection);
@@ -476,8 +476,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 },
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = lowerLimitNorm,
-                    SignalingNorm = signalingNorm
+                    MaximumAllowableFloodingProbability = lowerLimitNorm,
+                    SignalFloodingProbability = signalingNorm
                 }
             };
 

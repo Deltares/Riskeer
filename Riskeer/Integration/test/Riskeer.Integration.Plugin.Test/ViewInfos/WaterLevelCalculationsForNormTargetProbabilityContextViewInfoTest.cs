@@ -94,8 +94,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             {
                 FailureMechanismContribution =
                 {
-                    LowerLimitNorm = lowerLimitNorm,
-                    SignalingNorm = signalingNorm
+                    MaximumAllowableFloodingProbability = lowerLimitNorm,
+                    SignalFloodingProbability = signalingNorm
                 }
             };
             var context = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),

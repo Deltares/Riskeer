@@ -69,10 +69,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.MaximumAllowableFloodingProbability_Description))]
         public double MaximumAllowableFloodingProbability
         {
-            get => data.LowerLimitNorm;
+            get => data.MaximumAllowableFloodingProbability;
             set
             {
-                ChangeNorm(() => data.LowerLimitNorm = value, NormativeProbabilityType.MaximumAllowableFloodingProbability);
+                ChangeNorm(() => data.MaximumAllowableFloodingProbability = value, NormativeProbabilityType.MaximumAllowableFloodingProbability);
             }
         }
 
@@ -83,10 +83,10 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), nameof(Resources.SignalFloodingProbability_Description))]
         public double SignalFloodingProbability
         {
-            get => data.SignalingNorm;
+            get => data.SignalFloodingProbability;
             set
             {
-                ChangeNorm(() => data.SignalingNorm = value, NormativeProbabilityType.SignalFloodingProbability);
+                ChangeNorm(() => data.SignalFloodingProbability = value, NormativeProbabilityType.SignalFloodingProbability);
             }
         }
 

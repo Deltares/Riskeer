@@ -804,8 +804,8 @@ namespace Riskeer.Integration.Plugin.Test
                 {
                     FailureMechanismContribution =
                     {
-                        LowerLimitNorm = lowerLimitNorm,
-                        SignalingNorm = signalingNorm
+                        MaximumAllowableFloodingProbability = lowerLimitNorm,
+                        SignalFloodingProbability = signalingNorm
                     }
                 };
                 var project = new RiskeerProject(assessmentSection);
@@ -824,8 +824,8 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // When
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                failureMechanismContribution.LowerLimitNorm = newLowerLimitNorm;
-                failureMechanismContribution.SignalingNorm = newSignalingNorm;
+                failureMechanismContribution.MaximumAllowableFloodingProbability = newLowerLimitNorm;
+                failureMechanismContribution.SignalFloodingProbability = newSignalingNorm;
                 failureMechanismContribution.NotifyObservers();
 
                 // Then
@@ -857,8 +857,8 @@ namespace Riskeer.Integration.Plugin.Test
                 {
                     FailureMechanismContribution =
                     {
-                        LowerLimitNorm = lowerLimitNorm,
-                        SignalingNorm = signalingNorm
+                        MaximumAllowableFloodingProbability = lowerLimitNorm,
+                        SignalFloodingProbability = signalingNorm
                     }
                 };
                 var project = new RiskeerProject(assessmentSection);
@@ -877,8 +877,8 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // When
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                failureMechanismContribution.LowerLimitNorm = newLowerLimitNorm;
-                failureMechanismContribution.SignalingNorm = newSignalingNorm;
+                failureMechanismContribution.MaximumAllowableFloodingProbability = newLowerLimitNorm;
+                failureMechanismContribution.SignalFloodingProbability = newSignalingNorm;
                 failureMechanismContribution.NotifyObservers();
 
                 // Then
@@ -978,7 +978,7 @@ namespace Riskeer.Integration.Plugin.Test
                 Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10"));
 
                 // When
-                assessmentSection.FailureMechanismContribution.LowerLimitNorm = 0.1;
+                assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability = 0.1;
                 assessmentSection.FailureMechanismContribution.NotifyObservers();
 
                 // Then

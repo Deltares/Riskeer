@@ -104,9 +104,9 @@ namespace Riskeer.Integration.IO.Exporters
                 new[]
                 {
                     new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                        assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection.FailureMechanismContribution.LowerLimitNorm),
+                        assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability),
                     new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                        assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection.FailureMechanismContribution.SignalingNorm)
+                        assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection.FailureMechanismContribution.SignalFloodingProbability)
                 },
                 HydraulicBoundaryLocationCalculationsType.WaterLevel,
                 Path.Combine(tempFolderPath, RiskeerCommonUtilResources.WaterLevelCalculationsForNormTargetProbabilities_DisplayName));

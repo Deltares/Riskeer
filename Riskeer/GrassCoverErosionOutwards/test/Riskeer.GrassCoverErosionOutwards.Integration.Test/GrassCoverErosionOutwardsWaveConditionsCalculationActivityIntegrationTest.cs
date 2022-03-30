@@ -228,7 +228,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Integration.Test
                 Assert.AreEqual(nrOfCalculators, waveConditionsInputs.Length);
 
                 WaveConditionsInput input = calculation.InputParameters;
-                double targetProbability = assessmentSection.FailureMechanismContribution.LowerLimitNorm;
+                double targetProbability = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
 
                 var waterLevelIndex = 0;
                 GeneralGrassCoverErosionOutwardsInput generalInput = failureMechanism.GeneralInput;
