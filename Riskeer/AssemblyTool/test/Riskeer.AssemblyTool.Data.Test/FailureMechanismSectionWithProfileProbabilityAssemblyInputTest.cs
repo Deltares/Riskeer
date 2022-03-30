@@ -34,8 +34,8 @@ namespace Riskeer.AssemblyTool.Data.Test
         {
             // Setup
             var random = new Random(21);
-            double lowerLimitNorm = random.NextDouble();
-            double signalingNorm = random.NextDouble();
+            double maximumAllowableFloodingProbability = random.NextDouble();
+            double signalFloodingProbability = random.NextDouble();
             bool isRelevant = random.NextBoolean();
             bool hasProbabilitySpecified = random.NextBoolean();
             double profileProbability = random.NextDouble();
@@ -46,13 +46,13 @@ namespace Riskeer.AssemblyTool.Data.Test
 
             // Call
             var input = new FailureMechanismSectionWithProfileProbabilityAssemblyInput(
-                lowerLimitNorm, signalingNorm, isRelevant, hasProbabilitySpecified, profileProbability, sectionProbability,
+                maximumAllowableFloodingProbability, signalFloodingProbability, isRelevant, hasProbabilitySpecified, profileProbability, sectionProbability,
                 furtherAnalysisType, refinedProfileProbability, refinedSectionProbability);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionAssemblyInput>(input);
-            Assert.AreEqual(signalingNorm, input.SignalingNorm);
-            Assert.AreEqual(lowerLimitNorm, input.LowerLimitNorm);
+            Assert.AreEqual(signalFloodingProbability, input.SignalFloodingProbability);
+            Assert.AreEqual(maximumAllowableFloodingProbability, input.MaximumAllowableFloodingProbability);
 
             Assert.AreEqual(isRelevant, input.IsRelevant);
             Assert.AreEqual(hasProbabilitySpecified, input.HasProbabilitySpecified);

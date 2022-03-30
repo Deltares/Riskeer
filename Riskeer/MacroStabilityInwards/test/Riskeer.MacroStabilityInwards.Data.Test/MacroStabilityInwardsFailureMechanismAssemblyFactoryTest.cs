@@ -135,8 +135,8 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 // Assert
                 FailureMechanismSectionWithProfileProbabilityAssemblyInput calculatorInput = calculator.FailureMechanismSectionWithProfileProbabilityAssemblyInput;
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, calculatorInput.SignalingNorm);
-                Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, calculatorInput.LowerLimitNorm);
+                Assert.AreEqual(failureMechanismContribution.SignalFloodingProbability, calculatorInput.SignalFloodingProbability);
+                Assert.AreEqual(failureMechanismContribution.MaximumAllowableFloodingProbability, calculatorInput.MaximumAllowableFloodingProbability);
 
                 Assert.AreEqual(sectionResult.IsRelevant, calculatorInput.IsRelevant);
                 Assert.IsTrue(calculatorInput.HasProbabilitySpecified);

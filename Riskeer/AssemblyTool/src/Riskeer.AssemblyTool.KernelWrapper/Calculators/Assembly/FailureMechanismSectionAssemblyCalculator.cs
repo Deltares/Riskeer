@@ -71,7 +71,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                     AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability),
                     interpretationCategories);
 
-            return AssembleFailureMechanismSection(GetAssemblyResultFunc, input.SignalingNorm, input.LowerLimitNorm);
+            return AssembleFailureMechanismSection(GetAssemblyResultFunc, input.SignalFloodingProbability, input.MaximumAllowableFloodingProbability);
         }
 
         public RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
@@ -92,7 +92,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                     AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability),
                     interpretationCategories);
 
-            return AssembleFailureMechanismSection(GetAssemblyResultFunc, input.SignalingNorm, input.LowerLimitNorm);
+            return AssembleFailureMechanismSection(GetAssemblyResultFunc, input.SignalFloodingProbability, input.MaximumAllowableFloodingProbability);
         }
 
         private RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(

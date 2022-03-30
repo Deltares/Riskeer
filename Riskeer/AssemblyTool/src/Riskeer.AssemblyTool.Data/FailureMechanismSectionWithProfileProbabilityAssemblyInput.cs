@@ -32,8 +32,8 @@ namespace Riskeer.AssemblyTool.Data
         /// <summary>
         /// Creates a new instance of <see cref="FailureMechanismSectionWithProfileProbabilityAssemblyInput"/>.
         /// </summary>
-        /// <param name="lowerLimitNorm">The lower limit norm.</param>
-        /// <param name="signalingNorm">The signaling norm.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability.</param>
         /// <param name="isRelevant">The indicator whether the section is relevant.</param>
         /// <param name="hasProbabilitySpecified">Indicator whether the section has a probability specified.</param>
         /// <param name="initialProfileProbability">The initial probability for the profile.</param>
@@ -41,12 +41,12 @@ namespace Riskeer.AssemblyTool.Data
         /// <param name="furtherAnalysisType">The <see cref="FailureMechanismSectionResultFurtherAnalysisType"/>.</param>
         /// <param name="refinedProfileProbability">The refined probability for the profile.</param>
         /// <param name="refinedSectionProbability">The refined probability for the section.</param>
-        public FailureMechanismSectionWithProfileProbabilityAssemblyInput(double lowerLimitNorm, double signalingNorm,
+        public FailureMechanismSectionWithProfileProbabilityAssemblyInput(double maximumAllowableFloodingProbability, double signalFloodingProbability,
                                                                           bool isRelevant, bool hasProbabilitySpecified,
                                                                           double initialProfileProbability, double initialSectionProbability,
                                                                           FailureMechanismSectionResultFurtherAnalysisType furtherAnalysisType,
                                                                           double refinedProfileProbability, double refinedSectionProbability)
-            : base(lowerLimitNorm, signalingNorm, isRelevant, hasProbabilitySpecified, initialSectionProbability, furtherAnalysisType, refinedSectionProbability)
+            : base(maximumAllowableFloodingProbability, signalFloodingProbability, isRelevant, hasProbabilitySpecified, initialSectionProbability, furtherAnalysisType, refinedSectionProbability)
         {
             InitialProfileProbability = initialProfileProbability;
             RefinedProfileProbability = refinedProfileProbability;
