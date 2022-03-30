@@ -36,18 +36,18 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <summary>
         /// Creates the assessment section assembly group boundaries.
         /// </summary>
-        /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
-        /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability to use in the calculation.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability to use in the calculation.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="AssessmentSectionAssemblyGroupBoundaries"/>.</returns>
         /// <exception cref="AssessmentSectionAssemblyGroupBoundariesCalculatorException">Thrown when an error occurred while creating the group boundaries.</exception>
-        public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyGroupBoundaries(double signalingNorm, double lowerLimitNorm)
+        public static IEnumerable<AssessmentSectionAssemblyGroupBoundaries> CreateAssessmentSectionAssemblyGroupBoundaries(double signalFloodingProbability, double maximumAllowableFloodingProbability)
         {
             IAssessmentSectionAssemblyGroupBoundariesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateAssessmentSectionAssemblyGroupBoundariesCalculator(
                 AssemblyToolKernelFactory.Instance);
 
             try
             {
-                return calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                return calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability);
             }
             catch (AssessmentSectionAssemblyGroupBoundariesCalculatorException e)
             {

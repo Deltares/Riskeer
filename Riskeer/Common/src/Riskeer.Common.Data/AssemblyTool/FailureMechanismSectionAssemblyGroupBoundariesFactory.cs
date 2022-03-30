@@ -36,19 +36,19 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <summary>
         /// Creates the failure mechanism section assembly group boundaries.
         /// </summary>
-        /// <param name="signalingNorm">The signaling norm to use in the calculation.</param>
-        /// <param name="lowerLimitNorm">The lower limit norm to use in the calculation.</param>
+        /// <param name="signalFloodingProbability">The signal flooding probability to use in the calculation.</param>
+        /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability to use in the calculation.</param>
         /// <returns>A collection of <see cref="FailureMechanismSectionAssemblyGroupBoundaries"/>.</returns>
         /// <exception cref="AssemblyException">Thrown when an error occurred while creating the assembly group boundaries.</exception>
         public static IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> CreateFailureMechanismSectionAssemblyGroupBoundaries(
-            double signalingNorm, double lowerLimitNorm)
+            double signalFloodingProbability, double maximumAllowableFloodingProbability)
         {
             IFailureMechanismSectionAssemblyGroupBoundariesCalculator calculator = AssemblyToolCalculatorFactory.Instance.CreateFailureMechanismSectionAssemblyGroupBoundariesCalculator(
                 AssemblyToolKernelFactory.Instance);
 
             try
             {
-                return calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                return calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability);
             }
             catch (AssessmentSectionAssemblyGroupBoundariesCalculatorException e)
             {
