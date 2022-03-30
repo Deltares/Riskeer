@@ -90,7 +90,7 @@ namespace Riskeer.Storage.Core.Read
             entity.ReadStabilityStoneCoverFailureMechanism(assessmentSection, collector);
             entity.ReadStabilityPointStructuresFailureMechanism(assessmentSection, collector);
 
-            entity.ReadSpecificFailurePaths(assessmentSection, collector);
+            entity.ReadSpecificFailureMechanisms(assessmentSection, collector);
 
             return assessmentSection;
         }
@@ -257,15 +257,15 @@ namespace Riskeer.Storage.Core.Read
             return entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) type);
         }
 
-        private static void ReadSpecificFailurePaths(this AssessmentSectionEntity entity,
-                                                     IAssessmentSection assessmentSection,
-                                                     ReadConversionCollector collector)
+        private static void ReadSpecificFailureMechanisms(this AssessmentSectionEntity entity,
+                                                          IAssessmentSection assessmentSection,
+                                                          ReadConversionCollector collector)
         {
-            IEnumerable<SpecificFailureMechanismEntity> specificFailurePathEntities =
+            IEnumerable<SpecificFailureMechanismEntity> specificFailureMechanismEntities =
                 entity.SpecificFailureMechanismEntities
                       .OrderBy(e => e.Order);
 
-            assessmentSection.SpecificFailureMechanisms.AddRange(specificFailurePathEntities.Select(e => e.ReadSpecificFailurePath(collector)).ToArray());
+            assessmentSection.SpecificFailureMechanisms.AddRange(specificFailureMechanismEntities.Select(e => e.ReadSpecificFailurePath(collector)).ToArray());
         }
     }
 }

@@ -33,7 +33,7 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Test.Create
 {
     [TestFixture]
-    public class FailurePathCreateExtensionsTest
+    public class FailureMechanismCreateExtensionsTest
     {
         # region FailureMechanism
 
@@ -121,7 +121,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var random = new Random(21);
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
 
-            const string specificFailurePathSectionsSourcePath = "File\\Path";
+            const string sectionsSourcePath = "File\\Path";
             var failureMechanism = new TestFailureMechanism();
 
             failureMechanism.SetSections(new[]
@@ -136,7 +136,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     new Point2D(1, 0),
                     new Point2D(2, 0)
                 })
-            }, specificFailurePathSectionsSourcePath);
+            }, sectionsSourcePath);
 
             var registry = new PersistenceRegistry();
 
@@ -278,7 +278,7 @@ namespace Riskeer.Storage.Core.Test.Create
             var random = new Random(21);
             var failureMechanismType = random.NextEnumValue<FailureMechanismType>();
 
-            const string specificFailurePathSectionsSourcePath = "File\\Path";
+            const string sectionsSourcePath = "File\\Path";
             var failureMechanism = new TestFailureMechanism();
 
             failureMechanism.SetSections(new[]
@@ -293,7 +293,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     new Point2D(1, 0),
                     new Point2D(2, 0)
                 })
-            }, specificFailurePathSectionsSourcePath);
+            }, sectionsSourcePath);
 
             var registry = new PersistenceRegistry();
 
@@ -349,16 +349,16 @@ namespace Riskeer.Storage.Core.Test.Create
 
         #endregion
 
-        #region FailurePath
+        #region SpecificFailureMechansim
 
         [Test]
-        public void CreateForFailurePath_RegistryNull_ThrowsArgumentNullException()
+        public void CreateForSpecificFailureMechanism_RegistryNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failurePath = new SpecificFailureMechanism();
+            var failureMechanism = new SpecificFailureMechanism();
 
             // Call
-            void Call() => failurePath.Create(null, 0);
+            void Call() => failureMechanism.Create(null, 0);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -366,13 +366,13 @@ namespace Riskeer.Storage.Core.Test.Create
         }
 
         [Test]
-        public void CreateForFailurePath_PropertiesSet_ReturnExpectedEntity()
+        public void CreateForSpecificFailureMechanism_PropertiesSet_ReturnExpectedEntity()
         {
             // Setup
             var random = new Random(21);
             int order = random.Next();
 
-            var failurePath = new SpecificFailureMechanism
+            var failureMechanism = new SpecificFailureMechanism
             {
                 GeneralInput =
                 {
@@ -390,53 +390,53 @@ namespace Riskeer.Storage.Core.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            SpecificFailureMechanismEntity entity = failurePath.Create(registry, order);
+            SpecificFailureMechanismEntity entity = failureMechanism.Create(registry, order);
 
             // Assert
             Assert.AreEqual(order, entity.Order);
-            Assert.AreEqual(failurePath.GeneralInput.N, entity.N);
-            Assert.AreEqual(Convert.ToByte(failurePath.GeneralInput.ApplyLengthEffectInSection), entity.ApplyLengthEffectInSection);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, entity.N);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.GeneralInput.ApplyLengthEffectInSection), entity.ApplyLengthEffectInSection);
 
             Assert.IsNull(entity.FailureMechanismSectionCollectionSourcePath);
             CollectionAssert.IsEmpty(entity.FailureMechanismSectionEntities);
 
-            Assert.AreEqual(Convert.ToByte(failurePath.InAssembly), entity.InAssembly);
+            Assert.AreEqual(Convert.ToByte(failureMechanism.InAssembly), entity.InAssembly);
 
             Assert.IsNull(entity.InAssemblyInputComments);
             Assert.IsNull(entity.InAssemblyOutputComments);
             Assert.IsNull(entity.NotInAssemblyComments);
 
-            FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
             Assert.AreEqual(Convert.ToByte(assemblyResult.ProbabilityResultType), entity.FailureMechanismAssemblyResultProbabilityResultType);
             Assert.AreEqual(assemblyResult.ManualFailureMechanismAssemblyProbability, entity.FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability);
         }
 
         [Test]
-        public void CreateForFailurePath_WithNaNValues_ReturnExpectedEntity()
+        public void CreateForSpecificFailureMechanism_WithNaNValues_ReturnExpectedEntity()
         {
             // Setup
-            var failurePath = new SpecificFailureMechanism();
+            var failureMechanism = new SpecificFailureMechanism();
             var registry = new PersistenceRegistry();
 
             // Precondition
-            FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
             Assert.IsNaN(assemblyResult.ManualFailureMechanismAssemblyProbability);
 
             // Call
-            SpecificFailureMechanismEntity entity = failurePath.Create(registry, 0);
+            SpecificFailureMechanismEntity entity = failureMechanism.Create(registry, 0);
 
             // Assert
             Assert.IsNull(entity.FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability);
         }
 
         [Test]
-        public void CreateForFailurePath_WithSections_ReturnsExpectedEntity()
+        public void CreateForSpecificFailureMechanism_WithSections_ReturnsExpectedEntity()
         {
             // Setup
-            const string specificFailurePathSectionsSourcePath = "File\\Path";
-            var failurePath = new SpecificFailureMechanism();
+            const string sectionsSourcePath = "File\\Path";
+            var failureMechanism = new SpecificFailureMechanism();
 
-            failurePath.SetSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection(new[]
                 {
@@ -448,25 +448,25 @@ namespace Riskeer.Storage.Core.Test.Create
                     new Point2D(1, 0),
                     new Point2D(2, 0)
                 })
-            }, specificFailurePathSectionsSourcePath);
+            }, sectionsSourcePath);
 
             var registry = new PersistenceRegistry();
 
             // Call
-            SpecificFailureMechanismEntity entity = failurePath.Create(registry, 0);
+            SpecificFailureMechanismEntity entity = failureMechanism.Create(registry, 0);
 
             // Assert
-            int nrOfFailurePathSections = failurePath.Sections.Count();
-            Assert.AreEqual(nrOfFailurePathSections, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(nrOfFailurePathSections, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities).Count());
-            TestHelper.AssertAreEqualButNotSame(specificFailurePathSectionsSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
+            int nrOfFailureMechanismSections = failureMechanism.Sections.Count();
+            Assert.AreEqual(nrOfFailureMechanismSections, entity.FailureMechanismSectionEntities.Count);
+            Assert.AreEqual(nrOfFailureMechanismSections, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities).Count());
+            TestHelper.AssertAreEqualButNotSame(sectionsSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
 
         [Test]
-        public void CreateForFailurePath_StringPropertiesDoNotShareReference()
+        public void CreateForSpecificFailureMechanism_StringPropertiesDoNotShareReference()
         {
             // Setup
-            var failurePath = new SpecificFailureMechanism
+            var failureMechanism = new SpecificFailureMechanism
             {
                 Name = "Just a Name",
                 Code = "FAALMECHANISME",
@@ -483,7 +483,7 @@ namespace Riskeer.Storage.Core.Test.Create
                     Body = "Really not in assembly"
                 }
             };
-            failurePath.SetSections(new[]
+            failureMechanism.SetSections(new[]
             {
                 FailureMechanismSectionTestFactory.CreateFailureMechanismSection()
             }, "File\\Path");
@@ -491,15 +491,15 @@ namespace Riskeer.Storage.Core.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            SpecificFailureMechanismEntity entity = failurePath.Create(registry, 0);
+            SpecificFailureMechanismEntity entity = failureMechanism.Create(registry, 0);
 
             // Assert
-            TestHelper.AssertAreEqualButNotSame(failurePath.Name, entity.Name);
-            TestHelper.AssertAreEqualButNotSame(failurePath.Code, entity.Code);
-            TestHelper.AssertAreEqualButNotSame(failurePath.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
-            TestHelper.AssertAreEqualButNotSame(failurePath.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
-            TestHelper.AssertAreEqualButNotSame(failurePath.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
-            TestHelper.AssertAreEqualButNotSame(failurePath.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.Name, entity.Name);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.Code, entity.Code);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyInputComments.Body, entity.InAssemblyInputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.InAssemblyOutputComments.Body, entity.InAssemblyOutputComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.NotInAssemblyComments.Body, entity.NotInAssemblyComments);
+            TestHelper.AssertAreEqualButNotSame(failureMechanism.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
 
         #endregion

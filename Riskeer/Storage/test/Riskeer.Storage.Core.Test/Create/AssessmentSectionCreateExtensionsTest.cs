@@ -76,8 +76,8 @@ namespace Riskeer.Storage.Core.Test.Create
             const bool isVisible = true;
             const BackgroundDataType backgroundType = BackgroundDataType.Wmts;
             var normativeNorm = random.NextEnumValue<NormType>();
-            IEnumerable<SpecificFailureMechanism> specificFailurePaths = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
-                                                                                   .ToArray();
+            IEnumerable<SpecificFailureMechanism> specificFailureMechanisms = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
+                                                                                        .ToArray();
 
             var assessmentSection = new AssessmentSection(assessmentSectionComposition)
             {
@@ -102,7 +102,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 }
             };
 
-            assessmentSection.SpecificFailureMechanisms.AddRange(specificFailurePaths);
+            assessmentSection.SpecificFailureMechanisms.AddRange(specificFailureMechanisms);
             var registry = new PersistenceRegistry();
 
             // Call

@@ -101,12 +101,12 @@ namespace Riskeer.Storage.Core.Create
             entity.FailureMechanismEntities.Add(section.DuneErosion.Create(registry));
             entity.FailureMechanismEntities.Add(section.StabilityPointStructures.Create(registry));
 
-            AddSpecificFailurePathEntities(section, entity, registry);
+            AddSpecificFailureMechanismEntities(section, entity, registry);
 
             return entity;
         }
 
-        private static void AddSpecificFailurePathEntities(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
+        private static void AddSpecificFailureMechanismEntities(AssessmentSection section, AssessmentSectionEntity entity, PersistenceRegistry registry)
         {
             var i = 0;
             foreach (SpecificFailureMechanism specificFailureMechanism in section.SpecificFailureMechanisms)

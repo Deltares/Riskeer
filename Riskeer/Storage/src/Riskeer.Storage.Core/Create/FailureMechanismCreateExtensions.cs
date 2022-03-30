@@ -31,7 +31,7 @@ namespace Riskeer.Storage.Core.Create
     /// <summary>
     /// Extension methods for <see cref="IFailureMechanism"/> related to creating a <see cref="IFailureMechanismEntity"/>.
     /// </summary>
-    internal static class FailurePathCreateExtensions
+    internal static class FailureMechanismCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="IFailureMechanism"/>.
@@ -113,31 +113,31 @@ namespace Riskeer.Storage.Core.Create
             }
         }
 
-        private static T Create<T>(this IFailureMechanism failurePath, PersistenceRegistry registry)
+        private static T Create<T>(this IFailureMechanism failureMechanism, PersistenceRegistry registry)
             where T : IFailureMechanismEntity, new()
         {
-            FailureMechanismAssemblyResult assemblyResult = failurePath.AssemblyResult;
+            FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
             var entity = new T
             {
-                InAssembly = Convert.ToByte(failurePath.InAssembly),
-                InAssemblyInputComments = failurePath.InAssemblyInputComments.Body.DeepClone(),
-                InAssemblyOutputComments = failurePath.InAssemblyOutputComments.Body.DeepClone(),
-                NotInAssemblyComments = failurePath.NotInAssemblyComments.Body.DeepClone(),
-                FailureMechanismSectionCollectionSourcePath = failurePath.FailureMechanismSectionSourcePath.DeepClone(),
+                InAssembly = Convert.ToByte(failureMechanism.InAssembly),
+                InAssemblyInputComments = failureMechanism.InAssemblyInputComments.Body.DeepClone(),
+                InAssemblyOutputComments = failureMechanism.InAssemblyOutputComments.Body.DeepClone(),
+                NotInAssemblyComments = failureMechanism.NotInAssemblyComments.Body.DeepClone(),
+                FailureMechanismSectionCollectionSourcePath = failureMechanism.FailureMechanismSectionSourcePath.DeepClone(),
                 FailureMechanismAssemblyResultProbabilityResultType = Convert.ToByte(assemblyResult.ProbabilityResultType),
                 FailureMechanismAssemblyResultManualFailureMechanismAssemblyProbability = assemblyResult.ManualFailureMechanismAssemblyProbability.ToNaNAsNull()
             };
 
-            AddEntitiesForFailureMechanismSections(failurePath, registry, entity);
+            AddEntitiesForFailureMechanismSections(failureMechanism, registry, entity);
 
             return entity;
         }
 
-        private static void AddEntitiesForFailureMechanismSections(this IFailureMechanism specificFailurePath,
+        private static void AddEntitiesForFailureMechanismSections(this IFailureMechanism specificFailureMechanism,
                                                                    PersistenceRegistry registry,
                                                                    IFailureMechanismEntity entity)
         {
-            foreach (FailureMechanismSection failureMechanismSection in specificFailurePath.Sections)
+            foreach (FailureMechanismSection failureMechanismSection in specificFailureMechanism.Sections)
             {
                 entity.FailureMechanismSectionEntities.Add(failureMechanismSection.Create(registry));
             }

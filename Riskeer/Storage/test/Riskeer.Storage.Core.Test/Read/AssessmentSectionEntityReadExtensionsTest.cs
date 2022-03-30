@@ -999,27 +999,27 @@ namespace Riskeer.Storage.Core.Test.Read
         }
 
         [Test]
-        public void Read_WithSpecificFailurePathProperties_ReturnsNewAssessmentSectionWithPropertiesInSpecificFailurePath()
+        public void Read_WithSpecificFailureMechanismProperties_ReturnsNewAssessmentSectionWithPropertiesInSpecificFailureMechanism()
         {
             // Setup
             AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             var random = new Random(21);
 
             bool inAssembly1 = random.NextBoolean();
-            const string name1 = "Specific failure path name";
+            const string name1 = "Specific failure mechanism name";
             const string inAssemblyInputComments1 = "Some input text";
             const string inAssemblyOutputComments1 = "Some output text";
             const string notInAssemblyComments1 = "Some not relevant text";
 
             bool inAssembly2 = random.NextBoolean();
-            const string name2 = "Specific failure path name2";
+            const string name2 = "Specific failure mechanism name2";
             const string inAssemblyInputComments2 = "Some input text2";
             const string inAssemblyOutputComments2 = "Some output text2";
             const string notInAssemblyComments2 = "Some not relevant text2";
 
             RoundedDouble n1 = random.NextRoundedDouble(1, 20);
             RoundedDouble n2 = random.NextRoundedDouble(1, 20);
-            var firstSpecificFailurePathEntity = new SpecificFailureMechanismEntity
+            var firstSpecificFailureMechanismEntity = new SpecificFailureMechanismEntity
             {
                 Name = name1,
                 InAssembly = Convert.ToByte(inAssembly1),
@@ -1029,7 +1029,7 @@ namespace Riskeer.Storage.Core.Test.Read
                 NotInAssemblyComments = notInAssemblyComments1
             };
 
-            var secondSpecificFailurePathEntity = new SpecificFailureMechanismEntity
+            var secondSpecificFailureMechanismEntity = new SpecificFailureMechanismEntity
             {
                 Name = name2,
                 InAssembly = Convert.ToByte(inAssembly2),
@@ -1039,8 +1039,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 NotInAssemblyComments = notInAssemblyComments2
             };
 
-            entity.SpecificFailureMechanismEntities.Add(firstSpecificFailurePathEntity);
-            entity.SpecificFailureMechanismEntities.Add(secondSpecificFailurePathEntity);
+            entity.SpecificFailureMechanismEntities.Add(firstSpecificFailureMechanismEntity);
+            entity.SpecificFailureMechanismEntities.Add(secondSpecificFailureMechanismEntity);
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
             var collector = new ReadConversionCollector();
@@ -1049,25 +1049,25 @@ namespace Riskeer.Storage.Core.Test.Read
             AssessmentSection section = entity.Read(collector);
 
             // Assert
-            SpecificFailureMechanism specificFailurePath1 = section.SpecificFailureMechanisms[0];
-            Assert.IsNotNull(specificFailurePath1);
-            Assert.AreEqual(name1, specificFailurePath1.Name);
-            Assert.AreEqual(inAssembly1, specificFailurePath1.InAssembly);
-            Assert.AreEqual(inAssemblyInputComments1, specificFailurePath1.InAssemblyInputComments.Body);
-            Assert.AreEqual(inAssemblyOutputComments1, specificFailurePath1.InAssemblyOutputComments.Body);
-            Assert.AreEqual(notInAssemblyComments1, specificFailurePath1.NotInAssemblyComments.Body);
-            Assert.AreEqual(n1, specificFailurePath1.GeneralInput.N, specificFailurePath1.GeneralInput.N.GetAccuracy());
-            Assert.IsNull(specificFailurePath1.FailureMechanismSectionSourcePath);
+            SpecificFailureMechanism firstSpecificFailureMechanism = section.SpecificFailureMechanisms[0];
+            Assert.IsNotNull(firstSpecificFailureMechanism);
+            Assert.AreEqual(name1, firstSpecificFailureMechanism.Name);
+            Assert.AreEqual(inAssembly1, firstSpecificFailureMechanism.InAssembly);
+            Assert.AreEqual(inAssemblyInputComments1, firstSpecificFailureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments1, firstSpecificFailureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(notInAssemblyComments1, firstSpecificFailureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(n1, firstSpecificFailureMechanism.GeneralInput.N, firstSpecificFailureMechanism.GeneralInput.N.GetAccuracy());
+            Assert.IsNull(firstSpecificFailureMechanism.FailureMechanismSectionSourcePath);
 
-            SpecificFailureMechanism specificFailurePath2 = section.SpecificFailureMechanisms[1];
-            Assert.IsNotNull(specificFailurePath2);
-            Assert.AreEqual(name2, specificFailurePath2.Name);
-            Assert.AreEqual(inAssembly2, specificFailurePath2.InAssembly);
-            Assert.AreEqual(inAssemblyInputComments2, specificFailurePath2.InAssemblyInputComments.Body);
-            Assert.AreEqual(inAssemblyOutputComments2, specificFailurePath2.InAssemblyOutputComments.Body);
-            Assert.AreEqual(notInAssemblyComments2, specificFailurePath2.NotInAssemblyComments.Body);
-            Assert.AreEqual(n2, specificFailurePath2.GeneralInput.N, specificFailurePath2.GeneralInput.N.GetAccuracy());
-            Assert.IsNull(specificFailurePath2.FailureMechanismSectionSourcePath);
+            SpecificFailureMechanism secondSpecificFailureMechanism = section.SpecificFailureMechanisms[1];
+            Assert.IsNotNull(secondSpecificFailureMechanism);
+            Assert.AreEqual(name2, secondSpecificFailureMechanism.Name);
+            Assert.AreEqual(inAssembly2, secondSpecificFailureMechanism.InAssembly);
+            Assert.AreEqual(inAssemblyInputComments2, secondSpecificFailureMechanism.InAssemblyInputComments.Body);
+            Assert.AreEqual(inAssemblyOutputComments2, secondSpecificFailureMechanism.InAssemblyOutputComments.Body);
+            Assert.AreEqual(notInAssemblyComments2, secondSpecificFailureMechanism.NotInAssemblyComments.Body);
+            Assert.AreEqual(n2, secondSpecificFailureMechanism.GeneralInput.N, secondSpecificFailureMechanism.GeneralInput.N.GetAccuracy());
+            Assert.IsNull(secondSpecificFailureMechanism.FailureMechanismSectionSourcePath);
         }
 
         private static void AssertHydraulicBoundaryLocationCalculation(HydraulicLocationCalculationEntity expectedEntity,
