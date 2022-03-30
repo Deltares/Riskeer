@@ -93,7 +93,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_AssessmentSectionRemovedWithoutFailurePath_ReturnsFalse()
+        public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnsFalse()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -179,14 +179,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new SpecificFailureMechanism();
-            var failurePathContext = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
+            var failureMechanismContext = new SpecificFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
@@ -194,7 +194,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                        fm => true, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failurePathContext);
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             var failureMechanism = new SpecificFailureMechanism();
-            var failurePathContext = new SpecificFailureMechanismContext(new SpecificFailureMechanism(), assessmentSection);
+            var failureMechanismContext = new SpecificFailureMechanismContext(new SpecificFailureMechanism(), assessmentSection);
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
@@ -219,7 +219,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                        fm => true, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
             {
                 // Call
-                bool closeForData = info.CloseForData(view, failurePathContext);
+                bool closeForData = info.CloseForData(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);

@@ -195,7 +195,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewNotCorrespondingToRemovedFailurePathContext_ReturnFalse()
+        public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnFalse()
         {
             // Setup
             var mocks = new MockRepository();
@@ -218,7 +218,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_ViewCorrespondingToRemovedFailurePathContext_ReturnTrue()
+        public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnTrue()
         {
             // Setup
             var mocks = new MockRepository();

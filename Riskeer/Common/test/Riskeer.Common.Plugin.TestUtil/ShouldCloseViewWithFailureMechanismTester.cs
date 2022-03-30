@@ -47,8 +47,8 @@ namespace Riskeer.Common.Plugin.TestUtil
             assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
             mocks.ReplayAll();
 
-            var failurePath = new TestFailureMechanism();
-            using (IView view = GetView(failurePath))
+            var failureMechanism = new TestFailureMechanism();
+            using (IView view = GetView(failureMechanism))
             {
                 // Call
                 bool closeForData = ShouldCloseMethod(view, assessmentSection);
@@ -154,21 +154,21 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void ShouldCloseMethod_ViewCorrespondingToRemovedAssessmentSectionAndSpecificFailurePath_ReturnsTrue()
+        public void ShouldCloseMethod_ViewCorrespondingToRemovedAssessmentSectionAndSpecificFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var failurePath = new SpecificFailureMechanism();
+            var specificFailureMechanism = new SpecificFailureMechanism();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Enumerable.Empty<IFailureMechanism>());
             assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>
             {
-                failurePath
+                specificFailureMechanism
             });
             mocks.ReplayAll();
 
-            using (IView view = GetView(failurePath))
+            using (IView view = GetView(specificFailureMechanism))
             {
                 // Call
                 bool closeForData = ShouldCloseMethod(view, assessmentSection);
@@ -181,18 +181,21 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void ShouldCloseMethod_ViewNotCorrespondingToRemovedFailurePath_ReturnsFalse()
+        public void ShouldCloseMethod_ViewNotCorrespondingToRemovedFailureMechanismContext_ReturnsFalse()
         {
             // Setup
             var mocks = new MockRepository();
-            var otherFailurePath = mocks.Stub<IFailureMechanism>();
+            var otherFailureMechanism = mocks.Stub<IFailureMechanism>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new TestFailureMechanism();
-            using (IView view = GetView(failurePath))
+            var failureMechanism = new TestFailureMechanism();
+            var failureMechanismContext = new TestFailureMechanismContext(otherFailureMechanism, assessmentSection);
+
+            using (IView view = GetView(failureMechanism))
             {
                 // Call
-                bool closeForData = ShouldCloseMethod(view, otherFailurePath);
+                bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -202,60 +205,20 @@ namespace Riskeer.Common.Plugin.TestUtil
         }
 
         [Test]
-        public void ShouldCloseMethod_ViewCorrespondingToRemovedFailurePath_ReturnsTrue()
-        {
-            // Setup
-            var failurePath = new TestFailureMechanism();
-
-            using (IView view = GetView(failurePath))
-            {
-                // Call
-                bool closeForData = ShouldCloseMethod(view, failurePath);
-
-                // Assert
-                Assert.IsTrue(closeForData);
-            }
-        }
-
-        [Test]
-        public void ShouldCloseMethod_ViewNotCorrespondingToRemovedFailurePathContext_ReturnsFalse()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var otherFailurePath = mocks.Stub<IFailureMechanism>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failurePath = new TestFailureMechanism();
-            var failurePathContext = new TestFailureMechanismContext(otherFailurePath, assessmentSection);
-
-            using (IView view = GetView(failurePath))
-            {
-                // Call
-                bool closeForData = ShouldCloseMethod(view, failurePathContext);
-
-                // Assert
-                Assert.IsFalse(closeForData);
-            }
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ShouldCloseMethod_ViewCorrespondingToRemovedFailurePathContext_ReturnsTrue()
+        public void ShouldCloseMethod_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failurePath = new TestFailureMechanism();
-            var failurePathContext = new TestFailureMechanismContext(failurePath, assessmentSection);
+            var failureMechanism = new TestFailureMechanism();
+            var failureMechanismContext = new TestFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (IView view = GetView(failurePath))
+            using (IView view = GetView(failureMechanism))
             {
                 // Call
-                bool closeForData = ShouldCloseMethod(view, failurePathContext);
+                bool closeForData = ShouldCloseMethod(view, failureMechanismContext);
 
                 // Assert
                 Assert.IsTrue(closeForData);
@@ -275,15 +238,15 @@ namespace Riskeer.Common.Plugin.TestUtil
         /// <summary>
         /// Gets a view for testing purposes.
         /// </summary>
-        /// <param name="failurePath">The failure path containing the data to set to the view.</param>
+        /// <param name="failureMechanism">The failure mechanism containing the data to set to the view.</param>
         /// <returns>A view object.</returns>
-        protected abstract IView GetView(IFailureMechanism failurePath);
+        protected abstract IView GetView(IFailureMechanism failureMechanism);
 
         private class TestFailureMechanismContext : IFailureMechanismContext<IFailureMechanism>
         {
-            public TestFailureMechanismContext(IFailureMechanism wrappedFailurePath, IAssessmentSection parent)
+            public TestFailureMechanismContext(IFailureMechanism wrappedFailureMechanism, IAssessmentSection parent)
             {
-                WrappedData = wrappedFailurePath;
+                WrappedData = wrappedFailureMechanism;
                 Parent = parent;
             }
 
