@@ -102,7 +102,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos.RegistrationState
         }
 
         [Test]
-        public void CreateInstance_WithContext_ReturnWaveImpactAsphaltCoverFailurePathView()
+        public void CreateInstance_WithContext_ReturnWaveImpactAsphaltCoverFailureMechanismView()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub();

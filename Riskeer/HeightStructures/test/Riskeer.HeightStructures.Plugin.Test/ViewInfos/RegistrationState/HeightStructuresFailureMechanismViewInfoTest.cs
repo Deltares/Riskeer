@@ -32,7 +32,7 @@ using Riskeer.HeightStructures.Forms.Views.RegistrationState;
 namespace Riskeer.HeightStructures.Plugin.Test.ViewInfos.RegistrationState
 {
     [TestFixture]
-    public class HeightStructuresFailurePathViewInfoTest
+    public class HeightStructuresFailureMechanismViewInfoTest
     {
         private MockRepository mocks;
         private HeightStructuresPlugin plugin;
