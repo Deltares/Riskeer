@@ -57,7 +57,7 @@ namespace Riskeer.Common.IO.FileImporters
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSectionsImporter"/> class.
         /// </summary>
-        /// <param name="importTarget">The failure path to update.</param>
+        /// <param name="importTarget">The failure mechanism to update.</param>
         /// <param name="referenceLine">The reference line used to check correspondence with.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <param name="failureMechanismSectionUpdateStrategy">The strategy to update the failure mechanism sections

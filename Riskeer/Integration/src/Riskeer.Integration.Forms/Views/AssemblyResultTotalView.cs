@@ -195,7 +195,7 @@ namespace Riskeer.Integration.Forms.Views
             dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
         }
 
-        #region Failure path assembly result rows
+        #region Specific failure mechanism assembly result rows
 
         private IEnumerable<FailureMechanismAssemblyResultRow> CreateSpecificFailureMechanismResultRows()
         {

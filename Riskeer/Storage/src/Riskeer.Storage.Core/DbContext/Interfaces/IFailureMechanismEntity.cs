@@ -29,7 +29,7 @@ namespace Riskeer.Storage.Core.DbContext
     public interface IFailureMechanismEntity
     {
         /// <summary>
-        /// Gets or sets an indicator whether the failure path is part of the assembly.
+        /// Gets or sets an indicator whether the failure mechanism is part of the assembly.
         /// </summary>
         byte InAssembly { get; set; }
 

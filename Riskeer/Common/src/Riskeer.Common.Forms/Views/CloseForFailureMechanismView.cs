@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="CloseForFailureMechanismView"/>.
         /// </summary>
-        /// <param name="failureMechanism">The failure path belonging to the view.</param>
+        /// <param name="failureMechanism">The failure mechanism belonging to the view.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
         protected CloseForFailureMechanismView(IFailureMechanism failureMechanism)

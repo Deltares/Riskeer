@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
         /// <summary>
         /// Initializes a new instance of the <see cref="FailureMechanismSectionsContext"/> class.
         /// </summary>
-        /// <param name="wrappedData">The failure path to wrap.</param>
+        /// <param name="wrappedData">The failure mechanism to wrap.</param>
         /// <param name="assessmentSection">The owning assessment section of <paramref name="wrappedData"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public FailureMechanismSectionsContext(IFailureMechanism<FailureMechanismSectionResult> wrappedData, IAssessmentSection assessmentSection)
