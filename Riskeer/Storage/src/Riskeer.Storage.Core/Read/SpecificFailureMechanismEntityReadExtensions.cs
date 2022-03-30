@@ -29,19 +29,18 @@ using Riskeer.Storage.Core.Read.FailureMechanismSectionResults;
 namespace Riskeer.Storage.Core.Read
 {
     /// <summary>
-    /// This class defines extension methods for read operations for an <see cref="IFailureMechanism"/> implementation based on the
-    /// <see cref="IFailureMechanismEntity"/>
+    /// This class defines extension methods for read operations for a <see cref="SpecificFailureMechanism"/> based on the
+    /// <see cref="SpecificFailureMechanismEntity"/>
     /// </summary>
-    internal static class FailurePathEntityReadExtensions
+    internal static class SpecificFailureMechanismEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="IFailureMechanismEntity"/> and uses the information to create a <see cref="SpecificFailureMechanism"/>.
+        /// Reads the <see cref="SpecificFailureMechanismEntity"/> and uses the information to create a <see cref="SpecificFailureMechanism"/>.
         /// </summary>
         /// <param name="entity">The <see cref="SpecificFailureMechanismEntity"/> to create a <see cref="SpecificFailureMechanism"/> with.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
-        internal static SpecificFailureMechanism ReadSpecificFailurePath(this SpecificFailureMechanismEntity entity,
-                                                                         ReadConversionCollector collector)
+        internal static SpecificFailureMechanism Read(this SpecificFailureMechanismEntity entity, ReadConversionCollector collector)
         {
             if (entity == null)
             {
@@ -53,7 +52,7 @@ namespace Riskeer.Storage.Core.Read
                 throw new ArgumentNullException(nameof(collector));
             }
 
-            var specificFailurePath = new SpecificFailureMechanism
+            var failureMechanism = new SpecificFailureMechanism
             {
                 Name = entity.Name,
                 Code = entity.Code,
@@ -63,14 +62,14 @@ namespace Riskeer.Storage.Core.Read
                     ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection)
                 }
             };
-            entity.ReadCommonFailureMechanismProperties(specificFailurePath, collector);
-            ReadNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(entity, specificFailurePath, collector);
-            return specificFailurePath;
+            entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
+            ReadFailureMechanismSectionResults(entity, failureMechanism, collector);
+            return failureMechanism;
         }
 
-        private static void ReadNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(this IFailureMechanismEntity entity,
-                                                                                                 SpecificFailureMechanism specificFailureMechanism,
-                                                                                                 ReadConversionCollector collector)
+        private static void ReadFailureMechanismSectionResults(this IFailureMechanismEntity entity,
+                                                               SpecificFailureMechanism specificFailureMechanism,
+                                                               ReadConversionCollector collector)
         {
             foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in
                      entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities))

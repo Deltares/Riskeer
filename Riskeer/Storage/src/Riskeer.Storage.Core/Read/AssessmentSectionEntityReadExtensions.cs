@@ -265,7 +265,7 @@ namespace Riskeer.Storage.Core.Read
                 entity.SpecificFailureMechanismEntities
                       .OrderBy(e => e.Order);
 
-            assessmentSection.SpecificFailureMechanisms.AddRange(specificFailureMechanismEntities.Select(e => e.ReadSpecificFailurePath(collector)).ToArray());
+            assessmentSection.SpecificFailureMechanisms.AddRange(specificFailureMechanismEntities.Select(e => e.Read(collector)).ToArray());
         }
     }
 }
