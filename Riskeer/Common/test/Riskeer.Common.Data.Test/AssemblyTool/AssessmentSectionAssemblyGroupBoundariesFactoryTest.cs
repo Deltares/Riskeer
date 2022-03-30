@@ -40,8 +40,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         {
             // Setup
             var random = new Random(11);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = random.NextDouble();
+            double signalFloodingProbability = random.NextDouble();
+            double maximumAllowableFloodingProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -49,11 +49,11 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 AssessmentSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
 
                 // Call
-                AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability);
 
                 // Assert
-                Assert.AreEqual(signalingNorm, calculator.SignalFloodingProbability);
-                Assert.AreEqual(lowerLimitNorm, calculator.MaximumAllowableFloodingProbability);
+                Assert.AreEqual(signalFloodingProbability, calculator.SignalFloodingProbability);
+                Assert.AreEqual(maximumAllowableFloodingProbability, calculator.MaximumAllowableFloodingProbability);
             }
         }
 
@@ -62,8 +62,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         {
             // Setup
             var random = new Random(11);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = random.NextDouble();
+            double signalFloodingProbability = random.NextDouble();
+            double maximumAllowableFloodingProbability = random.NextDouble();
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
@@ -71,7 +71,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 AssessmentSectionAssemblyGroupBoundariesCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyGroupBoundariesCalculator;
 
                 // Call
-                AssessmentSectionAssemblyGroupBoundaries[] output = AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm).ToArray();
+                AssessmentSectionAssemblyGroupBoundaries[] output = AssessmentSectionAssemblyGroupBoundariesFactory.CreateAssessmentSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability).ToArray();
 
                 // Assert
                 AssessmentSectionAssemblyGroupBoundaries[] calculatorOutput = calculator.AssessmentSectionAssemblyGroupBoundariesOutput.ToArray();
