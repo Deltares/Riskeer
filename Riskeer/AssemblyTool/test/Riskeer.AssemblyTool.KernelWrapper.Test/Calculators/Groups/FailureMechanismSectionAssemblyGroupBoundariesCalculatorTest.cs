@@ -72,8 +72,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
         public void CalculateFailureMechanismSectionAssemblyGroupBoundaries_WithValidInput_InputCorrectlySentToKernel()
         {
             // Setup
-            const double lowerLimitNorm = 0.001;
-            const double signalingNorm = 0.0001;
+            const double maximumAllowableFloodingProbability = 0.001;
+            const double signalFloodingProbability = 0.0001;
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -84,12 +84,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
                 var calculator = new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability);
 
                 // Assert
                 AssessmentSection assessmentSection = categoryLimitsKernel.AssessmentSection;
-                ProbabilityAssert.AreEqual(lowerLimitNorm, assessmentSection.FailureProbabilityLowerLimit);
-                ProbabilityAssert.AreEqual(signalingNorm, assessmentSection.FailureProbabilitySignalingLimit);
+                ProbabilityAssert.AreEqual(maximumAllowableFloodingProbability, assessmentSection.FailureProbabilityLowerLimit);
+                ProbabilityAssert.AreEqual(signalFloodingProbability, assessmentSection.FailureProbabilitySignalingLimit);
             }
         }
 
@@ -97,8 +97,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
         public void CalculateFailureMechanismSectionAssemblyGroupBoundaries_KernelWithCompleteOutput_ReturnsExpectedFailureMechanismSectionAssembly()
         {
             // Setup
-            const double lowerLimitNorm = 0.001;
-            const double signalingNorm = 0.0001;
+            const double maximumAllowableFloodingProbability = 0.001;
+            const double signalFloodingProbability = 0.0001;
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -111,7 +111,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
 
                 // Call
                 IEnumerable<FailureMechanismSectionAssemblyGroupBoundaries> result =
-                    calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                    calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability);
 
                 // Assert
                 Assert.IsTrue(categoryLimitsKernel.Calculated);
@@ -124,8 +124,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
         public void CalculateFailureMechanismSectionAssemblyGroupBoundaries_KernelWithInCompleteOutput_ThrowsAssemblyGroupBoundariesCalculatorException()
         {
             // Setup
-            const double lowerLimitNorm = 0.001;
-            const double signalingNorm = 0.0001;
+            const double maximumAllowableFloodingProbability = 0.001;
+            const double signalFloodingProbability = 0.0001;
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -140,7 +140,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
                 var calculator = new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability);
 
                 // Assert
                 var exception = Assert.Throws<FailureMechanismSectionAssemblyGroupBoundariesCalculatorException>(Call);
@@ -155,8 +155,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
         public void CalculateFailureMechanismSectionAssemblyGroupBoundaries_KernelThrowsException_ThrowsAssemblyGroupBoundariesCalculatorException()
         {
             // Setup
-            const double lowerLimitNorm = 0.001;
-            const double signalingNorm = 0.0001;
+            const double maximumAllowableFloodingProbability = 0.001;
+            const double signalFloodingProbability = 0.0001;
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -167,7 +167,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
                 var calculator = new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability);
 
                 // Assert
                 Assert.IsFalse(categoryLimitsKernel.Calculated);
@@ -182,8 +182,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
         public void CalculateFailureMechanismSectionAssemblyGroupBoundaries_KernelThrowsAssemblyException_ThrowsAssemblyGroupBoundariesCalculatorException()
         {
             // Setup
-            const double lowerLimitNorm = 0.001;
-            const double signalingNorm = 0.0001;
+            const double maximumAllowableFloodingProbability = 0.001;
+            const double signalFloodingProbability = 0.0001;
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -194,7 +194,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
                 var calculator = new FailureMechanismSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                void Call() => calculator.CalculateFailureMechanismSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability);
 
                 // Assert
                 Assert.IsFalse(categoryLimitsKernel.Calculated);

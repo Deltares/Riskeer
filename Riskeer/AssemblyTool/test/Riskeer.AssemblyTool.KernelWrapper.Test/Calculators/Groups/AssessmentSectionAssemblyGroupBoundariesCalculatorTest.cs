@@ -72,8 +72,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
-            double signalingNorm = random.NextDouble(0.0, 0.5);
+            double maximumAllowableFloodingProbability = random.NextDouble(0.5, 1.0);
+            double signalFloodingProbability = random.NextDouble(0.0, 0.5);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -84,11 +84,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
                 var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability);
 
                 // Assert
-                Assert.AreEqual(lowerLimitNorm, kernel.AssessmentSection.FailureProbabilityLowerLimit.Value);
-                Assert.AreEqual(signalingNorm, kernel.AssessmentSection.FailureProbabilitySignalingLimit.Value);
+                Assert.AreEqual(maximumAllowableFloodingProbability, kernel.AssessmentSection.FailureProbabilityLowerLimit.Value);
+                Assert.AreEqual(signalFloodingProbability, kernel.AssessmentSection.FailureProbabilitySignalingLimit.Value);
             }
         }
 
@@ -97,8 +97,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
-            double signalingNorm = random.NextDouble(0.0, 0.5);
+            double maximumAllowableFloodingProbability = random.NextDouble(0.5, 1.0);
+            double signalFloodingProbability = random.NextDouble(0.0, 0.5);
             CategoriesList<AssessmentSectionCategory> assessmentSectionCategories = CreateAssessmentSectionCategories();
 
             using (new AssemblyToolKernelFactoryConfig())
@@ -110,7 +110,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
                 var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                IEnumerable<AssessmentSectionAssemblyGroupBoundaries> result = calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                IEnumerable<AssessmentSectionAssemblyGroupBoundaries> result = calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability);
 
                 // Assert
                 AssessmentSectionAssemblyGroupBoundariesAssert.AssertAssessmentSectionAssemblyGroupBoundaries(assessmentSectionCategories, result);
@@ -122,8 +122,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
-            double signalingNorm = random.NextDouble(0.0, 0.5);
+            double maximumAllowableFloodingProbability = random.NextDouble(0.5, 1.0);
+            double signalFloodingProbability = random.NextDouble(0.0, 0.5);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -134,7 +134,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
                 var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                void Call() => calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                void Call() => calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability);
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyGroupBoundariesCalculatorException>(Call);
@@ -148,8 +148,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
         {
             // Setup
             var random = new Random(11);
-            double lowerLimitNorm = random.NextDouble(0.5, 1.0);
-            double signalingNorm = random.NextDouble(0.0, 0.5);
+            double maximumAllowableFloodingProbability = random.NextDouble(0.5, 1.0);
+            double signalFloodingProbability = random.NextDouble(0.0, 0.5);
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -160,7 +160,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
                 var calculator = new AssessmentSectionAssemblyGroupBoundariesCalculator(factory);
 
                 // Call
-                void Call() => calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalingNorm, lowerLimitNorm);
+                void Call() => calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability);
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyGroupBoundariesCalculatorException>(Call);

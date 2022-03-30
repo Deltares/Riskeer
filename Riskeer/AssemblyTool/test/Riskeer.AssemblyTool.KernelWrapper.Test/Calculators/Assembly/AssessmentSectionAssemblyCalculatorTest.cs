@@ -96,8 +96,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(21);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = signalingNorm + 1e-3;
+            double signalFloodingProbability = random.NextDouble();
+            double maximumAllowableFloodingProbability = signalFloodingProbability + 1e-3;
 
             int nrOfProbabilities = random.Next(1, 10);
             IEnumerable<double> failureMechanismProbabilities = Enumerable.Repeat(random.NextDouble(), nrOfProbabilities)
@@ -120,12 +120,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                calculator.AssembleAssessmentSection(failureMechanismProbabilities, lowerLimitNorm, signalingNorm);
+                calculator.AssembleAssessmentSection(failureMechanismProbabilities, maximumAllowableFloodingProbability, signalFloodingProbability);
 
                 // Assert
                 Assert.IsTrue(categoryLimitsKernel.Calculated);
-                ProbabilityAssert.AreEqual(lowerLimitNorm, categoryLimitsKernel.AssessmentSection.FailureProbabilityLowerLimit);
-                ProbabilityAssert.AreEqual(signalingNorm, categoryLimitsKernel.AssessmentSection.FailureProbabilitySignalingLimit);
+                ProbabilityAssert.AreEqual(maximumAllowableFloodingProbability, categoryLimitsKernel.AssessmentSection.FailureProbabilityLowerLimit);
+                ProbabilityAssert.AreEqual(signalFloodingProbability, categoryLimitsKernel.AssessmentSection.FailureProbabilitySignalingLimit);
 
                 Assert.IsTrue(assessmentSectionAssemblyKernel.Calculated);
                 Assert.IsFalse(assessmentSectionAssemblyKernel.PartialAssembly);
@@ -146,8 +146,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(21);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = signalingNorm + 1e-3;
+            double signalFloodingProbability = random.NextDouble();
+            double maximumAllowableFloodingProbability = signalFloodingProbability + 1e-3;
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -159,7 +159,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                AssessmentSectionAssemblyResult result = calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), lowerLimitNorm, signalingNorm);
+                AssessmentSectionAssemblyResult result = calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), maximumAllowableFloodingProbability, signalFloodingProbability);
 
                 // Assert
                 Assert.AreEqual(assemblyResult.FailureProbability, result.Probability);
@@ -173,8 +173,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(21);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = signalingNorm + 1e-3;
+            double signalFloodingProbability = random.NextDouble();
+            double maximumAllowableFloodingProbability = signalFloodingProbability + 1e-3;
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -186,7 +186,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), lowerLimitNorm, signalingNorm);
+                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), maximumAllowableFloodingProbability, signalFloodingProbability);
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
@@ -200,8 +200,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(21);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = signalingNorm + 1e-3;
+            double signalFloodingProbability = random.NextDouble();
+            double maximumAllowableFloodingProbability = signalFloodingProbability + 1e-3;
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -212,7 +212,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), lowerLimitNorm, signalingNorm);
+                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), maximumAllowableFloodingProbability, signalFloodingProbability);
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
@@ -226,8 +226,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         {
             // Setup
             var random = new Random(21);
-            double signalingNorm = random.NextDouble();
-            double lowerLimitNorm = signalingNorm + 1e-3;
+            double signalFloodingProbability = random.NextDouble();
+            double maximumAllowableFloodingProbability = signalFloodingProbability + 1e-3;
 
             using (new AssemblyToolKernelFactoryConfig())
             {
@@ -238,7 +238,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), lowerLimitNorm, signalingNorm);
+                void Call() => calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), maximumAllowableFloodingProbability, signalFloodingProbability);
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);

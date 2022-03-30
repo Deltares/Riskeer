@@ -129,11 +129,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             ESectionInitialMechanismProbabilitySpecification expectedInitialMechanismProbabilitySpecification)
         {
             // Setup
-            const double signalingNorm = 0.0001;
-            const double lowerLimitNorm = 0.001;
+            const double signalFloodingProbability = 0.0001;
+            const double maximumAllowableFloodingProbability = 0.001;
 
             var random = new Random(21);
-            var input = new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
+            var input = new FailureMechanismSectionAssemblyInput(maximumAllowableFloodingProbability, signalFloodingProbability,
                                                                  isRelevant, hasProbabilitySpecified,
                                                                  random.NextDouble(),
                                                                  random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
@@ -156,8 +156,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 AssessmentSection assessmentSection = categoryLimitsKernel.AssessmentSection;
-                ProbabilityAssert.AreEqual(lowerLimitNorm, assessmentSection.FailureProbabilityLowerLimit);
-                ProbabilityAssert.AreEqual(signalingNorm, assessmentSection.FailureProbabilitySignalingLimit);
+                ProbabilityAssert.AreEqual(maximumAllowableFloodingProbability, assessmentSection.FailureProbabilityLowerLimit);
+                ProbabilityAssert.AreEqual(signalFloodingProbability, assessmentSection.FailureProbabilitySignalingLimit);
 
                 Assert.AreSame(interpretationCategories, failureMechanismSectionAssemblyKernel.Categories);
                 Assert.AreEqual(expectedInitialMechanismProbabilitySpecification, failureMechanismSectionAssemblyKernel.InitialMechanismProbabilitySpecification);
@@ -316,11 +316,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             ESectionInitialMechanismProbabilitySpecification expectedInitialMechanismProbabilitySpecification)
         {
             // Setup
-            const double signalingNorm = 0.0001;
-            const double lowerLimitNorm = 0.001;
+            const double signalFloodingProbability = 0.0001;
+            const double maximumAllowableFloodingProbability = 0.001;
 
             var random = new Random(21);
-            var input = new FailureMechanismSectionWithProfileProbabilityAssemblyInput(lowerLimitNorm, signalingNorm,
+            var input = new FailureMechanismSectionWithProfileProbabilityAssemblyInput(maximumAllowableFloodingProbability, signalFloodingProbability,
                                                                                        isRelevant, hasProbabilitySpecified,
                                                                                        random.NextDouble(), random.NextDouble(),
                                                                                        random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
@@ -343,8 +343,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Assert
                 AssessmentSection assessmentSection = categoryLimitsKernel.AssessmentSection;
-                ProbabilityAssert.AreEqual(lowerLimitNorm, assessmentSection.FailureProbabilityLowerLimit);
-                ProbabilityAssert.AreEqual(signalingNorm, assessmentSection.FailureProbabilitySignalingLimit);
+                ProbabilityAssert.AreEqual(maximumAllowableFloodingProbability, assessmentSection.FailureProbabilityLowerLimit);
+                ProbabilityAssert.AreEqual(signalFloodingProbability, assessmentSection.FailureProbabilitySignalingLimit);
 
                 Assert.AreSame(interpretationCategories, failureMechanismSectionAssemblyKernel.Categories);
                 Assert.AreEqual(expectedInitialMechanismProbabilitySpecification, failureMechanismSectionAssemblyKernel.InitialMechanismProbabilitySpecification);
@@ -450,11 +450,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
         private static FailureMechanismSectionAssemblyInput CreateFailureMechanismSectionAssemblyInput()
         {
-            const double lowerLimitNorm = 0.001;
-            const double signalingNorm = 0.0001;
+            const double maximumAllowableFloodingProbability = 0.001;
+            const double signalFloodingProbability = 0.0001;
 
             var random = new Random(21);
-            return new FailureMechanismSectionAssemblyInput(lowerLimitNorm, signalingNorm,
+            return new FailureMechanismSectionAssemblyInput(maximumAllowableFloodingProbability, signalFloodingProbability,
                                                             random.NextBoolean(), random.NextBoolean(),
                                                             random.NextDouble(),
                                                             random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
@@ -463,11 +463,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
         private static FailureMechanismSectionWithProfileProbabilityAssemblyInput CreateFailureMechanismSectionWithProfileProbabilityAssemblyInput()
         {
-            const double lowerLimitNorm = 0.001;
-            const double signalingNorm = 0.0001;
+            const double maximumAllowableFloodingProbability = 0.001;
+            const double signalFloodingProbability = 0.0001;
 
             var random = new Random(21);
-            return new FailureMechanismSectionWithProfileProbabilityAssemblyInput(lowerLimitNorm, signalingNorm,
+            return new FailureMechanismSectionWithProfileProbabilityAssemblyInput(maximumAllowableFloodingProbability, signalFloodingProbability,
                                                                                   random.NextBoolean(), random.NextBoolean(),
                                                                                   random.NextDouble(), random.NextDouble(),
                                                                                   random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(),
