@@ -88,25 +88,47 @@ namespace Riskeer.Integration.IO.Test.Exporters
         }
 
         [Test]
-        public void Export_SpecificFailureMechanismsWithSameNames_LogsErrorAndReturnsFalse()
+        [TestCase(true, true, false)]
+        [TestCase(true, false, true)]
+        [TestCase(false, true, true)]
+        [TestCase(false, false, true)]
+        public void Export_SpecificFailureMechanismsWithSameName_ExpectedResultBasedOnInAssemblyState(
+            bool firstSpecificFailureMechanismInAssembly,
+            bool secondSpecificFailureMechanismInAssembly,
+            bool isExportExpectedToBeSuccessful)
         {
             // Setup
-            string filePath = TestHelper.GetScratchPadPath(nameof(Export_SpecificFailureMechanismsWithSameNames_LogsErrorAndReturnsFalse));
+            string filePath = TestHelper.GetScratchPadPath(nameof(Export_SpecificFailureMechanismsWithSameName_ExpectedResultBasedOnInAssemblyState));
             AssessmentSection assessmentSection = CreateConfiguredAssessmentSection();
-            assessmentSection.SpecificFailureMechanisms.Last().Name = assessmentSection.SpecificFailureMechanisms.First().Name;
+
+            SpecificFailureMechanism specificFailureMechanism1 = assessmentSection.SpecificFailureMechanisms.ElementAt(0);
+            SpecificFailureMechanism specificFailureMechanism2 = assessmentSection.SpecificFailureMechanisms.ElementAt(1);
+
+            specificFailureMechanism1.InAssembly = firstSpecificFailureMechanismInAssembly;
+            specificFailureMechanism2.InAssembly = secondSpecificFailureMechanismInAssembly;
+            assessmentSection.SpecificFailureMechanisms.Last().Name = specificFailureMechanism1.Name;
 
             var exporter = new AssemblyExporter(assessmentSection, filePath);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                // Call
-                var isExported = true;
-                void Call() => isExported = exporter.Export();
+                SetCombinedFailureMechanismSectionAssemblyOutput(assessmentSection);
 
-                // Assert
-                const string expectedMessage = "Om assemblageresultaten te kunnen exporteren moeten de specifieke faalmechanismen unieke namen hebben.";
-                TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
-                Assert.IsFalse(isExported);
+                // Call & Assert
+                if (isExportExpectedToBeSuccessful)
+                {
+                    Assert.IsTrue(exporter.Export());
+                }
+                else
+                {
+                    var isExported = true;
+
+                    const string expectedMessage = "Om assemblageresultaten te kunnen exporteren moeten de specifieke faalmechanismen unieke namen hebben.";
+                    TestHelper.AssertLogMessageWithLevelIsGenerated(() => isExported = exporter.Export(),
+                                                                    new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
+
+                    Assert.IsFalse(isExported);
+                }
             }
         }
 
@@ -177,18 +199,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
             using (new FileDisposeHelper(filePath))
             using (new AssemblyToolCalculatorFactoryConfig())
             {
-                IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms()
-                                                                                    .Concat(assessmentSection.SpecificFailureMechanisms);
-
-                var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
-                AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
-                {
-                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(0, 2.5, FailureMechanismSectionAssemblyGroup.II),
-                                                                failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.II)),
-                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(2.5, 5, FailureMechanismSectionAssemblyGroup.III),
-                                                                failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.III))
-                };
+                SetCombinedFailureMechanismSectionAssemblyOutput(assessmentSection);
 
                 try
                 {
@@ -289,6 +300,22 @@ namespace Riskeer.Integration.IO.Test.Exporters
             FailureMechanismTestHelper.AddSections(assessmentSection.SpecificFailureMechanisms.Last(), 2);
 
             return assessmentSection;
+        }
+
+        private static void SetCombinedFailureMechanismSectionAssemblyOutput(IAssessmentSection assessmentSection)
+        {
+            IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms()
+                                                                                .Concat(assessmentSection.SpecificFailureMechanisms);
+
+            var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
+            AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
+            assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
+            {
+                new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(0, 2.5, FailureMechanismSectionAssemblyGroup.II),
+                                                            failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.II)),
+                new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(2.5, 5, FailureMechanismSectionAssemblyGroup.III),
+                                                            failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.III))
+            };
         }
     }
 }

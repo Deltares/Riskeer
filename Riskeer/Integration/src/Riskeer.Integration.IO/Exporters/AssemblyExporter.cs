@@ -102,6 +102,7 @@ namespace Riskeer.Integration.IO.Exporters
         private bool AreSpecificFailureMechanismsUniquelyNamed()
         {
             return assessmentSection.SpecificFailureMechanisms
+                                    .Where(sf => sf.InAssembly)
                                     .Select(fp => fp.Name)
                                     .GroupBy(name => name)
                                     .All(group => group.Count() == 1);
