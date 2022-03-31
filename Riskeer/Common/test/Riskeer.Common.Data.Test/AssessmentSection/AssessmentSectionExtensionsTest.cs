@@ -65,7 +65,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             void Call() => assessmentSection.GetNormativeAssessmentLevel(new TestHydraulicBoundaryLocation());
 
             // Assert
-            var expectedMessage = $"The value of argument 'normType' ({invalidValue}) is invalid for Enum type '{nameof(NormativeProbabilityType)}'.";
+            var expectedMessage = $"The value of argument 'normativeProbabilityType' ({invalidValue}) is invalid for Enum type '{nameof(NormativeProbabilityType)}'.";
             string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("normativeProbabilityType", parameterName);
         }
@@ -176,7 +176,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             void Call() => assessmentSection.GetNormativeHydraulicBoundaryLocationCalculation(new TestHydraulicBoundaryLocation());
 
             // Assert
-            var expectedMessage = $"The value of argument 'normType' ({invalidValue}) is invalid for Enum type '{nameof(NormativeProbabilityType)}'.";
+            var expectedMessage = $"The value of argument 'normativeProbabilityType' ({invalidValue}) is invalid for Enum type '{nameof(NormativeProbabilityType)}'.";
             string parameterName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage).ParamName;
             Assert.AreEqual("normativeProbabilityType", parameterName);
         }
