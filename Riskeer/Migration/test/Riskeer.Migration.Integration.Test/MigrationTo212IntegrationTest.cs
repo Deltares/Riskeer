@@ -459,10 +459,10 @@ namespace Riskeer.Migration.Integration.Test
         }
 
         private static void AssertMigratedSpecificFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath,
-                                                              int failureMechanismType,
-                                                              string failureMechanismName,
-                                                              string failureMechanismCode,
-                                                              int order)
+                                                                   int failureMechanismType,
+                                                                   string failureMechanismName,
+                                                                   string failureMechanismCode,
+                                                                   int order)
         {
             string validateSpecificFailureMechanismEntity =
                 $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
@@ -505,12 +505,9 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertWaveConditionCalculationOutputs(MigratedDatabaseReader reader)
         {
-            const string validateOutputQueryFormat =
-                "SELECT COUNT() = 0 " +
-                "FROM [{0}]; ";
-            reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "GrassCoverErosionOutwardsWaveConditionsOutputEntity"));
-            reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "StabilityStoneCoverWaveConditionsOutputEntity"));
-            reader.AssertReturnedDataIsValid(string.Format(validateOutputQueryFormat, "WaveImpactAsphaltCoverWaveConditionsOutputEntity"));
+            AssertEmptyEntity(reader, "GrassCoverErosionOutwardsWaveConditionsOutputEntity");
+            AssertEmptyEntity(reader, "StabilityStoneCoverWaveConditionsOutputEntity");
+            AssertEmptyEntity(reader, "WaveImpactAsphaltCoverWaveConditionsOutputEntity");
         }
 
         #endregion
@@ -526,65 +523,26 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertIllustrationPointResults(MigratedDatabaseReader reader)
         {
-            const string validateFaultTreeIllustrationPoint =
-                "SELECT COUNT() = 0 " +
-                "FROM [FaultTreeIllustrationPointEntity]; ";
-            reader.AssertReturnedDataIsValid(validateFaultTreeIllustrationPoint);
+            AssertEmptyEntity(reader, "FaultTreeIllustrationPointEntity");
+            AssertEmptyEntity(reader, "FaultTreeIllustrationPointStochastEntity");
+            AssertEmptyEntity(reader, "FaultTreeSubmechanismIllustrationPointEntity");
+            AssertEmptyEntity(reader, "GeneralResultFaultTreeIllustrationPointEntity");
+            AssertEmptyEntity(reader, "GeneralResultFaultTreeIllustrationPointStochastEntity");
+            AssertEmptyEntity(reader, "GeneralResultSubMechanismIllustrationPointEntity");
+            AssertEmptyEntity(reader, "GeneralResultSubMechanismIllustrationPointStochastEntity");
+            AssertEmptyEntity(reader, "IllustrationPointResultEntity");
+            AssertEmptyEntity(reader, "SubMechanismIllustrationPointEntity");
+            AssertEmptyEntity(reader, "SubMechanismIllustrationPointStochastEntity");
+            AssertEmptyEntity(reader, "TopLevelFaultTreeIllustrationPointEntity");
+            AssertEmptyEntity(reader, "TopLevelSubMechanismIllustrationPointEntity");
+        }
 
-            const string validateFaultTreeIllustrationPointStochast =
+        private static void AssertEmptyEntity(MigratedDatabaseReader reader, string entity)
+        {
+            string validateEmptyEntity =
                 "SELECT COUNT() = 0 " +
-                "FROM [FaultTreeIllustrationPointStochastEntity]; ";
-            reader.AssertReturnedDataIsValid(validateFaultTreeIllustrationPointStochast);
-
-            const string validateFaultTreeSubmechanismIllustrationPoint =
-                "SELECT COUNT() = 0 " +
-                "FROM [FaultTreeSubmechanismIllustrationPointEntity]; ";
-            reader.AssertReturnedDataIsValid(validateFaultTreeSubmechanismIllustrationPoint);
-
-            const string validateGeneralResultFaultTreeIllustrationPoint =
-                "SELECT COUNT() = 0 " +
-                "FROM [GeneralResultFaultTreeIllustrationPointEntity]; ";
-            reader.AssertReturnedDataIsValid(validateGeneralResultFaultTreeIllustrationPoint);
-
-            const string validateGeneralResultFaultTreeIllustrationPointStochast =
-                "SELECT COUNT() = 0 " +
-                "FROM [GeneralResultFaultTreeIllustrationPointStochastEntity]; ";
-            reader.AssertReturnedDataIsValid(validateGeneralResultFaultTreeIllustrationPointStochast);
-
-            const string validateGeneralResultSubMechanismIllustrationPoint =
-                "SELECT COUNT() = 0 " +
-                "FROM [GeneralResultSubMechanismIllustrationPointEntity]; ";
-            reader.AssertReturnedDataIsValid(validateGeneralResultSubMechanismIllustrationPoint);
-
-            const string validateGeneralResultSubMechanismIllustrationPointStochast =
-                "SELECT COUNT() = 0 " +
-                "FROM [GeneralResultSubMechanismIllustrationPointStochastEntity]; ";
-            reader.AssertReturnedDataIsValid(validateGeneralResultSubMechanismIllustrationPointStochast);
-
-            const string validateIllustrationPointResult =
-                "SELECT COUNT() = 0 " +
-                "FROM [IllustrationPointResultEntity]; ";
-            reader.AssertReturnedDataIsValid(validateIllustrationPointResult);
-
-            const string validateSubMechanismIllustrationPoint =
-                "SELECT COUNT() = 0 " +
-                "FROM [SubMechanismIllustrationPointEntity]; ";
-            reader.AssertReturnedDataIsValid(validateSubMechanismIllustrationPoint);
-
-            const string validateSubMechanismIllustrationPointStochast =
-                "SELECT COUNT() = 0 " +
-                "FROM [SubMechanismIllustrationPointStochastEntity]; ";
-            reader.AssertReturnedDataIsValid(validateSubMechanismIllustrationPointStochast);
-
-            const string validateTopLevelFaultTreeIllustrationPoint =
-                "SELECT COUNT() = 0 " +
-                "FROM [TopLevelFaultTreeIllustrationPointEntity]; ";
-            reader.AssertReturnedDataIsValid(validateTopLevelFaultTreeIllustrationPoint);
-
-            const string validateTopLevelSubMechanismIllustrationPoint =
-                "SELECT COUNT() = 0 " +
-                "FROM [TopLevelSubMechanismIllustrationPointEntity]; ";
-            reader.AssertReturnedDataIsValid(validateTopLevelSubMechanismIllustrationPoint);
+                $"FROM [{entity}]; ";
+            reader.AssertReturnedDataIsValid(validateEmptyEntity);
         }
 
         #region HeightStructures
@@ -596,7 +554,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertHeightStructuresOutput(MigratedDatabaseReader reader)
         {
-            AssertOutputEntity(reader, "HeightStructuresOutputEntity");
+            AssertEmptyEntity(reader, "HeightStructuresOutputEntity");
         }
 
         #endregion
@@ -610,7 +568,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertClosingStructuresOutput(MigratedDatabaseReader reader)
         {
-            AssertOutputEntity(reader, "ClosingStructuresOutputEntity");
+            AssertEmptyEntity(reader, "ClosingStructuresOutputEntity");
         }
 
         #endregion
@@ -624,7 +582,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertStabilityPointStructuresOutput(MigratedDatabaseReader reader)
         {
-            AssertOutputEntity(reader, "StabilityPointStructuresOutputEntity");
+            AssertEmptyEntity(reader, "StabilityPointStructuresOutputEntity");
         }
 
         #endregion
@@ -633,11 +591,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertMacroStabilityInwardsOutput(MigratedDatabaseReader reader)
         {
-            const string macroStabilityInwardsCalculationOutputEntityTable =
-                "SELECT COUNT() = 0 " +
-                "FROM MacroStabilityInwardsCalculationOutputEntity;" +
-                "DETACH SOURCEPROJECT;";
-            reader.AssertReturnedDataIsValid(macroStabilityInwardsCalculationOutputEntityTable);
+            AssertEmptyEntity(reader, "MacroStabilityInwardsCalculationOutputEntity");
         }
 
         private static void AssertMacroStabilityInwardsFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
@@ -923,7 +877,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertHydraulicLocationOutput(MigratedDatabaseReader reader)
         {
-            AssertOutputEntity(reader, "HydraulicLocationOutputEntity");
+            AssertEmptyEntity(reader, "HydraulicLocationOutputEntity");
         }
 
         #endregion
@@ -1004,7 +958,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertProbabilisticPipingOutput(MigratedDatabaseReader reader)
         {
-            AssertOutputEntity(reader, "ProbabilisticPipingCalculationOutputEntity");
+            AssertEmptyEntity(reader, "ProbabilisticPipingCalculationOutputEntity");
         }
 
         #endregion
@@ -1168,9 +1122,9 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertGrassCoverErosionInwardsOutput(MigratedDatabaseReader reader)
         {
-            AssertOutputEntity(reader, "GrassCoverErosionInwardsOutputEntity");
-            AssertOutputEntity(reader, "GrassCoverErosionInwardsDikeHeightOutputEntity");
-            AssertOutputEntity(reader, "GrassCoverErosionInwardsOvertoppingRateOutputEntity");
+            AssertEmptyEntity(reader, "GrassCoverErosionInwardsOutputEntity");
+            AssertEmptyEntity(reader, "GrassCoverErosionInwardsDikeHeightOutputEntity");
+            AssertEmptyEntity(reader, "GrassCoverErosionInwardsOvertoppingRateOutputEntity");
         }
 
         private static void AssertGrassCoverErosionInwardsSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
@@ -1300,23 +1254,17 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertDuneLocationCalculationCollection(MigratedDatabaseReader reader)
         {
-            const string validateOutput =
-                "SELECT COUNT() = 0 " +
-                "FROM [DuneLocationCalculationForTargetProbabilityCollectionEntity]; ";
-            reader.AssertReturnedDataIsValid(validateOutput);
+            AssertEmptyEntity(reader, "DuneLocationCalculationForTargetProbabilityCollectionEntity");
         }
 
         private static void AssertDuneLocationCalculation(MigratedDatabaseReader reader)
         {
-            const string validateCalculation =
-                "SELECT COUNT() = 0 " +
-                "FROM [DuneLocationCalculationEntity]; ";
-            reader.AssertReturnedDataIsValid(validateCalculation);
+            AssertEmptyEntity(reader, "DuneLocationCalculationEntity");
         }
 
         private static void AssertDuneLocationCalculationOutput(MigratedDatabaseReader reader)
         {
-            AssertOutputEntity(reader, "DuneLocationCalculationOutputEntity");
+            AssertEmptyEntity(reader, "DuneLocationCalculationOutputEntity");
         }
 
         private static void AssertDuneErosionFailureMechanismSectionResults(MigratedDatabaseReader reader, string sourceFilePath)
@@ -1430,13 +1378,5 @@ namespace Riskeer.Migration.Integration.Test
         }
 
         #endregion
-        
-        private static void AssertOutputEntity(MigratedDatabaseReader reader, string entity)
-        {
-            string validateOutput =
-                "SELECT COUNT() = 0 " +
-                $"FROM [{entity}]; ";
-            reader.AssertReturnedDataIsValid(validateOutput);
-        }
     }
 }
