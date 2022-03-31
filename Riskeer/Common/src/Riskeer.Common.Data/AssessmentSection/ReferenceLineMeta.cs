@@ -27,7 +27,7 @@ namespace Riskeer.Common.Data.AssessmentSection
     public class ReferenceLineMeta
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReferenceLineMeta"/> class.
+        /// Creates a new instance of <see cref="ReferenceLineMeta"/>.
         /// </summary>
         public ReferenceLineMeta()
         {
@@ -40,12 +40,12 @@ namespace Riskeer.Common.Data.AssessmentSection
         public string AssessmentSectionId { get; set; }
 
         /// <summary>
-        /// Gets or sets the signaling value for the assessment section.
+        /// Gets or sets the signal flooding probability for the assessment section.
         /// </summary>
         public int? SignalFloodingProbability { get; set; }
 
         /// <summary>
-        /// Gets or sets the maximum allowable flooding probability of the assessment section.
+        /// Gets or sets the maximum allowable flooding probability for the assessment section.
         /// </summary>
         public int MaximumAllowableFloodingProbability { get; set; }
 

@@ -28,57 +28,17 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
     public class ReferenceLineMetaTest
     {
         [Test]
-        public void DefaultConstructor_ExpectedValues()
+        public void Constructor_ExpectedValues()
         {
             // Call
-            var referenceLine = new ReferenceLineMeta();
+            var referenceLineMeta = new ReferenceLineMeta();
 
             // Assert
-            Assert.IsInstanceOf<ReferenceLine>(referenceLine.ReferenceLine);
-            CollectionAssert.IsEmpty(referenceLine.ReferenceLine.Points);
-        }
-
-        [Test]
-        public void SetAssessmentSectionId_ExpectedValue()
-        {
-            // Setup
-            const string assessmentSectionId = "SomeStringValue";
-            var referenceLine = new ReferenceLineMeta();
-
-            // Call
-            referenceLine.AssessmentSectionId = assessmentSectionId;
-
-            // Assert
-            Assert.AreEqual(assessmentSectionId, referenceLine.AssessmentSectionId);
-        }
-
-        [Test]
-        [TestCase(1234)]
-        [TestCase(null)]
-        public void SetSignalingValue_ExpectedValue(int? signalingValue)
-        {
-            // Setup
-            var referenceLine = new ReferenceLineMeta();
-
-            // Call
-            referenceLine.SignalFloodingProbability = signalingValue;
-
-            // Assert
-            Assert.AreEqual(signalingValue, referenceLine.SignalFloodingProbability);
-        }
-
-        [Test]
-        public void SetLowerLimitValue_ExpectedValue()
-        {
-            // Setup
-            var referenceLine = new ReferenceLineMeta();
-            const int lowerLimitValue = 1234;
-
-            // Call
-            referenceLine.MaximumAllowableFloodingProbability = lowerLimitValue;
-
-            // Assert
-            Assert.AreEqual(lowerLimitValue, referenceLine.MaximumAllowableFloodingProbability);
+            Assert.IsNotNull(referenceLineMeta.ReferenceLine);
+            CollectionAssert.IsEmpty(referenceLineMeta.ReferenceLine.Points);
+            Assert.IsNull(referenceLineMeta.AssessmentSectionId);
+            Assert.IsNull(referenceLineMeta.SignalFloodingProbability);
+            Assert.AreEqual(0, referenceLineMeta.MaximumAllowableFloodingProbability);
         }
     }
 }
