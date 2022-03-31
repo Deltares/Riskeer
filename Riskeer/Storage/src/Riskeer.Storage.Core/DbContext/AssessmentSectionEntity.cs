@@ -53,9 +53,9 @@ namespace Riskeer.Storage.Core.DbContext
         public string Id { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
-        public double LowerLimitNorm { get; set; }
-        public double SignalingNorm { get; set; }
-        public byte NormativeNormType { get; set; }
+        public double MaximumAllowableFloodingProbability { get; set; }
+        public double SignalFloodingProbability { get; set; }
+        public byte NormativeProbabilityType { get; set; }
         public byte Composition { get; set; }
         public string ReferenceLinePointXml { get; set; }
 

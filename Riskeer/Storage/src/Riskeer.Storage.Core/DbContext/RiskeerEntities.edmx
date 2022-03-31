@@ -16,9 +16,9 @@
           <Property Name="Id" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="LowerLimitNorm" Type="real" Nullable="false" />
-          <Property Name="SignalingNorm" Type="real" Nullable="false" />
-          <Property Name="NormativeNormType" Type="tinyint" Nullable="false" />
+          <Property Name="MaximumAllowableFloodingProbability" Type="real" Nullable="false" />
+          <Property Name="SignalFloodingProbability" Type="real" Nullable="false" />
+          <Property Name="NormativeProbabilityType" Type="tinyint" Nullable="false" />
           <Property Name="Composition" Type="tinyint" Nullable="false" />
           <Property Name="ReferenceLinePointXml" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
@@ -4983,9 +4983,9 @@
           <Property Name="Id" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="LowerLimitNorm" Type="Double" Nullable="false" />
-          <Property Name="SignalingNorm" Type="Double" Nullable="false" />
-          <Property Name="NormativeNormType" Type="Byte" Nullable="false" />
+          <Property Name="MaximumAllowableFloodingProbability" Type="Double" Nullable="false" />
+          <Property Name="SignalFloodingProbability" Type="Double" Nullable="false" />
+          <Property Name="NormativeProbabilityType" Type="Byte" Nullable="false" />
           <Property Name="Composition" Type="Byte" Nullable="false" />
           <Property Name="ReferenceLinePointXml" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProjectEntity" Relationship="RiskeerEntitiesModel.FK_AssessmentSectionEntity_0_0" FromRole="AssessmentSectionEntity" ToRole="ProjectEntity" />
@@ -8563,9 +8563,9 @@
               <MappingFragment StoreEntitySet="AssessmentSectionEntity">
                 <ScalarProperty Name="ReferenceLinePointXml" ColumnName="ReferenceLinePointXml" />
                 <ScalarProperty Name="Composition" ColumnName="Composition" />
-                <ScalarProperty Name="NormativeNormType" ColumnName="NormativeNormType" />
-                <ScalarProperty Name="SignalingNorm" ColumnName="SignalingNorm" />
-                <ScalarProperty Name="LowerLimitNorm" ColumnName="LowerLimitNorm" />
+                <ScalarProperty Name="NormativeProbabilityType" ColumnName="NormativeProbabilityType" />
+                <ScalarProperty Name="SignalFloodingProbability" ColumnName="SignalFloodingProbability" />
+                <ScalarProperty Name="MaximumAllowableFloodingProbability" ColumnName="MaximumAllowableFloodingProbability" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
