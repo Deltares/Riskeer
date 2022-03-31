@@ -182,6 +182,12 @@ namespace Riskeer.Common.Forms.Views
         {
             UpdateDataGridViewDataSource();
             UpdateAssemblyData();
+            UpdateProbabilityResultTypeCombobox();
+        }
+
+        private void UpdateProbabilityResultTypeCombobox()
+        {
+            probabilityResultTypeComboBox.Enabled = FailureMechanism.Sections.Count() != 0;
         }
 
         private void RefreshDataGrid()

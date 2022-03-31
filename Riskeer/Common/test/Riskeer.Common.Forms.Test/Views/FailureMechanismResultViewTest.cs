@@ -221,6 +221,42 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
+        public void Constructor_NoSections_ProbabilityResultTypeComboBoxDisabled()
+        {
+            // Setup 
+            var failureMechanism = new TestFailureMechanism();
+
+            // Call
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Assert
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                CollectionAssert.IsEmpty(failureMechanism.Sections);
+                Assert.IsFalse(comboBox.Enabled);
+            }
+        }
+
+        [Test]
+        public void Constructor_WithSections_ProbabilityResultTypeComboBoxEnabled()
+        {
+            // Setup 
+            var failureMechanism = new TestFailureMechanism();
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            // Call
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Assert
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsTrue(comboBox.Enabled);
+            }
+        }
+
+        [Test]
         public void GivenFailureMechanismResultView_WhenFailureMechanismObserversNotified_ThenDataGridViewUpdatedAndPerformsAssemblyCalculation()
         {
             // Given
