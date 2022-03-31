@@ -365,7 +365,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
 
         #region Test Assessment Sections
 
-        private static AssessmentSection TestAssessmentSection1_2(bool useSignalingValue)
+        private static AssessmentSection TestAssessmentSection1_2(bool useSignalFloodingProbability)
         {
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike,
                                                           1.0 / 1000,
@@ -375,7 +375,7 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                 Name = "Traject 1-2",
                 FailureMechanismContribution =
                 {
-                    NormativeProbabilityType = useSignalingValue ? NormativeProbabilityType.SignalFloodingProbability : NormativeProbabilityType.MaximumAllowableFloodingProbability
+                    NormativeProbabilityType = useSignalFloodingProbability ? NormativeProbabilityType.SignalFloodingProbability : NormativeProbabilityType.MaximumAllowableFloodingProbability
                 }
             };
             assessmentSection.GrassCoverErosionInwards.GeneralInput.N = (RoundedDouble) 2.0;

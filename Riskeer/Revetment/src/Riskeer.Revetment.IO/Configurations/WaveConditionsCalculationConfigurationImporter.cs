@@ -220,14 +220,14 @@ namespace Riskeer.Revetment.IO.Configurations
             }
             else
             {
-                waveConditionsCalculation.InputParameters.WaterLevelType = ConvertNormType();
+                waveConditionsCalculation.InputParameters.WaterLevelType = ConvertNormativeProbabilityType();
                 return true;
             }
 
             return false;
         }
 
-        private WaveConditionsInputWaterLevelType ConvertNormType()
+        private WaveConditionsInputWaterLevelType ConvertNormativeProbabilityType()
         {
             switch (failureMechanismContribution.NormativeProbabilityType)
             {
