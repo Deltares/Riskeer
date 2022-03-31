@@ -267,8 +267,8 @@
 					value=".csv">
 					</param>
 					<param
-					name="NewParameter"
-					value="">
+					name="backslashCharacter"
+					value="/">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -2476,6 +2476,41 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="d1a9b8de-14cf-4080-9c68-f90ff2cdbe92"
+			name="ReplaceSubstring"
+			ref="92030a75-8205-438c-9c04-f777a02a0b87"
+			type="UserCode">
+				<description>
+					<![CDATA[change slash ("/") into _]]>
+				</description>
+				<databinding>
+					<var
+					dataname="intermediateString2"
+					datasourceid="14d397c1-324f-4fa3-aecb-be4fb37e36b1"
+					variableid="666d8948-5ddb-4a96-976c-bc610318d8eb"
+					variablename="originalString">
+					</var>
+					<var
+					dataname="backslashCharacter"
+					datasourceid="14d397c1-324f-4fa3-aecb-be4fb37e36b1"
+					variableid="be7bb929-358e-4961-8102-ba536ad20ae5"
+					variablename="substringToBeReplaced">
+					</var>
+					<var
+					dataname="underscoreChar"
+					datasourceid="14d397c1-324f-4fa3-aecb-be4fb37e36b1"
+					variableid="b1ca51cd-28fb-439f-b68e-18e10d9c5bc8"
+					variablename="substringToReplaceWith">
+					</var>
+					<var
+					dataname="intermediateString2"
+					datasourceid="14d397c1-324f-4fa3-aecb-be4fb37e36b1"
+					variableid="de4c6e03-fcc5-4286-99a5-5964c488d96a"
+					variablename="finalString">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="d235365b-8329-4c04-8598-e8f428b8ded2"
 			name="LogInfoMessage"
 			ref="da5c8215-39c8-4753-aad9-b17540fb9e4c"
@@ -3339,6 +3374,10 @@
 											</testmodule>
 											<testmodule
 											id="ce1ed77d-0f63-431c-a08a-4669619940b5"
+											name="ReplaceSubstring">
+											</testmodule>
+											<testmodule
+											id="d1a9b8de-14cf-4080-9c68-f90ff2cdbe92"
 											name="ReplaceSubstring">
 											</testmodule>
 											<testmodule
@@ -5479,9 +5518,6 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
-			id="0abc14d7-9101-4f34-a8cb-9234ee53e5f4">
-			</testcontainer>
-			<testcontainer
 			id="0ce848bb-2a6d-4064-af2f-8650a8a9828f">
 			</testcontainer>
 			<testcontainer
@@ -5491,16 +5527,10 @@
 			id="1e5ebec6-ded3-46f8-b4da-382e684fe250">
 			</testcontainer>
 			<testcontainer
-			id="230bfaad-79af-46d1-981b-d17ffa2ce28b">
-			</testcontainer>
-			<testcontainer
 			id="36936bda-acf7-45f1-8418-7e86ccd8e709">
 			</testcontainer>
 			<testcontainer
 			id="3bc878e1-f788-4b43-a26b-c424368b5b59">
-			</testcontainer>
-			<testcontainer
-			id="3ef9e76d-159f-494c-8046-cd3a089c5b55">
 			</testcontainer>
 			<testcontainer
 			id="43a9552b-6263-4bb9-be62-6610d781eb44">
@@ -5539,9 +5569,6 @@
 			id="83c4e281-b959-472f-92b4-778c82a5524f">
 			</testcontainer>
 			<testcontainer
-			id="855babf3-3154-4c6f-aa7c-d3e4c3974d24">
-			</testcontainer>
-			<testcontainer
 			id="8d7def54-1eff-43ac-99a7-65be4da715bb">
 			</testcontainer>
 			<testcontainer
@@ -5551,37 +5578,10 @@
 			id="92ae9ccd-da2f-4f04-a1cd-9291f2953267">
 			</testcontainer>
 			<testcontainer
-			id="9b1a8fdf-6106-46db-8334-14f36e7cd85c">
-			</testcontainer>
-			<testcontainer
 			id="a0a87348-5ca1-4ab9-9de5-84e45177f8fa">
 			</testcontainer>
 			<testcontainer
-			id="a1e93938-4b48-49b8-bd18-e3504ea93c7a">
-			</testcontainer>
-			<testcontainer
-			id="a60ded01-9672-4a38-a68d-091d4c7d94b4">
-			</testcontainer>
-			<testcontainer
-			id="a826e976-693a-4e23-85ff-558dae5f6132">
-			</testcontainer>
-			<testcontainer
 			id="ab92454f-ed8f-4299-a593-4f1273fba8e6">
-			</testcontainer>
-			<testcontainer
-			id="b0509a53-2f5e-499f-b5f1-ade72bcc73ac">
-			</testcontainer>
-			<testcontainer
-			id="c2bdf846-2c0e-4e79-b216-96e75de944f3">
-			</testcontainer>
-			<testcontainer
-			id="c33a1a74-0f25-456f-ad34-274568ec7604">
-			</testcontainer>
-			<testcontainer
-			id="c52f2201-1123-47d2-88d4-813ef49b6ceb">
-			</testcontainer>
-			<testcontainer
-			id="c6872d5f-ca5b-41ab-a90c-a785336e2d68">
 			</testcontainer>
 			<testcontainer
 			id="dca6a081-1ea4-40c7-ba34-e0e9f836eda7">
@@ -5596,34 +5596,19 @@
 			id="e44c3c13-c44a-4c53-85e9-40737c809cdc">
 			</testcontainer>
 			<testcontainer
-			id="e5076244-389d-494c-a0ca-39e11a7ea5ca">
-			</testcontainer>
-			<testcontainer
 			id="eea30392-b69e-4754-a435-b013b2ad001c">
 			</testcontainer>
 			<testcontainer
 			id="ef60ef5c-2883-48c3-a0cc-fcb918a62c0a">
 			</testcontainer>
 			<testcontainer
-			id="f18be060-a8ab-4c9f-b112-b69eb67f049e">
-			</testcontainer>
-			<testcontainer
 			id="f2f78b75-a2b9-46e0-bf05-8eb07e972595">
-			</testcontainer>
-			<testcontainer
-			id="f70ae74a-e777-45d4-adca-d55322e57b51">
-			</testcontainer>
-			<testcontainer
-			id="f8700ac2-c2fb-4ae6-ac73-8e68bffdda16">
 			</testcontainer>
 			<testcontainer
 			id="f9bea1a4-ae7c-493a-a646-02f6d917370c">
 			</testcontainer>
 			<testcontainer
 			id="f9f44f47-057f-4d41-92d2-3d7888cd9304">
-			</testcontainer>
-			<testcontainer
-			id="fbf27485-fee5-44df-84a9-f6cb964fcd52">
 			</testcontainer>
 		</testconfiguration>
 	</testconfigurations>
