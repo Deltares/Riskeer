@@ -202,59 +202,59 @@ namespace Riskeer.Integration.IO.Test.Factories
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(0));
 
-            AssertExportableFailureMechanism(assessmentSection.MacroStabilityInwards,
+            AssertExportableFailureMechanism(assessmentSection.GrassCoverErosionInwards,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(1));
 
-            AssertExportableFailureMechanism(assessmentSection.GrassCoverErosionInwards,
+            AssertExportableFailureMechanism(assessmentSection.MacroStabilityInwards,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(2));
 
-            AssertExportableFailureMechanism(assessmentSection.HeightStructures,
+            AssertExportableFailureMechanism(assessmentSection.Microstability,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(3));
 
-            AssertExportableFailureMechanism(assessmentSection.ClosingStructures,
+            AssertExportableFailureMechanism(assessmentSection.StabilityStoneCover,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(4));
 
-            AssertExportableFailureMechanism(assessmentSection.StabilityPointStructures,
+            AssertExportableFailureMechanism(assessmentSection.WaveImpactAsphaltCover,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(5));
 
-            AssertExportableFailureMechanism(assessmentSection.StabilityStoneCover,
+            AssertExportableFailureMechanism(assessmentSection.WaterPressureAsphaltCover,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(6));
 
-            AssertExportableFailureMechanism(assessmentSection.WaveImpactAsphaltCover,
+            AssertExportableFailureMechanism(assessmentSection.GrassCoverErosionOutwards,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(7));
 
-            AssertExportableFailureMechanism(assessmentSection.GrassCoverErosionOutwards,
+            AssertExportableFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(8));
 
-            AssertExportableFailureMechanism(assessmentSection.DuneErosion,
+            AssertExportableFailureMechanism(assessmentSection.GrassCoverSlipOffInwards,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(9));
 
-            AssertExportableFailureMechanism(assessmentSection.Microstability,
+            AssertExportableFailureMechanism(assessmentSection.HeightStructures,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(10));
 
-            AssertExportableFailureMechanism(assessmentSection.GrassCoverSlipOffOutwards,
+            AssertExportableFailureMechanism(assessmentSection.ClosingStructures,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(11));
 
-            AssertExportableFailureMechanism(assessmentSection.GrassCoverSlipOffInwards,
+            AssertExportableFailureMechanism(assessmentSection.PipingStructure,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(12));
 
-            AssertExportableFailureMechanism(assessmentSection.PipingStructure,
+            AssertExportableFailureMechanism(assessmentSection.StabilityPointStructures,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(13));
 
-            AssertExportableFailureMechanism(assessmentSection.WaterPressureAsphaltCover,
+            AssertExportableFailureMechanism(assessmentSection.DuneErosion,
                                              ExportableFailureMechanismType.Generic,
                                              exportableFailureMechanisms.ElementAt(14));
 
@@ -290,59 +290,59 @@ namespace Riskeer.Integration.IO.Test.Factories
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(0));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.MacroStabilityInwards,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.GrassCoverErosionInwards,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(1));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.GrassCoverErosionInwards,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.MacroStabilityInwards,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(2));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.HeightStructures,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.Microstability,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(3));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.ClosingStructures,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.StabilityStoneCover,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(4));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.StabilityPointStructures,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.WaveImpactAsphaltCover,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(5));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.StabilityStoneCover,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.WaterPressureAsphaltCover,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(6));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.WaveImpactAsphaltCover,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.GrassCoverErosionOutwards,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(7));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.GrassCoverErosionOutwards,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.GrassCoverSlipOffOutwards,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(8));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.DuneErosion,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.GrassCoverSlipOffInwards,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(9));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.Microstability,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.HeightStructures,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(10));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.GrassCoverSlipOffOutwards,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.ClosingStructures,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(11));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.GrassCoverSlipOffInwards,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.PipingStructure,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(12));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.PipingStructure,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.StabilityPointStructures,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(13));
 
-            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.WaterPressureAsphaltCover,
+            AssertExportableFailureMechanismCombinedSectionAssemblyResult(assessmentSection.DuneErosion,
                                                                           ExportableFailureMechanismType.Generic,
                                                                           exportableFailureMechanismCombinedSectionAssemblyResults.ElementAt(14));
 
