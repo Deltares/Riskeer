@@ -907,9 +907,9 @@ namespace Riskeer.Storage.Core.TestUtil
                                 StandardDeviation = (RoundedDouble) 2.2
                             },
                             ShouldDikeHeightBeCalculated = true,
-                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.NormativeProbability,
                             ShouldOvertoppingRateBeCalculated = true,
-                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.NormativeProbability,
                             UseForeshore = true,
                             UseBreakWater = true
                         },
@@ -944,10 +944,10 @@ namespace Riskeer.Storage.Core.TestUtil
                             UseBreakWater = true,
                             ShouldOvertoppingOutputIllustrationPointsBeCalculated = true,
                             ShouldDikeHeightBeCalculated = true,
-                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.NormativeProbability,
                             ShouldDikeHeightIllustrationPointsBeCalculated = true,
                             ShouldOvertoppingRateBeCalculated = true,
-                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
+                            OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.NormativeProbability,
                             ShouldOvertoppingRateIllustrationPointsBeCalculated = true
                         },
                         Output = new GrassCoverErosionInwardsOutput(new OvertoppingOutput(0.45, true, 1.1, GetConfiguredGeneralResultFaultTreeIllustrationPoint()),
@@ -970,8 +970,8 @@ namespace Riskeer.Storage.Core.TestUtil
                     },
                     InputParameters =
                     {
-                        DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.Norm,
-                        OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.Norm
+                        DikeHeightTargetProbability = assessmentSection.FailureMechanismContribution.NormativeProbability,
+                        OvertoppingRateTargetProbability = assessmentSection.FailureMechanismContribution.NormativeProbability
                     }
                 });
         }

@@ -104,19 +104,14 @@ namespace Riskeer.Common.Data.Contribution
         }
 
         /// <summary>
-        /// Gets the norm which has been defined on the assessment section.
+        /// Gets the normative probability which has been defined on the assessment section.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the new value is not in 
         /// the interval [0.000001, 0.1] or is <see cref="double.NaN"/>.</exception>
-        public double Norm
-        {
-            get
-            {
-                return NormativeProbabilityType == NormativeProbabilityType.MaximumAllowableFloodingProbability
-                           ? MaximumAllowableFloodingProbability
-                           : SignalFloodingProbability;
-            }
-        }
+        public double NormativeProbability =>
+            NormativeProbabilityType == NormativeProbabilityType.MaximumAllowableFloodingProbability
+                ? MaximumAllowableFloodingProbability
+                : SignalFloodingProbability;
 
         /// <summary>
         /// Gets or sets the normative probability type which has been defined on the assessment section.

@@ -68,8 +68,8 @@ namespace Riskeer.GrassCoverErosionInwards.Forms
                     InputParameters =
                     {
                         DikeProfile = profile,
-                        DikeHeightTargetProbability = failureMechanismContribution.Norm,
-                        OvertoppingRateTargetProbability = failureMechanismContribution.Norm
+                        DikeHeightTargetProbability = failureMechanismContribution.NormativeProbability,
+                        OvertoppingRateTargetProbability = failureMechanismContribution.NormativeProbability
                     }
                 };
                 calculationGroup.Children.Add(calculation);

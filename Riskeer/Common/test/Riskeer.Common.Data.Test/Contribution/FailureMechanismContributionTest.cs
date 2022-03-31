@@ -83,7 +83,7 @@ namespace Riskeer.Common.Data.Test.Contribution
             var result = new FailureMechanismContribution(probability, probability);
 
             // Assert
-            Assert.AreEqual(probability, result.Norm);
+            Assert.AreEqual(probability, result.NormativeProbability);
             Assert.AreEqual(probability, result.SignalFloodingProbability);
             Assert.AreEqual(probability, result.MaximumAllowableFloodingProbability);
             Assert.AreEqual(NormativeProbabilityType.MaximumAllowableFloodingProbability, result.NormativeProbabilityType);
@@ -196,7 +196,7 @@ namespace Riskeer.Common.Data.Test.Contribution
         [Test]
         [TestCase(NormativeProbabilityType.SignalFloodingProbability, 0.01)]
         [TestCase(NormativeProbabilityType.MaximumAllowableFloodingProbability, 0.1)]
-        public void Norm_DifferentNormativeProbabilityTypes_ReturnNorm(NormativeProbabilityType normativeProbabilityType, double expectedProbability)
+        public void NormativeProbability_DifferentNormativeProbabilityTypes_ReturnNorm(NormativeProbabilityType normativeProbabilityType, double expectedProbability)
         {
             // Setup
             var failureMechanismContribution = new FailureMechanismContribution(0.1, 0.01)
@@ -205,10 +205,10 @@ namespace Riskeer.Common.Data.Test.Contribution
             };
 
             // Call
-            double norm = failureMechanismContribution.Norm;
+            double normativeProbability = failureMechanismContribution.NormativeProbability;
 
             // Assert
-            Assert.AreEqual(expectedProbability, norm);
+            Assert.AreEqual(expectedProbability, normativeProbability);
         }
 
         private static IEnumerable<TestCaseData> GetValidProbabilityEdgeValues()

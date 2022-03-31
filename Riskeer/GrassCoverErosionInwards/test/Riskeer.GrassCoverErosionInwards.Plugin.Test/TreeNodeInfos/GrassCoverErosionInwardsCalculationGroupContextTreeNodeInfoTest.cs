@@ -1764,8 +1764,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
 
                     var calculation = (GrassCoverErosionInwardsCalculation) newlyAddedItem;
-                    Assert.AreEqual(failureMechanismContribution.Norm, calculation.InputParameters.DikeHeightTargetProbability);
-                    Assert.AreEqual(failureMechanismContribution.Norm, calculation.InputParameters.OvertoppingRateTargetProbability);
+                    Assert.AreEqual(failureMechanismContribution.NormativeProbability, calculation.InputParameters.DikeHeightTargetProbability);
+                    Assert.AreEqual(failureMechanismContribution.NormativeProbability, calculation.InputParameters.OvertoppingRateTargetProbability);
                 }
             }
         }
@@ -1840,8 +1840,8 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin.Test.TreeNodeInfos
                     var generatedCalculation = failureMechanism.CalculationsGroup.Children[2] as GrassCoverErosionInwardsCalculationScenario;
                     Assert.IsNotNull(generatedCalculation);
                     Assert.AreSame(dikeProfile1, generatedCalculation.InputParameters.DikeProfile);
-                    Assert.AreEqual(failureMechanismContribution.Norm, generatedCalculation.InputParameters.DikeHeightTargetProbability);
-                    Assert.AreEqual(failureMechanismContribution.Norm, generatedCalculation.InputParameters.OvertoppingRateTargetProbability);
+                    Assert.AreEqual(failureMechanismContribution.NormativeProbability, generatedCalculation.InputParameters.DikeHeightTargetProbability);
+                    Assert.AreEqual(failureMechanismContribution.NormativeProbability, generatedCalculation.InputParameters.OvertoppingRateTargetProbability);
                 }
             }
         }

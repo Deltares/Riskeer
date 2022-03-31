@@ -38,7 +38,7 @@ using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Riskeer.Integration.Plugin.Handlers
 {
     /// <summary>
-    /// Class responsible for changing the <see cref="FailureMechanismContribution.Norm"/>
+    /// Class responsible for changing the <see cref="FailureMechanismContribution.NormativeProbability"/>
     /// value of the <see cref="FailureMechanismContribution"/> of an <see cref="IAssessmentSection"/>
     /// and clearing all data dependent on the original norm value.
     /// </summary>

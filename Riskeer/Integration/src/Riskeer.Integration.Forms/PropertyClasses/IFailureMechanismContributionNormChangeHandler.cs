@@ -26,7 +26,7 @@ using Riskeer.Common.Data.Contribution;
 namespace Riskeer.Integration.Forms.PropertyClasses
 {
     /// <summary>
-    /// Interface for an object that can properly change the <see cref="FailureMechanismContribution.Norm"/>
+    /// Interface for an object that can properly change the <see cref="FailureMechanismContribution.NormativeProbability"/>
     /// of an <see cref="IAssessmentSection"/>.
     /// </summary>
     public interface IFailureMechanismContributionNormChangeHandler

@@ -78,7 +78,7 @@ namespace Riskeer.Piping.Data.SemiProbabilistic
 
         public double CalculateProfileProbability()
         {
-            return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, assessmentSection.FailureMechanismContribution.Norm);
+            return sectionResult.GetInitialFailureMechanismResultProbability(calculationScenarios, assessmentSection.FailureMechanismContribution.NormativeProbability);
         }
 
         public double CalculateSectionProbability()

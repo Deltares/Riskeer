@@ -850,7 +850,7 @@ namespace Riskeer.GrassCoverErosionInwards.Plugin
 
         private static void AddCalculation(GrassCoverErosionInwardsCalculationGroupContext context)
         {
-            double targetProbability = context.AssessmentSection.FailureMechanismContribution.Norm;
+            double targetProbability = context.AssessmentSection.FailureMechanismContribution.NormativeProbability;
 
             var calculation = new GrassCoverErosionInwardsCalculationScenario
             {

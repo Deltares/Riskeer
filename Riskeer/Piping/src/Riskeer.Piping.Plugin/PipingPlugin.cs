@@ -110,7 +110,7 @@ namespace Riskeer.Piping.Plugin
             };
             yield return new PropertyInfo<SemiProbabilisticPipingOutputContext, SemiProbabilisticPipingOutputProperties>
             {
-                CreateInstance = context => new SemiProbabilisticPipingOutputProperties(context.WrappedData, context.AssessmentSection.FailureMechanismContribution.Norm)
+                CreateInstance = context => new SemiProbabilisticPipingOutputProperties(context.WrappedData, context.AssessmentSection.FailureMechanismContribution.NormativeProbability)
             };
             yield return new PropertyInfo<PipingSurfaceLinesContext, PipingSurfaceLineCollectionProperties>
             {
