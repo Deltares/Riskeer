@@ -87,9 +87,9 @@ namespace Riskeer.Integration.Plugin.Handlers
         /// <item>The shape file does not contain the required attributes.</item>
         /// <item>The assessment section ids in the shape file are not unique or are missing.</item>
         /// <item>No <see cref="ReferenceLineMeta"/> could be read from the shape file.</item>
-        /// <item>The lower limit norm is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The signaling norm is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
-        /// <item>The signaling norm is larger than the lower limit norm.</item>
+        /// <item>The maximum allowable flooding probability is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The signal flooding probability is not in the interval [0.000001, 0.1] or is <see cref="double.NaN"/>;</item>
+        /// <item>The signal flooding probability is larger than the maximum allowable flooding probability.</item>
         /// </list></exception>
         public AssessmentSection GetAssessmentSectionFromFile()
         {

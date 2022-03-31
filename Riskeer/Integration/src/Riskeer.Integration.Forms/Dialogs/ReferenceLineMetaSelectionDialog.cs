@@ -65,12 +65,12 @@ namespace Riskeer.Integration.Forms.Dialogs
         public ReferenceLineMeta SelectedReferenceLineMeta { get; private set; }
 
         /// <summary>
-        /// Gets the lower limit norm value from the selected row in the <see cref="DataGridViewControl"/>.
+        /// Gets the maximum allowable flooding probability from the selected row in the <see cref="DataGridViewControl"/>.
         /// </summary>
         public double SelectedMaximumAllowableFloodingProbability { get; private set; }
 
         /// <summary>
-        /// Gets the signaling norm value from the selected row in the <see cref="DataGridViewControl"/>.
+        /// Gets the signal flooding probability from the selected row in the <see cref="DataGridViewControl"/>.
         /// </summary>
         public double SelectedSignalFloodingProbability { get; private set; }
 
