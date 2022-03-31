@@ -241,17 +241,24 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             // Setup 
             var failureMechanism = new TestFailureMechanism();
-            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
-            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-            {
-                section
-            });
 
             // Call
             using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
-                // Assert
+                // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsFalse(comboBox.Enabled);
+                
+                FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+                {
+                    section
+                });
+                
+                failureMechanism.NotifyObservers();
+                
+                // Assert
+                
                 Assert.IsTrue(comboBox.Enabled);
             }
         }
