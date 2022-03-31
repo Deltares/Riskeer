@@ -128,15 +128,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oordeel.
-        /// </summary>
-        public static string AssemblyResult_DisplayName {
-            get {
-                return ResourceManager.GetString("AssemblyResult_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Waterstand met een overschrijdingsfrequentie gelijk aan de norm van het dijktraject..
         /// </summary>
         public static string AssessmentLevel_Description {

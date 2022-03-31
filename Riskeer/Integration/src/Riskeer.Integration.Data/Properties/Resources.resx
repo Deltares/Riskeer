@@ -153,7 +153,7 @@
   <data name="AssessmentSection_Id_0" xml:space="preserve">
     <value>Traject {0}</value>
   </data>
-  <data name="AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims" xml:space="preserve">
-    <value>Voor een of meerdere faalmechanismen kan geen oordeel worden bepaald.</value>
+  <data name="AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanisms" xml:space="preserve">
+    <value>Voor een of meerdere faalmechanismen kan geen assemblageresultaat worden bepaald.</value>
   </data>
 </root>

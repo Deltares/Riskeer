@@ -100,11 +100,11 @@ namespace Riskeer.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voor een of meerdere faalmechanismen kan geen oordeel worden bepaald..
+        ///   Looks up a localized string similar to Voor een of meerdere faalmechanismen kan geen assemblageresultaat worden bepaald..
         /// </summary>
-        public static string AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims {
+        public static string AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanisms {
             get {
-                return ResourceManager.GetString("AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims", resourceCulture);
+                return ResourceManager.GetString("AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanisms", resourceCulture);
             }
         }
         

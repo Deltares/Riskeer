@@ -82,15 +82,6 @@ namespace Riskeer.Integration.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to gml.
-        /// </summary>
-        public static string AssemblyResult_file_filter_Extension {
-            get {
-                return ResourceManager.GetString("AssemblyResult_file_filter_Extension", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap AssemblyResultPerSection {
@@ -122,9 +113,18 @@ namespace Riskeer.Integration.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Assemblage.
         /// </summary>
-        public static string AssemblyResultsCategoryTreeFolder_DisplayName {
+        public static string AssemblyResults_DisplayName {
             get {
-                return ResourceManager.GetString("AssemblyResultsCategoryTreeFolder_DisplayName", resourceCulture);
+                return ResourceManager.GetString("AssemblyResults_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to gml.
+        /// </summary>
+        public static string AssemblyResults_file_filter_Extension {
+            get {
+                return ResourceManager.GetString("AssemblyResults_file_filter_Extension", resourceCulture);
             }
         }
         

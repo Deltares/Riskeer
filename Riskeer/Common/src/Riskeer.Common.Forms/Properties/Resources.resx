@@ -1393,9 +1393,6 @@ Betrouwbaarheidsindex = {1}</value>
 berekende kans
 [-]</value>
   </data>
-    <data name="AssemblyResult_DisplayName" xml:space="preserve">
-    <value>Oordeel</value>
-  </data>
     <data name="AssessmentSectionAssemblyGroups_DisplayName" xml:space="preserve">
     <value>Normklassen</value>
   </data>

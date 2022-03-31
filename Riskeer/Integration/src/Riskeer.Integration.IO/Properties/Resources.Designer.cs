@@ -82,7 +82,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} Er is geen oordeel geëxporteerd..
+        ///   Looks up a localized string similar to {0} Er zijn geen assemblageresultaten geëxporteerd..
         /// </summary>
         public static string AssemblyExporter_Error_Exception_0_no_AssemblyResult_exported {
             get {
@@ -91,7 +91,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De assemblageresultaten kunnen niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen of de gecombineerde faalkans voor meer details..
+        ///   Looks up a localized string similar to De assemblageresultaten kunnen niet worden bepaald. Inspecteer de individuele faalmechanismen of de gecombineerde faalkans voor meer details..
         /// </summary>
         public static string AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details {
             get {

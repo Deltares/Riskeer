@@ -79,7 +79,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
             catch (AssemblyException e)
             {
-                throw new AssemblyException(Resources.AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims, e);
+                throw new AssemblyException(Resources.AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanisms, e);
             }
         }
 
@@ -129,7 +129,7 @@ namespace Riskeer.Integration.Data.Assembly
             }
             catch (AssemblyException e)
             {
-                throw new AssemblyException(Resources.AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanims, e);
+                throw new AssemblyException(Resources.AssessmentSectionAssemblyFactory_Error_while_assembling_failureMechanisms, e);
             }
         }
 

@@ -594,12 +594,12 @@ namespace Riskeer.Integration.Plugin
 
             yield return new ExportInfo<AssemblyResultsContext>
             {
-                Name = context => RiskeerCommonFormsResources.AssemblyResult_DisplayName,
-                Extension = Resources.AssemblyResult_file_filter_Extension,
+                Name = context => Resources.AssemblyResults_DisplayName,
+                Extension = Resources.AssemblyResults_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
                 IsEnabled = context => HasGeometry(context.WrappedData.ReferenceLine),
-                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.AssemblyResult_file_filter_Extension,
-                                                                                                           RiskeerCommonFormsResources.AssemblyResult_DisplayName))
+                GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.AssemblyResults_file_filter_Extension,
+                                                                                                           Resources.AssemblyResults_DisplayName))
             };
 
             yield return CreateHydraulicBoundaryLocationCalculationsForTargetProbabilityExportInfo<
@@ -1030,7 +1030,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<AssemblyResultsContext>
             {
-                Text = context => Resources.AssemblyResultsCategoryTreeFolder_DisplayName,
+                Text = context => Resources.AssemblyResults_DisplayName,
                 Image = context => RiskeerCommonFormsResources.GeneralFolderIcon,
                 ChildNodeObjects = AssemblyResultsContextChildNodeObjects,
                 ExpandOnCreate = context => true,
