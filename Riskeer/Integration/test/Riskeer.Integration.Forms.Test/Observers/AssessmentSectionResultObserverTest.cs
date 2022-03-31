@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -29,6 +30,7 @@ using Riskeer.ClosingStructures.Data;
 using Riskeer.ClosingStructures.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.DuneErosion.Data;
 using Riskeer.GrassCoverErosionInwards.Data;
 using Riskeer.GrassCoverErosionOutwards.Data;
@@ -438,7 +440,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
             AssessmentSection assessmentSection = CreateAssessmentSection();
             var calculationScenario =
                 SemiProbabilisticPipingCalculationTestFactory.CreateCalculationWithInvalidInput<SemiProbabilisticPipingCalculationScenario>();
-            assessmentSection.MacroStabilityInwards.CalculationsGroup.Children.Add(calculationScenario);
+            assessmentSection.Piping.CalculationsGroup.Children.Add(calculationScenario);
 
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
@@ -451,6 +453,35 @@ namespace Riskeer.Integration.Forms.Test.Observers
 
                 // When
                 calculationScenario.NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenPipingScenarioConfigurationsPerFailureMechanismSectionNotified_ThenAttachedObserverNotified()
+        {
+            // Given
+            AssessmentSection assessmentSection = CreateAssessmentSection();
+
+            assessmentSection.Piping = new PipingFailureMechanism();
+            FailureMechanismTestHelper.SetSections(assessmentSection.Piping, new[]
+            {
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+            });
+
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                resultObserver.Attach(observer);
+
+                // When
+                assessmentSection.Piping.ScenarioConfigurationsPerFailureMechanismSection.First().NotifyObservers();
 
                 // Then
                 mocks.VerifyAll();
