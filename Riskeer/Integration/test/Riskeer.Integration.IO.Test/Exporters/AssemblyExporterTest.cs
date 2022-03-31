@@ -123,7 +123,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 {
                     var isExported = true;
 
-                    const string expectedMessage = "Om assemblageresultaten te kunnen exporteren moeten de specifieke faalmechanismen unieke namen hebben.";
+                    const string expectedMessage = "Om assemblageresultaten te kunnen exporteren moeten alle specifieke faalmechanismen die onderdeel zijn van de assemblage een unieke naam hebben.";
                     TestHelper.AssertLogMessageWithLevelIsGenerated(() => isExported = exporter.Export(),
                                                                     new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
 
@@ -152,7 +152,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "De assemblageresultaten kunnen niet worden bepaald. Inspecteer de individuele faalmechanismen of de gecombineerde faalkans voor meer details.";
+                const string expectedMessage = "De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of de gecombineerde faalkans voor meer details.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
@@ -178,7 +178,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "De assemblageresultaten kunnen niet worden bepaald. Inspecteer de individuele faalmechanismen of de gecombineerde faalkans voor meer details.";
+                const string expectedMessage = "De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of de gecombineerde faalkans voor meer details.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }

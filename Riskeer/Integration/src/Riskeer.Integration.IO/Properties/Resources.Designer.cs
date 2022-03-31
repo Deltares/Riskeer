@@ -91,7 +91,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De assemblageresultaten kunnen niet worden bepaald. Inspecteer de individuele faalmechanismen of de gecombineerde faalkans voor meer details..
+        ///   Looks up a localized string similar to De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of de gecombineerde faalkans voor meer details..
         /// </summary>
         public static string AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details {
             get {
@@ -100,7 +100,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Om assemblageresultaten te kunnen exporteren moeten de specifieke faalmechanismen unieke namen hebben..
+        ///   Looks up a localized string similar to Om assemblageresultaten te kunnen exporteren moeten alle specifieke faalmechanismen die onderdeel zijn van de assemblage een unieke naam hebben..
         /// </summary>
         public static string AssemblyExporter_Specific_failure_mechanisms_must_have_a_unique_name {
             get {
