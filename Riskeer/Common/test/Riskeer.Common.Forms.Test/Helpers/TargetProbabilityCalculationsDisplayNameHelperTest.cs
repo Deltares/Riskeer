@@ -74,7 +74,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         [Test]
         [TestCase(0.0025, 0.00025, 0.0025, 0.0025, "1/400")]
         [TestCase(0.0025, 0.0025, 0.0025, 0.0025, "1/400")]
-        public void GetUniqueDisplayNameForWaterLevelCalculations_ValidParameters_ReturnsExpectedDisplayNameForLowerLimitNorm(
+        public void GetUniqueDisplayNameForWaterLevelCalculations_ValidParameters_ReturnsExpectedDisplayNameForMaximumAllowableFloodingProbability(
             double maximumAllowableFloodingProbability, double signalFloodingProbability, double userDefinedTargetProbability1, double userDefinedTargetProbability2, string expectedName)
         {
             // Setup
@@ -108,7 +108,7 @@ namespace Riskeer.Common.Forms.Test.Helpers
         [Test]
         [TestCase(0.025, 0.0025, 0.0025, 0.0025, "1/400")]
         [TestCase(0.0025, 0.0025, 0.0025, 0.0025, "1/400 (1)")]
-        public void GetUniqueDisplayNameForWaterLevelCalculations_ValidParameters_ReturnsExpectedDisplayNameForSignalingNorm(
+        public void GetUniqueDisplayNameForWaterLevelCalculations_ValidParameters_ReturnsExpectedDisplayNameForSignalFloodingProbability(
             double maximumAllowableFloodingProbability, double signalFloodingProbability, double userDefinedTargetProbability1, double userDefinedTargetProbability2, string expectedName)
         {
             // Setup

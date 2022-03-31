@@ -36,10 +36,10 @@ namespace Riskeer.Common.Data.TestUtil
     {
         private static readonly Random random = new Random(21);
         private readonly IEnumerable<IFailureMechanism> failureMechanisms;
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNorm;
-        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNorm;
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalFloodingProbability;
+        private readonly ObservableList<HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMaximumAllowableFloodingProbability;
 
-        public AssessmentSectionStub() : this(new IFailureMechanism[0]) {}
+        public AssessmentSectionStub() : this(Array.Empty<IFailureMechanism>()) {}
 
         public AssessmentSectionStub(IEnumerable<IFailureMechanism> failureMechanisms)
         {
@@ -67,8 +67,8 @@ namespace Riskeer.Common.Data.TestUtil
                 new HydraulicBoundaryLocationCalculationsForTargetProbability(0.000025)
             };
 
-            waterLevelCalculationsForSignalingNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
-            waterLevelCalculationsForLowerLimitNorm = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            waterLevelCalculationsForSignalFloodingProbability = new ObservableList<HydraulicBoundaryLocationCalculation>();
+            waterLevelCalculationsForMaximumAllowableFloodingProbability = new ObservableList<HydraulicBoundaryLocationCalculation>();
 
             SpecificFailureMechanisms = new ObservableList<SpecificFailureMechanism>();
         }
@@ -89,21 +89,9 @@ namespace Riskeer.Common.Data.TestUtil
 
         public BackgroundData BackgroundData { get; set; }
 
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalFloodingProbability
-        {
-            get
-            {
-                return waterLevelCalculationsForSignalingNorm;
-            }
-        }
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalFloodingProbability => waterLevelCalculationsForSignalFloodingProbability;
 
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMaximumAllowableFloodingProbability
-        {
-            get
-            {
-                return waterLevelCalculationsForLowerLimitNorm;
-            }
-        }
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMaximumAllowableFloodingProbability => waterLevelCalculationsForMaximumAllowableFloodingProbability;
 
         public ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability> WaterLevelCalculationsForUserDefinedTargetProbabilities { get; }
 
@@ -120,8 +108,8 @@ namespace Riskeer.Common.Data.TestUtil
         public void SetHydraulicBoundaryLocationCalculations(IEnumerable<HydraulicBoundaryLocation> hydraulicBoundaryLocations, bool setCalculationOutput = false)
         {
             HydraulicBoundaryDatabase.Locations.Clear();
-            waterLevelCalculationsForSignalingNorm.Clear();
-            waterLevelCalculationsForLowerLimitNorm.Clear();
+            waterLevelCalculationsForSignalFloodingProbability.Clear();
+            waterLevelCalculationsForMaximumAllowableFloodingProbability.Clear();
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
             {
@@ -139,14 +127,9 @@ namespace Riskeer.Common.Data.TestUtil
             }
         }
 
-        public IEnumerable<IFailureMechanism> GetContributingFailureMechanisms()
-        {
-            return failureMechanisms;
-        }
-
         public IEnumerable<IFailureMechanism> GetFailureMechanisms()
         {
-            yield break;
+            return failureMechanisms;
         }
 
         public void ChangeComposition(AssessmentSectionComposition newComposition)
@@ -158,8 +141,8 @@ namespace Riskeer.Common.Data.TestUtil
         {
             HydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
-            waterLevelCalculationsForSignalingNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
-            waterLevelCalculationsForLowerLimitNorm.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
+            waterLevelCalculationsForSignalFloodingProbability.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
+            waterLevelCalculationsForMaximumAllowableFloodingProbability.Add(CreateHydraulicBoundaryLocationCalculation(hydraulicBoundaryLocation, setCalculationOutput));
 
             foreach (HydraulicBoundaryLocationCalculationsForTargetProbability element in WaterLevelCalculationsForUserDefinedTargetProbabilities)
             {

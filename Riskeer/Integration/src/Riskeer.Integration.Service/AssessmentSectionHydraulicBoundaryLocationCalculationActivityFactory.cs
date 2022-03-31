@@ -72,19 +72,19 @@ namespace Riskeer.Integration.Service
 
             var activities = new List<CalculatableActivity>();
 
-            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
+            double maximumAllowableFloodingProbability = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                                     assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                                     assessmentSection,
-                                    lowerLimitNorm,
+                                    maximumAllowableFloodingProbability,
                                     TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                                                                                                                                  assessmentSection)));
 
-            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalFloodingProbability;
+            double signalFloodingProbability = assessmentSection.FailureMechanismContribution.SignalFloodingProbability;
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
                                     assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                     assessmentSection,
-                                    signalingNorm,
+                                    signalFloodingProbability,
                                     TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                                                                                                                  assessmentSection)));
 

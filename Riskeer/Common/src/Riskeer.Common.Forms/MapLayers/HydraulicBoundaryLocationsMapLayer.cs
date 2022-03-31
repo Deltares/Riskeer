@@ -44,8 +44,8 @@ namespace Riskeer.Common.Forms.MapLayers
         private Observer failureMechanismContributionObserver;
 
         private Observer hydraulicBoundaryLocationsObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalingNormObserver;
-        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForLowerLimitNormObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForSignalFloodingProbabilityObserver;
+        private RecursiveObserver<IObservableEnumerable<HydraulicBoundaryLocationCalculation>, HydraulicBoundaryLocationCalculation> waterLevelCalculationsForMaximumAllowableFloodingProbabilityObserver;
 
         private Observer waterLevelForUserDefinedTargetProbabilitiesCollectionObserver;
         private Observer waveHeightForUserDefinedTargetProbabilitiesCollectionObserver;
@@ -97,8 +97,8 @@ namespace Riskeer.Common.Forms.MapLayers
             {
                 failureMechanismContributionObserver.Dispose();
                 hydraulicBoundaryLocationsObserver.Dispose();
-                waterLevelCalculationsForSignalingNormObserver.Dispose();
-                waterLevelCalculationsForLowerLimitNormObserver.Dispose();
+                waterLevelCalculationsForSignalFloodingProbabilityObserver.Dispose();
+                waterLevelCalculationsForMaximumAllowableFloodingProbabilityObserver.Dispose();
                 waterLevelForUserDefinedTargetProbabilitiesCollectionObserver.Dispose();
                 waveHeightForUserDefinedTargetProbabilitiesCollectionObserver.Dispose();
                 waterLevelForUserDefinedTargetProbabilitiesObserver.Dispose();
@@ -121,9 +121,9 @@ namespace Riskeer.Common.Forms.MapLayers
                 Observable = assessmentSection.HydraulicBoundaryDatabase.Locations
             };
 
-            waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+            waterLevelCalculationsForSignalFloodingProbabilityObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, UpdateFeatures);
-            waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
+            waterLevelCalculationsForMaximumAllowableFloodingProbabilityObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
                 assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, UpdateFeatures);
 
             waterLevelForUserDefinedTargetProbabilitiesCollectionObserver = new Observer(() =>
