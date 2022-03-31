@@ -785,9 +785,9 @@ namespace Riskeer.Integration.Plugin.Test
         [TestCase(0.01, 0.01, "1/100", 0.1, 0.01, "1/10")]
         [TestCase(0.1, 0.01, "1/10", 0.01, 0.01, "1/100")]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsViewForLowerLimitNorm_WhenChangingNormAndObserversNotified_ThenViewTitleUpdated(
-            double lowerLimitNorm, double signalingNorm, string originalProbabilityText,
-            double newLowerLimitNorm, double newSignalingNorm, string expectedProbabilityText)
+        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsViewForMaximumAllowableFloodingProbability_WhenChangingFloodingProbabilitiesAndObserversNotified_ThenViewTitleUpdated(
+            double maximumAllowableFloodingProbability, double signalFloodingProbability, string originalProbabilityText,
+            double newMaximumAllowableFloodingProbability, double newSignalFloodingProbability, string expectedProbabilityText)
         {
             // Given
             var mocks = new MockRepository();
@@ -804,8 +804,8 @@ namespace Riskeer.Integration.Plugin.Test
                 {
                     FailureMechanismContribution =
                     {
-                        MaximumAllowableFloodingProbability = lowerLimitNorm,
-                        SignalFloodingProbability = signalingNorm
+                        MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                        SignalFloodingProbability = signalFloodingProbability
                     }
                 };
                 var project = new RiskeerProject(assessmentSection);
@@ -824,8 +824,8 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // When
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                failureMechanismContribution.MaximumAllowableFloodingProbability = newLowerLimitNorm;
-                failureMechanismContribution.SignalFloodingProbability = newSignalingNorm;
+                failureMechanismContribution.MaximumAllowableFloodingProbability = newMaximumAllowableFloodingProbability;
+                failureMechanismContribution.SignalFloodingProbability = newSignalFloodingProbability;
                 failureMechanismContribution.NotifyObservers();
 
                 // Then
@@ -838,9 +838,9 @@ namespace Riskeer.Integration.Plugin.Test
         [TestCase(0.01, 0.01, "1/100 (1)", 0.1, 0.01, "1/100")]
         [TestCase(0.1, 0.01, "1/100", 0.01, 0.01, "1/100 (1)")]
         [Apartment(ApartmentState.STA)]
-        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsViewForSignalingNorm_WhenChangingNormAndObserversNotified_ThenViewTitleUpdated(
-            double lowerLimitNorm, double signalingNorm, string originalProbabilityText,
-            double newLowerLimitNorm, double newSignalingNorm, string expectedProbabilityText)
+        public void GivenPluginWithGuiSetAndOpenedDesignWaterLevelCalculationsViewForSignalFloodingProbability_WhenChangingFloodingProbabilitiesAndObserversNotified_ThenViewTitleUpdated(
+            double maximumAllowableFloodingProbability, double signalFloodingProbability, string originalProbabilityText,
+            double newMaximumAllowableFloodingProbability, double newSignalFloodingProbability, string expectedProbabilityText)
         {
             // Given
             var mocks = new MockRepository();
@@ -857,8 +857,8 @@ namespace Riskeer.Integration.Plugin.Test
                 {
                     FailureMechanismContribution =
                     {
-                        MaximumAllowableFloodingProbability = lowerLimitNorm,
-                        SignalFloodingProbability = signalingNorm
+                        MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                        SignalFloodingProbability = signalFloodingProbability
                     }
                 };
                 var project = new RiskeerProject(assessmentSection);
@@ -877,8 +877,8 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // When
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
-                failureMechanismContribution.MaximumAllowableFloodingProbability = newLowerLimitNorm;
-                failureMechanismContribution.SignalFloodingProbability = newSignalingNorm;
+                failureMechanismContribution.MaximumAllowableFloodingProbability = newMaximumAllowableFloodingProbability;
+                failureMechanismContribution.SignalFloodingProbability = newSignalFloodingProbability;
                 failureMechanismContribution.NotifyObservers();
 
                 // Then

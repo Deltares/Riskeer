@@ -126,12 +126,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ChildNodeObjects_Always_ReturnsChildrenOfData()
         {
             // Setup
-            const double signalingNorm = 0.002;
-            const double lowerLimitNorm = 0.005;
+            const double signalFloodingProbability = 0.002;
+            const double maximumAllowableFloodingProbability = 0.005;
 
             var assessmentSection = new AssessmentSectionStub();
-            assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability = lowerLimitNorm;
-            assessmentSection.FailureMechanismContribution.SignalFloodingProbability = signalingNorm;
+            assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability;
+            assessmentSection.FailureMechanismContribution.SignalFloodingProbability = signalFloodingProbability;
 
             var locations = new ObservableList<HydraulicBoundaryLocation>();
             var calculationsGroupContext = new WaterLevelCalculationsForNormTargetProbabilitiesGroupContext(locations, assessmentSection);
@@ -151,11 +151,11 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
                 Assert.AreSame(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, calculationsContexts[0].WrappedData);
                 Assert.AreSame(assessmentSection, calculationsContexts[0].AssessmentSection);
-                Assert.AreEqual(lowerLimitNorm, calculationsContexts[0].GetNormFunc());
+                Assert.AreEqual(maximumAllowableFloodingProbability, calculationsContexts[0].GetNormFunc());
 
                 Assert.AreSame(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, calculationsContexts[1].WrappedData);
                 Assert.AreSame(assessmentSection, calculationsContexts[1].AssessmentSection);
-                Assert.AreEqual(signalingNorm, calculationsContexts[1].GetNormFunc());
+                Assert.AreEqual(signalFloodingProbability, calculationsContexts[1].GetNormFunc());
             }
         }
 
@@ -464,8 +464,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void GivenValidCalculations_WhenCalculatingAllFromContextMenu_ThenLogMessagesAddedOutputSet()
         {
             // Given
-            const double signalingNorm = 0.002;
-            const double lowerLimitNorm = 0.005;
+            const double signalFloodingProbability = 0.002;
+            const double maximumAllowableFloodingProbability = 0.005;
 
             var mockRepository = new MockRepository();
             var assessmentSection = new AssessmentSectionStub
@@ -476,8 +476,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 },
                 FailureMechanismContribution =
                 {
-                    MaximumAllowableFloodingProbability = lowerLimitNorm,
-                    SignalFloodingProbability = signalingNorm
+                    MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                    SignalFloodingProbability = signalFloodingProbability
                 }
             };
 

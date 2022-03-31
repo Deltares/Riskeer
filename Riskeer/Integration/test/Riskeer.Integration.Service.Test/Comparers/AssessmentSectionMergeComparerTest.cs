@@ -210,10 +210,10 @@ namespace Riskeer.Integration.Service.Test.Comparers
                                                                    "Id");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.HydraulicBoundaryDatabase.Version = "DifferentVersion",
                                                                    "HydraulicBoundaryDataBase");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.MaximumAllowableFloodingProbability = sec.FailureMechanismContribution.MaximumAllowableFloodingProbability - 1e-15,
-                                                                   "LowerLimitNorm");
-            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.SignalFloodingProbability = sec.FailureMechanismContribution.SignalFloodingProbability - 1e-15,
-                                                                   "SignalingNorm");
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.MaximumAllowableFloodingProbability -= 1e-15,
+                                                                   "MaximumAllowableFloodingProbability");
+            yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.SignalFloodingProbability -= 1e-15,
+                                                                   "SignalFloodingProbability");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.NormativeProbabilityType = sec.FailureMechanismContribution.NormativeProbabilityType == NormativeProbabilityType.MaximumAllowableFloodingProbability
                                                                                                                                           ? NormativeProbabilityType.SignalFloodingProbability
                                                                                                                                           : NormativeProbabilityType.MaximumAllowableFloodingProbability,

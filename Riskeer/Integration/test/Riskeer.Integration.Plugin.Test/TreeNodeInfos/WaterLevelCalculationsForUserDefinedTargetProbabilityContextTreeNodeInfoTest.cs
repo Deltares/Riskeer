@@ -112,7 +112,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [TestCase(0.0025, 0.00025, 0.025, 0.0025, "1/400 (1)")]
         [TestCase(0.0025, 0.0025, 0.025, 0.0025, "1/400 (2)")]
         [TestCase(0.0025, 0.0025, 0.0025, 0.0025, "1/400 (3)")]
-        public void Text_WithContext_ReturnsUniquelyFormattedTargetProbability(double lowerLimitNorm, double signalingNorm,
+        public void Text_WithContext_ReturnsUniquelyFormattedTargetProbability(double maximumAllowableFloodingProbability,
+                                                                               double signalFloodingProbability,
                                                                                double userDefinedTargetProbability1,
                                                                                double userDefinedTargetProbability2,
                                                                                string expectedText)
@@ -122,7 +123,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(lowerLimitNorm, signalingNorm));
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability));
             assessmentSection.Stub(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
             assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
             assessmentSection.Stub(a => a.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(
@@ -1049,7 +1050,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         [TestCase(0.0025, 0.00025, 0.025, 0.0025, "1/400 (1)")]
         [TestCase(0.0025, 0.0025, 0.025, 0.0025, "1/400 (2)")]
         [TestCase(0.0025, 0.0025, 0.0025, 0.0025, "1/400 (3)")]
-        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenExpectedInquiryGiven(double lowerLimitNorm, double signalingNorm,
+        public void GivenCalculationWithIllustrationPoints_WhenClearIllustrationPointsClicked_ThenExpectedInquiryGiven(double maximumAllowableFloodingProbability,
+                                                                                                                       double signalFloodingProbability,
                                                                                                                        double userDefinedTargetProbability1,
                                                                                                                        double userDefinedTargetProbability2,
                                                                                                                        string expectedText)
@@ -1073,8 +1075,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             {
                 FailureMechanismContribution =
                 {
-                    MaximumAllowableFloodingProbability = lowerLimitNorm,
-                    SignalFloodingProbability = signalingNorm
+                    MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                    SignalFloodingProbability = signalFloodingProbability
                 },
                 WaterLevelCalculationsForUserDefinedTargetProbabilities =
                 {

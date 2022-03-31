@@ -83,31 +83,31 @@ namespace Riskeer.Integration.Service.Test
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
-            const string lowerLimitNormText = "1/30.000";
-            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalFloodingProbability;
-            const string signalingNormText = "1/30.000 (1)";
+            double maximumAllowableFloodingProbability = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
+            const string maximumAllowableFloodingProbabilityText = "1/30.000";
+            double signalFloodingProbability = assessmentSection.FailureMechanismContribution.SignalFloodingProbability;
+            const string signalFloodingProbabilityText = "1/30.000 (1)";
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),
                                                       hydraulicBoundaryLocation1,
-                                                      lowerLimitNorm,
-                                                      lowerLimitNormText,
+                                                      maximumAllowableFloodingProbability,
+                                                      maximumAllowableFloodingProbabilityText,
                                                       hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1),
                                                       hydraulicBoundaryLocation2,
-                                                      lowerLimitNorm,
-                                                      lowerLimitNormText,
+                                                      maximumAllowableFloodingProbability,
+                                                      maximumAllowableFloodingProbabilityText,
                                                       hydraulicBoundaryDatabase);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(2),
                                                       hydraulicBoundaryLocation1,
-                                                      signalingNorm,
-                                                      signalingNormText,
+                                                      signalFloodingProbability,
+                                                      signalFloodingProbabilityText,
                                                       hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(3),
                                                       hydraulicBoundaryLocation2,
-                                                      signalingNorm,
-                                                      signalingNormText,
+                                                      signalFloodingProbability,
+                                                      signalFloodingProbabilityText,
                                                       hydraulicBoundaryDatabase);
 
             double firstWaterLevelTargetProbability = assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].TargetProbability;
@@ -202,32 +202,32 @@ namespace Riskeer.Integration.Service.Test
 
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
 
-            double lowerLimitNorm = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
-            const string expectedLowerLimitNormText = "1/30.000";
+            double maximumAllowableFloodingProbability = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
+            const string expectedMaximumAllowableFloodingProbabilityText = "1/30.000";
 
-            double signalingNorm = assessmentSection.FailureMechanismContribution.SignalFloodingProbability;
-            const string expectedSignalingNormText = "1/30.000 (1)";
+            double signalFloodingProbability = assessmentSection.FailureMechanismContribution.SignalFloodingProbability;
+            const string expectedSignalFloodingProbabilityText = "1/30.000 (1)";
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(0),
                                                       hydraulicBoundaryLocation1,
-                                                      lowerLimitNorm,
-                                                      expectedLowerLimitNormText,
+                                                      maximumAllowableFloodingProbability,
+                                                      expectedMaximumAllowableFloodingProbabilityText,
                                                       hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(1),
                                                       hydraulicBoundaryLocation2,
-                                                      lowerLimitNorm,
-                                                      expectedLowerLimitNormText,
+                                                      maximumAllowableFloodingProbability,
+                                                      expectedMaximumAllowableFloodingProbabilityText,
                                                       hydraulicBoundaryDatabase);
 
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(2),
                                                       hydraulicBoundaryLocation1,
-                                                      signalingNorm,
-                                                      expectedSignalingNormText,
+                                                      signalFloodingProbability,
+                                                      expectedSignalFloodingProbabilityText,
                                                       hydraulicBoundaryDatabase);
             AssertDesignWaterLevelCalculationActivity(activities.ElementAt(3),
                                                       hydraulicBoundaryLocation2,
-                                                      signalingNorm,
-                                                      expectedSignalingNormText,
+                                                      signalFloodingProbability,
+                                                      expectedSignalFloodingProbabilityText,
                                                       hydraulicBoundaryDatabase);
         }
 

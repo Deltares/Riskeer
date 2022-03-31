@@ -87,15 +87,15 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculationDisplayTextCases))]
         public void GetViewName_WithContext_ReturnsExpectedViewName(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc,
-            double lowerLimitNorm, double signalingNorm, string expectedProbabilityText)
+            double maximumAllowableFloodingProbability, double signalFloodingProbability, string expectedProbabilityText)
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub
             {
                 FailureMechanismContribution =
                 {
-                    MaximumAllowableFloodingProbability = lowerLimitNorm,
-                    SignalFloodingProbability = signalingNorm
+                    MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                    SignalFloodingProbability = signalFloodingProbability
                 }
             };
             var context = new WaterLevelCalculationsForNormTargetProbabilityContext(getCalculationsFunc(assessmentSection),
@@ -376,28 +376,28 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilities()
         {
             yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability))
-                .SetName("SignalingNorm");
+                .SetName("SignalFloodingProbability");
             yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability))
-                .SetName("LowerLimitNorm");
+                .SetName("MaximumAllowableFloodingProbability");
         }
 
         private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculationDisplayTextCases()
         {
-            const double lowerLimitNorm = 0.1;
-            const double signalingNorm = 0.01;
+            const double maximumAllowableFloodingProbability = 0.1;
+            const double signalFloodingProbability = 0.01;
 
             yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability),
-                                          signalingNorm, signalingNorm, "1/100 (1)")
-                .SetName("SignalingNormCalculationsNormsSame");
+                                          signalFloodingProbability, signalFloodingProbability, "1/100 (1)")
+                .SetName("SignalFloodingProbabilityCalculationsProbabilitiesSame");
             yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability),
-                                          lowerLimitNorm, signalingNorm, "1/100")
-                .SetName("SignalingNormCalculationsNormsDifferent");
+                                          maximumAllowableFloodingProbability, signalFloodingProbability, "1/100")
+                .SetName("SignalFloodingProbabilityCalculationsProbabilitiesDifferent");
             yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
-                                          lowerLimitNorm, lowerLimitNorm, "1/10")
-                .SetName("LowerLimitNormCalculationsNormsSame");
+                                          maximumAllowableFloodingProbability, maximumAllowableFloodingProbability, "1/10")
+                .SetName("MaximumAllowableFloodingProbabilityCalculationsProbabilitiesSame");
             yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
-                                          lowerLimitNorm, signalingNorm, "1/10")
-                .SetName("LowerLimitNormCalculationsNormsDifferent");
+                                          maximumAllowableFloodingProbability, signalFloodingProbability, "1/10")
+                .SetName("MaximumAllowableFloodingProbabilityCalculationsProbabilitiesDifferent");
         }
 
         private static ViewInfo GetViewInfo(RiskeerPlugin plugin)
