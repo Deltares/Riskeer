@@ -32,27 +32,27 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     public interface IFailureMechanismContributionNormChangeHandler
     {
         /// <summary>
-        /// Change the normative norm type.
+        /// Change the normative probability type.
         /// </summary>
         /// <param name="action">The action to perform.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="action"/>
         /// is <c>null</c>.</exception>
-        void ChangeNormativeNormType(Action action);
+        void ChangeNormativeProbabilityType(Action action);
 
         /// <summary>
-        /// Change the normative norm.
+        /// Change the normative probability.
         /// </summary>
         /// <param name="action">The action to perform.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="action"/>
         /// is <c>null</c>.</exception>
-        void ChangeNormativeNorm(Action action);
+        void ChangeNormativeProbability(Action action);
 
         /// <summary>
-        /// Change the norm.
+        /// Change the probability.
         /// </summary>
         /// <param name="action">The action to perform.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="action"/>
         /// is <c>null</c>.</exception>
-        void ChangeNorm(Action action);
+        void ChangeProbability(Action action);
     }
 }

@@ -100,7 +100,7 @@ namespace Riskeer.Integration.Forms.PropertyClasses
             get => data.NormativeProbabilityType;
             set
             {
-                normChangeHandler.ChangeNormativeNormType(() => data.NormativeProbabilityType = value);
+                normChangeHandler.ChangeNormativeProbabilityType(() => data.NormativeProbabilityType = value);
             }
         }
 
@@ -108,11 +108,11 @@ namespace Riskeer.Integration.Forms.PropertyClasses
         {
             if (data.NormativeProbabilityType == normativeProbabilityType)
             {
-                normChangeHandler.ChangeNormativeNorm(action);
+                normChangeHandler.ChangeNormativeProbability(action);
             }
             else
             {
-                normChangeHandler.ChangeNorm(action);
+                normChangeHandler.ChangeProbability(action);
             }
         }
     }

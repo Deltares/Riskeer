@@ -63,7 +63,7 @@ namespace Riskeer.Integration.Plugin.Handlers
             this.assessmentSection = assessmentSection;
         }
 
-        public void ChangeNormativeNormType(Action action)
+        public void ChangeNormativeProbabilityType(Action action)
         {
             PerformAction(action, Resources.FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_semi_probabilistic_data,
                           () =>
@@ -74,7 +74,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                           });
         }
 
-        public void ChangeNormativeNorm(Action action)
+        public void ChangeNormativeProbability(Action action)
         {
             PerformAction(action, Resources.FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_hydraulic_calculations_data_and_semi_probabilistic_data,
                           () =>
@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Handlers
                           });
         }
 
-        public void ChangeNorm(Action action)
+        public void ChangeProbability(Action action)
         {
             PerformAction(action, Resources.FailureMechanismContributionNormChangeHandler_Confirm_change_norm_and_clear_dependent_hydraulic_calculations_data,
                           () =>

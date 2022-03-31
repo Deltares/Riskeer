@@ -164,7 +164,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNormativeNorm(null))
+            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNormativeProbability(null))
                                                          .IgnoreArguments()
                                                          .WhenCalled(invocation =>
                                                          {
@@ -194,7 +194,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNorm(null))
+            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeProbability(null))
                                                          .IgnoreArguments()
                                                          .WhenCalled(invocation =>
                                                          {
@@ -224,7 +224,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNormativeNorm(null))
+            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNormativeProbability(null))
                                                          .IgnoreArguments()
                                                          .WhenCalled(invocation =>
                                                          {
@@ -253,7 +253,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNorm(null))
+            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeProbability(null))
                                                          .IgnoreArguments()
                                                          .WhenCalled(invocation =>
                                                          {
@@ -282,7 +282,7 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
 
             var mocks = new MockRepository();
             var failureMechanismContributionNormChangeHandler = mocks.StrictMock<IFailureMechanismContributionNormChangeHandler>();
-            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNormativeNormType(null))
+            failureMechanismContributionNormChangeHandler.Expect(h => h.ChangeNormativeProbabilityType(null))
                                                          .IgnoreArguments()
                                                          .WhenCalled(invocation =>
                                                          {
