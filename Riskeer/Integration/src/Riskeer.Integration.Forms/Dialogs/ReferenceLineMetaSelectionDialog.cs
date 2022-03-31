@@ -210,13 +210,13 @@ namespace Riskeer.Integration.Forms.Dialogs
                 AssessmentSectionId = referenceLineMeta.AssessmentSectionId;
                 ReferenceLineMeta = referenceLineMeta;
 
-                SignalFloodingProbability = TryGetNormValue(referenceLineMeta.SignalFloodingProbability);
+                SignalFloodingProbability = TryGetProbability(referenceLineMeta.SignalFloodingProbability);
                 if (SignalFloodingProbability != string.Empty)
                 {
                     SignalFloodingProbabilityReturnPeriod = referenceLineMeta.SignalFloodingProbability;
                 }
 
-                MaximumAllowableFloodingProbability = TryGetNormValue(referenceLineMeta.MaximumAllowableFloodingProbability);
+                MaximumAllowableFloodingProbability = TryGetProbability(referenceLineMeta.MaximumAllowableFloodingProbability);
                 if (MaximumAllowableFloodingProbability != string.Empty)
                 {
                     MaximumAllowableFloodingProbabilityReturnPeriod = referenceLineMeta.MaximumAllowableFloodingProbability;
@@ -230,9 +230,9 @@ namespace Riskeer.Integration.Forms.Dialogs
             public int MaximumAllowableFloodingProbabilityReturnPeriod { get; }
             public ReferenceLineMeta ReferenceLineMeta { get; }
 
-            private static string TryGetNormValue(int? returnPeriod)
+            private static string TryGetProbability(int? returnPeriod)
             {
-                return returnPeriod.HasValue && returnPeriod > 0
+                return returnPeriod > 0
                            ? ProbabilityFormattingHelper.FormatFromReturnPeriod(returnPeriod.Value)
                            : string.Empty;
             }
