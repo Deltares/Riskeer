@@ -1482,7 +1482,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                     Assert.IsNotNull(newCalculationItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                    Assert.AreEqual(GetWaterLevelTypeFromNormType(normativeProbabilityType), newCalculationItem.InputParameters.WaterLevelType);
+                    Assert.AreEqual(GetWaterLevelTypeFromNormativeProbabilityType(normativeProbabilityType), newCalculationItem.InputParameters.WaterLevelType);
                 }
             }
         }
@@ -1492,7 +1492,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var random = new Random(21);
-            var normType = random.NextEnumValue<NormativeProbabilityType>();
+            var normativeProbabilityType = random.NextEnumValue<NormativeProbabilityType>();
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1514,7 +1514,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 {
                     FailureMechanismContribution =
                     {
-                        NormativeProbabilityType = normType
+                        NormativeProbabilityType = normativeProbabilityType
                     }
                 };
                 assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(new[]
@@ -1563,7 +1563,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
 
-                WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormType(normType);
+                WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormativeProbabilityType(normativeProbabilityType);
                 var firstCalculation = group.Children[2] as WaveImpactAsphaltCoverWaveConditionsCalculation;
                 Assert.IsNotNull(firstCalculation);
                 WaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;
@@ -1931,7 +1931,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             };
         }
 
-        private static WaveConditionsInputWaterLevelType GetWaterLevelTypeFromNormType(NormativeProbabilityType normativeProbabilityType)
+        private static WaveConditionsInputWaterLevelType GetWaterLevelTypeFromNormativeProbabilityType(NormativeProbabilityType normativeProbabilityType)
         {
             switch (normativeProbabilityType)
             {

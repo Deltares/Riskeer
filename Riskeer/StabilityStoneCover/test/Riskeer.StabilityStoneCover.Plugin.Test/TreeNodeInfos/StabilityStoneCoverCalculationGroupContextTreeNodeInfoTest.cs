@@ -1456,7 +1456,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                     Assert.IsNotNull(newCalculationItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                    Assert.AreEqual(GetWaterLevelTypeFromNormType(normativeProbabilityType), newCalculationItem.InputParameters.WaterLevelType);
+                    Assert.AreEqual(GetWaterLevelTypeFromNormativeProbabilityType(normativeProbabilityType), newCalculationItem.InputParameters.WaterLevelType);
                 }
             }
         }
@@ -1539,7 +1539,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
 
-                WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormType(normType);
+                WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormativeProbabilityType(normType);
                 var firstCalculation = group.Children[2] as StabilityStoneCoverWaveConditionsCalculation;
                 Assert.IsNotNull(firstCalculation);
                 StabilityStoneCoverWaveConditionsInput firstCalculationInputParameters = firstCalculation.InputParameters;
@@ -1908,7 +1908,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
             };
         }
 
-        private static WaveConditionsInputWaterLevelType GetWaterLevelTypeFromNormType(NormativeProbabilityType normativeProbabilityType)
+        private static WaveConditionsInputWaterLevelType GetWaterLevelTypeFromNormativeProbabilityType(NormativeProbabilityType normativeProbabilityType)
         {
             switch (normativeProbabilityType)
             {

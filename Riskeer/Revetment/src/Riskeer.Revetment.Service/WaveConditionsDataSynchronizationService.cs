@@ -60,7 +60,7 @@ namespace Riskeer.Revetment.Service
                 throw new ArgumentNullException(nameof(failureMechanism));
             }
 
-            WaveConditionsInputWaterLevelType waterLevelType = GetWaterLevelTypeFromNormType(normativeProbabilityType);
+            WaveConditionsInputWaterLevelType waterLevelType = GetWaterLevelTypeFromNormativeProbabilityType(normativeProbabilityType);
 
             var affectedItems = new List<IObservable>();
             foreach (TCalculation calculation in failureMechanism.Calculations
@@ -159,7 +159,7 @@ namespace Riskeer.Revetment.Service
         /// <returns>A <see cref="WaveConditionsInputWaterLevelType"/>.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="normativeProbabilityType"/> is invalid.</exception>
         /// <exception cref="NotSupportedException">Thrown when <paramref name="normativeProbabilityType"/> is not supported.</exception>
-        private static WaveConditionsInputWaterLevelType GetWaterLevelTypeFromNormType(NormativeProbabilityType normativeProbabilityType)
+        private static WaveConditionsInputWaterLevelType GetWaterLevelTypeFromNormativeProbabilityType(NormativeProbabilityType normativeProbabilityType)
         {
             if (!Enum.IsDefined(typeof(NormativeProbabilityType), normativeProbabilityType))
             {
