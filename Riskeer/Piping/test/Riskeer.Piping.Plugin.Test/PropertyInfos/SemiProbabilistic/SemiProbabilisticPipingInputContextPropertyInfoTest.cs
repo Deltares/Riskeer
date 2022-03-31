@@ -62,7 +62,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
         }
 
         [Test]
-        public void CreateInstance_WithContextAndNormTypeSignaling_ExpectedProperties()
+        public void CreateInstance_WithContextAndNormativeProbabilityTypeSignalFloodingProbability_ExpectedProperties()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub
@@ -108,7 +108,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
         }
 
         [Test]
-        public void CreateInstance_WithContextAndNormTypeLowerLimit_ExpectedProperties()
+        public void CreateInstance_WithContextAndNormativeProbabilityTypeMaximumAllowableFloodingProbability_ExpectedProperties()
         {
             // Setup
             var assessmentSection = new AssessmentSectionStub

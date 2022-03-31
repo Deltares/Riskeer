@@ -67,8 +67,8 @@ namespace Riskeer.Storage.Core.Test.Create
             const string testId = "testId";
             const string testName = "testName";
             const string comments = "Some text";
-            const double lowerLimitNorm = 0.05;
-            const double signalingNorm = 0.02;
+            const double maximumAllowableFloodingProbability = 0.05;
+            const double signalFloodingProbability = 0.02;
 
             var random = new Random(65);
             const string mapDataName = "map data name";
@@ -89,8 +89,8 @@ namespace Riskeer.Storage.Core.Test.Create
                 },
                 FailureMechanismContribution =
                 {
-                    MaximumAllowableFloodingProbability = lowerLimitNorm,
-                    SignalFloodingProbability = signalingNorm,
+                    MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                    SignalFloodingProbability = signalFloodingProbability,
                     NormativeProbabilityType = normativeNorm
                 },
                 BackgroundData =
@@ -114,8 +114,8 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(testId, entity.Id);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(comments, entity.Comments);
-            Assert.AreEqual(lowerLimitNorm, entity.LowerLimitNorm);
-            Assert.AreEqual(signalingNorm, entity.SignalingNorm);
+            Assert.AreEqual(maximumAllowableFloodingProbability, entity.LowerLimitNorm);
+            Assert.AreEqual(signalFloodingProbability, entity.SignalingNorm);
             Assert.AreEqual(Convert.ToByte(normativeNorm), entity.NormativeNormType);
             Assert.AreEqual(15, entity.FailureMechanismEntities.Count);
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.Piping));

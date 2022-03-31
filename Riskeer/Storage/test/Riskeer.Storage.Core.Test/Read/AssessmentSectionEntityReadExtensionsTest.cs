@@ -67,8 +67,8 @@ namespace Riskeer.Storage.Core.Test.Read
             const string testId = "testId";
             const string testName = "testName";
             const string comments = "Some text";
-            const double lowerLimitNorm = 0.05;
-            const double signalingNorm = 0.02;
+            const double maximumAllowableFloodingProbability = 0.05;
+            const double signalFloodingProbability = 0.02;
             var normativeNorm = new Random(9).NextEnumValue<NormativeProbabilityType>();
             var entity = new AssessmentSectionEntity
             {
@@ -76,8 +76,8 @@ namespace Riskeer.Storage.Core.Test.Read
                 Name = testName,
                 Composition = Convert.ToByte(assessmentSectionComposition),
                 Comments = comments,
-                LowerLimitNorm = lowerLimitNorm,
-                SignalingNorm = signalingNorm,
+                LowerLimitNorm = maximumAllowableFloodingProbability,
+                SignalingNorm = signalFloodingProbability,
                 NormativeNormType = Convert.ToByte(normativeNorm)
             };
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
@@ -93,8 +93,8 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.AreEqual(testName, section.Name);
             Assert.AreEqual(comments, section.Comments.Body);
 
-            Assert.AreEqual(lowerLimitNorm, section.FailureMechanismContribution.MaximumAllowableFloodingProbability);
-            Assert.AreEqual(signalingNorm, section.FailureMechanismContribution.SignalFloodingProbability);
+            Assert.AreEqual(maximumAllowableFloodingProbability, section.FailureMechanismContribution.MaximumAllowableFloodingProbability);
+            Assert.AreEqual(signalFloodingProbability, section.FailureMechanismContribution.SignalFloodingProbability);
             Assert.AreEqual(normativeNorm, section.FailureMechanismContribution.NormativeProbabilityType);
 
             Assert.AreEqual(assessmentSectionComposition, section.Composition);
