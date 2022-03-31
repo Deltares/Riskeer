@@ -152,7 +152,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "De assemblageresultaten kunnen niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen of de gecombineerde faalkans voor meer details.";
+                const string expectedMessage = "De assemblageresultaten kunnen niet worden bepaald. Inspecteer de individuele faalmechanismen of de gecombineerde faalkans voor meer details.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
@@ -178,7 +178,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "De assemblageresultaten kunnen niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen of de gecombineerde faalkans voor meer details.";
+                const string expectedMessage = "De assemblageresultaten kunnen niet worden bepaald. Inspecteer de individuele faalmechanismen of de gecombineerde faalkans voor meer details.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
@@ -247,7 +247,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
                 // Assert
                 string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{filePath}'. " +
-                                         "Er is geen oordeel geëxporteerd.";
+                                         "Er zijn geen assemblageresultaten geëxporteerd.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }

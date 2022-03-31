@@ -145,7 +145,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 var exception = Assert.Throws<AssemblyException>(Call);
                 Exception innerException = exception.InnerException;
                 Assert.IsInstanceOf<AssemblyException>(innerException);
-                Assert.AreEqual("Voor een of meerdere faalmechanismen kan geen oordeel worden bepaald.", exception.Message);
+                Assert.AreEqual("Voor een of meerdere faalmechanismen kan geen assemblageresultaat worden bepaald.", exception.Message);
             }
         }
 
