@@ -11,7 +11,7 @@
     <Company>Deltares</Company>
     <Copyright>Copyright © Deltares 2021</Copyright>
     <Version>21.2.1</Version>
-    <Configurations>Debug;Release;ReleaseForCodeCoverage</Configurations>
+    <Configurations>Debug;Release;Coverage</Configurations>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -29,9 +29,9 @@
     <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Coverage|x86'">
     <ConfigurationGroup>Release</ConfigurationGroup>
-    <DefineConstants>TRACE;RELEASEFORCODECOVERAGE</DefineConstants>
+    <DefineConstants>TRACE;COVERAGE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
