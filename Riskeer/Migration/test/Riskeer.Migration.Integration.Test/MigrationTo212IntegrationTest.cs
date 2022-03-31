@@ -286,9 +286,9 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[Id] IS OLD.[Id] " +
                 "AND NEW.[Name] IS OLD.[Name] " +
                 "AND NEW.[Comments] IS OLD.[Comments] " +
-                "AND NEW.[LowerLimitNorm] = OLD.[LowerLimitNorm] " +
-                "AND NEW.[SignalingNorm] = OLD.[SignalingNorm] " +
-                "AND NEW.[NormativeNormType] = OLD.[NormativeNormType] " +
+                "AND NEW.[MaximumAllowableFloodingProbability] = OLD.[LowerLimitNorm] " +
+                "AND NEW.[SignalFloodingProbability] = OLD.[SignalingNorm] " +
+                "AND NEW.[NormativeProbabilityType] = OLD.[NormativeNormType] " +
                 "AND NEW.[Composition] = OLD.[Composition] " +
                 "AND NEW.[ReferenceLinePointXml] = OLD.[ReferenceLinePointXml]; " +
                 "DETACH SOURCEPROJECT;";
@@ -1036,9 +1036,9 @@ namespace Riskeer.Migration.Integration.Test
                 "SELECT " +
                 "AssessmentSectionEntityId AS sectionId, " +
                 "CASE " +
-                "WHEN NormativeNormType IS 1 " +
-                "THEN LowerLimitNorm " +
-                "ELSE SignalingNorm " +
+                "WHEN NormativeProbabilityType IS 1 " +
+                "THEN MaximumAllowableFloodingProbability " +
+                "ELSE SignalFloodingProbability " +
                 "END AS Norm " +
                 "FROM AssessmentSectionEntity) " +
                 "ON sectionId = failureMechanismAssessmentSectionId";

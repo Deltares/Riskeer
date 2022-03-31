@@ -11,14 +11,14 @@ ATTACH DATABASE "{0}" AS SOURCEPROJECT;
 INSERT INTO AssessmentSectionEntity (
     [AssessmentSectionEntityId],
     [ProjectEntityId],
-    [HydraulicLocationCalculationCollectionEntity1Id],	-- Represents the design water level signaling norm
-    [HydraulicLocationCalculationCollectionEntity2Id],	-- Represents the design water level lower limit norm
+    [HydraulicLocationCalculationCollectionEntity1Id],	-- Represents the water level signal flooding probability
+    [HydraulicLocationCalculationCollectionEntity2Id],	-- Represents the water level maximum allowable flooding probability
     [Id],
     [Name],
     [Comments],
-    [LowerLimitNorm],
-    [SignalingNorm],
-    [NormativeNormType],
+    [MaximumAllowableFloodingProbability],
+    [SignalFloodingProbability],
+    [NormativeProbabilityType],
     [Composition],
     [ReferenceLinePointXml]
 ) 
@@ -1120,9 +1120,9 @@ JOIN (
     SELECT
         AssessmentSectionEntityId AS sectionId,
         CASE
-            WHEN NormativeNormType IS 1
-                THEN LowerLimitNorm
-            ELSE SignalingNorm
+            WHEN NormativeProbabilityType IS 1
+                THEN MaximumAllowableFloodingProbability
+            ELSE SignalFloodingProbability
         END AS Norm
     FROM AssessmentSectionEntity)
 ON sectionId = AssessmentSectionEntityId;
