@@ -69,16 +69,16 @@ namespace Riskeer.Storage.Core.Test.Read
             const string comments = "Some text";
             const double maximumAllowableFloodingProbability = 0.05;
             const double signalFloodingProbability = 0.02;
-            var normativeNorm = new Random(9).NextEnumValue<NormativeProbabilityType>();
+            var normativeProbabilityType = new Random(9).NextEnumValue<NormativeProbabilityType>();
             var entity = new AssessmentSectionEntity
             {
                 Id = testId,
                 Name = testName,
                 Composition = Convert.ToByte(assessmentSectionComposition),
                 Comments = comments,
-                LowerLimitNorm = maximumAllowableFloodingProbability,
-                SignalingNorm = signalFloodingProbability,
-                NormativeNormType = Convert.ToByte(normativeNorm)
+                MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
+                SignalFloodingProbability = signalFloodingProbability,
+                NormativeProbabilityType = Convert.ToByte(normativeProbabilityType)
             };
             entity.BackgroundDataEntities.Add(CreateBackgroundDataEntity());
 
@@ -95,7 +95,7 @@ namespace Riskeer.Storage.Core.Test.Read
 
             Assert.AreEqual(maximumAllowableFloodingProbability, section.FailureMechanismContribution.MaximumAllowableFloodingProbability);
             Assert.AreEqual(signalFloodingProbability, section.FailureMechanismContribution.SignalFloodingProbability);
-            Assert.AreEqual(normativeNorm, section.FailureMechanismContribution.NormativeProbabilityType);
+            Assert.AreEqual(normativeProbabilityType, section.FailureMechanismContribution.NormativeProbabilityType);
 
             Assert.AreEqual(assessmentSectionComposition, section.Composition);
             CollectionAssert.IsEmpty(section.ReferenceLine.Points);
@@ -1167,9 +1167,9 @@ namespace Riskeer.Storage.Core.Test.Read
         {
             return new AssessmentSectionEntity
             {
-                LowerLimitNorm = 1.0 / 30000,
-                SignalingNorm = 1.0 / 300000,
-                NormativeNormType = Convert.ToByte(NormativeProbabilityType.SignalFloodingProbability),
+                MaximumAllowableFloodingProbability = 1.0 / 30000,
+                SignalFloodingProbability = 1.0 / 300000,
+                NormativeProbabilityType = Convert.ToByte(NormativeProbabilityType.SignalFloodingProbability),
                 Composition = Convert.ToByte(AssessmentSectionComposition.Dike)
             };
         }

@@ -75,7 +75,7 @@ namespace Riskeer.Storage.Core.Test.Create
             const double transparency = 0.3;
             const bool isVisible = true;
             const BackgroundDataType backgroundType = BackgroundDataType.Wmts;
-            var normativeNorm = random.NextEnumValue<NormativeProbabilityType>();
+            var normativeProbabilityType = random.NextEnumValue<NormativeProbabilityType>();
             IEnumerable<SpecificFailureMechanism> specificFailureMechanisms = Enumerable.Repeat(new SpecificFailureMechanism(), random.Next(1, 10))
                                                                                         .ToArray();
 
@@ -91,7 +91,7 @@ namespace Riskeer.Storage.Core.Test.Create
                 {
                     MaximumAllowableFloodingProbability = maximumAllowableFloodingProbability,
                     SignalFloodingProbability = signalFloodingProbability,
-                    NormativeProbabilityType = normativeNorm
+                    NormativeProbabilityType = normativeProbabilityType
                 },
                 BackgroundData =
                 {
@@ -114,9 +114,9 @@ namespace Riskeer.Storage.Core.Test.Create
             Assert.AreEqual(testId, entity.Id);
             Assert.AreEqual(testName, entity.Name);
             Assert.AreEqual(comments, entity.Comments);
-            Assert.AreEqual(maximumAllowableFloodingProbability, entity.LowerLimitNorm);
-            Assert.AreEqual(signalFloodingProbability, entity.SignalingNorm);
-            Assert.AreEqual(Convert.ToByte(normativeNorm), entity.NormativeNormType);
+            Assert.AreEqual(maximumAllowableFloodingProbability, entity.MaximumAllowableFloodingProbability);
+            Assert.AreEqual(signalFloodingProbability, entity.SignalFloodingProbability);
+            Assert.AreEqual(Convert.ToByte(normativeProbabilityType), entity.NormativeProbabilityType);
             Assert.AreEqual(15, entity.FailureMechanismEntities.Count);
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.Piping));
             Assert.IsNotNull(entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (short) FailureMechanismType.GrassRevetmentTopErosionAndInwards));

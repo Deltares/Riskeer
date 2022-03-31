@@ -53,8 +53,8 @@ namespace Riskeer.Storage.Core.Read
             }
 
             var assessmentSection = new AssessmentSection((AssessmentSectionComposition) entity.Composition,
-                                                          entity.LowerLimitNorm,
-                                                          entity.SignalingNorm)
+                                                          entity.MaximumAllowableFloodingProbability,
+                                                          entity.SignalFloodingProbability)
             {
                 Id = entity.Id,
                 Name = entity.Name,
@@ -64,7 +64,7 @@ namespace Riskeer.Storage.Core.Read
                 },
                 FailureMechanismContribution =
                 {
-                    NormativeProbabilityType = (NormativeProbabilityType) entity.NormativeNormType
+                    NormativeProbabilityType = (NormativeProbabilityType) entity.NormativeProbabilityType
                 }
             };
 
