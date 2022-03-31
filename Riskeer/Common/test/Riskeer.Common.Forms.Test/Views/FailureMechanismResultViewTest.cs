@@ -248,17 +248,16 @@ namespace Riskeer.Common.Forms.Test.Views
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
                 Assert.IsFalse(comboBox.Enabled);
-                
+
                 FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
                 FailureMechanismTestHelper.SetSections(failureMechanism, new[]
                 {
                     section
                 });
-                
+
                 failureMechanism.NotifyObservers();
-                
+
                 // Assert
-                
                 Assert.IsTrue(comboBox.Enabled);
             }
         }
