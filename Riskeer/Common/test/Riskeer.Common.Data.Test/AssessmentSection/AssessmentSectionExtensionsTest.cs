@@ -255,13 +255,13 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
                 assessmentSection,
                 hydraulicBoundaryLocation,
                 NormativeProbabilityType.SignalFloodingProbability,
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0));
+                assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.ElementAt(0));
 
             yield return new TestCaseData(
                 assessmentSection,
                 hydraulicBoundaryLocation,
                 NormativeProbabilityType.MaximumAllowableFloodingProbability,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0));
+                assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.ElementAt(0));
         }
     }
 }

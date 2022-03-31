@@ -322,11 +322,11 @@ namespace Riskeer.Storage.Core.TestUtil
                                                             HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
             var random = new Random(21);
-            HydraulicBoundaryLocationCalculation signalingNormCalculation = assessmentSection.WaterLevelCalculationsForSignalingNorm
+            HydraulicBoundaryLocationCalculation signalingNormCalculation = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability
                                                                                              .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
             ConfigureDesignWaterLevelCalculation(signalingNormCalculation, random.NextBoolean());
 
-            HydraulicBoundaryLocationCalculation lowerLimitNormCalculation = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+            HydraulicBoundaryLocationCalculation lowerLimitNormCalculation = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability
                                                                                               .Single(calc => ReferenceEquals(calc.HydraulicBoundaryLocation, hydraulicBoundaryLocation));
             ConfigureDesignWaterLevelCalculation(lowerLimitNormCalculation, random.NextBoolean());
 

@@ -74,14 +74,14 @@ namespace Riskeer.Common.Data.AssessmentSection
         BackgroundData BackgroundData { get; }
 
         /// <summary>
-        /// Gets the water level calculations corresponding to the signaling norm.
+        /// Gets the water level calculations corresponding to the signal flooding probability.
         /// </summary>
-        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm { get; }
+        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalFloodingProbability { get; }
 
         /// <summary>
-        /// Gets the water level calculations corresponding to the lower limit norm.
+        /// Gets the water level calculations corresponding to the maximum allowable flooding probability.
         /// </summary>
-        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForLowerLimitNorm { get; }
+        IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMaximumAllowableFloodingProbability { get; }
 
         /// <summary>
         /// Gets the water level calculations corresponding to the user defined target probabilities.

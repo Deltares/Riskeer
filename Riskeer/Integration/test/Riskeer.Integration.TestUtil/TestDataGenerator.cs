@@ -102,8 +102,8 @@ namespace Riskeer.Integration.TestUtil
                 hydraulicBoundaryLocation
             });
 
-            assessmentSection.WaterLevelCalculationsForSignalingNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
-            assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+            assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
+            assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());
 
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First()
                              .HydraulicBoundaryLocationCalculations.First().Output = new TestHydraulicBoundaryLocationCalculationOutput(random.NextDouble());

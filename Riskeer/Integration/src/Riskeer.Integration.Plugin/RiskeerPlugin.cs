@@ -628,10 +628,10 @@ namespace Riskeer.Integration.Plugin
                     new[]
                     {
                         new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                            context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                            context.AssessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                             context.AssessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability),
                         new Tuple<IEnumerable<HydraulicBoundaryLocationCalculation>, double>(
-                            context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
+                            context.AssessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                             context.AssessmentSection.FailureMechanismContribution.SignalFloodingProbability)
                     }, HydraulicBoundaryLocationCalculationsType.WaterLevel, filePath),
                 IsEnabled = context => true,
@@ -1197,13 +1197,13 @@ namespace Riskeer.Integration.Plugin
             IAssessmentSection assessmentSection = designWaterLevelCalculationsView.AssessmentSection;
 
             object viewData = designWaterLevelCalculationsView.Data;
-            if (ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                || ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForLowerLimitNorm))
+            if (ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability)
+                || ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability))
             {
                 IObservableEnumerable<HydraulicBoundaryLocationCalculation> calculationsForUserDefinedTargetProbability =
-                    ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                        ? assessmentSection.WaterLevelCalculationsForSignalingNorm
-                        : assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+                    ReferenceEquals(viewData, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability)
+                        ? assessmentSection.WaterLevelCalculationsForSignalFloodingProbability
+                        : assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability;
 
                 Func<string> getTitleFunc = () => GetWaterLevelCalculationsForNormTargetProbabilitiesViewName(calculationsForUserDefinedTargetProbability, assessmentSection);
 
@@ -2457,10 +2457,10 @@ namespace Riskeer.Integration.Plugin
         {
             return new object[]
             {
-                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                                                                           context.AssessmentSection,
                                                                           () => context.AssessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability),
-                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForSignalingNorm,
+                new WaterLevelCalculationsForNormTargetProbabilityContext(context.AssessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                                                           context.AssessmentSection,
                                                                           () => context.AssessmentSection.FailureMechanismContribution.SignalFloodingProbability)
             };
@@ -2716,8 +2716,8 @@ namespace Riskeer.Integration.Plugin
 
         private static bool WaterLevelCalculationsForNormTargetProbabilitiesHaveIllustrationPoints(IAssessmentSection assessmentSection)
         {
-            return IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForSignalingNorm)
-                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            return IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability)
+                   || IllustrationPointsHelper.HasIllustrationPoints(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
         }
 
         private static bool WaterLevelCalculationsForUserDefinedTargetProbabilitiesHaveIllustrationPoints(IAssessmentSection assessmentSection)

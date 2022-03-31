@@ -976,9 +976,9 @@ namespace Riskeer.Integration.Plugin.Test.Merge
         private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculationFuncs()
         {
             yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                                              section => section.WaterLevelCalculationsForSignalingNorm));
+                                              section => section.WaterLevelCalculationsForSignalFloodingProbability));
             yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                                              section => section.WaterLevelCalculationsForLowerLimitNorm));
+                                              section => section.WaterLevelCalculationsForMaximumAllowableFloodingProbability));
             yield return new TestCaseData(new Func<AssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
                                               section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities
                                                                 .SelectMany(c => c.HydraulicBoundaryLocationCalculations)));

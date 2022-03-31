@@ -128,7 +128,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(
                 activity,
                 calculation,
-                assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output.Result,
+                assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result,
                 hydraulicBoundaryDatabase);
         }
 
@@ -215,7 +215,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(GrassCoverErosionOutwardsWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output.Result;
+            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result;
             AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
             AssertGrassCoverErosionOutwardsWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
         }

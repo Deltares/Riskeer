@@ -971,9 +971,9 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
                 new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations,
                                                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                                                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().TargetProbability),
-                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
+                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                                                 assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability),
-                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.SignalFloodingProbability,
+                new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                                                 assessmentSection.FailureMechanismContribution.SignalFloodingProbability),
                 new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Last().HydraulicBoundaryLocationCalculations,
                                                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
@@ -1026,13 +1026,13 @@ namespace Riskeer.Revetment.Forms.Test.PropertyClasses
             yield return new TestCaseData(
                 WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                 new Func<IAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForSignalingNorm),
+                    section => section.WaterLevelCalculationsForSignalFloodingProbability),
                 new Func<IAssessmentSection, double>(
                     section => section.FailureMechanismContribution.SignalFloodingProbability));
             yield return new TestCaseData(
                 WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                 new Func<IAssessmentSection, IEnumerable<HydraulicBoundaryLocationCalculation>>(
-                    section => section.WaterLevelCalculationsForLowerLimitNorm),
+                    section => section.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
                 new Func<IAssessmentSection, double>(
                     section => section.FailureMechanismContribution.MaximumAllowableFloodingProbability));
             yield return new TestCaseData(

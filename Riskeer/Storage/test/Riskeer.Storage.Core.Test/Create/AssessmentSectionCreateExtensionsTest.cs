@@ -291,9 +291,9 @@ namespace Riskeer.Storage.Core.Test.Create
 
         private static void AssertHydraulicLocationCalculationCollectionEntities(AssessmentSection assessmentSection, AssessmentSectionEntity entity)
         {
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForSignalingNorm,
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                                                entity.HydraulicLocationCalculationCollectionEntity1.HydraulicLocationCalculationEntities);
-            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+            AssertHydraulicLocationCalculationCollectionEntity(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                                                                entity.HydraulicLocationCalculationCollectionEntity.HydraulicLocationCalculationEntities);
 
             AssertHydraulicLocationCalculationForTargetProbabilityCollectionEntity(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities,
@@ -308,8 +308,8 @@ namespace Riskeer.Storage.Core.Test.Create
         private static void SetHydraulicBoundaryLocationCalculationInputsOfAssessmentSection(AssessmentSection assessmentSection)
         {
             var random = new Random(21);
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForSignalingNorm, random.Next());
-            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, random.Next());
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, random.Next());
+            SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, random.Next());
 
             SetHydraulicBoundaryLocationCalculationInputs(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
                                                                            .SelectMany(calc => calc.HydraulicBoundaryLocationCalculations), random.Next());

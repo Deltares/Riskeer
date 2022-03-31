@@ -225,7 +225,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Assert
             HydraulicBoundaryLocation hydraulicBoundaryLocation = section.HydraulicBoundaryDatabase.Locations.Single();
 
-            HydraulicBoundaryLocationCalculation calculation = section.WaterLevelCalculationsForSignalingNorm.Single();
+            HydraulicBoundaryLocationCalculation calculation = section.WaterLevelCalculationsForSignalFloodingProbability.Single();
             HydraulicLocationCalculationEntity hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity1
                                                                                           .HydraulicLocationCalculationEntities
                                                                                           .Single();
@@ -233,7 +233,7 @@ namespace Riskeer.Storage.Core.Test.Read
                                                        hydraulicBoundaryLocation,
                                                        calculation);
 
-            calculation = section.WaterLevelCalculationsForLowerLimitNorm.Single();
+            calculation = section.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Single();
             hydraulicLocationCalculationEntity = entity.HydraulicLocationCalculationCollectionEntity
                                                        .HydraulicLocationCalculationEntities
                                                        .Single();
@@ -271,8 +271,8 @@ namespace Riskeer.Storage.Core.Test.Read
             Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
 
-            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForSignalingNorm);
-            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForSignalFloodingProbability);
+            CollectionAssert.IsEmpty(section.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
 
             CollectionAssert.IsEmpty(section.WaterLevelCalculationsForUserDefinedTargetProbabilities);
             CollectionAssert.IsEmpty(section.WaveHeightCalculationsForUserDefinedTargetProbabilities);

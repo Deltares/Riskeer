@@ -375,9 +375,9 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
         private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilities()
         {
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm))
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability))
                 .SetName("SignalingNorm");
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm))
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability))
                 .SetName("LowerLimitNorm");
         }
 
@@ -386,16 +386,16 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             const double lowerLimitNorm = 0.1;
             const double signalingNorm = 0.01;
 
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm),
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability),
                                           signalingNorm, signalingNorm, "1/100 (1)")
                 .SetName("SignalingNormCalculationsNormsSame");
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalingNorm),
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability),
                                           lowerLimitNorm, signalingNorm, "1/100")
                 .SetName("SignalingNormCalculationsNormsDifferent");
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm),
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
                                           lowerLimitNorm, lowerLimitNorm, "1/10")
                 .SetName("LowerLimitNormCalculationsNormsSame");
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForLowerLimitNorm),
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability),
                                           lowerLimitNorm, signalingNorm, "1/10")
                 .SetName("LowerLimitNormCalculationsNormsDifferent");
         }

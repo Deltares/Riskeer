@@ -105,7 +105,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             // Assert
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveImpactAsphaltCoverWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
-            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output.Result;
+            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result;
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(0), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
             AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
@@ -185,7 +185,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsCalculationActivity>(activity);
             AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activity,
                                                                           calculation,
-                                                                          assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output.Result,
+                                                                          assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result,
                                                                           assessmentSection.HydraulicBoundaryDatabase);
         }
 
@@ -269,7 +269,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
             CollectionAssert.AllItemsAreInstancesOfType(activities, typeof(WaveImpactAsphaltCoverWaveConditionsCalculationActivity));
             Assert.AreEqual(2, activities.Count());
 
-            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output.Result;
+            RoundedDouble assessmentLevel = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result;
             HydraulicBoundaryDatabase hydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.First(), calculation1, assessmentLevel, hydraulicBoundaryDatabase);
             AssertWaveImpactAsphaltCoverWaveConditionsCalculationActivity(activities.ElementAt(1), calculation2, assessmentLevel, hydraulicBoundaryDatabase);
@@ -282,7 +282,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                 hydraulicBoundaryLocation
             });
 
-            assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
+            assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output = new TestHydraulicBoundaryLocationCalculationOutput(2.0);
         }
 
         private static AssessmentSectionStub CreateAssessmentSection()

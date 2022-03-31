@@ -108,8 +108,8 @@ namespace Riskeer.Integration.Plugin.Test.Handlers
                                                                                                        .Where(HasDuneLocationCalculationOutput)
                                                                                                        .ToArray();
 
-            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsWithOutput = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Where(HasHydraulicBoundaryLocationCalculationOutput)
-                                                                                                                                 .Concat(assessmentSection.WaterLevelCalculationsForSignalingNorm.Where(HasHydraulicBoundaryLocationCalculationOutput))
+            IEnumerable<HydraulicBoundaryLocationCalculation> hydraulicBoundaryLocationCalculationsWithOutput = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Where(HasHydraulicBoundaryLocationCalculationOutput)
+                                                                                                                                 .Concat(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Where(HasHydraulicBoundaryLocationCalculationOutput))
                                                                                                                                  .Concat(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.SelectMany(tp => tp.HydraulicBoundaryLocationCalculations))
                                                                                                                                  .ToArray();
 

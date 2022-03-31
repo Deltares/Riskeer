@@ -103,7 +103,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
             Assert.IsInstanceOf<SemiProbabilisticPipingInputContextProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
-            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output.Result;
+            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.ElementAt(0).Output.Result;
             Assert.AreEqual(expectedAssessmentLevel, ((SemiProbabilisticPipingInputContextProperties) objectProperties).AssessmentLevel);
         }
 
@@ -149,7 +149,7 @@ namespace Riskeer.Piping.Plugin.Test.PropertyInfos.SemiProbabilistic
             Assert.IsInstanceOf<SemiProbabilisticPipingInputContextProperties>(objectProperties);
             Assert.AreSame(context, objectProperties.Data);
 
-            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(0).Output.Result;
+            double expectedAssessmentLevel = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.ElementAt(0).Output.Result;
             Assert.AreEqual(expectedAssessmentLevel, ((SemiProbabilisticPipingInputContextProperties) objectProperties).AssessmentLevel);
         }
     }

@@ -104,9 +104,9 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
         {
             var assessmentSection = new AssessmentSectionStub();
 
-            yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+            yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                                                                           WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability, assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability), "1/30.000");
-            yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm,
+            yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                                                           WaveConditionsInputWaterLevelType.SignalFloodingProbability, assessmentSection.FailureMechanismContribution.SignalFloodingProbability), "1/30.000 (1)");
 
             var sectionWithNonUniqueTargetProbability = new AssessmentSectionStub();
@@ -143,26 +143,26 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
 
             protected override SelectableTargetProbability CreateObject()
             {
-                return new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.SignalFloodingProbability, 0.1);
+                return new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability, 0.1);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
                 yield return new TestCaseData(new SelectableTargetProbability(assessmentSection,
-                                                                              assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                                              assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                                                               WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                                                                               0.01));
                 yield return new TestCaseData(new SelectableTargetProbability(assessmentSection,
-                                                                              assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                                              assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                                                               WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
                                                                               0.1));
                 yield return new TestCaseData(new SelectableTargetProbability(assessmentSection,
-                                                                              assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                                                              assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                                                                               WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                                                                               0.1));
                 var otherAssessmentSection = new AssessmentSectionStub();
                 yield return new TestCaseData(new SelectableTargetProbability(otherAssessmentSection,
-                                                                              assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                                                              assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                                                               WaveConditionsInputWaterLevelType.SignalFloodingProbability,
                                                                               0.1))
                     .SetName("differentAssessmentSection");
@@ -170,11 +170,11 @@ namespace Riskeer.Revetment.Forms.Test.PresentationObjects
 
             private static IEnumerable<TestCaseData> GetEqualTestCases()
             {
-                yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.SignalFloodingProbability, 0.1),
-                                              new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalingNorm, WaveConditionsInputWaterLevelType.SignalFloodingProbability, 0.1));
+                yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability, 0.1),
+                                              new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability, 0.1));
 
-                yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability, 0.1),
-                                              new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability, 0.1));
+                yield return new TestCaseData(new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability, 0.1),
+                                              new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability, 0.1));
             }
         }
     }

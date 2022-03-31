@@ -69,9 +69,9 @@ namespace Riskeer.Common.Forms.TestUtil
                 MapFeaturesMetaDataTestHelper.AssertMetaData(hydraulicBoundaryLocation.Name, mapFeature, "Naam");
 
                 var presentedMetaDataItems = new List<string>();
-                AssertMetaData(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, hydraulicBoundaryLocation, mapFeature,
+                AssertMetaData(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, hydraulicBoundaryLocation, mapFeature,
                                assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability, "h - {0}", presentedMetaDataItems);
-                AssertMetaData(assessmentSection.WaterLevelCalculationsForSignalingNorm, hydraulicBoundaryLocation, mapFeature,
+                AssertMetaData(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, hydraulicBoundaryLocation, mapFeature,
                                assessmentSection.FailureMechanismContribution.SignalFloodingProbability, "h - {0}", presentedMetaDataItems);
 
                 foreach (HydraulicBoundaryLocationCalculationsForTargetProbability calculationsForTargetProbability in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities)

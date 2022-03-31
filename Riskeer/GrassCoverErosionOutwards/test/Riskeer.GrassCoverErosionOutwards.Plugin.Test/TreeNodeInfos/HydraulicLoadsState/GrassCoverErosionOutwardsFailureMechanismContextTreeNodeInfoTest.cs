@@ -316,7 +316,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(0).Output =
+            assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.ElementAt(0).Output =
                 new TestHydraulicBoundaryLocationCalculationOutput(2.0);
 
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = CreateValidCalculation(hydraulicBoundaryLocation);
@@ -375,7 +375,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos.HydraulicL
                         CalculationServiceTestHelper.AssertCalculationStartMessage(msgs.ElementAt(3));
 
                         IEnumerable<RoundedDouble> waterLevels = calculation.InputParameters.GetWaterLevels(
-                            assessmentSection.WaterLevelCalculationsForSignalingNorm.Single().Output.Result);
+                            assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Single().Output.Result);
                         Assert.AreEqual(3, waterLevels.Count());
                         AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfoploop", 4);
                         AssertWaveConditionsCalculationMessages(msgs, waterLevels, "golfklap", 15);

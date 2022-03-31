@@ -189,8 +189,8 @@ namespace Riskeer.Integration.Plugin.Handlers
             var locationsAndCalculationsObservables = new List<IObservable>
             {
                 hydraulicBoundaryDatabase.Locations,
-                assessmentSection.WaterLevelCalculationsForSignalingNorm,
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
+                assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                 assessmentSection.DuneErosion.DuneLocations,
                 assessmentSection.DuneErosion.DuneLocationCalculationsForUserDefinedTargetProbabilities
             };

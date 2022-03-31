@@ -177,8 +177,8 @@ namespace Riskeer.Integration.Plugin.Handlers
         private IEnumerable<HydraulicBoundaryLocationCalculation> GetHydraulicBoundaryLocationCalculationsToClear(NormativeProbabilityType normativeProbabilityToClearFor)
         {
             return normativeProbabilityToClearFor == NormativeProbabilityType.MaximumAllowableFloodingProbability
-                       ? assessmentSection.WaterLevelCalculationsForLowerLimitNorm
-                       : assessmentSection.WaterLevelCalculationsForSignalingNorm;
+                       ? assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability
+                       : assessmentSection.WaterLevelCalculationsForSignalFloodingProbability;
         }
     }
 }

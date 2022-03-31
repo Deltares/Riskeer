@@ -141,8 +141,8 @@ namespace Riskeer.Storage.Core.Create
                                                                     AssessmentSectionEntity entity,
                                                                     PersistenceRegistry registry)
         {
-            entity.HydraulicLocationCalculationCollectionEntity1 = assessmentSection.WaterLevelCalculationsForSignalingNorm.Create(registry);
-            entity.HydraulicLocationCalculationCollectionEntity = assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity1 = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Create(registry);
+            entity.HydraulicLocationCalculationCollectionEntity = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Create(registry);
         }
 
         private static void AddHydraulicLocationCalculationForTargetProbabilityCollectionEntities(AssessmentSection assessmentSection,

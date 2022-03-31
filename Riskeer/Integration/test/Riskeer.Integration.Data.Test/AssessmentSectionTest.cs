@@ -66,10 +66,12 @@ namespace Riskeer.Integration.Data.Test
             Assert.IsNull(hydraulicBoundaryDatabase.Version);
             Assert.IsFalse(hydraulicBoundaryDatabase.HydraulicLocationConfigurationSettings.CanUsePreprocessor);
 
-            Assert.IsEmpty(assessmentSection.SpecificFailureMechanisms);
+            CollectionAssert.IsEmpty(assessmentSection.SpecificFailureMechanisms);
 
-            Assert.IsEmpty(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities);
-            Assert.IsEmpty(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities);
+            CollectionAssert.IsEmpty(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities);
 
             CollectionAssert.IsEmpty(assessmentSection.Piping.StochasticSoilModels);
             CollectionAssert.IsEmpty(assessmentSection.Piping.SurfaceLines);
@@ -96,9 +98,6 @@ namespace Riskeer.Integration.Data.Test
             Assert.AreEqual("Bing Maps - Satelliet", backgroundData.Name);
             var configuration = (WellKnownBackgroundDataConfiguration) backgroundData.Configuration;
             Assert.AreEqual(RiskeerWellKnownTileSource.BingAerial, configuration.WellKnownTileSource);
-
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
         }
 
         [Test]
@@ -292,8 +291,8 @@ namespace Riskeer.Integration.Data.Test
             });
 
             // Precondition
-            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
+            CollectionAssert.IsNotEmpty(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
             CollectionAssert.IsNotEmpty(waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
             CollectionAssert.IsNotEmpty(waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
 
@@ -301,8 +300,8 @@ namespace Riskeer.Integration.Data.Test
             assessmentSection.SetHydraulicBoundaryLocationCalculations(Enumerable.Empty<HydraulicBoundaryLocation>());
 
             // Assert
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
+            CollectionAssert.IsEmpty(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
             CollectionAssert.IsEmpty(waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
             CollectionAssert.IsEmpty(waveHeightCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations);
         }
@@ -402,16 +401,16 @@ namespace Riskeer.Integration.Data.Test
 
         private static void AssertNumberOfHydraulicBoundaryLocationCalculations(AssessmentSection assessmentSection, int expectedNumberOfCalculations)
         {
-            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForSignalingNorm.Count());
-            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForLowerLimitNorm.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.Count());
+            Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.Count());
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.Count());
             Assert.AreEqual(expectedNumberOfCalculations, assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.Count());
         }
 
         private static void AssertDefaultHydraulicBoundaryLocationCalculations(AssessmentSection assessmentSection, int index, HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForSignalingNorm.ElementAt(index), hydraulicBoundaryLocation);
-            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForLowerLimitNorm.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.ElementAt(index), hydraulicBoundaryLocation);
+            AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.ElementAt(index), hydraulicBoundaryLocation);
             AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.ElementAt(index), hydraulicBoundaryLocation);
             AssertDefaultHydraulicBoundaryLocationCalculation(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.First().HydraulicBoundaryLocationCalculations.ElementAt(index), hydraulicBoundaryLocation);
         }

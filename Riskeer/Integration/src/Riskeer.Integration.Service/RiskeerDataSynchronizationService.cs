@@ -214,9 +214,9 @@ namespace Riskeer.Integration.Service
                                                                                                                                 .OfType<DuneErosionFailureMechanism>()
                                                                                                                                 .Single()));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
-                                         assessmentSection.WaterLevelCalculationsForSignalingNorm));
+                                         assessmentSection.WaterLevelCalculationsForSignalFloodingProbability));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationOutput(
-                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
+                                         assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability));
 
             foreach (IEnumerable<HydraulicBoundaryLocationCalculation> calculations in assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities
                                                                                                         .Select(c => c.HydraulicBoundaryLocationCalculations))
@@ -404,9 +404,9 @@ namespace Riskeer.Integration.Service
 
             var affectedObjects = new List<IObservable>();
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
-                                         assessmentSection.WaterLevelCalculationsForSignalingNorm));
+                                         assessmentSection.WaterLevelCalculationsForSignalFloodingProbability));
             affectedObjects.AddRange(RiskeerCommonDataSynchronizationService.ClearHydraulicBoundaryLocationCalculationIllustrationPoints(
-                                         assessmentSection.WaterLevelCalculationsForLowerLimitNorm));
+                                         assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability));
             return affectedObjects;
         }
 

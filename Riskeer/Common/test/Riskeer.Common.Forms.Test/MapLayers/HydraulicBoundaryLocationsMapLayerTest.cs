@@ -589,9 +589,9 @@ namespace Riskeer.Common.Forms.Test.MapLayers
         private static IEnumerable<TestCaseData> GetCalculationFuncs()
         {
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              assessmentSection => assessmentSection.WaterLevelCalculationsForSignalingNorm.First()));
+                                              assessmentSection => assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.First()));
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              assessmentSection => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First()));
+                                              assessmentSection => assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First()));
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
                                               assessmentSection => assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.First()
                                                                                     .HydraulicBoundaryLocationCalculations.First()));

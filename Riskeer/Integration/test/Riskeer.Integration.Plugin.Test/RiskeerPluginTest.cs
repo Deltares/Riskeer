@@ -814,7 +814,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 gui.DocumentViewController.CloseAllViews();
                 gui.DocumentViewController.OpenViewForData(new WaterLevelCalculationsForNormTargetProbabilityContext(
-                                                               assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection, () => 0.1));
+                                                               assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, assessmentSection, () => 0.1));
 
                 IView view = gui.ViewHost.DocumentViews.First();
 
@@ -867,7 +867,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 gui.DocumentViewController.CloseAllViews();
                 gui.DocumentViewController.OpenViewForData(new WaterLevelCalculationsForNormTargetProbabilityContext(
-                                                               assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection, () => 0.1));
+                                                               assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, assessmentSection, () => 0.1));
 
                 IView view = gui.ViewHost.DocumentViews.First();
 

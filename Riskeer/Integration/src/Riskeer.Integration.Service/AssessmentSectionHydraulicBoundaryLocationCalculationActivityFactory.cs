@@ -74,18 +74,18 @@ namespace Riskeer.Integration.Service
 
             double lowerLimitNorm = assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability;
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                    assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                    assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                                     assessmentSection,
                                     lowerLimitNorm,
-                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm,
+                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
                                                                                                                                  assessmentSection)));
 
             double signalingNorm = assessmentSection.FailureMechanismContribution.SignalFloodingProbability;
             activities.AddRange(HydraulicBoundaryLocationCalculationActivityFactory.CreateDesignWaterLevelCalculationActivities(
-                                    assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                    assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                     assessmentSection,
                                     signalingNorm,
-                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForSignalingNorm,
+                                    TargetProbabilityCalculationsDisplayNameHelper.GetUniqueDisplayNameForWaterLevelCalculations(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
                                                                                                                                  assessmentSection)));
 
             return activities;

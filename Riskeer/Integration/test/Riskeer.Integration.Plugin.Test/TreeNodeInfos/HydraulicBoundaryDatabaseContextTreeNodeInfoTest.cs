@@ -806,8 +806,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 new TestHydraulicBoundaryLocation()
             });
 
-            SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
+            SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
 
             SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations);
             SetHydraulicBoundaryLocationOutput(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations);
@@ -834,8 +834,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetAllHydraulicLocationCalculationsWithOutput(IAssessmentSection assessmentSection)
         {
-            return assessmentSection.WaterLevelCalculationsForSignalingNorm
-                                    .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+            return assessmentSection.WaterLevelCalculationsForSignalFloodingProbability
+                                    .Concat(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability)
                                     .Concat(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.SelectMany(tp => tp.HydraulicBoundaryLocationCalculations))
                                     .Concat(assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.SelectMany(tp => tp.HydraulicBoundaryLocationCalculations))
                                     .Where(calc => calc.HasOutput);
@@ -844,9 +844,9 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         private static IEnumerable<TestCaseData> GetHydraulicBoundaryLocationCalculations()
         {
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              section => section.WaterLevelCalculationsForSignalingNorm.First()));
+                                              section => section.WaterLevelCalculationsForSignalFloodingProbability.First()));
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
-                                              section => section.WaterLevelCalculationsForLowerLimitNorm.First()));
+                                              section => section.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First()));
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(
                                               section => section.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations.First()));
             yield return new TestCaseData(new Func<IAssessmentSection, HydraulicBoundaryLocationCalculation>(

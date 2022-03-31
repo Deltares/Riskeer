@@ -84,8 +84,8 @@ namespace Riskeer.Common.Forms.Test.Helpers
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForLowerLimitNorm).Return(hydraulicBoundaryLocationCalculations);
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalingNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability).Return(hydraulicBoundaryLocationCalculations);
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
             assessmentSection.Stub(a => a.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(
                 new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
                 {
@@ -118,8 +118,8 @@ namespace Riskeer.Common.Forms.Test.Helpers
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForLowerLimitNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalingNorm).Return(hydraulicBoundaryLocationCalculations);
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalFloodingProbability).Return(hydraulicBoundaryLocationCalculations);
             assessmentSection.Stub(a => a.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(
                 new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
                 {
@@ -156,8 +156,8 @@ namespace Riskeer.Common.Forms.Test.Helpers
             IAssessmentSection assessmentSection = AssessmentSectionTestHelper.CreateAssessmentSectionStub(mockRepository);
 
             assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(maximumAllowableFloodingProbability, signalFloodingProbability));
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForLowerLimitNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
-            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalingNorm).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
+            assessmentSection.Stub(a => a.WaterLevelCalculationsForSignalFloodingProbability).Return(new ObservableList<HydraulicBoundaryLocationCalculation>());
             assessmentSection.Stub(a => a.WaterLevelCalculationsForUserDefinedTargetProbabilities).Return(
                 new ObservableList<HydraulicBoundaryLocationCalculationsForTargetProbability>
                 {

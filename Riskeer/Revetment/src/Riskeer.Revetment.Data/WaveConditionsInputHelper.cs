@@ -131,9 +131,9 @@ namespace Riskeer.Revetment.Data
                 case WaveConditionsInputWaterLevelType.None:
                     return null;
                 case WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability:
-                    return GetRelatedHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, input);
+                    return GetRelatedHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, input);
                 case WaveConditionsInputWaterLevelType.SignalFloodingProbability:
-                    return GetRelatedHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForSignalingNorm, input);
+                    return GetRelatedHydraulicBoundaryLocationCalculation(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, input);
                 case WaveConditionsInputWaterLevelType.UserDefinedTargetProbability:
                     return GetRelatedHydraulicBoundaryLocationCalculation(input.CalculationsTargetProbability.HydraulicBoundaryLocationCalculations, input);
                 default:
@@ -233,9 +233,9 @@ namespace Riskeer.Revetment.Data
                 case WaveConditionsInputWaterLevelType.None:
                     return RoundedDouble.NaN;
                 case WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability:
-                    return GetAssessmentLevelFromHydraulicBoundaryLocationCalculations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, input);
+                    return GetAssessmentLevelFromHydraulicBoundaryLocationCalculations(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, input);
                 case WaveConditionsInputWaterLevelType.SignalFloodingProbability:
-                    return GetAssessmentLevelFromHydraulicBoundaryLocationCalculations(assessmentSection.WaterLevelCalculationsForSignalingNorm, input);
+                    return GetAssessmentLevelFromHydraulicBoundaryLocationCalculations(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, input);
                 case WaveConditionsInputWaterLevelType.UserDefinedTargetProbability:
                     return GetAssessmentLevelFromHydraulicBoundaryLocationCalculations(input.CalculationsTargetProbability.HydraulicBoundaryLocationCalculations, input);
                 default:

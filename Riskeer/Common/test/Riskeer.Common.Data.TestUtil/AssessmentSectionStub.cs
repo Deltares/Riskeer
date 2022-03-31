@@ -89,7 +89,7 @@ namespace Riskeer.Common.Data.TestUtil
 
         public BackgroundData BackgroundData { get; set; }
 
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalingNorm
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForSignalFloodingProbability
         {
             get
             {
@@ -97,7 +97,7 @@ namespace Riskeer.Common.Data.TestUtil
             }
         }
 
-        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForLowerLimitNorm
+        public IObservableEnumerable<HydraulicBoundaryLocationCalculation> WaterLevelCalculationsForMaximumAllowableFloodingProbability
         {
             get
             {

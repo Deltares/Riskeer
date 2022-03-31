@@ -336,10 +336,10 @@ namespace Riskeer.Revetment.Data.Test
                 (Func<WaveConditionsInput, IAssessmentSection, HydraulicBoundaryLocationCalculation>) ((input, assessmentSection) => null));
             yield return new TestCaseData(
                 WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
-                (Func<WaveConditionsInput, IAssessmentSection, HydraulicBoundaryLocationCalculation>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First()));
+                (Func<WaveConditionsInput, IAssessmentSection, HydraulicBoundaryLocationCalculation>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First()));
             yield return new TestCaseData(
                 WaveConditionsInputWaterLevelType.SignalFloodingProbability,
-                (Func<WaveConditionsInput, IAssessmentSection, HydraulicBoundaryLocationCalculation>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForSignalingNorm.First()));
+                (Func<WaveConditionsInput, IAssessmentSection, HydraulicBoundaryLocationCalculation>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.First()));
             yield return new TestCaseData(
                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                 (Func<WaveConditionsInput, IAssessmentSection, HydraulicBoundaryLocationCalculation>) ((input, assessmentSection) => input.CalculationsTargetProbability.HydraulicBoundaryLocationCalculations.First()));
@@ -368,10 +368,10 @@ namespace Riskeer.Revetment.Data.Test
                 (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => double.NaN));
             yield return new TestCaseData(
                 WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability,
-                (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForLowerLimitNorm.First().Output.Result));
+                (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability.First().Output.Result));
             yield return new TestCaseData(
                 WaveConditionsInputWaterLevelType.SignalFloodingProbability,
-                (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForSignalingNorm.First().Output.Result));
+                (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => assessmentSection.WaterLevelCalculationsForSignalFloodingProbability.First().Output.Result));
             yield return new TestCaseData(
                 WaveConditionsInputWaterLevelType.UserDefinedTargetProbability,
                 (Func<WaveConditionsInput, IAssessmentSection, double>) ((input, assessmentSection) => input.CalculationsTargetProbability.HydraulicBoundaryLocationCalculations.First().Output.Result));

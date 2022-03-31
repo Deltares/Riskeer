@@ -429,9 +429,9 @@ namespace Riskeer.Integration.Service.Test
                 hydraulicBoundaryLocation2
             });
 
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForSignalingNorm
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation1 = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability
                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
-            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForLowerLimitNorm
+            HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation2 = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability
                                                                                                           .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
             HydraulicBoundaryLocationCalculation hydraulicBoundaryLocationCalculation3 = waterLevelCalculationsForTargetProbability.HydraulicBoundaryLocationCalculations
                                                                                                                                    .First(c => ReferenceEquals(c.HydraulicBoundaryLocation, hydraulicBoundaryLocation1));
@@ -1639,8 +1639,8 @@ namespace Riskeer.Integration.Service.Test
 
         private static IEnumerable<HydraulicBoundaryLocationCalculation> GetWaterLevelCalculationsForNormTargetProbabilitiesWithOutput(IAssessmentSection assessmentSection)
         {
-            return assessmentSection.WaterLevelCalculationsForSignalingNorm
-                                    .Concat(assessmentSection.WaterLevelCalculationsForLowerLimitNorm)
+            return assessmentSection.WaterLevelCalculationsForSignalFloodingProbability
+                                    .Concat(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability)
                                     .Where(calc => calc.HasOutput);
         }
 
@@ -1993,8 +1993,8 @@ namespace Riskeer.Integration.Service.Test
 
             assessmentSection.SetHydraulicBoundaryLocationCalculations(hydraulicBoundaryLocations, true);
 
-            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForSignalingNorm);
-            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForLowerLimitNorm);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability);
+            SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
 
             SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[0].HydraulicBoundaryLocationCalculations);
             SetHydraulicBoundaryLocationCalculationOutputConfigurations(assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities[1].HydraulicBoundaryLocationCalculations);

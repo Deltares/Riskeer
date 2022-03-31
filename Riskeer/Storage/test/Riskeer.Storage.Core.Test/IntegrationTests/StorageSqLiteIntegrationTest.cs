@@ -1904,10 +1904,10 @@ namespace Riskeer.Storage.Core.Test.IntegrationTests
         private static void AssertHydraulicBoundaryLocationCalculations(AssessmentSection expected,
                                                                         AssessmentSection actual)
         {
-            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForSignalingNorm,
-                                                        actual.WaterLevelCalculationsForSignalingNorm);
-            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForLowerLimitNorm,
-                                                        actual.WaterLevelCalculationsForLowerLimitNorm);
+            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForSignalFloodingProbability,
+                                                        actual.WaterLevelCalculationsForSignalFloodingProbability);
+            AssertHydraulicBoundaryLocationCalculations(expected.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
+                                                        actual.WaterLevelCalculationsForMaximumAllowableFloodingProbability);
 
             AssertHydraulicBoundaryLocationCalculationsForTargetProbabilities(expected.WaterLevelCalculationsForUserDefinedTargetProbabilities,
                                                                               actual.WaterLevelCalculationsForUserDefinedTargetProbabilities);

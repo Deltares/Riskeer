@@ -122,9 +122,9 @@ namespace Riskeer.Common.Forms.MapLayers
             };
 
             waterLevelCalculationsForSignalingNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                assessmentSection.WaterLevelCalculationsForSignalingNorm, UpdateFeatures);
+                assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, UpdateFeatures);
             waterLevelCalculationsForLowerLimitNormObserver = ObserverHelper.CreateHydraulicBoundaryLocationCalculationsObserver(
-                assessmentSection.WaterLevelCalculationsForLowerLimitNorm, UpdateFeatures);
+                assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, UpdateFeatures);
 
             waterLevelForUserDefinedTargetProbabilitiesCollectionObserver = new Observer(() =>
             {
@@ -253,8 +253,8 @@ namespace Riskeer.Common.Forms.MapLayers
                     tp => (IObservableEnumerable<HydraulicBoundaryLocationCalculation>) tp.HydraulicBoundaryLocationCalculations,
                     tp => tp.TargetProbability);
 
-            waterLevelCalculations.Add(assessmentSection.WaterLevelCalculationsForLowerLimitNorm, assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability);
-            waterLevelCalculations.Add(assessmentSection.WaterLevelCalculationsForSignalingNorm, assessmentSection.FailureMechanismContribution.SignalFloodingProbability);
+            waterLevelCalculations.Add(assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability);
+            waterLevelCalculations.Add(assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, assessmentSection.FailureMechanismContribution.SignalFloodingProbability);
 
             return waterLevelCalculations.OrderByDescending(pair => pair.Value)
                                          .ToDictionary(x => x.Key, x => string.Format(Resources.MetaData_WaterLevel_TargetProbability_0,

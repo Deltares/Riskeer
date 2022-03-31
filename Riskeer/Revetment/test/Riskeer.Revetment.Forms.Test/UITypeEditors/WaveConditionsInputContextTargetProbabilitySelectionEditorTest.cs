@@ -90,12 +90,12 @@ namespace Riskeer.Revetment.Forms.Test.UITypeEditors
             const WaveConditionsInputWaterLevelType waterLevelType = WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability;
             const double targetProbability = 0.1;
 
-            var selectableTargetProbability = new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, waterLevelType, targetProbability);
+            var selectableTargetProbability = new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, waterLevelType, targetProbability);
             var properties = new ObjectPropertiesWithSelectableTargetProbability(
                 selectableTargetProbability,
                 new[]
                 {
-                    new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForLowerLimitNorm, waterLevelType, targetProbability)
+                    new SelectableTargetProbability(assessmentSection, assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, waterLevelType, targetProbability)
                 });
 
             var propertyBag = new DynamicPropertyBag(properties);

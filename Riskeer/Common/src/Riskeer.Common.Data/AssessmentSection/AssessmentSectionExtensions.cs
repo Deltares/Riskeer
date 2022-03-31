@@ -124,10 +124,10 @@ namespace Riskeer.Common.Data.AssessmentSection
             switch (normativeProbabilityType)
             {
                 case NormativeProbabilityType.SignalFloodingProbability:
-                    calculations = assessmentSection.WaterLevelCalculationsForSignalingNorm;
+                    calculations = assessmentSection.WaterLevelCalculationsForSignalFloodingProbability;
                     break;
                 case NormativeProbabilityType.MaximumAllowableFloodingProbability:
-                    calculations = assessmentSection.WaterLevelCalculationsForLowerLimitNorm;
+                    calculations = assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability;
                     break;
                 default:
                     throw new NotSupportedException();
