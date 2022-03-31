@@ -221,7 +221,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void Constructor_NoSections_ProbabilityResultTypeComboBoxDisabled()
+        public void Constructor_WithoutSections_ProbabilityResultTypeComboBoxDisabled()
         {
             // Setup 
             var failureMechanism = new TestFailureMechanism();
