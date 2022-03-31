@@ -1161,8 +1161,8 @@ Outputs that used HydraRing are not migrated
 -- TopLevelSubMechanismIllustrationPointEntity
 
 /*
- Outputs that used MacroStabilityInwards kernel are not migrated
- */
+Outputs that used MacroStabilityInwards kernel are not migrated
+*/
  -- MacroStabilityInwardsCalculationOutputEntity
 
 ATTACH DATABASE "{1}" AS LOGDATABASE;
@@ -1290,13 +1290,12 @@ INSERT INTO TempLogOutputRemaining SELECT COUNT() FROM [SOURCEPROJECT].SemiProba
 WHERE SemiProbabilisticPipingCalculationEntityId IN (
     SELECT SemiProbabilisticPipingCalculationEntityId
     FROM [SOURCEPROJECT].SemiProbabilisticPipingCalculationEntity
-    WHERE UseAssessmentLevelManualInput IS 1
-    );
+    WHERE UseAssessmentLevelManualInput IS 1);
 
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
-[LogMessage])
+    [LogMessage])
 SELECT
     "21.1",
     "21.2",
@@ -1316,7 +1315,7 @@ DROP TABLE TempLogOutputRemaining;
 INSERT INTO [LOGDATABASE].MigrationLogEntity (
     [FromVersion],
     [ToVersion],
-[LogMessage])
+    [LogMessage])
 VALUES ("21.1",
     "21.2",
     "* De oorspronkelijke faalmechanismen zijn omgezet naar het nieuwe formaat.
