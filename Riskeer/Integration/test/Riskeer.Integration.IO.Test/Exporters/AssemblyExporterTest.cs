@@ -104,7 +104,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "Om een oordeel te kunnen exporteren moeten de specifieke faalmechanismen unieke namen hebben.";
+                const string expectedMessage = "Om assemblageresultaten te kunnen exporteren moeten de specifieke faalmechanismen unieke namen hebben.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
@@ -130,7 +130,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen of de gecombineerde faalkans voor meer details.";
+                const string expectedMessage = "De assemblageresultaten kunnen niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen of de gecombineerde faalkans voor meer details.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
@@ -156,7 +156,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "Het oordeel kan niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen of de gecombineerde faalkans voor meer details.";
+                const string expectedMessage = "De assemblageresultaten kunnen niet worden geëxporteerd. Inspecteer de resultaten van de individuele faalmechanismen of de gecombineerde faalkans voor meer details.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
