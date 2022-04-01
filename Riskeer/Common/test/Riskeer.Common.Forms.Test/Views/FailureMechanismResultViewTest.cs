@@ -828,6 +828,11 @@ namespace Riskeer.Common.Forms.Test.Views
                     ManualFailureMechanismAssemblyProbability = 0.1
                 }
             };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => throw new AssemblyException(exceptionMessage)))
             {
@@ -849,6 +854,31 @@ namespace Riskeer.Common.Forms.Test.Views
             }
 
             mocks.VerifyAll();
+        }
+        
+        [Test]
+        public void FailureMechanismResultViewWithoutSectionsAndProbabilityTypeManual_ReturnsCorrectError()
+        {
+            // Setup
+            const string expectedErrorMessage = "Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geimporteerd.";
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
+                }
+            };
+
+            // Call
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                ErrorProvider errorProvider = GetErrorProvider(view);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                
+                // Assert
+                Assert.AreEqual(expectedErrorMessage, errorMessage);
+            }
         }
 
         [Test]
@@ -903,7 +933,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultView_WithoutSections_FailureMechanismAssemblyProbabilityTextBoxDisabled()
+        public void FailureMechanismResultView_WithoutSections_FailureMechanismAssemblyProbabilityTextBoxCorrectState()
         {
             // Setup 
             var failureMechanism = new TestFailureMechanism();
@@ -915,14 +945,21 @@ namespace Riskeer.Common.Forms.Test.Views
                 TextBox textBox = GetFailureMechanismAssemblyProbabilityTextBox();
                 CollectionAssert.IsEmpty(failureMechanism.Sections);
                 Assert.IsFalse(textBox.Enabled);
+                Assert.IsTrue(textBox.ReadOnly);
             }
         }
 
         [Test]
-        public void FailureMechanismResultView_WithSections_FailureMechanismAssemblyProbabilityTextBoxEnabled()
+        public void FailureMechanismResultView_WithSections_FailureMechanismAssemblyProbabilityTextBoxCorrectState()
         {
             // Setup 
-            var failureMechanism = new TestFailureMechanism();
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
+                }
+            };
 
             using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
             {
@@ -941,6 +978,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Assert
                 Assert.IsTrue(textBox.Enabled);
+                Assert.IsFalse(textBox.ReadOnly);
             }
         }
 
@@ -1020,6 +1058,11 @@ namespace Riskeer.Common.Forms.Test.Views
                     ManualFailureMechanismAssemblyProbability = manualProbability
                 }
             };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
             failureMechanism.AssemblyResult.Attach(observer);
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
@@ -1066,6 +1109,11 @@ namespace Riskeer.Common.Forms.Test.Views
                     ManualFailureMechanismAssemblyProbability = manualProbability
                 }
             };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
             failureMechanism.AssemblyResult.Attach(observer);
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))

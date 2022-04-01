@@ -140,7 +140,6 @@ namespace Riskeer.Common.Forms.Views
             DataGridViewControl.CellFormatting += HandleCellStyling;
 
             UpdateInternalViewData();
-            UpdateFailureMechanismAssemblyControls();
         }
 
         /// <summary>
@@ -183,11 +182,12 @@ namespace Riskeer.Common.Forms.Views
             UpdateDataGridViewDataSource();
             UpdateAssemblyData();
             UpdateProbabilityResultTypeCombobox();
+            UpdateFailureMechanismAssemblyControls();
         }
 
         private void UpdateProbabilityResultTypeCombobox()
         {
-            probabilityResultTypeComboBox.Enabled = FailureMechanism.Sections.Any();
+            probabilityResultTypeComboBox.Enabled = HasSections();
         }
 
         private void RefreshDataGrid()
@@ -217,9 +217,14 @@ namespace Riskeer.Common.Forms.Views
 
         private void UpdateFailureMechanismAssemblyControls()
         {
-            failureMechanismAssemblyProbabilityTextBox.Enabled = IsManualAssembly() && FailureMechanism.Sections.Any();
-            failureMechanismAssemblyProbabilityTextBox.ReadOnly = !IsManualAssembly();
+            failureMechanismAssemblyProbabilityTextBox.Enabled = IsManualAssembly() && HasSections();
+            failureMechanismAssemblyProbabilityTextBox.ReadOnly = !IsManualAssembly() && !HasSections();
             failureMechanismAssemblyProbabilityTextBox.Refresh();
+        }
+
+        private bool HasSections()
+        {
+            return FailureMechanism.Sections.Any();
         }
 
         private void UpdateAssemblyData()
@@ -374,7 +379,12 @@ namespace Riskeer.Common.Forms.Views
             failureMechanismAssemblyProbabilityTextBox.Text = ProbabilityFormattingHelper.FormatWithDiscreteNumbers(probability);
 
             FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
-            if (assemblyResult.IsManualProbability())
+            bool hasManualProbability = assemblyResult.IsManualProbability();
+            if (hasManualProbability && !HasSections())
+            {
+                SetErrorMessage("Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geimporteerd.");
+            }
+            else if (hasManualProbability)
             {
                 SetErrorMessage(FailureMechanismAssemblyResultValidationHelper.GetValidationError(assemblyResult));
             }
