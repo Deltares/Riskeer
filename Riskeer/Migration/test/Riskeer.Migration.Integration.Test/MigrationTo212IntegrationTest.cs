@@ -987,7 +987,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertGrassCoverErosionInwardsCalculation(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            const string getNormQuery =
+            const string getNormativeProbabilityQuery =
                 "JOIN ( " +
                 "WITH CalculationGroups AS ( " +
                 "SELECT " +
@@ -1039,7 +1039,7 @@ namespace Riskeer.Migration.Integration.Test
                 "WHEN NormativeProbabilityType IS 1 " +
                 "THEN MaximumAllowableFloodingProbability " +
                 "ELSE SignalFloodingProbability " +
-                "END AS Norm " +
+                "END AS NormativeProbability " +
                 "FROM AssessmentSectionEntity) " +
                 "ON sectionId = failureMechanismAssessmentSectionId";
 
@@ -1054,7 +1054,7 @@ namespace Riskeer.Migration.Integration.Test
                 ") " +
                 "FROM GrassCoverErosionInwardsCalculationEntity NEW " +
                 "JOIN SOURCEPROJECT.GrassCoverErosionInwardsCalculationEntity OLD USING(GrassCoverErosionInwardsCalculationEntityId) " +
-                $"{getNormQuery} " +
+                $"{getNormativeProbabilityQuery} " +
                 "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
                 "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
                 "AND NEW.[DikeProfileEntityId] IS OLD.[DikeProfileEntityId]" +
@@ -1071,10 +1071,10 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[CriticalFlowRateStandardDeviation] IS OLD.[CriticalFlowRateStandardDeviation] " +
                 "AND NEW.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] " +
                 "AND NEW.[ShouldDikeHeightBeCalculated] = 0 " +
-                "AND NEW.[DikeHeightTargetProbability] = Norm " +
+                "AND NEW.[DikeHeightTargetProbability] = NormativeProbability " +
                 "AND NEW.[ShouldDikeHeightIllustrationPointsBeCalculated] = OLD.[ShouldDikeHeightIllustrationPointsBeCalculated] " +
                 "AND NEW.[ShouldOvertoppingRateBeCalculated] = 0 " +
-                "AND NEW.[OvertoppingRateTargetProbability] = Norm " +
+                "AND NEW.[OvertoppingRateTargetProbability] = NormativeProbability " +
                 "AND NEW.[ShouldOvertoppingRateIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingRateIllustrationPointsBeCalculated] " +
                 "AND NEW.[RelevantForScenario] = OLD.[RelevantForScenario] " +
                 "AND NEW.[ScenarioContribution] = OLD.[ScenarioContribution]; " +
@@ -1092,7 +1092,7 @@ namespace Riskeer.Migration.Integration.Test
                 ") " +
                 "FROM GrassCoverErosionInwardsCalculationEntity NEW " +
                 "JOIN SOURCEPROJECT.GrassCoverErosionInwardsCalculationEntity OLD USING(GrassCoverErosionInwardsCalculationEntityId) " +
-                $"{getNormQuery} " +
+                $"{getNormativeProbabilityQuery} " +
                 "WHERE NEW.[CalculationGroupEntityId] = OLD.[CalculationGroupEntityId] " +
                 "AND NEW.[HydraulicLocationEntityId] IS OLD.[HydraulicLocationEntityId] " +
                 "AND NEW.[DikeProfileEntityId] IS OLD.[DikeProfileEntityId]" +
@@ -1109,10 +1109,10 @@ namespace Riskeer.Migration.Integration.Test
                 "AND NEW.[CriticalFlowRateStandardDeviation] IS OLD.[CriticalFlowRateStandardDeviation] " +
                 "AND NEW.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingOutputIllustrationPointsBeCalculated] " +
                 "AND NEW.[ShouldDikeHeightBeCalculated] = 1 " +
-                "AND NEW.[DikeHeightTargetProbability] = Norm " +
+                "AND NEW.[DikeHeightTargetProbability] = NormativeProbability " +
                 "AND NEW.[ShouldDikeHeightIllustrationPointsBeCalculated] = OLD.[ShouldDikeHeightIllustrationPointsBeCalculated] " +
                 "AND NEW.[ShouldOvertoppingRateBeCalculated] = 1 " +
-                "AND NEW.[OvertoppingRateTargetProbability] = Norm " +
+                "AND NEW.[OvertoppingRateTargetProbability] = NormativeProbability " +
                 "AND NEW.[ShouldOvertoppingRateIllustrationPointsBeCalculated] = OLD.[ShouldOvertoppingRateIllustrationPointsBeCalculated] " +
                 "AND NEW.[RelevantForScenario] = OLD.[RelevantForScenario] " +
                 "AND NEW.[ScenarioContribution] = OLD.[ScenarioContribution]; " +

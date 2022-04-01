@@ -1099,14 +1099,14 @@ SELECT
             THEN 0
         ELSE 1
     END,
-    Norm,
+    NormativeProbability,
     [ShouldDikeHeightIllustrationPointsBeCalculated],
     CASE
         WHEN [OvertoppingRateCalculationType] IS 1
             THEN 0
         ELSE 1
     END,
-    Norm,
+    NormativeProbability,
     [ShouldOvertoppingRateIllustrationPointsBeCalculated],
     [RelevantForScenario],
     [ScenarioContribution]
@@ -1123,7 +1123,7 @@ JOIN (
             WHEN NormativeProbabilityType IS 1
                 THEN MaximumAllowableFloodingProbability
             ELSE SignalFloodingProbability
-        END AS Norm
+        END AS NormativeProbability
     FROM AssessmentSectionEntity)
 ON sectionId = AssessmentSectionEntityId;
 
