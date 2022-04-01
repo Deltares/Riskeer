@@ -2038,7 +2038,7 @@ namespace Riskeer.Integration.Plugin
 
             return builder.AddOpenItem()
                           .AddSeparator()
-                          .AddToggleInAssemblyOfFailureMechanismItem(nodeData, RemoveAllViewsForFailureMechanismContext)
+                          .AddToggleInAssemblyOfFailureMechanismItem(nodeData, RemoveAllViewsForSpecificFailureMechanismContext)
                           .AddSeparator()
                           .AddRenameItem()
                           .AddSeparator()
@@ -2049,11 +2049,6 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
-        }
-
-        private void RemoveAllViewsForFailureMechanismContext(SpecificFailureMechanismContext failureMechanismContext)
-        {
-            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         private ContextMenuStrip SpecificFailureMechanismDisabledContextMenuStrip(SpecificFailureMechanismContext nodeData,
@@ -2062,7 +2057,7 @@ namespace Riskeer.Integration.Plugin
         {
             var builder = new RiskeerContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
 
-            return builder.AddToggleInAssemblyOfFailureMechanismItem(nodeData, RemoveAllViewsForFailureMechanismContext)
+            return builder.AddToggleInAssemblyOfFailureMechanismItem(nodeData, RemoveAllViewsForSpecificFailureMechanismContext)
                           .AddSeparator()
                           .AddRenameItem()
                           .AddSeparator()
@@ -2073,6 +2068,11 @@ namespace Riskeer.Integration.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private void RemoveAllViewsForSpecificFailureMechanismContext(SpecificFailureMechanismContext failureMechanismContext)
+        {
+            Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
         #endregion
