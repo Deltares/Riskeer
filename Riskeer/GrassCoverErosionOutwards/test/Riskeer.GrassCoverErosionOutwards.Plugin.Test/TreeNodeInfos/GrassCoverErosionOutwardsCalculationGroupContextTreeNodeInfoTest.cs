@@ -1746,7 +1746,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
         {
             // Given
             var random = new Random(21);
-            var normType = random.NextEnumValue<NormativeProbabilityType>();
+            var normativeProbabilityType = random.NextEnumValue<NormativeProbabilityType>();
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1767,7 +1767,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 {
                     FailureMechanismContribution =
                     {
-                        NormativeProbabilityType = normType
+                        NormativeProbabilityType = normativeProbabilityType
                     }
                 };
                 assessmentSection.SetHydraulicBoundaryLocationCalculations(new[]
@@ -1817,7 +1817,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.TreeNodeInfos
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
 
-                WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormativeProbabilityType(normType);
+                WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormativeProbabilityType(normativeProbabilityType);
                 var firstCalculation = group.Children[2] as GrassCoverErosionOutwardsWaveConditionsCalculation;
                 Assert.IsNotNull(firstCalculation);
                 GrassCoverErosionOutwardsWaveConditionsInput firstCalculationInput = firstCalculation.InputParameters;

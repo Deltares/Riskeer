@@ -48,7 +48,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        public void GetNormativeAssessmentLevel_AssessmentSectionWithInvalidNormType_ThrowsInvalidEnumArgumentException()
+        public void GetNormativeAssessmentLevel_AssessmentSectionWithInvalidNormativeProbabilityType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             const int invalidValue = 9999;
@@ -129,7 +129,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        [TestCaseSource(nameof(GetNormativeHydraulicBoundaryLocationCalculationPerNormType))]
+        [TestCaseSource(nameof(GetNormativeHydraulicBoundaryLocationCalculationPerNormativeProbabilityType))]
         public void GetNormativeAssessmentLevel_HydraulicBoundaryLocationWithOutput_ReturnsCorrespondingAssessmentLevel(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
@@ -159,7 +159,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        public void GetNormativeHydraulicBoundaryLocationCalculation_AssessmentSectionWithInvalidNormType_ThrowsInvalidEnumArgumentException()
+        public void GetNormativeHydraulicBoundaryLocationCalculation_AssessmentSectionWithInvalidNormativeProbabilityType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             const int invalidValue = 9999;
@@ -223,7 +223,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
         }
 
         [Test]
-        [TestCaseSource(nameof(GetNormativeHydraulicBoundaryLocationCalculationPerNormType))]
+        [TestCaseSource(nameof(GetNormativeHydraulicBoundaryLocationCalculationPerNormativeProbabilityType))]
         public void GetNormativeHydraulicBoundaryLocationCalculation_HydraulicBoundaryLocation_ReturnsCorrespondingCalculation(
             IAssessmentSection assessmentSection,
             HydraulicBoundaryLocation hydraulicBoundaryLocation,
@@ -241,7 +241,7 @@ namespace Riskeer.Common.Data.Test.AssessmentSection
             Assert.AreSame(calculation, normativeHydraulicBoundaryLocationCalculation);
         }
 
-        private static IEnumerable<TestCaseData> GetNormativeHydraulicBoundaryLocationCalculationPerNormType()
+        private static IEnumerable<TestCaseData> GetNormativeHydraulicBoundaryLocationCalculationPerNormativeProbabilityType()
         {
             var assessmentSection = new AssessmentSectionStub();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();

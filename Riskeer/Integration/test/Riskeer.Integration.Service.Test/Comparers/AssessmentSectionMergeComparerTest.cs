@@ -217,7 +217,7 @@ namespace Riskeer.Integration.Service.Test.Comparers
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.FailureMechanismContribution.NormativeProbabilityType = sec.FailureMechanismContribution.NormativeProbabilityType == NormativeProbabilityType.MaximumAllowableFloodingProbability
                                                                                                                                           ? NormativeProbabilityType.SignalFloodingProbability
                                                                                                                                           : NormativeProbabilityType.MaximumAllowableFloodingProbability,
-                                                                   "NormType");
+                                                                   "NormativeProbabilityType");
             yield return new ChangePropertyData<AssessmentSection>(sec => sec.ChangeComposition(AssessmentSectionComposition.DikeAndDune),
                                                                    "Composition");
         }

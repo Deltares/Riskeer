@@ -1466,7 +1466,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
         {
             // Given
             var random = new Random(21);
-            var normType = random.NextEnumValue<NormativeProbabilityType>();
+            var normativeProbabilityType = random.NextEnumValue<NormativeProbabilityType>();
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -1489,7 +1489,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 {
                     FailureMechanismContribution =
                     {
-                        NormativeProbabilityType = normType
+                        NormativeProbabilityType = normativeProbabilityType
                     }
                 };
                 assessmentSection.HydraulicBoundaryDatabase.Locations.AddRange(new[]
@@ -1539,7 +1539,7 @@ namespace Riskeer.StabilityStoneCover.Plugin.Test.TreeNodeInfos
                 Assert.NotNull(dialog);
                 Assert.NotNull(grid);
 
-                WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormativeProbabilityType(normType);
+                WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType = GetWaterLevelTypeFromNormativeProbabilityType(normativeProbabilityType);
                 var firstCalculation = group.Children[2] as StabilityStoneCoverWaveConditionsCalculation;
                 Assert.IsNotNull(firstCalculation);
                 StabilityStoneCoverWaveConditionsInput firstCalculationInputParameters = firstCalculation.InputParameters;

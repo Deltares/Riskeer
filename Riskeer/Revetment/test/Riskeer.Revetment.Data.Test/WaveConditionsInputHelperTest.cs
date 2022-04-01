@@ -84,7 +84,7 @@ namespace Riskeer.Revetment.Data.Test
         [Test]
         [TestCase(NormativeProbabilityType.MaximumAllowableFloodingProbability, WaveConditionsInputWaterLevelType.MaximumAllowableFloodingProbability)]
         [TestCase(NormativeProbabilityType.SignalFloodingProbability, WaveConditionsInputWaterLevelType.SignalFloodingProbability)]
-        public void SetWaterLevelType_WithWaveConditionsInputAndVariousNormTypes_SetsWaterLevelType(
+        public void SetWaterLevelType_WithWaveConditionsInputAndVariousNormativeProbabilityTypes_SetsWaterLevelType(
             NormativeProbabilityType normativeProbabilityType,
             WaveConditionsInputWaterLevelType expectedWaveConditionsInputWaterLevelType)
         {
