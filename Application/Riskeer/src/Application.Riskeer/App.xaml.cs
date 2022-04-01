@@ -107,8 +107,8 @@ namespace Application.Riskeer
             {
                 ApplicationName = "Riskeer",
                 ApplicationIcon = ApplicationResources.Riskeer,
-                SupportHeader = ApplicationResources.HelpdeskWater_DisplayName,
-                SupportText = ApplicationResources.HelpdeskWater_Description,
+                SupportHeader = ApplicationResources.SupportHeader,
+                SupportText = ApplicationResources.SupportText,
                 SupportWebsiteAddressUrl = "https://www.helpdeskwater.nl/",
                 SupportPhoneNumber = "088-7977102",
                 ManualFilePath = "Gebruikershandleiding Riskeer 21.1.1.pdf"
