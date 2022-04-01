@@ -60,10 +60,6 @@ namespace Riskeer.Integration.Forms.Observers
         private readonly Observer heightStructuresObserver;
         private readonly Observer macroStabilityInwardsObserver;
         private readonly Observer pipingObserver;
-
-        private readonly RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>,
-            PipingScenarioConfigurationPerFailureMechanismSection> pipingScenarioConfigurationsPerSectionObserver;
-
         private readonly Observer stabilityPointStructuresObserver;
         private readonly Observer stabilityStoneCoverObserver;
         private readonly Observer waveImpactAsphaltCoverObserver;
@@ -76,6 +72,9 @@ namespace Riskeer.Integration.Forms.Observers
         private readonly Observer specificFailureMechanismsObserver;
         private readonly List<Observer> specificFailureMechanismObservers;
 
+        private readonly RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>,
+            PipingScenarioConfigurationPerFailureMechanismSection> pipingScenarioConfigurationsPerSectionObserver;
+        
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionResultObserver"/>.
         /// </summary>
@@ -104,18 +103,6 @@ namespace Riskeer.Integration.Forms.Observers
                 Observable = assessmentSection.ReferenceLine
             };
 
-            specificFailureMechanismsObserver = new Observer(() =>
-            {
-                ClearFailureMechanismObservers();
-                CreateSpecificFailureMechanismObservers();
-                NotifyObservers();
-            })
-            {
-                Observable = assessmentSection.SpecificFailureMechanisms
-            };
-            specificFailureMechanismObservers = new List<Observer>();
-            CreateSpecificFailureMechanismObservers();
-
             closingStructuresObserver = CreateCalculatableFailureMechanismObserver<ClosingStructuresFailureMechanism,
                 AdoptableFailureMechanismSectionResult, StructuresCalculation<ClosingStructuresInput>>(assessmentSection.ClosingStructures);
 
@@ -135,8 +122,6 @@ namespace Riskeer.Integration.Forms.Observers
 
             pipingObserver = CreateCalculatableFailureMechanismObserver<PipingFailureMechanism,
                 AdoptableWithProfileProbabilityFailureMechanismSectionResult, SemiProbabilisticPipingCalculationScenario>(assessmentSection.Piping);
-
-            pipingScenarioConfigurationsPerSectionObserver = CreatePipingScenarioConfigurationsPerSectionObserver(assessmentSection.Piping);
 
             stabilityPointStructuresObserver = CreateCalculatableFailureMechanismObserver<StabilityPointStructuresFailureMechanism,
                 AdoptableFailureMechanismSectionResult, StructuresCalculation<StabilityPointStructuresInput>>(assessmentSection.StabilityPointStructures);
@@ -161,6 +146,20 @@ namespace Riskeer.Integration.Forms.Observers
 
             waterPressureAsphaltCoverObserver = CreateFailureMechanismObserver<WaterPressureAsphaltCoverFailureMechanism,
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(assessmentSection.WaterPressureAsphaltCover);
+            
+            specificFailureMechanismsObserver = new Observer(() =>
+            {
+                ClearFailureMechanismObservers();
+                CreateSpecificFailureMechanismObservers();
+                NotifyObservers();
+            })
+            {
+                Observable = assessmentSection.SpecificFailureMechanisms
+            };
+            specificFailureMechanismObservers = new List<Observer>();
+            CreateSpecificFailureMechanismObservers();
+            
+            pipingScenarioConfigurationsPerSectionObserver = CreatePipingScenarioConfigurationsPerSectionObserver(assessmentSection.Piping);
         }
 
         public void Dispose()
@@ -185,7 +184,6 @@ namespace Riskeer.Integration.Forms.Observers
             heightStructuresObserver.Dispose();
             macroStabilityInwardsObserver.Dispose();
             pipingObserver.Dispose();
-            pipingScenarioConfigurationsPerSectionObserver.Dispose();
             stabilityPointStructuresObserver.Dispose();
             stabilityStoneCoverObserver.Dispose();
             waveImpactAsphaltCoverObserver.Dispose();
@@ -197,6 +195,8 @@ namespace Riskeer.Integration.Forms.Observers
             specificFailureMechanismsObserver.Dispose();
 
             ClearFailureMechanismObservers();
+            
+            pipingScenarioConfigurationsPerSectionObserver.Dispose();
         }
 
         private void ResubscribeFailureMechanismObservers(AssessmentSection assessmentSection)
