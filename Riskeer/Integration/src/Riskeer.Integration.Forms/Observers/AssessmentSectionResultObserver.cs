@@ -149,7 +149,7 @@ namespace Riskeer.Integration.Forms.Observers
             
             specificFailureMechanismsObserver = new Observer(() =>
             {
-                ClearFailureMechanismObservers();
+                ClearSpecificFailureMechanismObservers();
                 CreateSpecificFailureMechanismObservers();
                 NotifyObservers();
             })
@@ -194,7 +194,7 @@ namespace Riskeer.Integration.Forms.Observers
             waterPressureAsphaltCoverObserver.Dispose();
             specificFailureMechanismsObserver.Dispose();
 
-            ClearFailureMechanismObservers();
+            ClearSpecificFailureMechanismObservers();
             
             pipingScenarioConfigurationsPerSectionObserver.Dispose();
         }
@@ -216,6 +216,7 @@ namespace Riskeer.Integration.Forms.Observers
             microstabilityObserver.Observable = assessmentSection.Microstability;
             pipingStructureObserver.Observable = assessmentSection.PipingStructure;
             waterPressureAsphaltCoverObserver.Observable = assessmentSection.WaterPressureAsphaltCover;
+            pipingScenarioConfigurationsPerSectionObserver.Observable = assessmentSection.Piping.ScenarioConfigurationsPerFailureMechanismSection;
         }
 
         private Observer CreateCalculatableFailureMechanismObserver<TFailureMechanism, TSectionResult, TCalculation>(TFailureMechanism failureMechanism)
@@ -247,11 +248,11 @@ namespace Riskeer.Integration.Forms.Observers
             specificFailureMechanismObservers.AddRange(observers);
         }
 
-        private void ClearFailureMechanismObservers()
+        private void ClearSpecificFailureMechanismObservers()
         {
-            foreach (Observer failureMechanismObserver in specificFailureMechanismObservers)
+            foreach (Observer specificFailureMechanismObserver in specificFailureMechanismObservers)
             {
-                failureMechanismObserver.Dispose();
+                specificFailureMechanismObserver.Dispose();
             }
 
             specificFailureMechanismObservers.Clear();
