@@ -92,8 +92,13 @@ All rights reserved.
                     
                     <TextBlock Text="{x:Static properties:Resources.Website_DisplayName}"
                                Grid.Column="0" Grid.Row="1"/>
-                    <TextBlock Text="{Binding SupportWebsiteAddressUrl}"
-                               Grid.Column="1" Grid.Row="1"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1">
+                        <Hyperlink NavigateUri="{Binding SupportWebsiteAddressUrl}"
+                                   RequestNavigate="SupportWebsiteHyperlinkRequestNavigate"
+                                   Style="{StaticResource HyperlinkStyle}">
+                            <Run Text="{Binding Path=SupportWebsiteAddressUrl, Mode=OneWay}"/>
+                        </Hyperlink>
+                    </TextBlock>
                     
                     <TextBlock Text="{x:Static properties:Resources.PhoneNumber_DisplayName}"
                                Grid.Column="0" Grid.Row="2"/>

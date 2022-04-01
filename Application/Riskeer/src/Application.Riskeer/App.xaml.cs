@@ -109,8 +109,8 @@ namespace Application.Riskeer
                 ApplicationIcon = ApplicationResources.Riskeer,
                 SupportHeader = ApplicationResources.SupportHeader,
                 SupportText = ApplicationResources.SupportText,
-                SupportWebsiteAddressUrl = "https://www.helpdeskwater.nl/",
-                SupportPhoneNumber = "088-7977102",
+                SupportWebsiteAddressUrl = "https://iplo.nl/contact/",
+                SupportPhoneNumber = "088-7970790",
                 ManualFilePath = "Gebruikershandleiding Riskeer 21.1.1.pdf"
             };
 
