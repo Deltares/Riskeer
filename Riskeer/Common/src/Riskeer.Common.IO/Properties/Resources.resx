@@ -124,7 +124,7 @@
     <value>Het bestand moet exact één gehele polylijn bevatten.</value>
   </data>
   <data name="FailureMechanismSectionReader_File_has_unsupported_multiPolyline" xml:space="preserve">
-    <value>Het bestand bevat één of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.</value>
+    <value>Het bestand bevat een of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.</value>
   </data>
   <data name="ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported" xml:space="preserve">
     <value>{0} 
@@ -430,7 +430,7 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
     <value>Kunstwerk '{0}' ({1})</value>
   </data>
   <data name="StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_" xml:space="preserve">
-    <value>Er zijn één of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:
+    <value>Er zijn een of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:
 {0}</value>
   </data>
   <data name="StructuresParameterRowsValidator_ValidateDoubleParameter_ParameterId_0_Line_1_ColumnName_2_not_number" xml:space="preserve">
@@ -453,7 +453,7 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
     <value>De rekeninstellingen database heeft niet het juiste schema.</value>
   </data>
   <data name="FailureMechanismSectionReader_File_has_section_without_sectionName" xml:space="preserve">
-    <value>Voor één of meerdere vakken is geen naam opgegeven.</value>
+    <value>Voor een of meerdere vakken is geen naam opgegeven.</value>
   </data>
   <data name="StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_must_be_greater_than_zero" xml:space="preserve">
     <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een getal zijn groter dan 0.</value>

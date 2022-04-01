@@ -91,7 +91,7 @@ namespace Riskeer.Piping.Primitives.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie..
+        ///   Looks up a localized string similar to Een of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie..
         /// </summary>
         public static string PipingSoilProfile_Layers_Layer_top_below_profile_bottom {
             get {

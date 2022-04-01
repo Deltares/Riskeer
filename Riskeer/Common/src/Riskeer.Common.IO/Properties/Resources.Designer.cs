@@ -786,7 +786,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Voor één of meerdere vakken is geen naam opgegeven..
+        ///   Looks up a localized string similar to Voor een of meerdere vakken is geen naam opgegeven..
         /// </summary>
         public static string FailureMechanismSectionReader_File_has_section_without_sectionName {
             get {
@@ -795,7 +795,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand bevat één of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund..
+        ///   Looks up a localized string similar to Het bestand bevat een of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund..
         /// </summary>
         public static string FailureMechanismSectionReader_File_has_unsupported_multiPolyline {
             get {
@@ -2179,7 +2179,7 @@ namespace Riskeer.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn één of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:
+        ///   Looks up a localized string similar to Er zijn een of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:
         ///{0}.
         /// </summary>
         public static string StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_ {

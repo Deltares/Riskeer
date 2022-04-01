@@ -127,7 +127,7 @@
     <value>Geen lagen gevonden voor de ondergrondschematisatie.</value>
   </data>
   <data name="MacroStabilityInwardsSoilProfile_Layers_Layer_top_below_profile_bottom" xml:space="preserve">
-    <value>Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.</value>
+    <value>Een of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.</value>
   </data>
   <data name="SandDikeOnClay_DisplayName" xml:space="preserve">
     <value>Zand dijk op klei (geval 2A)</value>
