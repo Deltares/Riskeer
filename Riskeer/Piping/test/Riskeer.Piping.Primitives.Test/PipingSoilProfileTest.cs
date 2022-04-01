@@ -138,7 +138,7 @@ namespace Riskeer.Piping.Primitives.Test
             TestDelegate test = () => new PipingSoilProfile(string.Empty, bottom, pipingSoilLayers, SoilProfileType.SoilProfile1D);
 
             // Assert
-            const string expectedMessage = "Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.";
+            const string expectedMessage = "Een of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 

@@ -135,7 +135,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(string.Empty, bottom, soilLayers);
 
             // Assert
-            const string expectedMessage = "Eén of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.";
+            const string expectedMessage = "Een of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
         }
 

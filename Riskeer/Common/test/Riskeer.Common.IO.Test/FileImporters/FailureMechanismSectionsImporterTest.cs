@@ -522,7 +522,7 @@ namespace Riskeer.Common.IO.Test.FileImporters
             void Call() => importSuccessful = importer.Import();
 
             // Assert
-            var expectedMessage = $"Fout bij het lezen van bestand '{sectionsFilePath}': voor één of meerdere vakken is geen naam opgegeven.";
+            var expectedMessage = $"Fout bij het lezen van bestand '{sectionsFilePath}': voor een of meerdere vakken is geen naam opgegeven.";
             TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage, 1);
             Assert.IsFalse(importSuccessful);
             mocks.VerifyAll();
