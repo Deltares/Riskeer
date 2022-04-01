@@ -33,6 +33,7 @@ using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Exceptions;
 using Riskeer.Common.Forms.Helpers;
+using Riskeer.Common.Forms.Properties;
 
 namespace Riskeer.Common.Forms.Views
 {
@@ -382,7 +383,7 @@ namespace Riskeer.Common.Forms.Views
             bool hasManualProbability = assemblyResult.IsManualProbability();
             if (hasManualProbability && !HasSections())
             {
-                SetErrorMessage("Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geimporteerd.");
+                SetErrorMessage(Resources.FailureMechanismResultView_To_Enter_An_AssemblyProbability_Failure_Mechanism_Sections_Must_Be_Imported);
             }
             else if (hasManualProbability)
             {

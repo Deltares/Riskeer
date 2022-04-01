@@ -860,7 +860,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void FailureMechanismResultViewWithoutSectionsAndProbabilityTypeManual_ReturnsCorrectError()
         {
             // Setup
-            const string expectedErrorMessage = "Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geimporteerd.";
+            const string expectedErrorMessage = "Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geïmporteerd.";
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =

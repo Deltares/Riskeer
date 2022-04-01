@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -1737,6 +1737,16 @@ namespace Riskeer.Common.Forms.Properties {
         public static string FailureMechanismResultView_RefinedSectionProbability_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismResultView_RefinedSectionProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geïmporteerd..
+        /// </summary>
+        public static string FailureMechanismResultView_To_Enter_An_AssemblyProbability_Failure_Mechanism_Sections_Must_Be_Imported {
+            get {
+                return ResourceManager.GetString("FailureMechanismResultView_To_Enter_An_AssemblyProbability_Failure_Mechanism_Sect" +
+                        "ions_Must_Be_Imported", resourceCulture);
             }
         }
         

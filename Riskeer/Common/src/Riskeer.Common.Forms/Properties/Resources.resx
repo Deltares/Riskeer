@@ -1612,4 +1612,7 @@ faalkans per vak
     <data name="AssemblyMapDataFeaturesFactory_ProbabilityPerSection_DisplayName" xml:space="preserve">
       <value>Rekenwaarde faalkans per vak</value>
     </data>
+    <data name="FailureMechanismResultView_To_Enter_An_AssemblyProbability_Failure_Mechanism_Sections_Must_Be_Imported" xml:space="preserve">
+      <value>Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geïmporteerd.</value>
+    </data>
 </root>
