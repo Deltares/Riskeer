@@ -187,7 +187,7 @@ namespace Riskeer.Common.Forms.Views
 
         private void UpdateProbabilityResultTypeCombobox()
         {
-            probabilityResultTypeComboBox.Enabled = FailureMechanism.Sections.Count() != 0;
+            probabilityResultTypeComboBox.Enabled = FailureMechanism.Sections.Any();
         }
 
         private void RefreshDataGrid()
@@ -217,7 +217,7 @@ namespace Riskeer.Common.Forms.Views
 
         private void UpdateFailureMechanismAssemblyControls()
         {
-            failureMechanismAssemblyProbabilityTextBox.Enabled = IsManualAssembly();
+            failureMechanismAssemblyProbabilityTextBox.Enabled = IsManualAssembly() && FailureMechanism.Sections.Any();
             failureMechanismAssemblyProbabilityTextBox.ReadOnly = !IsManualAssembly();
             failureMechanismAssemblyProbabilityTextBox.Refresh();
         }
