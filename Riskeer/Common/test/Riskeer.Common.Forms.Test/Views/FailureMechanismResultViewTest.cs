@@ -916,7 +916,6 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Precondition
                 Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
-                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
 
                 // When
                 const FailureMechanismAssemblyProbabilityResultType newResultType = FailureMechanismAssemblyProbabilityResultType.Manual;
