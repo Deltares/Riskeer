@@ -127,7 +127,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Duiding bijdrage per deelvak.
+        ///   Looks up a localized string similar to Overzicht duiding.
         /// </summary>
         public static string AssemblyResultPerSection_DisplayName {
             get {

@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Duiding bijdrage per deelvak", text);
+                Assert.AreEqual("Overzicht duiding", text);
             }
         }
 

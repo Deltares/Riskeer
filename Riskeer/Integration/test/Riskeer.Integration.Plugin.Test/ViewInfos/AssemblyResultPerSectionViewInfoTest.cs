@@ -65,7 +65,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             string viewName = info.GetViewName(null, null);
 
             // Assert
-            Assert.AreEqual("Duiding bijdrage per deelvak", viewName);
+            Assert.AreEqual("Overzicht duiding", viewName);
         }
 
         [Test]
