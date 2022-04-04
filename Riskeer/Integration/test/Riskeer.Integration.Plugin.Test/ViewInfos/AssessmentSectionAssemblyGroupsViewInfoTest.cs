@@ -88,7 +88,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             string viewName = info.GetViewName(null, null);
 
             // Assert
-            Assert.AreEqual("Normklassen", viewName);
+            Assert.AreEqual("Veiligheidscategorieën", viewName);
         }
 
         [Test]

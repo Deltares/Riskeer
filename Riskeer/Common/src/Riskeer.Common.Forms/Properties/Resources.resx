@@ -1394,7 +1394,7 @@ berekende kans
 [-]</value>
   </data>
     <data name="AssessmentSectionAssemblyGroups_DisplayName" xml:space="preserve">
-    <value>Normklassen</value>
+    <value>Veiligheidscategorieën</value>
   </data>
     <data name="CombinedFailureProbability_DisplayName" xml:space="preserve">
     <value>Gecombineerde faalkans</value>

@@ -82,8 +82,8 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertyDescriptor assessmentSectionAssemblyGroupsProperty = dynamicProperties[0];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(assessmentSectionAssemblyGroupsProperty,
                                                                             generalCategoryName,
-                                                                            "Normklassen",
-                                                                            "De normklassen voor het traject.",
+                                                                            "Veiligheidscategorieën",
+                                                                            "De veiligheidscategorieën voor het traject.",
                                                                             true);
         }
 

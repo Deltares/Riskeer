@@ -381,7 +381,7 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
     <value>Bovengrens van de duidingsklasse.</value>
   </data>
     <data name="AssessmentSectionAssemblyGroups_Description" xml:space="preserve">
-    <value>De normklassen voor het traject.</value>
+    <value>De veiligheidscategorieën voor het traject.</value>
   </data>
     <data name="FailureMechanismSectionAssemblyGroups_DisplayName" xml:space="preserve">
     <value>Duidingsklassen</value>

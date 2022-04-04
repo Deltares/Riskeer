@@ -218,7 +218,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De normklassen voor het traject..
+        ///   Looks up a localized string similar to De veiligheidscategorieën voor het traject..
         /// </summary>
         public static string AssessmentSectionAssemblyGroups_Description {
             get {

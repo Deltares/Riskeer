@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -137,7 +137,7 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Normklassen.
+        ///   Looks up a localized string similar to Veiligheidscategorieën.
         /// </summary>
         public static string AssessmentSectionAssemblyGroups_DisplayName {
             get {
