@@ -1520,6 +1520,15 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deze applicatie is gemaakt door.
+        /// </summary>
+        public static string MadeBy_DisplayName {
+            get {
+                return ResourceManager.GetString("MadeBy_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Categorieën.
         /// </summary>
         public static string MapData_Categories_DisplayName {

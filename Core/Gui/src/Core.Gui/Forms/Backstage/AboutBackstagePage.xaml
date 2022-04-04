@@ -60,8 +60,8 @@ All rights reserved.
             <StackPanel Grid.Column="0" Margin="0 0 8 0">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30*" />
-                        <ColumnDefinition Width="70*" />
+                        <ColumnDefinition Width="230" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="45" />
@@ -72,6 +72,8 @@ All rights reserved.
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition Height="45" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBlock Style="{StaticResource Header2}"
@@ -108,6 +110,10 @@ All rights reserved.
                                Grid.Column="0" Grid.Row="8" />
                     <TextBlock Text="{x:Static backstage:AboutViewModel.Resolution}"
                                Grid.Column="1" Grid.Row="8" />
+                    <TextBlock Style="{StaticResource Header2}"
+                               Text="{x:Static properties:Resources.MadeBy_DisplayName}"
+                               Grid.Column="0" Grid.Row="9" />
+                    <Image Grid.Column="0" Grid.Row="10" />
                 </Grid>
             </StackPanel>
         </Grid>

@@ -886,6 +886,9 @@
   <data name="SystemInformation_DisplayName" xml:space="preserve">
     <value>Systeeminformatie</value>
   </data>
+  <data name="MadeBy_DisplayName" xml:space="preserve">
+    <value>Deze applicatie is gemaakt door</value>
+  </data>
   <data name="WindowsEdition_DisplayName" xml:space="preserve">
     <value>Windows editie</value>
   </data>
