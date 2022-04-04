@@ -127,7 +127,7 @@
     <value>'{0}' is geen geldige Riskeer of Ringtoets projectbestand versie.</value>
   </data>
   <data name="WaterLevelCalculationsForNormTargetProbabilities_DisplayName" xml:space="preserve">
-    <value>Waterstanden bij norm</value>
+    <value>Waterstanden bij vaste doelkans</value>
   </data>
   <data name="WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName" xml:space="preserve">
     <value>Waterstanden bij doelkans</value>

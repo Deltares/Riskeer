@@ -68,7 +68,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 string name = info.Name(null);
 
                 // Assert
-                Assert.AreEqual("Waterstanden bij norm", name);
+                Assert.AreEqual("Waterstanden bij vaste doelkans", name);
             }
         }
 

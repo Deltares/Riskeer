@@ -109,7 +109,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 string viewName = info.GetViewName(null, context);
 
                 // Assert
-                Assert.AreEqual($"Waterstanden bij norm - {expectedProbabilityText}", viewName);
+                Assert.AreEqual($"Waterstanden bij vaste doelkans - {expectedProbabilityText}", viewName);
             }
         }
 

@@ -142,7 +142,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                     void Call() => isExported = exporter.Export();
 
                     // Assert
-                    string expectedFilePath = Path.Combine(directoryPath, "~temp", "Waterstanden bij norm", "Waterstanden_30000.shp");
+                    string expectedFilePath = Path.Combine(directoryPath, "~temp", "Waterstanden bij vaste doelkans", "Waterstanden_30000.shp");
                     string expectedMessage = $"Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{expectedFilePath}'. " +
                                              "Er zijn geen hydraulische belastingenlocaties geëxporteerd.";
                     TestHelper.AssertLogMessageIsGenerated(Call, expectedMessage);
@@ -203,8 +203,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             });
             yield return new TestCaseData(assessmentSectionWithTargetProbabilities, new[]
             {
-                "Waterstanden bij norm/Waterstanden_30000.shp",
-                "Waterstanden bij norm/Waterstanden_30000 (1).shp",
+                "Waterstanden bij vaste doelkans/Waterstanden_30000.shp",
+                "Waterstanden bij vaste doelkans/Waterstanden_30000 (1).shp",
                 "Waterstanden bij doelkans/Waterstanden_10000.shp",
                 "Waterstanden bij doelkans/Waterstanden_100000.shp",
                 "Golfhoogten bij doelkans/Golfhoogten_4000.shp",
@@ -220,8 +220,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             assessmentSectionWithoutTargetProbabilities.WaveHeightCalculationsForUserDefinedTargetProbabilities.Clear();
             yield return new TestCaseData(assessmentSectionWithoutTargetProbabilities, new[]
             {
-                "Waterstanden bij norm/Waterstanden_30000.shp",
-                "Waterstanden bij norm/Waterstanden_30000 (1).shp"
+                "Waterstanden bij vaste doelkans/Waterstanden_30000.shp",
+                "Waterstanden bij vaste doelkans/Waterstanden_30000 (1).shp"
             }).SetName("Without UserDefinedTargetProbabilities");
         }
     }

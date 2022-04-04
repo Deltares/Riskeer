@@ -820,7 +820,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij norm - {originalProbabilityText}"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij vaste doelkans - {originalProbabilityText}"));
 
                 // When
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
@@ -829,7 +829,7 @@ namespace Riskeer.Integration.Plugin.Test
                 failureMechanismContribution.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij norm - {expectedProbabilityText}"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij vaste doelkans - {expectedProbabilityText}"));
                 mocks.VerifyAll();
             }
         }
@@ -873,7 +873,7 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij norm - {originalProbabilityText}"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij vaste doelkans - {originalProbabilityText}"));
 
                 // When
                 FailureMechanismContribution failureMechanismContribution = assessmentSection.FailureMechanismContribution;
@@ -882,7 +882,7 @@ namespace Riskeer.Integration.Plugin.Test
                 failureMechanismContribution.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij norm - {expectedProbabilityText}"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, $"Waterstanden bij vaste doelkans - {expectedProbabilityText}"));
                 mocks.VerifyAll();
             }
         }

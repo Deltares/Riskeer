@@ -118,7 +118,7 @@ namespace Riskeer.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden bij norm.
+        ///   Looks up a localized string similar to Waterstanden bij vaste doelkans.
         /// </summary>
         public static string WaterLevelCalculationsForNormTargetProbabilities_DisplayName {
             get {
