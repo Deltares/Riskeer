@@ -287,10 +287,10 @@ namespace Riskeer.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionWithPipingFailureMechanismsReplaced_WhenOldPipingFailureMechanismNotified_ThenAssessmentSectionResultObserverNotNotified()
+        public void GivenAssessmentSectionWithPipingFailureMechanismsReplaced_WhenOldPipingScenarioConfigurationsPerFailureMechanismSectionNotified_ThenAssessmentSectionResultObserverNotNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
                 var mocks = new MockRepository();
@@ -317,10 +317,10 @@ namespace Riskeer.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionWithFailureMechanismsReplaced_WhenNewFailureMechanismNotified_ThenAssessmentSectionResultObserverNotified()
+        public void GivenAssessmentSectionWithPipingFailureMechanismsReplaced_WhenNewPipingScenarioConfigurationsPerFailureMechanismSectionNotified_ThenAssessmentSectionResultObserverNotified()
         {
             // Given
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            AssessmentSection assessmentSection = CreateAssessmentSection();
             using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
             {
                 var mocks = new MockRepository();
@@ -328,13 +328,16 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 observer.Expect(o => o.UpdateObserver());
                 mocks.ReplayAll();
 
-                assessmentSection.Piping = new PipingFailureMechanism();
+                PipingFailureMechanism newFailureMechanism = assessmentSection.Piping;
+                FailureMechanismTestHelper.SetSections(newFailureMechanism, new[]
+                {
+                    FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+                });
+
+                assessmentSection.Piping = newFailureMechanism;
                 assessmentSection.NotifyObservers();
 
                 resultObserver.Attach(observer);
-
-                var newFailureMechanism = new PipingFailureMechanism();
-                assessmentSection.Piping = newFailureMechanism;
 
                 // When
                 newFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().NotifyObservers();
