@@ -287,6 +287,64 @@ namespace Riskeer.Integration.Forms.Test.Observers
         }
 
         [Test]
+        public void GivenAssessmentSectionWithPipingFailureMechanismsReplaced_WhenOldPipingFailureMechanismNotified_ThenAssessmentSectionResultObserverNotNotified()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                mocks.ReplayAll();
+
+                PipingFailureMechanism oldFailureMechanism = assessmentSection.Piping;
+                FailureMechanismTestHelper.SetSections(oldFailureMechanism, new[]
+                {
+                    FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
+                });
+
+                assessmentSection.Piping = new PipingFailureMechanism();
+                assessmentSection.NotifyObservers();
+
+                resultObserver.Attach(observer);
+
+                // When
+                oldFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
+        public void GivenAssessmentSectionWithFailureMechanismsReplaced_WhenNewFailureMechanismNotified_ThenAssessmentSectionResultObserverNotified()
+        {
+            // Given
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            using (var resultObserver = new AssessmentSectionResultObserver(assessmentSection))
+            {
+                var mocks = new MockRepository();
+                var observer = mocks.StrictMock<IObserver>();
+                observer.Expect(o => o.UpdateObserver());
+                mocks.ReplayAll();
+
+                assessmentSection.Piping = new PipingFailureMechanism();
+                assessmentSection.NotifyObservers();
+
+                resultObserver.Attach(observer);
+
+                var newFailureMechanism = new PipingFailureMechanism();
+                assessmentSection.Piping = newFailureMechanism;
+
+                // When
+                newFailureMechanism.ScenarioConfigurationsPerFailureMechanismSection.First().NotifyObservers();
+
+                // Then
+                mocks.VerifyAll();
+            }
+        }
+
+        [Test]
         public void GivenAssessmentSectionResultObserverWithAttachedObserver_WhenClosingStructuresCalculationNotified_ThenAttachedObserverNotified()
         {
             // Given
