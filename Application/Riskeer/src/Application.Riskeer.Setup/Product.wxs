@@ -15,8 +15,8 @@
     <!-- Specify default installer UI and which folder the user can configure during setup -->
     <UIRef Id="WixUI_Deltares"/>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
-    <WixVariable Id="WixUIBannerBmp" Value="Banner_493x77.bmp" />
-    <WixVariable Id="WixUIDialogBmp" Value="Start_493x312.bmp" />
+    <WixVariable Id="WixUIBannerBmp" Value="Banner_493x77.jpg" />
+    <WixVariable Id="WixUIDialogBmp" Value="Start_493x312.jpg" />
 
     <!-- Requirement: .Net framework 4.6.1 installed on machine -->
     <PropertyRef Id="WIX_IS_NETFRAMEWORK_461_OR_LATER_INSTALLED" />

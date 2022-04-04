@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Banner_493x77.bmp" />
+    <Content Include="Banner_493x77.jpg" />
     <Content Include="CalculationConfigurations\Readme.rtf" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Grasbekleding erosie kruin en binnentalud\12_2_Golfoploop_profielen.dbf" />
     <Content Include="Examples\Voorbeeld Traject 12-2 - Grasbekleding erosie kruin en binnentalud\12_2_Golfoploop_profielen.prj" />
@@ -260,6 +261,7 @@
     <Content Include="Manual.ico" />
     <Content Include="Riskeer.ico" />
     <Content Include="Start_493x312.bmp" />
+    <Content Include="Start_493x312.jpg" />
     <Content Include="Variables.wxi" />
   </ItemGroup>
   <ItemGroup>
