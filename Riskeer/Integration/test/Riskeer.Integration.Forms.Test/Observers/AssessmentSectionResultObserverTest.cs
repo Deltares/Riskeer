@@ -328,7 +328,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
                 observer.Expect(o => o.UpdateObserver());
                 mocks.ReplayAll();
 
-                PipingFailureMechanism newFailureMechanism = assessmentSection.Piping;
+                var newFailureMechanism = new PipingFailureMechanism();
                 FailureMechanismTestHelper.SetSections(newFailureMechanism, new[]
                 {
                     FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1")
