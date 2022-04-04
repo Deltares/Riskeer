@@ -152,7 +152,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of de gecombineerde faalkans voor meer details.";
+                const string expectedMessage = "De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of het veiligheidsoordeel voor meer details.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }
@@ -178,7 +178,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 void Call() => isExported = exporter.Export();
 
                 // Assert
-                const string expectedMessage = "De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of de gecombineerde faalkans voor meer details.";
+                const string expectedMessage = "De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of het veiligheidsoordeel voor meer details.";
                 TestHelper.AssertLogMessageWithLevelIsGenerated(Call, new Tuple<string, LogLevelConstant>(expectedMessage, LogLevelConstant.Error));
                 Assert.IsFalse(isExported);
             }

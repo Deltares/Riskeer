@@ -484,7 +484,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new RiskeerViewInfo<AssemblyResultTotalContext, AssessmentSection, AssemblyResultTotalView>(() => Gui)
             {
-                GetViewName = (view, context) => RiskeerCommonFormsResources.CombinedFailureProbability_DisplayName,
+                GetViewName = (view, context) => RiskeerCommonFormsResources.AssemblyResultTotal_DisplayName,
                 CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 CreateInstance = context => new AssemblyResultTotalView(context.WrappedData)
             };
@@ -1012,7 +1012,7 @@ namespace Riskeer.Integration.Plugin
 
             yield return new TreeNodeInfo<AssemblyResultTotalContext>
             {
-                Text = context => RiskeerCommonFormsResources.CombinedFailureProbability_DisplayName,
+                Text = context => RiskeerCommonFormsResources.AssemblyResultTotal_DisplayName,
                 Image = context => Resources.AssemblyResultTotal,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()

@@ -128,6 +128,15 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Veiligheidsoordeel.
+        /// </summary>
+        public static string AssemblyResultTotal_DisplayName {
+            get {
+                return ResourceManager.GetString("AssemblyResultTotal_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waterstand met een overschrijdingsfrequentie gelijk aan de norm van het dijktraject..
         /// </summary>
         public static string AssessmentLevel_Description {
@@ -1005,15 +1014,6 @@ namespace Riskeer.Common.Forms.Properties {
         public static string ClearOutput_No_output_to_clear {
             get {
                 return ResourceManager.GetString("ClearOutput_No_output_to_clear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gecombineerde faalkans.
-        /// </summary>
-        public static string CombinedFailureProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("CombinedFailureProbability_DisplayName", resourceCulture);
             }
         }
         

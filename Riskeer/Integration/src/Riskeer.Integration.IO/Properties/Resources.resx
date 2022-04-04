@@ -148,7 +148,7 @@
     <value>{0} Er zijn geen assemblageresultaten geëxporteerd.</value>
   </data>
   <data name="AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details" xml:space="preserve">
-    <value>De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of de gecombineerde faalkans voor meer details.</value>
+    <value>De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of het veiligheidsoordeel voor meer details.</value>
   </data>
   <data name="AssemblyExporter_Specific_failure_mechanisms_must_have_a_unique_name" xml:space="preserve">
     <value>Om assemblageresultaten te kunnen exporteren moeten alle specifieke faalmechanismen die onderdeel zijn van de assemblage een unieke naam hebben.</value>

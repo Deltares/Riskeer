@@ -81,7 +81,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                 string text = info.Text(null);
 
                 // Assert
-                Assert.AreEqual("Gecombineerde faalkans", text);
+                Assert.AreEqual("Veiligheidsoordeel", text);
             }
         }
 

@@ -91,7 +91,7 @@ namespace Riskeer.Integration.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of de gecombineerde faalkans voor meer details..
+        ///   Looks up a localized string similar to De assemblage kan niet succesvol worden afgerond. Inspecteer de resultaten van de faalmechanismen die onderdeel zijn van de assemblage of het veiligheidsoordeel voor meer details..
         /// </summary>
         public static string AssemblyExporter_No_AssemblyResult_exported_Check_results_for_details {
             get {

@@ -1396,8 +1396,8 @@ berekende kans
     <data name="AssessmentSectionAssemblyGroups_DisplayName" xml:space="preserve">
     <value>Veiligheidscategorieën</value>
   </data>
-    <data name="CombinedFailureProbability_DisplayName" xml:space="preserve">
-    <value>Gecombineerde faalkans</value>
+    <data name="AssemblyResultTotal_DisplayName" xml:space="preserve">
+    <value>Veiligheidsoordeel</value>
   </data>
     <data name="CreateClearIllustrationPointsOfCalculationsItem_ClearIllustrationPoints_DisplayName"
           xml:space="preserve">
