@@ -32,7 +32,7 @@
   <String Id="MaintenanceTypeDlgTitle">{\WixUI_Font_Title}Installatie herstellen of verwijderen</String>
   <String Id="InstallDirDlgTitle">{\WixUI_Font_Title}Installatiemap</String>
   <String Id="InstallDirDlgFolderLabel">[ProductName] installeren in:</String>
-  <String Id="InstallDirDlgDescription">Kies hier het pad waar u [ProductName] geïnstalleerd wilt hebben.</String>
+  <String Id="InstallDirDlgDescription">{\WixUI_Font_Banner_Description}Kies hier het pad waar u [ProductName] geïnstalleerd wilt hebben.</String>
   <String Id="InstallDirDlgText">Klik op Volgende om in de bovenstaande map te installeren of klik op Wijzigen om een andere map te kiezen.</String>
   
   <String Id="BackButtonText">&amp;Vorige</String>
