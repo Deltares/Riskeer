@@ -9,7 +9,7 @@
   <!--Set Width to 320 when no logos are displayed-->
   <String Id='DescriptionBeforeLogosWidth'>320</String>
 
-  <String Id="TitleDescriptionX">40</String>
+  <String Id="TitleDescriptionX">0</String>
 
   <String Id="PrepareDlgTitle" />
 
