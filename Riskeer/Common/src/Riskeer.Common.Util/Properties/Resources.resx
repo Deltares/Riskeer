@@ -130,7 +130,7 @@
     <value>Waterstanden bij vaste doelkans</value>
   </data>
   <data name="WaterLevelCalculationsForUserDefinedTargetProbabilities_DisplayName" xml:space="preserve">
-    <value>Waterstanden bij doelkans</value>
+    <value>Waterstanden bij vrije doelkans</value>
   </data>
   <data name="WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName" xml:space="preserve">
     <value>Golfhoogten bij doelkans</value>

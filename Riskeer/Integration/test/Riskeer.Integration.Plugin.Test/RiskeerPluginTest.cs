@@ -926,14 +926,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10"));
 
                 // When
                 calculationsForTargetProbability.TargetProbability = 0.01;
                 calculationsForTargetProbability.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/100"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/100"));
                 mocks.VerifyAll();
             }
         }
@@ -975,14 +975,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10"));
 
                 // When
                 assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability = 0.1;
                 assessmentSection.FailureMechanismContribution.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10 (1)"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10 (1)"));
                 mocks.VerifyAll();
             }
         }
@@ -1025,14 +1025,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10 (1)"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10 (1)"));
 
                 // When
                 updatedCalculations.TargetProbability = 0.01;
                 updatedCalculations.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10"));
                 mocks.VerifyAll();
             }
         }
@@ -1075,14 +1075,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<DesignWaterLevelCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10 (1)"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10 (1)"));
 
                 // When
                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Remove(removedCalculations);
                 assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Waterstanden bij vrije doelkans - 1/10"));
                 mocks.VerifyAll();
             }
         }

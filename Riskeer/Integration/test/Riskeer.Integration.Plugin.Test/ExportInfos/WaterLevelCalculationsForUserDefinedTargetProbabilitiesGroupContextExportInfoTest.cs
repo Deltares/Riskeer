@@ -69,7 +69,7 @@ namespace Riskeer.Integration.Plugin.Test.ExportInfos
                 string name = info.Name(null);
 
                 // Assert
-                Assert.AreEqual("Waterstanden bij doelkans", name);
+                Assert.AreEqual("Waterstanden bij vrije doelkans", name);
             }
         }
 
