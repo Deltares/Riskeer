@@ -182,15 +182,9 @@ namespace Riskeer.Common.Forms.Views
         {
             UpdateDataGridViewDataSource();
             UpdateAssemblyData();
-            UpdateProbabilityResultTypeCombobox();
-            UpdateFailureMechanismAssemblyControls();
+            UpdateFailureMechanismAssemblyResultControls();
         }
-
-        private void UpdateProbabilityResultTypeCombobox()
-        {
-            probabilityResultTypeComboBox.Enabled = HasSections();
-        }
-
+        
         private void RefreshDataGrid()
         {
             DataGridViewControl.RefreshDataGridView(false);
@@ -216,10 +210,13 @@ namespace Riskeer.Common.Forms.Views
             probabilityResultTypeComboBox.EndUpdate();
         }
 
-        private void UpdateFailureMechanismAssemblyControls()
+        private void UpdateFailureMechanismAssemblyResultControls()
         {
-            failureMechanismAssemblyProbabilityTextBox.Enabled = IsManualAssembly() && HasSections();
-            failureMechanismAssemblyProbabilityTextBox.ReadOnly = !IsManualAssembly() && !HasSections();
+            probabilityResultTypeComboBox.Enabled = HasSections();
+            
+            bool isManualAssembly = FailureMechanism.AssemblyResult.IsManualProbability();
+            failureMechanismAssemblyProbabilityTextBox.Enabled = isManualAssembly && HasSections();
+            failureMechanismAssemblyProbabilityTextBox.ReadOnly = !isManualAssembly || !HasSections();
             failureMechanismAssemblyProbabilityTextBox.Refresh();
         }
 
@@ -325,7 +322,7 @@ namespace Riskeer.Common.Forms.Views
             assemblyResult.NotifyObservers();
 
             UpdateAssemblyData();
-            UpdateFailureMechanismAssemblyControls();
+            UpdateFailureMechanismAssemblyResultControls();
         }
 
         private void FailureMechanismAssemblyProbabilityTextBoxKeyDown(object sender, KeyEventArgs e)
@@ -352,7 +349,8 @@ namespace Riskeer.Common.Forms.Views
 
         private void ProcessFailureMechanismAssemblyProbabilityTextBox()
         {
-            if (!IsManualAssembly())
+            FailureMechanismAssemblyResult assemblyResult = FailureMechanism.AssemblyResult;
+            if (!assemblyResult.IsManualProbability())
             {
                 return;
             }
@@ -360,10 +358,8 @@ namespace Riskeer.Common.Forms.Views
             try
             {
                 double probability = ProbabilityParsingHelper.Parse(failureMechanismAssemblyProbabilityTextBox.Text);
-
-                FailureMechanismAssemblyResult failureMechanismAssemblyResult = FailureMechanism.AssemblyResult;
-                failureMechanismAssemblyResult.ManualFailureMechanismAssemblyProbability = probability;
-                failureMechanismAssemblyResult.NotifyObservers();
+                assemblyResult.ManualFailureMechanismAssemblyProbability = probability;
+                assemblyResult.NotifyObservers();
 
                 SetTextBoxValue(probability);
             }
@@ -389,11 +385,6 @@ namespace Riskeer.Common.Forms.Views
             {
                 SetErrorMessage(FailureMechanismAssemblyResultValidationHelper.GetValidationError(assemblyResult));
             }
-        }
-
-        private bool IsManualAssembly()
-        {
-            return FailureMechanism.AssemblyResult.ProbabilityResultType == FailureMechanismAssemblyProbabilityResultType.Manual;
         }
 
         private void SetErrorMessage(string errorMessage)

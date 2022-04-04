@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.DataGrid;
@@ -217,48 +218,6 @@ namespace Riskeer.Common.Forms.Test.Views
                 Assert.AreEqual(FailureMechanismAssemblyProbabilityResultType.Manual, configurationTypes[1].Value);
                 Assert.AreEqual(failureMechanism.AssemblyResult.ProbabilityResultType,
                                 ((EnumDisplayWrapper<FailureMechanismAssemblyProbabilityResultType>) comboBox.SelectedItem).Value);
-            }
-        }
-
-        [Test]
-        public void FailureMechanismResultView_WithoutSections_ProbabilityResultTypeComboBoxDisabled()
-        {
-            // Setup 
-            var failureMechanism = new TestFailureMechanism();
-
-            // Call
-            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Assert
-                ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                CollectionAssert.IsEmpty(failureMechanism.Sections);
-                Assert.IsFalse(comboBox.Enabled);
-            }
-        }
-
-        [Test]
-        public void FailureMechanismResultView_WithSections_ProbabilityResultTypeComboBoxEnabled()
-        {
-            // Setup 
-            var failureMechanism = new TestFailureMechanism();
-
-            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Precondition
-                ComboBox comboBox = GetProbabilityResultTypeComboBox();
-                Assert.IsFalse(comboBox.Enabled);
-
-                // Call
-                FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    section
-                });
-
-                failureMechanism.NotifyObservers();
-
-                // Assert
-                Assert.IsTrue(comboBox.Enabled);
             }
         }
 
@@ -855,36 +814,9 @@ namespace Riskeer.Common.Forms.Test.Views
 
             mocks.VerifyAll();
         }
-        
-        [Test]
-        public void FailureMechanismResultViewWithoutSectionsAndProbabilityTypeManual_ReturnsCorrectError()
-        {
-            // Setup
-            const string expectedErrorMessage = "Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geïmporteerd.";
-            var failureMechanism = new TestFailureMechanism
-            {
-                AssemblyResult =
-                {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
-                }
-            };
-
-            // Call
-            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                ErrorProvider errorProvider = GetErrorProvider(view);
-                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
-                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
-                
-                // Assert
-                Assert.AreEqual(expectedErrorMessage, errorMessage);
-            }
-        }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void GivenFailureMechanismResultViewAndProbabilityResultTypeAutomatic_WhenProbabilityResultTypeSetToManual_ThenFailureMechanismAssemblyProbabilityTextBoxSetWithCorrectStateAndObserversNotified(bool hasSections)
+        public void GivenFailureMechanismResultViewAndProbabilityResultTypeAutomatic_WhenProbabilityResultTypeSetToManual_ThenFailureMechanismAssemblyProbabilityTextBoxSetWithCorrectStateAndObserversNotified()
         {
             // Given
             var mocks = new MockRepository();
@@ -899,14 +831,12 @@ namespace Riskeer.Common.Forms.Test.Views
                     ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
                 }
             };
-            if (hasSections)
+
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
             {
-                FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    section
-                });
-            }
+                section
+            });
 
             failureMechanism.AssemblyResult.Attach(observer);
 
@@ -916,6 +846,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Precondition
                 Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
 
                 // When
                 const FailureMechanismAssemblyProbabilityResultType newResultType = FailureMechanismAssemblyProbabilityResultType.Manual;
@@ -924,61 +855,11 @@ namespace Riskeer.Common.Forms.Test.Views
 
                 // Then
                 Assert.AreEqual(newResultType, failureMechanism.AssemblyResult.ProbabilityResultType);
-                Assert.AreEqual(hasSections, failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.Enabled);
                 Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
             }
 
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void FailureMechanismResultView_WithoutSections_FailureMechanismAssemblyProbabilityTextBoxCorrectState()
-        {
-            // Setup 
-            var failureMechanism = new TestFailureMechanism();
-
-            // Call
-            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Assert
-                TextBox textBox = GetFailureMechanismAssemblyProbabilityTextBox();
-                CollectionAssert.IsEmpty(failureMechanism.Sections);
-                Assert.IsFalse(textBox.Enabled);
-                Assert.IsTrue(textBox.ReadOnly);
-            }
-        }
-
-        [Test]
-        public void FailureMechanismResultView_WithSections_FailureMechanismAssemblyProbabilityTextBoxCorrectState()
-        {
-            // Setup 
-            var failureMechanism = new TestFailureMechanism
-            {
-                AssemblyResult =
-                {
-                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
-                }
-            };
-
-            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
-            {
-                // Precondition
-                TextBox textBox = GetFailureMechanismAssemblyProbabilityTextBox();
-                Assert.IsFalse(textBox.Enabled);
-
-                // Call
-                FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
-                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
-                {
-                    section
-                });
-
-                failureMechanism.NotifyObservers();
-
-                // Assert
-                Assert.IsTrue(textBox.Enabled);
-                Assert.IsFalse(textBox.ReadOnly);
-            }
         }
 
         [Test]
@@ -1271,6 +1152,267 @@ namespace Riskeer.Common.Forms.Test.Views
             }
 
             mocks.VerifyAll();
+        }
+
+        #endregion
+
+        #region FailureMechanismAssemblyResultControls
+
+        [Test]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.Automatic)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual)]
+        public void FailureMechanismResultView_WithoutSections_FailureMechanismAssemblyResultsCorrectState(
+            FailureMechanismAssemblyProbabilityResultType resultType)
+        {
+            // Setup 
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = resultType
+                }
+            };
+
+            // Call
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Precondition
+                CollectionAssert.IsEmpty(failureMechanism.Sections);
+
+                // Assert
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsFalse(comboBox.Enabled);
+
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+            }
+        }
+
+        [Test]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.Automatic)]
+        [TestCase(FailureMechanismAssemblyProbabilityResultType.Manual)]
+        public void FailureMechanismResultView_WithSections_FailureMechanismAssemblyResultsCorrectState(
+            FailureMechanismAssemblyProbabilityResultType resultType)
+        {
+            // Setup 
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = resultType
+                }
+            };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            // Call
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Assert
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsTrue(comboBox.Enabled);
+
+                FailureMechanismAssemblyResult assemblyResult = failureMechanism.AssemblyResult;
+                bool isManualAssemblyProbability = assemblyResult.IsManualProbability();
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.AreEqual(isManualAssemblyProbability, failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.AreEqual(!isManualAssemblyProbability, failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultView_WithoutSectionsAndProbabilityTypeManual_ReturnsCorrectError()
+        {
+            // Setup
+            const string expectedErrorMessage = "Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geïmporteerd.";
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
+                }
+            };
+
+            // Call
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                ErrorProvider errorProvider = GetErrorProvider(view);
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+
+                // Assert
+                Assert.AreEqual(expectedErrorMessage, errorMessage);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultViewWithoutSectionsAndProbabilityTypeManual_WhenSectionsAddedAndObserversNotified_ThenErrorUpdatedAndSetsFailureMechanismAssemblyResultsCorrectState()
+        {
+            // Given
+            const string initialErrorMessage = "Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geïmporteerd.";
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
+                }
+            };
+
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Precondition
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+
+                ErrorProvider errorProvider = GetErrorProvider(view);
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                Assert.AreEqual(initialErrorMessage, errorMessage);
+
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsFalse(comboBox.Enabled);
+
+                // When
+                FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+                {
+                    section
+                });
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                Assert.AreNotEqual(initialErrorMessage, errorMessage);
+
+                Assert.IsTrue(comboBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultViewWithSectionsAndProbabilityTypeManual_WhenSectionsClearedAndObserversNotified_ThenErrorUpdatedAndSetsFailureMechanismAssemblyResultsCorrectState()
+        {
+            // Given
+            const string expectedErrorMessage = "Om een oordeel te kunnen invoeren moet voor het faalmechanisme een vakindeling zijn geïmporteerd.";
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Manual
+                }
+            };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Precondition
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+
+                ErrorProvider errorProvider = GetErrorProvider(view);
+                string errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                Assert.AreNotEqual(expectedErrorMessage, errorMessage);
+
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsTrue(comboBox.Enabled);
+
+                // When
+                FailureMechanismTestHelper.SetSections(failureMechanism, Enumerable.Empty<FailureMechanismSection>());
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                errorMessage = errorProvider.GetError(failureMechanismAssemblyProbabilityTextBox);
+                Assert.AreEqual(expectedErrorMessage, errorMessage);
+
+                Assert.IsFalse(comboBox.Enabled);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultViewWithoutSectionsAndProbabilityTypeAutomatic_WhenSectionsAddedAndObserversNotified_ThenFailureMechanismAssemblyResultsCorrectStateSet()
+        {
+            // Given
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
+                }
+            };
+
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Precondition
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsFalse(comboBox.Enabled);
+
+                // When
+                FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+                FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+                {
+                    section
+                });
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                Assert.IsTrue(comboBox.Enabled);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+            }
+        }
+
+        [Test]
+        public void GivenFailureMechanismResultViewWithSectionsAndProbabilityTypeAutomatic_WhenSectionsClearedAndObserversNotified_ThenFailureMechanismAssemblyResultsCorrectStateSet()
+        {
+            // Given
+            var failureMechanism = new TestFailureMechanism
+            {
+                AssemblyResult =
+                {
+                    ProbabilityResultType = FailureMechanismAssemblyProbabilityResultType.Automatic
+                }
+            };
+            FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection("Section 1");
+            FailureMechanismTestHelper.SetSections(failureMechanism, new[]
+            {
+                section
+            });
+
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism))
+            {
+                // Precondition
+                TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+
+                ComboBox comboBox = GetProbabilityResultTypeComboBox();
+                Assert.IsTrue(comboBox.Enabled);
+
+                // When
+                FailureMechanismTestHelper.SetSections(failureMechanism, Enumerable.Empty<FailureMechanismSection>());
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                Assert.IsFalse(comboBox.Enabled);
+                Assert.IsFalse(failureMechanismAssemblyProbabilityTextBox.Enabled);
+                Assert.IsTrue(failureMechanismAssemblyProbabilityTextBox.ReadOnly);
+            }
         }
 
         #endregion
