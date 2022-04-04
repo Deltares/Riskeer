@@ -133,7 +133,7 @@
     <value>Waterstanden bij vrije doelkans</value>
   </data>
   <data name="WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName" xml:space="preserve">
-    <value>Golfhoogten bij doelkans</value>
+    <value>Golfhoogten bij vrije doelkans</value>
   </data>
   <data name="ReturnPeriodFormat" xml:space="preserve">
     <value>{0:f0}</value>

@@ -207,8 +207,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 "Waterstanden bij vaste doelkans/Waterstanden_30000 (1).shp",
                 "Waterstanden bij vrije doelkans/Waterstanden_10000.shp",
                 "Waterstanden bij vrije doelkans/Waterstanden_100000.shp",
-                "Golfhoogten bij doelkans/Golfhoogten_4000.shp",
-                "Golfhoogten bij doelkans/Golfhoogten_40000.shp"
+                "Golfhoogten bij vrije doelkans/Golfhoogten_4000.shp",
+                "Golfhoogten bij vrije doelkans/Golfhoogten_40000.shp"
             }).SetName("With UserDefinedTargetProbabilities");
 
             var assessmentSectionWithoutTargetProbabilities = new AssessmentSectionStub();

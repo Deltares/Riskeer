@@ -1172,14 +1172,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<WaveHeightCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/10"));
 
                 // When
                 calculationsForTargetProbability.TargetProbability = 0.01;
                 calculationsForTargetProbability.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/100"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/100"));
                 mocks.VerifyAll();
             }
         }
@@ -1222,14 +1222,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<WaveHeightCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10 (1)"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/10 (1)"));
 
                 // When
                 updatedCalculations.TargetProbability = 0.01;
                 updatedCalculations.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/10"));
                 mocks.VerifyAll();
             }
         }
@@ -1272,14 +1272,14 @@ namespace Riskeer.Integration.Plugin.Test
 
                 // Precondition
                 Assert.IsInstanceOf<WaveHeightCalculationsView>(view);
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10 (1)"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/10 (1)"));
 
                 // When
                 assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Remove(removedCalculations);
                 assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.NotifyObservers();
 
                 // Then
-                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij doelkans - 1/10"));
+                Assert.IsTrue(AvalonDockViewHostTestHelper.IsTitleSet((AvalonDockViewHost) gui.ViewHost, view, "Golfhoogten bij vrije doelkans - 1/10"));
                 mocks.VerifyAll();
             }
         }

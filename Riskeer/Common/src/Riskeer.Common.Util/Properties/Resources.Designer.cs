@@ -136,7 +136,7 @@ namespace Riskeer.Common.Util.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogten bij doelkans.
+        ///   Looks up a localized string similar to Golfhoogten bij vrije doelkans.
         /// </summary>
         public static string WaveHeightCalculationsForUserDefinedTargetProbabilities_DisplayName {
             get {

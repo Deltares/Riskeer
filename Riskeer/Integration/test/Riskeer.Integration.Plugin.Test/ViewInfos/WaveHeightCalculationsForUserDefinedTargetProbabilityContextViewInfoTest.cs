@@ -113,7 +113,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                 string viewName = info.GetViewName(null, context);
 
                 // Assert
-                Assert.AreEqual($"Golfhoogten bij doelkans - {expectedProbabilityText}", viewName);
+                Assert.AreEqual($"Golfhoogten bij vrije doelkans - {expectedProbabilityText}", viewName);
             }
         }
 
