@@ -6260,7 +6260,7 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij doelkans&gt;1/10000
+						Traject&gt;@HB&gt;Waterstanden bij vrije doelkans&gt;1/10000
 					</td>
 					<td>
 						GEBU
@@ -6289,7 +6289,7 @@
 				</tr>
 				<tr>
 					<td>
-						Traject&gt;@HB&gt;Golfhoogten bij doelkans&gt;1/1000
+						Traject&gt;@HB&gt;Golfhoogten bij vrije doelkans&gt;1/1000
 					</td>
 					<td>
 						GEBU
@@ -6806,7 +6806,7 @@
 						GEBU
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij doelkans
+						Traject&gt;@HB&gt;Waterstanden bij vrije doelkans
 					</td>
 					<td>
 						1/10000
@@ -6817,7 +6817,7 @@
 						GEBU
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Golfhoogten bij doelkans
+						Traject&gt;@HB&gt;Golfhoogten bij vrije doelkans
 					</td>
 					<td>
 						1/1000
@@ -6828,7 +6828,7 @@
 						DA
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij doelkans
+						Traject&gt;@HB&gt;Waterstanden bij vrije doelkans
 					</td>
 					<td>
 						1/10000
@@ -6839,7 +6839,7 @@
 						DA
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Golfhoogten bij doelkans
+						Traject&gt;@HB&gt;Golfhoogten bij vrije doelkans
 					</td>
 					<td>
 						1/1000
@@ -6962,7 +6962,7 @@
 						input_Project_15b_ZST.risk
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/1000
+						Traject&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/1000
 					</td>
 					<td>
 						37
@@ -7006,7 +7006,7 @@
 						input_Project_15b_AGK.risk
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/30000
+						Traject&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/30000
 					</td>
 					<td>
 						5
@@ -7050,7 +7050,7 @@
 						input_Project_15ab_GEBU.risk
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/1000
+						Traject&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/1000
 					</td>
 					<td>
 						164
@@ -7316,7 +7316,7 @@
 						12-2&gt;@HB
 					</td>
 					<td>
-						Traject&gt;@HB&gt;bij norm&gt;1/3000
+						Traject&gt;@HB&gt;bij vaste doelkans&gt;1/3000
 					</td>
 					<td>
 						12-2
@@ -7339,7 +7339,7 @@
 						14-4&gt;@HB
 					</td>
 					<td>
-						Traject&gt;@HB&gt;bij norm&gt;1/10000
+						Traject&gt;@HB&gt;bij vaste doelkans&gt;1/10000
 					</td>
 					<td>
 						14-4

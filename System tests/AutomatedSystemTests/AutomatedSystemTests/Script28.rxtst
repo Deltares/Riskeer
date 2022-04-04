@@ -4221,7 +4221,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Waterstanden bij norm&gt;1/10000
+						@TR&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/10000
 					</td>
 					<td>
 						@HyB
@@ -4247,7 +4247,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Waterstanden bij norm&gt;1/10000
+						@TR&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/10000
 					</td>
 					<td>
 						@HyB
@@ -4273,7 +4273,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Waterstanden bij norm&gt;1/30000
+						@TR&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/30000
 					</td>
 					<td>
 						@HyB
@@ -4299,7 +4299,7 @@
 				</tr>
 				<tr>
 					<td>
-						@TR&gt;@HB&gt;Waterstanden bij norm&gt;1/30000
+						@TR&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/30000
 					</td>
 					<td>
 						@HyB

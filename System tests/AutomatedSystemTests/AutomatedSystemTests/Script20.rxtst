@@ -4685,7 +4685,7 @@
 						script20cd_STPH.risk
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/3000
+						Traject&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/3000
 					</td>
 					<td>
 						Traject&gt;@STPH&gt;Berekeningen
@@ -4736,7 +4736,7 @@
 						script20cd_STBI.risk
 					</td>
 					<td>
-						Traject&gt;@HB&gt;Waterstanden bij norm&gt;1/30000
+						Traject&gt;@HB&gt;Waterstanden bij vaste doelkans&gt;1/30000
 					</td>
 					<td>
 						Traject&gt;@STBI&gt;Berekeningen
