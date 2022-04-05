@@ -66,6 +66,7 @@ All rights reserved.
                             Text="{x:Static properties:Resources.SupportBackstagePage_WeCanHelp_DisplayName}" />
                  <TextBlock Style="{StaticResource ExplanatoryTextBlockStyle}"
                             Text="{x:Static properties:Resources.SupportBackstagePage_WeCanHelp_Description}" />
+                 <TextBlock Height="15" />
                  <TextBlock Style="{StaticResource Header2}"
                             Text="{Binding SupportHeader}" />
                  <TextBlock Style="{StaticResource ExplanatoryTextBlockStyle}"
@@ -73,11 +74,11 @@ All rights reserved.
                             TextAlignment="Justify"/>
                  <Grid>
                      <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="180" />
                         <ColumnDefinition Width="*" />
                      </Grid.ColumnDefinitions>
                      <Grid.RowDefinitions>
-                         <RowDefinition Height="45" />
+                         <RowDefinition Height="60" />
                          <RowDefinition />
                          <RowDefinition />
                      </Grid.RowDefinitions>

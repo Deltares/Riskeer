@@ -91,7 +91,6 @@ All rights reserved.
                     <TextBlock Text="{Binding Version}"
                                Grid.Column="1" Grid.Row="2" />
                     <TextBlock Style="{StaticResource Header2}"
-                               VerticalAlignment="Bottom"
                                Text="{x:Static properties:Resources.SystemInformation_DisplayName}" 
                                Grid.Column="0" Grid.Row="3" />
                     <TextBlock Text="{x:Static properties:Resources.WindowsEdition_DisplayName}"
@@ -115,7 +114,6 @@ All rights reserved.
                     <TextBlock Text="{x:Static backstage:AboutViewModel.Resolution}"
                                Grid.Column="1" Grid.Row="8" />
                     <TextBlock Style="{StaticResource Header2}"
-                               VerticalAlignment="Bottom"
                                Text="{x:Static properties:Resources.MadeBy_DisplayName}"
                                Grid.Column="0" Grid.Row="9" />
                 </Grid>
