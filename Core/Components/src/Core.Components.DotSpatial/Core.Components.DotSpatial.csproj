@@ -36,7 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BruTile">
-      <Version>2.1.2</Version>
+      <Version>3.1.3</Version>
       <GeneratePathProperty>true</GeneratePathProperty>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

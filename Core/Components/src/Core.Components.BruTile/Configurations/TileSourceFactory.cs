@@ -78,7 +78,7 @@ namespace Core.Components.BruTile.Configurations
 
         public ITileSource GetKnownTileSource(KnownTileSource knownTileSource)
         {
-            return KnownTileSources.Create(knownTileSource);
+            return KnownTileSources.Create(knownTileSource, userAgent:"Riskeer");
         }
 
         /// <summary>

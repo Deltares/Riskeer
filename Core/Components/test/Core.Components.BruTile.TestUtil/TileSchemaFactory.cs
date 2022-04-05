@@ -51,7 +51,7 @@ namespace Core.Components.BruTile.TestUtil
             schema.Title = mapData.Name;
             schema.Format = mapData.PreferredFormat;
 
-            schema.Resolutions["1"] = new Resolution("1", 1);
+            schema.Resolutions[1] = new Resolution(1, 1);
 
             var capabilityIdRegex = new Regex(@"(?<Layer>.+)\((?<TileMatrixSet>.+)\)");
             Match match = capabilityIdRegex.Match(mapData.SelectedCapabilityIdentifier);

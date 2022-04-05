@@ -106,7 +106,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
         private float transparency;
 
-        private string level;
+        private int level;
 
         /// <summary>
         /// Creates an instance of this class using some tile source configuration.

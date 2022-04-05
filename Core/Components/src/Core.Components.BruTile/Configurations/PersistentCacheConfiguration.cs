@@ -157,8 +157,7 @@ namespace Core.Components.BruTile.Configurations
             IPersistentCache<byte[]> tileCache = CreateTileCache();
             try
             {
-                ITileProvider provider = BruTileReflectionHelper.GetProviderFromTileSource(newTileSource);
-                TileFetcher = new AsyncTileFetcher(provider,
+                TileFetcher = new AsyncTileFetcher(tileSource,
                                                    BruTileSettings.MemoryCacheMinimum,
                                                    BruTileSettings.MemoryCacheMaximum,
                                                    tileCache);
