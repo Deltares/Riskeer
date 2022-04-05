@@ -24,6 +24,7 @@ using System.Globalization;
 using System.Linq;
 using System.Management;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using Core.Gui.Forms.Backstage;
 using Core.Gui.Settings;
 using NUnit.Framework;
@@ -50,7 +51,8 @@ namespace Core.Gui.Test.Forms.Backstage
             // Setup
             var settings = new GuiCoreSettings
             {
-                ApplicationName = "Test application"
+                ApplicationName = "Test application",
+                MadeByBitmapImage = new BitmapImage()
             };
 
             const string version = "1.0";
@@ -82,6 +84,7 @@ namespace Core.Gui.Test.Forms.Backstage
             Assert.AreEqual(processorManagementObject["Name"], viewModel.Processor);
             Assert.AreEqual(installedRam, AboutViewModel.InstalledRam);
             Assert.AreEqual(GetResolution(), AboutViewModel.Resolution);
+            Assert.AreSame(settings.MadeByBitmapImage, viewModel.MadeByBitmapImage);
         }
 
         private static string GetResolution()
