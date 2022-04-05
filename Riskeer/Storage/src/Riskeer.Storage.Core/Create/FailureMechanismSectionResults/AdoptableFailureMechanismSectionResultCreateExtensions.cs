@@ -26,27 +26,26 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.FailureMechanismSectionResults
 {
     /// <summary>
-    /// Extension methods for <see cref="AdoptableFailureMechanismSectionResult"/> related to creating an 
-    /// instance of <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.
+    /// Extension methods for <see cref="AdoptableFailureMechanismSectionResult"/> related to creating
+    /// instances of <see cref="AdoptableFailureMechanismSectionResultEntity"/>.
     /// </summary>
     internal static class AdoptableFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates an instance of <see cref="IAdoptableFailureMechanismSectionResultEntity"/> 
+        /// Creates an instance of <see cref="AdoptableFailureMechanismSectionResultEntity"/> 
         /// based on the information of the <see cref="AdoptableFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <typeparam name="T">The type of <see cref="IAdoptableFailureMechanismSectionResultEntity"/> to create.</typeparam>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <returns>An instance of <see cref="IAdoptableFailureMechanismSectionResultEntity"/>.</returns>
+        /// <returns>An <see cref="AdoptableFailureMechanismSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static T Create<T>(this AdoptableFailureMechanismSectionResult result) where T : IAdoptableFailureMechanismSectionResultEntity, new()
+        internal static AdoptableFailureMechanismSectionResultEntity Create(this AdoptableFailureMechanismSectionResult result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new T
+            return new AdoptableFailureMechanismSectionResultEntity
             {
                 IsRelevant = Convert.ToByte(result.IsRelevant),
                 InitialFailureMechanismResultType = Convert.ToByte(result.InitialFailureMechanismResultType),

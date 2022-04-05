@@ -26,7 +26,7 @@ using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
 using Riskeer.Storage.Core.Create.FailureMechanismSectionResults;
-using Riskeer.Storage.Core.TestUtil.FailureMechanismResults;
+using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
 {
@@ -37,7 +37,7 @@ namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
         public void Create_FailureMechanismSectionResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => ((NonAdoptableWithProfileProbabilityFailureMechanismSectionResult) null).Create<TestNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>();
+            void Call() => ((NonAdoptableWithProfileProbabilityFailureMechanismSectionResult) null).Create();
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -69,7 +69,7 @@ namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
             };
 
             // Call
-            var entity = sectionResult.Create<TestNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>();
+            NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity entity = sectionResult.Create();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
@@ -94,7 +94,7 @@ namespace Riskeer.Storage.Core.Test.Create.FailureMechanismSectionResults
             };
 
             // Call
-            var entity = sectionResult.Create<TestNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity>();
+            NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity entity = sectionResult.Create();
 
             // Assert
             Assert.IsNull(entity.ManualInitialFailureMechanismResultProfileProbability);

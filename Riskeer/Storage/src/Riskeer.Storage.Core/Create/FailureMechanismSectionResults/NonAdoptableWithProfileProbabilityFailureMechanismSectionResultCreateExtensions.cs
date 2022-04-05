@@ -26,27 +26,26 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.FailureMechanismSectionResults
 {
     /// <summary>
-    /// Extension methods for <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/> related to creating an 
-    /// instance of <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.
+    /// Extension methods for <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/> related to creating 
+    /// instances of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.
     /// </summary>
     internal static class NonAdoptableWithProfileProbabilityFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates an instance of <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> 
+        /// Creates an instance of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> 
         /// based on the information of the <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <typeparam name="T">The type of <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> to create.</typeparam>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <returns>An instance of <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.</returns>
+        /// <returns>A <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static T Create<T>(this NonAdoptableWithProfileProbabilityFailureMechanismSectionResult result) where T : INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity, new()
+        internal static NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity Create(this NonAdoptableWithProfileProbabilityFailureMechanismSectionResult result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            var sectionResultEntity = new T
+            return new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
             {
                 IsRelevant = Convert.ToByte(result.IsRelevant),
                 InitialFailureMechanismResultType = Convert.ToByte(result.InitialFailureMechanismResultType),
@@ -56,8 +55,6 @@ namespace Riskeer.Storage.Core.Create.FailureMechanismSectionResults
                 RefinedProfileProbability = result.RefinedProfileProbability.ToNaNAsNull(),
                 RefinedSectionProbability = result.RefinedSectionProbability.ToNaNAsNull()
             };
-
-            return sectionResultEntity;
         }
     }
 }

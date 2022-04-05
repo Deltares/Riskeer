@@ -26,27 +26,26 @@ using Riskeer.Storage.Core.DbContext;
 namespace Riskeer.Storage.Core.Create.FailureMechanismSectionResults
 {
     /// <summary>
-    /// Extension methods for <see cref="NonAdoptableFailureMechanismSectionResult"/> related to creating an 
-    /// instance of <see cref="INonAdoptableFailureMechanismSectionResultEntity"/>.
+    /// Extension methods for <see cref="NonAdoptableFailureMechanismSectionResult"/> related to creating
+    /// instances of <see cref="NonAdoptableFailureMechanismSectionResultEntity"/>.
     /// </summary>
     internal static class NonAdoptableFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates an instance of <see cref="INonAdoptableFailureMechanismSectionResultEntity"/> 
+        /// Creates an instance of <see cref="NonAdoptableFailureMechanismSectionResultEntity"/> 
         /// based on the information of the <see cref="NonAdoptableFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <typeparam name="T">The type of <see cref="INonAdoptableFailureMechanismSectionResultEntity"/> to create.</typeparam>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <returns>An instance of <see cref="INonAdoptableFailureMechanismSectionResultEntity"/>.</returns>
+        /// <returns>A <see cref="NonAdoptableFailureMechanismSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        internal static T Create<T>(this NonAdoptableFailureMechanismSectionResult result) where T : INonAdoptableFailureMechanismSectionResultEntity, new()
+        internal static NonAdoptableFailureMechanismSectionResultEntity Create(this NonAdoptableFailureMechanismSectionResult result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new T
+            return new NonAdoptableFailureMechanismSectionResultEntity
             {
                 IsRelevant = Convert.ToByte(result.IsRelevant),
                 InitialFailureMechanismResultType = Convert.ToByte(result.InitialFailureMechanismResultType),
