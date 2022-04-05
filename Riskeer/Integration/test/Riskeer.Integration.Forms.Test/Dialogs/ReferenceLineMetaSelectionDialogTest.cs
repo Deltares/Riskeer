@@ -82,7 +82,7 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                     Assert.AreEqual(@"Stel een traject samen", dialog.Text);
 
                     GroupBox groupBox = ControlTestHelper.GetControls<GroupBox>(dialog, "groupBox1").Single();
-                    Assert.AreEqual("Kies de norm van het traject:", groupBox.Text);
+                    Assert.AreEqual("Kies de doelkans voor de semi-probabilistische toets (dijken):", groupBox.Text);
 
                     AssertReferenceLineMetaDataGridViewControl(dialog);
                 }
