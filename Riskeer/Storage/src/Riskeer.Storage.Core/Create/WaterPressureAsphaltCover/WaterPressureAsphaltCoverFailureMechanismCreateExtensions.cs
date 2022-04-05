@@ -55,9 +55,9 @@ namespace Riskeer.Storage.Core.Create.WaterPressureAsphaltCover
         {
             foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create<WaterPressureAsphaltCoverSectionResultEntity>();
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.WaterPressureAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
+                section.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
 

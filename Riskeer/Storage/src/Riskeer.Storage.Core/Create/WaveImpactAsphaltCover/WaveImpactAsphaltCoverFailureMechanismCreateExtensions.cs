@@ -59,9 +59,9 @@ namespace Riskeer.Storage.Core.Create.WaveImpactAsphaltCover
         {
             foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create<WaveImpactAsphaltCoverSectionResultEntity>();
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.WaveImpactAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
+                section.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
 

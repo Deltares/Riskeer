@@ -60,9 +60,9 @@ namespace Riskeer.Storage.Core.Create.StabilityStoneCover
         {
             foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create<StabilityStoneCoverSectionResultEntity>();
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.StabilityStoneCoverSectionResultEntities.Add(sectionResultEntity);
+                section.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
 

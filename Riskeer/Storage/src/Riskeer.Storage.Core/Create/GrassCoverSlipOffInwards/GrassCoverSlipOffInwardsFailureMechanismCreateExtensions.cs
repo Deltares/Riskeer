@@ -55,9 +55,9 @@ namespace Riskeer.Storage.Core.Create.GrassCoverSlipOffInwards
         {
             foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create<GrassCoverSlipOffInwardsSectionResultEntity>();
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.GrassCoverSlipOffInwardsSectionResultEntities.Add(sectionResultEntity);
+                section.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
 

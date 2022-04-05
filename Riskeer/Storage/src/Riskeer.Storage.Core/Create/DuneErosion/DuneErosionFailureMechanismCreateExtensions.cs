@@ -59,9 +59,9 @@ namespace Riskeer.Storage.Core.Create.DuneErosion
         {
             foreach (NonAdoptableFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create<DuneErosionSectionResultEntity>();
+                NonAdoptableFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.DuneErosionSectionResultEntities.Add(sectionResultEntity);
+                section.NonAdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
 

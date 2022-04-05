@@ -99,9 +99,9 @@ namespace Riskeer.Storage.Core.Create.MacroStabilityInwards
         {
             foreach (AdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create<MacroStabilityInwardsSectionResultEntity>();
+                AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.MacroStabilityInwardsSectionResultEntities.Add(sectionResultEntity);
+                section.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
     }

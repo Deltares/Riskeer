@@ -167,7 +167,9 @@ namespace Riskeer.Storage.Core.Test.Create.HeightStructures
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities).Count());
+            Assert.AreEqual(1, entity.FailureMechanismSectionEntities
+                                     .SelectMany(fms => fms.AdoptableFailureMechanismSectionResultEntities)
+                                     .Count());
             TestHelper.AssertAreEqualButNotSame(failureMechanism.FailureMechanismSectionSourcePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
 

@@ -72,9 +72,9 @@ namespace Riskeer.Storage.Core.Create.GrassCoverErosionOutwards
         {
             foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create<GrassCoverErosionOutwardsSectionResultEntity>();
+                NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.GrassCoverErosionOutwardsSectionResultEntities.Add(sectionResultEntity);
+                section.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
 

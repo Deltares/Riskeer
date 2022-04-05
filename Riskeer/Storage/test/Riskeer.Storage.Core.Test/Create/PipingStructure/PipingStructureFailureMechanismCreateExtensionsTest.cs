@@ -151,7 +151,9 @@ namespace Riskeer.Storage.Core.Test.Create.PipingStructure
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingStructureSectionResultEntities).Count());
+            Assert.AreEqual(1, entity.FailureMechanismSectionEntities
+                                     .SelectMany(fms => fms.NonAdoptableFailureMechanismSectionResultEntities)
+                                     .Count());
         }
     }
 }

@@ -61,9 +61,9 @@ namespace Riskeer.Storage.Core.Create.StabilityPointStructures
         {
             foreach (AdoptableFailureMechanismSectionResult failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create<StabilityPointStructuresSectionResultEntity>();
+                AdoptableFailureMechanismSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create();
                 FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
-                section.StabilityPointStructuresSectionResultEntities.Add(sectionResultEntity);
+                section.AdoptableFailureMechanismSectionResultEntities.Add(sectionResultEntity);
             }
         }
 

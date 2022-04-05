@@ -165,7 +165,9 @@ namespace Riskeer.Storage.Core.Test.Create.StabilityStoneCover
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityStoneCoverSectionResultEntities).Count());
+            Assert.AreEqual(1, entity.FailureMechanismSectionEntities
+                                     .SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities)
+                                     .Count());
             TestHelper.AssertAreEqualButNotSame(filePath, entity.FailureMechanismSectionCollectionSourcePath);
         }
 
