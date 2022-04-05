@@ -26,6 +26,7 @@ using System.Management;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Core.Gui.Properties;
+using Core.Gui.Settings;
 
 namespace Core.Gui.Forms.Backstage
 {
@@ -34,14 +35,23 @@ namespace Core.Gui.Forms.Backstage
     /// </summary>
     public class AboutViewModel : IBackstagePageViewModel
     {
+        private readonly GuiCoreSettings settings;
+
         /// <summary>
         /// Creates a new instance of <see cref="AboutViewModel"/>.
         /// </summary>
-        /// <param name="applicationName">The application name.</param>
+        /// <param name="settings">The application settings.</param>
         /// <param name="version">The application version.</param>
-        public AboutViewModel(string applicationName, string version)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="settings"/> is <c>null</c>.</exception>
+        public AboutViewModel(GuiCoreSettings settings, string version)
         {
-            ApplicationName = applicationName;
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+
+            this.settings = settings;
+
             Version = version;
 
             WindowsEdition = (string) GetManagementObjectProperty("Win32_OperatingSystem", "Caption")
@@ -55,7 +65,7 @@ namespace Core.Gui.Forms.Backstage
         /// <summary>
         /// Gets the application name.
         /// </summary>
-        public string ApplicationName { get; }
+        public string ApplicationName => settings.ApplicationName;
 
         /// <summary>
         /// Gets the application version.

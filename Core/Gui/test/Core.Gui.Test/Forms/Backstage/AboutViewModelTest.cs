@@ -25,6 +25,7 @@ using System.Linq;
 using System.Management;
 using System.Windows;
 using Core.Gui.Forms.Backstage;
+using Core.Gui.Settings;
 using NUnit.Framework;
 
 namespace Core.Gui.Test.Forms.Backstage
@@ -33,18 +34,33 @@ namespace Core.Gui.Test.Forms.Backstage
     public class AboutViewModelTest
     {
         [Test]
+        public void Constructor_SettingsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => new AboutViewModel(null, string.Empty);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("settings", exception.ParamName);
+        }
+
+        [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            const string applicationName = "Test application";
+            var settings = new GuiCoreSettings
+            {
+                ApplicationName = "Test application"
+            };
+
             const string version = "1.0";
 
             // Call
-            var viewModel = new AboutViewModel(applicationName, version);
+            var viewModel = new AboutViewModel(settings, version);
 
             // Assert
             Assert.IsInstanceOf<IBackstagePageViewModel>(viewModel);
-            Assert.AreEqual(applicationName, viewModel.ApplicationName);
+            Assert.AreEqual(settings.ApplicationName, viewModel.ApplicationName);
             Assert.AreEqual(version, viewModel.Version);
 
             ManagementObject processorManagementObject =
