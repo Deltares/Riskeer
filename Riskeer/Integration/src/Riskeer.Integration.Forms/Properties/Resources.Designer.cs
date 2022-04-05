@@ -200,7 +200,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ondergrens van de normklasse..
+        ///   Looks up a localized string similar to Ondergrens van de veiligheidscategorie..
         /// </summary>
         public static string AssessmentSectionAssemblyGroup_LowerBoundary_Description {
             get {
@@ -209,7 +209,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Naam van de normklasse..
+        ///   Looks up a localized string similar to Naam van de veiligheidscategorie..
         /// </summary>
         public static string AssessmentSectionAssemblyGroup_Name_Description {
             get {
@@ -218,7 +218,7 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bovengrens van de normklasse..
+        ///   Looks up a localized string similar to Bovengrens van de veiligheidscategorie..
         /// </summary>
         public static string AssessmentSectionAssemblyGroup_UpperBoundary_Description {
             get {

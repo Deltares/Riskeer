@@ -89,21 +89,21 @@ namespace Riskeer.Integration.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
                                                                             generalCategoryName,
                                                                             "Naam",
-                                                                            "Naam van de normklasse.",
+                                                                            "Naam van de veiligheidscategorie.",
                                                                             true);
 
             PropertyDescriptor lowerBoundaryProperty = dynamicProperties[1];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lowerBoundaryProperty,
                                                                             generalCategoryName,
                                                                             "Ondergrens [1/jaar]",
-                                                                            "Ondergrens van de normklasse.",
+                                                                            "Ondergrens van de veiligheidscategorie.",
                                                                             true);
 
             PropertyDescriptor upperBoundaryProperty = dynamicProperties[2];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(upperBoundaryProperty,
                                                                             generalCategoryName,
                                                                             "Bovengrens [1/jaar]",
-                                                                            "Bovengrens van de normklasse.",
+                                                                            "Bovengrens van de veiligheidscategorie.",
                                                                             true);
         }
 
