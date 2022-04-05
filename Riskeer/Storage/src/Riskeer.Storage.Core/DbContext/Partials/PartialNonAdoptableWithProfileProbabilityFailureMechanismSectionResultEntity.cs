@@ -23,7 +23,7 @@ namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
     /// Partial implementation of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> that implements 
-    /// <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.
+    /// <see cref="IFailureMechanismSectionResultEntity"/>.
     /// </summary>
-    public partial class NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity : INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity {}
+    public partial class NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity : IFailureMechanismSectionResultEntity {}
 }

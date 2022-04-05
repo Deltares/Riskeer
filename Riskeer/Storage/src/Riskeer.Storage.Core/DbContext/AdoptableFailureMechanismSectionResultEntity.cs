@@ -30,16 +30,16 @@
 
 namespace Riskeer.Storage.Core.DbContext
 {
-    public class AdoptableFailureMechanismSectionResultEntity
+    public partial class AdoptableFailureMechanismSectionResultEntity
     {
         public long AdoptableFailureMechanismSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
-        public byte IsRelevant { get; set; }
         public byte InitialFailureMechanismResultType { get; set; }
+
+        public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
+        public byte IsRelevant { get; set; }
         public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
         public byte FurtherAnalysisType { get; set; }
         public double? RefinedSectionProbability { get; set; }
-
-        public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }

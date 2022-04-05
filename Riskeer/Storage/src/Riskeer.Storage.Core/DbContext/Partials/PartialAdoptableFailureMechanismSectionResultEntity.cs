@@ -19,19 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Riskeer.Storage.Core.DbContext;
-
-namespace Riskeer.Storage.Core.TestUtil.FailureMechanismResults
+namespace Riskeer.Storage.Core.DbContext
 {
     /// <summary>
-    /// Simple implementation of <see cref="INonAdoptableFailureMechanismSectionResultEntity"/> that can be used in tests.
+    /// Partial implementation of <see cref="AdoptableFailureMechanismSectionResultEntity"/> that implements 
+    /// <see cref="IFailureMechanismSectionResultEntity"/>.
     /// </summary>
-    public class TestNonAdoptableFailureMechanismSectionResultEntity : INonAdoptableFailureMechanismSectionResultEntity
-    {
-        public byte IsRelevant { get; set; }
-        public byte InitialFailureMechanismResultType { get; set; }
-        public double? ManualInitialFailureMechanismResultSectionProbability { get; set; }
-        public byte FurtherAnalysisType { get; set; }
-        public double? RefinedSectionProbability { get; set; }
-    }
+    public partial class AdoptableFailureMechanismSectionResultEntity : IFailureMechanismSectionResultEntity {}
 }
