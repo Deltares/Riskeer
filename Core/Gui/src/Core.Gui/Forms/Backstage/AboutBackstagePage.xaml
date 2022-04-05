@@ -118,10 +118,9 @@ All rights reserved.
                                Grid.Column="0" Grid.Row="9" />
                 </Grid>
             </StackPanel>
-            <Image Source="pack://application:,,,/Core.Common.Controls;component/Resources/MadeBy.png"
-                   Grid.Column="0"
-                   Grid.Row="1"
-                   Margin="0 10 0 0"/>
+            <Image Source="{Binding MadeByBitmapImage}"
+                   Margin="0 10 0 0"
+                   Grid.Column="0" Grid.Row="1"/>
         </Grid>
     </DockPanel>
 </UserControl>

@@ -24,6 +24,7 @@ using System.Globalization;
 using System.Linq;
 using System.Management;
 using System.Windows;
+using System.Windows.Media.Imaging;
 using Core.Gui.Properties;
 
 namespace Core.Gui.Forms.Backstage
@@ -101,6 +102,11 @@ namespace Core.Gui.Forms.Backstage
         public static string Resolution =>
             $"{SystemParameters.PrimaryScreenWidth.ToString(CultureInfo.InvariantCulture)} " +
             $"x {SystemParameters.PrimaryScreenHeight.ToString(CultureInfo.InvariantCulture)}";
+
+        /// <summary>
+        /// Gets the made by bitmap image.
+        /// </summary>
+        public BitmapImage MadeByBitmapImage => new BitmapImage(new Uri("pack://application:,,,/Core.Common.Controls;component/Resources/MadeBy.png"));
 
         private static object GetManagementObjectProperty(string managementObjectName, string propertyName)
         {
