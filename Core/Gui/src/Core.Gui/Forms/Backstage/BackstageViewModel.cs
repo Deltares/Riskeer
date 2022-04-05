@@ -59,7 +59,7 @@ namespace Core.Gui.Forms.Backstage
             this.settings = settings;
 
             InfoViewModel = new InfoViewModel();
-            AboutViewModel = new AboutViewModel(settings.ApplicationName, version);
+            AboutViewModel = new AboutViewModel(settings, version);
             SupportViewModel = new SupportViewModel(settings);
 
             OpenUserManualCommand = new RelayCommand(OnOpenUserManual, CanOpenUserManual);
