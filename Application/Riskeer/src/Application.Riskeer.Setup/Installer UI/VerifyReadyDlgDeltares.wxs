@@ -87,25 +87,25 @@
                 <Control Id="InstallTitle" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgInstallTitle)">
                     <Condition Action="show">NOT Installed</Condition>
                 </Control>
-                <Control Id="InstallText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" Text="!(loc.VerifyReadyDlgInstallText)">
+                <Control Id="InstallText" Type="Text" X="20" Y="70" Width="320" Height="80" Hidden="yes" Text="!(loc.VerifyReadyDlgInstallText)">
                     <Condition Action="show">NOT Installed</Condition>
                 </Control>
                 <Control Id="RepairTitle" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgRepairTitle)">
                     <Condition Action="show">WixUI_InstallMode = "Repair"</Condition>
                 </Control>
-                <Control Id="RepairText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" NoPrefix="yes" Text="!(loc.VerifyReadyDlgRepairText)">
+                <Control Id="RepairText" Type="Text" X="20" Y="70" Width="320" Height="80" Hidden="yes" NoPrefix="yes" Text="!(loc.VerifyReadyDlgRepairText)">
                     <Condition Action="show">WixUI_InstallMode = "Repair"</Condition>
                 </Control>
                 <Control Id="RemoveTitle" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgRemoveTitle)">
                     <Condition Action="show">WixUI_InstallMode = "Remove"</Condition>
                 </Control>
-                <Control Id="RemoveText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" NoPrefix="yes" Text="!(loc.VerifyReadyDlgRemoveText)">
+                <Control Id="RemoveText" Type="Text" X="20" Y="70" Width="320" Height="80" Hidden="yes" NoPrefix="yes" Text="!(loc.VerifyReadyDlgRemoveText)">
                     <Condition Action="show">WixUI_InstallMode = "Remove"</Condition>
                 </Control>
                 <Control Id="UpdateTitle" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Hidden="yes" Text="!(loc.VerifyReadyDlgUpdateTitle)">
                     <Condition Action="show">WixUI_InstallMode = "Update"</Condition>
                 </Control>
-                <Control Id="UpdateText" Type="Text" X="25" Y="70" Width="320" Height="80" Hidden="yes" NoPrefix="yes" Text="!(loc.VerifyReadyDlgUpdateText)">
+                <Control Id="UpdateText" Type="Text" X="20" Y="70" Width="320" Height="80" Hidden="yes" NoPrefix="yes" Text="!(loc.VerifyReadyDlgUpdateText)">
                     <Condition Action="show">WixUI_InstallMode = "Update"</Condition>
                 </Control>
 		            <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17"  Cancel="yes" Text="!(loc.CancelButtonText)">
