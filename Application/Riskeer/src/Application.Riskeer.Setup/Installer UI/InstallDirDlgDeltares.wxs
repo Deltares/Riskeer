@@ -27,9 +27,9 @@ You must not remove this notice, or any other, from this software.
         <Control Id="Description" Type="Text" X="!(loc.TitleDescriptionX)" Y="29" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.InstallDirDlgDescription)" />
         <Control Id="Title" Type="Text" X="!(loc.TitleDescriptionX)" Y="16" Width="325" Height="15" Transparent="yes" NoPrefix="yes" Text="!(loc.InstallDirDlgTitle)" />
 
-        <Control Id="FolderLabel" Type="Text" X="20" Y="70" Width="290" Height="30" NoPrefix="yes" Text="!(loc.InstallDirDlgFolderLabel)" />
-        <Control Id="Folder" Type="PathEdit" X="20" Y="100" Width="320" Height="18" Property="WIXUI_INSTALLDIR" Indirect="yes" />
-        <Control Id="ChangeFolder" Type="PushButton" X="20" Y="120" Width="56" Height="17" Text="!(loc.InstallDirDlgChange)" />
+        <Control Id="FolderLabel" Type="Text" X="25" Y="70" Width="290" Height="30" NoPrefix="yes" Text="!(loc.InstallDirDlgFolderLabel)" />
+        <Control Id="Folder" Type="PathEdit" X="25" Y="100" Width="320" Height="18" Property="WIXUI_INSTALLDIR" Indirect="yes" />
+        <Control Id="ChangeFolder" Type="PushButton" X="25" Y="120" Width="56" Height="17" Text="!(loc.InstallDirDlgChange)" />
       </Dialog>
     </UI>
   </Fragment>
