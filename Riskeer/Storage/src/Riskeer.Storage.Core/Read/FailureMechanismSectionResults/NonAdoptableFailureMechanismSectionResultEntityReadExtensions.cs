@@ -28,19 +28,19 @@ namespace Riskeer.Storage.Core.Read.FailureMechanismSectionResults
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="NonAdoptableFailureMechanismSectionResult"/>
-    /// based on the <see cref="INonAdoptableFailureMechanismSectionResultEntity"/>.
+    /// based on a <see cref="NonAdoptableFailureMechanismSectionResultEntity"/>.
     /// </summary>
     internal static class NonAdoptableFailureMechanismSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="INonAdoptableFailureMechanismSectionResultEntity"/> and use the information
+        /// Reads the <see cref="NonAdoptableFailureMechanismSectionResultEntity"/> and use the information
         /// to update a <see cref="NonAdoptableFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="INonAdoptableFailureMechanismSectionResultEntity"/> used to update 
+        /// <param name="entity">The <see cref="NonAdoptableFailureMechanismSectionResultEntity"/> used to update 
         /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal static void Read(this INonAdoptableFailureMechanismSectionResultEntity entity,
+        internal static void Read(this NonAdoptableFailureMechanismSectionResultEntity entity,
                                   NonAdoptableFailureMechanismSectionResult sectionResult)
         {
             if (entity == null)

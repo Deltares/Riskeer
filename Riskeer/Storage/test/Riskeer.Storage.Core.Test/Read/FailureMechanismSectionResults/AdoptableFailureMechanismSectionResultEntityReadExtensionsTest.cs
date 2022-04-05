@@ -25,8 +25,8 @@ using NUnit.Framework;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Primitives;
+using Riskeer.Storage.Core.DbContext;
 using Riskeer.Storage.Core.Read.FailureMechanismSectionResults;
-using Riskeer.Storage.Core.TestUtil.FailureMechanismResults;
 
 namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
 {
@@ -36,9 +36,11 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
             // Call
-            void Call() => ((TestAdoptableFailureMechanismSectionResultEntity) null).Read(new AdoptableFailureMechanismSectionResult(
-                                                                                              FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
+            void Call() => ((AdoptableFailureMechanismSectionResultEntity) null).Read(sectionResult);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -49,7 +51,7 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
         public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new TestAdoptableFailureMechanismSectionResultEntity();
+            var entity = new AdoptableFailureMechanismSectionResultEntity();
 
             // Call
             void Call() => entity.Read(null);
@@ -70,7 +72,7 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
             var furtherAnalysisType = random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>();
             double refinedSectionProbability = random.NextDouble();
 
-            var entity = new TestAdoptableFailureMechanismSectionResultEntity
+            var entity = new AdoptableFailureMechanismSectionResultEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
                 InitialFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
@@ -95,7 +97,7 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
         public void Read_EntityWithNullValues_SectionResultWithNaNValues()
         {
             // Setup
-            var entity = new TestAdoptableFailureMechanismSectionResultEntity();
+            var entity = new AdoptableFailureMechanismSectionResultEntity();
             var sectionResult = new AdoptableFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call

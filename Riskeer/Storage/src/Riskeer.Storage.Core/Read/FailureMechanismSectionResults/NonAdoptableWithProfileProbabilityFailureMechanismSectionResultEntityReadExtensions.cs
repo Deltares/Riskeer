@@ -21,26 +21,27 @@
 
 using System;
 using Riskeer.Common.Data.FailureMechanism;
+using Riskeer.Common.Primitives;
 using Riskeer.Storage.Core.DbContext;
 
 namespace Riskeer.Storage.Core.Read.FailureMechanismSectionResults
 {
     /// <summary>
-    /// This class defines extension methods for read operations for an
+    /// This class defines extension methods for read operations for a
     /// <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/>
-    /// based on the <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.
+    /// based on a <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/>.
     /// </summary>
     internal static class NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> and use the information
+        /// Reads the <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> and use the information
         /// to update an <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> used to update 
+        /// <param name="entity">The <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity"/> used to update 
         /// the <paramref name="sectionResult"/>.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        internal static void Read(this INonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity entity,
+        internal static void Read(this NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity entity,
                                   NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult)
         {
             if (entity == null)
@@ -53,7 +54,11 @@ namespace Riskeer.Storage.Core.Read.FailureMechanismSectionResults
                 throw new ArgumentNullException(nameof(sectionResult));
             }
 
-            ((INonAdoptableFailureMechanismSectionResultEntity) entity).Read(sectionResult);
+            sectionResult.IsRelevant = Convert.ToBoolean(entity.IsRelevant);
+            sectionResult.InitialFailureMechanismResultType = (NonAdoptableInitialFailureMechanismResultType) entity.InitialFailureMechanismResultType;
+            sectionResult.ManualInitialFailureMechanismResultSectionProbability = entity.ManualInitialFailureMechanismResultSectionProbability.ToNullAsNaN();
+            sectionResult.FurtherAnalysisType = (FailureMechanismSectionResultFurtherAnalysisType) entity.FurtherAnalysisType;
+            sectionResult.RefinedSectionProbability = entity.RefinedSectionProbability.ToNullAsNaN();
             sectionResult.ManualInitialFailureMechanismResultProfileProbability = entity.ManualInitialFailureMechanismResultProfileProbability.ToNullAsNaN();
             sectionResult.RefinedProfileProbability = entity.RefinedProfileProbability.ToNullAsNaN();
         }

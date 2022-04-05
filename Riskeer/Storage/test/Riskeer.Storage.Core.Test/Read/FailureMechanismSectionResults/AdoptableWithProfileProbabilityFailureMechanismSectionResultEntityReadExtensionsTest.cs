@@ -36,12 +36,15 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
         [Test]
         public void Read_EntityNull_ThrowsArgumentNullException()
         {
+            // Setup
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+
             // Call
-            TestDelegate call = () => ((PipingSectionResultEntity) null).Read(
-                new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection()));
+            void Call() => ((AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity) null).Read(sectionResult);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
 
@@ -49,13 +52,13 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
         public void Read_SectionResultNull_ThrowsArgumentNullException()
         {
             // Setup
-            var entity = new PipingSectionResultEntity();
+            var entity = new AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            void Call() => entity.Read(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("sectionResult", paramName);
         }
 
@@ -73,7 +76,7 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
             double refinedProfileProbability = random.NextDouble();
             double refinedSectionProbability = random.NextDouble();
 
-            var entity = new PipingSectionResultEntity
+            var entity = new AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity
             {
                 IsRelevant = Convert.ToByte(isRelevant),
                 InitialFailureMechanismResultType = Convert.ToByte(initialFailureMechanismResultType),
@@ -85,7 +88,8 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
                 RefinedSectionProbability = refinedSectionProbability
             };
 
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -105,8 +109,9 @@ namespace Riskeer.Storage.Core.Test.Read.FailureMechanismSectionResults
         public void Read_EntityWithNullValues_SectionResultWithNaNValues()
         {
             // Setup
-            var entity = new PipingSectionResultEntity();
-            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
+            var entity = new AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity();
+            var sectionResult = new AdoptableWithProfileProbabilityFailureMechanismSectionResult(
+                FailureMechanismSectionTestFactory.CreateFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
