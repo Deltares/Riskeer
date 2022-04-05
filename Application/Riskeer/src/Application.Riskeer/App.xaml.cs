@@ -32,6 +32,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 using Core.Common.Util;
 using Core.Common.Util.Settings;
 using Core.Gui;
@@ -111,7 +112,8 @@ namespace Application.Riskeer
                 SupportText = ApplicationResources.SupportText,
                 SupportWebsiteAddressUrl = "https://iplo.nl/contact/",
                 SupportPhoneNumber = "088-7970790",
-                ManualFilePath = "Gebruikershandleiding Riskeer 21.1.1.pdf"
+                ManualFilePath = "Gebruikershandleiding Riskeer 21.1.1.pdf",
+                MadeByBitmapImage = new BitmapImage(new Uri("pack://application:,,,/Resources/MadeBy.png"))
             };
 
             var mainWindow = new MainWindow();

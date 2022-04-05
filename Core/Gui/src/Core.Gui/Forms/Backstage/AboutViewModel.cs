@@ -116,7 +116,7 @@ namespace Core.Gui.Forms.Backstage
         /// <summary>
         /// Gets the made by bitmap image.
         /// </summary>
-        public BitmapImage MadeByBitmapImage => new BitmapImage(new Uri("pack://application:,,,/Core.Common.Controls;component/Resources/MadeBy.png"));
+        public BitmapImage MadeByBitmapImage => settings.MadeByBitmapImage;
 
         private static object GetManagementObjectProperty(string managementObjectName, string propertyName)
         {
