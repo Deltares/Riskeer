@@ -1,5 +1,5 @@
 Namespace;Identificatie;Kunstwerken.identificatie;AlfanumeriekeWaarde;NumeriekeWaarde;Standaardafwijking.variatie;Boolean;Beschrijving;;;;;;;;Boolean 0=vc, 1=sa. Let op: wijkt af van Ringtoets-handleiding
-52-2;KWK_1;KW_HOOGTE1;;45;0;;Oriï¿½ntatie van de normaal van het kunstwerk ten opzichte van het noorden;;;;;;;;
+52-2;KWK_1;KW_HOOGTE1;;45;0;;Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden;;;;;;;;
 52-2;KWK_1;KW_HOOGTE2;;8.25;0.05;1;Kerende hoogte van het kunstwerk;;;;;;;;
 52-2;KWK_1;KW_HOOGTE3;;10.0;0.05;1;Stroomvoerende breedte bodembescherming;;;;;;;;
 52-2;KWK_1;KW_HOOGTE4;;0.05;0.15;0;Kritiek instromend debiet directe invoer per strekkende meter;;;;;;;;
@@ -9,7 +9,7 @@ Namespace;Identificatie;Kunstwerken.identificatie;AlfanumeriekeWaarde;NumeriekeW
 52-2;KWK_1;KW_HOOGTE8;;10;0.05;1;Toegestane peilverhoging komberging;;;;;;;;
 52-2;KWK_1;KW_BETSLUIT1;;1000000;0.1;0;Kombergend oppervlak;;;;;;;;
 52-2;KWK_1;KW_BETSLUIT2;;10;0.05;1;Toegestane peilverhoging komberging;;;;;;;;
-52-2;KWK_1;KW_BETSLUIT3;;45;0;1;Oriï¿½ntatie van de normaal van het kunstwerk t.o.v. Noord;;;;;;;;
+52-2;KWK_1;KW_BETSLUIT3;;45;0;1;Oriëntatie van de normaal van het kunstwerk t.o.v. Noord;;;;;;;;
 52-2;KWK_1;KW_BETSLUIT4;;9.5;0.05;0;Breedte van de doorstroomopening;;;;;;;;Let op: boolean moet eigenlijk 1 zijn
 52-2;KWK_1;KW_BETSLUIT5;;7.0;0.05;1;Niveau kruin bij niet gesloten maximaal kerende keermiddelen;;;;;;;;
 52-2;KWK_1;KW_BETSLUIT6;;7.0;0.05;1;Binnenwaterstand;;;;;;;;
@@ -22,7 +22,7 @@ Namespace;Identificatie;Kunstwerken.identificatie;AlfanumeriekeWaarde;NumeriekeW
 52-2;KWK_1;KW_BETSLUIT13;;1.0;0;1;Aantal identieke doorstroomopeningen;;;;;;;;
 52-2;KWK_1;KW_BETSLUIT14;;0.1;0;1;Faalkans herstel van gefaalde situatie;;;;;;;;
 52-2;KWK_1;KW_BETSLUIT15;LageDrempel;;;1;Instroommodel van het kunstwerk;;;;Keuze uit: VerdronkenKoker, LageDrempel, VerticaleWand;;;;
-52-2;KWK_1;KW_STERSTAB1;;45;0;1;Oriï¿½ntatie van de normaal van het kunstwerk t.o.v. Noord;;;;;;;;
+52-2;KWK_1;KW_STERSTAB1;;45;0;1;Oriëntatie van de normaal van het kunstwerk t.o.v. Noord;;;;;;;;
 52-2;KWK_1;KW_STERSTAB2;;1000000;0.1;0;Kombergend oppervlak;;;;;;;;
 52-2;KWK_1;KW_STERSTAB3;;10;0.05;1;Toegestane peilverhoging komberging;;;;;;;;
 52-2;KWK_1;KW_STERSTAB4;;9.5;0.05;0;Breedte van de doorstroomopening;;;;;;;;Let op: boolean moet eigenlijk 1 zijn
