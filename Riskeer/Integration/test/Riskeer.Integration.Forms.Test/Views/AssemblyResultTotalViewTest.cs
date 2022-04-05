@@ -107,7 +107,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 testForm.Show();
 
                 // Assert
-                Assert.AreEqual(3, view.Controls.Count);
+                Assert.AreEqual(4, view.Controls.Count);
 
                 Button button = GetRefreshAssemblyResultButtonTester().Properties;
                 Assert.AreEqual("Resultaten verversen", button.Text);
@@ -116,6 +116,9 @@ namespace Riskeer.Integration.Forms.Test.Views
                 var assemblyResultControl = (AssessmentSectionAssemblyResultControl) new ControlTester("assessmentSectionAssemblyControl").TheObject;
                 Assert.AreEqual(DockStyle.Top, assemblyResultControl.Dock);
 
+                var label = (Label) new ControlTester("label").TheObject;
+                Assert.AreEqual("Samenvatting resultaten per faalmechanisme:", label.Text);
+                
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
                 Assert.AreEqual(DockStyle.Fill, dataGridViewControl.Dock);
 

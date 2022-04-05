@@ -21,6 +21,7 @@
 
 using System.Windows.Forms;
 using Riskeer.Integration.Forms.Controls;
+using Riskeer.Integration.Forms.Properties;
 
 namespace Riskeer.Integration.Forms.Views
 {
@@ -33,8 +34,8 @@ namespace Riskeer.Integration.Forms.Views
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
+        /// <summary>
+        /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
@@ -42,11 +43,12 @@ namespace Riskeer.Integration.Forms.Views
             this.components = new System.ComponentModel.Container();
             this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.refreshAssemblyResultsButton = new Core.Common.Controls.Forms.EnhancedButton();
-            this.assessmentSectionAssemblyControl = new AssessmentSectionAssemblyResultControl();
+            this.assessmentSectionAssemblyControl = new Riskeer.Integration.Forms.Controls.AssessmentSectionAssemblyResultControl();
             this.refreshButtonPanel = new System.Windows.Forms.Panel();
             this.warningProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label = new System.Windows.Forms.Label();
             this.refreshButtonPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.warningProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewControl
@@ -99,29 +101,42 @@ namespace Riskeer.Integration.Forms.Views
             this.warningProvider.Icon = Core.Gui.Properties.Resources.warning;
             this.warningProvider.SetIconPadding(this.refreshAssemblyResultsButton, 4);
             // 
+            // label
+            // 
+            this.label.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label.Location = new System.Drawing.Point(0, 77);
+            this.label.Margin = new System.Windows.Forms.Padding(3);
+            this.label.Name = "label";
+            this.label.Padding = new System.Windows.Forms.Padding(5);
+            this.label.Size = new System.Drawing.Size(789, 25);
+            this.label.TabIndex = 4;
+            this.label.Text = global::Riskeer.Integration.Forms.Properties.Resources.AssemblyResultTotalView_Results_per_failureMechanism;
+            // 
             // AssemblyResultTotalView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScrollMinSize = new System.Drawing.Size(350, 250);
             this.Controls.Add(this.dataGridViewControl);
+            this.Controls.Add(this.label);
             this.Controls.Add(this.assessmentSectionAssemblyControl);
             this.Controls.Add(this.refreshButtonPanel);
             this.Name = "AssemblyResultTotalView";
             this.Size = new System.Drawing.Size(789, 416);
             this.refreshButtonPanel.ResumeLayout(false);
             this.refreshButtonPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.warningProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.warningProvider)).EndInit();
             this.ResumeLayout(false);
-
+            this.PerformLayout();
         }
 
         #endregion
 
         private Core.Common.Controls.DataGrid.DataGridViewControl dataGridViewControl;
         private Core.Common.Controls.Forms.EnhancedButton refreshAssemblyResultsButton;
-        private Controls.AssessmentSectionAssemblyResultControl assessmentSectionAssemblyControl;
+        private Riskeer.Integration.Forms.Controls.AssessmentSectionAssemblyResultControl assessmentSectionAssemblyControl;
         private System.Windows.Forms.Panel refreshButtonPanel;
         private System.Windows.Forms.ErrorProvider warningProvider;
+        private System.Windows.Forms.Label label;
     }
 }

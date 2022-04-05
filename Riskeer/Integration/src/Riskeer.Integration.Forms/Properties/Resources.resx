@@ -404,4 +404,7 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="CombinedFailureMechanismSectionAssemblyResultRow_Not_in_assembly_dash" xml:space="preserve">
     <value>-</value>
   </data>
+  <data name="AssemblyResultTotalView_Results_per_failureMechanism" xml:space="preserve">
+    <value>Samenvatting resultaten per faalmechanisme:</value>
+  </data>
 </root>
