@@ -135,4 +135,7 @@ Hierbij wordt intensief samengewerkt met diverse organisatieonderdelen zowel bin
   <data name="App_Starting_Riskeer_version_0_by_user_0" xml:space="preserve">
     <value>Riskeer versie {0} wordt gestart door {1}...</value>
   </data>
+  <data name="MadeBy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MadeBy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
