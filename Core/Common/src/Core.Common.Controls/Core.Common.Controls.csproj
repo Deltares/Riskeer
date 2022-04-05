@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(SolutionDir)build\Source.targets" />
   <ItemGroup>
-    <None Remove="Resources\MadeBy.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -20,9 +17,6 @@
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
     <None Include="Resources\bug--exclamation.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\MadeBy.png" />
   </ItemGroup>
     <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

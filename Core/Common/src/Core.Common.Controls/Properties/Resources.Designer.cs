@@ -89,15 +89,5 @@ namespace Core.Common.Controls.Properties {
                 return ResourceManager.GetString("DisplayName_None", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap MadeBy {
-            get {
-                object obj = ResourceManager.GetObject("MadeBy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }
