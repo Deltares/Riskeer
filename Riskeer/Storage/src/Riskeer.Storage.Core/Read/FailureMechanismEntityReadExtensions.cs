@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
 using Riskeer.ClosingStructures.Data;
@@ -229,7 +230,9 @@ namespace Riskeer.Storage.Core.Read
                                                               PipingFailureMechanism failureMechanism,
                                                               ReadConversionCollector collector)
         {
-            foreach (PipingSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingSectionResultEntities))
+            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities);
+            foreach (AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 AdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(
@@ -243,7 +246,8 @@ namespace Riskeer.Storage.Core.Read
                                                                                       PipingFailureMechanism failureMechanism,
                                                                                       ReadConversionCollector collector)
         {
-            foreach (PipingScenarioConfigurationPerFailureMechanismSectionEntity sectionConfigurationEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingScenarioConfigurationPerFailureMechanismSectionEntities))
+            IEnumerable<PipingScenarioConfigurationPerFailureMechanismSectionEntity> pipingScenarioConfigurationPerFailureMechanismSectionEntities = entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingScenarioConfigurationPerFailureMechanismSectionEntities);
+            foreach (PipingScenarioConfigurationPerFailureMechanismSectionEntity sectionConfigurationEntity in pipingScenarioConfigurationPerFailureMechanismSectionEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionConfigurationEntity.FailureMechanismSectionEntity);
                 PipingScenarioConfigurationPerFailureMechanismSection configuration = failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -310,7 +314,9 @@ namespace Riskeer.Storage.Core.Read
                                                                                 GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                                 ReadConversionCollector collector)
         {
-            foreach (GrassCoverErosionInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionInwardsSectionResultEntities))
+            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities);
+            foreach (AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 AdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -358,7 +364,9 @@ namespace Riskeer.Storage.Core.Read
                                                                         HeightStructuresFailureMechanism failureMechanism,
                                                                         ReadConversionCollector collector)
         {
-            foreach (HeightStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.HeightStructuresSectionResultEntities))
+            IEnumerable<AdoptableFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.AdoptableFailureMechanismSectionResultEntities);
+            foreach (AdoptableFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 AdoptableFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -422,7 +430,9 @@ namespace Riskeer.Storage.Core.Read
                                                                                  WaterPressureAsphaltCoverFailureMechanism failureMechanism,
                                                                                  ReadConversionCollector collector)
         {
-            foreach (WaterPressureAsphaltCoverSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaterPressureAsphaltCoverSectionResultEntities))
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities);
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -470,7 +480,9 @@ namespace Riskeer.Storage.Core.Read
                                                                          ClosingStructuresFailureMechanism failureMechanism,
                                                                          ReadConversionCollector collector)
         {
-            foreach (ClosingStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructuresSectionResultEntities))
+            IEnumerable<AdoptableFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.AdoptableFailureMechanismSectionResultEntities);
+            foreach (AdoptableFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 AdoptableFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -575,7 +587,9 @@ namespace Riskeer.Storage.Core.Read
                                                                              MacroStabilityInwardsFailureMechanism failureMechanism,
                                                                              ReadConversionCollector collector)
         {
-            foreach (MacroStabilityInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MacroStabilityInwardsSectionResultEntities))
+            IEnumerable<AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.AdoptableWithProfileProbabilityFailureMechanismSectionResultEntities);
+            foreach (AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 AdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -624,7 +638,9 @@ namespace Riskeer.Storage.Core.Read
                                                                               WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                                                               ReadConversionCollector collector)
         {
-            foreach (WaveImpactAsphaltCoverSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaveImpactAsphaltCoverSectionResultEntities))
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities);
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -688,7 +704,9 @@ namespace Riskeer.Storage.Core.Read
                                                                                  GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                                  ReadConversionCollector collector)
         {
-            foreach (GrassCoverErosionOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverErosionOutwardsSectionResultEntities))
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities);
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -735,7 +753,9 @@ namespace Riskeer.Storage.Core.Read
                                                                                 GrassCoverSlipOffInwardsFailureMechanism failureMechanism,
                                                                                 ReadConversionCollector collector)
         {
-            foreach (GrassCoverSlipOffInwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffInwardsSectionResultEntities))
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities);
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -772,7 +792,9 @@ namespace Riskeer.Storage.Core.Read
                                                                                  GrassCoverSlipOffOutwardsFailureMechanism failureMechanism,
                                                                                  ReadConversionCollector collector)
         {
-            foreach (GrassCoverSlipOffOutwardsSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.GrassCoverSlipOffOutwardsSectionResultEntities))
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities);
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -809,7 +831,9 @@ namespace Riskeer.Storage.Core.Read
                                                                       MicrostabilityFailureMechanism failureMechanism,
                                                                       ReadConversionCollector collector)
         {
-            foreach (MicrostabilitySectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.MicrostabilitySectionResultEntities))
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities);
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -863,7 +887,8 @@ namespace Riskeer.Storage.Core.Read
                                                                        PipingStructureFailureMechanism failureMechanism,
                                                                        ReadConversionCollector collector)
         {
-            foreach (PipingStructureSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.PipingStructureSectionResultEntities))
+            IEnumerable<NonAdoptableFailureMechanismSectionResultEntity> sectionResultEntities = entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableFailureMechanismSectionResultEntities);
+            foreach (NonAdoptableFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 NonAdoptableFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -904,7 +929,9 @@ namespace Riskeer.Storage.Core.Read
                                                                    DuneErosionFailureMechanism failureMechanism,
                                                                    ReadConversionCollector collector)
         {
-            foreach (DuneErosionSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.DuneErosionSectionResultEntities))
+            IEnumerable<NonAdoptableFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableFailureMechanismSectionResultEntities);
+            foreach (NonAdoptableFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 NonAdoptableFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -975,7 +1002,9 @@ namespace Riskeer.Storage.Core.Read
                                                                            StabilityStoneCoverFailureMechanism failureMechanism,
                                                                            ReadConversionCollector collector)
         {
-            foreach (StabilityStoneCoverSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityStoneCoverSectionResultEntities))
+            IEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntities);
+            foreach (NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
@@ -1035,7 +1064,9 @@ namespace Riskeer.Storage.Core.Read
                                                                                 StabilityPointStructuresFailureMechanism failureMechanism,
                                                                                 ReadConversionCollector collector)
         {
-            foreach (StabilityPointStructuresSectionResultEntity sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityPointStructuresSectionResultEntities))
+            IEnumerable<AdoptableFailureMechanismSectionResultEntity> sectionResultEntities =
+                entity.FailureMechanismSectionEntities.SelectMany(fms => fms.AdoptableFailureMechanismSectionResultEntities);
+            foreach (AdoptableFailureMechanismSectionResultEntity sectionResultEntity in sectionResultEntities)
             {
                 FailureMechanismSection failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 AdoptableFailureMechanismSectionResult result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
