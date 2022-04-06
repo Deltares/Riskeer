@@ -145,8 +145,6 @@ namespace Core.Components.BruTile.Configurations
         /// <param name="newTileSource">The tile source to initialize for.</param>
         /// <exception cref="CannotCreateTileCacheException">Thrown when a critical error
         /// occurs when creating the tile cache.</exception>
-        /// <exception cref="CannotReceiveTilesException">Thrown when <paramref name="newTileSource"/>
-        /// does not allow for tiles to be retrieved.</exception>
         /// <exception cref="ObjectDisposedException">Thrown when calling this method while
         /// this instance is disposed.</exception>
         protected void InitializeFromTileSource(ITileSource newTileSource)
