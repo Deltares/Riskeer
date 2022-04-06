@@ -137,7 +137,17 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             {
                 if (Directory.Exists(tempFolderPath))
                 {
-                    Directory.Delete(tempFolderPath, true);
+                    var di = new DirectoryInfo(tempFolderPath);
+
+                    foreach (FileInfo file in di.GetFiles())
+                    {
+                        file.Delete();
+                    }
+
+                    foreach (DirectoryInfo dir in di.GetDirectories())
+                    {
+                        dir.Delete(true);
+                    }
                 }
             }
         }
