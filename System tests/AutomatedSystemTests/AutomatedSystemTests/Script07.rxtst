@@ -68,7 +68,7 @@
 				<parameters>
 					<param
 					name="pathToNormTreeItem"
-					value="Traject>Assemblage>Normklassen">
+					value="Traject>Assemblage>Veiligheidscategor">
 					</param>
 					<param
 					name="stateName"
