@@ -287,7 +287,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionWithPipingFailureMechanismsReplaced_WhenOldPipingScenarioConfigurationsPerFailureMechanismSectionNotified_ThenAssessmentSectionResultObserverNotNotified()
+        public void GivenAssessmentSectionWithPipingFailureMechanismReplaced_WhenOldPipingScenarioConfigurationsPerFailureMechanismSectionNotified_ThenAssessmentSectionResultObserverNotNotified()
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
@@ -317,7 +317,7 @@ namespace Riskeer.Integration.Forms.Test.Observers
         }
 
         [Test]
-        public void GivenAssessmentSectionWithPipingFailureMechanismsReplaced_WhenNewPipingScenarioConfigurationsPerFailureMechanismSectionNotified_ThenAssessmentSectionResultObserverNotified()
+        public void GivenAssessmentSectionWithPipingFailureMechanismReplaced_WhenNewPipingScenarioConfigurationsPerFailureMechanismSectionNotified_ThenAssessmentSectionResultObserverNotified()
         {
             // Given
             AssessmentSection assessmentSection = CreateAssessmentSection();
