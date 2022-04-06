@@ -159,35 +159,6 @@ namespace Core.Components.BruTile.Test.Configurations
         }
 
         [Test]
-        public void InitializeFromTileSource_InvalidTileSource_ThrowCannotReceiveTilesException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var tileSource = mocks.Stub<ITileSource>();
-            mocks.ReplayAll();
-
-            string rootPath = TestHelper.GetScratchPadPath("InitializeFromTileSource_InvalidTileSource_ThrowCannotReceiveTilesException");
-
-            DoAndCleanupAfter(
-                () =>
-                {
-                    using (var configuration = new SimplePersistentCacheConfiguration(rootPath))
-                    {
-                        // Call
-                        TestDelegate call = () => configuration.TestInitializeFromTileSource(tileSource);
-
-                        // Assert
-                        string message = Assert.Throws<CannotReceiveTilesException>(call).Message;
-                        const string expectedMessage = "Bron staat het niet toe om toegang te krijgen tot de kaart tegels.";
-                        Assert.AreEqual(expectedMessage, message);
-                    }
-                },
-                rootPath);
-
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void TestInitializeFromTileSource_CreationOfDirectoryNotAllowed_ThrowCannotCreateTileCacheException()
         {
             // Setup
