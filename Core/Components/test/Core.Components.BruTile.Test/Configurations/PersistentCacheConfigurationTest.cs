@@ -43,11 +43,11 @@ namespace Core.Components.BruTile.Test.Configurations
         public void Constructor_FolderPathEmpty_ThrowArgumentException(string invalidPath)
         {
             // Call
-            TestDelegate call = () => new SimplePersistentCacheConfiguration(invalidPath);
+            void Call() => new SimplePersistentCacheConfiguration(invalidPath);
 
             // Assert
-            string message = $"Het pad naar bestandsmap '{invalidPath}' is niet geschikt om de kaart tegels in op te slaan.";
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, message).ParamName;
+            var message = $"Het pad naar bestandsmap '{invalidPath}' is niet geschikt om de kaart tegels in op te slaan.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, message).ParamName;
             Assert.AreEqual("persistentCacheDirectoryPath", paramName);
         }
 
@@ -100,11 +100,11 @@ namespace Core.Components.BruTile.Test.Configurations
                     using (new DirectoryPermissionsRevoker(TestHelper.GetScratchPadPath(), FileSystemRights.Write))
                     {
                         // Call
-                        TestDelegate call = () => configuration.TestCreateTileCache();
+                        void Call() => configuration.TestCreateTileCache();
 
                         // Assert
                         const string expectedMessage = "Een kritieke fout is opgetreden bij het aanmaken van de cache.";
-                        string message = Assert.Throws<CannotCreateTileCacheException>(call).Message;
+                        string message = Assert.Throws<CannotCreateTileCacheException>(Call).Message;
                         Assert.AreEqual(message, expectedMessage);
                     }
                 },
@@ -119,10 +119,10 @@ namespace Core.Components.BruTile.Test.Configurations
             configuration.Dispose();
 
             // Call
-            TestDelegate call = () => configuration.TestCreateTileCache();
+            void Call() => configuration.TestCreateTileCache();
 
             // Assert
-            string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
+            string objectName = Assert.Throws<ObjectDisposedException>(Call).ObjectName;
             Assert.AreEqual("SimplePersistentCacheConfiguration", objectName);
         }
 
@@ -178,11 +178,11 @@ namespace Core.Components.BruTile.Test.Configurations
                     using (new DirectoryPermissionsRevoker(TestHelper.GetScratchPadPath(), FileSystemRights.Write))
                     {
                         // Call
-                        TestDelegate call = () => configuration.TestInitializeFromTileSource(tileSource);
+                        void Call() => configuration.TestInitializeFromTileSource(tileSource);
 
                         // Assert
                         const string expectedMessage = "Een kritieke fout is opgetreden bij het aanmaken van de cache.";
-                        string message = Assert.Throws<CannotCreateTileCacheException>(call).Message;
+                        string message = Assert.Throws<CannotCreateTileCacheException>(Call).Message;
                         Assert.AreEqual(message, expectedMessage);
                     }
                 },
@@ -209,10 +209,10 @@ namespace Core.Components.BruTile.Test.Configurations
                 () =>
                 {
                     // Call
-                    TestDelegate call = () => configuration.TestInitializeFromTileSource(tileSource);
+                    void Call() => configuration.TestInitializeFromTileSource(tileSource);
 
                     // Assert
-                    string objectName = Assert.Throws<ObjectDisposedException>(call).ObjectName;
+                    string objectName = Assert.Throws<ObjectDisposedException>(Call).ObjectName;
                     Assert.AreEqual("SimplePersistentCacheConfiguration", objectName);
                 },
                 rootPath);
@@ -227,14 +227,14 @@ namespace Core.Components.BruTile.Test.Configurations
             var configuration = new SimplePersistentCacheConfiguration("folder");
 
             // Call
-            TestDelegate call = () =>
+            void Call()
             {
                 configuration.Dispose();
                 configuration.Dispose();
-            };
+            }
 
             // Assert
-            Assert.DoesNotThrow(call);
+            Assert.DoesNotThrow(Call);
         }
 
         private static void DoAndCleanupAfter(Action test, string rootPath)
