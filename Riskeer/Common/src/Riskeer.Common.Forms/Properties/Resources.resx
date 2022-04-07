@@ -1335,7 +1335,7 @@ Betrouwbaarheidsindex = {1}</value>
         </value>
     </data>
     <data name="FailureMechanismResultView_FailureMechanismAssemblyLabel" xml:space="preserve">
-      <value>Faalkans van dit faalmechanisme (traject) [1/jaar]</value>
+      <value>Faalkans van dit faalmechanisme voor het traject [1/jaar]</value>
     </data>
     <data name="AssemblyGroup_Color_DisplayName" xml:space="preserve">
     <value>Kleur</value>
