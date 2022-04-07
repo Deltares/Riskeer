@@ -223,34 +223,28 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
-            const string code = "TestCode";
-            var failureMechanismToRemove = new SpecificFailureMechanism
-            {
-                Code = code
-            };
 
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
-            assessmentSection.SpecificFailureMechanisms.Add(failureMechanismToRemove);
 
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultPerSectionView(assessmentSection))
             {
                 // Precondition
                 DataGridView dataGridView = GetDataGridView();
-                
+
                 DataGridViewColumnCollection dataGridViewColumns = dataGridView.Columns;
-                AssertColumns(dataGridViewColumns, expectedColumnCount + 1, assessmentSection.SpecificFailureMechanisms);
-                
+                AssertColumns(dataGridViewColumns, expectedColumnCount, assessmentSection.SpecificFailureMechanisms);
+
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
 
                 // When
-                assessmentSection.SpecificFailureMechanisms.Remove(failureMechanismToRemove);
+                assessmentSection.SpecificFailureMechanisms.RemoveAt(random.Next(0, 1));
                 assessmentSection.NotifyObservers();
                 buttonTester.Click();
 
                 // Then
-                AssertColumns(dataGridViewColumns, expectedColumnCount, assessmentSection.SpecificFailureMechanisms);
+                AssertColumns(dataGridViewColumns, expectedColumnCount - 1, assessmentSection.SpecificFailureMechanisms);
             }
         }
 
@@ -261,7 +255,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             var random = new Random(21);
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
-            
+
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
             using (ShowAssemblyResultPerSectionView(assessmentSection))
@@ -534,6 +528,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 AssertColumn(dataGridViewColumns[specificFailureMechanismStartIndex + i], specificFailureMechanisms.ElementAt(i).Code);
             }
+
             AssertColumn(dataGridViewColumns[specificFailureMechanismStartIndex + specificFailureMechanisms.Count()], "Slechtste duidingsklasse per deelvak");
         }
     }
