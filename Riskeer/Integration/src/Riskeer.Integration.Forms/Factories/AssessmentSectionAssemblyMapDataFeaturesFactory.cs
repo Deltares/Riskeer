@@ -28,7 +28,6 @@ using Riskeer.Common.Forms.Factories;
 using Riskeer.Common.Forms.Helpers;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Data.Assembly;
-using Riskeer.Integration.Forms.Properties;
 using Riskeer.Integration.Util;
 using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
@@ -73,7 +72,6 @@ namespace Riskeer.Integration.Forms.Factories
 
                 mapFeature.MetaData[RiskeerCommonFormsResources.AssemblyGroup_DisplayName] =
                     EnumDisplayNameHelper.GetDisplayName(assemblyResult.TotalResult);
-                mapFeature.MetaData[Resources.SectionNumber_DisplayName] = assemblyResult.SectionNumber;
 
                 mapFeatures.Add(mapFeature);
             }

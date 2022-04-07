@@ -48,7 +48,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             Assert.AreEqual(6, lineStyle.Width);
             Assert.AreEqual(LineDashStyle.Solid, lineStyle.DashStyle);
 
-            Assert.AreEqual("Deelvaknummer", data.SelectedMetaDataAttribute);
+            Assert.AreEqual("Duidingsklasse", data.SelectedMetaDataAttribute);
             MapThemeTestHelper.AssertFailureMechanismSectionAssemblyGroupMapTheme(data.Theme);
         }
     }

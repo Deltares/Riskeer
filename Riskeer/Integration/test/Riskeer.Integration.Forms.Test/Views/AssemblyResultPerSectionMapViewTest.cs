@@ -389,8 +389,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                                             expectedAssemblyResult,
                                             mapGeometry);
 
-                Assert.AreEqual(2, actualFeature.MetaData.Keys.Count);
-                Assert.AreEqual(expectedAssemblyResult.SectionNumber, actualFeature.MetaData["Deelvaknummer"]);
+                Assert.AreEqual(1, actualFeature.MetaData.Keys.Count);
                 Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(expectedAssemblyResult.TotalResult),
                                 mapFeatures.ElementAt(i).MetaData["Duidingsklasse"]);
             }

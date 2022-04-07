@@ -23,6 +23,7 @@ using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using Riskeer.Common.Forms.Factories;
 using Riskeer.Integration.Forms.Properties;
+using RiskeerCommonFormsResources = Riskeer.Common.Forms.Properties.Resources;
 
 namespace Riskeer.Integration.Forms.Factories
 {
@@ -46,7 +47,7 @@ namespace Riskeer.Integration.Forms.Factories
                                    MapThemeFactory.CreateFailureMechanismSectionAssemblyGroupMapTheme())
             {
                 ShowLabels = true,
-                SelectedMetaDataAttribute = Resources.SectionNumber_DisplayName
+                SelectedMetaDataAttribute = RiskeerCommonFormsResources.AssemblyGroup_DisplayName
             };
         }
     }

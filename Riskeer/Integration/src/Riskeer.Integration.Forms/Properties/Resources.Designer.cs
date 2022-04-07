@@ -925,15 +925,6 @@ namespace Riskeer.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deelvaknummer.
-        /// </summary>
-        public static string SectionNumber_DisplayName {
-            get {
-                return ResourceManager.GetString("SectionNumber_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De overstromingskans voor de signalering over de veiligheid van het traject..
         /// </summary>
         public static string SignalFloodingProbability_Description {
