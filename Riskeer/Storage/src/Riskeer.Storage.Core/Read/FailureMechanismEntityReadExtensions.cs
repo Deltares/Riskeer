@@ -277,6 +277,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to read into a <see cref="GrassCoverErosionInwardsFailureMechanism"/>.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsGrassCoverErosionInwardsFailureMechanism(this FailureMechanismEntity entity,
                                                                             GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                             ReadConversionCollector collector)
@@ -346,14 +348,16 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="HeightStructuresFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsHeightStructuresFailureMechanism(this FailureMechanismEntity entity,
                                                                     HeightStructuresFailureMechanism failureMechanism,
                                                                     ReadConversionCollector collector)
         {
-            HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.Single();
             entity.ReadCommonCalculatableFailureMechanismProperties(failureMechanism, collector);
             entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
+
+            HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.Single();
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, metaEntity.ForeshoreProfileCollectionSourcePath, collector);
             entity.ReadHeightStructures(failureMechanism.HeightStructures, metaEntity.HeightStructureCollectionSourcePath, collector);
             entity.ReadHeightStructuresGeneralInput(failureMechanism.GeneralInput);
@@ -417,6 +421,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="WaterPressureAsphaltCoverFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsWaterPressureAsphaltCoverFailureMechanism(this FailureMechanismEntity entity,
                                                                              WaterPressureAsphaltCoverFailureMechanism failureMechanism,
                                                                              ReadConversionCollector collector)
@@ -456,7 +462,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="ClosingStructuresFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <exception cref="InvalidOperationException">Thrown when expected table entries cannot be found.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsClosingStructuresFailureMechanism(this FailureMechanismEntity entity,
                                                                      ClosingStructuresFailureMechanism failureMechanism,
                                                                      ReadConversionCollector collector)
@@ -533,7 +540,7 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="MacroStabilityInwardsFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsMacroStabilityInwardsFailureMechanism(this FailureMechanismEntity entity,
                                                                          MacroStabilityInwardsFailureMechanism failureMechanism,
@@ -619,7 +626,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="WaveImpactAsphaltCoverFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the expected table entries could not be found.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsWaveImpactAsphaltCoverFailureMechanism(this FailureMechanismEntity entity,
                                                                           WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                                                           ReadConversionCollector collector)
@@ -675,6 +683,7 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsGrassCoverErosionOutwardsFailureMechanism(this FailureMechanismEntity entity,
                                                                              GrassCoverErosionOutwardsFailureMechanism failureMechanism,
@@ -740,6 +749,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="GrassCoverSlipOffInwardsFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsGrassCoverSlipOffInwardsFailureMechanism(this FailureMechanismEntity entity,
                                                                             GrassCoverSlipOffInwardsFailureMechanism failureMechanism,
                                                                             ReadConversionCollector collector)
@@ -779,6 +790,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="GrassCoverSlipOffOutwardsFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsGrassCoverSlipOffOutwardsFailureMechanism(this FailureMechanismEntity entity,
                                                                              GrassCoverSlipOffOutwardsFailureMechanism failureMechanism,
                                                                              ReadConversionCollector collector)
@@ -818,6 +831,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="MicrostabilityFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsMicrostabilityFailureMechanism(this FailureMechanismEntity entity,
                                                                   MicrostabilityFailureMechanism failureMechanism,
                                                                   ReadConversionCollector collector)
@@ -857,7 +872,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="PipingStructureFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsPipingStructureFailureMechanism(this FailureMechanismEntity entity,
                                                                    PipingStructureFailureMechanism failureMechanism,
                                                                    ReadConversionCollector collector)
@@ -907,6 +923,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="DuneErosionFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsDuneErosionFailureMechanism(this FailureMechanismEntity entity,
                                                                DuneErosionFailureMechanism failureMechanism,
                                                                ReadConversionCollector collector)
@@ -977,7 +995,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="StabilityStoneCoverFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <exception cref="InvalidOperationException">Thrown when expected table entries cannot be found.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsStabilityStoneCoverFailureMechanism(this FailureMechanismEntity entity,
                                                                        StabilityStoneCoverFailureMechanism failureMechanism,
                                                                        ReadConversionCollector collector)
@@ -1039,7 +1058,8 @@ namespace Riskeer.Storage.Core.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="StabilityPointStructuresFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <exception cref="InvalidOperationException">Thrown when expected table entries cannot be found.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when expected table entries could not be found.</exception>
         internal static void ReadAsStabilityPointStructuresFailureMechanism(this FailureMechanismEntity entity,
                                                                             StabilityPointStructuresFailureMechanism failureMechanism,
                                                                             ReadConversionCollector collector)

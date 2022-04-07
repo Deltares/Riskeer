@@ -205,6 +205,46 @@ namespace Riskeer.Storage.Core.Test.Read
         #region GrassCoverSlipOffInwards
 
         [Test]
+        public void ReadAsGrassCoverSlipOffInwardsFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsGrassCoverSlipOffInwardsFailureMechanism(new GrassCoverSlipOffInwardsFailureMechanism(),
+                                                                                                          new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsGrassCoverSlipOffInwardsFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsGrassCoverSlipOffInwardsFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsGrassCoverSlipOffInwardsFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsGrassCoverSlipOffInwardsFailureMechanism(new GrassCoverSlipOffInwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
+
+        [Test]
         public void ReadAsGrassCoverSlipOffInwardsFailureMechanism_WithPropertiesSet_SetsGrassCoverSlipOffInwardsFailureMechanismProperties()
         {
             // Setup
@@ -290,6 +330,46 @@ namespace Riskeer.Storage.Core.Test.Read
         #endregion
 
         #region WaterPressureAsphaltCover
+        
+        [Test]
+        public void ReadAsWaterPressureAsphaltCoverFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsWaterPressureAsphaltCoverFailureMechanism(new WaterPressureAsphaltCoverFailureMechanism(),
+                                                                                                           new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsWaterPressureAsphaltCoverFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsWaterPressureAsphaltCoverFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsWaterPressureAsphaltCoverFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsWaterPressureAsphaltCoverFailureMechanism(new WaterPressureAsphaltCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
 
         [Test]
         public void ReadAsWaterPressureAsphaltCoverFailureMechanism_WithPropertiesSet_SetsWaterPressureAsphaltCoverFailureMechanismProperties()
@@ -380,6 +460,46 @@ namespace Riskeer.Storage.Core.Test.Read
         #endregion
 
         #region GrassCoverSlipOffOutwards
+        
+        [Test]
+        public void ReadAsGrassCoverSlipOffOutwardsFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsGrassCoverSlipOffOutwardsFailureMechanism(new GrassCoverSlipOffOutwardsFailureMechanism(),
+                                                                                                           new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsGrassCoverSlipOffOutwardsFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsGrassCoverSlipOffOutwardsFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsGrassCoverSlipOffOutwardsFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsGrassCoverSlipOffOutwardsFailureMechanism(new GrassCoverSlipOffOutwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
 
         [Test]
         public void ReadAsGrassCoverSlipOffOutwardsFailureMechanism_WithPropertiesSet_SetsGrassCoverSlipOffOutwardsFailureMechanismProperties()
@@ -469,6 +589,46 @@ namespace Riskeer.Storage.Core.Test.Read
         #region Microstability
 
         [Test]
+        public void ReadAsMicrostabilityFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsMicrostabilityFailureMechanism(new MicrostabilityFailureMechanism(),
+                                                                                                new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsMicrostabilityFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsMicrostabilityFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsMicrostabilityFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsMicrostabilityFailureMechanism(new MicrostabilityFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
+        
+        [Test]
         public void ReadAsMicrostabilityFailureMechanism_WithPropertiesSet_SetsMicrostabilityFailureMechanismProperties()
         {
             // Setup
@@ -555,6 +715,46 @@ namespace Riskeer.Storage.Core.Test.Read
 
         #region Dune Erosion
 
+        [Test]
+        public void ReadAsDuneErosionFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsDuneErosionFailureMechanism(new DuneErosionFailureMechanism(),
+                                                                                             new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsDuneErosionFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsDuneErosionFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsDuneErosionFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsDuneErosionFailureMechanism(new DuneErosionFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
+        
         [Test]
         public void ReadAsDuneErosionFailureMechanism_WithProperties_SetsFailureMechanismWithProperties()
         {
@@ -1555,6 +1755,46 @@ namespace Riskeer.Storage.Core.Test.Read
         #region Grass Cover Erosion Inwards
 
         [Test]
+        public void ReadAsGrassCoverErosionInwardsFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsGrassCoverErosionInwardsFailureMechanism(new GrassCoverErosionInwardsFailureMechanism(),
+                                                                                                          new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsGrassCoverErosionInwardsFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsGrassCoverErosionInwardsFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsGrassCoverErosionInwardsFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsGrassCoverErosionInwardsFailureMechanism(new GrassCoverErosionInwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
+        
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void ReadAsGrassCoverErosionInwardsFailureMechanism_WithCollector_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithPropertiesSet(bool inAssembly)
@@ -1737,6 +1977,46 @@ namespace Riskeer.Storage.Core.Test.Read
 
         #region Grass Cover Erosion Outwards
 
+        [Test]
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsGrassCoverErosionOutwardsFailureMechanism(new GrassCoverErosionOutwardsFailureMechanism(),
+                                                                                                           new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsGrassCoverErosionOutwardsFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsGrassCoverErosionOutwardsFailureMechanism(new GrassCoverErosionOutwardsFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
+        
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -1955,6 +2235,46 @@ namespace Riskeer.Storage.Core.Test.Read
 
         #region Stability Stone Cover
 
+        [Test]
+        public void ReadAsStabilityStoneCoverFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsStabilityStoneCoverFailureMechanism(new StabilityStoneCoverFailureMechanism(),
+                                                                                                     new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsStabilityStoneCoverFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsStabilityStoneCoverFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsStabilityStoneCoverFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsStabilityStoneCoverFailureMechanism(new StabilityStoneCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
+        
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -2176,6 +2496,46 @@ namespace Riskeer.Storage.Core.Test.Read
         #region Wave Impact Asphalt Cover
 
         [Test]
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsWaveImpactAsphaltCoverFailureMechanism(new WaveImpactAsphaltCoverFailureMechanism(),
+                                                                                                        new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsWaveImpactAsphaltCoverFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsWaveImpactAsphaltCoverFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsWaveImpactAsphaltCoverFailureMechanism(new WaveImpactAsphaltCoverFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
+        
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void ReadAsWaveImpactAsphaltCoverFailureMechanism_WithCollector_ReturnsNewWaveImpactAsphaltCoverFailureMechanismWithPropertiesSet(bool inAssembly)
@@ -2396,6 +2756,46 @@ namespace Riskeer.Storage.Core.Test.Read
 
         #region Height Structures
 
+        [Test]
+        public void ReadAsHeightStructuresFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsHeightStructuresFailureMechanism(new HeightStructuresFailureMechanism(),
+                                                                                                  new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsHeightStructuresFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsHeightStructuresFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsHeightStructuresFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsHeightStructuresFailureMechanism(new HeightStructuresFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
+        
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -2681,6 +3081,46 @@ namespace Riskeer.Storage.Core.Test.Read
 
         #region Closing Structures
 
+        [Test]
+        public void ReadAsClosingStructuresFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsClosingStructuresFailureMechanism(new ClosingStructuresFailureMechanism(),
+                                                                                                   new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsClosingStructuresFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsClosingStructuresFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsClosingStructuresFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsClosingStructuresFailureMechanism(new ClosingStructuresFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
+        
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -2976,6 +3416,47 @@ namespace Riskeer.Storage.Core.Test.Read
 
         #region Stability Point Structures
 
+        [Test]
+        public void ReadAsStabilityPointStructuresFailureMechanism_EntityNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => ((FailureMechanismEntity) null).ReadAsStabilityPointStructuresFailureMechanism(new StabilityPointStructuresFailureMechanism(),
+                                                                                                          new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("entity", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsStabilityPointStructuresFailureMechanism_FailureMechanismNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsStabilityPointStructuresFailureMechanism(null, new ReadConversionCollector());
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+        
+        [Test]
+        public void ReadAsStabilityPointStructuresFailureMechanism_CollectorNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity();
+            
+            // Call
+            void Call() => entity.ReadAsStabilityPointStructuresFailureMechanism(new StabilityPointStructuresFailureMechanism(), null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("collector", exception.ParamName);
+        }
+
+        
         [Test]
         [TestCase(true)]
         [TestCase(false)]
