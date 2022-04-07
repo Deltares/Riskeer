@@ -47,28 +47,27 @@ namespace Riskeer.Integration.Forms.Test.Views
     [TestFixture]
     public class AssemblyResultPerSectionViewTest
     {
-        private const int sectionNumberColumnIndex = 0;
-        private const int sectionStartColumnIndex = 1;
-        private const int sectionEndColumnIndex = 2;
-        private const int worstAssemblyResultPerSectionColumnIndex = 3;
-        private const int pipingColumnIndex = 4;
-        private const int grassCoverErosionInwardsColumnIndex = 5;
-        private const int macroStabilityInwardsColumnIndex = 6;
-        private const int microStabilityColumnIndex = 7;
-        private const int stabilityStoneCoverColumnIndex = 8;
-        private const int waveImpactAsphaltCoverColumnIndex = 9;
-        private const int waterPressureAsphaltCoverColumnIndex = 10;
-        private const int grassCoverErosionOutwardsColumnIndex = 11;
-        private const int grassCoverSlipOffOutwardsColumnIndex = 12;
-        private const int grassCoverSlipOffInwardsColumnIndex = 13;
-        private const int heightStructuresColumnIndex = 14;
-        private const int closingStructures = 15;
-        private const int pipingStructures = 16;
-        private const int stabilityPointStructuresColumnIndex = 17;
-        private const int duneErosionColumnIndex = 18;
-        private const int specificFailureMechanism1ColumnIndex = 19;
-        private const int specificFailureMechanism2ColumnIndex = 20;
-        private const int expectedColumnCount = 21;
+        private const int sectionStartColumnIndex = 0;
+        private const int sectionEndColumnIndex = 1;
+        private const int worstAssemblyResultPerSectionColumnIndex = 2;
+        private const int pipingColumnIndex = 3;
+        private const int grassCoverErosionInwardsColumnIndex = 4;
+        private const int macroStabilityInwardsColumnIndex = 5;
+        private const int microStabilityColumnIndex = 6;
+        private const int stabilityStoneCoverColumnIndex = 7;
+        private const int waveImpactAsphaltCoverColumnIndex = 8;
+        private const int waterPressureAsphaltCoverColumnIndex = 9;
+        private const int grassCoverErosionOutwardsColumnIndex = 10;
+        private const int grassCoverSlipOffOutwardsColumnIndex = 11;
+        private const int grassCoverSlipOffInwardsColumnIndex = 12;
+        private const int heightStructuresColumnIndex = 13;
+        private const int closingStructures = 14;
+        private const int pipingStructures = 15;
+        private const int stabilityPointStructuresColumnIndex = 16;
+        private const int duneErosionColumnIndex = 17;
+        private const int specificFailureMechanism1ColumnIndex = 18;
+        private const int specificFailureMechanism2ColumnIndex = 19;
+        private const int expectedColumnCount = 20;
         private const string assemblyResultOutdatedWarning = "De resultaten zijn verouderd. Druk op de \"Resultaten verversen\" knop om opnieuw te berekenen.";
 
         private Form testForm;
@@ -515,7 +514,6 @@ namespace Riskeer.Integration.Forms.Test.Views
 
         private static void AssertDefaultColumns(DataGridViewColumnCollection dataGridViewColumns)
         {
-            AssertColumn(dataGridViewColumns[sectionNumberColumnIndex], "Deelvaknummer");
             AssertColumn(dataGridViewColumns[sectionStartColumnIndex], "Metrering van* [m]");
             AssertColumn(dataGridViewColumns[sectionEndColumnIndex], "Metrering tot* [m]");
             AssertColumn(dataGridViewColumns[worstAssemblyResultPerSectionColumnIndex], "Slechtste duidingsklasse per deelvak");

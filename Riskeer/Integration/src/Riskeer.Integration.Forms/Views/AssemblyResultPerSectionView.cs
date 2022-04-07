@@ -52,7 +52,7 @@ namespace Riskeer.Integration.Forms.Views
     /// </summary>
     public partial class AssemblyResultPerSectionView : UserControl, IView
     {
-        private const int numberOfFixedColumns = 19;
+        private const int numberOfFixedColumns = 18;
         private readonly Observer assessmentSectionResultObserver;
         private bool suspendDueToAddingColumns;
 
@@ -140,9 +140,6 @@ namespace Riskeer.Integration.Forms.Views
         {
             suspendDueToAddingColumns = true;
 
-            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionNumber),
-                                                 Resources.SectionNumber_DisplayName,
-                                                 true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionStart),
                                                  RiskeerCommonFormsResources.SectionStart_DisplayName,
                                                  true);

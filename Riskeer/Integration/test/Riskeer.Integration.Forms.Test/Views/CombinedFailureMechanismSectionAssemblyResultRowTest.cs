@@ -37,23 +37,23 @@ namespace Riskeer.Integration.Forms.Test.Views
     [TestFixture]
     public class CombinedFailureMechanismSectionAssemblyResultRowTest
     {
-        private const int totalResultIndex = 3;
-        private const int pipingIndex = 4;
-        private const int grassCoverErosionInwardsIndex = 5;
-        private const int macroStabilityInwardsIndex = 6;
-        private const int microstabililityIndex = 7;
-        private const int stabilityStoneCoverIndex = 8;
-        private const int waveImpactAsphaltCoverIndex = 9;
-        private const int waterPressureAsphaltCoverIndex = 10;
-        private const int grassCoverErosionOutwardsIndex = 11;
-        private const int grassCoverSlipOffOutwardsIndex = 12;
-        private const int grassCoverSlipOffInwardsIndex = 13;
-        private const int heightStructuresIndex = 14;
-        private const int closingStructuresIndex = 15;
-        private const int pipingStructureIndex = 16;
-        private const int stabilityPointStructuresIndex = 17;
-        private const int duneErosionIndex = 18;
-        private const int specificFailureMechanismStartIndex = 19;
+        private const int totalResultIndex = 2;
+        private const int pipingIndex = 3;
+        private const int grassCoverErosionInwardsIndex = 4;
+        private const int macroStabilityInwardsIndex = 5;
+        private const int microstabililityIndex = 6;
+        private const int stabilityStoneCoverIndex = 7;
+        private const int waveImpactAsphaltCoverIndex = 8;
+        private const int waterPressureAsphaltCoverIndex = 9;
+        private const int grassCoverErosionOutwardsIndex = 10;
+        private const int grassCoverSlipOffOutwardsIndex = 11;
+        private const int grassCoverSlipOffInwardsIndex = 12;
+        private const int heightStructuresIndex = 13;
+        private const int closingStructuresIndex = 14;
+        private const int pipingStructureIndex = 15;
+        private const int stabilityPointStructuresIndex = 16;
+        private const int duneErosionIndex = 17;
+        private const int specificFailureMechanismStartIndex = 18;
 
         [Test]
         public void Constructor_CombinedFailureMechanismAssemblyResultNull_ThrowsArgumentNullException()
