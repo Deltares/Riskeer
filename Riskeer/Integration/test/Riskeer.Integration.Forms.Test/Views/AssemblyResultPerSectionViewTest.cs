@@ -50,7 +50,7 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int sectionNumberColumnIndex = 0;
         private const int sectionStartColumnIndex = 1;
         private const int sectionEndColumnIndex = 2;
-        private const int sectionTotalAssemblyResultColumnIndex = 3;
+        private const int worstAssemblyResultPerSectionColumnIndex = 3;
         private const int pipingColumnIndex = 4;
         private const int grassCoverErosionInwardsColumnIndex = 5;
         private const int macroStabilityInwardsColumnIndex = 6;
@@ -307,7 +307,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 dataGridView.CellFormatting += (sender, args) =>
                 {
                     var row = (IHasColumnStateDefinitions) dataGridView.Rows[0].DataBoundItem;
-                    DataGridViewColumnStateDefinition definition = row.ColumnStateDefinitions[sectionTotalAssemblyResultColumnIndex];
+                    DataGridViewColumnStateDefinition definition = row.ColumnStateDefinitions[worstAssemblyResultPerSectionColumnIndex];
                     definition.ReadOnly = readOnly;
                     definition.ErrorText = errorText;
                     definition.Style = style;
@@ -317,7 +317,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 buttonTester.Click();
 
                 // Then
-                DataGridViewCell cell = dataGridView.Rows[0].Cells[sectionTotalAssemblyResultColumnIndex];
+                DataGridViewCell cell = dataGridView.Rows[0].Cells[worstAssemblyResultPerSectionColumnIndex];
                 Assert.AreEqual(readOnly, cell.ReadOnly);
                 Assert.AreEqual(errorText, cell.ErrorText);
                 Assert.AreEqual(style.BackgroundColor, cell.Style.BackColor);
@@ -518,7 +518,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             AssertColumn(dataGridViewColumns[sectionNumberColumnIndex], "Deelvaknummer");
             AssertColumn(dataGridViewColumns[sectionStartColumnIndex], "Metrering van* [m]");
             AssertColumn(dataGridViewColumns[sectionEndColumnIndex], "Metrering tot* [m]");
-            AssertColumn(dataGridViewColumns[sectionTotalAssemblyResultColumnIndex], "Duidingsklasse");
+            AssertColumn(dataGridViewColumns[worstAssemblyResultPerSectionColumnIndex], "Slechtste duidingsklasse per deelvak");
             AssertColumn(dataGridViewColumns[pipingColumnIndex], "STPH");
             AssertColumn(dataGridViewColumns[grassCoverErosionInwardsColumnIndex], "GEKB");
             AssertColumn(dataGridViewColumns[macroStabilityInwardsColumnIndex], "STBI");

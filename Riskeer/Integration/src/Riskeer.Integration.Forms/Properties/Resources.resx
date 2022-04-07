@@ -407,4 +407,7 @@ Daarbij gaan de huidige berekeningsresultaten voor belastingen op trajectniveau 
   <data name="AssemblyResultTotalView_Results_per_failureMechanism" xml:space="preserve">
     <value>Samenvatting resultaten per faalmechanisme:</value>
   </data>
+  <data name="Worst_AssemblyResult_per_Section_DisplayName" xml:space="preserve">
+    <value>Slechtste duidingsklasse per deelvak</value>
+  </data>
 </root>

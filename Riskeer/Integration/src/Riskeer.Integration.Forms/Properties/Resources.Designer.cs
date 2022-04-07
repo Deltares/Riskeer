@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2021. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -948,6 +948,15 @@ namespace Riskeer.Integration.Forms.Properties {
         public static string SignalFloodingProbability_DisplayName {
             get {
                 return ResourceManager.GetString("SignalFloodingProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slechtste duidingsklasse per deelvak.
+        /// </summary>
+        public static string Worst_AssemblyResult_per_Section_DisplayName {
+            get {
+                return ResourceManager.GetString("Worst_AssemblyResult_per_Section_DisplayName", resourceCulture);
             }
         }
     }

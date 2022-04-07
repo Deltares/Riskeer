@@ -108,7 +108,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 CollectionAssert.IsEmpty(hydraulicBoundaryLocationsMapData.Features);
                 CollectionAssert.IsEmpty(referenceLineMapData.Features);
 
-                Assert.AreEqual("Overzicht duiding", assemblyResultsLineMapData.Name);
+                Assert.AreEqual("Slechtste duidingsklasse per deelvak", assemblyResultsLineMapData.Name);
                 Assert.AreEqual("Hydraulische belastingen", hydraulicBoundaryLocationsMapData.Name);
                 Assert.AreEqual("Referentielijn", referenceLineMapData.Name);
             }
