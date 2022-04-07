@@ -65,7 +65,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int stabilityPointStructuresColumnIndex = 15;
         private const int duneErosionColumnIndex = 16;
         private const int specificFailureMechanismStartIndex = 17;
-        private const int specificFailureMechanism2ColumnIndex = 18;
         private const int worstAssemblyResultPerSectionColumnIndex = 19;
         private const int expectedColumnCount = 20;
         private const string assemblyResultOutdatedWarning = "De resultaten zijn verouderd. Druk op de \"Resultaten verversen\" knop om opnieuw te berekenen.";
@@ -174,7 +173,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 DataGridView dataGridView = GetDataGridView();
                 object actualFirstFailureMechanismValue = dataGridView.Rows[0].Cells[specificFailureMechanismStartIndex].Value;
-                object actualSecondFailureMechanismValue = dataGridView.Rows[0].Cells[specificFailureMechanism2ColumnIndex].Value;
+                object actualSecondFailureMechanismValue = dataGridView.Rows[0].Cells[specificFailureMechanismStartIndex + 1].Value;
 
                 // Then
                 Assert.AreEqual("Do", actualFirstFailureMechanismValue);
