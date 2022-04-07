@@ -164,61 +164,46 @@ namespace Riskeer.Migration.Integration.Test
                 "ClosingStructureEntity",
                 "ClosingStructuresCalculationEntity",
                 "ClosingStructuresFailureMechanismMetaEntity",
-                "ClosingStructuresSectionResultEntity",
                 "DikeProfileEntity",
                 "DuneErosionFailureMechanismMetaEntity",
-                "DuneErosionSectionResultEntity",
                 "DuneLocationEntity",
                 "FailureMechanismSectionEntity",
                 "ForeshoreProfileEntity",
                 "GrassCoverErosionInwardsFailureMechanismMetaEntity",
-                "GrassCoverErosionInwardsSectionResultEntity",
                 "GrassCoverErosionOutwardsFailureMechanismMetaEntity",
-                "GrassCoverErosionOutwardsSectionResultEntity",
-                "GrassCoverSlipOffInwardsSectionResultEntity",
-                "GrassCoverSlipOffOutwardsSectionResultEntity",
                 "HeightStructureEntity",
                 "HeightStructuresCalculationEntity",
                 "HeightStructuresFailureMechanismMetaEntity",
-                "HeightStructuresSectionResultEntity",
                 "HydraulicBoundaryDatabaseEntity",
                 "HydraulicLocationEntity",
                 "MacroStabilityInwardsCalculationEntity",
                 "MacroStabilityInwardsCharacteristicPointEntity",
                 "MacroStabilityInwardsFailureMechanismMetaEntity",
                 "MacroStabilityInwardsPreconsolidationStressEntity",
-                "MacroStabilityInwardsSectionResultEntity",
                 "MacroStabilityInwardsSoilLayerOneDEntity",
                 "MacroStabilityInwardsSoilLayerTwoDEntity",
                 "MacroStabilityInwardsSoilProfileOneDEntity",
                 "MacroStabilityInwardsSoilProfileTwoDEntity",
                 "MacroStabilityInwardsSoilProfileTwoDSoilLayerTwoDEntity",
                 "MacroStabilityInwardsStochasticSoilProfileEntity",
-                "MicrostabilitySectionResultEntity",
                 "PipingCharacteristicPointEntity",
                 "PipingFailureMechanismMetaEntity",
-                "PipingSectionResultEntity",
                 "PipingSoilLayerEntity",
                 "PipingSoilProfileEntity",
                 "PipingStochasticSoilProfileEntity",
                 "PipingStructureFailureMechanismMetaEntity",
-                "PipingStructureSectionResultEntity",
                 "ProbabilisticPipingCalculationEntity",
                 "ProjectEntity",
                 "SemiProbabilisticPipingCalculationEntity",
                 "StabilityPointStructureEntity",
                 "StabilityPointStructuresCalculationEntity",
                 "StabilityPointStructuresFailureMechanismMetaEntity",
-                "StabilityPointStructuresSectionResultEntity",
                 "StabilityStoneCoverFailureMechanismMetaEntity",
-                "StabilityStoneCoverSectionResultEntity",
                 "StochastEntity",
                 "StochasticSoilModelEntity",
                 "SurfaceLineEntity",
                 "VersionEntity",
-                "WaterPressureAsphaltCoverSectionResultEntity",
-                "WaveImpactAsphaltCoverFailureMechanismMetaEntity",
-                "WaveImpactAsphaltCoverSectionResultEntity"
+                "WaveImpactAsphaltCoverFailureMechanismMetaEntity"
             };
 
             foreach (string table in tables)
@@ -378,7 +363,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertMacroStabilityOutwardsSections(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity(reader, "MacroStabilityOutwardsSectionResultEntity", sourceFilePath);
+            AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "MacroStabilityOutwardsSectionResultEntity", sourceFilePath);
             AssertSpecificFailureMechanismFailureMechanismSectionEntity(reader, 13, "Macrostabiliteit buitenwaarts", sourceFilePath);
         }
 
@@ -389,7 +374,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertStrengthStabilityLengthwiseConstructionSections(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity(reader, "StrengthStabilityLengthwiseConstructionSectionResultEntity", sourceFilePath);
+            AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "StrengthStabilityLengthwiseConstructionSectionResultEntity", sourceFilePath);
             AssertSpecificFailureMechanismFailureMechanismSectionEntity(reader, 17, "Sterkte en stabiliteit langsconstructies", sourceFilePath);
         }
 
@@ -400,7 +385,7 @@ namespace Riskeer.Migration.Integration.Test
 
         private static void AssertTechnicalInnovationSections(MigratedDatabaseReader reader, string sourceFilePath)
         {
-            AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity(reader, "TechnicalInnovationSectionResultEntity", sourceFilePath);
+            AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResults(reader, "TechnicalInnovationSectionResultEntity", sourceFilePath);
             AssertSpecificFailureMechanismFailureMechanismSectionEntity(reader, 18, "Technische innovaties", sourceFilePath);
         }
 
@@ -433,29 +418,6 @@ namespace Riskeer.Migration.Integration.Test
                 "DETACH SOURCEPROJECT;";
 
             reader.AssertReturnedDataIsValid(validateSpecificFailureMechanismFailureMechanismSectionEntity);
-        }
-
-        private static void AssertNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity(MigratedDatabaseReader reader, string failureMechanismSectionResultEntityName, string sourceFilePath)
-        {
-            string validateNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity =
-                $"ATTACH DATABASE \"{sourceFilePath}\" AS SOURCEPROJECT; " +
-                "SELECT COUNT() = " +
-                "(" +
-                "SELECT COUNT() " +
-                $"FROM SOURCEPROJECT.{failureMechanismSectionResultEntityName} " +
-                ") " +
-                "FROM NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity NEW " +
-                $"JOIN SOURCEPROJECT.{failureMechanismSectionResultEntityName} OLD USING(FailureMechanismSectionEntityId) " +
-                "WHERE NEW.[IsRelevant] = 1 " +
-                "AND NEW.[InitialFailureMechanismResultType] = 1 " +
-                "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
-                "AND NEW.[ManualInitialFailureMechanismResultProfileProbability] IS NULL " +
-                "AND NEW.[FurtherAnalysisType] = 1 " +
-                "AND NEW.[RefinedSectionProbability] IS NULL " +
-                "AND NEW.[RefinedProfileProbability] IS NULL; " +
-                "DETACH SOURCEPROJECT;";
-
-            reader.AssertReturnedDataIsValid(validateNonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity);
         }
 
         private static void AssertMigratedSpecificFailureMechanism(MigratedDatabaseReader reader, string sourceFilePath,
@@ -1287,10 +1249,9 @@ namespace Riskeer.Migration.Integration.Test
                 "SELECT COUNT() " +
                 $"FROM SOURCEPROJECT.{failureMechanismSectionResultEntityName} " +
                 ") " +
-                $"FROM {failureMechanismSectionResultEntityName} NEW " +
-                $"JOIN SOURCEPROJECT.{failureMechanismSectionResultEntityName} OLD USING({failureMechanismSectionResultEntityName}Id) " +
-                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
-                "AND NEW.[IsRelevant] = 1 " +
+                "FROM AdoptableFailureMechanismSectionResultEntity NEW " +
+                $"JOIN SOURCEPROJECT.{failureMechanismSectionResultEntityName} OLD USING(FailureMechanismSectionEntityId) " +
+                "WHERE NEW.[IsRelevant] = 1 " +
                 "AND NEW.[InitialFailureMechanismResultType] = 1 " +
                 "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
                 "AND NEW.[FurtherAnalysisType] = 1 " +
@@ -1311,10 +1272,9 @@ namespace Riskeer.Migration.Integration.Test
                 "SELECT COUNT() " +
                 $"FROM SOURCEPROJECT.{failureMechanismSectionResultEntityName} " +
                 ") " +
-                $"FROM {failureMechanismSectionResultEntityName} NEW " +
-                $"JOIN SOURCEPROJECT.{failureMechanismSectionResultEntityName} OLD USING({failureMechanismSectionResultEntityName}Id) " +
-                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
-                "AND NEW.[IsRelevant] = 1 " +
+                "FROM AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity NEW " +
+                $"JOIN SOURCEPROJECT.{failureMechanismSectionResultEntityName} OLD USING(FailureMechanismSectionEntityId) " +
+                "WHERE NEW.[IsRelevant] = 1 " +
                 "AND NEW.[InitialFailureMechanismResultType] = 1 " +
                 "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
                 "AND NEW.[ManualInitialFailureMechanismResultProfileProbability] IS NULL " +
@@ -1338,10 +1298,9 @@ namespace Riskeer.Migration.Integration.Test
                 "SELECT COUNT() " +
                 $"FROM SOURCEPROJECT.{failureMechanismSectionResultEntityName} " +
                 ") " +
-                $"FROM {failureMechanismSectionResultEntityName} NEW " +
-                $"JOIN SOURCEPROJECT.{failureMechanismSectionResultEntityName} OLD USING({failureMechanismSectionResultEntityName}Id) " +
-                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
-                "AND NEW.[IsRelevant] = 1 " +
+                "FROM NonAdoptableFailureMechanismSectionResultEntity NEW " +
+                $"JOIN SOURCEPROJECT.{failureMechanismSectionResultEntityName} OLD USING(FailureMechanismSectionEntityId) " +
+                "WHERE NEW.[IsRelevant] = 1 " +
                 "AND NEW.[InitialFailureMechanismResultType] = 1 " +
                 "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
                 "AND NEW.[FurtherAnalysisType] = 1 " +
@@ -1362,10 +1321,9 @@ namespace Riskeer.Migration.Integration.Test
                 "SELECT COUNT() " +
                 $"FROM SOURCEPROJECT.{failureMechanismSectionResultEntityName} " +
                 ") " +
-                $"FROM {failureMechanismSectionResultEntityName} NEW " +
-                $"JOIN SOURCEPROJECT.{failureMechanismSectionResultEntityName} OLD USING({failureMechanismSectionResultEntityName}Id) " +
-                "WHERE NEW.[FailureMechanismSectionEntityId] = OLD.[FailureMechanismSectionEntityId] " +
-                "AND NEW.[IsRelevant] = 1 " +
+                "FROM NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity NEW " +
+                $"JOIN SOURCEPROJECT.{failureMechanismSectionResultEntityName} OLD USING(FailureMechanismSectionEntityId) " +
+                "WHERE NEW.[IsRelevant] = 1 " +
                 "AND NEW.[InitialFailureMechanismResultType] = 1 " +
                 "AND NEW.[ManualInitialFailureMechanismResultSectionProbability] IS NULL " +
                 "AND NEW.[ManualInitialFailureMechanismResultProfileProbability] IS NULL " +

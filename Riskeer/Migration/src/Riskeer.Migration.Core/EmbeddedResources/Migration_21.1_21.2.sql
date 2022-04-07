@@ -42,8 +42,7 @@ INSERT INTO CalculationGroupEntity SELECT * FROM [SOURCEPROJECT].CalculationGrou
 INSERT INTO ClosingStructureEntity SELECT * FROM [SOURCEPROJECT].ClosingStructureEntity;
 INSERT INTO ClosingStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresCalculationEntity;
 INSERT INTO ClosingStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].ClosingStructuresFailureMechanismMetaEntity;
-INSERT INTO ClosingStructuresSectionResultEntity (
-    [ClosingStructuresSectionResultEntityId],
+INSERT INTO AdoptableFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
@@ -52,7 +51,6 @@ INSERT INTO ClosingStructuresSectionResultEntity (
     [RefinedSectionProbability]
 )
 SELECT
-    [ClosingStructuresSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     1,
     1,
@@ -71,8 +69,7 @@ SELECT
     [FailureMechanismEntityId],
     [N]
 FROM [SOURCEPROJECT].DuneErosionFailureMechanismMetaEntity;
-INSERT INTO DuneErosionSectionResultEntity (
-    [DuneErosionSectionResultEntityId],
+INSERT INTO NonAdoptableFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
@@ -80,8 +77,7 @@ INSERT INTO DuneErosionSectionResultEntity (
     [FurtherAnalysisType],
     [RefinedSectionProbability]
 )
-SELECT
-    [DuneErosionSectionResultEntityId],
+SELECT 
     [FailureMechanismSectionEntityId],
     1,
     1,
@@ -165,8 +161,7 @@ SELECT
     [DikeProfileCollectionSourcePath],
     0
 FROM [SOURCEPROJECT].GrassCoverErosionInwardsFailureMechanismMetaEntity;
-INSERT INTO GrassCoverErosionInwardsSectionResultEntity (
-    [GrassCoverErosionInwardsSectionResultEntityId],
+INSERT INTO AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
@@ -178,16 +173,15 @@ INSERT INTO GrassCoverErosionInwardsSectionResultEntity (
     [RefinedProfileProbability]
 )
 SELECT 
-    [GrassCoverErosionInwardsSectionResultEntityId],
-    [FailureMechanismSectionEntityId],
-    1,
-    1,
-    NULL,
-    NULL,
-    1,
-    2,
-    NULL,
-    NULL
+   [FailureMechanismSectionEntityId],
+   1,
+   1,
+   NULL,
+   NULL,
+   1,
+   2,
+   NULL,
+   NULL
 FROM [SOURCEPROJECT].GrassCoverErosionInwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsFailureMechanismMetaEntity (
     [GrassCoverErosionOutwardsFailureMechanismMetaEntityId],
@@ -203,27 +197,25 @@ SELECT
     [ForeshoreProfileCollectionSourcePath],
     0
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsFailureMechanismMetaEntity;
-INSERT INTO GrassCoverErosionOutwardsSectionResultEntity (
-    [GrassCoverErosionOutwardsSectionResultEntityId],
-    [FailureMechanismSectionEntityId],
-    [IsRelevant],
-    [InitialFailureMechanismResultType],
-    [ManualInitialFailureMechanismResultSectionProbability],
-    [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisType],
-    [RefinedSectionProbability],
-    [RefinedProfileProbability]
+INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
+   [FailureMechanismSectionEntityId],
+   [IsRelevant],
+   [InitialFailureMechanismResultType],
+   [ManualInitialFailureMechanismResultSectionProbability],
+   [ManualInitialFailureMechanismResultProfileProbability],
+   [FurtherAnalysisType],
+   [RefinedSectionProbability],
+   [RefinedProfileProbability]
 )
-SELECT
-    [GrassCoverErosionOutwardsSectionResultEntityId],
-    [FailureMechanismSectionEntityId],
-    1,
-    1,
-    NULL,
-    NULL,
-    1,
-    NULL,
-    NULL
+SELECT 
+   [FailureMechanismSectionEntityId],
+   1,
+   1,
+   NULL,
+   NULL,
+   1,
+   NULL,
+   NULL
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsSectionResultEntity;
 INSERT INTO GrassCoverErosionOutwardsWaveConditionsCalculationEntity (
     [GrassCoverErosionOutwardsWaveConditionsCalculationEntityId],
@@ -274,27 +266,25 @@ SELECT
             1
     END
 FROM [SOURCEPROJECT].GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
-INSERT INTO GrassCoverSlipOffInwardsSectionResultEntity (
-    [GrassCoverSlipOffInwardsSectionResultEntityId],
-    [FailureMechanismSectionEntityId],
-    [IsRelevant],
-    [InitialFailureMechanismResultType],
-    [ManualInitialFailureMechanismResultSectionProbability],
-    [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisType],
-    [RefinedSectionProbability],
-    [RefinedProfileProbability]
+INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
+   [FailureMechanismSectionEntityId],
+   [IsRelevant],
+   [InitialFailureMechanismResultType],
+   [ManualInitialFailureMechanismResultSectionProbability],
+   [ManualInitialFailureMechanismResultProfileProbability],
+   [FurtherAnalysisType],
+   [RefinedSectionProbability],
+   [RefinedProfileProbability]
 )
-SELECT
-    [GrassCoverSlipOffInwardsSectionResultEntityId],
-    [FailureMechanismSectionEntityId],
-    1,
-    1,
-    NULL,
-    NULL,
-    1,
-    NULL,
-    NULL
+SELECT 
+   [FailureMechanismSectionEntityId],
+   1,
+   1,
+   NULL,
+   NULL,
+   1,
+   NULL,
+   NULL
 FROM [SOURCEPROJECT].GrassCoverSlipOffInwardsSectionResultEntity;
 INSERT INTO GrassCoverSlipOffInwardsFailureMechanismMetaEntity (
     [FailureMechanismEntityId],
@@ -307,20 +297,18 @@ SELECT
     0
 FROM [SOURCEPROJECT].FailureMechanismEntity
 WHERE FailureMechanismType = 16;
-INSERT INTO GrassCoverSlipOffOutwardsSectionResultEntity (
-    [GrassCoverSlipOffOutwardsSectionResultEntityId],
-    [FailureMechanismSectionEntityId],
-    [IsRelevant],
-    [InitialFailureMechanismResultType],
-    [ManualInitialFailureMechanismResultSectionProbability],
-    [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisType],
-    [RefinedSectionProbability],
-    [RefinedProfileProbability]
+INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
+   [FailureMechanismSectionEntityId],
+   [IsRelevant],
+   [InitialFailureMechanismResultType],
+   [ManualInitialFailureMechanismResultSectionProbability],
+   [ManualInitialFailureMechanismResultProfileProbability],
+   [FurtherAnalysisType],
+   [RefinedSectionProbability],
+   [RefinedProfileProbability]
 )
-SELECT
-    [GrassCoverSlipOffOutwardsSectionResultEntityId],
-    [FailureMechanismSectionEntityId],
+SELECT 
+   [FailureMechanismSectionEntityId],
     1,
     1,
     NULL,
@@ -343,8 +331,7 @@ WHERE FailureMechanismType = 5;
 INSERT INTO HeightStructureEntity SELECT * FROM [SOURCEPROJECT].HeightStructureEntity;
 INSERT INTO HeightStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresCalculationEntity;
 INSERT INTO HeightStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].HeightStructuresFailureMechanismMetaEntity;
-INSERT INTO HeightStructuresSectionResultEntity (
-    [HeightStructuresSectionResultEntityId],
+INSERT INTO AdoptableFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
@@ -353,7 +340,6 @@ INSERT INTO HeightStructuresSectionResultEntity (
     [RefinedSectionProbability]
 )
 SELECT
-    [HeightStructuresSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     1,
     1,
@@ -401,8 +387,7 @@ INSERT INTO MacroStabilityInwardsCalculationEntity SELECT * FROM [SOURCEPROJECT]
 INSERT INTO MacroStabilityInwardsCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsCharacteristicPointEntity;
 INSERT INTO MacroStabilityInwardsFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsFailureMechanismMetaEntity;
 INSERT INTO MacroStabilityInwardsPreconsolidationStressEntity SELECT * FROM [SOURCEPROJECT].MacroStabilityInwardsPreconsolidationStressEntity;
-INSERT INTO MacroStabilityInwardsSectionResultEntity (
-    [MacroStabilityInwardsSectionResultEntityId],
+INSERT INTO AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
@@ -414,7 +399,6 @@ INSERT INTO MacroStabilityInwardsSectionResultEntity (
     [RefinedProfileProbability]
 )
 SELECT
-    [MacroStabilityInwardsSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     1,
     1,
@@ -441,27 +425,25 @@ SELECT
     0
 FROM [SOURCEPROJECT].FailureMechanismEntity
 WHERE FailureMechanismType = 14;
-INSERT INTO MicrostabilitySectionResultEntity (
-    [MicrostabilitySectionResultEntityId],
-    [FailureMechanismSectionEntityId],
-    [IsRelevant],
-    [InitialFailureMechanismResultType],
-    [ManualInitialFailureMechanismResultSectionProbability],
-    [ManualInitialFailureMechanismResultProfileProbability],
-    [FurtherAnalysisType],
-    [RefinedSectionProbability],
-    [RefinedProfileProbability]
+INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
+   [FailureMechanismSectionEntityId],
+   [IsRelevant],
+   [InitialFailureMechanismResultType],
+   [ManualInitialFailureMechanismResultSectionProbability],
+   [ManualInitialFailureMechanismResultProfileProbability],
+   [FurtherAnalysisType],
+   [RefinedSectionProbability],
+   [RefinedProfileProbability]
 )
-SELECT
-    [MicrostabilitySectionResultEntityId],
-    [FailureMechanismSectionEntityId],
-    1,
-    1,
-    NULL,
-    NULL,
-    1,
-    NULL,
-    NULL
+SELECT 
+   [FailureMechanismSectionEntityId],
+   1,
+   1,
+   NULL,
+   NULL,
+   1,
+   NULL,
+   NULL
 FROM [SOURCEPROJECT].MicrostabilitySectionResultEntity;
 INSERT INTO PipingCharacteristicPointEntity SELECT * FROM [SOURCEPROJECT].PipingCharacteristicPointEntity;
 
@@ -493,8 +475,7 @@ FROM [SOURCEPROJECT].FailureMechanismEntity
 JOIN [SOURCEPROJECT].FailureMechanismSectionEntity USING (FailureMechanismEntityId)
 WHERE FailureMechanismType = 1;
 
-INSERT INTO PipingSectionResultEntity (
-    [PipingSectionResultEntityId],
+INSERT INTO AdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
@@ -504,9 +485,8 @@ INSERT INTO PipingSectionResultEntity (
     [ProbabilityRefinementType],
     [RefinedSectionProbability],
     [RefinedProfileProbability]
-) 
+)
 SELECT
-    [PipingSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     1,
     1,
@@ -521,8 +501,7 @@ INSERT INTO PipingSoilLayerEntity SELECT * FROM [SOURCEPROJECT].PipingSoilLayerE
 INSERT INTO PipingSoilProfileEntity SELECT * FROM [SOURCEPROJECT].PipingSoilProfileEntity;
 INSERT INTO PipingStochasticSoilProfileEntity SELECT * FROM [SOURCEPROJECT].PipingStochasticSoilProfileEntity;
 INSERT INTO PipingStructureFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].PipingStructureFailureMechanismMetaEntity;
-INSERT INTO PipingStructureSectionResultEntity (
-    [PipingStructureSectionResultEntityId],
+INSERT INTO NonAdoptableFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
@@ -531,7 +510,6 @@ INSERT INTO PipingStructureSectionResultEntity (
     [RefinedSectionProbability]
 )
 SELECT
-    [PipingStructureSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     1,
     1,
@@ -574,8 +552,7 @@ WHERE SemiProbabilisticPipingCalculationEntityId IN (
 INSERT INTO StabilityPointStructureEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructureEntity;
 INSERT INTO StabilityPointStructuresCalculationEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresCalculationEntity;
 INSERT INTO StabilityPointStructuresFailureMechanismMetaEntity SELECT * FROM [SOURCEPROJECT].StabilityPointStructuresFailureMechanismMetaEntity;
-INSERT INTO StabilityPointStructuresSectionResultEntity (
-    [StabilityPointStructuresSectionResultEntityId],
+INSERT INTO AdoptableFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
@@ -583,8 +560,7 @@ INSERT INTO StabilityPointStructuresSectionResultEntity (
     [FurtherAnalysisType],
     [RefinedSectionProbability]
 )
-SELECT
-    [StabilityPointStructuresSectionResultEntityId],
+SELECT 
     [FailureMechanismSectionEntityId],
     1,
     1,
@@ -606,8 +582,7 @@ SELECT
     [N],
     0
 FROM [SOURCEPROJECT].StabilityStoneCoverFailureMechanismMetaEntity;
-INSERT INTO StabilityStoneCoverSectionResultEntity (
-    [StabilityStoneCoverSectionResultEntityId],
+INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
@@ -618,7 +593,6 @@ INSERT INTO StabilityStoneCoverSectionResultEntity (
     [RefinedProfileProbability]
 )
 SELECT
-    [StabilityStoneCoverSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     1,
     1,
@@ -693,8 +667,7 @@ SELECT
     [Timestamp],
     [FingerPrint]
 FROM [SOURCEPROJECT].VersionEntity;
-INSERT INTO WaterPressureAsphaltCoverSectionResultEntity (
-    [WaterPressureAsphaltCoverSectionResultEntityId],
+INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
@@ -705,7 +678,6 @@ INSERT INTO WaterPressureAsphaltCoverSectionResultEntity (
     [RefinedProfileProbability]
 )
 SELECT
-    [WaterPressureAsphaltCoverSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     1,
     1,
@@ -738,8 +710,7 @@ SELECT
     [DeltaL],
     0
 FROM [SOURCEPROJECT].WaveImpactAsphaltCoverFailureMechanismMetaEntity;
-INSERT INTO WaveImpactAsphaltCoverSectionResultEntity (
-    [WaveImpactAsphaltCoverSectionResultEntityId],
+INSERT INTO NonAdoptableWithProfileProbabilityFailureMechanismSectionResultEntity (
     [FailureMechanismSectionEntityId],
     [IsRelevant],
     [InitialFailureMechanismResultType],
@@ -750,7 +721,6 @@ INSERT INTO WaveImpactAsphaltCoverSectionResultEntity (
     [RefinedProfileProbability]
 )
 SELECT
-    [WaveImpactAsphaltCoverSectionResultEntityId],
     [FailureMechanismSectionEntityId],
     1,
     1,
