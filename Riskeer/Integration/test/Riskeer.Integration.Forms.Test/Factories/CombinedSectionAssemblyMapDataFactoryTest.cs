@@ -38,7 +38,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             MapLineData data = CombinedSectionAssemblyMapDataFactory.CreateCombinedSectionAssemblyResultMapData();
 
             // Assert
-            Assert.AreEqual("Overzicht duiding", data.Name);
+            Assert.AreEqual("Slechtste duidingsklasse per deelvak", data.Name);
 
             Assert.IsTrue(data.ShowLabels);
             CollectionAssert.IsEmpty(data.Features);
