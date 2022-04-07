@@ -37,23 +37,23 @@ namespace Riskeer.Integration.Forms.Views
     /// </summary>
     public class CombinedFailureMechanismSectionAssemblyResultRow : IHasColumnStateDefinitions
     {
-        private const int totalResultIndex = 2;
-        private const int pipingIndex = 3;
-        private const int grassCoverErosionInwardsIndex = 4;
-        private const int macroStabilityInwardsIndex = 5;
-        private const int microstabililityIndex = 6;
-        private const int stabilityStoneCoverIndex = 7;
-        private const int waveImpactAsphaltCoverIndex = 8;
-        private const int waterPressureAsphaltCoverIndex = 9;
-        private const int grassCoverErosionOutwardsIndex = 10;
-        private const int grassCoverSlipOffOutwardsIndex = 11;
-        private const int grassCoverSlipOffInwardsIndex = 12;
-        private const int heightStructuresIndex = 13;
-        private const int closingStructuresIndex = 14;
-        private const int pipingStructureIndex = 15;
-        private const int stabilityPointStructuresIndex = 16;
-        private const int duneErosionIndex = 17;
-        private const int specificFailureMechanismStartIndex = 18;
+        private const int pipingIndex = 2;
+        private const int grassCoverErosionInwardsIndex = 3;
+        private const int macroStabilityInwardsIndex = 4;
+        private const int microstabililityIndex = 5;
+        private const int stabilityStoneCoverIndex = 6;
+        private const int waveImpactAsphaltCoverIndex = 7;
+        private const int waterPressureAsphaltCoverIndex = 8;
+        private const int grassCoverErosionOutwardsIndex = 9;
+        private const int grassCoverSlipOffOutwardsIndex = 10;
+        private const int grassCoverSlipOffInwardsIndex = 11;
+        private const int heightStructuresIndex = 12;
+        private const int closingStructuresIndex = 13;
+        private const int pipingStructureIndex = 14;
+        private const int stabilityPointStructuresIndex = 15;
+        private const int duneErosionIndex = 16;
+        private const int specificFailureMechanismStartIndex = 17;
+        private int totalResultIndex;
 
         private readonly CombinedFailureMechanismSectionAssemblyResult combinedFailureMechanismSectionAssemblyResult;
 
@@ -74,6 +74,8 @@ namespace Riskeer.Integration.Forms.Views
 
             this.combinedFailureMechanismSectionAssemblyResult = combinedFailureMechanismSectionAssemblyResult;
 
+            totalResultIndex = specificFailureMechanismStartIndex + SpecificFailureMechanisms.Length;
+            
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
             SetColumnStateDefinitionColors();
@@ -187,7 +189,6 @@ namespace Riskeer.Integration.Forms.Views
 
         private void CreateColumnStateDefinitions()
         {
-            ColumnStateDefinitions.Add(totalResultIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(pipingIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(grassCoverErosionInwardsIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(macroStabilityInwardsIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
@@ -204,15 +205,16 @@ namespace Riskeer.Integration.Forms.Views
             ColumnStateDefinitions.Add(stabilityPointStructuresIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             ColumnStateDefinitions.Add(duneErosionIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
 
-            for (var i = 0; i <= SpecificFailureMechanisms.Length; i++)
+            for (var i = 0; i < SpecificFailureMechanisms.Length; i++)
             {
                 ColumnStateDefinitions.Add(specificFailureMechanismStartIndex + i, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
             }
+
+            ColumnStateDefinitions.Add(totalResultIndex, DataGridViewColumnStateDefinitionFactory.CreateReadOnlyColumnStateDefinition());
         }
 
         private void SetColumnStateDefinitionColors()
         {
-            ColumnStateDefinitions[totalResultIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.TotalResult);
             ColumnStateDefinitions[pipingIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.Piping);
             ColumnStateDefinitions[grassCoverErosionInwardsIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.GrassCoverErosionInwards);
             ColumnStateDefinitions[macroStabilityInwardsIndex].Style = CreateCellStyleForFailureMechanism(combinedFailureMechanismSectionAssemblyResult.MacroStabilityInwards);
@@ -235,6 +237,8 @@ namespace Riskeer.Integration.Forms.Views
             {
                 ColumnStateDefinitions[specificFailureMechanismStartIndex + i].Style = CreateCellStyleForFailureMechanism(specificFailureMechanismAssemblyResults[i]);
             }
+            
+            ColumnStateDefinitions[totalResultIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.TotalResult);
         }
 
         private static string GetDisplayNameForFailureMechanism(FailureMechanismSectionAssemblyGroup? failureMechanismSectionAssemblyGroup)

@@ -54,7 +54,6 @@ namespace Riskeer.Integration.Data.Assembly
             SectionNumber = sectionNumber;
             SectionStart = sectionStart;
             SectionEnd = sectionEnd;
-            TotalResult = totalResult;
             Piping = properties.Piping;
             GrassCoverErosionInwards = properties.GrassCoverErosionInwards;
             MacroStabilityInwards = properties.MacroStabilityInwards;
@@ -71,6 +70,7 @@ namespace Riskeer.Integration.Data.Assembly
             StabilityPointStructures = properties.StabilityPointStructures;
             DuneErosion = properties.DuneErosion;
             SpecificFailureMechanisms = properties.SpecificFailureMechanisms;
+            TotalResult = totalResult;
         }
 
         /// <summary>
@@ -89,11 +89,6 @@ namespace Riskeer.Integration.Data.Assembly
         /// [m]
         /// </summary>
         public double SectionEnd { get; }
-
-        /// <summary>
-        /// Gets the total assembly result.
-        /// </summary>
-        public FailureMechanismSectionAssemblyGroup TotalResult { get; }
 
         /// <summary>
         /// Gets the assembly result for piping or <c>null</c> (which indicates this failure mechanism is not part of the assembly).
@@ -174,6 +169,11 @@ namespace Riskeer.Integration.Data.Assembly
         /// Gets the collection of assembly results for specific failure mechanisms.
         /// </summary>
         public FailureMechanismSectionAssemblyGroup?[] SpecificFailureMechanisms { get; }
+        
+        /// <summary>
+        /// Gets the total assembly result.
+        /// </summary>
+        public FailureMechanismSectionAssemblyGroup TotalResult { get; }
 
         /// <summary>
         /// Container for properties for constructing a <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.

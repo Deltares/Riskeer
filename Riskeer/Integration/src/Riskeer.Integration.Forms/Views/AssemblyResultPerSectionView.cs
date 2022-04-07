@@ -52,7 +52,8 @@ namespace Riskeer.Integration.Forms.Views
     /// </summary>
     public partial class AssemblyResultPerSectionView : UserControl, IView
     {
-        private const int numberOfFixedColumns = 18;
+        private const int numberOfFixedColumns = 17;
+        private int numberOfTotalColumns;
         private readonly Observer assessmentSectionResultObserver;
         private bool suspendDueToAddingColumns;
 
@@ -128,7 +129,7 @@ namespace Riskeer.Integration.Forms.Views
 
             dataGridViewControl.FormatCellWithColumnStateDefinition(e.RowIndex, e.ColumnIndex);
 
-            if (e.ColumnIndex >= numberOfFixedColumns)
+            if (e.ColumnIndex >= numberOfFixedColumns && e.ColumnIndex < numberOfTotalColumns)
             {
                 var dataRow = (CombinedFailureMechanismSectionAssemblyResultRow) dataGridViewControl.GetRowFromIndex(e.RowIndex).DataBoundItem;
                 DataGridViewCell cell = dataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
@@ -145,9 +146,6 @@ namespace Riskeer.Integration.Forms.Views
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.SectionEnd),
                                                  RiskeerCommonFormsResources.SectionEnd_DisplayName,
-                                                 true);
-            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.TotalResult),
-                                                 Resources.Worst_AssemblyResult_per_Section_DisplayName,
                                                  true);
             dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.Piping),
                                                  PipingDataResources.PipingFailureMechanism_DisplayCode,
@@ -196,9 +194,15 @@ namespace Riskeer.Integration.Forms.Views
                                                  true);
 
             SetSpecificFailureMechanismTextBoxColumns();
-
+            
+            dataGridViewControl.AddTextBoxColumn(nameof(CombinedFailureMechanismSectionAssemblyResultRow.TotalResult),
+                                                 Resources.Worst_AssemblyResult_per_Section_DisplayName,
+                                                 true);
+            
             suspendDueToAddingColumns = false;
 
+            numberOfTotalColumns = numberOfFixedColumns + AssessmentSection.SpecificFailureMechanisms.Count;
+            
             SetDataSource();
         }
 
