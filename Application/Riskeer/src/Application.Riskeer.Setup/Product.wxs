@@ -12,8 +12,11 @@
 
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" AllowSameVersionUpgrades="yes"/>
 
-    <!-- Specify default installer UI and which folder the user can configure during setup -->
+    <!-- Specify default installer UI and which folder the user can configure during setup. -->
     <UIRef Id="WixUI_Deltares"/>
+    <!-- Specify that Wix supplies the progress texts. -->
+    <UIRef Id="WixUI_ErrorProgressText"/>
+
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>
     <WixVariable Id="WixUIBannerBmp" Value="Banner_493x77.jpg" />
     <WixVariable Id="WixUIDialogBmp" Value="Start_493x312.jpg" />
