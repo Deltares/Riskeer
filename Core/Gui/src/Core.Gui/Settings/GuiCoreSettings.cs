@@ -65,7 +65,7 @@ namespace Core.Gui.Settings
         public string ManualFilePath { get; set; }
 
         /// <summary>
-        /// Gets or sets the made by bitmap image.
+        /// Gets or sets the bitmap image representing the creators of the application.
         /// </summary>
         public BitmapImage MadeByBitmapImage { get; set; }
     }

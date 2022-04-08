@@ -114,7 +114,7 @@ namespace Core.Gui.Forms.Backstage
             $"x {SystemParameters.PrimaryScreenHeight.ToString(CultureInfo.InvariantCulture)}";
 
         /// <summary>
-        /// Gets the made by bitmap image.
+        /// Gets the bitmap image representing the creators of the application.
         /// </summary>
         public BitmapImage MadeByBitmapImage => settings.MadeByBitmapImage;
 

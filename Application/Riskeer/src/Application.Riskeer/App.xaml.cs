@@ -26,6 +26,7 @@ using System.Diagnostics;
 using System.DirectoryServices.AccountManagement;
 using System.Globalization;
 using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -113,7 +114,7 @@ namespace Application.Riskeer
                 SupportWebsiteAddressUrl = "https://iplo.nl/contact/",
                 SupportPhoneNumber = "088-7970790",
                 ManualFilePath = "Gebruikershandleiding Riskeer 21.1.1.pdf",
-                MadeByBitmapImage = new BitmapImage(new Uri("pack://application:,,,/Resources/MadeBy.png"))
+                MadeByBitmapImage = new BitmapImage(new Uri($"{PackUriHelper.UriSchemePack}://application:,,,/Resources/MadeBy.png"))
             };
 
             var mainWindow = new MainWindow();
