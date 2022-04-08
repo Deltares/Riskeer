@@ -137,28 +137,19 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             {
                 if (Directory.Exists(tempFolderPath))
                 {
-                    DeleteDirectory(tempFolderPath);
+                    var di = new DirectoryInfo(tempFolderPath);
+
+                    foreach (FileInfo file in di.GetFiles())
+                    {
+                        file.Delete();
+                    }
+
+                    foreach (DirectoryInfo dir in di.GetDirectories())
+                    {
+                        dir.Delete(true);
+                    }
                 }
             }
-        }
-
-        private static void DeleteDirectory(string directory)
-        {
-            string[] files = Directory.GetFiles(directory);
-            string[] dirs = Directory.GetDirectories(directory);
-
-            foreach (string file in files)
-            {
-                File.SetAttributes(file, FileAttributes.Normal);
-                File.Delete(file);
-            }
-
-            foreach (string dir in dirs)
-            {
-                DeleteDirectory(dir);
-            }
-
-            Directory.Delete(directory, false);
         }
 
         private bool ExportCalculationItemsRecursively(CalculationGroup groupToExport, string currentFolderPath)
