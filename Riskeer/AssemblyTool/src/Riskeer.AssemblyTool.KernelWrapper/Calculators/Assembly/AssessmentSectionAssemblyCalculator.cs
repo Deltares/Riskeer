@@ -27,6 +27,7 @@ using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.Categories;
+using Assembly.Kernel.Model.FailureMechanismSections;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
@@ -67,7 +68,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 ICategoryLimitsCalculator categoryLimitsKernel = factory.CreateAssemblyGroupsKernel();
-                CategoriesList<AssessmentSectionCategory> assessmentSectionCategories = categoryLimitsKernel.CalculateAssessmentSectionCategoryLimitsWbi21(
+                CategoriesList<AssessmentSectionCategory> assessmentSectionCategories = categoryLimitsKernel.CalculateAssessmentSectionCategoryLimitsBoi21(
                     new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalFloodingProbability),
                                           AssemblyCalculatorInputCreator.CreateProbability(maximumAllowableFloodingProbability)));
 
@@ -75,8 +76,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 IEnumerable<Probability> probabilities = failureMechanismProbabilities.Select(AssemblyCalculatorInputCreator.CreateProbability)
                                                                                       .ToArray();
 
-                AssessmentSectionResult assemblyResult = assessmentSectionAssemblyKernel.AssembleAssessmentSectionWbi2B1(probabilities, assessmentSectionCategories, false);
-                return AssessmentSectionAssemblyResultCreator.CreateAssessmentSectionAssemblyResult(assemblyResult);
+                Probability assemblyProbability = assessmentSectionAssemblyKernel.CalculateAssessmentSectionFailureProbabilityBoi2A1(probabilities, false);
+                EAssessmentGrade assemblyCategory = assessmentSectionAssemblyKernel.DetermineAssessmentGradeBoi2B1(assemblyProbability, assessmentSectionCategories);
+
+                return new AssessmentSectionAssemblyResult(
+                    assemblyProbability, AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup(assemblyCategory));
             }
             catch (AssemblyException e)
             {
@@ -99,7 +103,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 ICommonFailureMechanismSectionAssembler kernel = factory.CreateCombinedFailureMechanismSectionAssemblyKernel();
-                AssemblyResult output = kernel.AssembleCommonFailureMechanismSections(FailureMechanismSectionListCreator.Create(input), assessmentSectionLength, false);
+                GreatestCommonDenominatorAssemblyResult output = kernel.AssembleCommonFailureMechanismSections(FailureMechanismSectionListCreator.Create(input), assessmentSectionLength, false);
 
                 return CombinedFailureMechanismSectionAssemblyCreator.Create(output);
             }

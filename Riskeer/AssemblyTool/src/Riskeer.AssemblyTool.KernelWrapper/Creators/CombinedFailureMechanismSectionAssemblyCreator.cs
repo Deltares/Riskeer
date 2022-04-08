@@ -22,7 +22,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.FailureMechanismSections;
 using Riskeer.AssemblyTool.Data;
 
@@ -37,12 +36,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// Creates a collection of <see cref="CombinedFailureMechanismSectionAssembly"/>
         /// based on the <paramref name="result"/>.
         /// </summary>
-        /// <param name="result">The <see cref="AssemblyResult"/> to create the
+        /// <param name="result">The <see cref="GreatestCommonDenominatorAssemblyResult"/> to create the
         /// <see cref="CombinedFailureMechanismSectionAssembly"/> for.</param>
         /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssembly"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<CombinedFailureMechanismSectionAssembly> Create(AssemblyResult result)
+        public static IEnumerable<CombinedFailureMechanismSectionAssembly> Create(GreatestCommonDenominatorAssemblyResult result)
         {
             if (result == null)
             {
@@ -69,7 +68,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         private static CombinedAssemblyFailureMechanismSection CreateSection(FailureMechanismSectionWithCategory section)
         {
             return new CombinedAssemblyFailureMechanismSection(
-                section.SectionStart, section.SectionEnd,
+                section.Start, section.End,
                 FailureMechanismSectionAssemblyGroupConverter.ConvertTo(section.Category));
         }
     }

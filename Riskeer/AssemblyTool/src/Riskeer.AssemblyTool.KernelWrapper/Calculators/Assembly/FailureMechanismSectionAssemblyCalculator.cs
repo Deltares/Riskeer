@@ -64,7 +64,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 
             KernelFailureMechanismSectionAssemblyResult GetAssemblyResultFunc(
                 IAssessmentResultsTranslator kernel, CategoriesList<InterpretationCategory> interpretationCategories) =>
-                kernel.TranslateAssessmentResultWbi0A2(
+                kernel.DetermineRepresentativeProbabilitiesBoi0A2(
                     GetInitialMechanismProbabilitySpecification(input),
                     AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),
                     FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(input.FurtherAnalysisType),
