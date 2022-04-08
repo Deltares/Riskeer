@@ -78,7 +78,7 @@ namespace Core.Components.BruTile.Configurations
 
         public ITileSource GetKnownTileSource(KnownTileSource knownTileSource)
         {
-            return KnownTileSources.Create(knownTileSource, userAgent:"Riskeer");
+            return KnownTileSources.Create(knownTileSource, userAgent: "Riskeer");
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace Core.Components.BruTile.Configurations
 
         private static void AddSupportForAllSecurityProtocols()
         {
-            ServicePointManager.SecurityProtocol |= 
+            ServicePointManager.SecurityProtocol |=
                 SecurityProtocolType.Tls12;
         }
     }
