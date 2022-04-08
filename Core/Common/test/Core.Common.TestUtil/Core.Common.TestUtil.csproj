@@ -21,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core.Common.Base\Core.Common.Base.csproj" />
+    <ProjectReference Include="..\..\src\Core.Common.IO\Core.Common.IO.csproj" />
     <ProjectReference Include="..\..\src\Core.Common.Util\Core.Common.Util.csproj" />
   </ItemGroup>
   <ItemGroup>

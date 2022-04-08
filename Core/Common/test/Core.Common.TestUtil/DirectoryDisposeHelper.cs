@@ -23,7 +23,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
-using System.Threading;
+using Core.Common.IO;
 
 namespace Core.Common.TestUtil
 {
@@ -42,7 +42,6 @@ namespace Core.Common.TestUtil
     /// </example>
     public class DirectoryDisposeHelper : IDisposable
     {
-        private const int numberOfAdditionalDeleteAttempts = 3;
         private readonly string rootPathToTemp;
         private readonly string fullPath;
         private bool disposed;
@@ -124,35 +123,9 @@ namespace Core.Common.TestUtil
                 directoryPermissionsRevoker?.Dispose();
             }
 
-            var attempts = 0;
-            while (!TryDeleteRootFolder() && attempts < numberOfAdditionalDeleteAttempts)
-            {
-                attempts++;
-
-                GC.WaitForPendingFinalizers();
-                Thread.Sleep(10);
-            }
+            DirectoryHelper.TryDelete(rootPathToTemp);
 
             disposed = true;
-        }
-
-        private bool TryDeleteRootFolder()
-        {
-            try
-            {
-                Directory.Delete(rootPathToTemp, true);
-            }
-            catch (Exception e)
-            {
-                if (e is IOException)
-                {
-                    return false;
-                }
-
-                // Ignore other exceptions
-            }
-
-            return true;
         }
 
         /// <summary>

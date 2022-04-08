@@ -23,10 +23,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using Components.Persistence.Stability;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
+using Core.Common.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.Util;
 using log4net;
@@ -138,7 +138,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
             {
                 if (Directory.Exists(tempFolderPath))
                 {
-                    DeleteDirectory(tempFolderPath);
+                    DirectoryHelper.TryDelete(tempFolderPath);
                 }
             }
         }
@@ -228,23 +228,6 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
         {
             var fileNameWithExtension = $"{fileName}.{fileExtension}";
             return Path.Combine(currentFolderPath, fileNameWithExtension);
-        }
-
-        private static void DeleteDirectory(string directory, int numberOfRetries = 5)
-        {
-            try
-            {
-                Directory.Delete(directory, true);
-            }
-            catch (IOException)
-            {
-                Thread.Sleep(1000);
-
-                if (numberOfRetries != 0)
-                {
-                    DeleteDirectory(directory, numberOfRetries - 1);
-                }
-            }
         }
     }
 }
