@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using Components.Persistence.Stability;
 using Core.Common.Base.Data;
 using Core.Common.Base.IO;
@@ -145,15 +144,21 @@ namespace Riskeer.MacroStabilityInwards.IO.Exporters
 
         private static void DeleteDirectory(string directory)
         {
-            try
+            string[] files = Directory.GetFiles(directory);
+            string[] dirs = Directory.GetDirectories(directory);
+
+            foreach (string file in files)
             {
-                Directory.Delete(directory, true);
+                File.SetAttributes(file, FileAttributes.Normal);
+                File.Delete(file);
             }
-            catch (IOException)
+
+            foreach (string dir in dirs)
             {
-                Thread.Sleep(1000);
-                DeleteDirectory(directory);
+                DeleteDirectory(dir);
             }
+
+            Directory.Delete(directory, false);
         }
 
         private bool ExportCalculationItemsRecursively(CalculationGroup groupToExport, string currentFolderPath)
