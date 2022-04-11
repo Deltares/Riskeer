@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
-using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.FailureMechanismSections;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
@@ -66,10 +65,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// <summary>
         /// Gets or sets the <see cref="AssemblyResult"/>.
         /// </summary>
-        public AssemblyResult AssemblyResult { get; set; }
+        public GreatestCommonDenominatorAssemblyResult AssemblyResult { get; set; }
 
-        public AssemblyResult AssembleCommonFailureMechanismSections(IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists,
-                                                                     double assessmentSectionLength, bool partialAssembly)
+        public GreatestCommonDenominatorAssemblyResult AssembleCommonFailureMechanismSections(IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists,
+                                                                                              double assessmentSectionLength, bool partialAssembly)
         {
             ThrowException();
 
@@ -82,19 +81,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return AssemblyResult;
         }
 
-        public FailureMechanismSectionList FindGreatestCommonDenominatorSectionsWbi3A1(IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists,
+        public FailureMechanismSectionList FindGreatestCommonDenominatorSectionsBoi3A1(IEnumerable<FailureMechanismSectionList> failureMechanismSectionLists,
                                                                                        double assessmentSectionLength)
         {
             throw new NotImplementedException();
         }
 
-        public FailureMechanismSectionList TranslateFailureMechanismResultsToCommonSectionsWbi3B1(FailureMechanismSectionList failureMechanismSectionList,
+        public FailureMechanismSectionList TranslateFailureMechanismResultsToCommonSectionsBoi3B1(FailureMechanismSectionList failureMechanismSectionList,
                                                                                                   FailureMechanismSectionList commonSections)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<FailureMechanismSectionWithCategory> DetermineCombinedResultPerCommonSectionWbi3C1(IEnumerable<FailureMechanismSectionList> failureMechanismResults,
+        public IEnumerable<FailureMechanismSectionWithCategory> DetermineCombinedResultPerCommonSectionBoi3C1(IEnumerable<FailureMechanismSectionList> failureMechanismResults,
                                                                                                               bool partialAssembly)
         {
             throw new NotImplementedException();

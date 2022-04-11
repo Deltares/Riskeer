@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;

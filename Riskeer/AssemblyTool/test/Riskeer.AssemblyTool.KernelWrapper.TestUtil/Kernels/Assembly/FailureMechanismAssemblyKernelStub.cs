@@ -44,9 +44,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public double LenghtEffectFactor { get; private set; }
 
         /// <summary>
-        /// Gets the collection of <see cref="FailureMechanismSectionAssemblyResult"/>.
+        /// Gets the collection of <see cref="IProfileAndSectionProbabilities"/>.
         /// </summary>
-        public IEnumerable<FailureMechanismSectionAssemblyResult> FailureMechanismSectionAssemblyResults { get; private set; }
+        public IEnumerable<IProfileAndSectionProbabilities> FailureMechanismSectionAssemblyResults { get; private set; }
+        
+        /// <summary>
+        /// Gets the collection of <see cref="Probability"/>.
+        /// </summary>
+        public IEnumerable<Probability> FailureMechanismSectionProbabilities { get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether an assembly is partial.
@@ -68,15 +73,31 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// </summary>
         public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
-        public FailureMechanismAssemblyResult AssembleFailureMechanismWbi1B1(double lengthEffectFactor,
-                                                                             IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults,
-                                                                             bool partialAssembly)
+        public FailureMechanismAssemblyResult CalculateFailureMechanismFailureProbabilityWithLengthEffectBoi1A2(
+            double lengthEffectFactor,
+            IEnumerable<IProfileAndSectionProbabilities> failureMechanismSectionAssemblyResults,
+            bool partialAssembly)
         {
             ThrowException();
 
             Calculated = true;
             LenghtEffectFactor = lengthEffectFactor;
             FailureMechanismSectionAssemblyResults = failureMechanismSectionAssemblyResults;
+            PartialAssembly = partialAssembly;
+
+            return ProbabilityResult;
+        }
+
+        public FailureMechanismAssemblyResult CalculateFailureMechanismFailureProbabilityBoi1A1(
+            double lengthEffectFactor,
+            IEnumerable<Probability> failureMechanismSectionProbabilities,
+            bool partialAssembly)
+        {
+            ThrowException();
+
+            Calculated = true;
+            LenghtEffectFactor = lengthEffectFactor;
+            FailureMechanismSectionProbabilities = failureMechanismSectionProbabilities;
             PartialAssembly = partialAssembly;
 
             return ProbabilityResult;
