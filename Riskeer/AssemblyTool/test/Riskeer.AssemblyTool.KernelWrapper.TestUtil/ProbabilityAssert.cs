@@ -15,7 +15,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         /// <param name="actual">The actual probability</param>
         public static void AreEqual(double expected, Probability actual)
         {
-            Assert.AreEqual(expected, actual.Value);
+            Assert.AreEqual(expected, actual);
         }
     }
 }

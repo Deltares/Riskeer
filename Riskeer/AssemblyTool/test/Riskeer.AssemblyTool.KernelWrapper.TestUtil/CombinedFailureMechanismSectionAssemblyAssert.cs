@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.FailureMechanismSections;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
@@ -37,11 +36,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         /// <summary>
         /// Asserts whether <paramref name="actual"/> is equal to <paramref name="original"/>.
         /// </summary>
-        /// <param name="original">The original <see cref="AssemblyResult"/>.</param>
+        /// <param name="original">The original <see cref="GreatestCommonDenominatorAssemblyResult"/>.</param>
         /// <param name="actual">The actual collection of <see cref="CombinedFailureMechanismSectionAssembly"/>.</param>
         /// <exception cref="AssertionException">Thrown when <paramref name="actual"/>
         /// is not equal to <paramref name="original"/>.</exception>
-        public static void AssertAssembly(AssemblyResult original, IEnumerable<CombinedFailureMechanismSectionAssembly> actual)
+        public static void AssertAssembly(GreatestCommonDenominatorAssemblyResult original, IEnumerable<CombinedFailureMechanismSectionAssembly> actual)
         {
             FailureMechanismSectionWithCategory[] combinedResults = original.CombinedSectionResult.ToArray();
             Assert.AreEqual(combinedResults.Length, actual.Count());
@@ -50,8 +49,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
                 FailureMechanismSectionWithCategory combinedResult = combinedResults[i];
                 CombinedFailureMechanismSectionAssembly actualCombinedFailureMechanismSectionAssembly = actual.ElementAt(i);
 
-                Assert.AreEqual(combinedResult.SectionStart, actualCombinedFailureMechanismSectionAssembly.Section.SectionStart);
-                Assert.AreEqual(combinedResult.SectionEnd, actualCombinedFailureMechanismSectionAssembly.Section.SectionEnd);
+                Assert.AreEqual(combinedResult.Start, actualCombinedFailureMechanismSectionAssembly.Section.SectionStart);
+                Assert.AreEqual(combinedResult.End, actualCombinedFailureMechanismSectionAssembly.Section.SectionEnd);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(combinedResult.Category),
                                 actualCombinedFailureMechanismSectionAssembly.Section.FailureMechanismSectionAssemblyGroup);
 

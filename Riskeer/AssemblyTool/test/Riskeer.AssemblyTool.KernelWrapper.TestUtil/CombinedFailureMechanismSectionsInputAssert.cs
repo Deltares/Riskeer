@@ -58,8 +58,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
             Assert.AreEqual(originalSections.Count(), failureMechanismSections.Count());
             Assert.IsTrue(failureMechanismSections.All(fms => fms.GetType() == typeof(FailureMechanismSectionWithCategory)));
 
-            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionStart), failureMechanismSections.Select(r => r.SectionStart));
-            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionEnd), failureMechanismSections.Select(r => r.SectionEnd));
+            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionStart), failureMechanismSections.Select(r => r.Start));
+            CollectionAssert.AreEqual(originalSections.Select(s => s.SectionEnd), failureMechanismSections.Select(r => r.End));
             CollectionAssert.AreEqual(originalSections.Select(s => FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(s.FailureMechanismSectionAssemblyGroup)),
                                       failureMechanismSections.Select(fms => fms)
                                                               .Cast<FailureMechanismSectionWithCategory>()
