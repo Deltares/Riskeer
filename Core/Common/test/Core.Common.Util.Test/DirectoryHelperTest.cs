@@ -24,7 +24,7 @@ using System.IO.Compression;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 
-namespace Core.Common.IO.Test
+namespace Core.Common.Util.Test
 {
     [TestFixture]
     public class DirectoryHelperTest

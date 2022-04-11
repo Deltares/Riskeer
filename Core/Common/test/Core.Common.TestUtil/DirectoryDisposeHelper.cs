@@ -23,7 +23,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
-using Core.Common.IO;
+using Core.Common.Util;
 
 namespace Core.Common.TestUtil
 {

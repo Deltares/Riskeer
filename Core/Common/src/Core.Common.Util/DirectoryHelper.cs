@@ -23,7 +23,7 @@ using System;
 using System.IO;
 using System.Threading;
 
-namespace Core.Common.IO
+namespace Core.Common.Util
 {
     /// <summary>
     /// Class containing helper methods for correctly dealing with directories.
