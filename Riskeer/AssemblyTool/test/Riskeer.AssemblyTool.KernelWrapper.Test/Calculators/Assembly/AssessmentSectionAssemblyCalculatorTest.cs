@@ -251,7 +251,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
                 {
-                    CreateAssemblyErrorMessage(string.Empty, EAssemblyErrors.InvalidCategoryLimits)
+                    AssemblyErrorMessageTestHelper.Create(string.Empty, EAssemblyErrors.InvalidCategoryLimits)
                 }), exception.Message);
             }
         }
@@ -482,14 +482,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
                 {
-                    CreateAssemblyErrorMessage(string.Empty, EAssemblyErrors.EmptyResultsList)
+                    AssemblyErrorMessageTestHelper.Create(string.Empty, EAssemblyErrors.EmptyResultsList)
                 }), exception.Message);
             }
-        }
-
-        private static AssemblyErrorMessage CreateAssemblyErrorMessage(string entityId, EAssemblyErrors errorCode)
-        {
-            return (AssemblyErrorMessage) Activator.CreateInstance(typeof(AssemblyErrorMessage), entityId, errorCode);
         }
     }
 }

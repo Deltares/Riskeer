@@ -87,8 +87,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
                 calculator.CalculateAssessmentSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability);
 
                 // Assert
-                Assert.AreEqual(maximumAllowableFloodingProbability, kernel.AssessmentSection.FailureProbabilityLowerLimit.Value);
-                Assert.AreEqual(signalFloodingProbability, kernel.AssessmentSection.FailureProbabilitySignalingLimit.Value);
+                Assert.AreEqual(maximumAllowableFloodingProbability, kernel.AssessmentSection.MaximumAllowableFloodingProbability);
+                Assert.AreEqual(signalFloodingProbability, kernel.AssessmentSection.SignalFloodingProbability);
             }
         }
 
@@ -167,7 +167,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
                 Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
                 {
-                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.EmptyResultsList)
+                    AssemblyErrorMessageTestHelper.Create(string.Empty, EAssemblyErrors.EmptyResultsList)
                 }), exception.Message);
             }
         }

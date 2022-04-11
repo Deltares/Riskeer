@@ -88,8 +88,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Groups
 
                 // Assert
                 AssessmentSection assessmentSection = categoryLimitsKernel.AssessmentSection;
-                ProbabilityAssert.AreEqual(maximumAllowableFloodingProbability, assessmentSection.FailureProbabilityLowerLimit);
-                ProbabilityAssert.AreEqual(signalFloodingProbability, assessmentSection.FailureProbabilitySignalingLimit);
+                ProbabilityAssert.AreEqual(maximumAllowableFloodingProbability, assessmentSection.MaximumAllowableFloodingProbability);
+                ProbabilityAssert.AreEqual(signalFloodingProbability, assessmentSection.SignalFloodingProbability);
             }
         }
 

@@ -281,7 +281,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 case FailureMechanismSectionAssemblyGroup.Dominant:
                     return EInterpretationCategory.Dominant;
                 case FailureMechanismSectionAssemblyGroup.Gr:
-                    return EInterpretationCategory.Gr;
+                    return EInterpretationCategory.NoResult;
                 case FailureMechanismSectionAssemblyGroup.NotRelevant:
                     return EInterpretationCategory.NotRelevant;
                 default:
