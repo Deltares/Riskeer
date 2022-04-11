@@ -165,10 +165,8 @@ namespace Riskeer.Integration.Forms.Test.Views
         public void GivenFormWithAssemblyResultPerSectionView_ThenExpectedFailureMechanismCellData()
         {
             // Given
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
-                new Random(21).NextEnumValue<AssessmentSectionComposition>());
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowAssemblyResultPerSectionView(assessmentSection))
+            using (ShowAssemblyResultPerSectionView())
             {
                 DataGridView dataGridView = GetDataGridView();
                 object actualFirstFailureMechanismValue = dataGridView.Rows[0].Cells[specificFailureMechanismStartIndex].Value;
@@ -250,14 +248,9 @@ namespace Riskeer.Integration.Forms.Test.Views
         [Test]
         public void Constructor_AssessmentSectionWithReferenceLine_ExpectedValues()
         {
-            // Setup
-            var random = new Random(21);
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
-                random.NextEnumValue<AssessmentSectionComposition>());
-
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowAssemblyResultPerSectionView(assessmentSection))
+            using (ShowAssemblyResultPerSectionView())
             {
                 DataGridView dataGridView = GetDataGridView();
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -270,11 +263,8 @@ namespace Riskeer.Integration.Forms.Test.Views
         [Test]
         public void Constructor_AssessmentSectionWithoutReferenceLine_ExpectedValues()
         {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
             // Call
-            using (ShowAssemblyResultPerSectionView(assessmentSection))
+            using (ShowAssemblyResultPerSectionView())
             {
                 DataGridView dataGridView = GetDataGridView();
                 DataGridViewRowCollection rows = dataGridView.Rows;
@@ -290,11 +280,8 @@ namespace Riskeer.Integration.Forms.Test.Views
             bool readOnly, string errorText, CellStyle style)
         {
             // Given
-            var random = new Random(21);
-            AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
-                random.NextEnumValue<AssessmentSectionComposition>());
             using (new AssemblyToolCalculatorFactoryConfig())
-            using (ShowAssemblyResultPerSectionView(assessmentSection))
+            using (ShowAssemblyResultPerSectionView())
             {
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
                 buttonTester.Properties.Enabled = true;
@@ -492,6 +479,12 @@ namespace Riskeer.Integration.Forms.Test.Views
         private static ErrorProvider GetWarningProvider(AssemblyResultPerSectionView resultControl)
         {
             return TypeUtils.GetField<ErrorProvider>(resultControl, "warningProvider");
+        }
+
+        private AssemblyResultPerSectionView ShowAssemblyResultPerSectionView()
+        {
+            return ShowAssemblyResultPerSectionView(TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
+                                                        new Random(21).NextEnumValue<AssessmentSectionComposition>()));
         }
 
         private AssemblyResultPerSectionView ShowAssemblyResultPerSectionView(AssessmentSection assessmentSection)
