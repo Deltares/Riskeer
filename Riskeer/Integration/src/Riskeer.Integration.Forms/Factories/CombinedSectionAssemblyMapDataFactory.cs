@@ -38,7 +38,7 @@ namespace Riskeer.Integration.Forms.Factories
         /// <returns>The created <see cref="MapLineData"/>.</returns>
         public static MapLineData CreateCombinedSectionAssemblyResultMapData()
         {
-            return new MapLineData(Resources.Worst_AssemblyResult_per_Section_DisplayName,
+            return new MapLineData(Resources.Worst_AssemblyResult_per_section_DisplayName,
                                    new LineStyle
                                    {
                                        Width = 6,

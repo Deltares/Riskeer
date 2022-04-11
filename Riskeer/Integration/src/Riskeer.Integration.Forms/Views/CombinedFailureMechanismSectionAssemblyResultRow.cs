@@ -53,7 +53,7 @@ namespace Riskeer.Integration.Forms.Views
         private const int stabilityPointStructuresIndex = 15;
         private const int duneErosionIndex = 16;
         private const int specificFailureMechanismStartIndex = 17;
-        private int totalResultIndex;
+        private readonly int totalResultIndex;
 
         private readonly CombinedFailureMechanismSectionAssemblyResult combinedFailureMechanismSectionAssemblyResult;
 
