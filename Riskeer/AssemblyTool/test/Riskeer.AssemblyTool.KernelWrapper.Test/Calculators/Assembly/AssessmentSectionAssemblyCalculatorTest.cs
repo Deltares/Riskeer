@@ -25,7 +25,6 @@ using System.ComponentModel;
 using System.Linq;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
-using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.Categories;
 using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
@@ -141,6 +140,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                     ProbabilityAssert.AreEqual(failureMechanismProbabilities.ElementAt(i),
                                                actualProbabilitiesInput.ElementAt(i));
                 }
+
                 Assert.AreEqual(assemblyProbability, assessmentSectionAssemblyKernel.AssemblyProbabilityInput);
             }
         }
@@ -161,7 +161,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var assemblyGroup = random.NextEnumValue<EAssessmentGrade>();
                 kernel.AssemblyProbability = assemblyProbability;
                 kernel.AssemblyGroup = assemblyGroup;
-                
+
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
@@ -251,7 +251,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
                 {
-                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.InvalidCategoryLimits)
+                    CreateAssemblyErrorMessage(string.Empty, EAssemblyErrors.InvalidCategoryLimits)
                 }), exception.Message);
             }
         }
@@ -319,7 +319,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
-                kernel.AssemblyResult = new AssemblyResult(new[]
+                kernel.AssemblyResult = new GreatestCommonDenominatorAssemblyResult(new[]
                 {
                     new FailureMechanismSectionList(new[]
                     {
@@ -353,7 +353,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
-                kernel.AssemblyResult = new AssemblyResult(new[]
+                kernel.AssemblyResult = new GreatestCommonDenominatorAssemblyResult(new[]
                 {
                     new FailureMechanismSectionList(new[]
                     {
@@ -390,7 +390,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
-                kernel.AssemblyResult = new AssemblyResult(new[]
+                kernel.AssemblyResult = new GreatestCommonDenominatorAssemblyResult(new[]
                 {
                     new FailureMechanismSectionList(new[]
                     {
@@ -482,9 +482,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.IsInstanceOf<AssemblyException>(exception.InnerException);
                 Assert.AreEqual(AssemblyErrorMessageCreator.CreateErrorMessage(new[]
                 {
-                    new AssemblyErrorMessage(string.Empty, EAssemblyErrors.EmptyResultsList)
+                    CreateAssemblyErrorMessage(string.Empty, EAssemblyErrors.EmptyResultsList)
                 }), exception.Message);
             }
+        }
+
+        private static AssemblyErrorMessage CreateAssemblyErrorMessage(string entityId, EAssemblyErrors errorCode)
+        {
+            return (AssemblyErrorMessage) Activator.CreateInstance(typeof(AssemblyErrorMessage), entityId, errorCode);
         }
     }
 }

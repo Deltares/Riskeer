@@ -42,7 +42,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="EInterpretationCategory"/>
         /// is a valid value, but unsupported.</exception>
-        public static RiskeerFailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(KernelFailureMechanismSectionAssemblyResult result)
+        public static RiskeerFailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(
+            KernelFailureMechanismSectionAssemblyResult result)
         {
             if (result == null)
             {

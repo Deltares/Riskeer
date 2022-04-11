@@ -70,7 +70,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return FailureMechanismSectionAssemblyGroup.IIIMin;
                 case EInterpretationCategory.Dominant:
                     return FailureMechanismSectionAssemblyGroup.Dominant;
-                case EInterpretationCategory.Gr:
+                case EInterpretationCategory.NoResult:
                     return FailureMechanismSectionAssemblyGroup.Gr;
                 case EInterpretationCategory.NotRelevant:
                     return FailureMechanismSectionAssemblyGroup.NotRelevant;
@@ -118,7 +118,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 case FailureMechanismSectionAssemblyGroup.Dominant:
                     return EInterpretationCategory.Dominant;
                 case FailureMechanismSectionAssemblyGroup.Gr:
-                    return EInterpretationCategory.Gr;
+                    return EInterpretationCategory.NoResult;
                 case FailureMechanismSectionAssemblyGroup.NotRelevant:
                     return EInterpretationCategory.NotRelevant;
                 default:
