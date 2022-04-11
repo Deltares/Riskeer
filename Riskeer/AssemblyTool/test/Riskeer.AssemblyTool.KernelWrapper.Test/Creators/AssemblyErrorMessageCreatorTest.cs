@@ -26,6 +26,7 @@ using Assembly.Kernel.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
+using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
@@ -49,7 +50,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             // Call
             void Call() => AssemblyErrorMessageCreator.CreateErrorMessage(new[]
             {
-                new AssemblyErrorMessage(string.Empty, (EAssemblyErrors) 9999)
+                AssemblyErrorMessageTestHelper.Create(string.Empty, (EAssemblyErrors) 9999)
             });
 
             // Assert
@@ -60,7 +61,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [Test]
         [TestCase(EAssemblyErrors.LengthEffectFactorOutOfRange, "Lengte-effect factor moet minimaal 1 zijn.")]
         [TestCase(EAssemblyErrors.SectionLengthOutOfRange, "De trajectlengte moet groter zijn dan 0 [m].")]
-        [TestCase(EAssemblyErrors.SignalingLimitAboveLowerLimit, "De signaleringsparameter moet kleiner zijn dan de omgevingswaarde.")]
+        [TestCase(EAssemblyErrors.SignalFloodingProbabilityAboveMaximumAllowableFloodingProbability, "De signaleringsparameter moet kleiner zijn dan de omgevingswaarde.")]
         [TestCase(EAssemblyErrors.LowerLimitIsAboveUpperLimit, "De categoriebovengrens moet boven de categorieondergrens liggen.")]
         [TestCase(EAssemblyErrors.ValueMayNotBeNull, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
         [TestCase(EAssemblyErrors.FailureMechanismSectionLengthInvalid, "Gezamenlijke lengte van alle deelvakken moet gelijk zijn aan de trajectlengte.")]
@@ -74,9 +75,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EAssemblyErrors.InvalidCategoryLimits, "De klassengrenzen zijn niet aaneengesloten of dekken niet de volledige faalkansruimte af.")]
         [TestCase(EAssemblyErrors.EmptyResultsList, "Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden.")]
         [TestCase(EAssemblyErrors.ProfileProbabilityGreaterThanSectionProbability, "De faalkans per vak moet groter zijn dan of gelijk zijn aan de faalkans per doorsnede.")]
-        [TestCase(EAssemblyErrors.ValueMayNotBeNaN, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
         [TestCase(EAssemblyErrors.ErrorConstructingErrorMessage, "Er is een onverwachte fout opgetreden.")]
-        [TestCase(EAssemblyErrors.DominantSectionCannotBeAssembled, "Er zijn een of meerdere vakken met duidingsklasse 'Dominant'. Dit kan niet verder geassembleerd worden.")]
         [TestCase(EAssemblyErrors.EncounteredOneOrMoreSectionsWithoutResult, "Alle vakken moeten een resultaat hebben.")]
         [TestCase(EAssemblyErrors.NonMatchingProbabilityValues, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
         public void CreateErrorMessage_SingleAssemblyError_ReturnsExpectedErrorMessage(EAssemblyErrors assemblyError, string expectedErrorMessage)
@@ -84,7 +83,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             // Call
             string errorMessage = AssemblyErrorMessageCreator.CreateErrorMessage(new[]
             {
-                new AssemblyErrorMessage(string.Empty, assemblyError)
+                AssemblyErrorMessageTestHelper.Create(string.Empty, assemblyError)
             });
 
             // Assert
@@ -97,8 +96,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             // Call
             string errorMessage = AssemblyErrorMessageCreator.CreateErrorMessage(new[]
             {
-                new AssemblyErrorMessage(string.Empty, EAssemblyErrors.LengthEffectFactorOutOfRange),
-                new AssemblyErrorMessage(string.Empty, EAssemblyErrors.FailureProbabilityOutOfRange)
+                AssemblyErrorMessageTestHelper.Create(string.Empty, EAssemblyErrors.LengthEffectFactorOutOfRange),
+                AssemblyErrorMessageTestHelper.Create(string.Empty, EAssemblyErrors.FailureProbabilityOutOfRange)
             });
 
             // Assert

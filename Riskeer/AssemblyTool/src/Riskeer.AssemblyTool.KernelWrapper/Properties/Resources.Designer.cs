@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -87,15 +87,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         internal static string AssemblyErrorMessageCreator_All_sections_must_have_a_result {
             get {
                 return ResourceManager.GetString("AssemblyErrorMessageCreator_All_sections_must_have_a_result", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Er zijn een of meerdere vakken met duidingsklasse &apos;Dominant&apos;. Dit kan niet verder geassembleerd worden..
-        /// </summary>
-        internal static string AssemblyErrorMessageCreator_Cannot_assemble_with_dominant_category {
-            get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_Cannot_assemble_with_dominant_category", resourceCulture);
             }
         }
         
@@ -255,9 +246,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De signaleringsparameter moet kleiner zijn dan de omgevingswaarde..
         /// </summary>
-        internal static string AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit {
+        internal static string AssemblyErrorMessageCreator_SignalFloodingProbabilityAboveMaximumAllowableFloodingProbability {
             get {
-                return ResourceManager.GetString("AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit", resourceCulture);
+                return ResourceManager.GetString("AssemblyErrorMessageCreator_SignalFloodingProbabilityAboveMaximumAllowableFloodin" +
+                        "gProbability", resourceCulture);
             }
         }
     }

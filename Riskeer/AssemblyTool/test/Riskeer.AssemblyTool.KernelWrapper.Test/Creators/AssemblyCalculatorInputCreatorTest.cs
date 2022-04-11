@@ -40,7 +40,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             Probability probability = AssemblyCalculatorInputCreator.CreateProbability(value);
 
             // Assert
-            Assert.AreEqual(value, probability.Value);
+            Assert.AreEqual(value, probability);
         }
     }
 }

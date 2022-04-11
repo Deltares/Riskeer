@@ -123,7 +123,7 @@
   <data name="AssemblyErrorMessageCreator_SectionLengthOutOfRange" xml:space="preserve">
     <value>De trajectlengte moet groter zijn dan 0 [m].</value>
   </data>
-  <data name="AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit" xml:space="preserve">
+  <data name="AssemblyErrorMessageCreator_SignalFloodingProbabilityAboveMaximumAllowableFloodingProbability" xml:space="preserve">
     <value>De signaleringsparameter moet kleiner zijn dan de omgevingswaarde.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit" xml:space="preserve">
@@ -170,9 +170,6 @@
   </data>
   <data name="AssemblyErrorMessageCreator_ErrorConstructingErrorMessage" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden.</value>
-  </data>
-  <data name="AssemblyErrorMessageCreator_Cannot_assemble_with_dominant_category" xml:space="preserve">
-    <value>Er zijn een of meerdere vakken met duidingsklasse 'Dominant'. Dit kan niet verder geassembleerd worden.</value>
   </data>
   <data name="AssemblyErrorMessageCreator_All_sections_must_have_a_result" xml:space="preserve">
     <value>Alle vakken moeten een resultaat hebben.</value>

@@ -84,12 +84,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return Resources.AssemblyErrorMessageCreator_LengthEffectFactorOutOfRange;
                 case EAssemblyErrors.SectionLengthOutOfRange:
                     return Resources.AssemblyErrorMessageCreator_SectionLengthOutOfRange;
-                case EAssemblyErrors.SignalingLimitAboveLowerLimit:
-                    return Resources.AssemblyErrorMessageCreator_SignalingLimitAboveLowerLimit;
+                case EAssemblyErrors.SignalFloodingProbabilityAboveMaximumAllowableFloodingProbability:
+                    return Resources.AssemblyErrorMessageCreator_SignalFloodingProbabilityAboveMaximumAllowableFloodingProbability;
                 case EAssemblyErrors.LowerLimitIsAboveUpperLimit:
                     return Resources.AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit;
                 case EAssemblyErrors.ValueMayNotBeNull:
-                case EAssemblyErrors.ValueMayNotBeNaN:
                 case EAssemblyErrors.NonMatchingProbabilityValues:
                     return Resources.AssemblyErrorMessageCreator_InvalidInput;
                 case EAssemblyErrors.FailureMechanismSectionLengthInvalid:
@@ -116,8 +115,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return Resources.AssemblyErrorMessageCreator_ProfileProbabilityGreaterThanSectionProbability;
                 case EAssemblyErrors.ErrorConstructingErrorMessage:
                     return Resources.AssemblyErrorMessageCreator_ErrorConstructingErrorMessage;
-                case EAssemblyErrors.DominantSectionCannotBeAssembled:
-                    return Resources.AssemblyErrorMessageCreator_Cannot_assemble_with_dominant_category;
                 case EAssemblyErrors.EncounteredOneOrMoreSectionsWithoutResult:
                     return Resources.AssemblyErrorMessageCreator_All_sections_must_have_a_result;
                 default:

@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.Categories;
 using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
@@ -82,7 +81,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
                 CreateCategory(sections[2], random)
             };
 
-            var assembly = new AssemblyResult(failureMechanismResults, combinedResults);
+            var assembly = new GreatestCommonDenominatorAssemblyResult(failureMechanismResults, combinedResults);
 
             // Call
             IEnumerable<CombinedFailureMechanismSectionAssembly> results = CombinedFailureMechanismSectionAssemblyCreator.Create(assembly);
