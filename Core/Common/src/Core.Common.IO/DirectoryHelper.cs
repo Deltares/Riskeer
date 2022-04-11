@@ -31,29 +31,30 @@ namespace Core.Common.IO
     public static class DirectoryHelper
     {
         /// <summary>
-        /// Tries to delete the provided directory. 
+        /// Tries to delete the directory specified by <paramref name="path"/>.
         /// </summary>
         /// <param name="path">The path of the directory to delete.</param>
-        /// <param name="numberOfRetries">The number of retries in case of an <see cref="IOException"/>.</param>
-        /// <remarks>This helper method is a solution to latency issues caused by temporary file locks.</remarks>
+        /// <param name="numberOfRetries">The number of retries in case an <see cref="IOException"/> occurs.</param>
+        /// <remarks>This helper method is a solution to latency issues caused by file locks, which normally cause an
+        /// <see cref="IOException"/>. The file locks at stake will be released as soon as the application becomes idle,
+        /// which explains retrying the delete action for <paramref name="numberOfRetries"/> times.</remarks>
         /// <exception cref="IOException">Thrown when:
         /// <list type="bullet">
-        /// <item>a file with the same name and location specified by path exists;</item>
-        /// <item>the directory specified by path is read-only;</item>
-        /// <item>the directory is the application's current working directory;</item>
+        /// <item>a file with the same name and location exists;</item>
+        /// <item>the directory is read-only;</item>
         /// <item>the directory is the application's current working directory;</item>
         /// <item>the directory contains a read-only file;</item>
         /// <item>the directory is being used by another process.</item>
         /// </list>
         /// </exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown when the caller does not have the required permission.</exception>
-        /// <exception cref="ArgumentException">Thrown when path is a zero-length string, contains only white space, or contains one or more invalid characters.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when path is null.</exception>
-        /// <exception cref="PathTooLongException">Thrown when the specified path exceeds the system-defined maximum length.</exception>
-        /// <exception cref="DirectoryNotFoundException">Thrown when:
+        /// <exception cref="UnauthorizedAccessException">Thrown when the caller does not have the required permissions.</exception>
+        /// <exception cref="ArgumentException">Thrown when the specified path is a zero-length string, contains only white spaces, or contains one or more invalid characters.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="path"/> is <c>null</c>.</exception>
+        /// <exception cref="PathTooLongException">Thrown when the specified path exceeds the system defined maximum length.</exception>
+        /// <exception cref="DirectoryNotFoundException">Thrown when the specified path:
         /// <list type="bullet">
-        /// <item>path does not exist or could not be found;</item>
-        /// <item>the specified path is invalid (for example, it is on an unmapped drive).</item>
+        /// <item>does not exist or could not be found;</item>
+        /// <item>is invalid (for example, it is on an unmapped drive).</item>
         /// </list>
         /// </exception>
         public static void TryDelete(string path, int numberOfRetries = 5)
