@@ -66,7 +66,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         private const int duneErosionColumnIndex = 16;
         private const int specificFailureMechanismStartIndex = 17;
         private const int worstAssemblyResultPerSectionColumnIndex = 19;
-        private const int expectedColumnCount = 20;
         private const string assemblyResultOutdatedWarning = "De resultaten zijn verouderd. Druk op de \"Resultaten verversen\" knop om opnieuw te berekenen.";
 
         private Form testForm;
@@ -158,7 +157,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 DataGridViewColumnCollection dataGridViewColumns = dataGridView.Columns;
 
-                AssertColumns(dataGridViewColumns, expectedColumnCount, assessmentSection.SpecificFailureMechanisms);
+                AssertColumns(dataGridViewColumns, 20, assessmentSection.SpecificFailureMechanisms);
             }
         }
 
@@ -197,7 +196,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 // Precondition
                 DataGridView dataGridView = GetDataGridView();
-                Assert.AreEqual(expectedColumnCount, dataGridView.ColumnCount);
+                Assert.AreEqual(20, dataGridView.ColumnCount);
 
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
 
@@ -214,7 +213,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 buttonTester.Click();
 
                 // Then
-                AssertColumns(dataGridView.Columns, expectedColumnCount + 1, assessmentSection.SpecificFailureMechanisms);
+                AssertColumns(dataGridView.Columns, 21, assessmentSection.SpecificFailureMechanisms);
             }
         }
 
@@ -234,7 +233,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 DataGridView dataGridView = GetDataGridView();
 
                 DataGridViewColumnCollection dataGridViewColumns = dataGridView.Columns;
-                AssertColumns(dataGridViewColumns, expectedColumnCount, assessmentSection.SpecificFailureMechanisms);
+                AssertColumns(dataGridViewColumns, 20, assessmentSection.SpecificFailureMechanisms);
 
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
 
@@ -244,7 +243,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 buttonTester.Click();
 
                 // Then
-                AssertColumns(dataGridViewColumns, expectedColumnCount - 1, assessmentSection.SpecificFailureMechanisms);
+                AssertColumns(dataGridViewColumns, 19, assessmentSection.SpecificFailureMechanisms);
             }
         }
 
