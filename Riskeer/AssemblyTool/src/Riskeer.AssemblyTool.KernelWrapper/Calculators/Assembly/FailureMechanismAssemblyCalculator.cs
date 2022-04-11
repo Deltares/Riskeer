@@ -65,13 +65,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             {
                 IFailureMechanismResultAssembler kernel = factory.CreateFailureMechanismAssemblyKernel();
 
-                KernelFailureMechanismSectionAssemblyResult[] kernelInput =
-                    sectionAssemblyResults.Select(FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult)
-                                          .ToArray();
+                FailureMechanismAssemblyResult result = kernel.CalculateFailureMechanismFailureProbabilityBoi1A1(
+                    failureMechanismN, sectionAssemblyResults.Select(
+                        sar => AssemblyCalculatorInputCreator.CreateProbability(
+                            sar.SectionProbability)), false);
 
-                FailureMechanismAssemblyResult result = kernel.AssembleFailureMechanismWbi1B1(failureMechanismN, kernelInput, false);
-
-                return result.Probability.Value;
+                return result.Probability;
             }
             catch (AssemblyException e)
             {
