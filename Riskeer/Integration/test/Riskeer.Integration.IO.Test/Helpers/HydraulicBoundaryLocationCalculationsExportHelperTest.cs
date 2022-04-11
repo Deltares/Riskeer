@@ -26,6 +26,7 @@ using System.IO;
 using System.Linq;
 using System.Security.AccessControl;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Common.IO.TestUtil;
@@ -120,7 +121,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
             }
             finally
             {
-                Directory.Delete(directoryPath, true);
+                DirectoryHelper.TryDelete(directoryPath);
             }
         }
 
@@ -160,7 +161,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
             }
             finally
             {
-                Directory.Delete(directoryPath, true);
+                DirectoryHelper.TryDelete(directoryPath);
             }
         }
 
@@ -202,7 +203,7 @@ namespace Riskeer.Integration.IO.Test.Helpers
             }
             finally
             {
-                Directory.Delete(directoryPath, true);
+                DirectoryHelper.TryDelete(directoryPath);
             }
         }
 
