@@ -220,7 +220,6 @@ namespace Riskeer.Integration.Forms.Test.Views
         {
             // Given
             var random = new Random(21);
-
             AssessmentSection assessmentSection = TestDataGenerator.GetAssessmentSectionWithAllFailureMechanismSectionsAndResults(
                 random.NextEnumValue<AssessmentSectionComposition>());
 
@@ -236,7 +235,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
 
                 // When
-                assessmentSection.SpecificFailureMechanisms.RemoveAt(random.Next(0, 1));
+                SpecificFailureMechanism failureMechanismToRemove = assessmentSection.SpecificFailureMechanisms.First(); 
+                assessmentSection.SpecificFailureMechanisms.Remove(failureMechanismToRemove);
                 assessmentSection.NotifyObservers();
                 buttonTester.Click();
 
