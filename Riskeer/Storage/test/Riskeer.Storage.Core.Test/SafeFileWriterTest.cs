@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using System.Security.AccessControl;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 
 namespace Riskeer.Storage.Core.Test
@@ -263,7 +264,7 @@ namespace Riskeer.Storage.Core.Test
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            Directory.Delete(testWorkDir, true);
+            DirectoryHelper.TryDelete(testWorkDir);
         }
     }
 }

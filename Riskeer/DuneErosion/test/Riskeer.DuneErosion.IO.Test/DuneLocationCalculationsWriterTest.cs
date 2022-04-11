@@ -26,6 +26,7 @@ using System.Security.AccessControl;
 using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.DuneErosion.Data;
@@ -179,7 +180,7 @@ namespace Riskeer.DuneErosion.IO.Test
             }
             finally
             {
-                Directory.Delete(directoryPath, true);
+                DirectoryHelper.TryDelete(directoryPath);
             }
         }
 

@@ -26,6 +26,7 @@ using System.Security.AccessControl;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.Common.Data.Hydraulics;
 using Riskeer.Revetment.Data;
@@ -111,7 +112,7 @@ namespace Riskeer.Revetment.IO.Test.WaveConditions
             }
             finally
             {
-                Directory.Delete(directoryPath, true);
+                DirectoryHelper.TryDelete(directoryPath);
             }
         }
 

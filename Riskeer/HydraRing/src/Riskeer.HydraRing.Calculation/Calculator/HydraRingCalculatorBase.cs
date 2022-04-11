@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Security;
+using Core.Common.Util;
 using Riskeer.HydraRing.Calculation.Data;
 using Riskeer.HydraRing.Calculation.Data.Input;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
@@ -242,7 +243,7 @@ namespace Riskeer.HydraRing.Calculation.Calculator
 
             if (Directory.Exists(workingDirectory))
             {
-                Directory.Delete(workingDirectory, true);
+                DirectoryHelper.TryDelete(workingDirectory);
             }
 
             Directory.CreateDirectory(workingDirectory);

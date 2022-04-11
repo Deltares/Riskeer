@@ -106,7 +106,7 @@ namespace Riskeer.Integration.IO.Exporters
             {
                 if (Directory.Exists(tempFolderPath))
                 {
-                    Directory.Delete(tempFolderPath, true);
+                    DirectoryHelper.TryDelete(tempFolderPath);
                 }
             }
         }

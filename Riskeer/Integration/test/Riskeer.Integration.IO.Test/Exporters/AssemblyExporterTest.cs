@@ -26,6 +26,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
@@ -218,7 +219,7 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 }
                 finally
                 {
-                    Directory.Delete(folderPath, true);
+                    DirectoryHelper.TryDelete(folderPath);
                 }
             }
         }
