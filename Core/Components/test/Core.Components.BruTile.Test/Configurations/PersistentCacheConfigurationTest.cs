@@ -25,6 +25,7 @@ using System.Security.AccessControl;
 using BruTile;
 using BruTile.Cache;
 using Core.Common.TestUtil;
+using Core.Common.Util;
 using Core.Components.BruTile.Configurations;
 using Core.Components.BruTile.IO;
 using Core.Components.Gis.Exceptions;
@@ -241,7 +242,7 @@ namespace Core.Components.BruTile.Test.Configurations
         {
             if (Directory.Exists(rootPath))
             {
-                Directory.Delete(rootPath, true);
+                DirectoryHelper.TryDelete(rootPath);
             }
 
             try
@@ -252,7 +253,7 @@ namespace Core.Components.BruTile.Test.Configurations
             {
                 if (Directory.Exists(rootPath))
                 {
-                    Directory.Delete(rootPath, true);
+                    DirectoryHelper.TryDelete(rootPath);
                 }
             }
         }

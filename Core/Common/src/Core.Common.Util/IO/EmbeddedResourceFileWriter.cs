@@ -84,7 +84,7 @@ namespace Core.Common.Util.IO
         {
             if (removeFilesOnDispose && disposing)
             {
-                Directory.Delete(TargetFolderPath, true);
+                DirectoryHelper.TryDelete(TargetFolderPath);
             }
         }
 

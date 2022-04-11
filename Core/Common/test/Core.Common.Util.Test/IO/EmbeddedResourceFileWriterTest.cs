@@ -110,7 +110,7 @@ namespace Core.Common.Util.Test.IO
                 // Cleanup
                 if (!removeFilesOnDispose)
                 {
-                    Directory.Delete(targetFolderPath, true);
+                    DirectoryHelper.TryDelete(targetFolderPath);
                 }
             }
         }
