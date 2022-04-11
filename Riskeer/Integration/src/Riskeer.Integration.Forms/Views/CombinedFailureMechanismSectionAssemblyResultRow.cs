@@ -82,11 +82,6 @@ namespace Riskeer.Integration.Forms.Views
         }
 
         /// <summary>
-        /// Gets the number of the section.
-        /// </summary>
-        public int SectionNumber => combinedFailureMechanismSectionAssemblyResult.SectionNumber;
-
-        /// <summary>
         /// Gets the start of the section from the beginning of the reference line.
         /// [m]
         /// </summary>

@@ -102,7 +102,6 @@ namespace Riskeer.Integration.Forms.Test.Views
             }
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, specificFailureMechanismStartIndex + result.SpecificFailureMechanisms.Length);
 
-            Assert.AreEqual(result.SectionNumber, row.SectionNumber);
             Assert.AreEqual(2, row.SectionStart.NumberOfDecimalPlaces);
             Assert.AreEqual(result.SectionStart, row.SectionStart, row.SectionStart.GetAccuracy());
             Assert.AreEqual(2, row.SectionStart.NumberOfDecimalPlaces);
@@ -139,34 +138,32 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Setup
             var random = new Random(21);
 
-            var result = new CombinedFailureMechanismSectionAssemblyResult(
-                random.Next(),
-                random.NextDouble(),
-                random.NextDouble(),
-                assemblyGroup,
-                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
-                {
-                    Piping = assemblyGroup,
-                    GrassCoverErosionInwards = assemblyGroup,
-                    MacroStabilityInwards = assemblyGroup,
-                    Microstability = assemblyGroup,
-                    StabilityStoneCover = assemblyGroup,
-                    WaveImpactAsphaltCover = assemblyGroup,
-                    WaterPressureAsphaltCover = assemblyGroup,
-                    GrassCoverErosionOutwards = assemblyGroup,
-                    GrassCoverSlipOffOutwards = assemblyGroup,
-                    GrassCoverSlipOffInwards = assemblyGroup,
-                    HeightStructures = assemblyGroup,
-                    ClosingStructures = assemblyGroup,
-                    PipingStructure = assemblyGroup,
-                    StabilityPointStructures = assemblyGroup,
-                    DuneErosion = assemblyGroup,
-                    SpecificFailureMechanisms = new FailureMechanismSectionAssemblyGroup?[]
-                    {
-                        assemblyGroup,
-                        assemblyGroup
-                    }
-                });
+            var result = new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(),
+                                                                           random.NextDouble(),
+                                                                           assemblyGroup,
+                                                                           new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
+                                                                           {
+                                                                               Piping = assemblyGroup,
+                                                                               GrassCoverErosionInwards = assemblyGroup,
+                                                                               MacroStabilityInwards = assemblyGroup,
+                                                                               Microstability = assemblyGroup,
+                                                                               StabilityStoneCover = assemblyGroup,
+                                                                               WaveImpactAsphaltCover = assemblyGroup,
+                                                                               WaterPressureAsphaltCover = assemblyGroup,
+                                                                               GrassCoverErosionOutwards = assemblyGroup,
+                                                                               GrassCoverSlipOffOutwards = assemblyGroup,
+                                                                               GrassCoverSlipOffInwards = assemblyGroup,
+                                                                               HeightStructures = assemblyGroup,
+                                                                               ClosingStructures = assemblyGroup,
+                                                                               PipingStructure = assemblyGroup,
+                                                                               StabilityPointStructures = assemblyGroup,
+                                                                               DuneErosion = assemblyGroup,
+                                                                               SpecificFailureMechanisms = new FailureMechanismSectionAssemblyGroup?[]
+                                                                               {
+                                                                                   assemblyGroup,
+                                                                                   assemblyGroup
+                                                                               }
+                                                                           });
 
             // Call
             var row = new CombinedFailureMechanismSectionAssemblyResultRow(result);
@@ -204,34 +201,32 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Setup
             var random = new Random(21);
 
-            var result = new CombinedFailureMechanismSectionAssemblyResult(
-                random.Next(),
-                random.NextDouble(),
-                random.NextDouble(),
-                FailureMechanismSectionAssemblyGroup.Gr,
-                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
-                {
-                    Piping = null,
-                    GrassCoverErosionInwards = null,
-                    MacroStabilityInwards = null,
-                    Microstability = null,
-                    StabilityStoneCover = null,
-                    WaveImpactAsphaltCover = null,
-                    WaterPressureAsphaltCover = null,
-                    GrassCoverErosionOutwards = null,
-                    GrassCoverSlipOffOutwards = null,
-                    GrassCoverSlipOffInwards = null,
-                    HeightStructures = null,
-                    ClosingStructures = null,
-                    PipingStructure = null,
-                    StabilityPointStructures = null,
-                    DuneErosion = null,
-                    SpecificFailureMechanisms = new FailureMechanismSectionAssemblyGroup?[]
-                    {
-                        null,
-                        null
-                    }
-                });
+            var result = new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(),
+                                                                           random.NextDouble(),
+                                                                           FailureMechanismSectionAssemblyGroup.Gr,
+                                                                           new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
+                                                                           {
+                                                                               Piping = null,
+                                                                               GrassCoverErosionInwards = null,
+                                                                               MacroStabilityInwards = null,
+                                                                               Microstability = null,
+                                                                               StabilityStoneCover = null,
+                                                                               WaveImpactAsphaltCover = null,
+                                                                               WaterPressureAsphaltCover = null,
+                                                                               GrassCoverErosionOutwards = null,
+                                                                               GrassCoverSlipOffOutwards = null,
+                                                                               GrassCoverSlipOffInwards = null,
+                                                                               HeightStructures = null,
+                                                                               ClosingStructures = null,
+                                                                               PipingStructure = null,
+                                                                               StabilityPointStructures = null,
+                                                                               DuneErosion = null,
+                                                                               SpecificFailureMechanisms = new FailureMechanismSectionAssemblyGroup?[]
+                                                                               {
+                                                                                   null,
+                                                                                   null
+                                                                               }
+                                                                           });
 
             // Call
             var row = new CombinedFailureMechanismSectionAssemblyResultRow(result);
@@ -267,35 +262,33 @@ namespace Riskeer.Integration.Forms.Test.Views
         private static CombinedFailureMechanismSectionAssemblyResult GetCombinedFailureMechanismSectionAssemblyResult(bool failureMechanismsInAssembly)
         {
             var random = new Random(21);
-            return new CombinedFailureMechanismSectionAssemblyResult(
-                random.Next(),
-                random.NextDouble(),
-                random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
-                new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
-                {
-                    Piping = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    GrassCoverErosionInwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    MacroStabilityInwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    Microstability = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    StabilityStoneCover = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    WaveImpactAsphaltCover = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    WaterPressureAsphaltCover = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    GrassCoverErosionOutwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    GrassCoverSlipOffOutwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    GrassCoverSlipOffInwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    HeightStructures = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    ClosingStructures = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    PipingStructure = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    StabilityPointStructures = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    DuneErosion = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                    SpecificFailureMechanisms = new[]
-                    {
-                        GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                        GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
-                        GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random)
-                    }
-                });
+            return new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(),
+                                                                     random.NextDouble(),
+                                                                     random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                                                                     new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
+                                                                     {
+                                                                         Piping = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         GrassCoverErosionInwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         MacroStabilityInwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         Microstability = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         StabilityStoneCover = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         WaveImpactAsphaltCover = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         WaterPressureAsphaltCover = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         GrassCoverErosionOutwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         GrassCoverSlipOffOutwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         GrassCoverSlipOffInwards = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         HeightStructures = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         ClosingStructures = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         PipingStructure = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         StabilityPointStructures = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         DuneErosion = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                         SpecificFailureMechanisms = new[]
+                                                                         {
+                                                                             GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                             GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),
+                                                                             GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random)
+                                                                         }
+                                                                     });
         }
 
         private static FailureMechanismSectionAssemblyGroup? GetFailureMechanismSectionAssemblyGroup(bool failureMechanismInAssembly, Random random)

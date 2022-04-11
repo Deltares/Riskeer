@@ -110,7 +110,6 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.AreEqual(output.Length, results.Length);
             for (var i = 0; i < output.Length; i++)
             {
-                Assert.AreEqual(i + 1, results[i].SectionNumber);
                 Assert.AreEqual(output[i].Section.SectionStart, results[i].SectionStart);
                 Assert.AreEqual(output[i].Section.SectionEnd, results[i].SectionEnd);
                 Assert.AreEqual(output[i].Section.FailureMechanismSectionAssemblyGroup, results[i].TotalResult);
