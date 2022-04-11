@@ -87,12 +87,17 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// Sets the assembly result of a failure mechanism section.
         /// </summary>
         public FailureMechanismSectionAssemblyResult FailureMechanismSectionAssemblyResult { private get; set; }
+        
+        /// <summary>
+        /// Sets the assembly result with length effect of a failure mechanism section.
+        /// </summary>
+        public FailureMechanismSectionAssemblyResultWithLengthEffect FailureMechanismSectionAssemblyResultWithLengthEffect { private get; set; }
 
-        public FailureMechanismSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification relevance,
-                                                                                     Probability probabilityInitialMechanismSection,
-                                                                                     ERefinementStatus refinementStatus,
-                                                                                     Probability refinedProbabilitySection,
-                                                                                     CategoriesList<InterpretationCategory> categories)
+        public FailureMechanismSectionAssemblyResult TranslateAssessmentResultAggregatedMethod(ESectionInitialMechanismProbabilitySpecification relevance,
+                                                                                               Probability probabilityInitialMechanismSection,
+                                                                                               ERefinementStatus refinementStatus,
+                                                                                               Probability refinedProbabilitySection,
+                                                                                               CategoriesList<InterpretationCategory> categories)
         {
             ThrowException();
             Calculated = true;
@@ -108,13 +113,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return FailureMechanismSectionAssemblyResult;
         }
 
-        public FailureMechanismSectionAssemblyResult TranslateAssessmentResultWbi0A2(ESectionInitialMechanismProbabilitySpecification relevance,
-                                                                                     Probability probabilityInitialMechanismProfile,
-                                                                                     Probability probabilityInitialMechanismSection,
-                                                                                     ERefinementStatus refinementStatus,
-                                                                                     Probability refinedProbabilityProfile,
-                                                                                     Probability refinedProbabilitySection,
-                                                                                     CategoriesList<InterpretationCategory> categories)
+        public FailureMechanismSectionAssemblyResultWithLengthEffect TranslateAssessmentResultWithLengthEffectAggregatedMethod(ESectionInitialMechanismProbabilitySpecification relevance, 
+                                                                                                                               Probability probabilityInitialMechanismProfile,
+                                                                                                                               Probability probabilityInitialMechanismSection,
+                                                                                                                               ERefinementStatus refinementStatus,
+                                                                                                                               Probability refinedProbabilityProfile,
+                                                                                                                               Probability refinedProbabilitySection,
+                                                                                                                               CategoriesList<InterpretationCategory> categories)
         {
             ThrowException();
             Calculated = true;
@@ -129,9 +134,34 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
             Categories = categories;
 
-            return FailureMechanismSectionAssemblyResult;
+            return FailureMechanismSectionAssemblyResultWithLengthEffect;
         }
 
+        public Probability DetermineRepresentativeProbabilityBoi0A1(bool refinementNecessary, Probability probabilityInitialMechanismSection, Probability refinedProbabilitySection)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IProfileAndSectionProbabilities DetermineRepresentativeProbabilitiesBoi0A2(bool refinementNecessary, Probability probabilityInitialMechanismProfile, Probability probabilityInitialMechanismSection, Probability refinedProbabilityProfile, Probability refinedProbabilitySection)
+        {
+            throw new NotImplementedException();
+        }
+
+        public EInterpretationCategory DetermineInterpretationCategoryFromFailureMechanismSectionProbabilityBoi0B1(Probability sectionProbability, CategoriesList<InterpretationCategory> categories)
+        {
+            throw new NotImplementedException();
+        }
+
+        public EInterpretationCategory DetermineInterpretationCategoryWithoutProbabilityEstimationBoi0C1(EAnalysisState analysisState)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Probability TranslateInterpretationCategoryToProbabilityBoi0C2(EInterpretationCategory category)
+        {
+            throw new NotImplementedException();
+        }
+        
         private void ThrowException()
         {
             if (ThrowExceptionOnCalculate)
@@ -141,7 +171,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
             if (ThrowAssemblyExceptionOnCalculate)
             {
-                throw new AssemblyException("entity", EAssemblyErrors.EmptyResultsList);
+
+                throw (AssemblyException) Activator.CreateInstance(typeof(AssemblyException), "entity", EAssemblyErrors.EmptyResultsList);
             }
         }
     }

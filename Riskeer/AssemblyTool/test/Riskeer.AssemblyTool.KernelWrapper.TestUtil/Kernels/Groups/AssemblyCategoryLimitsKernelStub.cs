@@ -62,7 +62,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Groups
         /// </summary>
         public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
-        public CategoriesList<AssessmentSectionCategory> CalculateAssessmentSectionCategoryLimitsWbi21(AssessmentSection section)
+        public CategoriesList<AssessmentSectionCategory> CalculateAssessmentSectionCategoryLimitsBoi21(AssessmentSection section)
         {
             ThrowException();
 
@@ -72,7 +72,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Groups
             return AssessmentSectionCategoryLimits;
         }
 
-        public CategoriesList<InterpretationCategory> CalculateInterpretationCategoryLimitsWbi03(AssessmentSection section)
+        public CategoriesList<InterpretationCategory> CalculateInterpretationCategoryLimitsBoi01(AssessmentSection section)
         {
             ThrowException();
 
@@ -91,7 +91,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Groups
 
             if (ThrowAssemblyExceptionOnCalculate)
             {
-                throw new AssemblyException("entity", EAssemblyErrors.EmptyResultsList);
+                throw (AssemblyException) Activator.CreateInstance(typeof(AssemblyException), "entity", EAssemblyErrors.EmptyResultsList);
             }
         }
     }

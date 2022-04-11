@@ -108,7 +108,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
             if (ThrowAssemblyExceptionOnCalculate)
             {
-                throw new AssemblyException("entity", EAssemblyErrors.EmptyResultsList);
+                throw (AssemblyException) Activator.CreateInstance(typeof(AssemblyException), "entity", EAssemblyErrors.EmptyResultsList);
             }
         }
     }
