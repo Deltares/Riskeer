@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2021. All rights reserved.
+// Copyright (C) Stichting Deltares 2021. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -63,16 +63,31 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 throw new ArgumentNullException(nameof(input));
             }
 
-            KernelFailureMechanismSectionAssemblyResult GetAssemblyResultFunc(
-                IAssessmentResultsTranslator kernel, CategoriesList<InterpretationCategory> interpretationCategories) =>
-                kernel.TranslateAssessmentResultAggregatedMethod(
+            try
+            {
+                ICategoryLimitsCalculator assemblyGroupsKernel = factory.CreateAssemblyGroupsKernel();
+                CategoriesList<InterpretationCategory> interpretationCategories = assemblyGroupsKernel.CalculateInterpretationCategoryLimitsBoi01(
+                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(input.SignalFloodingProbability),
+                                          AssemblyCalculatorInputCreator.CreateProbability(input.MaximumAllowableFloodingProbability)));
+
+                IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                KernelFailureMechanismSectionAssemblyResult output = kernel.TranslateAssessmentResultAggregatedMethod(
                     GetInitialMechanismProbabilitySpecification(input),
                     AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),
                     FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(input.FurtherAnalysisType),
                     AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability),
                     interpretationCategories);
 
-            return AssembleFailureMechanismSection(GetAssemblyResultFunc, input.SignalFloodingProbability, input.MaximumAllowableFloodingProbability);
+                return FailureMechanismSectionAssemblyResultCreator.Create(output);
+            }
+            catch (AssemblyException e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+            }
+            catch (Exception e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+            }
         }
 
         public RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
@@ -82,9 +97,15 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 throw new ArgumentNullException(nameof(input));
             }
 
-            FailureMechanismSectionAssemblyResultWithLengthEffect GetAssemblyResultFunc(
-                IAssessmentResultsTranslator kernel, CategoriesList<InterpretationCategory> interpretationCategories) =>
-                kernel.TranslateAssessmentResultWithLengthEffectAggregatedMethod(
+            try
+            {
+                ICategoryLimitsCalculator assemblyGroupsKernel = factory.CreateAssemblyGroupsKernel();
+                CategoriesList<InterpretationCategory> interpretationCategories = assemblyGroupsKernel.CalculateInterpretationCategoryLimitsBoi01(
+                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(input.SignalFloodingProbability),
+                                          AssemblyCalculatorInputCreator.CreateProbability(input.MaximumAllowableFloodingProbability)));
+
+                IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+                FailureMechanismSectionAssemblyResultWithLengthEffect output = kernel.TranslateAssessmentResultWithLengthEffectAggregatedMethod(
                     GetInitialMechanismProbabilitySpecification(input),
                     AssemblyCalculatorInputCreator.CreateProbability(input.InitialProfileProbability),
                     AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),
@@ -93,23 +114,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                     AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability),
                     interpretationCategories);
 
-            return AssembleFailureMechanismSection(GetAssemblyResultFunc, input.SignalFloodingProbability, input.MaximumAllowableFloodingProbability);
-        }
-
-        private RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection<TAssemblyResult>(
-            Func<IAssessmentResultsTranslator, CategoriesList<InterpretationCategory>, TAssemblyResult> getAssemblyResultFunc,
-            double signalFloodingProbability, double maximumAllowableFloodingProbability)
-        {
-            try
-            {
-                ICategoryLimitsCalculator assemblyGroupsKernel = factory.CreateAssemblyGroupsKernel();
-                CategoriesList<InterpretationCategory> interpretationCategories = assemblyGroupsKernel.CalculateInterpretationCategoryLimitsBoi01(
-                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(signalFloodingProbability),
-                                          AssemblyCalculatorInputCreator.CreateProbability(maximumAllowableFloodingProbability)));
-
-                TAssemblyResult output = getAssemblyResultFunc(factory.CreateFailureMechanismSectionAssemblyKernel(), interpretationCategories);
-
-                return FailureMechanismSectionAssemblyResultCreator.CreateFailureMechanismSectionAssemblyResult(output);
+                return FailureMechanismSectionAssemblyResultCreator.Create(output);
             }
             catch (AssemblyException e)
             {

@@ -22,7 +22,7 @@
 using System;
 using System.ComponentModel;
 using Assembly.Kernel.Model.Categories;
-using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
+using Assembly.Kernel.Model.FailureMechanismSections;
 using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
@@ -33,17 +33,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     internal static class FailureMechanismSectionAssemblyResultCreator
     {
         /// <summary>
-        /// Converts a <see cref="KernelFailureMechanismSectionAssemblyResult"/> into a <see cref="RiskeerFailureMechanismSectionAssemblyResult"/>.
+        /// Converts a <see cref="FailureMechanismSectionAssemblyResult"/> into a <see cref="RiskeerFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
-        /// <param name="result">The <see cref="KernelFailureMechanismSectionAssemblyResult"/> to convert.</param>
+        /// <param name="result">The <see cref="FailureMechanismSectionAssemblyResult"/> to convert.</param>
         /// <returns>A <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="EInterpretationCategory"/>
         /// is an invalid value.</exception>
         /// <exception cref="NotSupportedException">Thrown when <see cref="EInterpretationCategory"/>
         /// is a valid value, but unsupported.</exception>
-        public static RiskeerFailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(
-            KernelFailureMechanismSectionAssemblyResult result)
+        public static RiskeerFailureMechanismSectionAssemblyResult Create(FailureMechanismSectionAssemblyResult result)
         {
             if (result == null)
             {
@@ -51,7 +50,29 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             }
 
             return new RiskeerFailureMechanismSectionAssemblyResult(
-                result.ProbabilityProfile.Value, result.ProbabilitySection.Value, result.NSection,
+                result.ProbabilitySection, result.ProbabilitySection, 1.0,
+                FailureMechanismSectionAssemblyGroupConverter.ConvertTo(result.InterpretationCategory));
+        }
+        
+        /// <summary>
+        /// Converts a <see cref="FailureMechanismSectionAssemblyResultWithLengthEffect"/> into a <see cref="RiskeerFailureMechanismSectionAssemblyResult"/>.
+        /// </summary>
+        /// <param name="result">The <see cref="FailureMechanismSectionAssemblyResultWithLengthEffect"/> to convert.</param>
+        /// <returns>A <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="EInterpretationCategory"/>
+        /// is an invalid value.</exception>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="EInterpretationCategory"/>
+        /// is a valid value, but unsupported.</exception>
+        public static RiskeerFailureMechanismSectionAssemblyResult Create(FailureMechanismSectionAssemblyResultWithLengthEffect result)
+        {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
+            return new RiskeerFailureMechanismSectionAssemblyResult(
+                result.ProbabilityProfile, result.ProbabilitySection, result.LengthEffectFactor,
                 FailureMechanismSectionAssemblyGroupConverter.ConvertTo(result.InterpretationCategory));
         }
     }
