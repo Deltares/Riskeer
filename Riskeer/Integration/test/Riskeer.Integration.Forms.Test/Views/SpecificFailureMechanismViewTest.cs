@@ -76,9 +76,8 @@ namespace Riskeer.Integration.Forms.Test.Views
             void Call() => new SpecificFailureMechanismView(new SpecificFailureMechanism(), null);
 
             // Assert
-            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
-                                    .With.Property(nameof(ArgumentNullException.ParamName))
-                                    .EqualTo("assessmentSection"));
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]

@@ -85,9 +85,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             void Call() => calculator.Assemble(random.NextDouble(), null, random.NextBoolean());
 
             // Assert
-            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
-                                    .With.Property(nameof(ArgumentNullException.ParamName))
-                                    .EqualTo("sectionAssemblyResults"));
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("sectionAssemblyResults", exception.ParamName);
             mocks.VerifyAll();
         }
 

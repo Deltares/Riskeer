@@ -40,9 +40,8 @@ namespace Riskeer.Integration.Data.Test
             void Call() => new RiskeerProject(null);
 
             // Assert
-            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
-                                    .With.Property(nameof(ArgumentNullException.ParamName))
-                                    .EqualTo("assessmentSection"));
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]
@@ -68,9 +67,8 @@ namespace Riskeer.Integration.Data.Test
             void Call() => new RiskeerProject(string.Empty, null);
 
             // Assert
-            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
-                                    .With.Property(nameof(ArgumentNullException.ParamName))
-                                    .EqualTo("assessmentSection"));
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         [Test]

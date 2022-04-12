@@ -87,9 +87,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             void Call() => calculator.AssembleFailureMechanismSection((FailureMechanismSectionAssemblyInput) null);
 
             // Assert
-            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
-                                    .With.Property(nameof(ArgumentNullException.ParamName))
-                                    .EqualTo("input"));
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
@@ -283,9 +282,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             void Call() => calculator.AssembleFailureMechanismSection(null);
 
             // Assert
-            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
-                                    .With.Property(nameof(ArgumentNullException.ParamName))
-                                    .EqualTo("input"));
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("input", exception.ParamName);
         }
 
         [Test]
