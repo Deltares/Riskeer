@@ -259,7 +259,7 @@
     <value>ReferenceLineMetaDataGridViewControl</value>
   </data>
   <data name="&gt;&gt;ReferenceLineMetaDataGridViewControl.Type" xml:space="preserve">
-    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=21.2.1.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.DataGrid.DataGridViewControl, Core.Common.Controls, Version=22.1.1.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;ReferenceLineMetaDataGridViewControl.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>

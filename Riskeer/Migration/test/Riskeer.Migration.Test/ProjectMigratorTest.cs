@@ -522,7 +522,7 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("  + De waarde voor de transparantie van de achtergrondkaart is aangepast naar 0.60.");
                 migrationLog.AppendLine("Gevolgen van de migratie van versie 19.1 naar versie 21.1:");
                 migrationLog.AppendLine("* Geen aanpassingen.");
-                migrationLog.AppendLine("Gevolgen van de migratie van versie 21.1 naar versie 21.2:");
+                migrationLog.AppendLine("Gevolgen van de migratie van versie 21.1 naar versie 22.1:");
                 migrationLog.AppendLine("* De oorspronkelijke faalmechanismen zijn omgezet naar het nieuwe formaat.\r\n* Alle toetsoordelen zijn verwijderd.");
                 migrationLog.AppendLine("* Traject: 'assessmentSection'");
                 migrationLog.AppendLine("  + Faalmechanisme: 'Grasbekleding erosie kruin en binnentalud'");
