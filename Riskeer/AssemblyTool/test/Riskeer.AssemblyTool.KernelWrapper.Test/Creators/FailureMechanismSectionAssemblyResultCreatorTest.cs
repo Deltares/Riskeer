@@ -51,7 +51,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(21);
             double sectionProbability = random.NextDouble();
-            var interpretationCategory = random.NextEnumValue<EInterpretationCategory>();
+            EInterpretationCategory interpretationCategory = random.NextEnumValue(new[]
+            {
+                EInterpretationCategory.III,
+                EInterpretationCategory.II,
+                EInterpretationCategory.I,
+                EInterpretationCategory.Zero,
+                EInterpretationCategory.IMin,
+                EInterpretationCategory.IIMin,
+                EInterpretationCategory.IIIMin
+            });
 
             var result = new KernelFailureMechanismSectionAssemblyResult(
                 new Probability(sectionProbability), interpretationCategory);

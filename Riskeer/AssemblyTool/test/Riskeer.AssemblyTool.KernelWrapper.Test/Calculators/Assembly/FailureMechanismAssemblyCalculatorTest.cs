@@ -156,7 +156,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.IsFalse(kernel.PartialAssembly);
 
                 Assert.AreEqual(sectionAssemblyResults.Length, kernel.FailureMechanismSectionProbabilities.Count());
-                CollectionAssert.AreEqual(sectionAssemblyResults.Select(r => r.SectionProbability), kernel.FailureMechanismSectionProbabilities);
+                CollectionAssert.AreEqual(sectionAssemblyResults.Select(r => new Probability(r.SectionProbability)), kernel.FailureMechanismSectionProbabilities);
             }
         }
 

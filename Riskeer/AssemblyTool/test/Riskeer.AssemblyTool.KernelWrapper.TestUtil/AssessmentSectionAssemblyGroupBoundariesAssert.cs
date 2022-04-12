@@ -46,9 +46,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         {
             Assert.AreEqual(original.Categories.Length, actual.Count());
 
-            CollectionAssert.AreEqual(original.Categories.Select(o => GetAssessmentSectionAssemblyGroup(o.Category)), actual.Select(r => r.AssessmentSectionAssemblyGroup));
-            CollectionAssert.AreEqual(original.Categories.Select(o => o.LowerLimit), actual.Select(r => r.LowerBoundary));
-            CollectionAssert.AreEqual(original.Categories.Select(o => o.UpperLimit), actual.Select(r => r.UpperBoundary));
+            CollectionAssert.AreEqual(original.Categories.Select(o => GetAssessmentSectionAssemblyGroup(o.Category)),
+                                      actual.Select(r => r.AssessmentSectionAssemblyGroup));
+            CollectionAssert.AreEqual(original.Categories.Select(o => (double) o.LowerLimit), actual.Select(r => r.LowerBoundary));
+            CollectionAssert.AreEqual(original.Categories.Select(o => (double) o.UpperLimit), actual.Select(r => r.UpperBoundary));
         }
 
         private static AssessmentSectionAssemblyGroup GetAssessmentSectionAssemblyGroup(EAssessmentGrade group)

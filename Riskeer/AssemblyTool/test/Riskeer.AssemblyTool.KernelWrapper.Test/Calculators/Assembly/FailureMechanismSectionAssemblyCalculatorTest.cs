@@ -183,7 +183,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 var kernelResult = new KernelFailureMechanismSectionAssemblyResult(new Probability(random.NextDouble()),
-                                                                                   random.NextEnumValue<EInterpretationCategory>());
+                                                                                   random.NextEnumValue(new[]
+                                                                                   {
+                                                                                       EInterpretationCategory.III,
+                                                                                       EInterpretationCategory.II,
+                                                                                       EInterpretationCategory.I,
+                                                                                       EInterpretationCategory.Zero,
+                                                                                       EInterpretationCategory.IMin,
+                                                                                       EInterpretationCategory.IIMin,
+                                                                                       EInterpretationCategory.IIIMin
+                                                                                   }));
                 failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = kernelResult;
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
