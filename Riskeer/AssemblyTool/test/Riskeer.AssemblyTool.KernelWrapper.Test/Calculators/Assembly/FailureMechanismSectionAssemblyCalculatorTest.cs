@@ -25,6 +25,7 @@ using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.AssessmentSection;
 using Assembly.Kernel.Model.Categories;
+using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -147,7 +148,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = new KernelFailureMechanismSectionAssemblyResult(
-                    new Probability(random.NextDouble(0.0, 0.01)), new Probability(random.NextDouble(0.01, 0.02)), EInterpretationCategory.Zero);
+                    new Probability(random.NextDouble(0.0, 0.01)), EInterpretationCategory.Zero);
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
@@ -182,7 +183,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
                 var kernelResult = new KernelFailureMechanismSectionAssemblyResult(new Probability(random.NextDouble()),
-                                                                                   new Probability(random.NextDouble()),
                                                                                    random.NextEnumValue<EInterpretationCategory>());
                 failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = kernelResult;
 
@@ -195,8 +195,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.IsTrue(categoryLimitsKernel.Calculated);
                 Assert.IsTrue(failureMechanismSectionAssemblyKernel.Calculated);
 
-                Assert.AreEqual(kernelResult.ProbabilityProfile, result.ProfileProbability);
+                Assert.AreEqual(kernelResult.ProbabilitySection, result.ProfileProbability);
                 Assert.AreEqual(kernelResult.ProbabilitySection, result.SectionProbability);
+                Assert.AreEqual(1.0, result.N);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(kernelResult.InterpretationCategory),
                                 result.FailureMechanismSectionAssemblyGroup);
             }
@@ -333,7 +334,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 categoryLimitsKernel.InterpretationCategoryLimits = interpretationCategories;
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = new KernelFailureMechanismSectionAssemblyResult(
+                failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResultWithLengthEffect = new FailureMechanismSectionAssemblyResultWithLengthEffect(
                     new Probability(random.NextDouble(0.0, 0.01)), new Probability(random.NextDouble(0.01, 0.02)), EInterpretationCategory.Zero);
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
@@ -370,10 +371,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 categoryLimitsKernel.InterpretationCategoryLimits = CreateInterpretationCategories();
 
                 FailureMechanismSectionAssemblyKernelStub failureMechanismSectionAssemblyKernel = factory.LastCreatedFailureMechanismSectionAssemblyKernel;
-                var kernelResult = new KernelFailureMechanismSectionAssemblyResult(new Probability(random.NextDouble()),
-                                                                                   new Probability(random.NextDouble()),
-                                                                                   random.NextEnumValue<EInterpretationCategory>());
-                failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResult = kernelResult;
+                var kernelResult = new FailureMechanismSectionAssemblyResultWithLengthEffect(new Probability(random.NextDouble()),
+                                                                                             new Probability(random.NextDouble()),
+                                                                                             random.NextEnumValue<EInterpretationCategory>());
+                failureMechanismSectionAssemblyKernel.FailureMechanismSectionAssemblyResultWithLengthEffect = kernelResult;
 
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
