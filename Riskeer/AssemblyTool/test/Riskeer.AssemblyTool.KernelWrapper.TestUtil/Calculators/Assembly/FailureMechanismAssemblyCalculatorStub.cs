@@ -42,6 +42,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public IEnumerable<FailureMechanismSectionAssemblyResult> SectionAssemblyResultsInput { get; private set; }
 
         /// <summary>
+        /// Gets the indicator whether the failure mechanism section length effect is applied.
+        /// </summary>
+        public bool ApplyLengthEffect { get; private set; }
+
+        /// <summary>
         /// Sets an indicator whether an exception must be thrown while performing the calculation.
         /// </summary>
         public bool ThrowExceptionOnCalculate { private get; set; }
@@ -51,7 +56,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public double AssemblyResult { get; set; }
 
-        public double Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults)
+        public double Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults, bool applyLengthEffect)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -60,6 +65,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             FailureMechanismN = failureMechanismN;
             SectionAssemblyResultsInput = sectionAssemblyResults;
+            ApplyLengthEffect = applyLengthEffect;
 
             return AssemblyResult;
         }

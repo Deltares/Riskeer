@@ -56,7 +56,7 @@ namespace Riskeer.ClosingStructures.Data
 
             return AssemblyToolHelper.AssemblyFailureMechanism(
                 failureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<ClosingStructuresInput>(sr, failureMechanism, assessmentSection),
-                failureMechanism.GeneralInput.N);
+                failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
         }
     }
 }

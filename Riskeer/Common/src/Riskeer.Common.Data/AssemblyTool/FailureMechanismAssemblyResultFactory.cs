@@ -39,12 +39,14 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// </summary>
         /// <param name="failureMechanismN">The length effect factor 'N' of the failure mechanism.</param>
         /// <param name="failureMechanismSectionAssemblyResults">A collection of <see cref="FailureMechanismSectionAssemblyResult"/>.</param>
+        /// <param name="applyLengthEffect">Indicator whether the failure mechanism section length effect is applied.</param>
         /// <returns>A failure probability of the failure mechanism.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionAssemblyResults"/>
         /// is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>
         public static double AssembleFailureMechanism(double failureMechanismN,
-                                                      IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults)
+                                                      IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults,
+                                                      bool applyLengthEffect)
         {
             if (failureMechanismSectionAssemblyResults == null)
             {
@@ -56,7 +58,7 @@ namespace Riskeer.Common.Data.AssemblyTool
                 IFailureMechanismAssemblyCalculator calculator =
                     AssemblyToolCalculatorFactory.Instance.CreateFailureMechanismAssemblyCalculator(AssemblyToolKernelFactory.Instance);
 
-                return calculator.Assemble(failureMechanismN, failureMechanismSectionAssemblyResults);
+                return calculator.Assemble(failureMechanismN, failureMechanismSectionAssemblyResults, applyLengthEffect);
             }
             catch (FailureMechanismAssemblyCalculatorException e)
             {

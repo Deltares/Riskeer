@@ -103,7 +103,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
         {
             // Call
             void Call() => AssemblyToolHelper.AssemblyFailureMechanism<FailureMechanismSectionResult>(
-                null, sr => null, double.NaN);
+                null, sr => null, double.NaN, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -120,7 +120,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
             // Call
             void Call() => AssemblyToolHelper.AssemblyFailureMechanism(
-                failureMechanism, null, double.NaN);
+                failureMechanism, null, double.NaN, false);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -141,7 +141,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
             // Call
             double assemblyResult = AssemblyToolHelper.AssemblyFailureMechanism(
-                failureMechanism, sr => null, random.NextDouble());
+                failureMechanism, sr => null, random.NextDouble(), random.NextBoolean());
 
             // Assert
             Assert.IsNaN(assemblyResult);
@@ -168,7 +168,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             failureMechanism.InAssembly = true;
 
             // Call
-            double assemblyResult = AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => null, double.NaN);
+            double assemblyResult = AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => null, double.NaN, random.NextBoolean());
 
             // Assert
             Assert.AreEqual(expectedAssemblyResult, assemblyResult);
@@ -181,6 +181,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Setup
             var random = new Random(21);
             double failureMechanismN = random.NextDouble();
+            bool applyLenghtEffect = random.NextBoolean();
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
@@ -206,7 +207,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                     random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
                 // Call
-                AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => failureMechanismSectionAssemblyResult, failureMechanismN);
+                AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => failureMechanismSectionAssemblyResult,
+                                                            failureMechanismN, applyLenghtEffect);
 
                 // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -217,6 +219,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                     failureMechanismSectionAssemblyResult
                 }, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput);
                 Assert.AreEqual(failureMechanismN, failureMechanismAssemblyCalculator.FailureMechanismN);
+                Assert.AreEqual(applyLenghtEffect, failureMechanismAssemblyCalculator.ApplyLengthEffect);
             }
 
             mocks.VerifyAll();
@@ -228,6 +231,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             // Setup
             var random = new Random(21);
             double failureMechanismN = random.NextDouble();
+            bool applyLenghtEffect = random.NextBoolean();
 
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism<TestFailureMechanismSectionResult>>();
@@ -249,7 +253,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             using (new AssemblyToolCalculatorFactoryConfig())
             {
                 // Call
-                AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => throw new AssemblyException(), failureMechanismN);
+                AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => throw new AssemblyException(),
+                                                            failureMechanismN, applyLenghtEffect);
 
                 // Assert
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
@@ -258,6 +263,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 Assert.AreEqual(1, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Count());
                 Assert.IsInstanceOf<DefaultFailureMechanismSectionAssemblyResult>(failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.First());
                 Assert.AreEqual(failureMechanismN, failureMechanismAssemblyCalculator.FailureMechanismN);
+                Assert.AreEqual(applyLenghtEffect, failureMechanismAssemblyCalculator.ApplyLengthEffect);
             }
 
             mocks.VerifyAll();
@@ -294,7 +300,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 failureMechanismAssemblyCalculator.AssemblyResult = expectedAssemblyResult;
 
                 // Call
-                double assemblyResult = AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => null, double.NaN);
+                double assemblyResult = AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => null, double.NaN,
+                                                                                    random.NextBoolean());
 
                 // Assert
                 Assert.AreEqual(expectedAssemblyResult, assemblyResult);
@@ -331,7 +338,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 failureMechanismAssemblyCalculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => null, double.NaN);
+                void Call() => AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => null, double.NaN, false);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);

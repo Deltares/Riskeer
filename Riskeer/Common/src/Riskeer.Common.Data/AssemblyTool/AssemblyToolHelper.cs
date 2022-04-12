@@ -72,6 +72,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <param name="failureMechanism">The failure mechanism to assemble.</param>
         /// <param name="performSectionAssemblyFunc">The <see cref="Func{T1,TResult}"/> to perform the failure mechanism section assembly.</param>
         /// <param name="failureMechanismN">The n value of the <paramref name="failureMechanism"/>.</param>
+        /// <param name="applyLengthEffect">Indicator whether the failure mechanism section length effect is applied.</param>
         /// <typeparam name="TSectionResult">The type of section result.</typeparam>
         /// <returns>The failure mechanism probability.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
@@ -80,7 +81,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         public static double AssemblyFailureMechanism<TSectionResult>(
             IFailureMechanism<TSectionResult> failureMechanism,
             Func<TSectionResult, FailureMechanismSectionAssemblyResult> performSectionAssemblyFunc,
-            double failureMechanismN)
+            double failureMechanismN, bool applyLengthEffect)
             where TSectionResult : FailureMechanismSectionResult
         {
             if (failureMechanism == null)
@@ -107,7 +108,8 @@ namespace Riskeer.Common.Data.AssemblyTool
             return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
                 failureMechanismN, failureMechanism.SectionResults.Select(sr => AssembleFailureMechanismSection(
                                                                               sr, performSectionAssemblyFunc))
-                                                   .ToArray());
+                                                   .ToArray(),
+                applyLengthEffect);
         }
     }
 }
