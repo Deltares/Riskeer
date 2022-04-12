@@ -157,7 +157,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 DataGridViewColumnCollection dataGridViewColumns = dataGridView.Columns;
 
-                AssertColumns(dataGridViewColumns, 20, assessmentSection.SpecificFailureMechanisms);
+                AssertColumns(dataGridViewColumns, GetExpectedNrOfColumns(assessmentSection), assessmentSection.SpecificFailureMechanisms);
             }
         }
 
@@ -211,7 +211,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 buttonTester.Click();
 
                 // Then
-                AssertColumns(dataGridView.Columns, 21, assessmentSection.SpecificFailureMechanisms);
+                AssertColumns(dataGridView.Columns, GetExpectedNrOfColumns(assessmentSection), assessmentSection.SpecificFailureMechanisms);
             }
         }
 
@@ -230,7 +230,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 DataGridView dataGridView = GetDataGridView();
 
                 DataGridViewColumnCollection dataGridViewColumns = dataGridView.Columns;
-                AssertColumns(dataGridViewColumns, 20, assessmentSection.SpecificFailureMechanisms);
+                AssertColumns(dataGridViewColumns, GetExpectedNrOfColumns(assessmentSection), assessmentSection.SpecificFailureMechanisms);
 
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
 
@@ -241,7 +241,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 buttonTester.Click();
 
                 // Then
-                AssertColumns(dataGridViewColumns, 19, assessmentSection.SpecificFailureMechanisms);
+                AssertColumns(dataGridViewColumns, GetExpectedNrOfColumns(assessmentSection), assessmentSection.SpecificFailureMechanisms);
             }
         }
 
@@ -522,6 +522,14 @@ namespace Riskeer.Integration.Forms.Test.Views
             }
 
             AssertColumn(dataGridViewColumns[specificFailureMechanismStartIndex + specificFailureMechanisms.Count()], "Slechtste duidingsklasse per deelvak");
+        }
+
+        private static int GetExpectedNrOfColumns(IAssessmentSection assessmentSection)
+        {
+            const int nrOfFixedColumns = 3;
+            int nrOfGenericFailureMechanisms = assessmentSection.GetFailureMechanisms().Count();
+            int nrOSpecificFailureMechanisms = assessmentSection.SpecificFailureMechanisms.Count;
+            return nrOfFixedColumns + nrOfGenericFailureMechanisms + nrOSpecificFailureMechanisms;
         }
     }
 }
