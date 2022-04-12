@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Reflection;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model.AssessmentSection;
@@ -91,7 +92,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Groups
 
             if (ThrowAssemblyExceptionOnCalculate)
             {
-                throw (AssemblyException) Activator.CreateInstance(typeof(AssemblyException), "entity", EAssemblyErrors.EmptyResultsList);
+                const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
+                throw (AssemblyException) Activator.CreateInstance(
+                    typeof(AssemblyException), flags, null, new object[]
+                    {
+                        "entity",
+                        EAssemblyErrors.EmptyResultsList
+                    }, null);
             }
         }
     }

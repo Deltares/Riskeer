@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Reflection;
 using Assembly.Kernel.Exceptions;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
@@ -37,7 +38,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil
         /// <returns>The created <see cref="AssemblyErrorMessage"/>.</returns>
         public static AssemblyErrorMessage Create(string entityId, EAssemblyErrors errorCode)
         {
-            return (AssemblyErrorMessage) Activator.CreateInstance(typeof(AssemblyErrorMessage), entityId, errorCode);
+            const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
+
+            return (AssemblyErrorMessage) Activator.CreateInstance(
+                typeof(AssemblyErrorMessage), flags, null, new object[]
+                {
+                    entityId,
+                    errorCode
+                }, null);
         }
     }
 }

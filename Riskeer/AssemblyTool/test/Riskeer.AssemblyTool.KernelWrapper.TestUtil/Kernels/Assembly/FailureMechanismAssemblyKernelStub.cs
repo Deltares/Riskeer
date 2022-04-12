@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model;
@@ -112,7 +113,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
             if (ThrowAssemblyExceptionOnCalculate)
             {
-                throw (AssemblyException) Activator.CreateInstance(typeof(AssemblyException), "entity", EAssemblyErrors.EmptyResultsList);
+                const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
+                throw (AssemblyException) Activator.CreateInstance(
+                    typeof(AssemblyException), flags, null, new object[]
+                    {
+                        "entity",
+                        EAssemblyErrors.InvalidCategoryLimits
+                    }, null);
             }
         }
     }
