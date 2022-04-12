@@ -96,7 +96,8 @@ namespace Riskeer.Piping.Data
 
             return AssemblyToolHelper.AssemblyFailureMechanism(
                 failureMechanism, sr => AssembleSection(sr, failureMechanism, assessmentSection),
-                failureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length));
+                failureMechanism.PipingProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length),
+                failureMechanism.GeneralInput.ApplyLengthEffectInSection);
         }
     }
 }

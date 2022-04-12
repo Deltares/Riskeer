@@ -56,7 +56,7 @@ namespace Riskeer.StabilityPointStructures.Data
 
             return AssemblyToolHelper.AssemblyFailureMechanism(
                 failureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<StabilityPointStructuresInput>(sr, failureMechanism, assessmentSection),
-                failureMechanism.GeneralInput.N);
+                failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
         }
     }
 }

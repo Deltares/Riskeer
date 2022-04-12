@@ -55,7 +55,7 @@ namespace Riskeer.DuneErosion.Data
 
             return AssemblyToolHelper.AssemblyFailureMechanism(
                 failureMechanism, sr => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, assessmentSection),
-                failureMechanism.GeneralInput.N);
+                failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
         }
     }
 }

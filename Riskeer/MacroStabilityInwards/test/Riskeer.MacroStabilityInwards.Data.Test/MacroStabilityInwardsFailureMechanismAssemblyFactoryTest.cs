@@ -269,6 +269,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 double expectedN = failureMechanism.MacroStabilityInwardsProbabilityAssessmentInput.GetN(assessmentSection.ReferenceLine.Length);
                 Assert.AreEqual(expectedN, failureMechanismAssemblyCalculator.FailureMechanismN);
                 Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
+                Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, failureMechanismAssemblyCalculator.ApplyLengthEffect);
             }
         }
 

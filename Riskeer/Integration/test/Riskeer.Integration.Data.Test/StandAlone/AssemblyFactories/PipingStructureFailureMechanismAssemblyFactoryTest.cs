@@ -100,9 +100,9 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
-                double expectedN = failureMechanism.GeneralInput.N;
-                Assert.AreEqual(expectedN, failureMechanismAssemblyCalculator.FailureMechanismN);
+                Assert.AreEqual(failureMechanism.GeneralInput.N, failureMechanismAssemblyCalculator.FailureMechanismN);
                 Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
+                Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, failureMechanismAssemblyCalculator.ApplyLengthEffect);
             }
         }
 

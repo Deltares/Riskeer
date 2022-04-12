@@ -56,7 +56,7 @@ namespace Riskeer.HeightStructures.Data
 
             return AssemblyToolHelper.AssemblyFailureMechanism(
                 failureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<HeightStructuresInput>(sr, failureMechanism, assessmentSection),
-                failureMechanism.GeneralInput.N);
+                failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
         }
     }
 }

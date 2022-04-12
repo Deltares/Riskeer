@@ -54,7 +54,7 @@ namespace Riskeer.Integration.Data.StandAlone.AssemblyFactories
 
             return AssemblyToolHelper.AssemblyFailureMechanism(
                 failureMechanism, sr => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, assessmentSection),
-                failureMechanism.GeneralInput.N);
+                failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
         }
     }
 }

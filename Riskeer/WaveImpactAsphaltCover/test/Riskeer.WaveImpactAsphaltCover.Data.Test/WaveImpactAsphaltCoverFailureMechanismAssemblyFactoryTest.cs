@@ -263,6 +263,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 double expectedN = failureMechanism.GeneralWaveImpactAsphaltCoverInput.GetN(assessmentSection.ReferenceLine.Length);
                 Assert.AreEqual(expectedN, failureMechanismAssemblyCalculator.FailureMechanismN);
                 Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
+                Assert.AreEqual(failureMechanism.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection, failureMechanismAssemblyCalculator.ApplyLengthEffect);
             }
         }
 
