@@ -64,6 +64,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EAssemblyErrors.SignalFloodingProbabilityAboveMaximumAllowableFloodingProbability, "De signaleringsparameter moet kleiner zijn dan de omgevingswaarde.")]
         [TestCase(EAssemblyErrors.LowerLimitIsAboveUpperLimit, "De categoriebovengrens moet boven de categorieondergrens liggen.")]
         [TestCase(EAssemblyErrors.ValueMayNotBeNull, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
+        [TestCase(EAssemblyErrors.NonMatchingProbabilityValues, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
+        [TestCase(EAssemblyErrors.ProbabilityMayNotBeUndefined, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
+        [TestCase(EAssemblyErrors.ProbabilitiesShouldEitherBothBeDefinedOrUndefined, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
         [TestCase(EAssemblyErrors.FailureMechanismSectionLengthInvalid, "Gezamenlijke lengte van alle deelvakken moet gelijk zijn aan de trajectlengte.")]
         [TestCase(EAssemblyErrors.FailureMechanismSectionSectionStartEndInvalid, "De lengte van een berekende deelvak kon niet goed worden bepaald.")]
         [TestCase(EAssemblyErrors.FailureProbabilityOutOfRange, "De gespecificeerde kans moet in het bereik [0,1] liggen.")]
@@ -75,9 +78,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EAssemblyErrors.InvalidCategoryLimits, "De klassengrenzen zijn niet aaneengesloten of dekken niet de volledige faalkansruimte af.")]
         [TestCase(EAssemblyErrors.EmptyResultsList, "Er ontbreekt invoer voor de assemblage rekenmodule waardoor de assemblage niet uitgevoerd kan worden.")]
         [TestCase(EAssemblyErrors.ProfileProbabilityGreaterThanSectionProbability, "De faalkans per vak moet groter zijn dan of gelijk zijn aan de faalkans per doorsnede.")]
-        [TestCase(EAssemblyErrors.ErrorConstructingErrorMessage, "Er is een onverwachte fout opgetreden.")]
         [TestCase(EAssemblyErrors.EncounteredOneOrMoreSectionsWithoutResult, "Alle vakken moeten een resultaat hebben.")]
-        [TestCase(EAssemblyErrors.NonMatchingProbabilityValues, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
+        [TestCase(EAssemblyErrors.ErrorConstructingErrorMessage, "Er is een onverwachte fout opgetreden.")]
+        [TestCase(EAssemblyErrors.CommonFailureMechanismSectionsDoNotHaveEqualSections, "Er is een onverwachte fout opgetreden.")]
+        [TestCase(EAssemblyErrors.InvalidCategoryValue, "Er is een onverwachte fout opgetreden.")]
+        [TestCase(EAssemblyErrors.InvalidEnumValue, "Er is een onverwachte fout opgetreden.")]
+        [TestCase(EAssemblyErrors.UnequalCommonFailureMechanismSectionLists, "Er is een onverwachte fout opgetreden.")]
+        [TestCase(EAssemblyErrors.CommonSectionsDidNotHaveCategoryValues, "Er is een onverwachte fout opgetreden.")]
+        [TestCase(EAssemblyErrors.InvalidArgumentType, "Er is een onverwachte fout opgetreden.")]
         public void CreateErrorMessage_SingleAssemblyError_ReturnsExpectedErrorMessage(EAssemblyErrors assemblyError, string expectedErrorMessage)
         {
             // Call

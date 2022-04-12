@@ -90,6 +90,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return Resources.AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit;
                 case EAssemblyErrors.ValueMayNotBeNull:
                 case EAssemblyErrors.NonMatchingProbabilityValues:
+                case EAssemblyErrors.ProbabilityMayNotBeUndefined:
+                case EAssemblyErrors.ProbabilitiesShouldEitherBothBeDefinedOrUndefined:
                     return Resources.AssemblyErrorMessageCreator_InvalidInput;
                 case EAssemblyErrors.FailureMechanismSectionLengthInvalid:
                     return Resources.AssemblyErrorMessageCreator_FailureMechanismSectionLengthInvalid;
@@ -113,10 +115,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return Resources.AssemblyErrorMessageCreator_EmptyResultsList;
                 case EAssemblyErrors.ProfileProbabilityGreaterThanSectionProbability:
                     return Resources.AssemblyErrorMessageCreator_ProfileProbabilityGreaterThanSectionProbability;
-                case EAssemblyErrors.ErrorConstructingErrorMessage:
-                    return Resources.AssemblyErrorMessageCreator_ErrorConstructingErrorMessage;
                 case EAssemblyErrors.EncounteredOneOrMoreSectionsWithoutResult:
                     return Resources.AssemblyErrorMessageCreator_All_sections_must_have_a_result;
+                case EAssemblyErrors.ErrorConstructingErrorMessage:
+                case EAssemblyErrors.CommonFailureMechanismSectionsDoNotHaveEqualSections:
+                case EAssemblyErrors.InvalidCategoryValue:
+                case EAssemblyErrors.InvalidEnumValue:
+                case EAssemblyErrors.UnequalCommonFailureMechanismSectionLists:
+                case EAssemblyErrors.CommonSectionsDidNotHaveCategoryValues:
+                case EAssemblyErrors.InvalidArgumentType:
+                    return Resources.AssemblyErrorMessageCreator_ErrorConstructingErrorMessage;
                 default:
                     throw new NotSupportedException();
             }
