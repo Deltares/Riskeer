@@ -20,10 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using Riskeer.AssemblyTool.Data;
-using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
-using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
+using Assembly.Kernel.Model;
+using Assembly.Kernel.Model.FailureMechanismSections;
+using FailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Creators
 {
@@ -33,27 +32,39 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     internal static class FailureMechanismAssemblyCalculatorInputCreator
     {
         /// <summary>
-        /// Creates a <see cref="KernelFailureMechanismSectionAssemblyResult"/> based on <paramref name="result"/>.
+        /// Creates a <see cref="ResultWithProfileAndSectionProbabilities"/> based on <paramref name="result"/>.
         /// </summary>
-        /// <param name="result">The <see cref="RiskeerFailureMechanismSectionAssemblyResult"/> to create the
-        /// <see cref="KernelFailureMechanismSectionAssemblyResult"/> with.</param>
-        /// <returns>A <see cref="KernelFailureMechanismSectionAssemblyResult"/>.</returns>
+        /// <param name="result">The <see cref="FailureMechanismSectionAssemblyResult"/> to create the
+        /// <see cref="ResultWithProfileAndSectionProbabilities"/> with.</param>
+        /// <returns>A <see cref="ResultWithProfileAndSectionProbabilities"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="FailureMechanismSectionAssemblyGroup"/>
-        /// is an invalid value.</exception>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="FailureMechanismSectionAssemblyGroup"/>
-        /// is a valid value, but unsupported.</exception>
-        public static KernelFailureMechanismSectionAssemblyResult CreateFailureMechanismSectionAssemblyResult(RiskeerFailureMechanismSectionAssemblyResult result)
+        public static ResultWithProfileAndSectionProbabilities CreateResultWithProfileAndSectionProbabilities(FailureMechanismSectionAssemblyResult result)
         {
             if (result == null)
             {
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new KernelFailureMechanismSectionAssemblyResult(
+            return new ResultWithProfileAndSectionProbabilities(
                 AssemblyCalculatorInputCreator.CreateProbability(result.ProfileProbability),
-                AssemblyCalculatorInputCreator.CreateProbability(result.SectionProbability),
-                FailureMechanismSectionAssemblyGroupConverter.ConvertFrom(result.FailureMechanismSectionAssemblyGroup));
+                AssemblyCalculatorInputCreator.CreateProbability(result.SectionProbability));
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Probability"/> based on <paramref name="result"/>.
+        /// </summary>
+        /// <param name="result">The <see cref="FailureMechanismSectionAssemblyResult"/> to create the
+        /// <see cref="Probability"/> with.</param>
+        /// <returns>A <see cref="Probability"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
+        public static Probability CreateProbability(FailureMechanismSectionAssemblyResult result)
+        {
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
+            return AssemblyCalculatorInputCreator.CreateProbability(result.SectionProbability);
         }
     }
 }

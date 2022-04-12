@@ -20,16 +20,14 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Assembly.Kernel.Model.Categories;
+using Assembly.Kernel.Model;
+using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil;
-using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
-using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
+using FailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
 {
@@ -37,73 +35,58 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
     public class FailureMechanismAssemblyCalculatorInputCreatorTest
     {
         [Test]
-        public void CreateFailureMechanismSectionAssemblyResult_ResultNull_ThrowsArgumentNullException()
+        public void CreateResultWithProfileAndSectionProbabilities_ResultNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(null);
+            void Call() => FailureMechanismAssemblyCalculatorInputCreator.CreateResultWithProfileAndSectionProbabilities(null);
 
             // Assert
-            Assert.That(Call, Throws.TypeOf<ArgumentNullException>()
-                                    .With.Property(nameof(ArgumentNullException.ParamName))
-                                    .EqualTo("result"));
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("result", exception.ParamName);
         }
 
         [Test]
-        public void CreateFailureMechanismSectionAssemblyResult_InvalidAssemblyGroup_ThrowsInvalidEnumArgumentException()
+        public void CreateResultWithProfileAndSectionProbabilities_WithValidResult_ReturnsExpectedFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(21);
-            double probability = random.NextDouble();
-            const FailureMechanismSectionAssemblyGroup assemblyGroup = (FailureMechanismSectionAssemblyGroup) 99;
-
-            var result = new RiskeerFailureMechanismSectionAssemblyResult(
-                probability, probability, random.NextDouble(), assemblyGroup);
+            var result = new FailureMechanismSectionAssemblyResult(
+                random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
             // Call
-            void Call() => FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(result);
+            ResultWithProfileAndSectionProbabilities createdResult = FailureMechanismAssemblyCalculatorInputCreator.CreateResultWithProfileAndSectionProbabilities(result);
 
             // Assert
-            var expectedMessage = $"The value of argument 'assemblyGroup' ({assemblyGroup}) is invalid for Enum type '{nameof(FailureMechanismSectionAssemblyGroup)}'.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(Call, expectedMessage);
+            ProbabilityAssert.AreEqual(result.ProfileProbability, createdResult.ProbabilityProfile);
+            ProbabilityAssert.AreEqual(result.SectionProbability, createdResult.ProbabilitySection);
         }
 
         [Test]
-        [TestCaseSource(nameof(ResultCases))]
-        public void CreateFailureMechanismSectionAssemblyResult_WithValidResult_ReturnsExpectedFailureMechanismSectionAssemblyResult(
-            FailureMechanismSectionAssemblyGroup assemblyGroup, EInterpretationCategory expectedInterpretationCategory,
-            double profileProbability, double sectionProbability)
+        public void CreateProbability_ResultNull_ThrowsArgumentNullException()
+        {
+            // Call
+            void Call() => FailureMechanismAssemblyCalculatorInputCreator.CreateProbability(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(Call);
+            Assert.AreEqual("result", exception.ParamName);
+        }
+
+        [Test]
+        public void CreateProbability_WithValidResult_ReturnsExpectedFailureMechanismSectionAssemblyResult()
         {
             // Setup
             var random = new Random(21);
-            var result = new RiskeerFailureMechanismSectionAssemblyResult(profileProbability, sectionProbability,
-                                                                          random.NextDouble(),
-                                                                          assemblyGroup);
+            var result = new FailureMechanismSectionAssemblyResult(
+                random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+
             // Call
-            KernelFailureMechanismSectionAssemblyResult createdResult = FailureMechanismAssemblyCalculatorInputCreator.CreateFailureMechanismSectionAssemblyResult(result);
+            Probability probability = FailureMechanismAssemblyCalculatorInputCreator.CreateProbability(result);
 
             // Assert
-            ProbabilityAssert.AreEqual(profileProbability, createdResult.ProbabilityProfile);
-            ProbabilityAssert.AreEqual(sectionProbability, createdResult.ProbabilitySection);
-            Assert.AreEqual(expectedInterpretationCategory, createdResult.InterpretationCategory);
-        }
-
-        private static IEnumerable<TestCaseData> ResultCases()
-        {
-            var random = new Random(21);
-            double profileProbability = random.NextDouble();
-            double sectionProbability = profileProbability + 0.001;
-
-            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.NotDominant, EInterpretationCategory.NotDominant, double.NaN, double.NaN);
-            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.III, EInterpretationCategory.III, profileProbability, sectionProbability);
-            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.II, EInterpretationCategory.II, profileProbability, sectionProbability);
-            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.I, EInterpretationCategory.I, profileProbability, sectionProbability);
-            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.Zero, EInterpretationCategory.Zero, profileProbability, sectionProbability);
-            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.IMin, EInterpretationCategory.IMin, profileProbability, sectionProbability);
-            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.IIMin, EInterpretationCategory.IIMin, profileProbability, sectionProbability);
-            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.IIIMin, EInterpretationCategory.IIIMin, profileProbability, sectionProbability);
-            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.Dominant, EInterpretationCategory.Dominant, double.NaN, double.NaN);
-            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.Gr, EInterpretationCategory.NoResult, double.NaN, double.NaN);
-            yield return new TestCaseData(FailureMechanismSectionAssemblyGroup.NotRelevant, EInterpretationCategory.NotRelevant, double.NaN, double.NaN);
+            ProbabilityAssert.AreEqual(new Probability(result.SectionProbability), probability);
         }
     }
 }
