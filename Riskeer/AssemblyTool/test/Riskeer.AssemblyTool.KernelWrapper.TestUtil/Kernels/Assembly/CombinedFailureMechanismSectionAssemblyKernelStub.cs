@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Assembly.Kernel.Exceptions;
 using Assembly.Kernel.Interfaces;
 using Assembly.Kernel.Model.FailureMechanismSections;
@@ -102,21 +101,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         private void ThrowException()
         {
-            if (ThrowExceptionOnCalculate)
-            {
-                throw new Exception("Message", new Exception());
-            }
-
-            if (ThrowAssemblyExceptionOnCalculate)
-            {
-                const BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Instance;
-                throw (AssemblyException) Activator.CreateInstance(
-                    typeof(AssemblyException), flags, null, new object[]
-                    {
-                        "entity",
-                        EAssemblyErrors.EmptyResultsList
-                    }, null);
-            }
+            AssemblyKernelStubHelper.ThrowException(ThrowExceptionOnCalculate, ThrowAssemblyExceptionOnCalculate, EAssemblyErrors.EmptyResultsList);
         }
     }
 }
