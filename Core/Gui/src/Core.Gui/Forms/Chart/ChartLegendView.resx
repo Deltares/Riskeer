@@ -136,7 +136,7 @@
     <value>treeViewControl</value>
   </data>
   <data name="&gt;&gt;treeViewControl.Type" xml:space="preserve">
-    <value>Core.Common.Controls.TreeView.TreeViewControl, Core.Common.Controls.TreeView, Version=22.1.1.1, Culture=neutral, PublicKeyToken=null</value>
+    <value>Core.Common.Controls.TreeView.TreeViewControl, Core.Common.Controls.TreeView, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;treeViewControl.Parent" xml:space="preserve">
     <value>$this</value>
