@@ -172,7 +172,7 @@ namespace Riskeer.Integration.Data.Assembly
 
         private static IEnumerable<CombinedAssemblyFailureMechanismSection> CreateCombinedSections<TFailureMechanismSectionResult>(
             IEnumerable<TFailureMechanismSectionResult> sectionResults, AssessmentSection assessmentSection,
-            Func<TFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> getAssemblyFunc)
+            Func<TFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> getAssemblyFunc)
             where TFailureMechanismSectionResult : FailureMechanismSectionResult
         {
             double totalSectionsLength = 0;
@@ -200,62 +200,62 @@ namespace Riskeer.Integration.Data.Assembly
 
         #region Assembly Funcs
 
-        private static Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> PipingAssemblyFunc =>
+        private static Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> PipingAssemblyFunc =>
             (sectionResult, assessmentSection) => PipingFailureMechanismAssemblyFactory.AssembleSection(
                 sectionResult, assessmentSection.Piping, assessmentSection);
 
-        private static Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> GrassCoverErosionInwardsAssemblyFunc =>
+        private static Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> GrassCoverErosionInwardsAssemblyFunc =>
             (sectionResult, assessmentSection) => GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection(
                 sectionResult, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
-        private static Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> MacroStabilityInwardsAssemblyFunc =>
+        private static Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> MacroStabilityInwardsAssemblyFunc =>
             (sectionResult, assessmentSection) => MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(
                 sectionResult, assessmentSection.MacroStabilityInwards, assessmentSection);
 
-        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> MicrostabilityAssemblyFunc =>
+        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> MicrostabilityAssemblyFunc =>
             (sectionResult, assessmentSection) => FailureMechanismAssemblyFactory.AssembleSection(
                 sectionResult, assessmentSection.Microstability, assessmentSection);
 
-        private static Func<AdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> HeightStructuresAssemblyFunc =>
+        private static Func<AdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> HeightStructuresAssemblyFunc =>
             (sectionResult, assessmentSection) => StructuresFailureMechanismAssemblyFactory.AssembleSection<HeightStructuresInput>(
                 sectionResult, assessmentSection.HeightStructures, assessmentSection);
 
-        private static Func<AdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> ClosingStructuresAssemblyFunc =>
+        private static Func<AdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> ClosingStructuresAssemblyFunc =>
             (sectionResult, assessmentSection) => StructuresFailureMechanismAssemblyFactory.AssembleSection<ClosingStructuresInput>(
                 sectionResult, assessmentSection.ClosingStructures, assessmentSection);
 
-        private static Func<AdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> StabilityPointStructuresAssemblyFunc =>
+        private static Func<AdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> StabilityPointStructuresAssemblyFunc =>
             (sectionResult, assessmentSection) => StructuresFailureMechanismAssemblyFactory.AssembleSection<StabilityPointStructuresInput>(
                 sectionResult, assessmentSection.StabilityPointStructures, assessmentSection);
 
-        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> GrassCoverErosionOutwardsAssemblyFunc =>
+        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> GrassCoverErosionOutwardsAssemblyFunc =>
             (sectionResult, assessmentSection) => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(
                 sectionResult, assessmentSection.GrassCoverErosionOutwards, assessmentSection);
 
-        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> StabilityStoneCoverAssemblyFunc =>
+        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> StabilityStoneCoverAssemblyFunc =>
             (sectionResult, assessmentSection) => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSection(
                 sectionResult, assessmentSection.StabilityStoneCover, assessmentSection);
 
-        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> WaveImpactAsphaltCoverAssemblyFunc =>
+        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> WaveImpactAsphaltCoverAssemblyFunc =>
             (sectionResult, assessmentSection) => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSection(
                 sectionResult, assessmentSection.WaveImpactAsphaltCover, assessmentSection);
 
-        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> WaterPressureAsphaltCoverAssemblyFunc =>
+        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> WaterPressureAsphaltCoverAssemblyFunc =>
             (sectionResult, assessmentSection) => FailureMechanismAssemblyFactory.AssembleSection(
                 sectionResult, assessmentSection.WaterPressureAsphaltCover, assessmentSection);
 
-        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> GrassCoverSlipOffOutwardsAssemblyFunc =>
+        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> GrassCoverSlipOffOutwardsAssemblyFunc =>
             (sectionResult, assessmentSection) => FailureMechanismAssemblyFactory.AssembleSection(
                 sectionResult, assessmentSection.GrassCoverSlipOffOutwards, assessmentSection);
 
-        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> GrassCoverSlipOffInwardsAssemblyFunc =>
+        private static Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> GrassCoverSlipOffInwardsAssemblyFunc =>
             (sectionResult, assessmentSection) => FailureMechanismAssemblyFactory.AssembleSection(
                 sectionResult, assessmentSection.GrassCoverSlipOffInwards, assessmentSection);
 
-        private static Func<NonAdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> PipingStructureAssemblyFunc =>
+        private static Func<NonAdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> PipingStructureAssemblyFunc =>
             FailureMechanismSectionAssemblyResultFactory.AssembleSection;
 
-        private static Func<NonAdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResult> DuneErosionAssemblyFunc =>
+        private static Func<NonAdoptableFailureMechanismSectionResult, AssessmentSection, FailureMechanismSectionAssemblyResultWrapper> DuneErosionAssemblyFunc =>
             FailureMechanismSectionAssemblyResultFactory.AssembleSection;
 
         #endregion
