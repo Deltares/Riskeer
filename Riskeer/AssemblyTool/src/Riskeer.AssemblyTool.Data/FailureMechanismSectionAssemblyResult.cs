@@ -33,15 +33,18 @@ namespace Riskeer.AssemblyTool.Data
         /// <param name="sectionProbability">The probability of the failure mechanism section, expressed for the section.</param>
         /// <param name="n">The length effect of the failure mechanism section.</param>
         /// <param name="failureMechanismSectionAssemblyGroup">The <see cref="Data.FailureMechanismSectionAssemblyGroup"/>.</param>
-        public FailureMechanismSectionAssemblyResult(double profileProbability,
-                                                     double sectionProbability,
-                                                     double n,
-                                                     FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup)
+        /// <param name="probabilityMethod">The method that is used to assemble the probabilities.</param>
+        /// <param name="assemblyGroupMethod">The method that is used to assemble the assembly group.</param>
+        public FailureMechanismSectionAssemblyResult(double profileProbability, double sectionProbability, double n,
+                                                     FailureMechanismSectionAssemblyGroup failureMechanismSectionAssemblyGroup,
+                                                     AssemblyMethod probabilityMethod, AssemblyMethod assemblyGroupMethod)
         {
             ProfileProbability = profileProbability;
             SectionProbability = sectionProbability;
             N = n;
             FailureMechanismSectionAssemblyGroup = failureMechanismSectionAssemblyGroup;
+            ProbabilityMethod = probabilityMethod;
+            AssemblyGroupMethod = assemblyGroupMethod;
         }
 
         /// <summary>
@@ -63,5 +66,15 @@ namespace Riskeer.AssemblyTool.Data
         /// Gets the <see cref="FailureMechanismSectionAssemblyGroup"/>.
         /// </summary>
         public FailureMechanismSectionAssemblyGroup FailureMechanismSectionAssemblyGroup { get; }
+
+        /// <summary>
+        /// Gets the <see cref="AssemblyMethod"/> that is used to assemble the probabilities.
+        /// </summary>
+        public AssemblyMethod ProbabilityMethod { get; }
+
+        /// <summary>
+        /// Gets the <see cref="AssemblyMethod"/> that is used to assemble the assembly group.
+        /// </summary>
+        public AssemblyMethod AssemblyGroupMethod { get; }
     }
 }
