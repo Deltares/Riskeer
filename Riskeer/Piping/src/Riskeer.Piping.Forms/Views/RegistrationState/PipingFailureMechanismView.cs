@@ -56,7 +56,7 @@ namespace Riskeer.Piping.Forms.Views.RegistrationState
             base.CreateMapData();
 
             assemblyResultMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<PipingFailureMechanism, AdoptableWithProfileProbabilityFailureMechanismSectionResult, PipingInput>(
-                FailureMechanism, sr => PipingFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection));
+                FailureMechanism, sr => PipingFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection).AssemblyResult);
             MapDataCollection.Insert(4, assemblyResultMapLayer.MapData);
         }
     }

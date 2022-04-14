@@ -73,7 +73,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Forms.Views.RegistrationState
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             assemblyResultMapLayer = new NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                FailureMechanism, sr => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection));
+                FailureMechanism, sr => GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection).AssemblyResult);
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);

@@ -73,7 +73,7 @@ namespace Riskeer.StabilityStoneCover.Forms.Views.RegistrationState
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             assemblyResultMapLayer = new NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                FailureMechanism, sr => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection));
+                FailureMechanism, sr => StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection).AssemblyResult);
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);

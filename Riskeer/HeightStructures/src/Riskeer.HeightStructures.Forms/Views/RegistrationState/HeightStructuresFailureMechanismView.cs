@@ -74,7 +74,7 @@ namespace Riskeer.HeightStructures.Forms.Views.RegistrationState
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             assemblyResultsMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<HeightStructuresFailureMechanism, AdoptableFailureMechanismSectionResult, HeightStructuresInput>(
-                FailureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<HeightStructuresInput>(sr, FailureMechanism, AssessmentSection));
+                FailureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<HeightStructuresInput>(sr, FailureMechanism, AssessmentSection).AssemblyResult);
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);

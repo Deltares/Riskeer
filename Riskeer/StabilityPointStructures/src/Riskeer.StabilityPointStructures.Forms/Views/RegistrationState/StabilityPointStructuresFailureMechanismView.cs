@@ -74,7 +74,7 @@ namespace Riskeer.StabilityPointStructures.Forms.Views.RegistrationState
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             assemblyResultsMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<StabilityPointStructuresFailureMechanism, AdoptableFailureMechanismSectionResult, StabilityPointStructuresInput>(
-                FailureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<StabilityPointStructuresInput>(sr, FailureMechanism, AssessmentSection));
+                FailureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<StabilityPointStructuresInput>(sr, FailureMechanism, AssessmentSection).AssemblyResult);
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);

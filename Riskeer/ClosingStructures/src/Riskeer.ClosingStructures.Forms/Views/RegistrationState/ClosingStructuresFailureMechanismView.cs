@@ -74,7 +74,7 @@ namespace Riskeer.ClosingStructures.Forms.Views.RegistrationState
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             assemblyResultsMapLayer = new CalculatableFailureMechanismSectionResultsMapLayer<ClosingStructuresFailureMechanism, AdoptableFailureMechanismSectionResult, ClosingStructuresInput>(
-                FailureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<ClosingStructuresInput>(sr, FailureMechanism, AssessmentSection));
+                FailureMechanism, sr => StructuresFailureMechanismAssemblyFactory.AssembleSection<ClosingStructuresInput>(sr, FailureMechanism, AssessmentSection).AssemblyResult);
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);

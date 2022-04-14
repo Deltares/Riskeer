@@ -85,7 +85,7 @@ namespace Riskeer.DuneErosion.Forms.Views.RegistrationState
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             assemblyResultMapLayer = new NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableFailureMechanismSectionResult>(
-                FailureMechanism, sr => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, AssessmentSection));
+                FailureMechanism, sr => FailureMechanismSectionAssemblyResultFactory.AssembleSection(sr, AssessmentSection).AssemblyResult);
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);

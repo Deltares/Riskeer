@@ -153,7 +153,7 @@ namespace Riskeer.Integration.Forms.Views
             sectionsMapDataCollection.Add(sectionsEndPointMapData);
 
             assemblyResultMapLayer = new NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                failureMechanism, sr => FailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
+                failureMechanism, sr => FailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection).AssemblyResult);
 
             failureMechanismMapDataCollection.Add(referenceLineMapData);
             failureMechanismMapDataCollection.Add(sectionsMapDataCollection);

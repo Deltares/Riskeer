@@ -73,7 +73,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Forms.Views.RegistrationState
             sectionsEndPointMapData = RiskeerMapDataFactory.CreateFailureMechanismSectionsEndPointMapData();
 
             assemblyResultMapLayer = new NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(
-                FailureMechanism, sr => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection));
+                FailureMechanism, sr => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSection(sr, FailureMechanism, AssessmentSection).AssemblyResult);
 
             sectionsMapDataCollection.Add(sectionsMapData);
             sectionsMapDataCollection.Add(sectionsStartPointMapData);
