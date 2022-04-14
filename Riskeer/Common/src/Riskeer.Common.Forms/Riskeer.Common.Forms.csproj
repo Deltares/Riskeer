@@ -69,7 +69,6 @@
     <None Include="Resources\table.png" />
     <None Include="Resources\tickAll.png" />
     <None Include="Resources\error.ico" />
-    <None Include="Resources\pencil--exclamation.ico" />
     <None Include="Resources\table_warning.png" />
   </ItemGroup>
   <ItemGroup>

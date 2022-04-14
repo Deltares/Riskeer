@@ -947,16 +947,6 @@ namespace Core.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap exclamation {
-            get {
-                object obj = ResourceManager.GetObject("exclamation", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Afsluiten.
         /// </summary>
         public static string ExitApplication_DisplayName {
@@ -1230,15 +1220,6 @@ namespace Core.Gui.Properties {
         public static string GuiExportHandler_ExportItemUsingDialog_Data_exported_to_File_0 {
             get {
                 return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Data_exported_to_File_0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gegevens van &apos;{0}&apos; zijn geëxporteerd naar bestand &apos;{1}&apos;..
-        /// </summary>
-        public static string GuiExportHandler_ExportItemUsingDialog_Data_from_0_exported_to_file_1 {
-            get {
-                return ResourceManager.GetString("GuiExportHandler_ExportItemUsingDialog_Data_from_0_exported_to_file_1", resourceCulture);
             }
         }
         
