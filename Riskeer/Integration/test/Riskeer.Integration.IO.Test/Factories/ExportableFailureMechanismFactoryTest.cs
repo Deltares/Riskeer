@@ -122,9 +122,11 @@ namespace Riskeer.Integration.IO.Test.Factories
             var assessmentSection = new AssessmentSectionStub();
 
             double probability = random.NextDouble();
-            var expectedSectionOutput = new FailureMechanismSectionAssemblyResult(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
+            var expectedSectionOutput = new FailureMechanismSectionAssemblyResultWrapper(
+                new FailureMechanismSectionAssemblyResult(
+                    random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()),
+                random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>());
 
             var failureMechanismType = random.NextEnumValue<ExportableFailureMechanismType>();
 

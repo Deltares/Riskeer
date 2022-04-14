@@ -57,7 +57,7 @@ namespace Riskeer.Integration.IO.Factories
         public static ExportableFailureMechanism CreateExportableFailureMechanism<TFailureMechanism, TSectionResult>(
             TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
             Func<TFailureMechanism, IAssessmentSection, double> assembleFailureMechanismFunc,
-            Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResult> assembleFailureMechanismSectionFunc,
+            Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc,
             ExportableFailureMechanismType failureMechanismType)
             where TFailureMechanism : IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
@@ -107,7 +107,7 @@ namespace Riskeer.Integration.IO.Factories
         private static IEnumerable<ExportableFailureMechanismSectionAssemblyWithProbabilityResult> CreateExportableFailureMechanismSectionResults
             <TFailureMechanism, TSectionResult>(
                 TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
-                Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResult> assembleFailureMechanismSectionFunc)
+                Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc)
             where TFailureMechanism : IFailureMechanism<TSectionResult>
             where TSectionResult : FailureMechanismSectionResult
         {
@@ -117,8 +117,9 @@ namespace Riskeer.Integration.IO.Factories
             var exportableResults = new List<ExportableFailureMechanismSectionAssemblyWithProbabilityResult>();
             foreach (KeyValuePair<TSectionResult, ExportableFailureMechanismSection> failureMechanismSectionPair in failureMechanismSectionsLookup)
             {
-                FailureMechanismSectionAssemblyResult assemblyResult = assembleFailureMechanismSectionFunc(
+                FailureMechanismSectionAssemblyResultWrapper assemblyResultWrapper = assembleFailureMechanismSectionFunc(
                     failureMechanismSectionPair.Key, failureMechanism, assessmentSection);
+                FailureMechanismSectionAssemblyResult assemblyResult = assemblyResultWrapper.AssemblyResult;
 
                 exportableResults.Add(
                     new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
