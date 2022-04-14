@@ -78,7 +78,8 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
 
             // Call
             FailureMechanismSectionAssemblyResult assemblyResult = AssemblyToolHelper.AssembleFailureMechanismSection(
-                sectionResult, sr => expectedAssemblyResult);
+                sectionResult, sr => new FailureMechanismSectionAssemblyResultWrapper(expectedAssemblyResult, random.NextEnumValue<AssemblyMethod>(),
+                                                                                      random.NextEnumValue<AssemblyMethod>()));
 
             // Assert
             Assert.AreSame(expectedAssemblyResult, assemblyResult);
@@ -207,7 +208,9 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                     random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
                 // Call
-                AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => failureMechanismSectionAssemblyResult,
+                AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => new FailureMechanismSectionAssemblyResultWrapper(
+                                                                failureMechanismSectionAssemblyResult, random.NextEnumValue<AssemblyMethod>(),
+                                                                random.NextEnumValue<AssemblyMethod>()),
                                                             failureMechanismN, applyLenghtEffect);
 
                 // Assert

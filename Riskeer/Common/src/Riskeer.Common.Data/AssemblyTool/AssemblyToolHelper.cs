@@ -43,7 +43,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <remarks>When the failure mechanism section cannot be assembled,
         /// a <see cref="DefaultFailureMechanismSectionAssemblyResult"/> is created.</remarks>
         public static FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection<TSectionResult>(
-            TSectionResult sectionResult, Func<TSectionResult, FailureMechanismSectionAssemblyResult> performSectionAssemblyFunc)
+            TSectionResult sectionResult, Func<TSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc)
             where TSectionResult : FailureMechanismSectionResult
         {
             if (sectionResult == null)
@@ -58,7 +58,7 @@ namespace Riskeer.Common.Data.AssemblyTool
 
             try
             {
-                return performSectionAssemblyFunc(sectionResult);
+                return performSectionAssemblyFunc(sectionResult).AssemblyResult;
             }
             catch (AssemblyException)
             {
@@ -80,7 +80,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>
         public static double AssemblyFailureMechanism<TSectionResult>(
             IFailureMechanism<TSectionResult> failureMechanism,
-            Func<TSectionResult, FailureMechanismSectionAssemblyResult> performSectionAssemblyFunc,
+            Func<TSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc,
             double failureMechanismN, bool applyLengthEffect)
             where TSectionResult : FailureMechanismSectionResult
         {
