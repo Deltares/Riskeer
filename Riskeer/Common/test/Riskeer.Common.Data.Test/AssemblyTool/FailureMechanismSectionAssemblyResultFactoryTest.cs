@@ -334,7 +334,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResultWrapper result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection, calculateStrategy, random.NextBoolean(), random.NextDouble());
 
                 // Assert
@@ -494,7 +494,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, () => double.NaN);
+                FailureMechanismSectionAssemblyResultWrapper result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(sectionResult, assessmentSection, () => double.NaN);
 
                 // Assert
                 Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, result);
@@ -677,7 +677,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResultWrapper result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection, random.NextBoolean());
 
                 // Assert
@@ -807,7 +807,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResultWrapper result = FailureMechanismSectionAssemblyResultFactory.AssembleSection(
                     sectionResult, assessmentSection);
 
                 // Assert
