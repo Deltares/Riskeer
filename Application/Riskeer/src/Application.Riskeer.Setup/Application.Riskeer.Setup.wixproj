@@ -17,6 +17,7 @@
 	-->
     <OutputName>Riskeer Setup ($(ReleaseVersion))</OutputName>
     <OutputType>Package</OutputType>
+    <DefineSolutionProperties>false</DefineSolutionProperties>
     <Name>RiskeerSetup</Name>
     <RunWixToolsOutOfProc>true</RunWixToolsOutOfProc>
     <OutputPath>bin\$(Configuration)\</OutputPath>
