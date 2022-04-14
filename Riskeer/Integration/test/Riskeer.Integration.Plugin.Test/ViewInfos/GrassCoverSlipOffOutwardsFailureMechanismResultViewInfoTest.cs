@@ -107,7 +107,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -136,7 +137,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -164,7 +166,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -190,7 +193,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -216,7 +220,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<GrassCoverSlipOffOutwardsFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
-                       fm => fm.GeneralInput.ApplyLengthEffectInSection, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       fm => fm.GeneralInput.ApplyLengthEffectInSection,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);

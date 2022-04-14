@@ -49,7 +49,7 @@ namespace Riskeer.Common.Forms.Views
         private const int assemblyGroupIndex = 11;
 
         private readonly Func<TFailureMechanism, bool> getUseLengthEffectFunc;
-        private readonly Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performFailureMechanismSectionAssemblyFunc;
+        private readonly Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performFailureMechanismSectionAssemblyFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismResultView{TFailureMechanism}"/>.
@@ -67,7 +67,7 @@ namespace Riskeer.Common.Forms.Views
                                                                             IAssessmentSection assessmentSection,
                                                                             Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc,
                                                                             Func<TFailureMechanism, bool> getUseLengthEffectFunc,
-                                                                            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performFailureMechanismSectionAssemblyFunc)
+                                                                            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performFailureMechanismSectionAssemblyFunc)
             : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc)
         {
             if (assessmentSection == null)

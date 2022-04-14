@@ -75,8 +75,8 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             var failureMechanism = new TestNonAdoptableWithProfileProbabilityFailureMechanism();
-            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performFailureMechanismSectionAssemblyFunc =
-                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
+            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performFailureMechanismSectionAssemblyFunc =
+                sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
 
             // Call
             void Call() => new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism>(
@@ -118,8 +118,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
             var failureMechanism = new TestNonAdoptableWithProfileProbabilityFailureMechanism();
 
-            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performFailureMechanismSectionAssemblyFunc =
-                sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
+            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performFailureMechanismSectionAssemblyFunc =
+                sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
 
             // Call
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism>(
@@ -215,7 +215,9 @@ namespace Riskeer.Common.Forms.Test.Views
                 section
             });
 
-            var sectionAssemblyResult = new FailureMechanismSectionAssemblyResult(0.01, 0.1, 10, FailureMechanismSectionAssemblyGroup.I);
+            var sectionAssemblyResult = new FailureMechanismSectionAssemblyResultWrapper(
+                new FailureMechanismSectionAssemblyResult(0.01, 0.1, 10, FailureMechanismSectionAssemblyGroup.I),
+                AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1);
 
             // Call
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -257,10 +259,10 @@ namespace Riskeer.Common.Forms.Test.Views
             });
 
             NonAdoptableWithProfileProbabilityFailureMechanismSectionResult functionInput = null;
-            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc = sr =>
+            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = sr =>
             {
                 functionInput = sr;
-                return FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
+                return FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
             };
 
             // Call
@@ -323,12 +325,12 @@ namespace Riskeer.Common.Forms.Test.Views
         private NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism> ShowFailureMechanismResultsView(
             TestNonAdoptableWithProfileProbabilityFailureMechanism failureMechanism)
         {
-            return ShowFailureMechanismResultsView(failureMechanism, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult());
+            return ShowFailureMechanismResultsView(failureMechanism, sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create());
         }
 
         private NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism> ShowFailureMechanismResultsView(
             TestNonAdoptableWithProfileProbabilityFailureMechanism failureMechanism,
-            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResult> performFailureMechanismSectionAssemblyFunc)
+            Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performFailureMechanismSectionAssemblyFunc)
         {
             var failureMechanismResultView = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism>(
                 failureMechanism.SectionResults, failureMechanism, new AssessmentSectionStub(),

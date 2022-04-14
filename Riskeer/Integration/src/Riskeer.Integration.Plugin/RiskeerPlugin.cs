@@ -1414,7 +1414,7 @@ namespace Riskeer.Integration.Plugin
         #region CreateFailureMechanismViewInfo ViewInfo
 
         private ViewInfo<TFailureMechanismContext, TFailureMechanism, StandAloneFailureMechanismView<TFailureMechanism, TSectionResult>> CreateFailureMechanismViewInfo<
-            TFailureMechanismContext, TFailureMechanism, TSectionResult>(Func<TFailureMechanismContext, TSectionResult, FailureMechanismSectionAssemblyResult> performAssemblyFunc)
+            TFailureMechanismContext, TFailureMechanism, TSectionResult>(Func<TFailureMechanismContext, TSectionResult, FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc)
             where TSectionResult : FailureMechanismSectionResult
             where TFailureMechanism : FailureMechanismBase<TSectionResult>
             where TFailureMechanismContext : IFailureMechanismContext<TFailureMechanism>
@@ -1426,7 +1426,7 @@ namespace Riskeer.Integration.Plugin
                 CloseForData = (view, dataToCloseFor) => ReferenceEquals(view.AssessmentSection, dataToCloseFor),
                 AdditionalDataCheck = context => context.WrappedData.InAssembly,
                 CreateInstance = context => new StandAloneFailureMechanismView<TFailureMechanism, TSectionResult>(
-                    context.WrappedData, context.Parent, sr => performAssemblyFunc(context, sr))
+                    context.WrappedData, context.Parent, sr => performAssemblyFunc(context, sr).AssemblyResult)
             };
         }
 

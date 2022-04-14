@@ -106,7 +106,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
-                       fm => true, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       fm => true,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -137,7 +138,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
-                       fm => true, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       fm => true,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -166,7 +168,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
-                       fm => true, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       fm => true,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -191,7 +194,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
-                       fm => true, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       fm => true,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -216,7 +220,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
-                       fm => true, sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       fm => true,
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);

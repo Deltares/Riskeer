@@ -107,7 +107,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
                        fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -138,7 +138,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
                        fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -166,7 +166,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
                        fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -190,7 +190,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
                        fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -215,7 +215,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
                        fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new GrassCoverErosionOutwardsFailureMechanism());
@@ -241,7 +241,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
                        fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -268,7 +268,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
                        (fm, ass) => double.NaN,
                        fm => fm.GeneralInput.ApplyLengthEffectInSection,
-                       sr => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult()))
+                       sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);

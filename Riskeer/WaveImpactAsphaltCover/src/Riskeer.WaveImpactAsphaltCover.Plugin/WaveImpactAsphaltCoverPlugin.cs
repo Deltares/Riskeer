@@ -129,7 +129,8 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin
                         failureMechanism,
                         assessmentSection,
                         WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism,
-                        fm => fm.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection, sr => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
+                        fm => fm.GeneralWaveImpactAsphaltCoverInput.ApplyLengthEffectInSection,
+                        sr => WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSection(sr, failureMechanism, assessmentSection));
                 }
             };
 
