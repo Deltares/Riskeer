@@ -159,7 +159,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResultWrapper result = WaveImpactAsphaltCoverFailureMechanismAssemblyFactory.AssembleSection(
                     sectionResult, failureMechanism, assessmentSection);
 
                 // Assert

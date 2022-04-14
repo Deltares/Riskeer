@@ -165,7 +165,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResultWrapper result = MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleSection(
                     sectionResult, failureMechanism, assessmentSection);
 
                 // Assert

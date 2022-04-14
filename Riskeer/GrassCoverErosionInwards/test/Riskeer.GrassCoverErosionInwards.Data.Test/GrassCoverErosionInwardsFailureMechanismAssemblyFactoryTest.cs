@@ -290,7 +290,7 @@ namespace Riskeer.GrassCoverErosionInwards.Data.Test
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResultWrapper result = GrassCoverErosionInwardsFailureMechanismAssemblyFactory.AssembleSection(
                     sectionResult, failureMechanism, assessmentSection);
 
                 // Assert

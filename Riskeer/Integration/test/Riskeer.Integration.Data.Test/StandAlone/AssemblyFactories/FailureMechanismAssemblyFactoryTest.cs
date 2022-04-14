@@ -171,7 +171,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = FailureMechanismAssemblyFactory.AssembleSection(
+                FailureMechanismSectionAssemblyResultWrapper result = FailureMechanismAssemblyFactory.AssembleSection(
                     sectionResult, failureMechanism, assessmentSection);
 
                 // Assert

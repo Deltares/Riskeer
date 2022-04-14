@@ -156,7 +156,7 @@ namespace Riskeer.Common.Data.Test.Structures
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
 
                 // Call
-                FailureMechanismSectionAssemblyResult result = StructuresFailureMechanismAssemblyFactory.AssembleSection<TestStructuresInput>(
+                FailureMechanismSectionAssemblyResultWrapper result = StructuresFailureMechanismAssemblyFactory.AssembleSection<TestStructuresInput>(
                     sectionResult, failureMechanism, assessmentSection);
 
                 // Assert
