@@ -153,7 +153,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views.RegistrationState
 
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                MapDataTestHelper.AssertAssemblyMapData(failureMechanism, calculator.FailureMechanismSectionAssemblyResultOutput, mapDataList[assemblyResultsIndex]);
+                MapDataTestHelper.AssertAssemblyMapData(failureMechanism, calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult, mapDataList[assemblyResultsIndex]);
             }
         }
 

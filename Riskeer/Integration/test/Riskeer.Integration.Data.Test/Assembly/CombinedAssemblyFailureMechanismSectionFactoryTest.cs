@@ -87,24 +87,25 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 int expectedNrOfSpecificSectionResults = assessmentSection.SpecificFailureMechanisms.Count;
                 Assert.AreEqual(expectedNrOfGeneralSectionResults + expectedNrOfSpecificSectionResults, inputs.Count());
 
-                AssertSectionsWithResult(assessmentSection.Piping.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(0));
-                AssertSectionsWithResult(assessmentSection.GrassCoverErosionInwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(1));
-                AssertSectionsWithResult(assessmentSection.MacroStabilityInwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(2));
-                AssertSectionsWithResult(assessmentSection.Microstability.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(3));
-                AssertSectionsWithResult(assessmentSection.StabilityStoneCover.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(4));
-                AssertSectionsWithResult(assessmentSection.WaveImpactAsphaltCover.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(5));
-                AssertSectionsWithResult(assessmentSection.WaterPressureAsphaltCover.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(6));
-                AssertSectionsWithResult(assessmentSection.GrassCoverErosionOutwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(7));
-                AssertSectionsWithResult(assessmentSection.GrassCoverSlipOffOutwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(8));
-                AssertSectionsWithResult(assessmentSection.GrassCoverSlipOffInwards.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(9));
-                AssertSectionsWithResult(assessmentSection.HeightStructures.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(10));
-                AssertSectionsWithResult(assessmentSection.ClosingStructures.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(11));
-                AssertSectionsWithResult(assessmentSection.PipingStructure.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(12));
-                AssertSectionsWithResult(assessmentSection.StabilityPointStructures.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(13));
-                AssertSectionsWithResult(assessmentSection.DuneErosion.SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(14));
+                FailureMechanismSectionAssemblyResult assemblyResult = calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult; 
+                AssertSectionsWithResult(assessmentSection.Piping.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(0));
+                AssertSectionsWithResult(assessmentSection.GrassCoverErosionInwards.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(1));
+                AssertSectionsWithResult(assessmentSection.MacroStabilityInwards.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(2));
+                AssertSectionsWithResult(assessmentSection.Microstability.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(3));
+                AssertSectionsWithResult(assessmentSection.StabilityStoneCover.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(4));
+                AssertSectionsWithResult(assessmentSection.WaveImpactAsphaltCover.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(5));
+                AssertSectionsWithResult(assessmentSection.WaterPressureAsphaltCover.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(6));
+                AssertSectionsWithResult(assessmentSection.GrassCoverErosionOutwards.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(7));
+                AssertSectionsWithResult(assessmentSection.GrassCoverSlipOffOutwards.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(8));
+                AssertSectionsWithResult(assessmentSection.GrassCoverSlipOffInwards.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(9));
+                AssertSectionsWithResult(assessmentSection.HeightStructures.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(10));
+                AssertSectionsWithResult(assessmentSection.ClosingStructures.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(11));
+                AssertSectionsWithResult(assessmentSection.PipingStructure.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(12));
+                AssertSectionsWithResult(assessmentSection.StabilityPointStructures.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(13));
+                AssertSectionsWithResult(assessmentSection.DuneErosion.SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup, inputs.ElementAt(14));
                 for (var i = 0; i < expectedNrOfSpecificSectionResults; i++)
                 {
-                    AssertSectionsWithResult(assessmentSection.SpecificFailureMechanisms[i].SectionResults, calculator.FailureMechanismSectionAssemblyResultOutput.FailureMechanismSectionAssemblyGroup,
+                    AssertSectionsWithResult(assessmentSection.SpecificFailureMechanisms[i].SectionResults, assemblyResult.FailureMechanismSectionAssemblyGroup,
                                              inputs.ElementAt(expectedNrOfGeneralSectionResults + i));
                 }
             }

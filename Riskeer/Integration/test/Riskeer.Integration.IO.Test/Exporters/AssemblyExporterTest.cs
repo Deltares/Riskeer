@@ -172,7 +172,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub failureMechanismSectionAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new DefaultFailureMechanismSectionAssemblyResult();
+                failureMechanismSectionAssemblyCalculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResultWrapper(
+                    new DefaultFailureMechanismSectionAssemblyResult(), AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1);
 
                 // Call
                 var isExported = true;
