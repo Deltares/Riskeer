@@ -68,7 +68,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult;
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
 
             // Call
             void Call() => new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, null, performAssemblyFunc, ConstructionProperties);
@@ -109,7 +109,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult;
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
 
             // Call
             void Call() => new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, null);
@@ -131,7 +131,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult;
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
 
             // Call
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
@@ -204,7 +204,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 ManualInitialFailureMechanismResultSectionProbability = sectionProbability
             };
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult;
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
 
             // When
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
@@ -238,7 +238,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 InitialFailureMechanismResultType = initialFailureMechanismResultType
             };
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult;
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
 
             // When
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
@@ -279,7 +279,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 RefinedSectionProbability = sectionProbability
             };
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult;
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
 
             // When
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
@@ -318,7 +318,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 RefinedSectionProbability = sectionProbability
             };
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult;
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
 
             // When
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
@@ -451,7 +451,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult;
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
 
             // Call
@@ -474,7 +474,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult;
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
 
             // Call
@@ -503,7 +503,9 @@ namespace Riskeer.Common.Forms.Test.Views
             var result = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
             FailureMechanismSectionAssemblyResult assemblyResult = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = () => assemblyResult;
+            var assemblyResultWrapper = new FailureMechanismSectionAssemblyResultWrapper(
+                assemblyResult, AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1);
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = () => assemblyResultWrapper;
 
             // Call
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
@@ -532,7 +534,10 @@ namespace Riskeer.Common.Forms.Test.Views
 
             int nrOfCalls = 0;
             FailureMechanismSectionAssemblyResult assemblyResult = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = () =>
+            var assemblyResultWrapper = new FailureMechanismSectionAssemblyResultWrapper(
+                assemblyResult, AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1);
+
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = () =>
             {
                 if (nrOfCalls == 1)
                 {
@@ -540,7 +545,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 }
 
                 nrOfCalls++;
-                return assemblyResult;
+                return assemblyResultWrapper;
             };
 
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
@@ -581,7 +586,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             const string errorText = "Message";
             int nrOfCalls = 0;
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = () =>
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = () =>
             {
                 if (nrOfCalls == 1)
                 {
@@ -589,7 +594,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 }
 
                 nrOfCalls++;
-                return FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
+                return FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
             };
 
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
@@ -626,7 +631,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             const string errorText = "Message";
             int nrOfCalls = 0;
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = () =>
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = () =>
             {
                 if (nrOfCalls == 0)
                 {
@@ -634,7 +639,7 @@ namespace Riskeer.Common.Forms.Test.Views
                     throw new AssemblyException(errorText);
                 }
 
-                return FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
+                return FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
             };
 
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
@@ -673,7 +678,7 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult;
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
 
             // Call
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
@@ -712,7 +717,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 InitialFailureMechanismResultType = NonAdoptableInitialFailureMechanismResultType.Manual
             };
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult;
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
 
             // Call
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
@@ -756,7 +761,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 InitialFailureMechanismResultType = initialFailureMechanismResultType
             };
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult;
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
 
             // Call
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
@@ -793,7 +798,7 @@ namespace Riskeer.Common.Forms.Test.Views
                 FurtherAnalysisType = furtherAnalysisType
             };
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult;
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create;
 
             // Call
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
@@ -822,7 +827,9 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc = () => FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult(assemblyGroup);
+            Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = () => new FailureMechanismSectionAssemblyResultWrapper(
+                FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult(assemblyGroup),
+                AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1);
 
             // Call
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);

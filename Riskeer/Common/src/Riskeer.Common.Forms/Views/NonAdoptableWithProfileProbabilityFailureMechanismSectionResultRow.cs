@@ -52,7 +52,7 @@ namespace Riskeer.Common.Forms.Views
         private readonly int assemblyGroupIndex;
 
         private readonly IFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider;
-        private readonly Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc;
+        private readonly Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow"/>.
@@ -67,7 +67,7 @@ namespace Riskeer.Common.Forms.Views
         /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
         public NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(NonAdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
                                                                                   IFailureMechanismSectionResultRowErrorProvider failureMechanismSectionResultRowErrorProvider,
-                                                                                  Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc,
+                                                                                  Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc,
                                                                                   ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
@@ -281,7 +281,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                AssemblyResult = performAssemblyFunc();
+                AssemblyResult = performAssemblyFunc().AssemblyResult;
             }
             catch (AssemblyException e)
             {
