@@ -39,11 +39,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool Calculated { get; private set; }
 
         /// <summary>
-        /// Gets the <see cref="ESectionInitialMechanismProbabilitySpecification"/>.
-        /// </summary>
-        public ESectionInitialMechanismProbabilitySpecification InitialMechanismProbabilitySpecification { get; private set; }
-
-        /// <summary>
         /// Gets the initial probability of the profile for the failure mechanism section.
         /// </summary>
         public Probability ProbabilityInitialMechanismProfile { get; private set; }
@@ -52,11 +47,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         /// Gets the initial probability of the section for the failure mechanism section.
         /// </summary>
         public Probability ProbabilityInitialMechanismSection { get; private set; }
-
-        /// <summary>
-        /// Gets the refinement status for the failure mechanism section.
-        /// </summary>
-        public ERefinementStatus RefinementStatus { get; private set; }
 
         /// <summary>
         /// Gets the initial probability of the profile for the failure mechanism section.
@@ -94,16 +84,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool ThrowAssemblyExceptionOnCalculate { private get; set; }
 
         /// <summary>
-        /// Sets the assembly result of a failure mechanism section.
-        /// </summary>
-        public FailureMechanismSectionAssemblyResult FailureMechanismSectionAssemblyResult { private get; set; }
-
-        /// <summary>
-        /// Sets the assembly result with length effect of a failure mechanism section.
-        /// </summary>
-        public FailureMechanismSectionAssemblyResultWithLengthEffect FailureMechanismSectionAssemblyResultWithLengthEffect { private get; set; }
-
-        /// <summary>
         /// Sets the section probability.
         /// </summary>
         public Probability SectionProbability { private get; set; }
@@ -134,18 +114,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                                                Probability refinedProbabilitySection,
                                                                                                CategoriesList<InterpretationCategory> categories)
         {
-            ThrowException();
-            Calculated = true;
-
-            InitialMechanismProbabilitySpecification = relevance;
-            ProbabilityInitialMechanismSection = probabilityInitialMechanismSection;
-
-            RefinementStatus = refinementStatus;
-            RefinedProbabilitySection = refinedProbabilitySection;
-
-            Categories = categories;
-
-            return FailureMechanismSectionAssemblyResult;
+            throw new NotImplementedException();
         }
 
         public FailureMechanismSectionAssemblyResultWithLengthEffect TranslateAssessmentResultWithLengthEffectAggregatedMethod(ESectionInitialMechanismProbabilitySpecification relevance,
@@ -156,23 +125,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
                                                                                                                                Probability refinedProbabilitySection,
                                                                                                                                CategoriesList<InterpretationCategory> categories)
         {
-            ThrowException();
-            Calculated = true;
-
-            InitialMechanismProbabilitySpecification = relevance;
-            ProbabilityInitialMechanismProfile = probabilityInitialMechanismProfile;
-            ProbabilityInitialMechanismSection = probabilityInitialMechanismSection;
-
-            RefinementStatus = refinementStatus;
-            RefinedProbabilityProfile = refinedProbabilityProfile;
-            RefinedProbabilitySection = refinedProbabilitySection;
-
-            Categories = categories;
-
-            return FailureMechanismSectionAssemblyResultWithLengthEffect;
+            throw new NotImplementedException();
         }
 
-        public Probability DetermineRepresentativeProbabilityBoi0A1(bool refinementNecessary, Probability probabilityInitialMechanismSection, Probability refinedProbabilitySection)
+        public Probability DetermineRepresentativeProbabilityBoi0A1(
+            bool refinementNecessary, Probability probabilityInitialMechanismSection,
+            Probability refinedProbabilitySection)
         {
             ThrowException();
             Calculated = true;
@@ -184,7 +142,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return SectionProbability;
         }
 
-        public ResultWithProfileAndSectionProbabilities DetermineRepresentativeProbabilitiesBoi0A2(bool refinementNecessary, Probability probabilityInitialMechanismProfile, Probability probabilityInitialMechanismSection, Probability refinedProbabilityProfile, Probability refinedProbabilitySection)
+        public ResultWithProfileAndSectionProbabilities DetermineRepresentativeProbabilitiesBoi0A2(
+            bool refinementNecessary, Probability probabilityInitialMechanismProfile, Probability probabilityInitialMechanismSection,
+            Probability refinedProbabilityProfile, Probability refinedProbabilitySection)
         {
             ThrowException();
             Calculated = true;
@@ -198,7 +158,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return ProfileAndSectionProbabilities;
         }
 
-        public EInterpretationCategory DetermineInterpretationCategoryFromFailureMechanismSectionProbabilityBoi0B1(Probability sectionProbability, CategoriesList<InterpretationCategory> categories)
+        public EInterpretationCategory DetermineInterpretationCategoryFromFailureMechanismSectionProbabilityBoi0B1(
+            Probability sectionProbability, CategoriesList<InterpretationCategory> categories)
         {
             ThrowException();
             Calculated = true;
@@ -241,7 +202,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         private void ThrowException()
         {
-            AssemblyKernelStubHelper.ThrowException(ThrowExceptionOnCalculate, ThrowAssemblyExceptionOnCalculate, EAssemblyErrors.EmptyResultsList);
+            AssemblyKernelStubHelper.ThrowException(ThrowExceptionOnCalculate, ThrowAssemblyExceptionOnCalculate,
+                                                    EAssemblyErrors.EmptyResultsList);
         }
     }
 }
