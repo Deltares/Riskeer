@@ -38,8 +38,7 @@ using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Groups;
 using Riskeer.Common.Primitives;
-using KernelFailureMechanismSectionAssemblyResult = Assembly.Kernel.Model.FailureMechanismSections.FailureMechanismSectionAssemblyResult;
-using RiskeerFailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
+using FailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 {
@@ -177,16 +176,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                RiskeerFailureMechanismSectionAssemblyResult result = calculator.AssembleFailureMechanismSection(input);
+                FailureMechanismSectionAssemblyResultWrapper resultWrapper = calculator.AssembleFailureMechanismSection(input);
 
                 // Assert
                 Assert.IsTrue(failureMechanismSectionAssemblyKernel.Calculated);
 
+                FailureMechanismSectionAssemblyResult result = resultWrapper.AssemblyResult;
                 Assert.AreEqual(sectionProbability, result.ProfileProbability);
                 Assert.AreEqual(sectionProbability, result.SectionProbability);
                 Assert.AreEqual(1.0, result.N);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(categoryOutput),
                                 result.FailureMechanismSectionAssemblyGroup);
+                Assert.AreEqual(AssemblyMethod.BOI0C2, resultWrapper.ProbabilityMethod);
+                Assert.AreEqual(AssemblyMethod.BOI0C1, resultWrapper.AssemblyGroupMethod);
             }
         }
 
@@ -214,17 +216,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                RiskeerFailureMechanismSectionAssemblyResult result = calculator.AssembleFailureMechanismSection(input);
+                FailureMechanismSectionAssemblyResultWrapper resultWrapper = calculator.AssembleFailureMechanismSection(input);
 
                 // Assert
                 Assert.IsTrue(categoryLimitsKernel.Calculated);
                 Assert.IsTrue(failureMechanismSectionAssemblyKernel.Calculated);
 
+                FailureMechanismSectionAssemblyResult result = resultWrapper.AssemblyResult;
                 Assert.AreEqual(sectionProbability, result.ProfileProbability);
                 Assert.AreEqual(sectionProbability, result.SectionProbability);
                 Assert.AreEqual(1.0, result.N);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(categoryOutput),
                                 result.FailureMechanismSectionAssemblyGroup);
+                Assert.AreEqual(AssemblyMethod.BOI0A1, resultWrapper.ProbabilityMethod);
+                Assert.AreEqual(AssemblyMethod.BOI0B1, resultWrapper.AssemblyGroupMethod);
             }
         }
 
@@ -389,16 +394,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                RiskeerFailureMechanismSectionAssemblyResult result = calculator.AssembleFailureMechanismSection(input);
+                FailureMechanismSectionAssemblyResultWrapper resultWrapper = calculator.AssembleFailureMechanismSection(input);
 
                 // Assert
                 Assert.IsTrue(failureMechanismSectionAssemblyKernel.Calculated);
 
+                FailureMechanismSectionAssemblyResult result = resultWrapper.AssemblyResult;
                 Assert.AreEqual(sectionProbability, result.ProfileProbability);
                 Assert.AreEqual(sectionProbability, result.SectionProbability);
                 Assert.AreEqual(1.0, result.N);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(categoryOutput),
                                 result.FailureMechanismSectionAssemblyGroup);
+                Assert.AreEqual(AssemblyMethod.BOI0C2, resultWrapper.ProbabilityMethod);
+                Assert.AreEqual(AssemblyMethod.BOI0C1, resultWrapper.AssemblyGroupMethod);
             }
         }
 
@@ -430,17 +438,20 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismSectionAssemblyCalculator(factory);
 
                 // Call
-                RiskeerFailureMechanismSectionAssemblyResult result = calculator.AssembleFailureMechanismSection(input);
+                FailureMechanismSectionAssemblyResultWrapper resultWrapper = calculator.AssembleFailureMechanismSection(input);
 
                 // Assert
                 Assert.IsTrue(categoryLimitsKernel.Calculated);
                 Assert.IsTrue(failureMechanismSectionAssemblyKernel.Calculated);
 
+                FailureMechanismSectionAssemblyResult result = resultWrapper.AssemblyResult;
                 Assert.AreEqual((double) kernelResult.ProbabilityProfile, result.ProfileProbability);
                 Assert.AreEqual((double) kernelResult.ProbabilitySection, result.SectionProbability);
                 Assert.AreEqual(kernelResult.LengthEffectFactor, result.N);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroupConverter.ConvertTo(categoryOutput),
                                 result.FailureMechanismSectionAssemblyGroup);
+                Assert.AreEqual(AssemblyMethod.BOI0A2, resultWrapper.ProbabilityMethod);
+                Assert.AreEqual(AssemblyMethod.BOI0B1, resultWrapper.AssemblyGroupMethod);
             }
         }
 

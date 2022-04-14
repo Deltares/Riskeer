@@ -30,7 +30,6 @@ using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Creators;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.Common.Primitives;
-using FailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
 namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
 {
@@ -56,7 +55,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input)
+        public FailureMechanismSectionAssemblyResultWrapper AssembleFailureMechanismSection(FailureMechanismSectionAssemblyInput input)
         {
             if (input == null)
             {
@@ -78,7 +77,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                     AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability));
                 EInterpretationCategory interpretationCategory = AssembleInterpretationCategory(input, kernel, sectionProbability);
 
-                return FailureMechanismSectionAssemblyResultCreator.Create(sectionProbability, interpretationCategory);
+                return new FailureMechanismSectionAssemblyResultWrapper(
+                    FailureMechanismSectionAssemblyResultCreator.Create(sectionProbability, interpretationCategory),
+                    AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1);
             }
             catch (AssemblyException e)
             {
@@ -90,7 +91,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public FailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
+        public FailureMechanismSectionAssemblyResultWrapper AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
         {
             if (input == null)
             {
@@ -114,7 +115,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                     AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability));
                 EInterpretationCategory interpretationCategory = AssembleInterpretationCategory(input, kernel, output.ProbabilitySection);
 
-                return FailureMechanismSectionAssemblyResultCreator.Create(output, interpretationCategory);
+                return new FailureMechanismSectionAssemblyResultWrapper(
+                    FailureMechanismSectionAssemblyResultCreator.Create(output, interpretationCategory),
+                    AssemblyMethod.BOI0A2, AssemblyMethod.BOI0B1);
             }
             catch (AssemblyException e)
             {
@@ -138,12 +141,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                    || input.FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.Executed;
         }
 
-        private static FailureMechanismSectionAssemblyResult AssembleWithUndefinedProbabilities(FailureMechanismSectionAssemblyInput input, IAssessmentResultsTranslator kernel)
+        private static FailureMechanismSectionAssemblyResultWrapper AssembleWithUndefinedProbabilities(FailureMechanismSectionAssemblyInput input, IAssessmentResultsTranslator kernel)
         {
             EInterpretationCategory interpretationCategory = kernel.DetermineInterpretationCategoryWithoutProbabilityEstimationBoi0C1(GetAnalysisStatus(input));
             Probability sectionProbability = kernel.TranslateInterpretationCategoryToProbabilityBoi0C2(interpretationCategory);
 
-            return FailureMechanismSectionAssemblyResultCreator.Create(sectionProbability, interpretationCategory);
+            return new FailureMechanismSectionAssemblyResultWrapper(
+                FailureMechanismSectionAssemblyResultCreator.Create(sectionProbability, interpretationCategory),
+                AssemblyMethod.BOI0C2, AssemblyMethod.BOI0C1);
         }
 
         private static EAnalysisState GetAnalysisStatus(FailureMechanismSectionAssemblyInput input)
