@@ -109,10 +109,10 @@ namespace Riskeer.Integration.IO.Test.Exporters
             specificFailureMechanism2.InAssembly = secondSpecificFailureMechanismInAssembly;
             assessmentSection.SpecificFailureMechanisms.Last().Name = specificFailureMechanism1.Name;
 
-            var exporter = new AssemblyExporter(assessmentSection, filePath);
-
+            using (new FileDisposeHelper(filePath))
             using (new AssemblyToolCalculatorFactoryConfig())
             {
+                var exporter = new AssemblyExporter(assessmentSection, filePath);
                 SetCombinedFailureMechanismSectionAssemblyOutput(assessmentSection);
 
                 // Call & Assert
