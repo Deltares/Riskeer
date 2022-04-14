@@ -69,14 +69,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 Probability sectionProbability;
                 EInterpretationCategory interpretationCategory;
                 IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                
+
                 if (IsProbabilityDefined(input))
                 {
                     ICategoryLimitsCalculator assemblyGroupsKernel = factory.CreateAssemblyGroupsKernel();
                     CategoriesList<InterpretationCategory> interpretationCategories = assemblyGroupsKernel.CalculateInterpretationCategoryLimitsBoi01(
                         new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(input.SignalFloodingProbability),
                                               AssemblyCalculatorInputCreator.CreateProbability(input.MaximumAllowableFloodingProbability)));
-                    
+
                     sectionProbability = kernel.DetermineRepresentativeProbabilityBoi0A1(
                         input.FurtherAnalysisType != FailureMechanismSectionResultFurtherAnalysisType.NotNecessary,
                         AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),
@@ -89,7 +89,56 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                     interpretationCategory = kernel.DetermineInterpretationCategoryWithoutProbabilityEstimationBoi0C1(GetAnalysisStatus(input));
                     sectionProbability = kernel.TranslateInterpretationCategoryToProbabilityBoi0C2(interpretationCategory);
                 }
-                
+
+                return new RiskeerFailureMechanismSectionAssemblyResult(
+                    sectionProbability, sectionProbability, 1.0, FailureMechanismSectionAssemblyGroupConverter.ConvertTo(interpretationCategory));
+            }
+            catch (AssemblyException e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
+            }
+            catch (Exception e)
+            {
+                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
+            }
+        }
+
+        public RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
+        {
+            if (input == null)
+            {
+                throw new ArgumentNullException(nameof(input));
+            }
+
+            try
+            {
+                EInterpretationCategory interpretationCategory;
+                IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
+
+                if (IsProbabilityDefined(input))
+                {
+                    ICategoryLimitsCalculator assemblyGroupsKernel = factory.CreateAssemblyGroupsKernel();
+                    CategoriesList<InterpretationCategory> interpretationCategories = assemblyGroupsKernel.CalculateInterpretationCategoryLimitsBoi01(
+                        new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(input.SignalFloodingProbability),
+                                              AssemblyCalculatorInputCreator.CreateProbability(input.MaximumAllowableFloodingProbability)));
+
+                    ResultWithProfileAndSectionProbabilities output = kernel.DetermineRepresentativeProbabilitiesBoi0A2(
+                        input.FurtherAnalysisType != FailureMechanismSectionResultFurtherAnalysisType.NotNecessary,
+                        AssemblyCalculatorInputCreator.CreateProbability(input.InitialProfileProbability),
+                        AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),
+                        AssemblyCalculatorInputCreator.CreateProbability(input.RefinedProfileProbability),
+                        AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability));
+                    interpretationCategory = kernel.DetermineInterpretationCategoryFromFailureMechanismSectionProbabilityBoi0B1(
+                        output.ProbabilitySection, interpretationCategories);
+
+                    return new RiskeerFailureMechanismSectionAssemblyResult(
+                        output.ProbabilityProfile, output.ProbabilitySection, output.LengthEffectFactor,
+                        FailureMechanismSectionAssemblyGroupConverter.ConvertTo(interpretationCategory));
+                }
+
+                interpretationCategory = kernel.DetermineInterpretationCategoryWithoutProbabilityEstimationBoi0C1(GetAnalysisStatus(input));
+                Probability sectionProbability = kernel.TranslateInterpretationCategoryToProbabilityBoi0C2(interpretationCategory);
+
                 return new RiskeerFailureMechanismSectionAssemblyResult(
                     sectionProbability, sectionProbability, 1.0, FailureMechanismSectionAssemblyGroupConverter.ConvertTo(interpretationCategory));
             }
@@ -132,54 +181,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             return input.FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.NotNecessary
                    && !input.HasProbabilitySpecified
                    || input.FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.Executed;
-        }
-
-        public RiskeerFailureMechanismSectionAssemblyResult AssembleFailureMechanismSection(FailureMechanismSectionWithProfileProbabilityAssemblyInput input)
-        {
-            if (input == null)
-            {
-                throw new ArgumentNullException(nameof(input));
-            }
-
-            try
-            {
-                ICategoryLimitsCalculator assemblyGroupsKernel = factory.CreateAssemblyGroupsKernel();
-                CategoriesList<InterpretationCategory> interpretationCategories = assemblyGroupsKernel.CalculateInterpretationCategoryLimitsBoi01(
-                    new AssessmentSection(AssemblyCalculatorInputCreator.CreateProbability(input.SignalFloodingProbability),
-                                          AssemblyCalculatorInputCreator.CreateProbability(input.MaximumAllowableFloodingProbability)));
-
-                IAssessmentResultsTranslator kernel = factory.CreateFailureMechanismSectionAssemblyKernel();
-                FailureMechanismSectionAssemblyResultWithLengthEffect output = kernel.TranslateAssessmentResultWithLengthEffectAggregatedMethod(
-                    GetInitialMechanismProbabilitySpecification(input),
-                    AssemblyCalculatorInputCreator.CreateProbability(input.InitialProfileProbability),
-                    AssemblyCalculatorInputCreator.CreateProbability(input.InitialSectionProbability),
-                    FailureMechanismSectionAssemblyCalculatorInputCreator.ConvertFailureMechanismSectionResultFurtherAnalysisType(input.FurtherAnalysisType),
-                    AssemblyCalculatorInputCreator.CreateProbability(input.RefinedProfileProbability),
-                    AssemblyCalculatorInputCreator.CreateProbability(input.RefinedSectionProbability),
-                    interpretationCategories);
-
-                return FailureMechanismSectionAssemblyResultCreator.Create(output);
-            }
-            catch (AssemblyException e)
-            {
-                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateErrorMessage(e.Errors), e);
-            }
-            catch (Exception e)
-            {
-                throw new FailureMechanismSectionAssemblyCalculatorException(AssemblyErrorMessageCreator.CreateGenericErrorMessage(), e);
-            }
-        }
-
-        private static ESectionInitialMechanismProbabilitySpecification GetInitialMechanismProbabilitySpecification(FailureMechanismSectionAssemblyInput input)
-        {
-            if (!input.IsRelevant)
-            {
-                return ESectionInitialMechanismProbabilitySpecification.NotRelevant;
-            }
-
-            return input.HasProbabilitySpecified
-                       ? ESectionInitialMechanismProbabilitySpecification.RelevantWithProbabilitySpecification
-                       : ESectionInitialMechanismProbabilitySpecification.RelevantNoProbabilitySpecification;
         }
     }
 }

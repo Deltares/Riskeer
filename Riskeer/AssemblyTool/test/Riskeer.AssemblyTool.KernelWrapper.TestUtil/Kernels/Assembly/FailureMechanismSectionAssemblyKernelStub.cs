@@ -109,6 +109,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public Probability SectionProbability { private get; set; }
 
         /// <summary>
+        /// Gets the profile and section probability.
+        /// </summary>
+        public ResultWithProfileAndSectionProbabilities ProfileAndSectionProbabilities { private get; set; }
+
+        /// <summary>
         /// Sets the category.
         /// </summary>
         public EInterpretationCategory CategoryOutput { private get; set; }
@@ -181,7 +186,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public ResultWithProfileAndSectionProbabilities DetermineRepresentativeProbabilitiesBoi0A2(bool refinementNecessary, Probability probabilityInitialMechanismProfile, Probability probabilityInitialMechanismSection, Probability refinedProbabilityProfile, Probability refinedProbabilitySection)
         {
-            throw new NotImplementedException();
+            ThrowException();
+            Calculated = true;
+
+            RefinementNecessary = refinementNecessary;
+            ProbabilityInitialMechanismProfile = probabilityInitialMechanismProfile;
+            ProbabilityInitialMechanismSection = probabilityInitialMechanismSection;
+            RefinedProbabilityProfile = refinedProbabilityProfile;
+            RefinedProbabilitySection = refinedProbabilitySection;
+
+            return ProfileAndSectionProbabilities;
         }
 
         public EInterpretationCategory DetermineInterpretationCategoryFromFailureMechanismSectionProbabilityBoi0B1(Probability sectionProbability, CategoriesList<InterpretationCategory> categories)
