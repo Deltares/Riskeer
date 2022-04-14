@@ -54,7 +54,7 @@ namespace Riskeer.Common.Forms.Views
 
         private readonly IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy;
         private readonly IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider;
-        private readonly Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc;
+        private readonly Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc;
 
         /// <summary>
         /// Creates a new instance of <see cref="AdoptableWithProfileProbabilityFailureMechanismSectionResultRow"/>.
@@ -71,7 +71,7 @@ namespace Riskeer.Common.Forms.Views
         public AdoptableWithProfileProbabilityFailureMechanismSectionResultRow(AdoptableWithProfileProbabilityFailureMechanismSectionResult sectionResult,
                                                                                IFailureMechanismSectionResultCalculateProbabilityStrategy calculateProbabilityStrategy,
                                                                                IFailureMechanismSectionResultRowWithCalculatedProbabilityErrorProvider failureMechanismSectionResultRowErrorProvider,
-                                                                               Func<FailureMechanismSectionAssemblyResult> performAssemblyFunc,
+                                                                               Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc,
                                                                                ConstructionProperties constructionProperties)
             : base(sectionResult)
         {
@@ -337,7 +337,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                AssemblyResult = performAssemblyFunc();
+                AssemblyResult = performAssemblyFunc().AssemblyResult;
             }
             catch (AssemblyException e)
             {
