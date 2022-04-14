@@ -101,7 +101,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
 
                 // Assert
                 Assert.AreEqual(failureMechanism.GeneralInput.N, failureMechanismAssemblyCalculator.FailureMechanismN);
-                Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
+                Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
                 Assert.AreEqual(failureMechanism.GeneralInput.ApplyLengthEffectInSection, failureMechanismAssemblyCalculator.ApplyLengthEffect);
             }
         }

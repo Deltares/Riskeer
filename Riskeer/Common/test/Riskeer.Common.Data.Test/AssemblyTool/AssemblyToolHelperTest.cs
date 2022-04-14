@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
@@ -303,8 +304,9 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 failureMechanismAssemblyCalculator.AssemblyResult = expectedAssemblyResult;
 
                 // Call
-                double assemblyResult = AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => null, double.NaN,
-                                                                                    random.NextBoolean());
+                double assemblyResult = AssemblyToolHelper.AssemblyFailureMechanism(
+                    failureMechanism, sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create(),
+                    double.NaN, random.NextBoolean());
 
                 // Assert
                 Assert.AreEqual(expectedAssemblyResult, assemblyResult);
@@ -341,7 +343,9 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 failureMechanismAssemblyCalculator.ThrowExceptionOnCalculate = true;
 
                 // Call
-                void Call() => AssemblyToolHelper.AssemblyFailureMechanism(failureMechanism, sr => null, double.NaN, false);
+                void Call() => AssemblyToolHelper.AssemblyFailureMechanism(
+                    failureMechanism, sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create(),
+                    double.NaN, false);
 
                 // Assert
                 var exception = Assert.Throws<AssemblyException>(Call);

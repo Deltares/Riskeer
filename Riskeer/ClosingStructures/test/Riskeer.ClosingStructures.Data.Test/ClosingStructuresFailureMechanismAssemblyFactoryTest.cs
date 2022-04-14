@@ -100,7 +100,7 @@ namespace Riskeer.ClosingStructures.Data.Test
                 // Assert
                 double expectedN = failureMechanism.GeneralInput.N;
                 Assert.AreEqual(expectedN, failureMechanismAssemblyCalculator.FailureMechanismN);
-                Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
+                Assert.AreSame(calculator.FailureMechanismSectionAssemblyResultOutput.AssemblyResult, failureMechanismAssemblyCalculator.SectionAssemblyResultsInput.Single());
             }
         }
 
