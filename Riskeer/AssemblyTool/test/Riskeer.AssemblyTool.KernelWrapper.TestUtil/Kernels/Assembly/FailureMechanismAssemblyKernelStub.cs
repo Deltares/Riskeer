@@ -44,9 +44,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public double LenghtEffectFactor { get; private set; }
 
         /// <summary>
-        /// Gets the collection of <see cref="IProfileAndSectionProbabilities"/>.
+        /// Gets the collection of <see cref="ResultWithProfileAndSectionProbabilities"/>.
         /// </summary>
-        public IEnumerable<IProfileAndSectionProbabilities> FailureMechanismSectionAssemblyResults { get; private set; }
+        public IEnumerable<ResultWithProfileAndSectionProbabilities> FailureMechanismSectionAssemblyResults { get; private set; }
 
         /// <summary>
         /// Gets the collection of <see cref="Probability"/>.
@@ -75,7 +75,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
 
         public FailureMechanismAssemblyResult CalculateFailureMechanismFailureProbabilityWithLengthEffectBoi1A2(
             double lengthEffectFactor,
-            IEnumerable<IProfileAndSectionProbabilities> failureMechanismSectionAssemblyResults,
+            IEnumerable<ResultWithProfileAndSectionProbabilities> failureMechanismSectionAssemblyResults,
             bool partialAssembly)
         {
             ThrowException();

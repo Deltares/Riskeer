@@ -179,7 +179,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             return SectionProbability;
         }
 
-        public IProfileAndSectionProbabilities DetermineRepresentativeProbabilitiesBoi0A2(bool refinementNecessary, Probability probabilityInitialMechanismProfile, Probability probabilityInitialMechanismSection, Probability refinedProbabilityProfile, Probability refinedProbabilitySection)
+        public ResultWithProfileAndSectionProbabilities DetermineRepresentativeProbabilitiesBoi0A2(bool refinementNecessary, Probability probabilityInitialMechanismProfile, Probability probabilityInitialMechanismSection, Probability refinedProbabilityProfile, Probability refinedProbabilitySection)
         {
             throw new NotImplementedException();
         }
@@ -213,6 +213,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
             CategoryInput = category;
 
             return SectionProbability;
+        }
+
+        public Probability CalculateProfileProbabilityToSectionProbabilityBoi0D1(Probability profileProbability, double lengthEffectFactor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Probability CalculateSectionProbabilityToProfileProbabilityBoi0D2(Probability sectionProbability, double lengthEffectFactor)
+        {
+            throw new NotImplementedException();
         }
 
         private void ThrowException()

@@ -120,7 +120,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 for (var i = 0; i < sectionAssemblyResults.Length; i++)
                 {
                     RiskeerFailureMechanismSectionAssemblyResult expected = sectionAssemblyResults.ElementAt(i);
-                    IProfileAndSectionProbabilities actual = kernel.FailureMechanismSectionAssemblyResults.ElementAt(i);
+                    ResultWithProfileAndSectionProbabilities actual = kernel.FailureMechanismSectionAssemblyResults.ElementAt(i);
                     ProbabilityAssert.AreEqual(expected.ProfileProbability, actual.ProbabilityProfile);
                     ProbabilityAssert.AreEqual(expected.SectionProbability, actual.ProbabilitySection);
                 }
