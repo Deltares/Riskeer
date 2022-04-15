@@ -78,11 +78,11 @@ namespace Riskeer.GrassCoverErosionInwards.Data
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionInwardsFailureMechanism"/> to assemble.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> the <paramref name="failureMechanism"/>
         /// belongs to.</param>
-        /// <returns>A <see cref="double"/> representing the assembly result.</returns>
+        /// <returns>A <see cref="FailureMechanismAssemblyResultWrapper"/> with the assembly result.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any argument is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be assembled.</exception>
-        public static double AssembleFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                      IAssessmentSection assessmentSection)
+        public static FailureMechanismAssemblyResultWrapper AssembleFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                                                     IAssessmentSection assessmentSection)
         {
             if (failureMechanism == null)
             {
@@ -94,9 +94,15 @@ namespace Riskeer.GrassCoverErosionInwards.Data
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return AssemblyToolHelper.AssemblyFailureMechanism(
-                failureMechanism, sr => AssembleSection(sr, failureMechanism, assessmentSection),
-                failureMechanism.GeneralInput.N, failureMechanism.GeneralInput.ApplyLengthEffectInSection);
+            Func<AdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performSectionAssemblyFunc = sr =>
+                AssembleSection(sr, failureMechanism, assessmentSection);
+
+            return FailureMechanismAssemblyResultFactory.AssembleFailureMechanism(
+                failureMechanism.GeneralInput.N,
+                failureMechanism.SectionResults.Select(sr => AssemblyToolHelper.AssembleFailureMechanismSection(sr, performSectionAssemblyFunc))
+                                .ToArray(),
+                failureMechanism.GeneralInput.ApplyLengthEffectInSection,
+                failureMechanism.AssemblyResult);
         }
     }
 }

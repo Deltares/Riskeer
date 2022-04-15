@@ -21,8 +21,10 @@
 
 using System;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
@@ -111,7 +113,6 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Setup
             var random = new Random(21);
-            double assemblyOutput = random.NextDouble();
 
             var failureMechanism = new PipingStructureFailureMechanism
             {
@@ -127,13 +128,14 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResultOutput = assemblyOutput;
+                calculator.AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(
+                    random.NextDouble(), random.NextEnumValue<AssemblyMethod>());
 
                 // Call
-                double result = PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
+                FailureMechanismAssemblyResultWrapper result = PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
-                Assert.AreEqual(assemblyOutput, result);
+                Assert.AreSame(calculator.AssemblyResultOutput, result);
             }
         }
 

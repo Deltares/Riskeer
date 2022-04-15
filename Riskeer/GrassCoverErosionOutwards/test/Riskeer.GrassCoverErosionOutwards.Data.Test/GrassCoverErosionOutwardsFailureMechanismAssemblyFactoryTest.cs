@@ -271,7 +271,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         {
             // Setup
             var random = new Random(21);
-            double assemblyOutput = random.NextDouble();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
@@ -287,13 +286,14 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResultOutput = assemblyOutput;
+                calculator.AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(
+                    random.NextDouble(), random.NextEnumValue<AssemblyMethod>());
 
                 // Call
-                double result = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
+                FailureMechanismAssemblyResultWrapper result = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
-                Assert.AreEqual(assemblyOutput, result);
+                Assert.AreSame(calculator.AssemblyResultOutput, result);
             }
         }
 

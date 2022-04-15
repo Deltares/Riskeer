@@ -283,7 +283,6 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         {
             // Setup
             var random = new Random(21);
-            double assemblyOutput = random.NextDouble();
 
             var failureMechanism = new TestFailureMechanism
             {
@@ -299,13 +298,14 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResultOutput = assemblyOutput;
+                calculator.AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(
+                    random.NextDouble(), random.NextEnumValue<AssemblyMethod>());
 
                 // Call
-                double result = FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
+                FailureMechanismAssemblyResultWrapper result = FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
-                Assert.AreEqual(assemblyOutput, result);
+                Assert.AreSame(calculator.AssemblyResultOutput, result);
             }
         }
 

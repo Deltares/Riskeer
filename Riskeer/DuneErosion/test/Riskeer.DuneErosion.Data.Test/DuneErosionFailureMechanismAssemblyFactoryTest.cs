@@ -21,8 +21,10 @@
 
 using System;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
@@ -109,7 +111,6 @@ namespace Riskeer.DuneErosion.Data.Test
         {
             // Setup
             var random = new Random(21);
-            double assemblyOutput = random.NextDouble();
 
             var failureMechanism = new DuneErosionFailureMechanism
             {
@@ -125,13 +126,14 @@ namespace Riskeer.DuneErosion.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResultOutput = assemblyOutput;
+                calculator.AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(
+                    random.NextDouble(), random.NextEnumValue<AssemblyMethod>());
 
                 // Call
-                double result = DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
+                FailureMechanismAssemblyResultWrapper result = DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
 
                 // Assert
-                Assert.AreEqual(assemblyOutput, result);
+                Assert.AreSame(calculator.AssemblyResultOutput, result);
             }
         }
 
