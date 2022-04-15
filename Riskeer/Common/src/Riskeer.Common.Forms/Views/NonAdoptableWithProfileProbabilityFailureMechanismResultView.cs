@@ -65,7 +65,7 @@ namespace Riskeer.Common.Forms.Views
         public NonAdoptableWithProfileProbabilityFailureMechanismResultView(IObservableEnumerable<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> failureMechanismSectionResults,
                                                                             TFailureMechanism failureMechanism,
                                                                             IAssessmentSection assessmentSection,
-                                                                            Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc,
+                                                                            Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc,
                                                                             Func<TFailureMechanism, bool> getUseLengthEffectFunc,
                                                                             Func<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult, FailureMechanismSectionAssemblyResultWrapper> performFailureMechanismSectionAssemblyFunc)
             : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc)

@@ -80,7 +80,8 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             void Call() => new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN, null, performFailureMechanismSectionAssemblyFunc);
+                failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                (fm, ass) => null, null, performFailureMechanismSectionAssemblyFunc);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -100,7 +101,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             void Call() => new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism>(
-                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN, fm => false, null);
+                failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => null, fm => false, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -124,7 +125,8 @@ namespace Riskeer.Common.Forms.Test.Views
             // Call
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => double.NaN, fm => false, performFailureMechanismSectionAssemblyFunc))
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
+                       fm => false, performFailureMechanismSectionAssemblyFunc))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult,
@@ -334,7 +336,7 @@ namespace Riskeer.Common.Forms.Test.Views
         {
             var failureMechanismResultView = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<TestNonAdoptableWithProfileProbabilityFailureMechanism>(
                 failureMechanism.SectionResults, failureMechanism, new AssessmentSectionStub(),
-                (fm, ass) => double.NaN,
+                (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
                 fm => fm.UseLengthEffect, performFailureMechanismSectionAssemblyFunc);
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();

@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -72,7 +73,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             using (var view = new NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<NonAdoptableFailureMechanismSectionResult,
@@ -169,12 +170,12 @@ namespace Riskeer.Common.Forms.Test.Views
         private NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism> ShowFailureMechanismResultsView(
             TestNonAdoptableFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return ShowFailureMechanismResultsView(failureMechanism, assessmentSection, (fm, section) => 1.2345);
+            return ShowFailureMechanismResultsView(failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(1.2345, AssemblyMethod.Manual));
         }
 
         private NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism> ShowFailureMechanismResultsView(
             TestNonAdoptableFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
-            Func<TestNonAdoptableFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
+            Func<TestNonAdoptableFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
             var failureMechanismResultView = new NonAdoptableFailureMechanismResultView<TestNonAdoptableFailureMechanism>(
                 failureMechanism.SectionResults,

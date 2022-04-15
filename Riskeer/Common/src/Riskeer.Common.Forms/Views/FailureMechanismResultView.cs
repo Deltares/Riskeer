@@ -28,6 +28,7 @@ using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using Core.Common.Util;
 using Core.Common.Util.Extensions;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
@@ -50,7 +51,7 @@ namespace Riskeer.Common.Forms.Views
         where TFailureMechanism : IFailureMechanism<TSectionResult>
     {
         private readonly IObservableEnumerable<TSectionResult> failureMechanismSectionResults;
-        private readonly Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc;
+        private readonly Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc;
         private readonly Observer failureMechanismObserver;
         private readonly Observer failureMechanismSectionResultObserver;
         private readonly RecursiveObserver<IObservableEnumerable<TSectionResult>, TSectionResult> failureMechanismSectionResultsObserver;
@@ -72,7 +73,7 @@ namespace Riskeer.Common.Forms.Views
         protected FailureMechanismResultView(IObservableEnumerable<TSectionResult> failureMechanismSectionResults,
                                              TFailureMechanism failureMechanism,
                                              IAssessmentSection assessmentSection,
-                                             Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
+                                             Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
             if (failureMechanismSectionResults == null)
             {
@@ -301,7 +302,7 @@ namespace Riskeer.Common.Forms.Views
         {
             try
             {
-                return performFailureMechanismAssemblyFunc(FailureMechanism, AssessmentSection);
+                return performFailureMechanismAssemblyFunc(FailureMechanism, AssessmentSection).AssemblyResult;
             }
             catch (AssemblyException e)
             {

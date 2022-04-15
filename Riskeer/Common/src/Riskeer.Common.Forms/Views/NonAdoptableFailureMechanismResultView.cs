@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Builders;
@@ -54,7 +55,7 @@ namespace Riskeer.Common.Forms.Views
         public NonAdoptableFailureMechanismResultView(IObservableEnumerable<NonAdoptableFailureMechanismSectionResult> failureMechanismSectionResults,
                                                       TFailureMechanism failureMechanism,
                                                       IAssessmentSection assessmentSection,
-                                                      Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
+                                                      Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
             : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc) {}
 
         protected override NonAdoptableFailureMechanismSectionResultRow CreateFailureMechanismSectionResultRow(NonAdoptableFailureMechanismSectionResult sectionResult)

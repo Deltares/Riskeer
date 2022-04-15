@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
@@ -77,7 +78,7 @@ namespace Riskeer.Common.Forms.Test.Views
 
             // Call
             using (var view = new StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, section) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1)))
             {
                 // Assert
                 Assert.IsInstanceOf<FailureMechanismResultView<AdoptableFailureMechanismSectionResult,
@@ -198,10 +199,10 @@ namespace Riskeer.Common.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
             int nrOfCalls = 0;
-            Func<TestStructuresFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc = (fm, ass) =>
+            Func<TestStructuresFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
                 nrOfCalls++;
-                return double.NaN;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -245,10 +246,10 @@ namespace Riskeer.Common.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationScenario);
 
             int nrOfCalls = 0;
-            Func<TestStructuresFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc = (fm, ass) =>
+            Func<TestStructuresFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
                 nrOfCalls++;
-                return double.NaN;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -294,10 +295,10 @@ namespace Riskeer.Common.Forms.Test.Views
             failureMechanism.CalculationsGroup.Children.Add(calculationGroup);
 
             int nrOfCalls = 0;
-            Func<TestStructuresFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc = (fm, ass) =>
+            Func<TestStructuresFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
                 nrOfCalls++;
-                return double.NaN;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
             };
 
             using (new AssemblyToolCalculatorFactoryConfig())
@@ -327,7 +328,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         private StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> ShowFailureMechanismResultsView(
-            TestStructuresFailureMechanism failureMechanism, Func<TestStructuresFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
+            TestStructuresFailureMechanism failureMechanism, Func<TestStructuresFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
             return ShowFailureMechanismResultsView(failureMechanism, new AssessmentSectionStub(), performFailureMechanismAssemblyFunc);
         }
@@ -335,12 +336,12 @@ namespace Riskeer.Common.Forms.Test.Views
         private StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> ShowFailureMechanismResultsView(
             TestStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return ShowFailureMechanismResultsView(failureMechanism, assessmentSection, (fm, section) => 1.2345);
+            return ShowFailureMechanismResultsView(failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(1.2345, AssemblyMethod.Manual));
         }
 
         private StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput> ShowFailureMechanismResultsView(
             TestStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
-            Func<TestStructuresFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
+            Func<TestStructuresFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
             var failureMechanismResultView = new StructuresFailureMechanismResultView<TestStructuresFailureMechanism, TestStructuresInput>(
                 failureMechanism.SectionResults,

@@ -79,7 +79,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            void Call() => new TestFailureMechanismResultView(null, new TestFailureMechanism(), assessmentSection, (mechanism, section) => double.NaN);
+            void Call() => new TestFailureMechanismResultView(null, new TestFailureMechanism(), assessmentSection, (mechanism, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -96,7 +96,7 @@ namespace Riskeer.Common.Forms.Test.Views
             mocks.ReplayAll();
 
             // Call
-            void Call() => new TestFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(), null, assessmentSection, (mechanism, section) => double.NaN);
+            void Call() => new TestFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(), null, assessmentSection, (mechanism, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -108,7 +108,7 @@ namespace Riskeer.Common.Forms.Test.Views
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new TestFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(), new TestFailureMechanism(), null, (mechanism, section) => double.NaN);
+            void Call() => new TestFailureMechanismResultView(new ObservableList<FailureMechanismSectionResult>(), new TestFailureMechanism(), null, (mechanism, section) => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -232,10 +232,10 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             int nrOfCalls = 0;
-            Func<TestFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc = (fm, ass) =>
+            Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
                 nrOfCalls++;
-                return double.NaN;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
             };
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(sectionResults, performFailureMechanismAssemblyFunc))
@@ -264,10 +264,10 @@ namespace Riskeer.Common.Forms.Test.Views
             var sectionResults = new ObservableList<FailureMechanismSectionResult>();
 
             int nrOfCalls = 0;
-            Func<TestFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc = (fm, ass) =>
+            Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
                 nrOfCalls++;
-                return double.NaN;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
             };
 
             using (ShowFailureMechanismResultView(sectionResults, performFailureMechanismAssemblyFunc))
@@ -299,10 +299,10 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             int nrOfCalls = 0;
-            Func<TestFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc = (fm, ass) =>
+            Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
                 nrOfCalls++;
-                return double.NaN;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
             };
 
             using (ShowFailureMechanismResultView(sectionResults, performFailureMechanismAssemblyFunc))
@@ -536,7 +536,7 @@ namespace Riskeer.Common.Forms.Test.Views
         }
 
         private TestFailureMechanismResultView ShowFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
-                                                                              Func<TestFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
+                                                                              Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
             return ShowFailureMechanismResultView(sectionResults, new TestFailureMechanism(), new AssessmentSectionStub(), performFailureMechanismAssemblyFunc);
         }
@@ -544,13 +544,14 @@ namespace Riskeer.Common.Forms.Test.Views
         private TestFailureMechanismResultView ShowFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
                                                                               TestFailureMechanism failureMechanism)
         {
-            return ShowFailureMechanismResultView(sectionResults, failureMechanism, new AssessmentSectionStub(), (fm, ass) => double.NaN);
+            return ShowFailureMechanismResultView(sectionResults, failureMechanism, new AssessmentSectionStub(),
+                                                  (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual));
         }
 
         private TestFailureMechanismResultView ShowFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> sectionResults,
                                                                               TestFailureMechanism failureMechanism,
                                                                               IAssessmentSection assessmentSection,
-                                                                              Func<TestFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
+                                                                              Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
         {
             var failureMechanismResultView = new TestFailureMechanismResultView(sectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc);
             testForm.Controls.Add(failureMechanismResultView);
@@ -564,7 +565,7 @@ namespace Riskeer.Common.Forms.Test.Views
             public TestFailureMechanismResultView(IObservableEnumerable<FailureMechanismSectionResult> failureMechanismSectionResults,
                                                   TestFailureMechanism failureMechanism,
                                                   IAssessmentSection assessmentSection,
-                                                  Func<TestFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
+                                                  Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
                 : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc) {}
 
             protected override TestRow CreateFailureMechanismSectionResultRow(
@@ -623,11 +624,11 @@ namespace Riskeer.Common.Forms.Test.Views
 
             TestFailureMechanism failureMechanismInput = null;
             IAssessmentSection assessmentSectionInput = null;
-            Func<TestFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc = (fm, ass) =>
+            Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
                 failureMechanismInput = fm;
                 assessmentSectionInput = ass;
-                return double.NaN;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual);
             };
 
             // Call
@@ -664,7 +665,8 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             // When
-            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => assemblyResult))
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => new FailureMechanismAssemblyResultWrapper(
+                                                      assemblyResult, AssemblyMethod.BOI1A1)))
             {
                 // Precondition
                 ComboBox comboBox = GetProbabilityResultTypeComboBox();
@@ -736,7 +738,7 @@ namespace Riskeer.Common.Forms.Test.Views
             };
 
             int i = 0;
-            Func<TestFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc = (fm, ass) =>
+            Func<TestFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc = (fm, ass) =>
             {
                 if (i == 0)
                 {
@@ -744,7 +746,7 @@ namespace Riskeer.Common.Forms.Test.Views
                     throw new AssemblyException(exceptionMessage);
                 }
 
-                return double.NaN;
+                return new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.BOI1A1);
             };
 
             using (TestFailureMechanismResultView view = ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc))
@@ -890,7 +892,8 @@ namespace Riskeer.Common.Forms.Test.Views
                 }
             };
 
-            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => assemblyResult))
+            using (ShowFailureMechanismResultView(failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => new FailureMechanismAssemblyResultWrapper(
+                                                      assemblyResult, AssemblyMethod.BOI1A1)))
             {
                 // Precondition
                 TextBox failureMechanismAssemblyProbabilityTextBox = GetFailureMechanismAssemblyProbabilityTextBox();

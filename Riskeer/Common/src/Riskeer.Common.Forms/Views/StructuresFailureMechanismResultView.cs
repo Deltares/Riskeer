@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.Calculation;
@@ -64,7 +65,7 @@ namespace Riskeer.Common.Forms.Views
         public StructuresFailureMechanismResultView(IObservableEnumerable<AdoptableFailureMechanismSectionResult> failureMechanismSectionResults,
                                                     TFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection,
-                                                    Func<TFailureMechanism, IAssessmentSection, double> performFailureMechanismAssemblyFunc)
+                                                    Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> performFailureMechanismAssemblyFunc)
             : base(failureMechanismSectionResults, failureMechanism, assessmentSection, performFailureMechanismAssemblyFunc)
         {
             // The concat is needed to observe the input of calculations in child groups.
