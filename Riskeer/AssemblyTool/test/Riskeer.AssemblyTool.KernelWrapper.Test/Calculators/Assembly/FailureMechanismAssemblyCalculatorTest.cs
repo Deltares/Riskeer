@@ -160,7 +160,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
         }
 
         [Test]
-        public void Assemble_WithValidOutput_ReturnsExpectedOutput()
+        [TestCase(true, AssemblyMethod.BOI1A2)]
+        [TestCase(false, AssemblyMethod.BOI1A1)]
+        public void Assemble_WithValidOutput_ReturnsExpectedOutput(bool applyLengthEffect, AssemblyMethod expectedAssemblyMethod)
         {
             // Setup
             var random = new Random(21);
@@ -175,12 +177,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                double assemblyResult = calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>(),
-                                                            random.NextBoolean());
+                FailureMechanismAssemblyResultWrapper assemblyResult = calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>(),
+                                                                                           applyLengthEffect);
 
                 // Assert
                 Assert.IsTrue(kernel.Calculated);
-                ProbabilityAssert.AreEqual(assemblyResult, output.Probability);
+                ProbabilityAssert.AreEqual(assemblyResult.AssemblyResult, output.Probability);
+                Assert.AreEqual(assemblyResult.AssemblyMethod, expectedAssemblyMethod);
             }
         }
 

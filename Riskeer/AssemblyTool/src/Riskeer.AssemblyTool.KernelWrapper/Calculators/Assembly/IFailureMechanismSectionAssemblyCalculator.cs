@@ -33,7 +33,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Assembles the failure mechanism section based on the input.
         /// </summary>
         /// <param name="input">The <see cref="FailureMechanismSectionAssemblyInput"/> to assemble with.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/> representing the assembly result
+        /// of the failure mechanism section.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
@@ -43,7 +44,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// Assembles the failure mechanism section based on the input.
         /// </summary>
         /// <param name="input">The <see cref="FailureMechanismSectionWithProfileProbabilityAssemblyInput"/> to assemble with.</param>
-        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/>.</returns>
+        /// <returns>A <see cref="FailureMechanismSectionAssemblyResultWrapper"/> representing the assembly result
+        /// of the failure mechanism section.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="input"/> is <c>null</c>.</exception>
         /// <exception cref="FailureMechanismSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>

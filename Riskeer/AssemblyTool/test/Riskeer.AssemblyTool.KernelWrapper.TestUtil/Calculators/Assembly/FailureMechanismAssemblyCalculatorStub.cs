@@ -54,9 +54,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets or sets the result of the assembly calculation.
         /// </summary>
-        public double AssemblyResult { get; set; }
+        public FailureMechanismAssemblyResultWrapper AssemblyResult { get; set; }
 
-        public double Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults, bool applyLengthEffect)
+        public FailureMechanismAssemblyResultWrapper Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults, bool applyLengthEffect)
         {
             if (ThrowExceptionOnCalculate)
             {
