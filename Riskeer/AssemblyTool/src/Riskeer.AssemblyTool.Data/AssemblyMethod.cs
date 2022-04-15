@@ -59,6 +59,11 @@ namespace Riskeer.AssemblyTool.Data
         /// <summary>
         /// Represents the assembly method BOI-1A-2.
         /// </summary>
-        BOI1A2 = 7
+        BOI1A2 = 7,
+        
+        /// <summary>
+        /// Represents a manual failure mechanism assembly.
+        /// </summary>
+        Manual = 8
     }
 }

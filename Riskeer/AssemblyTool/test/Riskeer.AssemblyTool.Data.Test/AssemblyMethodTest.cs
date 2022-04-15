@@ -51,6 +51,9 @@ namespace Riskeer.AssemblyTool.Data.Test
                 },
                 {
                     AssemblyMethod.BOI1A2, 7
+                },
+                {
+                    AssemblyMethod.Manual, 8
                 }
             };
     }
