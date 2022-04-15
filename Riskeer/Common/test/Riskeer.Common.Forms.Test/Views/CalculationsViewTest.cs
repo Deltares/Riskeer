@@ -51,6 +51,18 @@ namespace Riskeer.Common.Forms.Test.Views
 
         private Form testForm;
 
+        [SetUp]
+        public void SetUp()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         #region Cell editing
 
         [Test]
@@ -127,18 +139,6 @@ namespace Riskeer.Common.Forms.Test.Views
             // Assert
             Assert.AreEqual(1, calculationsView.HydraulicBoundaryLocationChangedCounter);
             mocks.VerifyAll();
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            testForm = new Form();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            testForm.Dispose();
         }
 
         private static void ConfigureHydraulicBoundaryDatabase(IAssessmentSection assessmentSection)

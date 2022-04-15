@@ -60,7 +60,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("data", paramName);
         }
-        
+
         [Test]
         public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
         {
@@ -76,7 +76,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
         public void Constructor_GetNormativeAssessmentLevelFuncNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new MacroStabilityInwardsOutputChartControl(new MacroStabilityInwardsCalculationScenario(), new GeneralMacroStabilityInwardsInput(),null);
+            void Call() => new MacroStabilityInwardsOutputChartControl(new MacroStabilityInwardsCalculationScenario(), new GeneralMacroStabilityInwardsInput(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
@@ -127,7 +127,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var control = new MacroStabilityInwardsOutputChartControl(calculation, 
+            using (var control = new MacroStabilityInwardsOutputChartControl(calculation,
                                                                              new GeneralMacroStabilityInwardsInput(),
                                                                              AssessmentSectionTestHelper.GetTestAssessmentLevel))
             {

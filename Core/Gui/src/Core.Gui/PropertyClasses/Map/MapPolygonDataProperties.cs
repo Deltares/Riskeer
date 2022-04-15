@@ -147,7 +147,7 @@ namespace Core.Gui.PropertyClasses.Map
             if (propertyName == nameof(FillColor)
                 || propertyName == nameof(StrokeColor)
                 || propertyName == nameof(StrokeThickness)
-            )
+               )
             {
                 return data.Theme == null;
             }

@@ -648,9 +648,9 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             AdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
             AdoptableWithProfileProbabilityFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
-            Func<MacroStabilityInwardsCalculationScenario,IEnumerable<Segment2D>,bool> intersectionFunc = 
+            Func<MacroStabilityInwardsCalculationScenario, IEnumerable<Segment2D>, bool> intersectionFunc =
                 (scenario, lineSegments) => scenario.IsSurfaceLineIntersectionWithReferenceLineInSection(lineSegments);
-            
+
             Assert.AreEqual(2, failureMechanismSectionResult1.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc).Count());
             CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc));
             mocks.VerifyAll();

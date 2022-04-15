@@ -85,7 +85,7 @@ namespace Riskeer.Common.Forms.Views
             {
                 throw new ArgumentNullException(nameof(constructionProperties));
             }
-            
+
             this.failureMechanismSectionResultRowErrorProvider = failureMechanismSectionResultRowErrorProvider;
             this.performAssemblyFunc = performAssemblyFunc;
 

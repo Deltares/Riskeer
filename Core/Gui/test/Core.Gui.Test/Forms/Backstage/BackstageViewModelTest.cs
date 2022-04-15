@@ -97,7 +97,10 @@ namespace Core.Gui.Test.Forms.Backstage
             }
 
             var propertyNames = new List<string>();
-            viewModel.PropertyChanged += (sender, args) => { propertyNames.Add(args.PropertyName); };
+            viewModel.PropertyChanged += (sender, args) =>
+            {
+                propertyNames.Add(args.PropertyName);
+            };
 
             // When
             viewModel.SetSelectedViewModelCommand.Execute(backstagePageViewModel);

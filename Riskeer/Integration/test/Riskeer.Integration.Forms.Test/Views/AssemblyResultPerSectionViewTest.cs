@@ -235,7 +235,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 ButtonTester buttonTester = GetRefreshAssemblyResultButtonTester();
 
                 // When
-                SpecificFailureMechanism failureMechanismToRemove = assessmentSection.SpecificFailureMechanisms.First(); 
+                SpecificFailureMechanism failureMechanismToRemove = assessmentSection.SpecificFailureMechanisms.First();
                 assessmentSection.SpecificFailureMechanisms.Remove(failureMechanismToRemove);
                 assessmentSection.NotifyObservers();
                 buttonTester.Click();

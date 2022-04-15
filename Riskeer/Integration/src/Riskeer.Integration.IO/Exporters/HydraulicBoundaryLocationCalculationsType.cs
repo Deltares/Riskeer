@@ -30,7 +30,7 @@ namespace Riskeer.Integration.IO.Exporters
         /// Water level hydraulic boundary location calculations.
         /// </summary>
         WaterLevel = 1,
-        
+
         /// <summary>
         /// Water level hydraulic boundary location calculations.
         /// </summary>

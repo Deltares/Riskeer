@@ -61,7 +61,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Views
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("location", exception.ParamName);
         }
-        
+
         [Test]
         public void Constructor_WaterLevelCalculationsForTargetProbabilitiesNull_ThrowsArgumentNullException()
         {

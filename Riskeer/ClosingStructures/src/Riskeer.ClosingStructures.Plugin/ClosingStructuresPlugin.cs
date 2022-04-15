@@ -851,9 +851,9 @@ namespace Riskeer.ClosingStructures.Plugin
         {
             string message = RiskeerCommonFormsResources.VerifyUpdate_Confirm_calculation_output_cleared;
             if (StructureDependentDataShouldUpdate(new[]
-                {
-                    calculation
-                }, message))
+            {
+                calculation
+            }, message))
             {
                 UpdateStructureDerivedCalculationInput(calculation);
             }

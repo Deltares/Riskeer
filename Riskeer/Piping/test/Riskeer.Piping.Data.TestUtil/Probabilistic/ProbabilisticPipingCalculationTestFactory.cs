@@ -85,7 +85,7 @@ namespace Riskeer.Piping.Data.TestUtil.Probabilistic
                 }
             };
         }
-        
+
         /// <summary>
         /// Creates a probabilistic calculation with valid input.
         /// </summary>

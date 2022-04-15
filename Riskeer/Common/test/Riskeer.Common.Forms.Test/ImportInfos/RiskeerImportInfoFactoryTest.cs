@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.IO;
-using Core.Gui.Plugin;
 using Core.Common.TestUtil;
 using Core.Common.Util;
+using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.Common.Data.Calculation;

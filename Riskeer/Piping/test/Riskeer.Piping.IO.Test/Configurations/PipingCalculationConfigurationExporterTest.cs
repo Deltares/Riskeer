@@ -102,24 +102,24 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     yield return new TestCaseData("semiProbabilisticCalculationWithInfinities",
                                                   PipingTestDataGenerator.GetSemiProbabilisticPipingCalculationScenarioWithInfinities());
                     yield return new TestCaseData(
-                            "folderWithSubfolderAndSemiProbabilisticCalculation",
-                            new CalculationGroup
+                        "folderWithSubfolderAndSemiProbabilisticCalculation",
+                        new CalculationGroup
+                        {
+                            Name = "PK001_0001",
+                            Children =
                             {
-                                Name = "PK001_0001",
-                                Children =
+                                PipingTestDataGenerator.GetPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>(),
+                                new CalculationGroup
                                 {
-                                    PipingTestDataGenerator.GetPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>(),
-                                    new CalculationGroup
+                                    Name = "PK001_0002",
+                                    Children =
                                     {
-                                        Name = "PK001_0002",
-                                        Children =
-                                        {
-                                            PipingTestDataGenerator.GetPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>()
-                                        }
+                                        PipingTestDataGenerator.GetPipingCalculationScenario<SemiProbabilisticPipingCalculationScenario>()
                                     }
                                 }
                             }
-                        );
+                        }
+                    );
                 }
             }
 
@@ -162,24 +162,24 @@ namespace Riskeer.Piping.IO.Test.Configurations
                     probabilisticPipingCalculationScenarioWithIllustrationPoints.InputParameters.ShouldSectionSpecificIllustrationPointsBeCalculated = true;
 
                     yield return new TestCaseData(
-                            "folderWithSubfolderAndProbabilisticCalculation",
-                            new CalculationGroup
+                        "folderWithSubfolderAndProbabilisticCalculation",
+                        new CalculationGroup
+                        {
+                            Name = "PK001_0001",
+                            Children =
                             {
-                                Name = "PK001_0001",
-                                Children =
+                                probabilisticPipingCalculationScenarioWithIllustrationPoints,
+                                new CalculationGroup
                                 {
-                                    probabilisticPipingCalculationScenarioWithIllustrationPoints,
-                                    new CalculationGroup
+                                    Name = "PK001_0002",
+                                    Children =
                                     {
-                                        Name = "PK001_0002",
-                                        Children =
-                                        {
-                                            PipingTestDataGenerator.GetPipingCalculationScenario<ProbabilisticPipingCalculationScenario>()
-                                        }
+                                        PipingTestDataGenerator.GetPipingCalculationScenario<ProbabilisticPipingCalculationScenario>()
                                     }
                                 }
                             }
-                        );
+                        }
+                    );
                 }
             }
 

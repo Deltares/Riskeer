@@ -73,7 +73,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
                 // Call
                 FailureMechanismSectionAssemblyGroupBoundaries[] output =
                     FailureMechanismSectionAssemblyGroupBoundariesFactory.CreateFailureMechanismSectionAssemblyGroupBoundaries(signalFloodingProbability, maximumAllowableFloodingProbability)
-                                                      .ToArray();
+                                                                         .ToArray();
 
                 // Assert
                 FailureMechanismSectionAssemblyGroupBoundaries[] calculatorOutput = calculator.FailureMechanismSectionAssemblyGroupBoundariesOutput.ToArray();

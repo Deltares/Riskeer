@@ -87,7 +87,7 @@ namespace Riskeer.ClosingStructures.Plugin.Test.ExportInfos
         {
             // Call
             string name = info.Name(null);
-            
+
             // Assert
             Assert.AreEqual("Riskeer berekeningenconfiguratie", name);
         }

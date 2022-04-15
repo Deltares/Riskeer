@@ -37,7 +37,7 @@ namespace Riskeer.Piping.Forms.PresentationObjects.RegistrationState
         /// <param name="failureMechanism">The failure mechanism.</param>
         /// <param name="assessmentSection">The parent of <paramref name="failureMechanism"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public PipingFailureMechanismContext(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection) 
+        public PipingFailureMechanismContext(PipingFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
     }
 }

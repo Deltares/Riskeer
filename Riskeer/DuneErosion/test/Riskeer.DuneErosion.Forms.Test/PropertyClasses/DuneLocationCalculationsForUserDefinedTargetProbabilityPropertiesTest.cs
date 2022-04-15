@@ -116,7 +116,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
 
             // Call
             using (var properties = new DuneLocationCalculationsForUserDefinedTargetProbabilityProperties(
-                new DuneLocationCalculationsForTargetProbability(0.1), targetProbabilityChangeHandler))
+                       new DuneLocationCalculationsForTargetProbability(0.1), targetProbabilityChangeHandler))
             {
                 // Assert
                 PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);

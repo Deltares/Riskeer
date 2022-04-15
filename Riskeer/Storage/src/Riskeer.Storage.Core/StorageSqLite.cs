@@ -46,7 +46,7 @@ namespace Riskeer.Storage.Core
     public class StorageSqLite : IStoreProject
     {
         private const string temporaryFileExtension = "bkup";
-        
+
         private StagedProject stagedProject;
 
         public string OpenProjectFileFilter => Resources.Supported_Riskeer_open_projects_file_filter;

@@ -89,7 +89,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             Assert.AreEqual(ProbabilityFormattingHelper.Format(0.5), properties.Probability);
             Assert.AreEqual(0, properties.Reliability, properties.Reliability.GetAccuracy());
-            
+
             TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(
                 nameof(StructuresOutputProperties.AlphaValues));
             TestHelper.AssertTypeConverter<StructuresOutputProperties, KeyValueExpandableArrayConverter>(

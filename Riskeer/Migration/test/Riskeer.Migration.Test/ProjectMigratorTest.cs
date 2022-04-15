@@ -531,7 +531,6 @@ namespace Riskeer.Migration.Test
                 migrationLog.AppendLine("  + Faalmechanisme: 'Grasbekleding erosie kruin en binnentalud'");
                 migrationLog.AppendLine("    - De waarden van de doelkans voor HBN en overslagdebiet zijn veranderd naar de trajectnorm.");
 
-
                 Tuple<string, LogLevelConstant>[] expectedLogMessagesAndLevel =
                 {
                     Tuple.Create(expectedMessage, LogLevelConstant.Info),

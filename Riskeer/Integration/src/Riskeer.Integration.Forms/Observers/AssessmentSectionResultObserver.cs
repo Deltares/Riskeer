@@ -74,7 +74,7 @@ namespace Riskeer.Integration.Forms.Observers
 
         private readonly RecursiveObserver<IObservableEnumerable<PipingScenarioConfigurationPerFailureMechanismSection>,
             PipingScenarioConfigurationPerFailureMechanismSection> pipingScenarioConfigurationsPerSectionObserver;
-        
+
         /// <summary>
         /// Creates a new instance of <see cref="AssessmentSectionResultObserver"/>.
         /// </summary>
@@ -146,7 +146,7 @@ namespace Riskeer.Integration.Forms.Observers
 
             waterPressureAsphaltCoverObserver = CreateFailureMechanismObserver<WaterPressureAsphaltCoverFailureMechanism,
                 NonAdoptableWithProfileProbabilityFailureMechanismSectionResult>(assessmentSection.WaterPressureAsphaltCover);
-            
+
             specificFailureMechanismsObserver = new Observer(() =>
             {
                 ClearSpecificFailureMechanismObservers();
@@ -158,7 +158,7 @@ namespace Riskeer.Integration.Forms.Observers
             };
             specificFailureMechanismObservers = new List<Observer>();
             CreateSpecificFailureMechanismObservers();
-            
+
             pipingScenarioConfigurationsPerSectionObserver = CreatePipingScenarioConfigurationsPerSectionObserver(assessmentSection.Piping);
         }
 
@@ -195,7 +195,7 @@ namespace Riskeer.Integration.Forms.Observers
             specificFailureMechanismsObserver.Dispose();
 
             ClearSpecificFailureMechanismObservers();
-            
+
             pipingScenarioConfigurationsPerSectionObserver.Dispose();
         }
 

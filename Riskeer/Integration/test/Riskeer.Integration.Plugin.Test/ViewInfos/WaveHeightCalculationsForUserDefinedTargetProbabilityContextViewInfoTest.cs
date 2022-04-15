@@ -102,7 +102,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     calculationsForTargetProbability
                 }
             };
-            
+
             var context = new WaveHeightCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability,
                                                                                            assessmentSection);
             using (var plugin = new RiskeerPlugin())
@@ -215,7 +215,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
                     hydraulicBoundaryLocationCalculation
                 }
             };
-            
+
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.WaveHeightCalculationsForUserDefinedTargetProbabilities.Add(calculationsForTargetProbability);
 

@@ -943,8 +943,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
                 RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(pathContext => resultInAssembly,
-                                                                                                                             pathContext => resultNotInAssembly,
-                                                                                                                             null, null);
+                                                                                                                                   pathContext => resultNotInAssembly,
+                                                                                                                                   null, null);
 
             // Call
             object[] children = treeNodeInfo.ChildNodeObjects(context);
@@ -981,8 +981,8 @@ namespace Riskeer.Common.Forms.Test.TreeNodeInfos
 
             TreeNodeInfo<IFailureMechanismContext<IFailureMechanism>> treeNodeInfo =
                 RiskeerTreeNodeInfoFactory.CreateRegistrationStateContextTreeNodeInfo<IFailureMechanismContext<IFailureMechanism>>(pathContext => resultInAssembly,
-                                                                                                                             pathContext => resultNotInAssembly,
-                                                                                                                             null, null);
+                                                                                                                                   pathContext => resultNotInAssembly,
+                                                                                                                                   null, null);
 
             // Call
             object[] children = treeNodeInfo.ChildNodeObjects(context);

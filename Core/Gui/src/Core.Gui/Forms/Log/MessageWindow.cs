@@ -379,7 +379,7 @@ namespace Core.Gui.Forms.Log
             {
                 return;
             }
-            
+
             copying = true;
 
             var currencyManager = (CurrencyManager) BindingContext[messagesDataGridView.DataSource];

@@ -148,7 +148,7 @@ namespace Core.Gui.PropertyClasses.Map
             if (propertyName == nameof(Color)
                 || propertyName == nameof(Width)
                 || propertyName == nameof(DashStyle)
-            )
+               )
             {
                 return data.Theme == null;
             }

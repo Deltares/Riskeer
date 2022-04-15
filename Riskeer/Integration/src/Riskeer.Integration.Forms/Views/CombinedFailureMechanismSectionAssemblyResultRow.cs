@@ -75,7 +75,7 @@ namespace Riskeer.Integration.Forms.Views
             this.combinedFailureMechanismSectionAssemblyResult = combinedFailureMechanismSectionAssemblyResult;
 
             totalResultIndex = specificFailureMechanismStartIndex + SpecificFailureMechanisms.Length;
-            
+
             ColumnStateDefinitions = new Dictionary<int, DataGridViewColumnStateDefinition>();
             CreateColumnStateDefinitions();
             SetColumnStateDefinitionColors();
@@ -232,7 +232,7 @@ namespace Riskeer.Integration.Forms.Views
             {
                 ColumnStateDefinitions[specificFailureMechanismStartIndex + i].Style = CreateCellStyleForFailureMechanism(specificFailureMechanismAssemblyResults[i]);
             }
-            
+
             ColumnStateDefinitions[totalResultIndex].Style = CreateCellStyle(combinedFailureMechanismSectionAssemblyResult.TotalResult);
         }
 

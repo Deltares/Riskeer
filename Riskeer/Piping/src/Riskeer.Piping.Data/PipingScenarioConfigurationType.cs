@@ -34,13 +34,13 @@ namespace Riskeer.Piping.Data
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.SemiProbabilistic_DisplayName))]
         SemiProbabilistic = 1,
-        
+
         /// <summary>
         /// The probabilistic scenario configuration type.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.Probabilistic_DisplayName))]
         Probabilistic = 2,
-        
+
         /// <summary>
         /// The per failure mechanism section scenario configuration type.
         /// </summary>

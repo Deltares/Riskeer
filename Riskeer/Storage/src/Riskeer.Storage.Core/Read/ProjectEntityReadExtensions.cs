@@ -65,7 +65,7 @@ namespace Riskeer.Storage.Core.Read
             {
                 Description = entity.Description
             };
-            
+
             return project;
         }
 

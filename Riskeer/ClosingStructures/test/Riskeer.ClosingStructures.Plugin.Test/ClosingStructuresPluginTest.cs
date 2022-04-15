@@ -136,9 +136,9 @@ namespace Riskeer.ClosingStructures.Plugin.Test
             mockRepository.ReplayAll();
 
             using (var plugin = new ClosingStructuresPlugin
-                   {
-                       Gui = gui
-                   })
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
@@ -226,9 +226,9 @@ namespace Riskeer.ClosingStructures.Plugin.Test
             mocks.ReplayAll();
 
             using (var plugin = new ClosingStructuresPlugin
-                   {
-                       Gui = gui
-                   })
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ExportInfo[] exportInfos = plugin.GetExportInfos().ToArray();

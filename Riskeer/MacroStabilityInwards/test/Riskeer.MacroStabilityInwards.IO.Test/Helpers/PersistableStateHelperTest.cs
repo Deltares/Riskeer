@@ -242,7 +242,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Helpers
             {
                 MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, 1))
             });
-            
+
             MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(stochasticSoilProfile.SoilProfile,
                                                                                                                                                           CreateSurfaceLine());
 
@@ -261,7 +261,7 @@ namespace Riskeer.MacroStabilityInwards.IO.Test.Helpers
             {
                 MacroStabilityInwardsPreconsolidationStressTestFactory.CreateMacroStabilityInwardsPreconsolidationStress(new Point2D(2, -50))
             });
-            
+
             MacroStabilityInwardsSoilProfileUnderSurfaceLine soilProfileUnderSurfaceLine = MacroStabilityInwardsSoilProfileUnderSurfaceLineFactory.Create(stochasticSoilProfile.SoilProfile,
                                                                                                                                                           CreateSurfaceLine());
 

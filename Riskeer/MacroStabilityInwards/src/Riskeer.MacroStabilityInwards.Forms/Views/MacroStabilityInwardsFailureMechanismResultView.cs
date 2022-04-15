@@ -118,7 +118,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             base.Dispose(disposing);
         }
-        
+
         protected override void AddDataGridColumns()
         {
             FailureMechanismSectionResultViewColumnBuilder.AddSectionNameColumn(

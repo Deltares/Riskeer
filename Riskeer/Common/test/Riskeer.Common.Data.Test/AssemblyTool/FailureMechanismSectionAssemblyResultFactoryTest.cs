@@ -746,7 +746,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("assessmentSection", exception.ParamName);
         }
-        
+
         [Test]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.Manual, true)]
         [TestCase(NonAdoptableInitialFailureMechanismResultType.NoFailureProbability, false)]

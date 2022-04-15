@@ -223,7 +223,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
 
             // Call
             TestDelegate call = () =>
-                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection(null, 
+                GrassCoverErosionOutwardsWaveConditionsOutputFactory.CreateOutputWithWaveRunUpWaveImpactAndWaveImpactWithWaveDirection(null,
                                                                                                                                        waveImpactOutput,
                                                                                                                                        waveImpactWithWaveDirectionOutput);
 

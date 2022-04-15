@@ -69,6 +69,7 @@ namespace Riskeer.Integration.IO.Assembly
             {
                 throw new ArgumentNullException(nameof(assessmentSectionAssembly));
             }
+
             if (failureMechanisms == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanisms));

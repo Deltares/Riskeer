@@ -62,7 +62,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Views
 
             return calculations.Select(pc => new MacroStabilityInwardsScenarioRow(pc, FailureMechanism, failureMechanismSection)).ToList();
         }
-        
+
         protected override void InitializeDataGridView()
         {
             DataGridViewControl.AddCheckBoxColumn(

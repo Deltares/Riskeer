@@ -46,7 +46,7 @@ namespace Core.Gui.Test.Forms.Log
 
             // Assert
             Assert.IsInstanceOf<DialogBase>(dialog);
-            
+
             var textBox = (TextBox) dialog.Controls.Find("textBox", true)[0];
             Assert.AreEqual(testText, textBox.Text);
             Assert.IsFalse(textBox.TabStop);

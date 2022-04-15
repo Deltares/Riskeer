@@ -613,7 +613,10 @@ namespace Riskeer.Common.IO.Test.FileImporters
             var updateStrategy = mocks.StrictMock<IFailureMechanismSectionUpdateStrategy>();
             updateStrategy.Expect(us => us.UpdateSectionsWithImportedData(null, null))
                           .IgnoreArguments()
-                          .WhenCalled(invocation => { CollectionAssert.IsNotEmpty((IEnumerable<FailureMechanismSection>) invocation.Arguments[0]); })
+                          .WhenCalled(invocation =>
+                          {
+                              CollectionAssert.IsNotEmpty((IEnumerable<FailureMechanismSection>) invocation.Arguments[0]);
+                          })
                           .Return(Enumerable.Empty<IObservable>());
 
             var messageProvider = mocks.StrictMock<IImporterMessageProvider>();

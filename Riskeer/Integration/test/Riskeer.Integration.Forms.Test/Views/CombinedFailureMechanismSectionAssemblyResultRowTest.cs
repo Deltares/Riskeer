@@ -100,6 +100,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, specificFailureMechanismStartIndex + i);
             }
+
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnStateDefinition(columnStateDefinitions, specificFailureMechanismStartIndex + result.SpecificFailureMechanisms.Length);
 
             Assert.AreEqual(2, row.SectionStart.NumberOfDecimalPlaces);
@@ -126,6 +127,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 FailureMechanismSectionAssemblyGroup? specificFailureMechanism = result.SpecificFailureMechanisms[i];
                 Assert.AreEqual(GetExpectedDisplayNameForFailureMechanism(specificFailureMechanism), row.SpecificFailureMechanisms[i]);
             }
+
             Assert.AreEqual(EnumDisplayNameHelper.GetDisplayName(result.TotalResult), row.TotalResult);
         }
 
@@ -191,7 +193,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailureMechanismStartIndex + i], expectedBackgroundColor);
             }
-            
+
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailureMechanismStartIndex + result.SpecificFailureMechanisms.Length], expectedBackgroundColor);
         }
 
@@ -255,7 +257,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailureMechanismStartIndex + i], expectedBackgroundColor);
             }
-            
+
             DataGridViewControlColumnStateDefinitionTestHelper.AssertColumnWithColorState(columnStateDefinitions[specificFailureMechanismStartIndex + result.SpecificFailureMechanisms.Length], expectedBackgroundColor);
         }
 

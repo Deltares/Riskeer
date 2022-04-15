@@ -40,7 +40,7 @@ namespace Core.Common.Base.Storage
         /// Migration workflow aborted.
         /// </summary>
         Aborted,
-        
+
         /// <summary>
         /// Migration workflow not supported.
         /// </summary>

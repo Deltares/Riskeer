@@ -747,7 +747,7 @@ namespace Core.Common.Controls.Test.DataGrid
                 Assert.AreEqual(newTextWidth, initialWidth);
             }
         }
-        
+
         [Test]
         public void DataGridView_ClearColumns_ClearsAllColumns()
         {
@@ -765,7 +765,7 @@ namespace Core.Common.Controls.Test.DataGrid
 
                 // Precondition
                 Assert.AreEqual(2, dataGridView.Columns.Count);
-                
+
                 // Call
                 control.ClearColumns();
 

@@ -271,6 +271,7 @@ namespace Riskeer.Storage.Core.Test
                 SqLiteDatabaseHelper.CreateValidProjectDatabase(tempProjectFilePath, project);
                 SqLiteDatabaseHelper.SetInvalidNumberOfAssessmentSectionEntities(tempProjectFilePath);
             }
+
             Assert.DoesNotThrow(Precondition);
 
             // Call
@@ -284,7 +285,7 @@ namespace Riskeer.Storage.Core.Test
             var expectedMessage = $"Fout bij het lezen van bestand '{tempProjectFilePath}': {innerException.Message.FirstToLower()}";
             Assert.AreEqual(expectedMessage, exception.Message);
         }
-        
+
         [Test]
         public void LoadProject_ValidDatabase_ReturnsProject()
         {

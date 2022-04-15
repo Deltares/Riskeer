@@ -81,7 +81,7 @@ namespace Riskeer.StabilityStoneCover.IO.Test.Configurations
             });
 
             var calculationsForTargetProbability = new HydraulicBoundaryLocationCalculationsForTargetProbability(0.02);
-            
+
             var importer = new StabilityStoneCoverWaveConditionsCalculationConfigurationImporter(
                 filePath,
                 calculationGroup,

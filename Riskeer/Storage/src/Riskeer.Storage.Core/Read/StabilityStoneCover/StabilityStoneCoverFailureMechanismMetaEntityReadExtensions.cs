@@ -51,7 +51,7 @@ namespace Riskeer.Storage.Core.Read.StabilityStoneCover
             {
                 throw new ArgumentNullException(nameof(generalInput));
             }
-            
+
             generalInput.N = (RoundedDouble) entity.N;
             generalInput.ApplyLengthEffectInSection = Convert.ToBoolean(entity.ApplyLengthEffectInSection);
         }

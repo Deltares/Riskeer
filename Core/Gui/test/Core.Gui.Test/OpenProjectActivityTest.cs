@@ -965,8 +965,8 @@ namespace Core.Gui.Test
 
             mocks.VerifyAll();
         }
-        
-         [Test]
+
+        [Test]
         public void Finish_ProjectMigrationFailed_ProjectSetToNull()
         {
             // Setup

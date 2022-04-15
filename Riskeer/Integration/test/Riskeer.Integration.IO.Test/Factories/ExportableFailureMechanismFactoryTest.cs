@@ -101,7 +101,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             mocks.ReplayAll();
 
             var random = new Random(21);
-            
+
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
                 new TestFailureMechanism(), assessmentSection, (fm, section) => double.NaN, null, random.NextEnumValue<ExportableFailureMechanismType>());

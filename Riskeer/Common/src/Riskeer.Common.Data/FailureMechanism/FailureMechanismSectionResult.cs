@@ -96,7 +96,7 @@ namespace Riskeer.Common.Data.FailureMechanism
         /// Gets the encapsulated <see cref="FailureMechanismSection"/>.
         /// </summary>
         public FailureMechanismSection Section { get; }
-        
+
         /// <summary>
         /// Validates the failure probability.
         /// </summary>

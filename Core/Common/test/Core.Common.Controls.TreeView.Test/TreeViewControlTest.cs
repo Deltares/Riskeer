@@ -1781,7 +1781,10 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    OnNodeChecked = (o, p) => { hit++; }
+                    OnNodeChecked = (o, p) =>
+                    {
+                        hit++;
+                    }
                 };
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 treeViewControl.Data = new object();

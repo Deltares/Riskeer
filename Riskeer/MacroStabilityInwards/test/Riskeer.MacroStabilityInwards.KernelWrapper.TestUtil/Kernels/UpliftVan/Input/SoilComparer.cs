@@ -59,7 +59,7 @@ namespace Riskeer.MacroStabilityInwards.KernelWrapper.TestUtil.Kernels.UpliftVan
                 && CheckDouble(x.StrengthIncreaseExponent, y.StrengthIncreaseExponent)
                 && x.ShearStrengthAbovePhreaticLevelModel == y.ShearStrengthAbovePhreaticLevelModel
                 && x.ShearStrengthBelowPhreaticLevelModel == y.ShearStrengthBelowPhreaticLevelModel
-            )
+               )
             {
                 return 0;
             }

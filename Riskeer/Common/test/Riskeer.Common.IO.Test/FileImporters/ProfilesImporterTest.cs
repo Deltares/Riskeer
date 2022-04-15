@@ -621,7 +621,10 @@ namespace Riskeer.Common.IO.Test.FileImporters
                                                                 messageProvider,
                                                                 typeDescriptor)
             {
-                CreateProfileAction = () => { throw new UpdateDataException("Exception message"); }
+                CreateProfileAction = () =>
+                {
+                    throw new UpdateDataException("Exception message");
+                }
             };
 
             var importResult = true;

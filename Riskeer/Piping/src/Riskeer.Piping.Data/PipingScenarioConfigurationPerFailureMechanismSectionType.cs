@@ -32,7 +32,7 @@ namespace Riskeer.Piping.Data
         /// The semi probabilistic scenario configuration type.
         /// </summary>
         SemiProbabilistic = 1,
-        
+
         /// <summary>
         /// The probabilistic scenario configuration type.
         /// </summary>

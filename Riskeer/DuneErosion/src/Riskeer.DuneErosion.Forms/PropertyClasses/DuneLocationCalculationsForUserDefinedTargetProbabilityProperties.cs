@@ -28,7 +28,6 @@ using Core.Gui.Attributes;
 using Core.Gui.Converters;
 using Core.Gui.PropertyBag;
 using Riskeer.Common.Forms.ChangeHandlers;
-using Riskeer.Common.Forms.Properties;
 using Riskeer.Common.Forms.PropertyClasses;
 using Riskeer.Common.Forms.TypeConverters;
 using Riskeer.DuneErosion.Data;
@@ -91,9 +90,9 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
 
         [PropertyOrder(targetProbabilityPropertyIndex)]
         [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.TargetProbability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.TargetProbability_Description))]
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.TargetProbability_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.TargetProbability_Description))]
         public double TargetProbability
         {
             get

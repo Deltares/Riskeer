@@ -50,7 +50,7 @@ namespace Riskeer.Piping.Data
             {
                 throw new ArgumentNullException(nameof(sectionResult));
             }
-            
+
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanism));

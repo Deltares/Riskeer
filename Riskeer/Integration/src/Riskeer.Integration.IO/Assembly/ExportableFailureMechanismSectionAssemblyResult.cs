@@ -54,7 +54,7 @@ namespace Riskeer.Integration.IO.Assembly
         /// Gets the failure mechanism section.
         /// </summary>
         public ExportableFailureMechanismSection FailureMechanismSection { get; }
-        
+
         /// <summary>
         /// Gets the assembly group.
         /// </summary>

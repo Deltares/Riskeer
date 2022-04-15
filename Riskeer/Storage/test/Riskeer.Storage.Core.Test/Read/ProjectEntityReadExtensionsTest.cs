@@ -62,7 +62,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             var collector = new ReadConversionCollector();
-            
+
             // Call
             void Call() => entity.Read(collector);
 
@@ -78,7 +78,7 @@ namespace Riskeer.Storage.Core.Test.Read
             // Setup
             var entity = new ProjectEntity();
             var collector = new ReadConversionCollector();
-            
+
             // Call
             void Call() => entity.Read(collector);
 
@@ -87,7 +87,7 @@ namespace Riskeer.Storage.Core.Test.Read
             const string message = "Het project bevat geen traject. Dit bestand is mogelijk een gemigreerd project met geen trajecten.";
             Assert.AreEqual(message, exception.Message);
         }
-        
+
         [Test]
         public void Read_WithAssessmentSection_ReturnsNewProjectWithAssessmentSection()
         {

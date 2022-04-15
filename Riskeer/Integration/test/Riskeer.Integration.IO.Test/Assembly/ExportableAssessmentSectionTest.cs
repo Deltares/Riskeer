@@ -51,7 +51,7 @@ namespace Riskeer.Integration.IO.Test.Assembly
         {
             // Call
             void Call() => new ExportableAssessmentSection(string.Empty, null, Enumerable.Empty<Point2D>(),
-                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(), 
+                                                           ExportableAssessmentSectionAssemblyResultTestFactory.CreateResult(),
                                                            Enumerable.Empty<ExportableFailureMechanism>(),
                                                            Enumerable.Empty<ExportableCombinedSectionAssembly>());
 

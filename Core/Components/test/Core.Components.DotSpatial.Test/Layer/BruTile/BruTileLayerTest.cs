@@ -1011,7 +1011,7 @@ namespace Core.Components.DotSpatial.Test.Layer.BruTile
         {
             const string epsgCode = "EPSG:28992";
             int level = config.Level;
-            
+
             Dictionary<TileInfo, Bitmap> tileInfoImageLookup = config.TileInfoConfigurations.ToDictionary(
                 c => new TileInfo
                 {

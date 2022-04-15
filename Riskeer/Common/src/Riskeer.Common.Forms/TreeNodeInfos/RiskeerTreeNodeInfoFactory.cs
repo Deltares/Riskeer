@@ -310,9 +310,9 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
 
                 // Try to start a name edit action when an item with the same name was already present
                 if (TargetCalculationGroup.Children.Except(new[]
-                    {
-                        calculationBase
-                    }).Any(c => c.Name.Equals(calculationBase.Name)))
+                {
+                    calculationBase
+                }).Any(c => c.Name.Equals(calculationBase.Name)))
                 {
                     treeViewControl.TryRenameNodeForData(draggedData);
                 }

@@ -261,7 +261,7 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil
                             Mean = (RoundedDouble) 0.3,
                             CoefficientOfVariation = (RoundedDouble) 0.4
                         },
-                        StrengthIncreaseExponent = 
+                        StrengthIncreaseExponent =
                         {
                             Mean = (RoundedDouble) 0.5,
                             CoefficientOfVariation = (RoundedDouble) 0.6

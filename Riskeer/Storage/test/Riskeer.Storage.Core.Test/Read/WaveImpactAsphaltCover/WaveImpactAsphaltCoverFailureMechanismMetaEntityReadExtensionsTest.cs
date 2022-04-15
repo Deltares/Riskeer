@@ -43,7 +43,7 @@ namespace Riskeer.Storage.Core.Test.Read.WaveImpactAsphaltCover
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("entity", exception.ParamName);
         }
-        
+
         [Test]
         public void Read_GeneralInputNull_ThrowsArgumentNullException()
         {

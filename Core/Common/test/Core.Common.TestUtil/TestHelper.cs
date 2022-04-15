@@ -549,7 +549,10 @@ namespace Core.Common.TestUtil
             };
 
             var timerEnded = false;
-            timer.Elapsed += (sender, args) => { timerEnded = true; };
+            timer.Elapsed += (sender, args) =>
+            {
+                timerEnded = true;
+            };
 
             callAction();
             timer.Start();

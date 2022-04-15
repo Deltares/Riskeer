@@ -34,13 +34,13 @@ namespace Riskeer.Common.Primitives
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionResultFurtherAnalysisType_NotNecessary_DisplayName))]
         NotNecessary = 1,
-        
+
         /// <summary>
         /// Further analysis is needed.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.FailureMechanismSectionResultFurtherAnalysisType_Necessary_DisplayName))]
         Necessary = 2,
-        
+
         /// <summary>
         /// Further analysis is executed.
         /// </summary>

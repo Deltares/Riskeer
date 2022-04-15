@@ -117,7 +117,7 @@ namespace Riskeer.Piping.Data.Test
             PipingScenarioConfigurationPerFailureMechanismSection scenarioConfigurationPerFailureMechanismSection =
                 failureMechanism.ScenarioConfigurationsPerFailureMechanismSection.Single();
             scenarioConfigurationPerFailureMechanismSection.ScenarioConfigurationType = configurationType;
-            
+
             // Call
             IFailureMechanismSectionResultCalculateProbabilityStrategy strategy =
                 PipingFailureMechanismSectionResultCalculateProbabilityStrategyFactory.CreateCalculateStrategy(

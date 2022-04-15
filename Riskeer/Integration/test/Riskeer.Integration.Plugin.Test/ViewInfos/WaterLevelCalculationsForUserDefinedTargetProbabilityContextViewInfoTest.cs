@@ -218,7 +218,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var assessmentSection = new AssessmentSectionStub();
             assessmentSection.WaterLevelCalculationsForUserDefinedTargetProbabilities.Add(calculationsForTargetProbability);
-            
+
             var context = new WaterLevelCalculationsForUserDefinedTargetProbabilityContext(calculationsForTargetProbability, assessmentSection);
 
             var mockRepository = new MockRepository();

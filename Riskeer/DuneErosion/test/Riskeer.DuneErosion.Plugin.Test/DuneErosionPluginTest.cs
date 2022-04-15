@@ -146,9 +146,9 @@ namespace Riskeer.DuneErosion.Plugin.Test
             mockRepository.ReplayAll();
 
             using (var plugin = new DuneErosionPlugin
-                   {
-                       Gui = gui
-                   })
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();

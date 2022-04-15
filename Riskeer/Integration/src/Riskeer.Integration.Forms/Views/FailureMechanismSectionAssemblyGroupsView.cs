@@ -83,12 +83,12 @@ namespace Riskeer.Integration.Forms.Views
 
         private void UpdateTableData()
         {
-            Tuple<AssemblyGroupBoundaries, Color, FailureMechanismSectionAssemblyGroup>[] dataToSet = 
+            Tuple<AssemblyGroupBoundaries, Color, FailureMechanismSectionAssemblyGroup>[] dataToSet =
                 FailureMechanismSectionAssemblyGroupsHelper.GetFailureMechanismSectionAssemblyGroupBoundaries(AssessmentSection).Select(
                     assemblyGroupBoundaries => new Tuple<AssemblyGroupBoundaries, Color, FailureMechanismSectionAssemblyGroup>(
-                    assemblyGroupBoundaries,
-                    FailureMechanismSectionAssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup),
-                    assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup)).ToArray();
+                        assemblyGroupBoundaries,
+                        FailureMechanismSectionAssemblyGroupColorHelper.GetFailureMechanismSectionAssemblyGroupColor(assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup),
+                        assemblyGroupBoundaries.FailureMechanismSectionAssemblyGroup)).ToArray();
 
             assemblyGroupsTable.SetData(dataToSet);
         }

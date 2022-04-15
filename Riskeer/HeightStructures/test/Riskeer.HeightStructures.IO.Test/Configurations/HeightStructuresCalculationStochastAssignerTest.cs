@@ -214,55 +214,55 @@ namespace Riskeer.HeightStructures.IO.Test.Configurations
         private static IEnumerable<TestCaseData> GetSetStochastParametersActions(string testNameFormat)
         {
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.LevelCrestStructure = s,
-                nameof(HeightStructuresCalculationConfiguration.LevelCrestStructure),
-                testNameFormat,
-                true))
+                         (c, s) => c.LevelCrestStructure = s,
+                         nameof(HeightStructuresCalculationConfiguration.LevelCrestStructure),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.AllowedLevelIncreaseStorage = s,
-                nameof(HeightStructuresCalculationConfiguration.AllowedLevelIncreaseStorage),
-                testNameFormat,
-                true))
+                         (c, s) => c.AllowedLevelIncreaseStorage = s,
+                         nameof(HeightStructuresCalculationConfiguration.AllowedLevelIncreaseStorage),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.FlowWidthAtBottomProtection = s,
-                nameof(HeightStructuresCalculationConfiguration.FlowWidthAtBottomProtection),
-                testNameFormat,
-                true))
+                         (c, s) => c.FlowWidthAtBottomProtection = s,
+                         nameof(HeightStructuresCalculationConfiguration.FlowWidthAtBottomProtection),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.WidthFlowApertures = s,
-                nameof(HeightStructuresCalculationConfiguration.WidthFlowApertures),
-                testNameFormat,
-                true))
+                         (c, s) => c.WidthFlowApertures = s,
+                         nameof(HeightStructuresCalculationConfiguration.WidthFlowApertures),
+                         testNameFormat,
+                         true))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.CriticalOvertoppingDischarge = s,
-                nameof(HeightStructuresCalculationConfiguration.CriticalOvertoppingDischarge),
-                testNameFormat,
-                false))
+                         (c, s) => c.CriticalOvertoppingDischarge = s,
+                         nameof(HeightStructuresCalculationConfiguration.CriticalOvertoppingDischarge),
+                         testNameFormat,
+                         false))
             {
                 yield return caseData;
             }
 
             foreach (TestCaseData caseData in StochastConfigurationCases(
-                (c, s) => c.StorageStructureArea = s,
-                nameof(HeightStructuresCalculationConfiguration.StorageStructureArea),
-                testNameFormat,
-                false))
+                         (c, s) => c.StorageStructureArea = s,
+                         nameof(HeightStructuresCalculationConfiguration.StorageStructureArea),
+                         testNameFormat,
+                         false))
             {
                 yield return caseData;
             }

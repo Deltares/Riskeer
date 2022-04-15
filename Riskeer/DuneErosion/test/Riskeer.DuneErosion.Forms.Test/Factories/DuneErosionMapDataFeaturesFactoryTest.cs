@@ -88,7 +88,7 @@ namespace Riskeer.DuneErosion.Forms.Test.Factories
 
             // Call
             IEnumerable<MapFeature> features = DuneErosionMapDataFeaturesFactory.CreateDuneLocationFeatures(aggregatedLocations);
-            
+
             // Assert
             DuneErosionMapFeaturesTestHelper.AssertDuneLocationFeaturesData(failureMechanism, features);
         }

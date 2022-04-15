@@ -46,7 +46,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
         }
-        
+
         [Test]
         public void GetWaternetExtreme_GeneralInputNull_ThrowsArgumentNullException()
         {
@@ -130,7 +130,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("input", exception.ParamName);
         }
-        
+
         [Test]
         public void GetWaternetDaily_GeneralInputNull_ThrowsArgumentNullException()
         {

@@ -1510,7 +1510,7 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 IMainWindow mainWindow = MainWindowTestHelper.CreateMainWindowStub(mocks);
-                
+
                 gui.Stub(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
                 gui.Stub(g => g.MainWindow).Return(mainWindow);
                 gui.Stub(g => g.ViewCommands).Return(mocks.Stub<IViewCommands>());

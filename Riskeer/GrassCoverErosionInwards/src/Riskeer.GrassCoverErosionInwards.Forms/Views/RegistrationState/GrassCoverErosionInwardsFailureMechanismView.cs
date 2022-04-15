@@ -52,7 +52,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Views.RegistrationState
         /// <param name="assessmentSection">The assessment section to show the data for.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismView(GrassCoverErosionInwardsFailureMechanism failureMechanism,
-                                                       IAssessmentSection assessmentSection)
+                                                            IAssessmentSection assessmentSection)
             : base(failureMechanism, assessmentSection) {}
 
         protected override void Dispose(bool disposing)

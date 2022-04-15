@@ -45,7 +45,7 @@ namespace Riskeer.Integration.IO.TestUtil
                 new Point2D(random.NextDouble(), random.NextDouble())
             }, random.NextDouble(), random.NextDouble());
         }
-        
+
         /// <summary>
         /// Creates a default <see cref="ExportableFailureMechanismSection"/>.
         /// </summary>

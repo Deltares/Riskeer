@@ -165,7 +165,7 @@ namespace Riskeer.Piping.Service.Test
             PipingFailureMechanism failureMechanism = PipingTestDataGenerator.GetPipingFailureMechanismWithAllCalculationConfigurations();
             IPipingCalculationScenario<PipingInput>[] calculations = failureMechanism.Calculations.Cast<IPipingCalculationScenario<PipingInput>>()
                                                                                      .ToArray();
-            
+
             var expectedAffectedItems = new List<IObservable>();
             expectedAffectedItems.AddRange(calculations.OfType<SemiProbabilisticPipingCalculationScenario>()
                                                        .Where(c => !c.InputParameters.UseAssessmentLevelManualInput

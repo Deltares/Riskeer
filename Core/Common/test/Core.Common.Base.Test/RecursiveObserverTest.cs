@@ -34,7 +34,10 @@ namespace Core.Common.Base.Test
             var counter = 0;
 
             // Call
-            using (var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() => { counter++; }, GetChildren))
+            using (var recursiveObserver = new RecursiveObserver<TestContainer, TestContainer>(() =>
+            {
+                counter++;
+            }, GetChildren))
             {
                 // Assert
                 Assert.IsInstanceOf<IObserver>(recursiveObserver);

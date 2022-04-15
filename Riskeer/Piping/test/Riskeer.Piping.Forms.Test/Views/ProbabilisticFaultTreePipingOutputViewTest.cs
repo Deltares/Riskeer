@@ -37,8 +37,8 @@ namespace Riskeer.Piping.Forms.Test.Views
         {
             // Call
             using (var view = new ProbabilisticFaultTreePipingOutputView(
-                new ProbabilisticPipingCalculationScenario(),
-                () => new TestGeneralResultFaultTreeIllustrationPoint()))
+                       new ProbabilisticPipingCalculationScenario(),
+                       () => new TestGeneralResultFaultTreeIllustrationPoint()))
             {
                 // Assert
                 Assert.IsInstanceOf<GeneralResultFaultTreeIllustrationPointView>(view);

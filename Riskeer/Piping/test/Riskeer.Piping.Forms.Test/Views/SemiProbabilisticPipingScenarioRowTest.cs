@@ -153,7 +153,7 @@ namespace Riskeer.Piping.Forms.Test.Views
             Assert.AreEqual(expectedDerivedOutput.HeaveProbability, row.FailureProbabilityHeave);
             Assert.AreEqual(expectedDerivedOutput.SellmeijerProbability, row.FailureProbabilitySellmeijer);
             Assert.AreEqual(Math.Min(1.0, expectedDerivedOutput.PipingProbability * failureMechanism.PipingProbabilityAssessmentInput.GetN(
-                                failureMechanismSection.Length)),
+                                              failureMechanismSection.Length)),
                             row.SectionFailureProbability);
             mocks.VerifyAll();
         }

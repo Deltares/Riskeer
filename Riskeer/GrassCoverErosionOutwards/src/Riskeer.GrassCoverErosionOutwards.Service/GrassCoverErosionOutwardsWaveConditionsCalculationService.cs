@@ -256,10 +256,10 @@ namespace Riskeer.GrassCoverErosionOutwards.Service
         }
 
         private IEnumerable<WaveConditionsOutput> CalculateWaveImpactWithWaveDirection(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                                                                                GrassCoverErosionOutwardsFailureMechanism failureMechanism,
-                                                                                HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
-                                                                                RoundedDouble assessmentLevel,
-                                                                                double targetProbability)
+                                                                                       GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                                                                       HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                                                       RoundedDouble assessmentLevel,
+                                                                                       double targetProbability)
         {
             return Calculate(calculation, hydraulicBoundaryDatabase, targetProbability, assessmentLevel,
                              failureMechanism.GeneralInput.GeneralWaveImpactWithWaveDirectionWaveConditionsInput,

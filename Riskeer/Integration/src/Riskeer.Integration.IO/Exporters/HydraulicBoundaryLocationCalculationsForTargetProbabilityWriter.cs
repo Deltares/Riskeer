@@ -86,7 +86,7 @@ namespace Riskeer.Integration.IO.Exporters
             string metaDataHeader = calculationsType == HydraulicBoundaryLocationCalculationsType.WaterLevel
                                         ? Resources.HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaterLevel_DisplayName
                                         : Resources.HydraulicBoundaryLocationCalculationsWriter_WaterLevelCalculationType_WaveHeight_DisplayName;
-            
+
             return new MapPointData(calculation.HydraulicBoundaryLocation.Name)
             {
                 Features = new[]

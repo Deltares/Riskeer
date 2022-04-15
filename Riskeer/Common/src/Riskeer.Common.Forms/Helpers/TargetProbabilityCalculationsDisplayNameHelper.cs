@@ -60,12 +60,10 @@ namespace Riskeer.Common.Forms.Helpers
             var nonUniqueWaterLevelCalculationsDisplayNameLookup = new Dictionary<object, string>
             {
                 {
-                    assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability,
-                    noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability)
+                    assessmentSection.WaterLevelCalculationsForMaximumAllowableFloodingProbability, noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.MaximumAllowableFloodingProbability)
                 },
                 {
-                    assessmentSection.WaterLevelCalculationsForSignalFloodingProbability,
-                    noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.SignalFloodingProbability)
+                    assessmentSection.WaterLevelCalculationsForSignalFloodingProbability, noProbabilityValueDoubleConverter.ConvertToString(assessmentSection.FailureMechanismContribution.SignalFloodingProbability)
                 }
             };
 

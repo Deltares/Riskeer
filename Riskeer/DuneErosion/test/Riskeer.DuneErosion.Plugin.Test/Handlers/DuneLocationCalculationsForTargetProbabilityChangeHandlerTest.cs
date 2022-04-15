@@ -275,7 +275,7 @@ namespace Riskeer.DuneErosion.Plugin.Test.Handlers
                 }
             };
         }
-        
+
         private static DuneLocationCalculationsForTargetProbability CreateCalculationsForTargetProbabilityWithoutOutput()
         {
             return new DuneLocationCalculationsForTargetProbability(0.1)

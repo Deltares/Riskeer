@@ -47,7 +47,7 @@ namespace Riskeer.Integration.Forms.Views
         private HydraulicBoundaryLocationsMapLayer hydraulicBoundaryLocationsMapLayer;
 
         private NonCalculatableFailureMechanismSectionResultsMapLayer<NonAdoptableWithProfileProbabilityFailureMechanismSectionResult> assemblyResultMapLayer;
-        
+
         private MapLineData referenceLineMapData;
 
         private MapLineData sectionsMapData;

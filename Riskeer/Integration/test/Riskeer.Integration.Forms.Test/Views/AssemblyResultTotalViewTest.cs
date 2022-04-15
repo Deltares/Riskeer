@@ -118,7 +118,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 var label = (Label) new ControlTester("label").TheObject;
                 Assert.AreEqual("Samenvatting resultaten per faalmechanisme:", label.Text);
-                
+
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
                 Assert.AreEqual(DockStyle.Fill, dataGridViewControl.Dock);
 

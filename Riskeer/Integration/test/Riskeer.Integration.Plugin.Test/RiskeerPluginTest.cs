@@ -383,9 +383,9 @@ namespace Riskeer.Integration.Plugin.Test
             mockRepository.ReplayAll();
 
             using (var plugin = new RiskeerPlugin
-                   {
-                       Gui = gui
-                   })
+            {
+                Gui = gui
+            })
             {
                 // Call
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();

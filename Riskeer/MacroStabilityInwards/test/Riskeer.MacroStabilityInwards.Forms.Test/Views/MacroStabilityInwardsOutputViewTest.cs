@@ -54,7 +54,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
             var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
         }
-        
+
         [Test]
         public void Constructor_GeneralInputNull_ThrowsArgumentNullException()
         {
@@ -115,7 +115,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Views
 
             // Call
             using (new MacroStabilityInwardsCalculatorFactoryConfig())
-            using (var view = new MacroStabilityInwardsOutputView(calculation,new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel))
+            using (var view = new MacroStabilityInwardsOutputView(calculation, new GeneralMacroStabilityInwardsInput(), AssessmentSectionTestHelper.GetTestAssessmentLevel))
             using (var form = new Form())
             {
                 form.Controls.Add(view);

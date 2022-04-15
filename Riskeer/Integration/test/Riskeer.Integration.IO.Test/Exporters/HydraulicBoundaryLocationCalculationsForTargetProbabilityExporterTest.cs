@@ -68,8 +68,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             // Call
             void Call() => new HydraulicBoundaryLocationCalculationsForTargetProbabilityExporter(
-                    Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), filePath, hydraulicBoundaryLocationCalculationsType);
-            
+                Enumerable.Empty<HydraulicBoundaryLocationCalculation>(), filePath, hydraulicBoundaryLocationCalculationsType);
+
             // Assert
             string expectedMessage = $"The value of argument 'calculationsType' ({hydraulicBoundaryLocationCalculationsType}) " +
                                      $"is invalid for Enum type '{nameof(HydraulicBoundaryLocationCalculationsType)}'.";

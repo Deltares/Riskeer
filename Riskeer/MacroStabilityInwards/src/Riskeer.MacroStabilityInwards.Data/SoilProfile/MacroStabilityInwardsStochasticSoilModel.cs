@@ -154,7 +154,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
             }
 
             foreach (MacroStabilityInwardsStochasticSoilProfile profileToRemove in StochasticSoilProfiles.Where(
-                sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray())
+                         sp => !newSoilProfiles.Any(newSp => IsSame(newSp, sp.SoilProfile))).ToArray())
             {
                 stochasticSoilProfiles.Remove(profileToRemove);
                 removedProfiles.Add(profileToRemove);

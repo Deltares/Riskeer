@@ -34,7 +34,7 @@ namespace Riskeer.Revetment.Forms.UITypeEditors
         /// Gets the <see cref="SelectableTargetProbability"/> that is selected.
         /// </summary>
         SelectableTargetProbability SelectedTargetProbability { get; }
-        
+
         /// <summary>
         /// Gets all the <see cref="SelectableTargetProbability"/> items.
         /// </summary>

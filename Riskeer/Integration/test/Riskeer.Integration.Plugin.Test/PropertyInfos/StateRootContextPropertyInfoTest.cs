@@ -86,7 +86,7 @@ namespace Riskeer.Integration.Plugin.Test.PropertyInfos
         {
             return plugin.GetPropertyInfos().First(tni => tni.PropertyObjectType == typeof(AssessmentSectionProperties));
         }
-        
+
         private class TestStateRootContext : StateRootContext
         {
             public TestStateRootContext(AssessmentSection wrappedData) : base(wrappedData) {}

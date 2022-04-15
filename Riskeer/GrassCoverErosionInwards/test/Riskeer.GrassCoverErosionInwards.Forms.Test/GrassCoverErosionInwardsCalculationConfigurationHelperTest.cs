@@ -80,7 +80,7 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.Test
             DikeProfile dikeProfile2 = DikeProfileTestFactory.CreateDikeProfile(new Point2D(0.0, 0.0), "profiel 2");
 
             var failureMechanismContribution = new FailureMechanismContribution(0.01, 0.001);
-            
+
             // Call
             GrassCoverErosionInwardsCalculationConfigurationHelper.GenerateCalculations(
                 calculationGroup, new[]

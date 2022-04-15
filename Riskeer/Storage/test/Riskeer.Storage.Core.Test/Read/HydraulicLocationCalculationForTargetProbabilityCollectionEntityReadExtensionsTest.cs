@@ -133,7 +133,7 @@ namespace Riskeer.Storage.Core.Test.Read
             };
 
             var collector = new ReadConversionCollector();
-            
+
             // Call
             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsOne = collectionEntity.Read(collector);
             HydraulicBoundaryLocationCalculationsForTargetProbability calculationsTwo = collectionEntity.Read(collector);

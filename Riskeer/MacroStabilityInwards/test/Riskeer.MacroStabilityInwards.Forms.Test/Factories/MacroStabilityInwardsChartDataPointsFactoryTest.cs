@@ -710,7 +710,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
             var outerRing = new Ring(new[]
             {
                 new Point2D(0.0, 10.0),
-                new Point2D(10.0, 10.0),    
+                new Point2D(10.0, 10.0),
                 new Point2D(10.0, 0.0),
                 new Point2D(0.0, 0.0)
             });

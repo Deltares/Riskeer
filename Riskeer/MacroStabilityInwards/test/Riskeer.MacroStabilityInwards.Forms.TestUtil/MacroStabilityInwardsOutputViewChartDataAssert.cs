@@ -94,7 +94,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.TestUtil
                                                                                 true,
                                                                                 actual.Collection.ElementAt(soilProfileIndex));
 
-            AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculationScenario.InputParameters, new GeneralMacroStabilityInwardsInput(),RoundedDouble.NaN),
+            AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetExtreme(calculationScenario.InputParameters, new GeneralMacroStabilityInwardsInput(), RoundedDouble.NaN),
                                     (ChartDataCollection) actual.Collection.ElementAt(waternetZonesExtremeIndex));
             AssertWaternetChartData(DerivedMacroStabilityInwardsInput.GetWaternetDaily(calculationScenario.InputParameters, new GeneralMacroStabilityInwardsInput()),
                                     (ChartDataCollection) actual.Collection.ElementAt(waternetZonesDailyIndex));

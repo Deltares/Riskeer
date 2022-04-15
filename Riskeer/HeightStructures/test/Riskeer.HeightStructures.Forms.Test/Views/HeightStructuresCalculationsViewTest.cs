@@ -619,9 +619,9 @@ namespace Riskeer.HeightStructures.Forms.Test.Views
             AdoptableFailureMechanismSectionResult failureMechanismSectionResult1 = failureMechanism.SectionResults.First();
             AdoptableFailureMechanismSectionResult failureMechanismSectionResult2 = failureMechanism.SectionResults.ElementAt(1);
 
-            Func<StructuresCalculationScenario<HeightStructuresInput>,IEnumerable<Segment2D>,bool> intersectionFunc = 
+            Func<StructuresCalculationScenario<HeightStructuresInput>, IEnumerable<Segment2D>, bool> intersectionFunc =
                 (scenario, lineSegments) => scenario.IsStructureIntersectionWithReferenceLineInSection(lineSegments);
-            
+
             Assert.AreEqual(1, failureMechanismSectionResult1.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc).Count());
             CollectionAssert.IsEmpty(failureMechanismSectionResult2.GetRelevantCalculationScenarios(calculationScenarios, intersectionFunc));
             mocks.VerifyAll();

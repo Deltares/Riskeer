@@ -162,7 +162,7 @@ namespace Riskeer.Integration.Data.Assembly
         /// Gets the collection of assembly results for specific failure mechanisms.
         /// </summary>
         public FailureMechanismSectionAssemblyGroup?[] SpecificFailureMechanisms { get; }
-        
+
         /// <summary>
         /// Gets the total assembly result.
         /// </summary>

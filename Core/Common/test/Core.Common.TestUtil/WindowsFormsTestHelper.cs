@@ -160,8 +160,14 @@ namespace Core.Common.TestUtil
 
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
 
-            Paint += delegate { wasShown = true; };
-            VisibleChanged += delegate { wasShown = true; };
+            Paint += delegate
+            {
+                wasShown = true;
+            };
+            VisibleChanged += delegate
+            {
+                wasShown = true;
+            };
 
             Show();
 
@@ -170,8 +176,14 @@ namespace Core.Common.TestUtil
 
         private void ShowTopLevelControl(Control control, bool modal)
         {
-            control.Paint += delegate { wasShown = true; };
-            control.VisibleChanged += delegate { wasShown = true; };
+            control.Paint += delegate
+            {
+                wasShown = true;
+            };
+            control.VisibleChanged += delegate
+            {
+                wasShown = true;
+            };
 
             control.Show();
 
@@ -234,7 +246,10 @@ namespace Core.Common.TestUtil
 
             AddAllNodes(treeView1.Nodes, itemsToShow);
 
-            treeView1.NodeMouseClick += delegate { PropertyGrid.SelectedObject = treeView1.SelectedNode.Tag; };
+            treeView1.NodeMouseClick += delegate
+            {
+                PropertyGrid.SelectedObject = treeView1.SelectedNode.Tag;
+            };
         }
 
         private static void AddAllNodes(TreeNodeCollection nodes, IEnumerable itemsToShow)

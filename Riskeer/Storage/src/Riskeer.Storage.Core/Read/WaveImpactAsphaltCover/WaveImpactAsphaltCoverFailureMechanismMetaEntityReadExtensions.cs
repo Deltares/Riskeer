@@ -46,7 +46,7 @@ namespace Riskeer.Storage.Core.Read.WaveImpactAsphaltCover
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            
+
             if (generalInput == null)
             {
                 throw new ArgumentNullException(nameof(generalInput));

@@ -49,10 +49,10 @@ namespace Riskeer.GrassCoverErosionInwards.Forms.PropertyClasses.CalculationsSta
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionInwardsFailureMechanismProperties(GrassCoverErosionInwardsFailureMechanism data)
             : base(data, new ConstructionProperties
-        {
-            NamePropertyIndex = namePropertyIndex,
-            CodePropertyIndex = codePropertyIndex
-        }) {}
+            {
+                NamePropertyIndex = namePropertyIndex,
+                CodePropertyIndex = codePropertyIndex
+            }) {}
 
         #region Model settings
 

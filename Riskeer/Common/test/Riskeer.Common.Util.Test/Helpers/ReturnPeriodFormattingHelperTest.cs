@@ -36,7 +36,7 @@ namespace Riskeer.Common.Util.Test.Helpers
         {
             // Call
             void Call() => ReturnPeriodFormattingHelper.FormatFromProbability(probability);
-            
+
             // Assert
             const string message = "Probability must be larger than 0.0.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, message);
@@ -52,7 +52,7 @@ namespace Riskeer.Common.Util.Test.Helpers
         {
             // Call
             string returnPeriod = ReturnPeriodFormattingHelper.FormatFromProbability(probability);
-            
+
             // Assert
             Assert.AreEqual(expectedText, returnPeriod);
         }

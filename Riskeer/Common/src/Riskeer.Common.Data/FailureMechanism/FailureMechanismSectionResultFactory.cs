@@ -44,7 +44,7 @@ namespace Riskeer.Common.Data.FailureMechanism
                 typeof(NonAdoptableWithProfileProbabilityFailureMechanismSectionResult), section => new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section)
             }
         };
-        
+
         /// <summary>
         /// Creates a new instance of <typeparamref name="T"/>.
         /// </summary>

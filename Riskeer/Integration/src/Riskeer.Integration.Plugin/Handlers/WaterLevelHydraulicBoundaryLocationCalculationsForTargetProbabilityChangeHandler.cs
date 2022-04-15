@@ -32,7 +32,7 @@ namespace Riskeer.Integration.Plugin.Handlers
     /// Class responsible for changing the <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability.TargetProbability"/>
     /// value of a <see cref="HydraulicBoundaryLocationCalculationsForTargetProbability"/> and clearing all dependent data.
     /// </summary>
-    public class WaterLevelHydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler : HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler 
+    public class WaterLevelHydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler : HydraulicBoundaryLocationCalculationsForTargetProbabilityChangeHandler
     {
         private readonly IAssessmentSection assessmentSection;
 

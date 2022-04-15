@@ -34,7 +34,6 @@ using Riskeer.Storage.Core.Read;
 using Riskeer.Storage.Core.Read.StabilityStoneCover;
 using Riskeer.Storage.Core.Serializers;
 using Riskeer.Storage.Core.TestUtil.Hydraulics;
-using WaveConditionsInputWaterLevelType = Riskeer.Revetment.Data.WaveConditionsInputWaterLevelType;
 
 namespace Riskeer.Storage.Core.Test.Read.StabilityStoneCover
 {

@@ -109,7 +109,7 @@ namespace Riskeer.Storage.Core.Read.GrassCoverErosionOutwards
             var waveImpactOutput = new List<WaveConditionsOutput>();
             var waveImpactWithWaveDirectionOutput = new List<WaveConditionsOutput>();
             foreach (GrassCoverErosionOutwardsWaveConditionsOutputEntity outputEntity in
-                entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.OrderBy(e => e.Order))
+                     entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.OrderBy(e => e.Order))
             {
                 if (outputEntity.OutputType == Convert.ToByte(GrassCoverErosionOutwardsWaveConditionsOutputType.WaveRunUp))
                 {

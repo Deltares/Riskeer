@@ -165,14 +165,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Service.Test
                 new Point2D(2, 0),
                 new Point2D(4, 0)
             });
-            
+
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             failureMechanism.SetSections(new[]
             {
                 section1,
                 section2
             }, "some/path/to/sections");
-            
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();

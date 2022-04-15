@@ -38,6 +38,6 @@ namespace Riskeer.Integration.IO.Test.Exporters
                 {
                     HydraulicBoundaryLocationCalculationsType.WaveHeight, 2
                 }
-            }; 
+            };
     }
 }

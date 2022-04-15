@@ -91,7 +91,6 @@ namespace Riskeer.MacroStabilityInwards.Data.TestUtil.SoilProfile
                         new Point2D(2.0, 4.0),
                         new Point2D(2.0, 1.0),
                         new Point2D(0.0, 0.0)
-
                     }),
                     new MacroStabilityInwardsSoilLayerData
                     {

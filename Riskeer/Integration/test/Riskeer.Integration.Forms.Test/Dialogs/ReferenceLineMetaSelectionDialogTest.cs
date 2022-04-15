@@ -197,15 +197,15 @@ namespace Riskeer.Integration.Forms.Test.Dialogs
                     object currentSignalFloodingProbability = dataGridView[signalFloodingProbabilityColumn, 0].FormattedValue;
                     Assert.IsNotNull(currentSignalFloodingProbability);
                     string expectedSignalFloodingProbability = signalFloodingProbability.HasValue && signalFloodingProbability.Value > 0
-                                                        ? ProbabilityFormattingHelper.FormatFromReturnPeriod(signalFloodingProbability.Value)
-                                                        : string.Empty;
+                                                                   ? ProbabilityFormattingHelper.FormatFromReturnPeriod(signalFloodingProbability.Value)
+                                                                   : string.Empty;
                     Assert.AreEqual(expectedSignalFloodingProbability, currentSignalFloodingProbability.ToString());
 
                     object currentMaximumAllowableFloodingProbability = dataGridView[maximumAllowableFloodingProbabilityColumn, 0].FormattedValue;
                     Assert.IsNotNull(currentMaximumAllowableFloodingProbability);
                     string expectedMaximumAllowableFloodingProbability = maximumAllowableFloodingProbability > 0
-                                                         ? ProbabilityFormattingHelper.FormatFromReturnPeriod(maximumAllowableFloodingProbability)
-                                                         : string.Empty;
+                                                                             ? ProbabilityFormattingHelper.FormatFromReturnPeriod(maximumAllowableFloodingProbability)
+                                                                             : string.Empty;
                     Assert.AreEqual(expectedMaximumAllowableFloodingProbability, currentMaximumAllowableFloodingProbability.ToString());
                 }
             }
