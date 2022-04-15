@@ -67,7 +67,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             SectionAssemblyResultsInput = sectionAssemblyResults;
             ApplyLengthEffect = applyLengthEffect;
 
-            return AssemblyResultOutput;
+            return AssemblyResultOutput ?? (AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(0.1, AssemblyMethod.BOI1A1));
         }
     }
 }

@@ -282,8 +282,6 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
         public void AssembleFailureMechanism_CalculatorRan_ReturnsExpectedOutput()
         {
             // Setup
-            var random = new Random(21);
-
             var failureMechanism = new TestFailureMechanism
             {
                 AssemblyResult =
@@ -298,8 +296,6 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(
-                    random.NextDouble(), random.NextEnumValue<AssemblyMethod>());
 
                 // Call
                 FailureMechanismAssemblyResultWrapper result = FailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);

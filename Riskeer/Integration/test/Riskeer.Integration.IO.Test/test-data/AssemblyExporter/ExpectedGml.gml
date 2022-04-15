@@ -32,7 +32,7 @@
       <asm:generiekFaalmechanisme>STPH</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -41,7 +41,7 @@
       <asm:generiekFaalmechanisme>GEKB</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -50,7 +50,7 @@
       <asm:generiekFaalmechanisme>STBI</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -59,7 +59,7 @@
       <asm:generiekFaalmechanisme>STMI</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -68,7 +68,7 @@
       <asm:generiekFaalmechanisme>ZST</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -77,7 +77,7 @@
       <asm:generiekFaalmechanisme>AGK</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -86,7 +86,7 @@
       <asm:generiekFaalmechanisme>AWO</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -95,7 +95,7 @@
       <asm:generiekFaalmechanisme>GEBU</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -104,7 +104,7 @@
       <asm:generiekFaalmechanisme>GABU</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -113,7 +113,7 @@
       <asm:generiekFaalmechanisme>GABI</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -122,7 +122,7 @@
       <asm:generiekFaalmechanisme>HTKW</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -131,7 +131,7 @@
       <asm:generiekFaalmechanisme>BSKW</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -140,7 +140,7 @@
       <asm:generiekFaalmechanisme>PKW</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -149,7 +149,7 @@
       <asm:generiekFaalmechanisme>STKWp</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -158,7 +158,7 @@
       <asm:specifiekFaalmechanisme>Specific failure mechanism 1</asm:specifiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
@@ -167,7 +167,7 @@
       <asm:specifiekFaalmechanisme>Specific failure mechanism 2</asm:specifiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
         <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
-        <asm:faalkans>0</asm:faalkans>
+        <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>

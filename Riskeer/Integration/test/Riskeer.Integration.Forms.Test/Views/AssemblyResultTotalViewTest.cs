@@ -444,7 +444,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // Precondition
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(view.AssessmentSection.GetFailureMechanisms().Count(), rows.Count);
-                AssertAssemblyCells(view.AssessmentSection.Piping, 0, rows[0].Cells);
+                AssertAssemblyCells(view.AssessmentSection.Piping, 0.1, rows[0].Cells);
 
                 // When
                 view.AssessmentSection.Piping = new TestPipingFailureMechanism

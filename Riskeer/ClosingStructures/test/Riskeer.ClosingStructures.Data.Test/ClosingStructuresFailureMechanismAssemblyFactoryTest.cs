@@ -21,7 +21,6 @@
 
 using System;
 using System.Linq;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
@@ -110,8 +109,6 @@ namespace Riskeer.ClosingStructures.Data.Test
         public void AssembleFailureMechanism_CalculatorRan_ReturnsExpectedOutput()
         {
             // Setup
-            var random = new Random(21);
-
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 AssemblyResult =
@@ -126,8 +123,6 @@ namespace Riskeer.ClosingStructures.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(
-                    random.NextDouble(), random.NextEnumValue<AssemblyMethod>());
 
                 // Call
                 FailureMechanismAssemblyResultWrapper result = ClosingStructuresFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);

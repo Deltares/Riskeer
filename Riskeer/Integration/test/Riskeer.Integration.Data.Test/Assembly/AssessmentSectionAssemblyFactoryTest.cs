@@ -83,7 +83,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 Assert.AreEqual(expectedNrOfProbabilities, calculatorInput.Count());
                 foreach (double failureMechanismProbability in calculatorInput)
                 {
-                    Assert.AreEqual(failureMechanismAssemblyCalculator.AssemblyResultOutput, failureMechanismProbability);
+                    Assert.AreEqual(failureMechanismAssemblyCalculator.AssemblyResultOutput.AssemblyResult, failureMechanismProbability);
                 }
             }
         }

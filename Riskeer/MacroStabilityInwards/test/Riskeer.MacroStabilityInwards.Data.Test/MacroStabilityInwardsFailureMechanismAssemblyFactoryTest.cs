@@ -277,8 +277,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
         public void AssembleFailureMechanism_CalculatorRan_ReturnsExpectedOutput()
         {
             // Setup
-            var random = new Random(21);
-
             var failureMechanism = new MacroStabilityInwardsFailureMechanism
             {
                 AssemblyResult =
@@ -293,8 +291,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(
-                    random.NextDouble(), random.NextEnumValue<AssemblyMethod>());
 
                 // Call
                 FailureMechanismAssemblyResultWrapper result = MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);

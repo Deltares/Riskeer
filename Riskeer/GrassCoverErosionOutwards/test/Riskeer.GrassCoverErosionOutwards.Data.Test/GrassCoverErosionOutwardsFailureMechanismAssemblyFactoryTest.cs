@@ -270,8 +270,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
         public void AssembleFailureMechanism_CalculatorRan_ReturnsExpectedOutput()
         {
             // Setup
-            var random = new Random(21);
-
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
                 AssemblyResult =
@@ -286,8 +284,6 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(
-                    random.NextDouble(), random.NextEnumValue<AssemblyMethod>());
 
                 // Call
                 FailureMechanismAssemblyResultWrapper result = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
