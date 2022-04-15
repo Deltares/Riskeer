@@ -301,7 +301,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub failureMechanismAssemblyCalculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                failureMechanismAssemblyCalculator.AssemblyResult = expectedAssemblyResult;
+                failureMechanismAssemblyCalculator.AssemblyResultOutput = expectedAssemblyResult;
 
                 // Call
                 double assemblyResult = AssemblyToolHelper.AssemblyFailureMechanism(

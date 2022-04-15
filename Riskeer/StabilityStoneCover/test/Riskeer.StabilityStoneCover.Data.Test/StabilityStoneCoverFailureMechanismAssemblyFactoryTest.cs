@@ -287,7 +287,7 @@ namespace Riskeer.StabilityStoneCover.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResult = assemblyOutput;
+                calculator.AssemblyResultOutput = assemblyOutput;
 
                 // Call
                 double result = StabilityStoneCoverFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);

@@ -52,9 +52,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         public bool ThrowExceptionOnCalculate { private get; set; }
 
         /// <summary>
-        /// Gets or sets the result of the assembly calculation.
+        /// Gets or sets the result output of the assembly calculation.
         /// </summary>
-        public FailureMechanismAssemblyResultWrapper AssemblyResult { get; set; }
+        public FailureMechanismAssemblyResultWrapper AssemblyResultOutput { get; set; }
 
         public FailureMechanismAssemblyResultWrapper Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults, bool applyLengthEffect)
         {
@@ -67,7 +67,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             SectionAssemblyResultsInput = sectionAssemblyResults;
             ApplyLengthEffect = applyLengthEffect;
 
-            return AssemblyResult;
+            return AssemblyResultOutput;
         }
     }
 }

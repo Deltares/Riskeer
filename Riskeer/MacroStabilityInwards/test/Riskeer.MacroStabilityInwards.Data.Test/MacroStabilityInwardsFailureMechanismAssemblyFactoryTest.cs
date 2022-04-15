@@ -294,7 +294,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResult = assemblyOutput;
+                calculator.AssemblyResultOutput = assemblyOutput;
 
                 // Call
                 double result = MacroStabilityInwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);

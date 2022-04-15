@@ -287,7 +287,7 @@ namespace Riskeer.GrassCoverErosionOutwards.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResult = assemblyOutput;
+                calculator.AssemblyResultOutput = assemblyOutput;
 
                 // Call
                 double result = GrassCoverErosionOutwardsFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);

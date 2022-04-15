@@ -127,7 +127,7 @@ namespace Riskeer.Integration.Data.Test.StandAlone.AssemblyFactories
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResult = assemblyOutput;
+                calculator.AssemblyResultOutput = assemblyOutput;
 
                 // Call
                 double result = PipingStructureFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);

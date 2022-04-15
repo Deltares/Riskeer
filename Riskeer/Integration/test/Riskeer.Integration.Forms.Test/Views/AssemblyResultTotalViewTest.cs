@@ -177,7 +177,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                     // Then
                     DataGridView dataGridView = GetDataGridView();
                     AssertFailureMechanismRows(view.AssessmentSection,
-                                               calculator.AssemblyResult,
+                                               calculator.AssemblyResultOutput.AssemblyResult,
                                                dataGridView.Rows);
                 }
             }
@@ -479,7 +479,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 // Precondition
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
+                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResultOutput.AssemblyResult, rows);
 
                 // When
                 ObservableList<SpecificFailureMechanism> specificFailureMechanisms = assessmentSection.SpecificFailureMechanisms;
@@ -491,7 +491,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 // Then
                 Assert.AreNotSame(dataSource, dataGridView.DataSource);
-                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
+                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResultOutput.AssemblyResult, rows);
             }
         }
 
@@ -513,7 +513,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 // Precondition
                 DataGridViewRowCollection rows = dataGridView.Rows;
-                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
+                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResultOutput.AssemblyResult, rows);
 
                 // When
                 ObservableList<SpecificFailureMechanism> specificFailureMechanisms = assessmentSection.SpecificFailureMechanisms;
@@ -526,7 +526,7 @@ namespace Riskeer.Integration.Forms.Test.Views
 
                 // Then
                 Assert.AreNotSame(dataSource, dataGridView.DataSource);
-                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResult, rows);
+                AssertFailureMechanismRows(view.AssessmentSection, calculator.AssemblyResultOutput.AssemblyResult, rows);
             }
         }
 

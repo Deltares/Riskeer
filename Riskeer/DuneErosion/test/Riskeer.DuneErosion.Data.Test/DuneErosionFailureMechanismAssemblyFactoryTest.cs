@@ -125,7 +125,7 @@ namespace Riskeer.DuneErosion.Data.Test
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismAssemblyCalculator;
-                calculator.AssemblyResult = assemblyOutput;
+                calculator.AssemblyResultOutput = assemblyOutput;
 
                 // Call
                 double result = DuneErosionFailureMechanismAssemblyFactory.AssembleFailureMechanism(failureMechanism, assessmentSection);
