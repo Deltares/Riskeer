@@ -177,19 +177,20 @@ namespace Riskeer.Integration.Data.Assembly
 
             failureMechanismAssemblies.AddRange(assessmentSection.SpecificFailureMechanisms
                                                                  .Where(fp => fp.InAssembly)
-                                                                 .Select(fp => FailureMechanismAssemblyFactory.AssembleFailureMechanism(fp, assessmentSection)));
+                                                                 .Select(fp => FailureMechanismAssemblyFactory.AssembleFailureMechanism(fp, assessmentSection)
+                                                                                                              .AssemblyResult));
 
             return failureMechanismAssemblies;
         }
 
         private static void AssembleWhenApplicable<TFailureMechanism>(
             List<double> resultsList, TFailureMechanism failureMechanism, AssessmentSection assessmentSection,
-            Func<TFailureMechanism, AssessmentSection, double> performAssemblyFunc)
+            Func<TFailureMechanism, AssessmentSection, FailureMechanismAssemblyResultWrapper> performAssemblyFunc)
             where TFailureMechanism : IFailureMechanism<FailureMechanismSectionResult>
         {
             if (failureMechanism.InAssembly)
             {
-                resultsList.Add(performAssemblyFunc(failureMechanism, assessmentSection));
+                resultsList.Add(performAssemblyFunc(failureMechanism, assessmentSection).AssemblyResult);
             }
         }
     }

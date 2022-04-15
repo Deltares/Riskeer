@@ -56,7 +56,7 @@ namespace Riskeer.Integration.IO.Factories
         /// <exception cref="AssemblyException">Thrown when assembly results cannot be created.</exception>
         public static ExportableFailureMechanism CreateExportableFailureMechanism<TFailureMechanism, TSectionResult>(
             TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
-            Func<TFailureMechanism, IAssessmentSection, double> assembleFailureMechanismFunc,
+            Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> assembleFailureMechanismFunc,
             Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc,
             ExportableFailureMechanismType failureMechanismType)
             where TFailureMechanism : IFailureMechanism<TSectionResult>
@@ -84,7 +84,7 @@ namespace Riskeer.Integration.IO.Factories
 
             return new ExportableFailureMechanism(
                 new ExportableFailureMechanismAssemblyResult(
-                    assembleFailureMechanismFunc(failureMechanism, assessmentSection),
+                    assembleFailureMechanismFunc(failureMechanism, assessmentSection).AssemblyResult,
                     failureMechanism.AssemblyResult.IsManualProbability()),
                 CreateExportableFailureMechanismSectionResults(
                     failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),

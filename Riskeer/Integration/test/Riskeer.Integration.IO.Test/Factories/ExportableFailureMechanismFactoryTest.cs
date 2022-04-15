@@ -49,7 +49,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                null, assessmentSection, (fm, section) => double.NaN, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
+                null, assessmentSection, (fm, section) => null, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -65,7 +65,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                new TestFailureMechanism(), null, (fm, section) => double.NaN, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
+                new TestFailureMechanism(), null, (fm, section) => null, (sr, fm, section) => null, random.NextEnumValue<ExportableFailureMechanismType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -104,7 +104,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             // Call
             void Call() => ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                new TestFailureMechanism(), assessmentSection, (fm, section) => double.NaN, null, random.NextEnumValue<ExportableFailureMechanismType>());
+                new TestFailureMechanism(), assessmentSection, (fm, section) => null, null, random.NextEnumValue<ExportableFailureMechanismType>());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -133,7 +133,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             // Call
             ExportableFailureMechanism exportableFailureMechanism =
                 ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                    failureMechanism, assessmentSection, (fm, section) => probability,
+                    failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(probability, random.NextEnumValue<AssemblyMethod>()),
                     (sr, fm, section) => expectedSectionOutput, failureMechanismType);
 
             // Assert

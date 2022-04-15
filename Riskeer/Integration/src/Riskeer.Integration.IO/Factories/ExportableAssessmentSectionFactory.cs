@@ -176,7 +176,7 @@ namespace Riskeer.Integration.IO.Factories
 
         private static void AddFailureMechanismWhenInAssembly<TFailureMechanism, TSectionResult>(
             List<ExportableFailureMechanism> exportableFailureMechanisms, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection,
-            Func<TFailureMechanism, IAssessmentSection, double> assembleFailureMechanismFunc,
+            Func<TFailureMechanism, IAssessmentSection, FailureMechanismAssemblyResultWrapper> assembleFailureMechanismFunc,
             Func<TSectionResult, TFailureMechanism, IAssessmentSection, FailureMechanismSectionAssemblyResultWrapper> assembleFailureMechanismSectionFunc,
             ExportableFailureMechanismType failureMechanismType)
             where TFailureMechanism : IFailureMechanism<TSectionResult>
