@@ -26,6 +26,7 @@ using Riskeer.AssemblyTool.KernelWrapper.Calculators;
 using Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly;
 using Riskeer.AssemblyTool.KernelWrapper.Kernels;
 using Riskeer.Common.Data.Exceptions;
+using Riskeer.Common.Data.FailureMechanism;
 
 namespace Riskeer.Common.Data.AssemblyTool
 {
@@ -40,17 +41,30 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <param name="failureMechanismN">The length effect factor 'N' of the failure mechanism.</param>
         /// <param name="failureMechanismSectionAssemblyResults">A collection of <see cref="FailureMechanismSectionAssemblyResult"/>.</param>
         /// <param name="applyLengthEffect">Indicator whether the failure mechanism section length effect is applied.</param>
-        /// <returns>A failure probability of the failure mechanism.</returns>
+        /// <param name="failureMechanismAssemblyResult">The <see cref="FailureMechanismAssemblyResult"/>.</param>
+        /// <returns>A <see cref="FailureMechanismAssemblyResultWrapper"/> representing the assembly result of the failure mechanism.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionAssemblyResults"/>
-        /// is <c>null</c>.</exception>
+        /// or <paramref name="failureMechanismAssemblyResult"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>
-        public static double AssembleFailureMechanism(double failureMechanismN,
-                                                      IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults,
-                                                      bool applyLengthEffect)
+        public static FailureMechanismAssemblyResultWrapper AssembleFailureMechanism(
+            double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> failureMechanismSectionAssemblyResults,
+            bool applyLengthEffect, FailureMechanismAssemblyResult failureMechanismAssemblyResult)
         {
             if (failureMechanismSectionAssemblyResults == null)
             {
                 throw new ArgumentNullException(nameof(failureMechanismSectionAssemblyResults));
+            }
+
+            if (failureMechanismAssemblyResult == null)
+            {
+                throw new ArgumentNullException(nameof(failureMechanismAssemblyResult));
+            }
+
+            if (failureMechanismAssemblyResult.ProbabilityResultType == FailureMechanismAssemblyProbabilityResultType.Manual)
+            {
+                return new FailureMechanismAssemblyResultWrapper(
+                    failureMechanismAssemblyResult.ManualFailureMechanismAssemblyProbability,
+                    AssemblyMethod.Manual);
             }
 
             try
