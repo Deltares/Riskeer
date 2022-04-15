@@ -19,12 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Data.TestUtil;
@@ -99,13 +101,14 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -133,7 +136,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -160,7 +164,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -183,7 +188,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -206,7 +212,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new StabilityPointStructuresFailureMechanism());
@@ -230,7 +237,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var context = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -254,7 +262,8 @@ namespace Riskeer.StabilityPointStructures.Plugin.Test.ViewInfos
             var context = new StabilityPointStructuresFailureMechanismContext(new StabilityPointStructuresFailureMechanism(), assessmentSection);
 
             using (var view = new StructuresFailureMechanismResultView<StabilityPointStructuresFailureMechanism, StabilityPointStructuresInput>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);

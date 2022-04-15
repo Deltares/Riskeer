@@ -19,12 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Views;
@@ -99,14 +101,13 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
 
             mocks.ReplayAll();
 
-            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(failureMechanism.SectionResults,
-                                                                                                      failureMechanism,
-                                                                                                      assessmentSection,
-                                                                                                      (fm, ass) => double.NaN))
+            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -132,10 +133,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(failureMechanism.SectionResults,
-                                                                                                      failureMechanism,
-                                                                                                      assessmentSection,
-                                                                                                      (fm, ass) => double.NaN))
+            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -160,10 +160,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(failureMechanism.SectionResults,
-                                                                                                      failureMechanism,
-                                                                                                      assessmentSection,
-                                                                                                      (fm, ass) => double.NaN))
+            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -183,10 +182,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(failureMechanism.SectionResults,
-                                                                                                      failureMechanism,
-                                                                                                      assessmentSection,
-                                                                                                      (fm, ass) => double.NaN))
+            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanism);
@@ -207,10 +205,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
 
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(failureMechanism.SectionResults,
-                                                                                                      failureMechanism,
-                                                                                                      assessmentSection,
-                                                                                                      (fm, ass) => double.NaN))
+            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, new DuneErosionFailureMechanism());
@@ -232,10 +229,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var failureMechanism = new DuneErosionFailureMechanism();
             var context = new DuneErosionFailureMechanismContext(failureMechanism, assessmentSection);
 
-            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(failureMechanism.SectionResults,
-                                                                                                      failureMechanism,
-                                                                                                      assessmentSection,
-                                                                                                      (fm, ass) => double.NaN))
+            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);
@@ -256,10 +252,9 @@ namespace Riskeer.DuneErosion.Plugin.Test.ViewInfos
             var context = new DuneErosionFailureMechanismContext(new DuneErosionFailureMechanism(), assessmentSection);
             var failureMechanism = new DuneErosionFailureMechanism();
 
-            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(failureMechanism.SectionResults,
-                                                                                                      failureMechanism,
-                                                                                                      assessmentSection,
-                                                                                                      (fm, ass) => double.NaN))
+            using (var view = new NonAdoptableFailureMechanismResultView<DuneErosionFailureMechanism>(
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, context);

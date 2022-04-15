@@ -19,12 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.PresentationObjects;
@@ -97,13 +99,14 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
             assessmentSection.Stub(asm => asm.SpecificFailureMechanisms).Return(new ObservableList<SpecificFailureMechanism>());
             mocks.ReplayAll();
 
             var failureMechanism = new PipingStructureFailureMechanism();
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -130,7 +133,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             var failureMechanism = new PipingStructureFailureMechanism();
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -156,7 +160,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, assessmentSection);
@@ -180,7 +185,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             mocks.ReplayAll();
 
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);
@@ -204,7 +210,8 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
             var failureMechanism = new PipingStructureFailureMechanism();
 
             using (var view = new NonAdoptableFailureMechanismResultView<PipingStructureFailureMechanism>(
-                       failureMechanism.SectionResults, failureMechanism, assessmentSection, (fm, ass) => double.NaN))
+                       failureMechanism.SectionResults, failureMechanism, assessmentSection,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual)))
             {
                 // Call
                 bool closeForData = info.CloseForData(view, failureMechanismContext);

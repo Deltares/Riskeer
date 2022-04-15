@@ -26,6 +26,7 @@ using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -105,7 +106,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => double.NaN,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
                        fm => true,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
@@ -137,7 +138,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => double.NaN,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
                        fm => true,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
@@ -167,7 +168,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => double.NaN,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
                        fm => true,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
@@ -193,7 +194,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => double.NaN,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
                        fm => true,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
@@ -219,7 +220,7 @@ namespace Riskeer.Integration.Plugin.Test.ViewInfos
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<SpecificFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => double.NaN,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
                        fm => true,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {

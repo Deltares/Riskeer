@@ -19,12 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Core.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.FailureMechanism;
@@ -100,14 +102,14 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
+            assessmentSection.Stub(asm => asm.GetFailureMechanisms()).Return(Array.Empty<IFailureMechanism>());
             mocks.ReplayAll();
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => double.NaN,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
                        fm => true,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
@@ -136,7 +138,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => double.NaN,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
                        fm => true,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
@@ -164,7 +166,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => double.NaN,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
                        fm => true,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
@@ -188,7 +190,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => double.NaN,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
                        fm => true,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
@@ -212,7 +214,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => double.NaN,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
                        fm => true,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
@@ -238,7 +240,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
 
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => double.NaN,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
                        fm => true,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
@@ -265,7 +267,7 @@ namespace Riskeer.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             using (var view = new NonAdoptableWithProfileProbabilityFailureMechanismResultView<WaveImpactAsphaltCoverFailureMechanism>(
                        failureMechanism.SectionResults, failureMechanism, assessmentSection,
-                       (fm, ass) => double.NaN,
+                       (fm, ass) => new FailureMechanismAssemblyResultWrapper(double.NaN, AssemblyMethod.Manual),
                        fm => true,
                        sr => FailureMechanismSectionAssemblyResultWrapperTestFactory.Create()))
             {
