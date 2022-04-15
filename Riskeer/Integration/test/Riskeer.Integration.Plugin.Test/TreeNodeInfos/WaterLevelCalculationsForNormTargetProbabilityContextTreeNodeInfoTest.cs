@@ -996,10 +996,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
 
         private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculations()
         {
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability))
-                .SetName("SignalFloodingProbabilityCalculations");
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability))
-                .SetName("MaximumAllowableFloodingProbabilityCalculations");
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability));
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability));
         }
 
         private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculationConfigurations()
