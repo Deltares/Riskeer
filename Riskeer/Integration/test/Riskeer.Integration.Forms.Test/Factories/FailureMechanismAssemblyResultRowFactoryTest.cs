@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Integration.Forms.Factories;
@@ -38,7 +40,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
         public void CreateRow_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => FailureMechanismAssemblyResultRowFactory.CreateRow(null, () => double.NaN);
+            void Call() => FailureMechanismAssemblyResultRowFactory.CreateRow(null, () => null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -69,8 +71,6 @@ namespace Riskeer.Integration.Forms.Test.Factories
             const string failureMechanismName = "Failure Mechanism Name";
             const string failureMechanismCode = "Code";
 
-            var random = new Random(21);
-
             var mocks = new MockRepository();
             var failureMechanism = mocks.Stub<IFailureMechanism>();
             failureMechanism.Stub(fm => fm.Name).Return(failureMechanismName);
@@ -79,10 +79,8 @@ namespace Riskeer.Integration.Forms.Test.Factories
 
             failureMechanism.InAssembly = false;
 
-            double assemblyResult = random.NextDouble();
-
             // Call
-            FailureMechanismAssemblyResultRow row = FailureMechanismAssemblyResultRowFactory.CreateRow(failureMechanism, () => assemblyResult);
+            FailureMechanismAssemblyResultRow row = FailureMechanismAssemblyResultRowFactory.CreateRow(failureMechanism, () => null);
 
             // Assert
             Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
@@ -117,7 +115,8 @@ namespace Riskeer.Integration.Forms.Test.Factories
             double assemblyResult = random.NextDouble();
 
             // Call
-            FailureMechanismAssemblyResultRow row = FailureMechanismAssemblyResultRowFactory.CreateRow(failureMechanism, () => assemblyResult);
+            FailureMechanismAssemblyResultRow row = FailureMechanismAssemblyResultRowFactory.CreateRow(failureMechanism, () => new FailureMechanismAssemblyResultWrapper(
+                                                                                                           assemblyResult, random.NextEnumValue<AssemblyMethod>()));
 
             // Assert
             Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
@@ -187,7 +186,7 @@ namespace Riskeer.Integration.Forms.Test.Factories
             failureMechanism.InAssembly = true;
 
             // Call
-            FailureMechanismAssemblyResultRow row = FailureMechanismAssemblyResultRowFactory.CreateRow(failureMechanism, () => assemblyResult);
+            FailureMechanismAssemblyResultRow row = FailureMechanismAssemblyResultRowFactory.CreateRow(failureMechanism, () => null);
 
             // Assert
             Assert.IsEmpty(row.ColumnStateDefinitions[probabilityIndex].ErrorText);
@@ -219,10 +218,8 @@ namespace Riskeer.Integration.Forms.Test.Factories
 
             failureMechanism.InAssembly = true;
 
-            var random = new Random(21);
-
             // Call
-            FailureMechanismAssemblyResultRow row = FailureMechanismAssemblyResultRowFactory.CreateRow(failureMechanism, () => random.NextDouble());
+            FailureMechanismAssemblyResultRow row = FailureMechanismAssemblyResultRowFactory.CreateRow(failureMechanism, () => null);
 
             // Assert
             Assert.AreEqual("Er moet een waarde worden ingevuld voor de faalkans.", row.ColumnStateDefinitions[probabilityIndex].ErrorText);

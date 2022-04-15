@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Riskeer.AssemblyTool.Data;
 using Riskeer.Common.Data.Exceptions;
 using Riskeer.Common.Data.FailureMechanism;
 using Riskeer.Common.Forms.Helpers;
@@ -40,7 +41,7 @@ namespace Riskeer.Integration.Forms.Factories
         /// <returns>A <see cref="FailureMechanismAssemblyResultRow"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public static FailureMechanismAssemblyResultRow CreateRow(IFailureMechanism failureMechanism,
-                                                                  Func<double> performAssemblyFunc)
+                                                                  Func<FailureMechanismAssemblyResultWrapper> performAssemblyFunc)
         {
             if (failureMechanism == null)
             {
@@ -73,11 +74,11 @@ namespace Riskeer.Integration.Forms.Factories
         }
 
         private static FailureMechanismAssemblyResultRow CreateAutomaticAssemblyRow(IFailureMechanism failureMechanism,
-                                                                                    Func<double> performAssemblyFunc)
+                                                                                    Func<FailureMechanismAssemblyResultWrapper> performAssemblyFunc)
         {
             try
             {
-                double assemblyResult = performAssemblyFunc();
+                double assemblyResult = performAssemblyFunc().AssemblyResult;
                 return new FailureMechanismAssemblyResultRow(failureMechanism, assemblyResult);
             }
             catch (AssemblyException e)
