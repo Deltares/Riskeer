@@ -182,7 +182,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_Always_CallsContextMenuBuilderMethods_{0}"
+        })]
         public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -231,7 +234,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_Always_AddCustomItems_{0}"
+        })]
         public void ContextMenuStrip_Always_AddCustomItems(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -281,7 +287,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet_{0}"
+        })]
         public void ContextMenuStrip_HydraulicBoundaryDatabaseNotLinked_ContextMenuItemCalculateAllDisabledAndTooltipSet(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -322,7 +331,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllDisabledAndTooltipSet_{0}"
+        })]
         public void ContextMenuStrip_HydraulicBoundaryDatabaseLinkedToInvalidFile_ContextMenuItemCalculateAllDisabledAndTooltipSet(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -371,7 +383,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled_{0}"
+        })]
         public void ContextMenuStrip_AllRequiredInputSet_ContextMenuItemCalculateAllEnabled(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -419,7 +434,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet_{0}"
+        })]
         public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithIllustrationPoints_ContextMenuItemClearAllIllustrationPointsEnabledAndTooltipSet(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -475,7 +493,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled_{0}"
+        })]
         public void ContextMenuStrip_HydraulicBoundaryLocationCalculationsWithoutIllustrationPoints_ContextMenuItemClearAllIllustrationPointsDisabled(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
         {
@@ -523,7 +544,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService_{0}"
+        })]
         [Apartment(ApartmentState.STA)]
         public void CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithCanUsePreprocessorFalse_SendsRightInputToCalculationService(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
@@ -599,7 +623,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService_{0}"
+        })]
         [Apartment(ApartmentState.STA)]
         public void CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorTrue_SendsRightInputToCalculationService(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
@@ -683,7 +710,10 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCaseSource(nameof(GetWaterLevelForNormTargetProbabilityCalculations))]
+        [TestCaseSource(typeof(WaterLevelCalculationsForNormTargetProbabilityContextTreeNodeInfoTest), nameof(GetWaterLevelForNormTargetProbabilityCalculations), new object[]
+        {
+            "CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService_{0}"
+        })]
         [Apartment(ApartmentState.STA)]
         public void CalculateWaterLevelsFromContextMenu_HydraulicBoundaryDatabaseWithUsePreprocessorFalse_SendsRightInputToCalculationService(
             Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>> getCalculationsFunc)
@@ -994,10 +1024,12 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             mockRepository.VerifyAll();
         }
 
-        private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculations()
+        private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculations(string testNameFormat)
         {
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability));
-            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability));
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForSignalFloodingProbability))
+                .SetName(string.Format(testNameFormat, "SignalFloodingProbabilityCalculations"));
+            yield return new TestCaseData(new Func<IAssessmentSection, IObservableEnumerable<HydraulicBoundaryLocationCalculation>>(a => a.WaterLevelCalculationsForMaximumAllowableFloodingProbability))
+                .SetName(string.Format(testNameFormat, "MaximumAllowableFloodingProbabilityCalculations"));
         }
 
         private static IEnumerable<TestCaseData> GetWaterLevelForNormTargetProbabilityCalculationConfigurations()
