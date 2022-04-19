@@ -55,7 +55,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets or sets the output of an assessment section assembly.
         /// </summary>
-        public AssessmentSectionAssemblyResult AssessmentSectionAssemblyResult { get; set; }
+        public AssessmentSectionAssemblyResultWrapper AssessmentSectionAssemblyResult { get; set; }
 
         /// <summary>
         /// Gets the combined failure mechanism sections input.
@@ -72,7 +72,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public IEnumerable<CombinedFailureMechanismSectionAssembly> CombinedFailureMechanismSectionAssemblyOutput { get; set; }
 
-        public AssessmentSectionAssemblyResult AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities, double maximumAllowableFloodingProbability, double signalFloodingProbability)
+        public AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities, double maximumAllowableFloodingProbability, double signalFloodingProbability)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -83,7 +83,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             MaximumAllowableFloodingProbabilityInput = maximumAllowableFloodingProbability;
             SignalFloodingProbability = signalFloodingProbability;
 
-            return AssessmentSectionAssemblyResult ?? (AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResult(0.14, AssessmentSectionAssemblyGroup.APlus));
+            return AssessmentSectionAssemblyResult ?? (AssessmentSectionAssemblyResult = 
+                                                           new AssessmentSectionAssemblyResultWrapper(
+                                                               new AssessmentSectionAssemblyResult(0.14, AssessmentSectionAssemblyGroup.APlus),
+                                                               AssemblyMethod.BOI2A1, AssemblyMethod.BOI2A2));
         }
 
         public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(

@@ -56,9 +56,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             this.factory = factory;
         }
 
-        public AssessmentSectionAssemblyResult AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities,
-                                                                         double maximumAllowableFloodingProbability,
-                                                                         double signalFloodingProbability)
+        public AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities,
+                                                                                double maximumAllowableFloodingProbability,
+                                                                                double signalFloodingProbability)
         {
             if (failureMechanismProbabilities == null)
             {
@@ -79,8 +79,10 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 Probability assemblyProbability = assessmentSectionAssemblyKernel.CalculateAssessmentSectionFailureProbabilityBoi2A1(probabilities, false);
                 EAssessmentGrade assemblyCategory = assessmentSectionAssemblyKernel.DetermineAssessmentGradeBoi2B1(assemblyProbability, assessmentSectionCategories);
 
-                return new AssessmentSectionAssemblyResult(
-                    assemblyProbability, AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup(assemblyCategory));
+                return new AssessmentSectionAssemblyResultWrapper(
+                    new AssessmentSectionAssemblyResult(assemblyProbability,
+                                                        AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup(assemblyCategory)),
+                    AssemblyMethod.BOI2A1, AssemblyMethod.BOI2A2);
             }
             catch (AssemblyException e)
             {

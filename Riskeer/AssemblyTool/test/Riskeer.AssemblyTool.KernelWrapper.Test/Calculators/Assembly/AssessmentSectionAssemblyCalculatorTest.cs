@@ -165,12 +165,16 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                AssessmentSectionAssemblyResult result = calculator.AssembleAssessmentSection(Enumerable.Empty<double>(), maximumAllowableFloodingProbability, signalFloodingProbability);
+                AssessmentSectionAssemblyResultWrapper resultWrapper = calculator.AssembleAssessmentSection(
+                    Enumerable.Empty<double>(), maximumAllowableFloodingProbability, signalFloodingProbability);
 
                 // Assert
+                AssessmentSectionAssemblyResult result = resultWrapper.AssemblyResult;
                 Assert.AreEqual(assemblyProbability, result.Probability);
                 Assert.AreEqual(AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup(assemblyGroup),
                                 result.AssemblyGroup);
+                Assert.AreEqual(AssemblyMethod.BOI2A1, resultWrapper.ProbabilityMethod);
+                Assert.AreEqual(AssemblyMethod.BOI2A2, resultWrapper.AssemblyGroupMethod);
             }
         }
 
