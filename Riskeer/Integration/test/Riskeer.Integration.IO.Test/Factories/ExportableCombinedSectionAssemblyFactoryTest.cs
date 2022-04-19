@@ -108,8 +108,8 @@ namespace Riskeer.Integration.IO.Test.Factories
         {
             var random = new Random(seed);
 
-            return new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(),
-                                                                     random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+            return new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                                                                     random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
                                                                      new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
                                                                      {
                                                                          Piping = GetAssemblyGroup(random, hasAssemblyGroupResults),

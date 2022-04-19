@@ -140,9 +140,8 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Setup
             var random = new Random(21);
 
-            var result = new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(),
-                                                                           random.NextDouble(),
-                                                                           assemblyGroup,
+            var result = new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), assemblyGroup, random.NextEnumValue<AssemblyMethod>(),
+                                                                           random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
                                                                            new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
                                                                            {
                                                                                Piping = assemblyGroup,
@@ -203,9 +202,9 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Setup
             var random = new Random(21);
 
-            var result = new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(),
-                                                                           random.NextDouble(),
-                                                                           FailureMechanismSectionAssemblyGroup.Gr,
+            var result = new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), FailureMechanismSectionAssemblyGroup.Gr,
+                                                                           random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
+                                                                           random.NextEnumValue<AssemblyMethod>(),
                                                                            new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
                                                                            {
                                                                                Piping = null,
@@ -264,9 +263,8 @@ namespace Riskeer.Integration.Forms.Test.Views
         private static CombinedFailureMechanismSectionAssemblyResult GetCombinedFailureMechanismSectionAssemblyResult(bool failureMechanismsInAssembly)
         {
             var random = new Random(21);
-            return new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(),
-                                                                     random.NextDouble(),
-                                                                     random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+            return new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                                                                     random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
                                                                      new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
                                                                      {
                                                                          Piping = GetFailureMechanismSectionAssemblyGroup(failureMechanismsInAssembly, random),

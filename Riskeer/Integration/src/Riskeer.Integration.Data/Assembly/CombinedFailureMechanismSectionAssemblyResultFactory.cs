@@ -41,7 +41,7 @@ namespace Riskeer.Integration.Data.Assembly
         /// <param name="assessmentSection">The assessment section to use while creating the results.</param>
         /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> Create(IEnumerable<CombinedFailureMechanismSectionAssembly> output,
+        public static IEnumerable<CombinedFailureMechanismSectionAssemblyResult> Create(CombinedFailureMechanismSectionAssemblyResultWrapper output,
                                                                                         IDictionary<IFailureMechanism, int> failureMechanisms,
                                                                                         AssessmentSection assessmentSection)
         {
@@ -60,11 +60,15 @@ namespace Riskeer.Integration.Data.Assembly
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
-            return output.Select(assembly => new CombinedFailureMechanismSectionAssemblyResult(assembly.Section.SectionStart,
-                                                                                               assembly.Section.SectionEnd,
-                                                                                               assembly.Section.FailureMechanismSectionAssemblyGroup,
-                                                                                               CreateFailureMechanismResults(assembly.FailureMechanismSectionAssemblyGroupResults,
-                                                                                                                             failureMechanisms, assessmentSection)))
+            return output.AssemblyResults.Select(assembly => new CombinedFailureMechanismSectionAssemblyResult(
+                                                     assembly.Section.SectionStart,
+                                                     assembly.Section.SectionEnd,
+                                                     assembly.Section.FailureMechanismSectionAssemblyGroup,
+                                                     output.CommonSectionAssemblyMethod,
+                                                     output.FailureMechanismResultsAssemblyMethod,
+                                                     output.CombinedSectionResultAssemblyMethod,
+                                                     CreateFailureMechanismResults(assembly.FailureMechanismSectionAssemblyGroupResults,
+                                                                                   failureMechanisms, assessmentSection)))
                          .ToArray();
         }
 

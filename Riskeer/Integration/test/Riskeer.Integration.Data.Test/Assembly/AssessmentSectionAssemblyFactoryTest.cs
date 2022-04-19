@@ -239,7 +239,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                                                                                         })
                                                                                         .ToDictionary(x => x.FailureMechanism, x => x.Index);
                 CombinedFailureMechanismSectionAssemblyResult[] expectedOutput = CombinedFailureMechanismSectionAssemblyResultFactory.Create(
-                    calculator.CombinedFailureMechanismSectionAssemblyOutput.AssemblyResults, failureMechanisms, assessmentSection).ToArray();
+                    calculator.CombinedFailureMechanismSectionAssemblyOutput, failureMechanisms, assessmentSection).ToArray();
 
                 Assert.AreEqual(expectedOutput.Length, output.Length);
                 for (var i = 0; i < expectedOutput.Length; i++)
@@ -263,6 +263,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
                     Assert.AreEqual(expectedOutput[i].StabilityPointStructures, output[i].StabilityPointStructures);
                     Assert.AreEqual(expectedOutput[i].DuneErosion, output[i].DuneErosion);
                     CollectionAssert.AreEqual(expectedOutput[i].SpecificFailureMechanisms, output[i].SpecificFailureMechanisms);
+
+                    Assert.AreEqual(expectedOutput[i].CommonSectionAssemblyMethod, output[i].CommonSectionAssemblyMethod);
+                    Assert.AreEqual(expectedOutput[i].FailureMechanismResultsAssemblyMethod, output[i].FailureMechanismResultsAssemblyMethod);
+                    Assert.AreEqual(expectedOutput[i].CombinedSectionResultAssemblyMethod, output[i].CombinedSectionResultAssemblyMethod);
                 }
             }
         }

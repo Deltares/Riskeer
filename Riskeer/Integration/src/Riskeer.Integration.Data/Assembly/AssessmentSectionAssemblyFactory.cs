@@ -121,7 +121,7 @@ namespace Riskeer.Integration.Data.Assembly
                     CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, failureMechanismsToAssemble.Keys),
                     assessmentSection.ReferenceLine.Length);
 
-                return CombinedFailureMechanismSectionAssemblyResultFactory.Create(output.AssemblyResults, failureMechanismsToAssemble, assessmentSection);
+                return CombinedFailureMechanismSectionAssemblyResultFactory.Create(output, failureMechanismsToAssemble, assessmentSection);
             }
             catch (AssessmentSectionAssemblyCalculatorException e)
             {

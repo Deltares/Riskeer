@@ -38,7 +38,9 @@ namespace Riskeer.Integration.Data.Test.Assembly
 
             // Call
             void Call() => new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(),
-                                                                             random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(), null);
+                                                                             random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
+                                                                             random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
+                                                                             random.NextEnumValue<AssemblyMethod>(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -53,9 +55,13 @@ namespace Riskeer.Integration.Data.Test.Assembly
             double sectionStart = random.NextDouble();
             double sectionEnd = random.NextDouble();
             var totalResult = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
+            var commonSectionAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            var failureMechanismResultsAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            var combinedSectionResultAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
 
             // Call
-            var result = new CombinedFailureMechanismSectionAssemblyResult(sectionStart, sectionEnd, totalResult,
+            var result = new CombinedFailureMechanismSectionAssemblyResult(sectionStart, sectionEnd, totalResult, commonSectionAssemblyMethod,
+                                                                           failureMechanismResultsAssemblyMethod, combinedSectionResultAssemblyMethod,
                                                                            new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties());
 
             // Assert
@@ -78,6 +84,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.StabilityPointStructures);
             Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.DuneErosion);
             Assert.IsEmpty(result.SpecificFailureMechanisms);
+
+            Assert.AreEqual(result.CommonSectionAssemblyMethod, commonSectionAssemblyMethod);
+            Assert.AreEqual(result.FailureMechanismResultsAssemblyMethod, failureMechanismResultsAssemblyMethod);
+            Assert.AreEqual(result.CombinedSectionResultAssemblyMethod, combinedSectionResultAssemblyMethod);
         }
 
         [Test]
@@ -109,9 +119,13 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 random.NextEnumValue<FailureMechanismSectionAssemblyGroup>(),
                 random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()
             };
+            var commonSectionAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            var failureMechanismResultsAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            var combinedSectionResultAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
 
             // Call
-            var result = new CombinedFailureMechanismSectionAssemblyResult(sectionStart, sectionEnd, totalResult,
+            var result = new CombinedFailureMechanismSectionAssemblyResult(sectionStart, sectionEnd, totalResult, commonSectionAssemblyMethod,
+                                                                           failureMechanismResultsAssemblyMethod, combinedSectionResultAssemblyMethod,
                                                                            new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
                                                                            {
                                                                                Piping = pipingResult,
@@ -152,6 +166,9 @@ namespace Riskeer.Integration.Data.Test.Assembly
             Assert.AreEqual(stabilityPointStructuresResult, result.StabilityPointStructures);
             Assert.AreEqual(duneErosionResult, result.DuneErosion);
             CollectionAssert.AreEqual(specificFailureMechanismResults, result.SpecificFailureMechanisms);
+            Assert.AreEqual(result.CommonSectionAssemblyMethod, commonSectionAssemblyMethod);
+            Assert.AreEqual(result.FailureMechanismResultsAssemblyMethod, failureMechanismResultsAssemblyMethod);
+            Assert.AreEqual(result.CombinedSectionResultAssemblyMethod, combinedSectionResultAssemblyMethod);
         }
 
         [Test]
@@ -168,9 +185,13 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 null,
                 null
             };
+            var commonSectionAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            var failureMechanismResultsAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
+            var combinedSectionResultAssemblyMethod = random.NextEnumValue<AssemblyMethod>();
 
             // Call
-            var result = new CombinedFailureMechanismSectionAssemblyResult(sectionStart, sectionEnd, totalResult,
+            var result = new CombinedFailureMechanismSectionAssemblyResult(sectionStart, sectionEnd, totalResult, commonSectionAssemblyMethod,
+                                                                           failureMechanismResultsAssemblyMethod, combinedSectionResultAssemblyMethod,
                                                                            new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties
                                                                            {
                                                                                Piping = null,
@@ -215,6 +236,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
             {
                 Assert.IsNull(specificFailureMechanismResult);
             }
+
+            Assert.AreEqual(result.CommonSectionAssemblyMethod, commonSectionAssemblyMethod);
+            Assert.AreEqual(result.FailureMechanismResultsAssemblyMethod, failureMechanismResultsAssemblyMethod);
+            Assert.AreEqual(result.CombinedSectionResultAssemblyMethod, combinedSectionResultAssemblyMethod);
         }
     }
 }

@@ -37,12 +37,21 @@ namespace Riskeer.Integration.Data.Assembly
         /// <param name="sectionEnd">The end of the section from the beginning of the reference line
         /// in meters.</param>
         /// <param name="totalResult">The total result of the section.</param>
+        /// <param name="commonSectionAssemblyMethod">The <see cref="AssemblyMethod"/>
+        /// that is used to get the common sections.</param>
+        /// <param name="failureMechanismResultsAssemblyMethod">The <see cref="AssemblyMethod"/>
+        /// that is used to assemble the failure mechanism results.</param>
+        /// <param name="combinedSectionResultAssemblyMethod">The <see cref="AssemblyMethod"/>
+        /// that is used to assemble the combined section results.</param>
         /// <param name="properties">The container of the properties for the
         /// <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="properties"/>
         /// is <c>null</c>.</exception>
         public CombinedFailureMechanismSectionAssemblyResult(double sectionStart, double sectionEnd,
                                                              FailureMechanismSectionAssemblyGroup totalResult,
+                                                             AssemblyMethod commonSectionAssemblyMethod,
+                                                             AssemblyMethod failureMechanismResultsAssemblyMethod,
+                                                             AssemblyMethod combinedSectionResultAssemblyMethod,
                                                              ConstructionProperties properties)
         {
             if (properties == null)
@@ -69,6 +78,10 @@ namespace Riskeer.Integration.Data.Assembly
             DuneErosion = properties.DuneErosion;
             SpecificFailureMechanisms = properties.SpecificFailureMechanisms;
             TotalResult = totalResult;
+
+            CommonSectionAssemblyMethod = commonSectionAssemblyMethod;
+            FailureMechanismResultsAssemblyMethod = failureMechanismResultsAssemblyMethod;
+            CombinedSectionResultAssemblyMethod = combinedSectionResultAssemblyMethod;
         }
 
         /// <summary>
@@ -167,6 +180,21 @@ namespace Riskeer.Integration.Data.Assembly
         /// Gets the total assembly result.
         /// </summary>
         public FailureMechanismSectionAssemblyGroup TotalResult { get; }
+
+        /// <summary>
+        /// Gets the <see cref="AssemblyMethod"/> that is used to get the common sections.
+        /// </summary> 
+        public AssemblyMethod CommonSectionAssemblyMethod { get; }
+
+        /// <summary>
+        /// Gets the <see cref="AssemblyMethod"/> that is used to assemble the failure mechanism results.
+        /// </summary>
+        public AssemblyMethod FailureMechanismResultsAssemblyMethod { get; }
+
+        /// <summary>
+        /// Gets the <see cref="AssemblyMethod"/> that is used to assemble the combined section results.
+        /// </summary>
+        public AssemblyMethod CombinedSectionResultAssemblyMethod { get; }
 
         /// <summary>
         /// Container for properties for constructing a <see cref="CombinedFailureMechanismSectionAssemblyResult"/>.
