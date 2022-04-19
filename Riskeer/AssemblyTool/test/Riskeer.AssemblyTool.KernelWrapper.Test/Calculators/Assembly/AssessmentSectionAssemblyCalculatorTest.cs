@@ -323,16 +323,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
-                kernel.AssemblyResult = new GreatestCommonDenominatorAssemblyResult(new[]
-                {
-                    new FailureMechanismSectionList(new[]
-                    {
-                        new FailureMechanismSectionWithCategory(0, 1, random.NextEnumValue<EInterpretationCategory>())
-                    })
-                }, new[]
-                {
-                    new FailureMechanismSectionWithCategory(0, 1, random.NextEnumValue<EInterpretationCategory>())
-                });
 
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
@@ -340,10 +330,18 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 calculator.AssembleCombinedFailureMechanismSections(input, assessmentSectionLength);
 
                 // Assert
-                Assert.AreEqual(assessmentSectionLength, kernel.AssessmentSectionLength);
                 CombinedFailureMechanismSectionsInputAssert.AssertCombinedFailureMechanismInput(input, kernel.FailureMechanismSectionLists);
+                Assert.AreEqual(assessmentSectionLength, kernel.AssessmentSectionLength);
+                Assert.IsTrue(kernel.CalculatedCommonSections);
+
+                Assert.AreSame(kernel.FailureMechanismSectionLists.First(), kernel.FailureMechanismSectionList);
+                Assert.AreSame(kernel.CommonSections, kernel.CommonSectionsInput);
+                Assert.IsTrue(kernel.CalculatedCommonSectionResults);
+
+                Assert.AreEqual(1, kernel.FailureMechanismResultsInput.Count());
+                Assert.AreSame(kernel.FailureMechanismResult, kernel.FailureMechanismResultsInput.First());
                 Assert.IsFalse(kernel.PartialAssembly);
-                Assert.IsTrue(kernel.Calculated);
+                Assert.IsTrue(kernel.CalculatedSectionResults);
             }
         }
 
@@ -356,18 +354,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             using (new AssemblyToolKernelFactoryConfig())
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
-                CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
-                kernel.AssemblyResult = new GreatestCommonDenominatorAssemblyResult(new[]
-                {
-                    new FailureMechanismSectionList(new[]
-                    {
-                        new FailureMechanismSectionWithCategory(0, 1, random.NextEnumValue<EInterpretationCategory>())
-                    })
-                }, new[]
-                {
-                    new FailureMechanismSectionWithCategory(0, 1, random.NextEnumValue<EInterpretationCategory>())
-                });
-
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
@@ -380,7 +366,11 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 }, random.NextDouble()).ToArray();
 
                 // Assert
-                CombinedFailureMechanismSectionAssemblyAssert.AssertAssembly(kernel.AssemblyResult, output);
+                CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
+                CombinedFailureMechanismSectionAssemblyAssert.AssertAssembly(new[]
+                {
+                    kernel.FailureMechanismResult
+                }, kernel.CombinedSectionResults, output);
             }
         }
 
@@ -394,15 +384,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
             {
                 var factory = (TestAssemblyToolKernelFactory) AssemblyToolKernelFactory.Instance;
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
-                kernel.AssemblyResult = new GreatestCommonDenominatorAssemblyResult(new[]
+                kernel.FailureMechanismResult = new FailureMechanismSectionList(new[]
                 {
-                    new FailureMechanismSectionList(new[]
-                    {
-                        new FailureMechanismSectionWithCategory(0, 1, (EInterpretationCategory) 99)
-                    })
-                }, new[]
-                {
-                    new FailureMechanismSectionWithCategory(0, 1, random.NextEnumValue<EInterpretationCategory>())
+                    new FailureMechanismSectionWithCategory(0, 1, (EInterpretationCategory) 99)
                 });
 
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);

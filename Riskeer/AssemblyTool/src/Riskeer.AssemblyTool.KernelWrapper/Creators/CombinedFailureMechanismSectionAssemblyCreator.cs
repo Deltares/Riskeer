@@ -34,32 +34,37 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
     {
         /// <summary>
         /// Creates a collection of <see cref="CombinedFailureMechanismSectionAssembly"/>
-        /// based on the <paramref name="result"/>.
+        /// based on the <paramref name="resultsPerFailureMechanism"/> and <paramref name="combinedSectionResults"/>.
         /// </summary>
-        /// <param name="result">The <see cref="GreatestCommonDenominatorAssemblyResult"/> to create the
-        /// <see cref="CombinedFailureMechanismSectionAssembly"/> for.</param>
+        /// <param name="resultsPerFailureMechanism">The results per failure mechanism.</param>
+        /// <param name="combinedSectionResults">The combined section results.</param>
         /// <returns>A collection of <see cref="CombinedFailureMechanismSectionAssembly"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/>
-        /// is <c>null</c>.</exception>
-        public static IEnumerable<CombinedFailureMechanismSectionAssembly> Create(GreatestCommonDenominatorAssemblyResult result)
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public static IEnumerable<CombinedFailureMechanismSectionAssembly> Create(IEnumerable<FailureMechanismSectionList> resultsPerFailureMechanism,
+                                                                                  IEnumerable<FailureMechanismSectionWithCategory> combinedSectionResults)
         {
-            if (result == null)
+            if (resultsPerFailureMechanism == null)
             {
-                throw new ArgumentNullException(nameof(result));
+                throw new ArgumentNullException(nameof(resultsPerFailureMechanism));
+            }
+
+            if (combinedSectionResults == null)
+            {
+                throw new ArgumentNullException(nameof(combinedSectionResults));
             }
 
             var sectionAssemblies = new List<CombinedFailureMechanismSectionAssembly>();
 
-            for (var i = 0; i < result.CombinedSectionResult.Count(); i++)
+            for (var i = 0; i < combinedSectionResults.Count(); i++)
             {
-                FailureMechanismSectionWithCategory section = result.CombinedSectionResult.ElementAt(i);
+                FailureMechanismSectionWithCategory section = combinedSectionResults.ElementAt(i);
                 sectionAssemblies.Add(new CombinedFailureMechanismSectionAssembly(
                                           CreateSection(section),
-                                          result.ResultPerFailureMechanism
-                                                .Select(failureMechanismSectionList => failureMechanismSectionList.Sections.ElementAt(i))
-                                                .Cast<FailureMechanismSectionWithCategory>()
-                                                .Select(element => FailureMechanismSectionAssemblyGroupConverter.ConvertTo(element.Category))
-                                                .ToArray()));
+                                          resultsPerFailureMechanism
+                                              .Select(failureMechanismSectionList => failureMechanismSectionList.Sections.ElementAt(i))
+                                              .Cast<FailureMechanismSectionWithCategory>()
+                                              .Select(element => FailureMechanismSectionAssemblyGroupConverter.ConvertTo(element.Category))
+                                              .ToArray()));
             }
 
             return sectionAssemblies;

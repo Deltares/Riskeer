@@ -105,9 +105,19 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             try
             {
                 ICommonFailureMechanismSectionAssembler kernel = factory.CreateCombinedFailureMechanismSectionAssemblyKernel();
-                GreatestCommonDenominatorAssemblyResult output = kernel.AssembleCommonFailureMechanismSections(FailureMechanismSectionListCreator.Create(input), assessmentSectionLength, false);
 
-                return CombinedFailureMechanismSectionAssemblyCreator.Create(output);
+                IEnumerable<FailureMechanismSectionList> failureMechanismSections = FailureMechanismSectionListCreator.Create(input);
+                FailureMechanismSectionList commonSections = kernel.FindGreatestCommonDenominatorSectionsBoi3A1(
+                    failureMechanismSections, assessmentSectionLength);
+
+                FailureMechanismSectionList[] failureMechanismResults = failureMechanismSections.Select(fmsl => kernel.TranslateFailureMechanismResultsToCommonSectionsBoi3B1(
+                                                                                                            fmsl, commonSections))
+                                                                                                .ToArray();
+
+                IEnumerable<FailureMechanismSectionWithCategory> combinedSectionResults =
+                    kernel.DetermineCombinedResultPerCommonSectionBoi3C1(failureMechanismResults, false);
+
+                return CombinedFailureMechanismSectionAssemblyCreator.Create(failureMechanismResults, combinedSectionResults);
             }
             catch (AssemblyException e)
             {
