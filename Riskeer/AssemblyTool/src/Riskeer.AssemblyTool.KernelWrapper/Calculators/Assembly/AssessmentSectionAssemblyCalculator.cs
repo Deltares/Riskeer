@@ -94,7 +94,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
         }
 
-        public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(
+        public CombinedFailureMechanismSectionAssemblyResultWrapper AssembleCombinedFailureMechanismSections(
             IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input, double assessmentSectionLength)
         {
             if (input == null)
@@ -117,7 +117,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 IEnumerable<FailureMechanismSectionWithCategory> combinedSectionResults =
                     kernel.DetermineCombinedResultPerCommonSectionBoi3C1(failureMechanismResults, false);
 
-                return CombinedFailureMechanismSectionAssemblyCreator.Create(failureMechanismResults, combinedSectionResults);
+                return new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                    CombinedFailureMechanismSectionAssemblyCreator.Create(failureMechanismResults, combinedSectionResults),
+                    AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
             }
             catch (AssemblyException e)
             {

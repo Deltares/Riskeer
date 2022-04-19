@@ -216,11 +216,12 @@ namespace Riskeer.Integration.Data.Test.Assembly
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
-                {
-                    CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 20),
-                    CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 21)
-                };
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                    new[]
+                    {
+                        CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 20),
+                        CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 21)
+                    }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
 
                 // Call
                 CombinedFailureMechanismSectionAssemblyResult[] output = AssessmentSectionAssemblyFactory.AssembleCombinedPerFailureMechanismSection(
@@ -238,7 +239,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                                                                                         })
                                                                                         .ToDictionary(x => x.FailureMechanism, x => x.Index);
                 CombinedFailureMechanismSectionAssemblyResult[] expectedOutput = CombinedFailureMechanismSectionAssemblyResultFactory.Create(
-                    calculator.CombinedFailureMechanismSectionAssemblyOutput, failureMechanisms, assessmentSection).ToArray();
+                    calculator.CombinedFailureMechanismSectionAssemblyOutput.AssemblyResults, failureMechanisms, assessmentSection).ToArray();
 
                 Assert.AreEqual(expectedOutput.Length, output.Length);
                 for (var i = 0; i < expectedOutput.Length; i++)

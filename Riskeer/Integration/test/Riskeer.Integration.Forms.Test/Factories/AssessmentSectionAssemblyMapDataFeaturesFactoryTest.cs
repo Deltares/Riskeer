@@ -77,7 +77,8 @@ namespace Riskeer.Integration.Forms.Test.Factories
                     CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 20),
                     CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 21)
                 };
-                calculator.CombinedFailureMechanismSectionAssemblyOutput = failureMechanismSectionAssembly;
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                    failureMechanismSectionAssembly, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
 
                 // Call
                 IEnumerable<MapFeature> features = AssessmentSectionAssemblyMapDataFeaturesFactory.CreateCombinedFailureMechanismSectionAssemblyFeatures(assessmentSection);

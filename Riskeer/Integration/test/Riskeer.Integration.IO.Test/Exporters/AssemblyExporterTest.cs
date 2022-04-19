@@ -239,7 +239,8 @@ namespace Riskeer.Integration.IO.Test.Exporters
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = Array.Empty<CombinedFailureMechanismSectionAssembly>();
+                assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                    Array.Empty<CombinedFailureMechanismSectionAssembly>(), AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
 
                 fileDisposeHelper.LockFiles();
 
@@ -311,13 +312,14 @@ namespace Riskeer.Integration.IO.Test.Exporters
 
             var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
             AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-            assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
-            {
-                new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(0, 2.5, FailureMechanismSectionAssemblyGroup.II),
-                                                            failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.II)),
-                new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(2.5, 5, FailureMechanismSectionAssemblyGroup.III),
-                                                            failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.III))
-            };
+            assessmentSectionAssemblyCalculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                new[]
+                {
+                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(0, 2.5, FailureMechanismSectionAssemblyGroup.II),
+                                                                failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.II)),
+                    new CombinedFailureMechanismSectionAssembly(new CombinedAssemblyFailureMechanismSection(2.5, 5, FailureMechanismSectionAssemblyGroup.III),
+                                                                failureMechanisms.Select(fm => FailureMechanismSectionAssemblyGroup.III))
+                }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
         }
     }
 }

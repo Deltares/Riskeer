@@ -147,7 +147,8 @@ namespace Riskeer.Integration.Forms.Test.Views
                 {
                     CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 21)
                 };
-                calculator.CombinedFailureMechanismSectionAssemblyOutput = failureMechanismSectionAssembly;
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                    failureMechanismSectionAssembly, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
 
                 using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
                 {
@@ -253,10 +254,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
-                {
-                    CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 10)
-                };
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                    new[]
+                    {
+                        CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 10)
+                    }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
 
                 using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
                 {
@@ -277,10 +279,11 @@ namespace Riskeer.Integration.Forms.Test.Views
                                                                                mapData.Collection.ElementAt(assemblyResultsIndex));
 
                     // When 
-                    calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
-                    {
-                        CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 20)
-                    };
+                    calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                        new[]
+                        {
+                            CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 20)
+                        }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
                     IEnumerable<IFailureMechanism> failureMechanisms = assessmentSection.GetFailureMechanisms();
                     failureMechanisms.ElementAt(random.Next(failureMechanisms.Count())).NotifyObservers();
 
@@ -304,10 +307,11 @@ namespace Riskeer.Integration.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
-                {
-                    CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 10)
-                };
+                calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                    new[]
+                    {
+                        CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 10)
+                    }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
 
                 using (var view = new AssemblyResultPerSectionMapView(assessmentSection))
                 {
@@ -328,10 +332,11 @@ namespace Riskeer.Integration.Forms.Test.Views
                                                                                mapData.Collection.ElementAt(assemblyResultsIndex));
 
                     // When 
-                    calculator.CombinedFailureMechanismSectionAssemblyOutput = new[]
-                    {
-                        CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 20)
-                    };
+                    calculator.CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                        new[]
+                        {
+                            CombinedFailureMechanismSectionAssemblyTestFactory.Create(assessmentSection, 20)
+                        }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1);
                     assessmentSection.NotifyObservers();
 
                     // Then

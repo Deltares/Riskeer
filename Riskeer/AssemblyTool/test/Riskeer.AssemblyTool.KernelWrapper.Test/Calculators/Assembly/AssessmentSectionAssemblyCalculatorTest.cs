@@ -357,20 +357,23 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new AssessmentSectionAssemblyCalculator(factory);
 
                 // Call
-                CombinedFailureMechanismSectionAssembly[] output = calculator.AssembleCombinedFailureMechanismSections(new[]
+                CombinedFailureMechanismSectionAssemblyResultWrapper output = calculator.AssembleCombinedFailureMechanismSections(new[]
                 {
                     new[]
                     {
                         new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
                     }
-                }, random.NextDouble()).ToArray();
+                }, random.NextDouble());
 
                 // Assert
                 CombinedFailureMechanismSectionAssemblyKernelStub kernel = factory.LastCreatedCombinedFailureMechanismSectionAssemblyKernel;
                 CombinedFailureMechanismSectionAssemblyAssert.AssertAssembly(new[]
                 {
                     kernel.FailureMechanismResult
-                }, kernel.CombinedSectionResults, output);
+                }, kernel.CombinedSectionResults, output.AssemblyResults);
+                Assert.AreEqual(AssemblyMethod.BOI3A1, output.CommonSectionAssemblyMethod);
+                Assert.AreEqual(AssemblyMethod.BOI3B1, output.FailureMechanismResultsAssemblyMethod);
+                Assert.AreEqual(AssemblyMethod.BOI3C1, output.CombinedSectionResultAssemblyMethod);
             }
         }
 
@@ -393,13 +396,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
                 // Call
                 void Call() => calculator.AssembleCombinedFailureMechanismSections(new[]
-                                         {
-                                             new[]
-                                             {
-                                                 new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
-                                             }
-                                         }, random.NextDouble())
-                                         .ToArray();
+                {
+                    new[]
+                    {
+                        new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
+                    }
+                }, random.NextDouble());
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
@@ -425,13 +427,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Call
                 void Call() =>
                     calculator.AssembleCombinedFailureMechanismSections(new[]
-                              {
-                                  new[]
-                                  {
-                                      new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
-                                  }
-                              }, random.NextDouble())
-                              .ToArray();
+                    {
+                        new[]
+                        {
+                            new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
+                        }
+                    }, random.NextDouble());
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);
@@ -457,13 +458,12 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 // Call
                 void Call() =>
                     calculator.AssembleCombinedFailureMechanismSections(new[]
-                              {
-                                  new[]
-                                  {
-                                      new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
-                                  }
-                              }, random.NextDouble())
-                              .ToArray();
+                    {
+                        new[]
+                        {
+                            new CombinedAssemblyFailureMechanismSection(0, 1, random.NextEnumValue<FailureMechanismSectionAssemblyGroup>())
+                        }
+                    }, random.NextDouble());
 
                 // Assert
                 var exception = Assert.Throws<AssessmentSectionAssemblyCalculatorException>(Call);

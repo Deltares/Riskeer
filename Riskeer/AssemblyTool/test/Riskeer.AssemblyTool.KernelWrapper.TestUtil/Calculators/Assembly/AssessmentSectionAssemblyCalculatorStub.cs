@@ -70,7 +70,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// <summary>
         /// Gets or sets the output of the combined failure mechanism section assembly.
         /// </summary>
-        public IEnumerable<CombinedFailureMechanismSectionAssembly> CombinedFailureMechanismSectionAssemblyOutput { get; set; }
+        public CombinedFailureMechanismSectionAssemblyResultWrapper CombinedFailureMechanismSectionAssemblyOutput { get; set; }
 
         public AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(IEnumerable<double> failureMechanismProbabilities, double maximumAllowableFloodingProbability, double signalFloodingProbability)
         {
@@ -89,7 +89,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
                                                                AssemblyMethod.BOI2A1, AssemblyMethod.BOI2A2));
         }
 
-        public IEnumerable<CombinedFailureMechanismSectionAssembly> AssembleCombinedFailureMechanismSections(
+        public CombinedFailureMechanismSectionAssemblyResultWrapper AssembleCombinedFailureMechanismSections(
             IEnumerable<IEnumerable<CombinedAssemblyFailureMechanismSection>> input, double assessmentSectionLength)
         {
             if (ThrowExceptionOnCalculate)
@@ -100,13 +100,14 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
             CombinedFailureMechanismSectionsInput = input;
             AssessmentSectionLength = assessmentSectionLength;
 
-            return CombinedFailureMechanismSectionAssemblyOutput ?? (CombinedFailureMechanismSectionAssemblyOutput = new[]
+            return CombinedFailureMechanismSectionAssemblyOutput ?? (CombinedFailureMechanismSectionAssemblyOutput = new CombinedFailureMechanismSectionAssemblyResultWrapper(
+                                                                         new[]
                                                                         {
                                                                             new CombinedFailureMechanismSectionAssembly(
                                                                                 new CombinedAssemblyFailureMechanismSection(
                                                                                     0, 1, FailureMechanismSectionAssemblyGroup.Zero),
                                                                                 input.Select(failureMechanism => FailureMechanismSectionAssemblyGroup.Dominant).ToArray())
-                                                                        });
+                                                                        }, AssemblyMethod.BOI3A1, AssemblyMethod.BOI3B1, AssemblyMethod.BOI3C1));
         }
     }
 }

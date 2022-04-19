@@ -117,11 +117,11 @@ namespace Riskeer.Integration.Data.Assembly
                                                                                                   })
                                                                                                   .ToDictionary(x => x.FailureMechanism, x => x.Index);
 
-                IEnumerable<CombinedFailureMechanismSectionAssembly> output = calculator.AssembleCombinedFailureMechanismSections(
+                CombinedFailureMechanismSectionAssemblyResultWrapper output = calculator.AssembleCombinedFailureMechanismSections(
                     CombinedAssemblyFailureMechanismSectionFactory.CreateInput(assessmentSection, failureMechanismsToAssemble.Keys),
                     assessmentSection.ReferenceLine.Length);
 
-                return CombinedFailureMechanismSectionAssemblyResultFactory.Create(output, failureMechanismsToAssemble, assessmentSection);
+                return CombinedFailureMechanismSectionAssemblyResultFactory.Create(output.AssemblyResults, failureMechanismsToAssemble, assessmentSection);
             }
             catch (AssessmentSectionAssemblyCalculatorException e)
             {
