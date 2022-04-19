@@ -53,10 +53,10 @@ namespace Riskeer.Integration.Data.Assembly
         /// Assembles the assessment section.
         /// </summary>
         /// <param name="assessmentSection">The assessment section which contains the failure mechanisms to assemble for.</param>
-        /// <returns>A <see cref="AssessmentSectionAssemblyResult"/>.</returns>
+        /// <returns>An <see cref="AssessmentSectionAssemblyResultWrapper"/> representing the assembly result of the assessment section.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when <see cref="AssessmentSectionAssemblyResult"/> cannot be created.</exception>
-        public static AssessmentSectionAssemblyResult AssembleAssessmentSection(AssessmentSection assessmentSection)
+        public static AssessmentSectionAssemblyResultWrapper AssembleAssessmentSection(AssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {

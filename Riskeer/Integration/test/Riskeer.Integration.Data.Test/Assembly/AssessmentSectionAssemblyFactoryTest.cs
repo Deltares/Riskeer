@@ -100,7 +100,7 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 AssessmentSectionAssemblyCalculatorStub assessmentSectionAssemblyCalculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
 
                 // Call
-                AssessmentSectionAssemblyResult result = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
+                AssessmentSectionAssemblyResultWrapper result = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
 
                 // Assert
                 Assert.AreSame(assessmentSectionAssemblyCalculator.AssessmentSectionAssemblyResult, result);

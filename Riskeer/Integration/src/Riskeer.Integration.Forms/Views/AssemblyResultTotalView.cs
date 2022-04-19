@@ -182,7 +182,7 @@ namespace Riskeer.Integration.Forms.Views
             try
             {
                 assessmentSectionAssemblyControl.SetAssemblyResult(
-                    AssessmentSectionAssemblyFactory.AssembleAssessmentSection(AssessmentSection));
+                    AssessmentSectionAssemblyFactory.AssembleAssessmentSection(AssessmentSection).AssemblyResult);
             }
             catch (AssemblyException e)
             {

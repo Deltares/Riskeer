@@ -211,7 +211,9 @@ namespace Riskeer.Integration.Forms.Test.Views
                 // When
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
-                calculator.AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResult(0.5, AssessmentSectionAssemblyGroup.A);
+                calculator.AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResultWrapper(
+                    new AssessmentSectionAssemblyResult(0.5, AssessmentSectionAssemblyGroup.A),
+                    AssemblyMethod.BOI2A1, AssemblyMethod.BOI2A2);
 
                 buttonTester.Click();
 

@@ -36,7 +36,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="failureMechanismProbabilities">The collection of failure mechanism probabilities.</param>
         /// <param name="maximumAllowableFloodingProbability">The maximum allowable flooding probability to assemble with.</param>
         /// <param name="signalFloodingProbability">The signal flooding probability to assemble with.</param>
-        /// <returns>A <see cref="AssessmentSectionAssemblyResultWrapper"/> representing the assembly result of the assessment section.</returns>
+        /// <returns>An <see cref="AssessmentSectionAssemblyResultWrapper"/> representing the assembly result of the assessment section.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismProbabilities"/> is <c>null</c>.</exception>
         /// <exception cref="AssessmentSectionAssemblyCalculatorException">Thrown when
         /// an error occurs while assembling.</exception>
