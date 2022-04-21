@@ -29,7 +29,7 @@ namespace Riskeer.Common.Data.Probabilistics
     /// Class representing a log-normal distribution expressed in terms of standard deviation.
     /// </summary>
     /// <seealso cref="VariationCoefficientLogNormalDistribution"/>
-    public class LogNormalDistribution : IDistribution
+    public sealed class LogNormalDistribution : IDistribution
     {
         private RoundedDouble mean;
         private RoundedDouble standardDeviation;

@@ -78,10 +78,10 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         public void Constructor_InvalidNumberOfDecimalPlaces_ThrowArgumentOutOfRangeException(int numberOfDecimals)
         {
             // Call
-            TestDelegate call = () => new VariationCoefficientLogNormalDistribution(numberOfDecimals);
+            void Call() => new VariationCoefficientLogNormalDistribution(numberOfDecimals);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "Value must be in range [0, 15].");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, "Value must be in range [0, 15].");
         }
 
         [Test]
@@ -108,11 +108,11 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             var distribution = new VariationCoefficientLogNormalDistribution(2);
 
             // Call
-            TestDelegate call = () => distribution.Mean = (RoundedDouble) invalidCoefficient;
+            void Call() => distribution.Mean = (RoundedDouble) invalidCoefficient;
 
             // Assert
             const string expectedMessage = "Gemiddelde moet groter zijn dan 0.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -126,11 +126,11 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             };
 
             // Call
-            TestDelegate test = () => distribution.Mean = (RoundedDouble) 5;
+            void Call() => distribution.Mean = (RoundedDouble) 5;
 
             // Assert
             const string expectedMessage = "De verschuiving mag niet groter zijn dan de verwachtingswaarde.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -159,11 +159,11 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             var distribution = new VariationCoefficientLogNormalDistribution(2);
 
             // Call
-            TestDelegate call = () => distribution.CoefficientOfVariation = (RoundedDouble) invalidCoefficient;
+            void Call() => distribution.CoefficientOfVariation = (RoundedDouble) invalidCoefficient;
 
             // Assert
             const string expectedMessage = "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -198,11 +198,11 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             };
 
             // Call
-            TestDelegate call = () => distribution.Shift = new RoundedDouble(2, 100.0);
+            void Call() => distribution.Shift = new RoundedDouble(2, 100.0);
 
             // Assert
             const string expectedMessage = "De verschuiving mag niet groter zijn dan de verwachtingswaarde.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -225,18 +225,11 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         }
 
         [TestFixture]
-        private class VariationCoefficientLogNormalDistributionEqualsTest : EqualsTestFixture<VariationCoefficientLogNormalDistribution,
-            DerivedVariationCoefficientLogNormalDistribution>
+        private class VariationCoefficientLogNormalDistributionEqualsTest : EqualsTestFixture<VariationCoefficientLogNormalDistribution>
         {
             protected override VariationCoefficientLogNormalDistribution CreateObject()
             {
                 return CreateFullyDefinedDistribution();
-            }
-
-            protected override DerivedVariationCoefficientLogNormalDistribution CreateDerivedObject()
-            {
-                VariationCoefficientLogNormalDistribution baseDistribution = CreateFullyDefinedDistribution();
-                return new DerivedVariationCoefficientLogNormalDistribution(baseDistribution);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -265,16 +258,6 @@ namespace Riskeer.Common.Data.Test.Probabilistics
                     CoefficientOfVariation = (RoundedDouble) 0.1,
                     Shift = (RoundedDouble) 0.2
                 };
-            }
-        }
-
-        private class DerivedVariationCoefficientLogNormalDistribution : VariationCoefficientLogNormalDistribution
-        {
-            public DerivedVariationCoefficientLogNormalDistribution(VariationCoefficientLogNormalDistribution distribution)
-            {
-                Mean = distribution.Mean;
-                CoefficientOfVariation = distribution.CoefficientOfVariation;
-                Shift = distribution.Shift;
             }
         }
     }

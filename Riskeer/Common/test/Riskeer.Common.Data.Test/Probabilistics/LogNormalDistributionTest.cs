@@ -79,11 +79,11 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         public void Constructor_InvalidNumberOfDecimalPlaces_ThrowArgumentOutOfRangeException()
         {
             // Call
-            TestDelegate call = () => new LogNormalDistribution(0);
+            void Call() => new LogNormalDistribution(0);
 
             // Assert
             const string expectedMessage = "Value must be in range [1, 15].";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -112,11 +112,11 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             var distribution = new LogNormalDistribution(2);
 
             // Call
-            TestDelegate call = () => distribution.Mean = (RoundedDouble) mean;
+            void Call() => distribution.Mean = (RoundedDouble) mean;
 
             // Assert
             const string expectedMessage = "Gemiddelde moet groter zijn dan 0.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -130,11 +130,11 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             };
 
             // Call
-            TestDelegate test = () => distribution.Mean = (RoundedDouble) 5;
+            void Call() => distribution.Mean = (RoundedDouble) 5;
 
             // Assert
             const string expectedMessage = "De verschuiving mag niet groter zijn dan de verwachtingswaarde.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -163,11 +163,11 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             var distribution = new LogNormalDistribution(2);
 
             // Call
-            TestDelegate call = () => distribution.StandardDeviation = (RoundedDouble) standardDeviation;
+            void Call() => distribution.StandardDeviation = (RoundedDouble) standardDeviation;
 
             // Assert
             const string expectedMessage = "Standaardafwijking (\u03C3) moet groter zijn dan of gelijk zijn aan 0.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -202,11 +202,11 @@ namespace Riskeer.Common.Data.Test.Probabilistics
             };
 
             // Call
-            TestDelegate call = () => distribution.Shift = new RoundedDouble(2, 100.0);
+            void Call() => distribution.Shift = new RoundedDouble(2, 100.0);
 
             // Assert
             const string expectedMessage = "De verschuiving mag niet groter zijn dan de verwachtingswaarde.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -229,17 +229,11 @@ namespace Riskeer.Common.Data.Test.Probabilistics
         }
 
         [TestFixture]
-        private class LogNormalDistributionEqualsTest : EqualsTestFixture<LogNormalDistribution, DerivedLogNormalDistribution>
+        private class LogNormalDistributionEqualsTest : EqualsTestFixture<LogNormalDistribution>
         {
             protected override LogNormalDistribution CreateObject()
             {
                 return CreateFullyDefinedDistribution();
-            }
-
-            protected override DerivedLogNormalDistribution CreateDerivedObject()
-            {
-                LogNormalDistribution baseDistribution = CreateFullyDefinedDistribution();
-                return new DerivedLogNormalDistribution(baseDistribution);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -268,16 +262,6 @@ namespace Riskeer.Common.Data.Test.Probabilistics
                     StandardDeviation = (RoundedDouble) 0.1,
                     Shift = (RoundedDouble) 0.2
                 };
-            }
-        }
-
-        private class DerivedLogNormalDistribution : LogNormalDistribution
-        {
-            public DerivedLogNormalDistribution(LogNormalDistribution distribution)
-            {
-                Mean = distribution.Mean;
-                StandardDeviation = distribution.StandardDeviation;
-                Shift = distribution.Shift;
             }
         }
     }

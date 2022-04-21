@@ -30,7 +30,7 @@ namespace Riskeer.Common.Data.Probabilistics
     /// of variation.
     /// </summary>
     /// <seealso cref="LogNormalDistribution"/>
-    public class VariationCoefficientLogNormalDistribution : IVariationCoefficientDistribution
+    public sealed class VariationCoefficientLogNormalDistribution : IVariationCoefficientDistribution
     {
         private RoundedDouble mean;
         private RoundedDouble coefficientOfVariation;
