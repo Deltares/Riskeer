@@ -281,7 +281,7 @@ namespace Riskeer.AssemblyTool.IO.Test
                                                                       assessmentSection);
 
             var totalAssemblyResult = new SerializableTotalAssemblyResult(
-                "veiligheidsoordeel_1", assessmentProcess, SerializableAssemblyMethod.WBI2B1,
+                "veiligheidsoordeel_1", assessmentProcess, SerializableAssemblyMethod.BOI2B1,
                 SerializableAssessmentSectionAssemblyGroup.B, 0.00068354);
 
             var failureMechanism = new SerializableFailureMechanism(
@@ -308,7 +308,7 @@ namespace Riskeer.AssemblyTool.IO.Test
             var result = new SerializableFailureMechanismSectionAssembly(
                 "resultaat_GABI_1", failureMechanism, section1,
                 new SerializableFailureMechanismSectionAssemblyResult(
-                    SerializableAssemblyMethod.WBI0A2, SerializableFailureMechanismSectionAssemblyGroup.III, 0.00073));
+                    SerializableAssemblyMethod.BOI0A2, SerializableFailureMechanismSectionAssemblyGroup.III, 0.00073));
 
             var sections2 = new SerializableFailureMechanismSectionCollection("vakindeling_gecombineerd");
             var section2 = new SerializableFailureMechanismSection(
@@ -322,7 +322,7 @@ namespace Riskeer.AssemblyTool.IO.Test
                     new Point2D(10.23, 10.24)
                 },
                 SerializableFailureMechanismSectionType.Combined,
-                SerializableAssemblyMethod.WBI3A1);
+                SerializableAssemblyMethod.BOI3A1);
             var combinedResult = new SerializableCombinedFailureMechanismSectionAssembly(
                 "resultaat_gecombineerd_1",
                 totalAssemblyResult,
@@ -330,20 +330,20 @@ namespace Riskeer.AssemblyTool.IO.Test
                 new[]
                 {
                     new SerializableCombinedFailureMechanismSectionAssemblyResult(
-                        SerializableAssemblyMethod.WBI3B1,
+                        SerializableAssemblyMethod.BOI3B1,
                         SerializableFailureMechanismType.Generic, "HTKW", "Hoogte kunstwerk",
                         SerializableFailureMechanismSectionAssemblyGroup.III),
                     new SerializableCombinedFailureMechanismSectionAssemblyResult(
-                        SerializableAssemblyMethod.WBI3B1,
+                        SerializableAssemblyMethod.BOI3B1,
                         SerializableFailureMechanismType.Generic, "STPH", "Piping",
                         SerializableFailureMechanismSectionAssemblyGroup.II),
                     new SerializableCombinedFailureMechanismSectionAssemblyResult(
-                        SerializableAssemblyMethod.WBI3B1,
+                        SerializableAssemblyMethod.BOI3B1,
                         SerializableFailureMechanismType.Specific, "NIEUW", "Specifiek",
                         SerializableFailureMechanismSectionAssemblyGroup.Zero)
                 },
                 new SerializableFailureMechanismSectionAssemblyResult(
-                    SerializableAssemblyMethod.WBI3C1, SerializableFailureMechanismSectionAssemblyGroup.I));
+                    SerializableAssemblyMethod.BOI3C1, SerializableFailureMechanismSectionAssemblyGroup.I));
 
             var assembly = new SerializableAssembly(
                 "assemblage_1",

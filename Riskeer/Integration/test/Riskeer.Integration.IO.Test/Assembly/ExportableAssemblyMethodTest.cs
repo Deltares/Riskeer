@@ -33,22 +33,22 @@ namespace Riskeer.Integration.IO.Test.Assembly
             new Dictionary<ExportableAssemblyMethod, int>
             {
                 {
-                    ExportableAssemblyMethod.WBI0A2, 1
+                    ExportableAssemblyMethod.BOI0A2, 1
                 },
                 {
-                    ExportableAssemblyMethod.WBI1B1, 2
+                    ExportableAssemblyMethod.BOI1B1, 2
                 },
                 {
-                    ExportableAssemblyMethod.WBI2B1, 3
+                    ExportableAssemblyMethod.BOI2B1, 3
                 },
                 {
-                    ExportableAssemblyMethod.WBI3A1, 4
+                    ExportableAssemblyMethod.BOI3A1, 4
                 },
                 {
-                    ExportableAssemblyMethod.WBI3B1, 5
+                    ExportableAssemblyMethod.BOI3B1, 5
                 },
                 {
-                    ExportableAssemblyMethod.WBI3C1, 6
+                    ExportableAssemblyMethod.BOI3C1, 6
                 }
             };
     }

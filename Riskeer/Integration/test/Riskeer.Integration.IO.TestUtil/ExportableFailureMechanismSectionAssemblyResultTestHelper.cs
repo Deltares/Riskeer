@@ -61,7 +61,7 @@ namespace Riskeer.Integration.IO.TestUtil
                 FailureMechanismSectionAssemblyResult expectedAssemblyResult = expectedAssemblyResultWrapper.AssemblyResult;
                 Assert.AreEqual(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup, actualExportableAssemblyResult.AssemblyGroup);
                 Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualExportableAssemblyResult.Probability);
-                Assert.AreEqual(ExportableAssemblyMethod.WBI0A2, actualExportableAssemblyResult.AssemblyMethod);
+                Assert.AreEqual(ExportableAssemblyMethod.BOI0A2, actualExportableAssemblyResult.AssemblyMethod);
             }
         }
     }

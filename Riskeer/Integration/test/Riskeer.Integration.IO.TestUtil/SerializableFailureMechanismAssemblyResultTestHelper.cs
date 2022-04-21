@@ -51,7 +51,7 @@ namespace Riskeer.Integration.IO.TestUtil
 
         private static SerializableAssemblyMethod GetAssemblyMethod(bool isManual)
         {
-            return isManual ? SerializableAssemblyMethod.Manual : SerializableAssemblyMethod.WBI1B1;
+            return isManual ? SerializableAssemblyMethod.Manual : SerializableAssemblyMethod.BOI1B1;
         }
     }
 }

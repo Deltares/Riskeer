@@ -46,11 +46,11 @@ namespace Riskeer.Integration.IO.Test.Creators
         }
 
         [Test]
-        [TestCase(ExportableAssemblyMethod.WBI1B1, SerializableAssemblyMethod.WBI1B1)]
-        [TestCase(ExportableAssemblyMethod.WBI2B1, SerializableAssemblyMethod.WBI2B1)]
-        [TestCase(ExportableAssemblyMethod.WBI3A1, SerializableAssemblyMethod.WBI3A1)]
-        [TestCase(ExportableAssemblyMethod.WBI3B1, SerializableAssemblyMethod.WBI3B1)]
-        [TestCase(ExportableAssemblyMethod.WBI3C1, SerializableAssemblyMethod.WBI3C1)]
+        [TestCase(ExportableAssemblyMethod.BOI1B1, SerializableAssemblyMethod.BOI1B1)]
+        [TestCase(ExportableAssemblyMethod.BOI2B1, SerializableAssemblyMethod.BOI2B1)]
+        [TestCase(ExportableAssemblyMethod.BOI3A1, SerializableAssemblyMethod.BOI3A1)]
+        [TestCase(ExportableAssemblyMethod.BOI3B1, SerializableAssemblyMethod.BOI3B1)]
+        [TestCase(ExportableAssemblyMethod.BOI3C1, SerializableAssemblyMethod.BOI3C1)]
         public void Create_WithAssemblyMethod_ReturnsExpectedValues(ExportableAssemblyMethod assemblyMethod,
                                                                     SerializableAssemblyMethod expectedAssemblyMethod)
         {

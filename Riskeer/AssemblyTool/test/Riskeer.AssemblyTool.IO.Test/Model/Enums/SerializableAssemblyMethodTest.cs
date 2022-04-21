@@ -33,22 +33,22 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             new Dictionary<SerializableAssemblyMethod, int>
             {
                 {
-                    SerializableAssemblyMethod.WBI0A2, 1
+                    SerializableAssemblyMethod.BOI0A2, 1
                 },
                 {
-                    SerializableAssemblyMethod.WBI1B1, 2
+                    SerializableAssemblyMethod.BOI1B1, 2
                 },
                 {
-                    SerializableAssemblyMethod.WBI2B1, 3
+                    SerializableAssemblyMethod.BOI2B1, 3
                 },
                 {
-                    SerializableAssemblyMethod.WBI3A1, 4
+                    SerializableAssemblyMethod.BOI3A1, 4
                 },
                 {
-                    SerializableAssemblyMethod.WBI3B1, 5
+                    SerializableAssemblyMethod.BOI3B1, 5
                 },
                 {
-                    SerializableAssemblyMethod.WBI3C1, 6
+                    SerializableAssemblyMethod.BOI3C1, 6
                 },
                 {
                     SerializableAssemblyMethod.Manual, 7
@@ -59,22 +59,22 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             new Dictionary<SerializableAssemblyMethod, string>
             {
                 {
-                    SerializableAssemblyMethod.WBI0A2, "WBI-0A-2"
+                    SerializableAssemblyMethod.BOI0A2, "WBI-0A-2"
                 },
                 {
-                    SerializableAssemblyMethod.WBI1B1, "WBI-1B-1"
+                    SerializableAssemblyMethod.BOI1B1, "WBI-1B-1"
                 },
                 {
-                    SerializableAssemblyMethod.WBI2B1, "WBI-2B-1"
+                    SerializableAssemblyMethod.BOI2B1, "WBI-2B-1"
                 },
                 {
-                    SerializableAssemblyMethod.WBI3A1, "WBI-3A-1"
+                    SerializableAssemblyMethod.BOI3A1, "WBI-3A-1"
                 },
                 {
-                    SerializableAssemblyMethod.WBI3B1, "WBI-3B-1"
+                    SerializableAssemblyMethod.BOI3B1, "WBI-3B-1"
                 },
                 {
-                    SerializableAssemblyMethod.WBI3C1, "WBI-3C-1"
+                    SerializableAssemblyMethod.BOI3C1, "WBI-3C-1"
                 },
                 {
                     SerializableAssemblyMethod.Manual, "HANDMTG"

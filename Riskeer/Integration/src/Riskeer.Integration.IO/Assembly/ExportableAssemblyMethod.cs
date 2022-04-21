@@ -27,33 +27,33 @@ namespace Riskeer.Integration.IO.Assembly
     public enum ExportableAssemblyMethod
     {
         /// <summary>
-        /// Represents the assembly method WBI-0A-2.
+        /// Represents the assembly method BOI-0A-2.
         /// </summary>
-        WBI0A2 = 1,
+        BOI0A2 = 1,
 
         /// <summary>
-        /// Represents the assembly method WBI-1B-1.
+        /// Represents the assembly method BOI-1B-1.
         /// </summary>
-        WBI1B1 = 2,
+        BOI1B1 = 2,
 
         /// <summary>
-        /// Represents the assembly method WBI-2B-1.
+        /// Represents the assembly method BOI-2B-1.
         /// </summary>
-        WBI2B1 = 3,
+        BOI2B1 = 3,
 
         /// <summary>
-        /// Represents the assembly method WBI-3A-1.
+        /// Represents the assembly method BOI-3A-1.
         /// </summary>
-        WBI3A1 = 4,
+        BOI3A1 = 4,
 
         /// <summary>
-        /// Represents the assembly method WBI-3B-1.
+        /// Represents the assembly method BOI-3B-1.
         /// </summary>
-        WBI3B1 = 5,
+        BOI3B1 = 5,
 
         /// <summary>
-        /// Represents the assembly method WBI-3C-1.
+        /// Represents the assembly method BOI-3C-1.
         /// </summary>
-        WBI3C1 = 6
+        BOI3C1 = 6
     }
 }

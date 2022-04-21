@@ -51,7 +51,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
 
         [Test]
         [TestCase(true, SerializableAssemblyMethod.Manual)]
-        [TestCase(false, SerializableAssemblyMethod.WBI1B1)]
+        [TestCase(false, SerializableAssemblyMethod.BOI1B1)]
         public void Constructor_WithValidData_ReturnsExpectedValues(bool isManual, SerializableAssemblyMethod expectedAssemblyMethod)
         {
             // Setup

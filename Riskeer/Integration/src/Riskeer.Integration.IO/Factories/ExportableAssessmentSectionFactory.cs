@@ -87,7 +87,7 @@ namespace Riskeer.Integration.IO.Factories
         private static ExportableAssessmentSectionAssemblyResult CreateExportableAssessmentSectionAssemblyResult(AssessmentSection assessmentSection)
         {
             AssessmentSectionAssemblyResult assemblyResult = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection).AssemblyResult;
-            return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.WBI2B1, assemblyResult.AssemblyGroup,
+            return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.BOI2B1, assemblyResult.AssemblyGroup,
                                                                  assemblyResult.Probability);
         }
 

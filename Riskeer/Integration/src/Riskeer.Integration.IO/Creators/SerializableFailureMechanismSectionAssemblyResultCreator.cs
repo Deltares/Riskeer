@@ -53,7 +53,7 @@ namespace Riskeer.Integration.IO.Creators
             ValidateAssemblyResult(sectionResult);
 
             return new SerializableFailureMechanismSectionAssemblyResult(
-                SerializableAssemblyMethod.WBI0A2,
+                SerializableAssemblyMethod.BOI0A2,
                 SerializableFailureMechanismSectionAssemblyGroupCreator.Create(sectionResult.AssemblyGroup),
                 sectionResult.Probability);
         }

@@ -69,7 +69,7 @@ namespace Riskeer.Integration.IO.TestUtil
             {
                 new Point2D(1, 1),
                 new Point2D(3, 3)
-            }, 1, 3, ExportableAssemblyMethod.WBI3A1);
+            }, 1, 3, ExportableAssemblyMethod.BOI3A1);
         }
     }
 }

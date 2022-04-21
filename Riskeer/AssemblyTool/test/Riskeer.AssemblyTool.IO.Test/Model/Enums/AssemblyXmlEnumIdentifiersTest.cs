@@ -46,12 +46,12 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("C", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupC);
             Assert.AreEqual("D", AssemblyXmlEnumIdentifiers.SerializableAssessmentSectionAssemblyGroupD);
 
-            Assert.AreEqual("WBI-0A-2", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0A2);
-            Assert.AreEqual("WBI-1B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI1B1);
-            Assert.AreEqual("WBI-2B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI2B1);
-            Assert.AreEqual("WBI-3A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3A1);
-            Assert.AreEqual("WBI-3B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3B1);
-            Assert.AreEqual("WBI-3C-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3C1);
+            Assert.AreEqual("WBI-0A-2", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI0A2);
+            Assert.AreEqual("WBI-1B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI1B1);
+            Assert.AreEqual("WBI-2B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI2B1);
+            Assert.AreEqual("WBI-3A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI3A1);
+            Assert.AreEqual("WBI-3B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI3B1);
+            Assert.AreEqual("WBI-3C-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI3C1);
             Assert.AreEqual("HANDMTG", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodManual);
 
             Assert.AreEqual("GENRK", AssemblyXmlEnumIdentifiers.SerializableFailureMechanismTypeGeneric);

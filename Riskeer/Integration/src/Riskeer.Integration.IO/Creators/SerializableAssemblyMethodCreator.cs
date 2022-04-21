@@ -53,16 +53,16 @@ namespace Riskeer.Integration.IO.Creators
 
             switch (assemblyMethod)
             {
-                case ExportableAssemblyMethod.WBI1B1:
-                    return SerializableAssemblyMethod.WBI1B1;
-                case ExportableAssemblyMethod.WBI2B1:
-                    return SerializableAssemblyMethod.WBI2B1;
-                case ExportableAssemblyMethod.WBI3A1:
-                    return SerializableAssemblyMethod.WBI3A1;
-                case ExportableAssemblyMethod.WBI3B1:
-                    return SerializableAssemblyMethod.WBI3B1;
-                case ExportableAssemblyMethod.WBI3C1:
-                    return SerializableAssemblyMethod.WBI3C1;
+                case ExportableAssemblyMethod.BOI1B1:
+                    return SerializableAssemblyMethod.BOI1B1;
+                case ExportableAssemblyMethod.BOI2B1:
+                    return SerializableAssemblyMethod.BOI2B1;
+                case ExportableAssemblyMethod.BOI3A1:
+                    return SerializableAssemblyMethod.BOI3A1;
+                case ExportableAssemblyMethod.BOI3B1:
+                    return SerializableAssemblyMethod.BOI3B1;
+                case ExportableAssemblyMethod.BOI3C1:
+                    return SerializableAssemblyMethod.BOI3C1;
                 default:
                     throw new NotSupportedException();
             }

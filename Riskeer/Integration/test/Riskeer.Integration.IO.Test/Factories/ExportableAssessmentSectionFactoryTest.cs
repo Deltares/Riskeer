@@ -98,7 +98,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, exportableAssessmentSection.Geometry);
 
                 ExportableAssessmentSectionAssemblyResult exportableAssessmentSectionAssemblyResult = exportableAssessmentSection.AssessmentSectionAssembly;
-                Assert.AreEqual(ExportableAssemblyMethod.WBI2B1, exportableAssessmentSectionAssemblyResult.AssemblyMethod);
+                Assert.AreEqual(ExportableAssemblyMethod.BOI2B1, exportableAssessmentSectionAssemblyResult.AssemblyMethod);
                 Assert.AreEqual(AssessmentSectionAssemblyGroup.APlus, exportableAssessmentSectionAssemblyResult.AssemblyGroup);
                 Assert.AreEqual(0.14, exportableAssessmentSectionAssemblyResult.Probability);
 
@@ -107,11 +107,11 @@ namespace Riskeer.Integration.IO.Test.Factories
                 Assert.AreEqual(1, exportableAssessmentSection.CombinedSectionAssemblies.Count());
                 ExportableCombinedSectionAssembly exportableCombinedSectionAssembly = exportableAssessmentSection.CombinedSectionAssemblies.ElementAt(0);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Zero, exportableCombinedSectionAssembly.CombinedSectionAssemblyResult.AssemblyGroup);
-                Assert.AreEqual(ExportableAssemblyMethod.WBI3C1, exportableCombinedSectionAssembly.CombinedSectionAssemblyResult.AssemblyMethod);
+                Assert.AreEqual(ExportableAssemblyMethod.BOI3C1, exportableCombinedSectionAssembly.CombinedSectionAssemblyResult.AssemblyMethod);
                 Assert.AreEqual(0.0, exportableCombinedSectionAssembly.CombinedSectionAssemblyResult.FailureMechanismSection.StartDistance);
                 Assert.AreEqual(1.0, exportableCombinedSectionAssembly.CombinedSectionAssemblyResult.FailureMechanismSection.EndDistance);
                 AssertExportableFailureMechanismCombinedSectionAssemblyResults(exportableCombinedSectionAssembly.FailureMechanismResults, assessmentSection);
-                Assert.AreEqual(ExportableAssemblyMethod.WBI3A1, exportableCombinedSectionAssembly.Section.AssemblyMethod);
+                Assert.AreEqual(ExportableAssemblyMethod.BOI3A1, exportableCombinedSectionAssembly.Section.AssemblyMethod);
                 Assert.AreEqual(0.0, exportableCombinedSectionAssembly.Section.StartDistance);
                 Assert.AreEqual(1.0, exportableCombinedSectionAssembly.Section.EndDistance);
             }
@@ -173,7 +173,7 @@ namespace Riskeer.Integration.IO.Test.Factories
                 CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, exportableAssessmentSection.Geometry);
 
                 ExportableAssessmentSectionAssemblyResult exportableAssessmentSectionAssemblyResult = exportableAssessmentSection.AssessmentSectionAssembly;
-                Assert.AreEqual(ExportableAssemblyMethod.WBI2B1, exportableAssessmentSectionAssemblyResult.AssemblyMethod);
+                Assert.AreEqual(ExportableAssemblyMethod.BOI2B1, exportableAssessmentSectionAssemblyResult.AssemblyMethod);
                 Assert.AreEqual(AssessmentSectionAssemblyGroup.APlus, exportableAssessmentSectionAssemblyResult.AssemblyGroup);
                 Assert.AreEqual(0.14, exportableAssessmentSectionAssemblyResult.Probability);
 
@@ -182,11 +182,11 @@ namespace Riskeer.Integration.IO.Test.Factories
                 Assert.AreEqual(1, exportableAssessmentSection.CombinedSectionAssemblies.Count());
                 ExportableCombinedSectionAssembly exportableCombinedSectionAssembly = exportableAssessmentSection.CombinedSectionAssemblies.ElementAt(0);
                 Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Zero, exportableCombinedSectionAssembly.CombinedSectionAssemblyResult.AssemblyGroup);
-                Assert.AreEqual(ExportableAssemblyMethod.WBI3C1, exportableCombinedSectionAssembly.CombinedSectionAssemblyResult.AssemblyMethod);
+                Assert.AreEqual(ExportableAssemblyMethod.BOI3C1, exportableCombinedSectionAssembly.CombinedSectionAssemblyResult.AssemblyMethod);
                 Assert.AreEqual(0.0, exportableCombinedSectionAssembly.CombinedSectionAssemblyResult.FailureMechanismSection.StartDistance);
                 Assert.AreEqual(1.0, exportableCombinedSectionAssembly.CombinedSectionAssemblyResult.FailureMechanismSection.EndDistance);
                 CollectionAssert.IsEmpty(exportableCombinedSectionAssembly.FailureMechanismResults);
-                Assert.AreEqual(ExportableAssemblyMethod.WBI3A1, exportableCombinedSectionAssembly.Section.AssemblyMethod);
+                Assert.AreEqual(ExportableAssemblyMethod.BOI3A1, exportableCombinedSectionAssembly.Section.AssemblyMethod);
                 Assert.AreEqual(0.0, exportableCombinedSectionAssembly.Section.StartDistance);
                 Assert.AreEqual(1.0, exportableCombinedSectionAssembly.Section.EndDistance);
             }
@@ -363,7 +363,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             Assert.AreEqual(expectedFailureMechanismType, actualExportableFailureMechanismCombinedSectionAssemblyResult.FailureMechanismType);
             Assert.AreEqual(failureMechanism.Name, actualExportableFailureMechanismCombinedSectionAssemblyResult.Name);
             Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Dominant, actualExportableFailureMechanismCombinedSectionAssemblyResult.SectionAssemblyResult.AssemblyGroup);
-            Assert.AreEqual(ExportableAssemblyMethod.WBI3B1, actualExportableFailureMechanismCombinedSectionAssemblyResult.SectionAssemblyResult.AssemblyMethod);
+            Assert.AreEqual(ExportableAssemblyMethod.BOI3B1, actualExportableFailureMechanismCombinedSectionAssemblyResult.SectionAssemblyResult.AssemblyMethod);
         }
     }
 }

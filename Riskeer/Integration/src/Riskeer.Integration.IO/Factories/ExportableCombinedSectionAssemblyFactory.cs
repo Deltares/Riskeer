@@ -67,11 +67,11 @@ namespace Riskeer.Integration.IO.Factories
                         assessmentSection.ReferenceLine, assemblyResult.SectionStart, assemblyResult.SectionEnd),
                     assemblyResult.SectionStart,
                     assemblyResult.SectionEnd,
-                    ExportableAssemblyMethod.WBI3A1);
+                    ExportableAssemblyMethod.BOI3A1);
 
                 var exportableSectionResult = new ExportableCombinedSectionAssembly(
                     exportableSection, new ExportableFailureMechanismSectionAssemblyResult(
-                        exportableSection, assemblyResult.TotalResult, ExportableAssemblyMethod.WBI3C1),
+                        exportableSection, assemblyResult.TotalResult, ExportableAssemblyMethod.BOI3C1),
                     CreateFailureMechanismCombinedSectionAssemblyResults(assemblyResult, assessmentSection));
 
                 sectionResults.Add(exportableSectionResult);
@@ -134,7 +134,7 @@ namespace Riskeer.Integration.IO.Factories
             string failureMechanismCode, string failureMechanismName)
         {
             return new ExportableFailureMechanismCombinedSectionAssemblyResult(
-                new ExportableFailureMechanismSubSectionAssemblyResult(sectionAssemblyGroup, ExportableAssemblyMethod.WBI3B1),
+                new ExportableFailureMechanismSubSectionAssemblyResult(sectionAssemblyGroup, ExportableAssemblyMethod.BOI3B1),
                 failureMechanismType, failureMechanismCode, failureMechanismName);
         }
     }

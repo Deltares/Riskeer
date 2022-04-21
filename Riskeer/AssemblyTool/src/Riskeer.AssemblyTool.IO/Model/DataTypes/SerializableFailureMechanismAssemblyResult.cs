@@ -49,7 +49,7 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
 
             AssemblyMethod = isManual
                                  ? SerializableAssemblyMethod.Manual
-                                 : SerializableAssemblyMethod.WBI1B1;
+                                 : SerializableAssemblyMethod.BOI1B1;
         }
 
         /// <summary>

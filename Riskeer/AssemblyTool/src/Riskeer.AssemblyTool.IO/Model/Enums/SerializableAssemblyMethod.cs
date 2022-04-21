@@ -29,40 +29,40 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
     public enum SerializableAssemblyMethod
     {
         /// <summary>
-        /// Represents the assembly method WBI-0A-2.
+        /// Represents the assembly method BOI-0A-2.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI0A2)]
-        WBI0A2 = 1,
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI0A2)]
+        BOI0A2 = 1,
 
         /// <summary>
-        /// Represents the assembly method WBI-1B-1.
+        /// Represents the assembly method BOI-1B-1.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI1B1)]
-        WBI1B1 = 2,
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI1B1)]
+        BOI1B1 = 2,
 
         /// <summary>
-        /// Represents the assembly method WBI-2B-1.
+        /// Represents the assembly method BOI-2B-1.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI2B1)]
-        WBI2B1 = 3,
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI2B1)]
+        BOI2B1 = 3,
 
         /// <summary>
-        /// Represents the assembly method WBI-3A-1.
+        /// Represents the assembly method BOI-3A-1.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3A1)]
-        WBI3A1 = 4,
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI3A1)]
+        BOI3A1 = 4,
 
         /// <summary>
-        /// Represents the assembly method WBI-3B-1.
+        /// Represents the assembly method BOI-3B-1.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3B1)]
-        WBI3B1 = 5,
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI3B1)]
+        BOI3B1 = 5,
 
         /// <summary>
-        /// Represents the assembly method WBI-3C-1.
+        /// Represents the assembly method BOI-3C-1.
         /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodWBI3C1)]
-        WBI3C1 = 6,
+        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI3C1)]
+        BOI3C1 = 6,
 
         /// <summary>
         /// Represents a manual assembly.
