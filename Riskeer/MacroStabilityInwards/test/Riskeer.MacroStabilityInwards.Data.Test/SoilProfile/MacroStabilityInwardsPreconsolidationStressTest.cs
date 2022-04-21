@@ -48,10 +48,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             };
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStress(null, distribution);
+            void Call() => new MacroStabilityInwardsPreconsolidationStress(null, distribution);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("location", exception.ParamName);
         }
 
@@ -64,10 +64,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             var location = new Point2D(random.NextDouble(), random.NextDouble());
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStress(location, null);
+            void Call() => new MacroStabilityInwardsPreconsolidationStress(location, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("stressDistribution", exception.ParamName);
         }
 
@@ -108,26 +108,19 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             var location = new Point2D(xCoordinate, zCoordinate);
 
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsPreconsolidationStress(location, new VariationCoefficientLogNormalDistribution(2));
+            void Call() => new MacroStabilityInwardsPreconsolidationStress(location, new VariationCoefficientLogNormalDistribution(2));
 
             // Assert
-            string expectedMessage = $"De waarde voor parameter '{parameterName}' voor de grensspanning moet een concreet getal zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            var expectedMessage = $"De waarde voor parameter '{parameterName}' voor de grensspanning moet een concreet getal zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsPreconsolidationStressEqualsTest :
-            EqualsTestFixture<MacroStabilityInwardsPreconsolidationStress,
-                DerivedMacroStabilityInwardsPreconsolidationStress>
+        private class MacroStabilityInwardsPreconsolidationStressEqualsTest : EqualsTestFixture<MacroStabilityInwardsPreconsolidationStress>
         {
             protected override MacroStabilityInwardsPreconsolidationStress CreateObject()
             {
                 return CreatePreconsolidationStress();
-            }
-
-            protected override DerivedMacroStabilityInwardsPreconsolidationStress CreateDerivedObject()
-            {
-                return new DerivedMacroStabilityInwardsPreconsolidationStress(CreatePreconsolidationStress());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -174,12 +167,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
 
             yield return new TestCaseData(double.NaN, zCoordinate, "X-coördinaat").SetName("Invalid XCoordinate");
             yield return new TestCaseData(xCoordinate, double.NaN, "Z-coördinaat").SetName("Invalid ZCoordinate");
-        }
-
-        private class DerivedMacroStabilityInwardsPreconsolidationStress : MacroStabilityInwardsPreconsolidationStress
-        {
-            public DerivedMacroStabilityInwardsPreconsolidationStress(MacroStabilityInwardsPreconsolidationStress stress)
-                : base(stress.Location, stress.Stress) {}
         }
     }
 }

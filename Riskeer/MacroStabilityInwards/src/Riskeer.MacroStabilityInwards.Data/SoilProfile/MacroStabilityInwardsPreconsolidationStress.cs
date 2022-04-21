@@ -31,7 +31,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
     /// This class represents a preconsolidation stress definition that was imported
     /// from D-Soil Model.
     /// </summary>
-    public class MacroStabilityInwardsPreconsolidationStress : IMacroStabilityInwardsPreconsolidationStress
+    public sealed class MacroStabilityInwardsPreconsolidationStress : IMacroStabilityInwardsPreconsolidationStress
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsPreconsolidationStress"/>.

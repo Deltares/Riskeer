@@ -59,32 +59,32 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_LayersEmpty_ThrowsArgumentException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(string.Empty, double.NaN, new Collection<MacroStabilityInwardsSoilLayer1D>());
+            void Call() => new MacroStabilityInwardsSoilProfile1D(string.Empty, double.NaN, new Collection<MacroStabilityInwardsSoilLayer1D>());
 
             // Assert
             const string expectedMessage = "Geen lagen gevonden voor de ondergrondschematisatie.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(null, double.NaN, new Collection<MacroStabilityInwardsSoilLayer1D>());
+            void Call() => new MacroStabilityInwardsSoilProfile1D(null, double.NaN, new Collection<MacroStabilityInwardsSoilLayer1D>());
 
             // Assert
-            Assert.Throws<ArgumentNullException>(test);
+            Assert.Throws<ArgumentNullException>(Call);
         }
 
         [Test]
         public void Constructor_LayersNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(string.Empty, double.NaN, null);
+            void Call() => new MacroStabilityInwardsSoilProfile1D(string.Empty, double.NaN, null);
 
             // Assert
             const string expectedMessage = "Geen lagen gevonden voor de ondergrondschematisatie.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
         }
 
         [Test]
@@ -132,11 +132,11 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             };
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSoilProfile1D(string.Empty, bottom, soilLayers);
+            void Call() => new MacroStabilityInwardsSoilProfile1D(string.Empty, bottom, soilLayers);
 
             // Assert
             const string expectedMessage = "Een of meerdere lagen hebben een top onder de bodem van de ondergrondschematisatie.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -171,11 +171,11 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             var profile = new MacroStabilityInwardsSoilProfile1D(string.Empty, 0.0, soilLayers);
 
             // Call
-            TestDelegate test = () => profile.GetLayerThickness(new MacroStabilityInwardsSoilLayer1D(1.1));
+            void Call() => profile.GetLayerThickness(new MacroStabilityInwardsSoilLayer1D(1.1));
 
             // Assert
             const string expectedMessage = "Layer not found in profile.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
@@ -190,24 +190,18 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             });
 
             // Call
-            string text = profile.ToString();
+            var text = profile.ToString();
 
             // Assert
             Assert.AreEqual(name, text);
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsSoilProfile1DEqualsTest
-            : EqualsTestFixture<MacroStabilityInwardsSoilProfile1D, DerivedMacroStabilityInwardsSoilProfile1D>
+        private class MacroStabilityInwardsSoilProfile1DEqualsTest : EqualsTestFixture<MacroStabilityInwardsSoilProfile1D>
         {
             protected override MacroStabilityInwardsSoilProfile1D CreateObject()
             {
                 return CreateSoilProfile();
-            }
-
-            protected override DerivedMacroStabilityInwardsSoilProfile1D CreateDerivedObject()
-            {
-                return new DerivedMacroStabilityInwardsSoilProfile1D(CreateSoilProfile());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -250,12 +244,6 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
                     MacroStabilityInwardsSoilLayer1DTestFactory.CreateMacroStabilityInwardsSoilLayer1D()
                 });
             }
-        }
-
-        private class DerivedMacroStabilityInwardsSoilProfile1D : MacroStabilityInwardsSoilProfile1D
-        {
-            public DerivedMacroStabilityInwardsSoilProfile1D(MacroStabilityInwardsSoilProfile1D profile)
-                : base(profile.Name, profile.Bottom, profile.Layers) {}
         }
     }
 }

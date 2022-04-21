@@ -29,7 +29,7 @@ namespace Riskeer.Integration.Data
     /// <summary>
     /// Class which defines a project for the application.
     /// </summary>
-    public class RiskeerProject : Observable, IProject
+    public sealed class RiskeerProject : Observable, IProject
     {
         /// <summary>
         /// Constructs a new <see cref="RiskeerProject"/>. 

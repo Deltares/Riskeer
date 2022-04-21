@@ -27,7 +27,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
     /// <summary>
     /// This class represents a 1D layer that was imported from D-Soil Model.
     /// </summary>
-    public class MacroStabilityInwardsSoilLayer1D : IMacroStabilityInwardsSoilLayer
+    public sealed class MacroStabilityInwardsSoilLayer1D : IMacroStabilityInwardsSoilLayer
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSoilLayer1D"/>.
