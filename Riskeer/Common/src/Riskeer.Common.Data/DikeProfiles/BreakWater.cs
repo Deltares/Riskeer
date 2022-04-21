@@ -27,7 +27,7 @@ namespace Riskeer.Common.Data.DikeProfiles
     /// <summary>
     /// Container for break water related data.
     /// </summary>
-    public class BreakWater : ICloneable
+    public sealed class BreakWater : ICloneable
     {
         private RoundedDouble height;
 

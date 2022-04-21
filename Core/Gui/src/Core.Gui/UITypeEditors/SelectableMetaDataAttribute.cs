@@ -28,7 +28,7 @@ namespace Core.Gui.UITypeEditors
     /// Class that represents a <see cref="FeatureBasedMapData.MetaData"/> attribute in the drop down list edit control
     /// for the <see cref="FeatureBasedMapData.MetaData"/>.
     /// </summary>
-    public class SelectableMetaDataAttribute
+    public sealed class SelectableMetaDataAttribute
     {
         /// <summary>
         /// Creates a new instance of <see cref="SelectableMetaDataAttribute"/>.
