@@ -31,7 +31,7 @@ namespace Riskeer.MacroStabilityInwards.Data.SoilProfile
     /// This class couples a <see cref="IMacroStabilityInwardsSoilProfile{T}"/> 
     /// to a probability of occurrence.
     /// </summary>
-    public class MacroStabilityInwardsStochasticSoilProfile : Observable
+    public sealed class MacroStabilityInwardsStochasticSoilProfile : Observable
     {
         private double probability;
 

@@ -37,10 +37,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
         public void Constructor_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsStochasticSoilProfile(0, null);
+            void Call() => new MacroStabilityInwardsStochasticSoilProfile(0, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("soilProfile", exception.ParamName);
         }
 
@@ -79,12 +79,12 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             mocks.ReplayAll();
 
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
+            void Call() => new MacroStabilityInwardsStochasticSoilProfile(probability, soilProfile);
 
             // Assert
             const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel" +
                                            " moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
             mocks.VerifyAll();
         }
 
@@ -99,10 +99,10 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             var stochasticProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);
 
             // Call
-            TestDelegate test = () => stochasticProfile.Update(null);
+            void Call() => stochasticProfile.Update(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("fromProfile", paramName);
             mocks.VerifyAll();
         }
@@ -131,7 +131,7 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             var stochasticSoilProfile = new MacroStabilityInwardsStochasticSoilProfile(0.0, soilProfile);
 
             // Call
-            string text = stochasticSoilProfile.ToString();
+            var text = stochasticSoilProfile.ToString();
 
             // Assert
             Assert.AreEqual(soilProfile.ToString(), text);
@@ -165,24 +165,12 @@ namespace Riskeer.MacroStabilityInwards.Data.Test.SoilProfile
             };
         }
 
-        private class DerivedMacroStabilityInwardsStochasticSoilProfile : MacroStabilityInwardsStochasticSoilProfile
-        {
-            public DerivedMacroStabilityInwardsStochasticSoilProfile(MacroStabilityInwardsStochasticSoilProfile profile)
-                : base(profile.Probability, profile.SoilProfile) {}
-        }
-
         [TestFixture]
-        private class MacroStabilityInwardsStochasticSoilProfileEqualsTest
-            : EqualsTestFixture<MacroStabilityInwardsStochasticSoilProfile, DerivedMacroStabilityInwardsStochasticSoilProfile>
+        private class MacroStabilityInwardsStochasticSoilProfileEqualsTest : EqualsTestFixture<MacroStabilityInwardsStochasticSoilProfile>
         {
             protected override MacroStabilityInwardsStochasticSoilProfile CreateObject()
             {
                 return CreateStochasticSoilProfile();
-            }
-
-            protected override DerivedMacroStabilityInwardsStochasticSoilProfile CreateDerivedObject()
-            {
-                return new DerivedMacroStabilityInwardsStochasticSoilProfile(CreateStochasticSoilProfile());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
