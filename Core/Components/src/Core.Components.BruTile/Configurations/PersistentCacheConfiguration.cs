@@ -153,17 +153,11 @@ namespace Core.Components.BruTile.Configurations
 
             tileSource = newTileSource;
             IPersistentCache<byte[]> tileCache = CreateTileCache();
-            try
-            {
-                TileFetcher = new AsyncTileFetcher(tileSource,
-                                                   BruTileSettings.MemoryCacheMinimum,
-                                                   BruTileSettings.MemoryCacheMaximum,
-                                                   tileCache);
-            }
-            catch (NotSupportedException e)
-            {
-                throw new CannotReceiveTilesException(Resources.Configuration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider, e);
-            }
+
+            TileFetcher = new AsyncTileFetcher(tileSource,
+                                               BruTileSettings.MemoryCacheMinimum,
+                                               BruTileSettings.MemoryCacheMaximum,
+                                               tileCache);
 
             Initialized = true;
         }

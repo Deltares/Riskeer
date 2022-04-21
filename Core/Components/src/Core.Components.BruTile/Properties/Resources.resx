@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Configuration_InitializeFromTileSource_TileSource_does_not_allow_access_to_provider" xml:space="preserve">
-    <value>Bron staat het niet toe om toegang te krijgen tot de kaart tegels.</value>
-  </data>
   <data name="PersistentCacheConfiguration_CreateTileCache_Critical_error_while_creating_tile_cache" xml:space="preserve">
     <value>Een kritieke fout is opgetreden bij het aanmaken van de cache.</value>
   </data>
