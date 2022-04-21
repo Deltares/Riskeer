@@ -28,7 +28,7 @@ namespace Core.Common.Util
     /// Class which produces a file filter based on the expected extension. If no specific
     /// extension is expected, then a filter which filter out no file type will be produced.
     /// </summary>
-    public class FileFilterGenerator
+    public sealed class FileFilterGenerator
     {
         /// <summary>
         /// Creates a new instance of <see cref="FileFilterGenerator"/> which filters out no
