@@ -33,10 +33,10 @@ namespace Core.Components.Gis.Test
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WmtsConnectionInfo(null, "url");
+            void Call() => new WmtsConnectionInfo(null, "url");
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("name", paramName);
         }
 
@@ -44,10 +44,10 @@ namespace Core.Components.Gis.Test
         public void Constructor_UrlNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new WmtsConnectionInfo("name", null);
+            void Call() => new WmtsConnectionInfo("name", null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "url must have a value.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, "url must have a value.");
         }
 
         [Test]
@@ -66,16 +66,11 @@ namespace Core.Components.Gis.Test
         }
 
         [TestFixture]
-        private class WmtsConnectionInfoEqualsTest : EqualsTestFixture<WmtsConnectionInfo, DerivedWmtsConnectionInfo>
+        private class WmtsConnectionInfoEqualsTest : EqualsTestFixture<WmtsConnectionInfo>
         {
             protected override WmtsConnectionInfo CreateObject()
             {
                 return CreateWmtsConnectionInfo();
-            }
-
-            protected override DerivedWmtsConnectionInfo CreateDerivedObject()
-            {
-                return new DerivedWmtsConnectionInfo(CreateWmtsConnectionInfo());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -91,12 +86,6 @@ namespace Core.Components.Gis.Test
             {
                 return new WmtsConnectionInfo("name", "url");
             }
-        }
-
-        private class DerivedWmtsConnectionInfo : WmtsConnectionInfo
-        {
-            public DerivedWmtsConnectionInfo(WmtsConnectionInfo connectionInfo)
-                : base(connectionInfo.Name, connectionInfo.Url) {}
         }
     }
 }

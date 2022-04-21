@@ -26,7 +26,7 @@ namespace Core.Components.Gis
     /// <summary>
     /// This class defines properties for a WMTS connection.
     /// </summary>
-    public class WmtsConnectionInfo : IEquatable<WmtsConnectionInfo>
+    public sealed class WmtsConnectionInfo : IEquatable<WmtsConnectionInfo>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WmtsConnectionInfo"/>.
