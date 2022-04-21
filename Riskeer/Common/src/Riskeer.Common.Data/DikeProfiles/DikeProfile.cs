@@ -32,7 +32,7 @@ namespace Riskeer.Common.Data.DikeProfiles
     /// <summary>
     /// Definition for a dike profile for a failure mechanism.
     /// </summary>
-    public class DikeProfile : Observable
+    public sealed class DikeProfile : Observable
     {
         /// <summary>
         /// Creates a new instance of the <see cref="DikeProfile"/> class.

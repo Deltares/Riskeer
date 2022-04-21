@@ -82,14 +82,17 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
         public void Constructor_WorldReferencePointIsNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DikeProfile(null, new RoughnessPoint[0], new Point2D[0],
-                                                      null, new DikeProfile.ConstructionProperties
-                                                      {
-                                                          Id = "id"
-                                                      });
+            void Call() => new DikeProfile(null,
+                                           new RoughnessPoint[0],
+                                           new Point2D[0],
+                                           null,
+                                           new DikeProfile.ConstructionProperties
+                                           {
+                                               Id = "id"
+                                           });
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("worldCoordinate", paramName);
         }
 
@@ -97,15 +100,18 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
         public void Constructor_DikeGeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DikeProfile(new Point2D(0, 0), null, new Point2D[0],
-                                                      null, new DikeProfile.ConstructionProperties
-                                                      {
-                                                          Id = "id"
-                                                      });
+            void Call() => new DikeProfile(new Point2D(0, 0),
+                                           null,
+                                           new Point2D[0],
+                                           null,
+                                           new DikeProfile.ConstructionProperties
+                                           {
+                                               Id = "id"
+                                           });
 
             // Assert
             const string expectedMessage = "De geometrie die opgegeven werd voor het dijkprofiel heeft geen waarde.";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
             Assert.AreEqual("points", exception.ParamName);
         }
 
@@ -113,34 +119,38 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
         public void Constructor_DikeGeometryContainsNullPoint_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new DikeProfile(new Point2D(0.0, 0.0),
-                                                      new RoughnessPoint[]
-                                                      {
-                                                          null
-                                                      },
-                                                      new Point2D[0],
-                                                      null, new DikeProfile.ConstructionProperties
-                                                      {
-                                                          Id = "id"
-                                                      });
+            void Call() => new DikeProfile(new Point2D(0.0, 0.0),
+                                           new RoughnessPoint[]
+                                           {
+                                               null
+                                           },
+                                           new Point2D[0],
+                                           null,
+                                           new DikeProfile.ConstructionProperties
+                                           {
+                                               Id = "id"
+                                           });
 
             // Assert
             const string expectedMessage = "Een punt in de geometrie voor het dijkprofiel heeft geen waarde.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
         public void Constructor_ForeshoreGeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], null,
-                                                      null, new DikeProfile.ConstructionProperties
-                                                      {
-                                                          Id = "id"
-                                                      });
+            void Call() => new DikeProfile(new Point2D(0, 0),
+                                           new RoughnessPoint[0],
+                                           null,
+                                           null,
+                                           new DikeProfile.ConstructionProperties
+                                           {
+                                               Id = "id"
+                                           });
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("geometry", paramName);
         }
 
@@ -148,28 +158,35 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
         public void Constructor_ForeshoreGeometryContainsNullPoint_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new DikeProfile(new Point2D(0.0, 0.0), new RoughnessPoint[0],
-                                                      new Point2D[]
-                                                      {
-                                                          null
-                                                      }, null, new DikeProfile.ConstructionProperties
-                                                      {
-                                                          Id = "id"
-                                                      });
+            void Call() => new DikeProfile(new Point2D(0.0, 0.0),
+                                           new RoughnessPoint[0],
+                                           new Point2D[]
+                                           {
+                                               null
+                                           },
+                                           null,
+                                           new DikeProfile.ConstructionProperties
+                                           {
+                                               Id = "id"
+                                           });
 
             // Assert
             const string expectedMessage = "Een punt in de geometrie voor het voorlandprofiel heeft geen waarde.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
         }
 
         [Test]
         public void Constructor_ConstructionPropertiesIsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0], null, null);
+            void Call() => new DikeProfile(new Point2D(0, 0),
+                                           new RoughnessPoint[0],
+                                           new Point2D[0],
+                                           null,
+                                           null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("properties", paramName);
         }
 
@@ -322,7 +339,7 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
                                               });
 
             // Call
-            string result = dikeProfile.ToString();
+            var result = dikeProfile.ToString();
 
             // Assert
             Assert.AreEqual(testName, result);
@@ -335,10 +352,10 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
             DikeProfile dikeProfile = CreateFullyDefinedDikeProfile();
 
             // Call
-            TestDelegate call = () => dikeProfile.CopyProperties(null);
+            void Call() => dikeProfile.CopyProperties(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("fromDikeProfile", exception.ParamName);
         }
 
@@ -404,17 +421,11 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
         }
 
         [TestFixture]
-        private class DikeProfileEqualsTest : EqualsTestFixture<DikeProfile, TestDikeProfile>
+        private class DikeProfileEqualsTest : EqualsTestFixture<DikeProfile>
         {
             protected override DikeProfile CreateObject()
             {
                 return CreateFullyDefinedDikeProfile();
-            }
-
-            protected override TestDikeProfile CreateDerivedObject()
-            {
-                DikeProfile baseProfile = CreateFullyDefinedDikeProfile();
-                return new TestDikeProfile(baseProfile);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -602,20 +613,6 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
             var breakWater = new BreakWater(BreakWaterType.Caisson, 1.3);
 
             return new DikeProfile(worldCoordinate, dikeGeometry, foreshoreGeometry, breakWater, properties);
-        }
-
-        private class TestDikeProfile : DikeProfile
-        {
-            public TestDikeProfile(DikeProfile profile)
-                : base(profile.WorldReferencePoint, profile.DikeGeometry, profile.ForeshoreGeometry, profile.BreakWater,
-                       new ConstructionProperties
-                       {
-                           Name = profile.Name,
-                           DikeHeight = profile.DikeHeight,
-                           Id = profile.Id,
-                           Orientation = profile.Orientation,
-                           X0 = profile.X0
-                       }) {}
         }
     }
 }

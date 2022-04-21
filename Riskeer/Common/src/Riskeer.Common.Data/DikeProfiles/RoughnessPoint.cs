@@ -28,7 +28,7 @@ namespace Riskeer.Common.Data.DikeProfiles
     /// <summary>
     /// This class represents a geometry point with a roughness.
     /// </summary>
-    public class RoughnessPoint
+    public sealed class RoughnessPoint
     {
         /// <summary>
         /// Creates a new instance of the <see cref="RoughnessPoint"/> class.

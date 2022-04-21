@@ -51,26 +51,20 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
         [Test]
         public void Constructor_PointNull_ThrowsArgumentNullException()
         {
-            // Setup & Call
-            TestDelegate test = () => new RoughnessPoint(null, 0.0);
+            // Call
+            void Call() => new RoughnessPoint(null, 0.0);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("point", exception.ParamName);
         }
 
         [TestFixture]
-        private class RoughnessPointEqualsTest : EqualsTestFixture<RoughnessPoint, DerivedRoughnessPoint>
+        private class RoughnessPointEqualsTest : EqualsTestFixture<RoughnessPoint>
         {
             protected override RoughnessPoint CreateObject()
             {
                 return CreateRoughnessPoint();
-            }
-
-            protected override DerivedRoughnessPoint CreateDerivedObject()
-            {
-                RoughnessPoint basePoint = CreateRoughnessPoint();
-                return new DerivedRoughnessPoint(basePoint);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -91,12 +85,6 @@ namespace Riskeer.Common.Data.Test.DikeProfiles
             {
                 return new RoughnessPoint(new Point2D(0, 0), 3.14);
             }
-        }
-
-        private class DerivedRoughnessPoint : RoughnessPoint
-        {
-            public DerivedRoughnessPoint(RoughnessPoint roughnessPoint)
-                : base(roughnessPoint.Point, roughnessPoint.Roughness) {}
         }
     }
 }
