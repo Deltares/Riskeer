@@ -35,10 +35,10 @@ namespace Riskeer.Common.IO.Test.SoilProfile
         public void Constructor_SegmentsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SoilLayer2DLoop(null);
+            void Call() => new SoilLayer2DLoop(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("segments", paramName);
         }
 
@@ -77,13 +77,13 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             };
 
             // Call
-            TestDelegate test = () =>
+            void Call()
             {
                 new SoilLayer2DLoop(arrayWithDisconnectedSegment);
-            };
+            }
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<ArgumentException>(Call);
             Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
         }
 
@@ -105,27 +105,22 @@ namespace Riskeer.Common.IO.Test.SoilProfile
             };
 
             // Call
-            TestDelegate test = () =>
+            void Call()
             {
                 new SoilLayer2DLoop(arrayWithInversedSegment);
-            };
+            }
 
             // Assert
-            var exception = Assert.Throws<ArgumentException>(test);
+            var exception = Assert.Throws<ArgumentException>(Call);
             Assert.AreEqual("De segmenten van de geometrie van de laag vormen geen lus.", exception.Message);
         }
 
         [TestFixture]
-        private class SoilLayer2DLoopEqualsTest : EqualsTestFixture<SoilLayer2DLoop, DerivedSoilLayer2DLoop>
+        private class SoilLayer2DLoopEqualsTest : EqualsTestFixture<SoilLayer2DLoop>
         {
             protected override SoilLayer2DLoop CreateObject()
             {
                 return CreateValidLoop(1.0);
-            }
-
-            protected override DerivedSoilLayer2DLoop CreateDerivedObject()
-            {
-                return new DerivedSoilLayer2DLoop(CreateValidLoop(1.0));
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -147,11 +142,6 @@ namespace Riskeer.Common.IO.Test.SoilProfile
 
                 return new SoilLayer2DLoop(segments);
             }
-        }
-
-        private class DerivedSoilLayer2DLoop : SoilLayer2DLoop
-        {
-            public DerivedSoilLayer2DLoop(SoilLayer2DLoop loop) : base(loop.Segments) {}
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Riskeer.Common.Forms.PresentationObjects
     /// <summary>
     /// Class that represents a <see cref="HydraulicBoundaryLocation"/> with respect to a reference point.
     /// </summary>
-    public class SelectableHydraulicBoundaryLocation
+    public sealed class SelectableHydraulicBoundaryLocation
     {
         /// <summary>
         /// Creates a new instance of <see cref="SelectableHydraulicBoundaryLocation"/>.

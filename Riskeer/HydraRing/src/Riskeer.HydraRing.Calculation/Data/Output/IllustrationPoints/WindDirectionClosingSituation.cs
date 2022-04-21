@@ -26,7 +26,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
     /// <summary>
     /// Combination of a wind direction and a closing situation.
     /// </summary>
-    public class WindDirectionClosingSituation
+    public sealed class WindDirectionClosingSituation
     {
         /// <summary>
         /// Creates a new instance of <see cref="WindDirectionClosingSituation"/>.

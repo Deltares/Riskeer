@@ -35,10 +35,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_WithoutWindDirection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WindDirectionClosingSituation(null, string.Empty);
+            void Call() => new WindDirectionClosingSituation(null, string.Empty);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("windDirection", exception.ParamName);
         }
 
@@ -46,10 +46,10 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_WithoutClosingSituation_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new WindDirectionClosingSituation(new TestWindDirection(), null);
+            void Call() => new WindDirectionClosingSituation(new TestWindDirection(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("closingSituation", exception.ParamName);
         }
 
@@ -57,7 +57,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_WithParameters_ReturnNewInstance()
         {
             // Setup
-            string closingSituation = string.Empty;
+            var closingSituation = string.Empty;
             var windDirection = new TestWindDirection();
 
             // Call
@@ -70,16 +70,11 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         }
 
         [TestFixture]
-        private class WindDirectionClosingSituationEqualsTest : EqualsTestFixture<WindDirectionClosingSituation, DerivedWindDirectionClosingSituation>
+        private class WindDirectionClosingSituationEqualsTest : EqualsTestFixture<WindDirectionClosingSituation>
         {
             protected override WindDirectionClosingSituation CreateObject()
             {
                 return CreateWindDirectionClosingSituation();
-            }
-
-            protected override DerivedWindDirectionClosingSituation CreateDerivedObject()
-            {
-                return new DerivedWindDirectionClosingSituation(CreateWindDirectionClosingSituation());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -102,12 +97,6 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
                 var random = new Random(seed);
                 return new WindDirection("Name", random.NextDouble());
             }
-        }
-
-        private class DerivedWindDirectionClosingSituation : WindDirectionClosingSituation
-        {
-            public DerivedWindDirectionClosingSituation(WindDirectionClosingSituation wind)
-                : base(wind.WindDirection, wind.ClosingSituation) {}
         }
     }
 }
