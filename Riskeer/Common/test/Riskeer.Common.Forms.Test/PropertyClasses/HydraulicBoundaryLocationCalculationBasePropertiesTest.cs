@@ -43,25 +43,24 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
     public class HydraulicBoundaryLocationCalculationBasePropertiesTest
     {
         private const int resultPropertyIndex = 0;
-        private const int targetProbabilityPropertyIndex = 1;
-        private const int targetReliabilityPropertyIndex = 2;
-        private const int calculatedProbabilityPropertyIndex = 3;
-        private const int calculatedReliabilityPropertyIndex = 4;
-        private const int convergencePropertyIndex = 5;
-        private const int shouldCalculateIllustrationPointsIndex = 6;
-        private const int governingWindDirectionIndex = 7;
-        private const int alphaValuesIndex = 8;
-        private const int durationsIndex = 9;
-        private const int illustrationPointsIndex = 10;
+        private const int targetReliabilityPropertyIndex = 1;
+        private const int calculatedProbabilityPropertyIndex = 2;
+        private const int calculatedReliabilityPropertyIndex = 3;
+        private const int convergencePropertyIndex = 4;
+        private const int shouldCalculateIllustrationPointsIndex = 5;
+        private const int governingWindDirectionIndex = 6;
+        private const int alphaValuesIndex = 7;
+        private const int durationsIndex = 8;
+        private const int illustrationPointsIndex = 9;
 
         [Test]
         public void Constructor_HydraulicBoundaryLocationCalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationCalculationBaseProperties(null);
+            void Call() => new TestHydraulicBoundaryLocationCalculationBaseProperties(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("hydraulicBoundaryLocationCalculation", paramName);
         }
 
@@ -79,8 +78,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(TypeDescriptor.GetConverter(properties, true));
             TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, NoValueRoundedDoubleConverter>(
                 nameof(HydraulicBoundaryLocationCalculationProperties.Result));
-            TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, NoProbabilityValueDoubleConverter>(
-                nameof(HydraulicBoundaryLocationCalculationProperties.TargetProbability));
             TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, NoValueRoundedDoubleConverter>(
                 nameof(HydraulicBoundaryLocationCalculationProperties.TargetReliability));
             TestHelper.AssertTypeConverter<HydraulicBoundaryLocationCalculationProperties, NoProbabilityValueDoubleConverter>(
@@ -108,7 +105,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(7, dynamicProperties.Count);
+            Assert.AreEqual(6, dynamicProperties.Count);
 
             const string resultCategory = "Resultaat";
             const string illustrationPointsCategory = "Illustratiepunten";
@@ -118,13 +115,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             resultCategory,
                                                                             nameof(properties.Result),
                                                                             "",
-                                                                            true);
-
-            PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
-                                                                            resultCategory,
-                                                                            "Doelkans [1/jaar]",
-                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
             PropertyDescriptor targetReliabilityProperty = dynamicProperties[targetReliabilityPropertyIndex];
@@ -176,7 +166,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(11, dynamicProperties.Count);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             const string resultCategory = "Resultaat";
             const string illustrationPointsCategory = "Illustratiepunten";
@@ -186,13 +176,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             resultCategory,
                                                                             nameof(properties.Result),
                                                                             "",
-                                                                            true);
-
-            PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
-                                                                            resultCategory,
-                                                                            "Doelkans [1/jaar]",
-                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
             PropertyDescriptor targetReliabilityProperty = dynamicProperties[targetReliabilityPropertyIndex];
@@ -306,7 +289,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
             var properties = new TestHydraulicBoundaryLocationCalculationBaseProperties(calculation);
 
             // Assert
-            Assert.AreEqual(targetProbability, properties.TargetProbability);
             Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, properties.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());

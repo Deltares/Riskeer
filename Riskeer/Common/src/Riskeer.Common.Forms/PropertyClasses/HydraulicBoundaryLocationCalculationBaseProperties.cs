@@ -70,19 +70,6 @@ namespace Riskeer.Common.Forms.PropertyClasses
 
         [PropertyOrder(5)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_TargetProbability_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.CalculationOutput_TargetProbability_Description))]
-        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
-        public double TargetProbability
-        {
-            get
-            {
-                return data.Output?.TargetProbability ?? double.NaN;
-            }
-        }
-
-        [PropertyOrder(6)]
-        [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_TargetReliability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CalculationOutput_TargetReliability_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
@@ -94,7 +81,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(7)]
+        [PropertyOrder(6)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedProbability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedProbability_Description))]
@@ -107,7 +94,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(8)]
+        [PropertyOrder(7)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedReliability_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.CalculationOutput_CalculatedReliability_Description))]
@@ -120,7 +107,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(9)]
+        [PropertyOrder(8)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_Result))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.CalculationOutput_Convergence_DisplayName))]
         [TypeConverter(typeof(EnumTypeConverter))]
@@ -132,7 +119,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(10)]
+        [PropertyOrder(9)]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_DisplayName))]
         [ResourcesDescription(typeof(Resources), nameof(Resources.ShouldIllustrationPointsBeCalculated_Description))]
@@ -149,7 +136,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(11)]
+        [PropertyOrder(10)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_GoverningWindDirection_DisplayName))]
@@ -162,7 +149,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(12)]
+        [PropertyOrder(11)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_AlphaValues_DisplayName))]
@@ -177,7 +164,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(13)]
+        [PropertyOrder(12)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPoint_Durations_DisplayName))]
@@ -192,7 +179,7 @@ namespace Riskeer.Common.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(14)]
+        [PropertyOrder(13)]
         [DynamicVisible]
         [ResourcesCategory(typeof(Resources), nameof(Resources.Categories_IllustrationPoints))]
         [ResourcesDisplayName(typeof(Resources), nameof(Resources.IllustrationPointProperty_IllustrationPoints_DisplayName))]
