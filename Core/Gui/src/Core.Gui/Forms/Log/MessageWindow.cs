@@ -110,7 +110,10 @@ namespace Core.Gui.Forms.Log
         public object Data
         {
             get => Messages;
-            set {}
+            set
+            {
+                // Not applicable
+            }
         }
 
         #endregion

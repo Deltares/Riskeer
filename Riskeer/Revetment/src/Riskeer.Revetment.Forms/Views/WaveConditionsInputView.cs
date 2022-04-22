@@ -132,7 +132,10 @@ namespace Riskeer.Revetment.Forms.Views
             {
                 return calculation;
             }
-            set {}
+            set
+            {
+                // Not applicable
+            }
         }
 
         public IChartControl Chart
