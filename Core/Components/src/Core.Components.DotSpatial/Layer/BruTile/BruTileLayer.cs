@@ -102,7 +102,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// The projection information of to which the data has been projected to. This value
         /// is <c>null</c> if the layer hasn't been reprojected.
         /// </summary>
-        private ProjectionInfo targetProjection;
+        private ProjectionInfo projectionInfo;
 
         private float transparency;
 
@@ -197,8 +197,8 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         {
             get
             {
-                return targetProjection != null
-                           ? MyExtent.Reproject(sourceProjection, targetProjection)
+                return projectionInfo != null
+                           ? MyExtent.Reproject(sourceProjection, projectionInfo)
                            : MyExtent;
             }
         }
@@ -211,20 +211,20 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             };
         }
 
-        public override void Reproject(ProjectionInfo targetProjectionInfo)
+        public override void Reproject(ProjectionInfo targetProjection)
         {
-            if (targetProjectionInfo != null)
+            if (targetProjection != null)
             {
-                targetProjection = targetProjectionInfo.Equals(sourceProjection)
-                                       ? null
-                                       : targetProjectionInfo;
+                projectionInfo = targetProjection.Equals(sourceProjection)
+                                     ? null
+                                     : targetProjection;
             }
             else
             {
-                targetProjection = null;
+                projectionInfo = null;
             }
 
-            Projection = targetProjection ?? sourceProjection;
+            Projection = projectionInfo ?? sourceProjection;
         }
 
         public void DrawRegions(MapArgs args, List<DotSpatialExtent> regions)
@@ -283,10 +283,10 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
         private DotSpatialExtent GetExtentInTargetCoordinateSystem(DotSpatialExtent region)
         {
-            return targetProjection == null
+            return projectionInfo == null
                        ? region
                        : region.Intersection(Extent)
-                               .Reproject(targetProjection, sourceProjection);
+                               .Reproject(projectionInfo, sourceProjection);
         }
 
         private static bool GetBruTileExtentToRender(DotSpatialExtent geoExtent, out BruTileExtent extent)
@@ -305,7 +305,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         {
             var tilesNotImmediatelyDrawn = new List<TileInfo>();
 
-            var reprojector = new TileReprojector(args, sourceProjection, targetProjection);
+            var reprojector = new TileReprojector(args, sourceProjection, projectionInfo);
             Resolution resolution = schema.Resolutions[level];
             foreach (TileInfo info in tiles)
             {
