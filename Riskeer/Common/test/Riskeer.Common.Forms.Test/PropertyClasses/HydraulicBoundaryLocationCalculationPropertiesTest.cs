@@ -40,16 +40,15 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 1;
         private const int coordinatesPropertyIndex = 2;
         private const int resultPropertyIndex = 3;
-        private const int targetProbabilityPropertyIndex = 4;
-        private const int targetReliabilityPropertyIndex = 5;
-        private const int calculatedProbabilityPropertyIndex = 6;
-        private const int calculatedReliabilityPropertyIndex = 7;
-        private const int convergencePropertyIndex = 8;
-        private const int shouldCalculateIllustrationPointsIndex = 9;
-        private const int governingWindDirectionIndex = 10;
-        private const int alphaValuesIndex = 11;
-        private const int durationsIndex = 12;
-        private const int illustrationPointsIndex = 13;
+        private const int targetReliabilityPropertyIndex = 4;
+        private const int calculatedProbabilityPropertyIndex = 5;
+        private const int calculatedReliabilityPropertyIndex = 6;
+        private const int convergencePropertyIndex = 7;
+        private const int shouldCalculateIllustrationPointsIndex = 8;
+        private const int governingWindDirectionIndex = 9;
+        private const int alphaValuesIndex = 10;
+        private const int durationsIndex = 11;
+        private const int illustrationPointsIndex = 12;
 
         [Test]
         public void Constructor_ExpectedProperties()
@@ -76,7 +75,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(10, dynamicProperties.Count);
+            Assert.AreEqual(9, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string resultCategory = "Resultaat";
@@ -108,13 +107,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             resultCategory,
                                                                             nameof(properties.Result),
                                                                             "",
-                                                                            true);
-
-            PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
-                                                                            resultCategory,
-                                                                            "Doelkans [1/jaar]",
-                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
             PropertyDescriptor targetReliabilityProperty = dynamicProperties[targetReliabilityPropertyIndex];
@@ -166,7 +158,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(14, dynamicProperties.Count);
+            Assert.AreEqual(13, dynamicProperties.Count);
 
             const string generalCategory = "Algemeen";
             const string resultCategory = "Resultaat";
@@ -198,13 +190,6 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
                                                                             resultCategory,
                                                                             nameof(properties.Result),
                                                                             "",
-                                                                            true);
-
-            PropertyDescriptor targetProbabilityProperty = dynamicProperties[targetProbabilityPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
-                                                                            resultCategory,
-                                                                            "Doelkans [1/jaar]",
-                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
             PropertyDescriptor targetReliabilityProperty = dynamicProperties[targetReliabilityPropertyIndex];

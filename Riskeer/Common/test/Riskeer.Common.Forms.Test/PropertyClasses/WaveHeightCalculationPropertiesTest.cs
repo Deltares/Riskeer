@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
     public class WaveHeightCalculationPropertiesTest
     {
         private const int waveHeightPropertyIndex = 3;
-        private const int convergencePropertyIndex = 8;
+        private const int convergencePropertyIndex = 7;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -61,7 +61,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(10, dynamicProperties.Count);
+            Assert.AreEqual(9, dynamicProperties.Count);
 
             const string resultCategory = "Resultaat";
 
