@@ -597,7 +597,7 @@ namespace Riskeer.Integration.Plugin
                 Name = context => Resources.AssemblyResults_DisplayName,
                 Extension = Resources.AssemblyResults_file_filter_Extension,
                 CreateFileExporter = (context, filePath) => new AssemblyExporter(context.WrappedData, filePath),
-                IsEnabled = context => HasGeometry(context.WrappedData.ReferenceLine),
+                IsEnabled = context => false,
                 GetExportPath = () => ExportHelper.GetFilePath(GetInquiryHelper(), new FileFilterGenerator(Resources.AssemblyResults_file_filter_Extension,
                                                                                                            Resources.AssemblyResults_DisplayName))
             };
