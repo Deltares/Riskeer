@@ -61,7 +61,7 @@
 			type="Recording">
 				<databinding>
 					<var
-					dataname="pathProjectB"
+					dataname="pathProjectA"
 					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
 					variableid="3c870d6e-0774-4179-b1f4-65350b234510"
 					variablename="fileName">
@@ -1930,6 +1930,32 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="9dd165b8-d753-4094-b6a1-c167cc02fa42"
+			name="CopyAllSearchFilteredFilesFromSourceToTarget"
+			ref="a6cea8b4-3109-4085-b6f6-8002979365e3"
+			type="UserCode">
+				<databinding>
+					<var
+					dataname="filterRiskProjects"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="1bae0856-551f-4c69-ba7a-84e8f3160f52"
+					variablename="searchPattern">
+					</var>
+					<var
+					dataname="folderProjectsCurrentRelease"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
+					variablename="sourcePath">
+					</var>
+					<var
+					dataname="scriptOutputFolder"
+					datasourceid="666b113a-868e-4995-ad39-04a5e56c07e5"
+					variableid="4b460039-a3ab-44fd-87ab-50754ebca3ae"
+					variablename="targetPath">
+					</var>
+				</databinding>
+			</testmodule>
 			<testsuite
 			ReportTime="RelativeToTestSuiteStartTime"
 			TracingScreenshotMode="Foreground"
@@ -2632,7 +2658,6 @@
 				</missingdatabinding>
 			</testmodule>
 			<testmodule
-			enabled="False"
 			id="d6f0d23f-2dc9-4219-b36e-050744d833da"
 			name="ValidatePlainTextFilesAreEqual"
 			ref="d35b3b3b-c87c-4fad-9f63-dcaf7835c8c8"
@@ -2742,6 +2767,7 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			enabled="False"
 			id="e33ffca7-2440-4db9-9be2-d19887a32c6b"
 			name="DeleteAllSearchFilteredFiles"
 			ref="bbc504b6-a274-49fd-a91c-60ae313dd965"
@@ -3040,6 +3066,10 @@
 							<testmodule
 							id="e33ffca7-2440-4db9-9be2-d19887a32c6b"
 							name="DeleteAllSearchFilteredFiles">
+							</testmodule>
+							<testmodule
+							id="9dd165b8-d753-4094-b6a1-c167cc02fa42"
+							name="CopyAllSearchFilteredFilesFromSourceToTarget">
 							</testmodule>
 							<testmodule
 							id="8e62aa47-25bd-4ecd-b1e3-a1deada73a54"
@@ -5559,6 +5589,9 @@
 		<testconfiguration
 		name="TestRun">
 			<testcontainer
+			id="0abc14d7-9101-4f34-a8cb-9234ee53e5f4">
+			</testcontainer>
+			<testcontainer
 			id="0ce848bb-2a6d-4064-af2f-8650a8a9828f">
 			</testcontainer>
 			<testcontainer
@@ -5568,16 +5601,31 @@
 			id="1e5ebec6-ded3-46f8-b4da-382e684fe250">
 			</testcontainer>
 			<testcontainer
+			id="36936bda-acf7-45f1-8418-7e86ccd8e709">
+			</testcontainer>
+			<testcontainer
 			id="3bc878e1-f788-4b43-a26b-c424368b5b59">
 			</testcontainer>
 			<testcontainer
 			id="43a9552b-6263-4bb9-be62-6610d781eb44">
 			</testcontainer>
 			<testcontainer
+			id="441497d9-2293-4e69-8501-e06b3d845cba">
+			</testcontainer>
+			<testcontainer
+			id="45cfc5d3-f55d-4fb3-afb9-e4eae19b10cc">
+			</testcontainer>
+			<testcontainer
 			id="4b544f8a-f7eb-468e-94a6-2ebd6d219833">
 			</testcontainer>
 			<testcontainer
 			id="52ef8895-c7b3-42db-ad31-4b014c8a60ee">
+			</testcontainer>
+			<testcontainer
+			id="54fd3926-a219-4ffd-adb3-a9c1f6728482">
+			</testcontainer>
+			<testcontainer
+			id="61912302-b64a-4235-9d6d-9e2dc974301d">
 			</testcontainer>
 			<testcontainer
 			id="666b113a-868e-4995-ad39-04a5e56c07e5">
@@ -5622,10 +5670,16 @@
 			id="e37aba9d-3b71-4f24-84e6-9f8666bade9d">
 			</testcontainer>
 			<testcontainer
+			id="e44c3c13-c44a-4c53-85e9-40737c809cdc">
+			</testcontainer>
+			<testcontainer
 			id="eea30392-b69e-4754-a435-b013b2ad001c">
 			</testcontainer>
 			<testcontainer
 			id="ef60ef5c-2883-48c3-a0cc-fcb918a62c0a">
+			</testcontainer>
+			<testcontainer
+			id="f2f78b75-a2b9-46e0-bf05-8eb07e972595">
 			</testcontainer>
 			<testcontainer
 			id="f9bea1a4-ae7c-493a-a646-02f6d917370c">
