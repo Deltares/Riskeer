@@ -172,6 +172,28 @@
 					</param>
 				</parameters>
 			</smartfoldernode>
+			<testmodule
+			id="090557a3-b97c-45ce-810c-5230bc8259b6"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathReferenceLine"
+					datasourceid="86645d51-10c8-45c3-b6cd-8d9dc7078a56"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToSectionsInStateFA"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			datarangeset="1-3,6,7,9,12,13,15"
 			datasource="script06_DataForSectionsInAllFMs"
@@ -2104,6 +2126,24 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="86645d51-10c8-45c3-b6cd-8d9dc7078a56"
+			name="ImportReferenceLine">
+				<parameters>
+					<param
+					name="stateTraject"
+					value="@TR">
+					</param>
+					<param
+					name="pathReferenceLine"
+					value="@TR>Referentielijn">
+					</param>
+					<param
+					name="pathToReferenceLineFile"
+					value="X:\script06\referenceLine12-2\referentielijn 12-2.shp">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<testmodule
 			id="868ce1fd-a1aa-4142-a65d-c5c45df42f49"
 			name="OpenViewForCurrentlySelectedItemInProjectExplorer"
@@ -2470,6 +2510,20 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="aa43f1ff-82b6-4b58-9831-5fe257a005f2"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateTraject"
+					datasourceid="86645d51-10c8-45c3-b6cd-8d9dc7078a56"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="ad95320f-32d8-4623-97b1-ccf476b1a3b4"
 			name="OpenResultsView">
@@ -2754,6 +2808,20 @@
 			name="CreateScreenShotEntireApplication"
 			ref="badbc62e-0842-46fe-b883-582d8a44310b"
 			type="Recording">
+			</testmodule>
+			<testmodule
+			id="b54df9b4-c650-4fdd-8abf-a1811d109711"
+			name="ImportReferenceLine"
+			ref="c5c8249d-a582-4230-ba22-0b7657e78ecd"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToReferenceLineFile"
+					datasourceid="86645d51-10c8-45c3-b6cd-8d9dc7078a56"
+					variableid="d2f452f1-239b-4d2c-a492-f7f177add580"
+					variablename="pathReferenceLineFile">
+					</var>
+				</databinding>
 			</testmodule>
 			<testmodule
 			id="b6e603c9-d5a5-4afd-9e23-648fbfac6829"
@@ -3822,6 +3890,22 @@
 									id="22ccb48f-3038-4715-bd41-7349c2e2eab1"
 									name="CloseViewCentralPanelWithFocus">
 									</testmodule>
+									<smartfoldernode
+									id="86645d51-10c8-45c3-b6cd-8d9dc7078a56"
+									name="ImportReferenceLine">
+										<testmodule
+										id="aa43f1ff-82b6-4b58-9831-5fe257a005f2"
+										name="SelectState">
+										</testmodule>
+										<testmodule
+										id="090557a3-b97c-45ce-810c-5230bc8259b6"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="b54df9b4-c650-4fdd-8abf-a1811d109711"
+										name="ImportReferenceLine">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="f31ff3a7-414d-4b51-8475-a3f9057175f6"
@@ -5571,6 +5655,9 @@
 			</testcontainer>
 			<testcontainer
 			id="84d55f63-e2fc-4f32-9a4a-9539af1f86a1">
+			</testcontainer>
+			<testcontainer
+			id="86645d51-10c8-45c3-b6cd-8d9dc7078a56">
 			</testcontainer>
 			<testcontainer
 			id="8788fbb6-9be3-48ea-be41-219f254eabec">

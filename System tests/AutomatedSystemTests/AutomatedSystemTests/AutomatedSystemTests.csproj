@@ -189,6 +189,18 @@
       <id>c994b796-1f44-4bb2-92c0-427faf4c7a4b</id>
       <BoundTo>9a604b1c-d4af-4820-b692-4d7137157976</BoundTo>
     </Compile>
+    <Compile Include="Modules\ActionsContextMenu\ImportReferenceLine.cs">
+      <BoundTo>d7c60b9c-8fbb-4ccc-bd81-f49432d1e1fb</BoundTo>
+      <DependentUpon>ImportReferenceLine.rxrec</DependentUpon>
+      <RecorderCode>true</RecorderCode>
+      <id>0298490e-1b37-4d92-a45e-82b271b8d88f</id>
+    </Compile>
+    <Compile Include="Modules\ActionsContextMenu\ImportReferenceLine.UserCode.cs">
+      <BoundTo>d7c60b9c-8fbb-4ccc-bd81-f49432d1e1fb</BoundTo>
+      <DependentUpon>ImportReferenceLine.rxrec</DependentUpon>
+      <UserCode>true</UserCode>
+      <id>071bbab9-70b6-4e9d-9c21-6ed92f49ef0f</id>
+    </Compile>
     <Compile Include="Modules\ActionsContextMenu\SelectOptionFromContextMenu.cs">
       <BoundTo>316fd1f4-612c-473e-b626-1f1e2ce1414b</BoundTo>
       <DependentUpon>SelectOptionFromContextMenu.rxrec</DependentUpon>
@@ -2638,6 +2650,11 @@
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
       <id>9a604b1c-d4af-4820-b692-4d7137157976</id>
       <recordtableid>46407bea-c0f2-409e-8831-e2e674d7fad1</recordtableid>
+    </None>
+    <None Include="Modules\ActionsContextMenu\ImportReferenceLine.rxrec">
+      <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
+      <id>d7c60b9c-8fbb-4ccc-bd81-f49432d1e1fb</id>
+      <recordtableid>c5c8249d-a582-4230-ba22-0b7657e78ecd</recordtableid>
     </None>
     <None Include="Modules\ActionsContextMenu\SelectOptionFromContextMenu.rxrec">
       <BoundTo>8b6648ca-2429-462f-8074-96184700bbed</BoundTo>
