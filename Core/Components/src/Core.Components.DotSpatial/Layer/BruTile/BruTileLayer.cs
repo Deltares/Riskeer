@@ -164,10 +164,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
         /// the [0.0, 1.0] range.</exception>
         public float Transparency
         {
-            get
-            {
-                return transparency;
-            }
+            get => transparency;
             set
             {
                 if (!transparencyValidityRange.InRange(value))
@@ -193,15 +190,10 @@ namespace Core.Components.DotSpatial.Layer.BruTile
             }
         }
 
-        public override DotSpatialExtent Extent
-        {
-            get
-            {
-                return projectionInfo != null
-                           ? MyExtent.Reproject(sourceProjection, projectionInfo)
-                           : MyExtent;
-            }
-        }
+        public override DotSpatialExtent Extent =>
+            projectionInfo != null
+                ? MyExtent.Reproject(sourceProjection, projectionInfo)
+                : MyExtent;
 
         public object Clone()
         {
@@ -329,29 +321,28 @@ namespace Core.Components.DotSpatial.Layer.BruTile
 
         private static ProjectionInfo GetTileSourceProjectionInfo(string spatialReferenceSystemString)
         {
-            ProjectionInfo projectionInfo;
-            if (!TryParseProjectionEsri(spatialReferenceSystemString, out projectionInfo)
-                && !TryParseProjectionProj4(spatialReferenceSystemString, out projectionInfo))
+            if (!TryParseProjectionEsri(spatialReferenceSystemString, out ProjectionInfo tileSourceProjectionInfo)
+                && !TryParseProjectionProj4(spatialReferenceSystemString, out tileSourceProjectionInfo))
             {
                 // For WMTS, 'spatialReferenceSystemString' might be some crude value (urn-string):
                 string authorityCode = ToAuthorityCode(spatialReferenceSystemString);
-                projectionInfo = !string.IsNullOrWhiteSpace(authorityCode)
+                tileSourceProjectionInfo = !string.IsNullOrWhiteSpace(authorityCode)
                                      ? AuthorityCodeHandler.Instance[authorityCode]
                                      : null;
             }
 
-            if (projectionInfo == null)
+            if (tileSourceProjectionInfo == null)
             {
-                projectionInfo = AuthorityCodeHandler.Instance[webMercatorEpsgIdentifier];
+                tileSourceProjectionInfo = AuthorityCodeHandler.Instance[webMercatorEpsgIdentifier];
             }
 
             // WebMercator: set datum to WGS1984 for better accuracy 
-            if (projectionInfo.Name == webMercatorEpsgIdentifier)
+            if (tileSourceProjectionInfo.Name == webMercatorEpsgIdentifier)
             {
-                projectionInfo.GeographicInfo.Datum = KnownCoordinateSystems.Geographic.World.WGS1984.GeographicInfo.Datum;
+                tileSourceProjectionInfo.GeographicInfo.Datum = KnownCoordinateSystems.Geographic.World.WGS1984.GeographicInfo.Datum;
             }
 
-            return projectionInfo;
+            return tileSourceProjectionInfo;
         }
 
         private static bool TryParseProjectionProj4(string proj4, out ProjectionInfo projectionInfo)
@@ -397,8 +388,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                 const char srsSeparatorChar = ':';
                 if (!srs.Contains(srsSeparatorChar))
                 {
-                    int value;
-                    if (!int.TryParse(srs, NumberStyles.Integer, NumberFormatInfo.InvariantInfo, out value))
+                    if (!int.TryParse(srs, NumberStyles.Integer, NumberFormatInfo.InvariantInfo, out int value))
                     {
                         return "";
                     }
@@ -507,10 +497,7 @@ namespace Core.Components.DotSpatial.Layer.BruTile
                                                     0, -resolution.UnitsPerPixel,
                                                     info.Extent.MinX, info.Extent.MaxY);
 
-                    WorldFile outWorldFile;
-                    Bitmap outBitmap;
-
-                    reprojector.Reproject(inWorldFile, bitmap, out outWorldFile, out outBitmap);
+                    reprojector.Reproject(inWorldFile, bitmap, out WorldFile outWorldFile, out Bitmap outBitmap);
                     if (outWorldFile == null)
                     {
                         return;
