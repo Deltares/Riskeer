@@ -406,7 +406,7 @@
 				<databinding>
 					<var
 					dataname="pathToReferenceLineFile"
-					datasourceid="65d7b51c-fec2-4cb7-91e1-b387d02d8cb3"
+					datasourceid="6e262def-ea48-4168-bbec-fd066c51ec61"
 					variableid="d2f452f1-239b-4d2c-a492-f7f177add580"
 					variablename="pathReferenceLineFile">
 					</var>
@@ -1042,10 +1042,6 @@
 					<param
 					name="pathReferenceLine"
 					value="@TR>Referentielijn">
-					</param>
-					<param
-					name="pathToReferenceLineFile"
-					value="X:\script06\referenceLine12-2\referentielijn 12-2.shp">
 					</param>
 				</parameters>
 			</smartfoldernode>
@@ -3159,6 +3155,9 @@
 					trajectID
 				</column>
 				<column>
+					pathToReferenceLineFile
+				</column>
+				<column>
 					fullNameFM
 				</column>
 				<column>
@@ -3245,6 +3244,9 @@
 						trajectID
 					</th>
 					<th>
+						pathToReferenceLineFile
+					</th>
+					<th>
 						fullNameFM
 					</th>
 					<th>
@@ -3328,6 +3330,9 @@
 						12-2
 					</td>
 					<td>
+						X:\script17\STPH\traject_12-2.shp
+					</td>
+					<td>
 						@STPH
 					</td>
 					<td>
@@ -3405,6 +3410,9 @@
 						12-2
 					</td>
 					<td>
+						X:\script17\GEKB\traject_12-2.shp
+					</td>
+					<td>
 						@GEKB
 					</td>
 					<td>
@@ -3478,6 +3486,9 @@
 					</td>
 					<td>
 						41-1
+					</td>
+					<td>
+						X:\script17\STBI\traject_41-1.shp
 					</td>
 					<td>
 						@STBI
@@ -3557,6 +3568,9 @@
 						36-2
 					</td>
 					<td>
+						X:\script17\HTKW\traject_36-2.shp
+					</td>
+					<td>
 						@HTKW
 					</td>
 					<td>
@@ -3634,6 +3648,9 @@
 						34-1
 					</td>
 					<td>
+						X:\script17\BSKW\traject_34-1.shp
+					</td>
+					<td>
 						@BSKW
 					</td>
 					<td>
@@ -3709,6 +3726,9 @@
 					</td>
 					<td>
 						44-2
+					</td>
+					<td>
+						X:\script17\STKWp\traject_44-2.shp
 					</td>
 					<td>
 						@STKWp
