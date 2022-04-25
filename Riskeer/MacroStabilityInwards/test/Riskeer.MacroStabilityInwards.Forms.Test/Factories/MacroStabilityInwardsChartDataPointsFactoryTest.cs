@@ -772,7 +772,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.Factories
         public void CreateWaternetZonePoints_SurfaceLineNull_ReturnsEmptyPointsCollection()
         {
             // Setup
-            var waternetLine = new TestMacroStabilityInwardsWaternetLine();
+            MacroStabilityInwardsWaternetLine waternetLine = MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsWaternetLine();
 
             // Call
             IEnumerable<IEnumerable<Point2D>> zone = MacroStabilityInwardsChartDataPointsFactory.CreateWaternetZonePoints(waternetLine, null);

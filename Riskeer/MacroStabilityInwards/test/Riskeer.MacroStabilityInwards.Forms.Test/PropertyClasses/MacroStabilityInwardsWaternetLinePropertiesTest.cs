@@ -41,10 +41,10 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_DataNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsWaternetLineProperties(null);
+            void Call() => new MacroStabilityInwardsWaternetLineProperties(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("data", exception.ParamName);
         }
 
@@ -52,7 +52,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidWaternetLine_ExpectedValues()
         {
             // Setup
-            var waternetLine = new TestMacroStabilityInwardsWaternetLine();
+            MacroStabilityInwardsWaternetLine waternetLine = MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsWaternetLine();
 
             // Call
             var properties = new MacroStabilityInwardsWaternetLineProperties(waternetLine);
@@ -93,11 +93,11 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
             const string expectedName = "PL2";
             var waternetLine = new MacroStabilityInwardsWaternetLine(expectedName,
                                                                      Enumerable.Empty<Point2D>(),
-                                                                     new TestMacroStabilityInwardsPhreaticLine());
+                                                                     MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine());
             var properties = new MacroStabilityInwardsWaternetLineProperties(waternetLine);
 
             // Call
-            string name = properties.ToString();
+            var name = properties.ToString();
 
             // Assert
             Assert.AreEqual(name, expectedName);
@@ -107,7 +107,7 @@ namespace Riskeer.MacroStabilityInwards.Forms.Test.PropertyClasses
         public void Constructor_ValidData_PropertiesHaveExpectedAttributeValues()
         {
             // Setup
-            var waternetLine = new TestMacroStabilityInwardsWaternetLine();
+            MacroStabilityInwardsWaternetLine waternetLine = MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsWaternetLine();
 
             // Call
             var properties = new MacroStabilityInwardsWaternetLineProperties(waternetLine);

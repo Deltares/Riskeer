@@ -86,13 +86,13 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
             private static MacroStabilityInwardsWaternet CreateWaternet()
             {
                 return new MacroStabilityInwardsWaternet(
-                    new MacroStabilityInwardsPhreaticLine[]
+                    new[]
                     {
-                        new TestMacroStabilityInwardsPhreaticLine()
+                        MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine()
                     },
-                    new MacroStabilityInwardsWaternetLine[]
+                    new[]
                     {
-                        new TestMacroStabilityInwardsWaternetLine()
+                        MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsWaternetLine()
                     });
             }
 
@@ -103,44 +103,44 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
                                                   {
                                                       new MacroStabilityInwardsPhreaticLine("Test", new Point2D[0])
                                                   },
-                                                  new MacroStabilityInwardsWaternetLine[]
+                                                  new[]
                                                   {
-                                                      new TestMacroStabilityInwardsWaternetLine()
+                                                      MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsWaternetLine()
                                                   }))
                     .SetName("Other phreatic line");
 
                 yield return new TestCaseData(new MacroStabilityInwardsWaternet(
                                                   new[]
                                                   {
-                                                      new TestMacroStabilityInwardsPhreaticLine(),
-                                                      new TestMacroStabilityInwardsPhreaticLine()
+                                                      MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine(),
+                                                      MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine()
                                                   },
-                                                  new MacroStabilityInwardsWaternetLine[]
+                                                  new[]
                                                   {
-                                                      new TestMacroStabilityInwardsWaternetLine()
+                                                      MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsWaternetLine()
                                                   }))
                     .SetName("Other phreatic line count");
 
                 yield return new TestCaseData(new MacroStabilityInwardsWaternet(
                                                   new[]
                                                   {
-                                                      new TestMacroStabilityInwardsPhreaticLine()
+                                                      MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine()
                                                   },
                                                   new[]
                                                   {
-                                                      new MacroStabilityInwardsWaternetLine("Test", new Point2D[0], new TestMacroStabilityInwardsPhreaticLine())
+                                                      new MacroStabilityInwardsWaternetLine("Test", new Point2D[0], MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine())
                                                   }))
                     .SetName("Other Waternet line");
 
                 yield return new TestCaseData(new MacroStabilityInwardsWaternet(
                                                   new[]
                                                   {
-                                                      new TestMacroStabilityInwardsPhreaticLine()
+                                                      MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsPhreaticLine()
                                                   },
-                                                  new MacroStabilityInwardsWaternetLine[]
+                                                  new[]
                                                   {
-                                                      new TestMacroStabilityInwardsWaternetLine(),
-                                                      new TestMacroStabilityInwardsWaternetLine()
+                                                      MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsWaternetLine(),
+                                                      MacroStabilityInwardsTestDataFactory.CreateMacroStabilityInwardsWaternetLine()
                                                   }))
                     .SetName("Other Waternet line count");
             }
