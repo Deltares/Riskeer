@@ -33,25 +33,49 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             new Dictionary<SerializableAssemblyMethod, int>
             {
                 {
-                    SerializableAssemblyMethod.BOI0A2, 1
+                    SerializableAssemblyMethod.BOI0A1, 1
                 },
                 {
-                    SerializableAssemblyMethod.BOI1B1, 2
+                    SerializableAssemblyMethod.BOI0A2, 2
                 },
                 {
-                    SerializableAssemblyMethod.BOI2B1, 3
+                    SerializableAssemblyMethod.BOI0B1, 3
                 },
                 {
-                    SerializableAssemblyMethod.BOI3A1, 4
+                    SerializableAssemblyMethod.BOI0C1, 4
                 },
                 {
-                    SerializableAssemblyMethod.BOI3B1, 5
+                    SerializableAssemblyMethod.BOI0C2, 5
                 },
                 {
-                    SerializableAssemblyMethod.BOI3C1, 6
+                    SerializableAssemblyMethod.BOI1A1, 6
                 },
                 {
-                    SerializableAssemblyMethod.Manual, 7
+                    SerializableAssemblyMethod.BOI1A2, 7
+                },
+                {
+                    SerializableAssemblyMethod.Manual, 8
+                },
+                {
+                    SerializableAssemblyMethod.BOI1B1, 9
+                },
+                {
+                    SerializableAssemblyMethod.BOI2A1, 10
+                },
+                {
+                    SerializableAssemblyMethod.BOI2A2, 11
+                },
+                {
+                    SerializableAssemblyMethod.BOI2B1, 12
+                },
+                {
+                    SerializableAssemblyMethod.BOI3A1, 13
+                },
+                {
+                    SerializableAssemblyMethod.BOI3B1, 14
+                },
+                {
+                    SerializableAssemblyMethod.BOI3C1, 15
                 }
             };
 
@@ -59,25 +83,49 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             new Dictionary<SerializableAssemblyMethod, string>
             {
                 {
-                    SerializableAssemblyMethod.BOI0A2, "WBI-0A-2"
+                    SerializableAssemblyMethod.BOI0A1, "BOI-0A-1"
                 },
                 {
-                    SerializableAssemblyMethod.BOI1B1, "WBI-1B-1"
+                    SerializableAssemblyMethod.BOI0A2, "BOI-0A-2"
                 },
                 {
-                    SerializableAssemblyMethod.BOI2B1, "WBI-2B-1"
+                    SerializableAssemblyMethod.BOI0B1, "BOI-0B-1"
                 },
                 {
-                    SerializableAssemblyMethod.BOI3A1, "WBI-3A-1"
+                    SerializableAssemblyMethod.BOI0C1, "BOI-0C-1"
                 },
                 {
-                    SerializableAssemblyMethod.BOI3B1, "WBI-3B-1"
+                    SerializableAssemblyMethod.BOI0C2, "BOI-0C-2"
                 },
                 {
-                    SerializableAssemblyMethod.BOI3C1, "WBI-3C-1"
+                    SerializableAssemblyMethod.BOI1A1, "BOI-1A-1"
+                },
+                {
+                    SerializableAssemblyMethod.BOI1A2, "BOI-1A-2"
                 },
                 {
                     SerializableAssemblyMethod.Manual, "HANDMTG"
+                },
+                {
+                    SerializableAssemblyMethod.BOI1B1, "BOI-1B-1"
+                },
+                {
+                    SerializableAssemblyMethod.BOI2A1, "BOI-2A-1"
+                },
+                {
+                    SerializableAssemblyMethod.BOI2A2, "BOI-2A-2"
+                },
+                {
+                    SerializableAssemblyMethod.BOI2B1, "BOI-2B-1"
+                },
+                {
+                    SerializableAssemblyMethod.BOI3A1, "BOI-3A-1"
+                },
+                {
+                    SerializableAssemblyMethod.BOI3B1, "BOI-3B-1"
+                },
+                {
+                    SerializableAssemblyMethod.BOI3C1, "BOI-3C-1"
                 }
             };
     }

@@ -22,7 +22,7 @@
       <asm:eindJaarBeoordelingsronde>2035</asm:eindJaarBeoordelingsronde>
     </asm:Beoordelingsproces>
     <asm:Veiligheidsoordeel VeiligheidsoordeelID="veiligheidsoordeel_1" BeoordelingsprocesIDRef="beoordelingsproces1">
-      <asm:assemblagemethode>WBI-2B-1</asm:assemblagemethode>
+      <asm:assemblagemethode>BOI-2B-1</asm:assemblagemethode>
       <asm:categorie>B</asm:categorie>
       <asm:faalkans>0.00068354</asm:faalkans>
       <asm:status>VOLLDG</asm:status>
@@ -31,7 +31,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>GABI</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
         <asm:faalkans>0.08419</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -40,14 +40,14 @@
       <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
       <asm:specifiekFaalmechanisme>Specifiek faalmechanisme</asm:specifiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>WBI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
         <asm:faalkans>0.002834</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
     </asm:Faalmechanisme>
     <asm:Faalanalyse FaalanalyseID="resultaat_GABI_1" FaalmechanismeIDRef="toetsspoorGABI" WaterkeringsectieIDRef="vak_GABI_1">
       <asm:analyseVak>
-        <asm:assemblagemethode>WBI-0A-2</asm:assemblagemethode>
+        <asm:assemblagemethode>BOI-0A-2</asm:assemblagemethode>
         <asm:duidingsklasse>+III</asm:duidingsklasse>
         <asm:faalkans>0.00073</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
@@ -55,26 +55,26 @@
     </asm:Faalanalyse>
     <asm:FaalanalyseGecombineerd FaalanalyseGecombineerdID="resultaat_gecombineerd_1" VeiligheidsoordeelIDRef="veiligheidsoordeel_1" WaterkeringsectieIDRef="vak_gecombineerd_1">
       <asm:analyseGecombineerdDeelvak>
-        <asm:assemblagemethode>WBI-3C-1</asm:assemblagemethode>
+        <asm:assemblagemethode>BOI-3C-1</asm:assemblagemethode>
         <asm:duidingsklasse>+I</asm:duidingsklasse>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseGecombineerdDeelvak>
       <asm:analyseDeelvak>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
         <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
         <asm:generiekFaalmechanisme>HTKW</asm:generiekFaalmechanisme>
         <asm:duidingsklasse>+III</asm:duidingsklasse>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseDeelvak>
       <asm:analyseDeelvak>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
         <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
         <asm:generiekFaalmechanisme>STPH</asm:generiekFaalmechanisme>
         <asm:duidingsklasse>+II</asm:duidingsklasse>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseDeelvak>
       <asm:analyseDeelvak>
-        <asm:assemblagemethode>WBI-3B-1</asm:assemblagemethode>
+        <asm:assemblagemethode>BOI-3B-1</asm:assemblagemethode>
         <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
         <asm:specifiekFaalmechanisme>Specifiek</asm:specifiekFaalmechanisme>
         <asm:duidingsklasse>0</asm:duidingsklasse>
@@ -104,7 +104,7 @@
       </asm:geometrieLijn2D>
       <asm:lengte uom="m">14.142135623730951</asm:lengte>
       <asm:typeWaterkeringsectie>DEELVK</asm:typeWaterkeringsectie>
-      <asm:assemblagemethode>WBI-3A-1</asm:assemblagemethode>
+      <asm:assemblagemethode>BOI-3A-1</asm:assemblagemethode>
     </asm:Deelvak>
   </asm:featureMember>
 </asm:Assemblage>

@@ -108,34 +108,74 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         #region SerializableAssemblyMethod
 
         /// <summary>
+        /// Identifier for <see cref="SerializableAssemblyMethod.BOI0A1"/>.
+        /// </summary>
+        public const string SerializableAssemblyMethodBOI0A1 = "BOI-0A-1";
+        
+        /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.BOI0A2"/>.
         /// </summary>
-        public const string SerializableAssemblyMethodBOI0A2 = "WBI-0A-2";
+        public const string SerializableAssemblyMethodBOI0A2 = "BOI-0A-2";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssemblyMethod.BOI0B1"/>.
+        /// </summary>
+        public const string SerializableAssemblyMethodBOI0B1 = "BOI-0B-1";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssemblyMethod.BOI0C1"/>.
+        /// </summary>
+        public const string SerializableAssemblyMethodBOI0C1 = "BOI-0C-1";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssemblyMethod.BOI0C2"/>.
+        /// </summary>
+        public const string SerializableAssemblyMethodBOI0C2 = "BOI-0C-2";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssemblyMethod.BOI1A1"/>.
+        /// </summary>
+        public const string SerializableAssemblyMethodBOI1A1 = "BOI-1A-1";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssemblyMethod.BOI1A2"/>.
+        /// </summary>
+        public const string SerializableAssemblyMethodBOI1A2 = "BOI-1A-2";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.BOI1B1"/>.
         /// </summary>
-        public const string SerializableAssemblyMethodBOI1B1 = "WBI-1B-1";
+        public const string SerializableAssemblyMethodBOI1B1 = "BOI-1B-1";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssemblyMethod.BOI2A1"/>.
+        /// </summary>
+        public const string SerializableAssemblyMethodBOI2A1 = "BOI-2A-1";
+
+        /// <summary>
+        /// Identifier for <see cref="SerializableAssemblyMethod.BOI2A2"/>.
+        /// </summary>
+        public const string SerializableAssemblyMethodBOI2A2 = "BOI-2A-2";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.BOI2B1"/>.
         /// </summary>
-        public const string SerializableAssemblyMethodBOI2B1 = "WBI-2B-1";
+        public const string SerializableAssemblyMethodBOI2B1 = "BOI-2B-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.BOI3A1"/>.
         /// </summary>
-        public const string SerializableAssemblyMethodBOI3A1 = "WBI-3A-1";
+        public const string SerializableAssemblyMethodBOI3A1 = "BOI-3A-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.BOI3B1"/>.
         /// </summary>
-        public const string SerializableAssemblyMethodBOI3B1 = "WBI-3B-1";
+        public const string SerializableAssemblyMethodBOI3B1 = "BOI-3B-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.BOI3C1"/>.
         /// </summary>
-        public const string SerializableAssemblyMethodBOI3C1 = "WBI-3C-1";
+        public const string SerializableAssemblyMethodBOI3C1 = "BOI-3C-1";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.Manual"/>.
