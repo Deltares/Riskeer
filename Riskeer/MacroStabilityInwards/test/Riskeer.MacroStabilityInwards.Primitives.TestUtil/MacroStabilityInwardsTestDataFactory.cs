@@ -35,7 +35,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives.TestUtil
         /// <returns>The created <see cref="MacroStabilityInwardsWaternetLine"/>.</returns>
         public static MacroStabilityInwardsWaternetLine CreateMacroStabilityInwardsWaternetLine()
         {
-            return new MacroStabilityInwardsWaternetLine("Test Waternet Line", Enumerable.Empty<Point2D>(), new TestMacroStabilityInwardsPhreaticLine());
+            return new MacroStabilityInwardsWaternetLine("Test Waternet Line", Enumerable.Empty<Point2D>(), CreateMacroStabilityInwardsPhreaticLine());
         }
 
         /// <summary>
