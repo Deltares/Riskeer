@@ -31,7 +31,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
     /// <summary>
     /// Definition of a surface line for macro stability inwards.
     /// </summary>
-    public class MacroStabilityInwardsSurfaceLine : MechanismSurfaceLineBase
+    public sealed class MacroStabilityInwardsSurfaceLine : MechanismSurfaceLineBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsSurfaceLine"/>.
