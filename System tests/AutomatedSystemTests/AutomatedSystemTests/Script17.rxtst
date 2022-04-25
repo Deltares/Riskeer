@@ -398,6 +398,20 @@
 					</condition>
 				</conditiongroup>
 			</smartfoldernode>
+			<testmodule
+			id="30b257aa-080a-4225-816d-02a6e13d314d"
+			name="ImportReferenceLine"
+			ref="c5c8249d-a582-4230-ba22-0b7657e78ecd"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToReferenceLineFile"
+					datasourceid="65d7b51c-fec2-4cb7-91e1-b387d02d8cb3"
+					variableid="d2f452f1-239b-4d2c-a492-f7f177add580"
+					variablename="pathReferenceLineFile">
+					</var>
+				</databinding>
+			</testmodule>
 			<smartfoldernode
 			id="321b774a-6ab2-46b1-a018-32c5a07b3851"
 			name="ValidateOriginalValue">
@@ -720,6 +734,20 @@
 				</databinding>
 			</testmodule>
 			<testmodule
+			id="4a1760d8-1494-4108-9f99-28d8c3bf9555"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateTraject"
+					datasourceid="65d7b51c-fec2-4cb7-91e1-b387d02d8cb3"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="4a791cfa-e2ff-49d7-b0b3-35026275e270"
 			name="SelectGenericItemInProjectExplorer"
 			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
@@ -1003,6 +1031,24 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<smartfoldernode
+			id="65d7b51c-fec2-4cb7-91e1-b387d02d8cb3"
+			name="ImportReferenceLine">
+				<parameters>
+					<param
+					name="stateTraject"
+					value="@TR">
+					</param>
+					<param
+					name="pathReferenceLine"
+					value="@TR>Referentielijn">
+					</param>
+					<param
+					name="pathToReferenceLineFile"
+					value="X:\script06\referenceLine12-2\referentielijn 12-2.shp">
+					</param>
+				</parameters>
+			</smartfoldernode>
 			<smartfoldernode
 			id="6a6e0a8e-b132-42c2-b615-fb08e641137b"
 			name="HydraulicBoundaryConditions">
@@ -2100,6 +2146,28 @@
 					</var>
 				</databinding>
 			</testmodule>
+			<testmodule
+			id="dbf527b2-fd4a-42f5-948a-50251d168976"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathReferenceLine"
+					datasourceid="65d7b51c-fec2-4cb7-91e1-b387d02d8cb3"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToSectionsInStateFA"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			id="e4124c09-01bd-4d6a-af80-0d3ef37748c5"
 			name="ValidateNewValue">
@@ -2445,6 +2513,22 @@
 									id="ee07d08d-7263-461a-80dc-37bcafcf792b"
 									name="CloseViewCentralPanelWithFocus">
 									</testmodule>
+									<smartfoldernode
+									id="65d7b51c-fec2-4cb7-91e1-b387d02d8cb3"
+									name="ImportReferenceLine">
+										<testmodule
+										id="4a1760d8-1494-4108-9f99-28d8c3bf9555"
+										name="SelectState">
+										</testmodule>
+										<testmodule
+										id="dbf527b2-fd4a-42f5-948a-50251d168976"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="30b257aa-080a-4225-816d-02a6e13d314d"
+										name="ImportReferenceLine">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="76ade4c8-14ce-4983-9111-1e8d5ba15a9f"
@@ -5776,6 +5860,9 @@
 			</testcontainer>
 			<testcontainer
 			id="59c462c1-f8f2-4741-bcff-fbffa40758e1">
+			</testcontainer>
+			<testcontainer
+			id="65d7b51c-fec2-4cb7-91e1-b387d02d8cb3">
 			</testcontainer>
 			<testcontainer
 			id="6a6e0a8e-b132-42c2-b615-fb08e641137b">

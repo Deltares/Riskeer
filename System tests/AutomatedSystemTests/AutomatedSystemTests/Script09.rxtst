@@ -1493,6 +1493,20 @@
 			type="Recording">
 			</testmodule>
 			<testmodule
+			id="59ecaa5b-e14d-4c23-bea2-3a4b112a42fe"
+			name="SelectState"
+			ref="c80e171a-4479-4f25-8072-e92859e1fa11"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="stateTraject"
+					datasourceid="615cc369-b582-4ba4-b10c-37517cf06b6f"
+					variableid="b3e82724-3cc6-4007-932a-4693bb8aaeec"
+					variablename="stateName">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
 			id="59fefdda-28a2-496c-8014-26b999e57e56"
 			name="CloseViewCentralPanelWithFocus"
 			ref="3c2d44f5-31b5-4584-91c8-1ad748affc77"
@@ -1584,6 +1598,45 @@
 			<smartfoldernode
 			id="5fc6520e-58e9-4a54-b552-dae60779bf9f"
 			name="GenerateCalculations">
+			</smartfoldernode>
+			<smartfoldernode
+			id="615cc369-b582-4ba4-b10c-37517cf06b6f"
+			name="ImportReferenceLine">
+				<parameters>
+					<param
+					name="stateTraject"
+					value="@TR">
+					</param>
+					<param
+					name="pathReferenceLine"
+					value="@TR>Referentielijn">
+					</param>
+					<param
+					name="pathToReferenceLineFile"
+					value="X:\script06\referenceLine12-2\referentielijn 12-2.shp">
+					</param>
+				</parameters>
+				<conditiongroup
+				comparison="AND"
+				enabled="True">
+					<condition
+					comparison="IsNotEqual">
+						<leftvalue>
+							<datavaluesource>
+								<databinding
+								bindingtype="DataConnector"
+								dataname="pathToRequiredReferenceLine"
+								id="7e99b103-d280-478b-83ce-35c833678662">
+								</databinding>
+							</datavaluesource>
+						</leftvalue>
+						<rightvalue>
+							<simplevaluesource
+							value="">
+							</simplevaluesource>
+						</rightvalue>
+					</condition>
+				</conditiongroup>
 			</smartfoldernode>
 			<testmodule
 			id="61633184-cc5b-435f-9f78-a3c42369fd08"
@@ -3133,6 +3186,28 @@
 			id="c8f0c1dc-7915-400d-88da-aa098d828336"
 			name="SetState">
 			</smartfoldernode>
+			<testmodule
+			id="cca06f55-51fc-4a95-9968-694605aca382"
+			name="SelectGenericItemInProjectExplorer"
+			ref="ff04c0e9-5dfd-4aa7-b9fc-b8ec84f1399e"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathReferenceLine"
+					datasourceid="615cc369-b582-4ba4-b10c-37517cf06b6f"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</databinding>
+				<missingdatabinding>
+					<var
+					dataname="pathToSectionsInStateFA"
+					datasourceid="9bfb73df-276d-4d0f-b99d-55d1e58e5552"
+					variableid="a31c9d25-98bf-4be6-a0e1-d56bcf8fe1d8"
+					variablename="pathToItemInProjectExplorer">
+					</var>
+				</missingdatabinding>
+			</testmodule>
 			<smartfoldernode
 			errorbehavior="ContinueNextIteration"
 			id="cd7cd4d6-8fce-46f7-8b3b-64ac8ba1fca3"
@@ -3229,6 +3304,20 @@
 					datasourceid="7e99b103-d280-478b-83ce-35c833678662"
 					variableid="0f3787cd-d429-4f28-b05b-8a6794693066"
 					variablename="sourcePath">
+					</var>
+				</databinding>
+			</testmodule>
+			<testmodule
+			id="d24919a5-8424-47af-8114-6281ca3b9487"
+			name="ImportReferenceLine"
+			ref="c5c8249d-a582-4230-ba22-0b7657e78ecd"
+			type="Recording">
+				<databinding>
+					<var
+					dataname="pathToReferenceLineFile"
+					datasourceid="615cc369-b582-4ba4-b10c-37517cf06b6f"
+					variableid="d2f452f1-239b-4d2c-a492-f7f177add580"
+					variablename="pathReferenceLineFile">
 					</var>
 				</databinding>
 			</testmodule>
@@ -4376,6 +4465,22 @@
 									id="6c6db401-0802-4b78-ae06-4969f6447bd3"
 									name="NewProjectUsingKeyboard">
 									</testmodule>
+									<smartfoldernode
+									id="615cc369-b582-4ba4-b10c-37517cf06b6f"
+									name="ImportReferenceLine">
+										<testmodule
+										id="59ecaa5b-e14d-4c23-bea2-3a4b112a42fe"
+										name="SelectState">
+										</testmodule>
+										<testmodule
+										id="cca06f55-51fc-4a95-9968-694605aca382"
+										name="SelectGenericItemInProjectExplorer">
+										</testmodule>
+										<testmodule
+										id="d24919a5-8424-47af-8114-6281ca3b9487"
+										name="ImportReferenceLine">
+										</testmodule>
+									</smartfoldernode>
 								</smartfoldernode>
 								<smartfoldernode
 								id="32a28582-a3c2-4193-a910-3dcaed59b8c7"
@@ -5077,6 +5182,9 @@
 					trajectID
 				</column>
 				<column>
+					pathToRequiredReferenceLine
+				</column>
+				<column>
 					norm
 				</column>
 				<column>
@@ -5136,6 +5244,9 @@
 						trajectID
 					</th>
 					<th>
+						pathToRequiredReferenceLine
+					</th>
+					<th>
 						norm
 					</th>
 					<th>
@@ -5192,6 +5303,9 @@
 						12-2
 					</td>
 					<td>
+						X:\script09\01_GEKB_12-2\referenceLine12-2\referentielijn 12-2.shp
+					</td>
+					<td>
 						Signal
 					</td>
 					<td>
@@ -5243,6 +5357,8 @@
 					</td>
 					<td>
 						28-1
+					</td>
+					<td>
 					</td>
 					<td>
 						Signal
@@ -5300,6 +5416,8 @@
 						8-3
 					</td>
 					<td>
+					</td>
+					<td>
 						Signal
 					</td>
 					<td>
@@ -5353,6 +5471,8 @@
 					</td>
 					<td>
 						6-6
+					</td>
+					<td>
 					</td>
 					<td>
 						Signal
@@ -5410,6 +5530,8 @@
 						36-2
 					</td>
 					<td>
+					</td>
+					<td>
 						Signal
 					</td>
 					<td>
@@ -5463,6 +5585,8 @@
 						34-1
 					</td>
 					<td>
+					</td>
+					<td>
 						Signal
 					</td>
 					<td>
@@ -5514,6 +5638,8 @@
 					</td>
 					<td>
 						44-2
+					</td>
+					<td>
 					</td>
 					<td>
 						Signal
@@ -6189,6 +6315,9 @@
 			</testcontainer>
 			<testcontainer
 			id="5fc6520e-58e9-4a54-b552-dae60779bf9f">
+			</testcontainer>
+			<testcontainer
+			id="615cc369-b582-4ba4-b10c-37517cf06b6f">
 			</testcontainer>
 			<testcontainer
 			id="64ca51b6-cf5c-41a0-9059-aac5f27cbc83">
