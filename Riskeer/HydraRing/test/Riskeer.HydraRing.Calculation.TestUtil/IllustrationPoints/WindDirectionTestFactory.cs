@@ -19,32 +19,22 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints;
 
 namespace Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints
 {
     /// <summary>
-    /// Factory for creating <see cref="GeneralResult"/> instances.
+    /// Factory for creating <see cref="WindDirection"/> instances.
     /// </summary>
-    public static class GeneralResultTestFactory
+    public static class WindDirectionTestFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GeneralResult"/> with duplicate stochasts.
+        /// Creates a new instance of <see cref="WindDirection"/>.
         /// </summary>
-        /// <returns>A <see cref="GeneralResult"/> with duplicate stochasts.</returns>
-        public static GeneralResult CreateGeneralResultWithDuplicateStochasts()
+        /// <returns>A <see cref="WindDirection"/>.</returns>
+        public static WindDirection CreateWindDirection()
         {
-            var stochast = new Stochast("Stochast A", 0, 0);
-
-            return new GeneralResult(0.5,
-                                     new TestWindDirection(),
-                                     new[]
-                                     {
-                                         stochast,
-                                         stochast
-                                     },
-                                     new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>());
+            return new WindDirection("SSE", 123);
         }
     }
 }
