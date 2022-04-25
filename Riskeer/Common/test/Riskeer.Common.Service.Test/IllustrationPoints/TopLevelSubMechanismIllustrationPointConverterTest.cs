@@ -25,10 +25,10 @@ using NUnit.Framework;
 using Riskeer.Common.Data.IllustrationPoints;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Service.IllustrationPoints;
+using Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints;
 using HydraRingWindDirection = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirection;
 using HydraRingWindDirectionClosingSituation = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.WindDirectionClosingSituation;
 using HydraRingIllustrationPointResult = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.IllustrationPointResult;
-using HydraRingTestWindDirection = Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints.TestWindDirection;
 using HydraRingSubMechanismIllustrationPoint = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPoint;
 using HydraRingSubMechanismIllustrationPointStochast = Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints.SubMechanismIllustrationPointStochast;
 
@@ -59,7 +59,7 @@ namespace Riskeer.Common.Service.Test.IllustrationPoints
         public void Convert_SubMechanismIllustrationPointNull_ThrowsArgumentNullException()
         {
             // Setup
-            var hydraRingWindDirection = new HydraRingTestWindDirection();
+            HydraRingWindDirection hydraRingWindDirection = WindDirectionTestFactory.CreateWindDirection();
 
             // Call
             void Call() => TopLevelSubMechanismIllustrationPointConverter.Convert(new HydraRingWindDirectionClosingSituation(hydraRingWindDirection, string.Empty),

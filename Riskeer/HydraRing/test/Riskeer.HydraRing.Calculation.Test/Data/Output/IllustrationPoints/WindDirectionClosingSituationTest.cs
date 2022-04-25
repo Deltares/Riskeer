@@ -46,7 +46,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         public void Constructor_WithoutClosingSituation_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new WindDirectionClosingSituation(new TestWindDirection(), null);
+            void Call() => new WindDirectionClosingSituation(WindDirectionTestFactory.CreateWindDirection(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -58,7 +58,7 @@ namespace Riskeer.HydraRing.Calculation.Test.Data.Output.IllustrationPoints
         {
             // Setup
             var closingSituation = string.Empty;
-            var windDirection = new TestWindDirection();
+            WindDirection windDirection = WindDirectionTestFactory.CreateWindDirection();
 
             // Call
             var instance = new WindDirectionClosingSituation(windDirection, closingSituation);

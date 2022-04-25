@@ -38,7 +38,7 @@ namespace Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints
             var stochast = new Stochast("Stochast A", 0, 0);
 
             return new GeneralResult(0.5,
-                                     new TestWindDirection(),
+                                     WindDirectionTestFactory.CreateWindDirection(),
                                      new[]
                                      {
                                          stochast,

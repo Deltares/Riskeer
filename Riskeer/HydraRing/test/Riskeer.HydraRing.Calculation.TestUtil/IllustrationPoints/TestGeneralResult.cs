@@ -35,7 +35,7 @@ namespace Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints
         /// </summary>
         public TestGeneralResult()
             : base(0,
-                   new TestWindDirection(),
+                   WindDirectionTestFactory.CreateWindDirection(),
                    Enumerable.Empty<Stochast>(),
                    new Dictionary<WindDirectionClosingSituation, IllustrationPointTreeNode>()) {}
 
@@ -48,7 +48,7 @@ namespace Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints
         {
             var generalResult = new TestGeneralResult();
 
-            generalResult.IllustrationPoints.Add(new WindDirectionClosingSituation(new TestWindDirection(), "closing situation"),
+            generalResult.IllustrationPoints.Add(new WindDirectionClosingSituation(WindDirectionTestFactory.CreateWindDirection(), "closing situation"),
                                                  new IllustrationPointTreeNode(new TestFaultTreeIllustrationPoint()));
 
             return generalResult;
@@ -62,7 +62,7 @@ namespace Riskeer.HydraRing.Calculation.TestUtil.IllustrationPoints
         public static TestGeneralResult CreateGeneralResultWithSubMechanismIllustrationPoints()
         {
             var generalResult = new TestGeneralResult();
-            generalResult.IllustrationPoints.Add(new WindDirectionClosingSituation(new TestWindDirection(), "closing situation"),
+            generalResult.IllustrationPoints.Add(new WindDirectionClosingSituation(WindDirectionTestFactory.CreateWindDirection(), "closing situation"),
                                                  new IllustrationPointTreeNode(new TestSubMechanismIllustrationPoint()));
 
             return generalResult;

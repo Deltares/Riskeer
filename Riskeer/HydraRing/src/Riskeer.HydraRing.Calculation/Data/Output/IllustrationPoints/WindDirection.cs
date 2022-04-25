@@ -26,7 +26,7 @@ namespace Riskeer.HydraRing.Calculation.Data.Output.IllustrationPoints
     /// <summary>
     /// A wind direction for which illustration points are determined.
     /// </summary>
-    public class WindDirection
+    public sealed class WindDirection
     {
         /// <summary>
         /// Creates a <see cref="WindDirection"/>.
