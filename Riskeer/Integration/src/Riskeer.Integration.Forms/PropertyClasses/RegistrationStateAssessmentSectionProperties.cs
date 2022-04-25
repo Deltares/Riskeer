@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using Core.Common.Base;
+using Core.Common.Util;
 using Core.Common.Util.Attributes;
 using Core.Gui.Attributes;
-using Core.Gui.PropertyBag;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Integration.Data;
 using Riskeer.Integration.Forms.Properties;
@@ -33,41 +36,51 @@ namespace Riskeer.Integration.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="AssessmentSection"/> for properties panel.
     /// </summary>
-    public class AssessmentSectionProperties : ObjectProperties<IAssessmentSection>
+    public class RegistrationStateAssessmentSectionProperties : AssessmentSectionProperties
     {
+        private readonly IAssessmentSectionCompositionChangeHandler compositionChangeHandler;
+
         /// <summary>
-        /// Creates a new instance of <see cref="AssessmentSectionProperties"/>.
+        /// Creates a new instance of <see cref="RegistrationStateAssessmentSectionProperties"/>.
         /// </summary>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/>
         /// to show the properties of.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <see cref="assessmentSection"/> is <c>null</c>.</exception>
-        public AssessmentSectionProperties(IAssessmentSection assessmentSection)
+        /// <param name="compositionChangeHandler">The <see cref="IAssessmentSectionCompositionChangeHandler"/>
+        /// for when the composition changes.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
+        public RegistrationStateAssessmentSectionProperties(IAssessmentSection assessmentSection, IAssessmentSectionCompositionChangeHandler compositionChangeHandler)
+            : base(assessmentSection)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException(nameof(assessmentSection));
             }
 
+            if (compositionChangeHandler == null)
+            {
+                throw new ArgumentNullException(nameof(compositionChangeHandler));
+            }
+
+            this.compositionChangeHandler = compositionChangeHandler;
+
             Data = assessmentSection;
         }
 
-        [PropertyOrder(1)]
+        [PropertyOrder(3)]
+        [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSection_Id_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.AssessmentSection_Id_Description))]
-        public string Id => data.Id;
-
-        [PropertyOrder(2)]
-        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_General))]
-        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSection_Name_DisplayName))]
-        [ResourcesDescription(typeof(Resources), nameof(Resources.AssessmentSection_Name_Description))]
-        public string Name
+        [ResourcesDisplayName(typeof(Resources), nameof(Resources.AssessmentSectionComposition_Composition_DisplayName))]
+        [ResourcesDescription(typeof(Resources), nameof(Resources.AssessmentSectionComposition_Composition_Description))]
+        public AssessmentSectionComposition Composition
         {
-            get => data.Name;
+            get => data.Composition;
             set
             {
-                data.Name = value;
-                data.NotifyObservers();
+                IEnumerable<IObservable> changedObjects = compositionChangeHandler.ChangeComposition(data, value);
+                foreach (IObservable changedObject in changedObjects)
+                {
+                    changedObject.NotifyObservers();
+                }
             }
         }
     }
