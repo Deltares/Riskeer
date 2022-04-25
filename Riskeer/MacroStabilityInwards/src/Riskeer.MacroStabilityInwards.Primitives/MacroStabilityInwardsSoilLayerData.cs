@@ -29,7 +29,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
     /// <summary>
     /// Data of a soil layer.
     /// </summary>
-    public class MacroStabilityInwardsSoilLayerData
+    public sealed class MacroStabilityInwardsSoilLayerData
     {
         private readonly VariationCoefficientLogNormalDistribution abovePhreaticLevel;
         private readonly VariationCoefficientLogNormalDistribution belowPhreaticLevel;

@@ -29,7 +29,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
     /// The Waternet created by the Waternet calculator in the derived
     /// macro stability inwards calculation input.
     /// </summary>
-    public class MacroStabilityInwardsWaternet
+    public sealed class MacroStabilityInwardsWaternet
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsWaternet"/>.

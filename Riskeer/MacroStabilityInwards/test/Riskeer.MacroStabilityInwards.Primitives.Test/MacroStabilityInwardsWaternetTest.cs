@@ -35,10 +35,10 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         public void Constructor_PhreaticLinesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaternet(null, Enumerable.Empty<MacroStabilityInwardsWaternetLine>());
+            void Call() => new MacroStabilityInwardsWaternet(null, Enumerable.Empty<MacroStabilityInwardsWaternetLine>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("phreaticLines", exception.ParamName);
         }
 
@@ -46,10 +46,10 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         public void Constructor_WaternetLinesNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsWaternet(Enumerable.Empty<MacroStabilityInwardsPhreaticLine>(), null);
+            void Call() => new MacroStabilityInwardsWaternet(Enumerable.Empty<MacroStabilityInwardsPhreaticLine>(), null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("waternetLines", exception.ParamName);
         }
 
@@ -74,24 +74,13 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
             Assert.AreSame(waternetLine, waternet.WaternetLines.Single());
         }
 
-        private class DerivedMacroStabilityInwardsWaternet : MacroStabilityInwardsWaternet
-        {
-            public DerivedMacroStabilityInwardsWaternet(MacroStabilityInwardsWaternet waternet)
-                : base(waternet.PhreaticLines, waternet.WaternetLines) {}
-        }
-
         [TestFixture]
         private class MacroStabilityInwardsWaternetEqualsTest
-            : EqualsTestFixture<MacroStabilityInwardsWaternet, DerivedMacroStabilityInwardsWaternet>
+            : EqualsTestFixture<MacroStabilityInwardsWaternet>
         {
             protected override MacroStabilityInwardsWaternet CreateObject()
             {
                 return CreateWaternet();
-            }
-
-            protected override DerivedMacroStabilityInwardsWaternet CreateDerivedObject()
-            {
-                return new DerivedMacroStabilityInwardsWaternet(CreateWaternet());
             }
 
             private static MacroStabilityInwardsWaternet CreateWaternet()

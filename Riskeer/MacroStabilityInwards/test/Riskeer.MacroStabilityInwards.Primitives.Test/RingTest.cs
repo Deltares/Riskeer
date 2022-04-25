@@ -36,10 +36,10 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         public void Constructor_WithoutPoints_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new Ring(null);
+            void Call() => new Ring(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("points", exception.ParamName);
         }
 
@@ -47,11 +47,11 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         public void Constructor_WithoutAtLeastTwoDistinctPoints_ThrowsArgumentException([Range(0, 4)] int times)
         {
             // Call
-            TestDelegate test = () => new Ring(Enumerable.Repeat(new Point2D(3, 2), times));
+            void Call() => new Ring(Enumerable.Repeat(new Point2D(3, 2), times));
 
             // Assert
             const string expectedMessage = "Need at least two distinct points to define a Ring.";
-            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+            var exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
             Assert.AreEqual("points", exception.ParamName);
         }
 
@@ -75,16 +75,11 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         }
 
         [TestFixture]
-        private class RingEqualsTest : EqualsTestFixture<Ring, DerivedRing>
+        private class RingEqualsTest : EqualsTestFixture<Ring>
         {
             protected override Ring CreateObject()
             {
                 return CreateRing();
-            }
-
-            protected override DerivedRing CreateDerivedObject()
-            {
-                return new DerivedRing(CreateRing());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -113,11 +108,6 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
                     new Point2D(random.NextDouble(), random.NextDouble())
                 });
             }
-        }
-
-        private class DerivedRing : Ring
-        {
-            public DerivedRing(Ring ring) : base(ring.Points) {}
         }
     }
 }

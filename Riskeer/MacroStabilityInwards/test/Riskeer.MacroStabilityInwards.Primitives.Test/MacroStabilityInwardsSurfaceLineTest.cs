@@ -37,10 +37,10 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new MacroStabilityInwardsSurfaceLine(null);
+            void Call() => new MacroStabilityInwardsSurfaceLine(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
         }
 
@@ -65,10 +65,10 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
             var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
             // Call
-            TestDelegate call = () => surfaceLine.CopyProperties(null);
+            void Call() => surfaceLine.CopyProperties(null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(Call).ParamName;
             Assert.AreEqual("fromSurfaceLine", paramName);
         }
 
@@ -145,19 +145,13 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         }
 
         [TestFixture]
-        private class MacroStabilityInwardsSurfaceLineEqualsTest : EqualsTestFixture<MacroStabilityInwardsSurfaceLine, TestSurfaceLine>
+        private class MacroStabilityInwardsSurfaceLineEqualsTest : EqualsTestFixture<MacroStabilityInwardsSurfaceLine>
         {
             protected override MacroStabilityInwardsSurfaceLine CreateObject()
             {
                 return CreateSurfaceLineWithCharacteristicPoints();
             }
-
-            protected override TestSurfaceLine CreateDerivedObject()
-            {
-                MacroStabilityInwardsSurfaceLine baseLine = CreateSurfaceLineWithCharacteristicPoints();
-                return new TestSurfaceLine(baseLine);
-            }
-
+            
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
             {
                 MacroStabilityInwardsSurfaceLine differentName = CreateSurfaceLineWithCharacteristicPoints("Different Name");
@@ -280,11 +274,11 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
                 var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
                 // Call
-                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, testPoint);
+                void Call() => SetCharacteristicPoint(surfaceLine, testPoint);
 
                 // Assert
-                string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als '{CharacteristicPointDescription()}' in te stellen.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+                var expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als '{CharacteristicPointDescription()}' in te stellen.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
             }
 
             [Test]
@@ -294,11 +288,11 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
                 var surfaceLine = new MacroStabilityInwardsSurfaceLine(string.Empty);
 
                 // Call
-                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, null);
+                void Call() => SetCharacteristicPoint(surfaceLine, null);
 
                 // Assert
                 const string expectedMessage = "Cannot find a point in geometry using a null point.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
             }
 
             protected abstract void SetCharacteristicPoint(MacroStabilityInwardsSurfaceLine surfaceLine, Point3D point);
@@ -533,15 +527,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
                 return "Teen dijk binnenwaarts";
             }
         }
-
-        private class TestSurfaceLine : MacroStabilityInwardsSurfaceLine
-        {
-            public TestSurfaceLine(MacroStabilityInwardsSurfaceLine surfaceLine) : base(string.Empty)
-            {
-                CopyProperties(surfaceLine);
-            }
-        }
-
+        
         private static void AssertPropertiesUpdated(MacroStabilityInwardsSurfaceLine expectedSurfaceLine,
                                                     MacroStabilityInwardsSurfaceLine actualSurfaceLine)
         {

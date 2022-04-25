@@ -30,7 +30,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
     /// <summary>
     /// A collection of points which together form a closed line.
     /// </summary>
-    public class Ring
+    public sealed class Ring
     {
         /// <summary>
         /// Creates a new instance of <see cref="Ring"/>.

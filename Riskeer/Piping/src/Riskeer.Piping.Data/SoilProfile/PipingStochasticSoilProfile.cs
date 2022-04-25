@@ -30,7 +30,7 @@ namespace Riskeer.Piping.Data.SoilProfile
     /// <summary>
     /// This class couples a <see cref="PipingSoilProfile"/> to a probability of occurrence.
     /// </summary>
-    public class PipingStochasticSoilProfile : Observable
+    public sealed class PipingStochasticSoilProfile : Observable
     {
         private double probability;
 

@@ -37,10 +37,10 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
         public void Constructor_SoilProfileNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingStochasticSoilProfile(0.0, null);
+            void Call() => new PipingStochasticSoilProfile(0.0, null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("soilProfile", exception.ParamName);
         }
 
@@ -76,11 +76,11 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
             PipingSoilProfile profile = PipingSoilProfileTestFactory.CreatePipingSoilProfile();
 
             // Call
-            TestDelegate test = () => new PipingStochasticSoilProfile(probability, profile);
+            void Call() => new PipingStochasticSoilProfile(probability, profile);
 
             // Assert
             const string expectedMessage = "Het aandeel van de ondergrondschematisatie in het stochastische ondergrondmodel moet in het bereik [0,0, 1,0] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(Call, expectedMessage);
         }
 
         [Test]
@@ -134,16 +134,11 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
         }
 
         [TestFixture]
-        private class PipingStochasticSoilProfileEqualsTest : EqualsTestFixture<PipingStochasticSoilProfile, DerivedPipingStochasticSoilProfile>
+        private class PipingStochasticSoilProfileEqualsTest : EqualsTestFixture<PipingStochasticSoilProfile>
         {
             protected override PipingStochasticSoilProfile CreateObject()
             {
                 return CreateStochasticSoilProfile();
-            }
-
-            protected override DerivedPipingStochasticSoilProfile CreateDerivedObject()
-            {
-                return new DerivedPipingStochasticSoilProfile(CreateStochasticSoilProfile());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -164,12 +159,6 @@ namespace Riskeer.Piping.Data.Test.SoilProfile
                 return new PipingStochasticSoilProfile(random.NextDouble(),
                                                        PipingSoilProfileTestFactory.CreatePipingSoilProfile("Name"));
             }
-        }
-
-        private class DerivedPipingStochasticSoilProfile : PipingStochasticSoilProfile
-        {
-            public DerivedPipingStochasticSoilProfile(PipingStochasticSoilProfile profile)
-                : base(profile.Probability, profile.SoilProfile) {}
         }
     }
 }
