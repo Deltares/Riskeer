@@ -25,13 +25,26 @@ using Core.Common.Base.Geometry;
 namespace Riskeer.MacroStabilityInwards.Primitives.TestUtil
 {
     /// <summary>
-    /// Simple <see cref="MacroStabilityInwardsWaternetLine"/> that can be used in tests.
+    /// Factory for creating macro stability inwards related test data instances.
     /// </summary>
-    public class TestMacroStabilityInwardsWaternetLine : MacroStabilityInwardsWaternetLine
+    public static class MacroStabilityInwardsTestDataFactory
     {
         /// <summary>
-        /// Creates a new instance of <see cref="TestMacroStabilityInwardsWaternetLine"/>.
+        /// Creates a test instance of <see cref="MacroStabilityInwardsWaternetLine"/>.
         /// </summary>
-        public TestMacroStabilityInwardsWaternetLine() : base("Test Waternet Line", Enumerable.Empty<Point2D>(), new TestMacroStabilityInwardsPhreaticLine()) {}
+        /// <returns>The created <see cref="MacroStabilityInwardsWaternetLine"/>.</returns>
+        public static MacroStabilityInwardsWaternetLine CreateMacroStabilityInwardsWaternetLine()
+        {
+            return new MacroStabilityInwardsWaternetLine("Test Waternet Line", Enumerable.Empty<Point2D>(), new TestMacroStabilityInwardsPhreaticLine());
+        }
+
+        /// <summary>
+        /// Creates a test instance of <see cref="MacroStabilityInwardsPhreaticLine"/>.
+        /// </summary>
+        /// <returns>The created <see cref="MacroStabilityInwardsPhreaticLine"/>.</returns>
+        public static MacroStabilityInwardsPhreaticLine CreateMacroStabilityInwardsPhreaticLine()
+        {
+            return new MacroStabilityInwardsPhreaticLine("Test Phreatic Line", Enumerable.Empty<Point2D>());
+        }
     }
 }
