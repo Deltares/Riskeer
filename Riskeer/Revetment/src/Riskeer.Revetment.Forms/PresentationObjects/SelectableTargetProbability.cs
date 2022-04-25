@@ -31,7 +31,7 @@ namespace Riskeer.Revetment.Forms.PresentationObjects
     /// <summary>
     /// Class that represents a selectable target probability for a collection of <see cref="HydraulicBoundaryLocationCalculation"/>.
     /// </summary>
-    public class SelectableTargetProbability
+    public sealed class SelectableTargetProbability
     {
         private readonly IAssessmentSection assessmentSection;
 

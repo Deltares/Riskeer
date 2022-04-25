@@ -29,7 +29,7 @@ namespace Riskeer.Piping.Primitives
     /// <summary>
     /// This class represents a soil profile, which was imported for use in a piping calculation.
     /// </summary>
-    public class PipingSoilProfile
+    public sealed class PipingSoilProfile
     {
         private PipingSoilLayer[] layers;
 

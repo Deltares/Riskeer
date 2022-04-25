@@ -30,7 +30,7 @@ namespace Riskeer.Piping.Primitives
     /// This class represents profiles that were imported from D-Soil Model and will later on be used to create the
     /// necessary input for executing a piping calculation.
     /// </summary>
-    public class PipingSoilLayer
+    public sealed class PipingSoilLayer
     {
         private readonly LogNormalDistribution belowPhreaticLevel;
         private readonly VariationCoefficientLogNormalDistribution diameterD70;

@@ -37,10 +37,10 @@ namespace Riskeer.Piping.Primitives.Test
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new PipingSurfaceLine(null);
+            void Call() => new PipingSurfaceLine(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
         }
 
@@ -145,17 +145,11 @@ namespace Riskeer.Piping.Primitives.Test
         }
 
         [TestFixture]
-        private class PipingSurfaceLineEqualsTest : EqualsTestFixture<PipingSurfaceLine, TestSurfaceLine>
+        private class PipingSurfaceLineEqualsTest : EqualsTestFixture<PipingSurfaceLine>
         {
             protected override PipingSurfaceLine CreateObject()
             {
                 return CreateSurfaceLineWithCharacteristicPoints();
-            }
-
-            protected override TestSurfaceLine CreateDerivedObject()
-            {
-                PipingSurfaceLine baseLine = CreateSurfaceLineWithCharacteristicPoints();
-                return new TestSurfaceLine(baseLine);
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()
@@ -244,11 +238,11 @@ namespace Riskeer.Piping.Primitives.Test
                 var surfaceLine = new PipingSurfaceLine(string.Empty);
 
                 // Call
-                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, testPoint);
+                void Call() => SetCharacteristicPoint(surfaceLine, testPoint);
 
                 // Assert
-                string expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als '{CharacteristicPointDescription()}' in te stellen.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
+                var expectedMessage = $"De geometrie bevat geen punt op locatie {testPoint} om als '{CharacteristicPointDescription()}' in te stellen.";
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(Call, expectedMessage);
             }
 
             [Test]
@@ -258,11 +252,11 @@ namespace Riskeer.Piping.Primitives.Test
                 var surfaceLine = new PipingSurfaceLine(string.Empty);
 
                 // Call
-                TestDelegate test = () => SetCharacteristicPoint(surfaceLine, null);
+                void Call() => SetCharacteristicPoint(surfaceLine, null);
 
                 // Assert
                 const string expectedMessage = "Cannot find a point in geometry using a null point.";
-                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(test, expectedMessage);
+                TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(Call, expectedMessage);
             }
 
             protected abstract void SetCharacteristicPoint(PipingSurfaceLine surfaceLine, Point3D point);
@@ -381,14 +375,6 @@ namespace Riskeer.Piping.Primitives.Test
             protected override string CharacteristicPointDescription()
             {
                 return "Teen dijk binnenwaarts";
-            }
-        }
-
-        private class TestSurfaceLine : PipingSurfaceLine
-        {
-            public TestSurfaceLine(PipingSurfaceLine profile) : base(string.Empty)
-            {
-                CopyProperties(profile);
             }
         }
 

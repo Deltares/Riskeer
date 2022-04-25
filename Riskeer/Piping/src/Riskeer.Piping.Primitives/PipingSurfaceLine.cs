@@ -31,7 +31,7 @@ namespace Riskeer.Piping.Primitives
     /// <summary>
     /// Definition of a surface line for piping.
     /// </summary>
-    public class PipingSurfaceLine : MechanismSurfaceLineBase
+    public sealed class PipingSurfaceLine : MechanismSurfaceLineBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingSurfaceLine"/>.
