@@ -53,8 +53,28 @@ namespace Riskeer.Integration.IO.Creators
 
             switch (assemblyMethod)
             {
+                case ExportableAssemblyMethod.BOI0A1:
+                    return SerializableAssemblyMethod.BOI0A1;
+                case ExportableAssemblyMethod.BOI0A2:
+                    return SerializableAssemblyMethod.BOI0A2;
+                case ExportableAssemblyMethod.BOI0B1:
+                    return SerializableAssemblyMethod.BOI0B1;
+                case ExportableAssemblyMethod.BOI0C1:
+                    return SerializableAssemblyMethod.BOI0C1;
+                case ExportableAssemblyMethod.BOI0C2:
+                    return SerializableAssemblyMethod.BOI0C2;
+                case ExportableAssemblyMethod.BOI1A1:
+                    return SerializableAssemblyMethod.BOI1A1;
+                case ExportableAssemblyMethod.BOI1A2:
+                    return SerializableAssemblyMethod.BOI1A2;
+                case ExportableAssemblyMethod.Manual:
+                    return SerializableAssemblyMethod.Manual;
                 case ExportableAssemblyMethod.BOI1B1:
                     return SerializableAssemblyMethod.BOI1B1;
+                case ExportableAssemblyMethod.BOI2A1:
+                    return SerializableAssemblyMethod.BOI2A1;
+                case ExportableAssemblyMethod.BOI2A2:
+                    return SerializableAssemblyMethod.BOI2A2;
                 case ExportableAssemblyMethod.BOI2B1:
                     return SerializableAssemblyMethod.BOI2B1;
                 case ExportableAssemblyMethod.BOI3A1:

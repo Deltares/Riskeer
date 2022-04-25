@@ -46,7 +46,16 @@ namespace Riskeer.Integration.IO.Test.Creators
         }
 
         [Test]
+        [TestCase(ExportableAssemblyMethod.BOI0A1, SerializableAssemblyMethod.BOI0A1)]
+        [TestCase(ExportableAssemblyMethod.BOI0A2, SerializableAssemblyMethod.BOI0A2)]
+        [TestCase(ExportableAssemblyMethod.BOI0B1, SerializableAssemblyMethod.BOI0B1)]
+        [TestCase(ExportableAssemblyMethod.BOI0C1, SerializableAssemblyMethod.BOI0C1)]
+        [TestCase(ExportableAssemblyMethod.BOI1A1, SerializableAssemblyMethod.BOI1A1)]
+        [TestCase(ExportableAssemblyMethod.BOI1A2, SerializableAssemblyMethod.BOI1A2)]
+        [TestCase(ExportableAssemblyMethod.Manual, SerializableAssemblyMethod.Manual)]
         [TestCase(ExportableAssemblyMethod.BOI1B1, SerializableAssemblyMethod.BOI1B1)]
+        [TestCase(ExportableAssemblyMethod.BOI2A1, SerializableAssemblyMethod.BOI2A1)]
+        [TestCase(ExportableAssemblyMethod.BOI2A2, SerializableAssemblyMethod.BOI2A2)]
         [TestCase(ExportableAssemblyMethod.BOI2B1, SerializableAssemblyMethod.BOI2B1)]
         [TestCase(ExportableAssemblyMethod.BOI3A1, SerializableAssemblyMethod.BOI3A1)]
         [TestCase(ExportableAssemblyMethod.BOI3B1, SerializableAssemblyMethod.BOI3B1)]
