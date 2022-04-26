@@ -38,13 +38,16 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult();
 
             // Assert
-            Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
+            Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.ProbabilityAssemblyMethod);
+            Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyGroupAssemblyMethod);
             Assert.AreEqual((SerializableFailureMechanismSectionAssemblyGroup) 0, assemblyResult.AssemblyGroup);
             Assert.AreEqual(0, assemblyResult.Probability);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
-                nameof(SerializableFailureMechanismSectionAssemblyResult.AssemblyMethod), "assemblagemethode");
+                nameof(SerializableFailureMechanismSectionAssemblyResult.ProbabilityAssemblyMethod), "assemblagemethodeFaalkans");
+            SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
+                nameof(SerializableFailureMechanismSectionAssemblyResult.AssemblyGroupAssemblyMethod), "assemblagemethodeDuidingsklasse");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
                 nameof(SerializableFailureMechanismSectionAssemblyResult.AssemblyGroup), "duidingsklasse");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
@@ -58,40 +61,42 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
         {
             // Setup
             var random = new Random(21);
-            var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
+            var probabilityAssemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
+            var assemblyGroupAssemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
             var assemblyGroup = random.NextEnumValue<SerializableFailureMechanismSectionAssemblyGroup>();
             double probability = random.NextDouble();
 
             // Call
-            var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(assemblyMethod, assemblyGroup, probability);
+            var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(
+                probabilityAssemblyMethod, assemblyGroupAssemblyMethod, assemblyGroup, probability);
 
             // Assert
             Assert.AreEqual(assemblyGroup, assemblyResult.AssemblyGroup);
             Assert.AreEqual(probability, assemblyResult.Probability);
-            Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
+            Assert.AreEqual(probabilityAssemblyMethod, assemblyResult.ProbabilityAssemblyMethod);
+            Assert.AreEqual(assemblyGroupAssemblyMethod, assemblyResult.AssemblyGroupAssemblyMethod);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
         }
 
         [Test]
-        [Combinatorial]
+        [TestCase(SerializableFailureMechanismSectionAssemblyGroup.III)]
+        [TestCase(SerializableFailureMechanismSectionAssemblyGroup.II)]
+        [TestCase(SerializableFailureMechanismSectionAssemblyGroup.I)]
+        [TestCase(SerializableFailureMechanismSectionAssemblyGroup.Zero)]
+        [TestCase(SerializableFailureMechanismSectionAssemblyGroup.IMin)]
+        [TestCase(SerializableFailureMechanismSectionAssemblyGroup.IIMin)]
+        [TestCase(SerializableFailureMechanismSectionAssemblyGroup.IIIMin)]
+        [TestCase(SerializableFailureMechanismSectionAssemblyGroup.NotRelevant)]
         public void ShouldSerializeProbability_WithProbabilityAndAssemblyGroupOtherThanNotDominant_ReturnsTrue(
-            [Values(0.5, double.NaN)] double probability,
-            [Values(SerializableFailureMechanismSectionAssemblyGroup.III,
-                    SerializableFailureMechanismSectionAssemblyGroup.II,
-                    SerializableFailureMechanismSectionAssemblyGroup.I,
-                    SerializableFailureMechanismSectionAssemblyGroup.Zero,
-                    SerializableFailureMechanismSectionAssemblyGroup.IMin,
-                    SerializableFailureMechanismSectionAssemblyGroup.IIMin,
-                    SerializableFailureMechanismSectionAssemblyGroup.IIIMin,
-                    SerializableFailureMechanismSectionAssemblyGroup.NotRelevant)]
             SerializableFailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             // Setup
             var random = new Random(39);
             var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(
                 random.NextEnumValue<SerializableAssemblyMethod>(),
-                random.NextEnumValue<SerializableFailureMechanismSectionAssemblyGroup>(),
-                probability);
+                random.NextEnumValue<SerializableAssemblyMethod>(),
+                assemblyGroup,
+                random.NextDouble());
 
             // Call
             bool shouldSerialize = assemblyResult.ShouldSerializeProbability();
@@ -106,6 +111,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             // Setup
             var random = new Random(39);
             var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(
+                random.NextEnumValue<SerializableAssemblyMethod>(),
                 random.NextEnumValue<SerializableAssemblyMethod>(),
                 SerializableFailureMechanismSectionAssemblyGroup.NotDominant,
                 random.NextDouble());

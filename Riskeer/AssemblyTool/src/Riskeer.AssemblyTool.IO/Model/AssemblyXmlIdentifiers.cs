@@ -48,6 +48,11 @@ namespace Riskeer.AssemblyTool.IO.Model
         public const string ProbabilityAssemblyMethod = "assemblagemethodeFaalkans";
 
         /// <summary>
+        /// Identifier for an assembly group assembly method element.
+        /// </summary>
+        public const string AssemblyGroupAssemblyMethod = "assemblagemethodeDuidingsklasse";
+
+        /// <summary>
         /// The XML namespace for assembly objects.
         /// </summary>
         public const string AssemblyNamespace = "http://localhost/standaarden/assemblage";

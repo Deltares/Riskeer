@@ -34,6 +34,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
             Assert.AreEqual("assemblagemethode", AssemblyXmlIdentifiers.AssemblyMethod);
             Assert.AreEqual("assemblagemethodeVeiligheidsoordeel", AssemblyXmlIdentifiers.TotalAssemblyResultAssemblyMethod);
             Assert.AreEqual("assemblagemethodeFaalkans", AssemblyXmlIdentifiers.ProbabilityAssemblyMethod);
+            Assert.AreEqual("assemblagemethodeDuidingsklasse", AssemblyXmlIdentifiers.AssemblyGroupAssemblyMethod);
             Assert.AreEqual("http://localhost/standaarden/assemblage", AssemblyXmlIdentifiers.AssemblyNamespace);
             Assert.AreEqual("asm", AssemblyXmlIdentifiers.AssemblyNamespaceIdentifier);
             Assert.AreEqual("Beoordelingsproces", AssemblyXmlIdentifiers.AssessmentProcess);

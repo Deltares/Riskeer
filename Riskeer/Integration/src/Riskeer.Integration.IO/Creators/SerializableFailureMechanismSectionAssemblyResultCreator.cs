@@ -22,7 +22,6 @@
 using System;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
-using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.Assembly;
 using Riskeer.Integration.IO.Exceptions;
 
@@ -53,7 +52,8 @@ namespace Riskeer.Integration.IO.Creators
             ValidateAssemblyResult(sectionResult);
 
             return new SerializableFailureMechanismSectionAssemblyResult(
-                SerializableAssemblyMethod.BOI0A2,
+                SerializableAssemblyMethodCreator.Create(sectionResult.ProbabilityAssemblyMethod),
+                SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyGroupAssemblyMethod),
                 SerializableFailureMechanismSectionAssemblyGroupCreator.Create(sectionResult.AssemblyGroup),
                 sectionResult.Probability);
         }

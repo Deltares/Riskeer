@@ -48,7 +48,8 @@
     </asm:Faalmechanisme>
     <asm:Faalanalyse FaalanalyseID="resultaat_GABI_1" FaalmechanismeIDRef="toetsspoorGABI" WaterkeringsectieIDRef="vak_GABI_1">
       <asm:analyseVak>
-        <asm:assemblagemethode>BOI-0A-2</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-0A-2</asm:assemblagemethodeFaalkans>
+        <asm:assemblagemethodeDuidingsklasse>BOI-0B-1</asm:assemblagemethodeDuidingsklasse>
         <asm:duidingsklasse>+III</asm:duidingsklasse>
         <asm:faalkans>0.00073</asm:faalkans>
         <asm:status>VOLLDG</asm:status>

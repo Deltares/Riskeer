@@ -76,6 +76,10 @@ namespace Riskeer.Integration.IO.Test.Creators
             SerializableFailureMechanismSectionAssemblyResult serializableAssemblyResult = SerializableFailureMechanismSectionAssemblyResultCreator.Create(sectionResult);
 
             // Assert
+            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(sectionResult.ProbabilityAssemblyMethod),
+                            serializableAssemblyResult.ProbabilityAssemblyMethod);
+            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(sectionResult.AssemblyGroupAssemblyMethod),
+                            serializableAssemblyResult.AssemblyGroupAssemblyMethod);
             Assert.AreEqual(SerializableFailureMechanismSectionAssemblyGroupCreator.Create(
                                 sectionResult.AssemblyGroup), serializableAssemblyResult.AssemblyGroup);
             Assert.AreEqual(sectionResult.Probability, serializableAssemblyResult.Probability);

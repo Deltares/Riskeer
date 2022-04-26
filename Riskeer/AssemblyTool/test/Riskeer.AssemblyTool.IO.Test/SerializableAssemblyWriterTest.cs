@@ -309,7 +309,8 @@ namespace Riskeer.AssemblyTool.IO.Test
             var result = new SerializableFailureMechanismSectionAssembly(
                 "resultaat_GABI_1", failureMechanism, section1,
                 new SerializableFailureMechanismSectionAssemblyResult(
-                    SerializableAssemblyMethod.BOI0A2, SerializableFailureMechanismSectionAssemblyGroup.III, 0.00073));
+                    SerializableAssemblyMethod.BOI0A2, SerializableAssemblyMethod.BOI0B1,
+                    SerializableFailureMechanismSectionAssemblyGroup.III, 0.00073));
 
             var sections2 = new SerializableFailureMechanismSectionCollection("vakindeling_gecombineerd");
             var section2 = new SerializableFailureMechanismSection(

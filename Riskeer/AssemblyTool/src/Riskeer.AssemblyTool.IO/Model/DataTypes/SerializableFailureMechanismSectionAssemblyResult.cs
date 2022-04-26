@@ -41,24 +41,33 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// <summary>
         /// Creates a new instance of <see cref="SerializableFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
-        /// <param name="assemblyMethod">The method used for this assembly result.</param>
+        /// <param name="probabilityAssemblyMethod">The method used to assemble the probability of this result.</param>
+        /// <param name="assemblyGroupAssemblyMethod">The method used to assemble the assembly group of this result.</param>
         /// <param name="assemblyGroup">The assembly group of this assembly result.</param>
         /// <param name="probability">The probability of this assembly result.</param>
-        public SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod assemblyMethod,
+        public SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod probabilityAssemblyMethod,
+                                                                 SerializableAssemblyMethod assemblyGroupAssemblyMethod,
                                                                  SerializableFailureMechanismSectionAssemblyGroup assemblyGroup,
                                                                  double probability)
             : this()
         {
-            AssemblyMethod = assemblyMethod;
+            ProbabilityAssemblyMethod = probabilityAssemblyMethod;
+            AssemblyGroupAssemblyMethod = assemblyGroupAssemblyMethod;
             AssemblyGroup = assemblyGroup;
             Probability = probability;
         }
 
         /// <summary>
-        /// Gets or sets the name of the method used to assemble this result.
+        /// Gets or sets the method used to assemble the probability of this result.
         /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.AssemblyMethod)]
-        public SerializableAssemblyMethod AssemblyMethod { get; set; }
+        [XmlElement(AssemblyXmlIdentifiers.ProbabilityAssemblyMethod)]
+        public SerializableAssemblyMethod ProbabilityAssemblyMethod { get; set; }
+
+        /// <summary>
+        /// Gets or sets the method used to assemble the assembly group of this result.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.AssemblyGroupAssemblyMethod)]
+        public SerializableAssemblyMethod AssemblyGroupAssemblyMethod { get; set; }
 
         /// <summary>
         /// Gets or sets the assembly group of this result.
