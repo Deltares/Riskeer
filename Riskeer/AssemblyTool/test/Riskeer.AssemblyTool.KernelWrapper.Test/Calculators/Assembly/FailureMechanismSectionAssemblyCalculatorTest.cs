@@ -519,9 +519,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                                               double.NaN, random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(), double.NaN),
                                           EAnalysisState.NotRelevant);
             yield return new TestCaseData(new FailureMechanismSectionAssemblyInput(
-                                              maximumAllowableFloodingProbability, signalFloodingProbability, true, true, double.NaN,
+                                              maximumAllowableFloodingProbability, signalFloodingProbability, true, false, double.NaN,
                                               FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, double.NaN),
-                                          EAnalysisState.ProbabilityEstimated);
+                                          EAnalysisState.NoProbabilityEstimationNecessary);
             yield return new TestCaseData(new FailureMechanismSectionAssemblyInput(
                                               maximumAllowableFloodingProbability, signalFloodingProbability, true, random.NextBoolean(), double.NaN,
                                               FailureMechanismSectionResultFurtherAnalysisType.Necessary, double.NaN),
@@ -539,9 +539,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                                               double.NaN, random.NextEnumValue<FailureMechanismSectionResultFurtherAnalysisType>(), double.NaN, double.NaN),
                                           EAnalysisState.NotRelevant);
             yield return new TestCaseData(new FailureMechanismSectionWithProfileProbabilityAssemblyInput(
-                                              maximumAllowableFloodingProbability, signalFloodingProbability, true, true, double.NaN, double.NaN,
+                                              maximumAllowableFloodingProbability, signalFloodingProbability, true, false, double.NaN, double.NaN,
                                               FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, double.NaN, double.NaN),
-                                          EAnalysisState.ProbabilityEstimated);
+                                          EAnalysisState.NoProbabilityEstimationNecessary);
             yield return new TestCaseData(new FailureMechanismSectionWithProfileProbabilityAssemblyInput(
                                               maximumAllowableFloodingProbability, signalFloodingProbability, true, random.NextBoolean(), double.NaN, double.NaN,
                                               FailureMechanismSectionResultFurtherAnalysisType.Necessary, double.NaN, double.NaN),
@@ -555,7 +555,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
             var random = new Random(21);
             yield return new TestCaseData(new FailureMechanismSectionAssemblyInput(
-                                              maximumAllowableFloodingProbability, signalFloodingProbability, true, false, random.NextDouble(),
+                                              maximumAllowableFloodingProbability, signalFloodingProbability, true, true, random.NextDouble(),
                                               FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, random.NextDouble()));
             yield return new TestCaseData(new FailureMechanismSectionAssemblyInput(
                                               maximumAllowableFloodingProbability, signalFloodingProbability, true, random.NextBoolean(), random.NextDouble(),
@@ -569,7 +569,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
 
             var random = new Random(21);
             yield return new TestCaseData(new FailureMechanismSectionWithProfileProbabilityAssemblyInput(
-                                              maximumAllowableFloodingProbability, signalFloodingProbability, true, false, random.NextDouble(), random.NextDouble(),
+                                              maximumAllowableFloodingProbability, signalFloodingProbability, true, true, random.NextDouble(), random.NextDouble(),
                                               FailureMechanismSectionResultFurtherAnalysisType.NotNecessary, random.NextDouble(), random.NextDouble()));
             yield return new TestCaseData(new FailureMechanismSectionWithProfileProbabilityAssemblyInput(
                                               maximumAllowableFloodingProbability, signalFloodingProbability, true, random.NextBoolean(), random.NextDouble(), random.NextDouble(),

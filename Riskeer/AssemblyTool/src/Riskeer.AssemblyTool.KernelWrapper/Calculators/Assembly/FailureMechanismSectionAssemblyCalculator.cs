@@ -137,7 +137,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
             }
 
             return input.FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.NotNecessary
-                   && !input.HasProbabilitySpecified
+                   && input.HasProbabilitySpecified
                    || input.FurtherAnalysisType == FailureMechanismSectionResultFurtherAnalysisType.Executed;
         }
 
