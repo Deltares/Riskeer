@@ -86,6 +86,7 @@ namespace Riskeer.Integration.IO.TestUtil
                     FailureMechanismSectionAssemblyGroup.NotRelevant
                 }),
                 random.NextDouble(),
+                random.NextEnumValue<ExportableAssemblyMethod>(),
                 random.NextEnumValue<ExportableAssemblyMethod>());
         }
     }

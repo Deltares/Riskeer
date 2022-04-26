@@ -39,18 +39,20 @@ namespace Riskeer.Integration.IO.Test.Assembly
             var random = new Random(21);
             var section = new ExportableFailureMechanismSection(Enumerable.Empty<Point2D>(), random.NextDouble(), random.NextDouble());
             var assemblyGroup = random.NextEnumValue<FailureMechanismSectionAssemblyGroup>();
-            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
+            var assemblyGroupAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
+            var probabilityAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
             double probability = random.NextDouble();
 
             // Call
             var result = new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
-                section, assemblyGroup, probability, assemblyMethod);
+                section, assemblyGroup, probability, assemblyGroupAssemblyMethod, probabilityAssemblyMethod);
 
             // Assert
             Assert.IsInstanceOf<ExportableFailureMechanismSectionAssemblyResult>(result);
             Assert.AreSame(section, result.FailureMechanismSection);
             Assert.AreEqual(assemblyGroup, result.AssemblyGroup);
-            Assert.AreEqual(assemblyMethod, result.AssemblyMethod);
+            Assert.AreEqual(assemblyGroupAssemblyMethod, result.AssemblyGroupAssemblyMethod);
+            Assert.AreEqual(probabilityAssemblyMethod, result.ProbabilityAssemblyMethod);
             Assert.AreEqual(probability, result.Probability);
         }
     }

@@ -54,7 +54,8 @@ namespace Riskeer.Integration.IO.Test.Creators
             var random = new Random(21);
             var sectionResult = new ExportableFailureMechanismSectionAssemblyWithProbabilityResult(
                 ExportableFailureMechanismSectionTestFactory.CreateExportableFailureMechanismSection(),
-                assemblyGroup, random.NextDouble(), random.NextEnumValue<ExportableAssemblyMethod>());
+                assemblyGroup, random.NextDouble(), random.NextEnumValue<ExportableAssemblyMethod>(),
+                random.NextEnumValue<ExportableAssemblyMethod>());
 
             // Call
             void Call() => SerializableFailureMechanismSectionAssemblyResultCreator.Create(sectionResult);

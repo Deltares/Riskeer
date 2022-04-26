@@ -24,6 +24,7 @@ using System.Linq;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.Data;
 using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Factories;
 
 namespace Riskeer.Integration.IO.TestUtil
 {
@@ -61,7 +62,10 @@ namespace Riskeer.Integration.IO.TestUtil
                 FailureMechanismSectionAssemblyResult expectedAssemblyResult = expectedAssemblyResultWrapper.AssemblyResult;
                 Assert.AreEqual(expectedAssemblyResult.FailureMechanismSectionAssemblyGroup, actualExportableAssemblyResult.AssemblyGroup);
                 Assert.AreEqual(expectedAssemblyResult.SectionProbability, actualExportableAssemblyResult.Probability);
-                Assert.AreEqual(ExportableAssemblyMethod.BOI0A2, actualExportableAssemblyResult.AssemblyMethod);
+                Assert.AreEqual(ExportableAssemblyMethodFactory.Create(expectedAssemblyResultWrapper.AssemblyGroupMethod),
+                                actualExportableAssemblyResult.AssemblyGroupAssemblyMethod);
+                Assert.AreEqual(ExportableAssemblyMethodFactory.Create(expectedAssemblyResultWrapper.ProbabilityMethod),
+                                actualExportableAssemblyResult.ProbabilityAssemblyMethod);
             }
         }
     }

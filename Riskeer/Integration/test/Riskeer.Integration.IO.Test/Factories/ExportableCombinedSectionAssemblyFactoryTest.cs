@@ -184,7 +184,7 @@ namespace Riskeer.Integration.IO.Test.Factories
         {
             Assert.AreSame(actualSection, actualSectionResult.Section);
             Assert.AreEqual(expectedSection.TotalResult, actualSectionResult.CombinedSectionAssemblyResult.AssemblyGroup);
-            Assert.AreEqual(ExportableAssemblyMethod.BOI3C1, actualSectionResult.CombinedSectionAssemblyResult.AssemblyMethod);
+            Assert.AreEqual(ExportableAssemblyMethod.BOI3C1, actualSectionResult.CombinedSectionAssemblyResult.AssemblyGroupAssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismCombinedSectionAssemblyResult> failureMechanismCombinedSectionResults = actualSectionResult.FailureMechanismResults;
 

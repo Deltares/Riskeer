@@ -35,20 +35,28 @@ namespace Riskeer.Integration.IO.Assembly
         /// <param name="failureMechanismSection">The failure mechanism section.</param>
         /// <param name="assemblyGroup">The assembly group of this section.</param>
         /// <param name="probability">The probability of this section.</param>
-        /// <param name="assemblyMethod">The assembly method used for this section.</param>
+        /// <param name="assemblyGroupAssemblyMethod">The method used to assemble the assembly group for this section.</param>
+        /// <param name="probabilityAssemblyMethod">The method used to assemble the probability for this section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSection"/> is <c>null</c>.</exception>
         public ExportableFailureMechanismSectionAssemblyWithProbabilityResult(ExportableFailureMechanismSection failureMechanismSection,
                                                                               FailureMechanismSectionAssemblyGroup assemblyGroup,
                                                                               double probability,
-                                                                              ExportableAssemblyMethod assemblyMethod)
-            : base(failureMechanismSection, assemblyGroup, assemblyMethod)
+                                                                              ExportableAssemblyMethod assemblyGroupAssemblyMethod,
+                                                                              ExportableAssemblyMethod probabilityAssemblyMethod)
+            : base(failureMechanismSection, assemblyGroup, assemblyGroupAssemblyMethod)
         {
             Probability = probability;
+            ProbabilityAssemblyMethod = probabilityAssemblyMethod;
         }
 
         /// <summary>
         /// Gets the probability of this section.
         /// </summary>
         public double Probability { get; }
+
+        /// <summary>
+        /// Gets the method used to assemble the probability for this section.
+        /// </summary>
+        public ExportableAssemblyMethod ProbabilityAssemblyMethod { get; }
     }
 }

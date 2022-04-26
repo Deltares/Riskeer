@@ -34,11 +34,11 @@ namespace Riskeer.Integration.IO.Assembly
         /// </summary>
         /// <param name="failureMechanismSection">The failure mechanism section.</param>
         /// <param name="assemblyGroup">The assembly group of this section.</param>
-        /// <param name="assemblyMethod">The assembly method used for this section.</param>
+        /// <param name="assemblyGroupAssemblyMethod">The method used to assemble the assembly group for this section.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSection"/> is <c>null</c>.</exception>
         public ExportableFailureMechanismSectionAssemblyResult(ExportableFailureMechanismSection failureMechanismSection,
                                                                FailureMechanismSectionAssemblyGroup assemblyGroup,
-                                                               ExportableAssemblyMethod assemblyMethod)
+                                                               ExportableAssemblyMethod assemblyGroupAssemblyMethod)
         {
             if (failureMechanismSection == null)
             {
@@ -47,7 +47,7 @@ namespace Riskeer.Integration.IO.Assembly
 
             FailureMechanismSection = failureMechanismSection;
             AssemblyGroup = assemblyGroup;
-            AssemblyMethod = assemblyMethod;
+            AssemblyGroupAssemblyMethod = assemblyGroupAssemblyMethod;
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace Riskeer.Integration.IO.Assembly
         public FailureMechanismSectionAssemblyGroup AssemblyGroup { get; }
 
         /// <summary>
-        /// Gets the method that was used to assemble this result.
+        /// Gets the method that was used to assemble the assembly group for this section.
         /// </summary>
-        public ExportableAssemblyMethod AssemblyMethod { get; }
+        public ExportableAssemblyMethod AssemblyGroupAssemblyMethod { get; }
     }
 }
