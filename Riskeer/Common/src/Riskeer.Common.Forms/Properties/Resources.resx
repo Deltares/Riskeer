@@ -889,9 +889,6 @@
     <data name="CalculationOutput_TargetProbability_Description" xml:space="preserve">
     <value>De ingevoerde kans waarvoor het resultaat moet worden berekend.</value>
   </data>
-    <data name="CalculationOutput_TargetProbability_DisplayName" xml:space="preserve">
-    <value>Doelkans [1/jaar]</value>
-  </data>
     <data name="CalculationOutput_TargetReliability_Description" xml:space="preserve">
     <value>Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend.</value>
   </data>

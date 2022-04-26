@@ -607,15 +607,6 @@ namespace Riskeer.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Doelkans [1/jaar].
-        /// </summary>
-        public static string CalculationOutput_TargetProbability_DisplayName {
-            get {
-                return ResourceManager.GetString("CalculationOutput_TargetProbability_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Betrouwbaarheidsindex van de ingevoerde kans waarvoor het resultaat moet worden berekend..
         /// </summary>
         public static string CalculationOutput_TargetReliability_Description {
