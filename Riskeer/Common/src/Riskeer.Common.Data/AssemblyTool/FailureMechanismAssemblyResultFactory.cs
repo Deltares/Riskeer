@@ -42,7 +42,7 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <param name="failureMechanismSectionAssemblyResults">A collection of <see cref="FailureMechanismSectionAssemblyResult"/>.</param>
         /// <param name="applyLengthEffect">Indicator whether the failure mechanism section length effect is applied.</param>
         /// <param name="failureMechanismAssemblyResult">The <see cref="FailureMechanismAssemblyResult"/>.</param>
-        /// <returns>A <see cref="FailureMechanismAssemblyResultWrapper"/> representing the assembly result of the failure mechanism.</returns>>
+        /// <returns>A <see cref="FailureMechanismAssemblyResultWrapper"/> containing the assembly result of the failure mechanism.</returns>>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanismSectionAssemblyResults"/>
         /// or <paramref name="failureMechanismAssemblyResult"/> is <c>null</c>.</exception>
         /// <exception cref="AssemblyException">Thrown when the failure mechanism could not be successfully assembled.</exception>

@@ -36,7 +36,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
         /// <param name="failureMechanismN">The length effect factor 'N' for an entire failure mechanism.</param>
         /// <param name="sectionAssemblyResults">A collection of <see cref="FailureMechanismSectionAssemblyResult"/>.</param>
         /// <param name="applySectionLengthEffect">Indicator whether the failure mechanism section length effect is applied.</param>
-        /// <returns>A <see cref="FailureMechanismAssemblyResultWrapper"/> representing the assembly result of the failure mechanism.</returns>
+        /// <returns>A <see cref="FailureMechanismAssemblyResultWrapper"/> containing the assembly result of the failure mechanism.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionAssemblyResults"/> is <c>null</c>.</exception>
         /// <exception cref="FailureMechanismAssemblyCalculatorException">Thrown when an error occurs while assembling.</exception>
         FailureMechanismAssemblyResultWrapper Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults,
