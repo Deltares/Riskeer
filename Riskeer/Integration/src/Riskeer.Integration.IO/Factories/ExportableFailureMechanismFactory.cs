@@ -82,10 +82,11 @@ namespace Riskeer.Integration.IO.Factories
                 throw new ArgumentNullException(nameof(assembleFailureMechanismSectionFunc));
             }
 
+            FailureMechanismAssemblyResultWrapper assemblyResultWrapper = assembleFailureMechanismFunc(failureMechanism, assessmentSection);
             return new ExportableFailureMechanism(
                 new ExportableFailureMechanismAssemblyResult(
-                    assembleFailureMechanismFunc(failureMechanism, assessmentSection).AssemblyResult,
-                    failureMechanism.AssemblyResult.IsManualProbability()),
+                    assemblyResultWrapper.AssemblyResult,
+                    ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyMethod)),
                 CreateExportableFailureMechanismSectionResults(
                     failureMechanism, assessmentSection, assembleFailureMechanismSectionFunc),
                 failureMechanismType, failureMechanism.Code, failureMechanism.Name);

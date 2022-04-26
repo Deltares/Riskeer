@@ -35,14 +35,14 @@ namespace Riskeer.Integration.IO.Test.Assembly
             // Setup
             var random = new Random(21);
             double probability = random.NextDouble();
-            bool isManual = random.NextBoolean();
+            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            var assemblyResult = new ExportableFailureMechanismAssemblyResult(probability, isManual);
+            var assemblyResult = new ExportableFailureMechanismAssemblyResult(probability, assemblyMethod);
 
             // Assert
             Assert.AreEqual(probability, assemblyResult.Probability);
-            Assert.AreEqual(isManual, assemblyResult.IsManual);
+            Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
         }
     }
 }

@@ -48,7 +48,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             // Setup
             var random = new Random(21);
-            var result = new ExportableFailureMechanismAssemblyResult(random.NextDouble(), random.NextBoolean());
+            var result = new ExportableFailureMechanismAssemblyResult(random.NextDouble(), random.NextEnumValue<ExportableAssemblyMethod>());
 
             // Call
             SerializableFailureMechanismAssemblyResult serializableAssemblyResult = SerializableFailureMechanismResultCreator.Create(result);

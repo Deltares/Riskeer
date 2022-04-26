@@ -122,6 +122,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             var assessmentSection = new AssessmentSectionStub();
 
             double probability = random.NextDouble();
+            var assemblyMethod = random.NextEnumValue<AssemblyMethod>();
             var expectedSectionOutput = new FailureMechanismSectionAssemblyResultWrapper(
                 new FailureMechanismSectionAssemblyResult(
                     random.NextDouble(), random.NextDouble(), random.NextDouble(),
@@ -133,7 +134,7 @@ namespace Riskeer.Integration.IO.Test.Factories
             // Call
             ExportableFailureMechanism exportableFailureMechanism =
                 ExportableFailureMechanismFactory.CreateExportableFailureMechanism<TestFailureMechanism, TestFailureMechanismSectionResult>(
-                    failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(probability, random.NextEnumValue<AssemblyMethod>()),
+                    failureMechanism, assessmentSection, (fm, section) => new FailureMechanismAssemblyResultWrapper(probability, assemblyMethod),
                     (sr, fm, section) => expectedSectionOutput, failureMechanismType);
 
             // Assert
@@ -142,7 +143,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssembly = exportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(probability, exportableFailureMechanismAssembly.Probability);
-            Assert.IsFalse(exportableFailureMechanismAssembly.IsManual);
+            Assert.AreEqual(ExportableAssemblyMethodFactory.Create(assemblyMethod), exportableFailureMechanismAssembly.AssemblyMethod);
 
             IEnumerable<ExportableFailureMechanismSection> exportableFailureMechanismSections = exportableFailureMechanism.SectionAssemblyResults
                                                                                                                           .Select(sar => sar.FailureMechanismSection);
