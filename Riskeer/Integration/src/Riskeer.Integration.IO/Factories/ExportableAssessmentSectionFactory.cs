@@ -86,9 +86,12 @@ namespace Riskeer.Integration.IO.Factories
         /// <exception cref="AssemblyException">Thrown when assembly result cannot be created for <paramref name="assessmentSection"/>.</exception>
         private static ExportableAssessmentSectionAssemblyResult CreateExportableAssessmentSectionAssemblyResult(AssessmentSection assessmentSection)
         {
-            AssessmentSectionAssemblyResult assemblyResult = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection).AssemblyResult;
-            return new ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod.BOI2B1, assemblyResult.AssemblyGroup,
-                                                                 assemblyResult.Probability);
+            AssessmentSectionAssemblyResultWrapper assemblyResultWrapper = AssessmentSectionAssemblyFactory.AssembleAssessmentSection(assessmentSection);
+            AssessmentSectionAssemblyResult assemblyResult = assemblyResultWrapper.AssemblyResult;
+            return new ExportableAssessmentSectionAssemblyResult(
+                assemblyResult.AssemblyGroup, assemblyResult.Probability,
+                ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.AssemblyGroupMethod),
+                ExportableAssemblyMethodFactory.Create(assemblyResultWrapper.ProbabilityMethod));
         }
 
         /// <summary>

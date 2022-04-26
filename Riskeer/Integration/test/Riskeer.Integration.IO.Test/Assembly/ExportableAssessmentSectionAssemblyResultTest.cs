@@ -35,17 +35,20 @@ namespace Riskeer.Integration.IO.Test.Assembly
         {
             // Setup
             var random = new Random(21);
-            var assemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
             var assemblyGroup = random.NextEnumValue<AssessmentSectionAssemblyGroup>();
             double probability = random.NextDouble();
+            var assemblyGroupAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
+            var probabilityAssemblyMethod = random.NextEnumValue<ExportableAssemblyMethod>();
 
             // Call
-            var assembly = new ExportableAssessmentSectionAssemblyResult(assemblyMethod, assemblyGroup, probability);
+            var assembly = new ExportableAssessmentSectionAssemblyResult(
+                assemblyGroup, probability, assemblyGroupAssemblyMethod, probabilityAssemblyMethod);
 
             // Assert
-            Assert.AreEqual(assemblyMethod, assembly.AssemblyMethod);
             Assert.AreEqual(assemblyGroup, assembly.AssemblyGroup);
             Assert.AreEqual(probability, assembly.Probability);
+            Assert.AreEqual(assemblyGroupAssemblyMethod, assembly.AssemblyGroupAssemblyMethod);
+            Assert.AreEqual(probabilityAssemblyMethod, assembly.ProbabilityAssemblyMethod);
         }
     }
 }

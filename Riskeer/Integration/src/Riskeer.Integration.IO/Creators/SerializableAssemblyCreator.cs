@@ -64,7 +64,7 @@ namespace Riskeer.Integration.IO.Creators
                 SerializableTotalAssemblyResultCreator.Create(
                     idGenerator,
                     serializableAssessmentProcess,
-                    SerializableAssemblyMethodCreator.Create(assessmentSection.AssessmentSectionAssembly.AssemblyMethod),
+                    SerializableAssemblyMethodCreator.Create(assessmentSection.AssessmentSectionAssembly.AssemblyGroupAssemblyMethod),
                     SerializableAssessmentSectionAssemblyGroupCreator.Create(assessmentSection.AssessmentSectionAssembly.AssemblyGroup),
                     assessmentSection.AssessmentSectionAssembly.Probability);
 

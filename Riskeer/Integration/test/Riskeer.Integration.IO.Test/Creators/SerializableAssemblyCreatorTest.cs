@@ -214,7 +214,7 @@ namespace Riskeer.Integration.IO.Test.Creators
         {
             Assert.AreEqual(expectedId, serializableTotalAssembly.Id);
             Assert.AreEqual(expectedAssessmentProcess.Id, serializableTotalAssembly.AssessmentProcessId);
-            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyMethod),
+            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyGroupAssemblyMethod),
                             serializableTotalAssembly.AssemblyMethod);
             Assert.AreEqual(SerializableAssessmentSectionAssemblyGroupCreator.Create(expectedAssessmentSectionAssemblyResult.AssemblyGroup),
                             serializableTotalAssembly.AssemblyGroup);

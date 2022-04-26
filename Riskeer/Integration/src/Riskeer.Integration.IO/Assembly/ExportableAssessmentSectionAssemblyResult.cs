@@ -32,22 +32,19 @@ namespace Riskeer.Integration.IO.Assembly
         /// <summary>
         /// Creates an instance of <see cref="ExportableAssessmentSectionAssemblyResult"/>.
         /// </summary>
-        /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
         /// <param name="assemblyGroup">The group of this assembly result.</param>
         /// <param name="probability">The probability of this assembly result.</param>
-        public ExportableAssessmentSectionAssemblyResult(ExportableAssemblyMethod assemblyMethod,
-                                                         AssessmentSectionAssemblyGroup assemblyGroup,
-                                                         double probability)
+        /// <param name="assemblyGroupAssemblyMethod">The method that was used to assemble the assembly group of this result.</param>
+        /// <param name="probabilityAssemblyMethod">The method that was used to assemble the probability of this result.</param>
+        public ExportableAssessmentSectionAssemblyResult(AssessmentSectionAssemblyGroup assemblyGroup, double probability,
+                                                         ExportableAssemblyMethod assemblyGroupAssemblyMethod,
+                                                         ExportableAssemblyMethod probabilityAssemblyMethod)
         {
-            AssemblyMethod = assemblyMethod;
             AssemblyGroup = assemblyGroup;
             Probability = probability;
+            AssemblyGroupAssemblyMethod = assemblyGroupAssemblyMethod;
+            ProbabilityAssemblyMethod = probabilityAssemblyMethod;
         }
-
-        /// <summary>
-        /// Gets the assembly method that was used to assemble the assembly result.
-        /// </summary>
-        public ExportableAssemblyMethod AssemblyMethod { get; }
 
         /// <summary>
         /// Gets the group of this assembly result.
@@ -58,5 +55,15 @@ namespace Riskeer.Integration.IO.Assembly
         /// Gets the probability of this assembly result.
         /// </summary>
         public double Probability { get; }
+        
+        /// <summary>
+        /// Gets the assembly method that was used to assemble the assembly group of this result.
+        /// </summary>
+        public ExportableAssemblyMethod AssemblyGroupAssemblyMethod { get; }
+
+        /// <summary>
+        /// Gets the assembly method that was used to assemble the probability of this result.
+        /// </summary>
+        public ExportableAssemblyMethod ProbabilityAssemblyMethod { get; }
     }
 }
