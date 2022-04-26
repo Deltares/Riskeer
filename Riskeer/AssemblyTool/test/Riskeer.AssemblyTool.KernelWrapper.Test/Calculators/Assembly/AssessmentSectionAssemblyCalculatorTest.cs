@@ -334,7 +334,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(assessmentSectionLength, kernel.AssessmentSectionLength);
                 Assert.IsTrue(kernel.CalculatedCommonSections);
 
-                Assert.AreSame(kernel.FailureMechanismSectionLists.First(), kernel.FailureMechanismSectionList);
+                Assert.AreSame(kernel.FailureMechanismSectionLists.Single(), kernel.FailureMechanismSectionList);
                 Assert.AreSame(kernel.CommonSections, kernel.CommonSectionsInput);
                 Assert.IsTrue(kernel.CalculatedCommonSectionResults);
 

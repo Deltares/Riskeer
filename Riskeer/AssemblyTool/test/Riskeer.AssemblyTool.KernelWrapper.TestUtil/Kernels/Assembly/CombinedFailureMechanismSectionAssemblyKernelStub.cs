@@ -79,9 +79,9 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Kernels.Assembly
         public bool PartialAssembly { get; private set; }
 
         /// <summary>
-        /// Gets or sets the common sections.
+        /// Gets the common sections.
         /// </summary>
-        public FailureMechanismSectionList CommonSections { get; set; }
+        public FailureMechanismSectionList CommonSections { get; private set; }
 
         /// <summary>
         /// Gets the common sections used as an input parameter for assembly methods.

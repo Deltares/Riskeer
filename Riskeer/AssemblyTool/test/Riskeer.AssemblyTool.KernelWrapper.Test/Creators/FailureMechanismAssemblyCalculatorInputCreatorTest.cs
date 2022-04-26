@@ -50,7 +50,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             // Setup
             var random = new Random(21);
             var result = new FailureMechanismSectionAssemblyResult(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(),
+                random.NextDouble(0.001, 0.01), random.NextDouble(0.01, 0.1), random.NextDouble(),
                 random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
 
             // Call

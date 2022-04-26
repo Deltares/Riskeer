@@ -154,7 +154,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(failureMechanismN, kernel.LenghtEffectFactor);
                 Assert.IsFalse(kernel.PartialAssembly);
 
-                Assert.AreEqual(sectionAssemblyResults.Length, kernel.FailureMechanismSectionProbabilities.Count());
                 CollectionAssert.AreEqual(sectionAssemblyResults.Select(r => new Probability(r.SectionProbability)), kernel.FailureMechanismSectionProbabilities);
             }
         }
@@ -177,13 +176,13 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 var calculator = new FailureMechanismAssemblyCalculator(factory);
 
                 // Call
-                FailureMechanismAssemblyResultWrapper assemblyResult = calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>(),
-                                                                                           applyLengthEffect);
+                FailureMechanismAssemblyResultWrapper assemblyResultWrapper = calculator.Assemble(random.NextDouble(), Enumerable.Empty<RiskeerFailureMechanismSectionAssemblyResult>(),
+                                                                                                  applyLengthEffect);
 
                 // Assert
                 Assert.IsTrue(kernel.Calculated);
-                ProbabilityAssert.AreEqual(assemblyResult.AssemblyResult, output.Probability);
-                Assert.AreEqual(assemblyResult.AssemblyMethod, expectedAssemblyMethod);
+                ProbabilityAssert.AreEqual(assemblyResultWrapper.AssemblyResult, output.Probability);
+                Assert.AreEqual(assemblyResultWrapper.AssemblyMethod, expectedAssemblyMethod);
             }
         }
 
