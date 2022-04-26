@@ -65,8 +65,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EAssemblyErrors.LowerLimitIsAboveUpperLimit, "De categoriebovengrens moet boven de categorieondergrens liggen.")]
         [TestCase(EAssemblyErrors.ValueMayNotBeNull, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
         [TestCase(EAssemblyErrors.NonMatchingProbabilityValues, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
-        [TestCase(EAssemblyErrors.ProbabilityMayNotBeUndefined, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
-        [TestCase(EAssemblyErrors.ProbabilitiesShouldEitherBothBeDefinedOrUndefined, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
+        [TestCase(EAssemblyErrors.UndefinedProbability, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
+        [TestCase(EAssemblyErrors.ProbabilitiesNotBothDefinedOrUndefined, "Er is ongeldige invoer gedefinieerd voor de gebruikte methode.")]
         [TestCase(EAssemblyErrors.FailureMechanismSectionLengthInvalid, "Gezamenlijke lengte van alle deelvakken moet gelijk zijn aan de trajectlengte.")]
         [TestCase(EAssemblyErrors.FailureMechanismSectionSectionStartEndInvalid, "De lengte van een berekende deelvak kon niet goed worden bepaald.")]
         [TestCase(EAssemblyErrors.FailureProbabilityOutOfRange, "De gespecificeerde kans moet in het bereik [0,1] liggen.")]
@@ -84,7 +84,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
         [TestCase(EAssemblyErrors.InvalidCategoryValue, "Er is een onverwachte fout opgetreden.")]
         [TestCase(EAssemblyErrors.InvalidEnumValue, "Er is een onverwachte fout opgetreden.")]
         [TestCase(EAssemblyErrors.UnequalCommonFailureMechanismSectionLists, "Er is een onverwachte fout opgetreden.")]
-        [TestCase(EAssemblyErrors.CommonSectionsDidNotHaveCategoryValues, "Er is een onverwachte fout opgetreden.")]
+        [TestCase(EAssemblyErrors.CommonSectionsWithoutCategoryValues, "Er is een onverwachte fout opgetreden.")]
         [TestCase(EAssemblyErrors.InvalidArgumentType, "Er is een onverwachte fout opgetreden.")]
         public void CreateErrorMessage_SingleAssemblyError_ReturnsExpectedErrorMessage(EAssemblyErrors assemblyError, string expectedErrorMessage)
         {

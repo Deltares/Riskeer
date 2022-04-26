@@ -90,8 +90,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                     return Resources.AssemblyErrorMessageCreator_LowerLimitIsAboveUpperLimit;
                 case EAssemblyErrors.ValueMayNotBeNull:
                 case EAssemblyErrors.NonMatchingProbabilityValues:
-                case EAssemblyErrors.ProbabilityMayNotBeUndefined:
-                case EAssemblyErrors.ProbabilitiesShouldEitherBothBeDefinedOrUndefined:
+                case EAssemblyErrors.UndefinedProbability:
+                case EAssemblyErrors.ProbabilitiesNotBothDefinedOrUndefined:
                     return Resources.AssemblyErrorMessageCreator_InvalidInput;
                 case EAssemblyErrors.FailureMechanismSectionLengthInvalid:
                     return Resources.AssemblyErrorMessageCreator_FailureMechanismSectionLengthInvalid;
@@ -122,7 +122,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
                 case EAssemblyErrors.InvalidCategoryValue:
                 case EAssemblyErrors.InvalidEnumValue:
                 case EAssemblyErrors.UnequalCommonFailureMechanismSectionLists:
-                case EAssemblyErrors.CommonSectionsDidNotHaveCategoryValues:
+                case EAssemblyErrors.CommonSectionsWithoutCategoryValues:
                 case EAssemblyErrors.InvalidArgumentType:
                     return Resources.AssemblyErrorMessageCreator_ErrorConstructingErrorMessage;
                 default:
