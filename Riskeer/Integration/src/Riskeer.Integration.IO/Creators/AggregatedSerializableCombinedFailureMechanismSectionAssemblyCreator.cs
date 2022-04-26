@@ -89,7 +89,7 @@ namespace Riskeer.Integration.IO.Creators
                     combinedSectionAssembly.FailureMechanismResults
                                            .Select(SerializableCombinedFailureMechanismSectionAssemblyResultCreator.Create)
                                            .ToArray(),
-                    new SerializableFailureMechanismSectionAssemblyResult(
+                    new SerializableFailureMechanismSubSectionAssemblyResult(
                         SerializableAssemblyMethod.BOI3C1,
                         SerializableFailureMechanismSectionAssemblyGroupCreator.Create(
                             combinedSectionAssembly.CombinedSectionAssemblyResult.AssemblyGroup))));

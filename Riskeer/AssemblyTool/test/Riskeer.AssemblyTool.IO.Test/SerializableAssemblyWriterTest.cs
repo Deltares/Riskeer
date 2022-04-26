@@ -343,7 +343,7 @@ namespace Riskeer.AssemblyTool.IO.Test
                         SerializableFailureMechanismType.Specific, "NIEUW", "Specifiek",
                         SerializableFailureMechanismSectionAssemblyGroup.Zero)
                 },
-                new SerializableFailureMechanismSectionAssemblyResult(
+                new SerializableFailureMechanismSubSectionAssemblyResult(
                     SerializableAssemblyMethod.BOI3C1, SerializableFailureMechanismSectionAssemblyGroup.I));
 
             var assembly = new SerializableAssembly(

@@ -51,7 +51,7 @@ namespace Riskeer.AssemblyTool.IO.Model
                                                                    SerializableTotalAssemblyResult totalAssemblyResult,
                                                                    SerializableFailureMechanismSection section,
                                                                    SerializableCombinedFailureMechanismSectionAssemblyResult[] failureMechanismResults,
-                                                                   SerializableFailureMechanismSectionAssemblyResult combinedSectionResult)
+                                                                   SerializableFailureMechanismSubSectionAssemblyResult combinedSectionResult)
             : this()
         {
             SerializableIdValidator.ThrowIfInvalid(id);
@@ -105,7 +105,7 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// Gets or sets the combined assembly result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.CombinedCombinedSectionResult)]
-        public SerializableFailureMechanismSectionAssemblyResult CombinedSectionResult { get; set; }
+        public SerializableFailureMechanismSubSectionAssemblyResult CombinedSectionResult { get; set; }
 
         /// <summary>
         /// Gets or sets the array of results for this section per failure mechanism.

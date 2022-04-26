@@ -71,7 +71,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
                                                                                    new SerializableTotalAssemblyResult(),
                                                                                    new SerializableFailureMechanismSection(),
                                                                                    Array.Empty<SerializableCombinedFailureMechanismSectionAssemblyResult>(),
-                                                                                   new SerializableFailureMechanismSectionAssemblyResult());
+                                                                                   new SerializableFailureMechanismSubSectionAssemblyResult());
 
             // Assert
             const string expectedMessage = "'id' must have a value and consist only of alphanumerical characters, '-', '_' or '.'.";
@@ -86,7 +86,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
                                                                                    null,
                                                                                    new SerializableFailureMechanismSection(),
                                                                                    Array.Empty<SerializableCombinedFailureMechanismSectionAssemblyResult>(),
-                                                                                   new SerializableFailureMechanismSectionAssemblyResult());
+                                                                                   new SerializableFailureMechanismSubSectionAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -101,7 +101,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
                                                                                    new SerializableTotalAssemblyResult(),
                                                                                    null,
                                                                                    Array.Empty<SerializableCombinedFailureMechanismSectionAssemblyResult>(),
-                                                                                   new SerializableFailureMechanismSectionAssemblyResult());
+                                                                                   new SerializableFailureMechanismSubSectionAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -116,7 +116,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
                                                                                    new SerializableTotalAssemblyResult(),
                                                                                    new SerializableFailureMechanismSection(),
                                                                                    null,
-                                                                                   new SerializableFailureMechanismSectionAssemblyResult());
+                                                                                   new SerializableFailureMechanismSubSectionAssemblyResult());
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(Call);
@@ -161,7 +161,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
                                                                   },
                                                                   SerializableFailureMechanismSectionType.Combined);
             SerializableCombinedFailureMechanismSectionAssemblyResult[] sectionResults = Array.Empty<SerializableCombinedFailureMechanismSectionAssemblyResult>();
-            var combinedSectionResult = new SerializableFailureMechanismSectionAssemblyResult();
+            var combinedSectionResult = new SerializableFailureMechanismSubSectionAssemblyResult();
 
             // Call
             var combinedSectionAssembly = new SerializableCombinedFailureMechanismSectionAssembly(id,
