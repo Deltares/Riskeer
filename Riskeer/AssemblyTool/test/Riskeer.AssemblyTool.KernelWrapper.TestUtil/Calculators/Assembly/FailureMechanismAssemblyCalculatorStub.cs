@@ -56,7 +56,8 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
         /// </summary>
         public FailureMechanismAssemblyResultWrapper AssemblyResultOutput { get; set; }
 
-        public FailureMechanismAssemblyResultWrapper Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults, bool applyLengthEffect)
+        public FailureMechanismAssemblyResultWrapper Assemble(double failureMechanismN, IEnumerable<FailureMechanismSectionAssemblyResult> sectionAssemblyResults,
+                                                              bool applySectionLengthEffect)
         {
             if (ThrowExceptionOnCalculate)
             {
@@ -65,7 +66,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.TestUtil.Calculators.Assembly
 
             FailureMechanismN = failureMechanismN;
             SectionAssemblyResultsInput = sectionAssemblyResults;
-            ApplyLengthEffect = applyLengthEffect;
+            ApplyLengthEffect = applySectionLengthEffect;
 
             return AssemblyResultOutput ?? (AssemblyResultOutput = new FailureMechanismAssemblyResultWrapper(0.1, AssemblyMethod.BOI1A1));
         }
