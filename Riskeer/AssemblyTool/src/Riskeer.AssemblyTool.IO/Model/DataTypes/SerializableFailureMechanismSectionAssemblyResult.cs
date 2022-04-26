@@ -46,7 +46,7 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// <param name="probability">The probability of this assembly result.</param>
         public SerializableFailureMechanismSectionAssemblyResult(SerializableAssemblyMethod assemblyMethod,
                                                                  SerializableFailureMechanismSectionAssemblyGroup assemblyGroup,
-                                                                 double? probability = null)
+                                                                 double probability)
             : this()
         {
             AssemblyMethod = assemblyMethod;
@@ -70,7 +70,7 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// Gets or sets the probability of this result.
         /// </summary>
         [XmlElement(AssemblyXmlIdentifiers.Probability)]
-        public double? Probability { get; set; }
+        public double Probability { get; set; }
 
         /// <summary>
         /// Gets or sets the status of this assembly result.
@@ -81,12 +81,12 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// <summary>
         /// Determines whether <see cref="Probability"/> should be serialized.
         /// </summary>
-        /// <returns><c>false</c> when <see cref="Probability"/> is <c>null</c>
-        /// or <see cref="AssemblyGroup"/> is <see cref="SerializableFailureMechanismSectionAssemblyGroup.NotDominant"/>;
+        /// <returns><c>false</c> when <see cref="AssemblyGroup"/> is
+        /// <see cref="SerializableFailureMechanismSectionAssemblyGroup.NotDominant"/>;
         /// <c>true</c> otherwise.</returns>
         public bool ShouldSerializeProbability()
         {
-            return Probability.HasValue && AssemblyGroup != SerializableFailureMechanismSectionAssemblyGroup.NotDominant;
+            return AssemblyGroup != SerializableFailureMechanismSectionAssemblyGroup.NotDominant;
         }
     }
 }

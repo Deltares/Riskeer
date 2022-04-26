@@ -40,7 +40,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             // Assert
             Assert.AreEqual((SerializableAssemblyMethod) 0, assemblyResult.AssemblyMethod);
             Assert.AreEqual((SerializableFailureMechanismSectionAssemblyGroup) 0, assemblyResult.AssemblyGroup);
-            Assert.IsNull(assemblyResult.Probability);
+            Assert.AreEqual(0, assemblyResult.Probability);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismSectionAssemblyResult>(
@@ -109,22 +109,6 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
                 random.NextEnumValue<SerializableAssemblyMethod>(),
                 SerializableFailureMechanismSectionAssemblyGroup.NotDominant,
                 random.NextDouble());
-
-            // Call
-            bool shouldSerialize = assemblyResult.ShouldSerializeProbability();
-
-            // Assert
-            Assert.IsFalse(shouldSerialize);
-        }
-
-        [Test]
-        public void ShouldSerializeProbability_WithoutProbability_ReturnsFalse()
-        {
-            // Setup
-            var random = new Random(39);
-            var assemblyResult = new SerializableFailureMechanismSectionAssemblyResult(
-                random.NextEnumValue<SerializableAssemblyMethod>(),
-                random.NextEnumValue<SerializableFailureMechanismSectionAssemblyGroup>());
 
             // Call
             bool shouldSerialize = assemblyResult.ShouldSerializeProbability();
