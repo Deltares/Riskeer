@@ -92,24 +92,12 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
             CollectionAssert.IsEmpty(waternetLine.PhreaticLine.Geometry);
         }
 
-        private class DerivedMacroStabilityInwardsWaternetLine : MacroStabilityInwardsWaternetLine
-        {
-            public DerivedMacroStabilityInwardsWaternetLine(MacroStabilityInwardsWaternetLine waternetLine)
-                : base(waternetLine.Name, waternetLine.Geometry, waternetLine.PhreaticLine) {}
-        }
-
         [TestFixture]
-        private class MacroStabilityInwardsWaternetLineEqualsTest
-            : EqualsTestFixture<MacroStabilityInwardsWaternetLine, DerivedMacroStabilityInwardsWaternetLine>
+        private class MacroStabilityInwardsWaternetLineEqualsTest : EqualsTestFixture<MacroStabilityInwardsWaternetLine>
         {
             protected override MacroStabilityInwardsWaternetLine CreateObject()
             {
                 return CreateWaternetLine();
-            }
-
-            protected override DerivedMacroStabilityInwardsWaternetLine CreateDerivedObject()
-            {
-                return new DerivedMacroStabilityInwardsWaternetLine(CreateWaternetLine());
             }
 
             private static IEnumerable<TestCaseData> GetUnequalTestCases()

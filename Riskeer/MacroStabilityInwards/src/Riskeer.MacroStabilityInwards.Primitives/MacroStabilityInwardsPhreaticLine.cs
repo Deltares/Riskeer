@@ -30,7 +30,7 @@ namespace Riskeer.MacroStabilityInwards.Primitives
     /// The phreatic line created by the Waternet calculator in the derived
     /// macro stability inwards calculation input.
     /// </summary>
-    public class MacroStabilityInwardsPhreaticLine
+    public sealed class MacroStabilityInwardsPhreaticLine
     {
         /// <summary>
         /// Creates a new instance of <see cref="MacroStabilityInwardsPhreaticLine"/>.

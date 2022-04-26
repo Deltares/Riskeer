@@ -33,10 +33,10 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsPhreaticLine(null, new List<Point2D>());
+            void Call() => new MacroStabilityInwardsPhreaticLine(null, new List<Point2D>());
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("name", exception.ParamName);
         }
 
@@ -44,10 +44,10 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
         public void Constructor_GeometryNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new MacroStabilityInwardsPhreaticLine("name", null);
+            void Call() => new MacroStabilityInwardsPhreaticLine("name", null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(Call);
             Assert.AreEqual("geometry", exception.ParamName);
         }
 
@@ -74,24 +74,12 @@ namespace Riskeer.MacroStabilityInwards.Primitives.Test
             }, phreaticLine.Geometry);
         }
 
-        private class DerivedMacroStabilityInwardsPhreaticLine : MacroStabilityInwardsPhreaticLine
-        {
-            public DerivedMacroStabilityInwardsPhreaticLine(MacroStabilityInwardsPhreaticLine line)
-                : base(line.Name, line.Geometry) {}
-        }
-
         [TestFixture]
-        private class MacroStabilityInwardsPhreaticLineEqualsTest
-            : EqualsTestFixture<MacroStabilityInwardsPhreaticLine, DerivedMacroStabilityInwardsPhreaticLine>
+        private class MacroStabilityInwardsPhreaticLineEqualsTest : EqualsTestFixture<MacroStabilityInwardsPhreaticLine>
         {
             protected override MacroStabilityInwardsPhreaticLine CreateObject()
             {
                 return CreatePhreaticLine();
-            }
-
-            protected override DerivedMacroStabilityInwardsPhreaticLine CreateDerivedObject()
-            {
-                return new DerivedMacroStabilityInwardsPhreaticLine(CreatePhreaticLine());
             }
 
             public static IEnumerable<TestCaseData> GetUnequalTestCases()
