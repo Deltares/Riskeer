@@ -1812,6 +1812,8 @@ namespace Riskeer.Integration.Plugin
                         Gui.MainWindow, AssessmentSectionCalculationActivityFactory.CreateCalculationActivities(nodeData.WrappedData));
                 });
 
+            SetCalculationsMenuItemEnabledStateAndTooltip(nodeData.WrappedData, calculateAllItem);
+
             return Gui.Get(nodeData, treeViewControl)
                       .AddOpenItem()
                       .AddSeparator()
@@ -1824,6 +1826,22 @@ namespace Riskeer.Integration.Plugin
                       .AddSeparator()
                       .AddPropertiesItem()
                       .Build();
+        }
+
+        private static void SetCalculationsMenuItemEnabledStateAndTooltip(AssessmentSection assessmentSection, StrictContextMenuItem menuItem)
+        {
+            bool hasCalculations = assessmentSection.Piping.Calculations.Any() ||
+                                   assessmentSection.GrassCoverErosionInwards.Calculations.Any() ||
+                                   assessmentSection.MacroStabilityInwards.Calculations.Any() ||
+                                   assessmentSection.HeightStructures.Calculations.Any() ||
+                                   assessmentSection.GrassCoverErosionInwards.Calculations.Any() ||
+                                   assessmentSection.GrassCoverErosionInwards.Calculations.Any();
+
+            if (!hasCalculations)
+            {
+                menuItem.Enabled = false;
+                menuItem.ToolTipText = RiskeerCommonFormsResources.Calculate_All_No_calculations_to_run;
+            }
         }
 
         #endregion

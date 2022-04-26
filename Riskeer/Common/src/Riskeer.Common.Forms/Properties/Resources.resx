@@ -155,7 +155,7 @@
     <data name="CalculationGroup_Calculate_All_ToolTip" xml:space="preserve">
     <value>Voer alle berekeningen binnen deze map met berekeningen uit.</value>
   </data>
-    <data name="CalculationGroup_Calculate_All_No_calculations_to_run" xml:space="preserve">
+    <data name="Calculate_All_No_calculations_to_run" xml:space="preserve">
     <value>Er zijn geen berekeningen om uit te voeren.</value>
   </data>
     <data name="Clear_all_output" xml:space="preserve">
@@ -342,9 +342,6 @@
   </data>
     <data name="FailureMechanism_ContextMenuStrip_Are_you_sure_clear_all_output" xml:space="preserve">
     <value>Weet u zeker dat u alle uitvoer wilt wissen?</value>
-  </data>
-    <data name="FailureMechanism_CreateCalculateAllItem_No_calculations_to_run" xml:space="preserve">
-    <value>Er zijn geen berekeningen om uit te voeren.</value>
   </data>
     <data name="FailureMechanism_CreateValidateAllItem_No_calculations_to_validate" xml:space="preserve">
     <value>Er zijn geen berekeningen om te valideren.</value>

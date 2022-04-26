@@ -128,7 +128,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             if (!calculationGroupContext.WrappedData.GetCalculations().Any())
             {
                 menuItem.Enabled = false;
-                menuItem.ToolTipText = Resources.CalculationGroup_Calculate_All_No_calculations_to_run;
+                menuItem.ToolTipText = Resources.Calculate_All_No_calculations_to_run;
             }
             else
             {
@@ -340,7 +340,7 @@ namespace Riskeer.Common.Forms.TreeNodeInfos
             if (!failureMechanismContext.WrappedData.Calculations.Any())
             {
                 menuItem.Enabled = false;
-                menuItem.ToolTipText = Resources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run;
+                menuItem.ToolTipText = Resources.Calculate_All_No_calculations_to_run;
             }
             else
             {

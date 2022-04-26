@@ -32,6 +32,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.ClosingStructures.Forms.PresentationObjects.CalculationsState;
 using Riskeer.Common.Data.AssessmentSection;
+using Riskeer.Common.Data.TestUtil;
 using Riskeer.Common.Plugin.TestUtil;
 using Riskeer.GrassCoverErosionInwards.Forms.PresentationObjects.CalculationsState;
 using Riskeer.HeightStructures.Forms.PresentationObjects.CalculationsState;
@@ -197,6 +198,8 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         public void ContextMenuStrip_Always_CallsBuilder()
         {
             // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            var context = new CalculationsStateRootContext(assessmentSection);
             var mocks = new MockRepository();
             var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
             using (mocks.Ordered())
@@ -217,7 +220,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 IGui gui = StubFactory.CreateGuiStub(mocks);
-                gui.Stub(g => g.Get(null, treeViewControl)).Return(menuBuilder);
+                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilder);
                 mocks.ReplayAll();
 
                 using (var plugin = new RiskeerPlugin())
@@ -226,7 +229,7 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                     plugin.Gui = gui;
 
                     // Call
-                    info.ContextMenuStrip(null, null, treeViewControl);
+                    info.ContextMenuStrip(context, null, treeViewControl);
                 }
             }
 
@@ -235,12 +238,13 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_Always_AddCustomItems()
+        public void ContextMenuStrip_WithCalculations_AddCustomItems()
         {
             // Setup
             using (var treeView = new TreeViewControl())
             {
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+                assessmentSection.Piping.CalculationsGroup.Children.Add(new TestCalculationScenario());
                 var context = new CalculationsStateRootContext(assessmentSection);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -263,6 +267,37 @@ namespace Riskeer.Integration.Plugin.Test.TreeNodeInfos
                                                                       "Alles be&rekenen",
                                                                       "Voer alle berekeningen binnen dit traject uit.",
                                                                       RiskeerCommonFormsResources.CalculateAllIcon);
+                    }
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_NoCalculations_CalculateAllDisabled()
+        {
+            // Setup
+            using (var treeView = new TreeViewControl())
+            {
+                var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+                var context = new CalculationsStateRootContext(assessmentSection);
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+                var mocks = new MockRepository();
+                IGui gui = StubFactory.CreateGuiStub(mocks);
+                gui.Stub(cmp => cmp.Get(context, treeView)).Return(menuBuilder);
+                mocks.ReplayAll();
+
+                using (var plugin = new RiskeerPlugin())
+                {
+                    plugin.Gui = gui;
+
+                    // Call
+                    using (ContextMenuStrip menu = GetInfo(plugin).ContextMenuStrip(context, null, treeView))
+                    {
+                        // Assert
+                        ToolStripItem calculateAllItem = menu.Items[contextMenuCalculateAllIndex];
+                        Assert.IsFalse(calculateAllItem.Enabled);
+                        Assert.AreEqual("Er zijn geen berekeningen om uit te voeren.", calculateAllItem.ToolTipText);
                     }
                 }
             }
