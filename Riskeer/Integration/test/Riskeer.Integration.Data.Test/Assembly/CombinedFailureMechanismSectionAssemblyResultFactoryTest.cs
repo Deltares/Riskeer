@@ -204,6 +204,10 @@ namespace Riskeer.Integration.Data.Test.Assembly
                 {
                     Assert.IsNull(failureMechanismSectionAssemblyGroup);
                 }
+
+                Assert.AreEqual(output.CommonSectionAssemblyMethod, results[i].CommonSectionAssemblyMethod);
+                Assert.AreEqual(output.FailureMechanismResultsAssemblyMethod, results[i].FailureMechanismResultsAssemblyMethod);
+                Assert.AreEqual(output.CombinedSectionResultAssemblyMethod, results[i].CombinedSectionResultAssemblyMethod);
             }
         }
 

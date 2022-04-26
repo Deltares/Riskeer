@@ -26,6 +26,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Riskeer.AssemblyTool.Data;
+using Riskeer.AssemblyTool.Data.TestUtil;
 using Riskeer.Common.Data.AssessmentSection;
 using Riskeer.Common.Data.TestUtil;
 using Riskeer.Integration.IO.Assembly;
@@ -123,11 +124,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             double probability = random.NextDouble();
             var assemblyMethod = random.NextEnumValue<AssemblyMethod>();
-            var expectedSectionOutput = new FailureMechanismSectionAssemblyResultWrapper(
-                new FailureMechanismSectionAssemblyResult(
-                    random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                    random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()),
-                random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>());
+            FailureMechanismSectionAssemblyResultWrapper expectedSectionOutput = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
 
             var failureMechanismType = random.NextEnumValue<ExportableFailureMechanismType>();
 
