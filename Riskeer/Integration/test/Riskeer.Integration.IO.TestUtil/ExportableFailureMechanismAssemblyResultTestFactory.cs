@@ -35,7 +35,7 @@ namespace Riskeer.Integration.IO.TestUtil
         /// <returns>A default instance of <see cref="ExportableFailureMechanismAssemblyResult"/>.</returns>
         public static ExportableFailureMechanismAssemblyResult CreateResult()
         {
-            return new ExportableFailureMechanismAssemblyResult(0.75, ExportableAssemblyMethod.BOI1B1);
+            return new ExportableFailureMechanismAssemblyResult(0.75, ExportableAssemblyMethod.BOI1A1);
         }
     }
 }

@@ -53,9 +53,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
             Assert.AreEqual("BOI-0C-2", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI0C2);
             Assert.AreEqual("BOI-1A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI1A1);
             Assert.AreEqual("BOI-1A-2", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI1A2);
-            Assert.AreEqual("BOI-1B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI1B1);
             Assert.AreEqual("BOI-2A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI2A1);
-            Assert.AreEqual("BOI-2A-2", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI2A2);
             Assert.AreEqual("BOI-2B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI2B1);
             Assert.AreEqual("BOI-3A-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI3A1);
             Assert.AreEqual("BOI-3B-1", AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI3B1);

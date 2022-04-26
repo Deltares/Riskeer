@@ -77,45 +77,33 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         Manual = 8,
 
         /// <summary>
-        /// Represents the assembly method BOI-1B-1.
-        /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI1B1)]
-        BOI1B1 = 9,
-        
-        /// <summary>
         /// Represents the assembly method BOI-2A-1.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI2A1)]
-        BOI2A1 = 10,
-
-        /// <summary>
-        /// Represents the assembly method BOI-2A-2.
-        /// </summary>
-        [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI2A2)]
-        BOI2A2 = 11,
+        BOI2A1 = 9,
         
         /// <summary>
         /// Represents the assembly method BOI-2B-1.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI2B1)]
-        BOI2B1 = 12,
+        BOI2B1 = 10,
 
         /// <summary>
         /// Represents the assembly method BOI-3A-1.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI3A1)]
-        BOI3A1 = 13,
+        BOI3A1 = 11,
 
         /// <summary>
         /// Represents the assembly method BOI-3B-1.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI3B1)]
-        BOI3B1 = 14,
+        BOI3B1 = 12,
 
         /// <summary>
         /// Represents the assembly method BOI-3C-1.
         /// </summary>
         [XmlEnum(AssemblyXmlEnumIdentifiers.SerializableAssemblyMethodBOI3C1)]
-        BOI3C1 = 15
+        BOI3C1 = 13
     }
 }

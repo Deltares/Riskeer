@@ -69,12 +69,8 @@ namespace Riskeer.Integration.IO.Creators
                     return SerializableAssemblyMethod.BOI1A2;
                 case ExportableAssemblyMethod.Manual:
                     return SerializableAssemblyMethod.Manual;
-                case ExportableAssemblyMethod.BOI1B1:
-                    return SerializableAssemblyMethod.BOI1B1;
                 case ExportableAssemblyMethod.BOI2A1:
                     return SerializableAssemblyMethod.BOI2A1;
-                case ExportableAssemblyMethod.BOI2A2:
-                    return SerializableAssemblyMethod.BOI2A2;
                 case ExportableAssemblyMethod.BOI2B1:
                     return SerializableAssemblyMethod.BOI2B1;
                 case ExportableAssemblyMethod.BOI3A1:

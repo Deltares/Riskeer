@@ -30,7 +30,7 @@ namespace Riskeer.Integration.IO.Assembly
         /// Represents the assembly method BOI-0A-1.
         /// </summary>
         BOI0A1 = 1,
-        
+
         /// <summary>
         /// Represents the assembly method BOI-0A-2.
         /// </summary>
@@ -60,45 +60,35 @@ namespace Riskeer.Integration.IO.Assembly
         /// Represents the assembly method BOI-1A-2.
         /// </summary>
         BOI1A2 = 7,
-        
+
         /// <summary>
         /// Represents a manual failure mechanism assembly.
         /// </summary>
         Manual = 8,
 
         /// <summary>
-        /// Represents the assembly method BOI-1B-1.
-        /// </summary>
-        BOI1B1 = 9,
-        
-        /// <summary>
         /// Represents the assembly method BOI-2A-1.
         /// </summary>
-        BOI2A1 = 10,
+        BOI2A1 = 9,
 
-        /// <summary>
-        /// Represents the assembly method BOI-2A-2.
-        /// </summary>
-        BOI2A2 = 11,
-        
         /// <summary>
         /// Represents the assembly method BOI-2B-1.
         /// </summary>
-        BOI2B1 = 12,
+        BOI2B1 = 10,
 
         /// <summary>
         /// Represents the assembly method BOI-3A-1.
         /// </summary>
-        BOI3A1 = 13,
+        BOI3A1 = 11,
 
         /// <summary>
         /// Represents the assembly method BOI-3B-1.
         /// </summary>
-        BOI3B1 = 14,
+        BOI3B1 = 12,
 
         /// <summary>
         /// Represents the assembly method BOI-3C-1.
         /// </summary>
-        BOI3C1 = 15
+        BOI3C1 = 13
     }
 }

@@ -57,25 +57,19 @@ namespace Riskeer.Integration.IO.Test.Assembly
                     ExportableAssemblyMethod.Manual, 8
                 },
                 {
-                    ExportableAssemblyMethod.BOI1B1, 9
+                    ExportableAssemblyMethod.BOI2A1, 9
                 },
                 {
-                    ExportableAssemblyMethod.BOI2A1, 10
+                    ExportableAssemblyMethod.BOI2B1, 10
                 },
                 {
-                    ExportableAssemblyMethod.BOI2A2, 11
+                    ExportableAssemblyMethod.BOI3A1, 11
                 },
                 {
-                    ExportableAssemblyMethod.BOI2B1, 12
+                    ExportableAssemblyMethod.BOI3B1, 12
                 },
                 {
-                    ExportableAssemblyMethod.BOI3A1, 13
-                },
-                {
-                    ExportableAssemblyMethod.BOI3B1, 14
-                },
-                {
-                    ExportableAssemblyMethod.BOI3C1, 15
+                    ExportableAssemblyMethod.BOI3C1, 13
                 }
             };
     }

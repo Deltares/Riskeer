@@ -143,19 +143,9 @@ namespace Riskeer.AssemblyTool.IO.Model.Enums
         public const string SerializableAssemblyMethodBOI1A2 = "BOI-1A-2";
 
         /// <summary>
-        /// Identifier for <see cref="SerializableAssemblyMethod.BOI1B1"/>.
-        /// </summary>
-        public const string SerializableAssemblyMethodBOI1B1 = "BOI-1B-1";
-
-        /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.BOI2A1"/>.
         /// </summary>
         public const string SerializableAssemblyMethodBOI2A1 = "BOI-2A-1";
-
-        /// <summary>
-        /// Identifier for <see cref="SerializableAssemblyMethod.BOI2A2"/>.
-        /// </summary>
-        public const string SerializableAssemblyMethodBOI2A2 = "BOI-2A-2";
 
         /// <summary>
         /// Identifier for <see cref="SerializableAssemblyMethod.BOI2B1"/>.

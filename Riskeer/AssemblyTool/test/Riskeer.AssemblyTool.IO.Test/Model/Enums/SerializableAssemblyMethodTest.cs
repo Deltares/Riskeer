@@ -57,25 +57,19 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                     SerializableAssemblyMethod.Manual, 8
                 },
                 {
-                    SerializableAssemblyMethod.BOI1B1, 9
+                    SerializableAssemblyMethod.BOI2A1, 9
                 },
                 {
-                    SerializableAssemblyMethod.BOI2A1, 10
+                    SerializableAssemblyMethod.BOI2B1, 10
                 },
                 {
-                    SerializableAssemblyMethod.BOI2A2, 11
+                    SerializableAssemblyMethod.BOI3A1, 11
                 },
                 {
-                    SerializableAssemblyMethod.BOI2B1, 12
+                    SerializableAssemblyMethod.BOI3B1, 12
                 },
                 {
-                    SerializableAssemblyMethod.BOI3A1, 13
-                },
-                {
-                    SerializableAssemblyMethod.BOI3B1, 14
-                },
-                {
-                    SerializableAssemblyMethod.BOI3C1, 15
+                    SerializableAssemblyMethod.BOI3C1, 13
                 }
             };
 
@@ -107,13 +101,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.Enums
                     SerializableAssemblyMethod.Manual, "HANDMTG"
                 },
                 {
-                    SerializableAssemblyMethod.BOI1B1, "BOI-1B-1"
-                },
-                {
                     SerializableAssemblyMethod.BOI2A1, "BOI-2A-1"
-                },
-                {
-                    SerializableAssemblyMethod.BOI2A2, "BOI-2A-2"
                 },
                 {
                     SerializableAssemblyMethod.BOI2B1, "BOI-2B-1"
