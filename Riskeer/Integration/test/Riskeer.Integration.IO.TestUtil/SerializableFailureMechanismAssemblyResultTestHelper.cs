@@ -21,8 +21,8 @@
 
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
-using Riskeer.AssemblyTool.IO.Model.Enums;
 using Riskeer.Integration.IO.Assembly;
+using Riskeer.Integration.IO.Creators;
 
 namespace Riskeer.Integration.IO.TestUtil
 {
@@ -46,12 +46,7 @@ namespace Riskeer.Integration.IO.TestUtil
                                                                             SerializableFailureMechanismAssemblyResult actualResult)
         {
             Assert.AreEqual(expectedResult.Probability, actualResult.Probability);
-            Assert.AreEqual(GetAssemblyMethod(expectedResult.IsManual), actualResult.AssemblyMethod);
-        }
-
-        private static SerializableAssemblyMethod GetAssemblyMethod(bool isManual)
-        {
-            return isManual ? SerializableAssemblyMethod.Manual : SerializableAssemblyMethod.BOI1B1;
+            Assert.AreEqual(SerializableAssemblyMethodCreator.Create(expectedResult.AssemblyMethod), actualResult.AssemblyMethod);
         }
     }
 }

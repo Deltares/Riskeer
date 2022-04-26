@@ -42,20 +42,18 @@ namespace Riskeer.AssemblyTool.IO.Model.DataTypes
         /// Creates a new instance of <see cref="SerializableFailureMechanismAssemblyResult"/>.
         /// </summary>
         /// <param name="probability">The probability of this assembly result.</param>
-        /// <param name="isManual">The indicator whether the <paramref name="probability"/> is manually set.</param>
-        public SerializableFailureMechanismAssemblyResult(double probability, bool isManual) : this()
+        /// <param name="assemblyMethod">The method that was used to assemble this result.</param>
+        public SerializableFailureMechanismAssemblyResult(double probability, SerializableAssemblyMethod assemblyMethod)
+            : this()
         {
             Probability = probability;
-
-            AssemblyMethod = isManual
-                                 ? SerializableAssemblyMethod.Manual
-                                 : SerializableAssemblyMethod.BOI1B1;
+            AssemblyMethod = assemblyMethod;
         }
 
         /// <summary>
-        /// Gets or sets the name of the method used to assemble this result.
+        /// Gets or sets the assembly method that was used to assemble this result.
         /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.AssemblyMethod)]
+        [XmlElement(AssemblyXmlIdentifiers.ProbabilityAssemblyMethod)]
         public SerializableAssemblyMethod AssemblyMethod { get; set; }
 
         /// <summary>

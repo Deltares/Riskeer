@@ -278,7 +278,7 @@ namespace Riskeer.Integration.IO.Test.Factories
 
             ExportableFailureMechanismAssemblyResult exportableFailureMechanismAssemblyResult = actualExportableFailureMechanism.FailureMechanismAssembly;
             Assert.AreEqual(0.1, exportableFailureMechanismAssemblyResult.Probability);
-            Assert.IsFalse(exportableFailureMechanismAssemblyResult.IsManual);
+            Assert.AreEqual(ExportableAssemblyMethod.BOI1A1, exportableFailureMechanismAssemblyResult.AssemblyMethod);
 
             Assert.AreEqual(failureMechanism.SectionResults.Count(), actualExportableFailureMechanism.SectionAssemblyResults.Count());
         }

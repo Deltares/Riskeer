@@ -32,7 +32,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>GABI</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.08419</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -41,7 +41,7 @@
       <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
       <asm:specifiekFaalmechanisme>Specifiek faalmechanisme</asm:specifiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.002834</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>

@@ -287,11 +287,11 @@ namespace Riskeer.AssemblyTool.IO.Test
 
             var failureMechanism = new SerializableFailureMechanism(
                 "toetsspoorGABI", SerializableFailureMechanismType.Generic, "GABI", "Faalmechanisme GABI", totalAssemblyResult,
-                new SerializableFailureMechanismAssemblyResult(0.08419, false));
+                new SerializableFailureMechanismAssemblyResult(0.08419, SerializableAssemblyMethod.BOI1A1));
 
             var specificFailureMechanism = new SerializableFailureMechanism(
                 "specifiekFaalmechanisme", SerializableFailureMechanismType.Specific, "NIEUW", "Specifiek faalmechanisme",
-                totalAssemblyResult, new SerializableFailureMechanismAssemblyResult(0.002834, false));
+                totalAssemblyResult, new SerializableFailureMechanismAssemblyResult(0.002834, SerializableAssemblyMethod.BOI1A1));
 
             var sections1 = new SerializableFailureMechanismSectionCollection("vakindelingGABI");
             var section1 = new SerializableFailureMechanismSection(

@@ -32,7 +32,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>STPH</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -41,7 +41,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>GEKB</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -50,7 +50,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>STBI</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -59,7 +59,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>STMI</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -68,7 +68,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>ZST</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -77,7 +77,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>AGK</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -86,7 +86,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>AWO</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -95,7 +95,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>GEBU</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -104,7 +104,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>GABU</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -113,7 +113,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>GABI</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -122,7 +122,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>HTKW</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -131,7 +131,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>BSKW</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -140,7 +140,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>PKW</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -149,7 +149,7 @@
       <asm:typeFaalmechanisme>GENRK</asm:typeFaalmechanisme>
       <asm:generiekFaalmechanisme>STKWp</asm:generiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -158,7 +158,7 @@
       <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
       <asm:specifiekFaalmechanisme>Specific failure mechanism 1</asm:specifiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>
@@ -167,7 +167,7 @@
       <asm:typeFaalmechanisme>SPECFK</asm:typeFaalmechanisme>
       <asm:specifiekFaalmechanisme>Specific failure mechanism 2</asm:specifiekFaalmechanisme>
       <asm:analyseFaalmechanisme>
-        <asm:assemblagemethode>BOI-1B-1</asm:assemblagemethode>
+        <asm:assemblagemethodeFaalkans>BOI-1A-1</asm:assemblagemethodeFaalkans>
         <asm:faalkans>0.1</asm:faalkans>
         <asm:status>VOLLDG</asm:status>
       </asm:analyseFaalmechanisme>

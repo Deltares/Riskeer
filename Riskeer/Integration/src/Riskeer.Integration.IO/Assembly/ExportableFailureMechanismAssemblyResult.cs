@@ -46,10 +46,5 @@ namespace Riskeer.Integration.IO.Assembly
         /// Gets the method that was used to assemble this result.
         /// </summary>
         public ExportableAssemblyMethod AssemblyMethod { get; }
-
-        /// <summary>
-        /// Gets the indicator whether the <see cref="Probability"/> is manually set.
-        /// </summary>
-        public bool IsManual { get; }
     }
 }

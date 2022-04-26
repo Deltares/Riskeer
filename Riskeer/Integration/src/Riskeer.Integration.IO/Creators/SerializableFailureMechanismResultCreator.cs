@@ -46,7 +46,8 @@ namespace Riskeer.Integration.IO.Creators
                 throw new ArgumentNullException(nameof(result));
             }
 
-            return new SerializableFailureMechanismAssemblyResult(result.Probability, result.IsManual);
+            return new SerializableFailureMechanismAssemblyResult(
+                result.Probability, SerializableAssemblyMethodCreator.Create(result.AssemblyMethod));
         }
     }
 }

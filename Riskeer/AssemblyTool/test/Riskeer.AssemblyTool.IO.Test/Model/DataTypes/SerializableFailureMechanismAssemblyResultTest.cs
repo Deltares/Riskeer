@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Riskeer.AssemblyTool.IO.Model.DataTypes;
 using Riskeer.AssemblyTool.IO.Model.Enums;
@@ -42,7 +43,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
 
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismAssemblyResult>(
-                nameof(SerializableFailureMechanismAssemblyResult.AssemblyMethod), "assemblagemethode");
+                nameof(SerializableFailureMechanismAssemblyResult.AssemblyMethod), "assemblagemethodeFaalkans");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismAssemblyResult>(
                 nameof(SerializableFailureMechanismAssemblyResult.Probability), "faalkans");
             SerializableAttributeTestHelper.AssertXmlElementAttribute<SerializableFailureMechanismAssemblyResult>(
@@ -50,20 +51,19 @@ namespace Riskeer.AssemblyTool.IO.Test.Model.DataTypes
         }
 
         [Test]
-        [TestCase(true, SerializableAssemblyMethod.Manual)]
-        [TestCase(false, SerializableAssemblyMethod.BOI1B1)]
-        public void Constructor_WithValidData_ReturnsExpectedValues(bool isManual, SerializableAssemblyMethod expectedAssemblyMethod)
+        public void Constructor_WithValidData_ReturnsExpectedValues()
         {
             // Setup
             var random = new Random(39);
             double probability = random.NextDouble();
+            var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
 
             // Call
-            var assemblyResult = new SerializableFailureMechanismAssemblyResult(probability, isManual);
+            var assemblyResult = new SerializableFailureMechanismAssemblyResult(probability, assemblyMethod);
 
             // Assert
             Assert.AreEqual(probability, assemblyResult.Probability);
-            Assert.AreEqual(expectedAssemblyMethod, assemblyResult.AssemblyMethod);
+            Assert.AreEqual(assemblyMethod, assemblyResult.AssemblyMethod);
             Assert.AreEqual("VOLLDG", assemblyResult.Status);
         }
     }
