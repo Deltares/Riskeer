@@ -133,6 +133,7 @@ namespace Riskeer.AssemblyTool.IO.Test.Model
                 new SerializableTotalAssemblyResult(
                     totalResultId, new SerializableAssessmentProcess(),
                     random.NextEnumValue<SerializableAssemblyMethod>(),
+                    random.NextEnumValue<SerializableAssemblyMethod>(),
                     random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>(),
                     random.NextDouble()),
                 assemblyResult);

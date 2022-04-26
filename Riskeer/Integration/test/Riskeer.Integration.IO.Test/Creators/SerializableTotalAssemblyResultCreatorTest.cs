@@ -42,6 +42,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             void Call() => SerializableTotalAssemblyResultCreator.Create(null,
                                                                          new SerializableAssessmentProcess(),
                                                                          random.NextEnumValue<SerializableAssemblyMethod>(),
+                                                                         random.NextEnumValue<SerializableAssemblyMethod>(),
                                                                          random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>(),
                                                                          random.NextDouble());
 
@@ -60,7 +61,8 @@ namespace Riskeer.Integration.IO.Test.Creators
             var serializableAssessmentProcess = new SerializableAssessmentProcess(assessmentProcessId, new SerializableAssessmentSection());
 
             var random = new Random();
-            var assemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
+            var probabilityAssemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
+            var assemblyGroupAssemblyMethod = random.NextEnumValue<SerializableAssemblyMethod>();
             var assemblyGroup = random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>();
             double probability = random.NextDouble();
 
@@ -68,14 +70,16 @@ namespace Riskeer.Integration.IO.Test.Creators
             SerializableTotalAssemblyResult serializableTotalAssembly =
                 SerializableTotalAssemblyResultCreator.Create(idGenerator,
                                                               serializableAssessmentProcess,
-                                                              assemblyMethod,
+                                                              probabilityAssemblyMethod,
+                                                              assemblyGroupAssemblyMethod,
                                                               assemblyGroup,
                                                               probability);
 
             // Assert
             Assert.AreEqual("Vo.0", serializableTotalAssembly.Id);
             Assert.AreEqual(serializableAssessmentProcess.Id, serializableTotalAssembly.AssessmentProcessId);
-            Assert.AreEqual(assemblyMethod, serializableTotalAssembly.AssemblyMethod);
+            Assert.AreEqual(probabilityAssemblyMethod, serializableTotalAssembly.ProbabilityAssemblyMethod);
+            Assert.AreEqual(assemblyGroupAssemblyMethod, serializableTotalAssembly.AssemblyGroupAssemblyMethod);
             Assert.AreEqual(assemblyGroup, serializableTotalAssembly.AssemblyGroup);
             Assert.AreEqual(probability, serializableTotalAssembly.Probability);
         }

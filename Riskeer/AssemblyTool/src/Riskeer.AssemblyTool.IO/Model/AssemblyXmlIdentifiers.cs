@@ -38,6 +38,16 @@ namespace Riskeer.AssemblyTool.IO.Model
         public const string AssemblyMethod = "assemblagemethode";
 
         /// <summary>
+        /// Identifier for a total assembly result assembly method element.
+        /// </summary>
+        public const string TotalAssemblyResultAssemblyMethod = "assemblagemethodeVeiligheidsoordeel";
+
+        /// <summary>
+        /// Identifier for a probability assembly method element.
+        /// </summary>
+        public const string ProbabilityAssemblyMethod = "assemblagemethodeFaalkans";
+
+        /// <summary>
         /// The XML namespace for assembly objects.
         /// </summary>
         public const string AssemblyNamespace = "http://localhost/standaarden/assemblage";

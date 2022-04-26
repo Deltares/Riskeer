@@ -111,6 +111,7 @@ namespace Riskeer.Integration.IO.Test.Creators
             return new SerializableTotalAssemblyResult(totalAssemblyId,
                                                        new SerializableAssessmentProcess(),
                                                        random.NextEnumValue<SerializableAssemblyMethod>(),
+                                                       random.NextEnumValue<SerializableAssemblyMethod>(),
                                                        random.NextEnumValue<SerializableAssessmentSectionAssemblyGroup>(),
                                                        random.NextDouble());
         }

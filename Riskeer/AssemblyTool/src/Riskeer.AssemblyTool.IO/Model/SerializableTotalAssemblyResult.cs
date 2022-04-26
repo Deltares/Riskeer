@@ -46,14 +46,16 @@ namespace Riskeer.AssemblyTool.IO.Model
         /// </summary>
         /// <param name="id">The unique assembly ID.</param>
         /// <param name="assessmentProcess">The assessment process this result belongs to.</param>
-        /// <param name="assemblyMethod">The method used to assemble this result.</param>
+        /// <param name="probabilityAssemblyMethod">The method used to assemble the probability of this result.</param>
+        /// <param name="assemblyGroupAssemblyMethod">The method used to assemble the assembly group of this result.</param>
         /// <param name="assemblyGroup">The group of this assembly result.</param>
         /// <param name="probability">The probability of this assembly result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentProcess"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is invalid.</exception>
         public SerializableTotalAssemblyResult(string id,
                                                SerializableAssessmentProcess assessmentProcess,
-                                               SerializableAssemblyMethod assemblyMethod,
+                                               SerializableAssemblyMethod probabilityAssemblyMethod,
+                                               SerializableAssemblyMethod assemblyGroupAssemblyMethod,
                                                SerializableAssessmentSectionAssemblyGroup assemblyGroup,
                                                double probability) : this()
         {
@@ -66,7 +68,8 @@ namespace Riskeer.AssemblyTool.IO.Model
 
             Id = id;
             AssessmentProcessId = assessmentProcess.Id;
-            AssemblyMethod = assemblyMethod;
+            ProbabilityAssemblyMethod = probabilityAssemblyMethod;
+            AssemblyGroupAssemblyMethod = assemblyGroupAssemblyMethod;
             AssemblyGroup = assemblyGroup;
             Probability = probability;
         }
@@ -84,10 +87,16 @@ namespace Riskeer.AssemblyTool.IO.Model
         public string AssessmentProcessId { get; set; }
 
         /// <summary>
-        /// Gets or sets the method used to assemble this result.
+        /// Gets or sets the method used to assemble the probability of this result.
         /// </summary>
-        [XmlElement(AssemblyXmlIdentifiers.AssemblyMethod)]
-        public SerializableAssemblyMethod AssemblyMethod { get; set; }
+        [XmlElement(AssemblyXmlIdentifiers.ProbabilityAssemblyMethod)]
+        public SerializableAssemblyMethod ProbabilityAssemblyMethod { get; set; }
+
+        /// <summary>
+        /// Gets or sets the method used to assemble the assembly group of this result.
+        /// </summary>
+        [XmlElement(AssemblyXmlIdentifiers.TotalAssemblyResultAssemblyMethod)]
+        public SerializableAssemblyMethod AssemblyGroupAssemblyMethod { get; set; }
 
         /// <summary>
         /// Gets or sets the group of this assembly result.

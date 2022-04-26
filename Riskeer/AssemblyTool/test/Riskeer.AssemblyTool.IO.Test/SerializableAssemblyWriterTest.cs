@@ -281,7 +281,8 @@ namespace Riskeer.AssemblyTool.IO.Test
                                                                       assessmentSection);
 
             var totalAssemblyResult = new SerializableTotalAssemblyResult(
-                "veiligheidsoordeel_1", assessmentProcess, SerializableAssemblyMethod.BOI2B1,
+                "veiligheidsoordeel_1", assessmentProcess,
+                SerializableAssemblyMethod.BOI2A1, SerializableAssemblyMethod.BOI2B1,
                 SerializableAssessmentSectionAssemblyGroup.B, 0.00068354);
 
             var failureMechanism = new SerializableFailureMechanism(

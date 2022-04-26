@@ -22,7 +22,8 @@
       <asm:eindJaarBeoordelingsronde>2035</asm:eindJaarBeoordelingsronde>
     </asm:Beoordelingsproces>
     <asm:Veiligheidsoordeel VeiligheidsoordeelID="veiligheidsoordeel_1" BeoordelingsprocesIDRef="beoordelingsproces1">
-      <asm:assemblagemethode>BOI-2B-1</asm:assemblagemethode>
+      <asm:assemblagemethodeFaalkans>BOI-2A-1</asm:assemblagemethodeFaalkans>
+      <asm:assemblagemethodeVeiligheidsoordeel>BOI-2B-1</asm:assemblagemethodeVeiligheidsoordeel>
       <asm:categorie>B</asm:categorie>
       <asm:faalkans>0.00068354</asm:faalkans>
       <asm:status>VOLLDG</asm:status>

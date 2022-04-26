@@ -38,7 +38,8 @@ namespace Riskeer.Integration.IO.Creators
         /// </summary>
         /// <param name="idGenerator">The generator to generate an id for the <see cref="SerializableTotalAssemblyResult"/>.</param>
         /// <param name="assessmentProcess">The assessment process this result belongs to.</param>
-        /// <param name="assemblyMethod">The method used to assemble this result.</param>
+        /// <param name="probabilityAssemblyMethod">The method used to assemble the probability of this result.</param>
+        /// <param name="assemblyGroupAssemblyMethod">The method used to assemble the assembly group of this result.</param>
         /// <param name="assemblyGroup">The group of this assembly result.</param>
         /// <param name="probability">The probability of this assembly result.</param>
         /// <returns>A <see cref="SerializableTotalAssemblyResult"/>.</returns>
@@ -46,7 +47,8 @@ namespace Riskeer.Integration.IO.Creators
         /// or <paramref name="assessmentProcess"/> is <c>null</c>.</exception>
         public static SerializableTotalAssemblyResult Create(IdentifierGenerator idGenerator,
                                                              SerializableAssessmentProcess assessmentProcess,
-                                                             SerializableAssemblyMethod assemblyMethod,
+                                                             SerializableAssemblyMethod probabilityAssemblyMethod,
+                                                             SerializableAssemblyMethod assemblyGroupAssemblyMethod,
                                                              SerializableAssessmentSectionAssemblyGroup assemblyGroup,
                                                              double probability)
         {
@@ -57,7 +59,8 @@ namespace Riskeer.Integration.IO.Creators
 
             return new SerializableTotalAssemblyResult(idGenerator.GetNewId(Resources.SerializableTotalAssemblyResult_IdPrefix),
                                                        assessmentProcess,
-                                                       assemblyMethod,
+                                                       probabilityAssemblyMethod,
+                                                       assemblyGroupAssemblyMethod,
                                                        assemblyGroup,
                                                        probability);
         }
