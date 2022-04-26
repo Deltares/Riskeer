@@ -82,7 +82,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 return new AssessmentSectionAssemblyResultWrapper(
                     new AssessmentSectionAssemblyResult(assemblyProbability,
                                                         AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup(assemblyCategory)),
-                    AssemblyMethod.BOI2A1, AssemblyMethod.BOI2A2);
+                    AssemblyMethod.BOI2A1, AssemblyMethod.BOI2B1);
             }
             catch (AssemblyException e)
             {

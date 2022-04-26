@@ -213,7 +213,7 @@ namespace Riskeer.Integration.Forms.Test.Views
                 AssessmentSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedAssessmentSectionAssemblyCalculator;
                 calculator.AssessmentSectionAssemblyResult = new AssessmentSectionAssemblyResultWrapper(
                     new AssessmentSectionAssemblyResult(0.5, AssessmentSectionAssemblyGroup.A),
-                    AssemblyMethod.BOI2A1, AssemblyMethod.BOI2A2);
+                    AssemblyMethod.BOI2A1, AssemblyMethod.BOI2B1);
 
                 buttonTester.Click();
 

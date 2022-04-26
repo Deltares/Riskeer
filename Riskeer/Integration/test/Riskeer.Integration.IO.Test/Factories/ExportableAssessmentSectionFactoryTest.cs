@@ -98,8 +98,8 @@ namespace Riskeer.Integration.IO.Test.Factories
                 CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, exportableAssessmentSection.Geometry);
 
                 ExportableAssessmentSectionAssemblyResult exportableAssessmentSectionAssemblyResult = exportableAssessmentSection.AssessmentSectionAssembly;
-                Assert.AreEqual(ExportableAssemblyMethod.BOI2A2, exportableAssessmentSectionAssemblyResult.AssemblyGroupAssemblyMethod);
                 Assert.AreEqual(ExportableAssemblyMethod.BOI2A1, exportableAssessmentSectionAssemblyResult.ProbabilityAssemblyMethod);
+                Assert.AreEqual(ExportableAssemblyMethod.BOI2B1, exportableAssessmentSectionAssemblyResult.AssemblyGroupAssemblyMethod);
                 Assert.AreEqual(AssessmentSectionAssemblyGroup.APlus, exportableAssessmentSectionAssemblyResult.AssemblyGroup);
                 Assert.AreEqual(0.14, exportableAssessmentSectionAssemblyResult.Probability);
 
@@ -174,8 +174,8 @@ namespace Riskeer.Integration.IO.Test.Factories
                 CollectionAssert.AreEqual(assessmentSection.ReferenceLine.Points, exportableAssessmentSection.Geometry);
 
                 ExportableAssessmentSectionAssemblyResult exportableAssessmentSectionAssemblyResult = exportableAssessmentSection.AssessmentSectionAssembly;
-                Assert.AreEqual(ExportableAssemblyMethod.BOI2A2, exportableAssessmentSectionAssemblyResult.AssemblyGroupAssemblyMethod);
                 Assert.AreEqual(ExportableAssemblyMethod.BOI2A1, exportableAssessmentSectionAssemblyResult.ProbabilityAssemblyMethod);
+                Assert.AreEqual(ExportableAssemblyMethod.BOI2B1, exportableAssessmentSectionAssemblyResult.AssemblyGroupAssemblyMethod);
                 Assert.AreEqual(AssessmentSectionAssemblyGroup.APlus, exportableAssessmentSectionAssemblyResult.AssemblyGroup);
                 Assert.AreEqual(0.14, exportableAssessmentSectionAssemblyResult.Probability);
 

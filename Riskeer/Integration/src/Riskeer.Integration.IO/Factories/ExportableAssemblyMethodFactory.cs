@@ -71,8 +71,8 @@ namespace Riskeer.Integration.IO.Factories
                     return ExportableAssemblyMethod.Manual;
                 case AssemblyMethod.BOI2A1:
                     return ExportableAssemblyMethod.BOI2A1;
-                case AssemblyMethod.BOI2A2:
-                    return ExportableAssemblyMethod.BOI2A2;
+                case AssemblyMethod.BOI2B1:
+                    return ExportableAssemblyMethod.BOI2B1;
                 case AssemblyMethod.BOI3A1:
                     return ExportableAssemblyMethod.BOI3A1;
                 case AssemblyMethod.BOI3B1:

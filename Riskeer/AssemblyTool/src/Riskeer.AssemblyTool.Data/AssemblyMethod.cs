@@ -72,9 +72,9 @@ namespace Riskeer.AssemblyTool.Data
         BOI2A1 = 9,
 
         /// <summary>
-        /// Represents the assembly method BOI-2A-2.
+        /// Represents the assembly method BOI-2B-1.
         /// </summary>
-        BOI2A2 = 10,
+        BOI2B1 = 10,
 
         /// <summary>
         /// Represents the assembly method BOI-3A-1.

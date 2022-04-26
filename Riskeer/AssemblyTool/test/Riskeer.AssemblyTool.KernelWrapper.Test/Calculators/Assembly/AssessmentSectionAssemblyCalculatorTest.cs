@@ -174,7 +174,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Calculators.Assembly
                 Assert.AreEqual(AssessmentSectionAssemblyGroupCreator.CreateAssessmentSectionAssemblyGroup(assemblyGroup),
                                 result.AssemblyGroup);
                 Assert.AreEqual(AssemblyMethod.BOI2A1, resultWrapper.ProbabilityMethod);
-                Assert.AreEqual(AssemblyMethod.BOI2A2, resultWrapper.AssemblyGroupMethod);
+                Assert.AreEqual(AssemblyMethod.BOI2B1, resultWrapper.AssemblyGroupMethod);
             }
         }
 
