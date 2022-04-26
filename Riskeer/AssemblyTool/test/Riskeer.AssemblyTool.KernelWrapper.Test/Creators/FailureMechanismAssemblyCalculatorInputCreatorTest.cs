@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.FailureMechanismSections;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -60,33 +59,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Test.Creators
             // Assert
             ProbabilityAssert.AreEqual(result.ProfileProbability, createdResult.ProbabilityProfile);
             ProbabilityAssert.AreEqual(result.SectionProbability, createdResult.ProbabilitySection);
-        }
-
-        [Test]
-        public void CreateProbability_ResultNull_ThrowsArgumentNullException()
-        {
-            // Call
-            void Call() => FailureMechanismAssemblyCalculatorInputCreator.CreateProbability(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
-            Assert.AreEqual("result", exception.ParamName);
-        }
-
-        [Test]
-        public void CreateProbability_WithValidResult_ReturnsExpectedFailureMechanismSectionAssemblyResult()
-        {
-            // Setup
-            var random = new Random(21);
-            var result = new FailureMechanismSectionAssemblyResult(
-                random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                random.NextEnumValue<FailureMechanismSectionAssemblyGroup>());
-
-            // Call
-            Probability probability = FailureMechanismAssemblyCalculatorInputCreator.CreateProbability(result);
-
-            // Assert
-            ProbabilityAssert.AreEqual(new Probability(result.SectionProbability), probability);
         }
     }
 }

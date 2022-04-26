@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Assembly.Kernel.Model;
 using Assembly.Kernel.Model.FailureMechanismSections;
 using FailureMechanismSectionAssemblyResult = Riskeer.AssemblyTool.Data.FailureMechanismSectionAssemblyResult;
 
@@ -48,23 +47,6 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Creators
             return new ResultWithProfileAndSectionProbabilities(
                 AssemblyCalculatorInputCreator.CreateProbability(result.ProfileProbability),
                 AssemblyCalculatorInputCreator.CreateProbability(result.SectionProbability));
-        }
-
-        /// <summary>
-        /// Creates a <see cref="Probability"/> based on <paramref name="result"/>.
-        /// </summary>
-        /// <param name="result">The <see cref="FailureMechanismSectionAssemblyResult"/> to create the
-        /// <see cref="Probability"/> with.</param>
-        /// <returns>A <see cref="Probability"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="result"/> is <c>null</c>.</exception>
-        public static Probability CreateProbability(FailureMechanismSectionAssemblyResult result)
-        {
-            if (result == null)
-            {
-                throw new ArgumentNullException(nameof(result));
-            }
-
-            return AssemblyCalculatorInputCreator.CreateProbability(result.SectionProbability);
         }
     }
 }

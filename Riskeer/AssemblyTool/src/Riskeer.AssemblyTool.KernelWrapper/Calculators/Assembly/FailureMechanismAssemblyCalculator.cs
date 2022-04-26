@@ -77,7 +77,7 @@ namespace Riskeer.AssemblyTool.KernelWrapper.Calculators.Assembly
                 }
 
                 result = kernel.CalculateFailureMechanismFailureProbabilityBoi1A1(
-                    failureMechanismN, sectionAssemblyResults.Select(FailureMechanismAssemblyCalculatorInputCreator.CreateProbability),
+                    failureMechanismN, sectionAssemblyResults.Select(sr => AssemblyCalculatorInputCreator.CreateProbability(sr.SectionProbability)),
                     false);
                 return new FailureMechanismAssemblyResultWrapper(result.Probability, AssemblyMethod.BOI1A1);
             }
