@@ -22,7 +22,7 @@
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
-    /// Wrapper class to link used <see cref="Data.AssemblyMethod"/> to the <see cref="AssemblyResult"/>.
+    /// Wrapper class to link the used <see cref="Data.AssemblyMethod"/> to the <see cref="AssemblyResult"/>.
     /// </summary>
     public class FailureMechanismAssemblyResultWrapper
     {

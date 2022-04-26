@@ -24,7 +24,7 @@ using System;
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
-    /// Wrapper class to link used <see cref="AssemblyMethod"/> to the <see cref="FailureMechanismSectionAssemblyResult"/>.
+    /// Wrapper class to link the used <see cref="AssemblyMethod"/> to the <see cref="FailureMechanismSectionAssemblyResult"/>.
     /// </summary>
     public class FailureMechanismSectionAssemblyResultWrapper
     {

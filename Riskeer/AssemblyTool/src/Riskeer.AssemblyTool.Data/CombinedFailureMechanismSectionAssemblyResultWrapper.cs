@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Riskeer.AssemblyTool.Data
 {
     /// <summary>
-    /// Wrapper class to link used <see cref="AssemblyMethod"/> to the <see cref="CombinedFailureMechanismSectionAssembly"/>.
+    /// Wrapper class to link the used <see cref="AssemblyMethod"/> to the <see cref="CombinedFailureMechanismSectionAssembly"/>.
     /// </summary>
     public class CombinedFailureMechanismSectionAssemblyResultWrapper
     {
