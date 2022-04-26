@@ -510,8 +510,6 @@ namespace Riskeer.Common.Forms.Test.Views
             var errorProvider = mocks.Stub<IFailureMechanismSectionResultRowErrorProvider>();
             mocks.ReplayAll();
 
-            var random = new Random(39);
-
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableFailureMechanismSectionResult(section);
 
@@ -519,10 +517,6 @@ namespace Riskeer.Common.Forms.Test.Views
             {
                 var calculatorFactory = (TestAssemblyToolCalculatorFactory) AssemblyToolCalculatorFactory.Instance;
                 FailureMechanismSectionAssemblyCalculatorStub calculator = calculatorFactory.LastCreatedFailureMechanismSectionAssemblyCalculator;
-                calculator.FailureMechanismSectionAssemblyResultOutput = new FailureMechanismSectionAssemblyResultWrapper(
-                    new FailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), random.NextDouble(),
-                                                              random.NextEnumValue<FailureMechanismSectionAssemblyGroup>()),
-                    random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>());
 
                 var row = new NonAdoptableFailureMechanismSectionResultRow(result, errorProvider, new AssessmentSectionStub(), ConstructionProperties);
 

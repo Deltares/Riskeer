@@ -502,15 +502,14 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            FailureMechanismSectionAssemblyResult assemblyResult = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
-            var assemblyResultWrapper = new FailureMechanismSectionAssemblyResultWrapper(
-                assemblyResult, AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1);
+            FailureMechanismSectionAssemblyResultWrapper assemblyResultWrapper = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
             Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = () => assemblyResultWrapper;
 
             // Call
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
 
             // Assert
+            FailureMechanismSectionAssemblyResult assemblyResult = assemblyResultWrapper.AssemblyResult;
             Assert.AreEqual(assemblyResult.ProfileProbability, row.ProfileProbability);
             Assert.AreEqual(assemblyResult.SectionProbability, row.SectionProbability);
             Assert.AreEqual(assemblyResult.N, row.SectionN, row.SectionN.GetAccuracy());
@@ -532,10 +531,8 @@ namespace Riskeer.Common.Forms.Test.Views
             FailureMechanismSection section = FailureMechanismSectionTestFactory.CreateFailureMechanismSection();
             var result = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResult(section);
 
-            int nrOfCalls = 0;
-            FailureMechanismSectionAssemblyResult assemblyResult = FailureMechanismSectionAssemblyResultTestFactory.CreateFailureMechanismSectionAssemblyResult();
-            var assemblyResultWrapper = new FailureMechanismSectionAssemblyResultWrapper(
-                assemblyResult, AssemblyMethod.BOI0A1, AssemblyMethod.BOI0B1);
+            var nrOfCalls = 0;
+            FailureMechanismSectionAssemblyResultWrapper assemblyResultWrapper = FailureMechanismSectionAssemblyResultWrapperTestFactory.Create();
 
             Func<FailureMechanismSectionAssemblyResultWrapper> performAssemblyFunc = () =>
             {
@@ -551,6 +548,7 @@ namespace Riskeer.Common.Forms.Test.Views
             var row = new NonAdoptableWithProfileProbabilityFailureMechanismSectionResultRow(result, errorProvider, performAssemblyFunc, ConstructionProperties);
 
             // Precondition
+            FailureMechanismSectionAssemblyResult assemblyResult = assemblyResultWrapper.AssemblyResult;
             Assert.AreEqual(assemblyResult.ProfileProbability, row.ProfileProbability);
             Assert.AreEqual(assemblyResult.SectionProbability, row.SectionProbability);
             Assert.AreEqual(assemblyResult.N, row.SectionN, row.SectionN.GetAccuracy());
