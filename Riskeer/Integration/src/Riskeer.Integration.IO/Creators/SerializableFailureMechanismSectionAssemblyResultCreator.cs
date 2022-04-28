@@ -60,7 +60,7 @@ namespace Riskeer.Integration.IO.Creators
 
         private static void ValidateAssemblyResult(ExportableFailureMechanismSectionAssemblyResult sectionResult)
         {
-            if (sectionResult.AssemblyGroup == FailureMechanismSectionAssemblyGroup.Gr
+            if (sectionResult.AssemblyGroup == FailureMechanismSectionAssemblyGroup.NoResult
                 || sectionResult.AssemblyGroup == FailureMechanismSectionAssemblyGroup.Dominant)
             {
                 throw new AssemblyCreatorException(@"The assembly result is invalid and cannot be created.");

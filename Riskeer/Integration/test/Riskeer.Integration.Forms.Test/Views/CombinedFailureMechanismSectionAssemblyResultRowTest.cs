@@ -202,7 +202,7 @@ namespace Riskeer.Integration.Forms.Test.Views
             // Setup
             var random = new Random(21);
 
-            var result = new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), FailureMechanismSectionAssemblyGroup.Gr,
+            var result = new CombinedFailureMechanismSectionAssemblyResult(random.NextDouble(), random.NextDouble(), FailureMechanismSectionAssemblyGroup.NoResult,
                                                                            random.NextEnumValue<AssemblyMethod>(), random.NextEnumValue<AssemblyMethod>(),
                                                                            random.NextEnumValue<AssemblyMethod>(),
                                                                            new CombinedFailureMechanismSectionAssemblyResult.ConstructionProperties

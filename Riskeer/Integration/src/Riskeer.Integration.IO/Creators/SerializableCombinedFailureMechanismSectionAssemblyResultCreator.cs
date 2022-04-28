@@ -50,7 +50,7 @@ namespace Riskeer.Integration.IO.Creators
             }
 
             ExportableFailureMechanismSubSectionAssemblyResult sectionResultSectionAssemblyResult = sectionResult.SectionAssemblyResult;
-            if (sectionResultSectionAssemblyResult.AssemblyGroup == FailureMechanismSectionAssemblyGroup.Gr
+            if (sectionResultSectionAssemblyResult.AssemblyGroup == FailureMechanismSectionAssemblyGroup.NoResult
                 || sectionResultSectionAssemblyResult.AssemblyGroup == FailureMechanismSectionAssemblyGroup.Dominant)
             {
                 throw new AssemblyCreatorException("The assembly result is invalid and cannot be created.");

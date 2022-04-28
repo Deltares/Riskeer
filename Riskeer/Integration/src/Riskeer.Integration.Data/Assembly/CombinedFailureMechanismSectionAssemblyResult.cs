@@ -206,21 +206,21 @@ namespace Riskeer.Integration.Data.Assembly
             /// </summary>
             public ConstructionProperties()
             {
-                Piping = FailureMechanismSectionAssemblyGroup.Gr;
-                GrassCoverErosionInwards = FailureMechanismSectionAssemblyGroup.Gr;
-                MacroStabilityInwards = FailureMechanismSectionAssemblyGroup.Gr;
-                Microstability = FailureMechanismSectionAssemblyGroup.Gr;
-                StabilityStoneCover = FailureMechanismSectionAssemblyGroup.Gr;
-                WaveImpactAsphaltCover = FailureMechanismSectionAssemblyGroup.Gr;
-                WaterPressureAsphaltCover = FailureMechanismSectionAssemblyGroup.Gr;
-                GrassCoverErosionOutwards = FailureMechanismSectionAssemblyGroup.Gr;
-                GrassCoverSlipOffOutwards = FailureMechanismSectionAssemblyGroup.Gr;
-                GrassCoverSlipOffInwards = FailureMechanismSectionAssemblyGroup.Gr;
-                HeightStructures = FailureMechanismSectionAssemblyGroup.Gr;
-                ClosingStructures = FailureMechanismSectionAssemblyGroup.Gr;
-                PipingStructure = FailureMechanismSectionAssemblyGroup.Gr;
-                StabilityPointStructures = FailureMechanismSectionAssemblyGroup.Gr;
-                DuneErosion = FailureMechanismSectionAssemblyGroup.Gr;
+                Piping = FailureMechanismSectionAssemblyGroup.NoResult;
+                GrassCoverErosionInwards = FailureMechanismSectionAssemblyGroup.NoResult;
+                MacroStabilityInwards = FailureMechanismSectionAssemblyGroup.NoResult;
+                Microstability = FailureMechanismSectionAssemblyGroup.NoResult;
+                StabilityStoneCover = FailureMechanismSectionAssemblyGroup.NoResult;
+                WaveImpactAsphaltCover = FailureMechanismSectionAssemblyGroup.NoResult;
+                WaterPressureAsphaltCover = FailureMechanismSectionAssemblyGroup.NoResult;
+                GrassCoverErosionOutwards = FailureMechanismSectionAssemblyGroup.NoResult;
+                GrassCoverSlipOffOutwards = FailureMechanismSectionAssemblyGroup.NoResult;
+                GrassCoverSlipOffInwards = FailureMechanismSectionAssemblyGroup.NoResult;
+                HeightStructures = FailureMechanismSectionAssemblyGroup.NoResult;
+                ClosingStructures = FailureMechanismSectionAssemblyGroup.NoResult;
+                PipingStructure = FailureMechanismSectionAssemblyGroup.NoResult;
+                StabilityPointStructures = FailureMechanismSectionAssemblyGroup.NoResult;
+                DuneErosion = FailureMechanismSectionAssemblyGroup.NoResult;
                 SpecificFailureMechanisms = Array.Empty<FailureMechanismSectionAssemblyGroup?>();
             }
 

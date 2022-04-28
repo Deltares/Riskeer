@@ -588,7 +588,7 @@ namespace Riskeer.Common.Forms.Test.Views
             public TestRow(FailureMechanismSectionResult sectionResult) : base(sectionResult)
             {
                 ColumnStateDefinitions.Add(0, new DataGridViewColumnStateDefinition());
-                AssemblyResult = new FailureMechanismSectionAssemblyResult(0, 0, 0, FailureMechanismSectionAssemblyGroup.Gr);
+                AssemblyResult = new FailureMechanismSectionAssemblyResult(0, 0, 0, FailureMechanismSectionAssemblyGroup.NoResult);
             }
 
             public string TestString

@@ -47,7 +47,7 @@ namespace Riskeer.Integration.IO.Test.Creators
 
         [Test]
         [TestCase(FailureMechanismSectionAssemblyGroup.Dominant)]
-        [TestCase(FailureMechanismSectionAssemblyGroup.Gr)]
+        [TestCase(FailureMechanismSectionAssemblyGroup.NoResult)]
         public void Create_SectionResultHasInvalidAssemblyGroup_ThrowsAssemblyCreatorException(FailureMechanismSectionAssemblyGroup assemblyGroup)
         {
             // Setup

@@ -59,7 +59,7 @@ namespace Riskeer.AssemblyTool.Data.Test
                     FailureMechanismSectionAssemblyGroup.Dominant, 9
                 },
                 {
-                    FailureMechanismSectionAssemblyGroup.Gr, 10
+                    FailureMechanismSectionAssemblyGroup.NoResult, 10
                 },
                 {
                     FailureMechanismSectionAssemblyGroup.NotRelevant, 11
@@ -97,7 +97,7 @@ namespace Riskeer.AssemblyTool.Data.Test
                     FailureMechanismSectionAssemblyGroup.Dominant, "Do"
                 },
                 {
-                    FailureMechanismSectionAssemblyGroup.Gr, ""
+                    FailureMechanismSectionAssemblyGroup.NoResult, ""
                 },
                 {
                     FailureMechanismSectionAssemblyGroup.NotRelevant, "NR"

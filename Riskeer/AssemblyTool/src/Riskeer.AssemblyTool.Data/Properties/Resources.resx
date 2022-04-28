@@ -159,7 +159,7 @@
     <data name="FailureMechanismSectionAssemblyGroup_Dominant_DisplayName" xml:space="preserve">
     <value>Do</value>
   </data>
-    <data name="FailureMechanismSectionAssemblyGroup_Gr_DisplayName" xml:space="preserve">
+    <data name="FailureMechanismSectionAssemblyGroup_NoResult_DisplayName" xml:space="preserve">
     <value/>
   </data>
   <data name="FailureMechanismSectionAssemblyGroup_NotRelevant_DisplayName" xml:space="preserve">

@@ -69,7 +69,7 @@ namespace Riskeer.Common.Forms.Helpers
                     return Color.FromArgb(178, 34, 34);
                 case FailureMechanismSectionAssemblyGroup.Dominant:
                     return Color.FromArgb(255, 90, 172);
-                case FailureMechanismSectionAssemblyGroup.Gr:
+                case FailureMechanismSectionAssemblyGroup.NoResult:
                     return Color.FromArgb(255, 255, 255);
                 case FailureMechanismSectionAssemblyGroup.NotRelevant:
                     return Color.FromArgb(38, 245, 245);

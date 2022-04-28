@@ -31,6 +31,6 @@ namespace Riskeer.Common.Data.AssemblyTool
         /// <summary>
         /// Creates a new instance of <see cref="DefaultFailureMechanismSectionAssemblyResult"/>.
         /// </summary>
-        public DefaultFailureMechanismSectionAssemblyResult() : base(double.NaN, double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.Gr) {}
+        public DefaultFailureMechanismSectionAssemblyResult() : base(double.NaN, double.NaN, double.NaN, FailureMechanismSectionAssemblyGroup.NoResult) {}
     }
 }

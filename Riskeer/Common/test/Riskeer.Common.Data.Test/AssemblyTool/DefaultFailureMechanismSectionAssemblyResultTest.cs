@@ -40,7 +40,7 @@ namespace Riskeer.Common.Data.Test.AssemblyTool
             Assert.IsNaN(result.ProfileProbability);
             Assert.IsNaN(result.SectionProbability);
             Assert.IsNaN(result.N);
-            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.Gr, result.FailureMechanismSectionAssemblyGroup);
+            Assert.AreEqual(FailureMechanismSectionAssemblyGroup.NoResult, result.FailureMechanismSectionAssemblyGroup);
         }
     }
 }

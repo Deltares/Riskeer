@@ -1,4 +1,4 @@
-// Copyright (C) Stichting Deltares 2022. All rights reserved.
+﻿// Copyright (C) Stichting Deltares 2022. All rights reserved.
 //
 // This file is part of Riskeer.
 //
@@ -136,15 +136,6 @@ namespace Riskeer.AssemblyTool.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string FailureMechanismSectionAssemblyGroup_Gr_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureMechanismSectionAssemblyGroup_Gr_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to +I.
         /// </summary>
         internal static string FailureMechanismSectionAssemblyGroup_I_DisplayName {
@@ -195,6 +186,15 @@ namespace Riskeer.AssemblyTool.Data.Properties {
         internal static string FailureMechanismSectionAssemblyGroup_IMin_DisplayName {
             get {
                 return ResourceManager.GetString("FailureMechanismSectionAssemblyGroup_IMin_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string FailureMechanismSectionAssemblyGroup_NoResult_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureMechanismSectionAssemblyGroup_NoResult_DisplayName", resourceCulture);
             }
         }
         
