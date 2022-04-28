@@ -163,6 +163,18 @@ namespace Riskeer.DuneErosion.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
+        [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.TargetProbability_DisplayName))]
+        [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CalculationOutput_TargetProbability_Description))]
+        [TypeConverter(typeof(NoProbabilityValueDoubleConverter))]
+        public double TargetProbability
+        {
+            get
+            {
+                return data.Output?.TargetProbability ?? double.NaN;
+            }
+        }
+
+        [ResourcesCategory(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.Categories_Result))]
         [ResourcesDisplayName(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CalculationOutput_TargetReliability_DisplayName))]
         [ResourcesDescription(typeof(RiskeerCommonFormsResources), nameof(RiskeerCommonFormsResources.CalculationOutput_TargetReliability_Description))]
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]

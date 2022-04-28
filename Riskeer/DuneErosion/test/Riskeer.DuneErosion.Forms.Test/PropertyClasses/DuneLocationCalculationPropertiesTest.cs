@@ -49,19 +49,20 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
         private const int requiredWaveHeightPropertyIndex = 6;
         private const int requiredWavePeriodPropertyIndex = 7;
         private const int requiredD50PropertyIndex = 8;
-        private const int requiredTargetReliabilityPropertyIndex = 9;
-        private const int requiredCalculatedProbabilityPropertyIndex = 10;
-        private const int requiredCalculatedReliabilityPropertyIndex = 11;
-        private const int requiredConvergencePropertyIndex = 12;
+        private const int requiredTargetProbabilityPropertyIndex = 9;
+        private const int requiredTargetReliabilityPropertyIndex = 10;
+        private const int requiredCalculatedProbabilityPropertyIndex = 11;
+        private const int requiredCalculatedReliabilityPropertyIndex = 12;
+        private const int requiredConvergencePropertyIndex = 13;
 
         [Test]
         public void Constructor_DuneLocationCalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            void Call() => new DuneLocationCalculationProperties(null);
+            TestDelegate call = () => new DuneLocationCalculationProperties(null);
 
             // Assert
-            var exception = Assert.Throws<ArgumentNullException>(Call);
+            var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("calculation", exception.ParamName);
         }
 
@@ -86,6 +87,9 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.IsNaN(properties.WaveHeight);
             Assert.IsNaN(properties.WavePeriod);
 
+            Assert.IsNaN(properties.TargetProbability);
+            TestHelper.AssertTypeConverter<DuneLocationCalculationProperties, NoProbabilityValueDoubleConverter>(
+                nameof(DuneLocationCalculationProperties.TargetProbability));
             Assert.IsNaN(properties.TargetReliability);
             TestHelper.AssertTypeConverter<DuneLocationCalculationProperties, NoValueRoundedDoubleConverter>(
                 nameof(DuneLocationCalculationProperties.TargetReliability));
@@ -165,6 +169,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             Assert.AreEqual(wavePeriod, properties.WavePeriod, properties.WavePeriod.GetAccuracy());
             Assert.AreEqual(d50, properties.D50, properties.D50.GetAccuracy());
 
+            Assert.AreEqual(targetProbability, properties.TargetProbability);
             Assert.AreEqual(targetReliability, properties.TargetReliability, properties.TargetReliability.GetAccuracy());
             Assert.AreEqual(calculatedProbability, properties.CalculatedProbability, properties.CalculatedProbability);
             Assert.AreEqual(calculatedReliability, properties.CalculatedReliability, properties.CalculatedReliability.GetAccuracy());
@@ -186,7 +191,7 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(13, dynamicProperties.Count);
+            Assert.AreEqual(14, dynamicProperties.Count);
             Assert.IsInstanceOf<ExpandableObjectConverter>(classTypeConverter);
 
             PropertyDescriptor idProperty = dynamicProperties[requiredIdPropertyIndex];
@@ -250,6 +255,13 @@ namespace Riskeer.DuneErosion.Forms.Test.PropertyClasses
                                                                             "Resultaat",
                                                                             "Rekenwaarde d50 [m]",
                                                                             "Rekenwaarde voor de d50 voor het uitvoeren van een sterkteberekening voor het faalmechanisme duinen.",
+                                                                            true);
+
+            PropertyDescriptor targetProbabilityProperty = dynamicProperties[requiredTargetProbabilityPropertyIndex];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(targetProbabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Doelkans [1/jaar]",
+                                                                            "De ingevoerde kans waarvoor het resultaat moet worden berekend.",
                                                                             true);
 
             PropertyDescriptor targetReliabilityProperty = dynamicProperties[requiredTargetReliabilityPropertyIndex];
