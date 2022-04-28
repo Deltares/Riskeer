@@ -34,7 +34,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
     public class DesignWaterLevelCalculationPropertiesTest
     {
         private const int designWaterLevelPropertyIndex = 3;
-        private const int convergencePropertyIndex = 7;
+        private const int convergencePropertyIndex = 8;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -61,7 +61,7 @@ namespace Riskeer.Common.Forms.Test.PropertyClasses
 
             // Assert
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(9, dynamicProperties.Count);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             const string resultCategory = "Resultaat";
 
